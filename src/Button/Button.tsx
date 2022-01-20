@@ -6,7 +6,5 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Button: FC<Props> = ({ children }) => {
-  return <>
-      <button className={classes.button}>{children}</button>
-	</>;
+  return <button className={classes.button}>{children}</button>;
 };
