@@ -1,0 +1,110 @@
+---
+# Circle CI config for react-lib-components
+version: 2.1
+
+orbs:
+  onegini-build: onegini/onegini-build@2
+
+.dev-context-and-executor: &dev-context
+  context: dev-context
+
+.require-build: &require-build
+  requires:
+    - build
+
+.require-test: &require-test
+  requires:
+    - test
+
+.filter-branches-tags: &filter-branches-tags
+  filters:
+    tags:
+      only: /.*/
+
+.filter-tags: &filter-tags
+  filters:
+    tags:
+      only: /.*/
+    branches:
+      ignore: /.*/
+
+jobs:
+  build-storybook:
+    description: Build the Storybook of this project
+    parameters:
+      executor:
+        description: The executor to use.
+        type: executor
+        default: onegini-build/node-executor
+    executor: << parameters.executor >>
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Run Storybook build
+          command: npm run build-storybook
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/storybook-static
+
+workflows:
+  version: 2
+  build-workflow:
+    jobs:
+      - onegini-build/npm-build:
+          name: build
+          <<: *dev-context
+          <<: *filter-branches-tags
+
+      - onegini-build/jest:
+          name: test
+          <<: *dev-context
+          <<: *require-build
+          <<: *filter-branches-tags
+
+      - onegini-build/npm-audit:
+          name: check
+          audit_level: critical
+          <<: *dev-context
+          <<: *require-build
+
+      - onegini-build/sonar:
+          name: analyse
+          <<: *dev-context
+          <<: *require-test
+          filters:
+            branches:
+              ignore: /^dependabot\/.*/
+
+      - build-storybook:
+          name: build-storybook
+          <<: *dev-context
+          <<: *require-build
+          <<: *filter-branches-tags
+
+      - onegini-build/deploy-docs:
+          name: deploy-storybook
+          context: internal-docs
+          s3_bucket: onegini-internal-docs-storage-production
+          site_location: storybook-static/
+          path_in_bucket: html/react-lib-components
+          executor: onegini-build/node-executor
+          <<: *filter-tags
+          requires:
+            - test
+            - build-storybook
+
+      # Do not publish yet without having it properly configured
+      # - onegini-build/npm-publish:
+      #     name: publish-library
+      #     <<: *dev-context
+      #     <<: *require-build
+      #     <<: *filter-tags
+
+      # - onegini-build/notify-released:
+      #     name: notify-released
+      #     <<: *dev-context
+      #     <<: *filter-tags
+      #     requires:
+      #       - publish-library
