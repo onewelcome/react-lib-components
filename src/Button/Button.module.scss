@@ -1,4 +1,108 @@
-.button {
-	border: 0;
-	background-color: var(--color-primary);
+.fill {
+  color: var(--button-fill-color);
+
+  &.primary {
+    background-color: var(--button-primary-color);
+    border-color: var(--button-primary-color);
+
+    &:hover {
+      color: var(--button-primary-color);
+    }
+  }
+
+  &.secondary {
+    background-color: var(--button-secondary-color);
+    border-color: var(--button-secondary-color);
+
+    &:hover {
+      color: var(--button-secondary-color);
+    }
+  }
+
+  &.tertiary {
+    background-color: var(--button-tertiary-color);
+    border-color: var(--button-tertiary-color);
+
+    &:hover {
+      color: var(--button-tertiary-color);
+    }
+  }
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.outline {
+  background-color: transparent;
+
+  &.primary {
+    border-color: var(--button-primary-color);
+    color: var(--button-primary-color);
+
+    &:hover {
+      background-color: var(--button-primary-color);
+    }
+  }
+
+  &.secondary {
+    border-color: var(--button-secondary-color);
+    color: var(--button-secondary-color);
+
+    &:hover {
+      background-color: var(--button-secondary-color);
+    }
+  }
+
+  &.tertiary {
+    border-color: var(--button-tertiary-color);
+    color: var(--button-tertiary-color);
+
+    &:hover {
+      background-color: var(--button-tertiary-color);
+    }
+  }
+
+  &:hover {
+    color: var(--button-fill-color);
+  }
+}
+
+.text {
+	border-color: transparent;
+  background-color: transparent;
+
+  &.primary {
+    color: var(--button-primary-color);
+
+    &:hover {
+      border-color: var(--button-primary-color);
+    }
+  }
+
+  &.secondary {
+    color: var(--button-secondary-color);
+
+    &:hover {
+      border-color: var(--button-secondary-color);
+    }
+  }
+
+  &.tertiary {
+    color: var(--button-tertiary-color);
+
+    &:hover {
+      border-color: var(--button-tertiary-color);
+    }
+  }
+}
+
+.has-icon {
+	display: flex;
+	align-items: center;
+
+	svg {
+		vertical-align: top;
+		font-size: 19px;
+	}
 }
