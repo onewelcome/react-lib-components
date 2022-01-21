@@ -1,68 +1,89 @@
-import React, { Fragment, HTMLAttributes, ReactChild, useEffect } from 'react';
+import React, {
+  Fragment,
+  HTMLAttributes,
+  ReactChild,
+  useEffect,
+  useState,
+} from 'react';
 
 interface CSSProperties {
-  ColorPrimary: string;
-  ColorSecondary: string;
-  ColorTertiary: string;
-  DefaultFontSize: string;
-  ButtonPrimaryColor: string;
-  ButtonSecondaryColor: string;
-  ButtonTertiaryColor: string;
-  ButtonborderRadius: string;
-  ButtonBorderWidth: string;
-  ButtonFontSize: string;
-  ButtonBorderStyle: string;
-  ButtonOutlineHoverTextColor: string;
-  Default: string;
-  Success: string;
-  Error: string;
-  Disabled: string;
-  GreyedOut: string;
-  Warning: string;
+  colorPrimary?: string;
+  colorSecondary?: string;
+  colorTertiary?: string;
+  defaultFontSize?: string;
+  buttonPrimaryColor?: string;
+  buttonSecondaryColor?: string;
+  buttonTertiaryColor?: string;
+  buttonBorderRadius?: string;
+  buttonBorderWidth?: string;
+  buttonFontSize?: string;
+  buttonBorderStyle?: string;
+  buttonFillTextColor?: string;
+  buttonOutlineHoverTextColor?: string;
+  default?: string;
+  success?: string;
+  error?: string;
+  disabled?: string;
+  greyedOut?: string;
+  warning?: string;
 }
-
-const defaultColorScheme: CSSProperties = {
-  ColorPrimary: '#9e006b',
-  ColorSecondary: '#003b5e',
-  ColorTertiary: '#ff1e4e',
-  DefaultFontSize: '16px',
-  ButtonPrimaryColor: '#9e006b',
-  ButtonSecondaryColor: '#003b5e',
-  ButtonTertiaryColor: '#ff1e4e',
-  ButtonborderRadius: '20px',
-  ButtonBorderWidth: '2px',
-  ButtonFontSize: '16px',
-  ButtonBorderStyle: 'solid',
-  ButtonOutlineHoverTextColor: '#FFF',
-  Default: '#0f0f1e',
-  Success: '#008A28',
-  Error: '#e22a1d',
-  Disabled: '#e9e9eb',
-  GreyedOut: '#6f6f76',
-  Warning: '#ff6105',
-};
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactChild;
-  properties: CSSProperties;
+  properties?: CSSProperties;
 }
 
-export const BaseStyling = ({ children, properties }: Props) => {
-  const CSSProperties = defaultColorScheme;
+export const BaseStyling = ({ children, properties = {} }: Props) => {
+  const [colors, setColors] = useState<CSSProperties>({
+    colorPrimary: '#9e006b',
+    colorSecondary: '#003b5e',
+    colorTertiary: '#ff1e4e',
+    defaultFontSize: '16px',
+    buttonBorderRadius: '20px',
+    buttonBorderWidth: '2px',
+    buttonFontSize: '16px',
+    buttonBorderStyle: 'solid',
+    buttonFillTextColor: '#FFF',
+    buttonOutlineHoverTextColor: '#FFF',
+    default: '#0f0f1e',
+    success: '#008A28',
+    error: '#e22a1d',
+    disabled: '#e9e9eb',
+    greyedOut: '#6f6f76',
+    warning: '#ff6105',
+  });
 
   useEffect(() => {
     // We will do a shallow merge with defaultColorScheme and set the CSS properties on the :root object.
     if (Object.keys(properties).length !== 0) {
-      for (const [key, value] of Object.entries(properties)) {
-        if (CSSProperties.hasOwnProperty(key)) {
-        }
+      for (const [prop, value] of Object.entries(properties)) {
+        setColors((prevState) => {
+          const previousState = prevState;
+          previousState[prop as keyof CSSProperties] = value;
+          {
+            return {
+              ...previousState,
+            };
+          }
+        });
       }
     }
 
-    setCSSProperties(CSSProperties);
+    setCSSProperties(colors);
   }, []);
 
-  const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {};
+  const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
+    for (const [key, value] of Object.entries(CSSPropertiesObject)) {
+      const formattedPropertyName = key.replaceAll(
+        /([A-Z])/g,
+        (val) => `-${val.toLowerCase()}`
+      );
+      document.documentElement.style.setProperty(
+        `--${formattedPropertyName}`,
+        value
+      );
+    }
+  };
 
   return <Fragment>{children}</Fragment>;
 };

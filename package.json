@@ -23,7 +23,8 @@
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+		"react-dom": ">=16"
   },
   "husky": {
     "hooks": {
@@ -36,7 +37,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "library",
+  "name": "@onewelcome/components",
   "author": "Daniel",
   "module": "dist/library.esm.js",
   "size-limit": [
