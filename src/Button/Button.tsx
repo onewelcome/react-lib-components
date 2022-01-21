@@ -1,4 +1,4 @@
-import React, { FC, ReactChild, ReactChildren } from 'react';
+import React from 'react';
 import { BaseButton, Props as BaseButtonProps } from './BaseButton';
 import classes from './Button.module.scss';
 
@@ -10,14 +10,14 @@ export interface Props extends BaseButtonProps {
   endIcon?: React.Component | false;
 }
 
-export const Button: FC<Props> = ({
+export const Button = ({
   children,
   variant = 'fill',
   color = 'primary',
   startIcon = false,
   endIcon = false,
   ...rest
-}) => {
+}: Props) => {
   return (
     <BaseButton
       className={`${classes[color]} ${classes[variant]} ${

@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, ReactChild, ReactChildren } from 'react';
+import React, { HTMLAttributes } from 'react';
 import classes from './BaseButton.module.scss';
 
 export interface Props extends HTMLAttributes<HTMLButtonElement> {
@@ -8,12 +8,12 @@ export interface Props extends HTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-export const BaseButton: FC<Props> = ({
+export const BaseButton = ({
   children,
   onClick,
   type = 'button',
   className,
-}) => {
+}: Props) => {
   return (
     <button
       type={type}
