@@ -1,11 +1,11 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Button } from './Button';
+import { IconButton } from './IconButton';
 
-describe('Button', () => {
+describe('IconButton', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Button />, div);
+    ReactDOM.render(<IconButton />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });
