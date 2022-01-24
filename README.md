@@ -21,7 +21,7 @@ Then run Storybook
 Run inside another terminal:
 
 ```bash
-yarn storybook
+npm run storybook # or yarn storybook
 ```
 
 This loads the stories from `./stories`.
@@ -45,19 +45,17 @@ To do a one-off build, use `npm run build` or `yarn build`.
 To run tests, use `npm test` or `yarn test`.
 
 ## Development
-Development is done inside of `src`, `stories` and `test`. You can always look inside these folders to see how exactly everything is structured but generally it will be like this:
+Development is done inside of `src`, `stories`. You can always look inside these folders to see how exactly everything is structured but generally it will be like this:
 
 ```bash
 - src
 	- ComponentName <folder>
 		- Component.tsx
 		- Component.module.scss
+		- ComponentName.test.tsx
 - stories
 	- ComponentName <folder>
 	- ComponentName.stories.tsx
-- test
-	- ComponentName <folder>
-		- ComponentName.test.tsx
 ```
 
 Whenever you are done developing a component and you want to include it in the production library, make sure to export it through `src/index.tsx`. This ensures that when you run `npm run build`, it will get included.
@@ -82,3 +80,6 @@ TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rol
 
 `tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
 
+## Contribution
+
+See [CONTRIBUTING.md](./)

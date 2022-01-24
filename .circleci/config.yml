@@ -57,7 +57,7 @@ workflows:
           <<: *dev-context
           <<: *filter-branches-tags
 
-      - onegini-build/npm-test:
+      - onegini-build/npm-test-jest:
           name: test
           <<: *dev-context
           <<: *require-build
