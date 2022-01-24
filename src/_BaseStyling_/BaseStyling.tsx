@@ -53,25 +53,20 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     warning: '#ff6105',
   });
 
+  /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
+  const [isLoading, setIsLoading] = useState(true);
+
+  /** Check if the properties prop object is filled with anything. If it is, we want to shallow merge it with the default BaseStyling. */
   useEffect(() => {
-    // We will do a shallow merge with defaultColorScheme and set the CSS properties on the :root object.
     if (Object.keys(properties).length !== 0) {
-      for (const [prop, value] of Object.entries(properties)) {
-        setColors((prevState) => {
-          const previousState = prevState;
-          previousState[prop as keyof CSSProperties] = value;
-          {
-            return {
-              ...previousState,
-            };
-          }
-        });
-      }
+      const mergedState = { ...colors, ...properties };
+      setColors(mergedState);
     }
 
-    setCSSProperties(colors);
+    setIsLoading(false);
   }, []);
 
+  /** Set the actual CSS properties on the HTML :root object */
   const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
     for (const [key, value] of Object.entries(CSSPropertiesObject)) {
       const formattedPropertyName = key.replaceAll(
@@ -85,5 +80,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     }
   };
 
-  return <Fragment>{children}</Fragment>;
+  setCSSProperties(colors);
+
+  /** Only render if we're not loading */
+  return !isLoading && <Fragment>{children}</Fragment>;
 };
