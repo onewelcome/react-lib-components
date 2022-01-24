@@ -5,7 +5,7 @@
     background-color: var(--color-primary);
     border-color: var(--color-primary);
 
-    &:hover {
+    &:hover:not(:disabled) {
       color: var(--color-primary);
     }
 
@@ -32,7 +32,7 @@
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
 
-    &:hover {
+    &:hover:not(:disabled) {
       color: var(--color-secondary);
     }
 
@@ -59,7 +59,7 @@
     background-color: var(--color-tertiary);
     border-color: var(--color-tertiary);
 
-    &:hover {
+    &:hover:not(:disabled) {
       color: var(--color-tertiary);
     }
 
@@ -82,9 +82,14 @@
     }
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: transparent;
   }
+
+	&:disabled {
+		background-color: var(--disabled);
+		border-color: var(--disabled);
+	}
 }
 
 .outline {
@@ -94,7 +99,7 @@
     border-color: var(--color-primary);
     color: var(--color-primary);
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--color-primary);
     }
   }
@@ -103,7 +108,7 @@
     border-color: var(--color-secondary);
     color: var(--color-secondary);
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--color-secondary);
     }
   }
@@ -112,14 +117,19 @@
     border-color: var(--color-tertiary);
     color: var(--color-tertiary);
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--color-tertiary);
     }
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: var(--button-outline-hover-text-color);
   }
+
+	&:disabled {
+		border-color: var(--greyed-out);
+		background-color: var(--disabled);
+	}
 }
 
 .text {
@@ -129,7 +139,7 @@
   &.primary {
     color: var(--color-primary);
 
-    &:hover {
+    &:hover:not(:disabled) {
       border-color: var(--color-primary);
     }
 
@@ -155,7 +165,7 @@
   &.secondary {
     color: var(--color-secondary);
 
-    &:hover {
+    &:hover:not(:disabled) {
       border-color: var(--color-secondary);
     }
 
@@ -181,7 +191,7 @@
   &.tertiary {
     color: var(--color-tertiary);
 
-    &:hover {
+    &:hover:not(:disabled) {
       border-color: var(--color-tertiary);
     }
 

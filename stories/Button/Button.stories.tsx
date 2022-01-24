@@ -58,3 +58,9 @@ StartIconButton.args = {
 EndIconButton.args = {
   endIcon: <Photo />,
 };
+
+export const DisabledButton = Template.bind({});
+
+DisabledButton.args = {
+  disabled: true,
+};
