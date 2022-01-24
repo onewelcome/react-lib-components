@@ -10,12 +10,16 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = () => (
-  <IconButton>
+const Template: Story<Props> = (args) => (
+  <IconButton {...args}>
     <PhotoCamera />
   </IconButton>
 );
 
-export const Default = Template.bind({});
+export const Button = Template.bind({});
 
-Default.args = {};
+Button.args = {
+  color: 'primary',
+  iconSize: 'm',
+  type: 'button',
+};

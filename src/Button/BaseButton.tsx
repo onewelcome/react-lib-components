@@ -1,25 +1,42 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 import classes from './BaseButton.module.scss';
 
-export interface Props extends HTMLAttributes<HTMLButtonElement> {
+export interface Props extends React.HTMLProps<HTMLButtonElement> {
   children?: React.ReactNode;
   type?: 'submit' | 'button' | 'reset';
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => unknown;
   className?: string;
+  disabled?: boolean;
+  form?: string;
+  formaction?: string;
+  formenctype?: string;
+  formmethod?: string;
+  formtarget?: string;
+  name?: string;
+  value?: string;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => unknown;
+  onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => unknown;
+  onContextMenu?: (event: React.MouseEvent<HTMLButtonElement>) => unknown;
+  onDragLeave?: (event: React.DragEvent<HTMLButtonElement>) => unknown;
+  onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => unknown;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLButtonElement>) => unknown;
+  onKeyUp?: (event: React.KeyboardEvent<HTMLButtonElement>) => unknown;
+  onMouseDown?: (event: React.MouseEvent<HTMLButtonElement>) => unknown;
+  onMouseLeave?: (event: React.MouseEvent<HTMLButtonElement>) => unknown;
+  onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement>) => unknown;
+  onMouseUp?: (event: React.MouseEvent<HTMLButtonElement>) => unknown;
+  onTouchEnd?: (event: React.TouchEvent<HTMLButtonElement>) => unknown;
+  onTouchMove?: (event: React.TouchEvent<HTMLButtonElement>) => unknown;
+  onTouchStart?: (event: React.TouchEvent<HTMLButtonElement>) => unknown;
 }
 
 export const BaseButton = ({
   children,
-  onClick,
   type = 'button',
   className,
+  ...rest
 }: Props) => {
   return (
-    <button
-      type={type}
-      className={`${classes.button} ${className}`}
-      onClick={onClick}
-    >
+    <button {...rest} type={type} className={`${classes.button} ${className}`}>
       {children}
     </button>
   );
