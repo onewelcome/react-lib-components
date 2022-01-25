@@ -83,5 +83,5 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
   setCSSProperties(colors);
 
   /** Only render if we're not loading */
-  return !isLoading && <Fragment>{children}</Fragment>;
+  return !isLoading ? <Fragment>{children}</Fragment> : null;
 };
