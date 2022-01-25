@@ -83,3 +83,7 @@ TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rol
 ## Contribution
 
 See [CONTRIBUTING.md](./)
+
+## Release
+
+TBD.
