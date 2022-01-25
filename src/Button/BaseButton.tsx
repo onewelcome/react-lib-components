@@ -35,8 +35,19 @@ export const BaseButton = ({
   className,
   ...rest
 }: Props) => {
+  const validTypes = ['submit', 'button', 'reset'];
+
+  if (!validTypes.includes(type))
+    throw new Error(
+      `You have entered an invalid button type. Expected 'submit', 'button' or 'reset' got ${type}`
+    );
+
   return (
-    <button {...rest} type={type} className={`${classes.button} ${className}`}>
+    <button
+      {...rest}
+      type={type}
+      className={`${classes.button} ${className ? className : ''}`}
+    >
       {children}
     </button>
   );

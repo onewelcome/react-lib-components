@@ -6,8 +6,8 @@ export interface Props extends BaseButtonProps {
   children?: React.ReactNode;
   variant?: 'text' | 'fill' | 'outline';
   color?: 'primary' | 'secondary' | 'tertiary';
-  startIcon?: React.Component | false;
-  endIcon?: React.Component | false;
+  startIcon?: React.ReactNode | false;
+  endIcon?: React.ReactNode | false;
 }
 
 export const Button = ({
@@ -26,7 +26,7 @@ export const Button = ({
       {...rest}
     >
       {startIcon && <i>{startIcon}&nbsp;</i>}
-      {children}
+      <span>{children}</span>
       {endIcon && <i>&nbsp;{endIcon}</i>}
     </BaseButton>
   );
