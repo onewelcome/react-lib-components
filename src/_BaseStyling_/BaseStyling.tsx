@@ -11,9 +11,6 @@ interface CSSProperties {
   colorSecondary?: string;
   colorTertiary?: string;
   defaultFontSize?: string;
-  buttonPrimaryColor?: string;
-  buttonSecondaryColor?: string;
-  buttonTertiaryColor?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
   buttonFontSize?: string;
