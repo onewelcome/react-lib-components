@@ -66,24 +66,7 @@ export const Typography = ({ children, variant, tag, ...rest }: Props) => {
     }
   }
 
-  let TagName = tag as
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'p'
-    | 'div'
-    | 'code'
-    | 'span'
-    | 'sup'
-    | 'sub'
-    | 'strong'
-    | 'em'
-    | 'small'
-    | 'mark'
-    | 'del'
-    | 'ins'
-    | 'blockquote';
+  let TagName = tag;
 
   return (
     <TagName {...rest} className={classes['typography_style_' + variant]}>
