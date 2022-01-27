@@ -3,11 +3,11 @@ import { Input } from './Input';
 import { render } from '@testing-library/react';
 
 describe('Input should render', () => {
-  it('renders without crashing', async () => {
-    const { findByTestId } = render(
-      <Input data-testid="testcomponent">Input</Input>
+  it('renders without crashing', () => {
+    const { getByTestId } = render(
+      <Input data-testid="component">Input</Input>
     );
-    const component = await findByTestId('testcomponent');
+    const component = getByTestId('component');
     expect(component).toBeDefined();
   });
 });

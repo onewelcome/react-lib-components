@@ -3,11 +3,11 @@ import { Fieldset } from './Fieldset';
 import { render } from '@testing-library/react';
 
 describe('Fieldset should render', () => {
-  it('renders without crashing', async () => {
-    const { findByTestId } = render(
-      <Fieldset data-testid="testcomponent">Form fields here</Fieldset>
+  it('renders without crashing', () => {
+    const { getByTestId } = render(
+      <Fieldset data-testid="component">Form fields here</Fieldset>
     );
-    const component = await findByTestId('testcomponent');
+    const component = getByTestId('component');
     expect(component).toBeDefined();
   });
 });

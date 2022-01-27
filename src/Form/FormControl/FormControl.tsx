@@ -4,6 +4,6 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactChild;
 }
 
-export const FormControl = ({ children }: Props) => {
-  return <div>{children}</div>;
+export const FormControl = ({ children, ...rest }: Props) => {
+  return <div {...rest}>{children} </div>;
 };

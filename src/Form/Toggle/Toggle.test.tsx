@@ -3,11 +3,11 @@ import { Toggle } from './Toggle';
 import { render } from '@testing-library/react';
 
 describe('Toggle should render', () => {
-  it('renders without crashing', async () => {
-    const { findByTestId } = render(
-      <Toggle data-testid="testcomponent">Toggle</Toggle>
+  it('renders without crashing', () => {
+    const { getByTestId } = render(
+      <Toggle data-testid="component">Toggle</Toggle>
     );
-    const component = await findByTestId('testcomponent');
+    const component = getByTestId('component');
     expect(component).toBeDefined();
   });
 });

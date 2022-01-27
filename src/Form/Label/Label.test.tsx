@@ -3,11 +3,11 @@ import { Label } from './Label';
 import { render } from '@testing-library/react';
 
 describe('Label should render', () => {
-  it('renders without crashing', async () => {
-    const { findByTestId } = render(
-      <Label data-testid="testcomponent">Label</Label>
+  it('renders without crashing', () => {
+    const { getByTestId } = render(
+      <Label data-testid="component">Label</Label>
     );
-    const component = await findByTestId('testcomponent');
+    const component = getByTestId('component');
     expect(component).toBeDefined();
   });
 });

@@ -3,11 +3,11 @@ import { Select } from './Select';
 import { render } from '@testing-library/react';
 
 describe('Select should render', () => {
-  it('renders without crashing', async () => {
-    const { findByTestId } = render(
-      <Select data-testid="testcomponent">Select</Select>
+  it('renders without crashing', () => {
+    const { getByTestId } = render(
+      <Select data-testid="component">Select</Select>
     );
-    const component = await findByTestId('testcomponent');
+    const component = getByTestId('component');
     expect(component).toBeDefined();
   });
 });

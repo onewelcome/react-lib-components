@@ -3,11 +3,11 @@ import { Form } from './Form';
 import { render } from '@testing-library/react';
 
 describe('Form should render', () => {
-  it('renders without crashing', async () => {
-    const { findByTestId } = render(
-      <Form data-testid="testcomponent">Content</Form>
+  it('renders without crashing', () => {
+    const { getByTestId } = render(
+      <Form data-testid="component">Content</Form>
     );
-    const component = await findByTestId('testcomponent');
+    const component = getByTestId('component');
     expect(component).toBeDefined();
   });
 });

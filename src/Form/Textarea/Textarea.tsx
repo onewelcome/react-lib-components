@@ -4,6 +4,6 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactChild;
 }
 
-export const Textarea = ({ children }: Props) => {
-  return <div>{children}</div>;
+export const Textarea = ({ children, ...rest }: Props) => {
+  return <div {...rest}>{children} </div>;
 };

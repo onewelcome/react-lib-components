@@ -4,6 +4,6 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactChild;
 }
 
-export const Fieldset = ({ children }: Props) => {
-  return <div>{children}</div>;
+export const Fieldset = ({ children, ...rest }: Props) => {
+  return <div {...rest}>{children} </div>;
 };
