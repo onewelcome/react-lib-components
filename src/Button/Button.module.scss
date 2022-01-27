@@ -6,8 +6,8 @@
     border-color: var(--color-primary);
 
     &:hover:not(:disabled),
-		&:focus:not(:disabled) {
-			outline: 0;
+    &:focus:not(:disabled) {
+      outline: 0;
       color: var(--color-primary);
     }
 
@@ -35,8 +35,8 @@
     border-color: var(--color-secondary);
 
     &:hover:not(:disabled),
-		&:focus:not(:disabled) {
-			outline: 0;
+    &:focus:not(:disabled) {
+      outline: 0;
       color: var(--color-secondary);
     }
 
@@ -64,8 +64,8 @@
     border-color: var(--color-tertiary);
 
     &:hover:not(:disabled),
-		&:focus:not(:disabled) {
-			outline: 0;
+    &:focus:not(:disabled) {
+      outline: 0;
       color: var(--color-tertiary);
     }
 
@@ -89,15 +89,15 @@
   }
 
   &:hover:not(:disabled),
-	&:focus:not(:disabled) {
-		outline: 0;
+  &:focus:not(:disabled) {
+    outline: 0;
     background-color: transparent;
   }
 
-	&:disabled {
-		background-color: var(--disabled);
-		border-color: var(--disabled);
-	}
+  &:disabled {
+    background-color: var(--disabled);
+    border-color: var(--disabled);
+  }
 }
 
 .outline {
@@ -108,8 +108,8 @@
     color: var(--color-primary);
 
     &:hover:not(:disabled),
-		&:focus:not(:disabled) {
-			outline: 0;
+    &:focus:not(:disabled) {
+      outline: 0;
       background-color: var(--color-primary);
     }
   }
@@ -119,8 +119,8 @@
     color: var(--color-secondary);
 
     &:hover:not(:disabled),
-		&:focus:not(:disabled) {
-			outline: 0;
+    &:focus:not(:disabled) {
+      outline: 0;
       background-color: var(--color-secondary);
     }
   }
@@ -130,22 +130,22 @@
     color: var(--color-tertiary);
 
     &:hover:not(:disabled),
-		&:focus:not(:disabled) {
-			outline: 0;
+    &:focus:not(:disabled) {
+      outline: 0;
       background-color: var(--color-tertiary);
     }
   }
 
   &:hover:not(:disabled),
-	&:focus:not(:disabled) {
-		outline: 0;
+  &:focus:not(:disabled) {
+    outline: 0;
     color: var(--button-outline-hover-text-color);
   }
 
-	&:disabled {
-		border-color: var(--greyed-out);
-		background-color: var(--disabled);
-	}
+  &:disabled {
+    border-color: var(--greyed-out);
+    background-color: var(--disabled);
+  }
 }
 
 .text {
@@ -156,8 +156,8 @@
     color: var(--color-primary);
 
     &:hover:not(:disabled),
-		&:focus:not(:disabled) {
-			outline: 0;
+    &:focus:not(:disabled) {
+      outline: 0;
       border-color: var(--color-primary);
     }
 
@@ -184,8 +184,8 @@
     color: var(--color-secondary);
 
     &:hover:not(:disabled),
-		&:focus:not(:disabled) {
-			outline: 0;
+    &:focus:not(:disabled) {
+      outline: 0;
       border-color: var(--color-secondary);
     }
 
@@ -212,8 +212,8 @@
     color: var(--color-tertiary);
 
     &:hover:not(:disabled),
-		&:focus:not(:disabled) {
-			outline: 0;
+    &:focus:not(:disabled) {
+      outline: 0;
       border-color: var(--color-tertiary);
     }
 

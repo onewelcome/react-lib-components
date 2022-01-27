@@ -1,15 +1,15 @@
 .button {
-	border-width: var(--button-border-width);
-	border-style: var(--button-border-style);
-	border-radius: var(--button-border-radius);
-	font-size: var(--button-font-size);
-	line-height: var(--button-font-size);
-	padding: 10px 15px;
-	cursor: pointer;
-	transition: all .2s ease-in-out;
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-radius: var(--button-border-radius);
+  font-size: var(--button-font-size);
+  line-height: var(--button-font-size);
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 
-	&:disabled {
-		color: var(--greyed-out) !important;
-		cursor: not-allowed;
-	}
+  &:disabled {
+    color: var(--greyed-out) !important;
+    cursor: not-allowed;
+  }
 }
