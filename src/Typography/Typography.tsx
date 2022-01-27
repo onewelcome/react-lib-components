@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, ReactChild } from 'react';
+import React, { HTMLAttributes, ReactChild } from 'react';
 import classes from './Typography.module.scss';
 
 export interface Props extends HTMLAttributes<HTMLElement> {
@@ -32,7 +32,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
     | 'blockquote';
 }
 
-export const Typography: FC<Props> = ({ children, variant, tag, ...rest }) => {
+export const Typography = ({ children, variant, tag, ...rest }: Props) => {
   /** If tag is undefined, we assign defaults */
   if (!tag) {
     switch (variant) {
