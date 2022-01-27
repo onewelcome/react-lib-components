@@ -76,7 +76,14 @@ export const Typography = ({ children, variant, tag, ...rest }: Props) => {
     | 'code'
     | 'span'
     | 'sup'
-    | 'sub';
+    | 'sub'
+    | 'strong'
+    | 'em'
+    | 'small'
+    | 'mark'
+    | 'del'
+    | 'ins'
+    | 'blockquote';
 
   return (
     <TagName {...rest} className={classes['typography_style_' + variant]}>
