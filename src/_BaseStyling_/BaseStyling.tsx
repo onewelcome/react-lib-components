@@ -11,6 +11,7 @@ interface CSSProperties {
   colorSecondary?: string;
   colorTertiary?: string;
   defaultFontSize?: string;
+  defaultLineHeight?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
   buttonFontSize?: string;
@@ -23,6 +24,12 @@ interface CSSProperties {
   disabled?: string;
   greyedOut?: string;
   warning?: string;
+  fontFamily?: string;
+  fontSizeH1?: string;
+  fontSizeH2?: string;
+  fontSizeH3?: string;
+  fontSizeH4?: string;
+  fontSizeSub?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -36,6 +43,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorSecondary: '#003b5e',
     colorTertiary: '#ff1e4e',
     defaultFontSize: '16px',
+    defaultLineHeight: '26px',
     buttonBorderRadius: '20px',
     buttonBorderWidth: '2px',
     buttonFontSize: '16px',
@@ -48,6 +56,12 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     disabled: '#e9e9eb',
     greyedOut: '#6f6f76',
     warning: '#ff6105',
+    fontFamily: 'Helvetica, sans-serif',
+    fontSizeH1: '40px',
+    fontSizeH2: '26px',
+    fontSizeH3: '24px',
+    fontSizeH4: '20px',
+    fontSizeSub: '12px',
   });
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
