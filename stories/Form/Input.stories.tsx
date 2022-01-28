@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Input, Props } from '../../src/Form/Input/Input';
 import { Form } from '../../src/Form/Form';
-import { Button } from '../Button/IconButton.stories';
+import { Button } from '../../src/Button/Button';
+import { useEffect } from '@storybook/addons';
 
 const meta: Meta = {
   title: 'Input',
@@ -11,12 +12,24 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = (args) => (
-  <Form>
-    <Input {...args} />
-    <Button type="submit">Submit</Button>
-  </Form>
-);
+const Template: Story<Props> = (args) => {
+  const [formData, setFormData] = useState<FormData>();
+
+  const onSubmitHandler = (e) => {};
+
+  useEffect(() => {
+    let displayFormData = formData.entries();
+  }, [formData]);
+
+  return (
+    <Form onSubmit={onSubmitHandler}>
+      <Input {...args} />
+      <br />
+      <br />
+      <Button type="submit">Submit</Button>
+    </Form>
+  );
+};
 
 export const inputText = Template.bind({});
 
