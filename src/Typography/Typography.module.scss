@@ -2,19 +2,23 @@
 	&h1 {
 		font-size: var(--font-size-h1);
 		line-height: calc(var(--font-size-h1) * 1.2);
+		font-weight: 700;
 	}
 	
 	&h2 {
 		font-size: var(--font-size-h2);
 		line-height: calc(var(--font-size-h2) * 1.2);
+		font-weight: 700;
 	}
 	&h3 {
 		font-size: var(--font-size-h3);
 		line-height: calc(var(--font-size-h3) * 1.2);
+		font-weight: 700;
 	}
 	&h4 {
 		font-size: var(--font-size-h4);
 		line-height: calc(var(--font-size-h4) * 1.2);
+		font-weight: 700;
 	}
 
 	&body {
