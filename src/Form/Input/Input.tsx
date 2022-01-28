@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 
-type text =
+type type =
   | 'text'
   | 'email'
   | 'file'
@@ -14,7 +14,7 @@ type text =
   | 'hidden';
 
 export interface Props extends HTMLAttributes<HTMLInputElement> {
-  text: text;
+  type: type;
   name: string;
   value?: string;
   id?: string;
