@@ -3,7 +3,6 @@ import { Button, Props } from './Button';
 import { render, getByRole } from '@testing-library/react';
 import { PhotoCamera } from '@material-ui/icons';
 
-/** Helper function to quickly create a button and return IT and the queries returned by the render method. */
 const createButton = (params?: Props, children = 'This is a button') => {
   const queries = render(<Button {...params}>{children}</Button>);
   const button = getByRole(queries.container, 'button');
