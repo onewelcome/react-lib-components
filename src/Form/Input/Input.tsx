@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 
 type type =
   | 'text'
@@ -18,6 +18,7 @@ export interface Props extends HTMLAttributes<HTMLInputElement> {
   name: string;
   value?: string;
   id?: string;
+  validation?: (value: string) => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -25,6 +26,21 @@ export interface Props extends HTMLAttributes<HTMLInputElement> {
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const Input = ({ ...rest }: Props) => {
-  return <input {...rest} />;
+export const Input = ({ validation, onBlur, onChange, ...rest }: Props) => {
+  const [isTouched, setIsTouched] = useState<boolean>(false);
+
+  const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsTouched(true);
+
+    if (!validation || !event.currentTarget.value) return;
+    validation(event.currentTarget.value);
+  };
+
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isTouched || !validation || !event.currentTarget.value) return;
+
+    validation(event.currentTarget.value);
+  };
+
+  return <input onChange={onChangeHandler} onBlur={onBlurHandler} {...rest} />;
 };
