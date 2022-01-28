@@ -1,10 +1,33 @@
-import React, { FC, HTMLAttributes, ReactChild } from 'react';
+import React from 'react';
+import { BaseButton, Props as BaseButtonProps } from './BaseButton';
 import classes from './Button.module.scss';
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactChild;
+export interface Props extends BaseButtonProps {
+  children?: React.ReactNode;
+  variant?: 'text' | 'fill' | 'outline';
+  color?: 'primary' | 'secondary' | 'tertiary';
+  startIcon?: React.ReactNode | false;
+  endIcon?: React.ReactNode | false;
 }
 
-export const Button: FC<Props> = ({ children }) => {
-  return <button className={classes.button}>{children}</button>;
+export const Button = ({
+  children,
+  variant = 'fill',
+  color = 'primary',
+  startIcon = false,
+  endIcon = false,
+  ...rest
+}: Props) => {
+  return (
+    <BaseButton
+      className={`${classes[color]} ${classes[variant]} ${
+        startIcon || endIcon ? classes['has-icon'] : ''
+      }`}
+      {...rest}
+    >
+      {startIcon && <i>{startIcon}&nbsp;</i>}
+      <span>{children}</span>
+      {endIcon && <i>&nbsp;{endIcon}</i>}
+    </BaseButton>
+  );
 };
