@@ -1,7 +1,7 @@
-import React, { HTMLAttributes, ReactChild } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
 
 export interface Props extends HTMLAttributes<HTMLFormElement> {
-  children?: ReactChild;
+  children?: ReactNode;
   method?: 'POST' | 'GET' | 'post' | 'get'; // Can't add a regular expression, nor capitalisation ignore.
   action?: string;
   onSubmit?: (event: React.FormEvent) => void;
