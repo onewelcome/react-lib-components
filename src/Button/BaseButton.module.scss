@@ -9,7 +9,7 @@
   transition: all 0.2s ease-in-out;
 
   &:disabled {
-    color: var(--greyed-out) !important;
+    color: var(--greyed-out);
     cursor: not-allowed;
   }
 }

@@ -37,7 +37,7 @@
   }
 
   /** Colors **/
-  &.primary {
+  &.primary:not(:disabled) {
     color: var(--color-primary);
 
     &:hover:not(:disabled) {
@@ -63,7 +63,7 @@
     }
   }
 
-  &.secondary {
+  &.secondary:not(:disabled) {
     color: var(--color-secondary);
 
     &:hover:not(:disabled) {
@@ -89,7 +89,7 @@
     }
   }
 
-  &.tertiary {
+  &.tertiary:not(:disabled) {
     color: var(--color-tertiary);
 
     &:hover:not(:disabled) {
