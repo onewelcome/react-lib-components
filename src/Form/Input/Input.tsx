@@ -1,9 +1,11 @@
 import React, { HTMLAttributes } from 'react';
 import classes from './Input.module.scss';
 import { WarningOutlined } from '@material-ui/icons';
-import useValidation from '../../hooks/useValidation';
+import { useValidation } from '../../hooks/useValidation';
+import { required as requiredRule } from '../../validation/rules';
+import { useEffect } from 'react';
 
-type type =
+export type type =
   | 'text'
   | 'email'
   | 'file'
@@ -21,26 +23,48 @@ export interface Props extends HTMLAttributes<HTMLInputElement> {
   name: string;
   value?: string;
   id?: string;
-  validation?: (value: string) => boolean;
+  disabled?: boolean;
+  required?: boolean;
+  validation?: Array<(value: string) => true | string>;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onValidationError?: (errorMessage: string) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export const Input = ({
-  validation,
+  validation = [],
   onBlur,
   onChange,
   onFocus,
+  onValidationError,
+  value,
+  required = false,
   ...rest
 }: Props) => {
-  const { hasError, onBlurHandler, onChangeHandler, onFocusHandler } =
-    useValidation(validation);
+  if (required && typeof validation === 'object') validation.push(requiredRule);
+
+  const {
+    hasError,
+    errorMessage,
+    onBlurHandler,
+    onChangeHandler,
+    onFocusHandler,
+  } = useValidation(validation as [], value);
+
+  useEffect(() => {
+    if (hasError && onValidationError) {
+      console.log('Here!');
+      onValidationError(errorMessage);
+    }
+  }, [errorMessage, hasError]);
 
   return (
-    <div className={`${classes['input-wrapper']} ${hasError && classes.error}`}>
+    <div
+      className={`${classes['input-wrapper']} ${hasError ? classes.error : ''}`}
+    >
       <input
         className={classes.input}
         onChange={onChangeHandler}
