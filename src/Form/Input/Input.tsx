@@ -1,4 +1,7 @@
-import React, { HTMLAttributes, useState } from 'react';
+import React, { HTMLAttributes } from 'react';
+import classes from './Input.module.scss';
+import { WarningOutlined } from '@material-ui/icons';
+import useValidation from '../../hooks/useValidation';
 
 type type =
   | 'text'
@@ -18,7 +21,7 @@ export interface Props extends HTMLAttributes<HTMLInputElement> {
   name: string;
   value?: string;
   id?: string;
-  validation?: (value: string) => void;
+  validation?: (value: string) => boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -26,21 +29,30 @@ export interface Props extends HTMLAttributes<HTMLInputElement> {
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const Input = ({ validation, onBlur, onChange, ...rest }: Props) => {
-  const [isTouched, setIsTouched] = useState<boolean>(false);
+export const Input = ({
+  validation,
+  onBlur,
+  onChange,
+  onFocus,
+  ...rest
+}: Props) => {
+  const { hasError, onBlurHandler, onChangeHandler, onFocusHandler } =
+    useValidation(validation);
 
-  const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
-    setIsTouched(true);
-
-    if (!validation || !event.currentTarget.value) return;
-    validation(event.currentTarget.value);
-  };
-
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isTouched || !validation || !event.currentTarget.value) return;
-
-    validation(event.currentTarget.value);
-  };
-
-  return <input onChange={onChangeHandler} onBlur={onBlurHandler} {...rest} />;
+  return (
+    <div className={`${classes['input-wrapper']} ${hasError && classes.error}`}>
+      <input
+        className={classes.input}
+        onChange={onChangeHandler}
+        onBlur={onBlurHandler}
+        onFocus={onFocusHandler}
+        {...rest}
+      />
+      {hasError && (
+        <span className={classes['input-error']}>
+          <WarningOutlined />
+        </span>
+      )}
+    </div>
+  );
 };

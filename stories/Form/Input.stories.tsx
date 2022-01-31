@@ -25,6 +25,7 @@ const Template: Story<Props> = (args) => {
 
   const validationHandler = (value) => {
     setHasError(/iwelcome|onegini/i.test(value));
+    return /iwelcome|onegini/i.test(value);
   };
 
   const renderFormData = () => {
@@ -60,13 +61,11 @@ const Template: Story<Props> = (args) => {
         placeholder="Validation error will occur when you type iwelcome or onegini"
         {...args}
       />
-      <br />
+      <hr />
       {hasError && <span>That's not my name</span>}
-      <br />
-      <br />
+      {hasError && <hr />}
       <Button type="submit">Submit</Button>
-      <br />
-      <br />
+      <hr />
       {formData && renderFormData()}
     </Form>
   );
@@ -147,4 +146,12 @@ export const inputDate = Template.bind({});
 inputDate.args = {
   type: 'date',
   name: 'date_input',
+};
+
+export const inputDisabled = Template.bind({});
+
+inputDisabled.args = {
+  type: 'text',
+  name: 'disabled_input',
+  disabled: true,
 };
