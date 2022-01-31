@@ -11,22 +11,34 @@ const meta: Meta = {
 
 export default meta;
 
+/** This is not how to properly use the validation. */
 const Template: Story<Props> = (args) => {
   const [formData, setFormData] = useState<FormData>();
-  const [hasError, setHasError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    if (!hasError) {
+    if (!errorMessage) {
       setFormData(new FormData(e.currentTarget));
     }
   };
 
   const validationHandler = (value) => {
-    setHasError(/iwelcome|onegini/i.test(value));
-    return /iwelcome|onegini/i.test(value);
+    if (/iwelcome|onegini/i.test(value)) {
+      setErrorMessage("That's not my name!");
+      return "That's not my name!";
+    }
+
+    setErrorMessage('');
+    return true;
   };
+
+  const validationErrorHandler = (message: string): void => {
+    setErrorMessage(message);
+  };
+
+  const onBlurHandler = () => validationErrorHandler(errorMessage);
 
   const renderFormData = () => {
     const formDataOutput = [];
@@ -56,14 +68,16 @@ const Template: Story<Props> = (args) => {
   return (
     <Form onSubmit={onSubmitHandler}>
       <Input
+        onValidationError={validationErrorHandler}
         style={{ width: '50vw' }}
-        validation={validationHandler}
+        validation={[validationHandler]}
+        onBlur={onBlurHandler}
         placeholder="Validation error will occur when you type iwelcome or onegini"
         {...args}
       />
       <hr />
-      {hasError && <span>That's not my name</span>}
-      {hasError && <hr />}
+      {errorMessage.length !== 0 && <span>{errorMessage}</span>}
+      {errorMessage.length !== 0 && <hr />}
       <Button type="submit">Submit</Button>
       <hr />
       {formData && renderFormData()}
