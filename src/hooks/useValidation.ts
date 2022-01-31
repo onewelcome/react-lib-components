@@ -38,8 +38,8 @@ export const useValidation = (
 
   /** Internal method that executes all of the functions passed in validationFnArray with the value passed as a parameter */
   const _executeValidation = (value: string) => {
-    for (let i = 0; i < validationFnArray.length; i++) {
-      const returnValidity = validationFnArray[i].apply(null, [value]);
+    for (let validationFn of validationFnArray) {
+      const returnValidity = validationFn.apply(null, [value]);
 
       if (typeof returnValidity === 'string') {
         setHasError(true);
