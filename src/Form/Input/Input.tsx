@@ -1,9 +1,8 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useEffect } from 'react';
 import classes from './Input.module.scss';
 import { WarningOutlined } from '@material-ui/icons';
 import { useValidation } from '../../hooks/useValidation';
 import { required as requiredRule } from '../../validation/rules';
-import { useEffect } from 'react';
 
 export type type =
   | 'text'
