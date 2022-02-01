@@ -1,9 +1,24 @@
 import React, { HTMLAttributes, ReactChild } from 'react';
-
-export interface Props extends HTMLAttributes<HTMLDivElement> {
+import classes from './Label.module.scss';
+export interface Props extends HTMLAttributes<HTMLLabelElement> {
   children?: ReactChild;
+  htmlFor: string;
+  hidden?: boolean;
 }
 
-export const Label = ({ children, ...rest }: Props) => {
-  return <div {...rest}>{children} </div>;
+export const Label = ({
+  children,
+  htmlFor,
+  hidden = false,
+  ...rest
+}: Props) => {
+  return (
+    <label
+      className={`${hidden ? classes.hidden : ''} ${classes.label}`}
+      htmlFor={htmlFor}
+      {...rest}
+    >
+      {children}
+    </label>
+  );
 };
