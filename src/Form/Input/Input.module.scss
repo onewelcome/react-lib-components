@@ -5,6 +5,7 @@
   border-style: var(--input-border-style);
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
+	transition: all .15s ease-in-out;
 
 	&:disabled {
 		color: var(--greyed-out);
@@ -18,6 +19,10 @@
 
 	&:active {
 		border-color: var(--color-primary);
+	}
+
+	&:hover {
+		border-color: var(--default);
 	}
 }
 

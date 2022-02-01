@@ -4,6 +4,7 @@ import { Input, Props } from '../../src/Form/Input/Input';
 import { Form } from '../../src/Form/Form';
 import { Label } from '../../src/Form/Label/Label';
 import { Button } from '../../src/Button/Button';
+import { FormHelperText } from '../../src/Form/FormHelperText/FormHelperText';
 
 const meta: Meta = {
   title: 'Input',
@@ -75,9 +76,11 @@ const Template: Story<Props> = (args) => {
         style={{ width: '50vw', display: 'block' }}
         validation={[validationHandler]}
         onBlur={onBlurHandler}
-        placeholder="Validation error will occur when you type iwelcome or onegini"
         {...args}
       />
+      <FormHelperText>
+        This is helpertext to give information about the input
+      </FormHelperText>
       <hr />
       {errorMessage.length !== 0 && <span>{errorMessage}</span>}
       {errorMessage.length !== 0 && <hr />}
