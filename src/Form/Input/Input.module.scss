@@ -1,3 +1,45 @@
-.component {
-	font-family: inherit;
+.input {
+  height: 61px;
+  padding: 0 15px;
+  border-color: var(--input-border-color);
+  border-style: var(--input-border-style);
+  border-width: var(--input-border-width);
+  border-radius: var(--input-border-radius);
+
+	&:disabled {
+		color: var(--greyed-out);
+		background-color: var(--disabled);
+		border-color: #FFF;
+	}
+
+	&:focus {
+		outline-color: var(--color-primary);
+	}
+
+	&:active {
+		border-color: var(--color-primary);
+	}
+
+	&-wrapper {
+		position: relative;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	&-error {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 10px;
+		pointer-events: none;
+	}
+
+	.error & {
+		border-color: var(--error);
+		color: var(--error);
+	}
+}
+
+.input-error > svg {
+	fill: var(--error);
 }
