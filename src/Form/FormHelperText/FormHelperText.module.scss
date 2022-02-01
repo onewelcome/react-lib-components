@@ -1,3 +1,9 @@
-.component {
-	font-family: inherit;
+.form-helper-text {
+	color: var(--greyed-out);
+	font-size: 12px;
+	margin-left: 15px;
+}
+
+.error {
+	color: var(--error);
 }

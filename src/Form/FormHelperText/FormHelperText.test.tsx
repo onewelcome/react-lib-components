@@ -13,3 +13,17 @@ describe('FormHelperText should render', () => {
     expect(component).toBeDefined();
   });
 });
+
+describe('Attributes', () => {
+  it('contains the error class', () => {
+    const { getByTestId } = render(
+      <FormHelperText hasError={true} data-testid="component">
+        This is a field description
+      </FormHelperText>
+    );
+    const component = getByTestId('component');
+
+    expect(component).toHaveClass('error');
+    expect(component).toHaveStyle({ color: 'rgb(226, 42, 29);' });
+  });
+});
