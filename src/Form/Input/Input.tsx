@@ -1,6 +1,5 @@
 import React, { HTMLAttributes, useEffect } from 'react';
 import classes from './Input.module.scss';
-import { WarningOutlined } from '@material-ui/icons';
 import { useValidation } from '../../hooks/useValidation';
 import { required as requiredRule } from '../../validation/rules';
 
@@ -60,21 +59,12 @@ export const Input = ({
   }, [errorMessage, hasError]);
 
   return (
-    <div
-      className={`${classes['input-wrapper']} ${hasError ? classes.error : ''}`}
-    >
-      <input
-        className={classes.input}
-        onChange={onChangeHandler}
-        onBlur={onBlurHandler}
-        onFocus={onFocusHandler}
-        {...rest}
-      />
-      {hasError && (
-        <span className={classes['input-error']}>
-          <WarningOutlined />
-        </span>
-      )}
-    </div>
+    <input
+      className={`${classes.input} ${hasError ? classes.error : ''}`}
+      onChange={onChangeHandler}
+      onBlur={onBlurHandler}
+      onFocus={onFocusHandler}
+      {...rest}
+    />
   );
 };
