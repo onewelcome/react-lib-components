@@ -1,7 +1,7 @@
 /**
  * This hook is used to make validation of a form element easier. It accepts two parameters
  *
- * @param {Array | function} validationFnArray either a function or an array of functions that all either return "true" if the validation passed or a string (error message) if the validation failed
+ * @param {Array} validationFnArray an array of functions that all either return "true" if the validation passed or a string (error message) if the validation failed
  * @param {String} startingValue if you want the validation to run the very first time a component loads. Most likely only used for testing purposes.
  *
  * @returns {{
@@ -13,7 +13,7 @@
  * 	onFocusHandler: function
  * }}
  *
- * @description automatically executions the validation functions passed and keeps track of whether this generates an error or not. The blur, change and focus handlers can be put on an element (inputs, textareas, radios, selects, checkboxes, etc).
+ * @description automatically executes the validation functions passed and keeps track of whether this generates an error or not. The blur, change and focus handlers can be put on an element (inputs, textareas, radios, selects, checkboxes, etc).
  *
  * @example validation function:
  *
@@ -52,6 +52,7 @@ export const useValidation = (
     setErrorMessage('');
   };
 
+  /** If we have a starting value, we execute the validation once. This is mostly only used for test purposes, unless you really want to validate the startingValue for some reason. */
   useEffect(() => {
     if (validationFnArray && startingValue) {
       _executeValidation(startingValue);
