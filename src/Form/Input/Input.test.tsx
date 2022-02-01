@@ -63,7 +63,7 @@ describe('Should utilize validation function', () => {
       onValidationError: onValidationError,
     });
 
-    expect(input.parentElement).toHaveClass('error');
+    expect(input).toHaveClass('error');
     expect(errorMsg).toBe('Please remove the iWelcome and onegini reference.');
   });
 
@@ -100,7 +100,7 @@ describe('Should utilize validation function', () => {
       onValidationError: onValidationError,
     });
 
-    expect(input.parentElement).toHaveClass('error');
+    expect(input).toHaveClass('error');
     expect(errorMsg).toBe('This should fail');
   });
 });
