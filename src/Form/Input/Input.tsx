@@ -55,7 +55,6 @@ export const Input = ({
 
   useEffect(() => {
     if (hasError && onValidationError) {
-      console.log('Here!');
       onValidationError(errorMessage);
     }
   }, [errorMessage, hasError]);
