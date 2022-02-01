@@ -16,6 +16,10 @@ interface CSSProperties {
   buttonBorderStyle?: string;
   buttonFillTextColor?: string;
   buttonOutlineHoverTextColor?: string;
+  inputBorderColor?: string;
+  inputBorderRadius?: string;
+  inputBorderWidth?: string;
+  inputBorderStyle?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -40,6 +44,10 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonBorderStyle: 'solid',
     buttonFillTextColor: '#FFF',
     buttonOutlineHoverTextColor: '#FFF',
+    inputBorderColor: '#e9e9eb',
+    inputBorderRadius: '8px',
+    inputBorderWidth: '1px',
+    inputBorderStyle: 'solid',
     default: '#0f0f1e',
     success: '#008A28',
     error: '#e22a1d',
