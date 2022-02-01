@@ -1,13 +1,13 @@
 import React from 'react';
-import { FieldDescription } from './FieldDescription';
+import { FormHelperText } from './FormHelperText';
 import { render } from '@testing-library/react';
 
-describe('FieldDescription should render', () => {
+describe('FormHelperText should render', () => {
   it('renders without crashing', () => {
     const { getByTestId } = render(
-      <FieldDescription data-testid="component">
+      <FormHelperText data-testid="component">
         This is a field description
-      </FieldDescription>
+      </FormHelperText>
     );
     const component = getByTestId('component');
     expect(component).toBeDefined();
