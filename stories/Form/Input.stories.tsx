@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Input, Props } from '../../src/Form/Input/Input';
 import { Form } from '../../src/Form/Form';
+import { Label } from '../../src/Form/Label/Label';
 import { Button } from '../../src/Button/Button';
 
 const meta: Meta = {
@@ -67,9 +68,11 @@ const Template: Story<Props> = (args) => {
 
   return (
     <Form onSubmit={onSubmitHandler}>
+      <Label htmlFor="input-component">This is a label</Label>
       <Input
+        id="input-component"
         onValidationError={validationErrorHandler}
-        style={{ width: '50vw' }}
+        style={{ width: '50vw', display: 'block' }}
         validation={[validationHandler]}
         onBlur={onBlurHandler}
         placeholder="Validation error will occur when you type iwelcome or onegini"

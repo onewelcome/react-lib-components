@@ -19,27 +19,9 @@
 	&:active {
 		border-color: var(--color-primary);
 	}
-
-	&-wrapper {
-		position: relative;
-		display: inline-block;
-		vertical-align: top;
-	}
-
-	&-error {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		right: 10px;
-		pointer-events: none;
-	}
-
-	.error & {
-		border-color: var(--error);
-		color: var(--error);
-	}
 }
 
-.input-error > svg {
-	fill: var(--error);
+.error {
+	border-color: var(--error);
+	color: var(--error);
 }
