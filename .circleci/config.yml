@@ -73,9 +73,6 @@ workflows:
           name: analyse
           <<: *dev-context
           <<: *require-test
-          filters:
-            branches:
-              ignore: /^dependabot\/.*/
 
       - build-storybook:
           name: build-storybook

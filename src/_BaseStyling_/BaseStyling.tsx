@@ -10,10 +10,6 @@ interface CSSProperties {
   colorPrimary?: string;
   colorSecondary?: string;
   colorTertiary?: string;
-  defaultFontSize?: string;
-  buttonPrimaryColor?: string;
-  buttonSecondaryColor?: string;
-  buttonTertiaryColor?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
   buttonFontSize?: string;
@@ -41,7 +37,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorPrimary: '#9e006b',
     colorSecondary: '#003b5e',
     colorTertiary: '#ff1e4e',
-    defaultFontSize: '16px',
     buttonBorderRadius: '20px',
     buttonBorderWidth: '2px',
     buttonFontSize: '16px',
@@ -89,5 +84,5 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
   setCSSProperties(colors);
 
   /** Only render if we're not loading */
-  return !isLoading && <Fragment>{children}</Fragment>;
+  return !isLoading ? <Fragment>{children}</Fragment> : null;
 };
