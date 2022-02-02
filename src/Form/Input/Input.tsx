@@ -42,7 +42,7 @@ export const Input = ({
   required = false,
   ...rest
 }: Props) => {
-  if (required && typeof validation === 'object') validation.push(requiredRule);
+  if (required) validation.push(requiredRule);
 
   const {
     hasError,
