@@ -1,0 +1,16 @@
+.header {
+  min-width: 80px;
+  padding: 20px;
+  background-color: var(--modal-header-backgroun-color);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.headline {
+  display: flex;
+  align-items: flex-start;
+}
+
+.title {
+  flex: 1;
+}
