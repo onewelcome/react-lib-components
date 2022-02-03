@@ -11,7 +11,7 @@
 }
 
 @mixin fontProperties() {
-	font-family: 'icomoon' !important;
+	font-family: 'icomoon', sans-serif !important;
 	speak: never;
   font-style: normal;
   font-weight: normal;
