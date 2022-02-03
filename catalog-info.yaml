@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: react-lib-components
+  annotations:
+    github.com/project-slug: onewelcome/react-lib-components
+spec:
+  type: other
+  lifecycle: unknown
+  owner: frontend
