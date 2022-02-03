@@ -5,7 +5,7 @@ export interface Props extends HTMLAttributes<HTMLLIElement> {
   children: string;
   value: string;
   disabled?: boolean;
-  selected?: { label: string; value: string };
+  selected?: boolean;
   label?: string;
   filter?: string;
   onOptionSelect?: (option: { label: string; value: string }) => void;
@@ -13,7 +13,7 @@ export interface Props extends HTMLAttributes<HTMLLIElement> {
 
 export const Option = ({
   children,
-  selected = { label: '', value: '' },
+  selected = false,
   onOptionSelect,
   value,
   filter,
@@ -25,13 +25,13 @@ export const Option = ({
     if (onOptionSelect) onOptionSelect({ label: children, value: value });
   };
 
-  const determineSelected = () => {
-    return selected.value === value;
-  };
-
   useEffect(() => {
     if (filter) {
-      setShowOption(children.match(filter) !== null);
+      setShowOption(
+        children.toLowerCase().match(filter.toLowerCase()) !== null
+      );
+    } else {
+      setShowOption(true);
     }
   }, [filter]);
 
@@ -39,10 +39,14 @@ export const Option = ({
 
   return (
     <li
-      className={determineSelected() ? classes['selected-option'] : ''}
+      className={selected ? classes['selected-option'] : ''}
       onClick={onSelectHandler}
-      aria-selected={determineSelected()}
+      onKeyPress={(e) => {
+        e.key === 'Enter' && onSelectHandler();
+      }}
+      aria-selected={selected}
       role="option"
+      tabIndex={0}
       {...rest}
     >
       {children}

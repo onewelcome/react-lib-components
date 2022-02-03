@@ -19,7 +19,7 @@
     }
   }
 
-  &:hover {
+  &:hover:not(.disabled) {
     border-top-color: var(--default);
     border-left-color: var(--default);
     border-right-color: var(--default);
@@ -107,4 +107,15 @@
 	border-top: 0;
 	border-left: 0;
 	border-right: 0;
+	box-sizing: border-box;
+}
+
+.disabled {
+	cursor: not-allowed;
+	color: var(--greyed-out);
+	background-color: var(--disabled);
+
+	> * {
+		pointer-events: none;
+	}
 }

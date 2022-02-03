@@ -28,6 +28,7 @@ export const Select = ({
   placeholder = 'Choose an option',
   error = false,
   onSelectChange,
+  disabled,
   ...rest
 }: Props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -42,6 +43,36 @@ export const Select = ({
     setExpanded(false);
   };
 
+  /**
+   * Emit an event so that the end user can execute an onChange event on our custom Select component.
+   */
+  useEffect(() => {
+    onSelectChange && onSelectChange(selectedOption);
+  }, [selectedOption]);
+
+  useEffect(() => {
+    for (let child of children) {
+      /**
+       * We need to make sure that the only children nested in this component are from the Option component, because we add props to the children.Î
+       */
+      if (child.type !== Option) {
+        throw new Error(
+          'Child element of <Select /> component needs to be <Option /> component'
+        );
+      }
+
+      /**
+       * If there's an option with the selected attribute, we actually select that one.
+       */
+      if (child.props.selected) {
+        setSelectedOption({
+          label: child.props.children,
+          value: child.props.value,
+        });
+      }
+    }
+  }, []);
+
   const handleSelectCloseOnBodyClick = useCallback(
     (event: MouseEvent) => {
       event.preventDefault();
@@ -51,23 +82,6 @@ export const Select = ({
     },
     [expanded]
   );
-
-  useEffect(() => {
-    onSelectChange && onSelectChange(selectedOption);
-  }, [selectedOption]);
-
-  /**
-   * We need to make sure that the only children nested in this component are from the Option component, because we add props to the children.Î
-   */
-  useEffect(() => {
-    for (let child of children) {
-      if (child.type !== Option) {
-        throw new Error(
-          'Child element of <Select /> component needs to be <Option /> component'
-        );
-      }
-    }
-  }, []);
 
   /**
    * Add body click listener to close select and remove it in the cleanup function whenever expanded state changes.
@@ -85,15 +99,17 @@ export const Select = ({
    * The `children` prop can be either a single object (1 child) or an array of multiple children.
    */
   const renderOptions = () => {
-    return children?.map((child, index) => (
-      <Fragment key={index}>
-        {React.cloneElement(child, {
-          onOptionSelect: onOptionChangeHandler,
-          selected: selectedOption,
-          filter: filter,
-        })}
-      </Fragment>
-    ));
+    return children?.map((child, index) => {
+      return (
+        <Fragment key={index}>
+          {React.cloneElement(child, {
+            onOptionSelect: onOptionChangeHandler,
+            selected: child.props.selected,
+            filter: filter,
+          })}
+        </Fragment>
+      );
+    });
   };
 
   const renderSearch = () => {
@@ -101,7 +117,7 @@ export const Select = ({
       <Input
         onChange={filterResults}
         className={classes['select-search']}
-        type="search"
+        type="text"
         name="search-option"
         placeholder="Search item"
       />
@@ -112,15 +128,22 @@ export const Select = ({
     setFilter(event.currentTarget.value);
   };
 
+  const additionalClasses = [];
+  if (expanded) additionalClasses.push(classes.expanded);
+  if (error) additionalClasses.push(classes.error);
+  if (disabled) additionalClasses.push(classes.disabled);
+
   return (
     <div
       {...rest}
-      className={`${classes.select} ${expanded ? classes.expanded : ''} ${
-        error ? classes.error : ''
-      } custom-select`}
+      className={`${classes.select} ${additionalClasses.join(
+        ' '
+      )} custom-select`}
     >
       <button
         onClick={setExpanded.bind(null, !expanded)}
+        aria-disabled={disabled}
+        aria-invalid={error}
         aria-expanded={expanded}
         aria-haspopup="listbox"
         aria-labelledby={labeledBy}
@@ -132,8 +155,8 @@ export const Select = ({
           {selectedOption.label}
         </span>
       </button>
-      {expanded && (
-        <ul tabIndex={-1} role="listbox">
+      {expanded && !disabled && (
+        <ul role="listbox">
           {children.length > 10 && renderSearch()}
           {renderOptions()}
         </ul>
