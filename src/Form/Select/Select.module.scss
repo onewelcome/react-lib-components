@@ -1,3 +1,110 @@
-.component {
-	font-family: inherit;
+.select {
+  display: inline-block;
+  min-width: 200px;
+  border-color: var(--input-border-color);
+  border-style: var(--input-border-style);
+  border-width: var(--input-border-width);
+  border-radius: var(--input-border-radius);
+  position: relative;
+  box-sizing: border-box;
+	transition: all .15s ease-in-out;
+
+  &.expanded {
+    border-radius: var(--input-border-radius);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
+    border-bottom-color: transparent;
+
+    button {
+      display: none;
+    }
+  }
+
+  &:hover {
+    border-top-color: var(--default);
+    border-left-color: var(--default);
+    border-right-color: var(--default);
+    border-bottom-color: var(--default);
+  }
+
+  button {
+    width: 100%;
+    min-height: 61px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0 15px;
+    position: relative;
+  }
+
+  ul {
+    box-sizing: border-box;
+    padding: 5px 0;
+    width: 100%;
+    margin: 0;
+    list-style: none;
+    background-color: #fff;
+    border-radius: var(--input-border-radius);
+    text-align: left;
+
+    li {
+      padding: 8px 15px;
+      margin: 0;
+      position: relative;
+      line-height: 17px;
+      cursor: pointer;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+      }
+
+      &:hover:after {
+        background-color: var(--color-primary);
+      }
+    }
+  }
+}
+
+.selected-option {
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--color-primary);
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+  }
+}
+
+.selected {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15px;
+  pointer-events: none;
+}
+
+.placeholder {
+  color: var(--greyed-out);
+}
+
+.error {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.select-search {
+	margin-top: -5px;
+	width: 100%;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
 }
