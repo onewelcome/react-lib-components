@@ -2,11 +2,15 @@ import React from 'react';
 import classes from './BaseModalHeader.module.scss';
 
 export interface Props {
+  id: string;
+  title: string;
   children?: React.ReactNode;
   onClose: () => void;
 }
 
 export const BaseModalHeader = ({
+  id,
+  title,
   children,
   onClose,
 }: // labeledby,
@@ -16,6 +20,7 @@ Props) => {
     <div className={classes['header']}>
       <div className={classes['headline']}>
         <h1
+          id={id}
           className={classes['title']}
           style={{
             margin: 0,
@@ -25,7 +30,7 @@ Props) => {
             padding: 0,
           }}
         >
-          Title modal heading
+          {title}
         </h1>
         <button
           onClick={onClose}

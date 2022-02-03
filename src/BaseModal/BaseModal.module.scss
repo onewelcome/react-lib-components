@@ -9,10 +9,10 @@
   visibility: hidden;
 
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 
-  &::before {
+  .backdrop {
     content: '';
     position: absolute;
     width: 100%;
@@ -23,10 +23,10 @@
     transition: background-color 0.5s ease;
   }
 
-  &.visible{
+  &.visible {
     visibility: visible;
 
-    &::before {
+    .backdrop {
       background-color: var(--default);
       opacity: 0.75;
     }
@@ -43,9 +43,10 @@
   flex-direction: column;
 
   @media only screen and (min-width: 800px) {
+    margin-top: 3.125rem;
     width: 800px;
     height: auto;
-    max-height: 90%;
+    max-height: calc(90% - 3.125rem);
     border-radius: 8px;
     box-shadow: 0px 30px 50px var(--modal-shadow-color);
   }

@@ -7,9 +7,5 @@ export interface Props {
 }
 
 export const BaseModalActions = ({ children, classname = '' }: Props) => {
-  return (
-    <div className={`${classes['actions']} ${classname}`} tabIndex={0}>
-      {children}
-    </div>
-  );
+  return <div className={`${classes['actions']} ${classname}`}>{children}</div>;
 };
