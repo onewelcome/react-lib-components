@@ -27,8 +27,8 @@ export const Select = ({
   labeledBy,
   placeholder = 'Choose an option',
   error = false,
-  onSelectChange,
   disabled,
+  onSelectChange,
   ...rest
 }: Props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -104,7 +104,7 @@ export const Select = ({
         <Fragment key={index}>
           {React.cloneElement(child, {
             onOptionSelect: onOptionChangeHandler,
-            selected: child.props.selected,
+            selected: child.props.value === selectedOption.value,
             filter: filter,
           })}
         </Fragment>

@@ -21,7 +21,9 @@ const Template: Story<Props> = (args) => {
         <Option value="option5">Test5</Option>
         <Option value="option6">Test6</Option>
         <Option value="option7">Test7</Option>
-        <Option value="option8">Test8</Option>
+        <Option selected value="option8">
+          Test8
+        </Option>
         <Option value="option9">Test9</Option>
         <Option value="option10">Test10</Option>
         <Option value="option11">Test11</Option>
