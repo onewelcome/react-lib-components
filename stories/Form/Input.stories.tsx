@@ -26,22 +26,6 @@ const Template: Story<Props> = (args) => {
     }
   };
 
-  const validationHandler = (value) => {
-    if (/iwelcome|onegini/i.test(value)) {
-      setErrorMessage("That's not my name!");
-      return "That's not my name!";
-    }
-
-    setErrorMessage('');
-    return true;
-  };
-
-  const validationErrorHandler = (message: string): void => {
-    setErrorMessage(message);
-  };
-
-  const onBlurHandler = () => validationErrorHandler(errorMessage);
-
   const renderFormData = () => {
     const formDataOutput = [];
 
@@ -72,10 +56,7 @@ const Template: Story<Props> = (args) => {
       <Label htmlFor="input-component">This is a label</Label>
       <Input
         id="input-component"
-        onValidationError={validationErrorHandler}
         style={{ width: '50vw', display: 'block' }}
-        validation={[validationHandler]}
-        onBlur={onBlurHandler}
         {...args}
       />
       <FormHelperText>
