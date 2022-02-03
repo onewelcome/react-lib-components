@@ -1,4 +1,3 @@
-import { Option } from './Option';
 import classes from './Select.module.scss';
 
 import React, {
@@ -12,7 +11,7 @@ import React, {
 import { Input } from '../Input/Input';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactElement[];
+  children: ReactElement[] | ReactElement;
   disabled?: boolean;
   name?: string;
   id?: string;
@@ -27,7 +26,7 @@ export const Select = ({
   labeledBy,
   placeholder = 'Choose an option',
   error = false,
-  disabled,
+  disabled = false,
   onSelectChange,
   ...rest
 }: Props) => {
@@ -51,16 +50,11 @@ export const Select = ({
   }, [selectedOption]);
 
   useEffect(() => {
-    for (let child of children) {
-      /**
-       * We need to make sure that the only children nested in this component are from the Option component, because we add props to the children.Î
-       */
-      if (child.type !== Option) {
-        throw new Error(
-          'Child element of <Select /> component needs to be <Option /> component'
-        );
-      }
+    if (!Array.isArray(children)) {
+      children = [children];
+    }
 
+    for (let child of children) {
       /**
        * If there's an option with the selected attribute, we actually select that one.
        */
@@ -99,30 +93,30 @@ export const Select = ({
    * The `children` prop can be either a single object (1 child) or an array of multiple children.
    */
   const renderOptions = () => {
-    return children?.map((child, index) => {
-      return (
-        <Fragment key={index}>
-          {React.cloneElement(child, {
-            onOptionSelect: onOptionChangeHandler,
-            selected: child.props.value === selectedOption.value,
-            filter: filter,
-          })}
-        </Fragment>
-      );
-    });
+    if (!Array.isArray(children)) {
+      children = [children];
+    }
+
+    return children?.map((child, index) => (
+      <Fragment key={index}>
+        {React.cloneElement(child, {
+          onOptionSelect: onOptionChangeHandler,
+          selected: child.props.value === selectedOption,
+          filter: filter,
+        })}
+      </Fragment>
+    ));
   };
 
-  const renderSearch = () => {
-    return (
-      <Input
-        onChange={filterResults}
-        className={classes['select-search']}
-        type="text"
-        name="search-option"
-        placeholder="Search item"
-      />
-    );
-  };
+  const renderSearch = () => (
+    <Input
+      onChange={filterResults}
+      className={classes['select-search']}
+      type="text"
+      name="search-option"
+      placeholder="Search item"
+    />
+  );
 
   const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(event.currentTarget.value);
@@ -152,12 +146,14 @@ export const Select = ({
           {selectedOption.value.length === 0 && (
             <span className={classes.placeholder}>{placeholder}</span>
           )}
-          {selectedOption.label}
+          {selectedOption.value.length !== 0 && (
+            <span>{selectedOption.label}</span>
+          )}
         </span>
       </button>
       {expanded && !disabled && (
         <ul role="listbox">
-          {children.length > 10 && renderSearch()}
+          {Array.isArray(children) && children.length > 10 && renderSearch()}
           {renderOptions()}
         </ul>
       )}
