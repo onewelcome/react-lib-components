@@ -1,5 +1,7 @@
 import React from 'react';
 import classes from './BaseModalHeader.module.scss';
+import { IconButton } from '../../Button/IconButton';
+import { Close } from '@material-ui/icons';
 
 export interface Props {
   id: string;
@@ -19,7 +21,7 @@ Props) => {
   return (
     <div className={classes['header']}>
       <div className={classes['headline']}>
-        <h1
+        <h4
           id={id}
           className={classes['title']}
           style={{
@@ -31,15 +33,14 @@ Props) => {
           }}
         >
           {title}
-        </h1>
-        <button
+        </h4>
+        <IconButton
           onClick={onClose}
-          type="button"
           className={classes['closeBtn']}
           aria-label="close modal"
         >
-          X
-        </button>
+          <Close />
+        </IconButton>
       </div>
       {children}
     </div>

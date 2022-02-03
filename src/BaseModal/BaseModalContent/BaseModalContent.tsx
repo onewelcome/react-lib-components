@@ -11,11 +11,7 @@ export interface Props {
 export const BaseModalContent = ({ id, children, classname = '' }: Props) => {
   const idProp: HTMLAttributes<HTMLDivElement> = id ? { id } : {};
   return (
-    <div
-      className={`${classes['content']} ${classname}`}
-      tabIndex={0}
-      {...idProp}
-    >
+    <div className={`${classes['content']} ${classname}`} {...idProp}>
       {children}
     </div>
   );
