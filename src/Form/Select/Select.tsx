@@ -16,9 +16,9 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   disabled?: boolean;
   name?: string;
   id?: string;
-  labeledBy: string;
-  placeholder: string;
-  error: boolean;
+  labeledBy?: string;
+  placeholder?: string;
+  error?: boolean;
   onSelectChange?: (option: { label: string; value: string }) => void;
 }
 
