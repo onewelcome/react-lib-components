@@ -44,7 +44,6 @@ export type Icons =
   | 'minus-square'
   | 'navigation-first'
   | 'navigation-last'
-  | 'navigation-more'
   | 'plus'
   | 'radio'
   | 'refresh'

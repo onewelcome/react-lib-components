@@ -52,11 +52,11 @@
   content: "\e906";
 	@include fontProperties();
 }
-.icon-circle-checkmark:before {
+.icon-checkmark-circle:before {
   content: "\e907";
 	@include fontProperties();
 }
-.icon-circle-checkmark-alt:before {
+.icon-checkmark-circle-alt:before {
   content: "\e908";
 	@include fontProperties();
 }
@@ -96,11 +96,11 @@
   content: "\e911";
 	@include fontProperties();
 }
-.icon-circle-times-alt:before {
+.icon-times-circle-alt:before {
   content: "\e912";
 	@include fontProperties();
 }
-.icon-circle-info:before {
+.icon-info-circle:before {
   content: "\e913";
 	@include fontProperties();
 }
@@ -108,7 +108,7 @@
   content: "\e914";
 	@include fontProperties();
 }
-.icon-circle-checkmark-breakout:before {
+.icon-checkmark-circle-breakout:before {
   content: "\e915";
 	@include fontProperties();
 }
@@ -184,7 +184,7 @@
   content: "\e927";
 	@include fontProperties();
 }
-.icon-circle-times:before {
+.icon-times-circle:before {
   content: "\e928";
 	@include fontProperties();
 }
@@ -220,7 +220,7 @@
   content: "\e930";
 	@include fontProperties();
 }
-.ellipsis:before {
+.icon-ellipsis:before {
   content: "\e931";
 	@include fontProperties();
 }
