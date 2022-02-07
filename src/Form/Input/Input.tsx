@@ -1,20 +1,9 @@
-import React, { HTMLAttributes } from 'react';
-import classes from './Input.module.scss';
+import React, { InputHTMLAttributes } from "react";
+import classes from "./Input.module.scss";
 
-export type type =
-  | 'text'
-  | 'email'
-  | 'file'
-  | 'number'
-  | 'password'
-  | 'search'
-  | 'tel'
-  | 'time'
-  | 'url'
-  | 'datetime'
-  | 'hidden';
+export type type = "text" | "email" | "file" | "number" | "password" | "search" | "tel" | "time" | "url" | "datetime" | "hidden";
 
-export interface Props extends HTMLAttributes<HTMLInputElement> {
+export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   type: type;
   name: string;
   value?: string;
@@ -31,10 +20,5 @@ export interface Props extends HTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = ({ error = false, className, ...rest }: Props) => {
-  return (
-    <input
-      className={`${classes.input} ${error ? classes.error : ''} ${className}`}
-      {...rest}
-    />
-  );
+  return <input className={`${classes.input} ${error ? classes.error : ""} ${className}`} {...rest} />;
 };
