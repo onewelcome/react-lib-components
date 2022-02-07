@@ -1,9 +1,22 @@
-import React, { HTMLAttributes, ReactChild } from 'react';
+import React, { TextareaHTMLAttributes } from 'react';
+import classes from './Textarea.module.scss';
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactChild;
+export interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  error?: boolean;
 }
 
-export const Textarea = ({ children, ...rest }: Props) => {
-  return <div {...rest}>{children} </div>;
+export const Textarea = ({
+  children,
+  error = false,
+  disabled,
+  ...rest
+}: Props) => {
+  return (
+    <textarea
+      className={`${classes.textarea} ${error ? classes.error : ''} ${
+        disabled ? classes.disabled : ''
+      }`}
+      {...rest}
+    />
+  );
 };

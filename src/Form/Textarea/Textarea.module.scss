@@ -1,3 +1,31 @@
-.component {
-	font-family: inherit;
+.textarea {
+  padding: 15px;
+  border-color: var(--input-border-color);
+  border-style: var(--input-border-style);
+  border-width: var(--input-border-width);
+  border-radius: var(--input-border-radius);
+  transition: all 0.15s ease-in-out;
+
+  &:disabled {
+    color: var(--greyed-out);
+    background-color: var(--disabled);
+    border-color: #fff;
+  }
+
+  &:focus {
+    outline-color: var(--color-primary);
+  }
+
+  &:active {
+    border-color: var(--color-primary);
+  }
+
+  &:hover {
+    border-color: var(--default);
+  }
+}
+
+.error {
+  border-color: var(--error);
+  color: var(--error);
 }
