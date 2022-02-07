@@ -98,7 +98,7 @@ export const Select = ({
       <Fragment key={index}>
         {React.cloneElement(child, {
           onOptionSelect: onOptionChangeHandler,
-          selected: child.props.value === selectedOption,
+          selected: child.props.value === selectedOption.value,
           filter: filter,
         })}
       </Fragment>
