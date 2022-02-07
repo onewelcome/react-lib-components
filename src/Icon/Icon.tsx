@@ -49,6 +49,7 @@ export enum Icons {
   Refresh = 'refresh',
   Search = 'search',
   Share = 'share',
+  Square = 'square',
   Star = 'star',
   StarAlt = 'star-alt',
   Times = 'times',
