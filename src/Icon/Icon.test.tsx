@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, Props, Icons } from './Icon';
 import { render } from '@testing-library/react';
 
-const createIcon = (params?: Props, iconName: Icons = 'calendar') => {
+const createIcon = (params?: Props, iconName = Icons.Calendar) => {
   const queries = render(
     <Icon
       data-testid="icon-component"

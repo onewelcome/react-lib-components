@@ -1,9 +1,12 @@
 import React from 'react';
 import { IconButton, Props } from './IconButton';
 import { render, getByRole } from '@testing-library/react';
-import { Icon } from '../Icon/Icon';
+import { Icon, Icons } from '../Icon/Icon';
 
-const createButton = (params?: Props, children = <Icon icon="calendar" />) => {
+const createButton = (
+  params?: Props,
+  children = <Icon icon={Icons.Calendar} />
+) => {
   const queries = render(<IconButton {...params}>{children}</IconButton>);
   const button = getByRole(queries.container, 'button');
 

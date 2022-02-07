@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Props } from './Button';
 import { render, getByRole } from '@testing-library/react';
-import { Icon } from '../Icon/Icon';
+import { Icon, Icons } from '../Icon/Icon';
 
 const createButton = (params?: Props, children = 'This is a button') => {
   const queries = render(<Button {...params}>{children}</Button>);
@@ -56,7 +56,7 @@ describe('Different variants of the button', () => {
 describe('Button contains an icon', () => {
   it('Contains an icon at the start', () => {
     const { button } = createButton({
-      startIcon: <Icon icon="calendar" />,
+      startIcon: <Icon icon={Icons.Calendar} />,
     });
 
     expect(button.classList.contains('has-icon')).toBe(true);
@@ -68,7 +68,7 @@ describe('Button contains an icon', () => {
 
   it('Contains an icon at the end', () => {
     const { button } = createButton({
-      endIcon: <Icon icon="calendar" />,
+      endIcon: <Icon icon={Icons.Calendar} />,
     });
 
     expect(button.classList.contains('has-icon')).toBe(true);
