@@ -1,0 +1,274 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../../font/icomoon.eot?9c63pa');
+  src:  url('../../font/icomoon.eot?9c63pa#iefix') format('embedded-opentype'),
+    url('../../font/icomoon.ttf?9c63pa') format('truetype'),
+    url('../../font/icomoon.woff?9c63pa') format('woff'),
+    url('../../font/icomoon.svg?9c63pa#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@mixin fontProperties() {
+  font-family: 'icomoon', sans-serif !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-image:before {
+  content: "\e900";
+  @include fontProperties();
+}
+.icon-bookmark:before {
+  content: "\e901";
+  @include fontProperties();
+}
+.icon-bookmark-alt:before {
+  content: "\e902";
+  @include fontProperties();
+}
+.icon-equal:before {
+  content: "\e903";
+  @include fontProperties();
+}
+.icon-build:before {
+  content: "\e904";
+  @include fontProperties();
+}
+.icon-refresh:before {
+  content: "\e905";
+  @include fontProperties();
+}
+.icon-calendar:before {
+  content: "\e906";
+  @include fontProperties();
+}
+.icon-checkmark-circle:before {
+  content: "\e907";
+  @include fontProperties();
+}
+.icon-checkmark-circle-alt:before {
+  content: "\e908";
+  @include fontProperties();
+}
+.icon-clock:before {
+  content: "\e909";
+  @include fontProperties();
+}
+.icon-trash:before {
+  content: "\e90a";
+  @include fontProperties();
+}
+.icon-heart:before {
+  content: "\e90b";
+  @include fontProperties();
+}
+.icon-search:before {
+  content: "\e90c";
+  @include fontProperties();
+}
+.icon-gearwheel:before {
+  content: "\e90d";
+  @include fontProperties();
+}
+.icon-star:before {
+  content: "\e90e";
+  @include fontProperties();
+}
+.icon-star-alt:before {
+  content: "\e90f";
+  @include fontProperties();
+}
+.icon-undo:before {
+  content: "\e910";
+  @include fontProperties();
+}
+.icon-eye:before {
+  content: "\e911";
+  @include fontProperties();
+}
+.icon-times-circle-alt:before {
+  content: "\e912";
+  @include fontProperties();
+}
+.icon-info-circle:before {
+  content: "\e913";
+  @include fontProperties();
+}
+.icon-info-bell:before {
+  content: "\e914";
+  @include fontProperties();
+}
+.icon-checkmark-circle-breakout:before {
+  content: "\e915";
+  @include fontProperties();
+}
+.icon-warning:before {
+  content: "\e916";
+  @include fontProperties();
+}
+.icon-plus:before {
+  content: "\e917";
+  @include fontProperties();
+}
+.icon-copy:before {
+  content: "\e918";
+  @include fontProperties();
+}
+.icon-edit:before {
+  content: "\e919";
+  @include fontProperties();
+}
+.icon-filter:before {
+  content: "\e91a";
+  @include fontProperties();
+}
+.icon-link:before {
+  content: "\e91b";
+  @include fontProperties();
+}
+.icon-change:before {
+  content: "\e91c";
+  @include fontProperties();
+}
+.icon-filter-alt-arrow:before {
+  content: "\e91d";
+  @include fontProperties();
+}
+.icon-filter-alt:before {
+  content: "\e91e";
+  @include fontProperties();
+}
+.icon-filter-alt-times:before {
+  content: "\e91f";
+  @include fontProperties();
+}
+.icon-grid:before {
+  content: "\e920";
+  @include fontProperties();
+}
+.icon-triangle-down:before {
+  content: "\e921";
+  @include fontProperties();
+}
+.icon-triangle-down-circle:before {
+  content: "\e922";
+  @include fontProperties();
+}
+.icon-triangle-up:before {
+  content: "\e923";
+  @include fontProperties();
+}
+.icon-triangle-right:before {
+  content: "\e924";
+  @include fontProperties();
+}
+.icon-chevron-left:before {
+  content: "\e925";
+  @include fontProperties();
+}
+.icon-chevron-right:before {
+  content: "\e926";
+  @include fontProperties();
+}
+.icon-times:before {
+  content: "\e927";
+  @include fontProperties();
+}
+.icon-times-circle:before {
+  content: "\e928";
+  @include fontProperties();
+}
+.icon-times-thin:before {
+  content: "\e929";
+  @include fontProperties();
+}
+.icon-chevron-up:before {
+  content: "\e92a";
+  @include fontProperties();
+}
+.icon-chevron-down:before {
+  content: "\e92b";
+  @include fontProperties();
+}
+.icon-navigation-first:before {
+  content: "\e92c";
+  @include fontProperties();
+}
+.icon-fullscreen:before {
+  content: "\e92d";
+  @include fontProperties();
+}
+.icon-fullscreen-exit:before {
+  content: "\e92e";
+  @include fontProperties();
+}
+.icon-navigation-last:before {
+  content: "\e92f";
+  @include fontProperties();
+}
+.icon-hamburger:before {
+  content: "\e930";
+  @include fontProperties();
+}
+.icon-ellipsis:before {
+  content: "\e931";
+  @include fontProperties();
+}
+.icon-triangle-left:before {
+  content: "\e932";
+  @include fontProperties();
+}
+.icon-ellipsis-alt:before {
+  content: "\e933";
+  @include fontProperties();
+}
+.icon-bell:before {
+  content: "\e934";
+  @include fontProperties();
+}
+.icon-bell-alt:before {
+  content: "\e935";
+  @include fontProperties();
+}
+.icon-share:before {
+  content: "\e936";
+  @include fontProperties();
+}
+.icon-forbidden:before {
+  content: "\e937";
+  @include fontProperties();
+}
+.icon-checkmark:before {
+  content: "\e938";
+  @include fontProperties();
+}
+.icon-checkmark-square:before {
+  content: "\e939";
+  @include fontProperties();
+}
+.icon-square:before {
+  content: "\e93a";
+  @include fontProperties();
+}
+.icon-minus-square:before {
+  content: "\e93b";
+  @include fontProperties();
+}
+.icon-radio:before {
+  content: "\e93c";
+  @include fontProperties();
+}
+.icon-circle:before {
+  content: "\e93e";
+  @include fontProperties();
+}
