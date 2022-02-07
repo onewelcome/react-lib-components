@@ -12,7 +12,6 @@
   &.expanded {
     border-radius: var(--input-border-radius);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
-    border-bottom-color: transparent;
 
     button {
       display: none;
