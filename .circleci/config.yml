@@ -16,6 +16,11 @@ orbs:
   requires:
     - test
 
+.filter-master-only: &filter-master-only
+  filters:
+    branches:
+      only: UCL-39
+
 .filter-branches-tags: &filter-branches-tags
   filters:
     tags:
@@ -87,7 +92,7 @@ workflows:
           site_location: storybook-static/
           path_in_bucket: html/react-lib-components
           executor: onegini-build/node-executor
-          <<: *filter-tags
+          <<: *filter-master-only
           requires:
             - test
             - build-storybook
