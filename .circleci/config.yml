@@ -91,7 +91,8 @@ workflows:
           s3_bucket: onegini-internal-docs-storage-production
           site_location: storybook-static/
           path_in_bucket: html/react-lib-components
-          executor: onegini-build/node-executor
+          executor:
+            name: onegini-build/docs-builder
           <<: *filter-master-only
           requires:
             - test
