@@ -43,6 +43,9 @@ export const Select = ({
   }, [selectedOption]);
 
   useEffect(() => {
+    /**
+     * Force our children prop to be an array of ReactElements so we can loop over them and add custom props.
+     */
     if (!Array.isArray(children)) {
       children = [children];
     }
