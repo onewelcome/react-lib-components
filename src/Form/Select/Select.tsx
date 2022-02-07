@@ -106,7 +106,14 @@ export const Select = ({
   };
 
   const renderSearch = () => (
-    <Input onChange={filterResults} className={classes["select-search"]} type="text" name="search-option" placeholder="Search item" />
+    <Input
+      autoFocus
+      onChange={filterResults}
+      className={classes["select-search"]}
+      type="text"
+      name="search-option"
+      placeholder="Search item"
+    />
   );
 
   const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
