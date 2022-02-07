@@ -67,3 +67,26 @@ describe("Select should render with search", () => {
     expect(list?.querySelector("li[role='option']")?.innerHTML).toBe("Option19");
   });
 });
+
+describe("Selecting options using keyboard", () => {
+  it("should focus through list items and select on enterpress", () => {
+    const { select, list } = createSelect(7);
+
+    userEvent.tab();
+    expect(list?.querySelectorAll("li")[0]).toHaveFocus();
+    userEvent.tab();
+    expect(list?.querySelectorAll("li")[1]).toHaveFocus();
+    userEvent.tab();
+    expect(list?.querySelectorAll("li")[2]).toHaveFocus();
+    userEvent.tab();
+    expect(list?.querySelectorAll("li")[3]).toHaveFocus();
+    userEvent.tab();
+    expect(list?.querySelectorAll("li")[4]).toHaveFocus();
+    userEvent.tab();
+    expect(list?.querySelectorAll("li")[5]).toHaveFocus();
+
+    userEvent.keyboard("{enter}");
+
+    expect(select.querySelector(".selected span")?.innerHTML).toBe("Option5");
+  });
+});

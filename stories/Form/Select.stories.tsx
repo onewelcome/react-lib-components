@@ -1,10 +1,10 @@
-import React, { Fragment, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Select, Props } from '../../src/Form/Select/Select';
-import { Option } from '../../src/Form/Select/Option';
+import React, { Fragment, useState } from "react";
+import { Meta, Story } from "@storybook/react";
+import { Select, Props } from "../../src/Form/Select/Select";
+import { Option } from "../../src/Form/Select/Option";
 
 const meta: Meta = {
-  title: 'Select',
+  title: "Select",
   component: Select,
 };
 
@@ -21,9 +21,7 @@ const Template: Story<Props> = (args) => {
         <Option value="option5">Test5</Option>
         <Option value="option6">Test6</Option>
         <Option value="option7">Test7</Option>
-        <Option selected value="option8">
-          Test8
-        </Option>
+        <Option value="option8">Test8</Option>
         <Option value="option9">Test9</Option>
         <Option value="option10">Test10</Option>
         <Option value="option11">Test11</Option>
