@@ -1,65 +1,69 @@
-import React, { Fragment } from "react";
+import React, { ReactElement } from "react";
 import { Select, Props } from "./Select";
 import { render } from "@testing-library/react";
 import { Option } from "./Option";
+import userEvent from "@testing-library/user-event";
 
-const createSelect = (params?: Props, moreThan10 = false) => {
-  const renderOptions = (moreThan10: boolean) => {
-    if (moreThan10) {
-      return (
-        <Fragment>
-          <Option value="option1">Option1</Option>
-          <Option value="option2">Option2</Option>
-          <Option value="option3">Option3</Option>
-          <Option value="option4">Option4</Option>
-          <Option value="option5">Option5</Option>
-          <Option value="option6">Option6</Option>
-          <Option selected value="option7">
-            Option7
-          </Option>
-          <Option value="option8">Option8</Option>
-          <Option value="option9">Option9</Option>
-          <Option value="option10">Option10</Option>
-          <Option value="option11">Option11</Option>
-        </Fragment>
-      );
-    } else {
-      return (
-        <Fragment>
-          <Option value="option1">Option1</Option>
-          <Option value="option2">Option2</Option>
-          <Option value="option3">Option3</Option>
-          <Option value="option4">Option4</Option>
-          <Option value="option5">Option5</Option>
-          <Option value="option6">Option6</Option>
-          <Option selected value="option7">
-            Option7
-          </Option>
-          <Option value="option8">Option8</Option>
-          <Option value="option9">Option9</Option>
-        </Fragment>
-      );
+const createSelect = (amountOfOptions = 5, params?: Props) => {
+  const renderOptions = (amount: number): ReactElement[] => {
+    const returnArr: ReactElement[] = [];
+
+    for (let i = 0; i < amount; i++) {
+      returnArr.push(<Option key={i} value={`option${i}`}>{`Option${i}`}</Option>);
     }
+
+    return returnArr;
   };
 
   const queries = render(
     <Select data-testid="select" {...params}>
-      {renderOptions(moreThan10)}
+      {renderOptions(amountOfOptions)}
     </Select>
   );
   const select = queries.getByTestId("select");
+  const button = select.querySelector("button");
+
+  if (button) {
+    userEvent.click(button);
+  }
+
+  const list = select.querySelector('ul[role="listbox"]');
 
   return {
     ...queries,
     select,
+    button,
+    list,
   };
 };
 
 describe("Select should render", () => {
-  it("renders without crashing", () => {
-    const { select, debug } = createSelect();
+  it("renders with 5 options and proper attributes", () => {
+    const { select, button, list } = createSelect(5);
 
-    debug();
     expect(select).toBeDefined();
+    expect(button?.getAttribute("aria-expanded")).toBe("true");
+    expect(button?.getAttribute("aria-disabled")).toBe("false");
+    expect(list).toBeDefined();
+    expect(list?.querySelectorAll("li[role='option']").length).toBe(5);
+  });
+});
+
+describe("Select should render with search", () => {
+  it("shows the search and filtering works", () => {
+    const { select, list } = createSelect(20);
+
+    const search = list?.querySelector("input");
+
+    expect(select).toBeTruthy();
+    expect(search).toBeTruthy();
+    expect(list?.querySelectorAll("li[role='option']").length).toBe(20);
+
+    if (search) {
+      userEvent.type(search, "19");
+    }
+
+    expect(list?.querySelectorAll("li[role='option']").length).toBe(1);
+    expect(list?.querySelector("li[role='option']")?.innerHTML).toBe("Option19");
   });
 });
