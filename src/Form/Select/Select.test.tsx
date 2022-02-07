@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
-import { Select, Props } from './Select';
-import { render } from '@testing-library/react';
-import { Option } from './Option';
+import React, { Fragment } from "react";
+import { Select, Props } from "./Select";
+import { render } from "@testing-library/react";
+import { Option } from "./Option";
 
 const createSelect = (params?: Props, moreThan10 = false) => {
   const renderOptions = (moreThan10: boolean) => {
@@ -47,7 +47,7 @@ const createSelect = (params?: Props, moreThan10 = false) => {
       {renderOptions(moreThan10)}
     </Select>
   );
-  const select = queries.getByTestId('select');
+  const select = queries.getByTestId("select");
 
   return {
     ...queries,
@@ -55,8 +55,8 @@ const createSelect = (params?: Props, moreThan10 = false) => {
   };
 };
 
-describe('Select should render', () => {
-  it('renders without crashing', () => {
+describe("Select should render", () => {
+  it("renders without crashing", () => {
     const { select, debug } = createSelect();
 
     debug();

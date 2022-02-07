@@ -1,14 +1,7 @@
-import classes from './Select.module.scss';
+import classes from "./Select.module.scss";
 
-import React, {
-  Fragment,
-  HTMLAttributes,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import { Input } from '../Input/Input';
+import React, { Fragment, HTMLAttributes, ReactElement, useCallback, useEffect, useState } from "react";
+import { Input } from "../Input/Input";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactElement[] | ReactElement;
@@ -18,13 +11,13 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   labeledBy?: string;
   placeholder?: string;
   error?: boolean;
-  onSelectChange?: (option: { label: string; value: string }) => void;
+  onSelectChange?: (option: { label: string; value: string | undefined }) => void;
 }
 
 export const Select = ({
   children,
   labeledBy,
-  placeholder = 'Choose an option',
+  placeholder = "Choose an option",
   error = false,
   disabled = false,
   onSelectChange,
@@ -33,9 +26,9 @@ export const Select = ({
   const [expanded, setExpanded] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<{
     label: string;
-    value: string;
-  }>({ label: '', value: '' });
-  const [filter, setFilter] = useState<string>('');
+    value: string | undefined;
+  }>({ label: "", value: undefined });
+  const [filter, setFilter] = useState<string>("");
 
   const onOptionChangeHandler = (option: { label: string; value: string }) => {
     setSelectedOption({ label: option.label, value: option.value });
@@ -56,7 +49,8 @@ export const Select = ({
 
     for (let child of children) {
       /**
-       * If there's an option with the selected attribute, we actually select that one.
+       * If there's an option with the selected attribute, we actually select that one. But since we don't want the placeholder to switch out
+       * with the value on render, we initially set to undefined and then change it if there's an <Option /> with the selected prop
        */
       if (child.props.selected) {
         setSelectedOption({
@@ -70,7 +64,7 @@ export const Select = ({
   const handleSelectCloseOnBodyClick = useCallback(
     (event: MouseEvent) => {
       event.preventDefault();
-      if (!(event.target as Element).closest('.custom-select') && expanded) {
+      if (!(event.target as Element).closest(".custom-select") && expanded) {
         setExpanded(false);
       }
     },
@@ -81,10 +75,10 @@ export const Select = ({
    * Add body click listener to close select and remove it in the cleanup function whenever expanded state changes.
    */
   useEffect(() => {
-    window.addEventListener('click', handleSelectCloseOnBodyClick);
+    window.addEventListener("click", handleSelectCloseOnBodyClick);
 
     return () => {
-      window.removeEventListener('click', handleSelectCloseOnBodyClick);
+      window.removeEventListener("click", handleSelectCloseOnBodyClick);
     };
   }, [expanded]);
 
@@ -109,13 +103,7 @@ export const Select = ({
   };
 
   const renderSearch = () => (
-    <Input
-      onChange={filterResults}
-      className={classes['select-search']}
-      type="text"
-      name="search-option"
-      placeholder="Search item"
-    />
+    <Input onChange={filterResults} className={classes["select-search"]} type="text" name="search-option" placeholder="Search item" />
   );
 
   const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,12 +116,7 @@ export const Select = ({
   if (disabled) additionalClasses.push(classes.disabled);
 
   return (
-    <div
-      {...rest}
-      className={`${classes.select} ${additionalClasses.join(
-        ' '
-      )} custom-select`}
-    >
+    <div {...rest} className={`${classes.select} ${additionalClasses.join(" ")} custom-select`}>
       <button
         onClick={setExpanded.bind(null, !expanded)}
         aria-disabled={disabled}
@@ -143,12 +126,8 @@ export const Select = ({
         aria-labelledby={labeledBy}
       >
         <span className={classes.selected}>
-          {selectedOption.value.length === 0 && (
-            <span className={classes.placeholder}>{placeholder}</span>
-          )}
-          {selectedOption.value.length !== 0 && (
-            <span>{selectedOption.label}</span>
-          )}
+          {selectedOption.value === undefined && <span className={classes.placeholder}>{placeholder}</span>}
+          {selectedOption.value !== undefined && <span>{selectedOption.label}</span>}
         </span>
       </button>
       {expanded && !disabled && (
