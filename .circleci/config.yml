@@ -93,7 +93,7 @@ workflows:
           path_in_bucket: html/react-lib-components-release
           executor:
             name: onegini-build/docs-builder
-          <<: *filter-master-only
+          <<: *filter-tags
           requires:
             - test
             - build-storybook
@@ -106,7 +106,7 @@ workflows:
           path_in_bucket: html/react-lib-components-snapshot
           executor:
             name: onegini-build/docs-builder
-          <<: *filter-tags
+          <<: *filter-master-only
           requires:
             - test
             - build-storybook
