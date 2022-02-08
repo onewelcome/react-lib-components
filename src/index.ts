@@ -6,3 +6,4 @@ export { Modal } from './Modal/Modal';
 export { ModalActions } from './Modal/ModalActions/ModalActions';
 export { ModalContent } from './Modal/ModalContent/ModalContent';
 export { ModalHeader } from './Modal/ModalHeader/ModalHeader';
+export { Icon } from './Icon/Icon';
