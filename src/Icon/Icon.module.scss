@@ -24,6 +24,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon {
+	line-height: 0;
+}
+
 .icon-image:before {
   content: "\e900";
   @include fontProperties();

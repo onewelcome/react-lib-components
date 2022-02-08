@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Icon as IconComponent, Props, Icons } from '../../src/Icon/Icon';
+import React, { Fragment } from "react";
+import { Meta, Story } from "@storybook/react";
+import { Icon as IconComponent, Props, Icons } from "../../src/Icon/Icon";
 
 const meta: Meta = {
-  title: 'Icon',
+  title: "Icon",
   component: IconComponent,
 };
 
@@ -23,36 +23,35 @@ const Template: Story<Props> = (args) => {
   //@TODO: change h1 to <Typography /> component in UCL-5
   return (
     <Fragment>
-      <h1 style={{ textAlign: 'center' }}>
-        Click on the icon name to copy the JSX React Component (
-        <code>&lt;Icon icon="icon_name" /&gt;</code>)
+      <h1 style={{ textAlign: "center" }}>
+        Click on the icon name to copy the JSX React Component (<code>&lt;Icon icon="icon_name" /&gt;</code>)
       </h1>
       <br />
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
         }}
       >
         {Object.keys(Icons).map((icon, index) => (
           <article
             key={index}
             style={{
-              flexBasis: '20%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginBottom: '20px',
+              flexBasis: "20%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginBottom: "20px",
             }}
           >
             <IconComponent {...args} icon={Icons[icon]} />
             <button
               onClick={copyIconHandler.bind(null, icon)}
               title="Click here to copy React Component"
-              style={{ padding: '5px', cursor: 'copy', marginTop: '5px' }}
+              style={{ padding: "5px", cursor: "copy", marginTop: "5px" }}
             >
-              <pre style={{ margin: '0' }}>
+              <pre style={{ margin: "0" }}>
                 <code>{Icons[icon]}</code>
               </pre>
             </button>
