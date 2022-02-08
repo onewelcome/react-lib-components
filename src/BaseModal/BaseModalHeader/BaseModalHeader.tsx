@@ -21,7 +21,7 @@ Props) => {
   return (
     <div className={classes['header']}>
       <div className={classes['headline']}>
-        <h4
+        <h1
           id={id}
           className={classes['title']}
           style={{
@@ -33,7 +33,7 @@ Props) => {
           }}
         >
           {title}
-        </h4>
+        </h1>
         <IconButton onClick={onClose} className={classes['closeBtn']} aria-label="close modal">
           <Icon icon={Icons.Times} />
         </IconButton>

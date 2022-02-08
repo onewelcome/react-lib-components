@@ -9,7 +9,7 @@ export interface Props {
 export const DialogTitle = ({ id, title }: Props) => {
   return (
     <div className={classes['header']}>
-      <h4
+      <h1
         id={id}
         style={{
           margin: 0,
@@ -19,7 +19,7 @@ export const DialogTitle = ({ id, title }: Props) => {
         }}
       >
         {title}
-      </h4>
+      </h1>
     </div>
   );
 };
