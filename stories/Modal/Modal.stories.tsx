@@ -9,21 +9,41 @@ import { Button } from '../../src/Button/Button';
 const meta: Meta = {
   title: 'Modal',
   component: Modal,
+  argTypes: {
+    id: {
+      defaultValue: 'modal',
+    },
+    open: {
+      control: false,
+    },
+    ['header.title']: {
+      defaultValue: 'Modal title',
+      control: 'text',
+    },
+    ['content.disableAutoFocus']: {
+      defaultValue: false,
+      control: 'boolean',
+    },
+    ['actions.className']: {
+      defaultValue: undefined,
+      control: 'text',
+    },
+  },
 };
 
 export default meta;
 
-const Template: Story<Props> = () => {
+const Template: Story<Props> = (args) => {
   const [open, setOpen] = useState(false);
 
-  const id = 'modal';
+  const id = args.id;
   const onClose = () => setOpen(false);
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
       <Modal id={id} open={open} onClose={onClose}>
-        <ModalHeader id={`${id}-label`} title="Modal title" onClose={onClose} />
-        <ModalContent id={`${id}-description`}>
+        <ModalHeader id={`${id}-label`} title={args['header.title']} onClose={onClose} />
+        <ModalContent id={`${id}-description`} disableAutoFocus={args['content.disableAutoFocus']}>
           <form
             id="modalForm"
             onSubmit={(e) => {
@@ -94,7 +114,7 @@ const Template: Story<Props> = () => {
             </p>
           </form>
         </ModalContent>
-        <ModalActions>
+        <ModalActions className={args['actions.className']}>
           <Button variant="text" onClick={onClose}>
             Cancel
           </Button>
