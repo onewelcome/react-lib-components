@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './BaseModalHeader.module.scss';
 import { IconButton } from '../../Button/IconButton';
-import { Close } from '@material-ui/icons';
+import { Icon, Icons } from '../../Icon/Icon';
 
 export interface Props {
   id: string;
@@ -34,12 +34,8 @@ Props) => {
         >
           {title}
         </h4>
-        <IconButton
-          onClick={onClose}
-          className={classes['closeBtn']}
-          aria-label="close modal"
-        >
-          <Close />
+        <IconButton onClick={onClose} className={classes['closeBtn']} aria-label="close modal">
+          <Icon icon={Icons.Times} />
         </IconButton>
       </div>
       {children}
