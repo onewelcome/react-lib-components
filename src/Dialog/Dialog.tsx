@@ -66,7 +66,7 @@ export const Dialog = ({
       onClose={onClose}
     >
       <DialogTitle id={labelId(id)} title={title} />
-      <BaseModalContent id={descriptionId(id)} classname={classes['content']} disableAutoFocus>
+      <BaseModalContent id={descriptionId(id)} className={classes['content']} disableAutoFocus>
         {children}
       </BaseModalContent>
       <DialogActions align={alignActions}>
