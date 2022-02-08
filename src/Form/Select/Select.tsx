@@ -5,10 +5,8 @@ import { Input } from "../Input/Input";
 import { Icon, Icons } from "../../Icon/Icon";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactElement[] | ReactElement;
+  children: ReactElement[];
   disabled?: boolean;
-  name?: string;
-  id?: string;
   labeledBy?: string;
   placeholder?: string;
   error?: boolean;
@@ -17,10 +15,10 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const Select = ({
   children,
+  disabled = false,
   labeledBy,
   placeholder = "Choose an option",
   error = false,
-  disabled = false,
   onSelectChange,
   ...rest
 }: Props) => {
@@ -75,13 +73,20 @@ export const Select = ({
     [expanded]
   );
 
-  /**
-   * Add body click listener to close select and remove it in the cleanup function whenever expanded state changes.
-   */
   useEffect(() => {
+    /**
+     * Add body click listener to close select and remove it in the cleanup function whenever expanded state changes.
+     */
     window.addEventListener("click", handleSelectCloseOnBodyClick);
 
+    /**
+     * Calculate dropdown maxheight
+     */
+
     return () => {
+      /**
+       * Cleanup the eventlistener so we can set it again after expanded has changed.
+       */
       window.removeEventListener("click", handleSelectCloseOnBodyClick);
     };
   }, [expanded]);
@@ -128,13 +133,13 @@ export const Select = ({
 
     if (selectedOption.value !== undefined) {
       return (
-        <button
+        <div
           onClick={() => {
             setSelectedOption({ label: "", value: undefined });
           }}
         >
           <Icon icon={Icons.TimesThin} />
-        </button>
+        </div>
       );
     }
 
@@ -163,12 +168,10 @@ export const Select = ({
         {statusIcon()}
         <Icon icon={Icons.TriangleDown} />
       </button>
-      {expanded && !disabled && (
-        <ul role="listbox">
-          {Array.isArray(children) && children.length > 10 && renderSearch()}
-          {renderOptions()}
-        </ul>
-      )}
+      <div style={{ display: expanded ? "block" : "none" }}>
+        {Array.isArray(children) && children.length > 10 && renderSearch()}
+        <ul role="listbox">{renderOptions()}</ul>
+      </div>
     </div>
   );
 };

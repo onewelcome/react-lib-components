@@ -28,12 +28,14 @@ const createSelect = (amountOfOptions = 5, params?: Props) => {
   }
 
   const list = select.querySelector('ul[role="listbox"]');
+  const dropdownWrapper = select.querySelector("div");
 
   return {
     ...queries,
     select,
     button,
     list,
+    dropdownWrapper,
   };
 };
 
@@ -51,9 +53,9 @@ describe("Select should render", () => {
 
 describe("Select should render with search", () => {
   it("shows the search and filtering works", () => {
-    const { select, list } = createSelect(20);
+    const { select, list, dropdownWrapper } = createSelect(20);
 
-    const search = list?.querySelector("input");
+    const search = dropdownWrapper?.querySelector("input");
 
     expect(select).toBeTruthy();
     expect(search).toBeTruthy();

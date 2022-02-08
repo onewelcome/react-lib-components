@@ -1,3 +1,5 @@
+$listItemHeight: 34px;
+
 .select {
   border-color: var(--input-border-color);
   border-style: var(--input-border-style);
@@ -42,12 +44,14 @@
     background-color: #fff;
     border-radius: var(--input-border-radius);
     text-align: left;
+		overflow: auto;
+		max-height: calc($listItemHeight * 10);
 
     li {
-      padding: 8px 15px;
+      padding: 8.5px 15px;
       margin: 0;
       position: relative;
-      line-height: 17px;
+      line-height: 1;
       cursor: pointer;
 
       &:after {
@@ -99,7 +103,6 @@
 }
 
 .select-search {
-	margin-top: -5px;
 	width: 100%;
 	border-top: 0;
 	border-left: 0;
