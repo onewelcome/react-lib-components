@@ -33,10 +33,10 @@ const Template: Story<Props> = () => {
             }}
           >
             <p style={{ margin: 0, paddingInline: 20 }}>
-              This modal shows various options of form controls. It is not meant
-              to be a realistic example of any of our forms.
-              <br /> Clicking Save, Cancel or Close may bring you to a different
-              screen than you came from.
+              This modal shows various options of form controls. It is not meant to be a realistic
+              example of any of our forms.
+              <br /> Clicking Save, Cancel or Close may bring you to a different screen than you
+              came from.
             </p>
             <input
               style={{
@@ -54,8 +54,7 @@ const Template: Story<Props> = () => {
                 fontSize: 11,
               }}
             >
-              Helper text for this text field. Description should be short and
-              not repeat the label.
+              Helper text for this text field. Description should be short and not repeat the label.
             </p>
             <input
               style={{
@@ -73,8 +72,7 @@ const Template: Story<Props> = () => {
                 fontSize: 11,
               }}
             >
-              Helper text for this text field. Description should be short and
-              not repeat the label.
+              Helper text for this text field. Description should be short and not repeat the label.
             </p>
             <input
               style={{
@@ -92,8 +90,7 @@ const Template: Story<Props> = () => {
                 fontSize: 11,
               }}
             >
-              Helper text for this text field. Description should be short and
-              not repeat the label.
+              Helper text for this text field. Description should be short and not repeat the label.
             </p>
           </form>
         </ModalContent>

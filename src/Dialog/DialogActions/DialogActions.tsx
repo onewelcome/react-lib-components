@@ -4,15 +4,13 @@ import classes from './DialogActions.module.scss';
 
 export interface Props {
   children: React.ReactNode;
-  alignment: 'left' | 'right';
+  align: 'left' | 'right';
 }
 
-export const DialogActions = ({ children, alignment }: Props) => {
+export const DialogActions = ({ children, align }: Props) => {
   return (
     <BaseModalActions
-      classname={`${classes['actions']}${
-        alignment === 'left' ? ' ' + classes['left'] : ''
-      }`}
+      className={`${classes['actions']}${align === 'left' ? ' ' + classes['left'] : ''}`}
     >
       {children}
     </BaseModalActions>

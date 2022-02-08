@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Dialog, Props } from '../../src/Dialog/Dialog';
-import { DialogActions } from '../../src/Dialog/DialogActions/DialogActions';
-import { argTypesEnhancers } from '@storybook/store/dist/ts3.9/inferControls';
 import { Button } from '../../src/Button/Button';
 
 const meta: Meta = {
@@ -15,14 +13,12 @@ const meta: Meta = {
     title: {
       defaultValue: 'Discard changes?',
     },
-    type: {
-      defaultValue: 'destructive',
+    alignActions: {
+      defaultValue: 'left',
     },
     children: {
       defaultValue: (
-        <p style={{ margin: 0 }}>
-          This cannot be undone and you will lose your changes.
-        </p>
+        <p style={{ margin: 0 }}>This cannot be undone and you will lose your changes.</p>
       ),
     },
     primaryAction: {
@@ -55,7 +51,8 @@ const Template: Story<Props> = (args) => {
       <Dialog
         id={args.id}
         open={open}
-        type={args.type}
+        onClose={() => setOpen(false)}
+        alignActions={args.alignActions}
         title={args.title}
         primaryAction={args.primaryAction}
         secondaryAction={args.secondaryAction}
@@ -72,14 +69,14 @@ export const NonDestructiveActionDialog = Template.bind({});
 
 NonDestructiveActionDialog.args = {
   title: 'Verify email address',
-  type: 'non-destructive',
+  alignActions: 'right',
   children: (
     <p style={{ margin: 0 }}>
       You want to verify the email address <b>dana.george@mydomain.com</b>.
       <br />
       <br />
-      <b>Dana George</b> will receive an email with a verification link and must
-      click the link to complete the verification.
+      <b>Dana George</b> will receive an email with a verification link and must click the link to
+      complete the verification.
     </p>
   ),
   primaryAction: {
@@ -96,11 +93,52 @@ export const SingleActionDialog = Template.bind({});
 
 SingleActionDialog.args = {
   title: 'Info',
-  type: 'non-destructive',
+  alignActions: 'right',
   children: <p style={{ margin: 0 }}>You can't remove your account.</p>,
   primaryAction: {
     label: 'Ok',
     onClick: () => window.setDialogOpen(false),
   },
   secondaryAction: undefined,
+};
+
+export const NestedDialogs = () => {
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open dialog</Button>
+      <Dialog
+        id="dialog11"
+        open={open}
+        alignActions="right"
+        title="Dialog 1"
+        onClose={() => setOpen(false)}
+        primaryAction={{
+          label: 'Open another dialog',
+          onClick: () => setOpen2(true),
+        }}
+        secondaryAction={{
+          label: 'Close',
+          onClick: () => setOpen(false),
+        }}
+      >
+        Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long
+        dialog content.
+      </Dialog>
+      <Dialog
+        id="dialog12"
+        open={open2}
+        onClose={() => setOpen2(false)}
+        alignActions="left"
+        title="Dialog 2"
+        primaryAction={{
+          label: 'Close',
+          onClick: () => setOpen2(false),
+        }}
+      >
+        Short dialog content.
+      </Dialog>
+    </>
+  );
 };
