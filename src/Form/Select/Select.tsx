@@ -2,6 +2,7 @@ import classes from "./Select.module.scss";
 
 import React, { Fragment, HTMLAttributes, ReactElement, useCallback, useEffect, useState } from "react";
 import { Input } from "../Input/Input";
+import { Icon, Icons } from "../../Icon/Icon";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactElement[] | ReactElement;
@@ -120,6 +121,26 @@ export const Select = ({
     setFilter(event.currentTarget.value);
   };
 
+  const statusIcon = () => {
+    if (error) {
+      return <Icon icon={Icons.Warning} />;
+    }
+
+    if (selectedOption.value !== undefined) {
+      return (
+        <button
+          onClick={() => {
+            setSelectedOption({ label: "", value: undefined });
+          }}
+        >
+          <Icon icon={Icons.TimesThin} />
+        </button>
+      );
+    }
+
+    return null;
+  };
+
   const additionalClasses = [];
   if (expanded) additionalClasses.push(classes.expanded);
   if (error) additionalClasses.push(classes.error);
@@ -139,6 +160,8 @@ export const Select = ({
           {selectedOption.value === undefined && <span className={classes.placeholder}>{placeholder}</span>}
           {selectedOption.value !== undefined && <span>{selectedOption.label}</span>}
         </span>
+        {statusIcon()}
+        <Icon icon={Icons.TriangleDown} />
       </button>
       {expanded && !disabled && (
         <ul role="listbox">
