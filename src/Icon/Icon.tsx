@@ -85,6 +85,7 @@ export const Icon = ({
     <span
       {...rest}
       style={{ color: color, ...style, fontSize: size }}
+      aria-hidden="true"
       className={`${classes.icon} ${classes['icon-' + icon]} ${
         className ? className : ''
       }`}
