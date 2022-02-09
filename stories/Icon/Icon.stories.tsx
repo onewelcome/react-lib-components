@@ -15,7 +15,7 @@ export default meta;
  */
 const Template: Story<Props> = (args) => {
   const copyIconHandler = (icon) => {
-    const toCopy = `<Icon icon="Icons.${Icons[icon]}" />`;
+    const toCopy = `<Icon icon={Icons.${icon}} />`;
 
     navigator.clipboard.writeText(toCopy);
   };
