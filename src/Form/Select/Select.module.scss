@@ -7,7 +7,7 @@ $listItemHeight: 34px;
   border-radius: var(--input-border-radius);
   position: relative;
   box-sizing: border-box;
-	transition: all .15s ease-in-out;
+  transition: all .15s ease-in-out;
 
   &.expanded {
     border-radius: var(--input-border-radius);
@@ -44,8 +44,8 @@ $listItemHeight: 34px;
     background-color: #fff;
     border-radius: var(--input-border-radius);
     text-align: left;
-		overflow: auto;
-		max-height: calc($listItemHeight * 10);
+    overflow: auto;
+    max-height: calc($listItemHeight * 10);
 
     li {
       padding: 8.5px 15px;
@@ -103,19 +103,19 @@ $listItemHeight: 34px;
 }
 
 .select-search {
-	width: 100%;
-	border-top: 0;
-	border-left: 0;
-	border-right: 0;
-	box-sizing: border-box;
+  width: 100%;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  box-sizing: border-box;
 }
 
 .disabled {
-	cursor: not-allowed;
-	color: var(--greyed-out);
-	background-color: var(--disabled);
+  cursor: not-allowed;
+  color: var(--greyed-out);
+  background-color: var(--disabled);
 
-	> * {
-		pointer-events: none;
-	}
+  > * {
+    pointer-events: none;
+  }
 }

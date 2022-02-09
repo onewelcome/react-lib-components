@@ -10,7 +10,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   labeledBy?: string;
   placeholder?: string;
   error?: boolean;
-  onSelectChange?: (option: { label: string; value: string | undefined }) => void;
+  onChange?: (event: React.ChangeEvent<HTMLDivElement>) => void;
 }
 
 export const Select = ({
@@ -19,7 +19,7 @@ export const Select = ({
   labeledBy,
   placeholder = "Choose an option",
   error = false,
-  onSelectChange,
+  onChange,
   ...rest
 }: Props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -38,7 +38,8 @@ export const Select = ({
    * Emit an event so that the end user can execute an onChange event on our custom Select component.
    */
   useEffect(() => {
-    onSelectChange && onSelectChange(selectedOption);
+    const event = new Event("change", { bubbles: true });
+    onChange(event);
   }, [selectedOption]);
 
   useEffect(() => {
