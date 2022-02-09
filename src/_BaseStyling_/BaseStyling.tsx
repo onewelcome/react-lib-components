@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  HTMLAttributes,
-  ReactChild,
-  useEffect,
-  useState,
-} from 'react';
+import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from 'react';
 
 interface CSSProperties {
   colorPrimary?: string;
@@ -25,6 +19,7 @@ interface CSSProperties {
   disabled?: string;
   greyedOut?: string;
   warning?: string;
+  fontFamily?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -52,6 +47,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     disabled: '#e9e9eb',
     greyedOut: '#6f6f76',
     warning: '#ff6105',
+    fontFamily: "'Red Hat Display', sans-serif;",
   });
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
@@ -70,14 +66,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
   /** Set the actual CSS properties on the HTML :root object */
   const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
     for (const [key, value] of Object.entries(CSSPropertiesObject)) {
-      const formattedPropertyName = key.replaceAll(
-        /([A-Z])/g,
-        (val) => `-${val.toLowerCase()}`
-      );
-      document.documentElement.style.setProperty(
-        `--${formattedPropertyName}`,
-        value
-      );
+      const formattedPropertyName = key.replaceAll(/([A-Z])/g, (val) => `-${val.toLowerCase()}`);
+      document.documentElement.style.setProperty(`--${formattedPropertyName}`, value);
     }
   };
 

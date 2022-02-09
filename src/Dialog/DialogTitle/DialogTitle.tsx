@@ -18,6 +18,7 @@ export const DialogTitle = ({ id, title }: Props) => {
           padding: 0,
         }}
       >
+        {/*TODO: replace with typography UCL-44*/}
         {title}
       </h1>
     </div>
