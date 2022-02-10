@@ -11,9 +11,17 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = (args) => {
+  const [selected, setSelected] = useState<string>("");
+
   return (
     <Fragment>
-      <Select {...args}>
+      <Select
+        value={selected}
+        onChange={(event) => {
+          setSelected(event.target.value);
+        }}
+        {...args}
+      >
         <Option value="option1">Test</Option>
         <Option value="option2">Test2</Option>
         <Option value="option3">Test3</Option>

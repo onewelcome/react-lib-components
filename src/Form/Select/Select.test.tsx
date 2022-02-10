@@ -28,7 +28,7 @@ const createSelect = (amountOfOptions = 5, params?: Props) => {
   }
 
   const list = select.querySelector('ul[role="listbox"]');
-  const dropdownWrapper = select.querySelector("div");
+  const dropdownWrapper = select.querySelector(".list-wrapper");
 
   return {
     ...queries,

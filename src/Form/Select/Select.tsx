@@ -10,7 +10,9 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   labeledBy?: string;
   placeholder?: string;
   error?: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLDivElement>) => void;
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>, child?: ReactElement) => void;
+  onClear?: () => void;
 }
 
 export const Select = ({
@@ -19,50 +21,48 @@ export const Select = ({
   labeledBy,
   placeholder = "Choose an option",
   error = false,
+  value = "",
   onChange,
+  onClear,
   ...rest
 }: Props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<{
-    label: string;
-    value: string | undefined;
-  }>({ label: "", value: undefined });
   const [filter, setFilter] = useState<string>("");
+  const [display, setDisplay] = useState("");
 
-  const onOptionChangeHandler = (option: { label: string; value: string }) => {
-    setSelectedOption({ label: option.label, value: option.value });
+  const onOptionChangeHandler = (child: ReactElement) => (event: React.SyntheticEvent<HTMLLIElement>) => {
+    let newValue;
+    let multiple = false; // Potential support for future multiple select. This should be a prop obviously.
+
+    if (multiple) {
+      /** stuff here */
+    } else {
+      newValue = child.props.value;
+    }
+
+    if (onChange) {
+      // Redefine target to allow name and value to be read.
+      // This allows seamless integration with the most popular form libraries.
+      // Clone the event to not override `target` of the original event.
+      // Don't know how to fix this any.. compiler whines that it can't construct it otherwise.
+      const nativeEvent: any = event.nativeEvent || event;
+      const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
+
+      Object.defineProperty(clonedEvent, "target", {
+        writable: true,
+        value: { value: newValue },
+      });
+
+      onChange(clonedEvent, child);
+    }
+
+    setDisplay(event.currentTarget.innerText);
     setExpanded(false);
   };
 
-  /**
-   * Emit an event so that the end user can execute an onChange event on our custom Select component.
-   */
-  useEffect(() => {
-    const event = new Event("change", { bubbles: true });
-    onChange(event);
-  }, [selectedOption]);
-
-  useEffect(() => {
-    /**
-     * Force our children prop to be an array of ReactElements so we can loop over them and add custom props.
-     */
-    if (!Array.isArray(children)) {
-      children = [children];
-    }
-
-    for (let child of children) {
-      /**
-       * If there's an option with the selected attribute, we actually select that one. But since we don't want the placeholder to switch out
-       * with the value on render, we initially set to undefined and then change it if there's an <Option /> with the selected prop
-       */
-      if (child.props.selected) {
-        setSelectedOption({
-          label: child.props.children,
-          value: child.props.value,
-        });
-      }
-    }
-  }, []);
+  const onInputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event);
+  };
 
   const handleSelectCloseOnBodyClick = useCallback(
     (event: MouseEvent) => {
@@ -104,8 +104,8 @@ export const Select = ({
     return children?.map((child, index) => (
       <Fragment key={index}>
         {React.cloneElement(child, {
-          onOptionSelect: onOptionChangeHandler,
-          selected: child.props.value === selectedOption.value,
+          onOptionSelect: onOptionChangeHandler(child),
+          selected: child.props.value === value,
           filter: filter,
         })}
       </Fragment>
@@ -132,13 +132,9 @@ export const Select = ({
       return <Icon icon={Icons.Warning} />;
     }
 
-    if (selectedOption.value !== undefined) {
+    if (value !== undefined) {
       return (
-        <div
-          onClick={() => {
-            setSelectedOption({ label: "", value: undefined });
-          }}
-        >
+        <div onClick={onClear}>
           <Icon icon={Icons.TimesThin} />
         </div>
       );
@@ -154,6 +150,7 @@ export const Select = ({
 
   return (
     <div {...rest} className={`${classes.select} ${additionalClasses.join(" ")} custom-select`}>
+      <input style={{ display: "none" }} value={value} tabIndex={-1} aria-hidden="true" onChange={onInputChangeHandler} />
       <button
         onClick={setExpanded.bind(null, !expanded)}
         aria-disabled={disabled}
@@ -163,13 +160,13 @@ export const Select = ({
         aria-labelledby={labeledBy}
       >
         <span className={classes.selected}>
-          {selectedOption.value === undefined && <span className={classes.placeholder}>{placeholder}</span>}
-          {selectedOption.value !== undefined && <span>{selectedOption.label}</span>}
+          {value === undefined && <span className={classes.placeholder}>{placeholder}</span>}
+          {value !== undefined && <span>{display}</span>}
         </span>
         {statusIcon()}
         <Icon icon={Icons.TriangleDown} />
       </button>
-      <div style={{ display: expanded ? "block" : "none" }}>
+      <div className="list-wrapper" style={{ display: expanded ? "block" : "none" }}>
         {Array.isArray(children) && children.length > 10 && renderSearch()}
         <ul role="listbox">{renderOptions()}</ul>
       </div>
