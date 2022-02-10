@@ -10,23 +10,15 @@ $listItemHeight: 34px;
   transition: all .15s ease-in-out;
 
   &.expanded {
-    border-radius: var(--input-border-radius);
-    border: 0;
+    border: var(--input-border-width) solid transparent;
 
     .list-wrapper {
-      border-color: var(--input-border-color);
-      border-style: var(--input-border-style);
-      border-width: var(--input-border-width);
-      border-radius: var(--input-border-radius);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width:100%;
+      opacity: 1;
+      pointer-events: auto;
     }
   }
 
-  &:hover:not(.disabled) {
+  &:hover:not(.disabled):not(.expanded) {
     border-top-color: var(--default);
     border-left-color: var(--default);
     border-right-color: var(--default);
@@ -43,6 +35,20 @@ $listItemHeight: 34px;
     position: relative;
   }
 
+  .list-wrapper {
+    border-color: var(--input-border-color);
+    border-style: var(--input-border-style);
+    border-width: var(--input-border-width);
+    border-radius: var(--input-border-radius);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
   ul {
     box-sizing: border-box;
     padding: 5px 0;
@@ -51,6 +57,7 @@ $listItemHeight: 34px;
     list-style: none;
     background-color: #fff;
     border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
+    color: var(--default);
     text-align: left;
     overflow: auto;
     max-height: calc($listItemHeight * 10);
@@ -101,6 +108,24 @@ $listItemHeight: 34px;
   pointer-events: none;
 }
 
+.status {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+
+  .warning {
+    color: var(--error);
+    font-size: 20px;
+  }
+
+  * + * {
+    margin-left: 10px;
+  }
+}
+
 .placeholder {
   color: var(--greyed-out);
 }
@@ -112,9 +137,6 @@ $listItemHeight: 34px;
 
 .select-search {
   width: 100%;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
   box-sizing: border-box;
   margin-bottom: 1px;
 }
