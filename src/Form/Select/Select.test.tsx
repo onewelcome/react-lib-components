@@ -16,7 +16,7 @@ const createSelect = (amountOfOptions = 5, params?: Props) => {
   };
 
   const queries = render(
-    <Select data-testid="select" {...params}>
+    <Select onChange={jest.fn()} data-testid="select" {...params}>
       {renderOptions(amountOfOptions)}
     </Select>
   );
@@ -89,6 +89,8 @@ describe("Selecting options using keyboard", () => {
 
     userEvent.keyboard("{enter}");
 
-    expect(select.querySelector(".selected span")?.innerHTML).toBe("Option5");
+    setTimeout(() => {
+      expect(select.querySelector("button > span > span")?.innerHTML).toBe("Option5");
+    }, 50);
   });
 });
