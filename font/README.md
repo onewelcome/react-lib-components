@@ -1,0 +1,2 @@
+# Icon font
+Icon font is generated using https://icomoon.io. In order to add/remove to this font, simply grab the selection.json and import it. Then add/remove whatever icons (in SVG format) you want, re-export and replace the font files + selection.json for the potential next time you need to add/remove icons.
