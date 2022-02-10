@@ -9,9 +9,10 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   disabled?: boolean;
   labeledBy?: string;
   placeholder?: string;
+  searchPlaceholder?: string;
   error?: boolean;
   value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>, child?: ReactElement) => void;
+  onChange?: (event: React.ChangeEvent<HTMLDivElement>, child?: ReactElement) => void;
   onClear?: () => void;
 }
 
@@ -20,49 +21,54 @@ export const Select = ({
   disabled = false,
   labeledBy,
   placeholder = "Choose an option",
+  searchPlaceholder = "Search item",
   error = false,
   value = "",
   onChange,
   onClear,
   ...rest
 }: Props) => {
-  const [expanded, setExpanded] = useState<boolean>(false);
-  const [filter, setFilter] = useState<string>("");
+  const [expanded, setExpanded] = useState(false);
+  const [filter, setFilter] = useState("");
   const [display, setDisplay] = useState("");
 
-  const onOptionChangeHandler = (child: ReactElement) => (event: React.SyntheticEvent<HTMLLIElement>) => {
-    let newValue;
-    let multiple = false; // Potential support for future multiple select. This should be a prop obviously.
+  const onOptionChangeHandler =
+    <T extends HTMLElement>(child: ReactElement) =>
+    (event: React.ChangeEvent<T>) => {
+      /**
+       * We use a native input in the template in order to get an actual event object when the selected value changes.
+       * We expose this to the outside inside of the onChange function as a parameter along with an optional second
+       * parameter of the option that was clicked.
+       */
 
-    if (multiple) {
-      /** stuff here */
-    } else {
-      newValue = child.props.value;
-    }
+      let newValue;
+      let multiple = false; // Potential support for future multiple select. This should be a prop obviously.
 
-    if (onChange) {
-      // Redefine target to allow name and value to be read.
-      // This allows seamless integration with the most popular form libraries.
-      // Clone the event to not override `target` of the original event.
-      // Don't know how to fix this any.. compiler whines that it can't construct it otherwise.
-      const nativeEvent: any = event.nativeEvent || event;
-      const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
+      if (multiple) {
+        /** TODO: configure multiple select here */
+      } else {
+        newValue = child.props.value;
+      }
 
-      Object.defineProperty(clonedEvent, "target", {
-        writable: true,
-        value: { value: newValue },
-      });
+      if (onChange) {
+        // Redefine target to allow name and value to be read.
+        // This allows seamless integration with the most popular form libraries.
+        // Clone the event to not override `target` of the original event.
+        // Don't know how to fix this any.. compiler whines that it can't construct it otherwise.
+        const nativeEvent: any = event.nativeEvent || event;
+        const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
 
-      onChange(clonedEvent, child);
-    }
+        Object.defineProperty(clonedEvent, "target", {
+          writable: true,
+          value: { value: newValue },
+        });
 
-    setDisplay(event.currentTarget.innerText);
-    setExpanded(false);
-  };
+        onChange(clonedEvent, child);
+      }
 
-  const onInputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
-  };
+      setDisplay(event.currentTarget.innerText);
+      setExpanded(false);
+    };
 
   const handleSelectCloseOnBodyClick = useCallback(
     (event: MouseEvent) => {
@@ -119,7 +125,7 @@ export const Select = ({
       className={classes["select-search"]}
       type="text"
       name="search-option"
-      placeholder="Search item"
+      placeholder={searchPlaceholder}
     />
   );
 
@@ -129,7 +135,7 @@ export const Select = ({
 
   const statusIcon = () => {
     if (error) {
-      return <Icon icon={Icons.Warning} />;
+      return <Icon className={classes.warning} icon={Icons.Warning} />;
     }
 
     if (value !== undefined) {
@@ -150,7 +156,7 @@ export const Select = ({
 
   return (
     <div {...rest} className={`${classes.select} ${additionalClasses.join(" ")} custom-select`}>
-      <input style={{ display: "none" }} value={value} tabIndex={-1} aria-hidden="true" onChange={onInputChangeHandler} />
+      <input style={{ display: "none" }} value={value} tabIndex={-1} aria-hidden="true" onChange={() => onOptionChangeHandler} />
       <button
         onClick={setExpanded.bind(null, !expanded)}
         aria-disabled={disabled}
@@ -160,11 +166,13 @@ export const Select = ({
         aria-labelledby={labeledBy}
       >
         <span className={classes.selected}>
-          {value === undefined && <span className={classes.placeholder}>{placeholder}</span>}
-          {value !== undefined && <span>{display}</span>}
+          {value.length === 0 && <span className={classes.placeholder}>{placeholder}</span>}
+          {value.length > 0 && <span>{display}</span>}
         </span>
-        {statusIcon()}
-        <Icon icon={Icons.TriangleDown} />
+        <div className={classes.status}>
+          {statusIcon()}
+          <Icon icon={Icons.TriangleDown} />
+        </div>
       </button>
       <div className={`list-wrapper ${classes["list-wrapper"]}`} style={{ display: expanded ? "block" : "none" }}>
         {Array.isArray(children) && children.length > 10 && renderSearch()}
