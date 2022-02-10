@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: react-lib-components
+  links:
+    - url: https://docs-internal.onegini.com/html/react-lib-components-release/
+      title: Storybook - RELEASE
+      icon: docs
+    - url: https://docs-internal.onegini.com/html/react-lib-components-snapshot/
+      title: Storybook - SNAPSHOT
+      icon: docs
+  annotations:
+    github.com/project-slug: onewelcome/react-lib-components
+spec:
+  type: other
+  lifecycle: unknown
+  owner: frontend

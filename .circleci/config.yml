@@ -16,6 +16,11 @@ orbs:
   requires:
     - test
 
+.filter-master-only: &filter-master-only
+  filters:
+    branches:
+      only: master
+
 .filter-branches-tags: &filter-branches-tags
   filters:
     tags:
@@ -81,13 +86,27 @@ workflows:
           <<: *filter-branches-tags
 
       - onegini-build/deploy-docs:
-          name: deploy-storybook
+          name: deploy-storybook-release
           context: internal-docs
           s3_bucket: onegini-internal-docs-storage-production
           site_location: storybook-static/
-          path_in_bucket: html/react-lib-components
-          executor: onegini-build/node-executor
+          path_in_bucket: html/react-lib-components-release
+          executor:
+            name: onegini-build/docs-builder
           <<: *filter-tags
+          requires:
+            - test
+            - build-storybook
+
+      - onegini-build/deploy-docs:
+          name: deploy-storybook-snapshot
+          context: internal-docs
+          s3_bucket: onegini-internal-docs-storage-production
+          site_location: storybook-static/
+          path_in_bucket: html/react-lib-components-snapshot
+          executor:
+            name: onegini-build/docs-builder
+          <<: *filter-master-only
           requires:
             - test
             - build-storybook

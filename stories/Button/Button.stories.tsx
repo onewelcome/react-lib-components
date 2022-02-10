@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Button, Props } from '../../src/Button/Button';
-import { Photo } from '@material-ui/icons';
+import { Icon } from '../../src/Icon/Icon';
 
 const meta: Meta = {
   title: 'Button',
@@ -54,11 +54,11 @@ export const StartIconButton = Template.bind({});
 export const EndIconButton = Template.bind({});
 
 StartIconButton.args = {
-  startIcon: <Photo />,
+  startIcon: <Icon icon="calendar" />,
 };
 
 EndIconButton.args = {
-  endIcon: <Photo />,
+  endIcon: <Icon icon="calendar" />,
 };
 
 export const DisabledButton = Template.bind({});
