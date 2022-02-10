@@ -44,7 +44,7 @@ export const Select = ({
       let multiple = false; // Potential support for future multiple select. This should be a prop obviously.
 
       if (multiple) {
-        /** TODO: configure multiple select here */
+        /** We will implement the mulitple select in the next iteration */
       } else {
         newValue = child.props.value;
       }
