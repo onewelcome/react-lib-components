@@ -10,18 +10,17 @@ const meta: Meta = {
 
 export default meta;
 
+declare global {
+  var setSelected: React.Dispatch<React.SetStateAction<string>>;
+}
+
 const Template: Story<Props> = (args) => {
-  const [selected, setSelected] = useState<string>("");
+  const [selected, setSelected] = useState("");
+  window.setSelected = setSelected;
 
   return (
     <Fragment>
-      <Select
-        value={selected}
-        onChange={(event) => {
-          setSelected(event.target.value);
-        }}
-        {...args}
-      >
+      <Select value={selected} {...args}>
         <Option value="option1">Test</Option>
         <Option value="option2">Test2</Option>
         <Option value="option3">Test3</Option>
@@ -34,10 +33,15 @@ const Template: Story<Props> = (args) => {
         <Option value="option10">Test10</Option>
         <Option value="option11">Test11</Option>
       </Select>
+      <span>Selected value: {selected}</span>
     </Fragment>
   );
 };
 
 export const SelectEl = Template.bind({});
 
-SelectEl.args = {};
+SelectEl.args = {
+  onChange: (event) => {
+    window.setSelected(event.target.value);
+  },
+};

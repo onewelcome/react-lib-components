@@ -11,10 +11,18 @@ $listItemHeight: 34px;
 
   &.expanded {
     border-radius: var(--input-border-radius);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
+    border: 0;
 
-    button {
-      display: none;
+    .list-wrapper {
+      border-color: var(--input-border-color);
+      border-style: var(--input-border-style);
+      border-width: var(--input-border-width);
+      border-radius: var(--input-border-radius);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width:100%;
     }
   }
 
@@ -42,7 +50,7 @@ $listItemHeight: 34px;
     margin: 0;
     list-style: none;
     background-color: #fff;
-    border-radius: var(--input-border-radius);
+    border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
     text-align: left;
     overflow: auto;
     max-height: calc($listItemHeight * 10);
@@ -108,6 +116,7 @@ $listItemHeight: 34px;
   border-left: 0;
   border-right: 0;
   box-sizing: border-box;
+  margin-bottom: 1px;
 }
 
 .disabled {

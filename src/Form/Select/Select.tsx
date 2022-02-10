@@ -166,7 +166,7 @@ export const Select = ({
         {statusIcon()}
         <Icon icon={Icons.TriangleDown} />
       </button>
-      <div className="list-wrapper" style={{ display: expanded ? "block" : "none" }}>
+      <div className={`list-wrapper ${classes["list-wrapper"]}`} style={{ display: expanded ? "block" : "none" }}>
         {Array.isArray(children) && children.length > 10 && renderSearch()}
         <ul role="listbox">{renderOptions()}</ul>
       </div>
