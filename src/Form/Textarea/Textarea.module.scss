@@ -1,3 +1,8 @@
+.textarea-wrapper {
+  position: relative;
+  display: inline-block; // This is necessary, because if you resize the textarea when this is display block, the error icon won't move with it.
+}
+
 .textarea {
   padding: 20px;
   border-color: var(--input-border-color);
@@ -7,22 +12,25 @@
   transition: all 0.15s ease-in-out;
   font-family: var(--font-family);
   font-size: var(--font-size);
+  width: 100%;
+  box-sizing: border-box;
 
   &:disabled {
     color: var(--greyed-out);
     background-color: var(--disabled);
     border-color: #fff;
+    cursor: not-allowed;
   }
 
-  &:focus {
+  &:focus:not(:disabled) {
     outline-color: var(--color-primary);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     border-color: var(--color-primary);
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: var(--default);
   }
 }
@@ -30,4 +38,12 @@
 .error {
   border-color: var(--error);
   color: var(--error);
+}
+
+.warning {
+  color: var(--error);
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 20px;
 }
