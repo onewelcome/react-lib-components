@@ -8,14 +8,14 @@ export interface Props extends HTMLAttributes<HTMLLIElement> {
   selected?: boolean;
   label?: string;
   filter?: string;
-  onOptionSelect?: (option: { label: string; value: string }) => void;
+  onOptionSelect?: (event: React.SyntheticEvent<HTMLLIElement>) => void;
 }
 
 export const Option = ({ children, selected = false, onOptionSelect, value, filter, ...rest }: Props) => {
   const [showOption, setShowOption] = useState(true);
 
-  const onSelectHandler = () => {
-    if (onOptionSelect) onOptionSelect({ label: children, value: value });
+  const onSelectHandler = (event: React.SyntheticEvent<HTMLLIElement>) => {
+    if (onOptionSelect) onOptionSelect(event);
   };
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const Option = ({ children, selected = false, onOptionSelect, value, filt
       className={selected ? classes["selected-option"] : ""}
       onClick={onSelectHandler}
       onKeyPress={(e) => {
-        e.key === "Enter" && onSelectHandler();
+        e.key === "Enter" && onSelectHandler(e);
       }}
       aria-selected={selected}
       role="option"
