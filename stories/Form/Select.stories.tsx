@@ -44,4 +44,7 @@ SelectEl.args = {
   onChange: (event) => {
     window.setSelected(event.target.value);
   },
+  onClear: () => {
+    window.setSelected("");
+  },
 };

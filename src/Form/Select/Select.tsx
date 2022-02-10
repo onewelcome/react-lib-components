@@ -13,7 +13,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   error?: boolean;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLDivElement>, child?: ReactElement) => void;
-  onClear?: () => void;
+  onClear?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export const Select = ({
@@ -137,7 +137,7 @@ export const Select = ({
       return <Icon className={classes.warning} icon={Icons.Warning} />;
     }
 
-    if (value !== undefined) {
+    if (value.length !== 0 && onClear) {
       return (
         <div onClick={onClear}>
           <Icon icon={Icons.TimesThin} />
