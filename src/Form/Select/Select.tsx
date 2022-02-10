@@ -165,10 +165,10 @@ export const Select = ({
         aria-haspopup="listbox"
         aria-labelledby={labeledBy}
       >
-        <span className={classes.selected}>
+        <div className={classes.selected}>
           {value.length === 0 && <span className={classes.placeholder}>{placeholder}</span>}
           {value.length > 0 && <span>{display}</span>}
-        </span>
+        </div>
         <div className={classes.status}>
           {statusIcon()}
           <Icon icon={Icons.TriangleDown} />
