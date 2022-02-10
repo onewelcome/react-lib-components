@@ -36,7 +36,6 @@ export const Select = ({
     <T extends HTMLElement>(child: ReactElement) =>
     (event: React.ChangeEvent<T>) => {
       /**
-       * We use a native input in the template in order to get an actual event object when the selected value changes.
        * We expose this to the outside inside of the onChange function as a parameter along with an optional second
        * parameter of the option that was clicked.
        */
