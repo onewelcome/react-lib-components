@@ -139,6 +139,8 @@ $listItemHeight: 34px;
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .disabled {
