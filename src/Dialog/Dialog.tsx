@@ -1,12 +1,13 @@
-import React from 'react';
-import { BaseModal, descriptionId, labelId } from '../BaseModal/BaseModal';
+import React, { HTMLAttributes } from 'react';
+import { BaseModal } from '../BaseModal/BaseModal';
 import { BaseModalContent } from '../BaseModal/BaseModalContent/BaseModalContent';
 import { DialogActions } from './DialogActions/DialogActions';
 import classes from './Dialog.module.scss';
 import { DialogTitle } from './DialogTitle/DialogTitle';
 import { Button, Props as ButtonProps } from '../Button/Button';
+import { labelId, descriptionId } from '../BaseModal/BaseModalContext';
 
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   id: string;
   open: boolean;
   children: React.ReactNode;
@@ -15,6 +16,7 @@ export interface Props {
   title: string;
   primaryAction: Action;
   secondaryAction?: Action;
+  zIndex?: number;
 }
 
 export interface Action extends Omit<ButtonProps, 'variant'> {
@@ -31,6 +33,8 @@ export const Dialog = ({
   title,
   primaryAction,
   secondaryAction,
+  zIndex,
+  ...restProps
 }: Props) => {
   const { label: primaryLabel, ...restOfPrimaryAction } = primaryAction;
   const PrimaryButton = (
@@ -58,12 +62,14 @@ export const Dialog = ({
 
   return (
     <BaseModal
+      {...restProps}
       id={id}
       className={classes['dialog']}
       containerClassName={classes['container']}
       open={open}
       disableBackdrop
       onClose={onClose}
+      zIndex={zIndex}
     >
       <DialogTitle id={labelId(id)} title={title} />
       <BaseModalContent id={descriptionId(id)} className={classes['content']} disableAutoFocus>
@@ -75,7 +81,6 @@ export const Dialog = ({
           : [TertiaryButton, PrimaryButton]}
       </DialogActions>
       <input
-        data-testid="auto-submission"
         autoFocus
         style={{
           position: 'absolute',

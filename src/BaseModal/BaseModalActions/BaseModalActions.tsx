@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import classes from './BaseModalActions.module.scss';
 
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
-  className?: string;
 }
 
-export const BaseModalActions = ({ children, className = '' }: Props) => {
-  return <div className={`${classes['actions']} ${className}`}>{children}</div>;
+export const BaseModalActions = ({ children, className = '', ...restProps }: Props) => {
+  return (
+    <footer {...restProps} className={`${classes['actions']} ${className}`}>
+      {children}
+    </footer>
+  );
 };

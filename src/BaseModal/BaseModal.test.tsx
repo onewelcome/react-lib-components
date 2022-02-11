@@ -5,7 +5,7 @@ import {
   getByRole,
   getByText,
   queryByText,
-  getByTestId,
+  queryByRole,
   fireEvent,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -30,22 +30,24 @@ describe('BaseModal', () => {
     expect(dialog).toHaveAttribute('aria-labelledby', 'modal-label');
     expect(dialog).toHaveAttribute('aria-describedby', 'modal-description');
     expect(dialog).toHaveAttribute('data-hidden', 'false');
-    expect(dialog).toHaveClass('modal', 'visible');
+    expect(dialog).toHaveAttribute('aria-hidden', 'false');
     expect(getByText(dialog, initParams.children as string)).toBeDefined();
     expect(document.body).toHaveStyle('overflow: hidden');
   });
 
   it('should render close modal without content', () => {
     const { container } = render(<BaseModal {...initParams} open={false} />);
-    const dialog = getByRole(container, 'dialog');
-    expect(dialog).not.toHaveClass('visible');
+    const dialogByRole = queryByRole(container, 'dialog');
+    const dialog = container.children[0] as HTMLElement;
+    expect(dialogByRole).toBeNull();
+    expect(dialog).toHaveAttribute('aria-hidden', 'true');
     expect(queryByText(dialog, initParams.children as string)).toBeNull();
   });
 
   it('should handle clicking on backdrop & ESC key', () => {
     const { container } = render(<BaseModal {...initParams} />);
-    const backdrop = getByTestId(container, 'backdrop');
     const modal = getByRole(container, 'dialog');
+    const backdrop = modal.querySelector('.backdrop') as HTMLElement;
     expect(initParams.onClose).toHaveBeenCalledTimes(0);
 
     userEvent.click(backdrop);

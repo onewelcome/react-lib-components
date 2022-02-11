@@ -6,32 +6,18 @@ import { Button } from '../../src/Button/Button';
 const meta: Meta = {
   title: 'Dialog',
   component: Dialog,
-  argTypes: {
-    id: {
-      defaultValue: 'dialog',
-    },
-    title: {
-      defaultValue: 'Discard changes?',
-    },
-    alignActions: {
-      defaultValue: 'left',
-    },
-    children: {
-      defaultValue: (
-        <p style={{ margin: 0 }}>This cannot be undone and you will lose your changes.</p>
-      ),
-    },
+  args: {
+    id: 'dialog',
+    title: 'Discard changes?',
+    alignActions: 'left',
+    children: <p style={{ margin: 0 }}>This cannot be undone and you will lose your changes.</p>,
     primaryAction: {
-      defaultValue: {
-        label: 'Discard',
-        onClick: () => window.setDialogOpen(false),
-      },
+      label: 'Discard',
+      onClick: () => window.setDialogOpen(false),
     },
     secondaryAction: {
-      defaultValue: {
-        label: 'Keep editing',
-        onClick: () => window.setDialogOpen(false),
-      },
+      label: 'Keep editing',
+      onClick: () => window.setDialogOpen(false),
     },
   },
 };
@@ -63,11 +49,11 @@ const Template: Story<Props> = (args) => {
   );
 };
 
-export const DestructiveActionDialog = Template.bind({});
+export const LeftAlignedActionDialog = Template.bind({});
 
-export const NonDestructiveActionDialog = Template.bind({});
+export const RightAlignedActionDialog = Template.bind({});
 
-NonDestructiveActionDialog.args = {
+RightAlignedActionDialog.args = {
   title: 'Verify email address',
   alignActions: 'right',
   children: (

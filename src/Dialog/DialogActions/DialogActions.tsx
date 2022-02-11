@@ -1,15 +1,18 @@
 import React from 'react';
-import { BaseModalActions } from '../../BaseModal/BaseModalActions/BaseModalActions';
+import {
+  BaseModalActions,
+  Props as BaseModalActionsProps,
+} from '../../BaseModal/BaseModalActions/BaseModalActions';
 import classes from './DialogActions.module.scss';
 
-export interface Props {
-  children: React.ReactNode;
+export interface Props extends BaseModalActionsProps {
   align: 'left' | 'right';
 }
 
-export const DialogActions = ({ children, align }: Props) => {
+export const DialogActions = ({ children, align, ...restProps }: Props) => {
   return (
     <BaseModalActions
+      {...restProps}
       className={`${classes['actions']}${align === 'left' ? ' ' + classes['left'] : ''}`}
     >
       {children}

@@ -9,23 +9,23 @@ import { Button } from '../../src/Button/Button';
 const meta: Meta = {
   title: 'Modal',
   component: Modal,
+  args: {
+    id: 'modal',
+    ['header.title']: 'Modal title',
+    ['content.disableAutoFocus']: false,
+    ['actions.className']: undefined,
+  },
   argTypes: {
-    id: {
-      defaultValue: 'modal',
-    },
     open: {
       control: false,
     },
     ['header.title']: {
-      defaultValue: 'Modal title',
       control: 'text',
     },
     ['content.disableAutoFocus']: {
-      defaultValue: false,
       control: 'boolean',
     },
     ['actions.className']: {
-      defaultValue: undefined,
       control: 'text',
     },
   },
@@ -41,7 +41,7 @@ const Template: Story<Props> = (args) => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Modal id={id} open={open} onClose={onClose}>
+      <Modal id={id} open={open} onClose={onClose} zIndex={args.zIndex}>
         <ModalHeader id={`${id}-label`} title={args['header.title']} onClose={onClose} />
         <ModalContent id={`${id}-description`} disableAutoFocus={args['content.disableAutoFocus']}>
           <form

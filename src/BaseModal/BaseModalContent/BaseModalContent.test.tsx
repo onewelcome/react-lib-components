@@ -1,7 +1,7 @@
 import React from 'react';
 import { BaseModalContent, Props } from './BaseModalContent';
 import { render } from '@testing-library/react';
-import { descriptionId } from '../BaseModal';
+import { descriptionId } from '../BaseModalContext';
 
 const classNames = ['class1', 'class2'];
 const initParams: Props = {

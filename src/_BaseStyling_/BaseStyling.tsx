@@ -12,7 +12,7 @@ interface CSSProperties {
   buttonOutlineHoverTextColor?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
-  modalHeaderBackgrounColor?: string;
+  modalHeaderBackgroundColor?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -40,7 +40,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonOutlineHoverTextColor: '#FFF',
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',
     modalBackgroundColor: '#F5F8F8',
-    modalHeaderBackgrounColor: '#FFF',
+    modalHeaderBackgroundColor: '#FFF',
     default: '#0f0f1e',
     success: '#008A28',
     error: '#e22a1d',

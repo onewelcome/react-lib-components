@@ -1,7 +1,7 @@
 import React from 'react';
 import { BaseModalHeader, Props } from './BaseModalHeader';
 import { render, getByRole, getByTestId, getByText } from '@testing-library/react';
-import { labelId } from '../BaseModal';
+import { labelId } from '../BaseModalContext';
 import userEvent from '@testing-library/user-event';
 
 const additionalContent = 'Additional content';

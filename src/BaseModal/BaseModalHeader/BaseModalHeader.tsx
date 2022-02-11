@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import classes from './BaseModalHeader.module.scss';
 import { IconButton } from '../../Button/IconButton';
 import { Icon, Icons } from '../../Icon/Icon';
 
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLElement> {
   id: string;
   title: string;
   children?: React.ReactNode;
-  onClose: () => void;
+  onClose: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const BaseModalHeader = ({
@@ -15,11 +15,12 @@ export const BaseModalHeader = ({
   title,
   children,
   onClose,
+  ...restProps
 }: // labeledby,
 // description,
 Props) => {
   return (
-    <div className={classes['header']}>
+    <header {...restProps} className={classes['header']}>
       <div className={classes['headline']}>
         <h1
           id={id}
@@ -40,6 +41,6 @@ Props) => {
         </IconButton>
       </div>
       {children}
-    </div>
+    </header>
   );
 };

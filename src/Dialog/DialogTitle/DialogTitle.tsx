@@ -8,7 +8,7 @@ export interface Props {
 
 export const DialogTitle = ({ id, title }: Props) => {
   return (
-    <div className={classes['header']}>
+    <header className={classes['header']}>
       <h1
         id={id}
         style={{
@@ -21,6 +21,6 @@ export const DialogTitle = ({ id, title }: Props) => {
         {/*TODO: replace with typography UCL-44*/}
         {title}
       </h1>
-    </div>
+    </header>
   );
 };

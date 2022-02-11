@@ -1,13 +1,6 @@
 import React from 'react';
 import { Dialog, Props } from './Dialog';
-import {
-  render,
-  getAllByRole,
-  getByRole,
-  getByTestId,
-  fireEvent,
-  getByText,
-} from '@testing-library/react';
+import { render, getAllByRole, getByRole, fireEvent, getByText } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const initParams: Props = {
@@ -36,7 +29,7 @@ describe('Dialog', () => {
 
     expect(getByText(container, initParams.title)).toBeDefined();
     expect(getByText(container, initParams.children as string)).toBeDefined();
-    const actionsDiv = primaryButton.closest('div');
+    const actionsDiv = primaryButton.closest('footer');
     expect(actionsDiv).toHaveClass('left');
     expect(actionsDiv?.children[0]).toEqual(primaryButton);
     expect(actionsDiv?.children[1]).toEqual(secondaryButton);
@@ -48,7 +41,7 @@ describe('Dialog', () => {
     const { container } = render(<Dialog {...initParams} alignActions="right" />);
     const [secondaryButton, primaryButton] = getButtons(container);
 
-    const actionsDiv = primaryButton.closest('div');
+    const actionsDiv = primaryButton.closest('footer');
     expect(actionsDiv).not.toHaveClass('left');
     expect(actionsDiv?.children[0]).toEqual(secondaryButton);
     expect(actionsDiv?.children[1]).toEqual(primaryButton);
@@ -71,7 +64,7 @@ describe('Dialog', () => {
     expect(initParams.secondaryAction?.onClick).toHaveBeenCalledTimes(0);
     expect(initParams.onClose).toHaveBeenCalledTimes(0);
 
-    const autoSummissionInput = getByTestId(container, 'auto-submission');
+    const autoSummissionInput = container.querySelector('input') as HTMLElement;
     userEvent.type(autoSummissionInput, '{enter}');
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(1);
 

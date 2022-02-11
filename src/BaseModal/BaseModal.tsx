@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { HTMLAttributes, useEffect, useRef } from 'react';
 import classes from './BaseModal.module.scss';
-import { useBackdropOnCloseClick } from './useBackdropOnCloseClick';
-import { useSetBodyScroll } from './useSetBodyScroll';
+import { labelId, descriptionId } from './BaseModalContext';
 
-export interface Props {
+const SCROLL_PROPERTY_NAME = 'overflow';
+const SCROLL_PROPERTY_VALUE = 'hidden';
+
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   id: string;
   children: React.ReactNode;
   open: boolean;
@@ -14,10 +16,49 @@ export interface Props {
   describedby?: string;
   disableEscapeKeyDown?: boolean;
   disableBackdrop?: boolean;
+  zIndex?: number;
 }
 
-export const labelId = (id: string) => `${id}-label`;
-export const descriptionId = (id: string) => `${id}-description`;
+const useBackdropOnCloseClick = (
+  disableBackdrop: boolean,
+  onClose?: (event?: React.MouseEvent<HTMLElement>) => unknown
+) => {
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const onBackdropClick = () => onClose && onClose();
+
+  useEffect(() => {
+    !disableBackdrop && backdropRef.current?.addEventListener('click', onBackdropClick);
+    return () => {
+      !disableBackdrop && backdropRef.current?.removeEventListener('click', onBackdropClick);
+    };
+  }, []);
+
+  return {
+    backdropRef,
+  };
+};
+
+export const useSetBodyScroll = (open: boolean) => {
+  const hideBodyScroll = () => {
+    document.body.style[SCROLL_PROPERTY_NAME] = SCROLL_PROPERTY_VALUE;
+  };
+
+  const showBodyScroll = () => {
+    const allModalsClosed =
+      document.querySelectorAll('[role=dialog][data-hidden=false]').length === 0;
+    if (allModalsClosed) {
+      document.body.style.removeProperty(SCROLL_PROPERTY_NAME);
+    }
+  };
+
+  useEffect(() => {
+    if (open) {
+      hideBodyScroll();
+    } else {
+      showBodyScroll();
+    }
+  }, [open]);
+};
 
 export const BaseModal = ({
   id,
@@ -30,6 +71,8 @@ export const BaseModal = ({
   describedby,
   disableEscapeKeyDown = false,
   disableBackdrop = false,
+  zIndex,
+  ...restProps
 }: Props) => {
   const { backdropRef } = useBackdropOnCloseClick(disableBackdrop, onClose);
   useSetBodyScroll(open);
@@ -43,18 +86,28 @@ export const BaseModal = ({
 
   return (
     <div
+      {...restProps}
       id={id}
       className={`${classes['modal']} ${open && classes['visible']} ${className}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby={labelledby || labelId(id)}
       aria-describedby={describedby || descriptionId(id)}
+      aria-hidden={!open}
       tabIndex={-1}
       data-hidden={!open}
       onKeyDown={handleEscKeyPress}
+      style={{ zIndex }}
     >
-      <div data-testid="backdrop" ref={backdropRef} className={classes['backdrop']}></div>
-      {open && <div className={`${classes['container']} ${containerClassName}`}>{children}</div>}
+      <div ref={backdropRef} className={classes['backdrop']}></div>
+      {open && (
+        <div
+          style={{ zIndex: zIndex && zIndex + 1 }}
+          className={`${classes['container']} ${containerClassName}`}
+        >
+          {children}
+        </div>
+      )}
     </div>
   );
 };
