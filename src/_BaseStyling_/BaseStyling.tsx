@@ -13,13 +13,13 @@ interface CSSProperties {
   modalShadowColor?: string;
   modalBackgroundColor?: string;
   modalHeaderBackgroundColor?: string;
+  fontFamily?: string;
   default?: string;
   success?: string;
   error?: string;
   disabled?: string;
   greyedOut?: string;
   warning?: string;
-  fontFamily?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -41,13 +41,13 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',
     modalBackgroundColor: '#F5F8F8',
     modalHeaderBackgroundColor: '#FFF',
+    fontFamily: "'Red Hat Display', sans-serif;",
     default: '#0f0f1e',
     success: '#008A28',
     error: '#e22a1d',
     disabled: '#e9e9eb',
     greyedOut: '#6f6f76',
     warning: '#ff6105',
-    fontFamily: "'Red Hat Display', sans-serif;",
   });
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
