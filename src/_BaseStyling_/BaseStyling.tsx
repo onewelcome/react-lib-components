@@ -16,6 +16,7 @@ interface CSSProperties {
   buttonBorderStyle?: string;
   buttonFillTextColor?: string;
   buttonOutlineHoverTextColor?: string;
+  fontFamily?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -40,6 +41,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonBorderStyle: 'solid',
     buttonFillTextColor: '#FFF',
     buttonOutlineHoverTextColor: '#FFF',
+    fontFamily: "'Red Hat Display', sans-serif",
     default: '#0f0f1e',
     success: '#008A28',
     error: '#e22a1d',
