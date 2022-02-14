@@ -41,7 +41,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',
     modalBackgroundColor: '#F5F8F8',
     modalHeaderBackgroundColor: '#FFF',
-    fontFamily: "'Red Hat Display', sans-serif;",
+    fontFamily: "'Red Hat Display', sans-serif",
     default: '#0f0f1e',
     success: '#008A28',
     error: '#e22a1d',

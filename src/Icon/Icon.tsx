@@ -69,8 +69,17 @@ export enum Icons {
 export interface Props extends HTMLAttributes<HTMLSpanElement> {
   icon: Icons;
   color?: string;
+  size?: string;
+  tag?: string;
 }
 
-export const Icon = ({ icon, color, ...rest }: Props) => {
-  return <span {...rest} style={{ color: color }} className={classes[`icon-${icon}`]} />;
+export const Icon = ({ icon, color, className, style, size, ...rest }: Props) => {
+  return (
+    <span
+      {...rest}
+      style={{ color: color, ...style, fontSize: size }}
+      aria-hidden="true"
+      className={`${classes['icon']} ${classes['icon-' + icon]} ${className ? className : ''}`}
+    />
+  );
 };
