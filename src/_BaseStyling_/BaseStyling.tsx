@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  HTMLAttributes,
-  ReactChild,
-  useEffect,
-  useState,
-} from 'react';
+import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from "react";
 
 interface CSSProperties {
   colorPrimary?: string;
@@ -20,6 +14,7 @@ interface CSSProperties {
   inputBorderRadius?: string;
   inputBorderWidth?: string;
   inputBorderStyle?: string;
+  fontFamily?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -35,25 +30,26 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const [colors, setColors] = useState<CSSProperties>({
-    colorPrimary: '#9e006b',
-    colorSecondary: '#003b5e',
-    colorTertiary: '#ff1e4e',
-    buttonBorderRadius: '20px',
-    buttonBorderWidth: '2px',
-    buttonFontSize: '16px',
-    buttonBorderStyle: 'solid',
-    buttonFillTextColor: '#FFF',
-    buttonOutlineHoverTextColor: '#FFF',
-    inputBorderColor: '#e9e9eb',
-    inputBorderRadius: '8px',
-    inputBorderWidth: '1px',
-    inputBorderStyle: 'solid',
-    default: '#0f0f1e',
-    success: '#008A28',
-    error: '#e22a1d',
-    disabled: '#e9e9eb',
-    greyedOut: '#6f6f76',
-    warning: '#ff6105',
+    colorPrimary: "#9e006b",
+    colorSecondary: "#003b5e",
+    colorTertiary: "#ff1e4e",
+    buttonBorderRadius: "20px",
+    buttonBorderWidth: "2px",
+    buttonFontSize: "16px",
+    buttonBorderStyle: "solid",
+    buttonFillTextColor: "#FFF",
+    buttonOutlineHoverTextColor: "#FFF",
+    inputBorderColor: "#e9e9eb",
+    inputBorderRadius: "8px",
+    inputBorderWidth: "1px",
+    inputBorderStyle: "solid",
+    fontFamily: "'Red Hat Display', sans-serif",
+    default: "#0f0f1e",
+    success: "#008A28",
+    error: "#e22a1d",
+    disabled: "#e9e9eb",
+    greyedOut: "#6f6f76",
+    warning: "#ff6105",
   });
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
@@ -72,14 +68,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
   /** Set the actual CSS properties on the HTML :root object */
   const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
     for (const [key, value] of Object.entries(CSSPropertiesObject)) {
-      const formattedPropertyName = key.replaceAll(
-        /([A-Z])/g,
-        (val) => `-${val.toLowerCase()}`
-      );
-      document.documentElement.style.setProperty(
-        `--${formattedPropertyName}`,
-        value
-      );
+      const formattedPropertyName = key.replaceAll(/([A-Z])/g, (val) => `-${val.toLowerCase()}`);
+      document.documentElement.style.setProperty(`--${formattedPropertyName}`, value);
     }
   };
 
