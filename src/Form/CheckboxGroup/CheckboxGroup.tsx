@@ -1,9 +1,12 @@
-import React, { HTMLAttributes, ReactChild } from 'react';
+import React, { HTMLAttributes } from "react";
+import classes from "./CheckboxGroup.module.scss";
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactChild;
-}
+export interface Props extends HTMLAttributes<HTMLDivElement> {}
 
 export const CheckboxGroup = ({ children, ...rest }: Props) => {
-  return <div {...rest}>{children} </div>;
+  return (
+    <div className={classes["checkbox-group"]} {...rest}>
+      {children}
+    </div>
+  );
 };
