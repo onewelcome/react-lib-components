@@ -31,12 +31,6 @@
       "pre-commit": "tsdx lint"
     }
   },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
   "name": "@onewelcome/components",
   "author": "Daniel",
   "module": "dist/library.esm.js",

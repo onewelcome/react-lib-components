@@ -1,0 +1,184 @@
+@mixin clickable-element {
+  &:enabled:hover,
+  &:focus,
+  &:enabled:active {
+    cursor: pointer;
+
+    .number-wrapper {
+      .number {
+        background-color: var(--color-primary);
+        color: #ffffff;
+      }
+    }
+
+    .label {
+      text-decoration: underline;
+    }
+  }
+
+  &:enabled:active {
+    .number-wrapper {
+      .number {
+        border-color: #ffffff;
+      }
+    }
+  }
+}
+
+@mixin disabled-element {
+  &.disabled {
+    .number-wrapper {
+      .number {
+        border: 2px solid var(--greyed-out);
+        color: var(--greyed-out);
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: #ffffff;
+        }
+
+        &:active {
+          border-color: var(--greyed-out);
+        }
+      }
+    }
+
+    .label {
+      color: var(--greyed-out);
+    }
+  }
+}
+
+.wizard {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  font-family: var(--font-family);
+}
+
+.wizard-element {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 0;
+  align-items: initial;
+  padding: 0;
+
+  // Completed/finished state
+  &.finished {
+    .number-wrapper {
+      .number {
+        border: 2px solid var(--color-primary);
+        color: var(--color-primary);
+        font-weight: normal;
+      }
+
+      &:before,
+      &:after {
+        border-bottom: 2px solid var(--color-primary);
+      }
+    }
+
+    .label {
+      color: var(--color-primary);
+    }
+    @include disabled-element;
+    @include clickable-element;
+  }
+
+  //Active/current step
+  &.current {
+    .number-wrapper {
+      .number {
+        color: #fff;
+        border: 2px solid var(--color-primary);
+        background-color: var(--color-primary);
+      }
+
+      &:after {
+        border-bottom: 2px solidvar(--color-primary);
+      }
+
+      &:before {
+        border-bottom: 2px solid var(--color-primary)
+      }
+    }
+
+    .label {
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+  }
+
+  //Future state for clickable elements - future state is a default one
+  &.future.clickable {
+    .number-wrapper {
+      .number {
+        border: 2px solid var(--color-primary);
+        color: var(--color-primary);
+      }
+    }
+
+    .label {
+      color: var(--color-primary);
+    }
+
+    @include clickable-element;
+    @include disabled-element;
+  }
+
+  &:first-child {
+    .number-wrapper:before {
+      border-bottom: none;
+    }
+  }
+
+  &:last-child {
+    .number-wrapper:after {
+      border-bottom: none;
+    }
+  }
+}
+
+.number-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  &:after,
+  &:before {
+    content: " ";
+    margin-bottom: 13px;
+    width: 100%;
+    border-bottom: 2px solid var(--greyed-out);
+  }
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.75rem;
+  border: 2px solid var(--greyed-out);
+  border-radius: 50%;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--greyed-out);
+  line-height: 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--greyed-out);
+  text-align: center;
+  padding: .25rem 1rem 0;
+}
+
+.checkmark {
+  font-size: .875rem;
+}
