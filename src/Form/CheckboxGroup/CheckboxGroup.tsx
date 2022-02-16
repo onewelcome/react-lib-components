@@ -13,14 +13,14 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 export const CheckboxGroup = ({ children, error, errorMessage, helperText, legend, ...rest }: Props) => {
   return (
     <div className={`${classes["checkbox-group"]} ${error ? classes.error : ""}`} {...rest}>
-      {legend && <legend>{legend}</legend>}
+      {legend && <legend className={classes.legend}>{legend}</legend>}
       {children}
       <div className={classes["helper-text"]}>
         {helperText && !error && <FormHelperText indent={0}>{helperText}</FormHelperText>}
         {error && errorMessage && (
-          <span>
-            <Icon icon={Icons.Warning} />
-            {errorMessage}
+          <span className={classes["error-message"]}>
+            <Icon className={classes["error-icon"]} icon={Icons.Warning} />
+            <span>{errorMessage}</span>
           </span>
         )}
       </div>
