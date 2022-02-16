@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Checkbox, Props } from "../../src/Form/Checkbox/Checkbox";
+import { Checkbox, CheckboxProps as CheckboxProps } from "../../src/Form/Checkbox/Checkbox";
 
 const meta: Meta = {
   title: "Checkbox",
@@ -9,12 +9,12 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = (args) => (
+const Template: Story<CheckboxProps> = (args) => (
   <Checkbox helperText="This is example helper text" name="name" {...args}>
     Example
   </Checkbox>
 );
 
-export const CheckboxEl = Template.bind({});
+export const SingleCheckbox = Template.bind({});
 
-CheckboxEl.args = {};
+SingleCheckbox.args = {};

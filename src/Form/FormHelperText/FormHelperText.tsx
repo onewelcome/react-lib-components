@@ -8,13 +8,13 @@ export interface Props extends HTMLAttributes<HTMLSpanElement> {
   indent?: number;
 }
 
-export const FormHelperText = ({ children, disabled, error, indent, ...rest }: Props) => {
+export const FormHelperText = ({ children, disabled, error, indent, className, ...rest }: Props) => {
   const additionalClasses: string[] = [];
 
   if (error) additionalClasses.push(classes.error);
 
   return (
-    <div style={{ marginLeft: `${indent}px` }} className={`${classes["form-helper-text"]} ${additionalClasses}`} {...rest}>
+    <div style={{ marginLeft: `${indent}px` }} className={`${classes["form-helper-text"]} ${additionalClasses} ${className}`} {...rest}>
       <span>{children}</span>
     </div>
   );

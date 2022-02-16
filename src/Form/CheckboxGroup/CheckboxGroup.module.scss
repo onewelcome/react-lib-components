@@ -1,3 +1,11 @@
-.component {
-	font-family: inherit;
+.checkbox-group {
+  position: relative;
+}
+
+.error {
+  color: var(--error);
+}
+
+.helper-text {
+  margin-top: 20px;
 }
