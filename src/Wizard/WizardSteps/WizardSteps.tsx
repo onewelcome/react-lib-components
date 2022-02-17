@@ -1,70 +1,33 @@
-import React from "react";
-import classes from "./WizardSteps.module.scss";
-import readyclasses from "../../readyclasses.module.scss";
-import { Icon, Icons } from "../../Icon/Icon";
+import React, { useContext } from "react";
+import { WizardStateContext } from "../WizardStateProvider";
+import { BaseWizardSteps, Step } from "../BaseWizardSteps/BaseWizardSteps";
+import { changeCurrentStepNo } from "../wizardStateReducer";
 
-type StepState = "finished" | "current" | "future";
+export const WizardSteps = () => {
+  const {
+    state: { currentStepNo, mode, stepScreenReaderLabel, steps },
+    dispatch,
+  } = useContext(WizardStateContext);
 
-export interface Step {
-  label: string;
-  onClick: (step: Step) => boolean;
-  disabled?: boolean;
-}
+  const wrapOnClickActions = (steps: Step[]): Step[] => {
+    return [...steps].map((step) => ({
+      ...step,
+      onClick: (stepNo: number) => {
+        dispatch(changeCurrentStepNo(stepNo));
+        step.onClick && step.onClick(stepNo, step);
+      },
+    }));
+  }; //@TODO: useMemo
 
-export interface Props extends React.HTMLProps<HTMLDivElement> {
-  steps: Step[];
-  currentStepNo: number;
-  futureStepsClickable?: boolean;
-  stepAriaLabel: string;
-  stepScreenReaderLabel: string;
-}
-
-export const WizardSteps = ({ steps, currentStepNo, futureStepsClickable = false, stepScreenReaderLabel, ...restProps }: Props) => {
-  const getStepState = (stepNo: number): StepState => {
-    if (currentStepNo === stepNo) {
-      return "current";
-    } else if (stepNo < currentStepNo) {
-      return "finished";
-    }
-    return "future";
-  };
-
-  const getStepContent = (stepState: StepState, index: number, disabled?: boolean) => {
-    const stepNumberString = String(index + 1);
-    if (stepState === "finished") {
-      return disabled ? null : <Icon className={classes["checkmark"]} icon={Icons.Checkmark} />;
-    } else {
-      return (
-        <>
-          <span className={readyclasses["sr-only"]}>{stepScreenReaderLabel} </span>
-          {stepNumberString}
-        </>
-      );
-    }
-  };
-
-  const generatedSteps = steps.map((step, index) => {
-    const stepState = getStepState(index);
-    const disabledStyleClassName = step.disabled ? classes["disabled"] : "";
-    const clickableClassName = futureStepsClickable ? classes["clickable"] : "";
+  if (currentStepNo !== undefined && mode && stepScreenReaderLabel && steps) {
     return (
-      <button
-        key={index}
-        disabled={step.disabled || (stepState === "future" && !futureStepsClickable) || stepState === "current"}
-        onClick={() => step.onClick(step)}
-        className={`${classes["wizard-element"]} ${classes[stepState]} ${clickableClassName} ${disabledStyleClassName}`}
-      >
-        <div className={classes["number-wrapper"]}>
-          <span className={classes["number"]}>{getStepContent(stepState, index, step.disabled)}</span>
-        </div>
-        <span className={classes["label"]}>{step.label}</span>
-      </button>
+      <BaseWizardSteps
+        steps={wrapOnClickActions(steps)}
+        currentStepNo={currentStepNo}
+        stepScreenReaderLabel={stepScreenReaderLabel}
+        futureStepsClickable={mode === "edit"}
+      />
     );
-  });
-
-  return (
-    <div {...restProps} className={classes["wizard"]}>
-      {generatedSteps}
-    </div>
-  );
+  }
+  return null;
 };
