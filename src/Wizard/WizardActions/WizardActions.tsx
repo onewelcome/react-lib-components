@@ -12,7 +12,7 @@ export interface Props extends React.HTMLProps<HTMLDivElement> {
 
 export const WizardActions = ({ cancelButtonLabel, previousButtonLabel, nextButtonLabel, saveAndCloseButtonLabel }: Props) => {
   const {
-    state: { steps, currentStepNo, onCancel, onNext, onPrevious, onSaveAndClose },
+    state: { mode, steps, currentStepNo, onCancel, onNext, onPrevious, onSaveAndClose },
     dispatch,
   } = useContext(WizardStateContext);
 
@@ -32,6 +32,8 @@ export const WizardActions = ({ cancelButtonLabel, previousButtonLabel, nextButt
     }
     return -1;
   }, [currentStepNo]);
+
+  const isLastStepOrEditMode = mode === "edit" || nextStepNo === -1;
 
   const changeStepNo = (direction: "forward" | "backward") => {
     if (direction === "forward") {
@@ -72,7 +74,7 @@ export const WizardActions = ({ cancelButtonLabel, previousButtonLabel, nextButt
           {nextButtonLabel}
         </Button>
       )}
-      <Button onClick={onSaveAndCloseWrapper}>{saveAndCloseButtonLabel}</Button>
+      {isLastStepOrEditMode && <Button onClick={onSaveAndCloseWrapper}>{saveAndCloseButtonLabel}</Button>}
     </>
   );
 };
