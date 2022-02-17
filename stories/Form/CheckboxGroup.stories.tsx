@@ -57,13 +57,7 @@ const NestedTemplate: Story<CheckboxGroupProps> = (args) => {
   };
 
   return (
-    <CheckboxGroup
-      {...args}
-      errorMessage="Please check all the boxes"
-      legend="Electronics"
-      helperText="Helpertext for the group"
-      onChange={handleGroupOnChange}
-    >
+    <CheckboxGroup {...args} errorMessage="Please check all the boxes" helperText="Helpertext for the group" onChange={handleGroupOnChange}>
       <Checkbox
         onCheck={handleElectronicsOnChange}
         indeterminate={indeterminate}
