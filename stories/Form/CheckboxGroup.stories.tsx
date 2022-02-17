@@ -17,10 +17,6 @@ const NestedTemplate: Story<CheckboxGroupProps> = (args) => {
   const [checkedTV, setCheckedTV] = useState(false);
   const [checkedMicrophone, setCheckedMicrophone] = useState(false);
 
-  const handleGroupOnChange = () => {
-    console.log("GROUP CHANGE");
-  };
-
   useEffect(() => {
     if (checkedLaptop && checkedTV && checkedMicrophone) {
       setElectronics(true);
@@ -57,7 +53,7 @@ const NestedTemplate: Story<CheckboxGroupProps> = (args) => {
   };
 
   return (
-    <CheckboxGroup {...args} errorMessage="Please check all the boxes" helperText="Helpertext for the group" onChange={handleGroupOnChange}>
+    <CheckboxGroup {...args} errorMessage="Please check all the boxes" helperText="Helpertext for the group">
       <Checkbox
         onCheck={handleElectronicsOnChange}
         indeterminate={indeterminate}
