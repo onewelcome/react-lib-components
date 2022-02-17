@@ -4,12 +4,7 @@ import { render } from '@testing-library/react';
 
 const createIcon = (params?: Props, iconName = Icons.Calendar) => {
   const queries = render(
-    <Icon
-      data-testid="icon-component"
-      color="rgb(26, 153, 60)"
-      icon={iconName}
-      {...params}
-    />
+    <Icon data-testid="icon-component" color="rgb(26, 153, 60)" icon={iconName} {...params} />
   );
   const icon = queries.getByTestId('icon-component');
 

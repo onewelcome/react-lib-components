@@ -1,0 +1,9 @@
+.actions {
+  margin: 1.875rem 1.25rem 1.875rem 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+
+  & * + * {
+    margin-left: 1.25rem;
+  }
+}
