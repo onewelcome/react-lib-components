@@ -116,7 +116,7 @@ export const Checkbox = ({
 
         <label htmlFor={identifier}>{determineLabel()}</label>
       </div>
-      {helperText && (!error || errorMessageId) && (
+      {helperText && (!error || errorMessageId || !errorMessage) && (
         <FormHelperText id={`${identifier}-description`} className={classes["helper-text"]} indent={28}>
           {helperText}
         </FormHelperText>
