@@ -11,6 +11,7 @@ export interface CheckboxProps extends HTMLAttributes<HTMLInputElement> {
   error?: boolean;
   disabled?: boolean;
   helperText?: string;
+  errorMessage?: string;
   checked?: boolean;
   indeterminate?: boolean;
   errorMessageId?: string;
@@ -23,6 +24,7 @@ export const Checkbox = ({
   helperText,
   indeterminate = false,
   errorMessageId,
+  errorMessage,
   disabled,
   label,
   error,
@@ -32,6 +34,7 @@ export const Checkbox = ({
 }: CheckboxProps) => {
   const [identifier, setIdentifier] = useState("");
   const [describedBy, setDescribedBy] = useState("");
+  const [errorId] = useState(generateID(15, errorMessage));
 
   useEffect(() => {
     if (!name) {
@@ -48,8 +51,12 @@ export const Checkbox = ({
       setDescribedBy(errorMessageId);
     }
 
-    if (!error || !errorMessageId) {
+    if (!error || (!errorMessageId && !errorMessage)) {
       setDescribedBy(`${identifier}-description`);
+    }
+
+    if (errorMessage && !errorMessageId && error) {
+      setDescribedBy(errorId);
     }
   }, [identifier, error]);
 
@@ -109,10 +116,16 @@ export const Checkbox = ({
 
         <label htmlFor={identifier}>{determineLabel()}</label>
       </div>
-      {helperText && (
+      {helperText && (!error || errorMessageId) && (
         <FormHelperText id={`${identifier}-description`} className={classes["helper-text"]} indent={28}>
           {helperText}
         </FormHelperText>
+      )}
+      {errorMessage && !errorMessageId && error && (
+        <span className={classes["error-message"]}>
+          <Icon className={classes["error-icon"]} icon={Icons.Warning} />
+          <span id={errorId}>{errorMessage}</span>
+        </span>
       )}
       {typeof children === "object" && renderNestedCheckboxes()}
     </div>

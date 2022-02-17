@@ -10,6 +10,17 @@
   margin-top: 4px;
 }
 
+.error-message {
+  margin-left: 28px;
+  display: flex;
+  align-items: bottom;
+}
+
+.error-icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
 .checkbox-container {
   display: flex;
   align-items: center;
