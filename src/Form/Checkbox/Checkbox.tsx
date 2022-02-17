@@ -22,7 +22,7 @@ export const Checkbox = ({
   children,
   name,
   helperText,
-  indeterminate = false,
+  indeterminate,
   errorMessageId,
   errorMessage,
   disabled,
@@ -39,6 +39,12 @@ export const Checkbox = ({
   useEffect(() => {
     if (!name) {
       throw new Error("Please pass a 'name' prop to your <Checkbox> component.");
+    }
+
+    if (typeof children === "object" && indeterminate === undefined) {
+      throw new Error(
+        "If you have nested checkboxes you have to manage the indeterminate state by passing a boolean to the `indeterminate` prop."
+      );
     }
 
     const id = generateID(15, name);
@@ -73,7 +79,9 @@ export const Checkbox = ({
       return children;
     }
 
-    throw new Error("If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label.");
+    throw new Error(
+      "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox."
+    );
   };
 
   const renderNestedCheckboxes = () => {

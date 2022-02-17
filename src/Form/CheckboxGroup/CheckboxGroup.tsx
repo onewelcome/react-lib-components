@@ -39,7 +39,9 @@ export const CheckboxGroup = ({ children, error = false, errorMessage, helperTex
         {error && errorMessage && (
           <span className={classes["error-message"]}>
             <Icon className={classes["error-icon"]} icon={Icons.Warning} />
-            <span id={errorId}>{errorMessage}</span>
+            <span className={classes.message} id={errorId}>
+              {errorMessage}
+            </span>
           </span>
         )}
       </div>
