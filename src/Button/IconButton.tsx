@@ -8,18 +8,11 @@ export interface Props extends BaseButtonProps {
   iconSize?: 's' | 'm' | 'l';
 }
 
-export const IconButton = ({
-  children,
-  color = 'primary',
-  iconSize = 'm',
-  ...rest
-}: Props) => {
+export const IconButton = ({ children, color = 'primary', iconSize = 'm', ...rest }: Props) => {
   return (
     <BaseButton
       {...rest}
-      className={`${classes['icon-button']} ${classes[color]} ${
-        classes['button-' + iconSize]
-      }`}
+      className={`${classes['icon-button']} ${classes[color]} ${classes['button-' + iconSize]}`}
     >
       {children}
     </BaseButton>

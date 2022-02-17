@@ -30,9 +30,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = (args) => (
-  <Button title="This is a button" {...args} />
-);
+const Template: Story<Props> = (args) => <Button title="This is a button" {...args} />;
 
 export const FilledButton = Template.bind({});
 

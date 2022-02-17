@@ -29,12 +29,7 @@ export interface Props extends React.HTMLProps<HTMLButtonElement> {
   onTouchStart?: (event: React.TouchEvent<HTMLButtonElement>) => unknown;
 }
 
-export const BaseButton = ({
-  children,
-  type = 'button',
-  className,
-  ...rest
-}: Props) => {
+export const BaseButton = ({ children, type = 'button', className, ...rest }: Props) => {
   const validTypes = ['submit', 'button', 'reset'];
 
   if (!validTypes.includes(type))
@@ -43,11 +38,7 @@ export const BaseButton = ({
     );
 
   return (
-    <button
-      {...rest}
-      type={type}
-      className={`${classes.button} ${className ? className : ''}`}
-    >
+    <button {...rest} type={type} className={`${classes.button} ${className ? className : ''}`}>
       {children}
     </button>
   );

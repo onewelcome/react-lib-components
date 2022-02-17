@@ -10,15 +10,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   onClose: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const BaseModalHeader = ({
-  id,
-  title,
-  children,
-  onClose,
-  ...restProps
-}: // labeledby,
-// description,
-Props) => {
+export const BaseModalHeader = ({ id, title, children, onClose, ...restProps }: Props) => {
   return (
     <header {...restProps} className={classes['header']}>
       <div className={classes['headline']}>
