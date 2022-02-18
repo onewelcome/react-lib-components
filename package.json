@@ -17,7 +17,7 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "prettier": "prettier --ignore-path .gitignore \"**/*.+(ts|tsx|scss)\"",
+    "prettier": "prettier --write --ignore-path .gitignore \"**/*.+(ts|tsx|scss)\"",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

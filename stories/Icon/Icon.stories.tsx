@@ -28,8 +28,7 @@ const Template: Story<Props> = (args) => {
         <code>&lt;Icon icon="Icon.icon_name" /&gt;</code>)
       </h1>
       <span style={{ textAlign: 'center', display: 'block', fontSize: '25px' }}>
-        Make sure to import the <code>Icons</code> enum from the{' '}
-        <code>@onewelcome/components</code>
+        Make sure to import the <code>Icons</code> enum from the <code>@onewelcome/components</code>
         library`
       </span>
       <br />

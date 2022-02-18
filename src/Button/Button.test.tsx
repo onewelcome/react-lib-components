@@ -61,9 +61,7 @@ describe('Button contains an icon', () => {
 
     expect(button.classList.contains('has-icon')).toBe(true);
     expect(button.firstElementChild?.nodeName).toBe('I');
-    expect(button.querySelector('i + span')!.innerHTML).toBe(
-      'This is a button'
-    );
+    expect(button.querySelector('i + span')!.innerHTML).toBe('This is a button');
   });
 
   it('Contains an icon at the end', () => {

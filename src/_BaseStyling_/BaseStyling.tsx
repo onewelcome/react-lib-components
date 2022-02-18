@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  HTMLAttributes,
-  ReactChild,
-  useEffect,
-  useState,
-} from 'react';
+import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from 'react';
 
 interface CSSProperties {
   colorPrimary?: string;
@@ -16,6 +10,9 @@ interface CSSProperties {
   buttonBorderStyle?: string;
   buttonFillTextColor?: string;
   buttonOutlineHoverTextColor?: string;
+  modalShadowColor?: string;
+  modalBackgroundColor?: string;
+  modalHeaderBackgroundColor?: string;
   fontFamily?: string;
   default?: string;
   success?: string;
@@ -41,6 +38,9 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonBorderStyle: 'solid',
     buttonFillTextColor: '#FFF',
     buttonOutlineHoverTextColor: '#FFF',
+    modalShadowColor: 'rgba(0, 0, 0, 0.16)',
+    modalBackgroundColor: '#F5F8F8',
+    modalHeaderBackgroundColor: '#FFF',
     fontFamily: "'Red Hat Display', sans-serif",
     default: '#0f0f1e',
     success: '#008A28',
@@ -66,14 +66,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
   /** Set the actual CSS properties on the HTML :root object */
   const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
     for (const [key, value] of Object.entries(CSSPropertiesObject)) {
-      const formattedPropertyName = key.replaceAll(
-        /([A-Z])/g,
-        (val) => `-${val.toLowerCase()}`
-      );
-      document.documentElement.style.setProperty(
-        `--${formattedPropertyName}`,
-        value
-      );
+      const formattedPropertyName = key.replaceAll(/([A-Z])/g, (val) => `-${val.toLowerCase()}`);
+      document.documentElement.style.setProperty(`--${formattedPropertyName}`, value);
     }
   };
 
