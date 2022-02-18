@@ -8,22 +8,33 @@ export interface Props extends React.HTMLProps<HTMLDivElement> {
   previousButtonLabel: string;
   nextButtonLabel: string;
   saveAndCloseButtonLabel: string;
+  onCancel: () => void;
+  onNext: (stepNo: number) => boolean; //maybe think about better name? Like onBeforeNext, onNextInterception
+  onPrevious?: () => void; //maybe not necessary?
+  onSaveAndClose: (stepNo: number) => void; //maybe think about better name?
 }
 
-export const WizardActions = ({ cancelButtonLabel, previousButtonLabel, nextButtonLabel, saveAndCloseButtonLabel }: Props) => {
+export const WizardActions = ({
+  onCancel,
+  onNext,
+  onPrevious,
+  onSaveAndClose,
+  cancelButtonLabel,
+  previousButtonLabel,
+  nextButtonLabel,
+  saveAndCloseButtonLabel,
+}: Props) => {
   const {
-    state: { mode, steps, currentStepNo, onCancel, onNext, onPrevious, onSaveAndClose },
+    state: { mode, steps, currentStepNo },
     dispatch,
   } = useContext(WizardStateContext);
 
-  if (currentStepNo === undefined || steps === undefined) {
-    return null;
-  }
+  const nextStepNo = useMemo(
+    () => steps.findIndex((step, stepNo) => stepNo > currentStepNo && !step.disabled),
+    [mode, currentStepNo, steps]
+  );
+  const hasNextStep = nextStepNo !== -1;
 
-  /** Return -1 if there is no next step or next steps are disabled */
-  const nextStepNo = steps.findIndex((step, stepNo) => stepNo > currentStepNo && !step.disabled);
-
-  /** Return -1 if there is no prev step or prev steps are disabled */
   const previousStepNo = useMemo(() => {
     const reversedCurrentStepNo = steps.length - 1 - currentStepNo;
     const reversedPrevStepNo = [...steps].reverse().findIndex((step, stepNo) => stepNo > reversedCurrentStepNo && !step.disabled);
@@ -31,31 +42,28 @@ export const WizardActions = ({ cancelButtonLabel, previousButtonLabel, nextButt
       return steps.length - 1 - reversedPrevStepNo;
     }
     return -1;
-  }, [currentStepNo]);
+  }, [mode, currentStepNo, steps]);
+  const hasPreviousStep = previousStepNo !== -1;
 
-  const isLastStepOrEditMode = mode === "edit" || nextStepNo === -1;
+  const isLastStepOrEditMode = !hasNextStep || mode === "edit";
 
   const changeStepNo = (direction: "forward" | "backward") => {
     if (direction === "forward") {
-      nextStepNo !== -1 && dispatch(changeCurrentStepNo(nextStepNo));
+      hasNextStep && dispatch(changeCurrentStepNo(nextStepNo));
     } else {
-      previousStepNo !== -1 && dispatch(changeCurrentStepNo(previousStepNo));
+      hasPreviousStep && dispatch(changeCurrentStepNo(previousStepNo));
     }
   };
 
-  //useCallbacks + make state not null!
   const onNextWrapper = () => {
-    console.log("onNext");
-    const result = onNext && onNext(currentStepNo); //@TODO: remove currentStepNo !== undefined
+    const result = onNext && onNext(currentStepNo);
     result && changeStepNo("forward");
   };
   const onPreviousWrapper = () => {
-    console.log("onPrev");
     onPrevious && onPrevious();
     changeStepNo("backward");
   };
   const onSaveAndCloseWrapper = () => {
-    console.log("onSaveAndClose");
     onSaveAndClose && onSaveAndClose(currentStepNo);
   };
 
@@ -64,12 +72,12 @@ export const WizardActions = ({ cancelButtonLabel, previousButtonLabel, nextButt
       <Button variant="text" onClick={onCancel}>
         {cancelButtonLabel}
       </Button>
-      {previousStepNo !== -1 && (
+      {hasPreviousStep && (
         <Button variant="outline" onClick={onPreviousWrapper}>
           {previousButtonLabel}
         </Button>
       )}
-      {nextStepNo !== -1 && (
+      {hasNextStep && (
         <Button variant="outline" onClick={onNextWrapper}>
           {nextButtonLabel}
         </Button>

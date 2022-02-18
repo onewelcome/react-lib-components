@@ -7,18 +7,25 @@ type StepState = "finished" | "current" | "future";
 
 export interface Step {
   label: string;
-  onClick?: (stepNo: number, step: Step) => void;
   disabled?: boolean;
 }
 
-export interface Props extends React.HTMLProps<HTMLDivElement> {
+export interface Props extends Omit<React.HTMLProps<HTMLDivElement>, "onClick"> {
   steps: Step[];
   currentStepNo: number;
+  onClick?: (stepNo: number) => void;
   futureStepsClickable?: boolean;
   stepScreenReaderLabel: string;
 }
 
-export const BaseWizardSteps = ({ steps, currentStepNo, futureStepsClickable = false, stepScreenReaderLabel, ...restProps }: Props) => {
+export const BaseWizardSteps = ({
+  steps,
+  currentStepNo,
+  onClick,
+  futureStepsClickable = false,
+  stepScreenReaderLabel,
+  ...restProps
+}: Props) => {
   const getStepState = (stepNo: number): StepState => {
     if (currentStepNo === stepNo) {
       return "current";
@@ -50,13 +57,15 @@ export const BaseWizardSteps = ({ steps, currentStepNo, futureStepsClickable = f
       <button
         key={index}
         disabled={step.disabled || (stepState === "future" && !futureStepsClickable) || stepState === "current"}
-        onClick={() => step.onClick && step.onClick(index, step)}
+        onClick={() => onClick && onClick(index)}
         className={`${classes["wizard-element"]} ${classes[stepState]} ${clickableClassName} ${disabledStyleClassName}`}
       >
         <div className={classes["number-wrapper"]}>
           <span className={classes["number"]}>{getStepContent(stepState, index, step.disabled)}</span>
         </div>
-        <span className={classes["label"]}>{step.label}</span>
+        <div className={classes["two-line-text-overflow"]}>
+          <span className={classes["label"]}>{step.label}</span>
+        </div>
       </button>
     );
   });

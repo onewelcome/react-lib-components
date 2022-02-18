@@ -5,28 +5,21 @@ import { changeCurrentStepNo, setWizardState } from "./wizardStateReducer";
 
 export type WizardMode = "add" | "edit";
 
-export interface BaseProps {
+export interface Props {
   steps: Step[];
   mode: WizardMode;
-  stepScreenReaderLabel: string;
-  onCancel: () => void;
-  onNext: () => boolean; //maybe think about better name? Like onBeforeNext, onNextInterception
-  onPrevious?: () => void; //maybe not necessary?
-  onSaveAndClose: () => boolean; //maybe think about better name?
-}
-
-export interface Props extends BaseProps {
   initialStepNo: number;
   onStepChange: (stepNo: number) => void;
+  stepScreenReaderLabel: string;
   children: React.ReactNode;
 }
 
-const useSetWizardState = (wizardStateProps: BaseProps) => {
+const useSetWizardState = (steps: Step[], mode: WizardMode, stepScreenReaderLabel: string) => {
   const { dispatch } = useContext(WizardStateContext);
 
   useEffect(() => {
-    dispatch(setWizardState(wizardStateProps));
-  }, [wizardStateProps.steps, wizardStateProps.mode]);
+    dispatch(setWizardState(steps, mode, stepScreenReaderLabel));
+  }, [steps, mode, stepScreenReaderLabel]);
 };
 
 const useStepChanging = (initialStepNo: number, onStepChange: (stepNo: number) => void) => {
@@ -39,12 +32,12 @@ const useStepChanging = (initialStepNo: number, onStepChange: (stepNo: number) =
     dispatch(changeCurrentStepNo(initialStepNo));
   }, []);
   useEffect(() => {
-    currentStepNo !== undefined && onStepChange(currentStepNo);
+    onStepChange(currentStepNo);
   }, [currentStepNo]);
 };
 
-const WizardContent = ({ initialStepNo, onStepChange, children, ...restProps }: Props) => {
-  useSetWizardState(restProps);
+const WizardContent = ({ initialStepNo, onStepChange, children, steps, mode, stepScreenReaderLabel }: Props) => {
+  useSetWizardState(steps, mode, stepScreenReaderLabel);
   useStepChanging(initialStepNo, onStepChange);
 
   return <>{children}</>;

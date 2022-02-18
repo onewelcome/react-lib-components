@@ -2,8 +2,8 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { BaseWizardSteps, Step, Props } from "../../src/Wizard/BaseWizardSteps/BaseWizardSteps";
 
-const onClick = (stepNo: number, step: Step) => {
-  alert("Clicked stepNo:" + stepNo + ", label:" + step.label);
+const onClick = (stepNo: number) => {
+  alert("Clicked stepNo:" + stepNo);
 };
 
 const meta: Meta = {
@@ -13,33 +13,28 @@ const meta: Meta = {
     steps: [
       {
         label: "Step 1",
-        onClick,
       },
       {
         label: "Step 2",
-        onClick,
       },
       {
         label: "Step 3",
-        onClick,
         disabled: true,
       },
       {
         label: "Step 4",
-        onClick,
       },
       {
         label: "Very long label for step 5",
-        onClick,
         disabled: true,
       },
       {
         label: "Last step",
-        onClick,
       },
     ],
     currentStepNo: 3,
     stepScreenReaderLabel: "Step",
+    onClick,
   },
 };
 

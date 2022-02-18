@@ -1,28 +1,27 @@
 import React, { useContext } from "react";
 import { WizardStateContext } from "../WizardStateProvider";
-import { BaseWizardSteps, Step } from "../BaseWizardSteps/BaseWizardSteps";
+import { BaseWizardSteps } from "../BaseWizardSteps/BaseWizardSteps";
 import { changeCurrentStepNo } from "../wizardStateReducer";
 
-export const WizardSteps = () => {
+export interface Props {
+  onStepClick: (stepNo: number) => boolean;
+}
+
+export const WizardSteps = ({ onStepClick }: Props) => {
   const {
     state: { currentStepNo, mode, stepScreenReaderLabel, steps },
     dispatch,
   } = useContext(WizardStateContext);
 
-  const wrapOnClickActions = (steps: Step[]): Step[] => {
-    return [...steps].map((step) => ({
-      ...step,
-      onClick: (stepNo: number) => {
-        dispatch(changeCurrentStepNo(stepNo));
-        step.onClick && step.onClick(stepNo, step);
-      },
-    }));
-  }; //@TODO: useMemo
+  const onClick = (stepNo: number) => {
+    onStepClick(stepNo) && dispatch(changeCurrentStepNo(stepNo));
+  };
 
   if (currentStepNo !== undefined && mode && stepScreenReaderLabel && steps) {
     return (
       <BaseWizardSteps
-        steps={wrapOnClickActions(steps)}
+        onClick={onClick}
+        steps={steps}
         currentStepNo={currentStepNo}
         stepScreenReaderLabel={stepScreenReaderLabel}
         futureStepsClickable={mode === "edit"}

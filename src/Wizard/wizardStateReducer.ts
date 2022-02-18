@@ -4,24 +4,24 @@ import { WizardMode } from "./Wizard";
 
 const initialState = {
   currentStepNo: 0,
-};
+  mode: "add",
+  steps: [],
+} as WizardStateType;
 
 type WizardStateType = {
-  steps?: Step[];
-  currentStepNo?: number;
-  mode?: WizardMode;
+  steps: Step[];
+  currentStepNo: number;
+  mode: WizardMode;
   stepScreenReaderLabel?: string;
-  onCancel?: () => void;
-  /** Returning false cause keeping current step no (e.g. in case of validation failed) */
-  onNext?: (stepNo: number) => boolean;
-  onPrevious?: () => void;
-  /** Returning false cause keeping current step no (e.g. in case of validation failed) */
-  onSaveAndClose?: (stepNo: number) => void;
 };
 
 interface SetWizardStateAction {
   type: "WIZARD_SET_STATE";
-  payload: WizardStateType;
+  payload: {
+    steps: Step[];
+    mode: WizardMode;
+    stepScreenReaderLabel: string;
+  };
 }
 
 interface ChangeCurrentStepNoAction {
@@ -29,8 +29,8 @@ interface ChangeCurrentStepNoAction {
   payload: number;
 }
 
-const setWizardState = (wizardStateProps: WizardStateType): SetWizardStateAction => {
-  return { type: "WIZARD_SET_STATE", payload: wizardStateProps };
+const setWizardState = (steps: Step[], mode: WizardMode, stepScreenReaderLabel: string): SetWizardStateAction => {
+  return { type: "WIZARD_SET_STATE", payload: { steps, mode, stepScreenReaderLabel } };
 };
 
 const changeCurrentStepNo = (currentStepNo: number): ChangeCurrentStepNoAction => {

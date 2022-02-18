@@ -33,12 +33,6 @@ const meta: Meta = {
     initialStepNo: 0,
     mode: "edit",
     stepScreenReaderLabel: "Step",
-    onNext: (stepNo: number) => {
-      if (stepNo === 3) {
-        return confirm("Does the validation passed?");
-      }
-      return true;
-    },
   },
 };
 
@@ -47,10 +41,25 @@ export default meta;
 const Template: Story<Props> = (args) => {
   const [step, setStep] = useState(args.initialStepNo);
 
+  const onNext = (stepNo: number) => {
+    if (stepNo === 3) {
+      return confirm("Does the validation passed?");
+    }
+    return true;
+  };
+
+  const onCancel = () => {
+    alert("Cancel clicked");
+  };
+
+  const onSaveAndClose = (stepNo: number) => {
+    alert("Save clicked");
+  };
+
   return (
     <Wizard {...args} onStepChange={(stepNo: number) => setStep(stepNo)}>
       <div>
-        <WizardSteps />
+        <WizardSteps onStepClick={() => true} />
       </div>
       <div>
         <p>Step {step + 1} content.</p>
@@ -61,10 +70,13 @@ const Template: Story<Props> = (args) => {
           previousButtonLabel="Previous"
           nextButtonLabel="Next"
           saveAndCloseButtonLabel="Save & close"
+          onNext={onNext}
+          onCancel={onCancel}
+          onSaveAndClose={onSaveAndClose}
         />
       </div>
     </Wizard>
   );
 };
 
-export const WizardStepsStory = Template.bind({});
+export const WizardStory = Template.bind({});
