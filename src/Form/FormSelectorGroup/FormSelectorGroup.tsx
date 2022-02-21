@@ -23,10 +23,7 @@ export const FormSelectorGroup = ({
   ...rest
 }: Props) => {
   return (
-    <div
-      className={`${classes['form-selector-group']} ${error ? classes.error : ''} ${className}`}
-      {...rest}
-    >
+    <div className={`${classes['form-selector-group']} ${error ? classes.error : ''}`} {...rest}>
       {children}
       <div className={classes['helper-text']}>
         {helperText && !error && (
