@@ -5,6 +5,20 @@ import { Checkbox, CheckboxProps as CheckboxProps } from '../../src/Form/Checkbo
 const meta: Meta = {
   title: 'Checkbox',
   component: Checkbox,
+  argTypes: {
+    parentHelperId: {
+      table: {
+        disable: true,
+      },
+      control: false,
+    },
+    errorMessageId: {
+      table: {
+        disable: true,
+      },
+      control: false,
+    },
+  },
 };
 
 export default meta;
