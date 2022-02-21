@@ -31,6 +31,7 @@ Once you have informally discussed the change on Slack you might be asked to cre
   - Write introduction to new component or edit existing one adding new feature desscription if needed
 - Write unit test which covers as many different usage of component as you added
 - Align with all principales which are already in other components
+- Keep in mind to do a controlled components
 - Code style & linter is configured to automatically format code & show problems with your changes
 
 ### Accepting the change

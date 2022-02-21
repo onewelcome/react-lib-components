@@ -15,7 +15,7 @@ export default meta;
  */
 const Template: Story<Props> = (args) => {
   const copyIconHandler = (icon) => {
-    const toCopy = `<Icon icon="${Icons[icon]}" />`;
+    const toCopy = `<Icon icon={Icons.${icon}} />`;
 
     navigator.clipboard.writeText(toCopy);
   };
@@ -25,8 +25,12 @@ const Template: Story<Props> = (args) => {
     <Fragment>
       <h1 style={{ textAlign: 'center' }}>
         Click on the icon name to copy the JSX React Component (
-        <code>&lt;Icon icon="icon_name" /&gt;</code>)
+        <code>&lt;Icon icon="Icon.icon_name" /&gt;</code>)
       </h1>
+      <span style={{ textAlign: 'center', display: 'block', fontSize: '25px' }}>
+        Make sure to import the <code>Icons</code> enum from the <code>@onewelcome/components</code>
+        library`
+      </span>
       <br />
       <div
         style={{

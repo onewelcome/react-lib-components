@@ -1,0 +1,16 @@
+.dialog {
+  align-items: center;
+}
+
+@media only screen and (min-width: 800px) {
+  .container {
+    width: auto;
+    max-width: 440px;
+    margin-top: 0;
+    max-height: 90%;
+  }
+}
+
+.content {
+  padding-top: 0;
+}
