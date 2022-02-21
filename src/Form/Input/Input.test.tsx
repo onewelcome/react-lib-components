@@ -29,16 +29,18 @@ describe('Input should render', () => {
 });
 
 describe('Should have the appropriate attributes', () => {
-  it('is disabled, has a type of text and has a name', () => {
+  it('is disabled, has a type of text and has a name and class', () => {
     const { input } = createInput({
       disabled: true,
       type: 'text',
       name: 'input',
+      className: 'classname',
     });
 
     expect(input).toHaveAttribute('disabled');
     expect(input.getAttribute('name')).toBe('input');
     expect(input.getAttribute('type')).toBe('text');
+    expect(input).toHaveClass('classname');
   });
 });
 
