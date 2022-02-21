@@ -1,8 +1,6 @@
-import React, { Fragment, HTMLAttributes, ReactElement } from "react";
-import { Icon, Icons } from "../../Icon/Icon";
-import { FormHelperText } from "../FormHelperText/FormHelperText";
-import classes from "./RadioGroup.module.scss";
-import { generateID } from "../../util/helper";
+import React, { Fragment, HTMLAttributes, ReactElement } from 'react';
+import { generateID } from '../../util/helper';
+import { FormSelectorGroup } from '../FormSelectorGroup/FormSelectorGroup';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   error?: boolean;
@@ -14,7 +12,16 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const RadioGroup = ({ children, error = false, errorMessage, helperText, value, name, onChange, ...rest }: Props) => {
+export const RadioGroup = ({
+  children,
+  error = false,
+  errorMessage,
+  helperText,
+  value,
+  name,
+  onChange,
+  ...rest
+}: Props) => {
   const errorId = generateID(15, errorMessage);
   const helperId = generateID(15, helperText);
 
@@ -44,23 +51,15 @@ export const RadioGroup = ({ children, error = false, errorMessage, helperText, 
   };
 
   return (
-    <div className={`${classes["radio-group"]} ${error ? classes.error : ""}`} {...rest}>
+    <FormSelectorGroup
+      error={error}
+      errorMessage={errorMessage}
+      errorId={errorId}
+      helperText={helperText}
+      helperId={helperId}
+      {...rest}
+    >
       {renderChildren()}
-      <div className={classes["helper-text"]}>
-        {helperText && !error && (
-          <FormHelperText id={helperId} indent={0}>
-            {helperText}
-          </FormHelperText>
-        )}
-        {error && errorMessage && (
-          <span className={classes["error-message"]}>
-            <Icon className={classes["error-icon"]} icon={Icons.Warning} />
-            <span className={classes.message} id={errorId}>
-              {errorMessage}
-            </span>
-          </span>
-        )}
-      </div>
-    </div>
+    </FormSelectorGroup>
   );
 };

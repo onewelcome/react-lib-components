@@ -2,7 +2,7 @@ import React, { HTMLAttributes, ReactElement, useEffect } from 'react';
 import { Icon, Icons } from '../..';
 import { FormHelperText } from '../FormHelperText/FormHelperText';
 import classes from './Checkbox.module.scss';
-import { useFormSelector } from '../useFormSelector';
+import { useFormSelector } from '../../hooks/useFormSelector';
 
 export interface CheckboxProps extends HTMLAttributes<HTMLInputElement> {
   children: string | ReactElement[];
@@ -107,6 +107,7 @@ export const Checkbox = ({
           aria-checked={indeterminate ? 'mixed' : checked}
           aria-describedby={describedBy}
           id={identifier}
+          name={name}
           type="checkbox"
           {...rest}
         />

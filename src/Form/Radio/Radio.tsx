@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormHelperText } from '../FormHelperText/FormHelperText';
 import classes from './Radio.module.scss';
-import { useFormSelector } from '../useFormSelector';
+import { useFormSelector } from '../../hooks/useFormSelector';
 
 export interface Props extends HTMLAttributes<HTMLInputElement> {
   children: string;

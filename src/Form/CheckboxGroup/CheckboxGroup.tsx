@@ -1,8 +1,6 @@
 import React, { Fragment, HTMLAttributes, ReactElement } from 'react';
-import classes from './CheckboxGroup.module.scss';
-import { FormHelperText } from '../FormHelperText/FormHelperText';
-import { Icon, Icons } from '../..';
 import { generateID } from '../../util/helper';
+import { FormSelectorGroup } from '../FormSelectorGroup/FormSelectorGroup';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   error?: boolean;
@@ -40,23 +38,15 @@ export const CheckboxGroup = ({
   };
 
   return (
-    <div className={`${classes['checkbox-group']} ${error ? classes.error : ''}`} {...rest}>
+    <FormSelectorGroup
+      error={error}
+      errorMessage={errorMessage}
+      errorId={errorId}
+      helperText={helperText}
+      helperId={helperId}
+      {...rest}
+    >
       {renderChildren()}
-      <div className={classes['helper-text']}>
-        {helperText && !error && (
-          <FormHelperText id={helperId} indent={0}>
-            {helperText}
-          </FormHelperText>
-        )}
-        {error && errorMessage && (
-          <span className={classes['error-message']}>
-            <Icon className={classes['error-icon']} icon={Icons.Warning} />
-            <span className={classes.message} id={errorId}>
-              {errorMessage}
-            </span>
-          </span>
-        )}
-      </div>
-    </div>
+    </FormSelectorGroup>
   );
 };
