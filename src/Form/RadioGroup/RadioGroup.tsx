@@ -16,6 +16,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const RadioGroup = ({ children, error = false, errorMessage, helperText, value, name, onChange, ...rest }: Props) => {
   const errorId = generateID(15, errorMessage);
+  const helperId = generateID(15, helperText);
 
   const childRadioOnChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(event);
@@ -35,6 +36,7 @@ export const RadioGroup = ({ children, error = false, errorMessage, helperText, 
           error: error,
           checked: child.props.value === value,
           name: name,
+          parentHelperId: helperText ? helperId : false,
           onChange: childRadioOnChangeHandler,
         })}
       </Fragment>
@@ -45,7 +47,11 @@ export const RadioGroup = ({ children, error = false, errorMessage, helperText, 
     <div className={`${classes["radio-group"]} ${error ? classes.error : ""}`} {...rest}>
       {renderChildren()}
       <div className={classes["helper-text"]}>
-        {helperText && !error && <FormHelperText indent={0}>{helperText}</FormHelperText>}
+        {helperText && !error && (
+          <FormHelperText id={helperId} indent={0}>
+            {helperText}
+          </FormHelperText>
+        )}
         {error && errorMessage && (
           <span className={classes["error-message"]}>
             <Icon className={classes["error-icon"]} icon={Icons.Warning} />

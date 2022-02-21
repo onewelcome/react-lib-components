@@ -13,6 +13,7 @@ export interface Props extends HTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   value: string;
   checked?: boolean;
+  parentHelperId?: string;
   errorMessageId?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -26,6 +27,7 @@ export const Radio = ({
   disabled,
   value,
   error,
+  parentHelperId,
   checked = false,
   onChange,
   ...rest
@@ -45,8 +47,12 @@ export const Radio = ({
       setDescribedBy(errorMessageId);
     }
 
-    if (!error || (!errorMessageId && !errorMessage)) {
+    if ((!error && helperText) || (!errorMessageId && !errorMessage)) {
       setDescribedBy(`${identifier}-description`);
+    }
+
+    if ((!error && !helperText && parentHelperId) || (!errorMessageId && !errorMessage)) {
+      setDescribedBy(`${parentHelperId}`);
     }
 
     if (errorMessage && !errorMessageId && error) {
