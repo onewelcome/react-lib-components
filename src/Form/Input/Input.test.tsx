@@ -104,11 +104,9 @@ describe('It should execute the listeners', () => {
   const onChangeHandler = jest.fn();
   const onKeyUpHandler = jest.fn();
   const onKeyDownHandler = jest.fn();
-  const onBlurHandler = jest.fn();
 
   const { input } = createInput({
     type: 'text',
-    onBlur: onBlurHandler,
     onKeyUp: onKeyUpHandler,
     onKeyDown: onKeyDownHandler,
     onChange: onChangeHandler,
