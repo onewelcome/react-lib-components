@@ -2,72 +2,25 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Input, Props } from '../../src/Form/Input/Input';
 import { Form } from '../../src/Form/Form';
-import { Label } from '../../src/Form/Label/Label';
-import { Button } from '../../src/Button/Button';
-import { FormHelperText } from '../../src/Form/FormHelperText/FormHelperText';
 
 const meta: Meta = {
   title: 'Input',
   component: Input,
+  argTypes: {
+    className: {
+      table: { disable: true },
+      control: false,
+    },
+  },
 };
 
 export default meta;
 
 /** This is not how to properly use the validation. */
 const Template: Story<Props> = (args) => {
-  const [formData, setFormData] = useState<FormData>();
-  const [errorMessage, setErrorMessage] = useState<string>('');
-
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-
-    if (!errorMessage) {
-      setFormData(new FormData(e.currentTarget));
-    }
-  };
-
-  const renderFormData = () => {
-    const formDataOutput = [];
-
-    for (let [key, value] of formData.entries()) {
-      formDataOutput.push(
-        <tr key={Math.random()}>
-          <td>{key}</td>
-          <td>{value}</td>
-        </tr>
-      );
-    }
-
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Input name</th>
-            <th>Input value</th>
-          </tr>
-        </thead>
-        <tbody>{formDataOutput}</tbody>
-      </table>
-    );
-  };
-
   return (
-    <Form onSubmit={onSubmitHandler}>
-      <Label htmlFor="input-component">This is a label</Label>
-      <Input
-        id="input-component"
-        style={{ width: '50vw', display: 'block' }}
-        {...args}
-      />
-      <FormHelperText>
-        This is helpertext to give information about the input
-      </FormHelperText>
-      <hr />
-      {errorMessage.length !== 0 && <span>{errorMessage}</span>}
-      {errorMessage.length !== 0 && <hr />}
-      <Button type="submit">Submit</Button>
-      <hr />
-      {formData && renderFormData()}
+    <Form onSubmit={() => {}}>
+      <Input id="input-component" {...args} />
     </Form>
   );
 };
