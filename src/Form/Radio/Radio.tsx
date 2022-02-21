@@ -1,8 +1,8 @@
-import React, { HTMLAttributes, useEffect, useState } from "react";
-import { Icon, Icons } from "../../Icon/Icon";
-import { FormHelperText } from "../FormHelperText/FormHelperText";
-import classes from "./Radio.module.scss";
-import { generateID } from "../../util/helper";
+import React, { HTMLAttributes, useEffect, useState } from 'react';
+import { Icon, Icons } from '../../Icon/Icon';
+import { FormHelperText } from '../FormHelperText/FormHelperText';
+import classes from './Radio.module.scss';
+import { generateID } from '../../util/helper';
 
 export interface Props extends HTMLAttributes<HTMLInputElement> {
   children: string;
@@ -32,26 +32,23 @@ export const Radio = ({
   onChange,
   ...rest
 }: Props) => {
-  const [identifier, setIdentifier] = useState("");
-  const [describedBy, setDescribedBy] = useState("");
+  const [identifier] = useState(generateID(15, name));
+  const [describedBy, setDescribedBy] = useState('');
   const [errorId] = useState(generateID(15, errorMessage));
-
-  useEffect(() => {
-    const id = generateID(15, name);
-
-    setIdentifier(id);
-  }, []);
 
   useEffect(() => {
     if (error && errorMessageId) {
       setDescribedBy(errorMessageId);
     }
 
-    if ((!error && helperText) || (!errorMessageId && !errorMessage)) {
+    if ((!error && helperText) || (!errorMessageId && !errorMessage && helperText)) {
       setDescribedBy(`${identifier}-description`);
     }
 
-    if ((!error && !helperText && parentHelperId) || (!errorMessageId && !errorMessage)) {
+    if (
+      (!error && !helperText && parentHelperId) ||
+      (!errorMessageId && !errorMessage && parentHelperId)
+    ) {
       setDescribedBy(`${parentHelperId}`);
     }
 
@@ -65,7 +62,7 @@ export const Radio = ({
     const nativeEvent: any = event.nativeEvent || event;
     const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
 
-    Object.defineProperty(clonedEvent, "target", {
+    Object.defineProperty(clonedEvent, 'target', {
       writable: true,
       value: { value: value },
     });
@@ -75,12 +72,16 @@ export const Radio = ({
 
   /** Default return value is the default radio */
   return (
-    <div className={`${classes["radio-wrapper"]} ${error ? classes.error : ""} ${disabled ? classes.disabled : ""}`}>
-      <div className={classes["radio-container"]}>
+    <div
+      className={`${classes['radio-wrapper']} ${error ? classes.error : ''} ${
+        disabled ? classes.disabled : ''
+      }`}
+    >
+      <div className={classes['radio-container']}>
         <input
           disabled={disabled}
           tabIndex={0}
-          className={classes["native-input"]}
+          className={classes['native-input']}
           onChange={onChangeHandler}
           checked={checked}
           aria-invalid={error ? true : false}
@@ -99,13 +100,17 @@ export const Radio = ({
         <label htmlFor={identifier}>{children}</label>
       </div>
       {helperText && (!error || errorMessageId || !errorMessage) && (
-        <FormHelperText id={`${identifier}-description`} className={classes["helper-text"]} indent={28}>
+        <FormHelperText
+          id={`${identifier}-description`}
+          className={classes['helper-text']}
+          indent={28}
+        >
           {helperText}
         </FormHelperText>
       )}
       {errorMessage && !errorMessageId && error && (
-        <span className={classes["error-message"]}>
-          <Icon className={classes["error-icon"]} icon={Icons.Warning} />
+        <span className={classes['error-message']}>
+          <Icon className={classes['error-icon']} icon={Icons.Warning} />
           <span id={errorId}>{errorMessage}</span>
         </span>
       )}

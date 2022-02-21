@@ -1,8 +1,8 @@
-import React, { Fragment, HTMLAttributes, ReactElement } from "react";
-import classes from "./CheckboxGroup.module.scss";
-import { FormHelperText } from "../FormHelperText/FormHelperText";
-import { Icon, Icons } from "../..";
-import { generateID } from "../../util/helper";
+import React, { Fragment, HTMLAttributes, ReactElement } from 'react';
+import classes from './CheckboxGroup.module.scss';
+import { FormHelperText } from '../FormHelperText/FormHelperText';
+import { Icon, Icons } from '../..';
+import { generateID } from '../../util/helper';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   error?: boolean;
@@ -11,8 +11,15 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactElement[] | ReactElement;
 }
 
-export const CheckboxGroup = ({ children, error = false, errorMessage, helperText, ...rest }: Props) => {
+export const CheckboxGroup = ({
+  children,
+  error = false,
+  errorMessage,
+  helperText,
+  ...rest
+}: Props) => {
   const errorId = generateID(15, errorMessage);
+  const helperId = generateID(15, helperText);
 
   const renderChildren = () => {
     /** Always convert children to an array, even if only 1 Checkbox component is passed */
@@ -26,19 +33,24 @@ export const CheckboxGroup = ({ children, error = false, errorMessage, helperTex
         {React.cloneElement(child, {
           errorMessageId: errorId,
           error: error,
+          parentHelperId: helperText ? helperId : false,
         })}
       </Fragment>
     ));
   };
 
   return (
-    <div className={`${classes["checkbox-group"]} ${error ? classes.error : ""}`} {...rest}>
+    <div className={`${classes['checkbox-group']} ${error ? classes.error : ''}`} {...rest}>
       {renderChildren()}
-      <div className={classes["helper-text"]}>
-        {helperText && !error && <FormHelperText indent={0}>{helperText}</FormHelperText>}
+      <div className={classes['helper-text']}>
+        {helperText && !error && (
+          <FormHelperText id={helperId} indent={0}>
+            {helperText}
+          </FormHelperText>
+        )}
         {error && errorMessage && (
-          <span className={classes["error-message"]}>
-            <Icon className={classes["error-icon"]} icon={Icons.Warning} />
+          <span className={classes['error-message']}>
+            <Icon className={classes['error-icon']} icon={Icons.Warning} />
             <span className={classes.message} id={errorId}>
               {errorMessage}
             </span>

@@ -1,8 +1,8 @@
-import React, { HTMLAttributes, ReactElement, useEffect, useState } from "react";
-import { Icon, Icons } from "../..";
-import { FormHelperText } from "../FormHelperText/FormHelperText";
-import classes from "./Checkbox.module.scss";
-import { generateID } from "../../util/helper";
+import React, { HTMLAttributes, ReactElement, useEffect, useState } from 'react';
+import { Icon, Icons } from '../..';
+import { FormHelperText } from '../FormHelperText/FormHelperText';
+import classes from './Checkbox.module.scss';
+import { generateID } from '../../util/helper';
 
 export interface CheckboxProps extends HTMLAttributes<HTMLInputElement> {
   children: string | ReactElement[];
@@ -13,6 +13,7 @@ export interface CheckboxProps extends HTMLAttributes<HTMLInputElement> {
   helperText?: string;
   errorMessage?: string;
   checked?: boolean;
+  parentHelperId?: string;
   indeterminate?: boolean;
   errorMessageId?: string;
   onCheck?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -28,12 +29,13 @@ export const Checkbox = ({
   disabled,
   label,
   error,
+  parentHelperId,
   checked = false,
   onCheck,
   ...rest
 }: CheckboxProps) => {
-  const [identifier, setIdentifier] = useState("");
-  const [describedBy, setDescribedBy] = useState("");
+  const [identifier] = useState(generateID(15, name));
+  const [describedBy, setDescribedBy] = useState('');
   const [errorId] = useState(generateID(15, errorMessage));
 
   useEffect(() => {
@@ -41,15 +43,11 @@ export const Checkbox = ({
       throw new Error("Please pass a 'name' prop to your <Checkbox> component.");
     }
 
-    if (typeof children === "object" && indeterminate === undefined) {
+    if (typeof children === 'object' && indeterminate === undefined) {
       throw new Error(
-        "If you have nested checkboxes you have to manage the indeterminate state by passing a boolean to the `indeterminate` prop."
+        'If you have nested checkboxes you have to manage the indeterminate state by passing a boolean to the `indeterminate` prop.'
       );
     }
-
-    const id = generateID(15, name);
-
-    setIdentifier(id);
   }, []);
 
   useEffect(() => {
@@ -57,8 +55,15 @@ export const Checkbox = ({
       setDescribedBy(errorMessageId);
     }
 
-    if (!error || (!errorMessageId && !errorMessage)) {
+    if ((!error && helperText) || (!errorMessageId && !errorMessage && helperText)) {
       setDescribedBy(`${identifier}-description`);
+    }
+
+    if (
+      (!error && !helperText && parentHelperId) ||
+      (!errorMessageId && !errorMessage && parentHelperId)
+    ) {
+      setDescribedBy(`${parentHelperId}`);
     }
 
     if (errorMessage && !errorMessageId && error) {
@@ -75,19 +80,19 @@ export const Checkbox = ({
       return label;
     }
 
-    if (typeof children === "string") {
+    if (typeof children === 'string') {
       return children;
     }
 
     throw new Error(
-      "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox."
+      'If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox.'
     );
   };
 
   const renderNestedCheckboxes = () => {
-    if (typeof children === "string") return;
+    if (typeof children === 'string') return;
     return (
-      <ul className={classes["checkbox-list"]}>
+      <ul className={classes['checkbox-list']}>
         {children.map((child, index) => {
           return (
             <li key={index}>
@@ -103,15 +108,19 @@ export const Checkbox = ({
 
   /** Default return value is the default checkbox */
   return (
-    <div className={`${classes["checkbox-wrapper"]} ${error ? classes.error : ""} ${disabled ? classes.disabled : ""}`}>
-      <div className={classes["checkbox-container"]}>
+    <div
+      className={`${classes['checkbox-wrapper']} ${error ? classes.error : ''} ${
+        disabled ? classes.disabled : ''
+      }`}
+    >
+      <div className={classes['checkbox-container']}>
         <input
           disabled={disabled}
-          className={classes["native-input"]}
+          className={classes['native-input']}
           onChange={onChangeHandler}
           checked={checked}
           aria-invalid={error ? true : false}
-          aria-checked={indeterminate ? "mixed" : checked}
+          aria-checked={indeterminate ? 'mixed' : checked}
           aria-describedby={describedBy}
           id={identifier}
           type="checkbox"
@@ -119,23 +128,29 @@ export const Checkbox = ({
         />
 
         {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
-        {checked && !indeterminate && <Icon className={classes.input} icon={Icons.CheckmarkSquare} />}
+        {checked && !indeterminate && (
+          <Icon className={classes.input} icon={Icons.CheckmarkSquare} />
+        )}
         {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
 
         <label htmlFor={identifier}>{determineLabel()}</label>
       </div>
       {helperText && (!error || errorMessageId || !errorMessage) && (
-        <FormHelperText id={`${identifier}-description`} className={classes["helper-text"]} indent={28}>
+        <FormHelperText
+          id={`${identifier}-description`}
+          className={classes['helper-text']}
+          indent={28}
+        >
           {helperText}
         </FormHelperText>
       )}
       {errorMessage && !errorMessageId && error && (
-        <span className={classes["error-message"]}>
-          <Icon className={classes["error-icon"]} icon={Icons.Warning} />
+        <span className={classes['error-message']}>
+          <Icon className={classes['error-icon']} icon={Icons.Warning} />
           <span id={errorId}>{errorMessage}</span>
         </span>
       )}
-      {typeof children === "object" && renderNestedCheckboxes()}
+      {typeof children === 'object' && renderNestedCheckboxes()}
     </div>
   );
 };
