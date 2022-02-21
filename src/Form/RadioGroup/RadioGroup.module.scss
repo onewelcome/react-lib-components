@@ -1,0 +1,25 @@
+.radio-group {
+  position: relative;
+}
+
+.error {
+  color: var(--error);
+}
+
+.error-message {
+  display: flex;
+  align-items: bottom;
+}
+
+.error-icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.helper-text {
+  margin-top: 20px;
+}
+
+.message {
+  font-size: inherit;
+}
