@@ -73,22 +73,13 @@ export interface Props extends HTMLAttributes<HTMLSpanElement> {
   tag?: string;
 }
 
-export const Icon = ({
-  icon,
-  color,
-  className,
-  style,
-  size,
-  ...rest
-}: Props) => {
+export const Icon = ({ icon, color, className, style, size, ...rest }: Props) => {
   return (
     <span
       {...rest}
       style={{ color: color, ...style, fontSize: size }}
       aria-hidden="true"
-      className={`${classes.icon} ${classes['icon-' + icon]} ${
-        className ? className : ''
-      }`}
+      className={`${classes['icon']} ${classes['icon-' + icon]} ${className ? className : ''}`}
     />
   );
 };

@@ -1,4 +1,4 @@
-import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from "react";
+import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from 'react';
 
 interface CSSProperties {
   colorPrimary?: string;
@@ -14,6 +14,9 @@ interface CSSProperties {
   inputBorderRadius?: string;
   inputBorderWidth?: string;
   inputBorderStyle?: string;
+  modalShadowColor?: string;
+  modalBackgroundColor?: string;
+  modalHeaderBackgroundColor?: string;
   fontFamily?: string;
   default?: string;
   success?: string;
@@ -30,26 +33,29 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const [colors, setColors] = useState<CSSProperties>({
-    colorPrimary: "#9e006b",
-    colorSecondary: "#003b5e",
-    colorTertiary: "#ff1e4e",
-    buttonBorderRadius: "20px",
-    buttonBorderWidth: "2px",
-    buttonFontSize: "16px",
-    buttonBorderStyle: "solid",
-    buttonFillTextColor: "#FFF",
-    buttonOutlineHoverTextColor: "#FFF",
-    inputBorderColor: "#e9e9eb",
-    inputBorderRadius: "8px",
-    inputBorderWidth: "1px",
-    inputBorderStyle: "solid",
+    colorPrimary: '#9e006b',
+    colorSecondary: '#003b5e',
+    colorTertiary: '#ff1e4e',
+    buttonBorderRadius: '20px',
+    buttonBorderWidth: '2px',
+    buttonFontSize: '16px',
+    buttonBorderStyle: 'solid',
+    buttonFillTextColor: '#FFF',
+    buttonOutlineHoverTextColor: '#FFF',
+    inputBorderColor: '#e9e9eb',
+    inputBorderRadius: '8px',
+    inputBorderWidth: '1px',
+    inputBorderStyle: 'solid',
+    modalShadowColor: 'rgba(0, 0, 0, 0.16)',
+    modalBackgroundColor: '#F5F8F8',
+    modalHeaderBackgroundColor: '#FFF',
     fontFamily: "'Red Hat Display', sans-serif",
-    default: "#0f0f1e",
-    success: "#008A28",
-    error: "#e22a1d",
-    disabled: "#e9e9eb",
-    greyedOut: "#6f6f76",
-    warning: "#ff6105",
+    default: '#0f0f1e',
+    success: '#008A28',
+    error: '#e22a1d',
+    disabled: '#e9e9eb',
+    greyedOut: '#6f6f76',
+    warning: '#ff6105',
   });
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
