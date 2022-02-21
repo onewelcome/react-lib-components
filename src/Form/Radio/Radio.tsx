@@ -1,8 +1,8 @@
-import React, { HTMLAttributes, useEffect, useState } from 'react';
+import React, { HTMLAttributes } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormHelperText } from '../FormHelperText/FormHelperText';
 import classes from './Radio.module.scss';
-import { generateID } from '../../util/helper';
+import { useFormSelector } from '../useFormSelector';
 
 export interface Props extends HTMLAttributes<HTMLInputElement> {
   children: string;
@@ -32,30 +32,14 @@ export const Radio = ({
   onChange,
   ...rest
 }: Props) => {
-  const [identifier] = useState(generateID(15, name));
-  const [describedBy, setDescribedBy] = useState('');
-  const [errorId] = useState(generateID(15, errorMessage));
-
-  useEffect(() => {
-    if (error && errorMessageId) {
-      setDescribedBy(errorMessageId);
-    }
-
-    if ((!error && helperText) || (!errorMessageId && !errorMessage && helperText)) {
-      setDescribedBy(`${identifier}-description`);
-    }
-
-    if (
-      (!error && !helperText && parentHelperId) ||
-      (!errorMessageId && !errorMessage && parentHelperId)
-    ) {
-      setDescribedBy(`${parentHelperId}`);
-    }
-
-    if (errorMessage && !errorMessageId && error) {
-      setDescribedBy(errorId);
-    }
-  }, [identifier, error]);
+  const { errorId, identifier, describedBy } = useFormSelector({
+    name,
+    helperText,
+    errorMessageId,
+    errorMessage,
+    error,
+    parentHelperId,
+  });
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     /** We have to clone the native event we got here and change the "target" property to the value. Otherwise, this regular event has "on" as it's event.target.value, which is useless. */

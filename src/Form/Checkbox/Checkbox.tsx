@@ -1,8 +1,8 @@
-import React, { HTMLAttributes, ReactElement, useEffect, useState } from 'react';
+import React, { HTMLAttributes, ReactElement, useEffect } from 'react';
 import { Icon, Icons } from '../..';
 import { FormHelperText } from '../FormHelperText/FormHelperText';
 import classes from './Checkbox.module.scss';
-import { generateID } from '../../util/helper';
+import { useFormSelector } from '../useFormSelector';
 
 export interface CheckboxProps extends HTMLAttributes<HTMLInputElement> {
   children: string | ReactElement[];
@@ -28,15 +28,20 @@ export const Checkbox = ({
   errorMessage,
   disabled,
   label,
-  error,
   parentHelperId,
+  error,
   checked = false,
   onCheck,
   ...rest
 }: CheckboxProps) => {
-  const [identifier] = useState(generateID(15, name));
-  const [describedBy, setDescribedBy] = useState('');
-  const [errorId] = useState(generateID(15, errorMessage));
+  const { errorId, identifier, describedBy } = useFormSelector({
+    name,
+    helperText,
+    errorMessageId,
+    errorMessage,
+    error,
+    parentHelperId,
+  });
 
   useEffect(() => {
     if (!name) {
@@ -49,27 +54,6 @@ export const Checkbox = ({
       );
     }
   }, []);
-
-  useEffect(() => {
-    if (error && errorMessageId) {
-      setDescribedBy(errorMessageId);
-    }
-
-    if ((!error && helperText) || (!errorMessageId && !errorMessage && helperText)) {
-      setDescribedBy(`${identifier}-description`);
-    }
-
-    if (
-      (!error && !helperText && parentHelperId) ||
-      (!errorMessageId && !errorMessage && parentHelperId)
-    ) {
-      setDescribedBy(`${parentHelperId}`);
-    }
-
-    if (errorMessage && !errorMessageId && error) {
-      setDescribedBy(errorId);
-    }
-  }, [identifier, error]);
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     onCheck && onCheck(event);
