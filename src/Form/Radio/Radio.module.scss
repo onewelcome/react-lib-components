@@ -1,5 +1,9 @@
 .radio-wrapper {
   position: relative;
+
+  + .radio-wrapper {
+    margin-top: 20px;
+  }
 }
 
 .error {
@@ -84,6 +88,8 @@
 .input {
   font-size: 20px;
   pointer-events: none;
+  width:20px;
+  height: 21px;
 
   .disabled & {
     color: var(--disabled);
