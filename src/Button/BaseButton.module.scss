@@ -5,8 +5,9 @@
   font-size: var(--button-font-size);
   line-height: var(--button-font-size);
   padding: 10px 15px;
+  margin: 0;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: color,background-color 0.2s ease-in-out;
   font-family: var(--font-family);
 
   &:disabled {

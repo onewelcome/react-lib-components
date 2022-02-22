@@ -9,6 +9,7 @@ interface CSSProperties {
   buttonFontSize?: string;
   buttonBorderStyle?: string;
   buttonFillTextColor?: string;
+  buttonFillBackgroundColor?: string;
   buttonOutlineHoverTextColor?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
@@ -37,6 +38,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonFontSize: '16px',
     buttonBorderStyle: 'solid',
     buttonFillTextColor: '#FFF',
+    buttonFillBackgroundColor: '#FFF',
     buttonOutlineHoverTextColor: '#FFF',
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',
     modalBackgroundColor: '#F5F8F8',
