@@ -1,15 +1,23 @@
-import React, { InputHTMLAttributes } from "react";
-import classes from "./Input.module.scss";
+import React, { InputHTMLAttributes, useEffect } from 'react';
+import classes from './Input.module.scss';
+import { Icon, Icons } from '../../Icon/Icon';
 
-export type type = "text" | "email" | "file" | "number" | "password" | "search" | "tel" | "time" | "url" | "datetime" | "hidden";
+export type type =
+  | 'text'
+  | 'email'
+  | 'file'
+  | 'number'
+  | 'password'
+  | 'search'
+  | 'tel'
+  | 'time'
+  | 'url'
+  | 'datetime'
+  | 'hidden';
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  type: type;
-  name: string;
   value?: string;
-  id?: string;
   disabled?: boolean;
-  required?: boolean;
   error?: boolean;
   className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,6 +27,21 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const Input = ({ error = false, className, ...rest }: Props) => {
-  return <input className={`${classes.input} ${error ? classes.error : ""} ${className}`} {...rest} />;
+export const Input = ({ error = false, className, name, style, ...rest }: Props) => {
+  useEffect(() => {
+    if (name === undefined) {
+      throw new Error("Please give your <Input /> component a 'name' attribute");
+    }
+  }, []);
+
+  return (
+    <div style={{ ...style }} className={`${classes['input-wrapper']}`}>
+      <input
+        name={name}
+        className={`${classes.input} ${error ? classes.error : ''} ${className ? className : ''}`}
+        {...rest}
+      />
+      {error && <Icon className={classes.warning} icon={Icons.Warning} />}
+    </div>
+  );
 };
