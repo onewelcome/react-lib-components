@@ -1,4 +1,4 @@
-import React, { Fragment, HTMLAttributes, ReactElement } from 'react';
+import React, { Fragment, HTMLAttributes, ReactElement, useState } from 'react';
 import { generateID } from '../../util/helper';
 import { FormSelectorGroup } from '../FormSelectorGroup/FormSelectorGroup';
 
@@ -16,8 +16,8 @@ export const CheckboxGroup = ({
   helperText,
   ...rest
 }: Props) => {
-  const errorId = generateID(15, errorMessage);
-  const helperId = generateID(15, helperText);
+  const [helperId] = useState(generateID(15, helperText));
+  const [errorId] = useState(generateID(15, errorMessage));
 
   const renderChildren = () => {
     /** Always convert children to an array, even if only 1 Checkbox component is passed */

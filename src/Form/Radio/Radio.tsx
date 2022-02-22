@@ -41,7 +41,7 @@ export const Radio = ({
     parentHelperId,
   });
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement> | React.MouseEvent) => {
     /** We have to clone the native event we got here and change the "target" property to the value. Otherwise, this regular event has "on" as it's event.target.value, which is useless. */
     const nativeEvent: any = event.nativeEvent || event;
     const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
@@ -81,7 +81,9 @@ export const Radio = ({
         {checked && <Icon className={classes.input} icon={Icons.Radio} />}
         {!checked && <Icon className={classes.input} icon={Icons.Circle} />}
 
-        <label htmlFor={identifier}>{children}</label>
+        <label onClick={onChangeHandler} htmlFor={identifier}>
+          {children}
+        </label>
       </div>
       {helperText && (!error || errorMessageId || !errorMessage) && (
         <FormHelperText

@@ -37,7 +37,7 @@ export const useFormSelector = (configObject: configObject) => {
     if (configObject.errorMessage && !configObject.errorMessageId && configObject.error) {
       setDescribedBy(errorId);
     }
-  }, [identifier, configObject.error]);
+  }, [identifier, configObject.error, configObject.errorMessageId]);
 
   return {
     describedBy,

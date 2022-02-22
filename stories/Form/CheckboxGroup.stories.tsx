@@ -1,10 +1,13 @@
-import { Meta, Story } from "@storybook/react";
-import { useEffect, useState } from "react";
-import { Checkbox } from "../../src/Form/Checkbox/Checkbox";
-import { CheckboxGroup, Props as CheckboxGroupProps } from "../../src/Form/CheckboxGroup/CheckboxGroup";
+import { Meta, Story } from '@storybook/react';
+import { useEffect, useState } from 'react';
+import { Checkbox } from '../../src/Form/Checkbox/Checkbox';
+import {
+  CheckboxGroup,
+  Props as CheckboxGroupProps,
+} from '../../src/Form/CheckboxGroup/CheckboxGroup';
 
 const meta: Meta = {
-  title: "CheckboxGroup",
+  title: 'CheckboxGroup',
   component: CheckboxGroup,
 };
 
@@ -38,37 +41,50 @@ const NestedTemplate: Story<CheckboxGroupProps> = (args) => {
   };
 
   const onLaptopCheckHandler = () => {
-    console.log("Laptop Checked");
+    console.log('Laptop Checked');
     setCheckedLaptop(!checkedLaptop);
   };
 
   const onTVCheckHandler = () => {
-    console.log("TV Checked");
+    console.log('TV Checked');
     setCheckedTV(!checkedTV);
   };
 
   const onMicrophoneCheckHandler = () => {
-    console.log("Microphone Checked");
+    console.log('Microphone Checked');
     setCheckedMicrophone(!checkedMicrophone);
   };
 
   return (
-    <CheckboxGroup {...args} errorMessage="Please check all the boxes" helperText="Helpertext for the group">
+    <CheckboxGroup
+      {...args}
+      errorMessage="Please check all the boxes"
+      helperText="Helpertext for the group"
+    >
       <Checkbox
-        onCheck={handleElectronicsOnChange}
+        onChange={handleElectronicsOnChange}
         indeterminate={indeterminate}
         checked={electronics}
         helperText="This is example helpertext"
         name="electronics"
         label="Electronics"
       >
-        <Checkbox onCheck={onLaptopCheckHandler} checked={checkedLaptop} helperText="More examples" name="laptop">
+        <Checkbox
+          onChange={onLaptopCheckHandler}
+          checked={checkedLaptop}
+          helperText="More examples"
+          name="laptop"
+        >
           Laptop
         </Checkbox>
-        <Checkbox onCheck={onTVCheckHandler} checked={checkedTV} name="tv">
+        <Checkbox onChange={onTVCheckHandler} checked={checkedTV} name="tv">
           TVs
         </Checkbox>
-        <Checkbox onCheck={onMicrophoneCheckHandler} checked={checkedMicrophone} name="microphones">
+        <Checkbox
+          onChange={onMicrophoneCheckHandler}
+          checked={checkedMicrophone}
+          name="microphones"
+        >
           Microphones
         </Checkbox>
       </Checkbox>

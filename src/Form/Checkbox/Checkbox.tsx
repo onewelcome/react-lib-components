@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, ReactElement, useEffect } from 'react';
-import { Icon, Icons } from '../..';
+import { Icon, Icons } from '../../Icon/Icon';
 import { FormHelperText } from '../FormHelperText/FormHelperText';
 import classes from './Checkbox.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
@@ -16,7 +16,7 @@ export interface CheckboxProps extends HTMLAttributes<HTMLInputElement> {
   parentHelperId?: string;
   indeterminate?: boolean;
   errorMessageId?: string;
-  onCheck?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Checkbox = ({
@@ -31,7 +31,7 @@ export const Checkbox = ({
   parentHelperId,
   error,
   checked = false,
-  onCheck,
+  onChange,
   ...rest
 }: CheckboxProps) => {
   const { errorId, identifier, describedBy } = useFormSelector({
@@ -55,8 +55,8 @@ export const Checkbox = ({
     }
   }, []);
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onCheck && onCheck(event);
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement> | React.MouseEvent) => {
+    onChange && onChange(event as React.ChangeEvent<HTMLInputElement>);
   };
 
   const determineLabel = () => {
@@ -80,7 +80,12 @@ export const Checkbox = ({
         {children.map((child, index) => {
           return (
             <li key={index}>
-              <Checkbox errorMessageId={errorMessageId} error={error} {...child.props}>
+              <Checkbox
+                checked={checked}
+                errorMessageId={errorMessageId}
+                error={error}
+                {...child.props}
+              >
                 {child.props.children}
               </Checkbox>
             </li>
@@ -90,6 +95,8 @@ export const Checkbox = ({
     );
   };
 
+  console.log(onChange);
+
   /** Default return value is the default checkbox */
   return (
     <div
@@ -98,27 +105,29 @@ export const Checkbox = ({
       }`}
     >
       <div className={classes['checkbox-container']}>
-        <input
-          disabled={disabled}
-          className={classes['native-input']}
-          onChange={onChangeHandler}
-          checked={checked}
-          aria-invalid={error ? true : false}
-          aria-checked={indeterminate ? 'mixed' : checked}
-          aria-describedby={describedBy}
-          id={identifier}
-          name={name}
-          type="checkbox"
-          {...rest}
-        />
+        <label htmlFor={identifier}>
+          <input
+            disabled={disabled}
+            className={classes['native-input']}
+            checked={checked}
+            onChange={onChangeHandler}
+            aria-invalid={error ? true : false}
+            aria-checked={indeterminate ? 'mixed' : checked}
+            aria-describedby={describedBy}
+            id={identifier}
+            name={name}
+            type="checkbox"
+            {...rest}
+          />
 
-        {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
-        {checked && !indeterminate && (
-          <Icon className={classes.input} icon={Icons.CheckmarkSquare} />
-        )}
-        {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
+          {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
+          {checked && !indeterminate && (
+            <Icon className={classes.input} icon={Icons.CheckmarkSquare} />
+          )}
+          {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
 
-        <label htmlFor={identifier}>{determineLabel()}</label>
+          {determineLabel()}
+        </label>
       </div>
       {helperText && (!error || errorMessageId || !errorMessage) && (
         <FormHelperText

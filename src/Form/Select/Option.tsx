@@ -1,5 +1,5 @@
-import React, { HTMLAttributes, useEffect, useState } from "react";
-import classes from "./Select.module.scss";
+import React, { HTMLAttributes, useEffect, useState } from 'react';
+import classes from './Select.module.scss';
 
 export interface Props extends HTMLAttributes<HTMLLIElement> {
   children: string;
@@ -11,7 +11,15 @@ export interface Props extends HTMLAttributes<HTMLLIElement> {
   onOptionSelect?: (event: React.SyntheticEvent<HTMLLIElement>) => void;
 }
 
-export const Option = ({ children, selected = false, onOptionSelect, value, filter, ...rest }: Props) => {
+export const Option = ({
+  children,
+  selected = false,
+  onOptionSelect,
+  disabled,
+  value,
+  filter,
+  ...rest
+}: Props) => {
   const [showOption, setShowOption] = useState(true);
 
   const onSelectHandler = (event: React.SyntheticEvent<HTMLLIElement>) => {
@@ -30,10 +38,12 @@ export const Option = ({ children, selected = false, onOptionSelect, value, filt
 
   return (
     <li
-      className={selected ? classes["selected-option"] : ""}
+      className={`${selected ? classes['selected-option'] : ''} ${
+        disabled ? classes.disabled : ''
+      }`}
       onClick={onSelectHandler}
       onKeyPress={(e) => {
-        e.key === "Enter" && onSelectHandler(e);
+        e.key === 'Enter' && onSelectHandler(e);
       }}
       aria-selected={selected}
       role="option"

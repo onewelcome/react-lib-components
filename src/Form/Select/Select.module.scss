@@ -8,6 +8,7 @@ $listItemHeight: 34px;
   position: relative;
   box-sizing: border-box;
   transition: all .15s ease-in-out;
+  background-color: #FFF;
 
   &.expanded {
     border: var(--input-border-width) solid transparent;
@@ -42,13 +43,13 @@ $listItemHeight: 34px;
     border-radius: var(--input-border-radius);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
     position: absolute;
+    z-index: 2;
     top: 0;
     left: 0;
     width:100%;
     opacity: 0;
     pointer-events: none;
   }
-
   ul {
     box-sizing: border-box;
     padding: 5px 0;
@@ -56,7 +57,7 @@ $listItemHeight: 34px;
     margin: 0;
     list-style: none;
     background-color: #fff;
-    border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
+    border-radius: var(--input-border-radius);
     color: var(--default);
     text-align: left;
     overflow: auto;
@@ -82,6 +83,12 @@ $listItemHeight: 34px;
 
       &:hover:after {
         background-color: var(--color-primary);
+      }
+
+      &.disabled {
+        color: var(--greyed-out);
+        background-color: var(--disabled);
+        pointer-events: none;
       }
     }
   }
@@ -133,6 +140,10 @@ $listItemHeight: 34px;
 .error {
   border-color: var(--error);
   color: var(--error);
+}
+
+.select-search-wrapper + ul {
+  border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
 }
 
 .select-search {

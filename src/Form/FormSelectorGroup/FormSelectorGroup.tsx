@@ -25,21 +25,24 @@ export const FormSelectorGroup = ({
   return (
     <div className={`${classes['form-selector-group']} ${error ? classes.error : ''}`} {...rest}>
       {children}
-      <div className={classes['helper-text']}>
-        {helperText && !error && (
-          <FormHelperText id={helperId} indent={0}>
-            {helperText}
-          </FormHelperText>
-        )}
-        {error && errorMessage && (
-          <span className={classes['error-message']}>
-            <Icon className={classes['error-icon']} icon={Icons.Warning} />
-            <span className={classes.message} id={errorId}>
-              {errorMessage}
+
+      {(helperText || errorMessage) && (
+        <div className={classes['helper-text']}>
+          {helperText && !error && (
+            <FormHelperText id={helperId} indent={0}>
+              {helperText}
+            </FormHelperText>
+          )}
+          {error && errorMessage && (
+            <span className={classes['error-message']}>
+              <Icon className={classes['error-icon']} icon={Icons.Warning} />
+              <span className={classes.message} id={errorId}>
+                {errorMessage}
+              </span>
             </span>
-          </span>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

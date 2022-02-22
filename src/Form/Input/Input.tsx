@@ -19,6 +19,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   value?: string;
   disabled?: boolean;
   error?: boolean;
+  wrapperClass?: string;
   className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -27,7 +28,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const Input = ({ error = false, className, name, style, ...rest }: Props) => {
+export const Input = ({ error = false, className, name, style, wrapperClass, ...rest }: Props) => {
   useEffect(() => {
     if (name === undefined) {
       throw new Error("Please give your <Input /> component a 'name' attribute");
@@ -35,7 +36,10 @@ export const Input = ({ error = false, className, name, style, ...rest }: Props)
   }, []);
 
   return (
-    <div style={{ ...style }} className={`${classes['input-wrapper']}`}>
+    <div
+      style={{ ...style }}
+      className={`${classes['input-wrapper']} ${wrapperClass ? wrapperClass : ''}`}
+    >
       <input
         name={name}
         className={`${classes.input} ${error ? classes.error : ''} ${className ? className : ''}`}

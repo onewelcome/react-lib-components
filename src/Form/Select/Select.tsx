@@ -1,8 +1,15 @@
-import classes from "./Select.module.scss";
+import classes from './Select.module.scss';
 
-import React, { Fragment, HTMLAttributes, ReactElement, useCallback, useEffect, useState } from "react";
-import { Input } from "../Input/Input";
-import { Icon, Icons } from "../../Icon/Icon";
+import React, {
+  Fragment,
+  HTMLAttributes,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { Input } from '../Input/Input';
+import { Icon, Icons } from '../../Icon/Icon';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactElement[];
@@ -20,17 +27,17 @@ export const Select = ({
   children,
   disabled = false,
   labeledBy,
-  placeholder = "Choose an option",
-  searchPlaceholder = "Search item",
+  placeholder = 'Choose an option',
+  searchPlaceholder = 'Search item',
   error = false,
-  value = "",
+  value = '',
   onChange,
   onClear,
   ...rest
 }: Props) => {
   const [expanded, setExpanded] = useState(false);
-  const [filter, setFilter] = useState("");
-  const [display, setDisplay] = useState("");
+  const [filter, setFilter] = useState('');
+  const [display, setDisplay] = useState('');
 
   const onOptionChangeHandler =
     <T extends HTMLElement>(child: ReactElement) =>
@@ -57,7 +64,7 @@ export const Select = ({
         const nativeEvent: any = event.nativeEvent || event;
         const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
 
-        Object.defineProperty(clonedEvent, "target", {
+        Object.defineProperty(clonedEvent, 'target', {
           writable: true,
           value: { value: newValue },
         });
@@ -72,30 +79,12 @@ export const Select = ({
   const handleSelectCloseOnBodyClick = useCallback(
     (event: MouseEvent) => {
       event.preventDefault();
-      if (!(event.target as Element).closest(".custom-select") && expanded) {
+      if (!(event.target as Element).closest('.custom-select') && expanded) {
         setExpanded(false);
       }
     },
     [expanded]
   );
-
-  useEffect(() => {
-    /**
-     * Add body click listener to close select and remove it in the cleanup function whenever expanded state changes.
-     */
-    window.addEventListener("click", handleSelectCloseOnBodyClick);
-
-    /**
-     * Calculate dropdown maxheight
-     */
-
-    return () => {
-      /**
-       * Cleanup the eventlistener so we can set it again after expanded has changed.
-       */
-      window.removeEventListener("click", handleSelectCloseOnBodyClick);
-    };
-  }, [expanded]);
 
   /**
    * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected at all times and if a filter is active.
@@ -121,7 +110,8 @@ export const Select = ({
     <Input
       autoFocus
       onChange={filterResults}
-      className={classes["select-search"]}
+      className={classes['select-search']}
+      wrapperClass={classes['select-search-wrapper']}
       type="text"
       name="search-option"
       placeholder={searchPlaceholder}
@@ -148,14 +138,42 @@ export const Select = ({
     return null;
   };
 
+  useEffect(() => {
+    setDisplay(value);
+  }, [value]);
+
+  useEffect(() => {
+    /**
+     * Add body click listener to close select and remove it in the cleanup function whenever expanded state changes.
+     */
+    window.addEventListener('click', handleSelectCloseOnBodyClick);
+
+    /**
+     * Calculate dropdown maxheight
+     */
+
+    return () => {
+      /**
+       * Cleanup the eventlistener so we can set it again after expanded has changed.
+       */
+      window.removeEventListener('click', handleSelectCloseOnBodyClick);
+    };
+  }, [expanded]);
+
   const additionalClasses = [];
   if (expanded) additionalClasses.push(classes.expanded);
   if (error) additionalClasses.push(classes.error);
   if (disabled) additionalClasses.push(classes.disabled);
 
   return (
-    <div {...rest} className={`${classes.select} ${additionalClasses.join(" ")} custom-select`}>
-      <input style={{ display: "none" }} value={value} tabIndex={-1} aria-hidden="true" onChange={() => onOptionChangeHandler} />
+    <div {...rest} className={`${classes.select} ${additionalClasses.join(' ')} custom-select`}>
+      <input
+        style={{ display: 'none' }}
+        value={value}
+        tabIndex={-1}
+        aria-hidden="true"
+        onChange={() => onOptionChangeHandler}
+      />
       <button
         onClick={setExpanded.bind(null, !expanded)}
         aria-disabled={disabled}
@@ -173,7 +191,10 @@ export const Select = ({
           <Icon icon={Icons.TriangleDown} />
         </div>
       </button>
-      <div className={`list-wrapper ${classes["list-wrapper"]}`} style={{ display: expanded ? "block" : "none" }}>
+      <div
+        className={`list-wrapper ${classes['list-wrapper']}`}
+        style={{ display: expanded ? 'block' : 'none' }}
+      >
         {Array.isArray(children) && children.length > 10 && renderSearch()}
         <ul role="listbox">{renderOptions()}</ul>
       </div>
