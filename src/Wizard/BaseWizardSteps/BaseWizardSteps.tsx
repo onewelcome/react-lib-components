@@ -1,16 +1,16 @@
-import React from "react";
-import classes from "./BaseWizardSteps.module.scss";
-import readyclasses from "../../readyclasses.module.scss";
-import { Icon, Icons } from "../../Icon/Icon";
+import React from 'react';
+import classes from './BaseWizardSteps.module.scss';
+import readyclasses from '../../readyclasses.module.scss';
+import { Icon, Icons } from '../../Icon/Icon';
 
-type StepState = "finished" | "current" | "future";
+type StepState = 'finished' | 'current' | 'future';
 
 export interface Step {
   label: string;
   disabled?: boolean;
 }
 
-export interface Props extends Omit<React.HTMLProps<HTMLDivElement>, "onClick"> {
+export interface Props extends Omit<React.HTMLProps<HTMLDivElement>, 'onClick'> {
   steps: Step[];
   currentStepNo: number;
   onClick?: (stepNo: number) => void;
@@ -28,21 +28,21 @@ export const BaseWizardSteps = ({
 }: Props) => {
   const getStepState = (stepNo: number): StepState => {
     if (currentStepNo === stepNo) {
-      return "current";
+      return 'current';
     } else if (stepNo < currentStepNo) {
-      return "finished";
+      return 'finished';
     }
-    return "future";
+    return 'future';
   };
 
   const getStepContent = (stepState: StepState, index: number, disabled?: boolean) => {
     const stepNumberString = String(index + 1);
-    if (stepState === "finished") {
-      return disabled ? null : <Icon className={classes["checkmark"]} icon={Icons.Checkmark} />;
+    if (stepState === 'finished') {
+      return disabled ? null : <Icon className={classes['checkmark']} icon={Icons.Checkmark} />;
     } else {
       return (
         <>
-          <span className={readyclasses["sr-only"]}>{stepScreenReaderLabel} </span>
+          <span className={readyclasses['sr-only']}>{stepScreenReaderLabel} </span>
           {stepNumberString}
         </>
       );
@@ -51,28 +51,33 @@ export const BaseWizardSteps = ({
 
   const generatedSteps = steps.map((step, index) => {
     const stepState = getStepState(index);
-    const disabledStyleClassName = step.disabled ? classes["disabled"] : "";
-    const clickableClassName = futureStepsClickable ? classes["clickable"] : "";
+    const disabledStyleClassName = step.disabled ? classes['disabled'] : '';
+    const clickableClassName = futureStepsClickable ? classes['clickable'] : '';
     return (
       <button
         key={index}
-        disabled={step.disabled || (stepState === "future" && !futureStepsClickable) || stepState === "current"}
+        disabled={
+          step.disabled ||
+          (stepState === 'future' && !futureStepsClickable) ||
+          stepState === 'current'
+        }
         onClick={() => onClick && onClick(index)}
-        className={`${classes["wizard-element"]} ${classes[stepState]} ${clickableClassName} ${disabledStyleClassName}`}
+        className={`${classes['wizard-element']} ${classes[stepState]} ${clickableClassName} ${disabledStyleClassName}`}
       >
-        <div className={classes["number-wrapper"]}>
-          <span className={classes["number"]}>{getStepContent(stepState, index, step.disabled)}</span>
+        <div className={classes['number-wrapper']}>
+          <span className={classes['number']}>
+            {getStepContent(stepState, index, step.disabled)}
+          </span>
         </div>
-        <div className={classes["two-line-text-overflow"]}>
-          <span className={classes["label"]}>{step.label}</span>
+        <div className={classes['two-line-text-overflow']}>
+          <span className={classes['label']}>{step.label}</span>
         </div>
       </button>
     );
   });
 
   return (
-    //TODO: Step labels have a fixed width and fixed height for 2 lines of text. (trim text?)
-    <div {...restProps} className={classes["wizard"]}>
+    <div {...restProps} className={classes['wizard']}>
       {generatedSteps}
     </div>
   );
