@@ -1,32 +1,33 @@
-import React, { useContext } from "react";
-import { WizardStateContext } from "../WizardStateProvider";
-import { BaseWizardSteps } from "../BaseWizardSteps/BaseWizardSteps";
-import { changeCurrentStepNo } from "../wizardStateReducer";
+import React, { useContext } from 'react';
+import { WizardStateContext } from '../WizardStateProvider';
+import { BaseWizardSteps } from '../BaseWizardSteps/BaseWizardSteps';
+import { changeCurrentStepNo } from '../wizardStateReducer';
 
-export interface Props {
-  onStepClick: (stepNo: number) => boolean;
+export interface Props extends Omit<React.HTMLProps<HTMLDivElement>, 'onClick'> {
+  onStepClick: (currentStepNo: number, selectedStepNo: number) => boolean;
 }
 
-export const WizardSteps = ({ onStepClick }: Props) => {
+export const WizardSteps = ({ onStepClick, ...restProps }: Props) => {
   const {
     state: { currentStepNo, mode, stepScreenReaderLabel, steps },
     dispatch,
   } = useContext(WizardStateContext);
 
-  const onClick = (stepNo: number) => {
-    onStepClick(stepNo) && dispatch(changeCurrentStepNo(stepNo));
+  const onClick = (selectedStepNo: number) => {
+    onStepClick(currentStepNo, selectedStepNo) && dispatch(changeCurrentStepNo(selectedStepNo));
   };
 
-  if (currentStepNo !== undefined && mode && stepScreenReaderLabel && steps) {
-    return (
-      <BaseWizardSteps
-        onClick={onClick}
-        steps={steps}
-        currentStepNo={currentStepNo}
-        stepScreenReaderLabel={stepScreenReaderLabel}
-        futureStepsClickable={mode === "edit"}
-      />
-    );
+  if (!stepScreenReaderLabel) {
+    return null;
   }
-  return null;
+  return (
+    <BaseWizardSteps
+      {...restProps}
+      onClick={onClick}
+      steps={steps}
+      currentStepNo={currentStepNo}
+      stepScreenReaderLabel={stepScreenReaderLabel}
+      futureStepsClickable={mode === 'edit'}
+    />
+  );
 };

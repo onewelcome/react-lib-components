@@ -1,39 +1,39 @@
-import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { BaseWizardSteps, Step, Props } from "../../src/Wizard/BaseWizardSteps/BaseWizardSteps";
+import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import { BaseWizardSteps, Step, Props } from '../../src/Wizard/BaseWizardSteps/BaseWizardSteps';
 
 const onClick = (stepNo: number) => {
-  alert("Clicked stepNo:" + stepNo);
+  alert('Clicked stepNo:' + stepNo);
 };
 
 const meta: Meta = {
-  title: "WizardSteps",
+  title: 'WizardSteps',
   component: BaseWizardSteps,
   args: {
     steps: [
       {
-        label: "Step 1",
+        label: 'Step 1',
       },
       {
-        label: "Step 2",
+        label: 'Step 2',
       },
       {
-        label: "Step 3",
+        label: 'Step 3',
         disabled: true,
       },
       {
-        label: "Step 4",
+        label: 'Step 4',
       },
       {
-        label: "Very long label for step 5",
+        label: 'Very long label for step 5',
         disabled: true,
       },
       {
-        label: "Last step",
+        label: 'Last step',
       },
     ],
     currentStepNo: 3,
-    stepScreenReaderLabel: "Step",
+    stepScreenReaderLabel: 'Step',
     onClick,
   },
 };
@@ -42,4 +42,4 @@ export default meta;
 
 const Template: Story<Props> = (args) => <BaseWizardSteps {...args} />;
 
-export const WizardStepsStory = Template.bind({});
+export const BasicWizardSteps = Template.bind({});

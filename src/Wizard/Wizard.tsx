@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from "react";
-import { Step } from "./BaseWizardSteps/BaseWizardSteps";
-import { WizardStateContext, WizardStateProvider } from "./WizardStateProvider";
-import { changeCurrentStepNo, setWizardState } from "./wizardStateReducer";
+import React, { useContext, useEffect } from 'react';
+import { Step } from './BaseWizardSteps/BaseWizardSteps';
+import { WizardStateContext, WizardStateProvider } from './WizardStateProvider';
+import { changeCurrentStepNo, setWizardState } from './wizardStateReducer';
 
-export type WizardMode = "add" | "edit";
+export type WizardMode = 'add' | 'edit';
 
 export interface Props {
   steps: Step[];
   mode: WizardMode;
-  initialStepNo: number;
+  initialStepNo?: number;
   onStepChange: (stepNo: number) => void;
   stepScreenReaderLabel: string;
   children: React.ReactNode;
@@ -36,7 +36,14 @@ const useStepChanging = (initialStepNo: number, onStepChange: (stepNo: number) =
   }, [currentStepNo]);
 };
 
-const WizardContent = ({ initialStepNo, onStepChange, children, steps, mode, stepScreenReaderLabel }: Props) => {
+const WizardContent = ({
+  initialStepNo = 0,
+  onStepChange,
+  children,
+  steps,
+  mode,
+  stepScreenReaderLabel,
+}: Props) => {
   useSetWizardState(steps, mode, stepScreenReaderLabel);
   useStepChanging(initialStepNo, onStepChange);
 
