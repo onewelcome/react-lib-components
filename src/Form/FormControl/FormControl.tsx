@@ -13,18 +13,6 @@ export const FormControl = ({ children, fieldsetDisabled, className, grid, ...re
       children = [children];
     }
 
-    if (grid && grid > 1) {
-      if (!children) {
-        throw new Error('Please pass children to the FormControl element.');
-      }
-
-      if (grid && grid > 3) {
-        throw new Error(
-          'FormControl currently does not support more than 3 form fields next to each other'
-        );
-      }
-    }
-
     return children.map((child, index) => {
       const childElement = React.cloneElement(child, {
         disabled: fieldsetDisabled,
