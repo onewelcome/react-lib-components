@@ -1,16 +1,17 @@
-import React, { HTMLAttributes, ReactChild } from 'react';
+import React, { Fragment, HTMLAttributes, ReactElement } from 'react';
 import readyclasses from '../../readyclasses.module.scss';
 import classes from './Fieldset.module.scss';
 
 type TitleStyle = 'h1' | 'h2' | 'h3' | 'body' | 'body-bold';
 
 export interface Props extends HTMLAttributes<HTMLFieldSetElement> {
-  children?: ReactChild | ReactChild[];
+  children: ReactElement | ReactElement[];
   title: string;
   titleStyle: TitleStyle;
   background?: string;
   noPadding?: boolean;
   noBackground?: boolean;
+  disabled?: boolean;
 }
 
 export const Fieldset = ({
@@ -20,6 +21,7 @@ export const Fieldset = ({
   noBackground,
   background = noBackground ? '' : '#FFF',
   noPadding = false,
+  disabled = false,
   ...rest
 }: Props) => {
   const validTitleStyles = ['h1', 'h2', 'h3', 'body', 'body-bold'];
@@ -30,8 +32,23 @@ export const Fieldset = ({
     );
   }
 
+  const renderChildren = () => {
+    if (!Array.isArray(children)) {
+      children = [children];
+    }
+
+    return children.map((child, index) => (
+      <Fragment key={index}>
+        {React.cloneElement(child, {
+          fieldsetDisabled: disabled,
+        })}
+      </Fragment>
+    ));
+  };
+
   return (
     <fieldset
+      disabled={disabled}
       style={{ backgroundColor: background }}
       className={`${classes.fieldset} ${noPadding ? classes['no-padding'] : ''}`}
       {...rest}
@@ -40,7 +57,7 @@ export const Fieldset = ({
       <span className={`style-${titleStyle} ${classes.title}`} aria-hidden="true">
         {title}
       </span>
-      {children}
+      {renderChildren()}
     </fieldset>
   );
 };

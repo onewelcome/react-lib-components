@@ -19,17 +19,18 @@
     color: var(--greyed-out);
     background-color: var(--disabled);
     border-color: #FFF;
+    cursor: not-allowed;
   }
 
-  &:focus {
+  &:focus:not(:disabled) {
     outline-color: var(--color-primary);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     border-color: var(--color-primary);
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: var(--default);
   }
 }

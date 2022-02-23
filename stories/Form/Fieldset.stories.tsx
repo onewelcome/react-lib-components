@@ -25,7 +25,7 @@ const Template: Story<Props> = (args) => {
   };
   return (
     <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
-      <Fieldset title="Name" {...args}>
+      <Fieldset disabled title="Name" {...args}>
         <FormControl grid={3}>
           <Select value={prefix} onChange={prefixChangeHandler} onClear={prefixClearHandler}>
             <Option disabled value={undefined}>

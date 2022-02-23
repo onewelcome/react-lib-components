@@ -1,39 +1,45 @@
-import React, { HTMLAttributes, ReactChild } from 'react';
+import React, { HTMLAttributes, ReactElement } from 'react';
 import classes from './FormControl.module.scss';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactChild | ReactChild[];
+  children: ReactElement | ReactElement[];
   grid?: number;
+  fieldsetDisabled?: boolean;
 }
 
-export const FormControl = ({
-  children,
-
-  className,
-  grid,
-  ...rest
-}: Props) => {
-  const renderGrid = () => {
-    if (!children) {
-      throw new Error('Please pass children to the FormControl element.');
-    }
-
-    if (grid && grid > 3) {
-      throw new Error(
-        'FormControl currently does not support more than 3 form fields next to each other'
-      );
-    }
-
-    // Always turn children into an array.
+export const FormControl = ({ children, fieldsetDisabled, className, grid, ...rest }: Props) => {
+  const renderChildren = () => {
     if (!Array.isArray(children)) {
       children = [children];
     }
 
-    return children.map((child, index) => (
-      <div key={index} className={`${classes['col-' + grid]} ${classes.column}`}>
-        {child}
-      </div>
-    ));
+    if (grid && grid > 1) {
+      if (!children) {
+        throw new Error('Please pass children to the FormControl element.');
+      }
+
+      if (grid && grid > 3) {
+        throw new Error(
+          'FormControl currently does not support more than 3 form fields next to each other'
+        );
+      }
+    }
+
+    return children.map((child, index) => {
+      const childElement = React.cloneElement(child, {
+        disabled: fieldsetDisabled,
+      });
+
+      if (grid && grid > 1) {
+        return (
+          <div key={index} className={`${classes['col-' + grid]} ${classes.column}`}>
+            {childElement}
+          </div>
+        );
+      }
+
+      return childElement;
+    });
   };
 
   return (
@@ -43,7 +49,7 @@ export const FormControl = ({
       }`}
       {...rest}
     >
-      {grid && grid > 1 ? renderGrid() : children}
+      {renderChildren()}
     </div>
   );
 };
