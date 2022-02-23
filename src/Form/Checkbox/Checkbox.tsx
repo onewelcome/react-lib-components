@@ -95,8 +95,6 @@ export const Checkbox = ({
     );
   };
 
-  console.log(onChange);
-
   /** Default return value is the default checkbox */
   return (
     <div
@@ -105,27 +103,26 @@ export const Checkbox = ({
       }`}
     >
       <div className={classes['checkbox-container']}>
-        <label htmlFor={identifier}>
-          <input
-            disabled={disabled}
-            className={classes['native-input']}
-            checked={checked}
-            onChange={onChangeHandler}
-            aria-invalid={error ? true : false}
-            aria-checked={indeterminate ? 'mixed' : checked}
-            aria-describedby={describedBy}
-            id={identifier}
-            name={name}
-            type="checkbox"
-            {...rest}
-          />
+        <input
+          disabled={disabled}
+          className={classes['native-input']}
+          checked={checked}
+          onChange={onChangeHandler}
+          aria-invalid={error ? true : false}
+          aria-checked={indeterminate ? 'mixed' : checked}
+          aria-describedby={describedBy}
+          id={identifier}
+          name={name}
+          type="checkbox"
+          {...rest}
+        />
 
-          {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
-          {checked && !indeterminate && (
-            <Icon className={classes.input} icon={Icons.CheckmarkSquare} />
-          )}
-          {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
-
+        {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
+        {checked && !indeterminate && (
+          <Icon className={classes.input} icon={Icons.CheckmarkSquare} />
+        )}
+        {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
+        <label htmlFor={identifier} data-testing="mand">
           {determineLabel()}
         </label>
       </div>
