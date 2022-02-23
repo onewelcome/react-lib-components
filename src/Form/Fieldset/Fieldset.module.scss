@@ -1,3 +1,15 @@
-.component {
-	font-family: inherit;
+.fieldset {
+  border: 0;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 0;
+
+  &.no-padding {
+    padding: 0;
+  }
+
+  .title {
+    display: block;
+    margin-bottom: 16px;
+  }
 }

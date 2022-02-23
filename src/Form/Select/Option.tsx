@@ -47,7 +47,7 @@ export const Option = ({
       }}
       aria-selected={selected}
       role="option"
-      tabIndex={0}
+      tabIndex={disabled ? -1 : 0}
       {...rest}
     >
       {children}
