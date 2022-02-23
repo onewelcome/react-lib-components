@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactElement } from 'react';
+import React, { Fragment, HTMLAttributes, ReactElement } from 'react';
 import classes from './FormControl.module.scss';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -38,7 +38,7 @@ export const FormControl = ({ children, fieldsetDisabled, className, grid, ...re
         );
       }
 
-      return childElement;
+      return <Fragment key={index}>{childElement}</Fragment>;
     });
   };
 

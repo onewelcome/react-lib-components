@@ -71,9 +71,7 @@ describe('Fieldset should get proper attributes and classes', () => {
   });
 
   it('has a correct legend and title <span> element', () => {
-    const { fieldset1, debug } = createFieldset();
-
-    debug();
+    const { fieldset1 } = createFieldset();
 
     expect(fieldset1.querySelector('legend')).toHaveTextContent('Example');
     expect(fieldset1.querySelector('legend')).toHaveTextContent('Example');
