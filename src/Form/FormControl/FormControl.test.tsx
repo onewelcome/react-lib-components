@@ -13,17 +13,17 @@ import { CheckboxGroup } from '../CheckboxGroup/CheckboxGroup';
 const createFormControl = () => {
   const queries = render(
     <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
-      <FormControl data-testid="formcontrol_nopadding_nobackground" noPadding noBackground>
+      <FormControl>
         <Input placeholder="This is a placeholder" name="example" type="text" />
       </FormControl>
-      <FormControl noBackground noPadding>
+      <FormControl>
         <Select value="placeholder" onChange={jest.fn}>
           <Option value="option1">Option1</Option>
           <Option value="option2">Option2</Option>
           <Option value="option3">Option3</Option>
         </Select>
       </FormControl>
-      <FormControl data-testid="formcontrol_grid3" grid={3} noPadding noBackground>
+      <FormControl data-testid="formcontrol_grid3" grid={3}>
         <Select value="placeholder" onChange={jest.fn} onClear={jest.fn}>
           <Option disabled value="test">
             Prefix
@@ -34,7 +34,7 @@ const createFormControl = () => {
         <Input name="first_name" type="text" />
         <Input name="last_name" type="text" />
       </FormControl>
-      <FormControl data-testid="formcontrol_grid2" grid={2} noPadding noBackground>
+      <FormControl data-testid="formcontrol_grid2" grid={2}>
         <FormControl>
           <Checkbox onChange={jest.fn} name="newsletter" checked={false}>
             Subscribe to newsletter?
@@ -42,7 +42,7 @@ const createFormControl = () => {
         </FormControl>
         <Input name="last_name" type="text" />
       </FormControl>
-      <FormControl grid={2} noPadding noBackground>
+      <FormControl grid={2}>
         <FormControl>
           <RadioGroup
             value="mobile"
@@ -80,16 +80,12 @@ const createFormControl = () => {
     </Form>
   );
 
-  const formControlNoPaddingNoBackground = queries.getByTestId(
-    'formcontrol_nopadding_nobackground'
-  );
   const formControlGrid3 = queries.getByTestId('formcontrol_grid3');
   const formControlGrid2 = queries.getByTestId('formcontrol_grid2');
   const formControlDefault = queries.getByTestId('formcontrol_default');
 
   return {
     ...queries,
-    formControlNoPaddingNoBackground,
     formControlGrid3,
     formControlGrid2,
     formControlDefault,
@@ -98,17 +94,11 @@ const createFormControl = () => {
 
 describe('FormControl should render', () => {
   it('renders without crashing', () => {
-    const {
-      formControlDefault,
-      formControlGrid2,
-      formControlGrid3,
-      formControlNoPaddingNoBackground,
-    } = createFormControl();
+    const { formControlDefault, formControlGrid2, formControlGrid3 } = createFormControl();
 
     expect(formControlDefault).toBeTruthy();
     expect(formControlGrid2).toBeTruthy();
     expect(formControlGrid3).toBeTruthy();
-    expect(formControlNoPaddingNoBackground).toBeTruthy();
 
     cleanup();
   });
@@ -116,16 +106,8 @@ describe('FormControl should render', () => {
 
 describe('FormControl attributes should be working correctly', () => {
   it('has the right classes and attributes', () => {
-    const {
-      formControlDefault,
-      formControlGrid2,
-      formControlGrid3,
-      formControlNoPaddingNoBackground,
-    } = createFormControl();
+    const { formControlGrid2, formControlGrid3 } = createFormControl();
 
-    expect(formControlDefault).toHaveStyle({ backgroundColor: 'rgb(255, 255, 255);' });
-    expect(formControlNoPaddingNoBackground.style.backgroundColor).toBe('');
-    expect(formControlNoPaddingNoBackground).toHaveClass('no-padding');
     expect(formControlGrid2).toHaveClass('grid');
     expect(formControlGrid2.querySelector('.column')).toHaveClass('col-2');
     expect(formControlGrid3).toHaveClass('grid');
@@ -137,15 +119,9 @@ describe('FormControl attributes should be working correctly', () => {
 
 describe('FormControl children should render properly', () => {
   it('renders children', () => {
-    const {
-      formControlDefault,
-      formControlGrid2,
-      formControlGrid3,
-      formControlNoPaddingNoBackground,
-    } = createFormControl();
+    const { formControlDefault, formControlGrid2, formControlGrid3 } = createFormControl();
 
     expect(formControlDefault.querySelector('.form-selector-group .checkbox-wrapper')).toBeTruthy();
-    expect(formControlNoPaddingNoBackground.querySelector('.input-wrapper')).toBeTruthy();
     expect(formControlGrid2.querySelector('.checkbox-wrapper')).toBeTruthy();
     expect(formControlGrid3.querySelector('.select.custom-select')).toBeTruthy();
 

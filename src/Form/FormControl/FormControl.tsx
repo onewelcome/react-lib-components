@@ -3,17 +3,12 @@ import classes from './FormControl.module.scss';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactChild | ReactChild[];
-  background?: string;
-  noPadding?: boolean;
-  noBackground?: boolean;
   grid?: number;
 }
 
 export const FormControl = ({
   children,
-  noBackground,
-  background = noBackground ? '' : '#FFF',
-  noPadding = false,
+
   className,
   grid,
   ...rest
@@ -43,10 +38,9 @@ export const FormControl = ({
 
   return (
     <div
-      style={{ backgroundColor: background }}
-      className={`${classes['form-control']} ${noPadding ? classes['no-padding'] : ''} ${
-        className ? className : ''
-      } ${grid && grid > 1 ? classes.grid : ''}`}
+      className={`${classes['form-control']} ${className ? className : ''} ${
+        grid && grid > 1 ? classes.grid : ''
+      }`}
       {...rest}
     >
       {grid && grid > 1 ? renderGrid() : children}
