@@ -47,6 +47,8 @@ export const Select = ({
        * parameter of the option that was clicked.
        */
 
+      setDisplay(child.props.children);
+
       let newValue;
       let multiple = false; // Potential support for future multiple select. This should be a prop obviously.
 
@@ -78,7 +80,6 @@ export const Select = ({
 
   const handleSelectCloseOnBodyClick = useCallback(
     (event: MouseEvent) => {
-      event.preventDefault();
       if (!(event.target as Element).closest('.custom-select') && expanded) {
         setExpanded(false);
       }
@@ -139,10 +140,6 @@ export const Select = ({
   };
 
   useEffect(() => {
-    setDisplay(value);
-  }, [value]);
-
-  useEffect(() => {
     /**
      * Add body click listener to close select and remove it in the cleanup function whenever expanded state changes.
      */
@@ -160,6 +157,15 @@ export const Select = ({
     };
   }, [expanded]);
 
+  /** Set initial display value */
+  useEffect(() => {
+    for (let child of children) {
+      if (child.props.value === value) {
+        setDisplay(child.props.children);
+      }
+    }
+  }, []);
+
   const additionalClasses = [];
   if (expanded) additionalClasses.push(classes.expanded);
   if (error) additionalClasses.push(classes.error);
@@ -176,6 +182,7 @@ export const Select = ({
       />
       <button
         onClick={setExpanded.bind(null, !expanded)}
+        type="button"
         aria-disabled={disabled}
         aria-invalid={error}
         aria-expanded={expanded}
