@@ -56,13 +56,13 @@ describe('CheckboxWrapper should have an error', () => {
       label: 'Label',
       children: (
         <Checkbox name="placeholder checkbox" checked={false}>
-          Placholder
+          Placeholder
         </Checkbox>
       ),
     });
 
     const checkboxes = checkboxwrapper?.querySelectorAll('.checkbox-container input');
-    const errorMessage = checkboxwrapper?.querySelector('.helper-text .error-message .message');
+    const errorMessage = checkboxwrapper?.querySelector('.default-helper .error-message .message');
 
     /** All of the children checkboxes should be described by the error message in the parent checkbox group. */
     checkboxes?.forEach((box) => {
