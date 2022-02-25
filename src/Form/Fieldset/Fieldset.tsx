@@ -6,8 +6,8 @@ type TitleStyle = 'h1' | 'h2' | 'h3' | 'body' | 'body-bold';
 
 export interface Props extends HTMLAttributes<HTMLFieldSetElement> {
   children: ReactElement | ReactElement[];
-  title: string;
-  titleStyle: TitleStyle;
+  title?: string;
+  titleStyle?: TitleStyle;
   background?: string;
   noPadding?: boolean;
   noBackground?: boolean;
@@ -53,10 +53,12 @@ export const Fieldset = ({
       className={`${classes.fieldset} ${noPadding ? classes['no-padding'] : ''}`}
       {...rest}
     >
-      <legend className={readyclasses['sr-only']}>{title}</legend>
-      <span className={`style-${titleStyle} ${classes.title}`} aria-hidden="true">
-        {title}
-      </span>
+      {title && <legend className={readyclasses['sr-only']}>{title}</legend>}
+      {title && (
+        <span className={`style-${titleStyle} ${classes.title}`} aria-hidden="true">
+          {title}
+        </span>
+      )}
       {renderChildren()}
     </fieldset>
   );

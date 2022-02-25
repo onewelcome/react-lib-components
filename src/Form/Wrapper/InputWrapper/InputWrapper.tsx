@@ -14,6 +14,8 @@ export interface Props extends HTMLProps<HTMLDivElement> {
   error: boolean;
   value: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const InputWrapper = ({
@@ -27,6 +29,8 @@ export const InputWrapper = ({
   value,
   error,
   onChange,
+  onBlur,
+  onFocus,
   ...rest
 }: Props) => {
   const { errorId, floatingLabelActive, setFloatingLabelActive, setHasFocus, helperId, labelId } =
@@ -51,11 +55,13 @@ export const InputWrapper = ({
         aria-describedby={error ? errorId : helperId}
         {...inputProps}
         onChange={(e) => onChange && onChange(e)}
-        onFocus={() => {
+        onFocus={(e) => {
+          onFocus && onFocus(e);
           setHasFocus(true);
           setFloatingLabelActive(true);
         }}
         onBlur={(e) => {
+          onBlur && onBlur(e);
           setHasFocus(false);
           e.target.value || inputProps?.placeholder?.length
             ? setFloatingLabelActive(true)

@@ -16,7 +16,6 @@ export const CheckboxWrapper = ({
   errorMessage,
   helperText,
   name,
-  onChange,
 }: Props) => {
   const { errorId, helperId } = useWrapper();
 
@@ -33,7 +32,6 @@ export const CheckboxWrapper = ({
           errorMessageId: errorId,
           error: error,
           parentHelperId: helperText ? helperId : false,
-          onChange: (event: React.ChangeEvent<HTMLInputElement>) => onChange && onChange(event),
         })}
       </Fragment>
     ));

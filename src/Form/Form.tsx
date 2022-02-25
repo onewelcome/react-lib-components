@@ -1,4 +1,5 @@
 import React, { HTMLAttributes, ReactNode } from 'react';
+import classes from './Form.module.scss';
 
 export interface Props extends HTMLAttributes<HTMLFormElement> {
   children?: ReactNode;
@@ -10,5 +11,9 @@ export interface Props extends HTMLAttributes<HTMLFormElement> {
 }
 
 export const Form = ({ children, ...rest }: Props) => {
-  return <form {...rest}>{children}</form>;
+  return (
+    <form className={classes.form} {...rest}>
+      {children}
+    </form>
+  );
 };

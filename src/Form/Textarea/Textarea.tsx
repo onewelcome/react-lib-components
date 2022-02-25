@@ -1,5 +1,5 @@
 import React, { HTMLProps } from 'react';
-import { Icon, Icons } from '../..';
+import { Icon, Icons } from '../../Icon/Icon';
 import classes from './Textarea.module.scss';
 
 export interface Props extends HTMLProps<HTMLTextAreaElement> {

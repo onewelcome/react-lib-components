@@ -1,5 +1,9 @@
 .checkbox-wrapper {
   position: relative;
+
+  + .checkbox-wrapper {
+    margin-top: 20px;
+  }
 }
 
 .error {

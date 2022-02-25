@@ -16,8 +16,8 @@ export interface Props extends Omit<FormGroupProps, 'children'> {
 export interface WrapperProps {
   label?: string;
   name: string;
-  helperText: string;
-  errorMessage: string;
+  helperText?: string;
+  errorMessage?: string;
   error: boolean;
   value: string;
 }
@@ -39,7 +39,7 @@ export const Wrapper = ({
   name,
 }: Props) => {
   return (
-    <div className="wrapper">
+    <div data-wrapper className={classes.wrapper}>
       <FormGroup
         error={error}
         errorMessage={errorMessage}

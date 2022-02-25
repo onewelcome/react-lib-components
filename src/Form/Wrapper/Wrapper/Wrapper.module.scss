@@ -17,3 +17,8 @@
     transform: translateY(-13px);
   }
 }
+
+.wrapper + fieldset,
+.wrapper + .wrapper {
+  margin-top: 16px;
+}
