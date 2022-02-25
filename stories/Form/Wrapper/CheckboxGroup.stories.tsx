@@ -64,9 +64,9 @@ const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
         error={error}
         errorMessage="Please check all the boxes"
         helperText="Helpertext for the group"
+        onChange={handleElectronicsOnChange}
       >
         <Checkbox
-          onChange={handleElectronicsOnChange}
           indeterminate={indeterminate}
           checked={electronics}
           helperText="This is example helpertext"

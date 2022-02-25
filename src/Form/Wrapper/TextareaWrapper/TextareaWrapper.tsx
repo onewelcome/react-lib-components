@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './TextareaWrapper.module.scss';
-import { Wrapper } from '../Wrapper/Wrapper';
-import { WrapperProps } from '../Wrapper/Wrapper';
+import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { Textarea, Props as TextareaProps } from '../../Textarea/Textarea';
 import { useWrapper } from '../../../hooks/useWrapper';
 

@@ -1,7 +1,6 @@
 import React, { ReactChild, ReactElement } from 'react';
-import { WrapperProps } from '../Wrapper/Wrapper';
 import classes from './SelectWrapper.module.scss';
-import { Wrapper } from '../Wrapper/Wrapper';
+import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { Select } from '../../Select/Select';
 import { useWrapper } from '../../../hooks/useWrapper';
 
