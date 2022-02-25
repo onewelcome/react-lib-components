@@ -18,6 +18,7 @@ interface CSSProperties {
   modalBackgroundColor?: string;
   modalHeaderBackgroundColor?: string;
   fontFamily?: string;
+  fontSize?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -50,6 +51,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalBackgroundColor: '#F5F8F8',
     modalHeaderBackgroundColor: '#FFF',
     fontFamily: "'Red Hat Display', sans-serif",
+    fontSize: '16px',
     default: '#0f0f1e',
     success: '#008A28',
     error: '#e22a1d',

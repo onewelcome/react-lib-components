@@ -1,9 +1,9 @@
-import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { Radio, Props } from "../../src/Form/Radio/Radio";
+import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import { Radio, Props } from '../../../src/Form/Radio/Radio';
 
 const meta: Meta = {
-  title: "Radio",
+  title: 'Form/Elements/Radio',
   component: Radio,
   argTypes: {
     parentHelperId: {

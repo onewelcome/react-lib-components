@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { FormControl, Props } from '../../src/Form/FormControl/FormControl';
-import { Form } from '../../src/Form/Form';
-import { Input } from '../../src/Form/Input/Input';
-import { Select } from '../../src/Form/Select/Select';
-import { Option } from '../../src/Form/Select/Option';
-import { RadioGroup } from '../../src/Form/RadioGroup/RadioGroup';
-import { Radio } from '../../src/Form/Radio/Radio';
-import { Checkbox } from '../../src/Form/Checkbox/Checkbox';
-import { CheckboxGroup } from '../../src/Form/CheckboxGroup/CheckboxGroup';
+import { FormControl, Props } from '../../../src/Form/FormControl/FormControl';
+import { Form } from '../../../src/Form/Form';
+import { Input } from '../../../src/Form/Input/Input';
+import { Select } from '../../../src/Form/Select/Select';
+import { Option } from '../../../src/Form/Select/Option';
+import { RadioWrapper } from '../../../src/Form/Wrapper/RadioWrapper/RadioWrapper';
+import { Radio } from '../../../src/Form/Radio/Radio';
+import { Checkbox } from '../../../src/Form/Checkbox/Checkbox';
+import { CheckboxWrapper } from '../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper';
 
 const meta: Meta = {
-  title: 'FormControl',
+  title: 'Form/Elements/FormControl',
   component: FormControl,
 };
 
@@ -101,17 +101,17 @@ const Template: Story<Props> = (args) => {
 
   return (
     <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
-      <FormControl noPadding noBackground {...args}>
+      <FormControl>
         <Input placeholder="This is a placeholder" name="example" type="text" />
       </FormControl>
-      <FormControl noBackground noPadding>
+      <FormControl>
         <Select value={selectValue} onChange={onSelectChange}>
           <Option value="option1">Option1</Option>
           <Option value="option2">Option2</Option>
           <Option value="option3">Option3</Option>
         </Select>
       </FormControl>
-      <FormControl grid={3} noPadding noBackground>
+      <FormControl grid={3}>
         <Select value={prefix} onChange={prefixChangeHandler} onClear={prefixClearHandler}>
           <Option disabled value={undefined}>
             Prefix
@@ -122,7 +122,7 @@ const Template: Story<Props> = (args) => {
         <Input name="first_name" type="text" />
         <Input name="last_name" type="text" />
       </FormControl>
-      <FormControl grid={2} noPadding noBackground>
+      <FormControl grid={2}>
         <FormControl>
           <Checkbox onChange={onNewsletterChangeHandler} name="newsletter" checked={newsletter}>
             Subscribe to newsletter?
@@ -130,9 +130,12 @@ const Template: Story<Props> = (args) => {
         </FormControl>
         <Input name="last_name" type="text" />
       </FormControl>
-      <FormControl grid={2} noPadding noBackground>
+      <FormControl grid={2}>
         <FormControl>
-          <RadioGroup
+          <RadioWrapper
+            label="Radio label"
+            error={false}
+            errorMessage="Error message"
             value={preferredMobileDevice}
             name="electronics"
             onChange={(e) => setPreferredMobileDevice(e.target.value)}
@@ -141,10 +144,16 @@ const Template: Story<Props> = (args) => {
             <Radio value="mobile">Mobile</Radio>
             <Radio value="tv">TV</Radio>
             <Radio value="pc">PC</Radio>
-          </RadioGroup>
+          </RadioWrapper>
         </FormControl>
         <FormControl>
-          <CheckboxGroup>
+          <CheckboxWrapper
+            label="Radio label"
+            error={false}
+            errorMessage="Error message"
+            name="electronics"
+            helperText="This is helper text"
+          >
             <Checkbox
               onChange={handleElectronicsOnChange}
               checked={electronics.checked}
@@ -162,7 +171,7 @@ const Template: Story<Props> = (args) => {
                 Laptop
               </Checkbox>
             </Checkbox>
-          </CheckboxGroup>
+          </CheckboxWrapper>
         </FormControl>
       </FormControl>
     </Form>

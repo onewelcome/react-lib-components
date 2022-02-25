@@ -1,37 +1,37 @@
 import React from 'react';
-import { FormSelectorGroup } from './FormSelectorGroup';
+import { FormGroup } from './FormGroup';
 import { render } from '@testing-library/react';
 
 describe('FormSelectorGroup should render', () => {
   it('renders without crashing', () => {
     const { getByTestId } = render(
-      <FormSelectorGroup
+      <FormGroup
         helperId="helper_id"
         helperText="example helper text"
         errorMessage="example error message"
         errorId="error_id"
-        data-testid="formselectorgroup"
+        data-testid="formgroup"
       >
         Form content here
-      </FormSelectorGroup>
+      </FormGroup>
     );
-    const component = getByTestId('formselectorgroup');
+    const component = getByTestId('formgroup');
     expect(component).toBeDefined();
   });
 
   it('has the correct values and attributes', () => {
     const { getByTestId } = render(
-      <FormSelectorGroup
+      <FormGroup
         helperId="helper_id"
         helperText="example helper text"
         errorMessage="example error message"
         errorId="error_id"
-        data-testid="formselectorgroup"
+        data-testid="formgroup"
       >
         Form content here
-      </FormSelectorGroup>
+      </FormGroup>
     );
-    const component = getByTestId('formselectorgroup');
+    const component = getByTestId('formgroup');
     const helperText = component.querySelector('.form-helper-text');
 
     expect(helperText).toHaveAttribute('id', 'helper_id');
@@ -41,18 +41,18 @@ describe('FormSelectorGroup should render', () => {
 
 describe('Correct error state', () => {
   const { getByTestId } = render(
-    <FormSelectorGroup
+    <FormGroup
       helperId="helper_id"
       helperText="example helper text"
       errorMessage="example error message"
       errorId="error_id"
       error={true}
-      data-testid="formselectorgroup2"
+      data-testid="formgroup2"
     >
       Form content here
-    </FormSelectorGroup>
+    </FormGroup>
   );
-  const component = getByTestId('formselectorgroup2');
+  const component = getByTestId('formgroup2');
   const errorMessage = component.querySelector('.error-message');
 
   expect(errorMessage).toBeTruthy();

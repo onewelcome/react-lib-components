@@ -1,4 +1,4 @@
-.form-selector-group {
+.form-group {
   position: relative;
 }
 
@@ -8,18 +8,22 @@
 
 .error-message {
   display: flex;
-  align-items: bottom;
+  align-items: flex-end;
 }
 
 .error-icon {
   margin-right: 8px;
   font-size: 20px;
+
+  &-before {
+    margin-right: 8px;
+  }
+
+  &-after {
+    margin-left: 8px;
+  }
 }
 
-.helper-text {
-  margin-top: 20px;
-}
-
-.message {
-  font-size: inherit;
+.default-helper {
+  font-size: 12px;
 }

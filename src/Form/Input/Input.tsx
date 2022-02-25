@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes, useEffect } from 'react';
 import classes from './Input.module.scss';
 import { Icon, Icons } from '../../Icon/Icon';
 
-export type type =
+export type Type =
   | 'text'
   | 'email'
   | 'file'
@@ -21,6 +21,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
   wrapperClass?: string;
   className?: string;
+  labeledBy?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -28,7 +29,15 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const Input = ({ error = false, className, name, style, wrapperClass, ...rest }: Props) => {
+export const Input = ({
+  error = false,
+  className,
+  name,
+  style,
+  wrapperClass,
+  labeledBy,
+  ...rest
+}: Props) => {
   useEffect(() => {
     if (name === undefined) {
       throw new Error("Please give your <Input /> component a 'name' attribute");
@@ -41,6 +50,7 @@ export const Input = ({ error = false, className, name, style, wrapperClass, ...
       className={`${classes['input-wrapper']} ${wrapperClass ? wrapperClass : ''}`}
     >
       <input
+        aria-labelledby={labeledBy}
         name={name}
         className={`${classes.input} ${error ? classes.error : ''} ${className ? className : ''}`}
         {...rest}

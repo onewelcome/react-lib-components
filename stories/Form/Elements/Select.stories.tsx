@@ -1,10 +1,10 @@
-import React, { Fragment, useState } from "react";
-import { Meta, Story } from "@storybook/react";
-import { Select, Props } from "../../src/Form/Select/Select";
-import { Option } from "../../src/Form/Select/Option";
+import React, { Fragment, useState } from 'react';
+import { Meta, Story } from '@storybook/react';
+import { Select, Props } from '../../../src/Form/Select/Select';
+import { Option } from '../../../src/Form/Select/Option';
 
 const meta: Meta = {
-  title: "Select",
+  title: 'Form/Elements/Select',
   component: Select,
 };
 
@@ -15,7 +15,7 @@ declare global {
 }
 
 const Template: Story<Props> = (args) => {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState('');
   window.setSelected = setSelected;
 
   return (
@@ -45,6 +45,6 @@ SelectEl.args = {
     window.setSelected(event.target.value);
   },
   onClear: () => {
-    window.setSelected("");
+    window.setSelected('');
   },
 };

@@ -78,6 +78,7 @@ export const Icon = ({ icon, color, className, style, size, ...rest }: Props) =>
     <span
       {...rest}
       style={{ color: color, ...style, fontSize: size }}
+      data-icon
       aria-hidden="true"
       className={`${classes['icon']} ${classes['icon-' + icon]} ${className ? className : ''}`}
     />

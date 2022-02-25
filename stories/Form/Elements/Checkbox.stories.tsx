@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Checkbox, CheckboxProps as CheckboxProps } from '../../src/Form/Checkbox/Checkbox';
+import { Checkbox, CheckboxProps as CheckboxProps } from '../../../src/Form/Checkbox/Checkbox';
 
 const meta: Meta = {
-  title: 'Checkbox',
+  title: 'Form/Elements/Checkbox',
   component: Checkbox,
   argTypes: {
     parentHelperId: {

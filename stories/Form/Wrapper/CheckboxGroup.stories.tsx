@@ -1,24 +1,26 @@
 import { Meta, Story } from '@storybook/react';
 import { useEffect, useState } from 'react';
-import { Checkbox } from '../../src/Form/Checkbox/Checkbox';
+import { Checkbox } from '../../../src/Form/Checkbox/Checkbox';
+import { Button } from '../../../src/Button/Button';
 import {
-  CheckboxGroup,
-  Props as CheckboxGroupProps,
-} from '../../src/Form/CheckboxGroup/CheckboxGroup';
+  CheckboxWrapper,
+  Props as CheckboxWrapperProps,
+} from '../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper';
 
 const meta: Meta = {
-  title: 'CheckboxGroup',
-  component: CheckboxGroup,
+  title: 'Form/Wrapper/CheckboxWrapper',
+  component: CheckboxWrapper,
 };
 
 export default meta;
 
-const NestedTemplate: Story<CheckboxGroupProps> = (args) => {
+const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
   const [indeterminate, setIndeterminate] = useState(false);
   const [electronics, setElectronics] = useState(false);
   const [checkedLaptop, setCheckedLaptop] = useState(false);
   const [checkedTV, setCheckedTV] = useState(false);
   const [checkedMicrophone, setCheckedMicrophone] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (checkedLaptop && checkedTV && checkedMicrophone) {
@@ -56,39 +58,45 @@ const NestedTemplate: Story<CheckboxGroupProps> = (args) => {
   };
 
   return (
-    <CheckboxGroup
-      {...args}
-      errorMessage="Please check all the boxes"
-      helperText="Helpertext for the group"
-    >
-      <Checkbox
-        onChange={handleElectronicsOnChange}
-        indeterminate={indeterminate}
-        checked={electronics}
-        helperText="This is example helpertext"
-        name="electronics"
-        label="Electronics"
+    <div>
+      <CheckboxWrapper
+        name="Electronics"
+        error={error}
+        errorMessage="Please check all the boxes"
+        helperText="Helpertext for the group"
       >
         <Checkbox
-          onChange={onLaptopCheckHandler}
-          checked={checkedLaptop}
-          helperText="More examples"
-          name="laptop"
+          onChange={handleElectronicsOnChange}
+          indeterminate={indeterminate}
+          checked={electronics}
+          helperText="This is example helpertext"
+          name="electronics"
+          label="Electronics"
         >
-          Laptop
+          <Checkbox
+            onChange={onLaptopCheckHandler}
+            checked={checkedLaptop}
+            helperText="More examples"
+            name="laptop"
+          >
+            Laptop
+          </Checkbox>
+          <Checkbox onChange={onTVCheckHandler} checked={checkedTV} name="tv">
+            TVs
+          </Checkbox>
+          <Checkbox
+            onChange={onMicrophoneCheckHandler}
+            checked={checkedMicrophone}
+            name="microphones"
+          >
+            Microphones
+          </Checkbox>
         </Checkbox>
-        <Checkbox onChange={onTVCheckHandler} checked={checkedTV} name="tv">
-          TVs
-        </Checkbox>
-        <Checkbox
-          onChange={onMicrophoneCheckHandler}
-          checked={checkedMicrophone}
-          name="microphones"
-        >
-          Microphones
-        </Checkbox>
-      </Checkbox>
-    </CheckboxGroup>
+      </CheckboxWrapper>
+      <Button style={{ marginTop: '20px' }} onClick={() => setError(!error)}>
+        Click here to toggle error state
+      </Button>
+    </div>
   );
 };
 

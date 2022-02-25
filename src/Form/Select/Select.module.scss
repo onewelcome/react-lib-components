@@ -28,12 +28,13 @@ $listItemHeight: 34px;
 
   button {
     width: 100%;
-    min-height: 61px;
+    min-height: 64px;
     background-color: transparent;
     border: 0;
     cursor: pointer;
     padding: 0 15px;
     position: relative;
+    font-size: var(--font-size);
   }
 
   .list-wrapper {

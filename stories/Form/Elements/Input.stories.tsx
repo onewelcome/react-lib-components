@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Input, Props } from '../../src/Form/Input/Input';
-import { Form } from '../../src/Form/Form';
+import { Input, Props } from '../../../src/Form/Input/Input';
+import { Form } from '../../../src/Form/Form';
 
 const meta: Meta = {
-  title: 'Input',
+  title: 'Form/Elements/Input',
   component: Input,
   argTypes: {
     className: {

@@ -6,9 +6,9 @@ import { Input } from '../Input/Input';
 import { Select } from '../Select/Select';
 import { Option } from '../Select/Option';
 import { Checkbox } from '../Checkbox/Checkbox';
-import { RadioGroup } from '../RadioGroup/RadioGroup';
+import { RadioWrapper } from '../Wrapper/RadioWrapper/RadioWrapper';
 import { Radio } from '../Radio/Radio';
-import { CheckboxGroup } from '../CheckboxGroup/CheckboxGroup';
+import { CheckboxWrapper } from '../Wrapper/CheckboxWrapper/CheckboxWrapper';
 
 const createFormControl = () => {
   const queries = render(
@@ -44,7 +44,10 @@ const createFormControl = () => {
       </FormControl>
       <FormControl grid={2}>
         <FormControl>
-          <RadioGroup
+          <RadioWrapper
+            label="Label"
+            errorMessage="Errormessage"
+            error={false}
             value="mobile"
             name="electronics"
             onChange={jest.fn}
@@ -53,10 +56,17 @@ const createFormControl = () => {
             <Radio value="mobile">Mobile</Radio>
             <Radio value="tv">TV</Radio>
             <Radio value="pc">PC</Radio>
-          </RadioGroup>
+          </RadioWrapper>
         </FormControl>
         <FormControl data-testid="formcontrol_default">
-          <CheckboxGroup>
+          <CheckboxWrapper
+            onChange={jest.fn()}
+            errorMessage="This is an error"
+            error={false}
+            helperText="Helpertext"
+            name="Checkboxwrapper"
+            label="Label"
+          >
             <Checkbox
               onChange={jest.fn}
               checked={false}
@@ -74,7 +84,7 @@ const createFormControl = () => {
                 Laptop
               </Checkbox>
             </Checkbox>
-          </CheckboxGroup>
+          </CheckboxWrapper>
         </FormControl>
       </FormControl>
     </Form>
@@ -121,7 +131,7 @@ describe('FormControl children should render properly', () => {
   it('renders children', () => {
     const { formControlDefault, formControlGrid2, formControlGrid3 } = createFormControl();
 
-    expect(formControlDefault.querySelector('.form-selector-group .checkbox-wrapper')).toBeTruthy();
+    expect(formControlDefault.querySelector('.form-group .checkbox-wrapper')).toBeTruthy();
     expect(formControlGrid2.querySelector('.checkbox-wrapper')).toBeTruthy();
     expect(formControlGrid3.querySelector('.select.custom-select')).toBeTruthy();
 

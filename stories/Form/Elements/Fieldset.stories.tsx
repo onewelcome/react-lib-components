@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Fieldset, Props } from '../../src/Form/Fieldset/Fieldset';
-import { FormControl } from '../../src/Form/FormControl/FormControl';
-import { Select } from '../../src/Form/Select/Select';
-import { Option } from '../../src/Form/Select/Option';
-import { Input } from '../../src/Form/Input/Input';
-import { Form } from '../../src/Form/Form';
+import { Fieldset, Props } from '../../../src/Form/Fieldset/Fieldset';
+import { FormControl } from '../../../src/Form/FormControl/FormControl';
+import { Select } from '../../../src/Form/Select/Select';
+import { Option } from '../../../src/Form/Select/Option';
+import { Input } from '../../../src/Form/Input/Input';
+import { Form } from '../../../src/Form/Form';
 
 const meta: Meta = {
-  title: 'Fieldset',
+  title: 'Form/Elements/Fieldset',
   component: Fieldset,
 };
 

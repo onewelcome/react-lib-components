@@ -1,39 +1,37 @@
 import classes from './Select.module.scss';
 
-import React, {
-  Fragment,
-  HTMLAttributes,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { Fragment, HTMLProps, ReactElement, useCallback, useEffect, useState } from 'react';
 import { Input } from '../Input/Input';
 import { Icon, Icons } from '../../Icon/Icon';
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
+export interface Props extends HTMLProps<HTMLSelectElement> {
   children: ReactElement[];
+  name?: string;
   disabled?: boolean;
   labeledBy?: string;
+  describedBy?: string;
   placeholder?: string;
   searchPlaceholder?: string;
+  className?: string;
   error?: boolean;
   value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLDivElement>, child?: ReactElement) => void;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
   onClear?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export const Select = ({
   children,
+  name,
   disabled = false,
   labeledBy,
-  placeholder = 'Choose an option',
+  placeholder,
+  describedBy,
   searchPlaceholder = 'Search item',
+  className,
   error = false,
   value = '',
   onChange,
   onClear,
-  ...rest
 }: Props) => {
   const [expanded, setExpanded] = useState(false);
   const [filter, setFilter] = useState('');
@@ -66,12 +64,12 @@ export const Select = ({
         const nativeEvent: any = event.nativeEvent || event;
         const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
 
-        Object.defineProperty(clonedEvent, 'target', {
+        Object.defineProperty(clonedEvent as React.ChangeEvent<HTMLSelectElement>, 'target', {
           writable: true,
           value: { value: newValue },
         });
 
-        onChange(clonedEvent, child);
+        onChange(clonedEvent as React.ChangeEvent<HTMLSelectElement>, child);
       }
 
       setDisplay(event.currentTarget.innerText);
@@ -172,7 +170,11 @@ export const Select = ({
   if (disabled) additionalClasses.push(classes.disabled);
 
   return (
-    <div {...rest} className={`${classes.select} ${additionalClasses.join(' ')} custom-select`}>
+    <div
+      className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
+        className ? className : ''
+      }`}
+    >
       <input
         style={{ display: 'none' }}
         value={value}
@@ -183,14 +185,18 @@ export const Select = ({
       <button
         onClick={setExpanded.bind(null, !expanded)}
         type="button"
+        name={name}
         aria-disabled={disabled}
         aria-invalid={error}
         aria-expanded={expanded}
         aria-haspopup="listbox"
         aria-labelledby={labeledBy}
+        aria-describedby={describedBy}
       >
-        <div className={classes.selected}>
-          {value.length === 0 && <span className={classes.placeholder}>{placeholder}</span>}
+        <div data-display className={classes.selected}>
+          {value.length === 0 && placeholder && (
+            <span className={classes.placeholder}>{placeholder}</span>
+          )}
           {value.length > 0 && <span>{display}</span>}
         </div>
         <div className={classes.status}>
