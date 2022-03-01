@@ -7,7 +7,7 @@ import { ModalHeader } from '../../src/Modal/ModalHeader/ModalHeader';
 import { Button } from '../../src/Button/Button';
 
 const meta: Meta = {
-  title: 'Modal',
+  title: 'UI/Modal',
   component: Modal,
   args: {
     id: 'modal',

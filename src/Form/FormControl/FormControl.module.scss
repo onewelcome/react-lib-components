@@ -6,7 +6,21 @@
 
   &.grid {
     display: flex;
-    align-items: center;
+    
+    &.center,
+    &.middle {
+      align-items: center;
+    }
+
+    &.start,
+    &.top {
+      align-items: flex-start;
+    }
+
+    &.end,
+    &.bottom {
+      align-items: flex-end;
+    }
   }
 }
 

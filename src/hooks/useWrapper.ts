@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { generateID } from '../util/helper';
+import { Type as InputTypes } from '../Form/Input/Input';
 
-export const useWrapper = (value?: string, placeholder?: string) => {
+export const useWrapper = (value?: string, placeholder?: string, type?: InputTypes) => {
   const [helperId] = useState(generateID(20));
   const [errorId] = useState(generateID(20));
   const [labelId] = useState(generateID(20));
@@ -9,7 +10,7 @@ export const useWrapper = (value?: string, placeholder?: string) => {
   const [hasFocus, setHasFocus] = useState(false);
 
   useEffect(() => {
-    if (value?.length || placeholder) {
+    if (value?.length || placeholder || type === 'datetime-local' || type === 'time') {
       setFloatingLabelActive(true);
     }
   }, []);
@@ -17,10 +18,10 @@ export const useWrapper = (value?: string, placeholder?: string) => {
   useEffect(() => {
     if (value?.length) {
       setFloatingLabelActive(true);
-    } else if (!placeholder && !hasFocus) {
+    } else if (!placeholder && !hasFocus && type !== 'datetime-local' && type !== 'time') {
       setFloatingLabelActive(false);
     }
-  }, [value, placeholder]);
+  }, [value, placeholder, type]);
 
   return {
     helperId,

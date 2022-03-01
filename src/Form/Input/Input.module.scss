@@ -9,7 +9,7 @@
   border-style: var(--input-border-style);
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
-  transition: all .15s ease-in-out;
+  transition: all 0.15s ease-in-out;
   font-size: var(--font-size);
   font-family: var(--font-family);
   width: 100%;
@@ -18,7 +18,7 @@
   &:disabled {
     color: var(--greyed-out);
     background-color: var(--disabled);
-    border-color: #FFF;
+    border-color: #fff;
     cursor: not-allowed;
   }
 
@@ -44,6 +44,10 @@
   color: var(--error);
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 27px;
   font-size: 20px;
+
+  &.extra-indent {
+    right: 50px;
+  }
 }

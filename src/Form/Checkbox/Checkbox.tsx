@@ -45,7 +45,7 @@ export const Checkbox = ({
 
   useEffect(() => {
     if (!name) {
-      throw new Error("Please pass a 'name' prop to your <Checkbox> component.");
+      console.error("Please pass a 'name' prop to your <Checkbox> component.");
     }
 
     if (typeof children === 'object' && indeterminate === undefined) {
@@ -122,9 +122,7 @@ export const Checkbox = ({
           <Icon className={classes.input} icon={Icons.CheckmarkSquare} />
         )}
         {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
-        <label htmlFor={identifier} data-testing="mand">
-          {determineLabel()}
-        </label>
+        <label htmlFor={identifier}>{determineLabel()}</label>
       </div>
       {helperText && (!error || errorMessageId || !errorMessage) && (
         <FormHelperText

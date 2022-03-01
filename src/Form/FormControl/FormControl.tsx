@@ -5,15 +5,24 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactElement | ReactElement[];
   grid?: number;
   fieldsetDisabled?: boolean;
+  align?: string;
 }
 
-export const FormControl = ({ children, fieldsetDisabled, className, grid, ...rest }: Props) => {
+export const FormControl = ({
+  children,
+  fieldsetDisabled,
+  className,
+  grid,
+  align = 'center',
+  ...rest
+}: Props) => {
   const renderChildren = () => {
     if (!Array.isArray(children)) {
       children = [children];
     }
 
     return children.map((child, index) => {
+      if (child === undefined) return;
       const childElement = React.cloneElement(child, {
         disabled: fieldsetDisabled,
       });
@@ -32,9 +41,10 @@ export const FormControl = ({ children, fieldsetDisabled, className, grid, ...re
 
   return (
     <div
+      data-formcontrol
       className={`${classes['form-control']} ${className ? className : ''} ${
         grid && grid > 1 ? classes.grid : ''
-      }`}
+      } ${classes[align]}`}
       {...rest}
     >
       {renderChildren()}

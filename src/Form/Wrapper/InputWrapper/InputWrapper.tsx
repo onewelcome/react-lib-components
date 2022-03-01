@@ -34,7 +34,7 @@ export const InputWrapper = ({
   ...rest
 }: Props) => {
   const { errorId, floatingLabelActive, setFloatingLabelActive, setHasFocus, helperId, labelId } =
-    useWrapper(value, placeholder);
+    useWrapper(value, placeholder, type);
 
   return (
     <Wrapper
@@ -63,7 +63,10 @@ export const InputWrapper = ({
         onBlur={(e) => {
           onBlur && onBlur(e);
           setHasFocus(false);
-          e.target.value || inputProps?.placeholder?.length
+          e.target.value ||
+          inputProps?.placeholder?.length ||
+          type === 'datetime-local' ||
+          type === 'time'
             ? setFloatingLabelActive(true)
             : setFloatingLabelActive(false);
         }}

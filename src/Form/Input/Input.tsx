@@ -12,7 +12,7 @@ export type Type =
   | 'tel'
   | 'time'
   | 'url'
-  | 'datetime'
+  | 'datetime-local'
   | 'hidden';
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -35,6 +35,7 @@ export const Input = ({
   name,
   style,
   wrapperClass,
+  type,
   labeledBy,
   ...rest
 }: Props) => {
@@ -51,11 +52,19 @@ export const Input = ({
     >
       <input
         aria-labelledby={labeledBy}
+        type={type}
         name={name}
         className={`${classes.input} ${error ? classes.error : ''} ${className ? className : ''}`}
         {...rest}
       />
-      {error && <Icon className={classes.warning} icon={Icons.Warning} />}
+      {error && (
+        <Icon
+          className={`${classes.warning} ${
+            type === 'datetime-local' || type === 'time' ? classes['extra-indent'] : ''
+          }`}
+          icon={Icons.Warning}
+        />
+      )}
     </div>
   );
 };

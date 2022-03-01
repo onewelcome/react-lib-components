@@ -6,6 +6,7 @@ import { Select } from '../../../src/Form/Select/Select';
 import { Option } from '../../../src/Form/Select/Option';
 import { Input } from '../../../src/Form/Input/Input';
 import { Form } from '../../../src/Form/Form';
+import { SelectWrapper } from '../../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
 
 const meta: Meta = {
   title: 'Form/Elements/Fieldset',
@@ -27,13 +28,20 @@ const Template: Story<Props> = (args) => {
     <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
       <Fieldset disabled title="Name" {...args}>
         <FormControl grid={3}>
-          <Select value={prefix} onChange={prefixChangeHandler} onClear={prefixClearHandler}>
+          <SelectWrapper
+            name="prefix"
+            error={false}
+            label="Prefix"
+            value={prefix}
+            onChange={prefixChangeHandler}
+            onClear={prefixClearHandler}
+          >
             <Option disabled value={undefined}>
               Prefix
             </Option>
             <Option value="mr">Mr.</Option>
             <Option value="mrs">Mrs.</Option>
-          </Select>
+          </SelectWrapper>
           <Input name="first_name" type="text" />
           <Input name="last_name" type="text" />
         </FormControl>

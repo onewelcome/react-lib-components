@@ -6,37 +6,21 @@ import { Option } from '../../../src/Form/Select/Option';
 const meta: Meta = {
   title: 'Form/Wrapper/SelectWrapper',
   component: SelectWrapper,
+  argTypes: {
+    value: {
+      options: ['option1', 'option2', 'option3', 'option4'],
+      control: {
+        type: 'select',
+      },
+    },
+  },
 };
 
 export default meta;
 
-const Template: Story<Props> = () => {
-  const [error, setError] = useState({ state: false, message: "Option 4 can't be selected" });
-  const [selectValue, setSelectValue] = useState('');
-
-  useEffect(() => {
-    if (selectValue === 'option4') {
-      setError((prevState) => {
-        return { ...prevState, state: true };
-      });
-    } else {
-      setError((prevState) => {
-        return { ...prevState, state: false };
-      });
-    }
-  }, [selectValue]);
-
+const Template: Story<Props> = (args) => {
   return (
-    <SelectWrapper
-      label="Example select wrapper"
-      name="Example select"
-      helperText="If you select option 4 you will get an error"
-      error={error.state}
-      errorMessage={error.message}
-      value={selectValue}
-      onChange={(e) => setSelectValue(e.target.value)}
-      onClear={() => setSelectValue('')}
-    >
+    <SelectWrapper {...args}>
       <Option value="option1">Option 1</Option>
       <Option value="option2">Option 2</Option>
       <Option value="option3">Option 3</Option>
@@ -47,4 +31,13 @@ const Template: Story<Props> = () => {
 
 export const SelectWrapperEl = Template.bind({});
 
-SelectWrapperEl.args = {};
+SelectWrapperEl.args = {
+  label: 'Example select wrapper',
+  name: 'Example select',
+  helperText: 'Example helper text',
+  error: false,
+  errorMessage: 'This is an error message',
+  value: '',
+  onChange: () => {},
+  onClear: () => {},
+};

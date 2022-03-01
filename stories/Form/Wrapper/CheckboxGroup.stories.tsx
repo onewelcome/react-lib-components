@@ -10,6 +10,26 @@ import {
 const meta: Meta = {
   title: 'Form/Wrapper/CheckboxWrapper',
   component: CheckboxWrapper,
+  argTypes: {
+    legendId: {
+      controls: false,
+      table: {
+        disable: true,
+      },
+    },
+    label: {
+      controls: false,
+      table: {
+        disable: true,
+      },
+    },
+    onChange: {
+      controls: false,
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
 export default meta;
@@ -20,7 +40,6 @@ const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
   const [checkedLaptop, setCheckedLaptop] = useState(false);
   const [checkedTV, setCheckedTV] = useState(false);
   const [checkedMicrophone, setCheckedMicrophone] = useState(false);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (checkedLaptop && checkedTV && checkedMicrophone) {
@@ -59,19 +78,14 @@ const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
 
   return (
     <div>
-      <CheckboxWrapper
-        name="Electronics"
-        error={error}
-        errorMessage="Please check all the boxes"
-        helperText="Helpertext for the group"
-        onChange={handleElectronicsOnChange}
-      >
+      <CheckboxWrapper {...args}>
         <Checkbox
           indeterminate={indeterminate}
           checked={electronics}
           helperText="This is example helpertext"
           name="electronics"
           label="Electronics"
+          onChange={handleElectronicsOnChange}
         >
           <Checkbox
             onChange={onLaptopCheckHandler}
@@ -93,13 +107,15 @@ const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
           </Checkbox>
         </Checkbox>
       </CheckboxWrapper>
-      <Button style={{ marginTop: '20px' }} onClick={() => setError(!error)}>
-        Click here to toggle error state
-      </Button>
     </div>
   );
 };
 
 export const NestedCheckboxes = NestedTemplate.bind({});
 
-NestedCheckboxes.args = {};
+NestedCheckboxes.args = {
+  name: 'Electronics',
+  error: false,
+  errorMessage: 'Please check all the boxes',
+  helperText: 'Helpertext for the group',
+};
