@@ -11,6 +11,7 @@ const createCheckboxWrapper = (params?: Props, parentParams?: CheckboxProps) => 
       error={false}
       helperText="Helpertext"
       name="Checkboxwrapper"
+      fieldsetProps={{ title: 'Example title' }}
       label="Label"
       {...params}
     >

@@ -1,22 +1,18 @@
-import React, { HTMLAttributes, ReactElement, useEffect } from 'react';
+import React, { HTMLProps, ReactElement, useEffect } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormHelperText } from '../FormHelperText/FormHelperText';
 import classes from './Checkbox.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
 
-export interface CheckboxProps extends HTMLAttributes<HTMLInputElement> {
+export interface CheckboxProps extends HTMLProps<HTMLInputElement> {
   children: string | ReactElement[];
-  name: string;
   label?: string;
   error?: boolean;
-  disabled?: boolean;
   helperText?: string;
   errorMessage?: string;
-  checked?: boolean;
   parentHelperId?: string;
   indeterminate?: boolean;
   errorMessageId?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Checkbox = ({
@@ -55,10 +51,6 @@ export const Checkbox = ({
     }
   }, []);
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement> | React.MouseEvent) => {
-    onChange && onChange(event as React.ChangeEvent<HTMLInputElement>);
-  };
-
   const determineLabel = () => {
     if (label) {
       return label;
@@ -74,14 +66,13 @@ export const Checkbox = ({
   };
 
   const renderNestedCheckboxes = () => {
-    if (typeof children === 'string') return;
     return (
       <ul className={classes['checkbox-list']}>
-        {children.map((child, index) => {
+        {(children as ReactElement[]).map((child, index) => {
           return (
             <li key={index}>
               <Checkbox
-                checked={checked}
+                parentHelperId={parentHelperId}
                 errorMessageId={errorMessageId}
                 error={error}
                 {...child.props}
@@ -107,7 +98,9 @@ export const Checkbox = ({
           disabled={disabled}
           className={classes['native-input']}
           checked={checked}
-          onChange={onChangeHandler}
+          onChange={(event) => {
+            onChange && onChange(event);
+          }}
           aria-invalid={error ? true : false}
           aria-checked={indeterminate ? 'mixed' : checked}
           aria-describedby={describedBy}

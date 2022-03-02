@@ -118,26 +118,25 @@ const Template: Story<Props> = (args) => {
         />
       </FormControl>
       <FormControl>
-        <Fieldset>
-          <CheckboxWrapper
-            name="subscribe-wrapper"
-            error={subscribe.error}
-            errorMessage={subscribe.errorMessage}
+        <CheckboxWrapper
+          name="subscribe-wrapper"
+          error={subscribe.error}
+          errorMessage={subscribe.errorMessage}
+          fieldsetProps={{ title: 'Example title' }}
+        >
+          <Checkbox
+            onChange={(e) =>
+              setSubscribe((prevState) => ({
+                ...prevState,
+                checked: !prevState.checked,
+              }))
+            }
+            name="subscribe"
+            checked={subscribe.checked}
           >
-            <Checkbox
-              onChange={(e) =>
-                setSubscribe((prevState) => ({
-                  ...prevState,
-                  checked: !prevState.checked,
-                }))
-              }
-              name="subscribe"
-              checked={subscribe.checked}
-            >
-              Subscribe to newsletter
-            </Checkbox>
-          </CheckboxWrapper>
-        </Fieldset>
+            Subscribe to newsletter
+          </Checkbox>
+        </CheckboxWrapper>
       </FormControl>
       <FormControl>
         <Fieldset title="Address" noBackground noPadding>
@@ -215,47 +214,49 @@ const Template: Story<Props> = (args) => {
         </Fieldset>
       </FormControl>
       <FormControl>
-        <Fieldset title="Legend for checkbox group">
-          <CheckboxWrapper name="food-group" error={checkbox.error} errorMessage="">
-            <Checkbox
-              onChange={(e) =>
-                setCheckbox((prevState) => ({
-                  ...prevState,
-                  checkbox1: { checked: !prevState.checkbox1.checked },
-                }))
-              }
-              name="checkbox1"
-              checked={checkbox.checkbox1.checked}
-            >
-              Checkbox 1
-            </Checkbox>
-            <Checkbox
-              onChange={(e) =>
-                setCheckbox((prevState) => ({
-                  ...prevState,
-                  checkbox2: { checked: !prevState.checkbox2.checked },
-                }))
-              }
-              name="checkbox2"
-              checked={checkbox.checkbox2.checked}
-            >
-              Checkbox 2
-            </Checkbox>
-          </CheckboxWrapper>
-        </Fieldset>
+        <CheckboxWrapper
+          name="food-group"
+          error={checkbox.error}
+          errorMessage=""
+          fieldsetProps={{ title: 'Example title' }}
+        >
+          <Checkbox
+            onChange={(e) =>
+              setCheckbox((prevState) => ({
+                ...prevState,
+                checkbox1: { checked: !prevState.checkbox1.checked },
+              }))
+            }
+            name="checkbox1"
+            checked={checkbox.checkbox1.checked}
+          >
+            Checkbox 1
+          </Checkbox>
+          <Checkbox
+            onChange={(e) =>
+              setCheckbox((prevState) => ({
+                ...prevState,
+                checkbox2: { checked: !prevState.checkbox2.checked },
+              }))
+            }
+            name="checkbox2"
+            checked={checkbox.checkbox2.checked}
+          >
+            Checkbox 2
+          </Checkbox>
+        </CheckboxWrapper>
       </FormControl>
       <FormControl grid={2}>
-        <Fieldset title="Would you like us to call you back?">
-          <RadioWrapper
-            name="callback"
-            onChange={(e) => setCallBack((prevState) => ({ ...prevState, value: e.target.value }))}
-            value={callBack.value}
-            error={callBack.error}
-          >
-            <Radio value="yes">Yes</Radio>
-            <Radio value="no">No</Radio>
-          </RadioWrapper>
-        </Fieldset>
+        <RadioWrapper
+          name="callback"
+          onChange={(e) => setCallBack((prevState) => ({ ...prevState, value: e.target.value }))}
+          fieldsetProps={{ title: 'Example title' }}
+          value={callBack.value}
+          error={callBack.error}
+        >
+          <Radio value="yes">Yes</Radio>
+          <Radio value="no">No</Radio>
+        </RadioWrapper>
         {callBack.value === 'yes' ? (
           <Fieldset>
             <InputWrapper

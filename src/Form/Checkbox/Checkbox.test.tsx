@@ -39,7 +39,7 @@ describe('Checkbox should have proper attributes', () => {
     expect(checkbox).toHaveAttribute('aria-checked', 'true');
   });
 
-  it('should call the onCheck function', () => {
+  it('should call the onChange function', () => {
     const onChangeHandler = jest.fn();
     const { checkbox } = createCheckbox({
       name: 'Testing',
@@ -74,8 +74,13 @@ describe('Checkbox should have proper attributes', () => {
       name: 'Testing',
       children: 'Label',
       error: true,
+      errorMessage: 'Something went wrong',
     });
 
+    expect(checkbox).toHaveAttribute(
+      'aria-describedby',
+      container.querySelector('.error-message span:last-of-type')!.id
+    );
     expect(checkbox).toHaveAttribute('aria-invalid', 'true');
     expect(container.querySelector('.checkbox-wrapper')).toHaveClass('error');
   });

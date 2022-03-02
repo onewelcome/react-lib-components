@@ -82,7 +82,6 @@ const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
         <Checkbox
           indeterminate={indeterminate}
           checked={electronics}
-          helperText="This is example helpertext"
           name="electronics"
           label="Electronics"
           onChange={handleElectronicsOnChange}
@@ -115,6 +114,7 @@ export const NestedCheckboxes = NestedTemplate.bind({});
 
 NestedCheckboxes.args = {
   name: 'Electronics',
+  fieldsetProps: { title: 'Fieldset title' },
   error: false,
   errorMessage: 'Please check all the boxes',
   helperText: 'Helpertext for the group',

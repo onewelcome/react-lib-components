@@ -14,6 +14,7 @@ describe('RadioWrapper should render', () => {
         value={'option1'}
         name="my-group"
         onChange={jest.fn()}
+        fieldsetProps={{ title: 'Example title' }}
       >
         <Radio value="option1">Option 1</Radio>
         <Radio value="option2">Option 2</Radio>

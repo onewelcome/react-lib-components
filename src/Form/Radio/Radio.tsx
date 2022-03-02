@@ -1,21 +1,16 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLProps } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormHelperText } from '../FormHelperText/FormHelperText';
 import classes from './Radio.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
 
-export interface Props extends HTMLAttributes<HTMLInputElement> {
+export interface Props extends HTMLProps<HTMLInputElement> {
   children: string;
-  name?: string;
   error?: boolean;
-  disabled?: boolean;
   helperText?: string;
   errorMessage?: string;
-  value: string;
-  checked?: boolean;
   parentHelperId?: string;
   errorMessageId?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Radio = ({

@@ -11,6 +11,13 @@ import { SelectWrapper } from '../../../src/Form/Wrapper/SelectWrapper/SelectWra
 const meta: Meta = {
   title: 'Form/Elements/Fieldset',
   component: Fieldset,
+  argTypes: {
+    disabled: {
+      control: {
+        type: 'boolean',
+      },
+    },
+  },
 };
 
 export default meta;

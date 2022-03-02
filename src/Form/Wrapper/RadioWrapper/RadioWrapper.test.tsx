@@ -13,6 +13,7 @@ const createRadioWrapper = (params?: Props, checkedOptionValue = 'option1') => {
       helperText="Helper text"
       error={false}
       onChange={onChangeHandler}
+      fieldsetProps={{ title: 'Example title' }}
       value={checkedOptionValue}
       name="my-group"
       {...params}

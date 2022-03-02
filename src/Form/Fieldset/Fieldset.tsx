@@ -1,17 +1,16 @@
-import React, { Fragment, HTMLAttributes, ReactElement } from 'react';
+import React, { Fragment, HTMLProps, ReactElement } from 'react';
 import readyclasses from '../../readyclasses.module.scss';
 import classes from './Fieldset.module.scss';
 
 type TitleStyle = 'h1' | 'h2' | 'h3' | 'body' | 'body-bold';
 
-export interface Props extends HTMLAttributes<HTMLFieldSetElement> {
-  children: ReactElement | ReactElement[];
+export interface Props extends HTMLProps<HTMLFieldSetElement> {
+  children?: ReactElement | ReactElement[];
   title?: string;
   titleStyle?: TitleStyle;
   background?: string;
   noPadding?: boolean;
   noBackground?: boolean;
-  disabled?: boolean;
 }
 
 export const Fieldset = ({
@@ -33,11 +32,11 @@ export const Fieldset = ({
   }
 
   const renderChildren = () => {
-    if (!Array.isArray(children)) {
+    if (!Array.isArray(children) && children) {
       children = [children];
     }
 
-    return children.map((child, index) => (
+    return (children as ReactElement[]).map((child, index) => (
       <Fragment key={index}>
         {React.cloneElement(child, {
           fieldsetDisabled: disabled,

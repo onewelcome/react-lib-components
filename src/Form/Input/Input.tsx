@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useEffect } from 'react';
+import React, { HTMLProps, useEffect } from 'react';
 import classes from './Input.module.scss';
 import { Icon, Icons } from '../../Icon/Icon';
 
@@ -15,18 +15,10 @@ export type Type =
   | 'datetime-local'
   | 'hidden';
 
-export interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  value?: string;
-  disabled?: boolean;
+export interface Props extends HTMLProps<HTMLInputElement> {
   error?: boolean;
   wrapperClass?: string;
-  className?: string;
   labeledBy?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export const Input = ({

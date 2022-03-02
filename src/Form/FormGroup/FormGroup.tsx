@@ -1,9 +1,9 @@
-import React, { HTMLAttributes, ReactChild } from 'react';
+import React, { HTMLProps, ReactChild } from 'react';
 import classes from './FormGroup.module.scss';
 import { FormHelperText, Props as HelperProps } from '../FormHelperText/FormHelperText';
 import { Icon, Icons } from '../../Icon/Icon';
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
+export interface Props extends HTMLProps<HTMLDivElement> {
   children: ReactChild[] | ReactChild;
   error?: boolean;
   errorMessageIcon?: Icons;

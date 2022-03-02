@@ -1,12 +1,13 @@
-import React, { Fragment, ReactElement } from 'react';
+import React, { Fragment, ReactElement, useEffect } from 'react';
 import classes from './CheckboxWrapper.module.scss';
 import { useWrapper } from '../../../hooks/useWrapper';
 import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { Icons } from '../../../Icon/Icon';
+import { Fieldset, Props as FieldsetProps } from '../../../Form/Fieldset/Fieldset';
 
 export interface Props extends Omit<WrapperProps, 'value'> {
   children: ReactElement[] | ReactElement;
-  legendId?: string;
+  fieldsetProps?: FieldsetProps;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -15,9 +16,18 @@ export const CheckboxWrapper = ({
   error = false,
   errorMessage,
   helperText,
+  fieldsetProps,
   name,
 }: Props) => {
   const { errorId, helperId } = useWrapper();
+
+  useEffect(() => {
+    if (fieldsetProps?.title === undefined) {
+      console.error(
+        `You should give your Fieldset component a title prop so a legend element is rendered. This error was thrown in CheckboxWrapper. You can add this title prop through the fieldsetProps prop by passing an object (fieldsetProps={{ title: "title here" }})`
+      );
+    }
+  }, []);
 
   const renderChildren = () => {
     /** Always convert children to an array, even if only 1 Checkbox component is passed */
@@ -52,7 +62,14 @@ export const CheckboxWrapper = ({
       errorMessageIcon={Icons.Warning}
       errorId={errorId}
     >
-      {renderChildren()}
+      <Fieldset
+        noPadding={fieldsetProps?.noPadding}
+        noBackground={fieldsetProps?.noBackground}
+        title={fieldsetProps?.title}
+        titleStyle={fieldsetProps?.titleStyle}
+      >
+        {renderChildren()}
+      </Fieldset>
     </Wrapper>
   );
 };

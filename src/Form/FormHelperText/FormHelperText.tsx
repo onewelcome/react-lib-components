@@ -1,7 +1,7 @@
-import React, { HTMLAttributes, ReactNode } from 'react';
+import React, { HTMLProps, ReactNode } from 'react';
 import classes from './FormHelperText.module.scss';
 
-export interface Props extends HTMLAttributes<HTMLSpanElement> {
+export interface Props extends HTMLProps<HTMLDivElement> {
   children?: ReactNode;
   disabled?: boolean;
   error?: boolean;

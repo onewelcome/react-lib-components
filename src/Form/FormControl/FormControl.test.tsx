@@ -52,6 +52,7 @@ const createFormControl = () => {
             name="electronics"
             onChange={jest.fn}
             helperText="This is helper text"
+            fieldsetProps={{ title: 'Example title' }}
           >
             <Radio value="mobile">Mobile</Radio>
             <Radio value="tv">TV</Radio>
@@ -65,6 +66,7 @@ const createFormControl = () => {
             error={false}
             helperText="Helpertext"
             name="Checkboxwrapper"
+            fieldsetProps={{ title: 'Example title' }}
             label="Label"
           >
             <Checkbox
