@@ -2,9 +2,14 @@ import React from 'react';
 import { Icon, Props, Icons } from './Icon';
 import { render } from '@testing-library/react';
 
-const createIcon = (params?: Props, iconName = Icons.Calendar) => {
+const initParams: Props = {
+  icon: Icons.Calendar,
+  color: 'rgb(26, 153, 60)',
+};
+
+const createIcon = (params = initParams) => {
   const queries = render(
-    <Icon data-testid="icon-component" color="rgb(26, 153, 60)" icon={iconName} {...params} />
+    <Icon {...params} data-testid="icon-component" color={params.color} icon={params.icon} />
   );
   const icon = queries.getByTestId('icon-component');
 
@@ -20,6 +25,15 @@ describe('Icon', () => {
 
     expect(icon).toBeDefined();
     expect(icon).toHaveClass('icon-calendar');
+    expect(icon.tagName.toLowerCase()).toBe('span');
     expect(icon.getAttribute('style')).toBe('color: rgb(26, 153, 60);');
+  });
+
+  it('should render icon with within div tag', () => {
+    const tag = 'div';
+    const { icon } = createIcon({ ...initParams, tag });
+
+    expect(icon).toBeDefined();
+    expect(icon.tagName.toLowerCase()).toBe(tag);
   });
 });
