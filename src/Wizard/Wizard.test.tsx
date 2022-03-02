@@ -8,7 +8,8 @@ import {
   queryByRole,
   findByText,
 } from '@testing-library/react';
-import { WizardActions, WizardSteps } from '..';
+import { WizardActions } from './WizardActions/WizardActions';
+import { WizardSteps } from './WizardSteps/WizardSteps';
 import userEvent from '@testing-library/user-event';
 
 type initWizardPropsType = Omit<Omit<Props, 'onStepChange'>, 'children'>;

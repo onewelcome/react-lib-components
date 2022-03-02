@@ -52,7 +52,7 @@ const renderWizardActions = (initReducerState?: WizardStateType, props?: Props) 
   };
 
   const renderObj = render(
-    <Provider>
+    <Provider initialState={initWizardState}>
       <WizardActions {...actionsProps} />
     </Provider>
   );

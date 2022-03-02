@@ -17,9 +17,6 @@ export const WizardSteps = ({ onStepClick, ...restProps }: Props) => {
     onStepClick(currentStepNo, selectedStepNo) && dispatch(changeCurrentStepNo(selectedStepNo));
   };
 
-  if (!stepScreenReaderLabel) {
-    return null;
-  }
   return (
     <BaseWizardSteps
       {...restProps}

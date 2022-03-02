@@ -44,7 +44,7 @@ const renderWizardSteps = (initReducerState?: WizardStateType) => {
   };
 
   const renderObj = render(
-    <Provider>
+    <Provider initialState={initWizardState}>
       <WizardSteps {...initParams} />
     </Provider>
   );
