@@ -25,6 +25,7 @@ export const Checkbox = ({
   disabled,
   label,
   parentHelperId,
+  className,
   error,
   checked = false,
   onChange,
@@ -91,7 +92,7 @@ export const Checkbox = ({
     <div
       className={`${classes['checkbox-wrapper']} ${error ? classes.error : ''} ${
         disabled ? classes.disabled : ''
-      }`}
+      } ${className ? className : ''}`}
     >
       <div className={classes['checkbox-container']}>
         <input

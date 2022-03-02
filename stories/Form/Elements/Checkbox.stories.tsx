@@ -18,6 +18,11 @@ const meta: Meta = {
       },
       control: false,
     },
+    checked: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 };
 

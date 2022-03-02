@@ -1,3 +1,50 @@
-.component {
-	font-family: inherit;
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.toggle {
+  width: 33px;
+  height: 20px;
+  background-color: var(--default);
+  border-radius: 40px;
+  position: relative;
+  transition: background-color 0.2s ease-in-out;
+  display: block;
+  pointer-events: none;
+
+  &:before {
+    content: '';
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    display: block;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(0);
+    left: 2px;
+    transition: transform 0.15s ease-in-out;
+  }
+
+  &.checked {
+    background-color: var(--color-primary);
+    &:before {
+      transform: translateY(-50%) translateX(calc(100% - 4px));
+    }
+  }
+}
+
+.checkbox {
+  z-index: 10;
+  position: static;
+
+  input {
+    width: 33px;
+  }
+
+  [data-icon] {
+    display: none;
+  }
 }

@@ -1,9 +1,15 @@
-import React, { HTMLAttributes, ReactChild } from 'react';
+import React from 'react';
+import { Checkbox, CheckboxProps } from '../Checkbox/Checkbox';
+import classes from './Toggle.module.scss';
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactChild;
-}
-
-export const Toggle = ({ children, ...rest }: Props) => {
-  return <div {...rest}>{children} </div>;
-};
+export const Toggle = ({ children, checked, ...props }: CheckboxProps) => (
+  <div className={classes['toggle-wrapper']}>
+    <span
+      aria-hidden="true"
+      className={`${classes.toggle} ${checked ? classes.checked : ''} `}
+    ></span>
+    <Checkbox checked={checked} className={classes.checkbox} {...props}>
+      {children}
+    </Checkbox>
+  </div>
+);

@@ -12,6 +12,7 @@ import { RadioWrapper } from '../../src/Form/Wrapper/RadioWrapper/RadioWrapper';
 import { Radio } from '../../src/Form/Radio/Radio';
 import { SelectWrapper } from '../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
 import { Option } from '../../src/Form/Select/Option';
+import { Toggle } from '../../src/Form/Toggle/Toggle';
 
 const meta: Meta = {
   title: 'Form/Form',
@@ -118,25 +119,17 @@ const Template: Story<Props> = (args) => {
         />
       </FormControl>
       <FormControl>
-        <CheckboxWrapper
-          name="subscribe-wrapper"
-          error={subscribe.error}
-          errorMessage={subscribe.errorMessage}
-          fieldsetProps={{ title: 'Example title' }}
-        >
-          <Checkbox
-            onChange={(e) =>
-              setSubscribe((prevState) => ({
-                ...prevState,
-                checked: !prevState.checked,
-              }))
+        <Fieldset title="Subscribe to newsletter">
+          <Toggle
+            onChange={() =>
+              setSubscribe((prevState) => ({ ...prevState, checked: !prevState.checked }))
             }
-            name="subscribe"
+            name="Newsletter"
             checked={subscribe.checked}
           >
-            Subscribe to newsletter
-          </Checkbox>
-        </CheckboxWrapper>
+            Subscribe to our newsletter!
+          </Toggle>
+        </Fieldset>
       </FormControl>
       <FormControl>
         <Fieldset title="Address" noBackground noPadding>

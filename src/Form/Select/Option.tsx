@@ -1,7 +1,7 @@
-import React, { HTMLAttributes, useEffect, useState } from 'react';
+import React, { HTMLProps, useEffect, useState } from 'react';
 import classes from './Select.module.scss';
 
-export interface Props extends HTMLAttributes<HTMLLIElement> {
+export interface Props extends HTMLProps<HTMLLIElement> {
   children: string;
   value: string;
   disabled?: boolean;
