@@ -3,7 +3,6 @@ import { BaseButton, Props } from './BaseButton';
 import { render, getByRole } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-/** Helper function to quickly create a button and return IT and the queries returned by the render method. */
 const createButton = (params?: Props, children = 'This is a button') => {
   const queries = render(<BaseButton {...params}>{children}</BaseButton>);
   const button = getByRole(queries.container, 'button');
@@ -24,10 +23,10 @@ describe('BaseButton should render', () => {
 describe('On click handler', () => {
   it('executes the onclick handler', async () => {
     const onClickHandler = jest.fn();
-
     const { button } = createButton({ onClick: onClickHandler });
 
     userEvent.click(button);
+
     expect(onClickHandler).toBeCalled();
   });
 });

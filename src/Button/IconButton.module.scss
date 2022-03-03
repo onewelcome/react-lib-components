@@ -2,10 +2,10 @@
   border: var(--button-border-width) var(--button-border-style) transparent;
   background-color: transparent;
   padding: 0;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   svg {
     vertical-align: top;
@@ -37,7 +37,7 @@
   }
 
   /** Colors **/
-  &.primary {
+  &.primary:not(:disabled) {
     color: var(--color-primary);
 
     &:hover:not(:disabled) {
@@ -63,7 +63,7 @@
     }
   }
 
-  &.secondary {
+  &.secondary:not(:disabled) {
     color: var(--color-secondary);
 
     &:hover:not(:disabled) {
@@ -89,7 +89,7 @@
     }
   }
 
-  &.tertiary {
+  &.tertiary:not(:disabled) {
     color: var(--color-tertiary);
 
     &:hover:not(:disabled) {

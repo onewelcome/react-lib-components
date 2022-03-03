@@ -1,0 +1,186 @@
+@mixin clickable-element {
+  &:enabled:hover,
+  &:focus,
+  &:enabled:active {
+    cursor: pointer;
+
+    .number-wrapper {
+      .number {
+        background-color: var(--color-primary);
+        color: #ffffff;
+      }
+    }
+
+    .label {
+      text-decoration: underline;
+    }
+  }
+
+  &:enabled:active {
+    .number-wrapper {
+      .number {
+        border: none;
+        margin: 2px;
+      }
+    }
+  }
+}
+
+@mixin disabled-element {
+  &:disabled {
+    .number-wrapper {
+      .number {
+        border: 2px solid var(--greyed-out);
+        color: var(--greyed-out);
+      }
+    }
+
+    .label {
+      color: var(--greyed-out);
+    }
+  }
+}
+
+.wizard {
+  padding: 1rem;
+  display: flex;
+}
+
+.wizard-element {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: transparent;
+  border: 0;
+  align-items: stretch;
+  padding: 0;
+  margin: 0;
+
+  // Completed/finished state
+  &.finished {
+    .number-wrapper {
+      .number {
+        border: 2px solid var(--color-primary);
+        color: var(--color-primary);
+        font-weight: normal;
+      }
+
+      &:before,
+      &:after {
+        border-bottom: 2px solid var(--color-primary);
+      }
+    }
+
+    .label {
+      color: var(--color-primary);
+    }
+    @include disabled-element;
+    @include clickable-element;
+  }
+
+  //Active/current step
+  &.current {
+    .number-wrapper {
+      .number {
+        color: #fff;
+        border: 2px solid var(--color-primary);
+        background-color: var(--color-primary);
+      }
+
+      &:after {
+        border-bottom: 2px solidvar(--color-primary);
+      }
+
+      &:before {
+        border-bottom: 2px solid var(--color-primary)
+      }
+    }
+
+    .label {
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+  }
+
+  //Future state for clickable elements - future state is a default one
+  &.future.clickable {
+    .number-wrapper {
+      .number {
+        border: 2px solid var(--color-primary);
+        color: var(--color-primary);
+      }
+    }
+
+    .label {
+      color: var(--color-primary);
+    }
+
+    @include clickable-element;
+    @include disabled-element;
+  }
+
+  &:first-child {
+    .number-wrapper:before {
+      border-bottom: none;
+    }
+  }
+
+  &:last-child {
+    .number-wrapper:after {
+      border-bottom: none;
+    }
+  }
+}
+
+.number-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  &:after,
+  &:before {
+    content: " ";
+    margin-bottom: .8125rem;
+    width: 100%;
+    border-bottom: 2px solid var(--greyed-out);
+  }
+}
+
+.number {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--greyed-out);
+  border-radius: 50%;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--greyed-out);
+  line-height: 1.5rem;
+  background-color: #ffffff;
+}
+
+.two-line-text-overflow {
+  max-height: 2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  padding: .25rem 1rem 0;
+}
+
+.label {
+  font-family: var(--font-family);
+  font-size: .75rem;
+  line-height: 1rem;
+  overflow: hidden; 
+  color: var(--greyed-out);
+  text-align: center;
+}
+
+.checkmark {
+  font-size: .875rem;
+}

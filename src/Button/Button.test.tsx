@@ -1,9 +1,8 @@
 import React from 'react';
 import { Button, Props } from './Button';
 import { render, getByRole } from '@testing-library/react';
-import { PhotoCamera } from '@material-ui/icons';
+import { Icon, Icons } from '../Icon/Icon';
 
-/** Helper function to quickly create a button and return IT and the queries returned by the render method. */
 const createButton = (params?: Props, children = 'This is a button') => {
   const queries = render(<Button {...params}>{children}</Button>);
   const button = getByRole(queries.container, 'button');
@@ -57,19 +56,17 @@ describe('Different variants of the button', () => {
 describe('Button contains an icon', () => {
   it('Contains an icon at the start', () => {
     const { button } = createButton({
-      startIcon: <PhotoCamera />,
+      startIcon: <Icon icon={Icons.Calendar} />,
     });
 
     expect(button.classList.contains('has-icon')).toBe(true);
     expect(button.firstElementChild?.nodeName).toBe('I');
-    expect(button.querySelector('i + span')!.innerHTML).toBe(
-      'This is a button'
-    );
+    expect(button.querySelector('i + span')!.innerHTML).toBe('This is a button');
   });
 
   it('Contains an icon at the end', () => {
     const { button } = createButton({
-      endIcon: <PhotoCamera />,
+      endIcon: <Icon icon={Icons.Calendar} />,
     });
 
     expect(button.classList.contains('has-icon')).toBe(true);

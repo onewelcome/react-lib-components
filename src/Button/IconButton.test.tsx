@@ -1,10 +1,9 @@
 import React from 'react';
 import { IconButton, Props } from './IconButton';
 import { render, getByRole } from '@testing-library/react';
-import { PhotoCamera } from '@material-ui/icons';
+import { Icon, Icons } from '../Icon/Icon';
 
-/** Helper function to quickly create a button and return IT and the queries returned by the render method. */
-const createButton = (params?: Props, children = <PhotoCamera />) => {
+const createButton = (params?: Props, children = <Icon icon={Icons.Calendar} />) => {
   const queries = render(<IconButton {...params}>{children}</IconButton>);
   const button = getByRole(queries.container, 'button');
 

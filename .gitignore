@@ -6,3 +6,9 @@ dist
 coverage/
 storybook-static/
 .nvmrc
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
