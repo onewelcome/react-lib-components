@@ -19,6 +19,7 @@ export { FormGroup } from './Form/FormGroup/FormGroup';
 export { FormHelperText } from './Form/FormHelperText/FormHelperText';
 export { Label } from './Form/Label/Label';
 export { Select } from './Form/Select/Select';
+export { Option } from './Form/Select/Option';
 export { Textarea } from './Form/Textarea/Textarea';
 export { Wrapper } from './Form/Wrapper/Wrapper/Wrapper';
 export { CheckboxWrapper } from './Form/Wrapper/CheckboxWrapper/CheckboxWrapper';
@@ -27,6 +28,15 @@ export { RadioWrapper } from './Form/Wrapper/RadioWrapper/RadioWrapper';
 export { SelectWrapper } from './Form/Wrapper/SelectWrapper/SelectWrapper';
 export { TextareaWrapper } from './Form/Wrapper/TextareaWrapper/TextareaWrapper';
 export { Input } from './Form/Input/Input';
-export { Option } from './Form/Select/Option';
 export { Radio } from './Form/Radio/Radio';
 export { Checkbox } from './Form/Checkbox/Checkbox';
+
+/** Wizard */
+export {
+  BaseWizardSteps,
+  Props as BaseWizardStepsProps,
+  Step as WizardStep,
+} from './Wizard/BaseWizardSteps/BaseWizardSteps';
+export { WizardActions } from './Wizard/WizardActions/WizardActions';
+export { WizardSteps } from './Wizard/WizardSteps/WizardSteps';
+export { Wizard, Props as WizardProps } from './Wizard/Wizard';

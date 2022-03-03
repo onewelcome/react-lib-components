@@ -127,4 +127,4 @@ const Template: Story<Props> = (args) => {
   );
 };
 
-export const Modal1 = Template.bind({});
+export const BasicModal = Template.bind({});

@@ -66,16 +66,17 @@ export enum Icons {
   Warning = 'warning',
 }
 
-export interface Props extends HTMLAttributes<HTMLSpanElement> {
+export interface Props extends HTMLAttributes<HTMLOrSVGElement> {
   icon: Icons;
   color?: string;
   size?: string;
-  tag?: string;
+  tag?: keyof JSX.IntrinsicElements;
 }
 
-export const Icon = ({ icon, color, className, style, size, ...rest }: Props) => {
+export const Icon = ({ icon, color, className, style, size, tag = 'span', ...rest }: Props) => {
+  const Component = tag;
   return (
-    <span
+    <Component
       {...rest}
       style={{ color: color, ...style, fontSize: size }}
       data-icon
