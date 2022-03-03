@@ -26,6 +26,7 @@ export const InputWrapper = ({
   helperText,
   errorMessage,
   placeholder,
+  required,
   value,
   error,
   onChange,
@@ -40,8 +41,10 @@ export const InputWrapper = ({
     <Wrapper
       name={name}
       label={label}
+      className={classes['input-wrapper']}
       labelProps={{ id: labelId }}
       floatingLabelActive={floatingLabelActive}
+      required={required}
       errorId={errorId}
       error={error}
       errorMessage={errorMessage}

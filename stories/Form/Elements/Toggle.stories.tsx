@@ -7,6 +7,18 @@ const meta: Meta = {
   title: 'Form/Elements/Toggle',
   component: Toggle,
   argTypes: {
+    parentHelperId: {
+      table: {
+        disable: true,
+      },
+      control: false,
+    },
+    errorMessageId: {
+      table: {
+        disable: true,
+      },
+      control: false,
+    },
     checked: {
       control: {
         type: 'boolean',

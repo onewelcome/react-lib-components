@@ -14,6 +14,9 @@ const meta: Meta = {
         type: 'radio',
       },
     },
+    required: {
+      control: 'boolean',
+    },
   },
 };
 
@@ -39,6 +42,7 @@ RadioWrapperEl.args = {
   label: 'Radiowrapper',
   error: false,
   errorMessage: 'Errormessage',
+  fieldsetProps: { noPadding: true, noBackground: true },
   helperText: 'Helpertext',
   value: 'option1',
   name: 'my-group',

@@ -17,6 +17,11 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
+    background: {
+      control: {
+        type: 'color',
+      },
+    },
   },
 };
 

@@ -1,12 +1,12 @@
 .form-control {
-
   + .form-control {
     margin-top: 16px;
   }
 
   &.grid {
     display: flex;
-    
+    flex-wrap: wrap;
+
     &.center,
     &.middle {
       align-items: center;
@@ -27,9 +27,25 @@
 .column {
   flex-grow: 1;
   flex-shrink: 0;
+}
 
-  + .column {
-    margin-left: 1rem;
+.grid-2 {
+  .column:nth-child(even) {
+    margin-left: 16px;
+  }
+
+  .column:nth-child(n+3) {
+    margin-top: 16px;
+  }
+}
+
+.grid-3 {
+  .column:not(:nth-child(3n+1)) {
+    margin-left: 16px;
+  }
+
+  .column:nth-child(n+4) {
+    margin-top: 16px;
   }
 }
 

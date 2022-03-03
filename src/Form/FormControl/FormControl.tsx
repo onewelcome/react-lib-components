@@ -43,7 +43,7 @@ export const FormControl = ({
     <div
       data-formcontrol
       className={`${classes['form-control']} ${className ? className : ''} ${
-        grid && grid > 1 ? classes.grid : ''
+        grid && grid > 1 ? `${classes.grid} ${classes['grid-' + grid]}` : ''
       } ${classes[align]}`}
       {...rest}
     >

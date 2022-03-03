@@ -18,6 +18,7 @@ export const RadioWrapper = ({
   error,
   errorMessage,
   fieldsetProps,
+  required,
   value,
   onChange,
 }: Props) => {
@@ -57,6 +58,7 @@ export const RadioWrapper = ({
       name={name}
       helperId={helperId}
       helperText={helperText}
+      required={required}
       helperProps={{
         className: `${classes['radio-wrapper-helper']} ${
           error ? classes['radio-wrapper-error'] : ''
@@ -68,14 +70,7 @@ export const RadioWrapper = ({
       errorMessageIcon={Icons.Warning}
       floatingLabel={false}
     >
-      <Fieldset
-        noPadding={fieldsetProps?.noPadding}
-        noBackground={fieldsetProps?.noBackground}
-        title={fieldsetProps?.title}
-        titleStyle={fieldsetProps?.titleStyle}
-      >
-        {renderChildren()}
-      </Fieldset>
+      <Fieldset {...fieldsetProps}>{renderChildren()}</Fieldset>
     </Wrapper>
   );
 };

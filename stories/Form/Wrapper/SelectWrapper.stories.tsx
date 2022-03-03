@@ -37,7 +37,5 @@ SelectWrapperEl.args = {
   helperText: 'Example helper text',
   error: false,
   errorMessage: 'This is an error message',
-  value: '',
-  onChange: () => {},
-  onClear: () => {},
+  required: true,
 };

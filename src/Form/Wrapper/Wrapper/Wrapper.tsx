@@ -10,6 +10,8 @@ export interface Props extends Omit<FormGroupProps, 'children'> {
   name: string;
   labelProps?: LabelProps;
   floatingLabel?: boolean;
+  /** This does NOT add validation! It simply adds an asterix on the Label! */
+  required?: boolean;
 }
 
 /** For components that extend this component we create an interface (InputWrapper, SelectWrapper, etc.) */
@@ -20,10 +22,12 @@ export interface WrapperProps {
   errorMessage?: string;
   error: boolean;
   value: string;
+  required?: boolean;
 }
 
 export const Wrapper = ({
   children,
+  className,
   error,
   errorMessage,
   errorId,
@@ -33,13 +37,14 @@ export const Wrapper = ({
   helperId,
   floatingLabel = true,
   floatingLabelActive,
+  required,
   helperProps,
   labelProps,
   label,
   name,
 }: Props) => {
   return (
-    <div data-wrapper className={classes.wrapper}>
+    <div data-wrapper className={`${classes.wrapper} ${className ? className : ''}`}>
       <FormGroup
         error={error}
         errorMessage={errorMessage}
@@ -56,7 +61,9 @@ export const Wrapper = ({
               {...labelProps}
               className={`${classes.label} ${floatingLabel ? classes['floating-label'] : ''} ${
                 floatingLabelActive && floatingLabel ? classes['floating-label-active'] : ''
-              } ${labelProps?.className ? labelProps.className : ''}`}
+              } ${labelProps?.className ? labelProps.className : ''} ${
+                required ? classes.required : ''
+              }`}
               htmlFor={name}
             >
               {label}

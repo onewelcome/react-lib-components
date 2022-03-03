@@ -18,13 +18,16 @@ const meta: Meta = {
       },
       control: false,
     },
+    checked: {
+      type: 'boolean',
+    },
   },
 };
 
 export default meta;
 
 const Template: Story<Props> = (args) => (
-  <Radio value="value" {...args}>
+  <Radio value="example-radio" {...args}>
     Label
   </Radio>
 );

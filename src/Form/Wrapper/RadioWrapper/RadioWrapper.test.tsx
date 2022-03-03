@@ -50,7 +50,7 @@ describe('RadioWrapper should render', () => {
     const option1helper = option1RadioWrapper?.querySelector('.helper-text');
 
     if (option1helper && option1) {
-      expect(option1helper.getAttribute('id')).toBe(`${option1.getAttribute('id')}-description`);
+      expect(option1helper.getAttribute('id')).toBe(`${option1.getAttribute('id')}`);
       expect(option1).toHaveAccessibleDescription();
       expect(option1).toHaveAttribute('aria-describedby', option1helper.getAttribute('id'));
     }

@@ -63,7 +63,7 @@ describe('Checkbox should have proper attributes', () => {
       helperText: 'example helper',
     });
 
-    const helperText = container.querySelector(`#${checkbox.getAttribute('id')}-description`);
+    const helperText = container.querySelector(`#${checkbox.getAttribute('id')} span`);
 
     expect(helperText).toBeTruthy();
     expect(helperText).toHaveTextContent('example helper');

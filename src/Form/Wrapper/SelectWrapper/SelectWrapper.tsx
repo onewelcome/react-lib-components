@@ -19,6 +19,7 @@ export const SelectWrapper = ({
   helperText,
   error,
   errorMessage,
+  required,
   value,
   placeholder,
   onChange,
@@ -32,6 +33,7 @@ export const SelectWrapper = ({
       errorId={errorId}
       helperId={helperId}
       label={label}
+      required={required}
       labelProps={{ id: labelId }}
       name={name}
       helperText={helperText}

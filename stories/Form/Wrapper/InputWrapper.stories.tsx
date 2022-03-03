@@ -33,6 +33,9 @@ const meta: Meta = {
         type: 'select',
       },
     },
+    required: {
+      control: 'boolean',
+    },
   },
 };
 

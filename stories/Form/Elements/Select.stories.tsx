@@ -6,6 +6,36 @@ import { Option } from '../../../src/Form/Select/Option';
 const meta: Meta = {
   title: 'Form/Elements/Select',
   component: Select,
+  argTypes: {
+    labeledBy: {
+      table: { disable: true },
+      control: false,
+    },
+    describedBy: {
+      table: { disable: true },
+      control: false,
+    },
+    className: {
+      table: { disable: true },
+      control: false,
+    },
+    value: {
+      options: [
+        'option1',
+        'option2',
+        'option3',
+        'option4',
+        'option5',
+        'option6',
+        'option7',
+        'option8',
+        'option9',
+        'option10',
+        'option11',
+      ],
+      control: 'select',
+    },
+  },
 };
 
 export default meta;
@@ -15,12 +45,9 @@ declare global {
 }
 
 const Template: Story<Props> = (args) => {
-  const [selected, setSelected] = useState('');
-  window.setSelected = setSelected;
-
   return (
     <Fragment>
-      <Select value={selected} {...args}>
+      <Select {...args}>
         <Option value="option1">Test</Option>
         <Option value="option2">Test2</Option>
         <Option value="option3">Test3</Option>
@@ -33,18 +60,10 @@ const Template: Story<Props> = (args) => {
         <Option value="option10">Test10</Option>
         <Option value="option11">Test11</Option>
       </Select>
-      <span>Selected value: {selected}</span>
     </Fragment>
   );
 };
 
 export const SelectEl = Template.bind({});
 
-SelectEl.args = {
-  onChange: (event) => {
-    window.setSelected(event.target.value);
-  },
-  onClear: () => {
-    window.setSelected('');
-  },
-};
+SelectEl.args = {};

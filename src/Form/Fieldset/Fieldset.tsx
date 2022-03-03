@@ -8,6 +8,7 @@ export interface Props extends HTMLProps<HTMLFieldSetElement> {
   children?: ReactElement | ReactElement[];
   title?: string;
   titleStyle?: TitleStyle;
+  hideTitle?: boolean;
   background?: string;
   noPadding?: boolean;
   noBackground?: boolean;
@@ -17,6 +18,7 @@ export const Fieldset = ({
   children,
   title,
   titleStyle = 'body',
+  hideTitle = false,
   noBackground,
   background = noBackground ? '' : '#FFF',
   noPadding = false,
@@ -53,7 +55,7 @@ export const Fieldset = ({
       {...rest}
     >
       {title && <legend className={readyclasses['sr-only']}>{title}</legend>}
-      {title && (
+      {title && !hideTitle && (
         <span className={`style-${titleStyle} ${classes.title}`} aria-hidden="true">
           {title}
         </span>

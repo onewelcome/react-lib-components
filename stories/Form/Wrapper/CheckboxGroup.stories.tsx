@@ -29,6 +29,9 @@ const meta: Meta = {
         disable: true,
       },
     },
+    required: {
+      control: 'boolean',
+    },
   },
 };
 
@@ -114,7 +117,7 @@ export const NestedCheckboxes = NestedTemplate.bind({});
 
 NestedCheckboxes.args = {
   name: 'Electronics',
-  fieldsetProps: { title: 'Fieldset title' },
+  fieldsetProps: { title: 'Fieldset title', hideTitle: true, noPadding: true, noBackground: true },
   error: false,
   errorMessage: 'Please check all the boxes',
   helperText: 'Helpertext for the group',

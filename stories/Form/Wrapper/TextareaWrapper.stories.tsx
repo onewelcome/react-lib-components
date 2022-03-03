@@ -6,6 +6,11 @@ import { Button } from '../../../src/Button/Button';
 const meta: Meta = {
   title: 'Form/Wrapper/TextareaWrapper',
   component: TextareaWrapper,
+  argTypes: {
+    required: {
+      control: 'boolean',
+    },
+  },
 };
 
 export default meta;
@@ -24,10 +29,8 @@ const Template: Story<Props> = (args) => {
         onChange={(e) => setTextareaValue(e.target.value)}
         error={error}
         value={textareaValue}
+        {...args}
       />
-      <Button style={{ marginTop: '20px' }} onClick={() => setError(!error)}>
-        Click here to toggle error state
-      </Button>
     </div>
   );
 };

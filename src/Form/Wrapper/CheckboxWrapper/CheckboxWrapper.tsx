@@ -16,6 +16,7 @@ export const CheckboxWrapper = ({
   error = false,
   errorMessage,
   helperText,
+  required,
   fieldsetProps,
   name,
 }: Props) => {
@@ -52,6 +53,7 @@ export const CheckboxWrapper = ({
       name={name}
       helperId={helperId}
       helperText={helperText}
+      required={required}
       helperProps={{
         className: `${classes['checkbox-wrapper-helper']} ${
           error ? classes['checkbox-wrapper-error'] : ''
@@ -62,14 +64,7 @@ export const CheckboxWrapper = ({
       errorMessageIcon={Icons.Warning}
       errorId={errorId}
     >
-      <Fieldset
-        noPadding={fieldsetProps?.noPadding}
-        noBackground={fieldsetProps?.noBackground}
-        title={fieldsetProps?.title}
-        titleStyle={fieldsetProps?.titleStyle}
-      >
-        {renderChildren()}
-      </Fieldset>
+      <Fieldset {...fieldsetProps}>{renderChildren()}</Fieldset>
     </Wrapper>
   );
 };

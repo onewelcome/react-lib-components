@@ -9,10 +9,27 @@ import { RadioWrapper } from '../../../src/Form/Wrapper/RadioWrapper/RadioWrappe
 import { Radio } from '../../../src/Form/Radio/Radio';
 import { Checkbox } from '../../../src/Form/Checkbox/Checkbox';
 import { CheckboxWrapper } from '../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper';
+import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
 
 const meta: Meta = {
   title: 'Form/Elements/FormControl',
   component: FormControl,
+  argTypes: {
+    fieldsetDisabled: {
+      table: {
+        disable: true,
+      },
+      control: false,
+    },
+    grid: {
+      options: ['1', '2', '3'],
+      control: 'radio',
+    },
+    align: {
+      options: ['start', 'center', 'end'],
+      control: 'radio',
+    },
+  },
 };
 
 export default meta;
@@ -101,85 +118,57 @@ const Template: Story<Props> = (args) => {
 
   return (
     <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
-      <FormControl>
-        <Input placeholder="This is a placeholder" name="example" type="text" />
-      </FormControl>
-      <FormControl>
-        <Select value={selectValue} onChange={onSelectChange}>
-          <Option value="option1">Option1</Option>
-          <Option value="option2">Option2</Option>
-          <Option value="option3">Option3</Option>
-        </Select>
-      </FormControl>
-      <FormControl grid={3}>
-        <Select value={prefix} onChange={prefixChangeHandler} onClear={prefixClearHandler}>
-          <Option disabled value={undefined}>
-            Prefix
-          </Option>
-          <Option value="mr">Mr.</Option>
-          <Option value="mrs">Mrs.</Option>
-        </Select>
-        <Input name="first_name" type="text" />
-        <Input name="last_name" type="text" />
-      </FormControl>
-      <FormControl grid={2}>
-        <FormControl>
-          <Checkbox onChange={onNewsletterChangeHandler} name="newsletter" checked={newsletter}>
-            Subscribe to newsletter?
-          </Checkbox>
-        </FormControl>
-        <Input name="last_name" type="text" />
-      </FormControl>
-      <FormControl grid={2}>
-        <FormControl>
-          <RadioWrapper
-            label="Radio label"
-            error={false}
-            errorMessage="Error message"
-            value={preferredMobileDevice}
+      <FormControl grid={2} {...args}>
+        <RadioWrapper
+          label="Radio label"
+          error={false}
+          errorMessage="Error message"
+          value={preferredMobileDevice}
+          name="electronics"
+          onChange={(e) => setPreferredMobileDevice(e.target.value)}
+          helperText="This is helper text"
+        >
+          <Radio value="mobile">Mobile</Radio>
+          <Radio value="tv">TV</Radio>
+          <Radio value="pc">PC</Radio>
+        </RadioWrapper>
+        <CheckboxWrapper
+          label="Radio label"
+          error={false}
+          errorMessage="Error message"
+          name="electronics"
+          helperText="This is helper text"
+        >
+          <Checkbox
+            onChange={handleElectronicsOnChange}
+            checked={electronics.checked}
+            indeterminate={electronics.indeterminate}
             name="electronics"
-            onChange={(e) => setPreferredMobileDevice(e.target.value)}
-            helperText="This is helper text"
+            label="Electronics"
           >
-            <Radio value="mobile">Mobile</Radio>
-            <Radio value="tv">TV</Radio>
-            <Radio value="pc">PC</Radio>
-          </RadioWrapper>
-        </FormControl>
-        <FormControl>
-          <CheckboxWrapper
-            label="Radio label"
-            error={false}
-            errorMessage="Error message"
-            name="electronics"
-            helperText="This is helper text"
-          >
-            <Checkbox
-              onChange={handleElectronicsOnChange}
-              checked={electronics.checked}
-              indeterminate={electronics.indeterminate}
-              name="electronics"
-              label="Electronics"
-            >
-              <Checkbox onChange={handleTVOnChange} checked={electronics.tv} name="tv">
-                TV
-              </Checkbox>
-              <Checkbox onChange={handleMobileOnChange} checked={electronics.mobile} name="mobile">
-                Mobile
-              </Checkbox>
-              <Checkbox onChange={handleLaptopOnChange} checked={electronics.laptop} name="laptop">
-                Laptop
-              </Checkbox>
+            <Checkbox onChange={handleTVOnChange} checked={electronics.tv} name="tv">
+              TV
             </Checkbox>
-          </CheckboxWrapper>
-        </FormControl>
+            <Checkbox onChange={handleMobileOnChange} checked={electronics.mobile} name="mobile">
+              Mobile
+            </Checkbox>
+            <Checkbox onChange={handleLaptopOnChange} checked={electronics.laptop} name="laptop">
+              Laptop
+            </Checkbox>
+          </Checkbox>
+        </CheckboxWrapper>
+        <InputWrapper
+          helperText="Helper text for this field. Description should be short and not repeat the label"
+          name="input1"
+          errorMessage={'This is an error'}
+          type="text"
+          value=""
+          error={false}
+          label="Label for this inputfield"
+        />
       </FormControl>
     </Form>
   );
 };
 
 export const FormControlEl = Template.bind({});
-
-FormControlEl.parameters = {
-  controls: { hideNoControlsWarning: true },
-};

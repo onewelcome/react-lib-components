@@ -22,3 +22,10 @@
 .wrapper + .wrapper {
   margin-top: 16px;
 }
+
+.required {
+  &:after {
+    content: '*';
+    color: var(--error);
+  }
+}

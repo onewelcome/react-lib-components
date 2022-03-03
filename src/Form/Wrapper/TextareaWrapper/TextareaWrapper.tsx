@@ -16,6 +16,7 @@ export const TextareaWrapper = ({
   helperText,
   error,
   errorMessage,
+  required,
   value,
   placeholder,
   textareaProps,
@@ -35,6 +36,7 @@ export const TextareaWrapper = ({
       helperId={helperId}
       helperText={helperText}
       helperProps={{ className: classes['textarea-helper-text'] }}
+      required={required}
       error={error}
       errorMessage={errorMessage}
       floatingLabelActive={floatingLabelActive}
