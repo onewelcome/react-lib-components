@@ -35,7 +35,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorTertiary: '#ff1e4e',
     buttonBorderRadius: '20px',
     buttonBorderWidth: '2px',
-    buttonFontSize: '16px',
+    buttonFontSize: '1rem',
     buttonBorderStyle: 'solid',
     buttonFillTextColor: '#FFF',
     buttonFillBackgroundColor: '#FFF',
