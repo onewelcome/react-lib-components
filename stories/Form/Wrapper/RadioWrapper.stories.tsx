@@ -42,7 +42,7 @@ RadioWrapperEl.args = {
   label: 'Radiowrapper',
   error: false,
   errorMessage: 'Errormessage',
-  fieldsetProps: { noPadding: true, noBackground: true },
+  fieldsetProps: { title: 'Title', hideTitle: true, noPadding: true, noBackground: true },
   helperText: 'Helpertext',
   value: 'option1',
   name: 'my-group',
