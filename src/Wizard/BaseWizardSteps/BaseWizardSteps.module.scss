@@ -161,6 +161,7 @@
   color: var(--greyed-out);
   line-height: 1.5rem;
   background-color: #ffffff;
+  box-sizing: content-box;
 }
 
 .two-line-text-overflow {
@@ -170,6 +171,7 @@
   -webkit-box-orient: vertical;  
   overflow: hidden;
   padding: .25rem 1rem 0;
+  box-sizing: content-box;
 }
 
 .label {
