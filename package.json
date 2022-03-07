@@ -15,17 +15,12 @@
     "build": "dts build",
     "build-storybook": "build-storybook",
     "lint": "dts lint",
-    "prepare": "dts build",
+    "prepare": "husky install &&dts build",
     "size": "size-limit",
     "start": "dts watch",
     "prettier": "prettier --write --ignore-path .gitignore \"**/*.+(ts|tsx|scss)\"",
     "storybook": "start-storybook -p 6006",
     "test": "dts test --passWithNoTests"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "dts lint"
-    }
   },
   "jest": {
     "testEnvironment": "jsdom"
