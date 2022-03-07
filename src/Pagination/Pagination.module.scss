@@ -1,0 +1,42 @@
+.pagination-wrapper {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  color: var(--greyed-out);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pagination,
+.next,
+.previous {
+  display: flex;
+  align-items: center;
+}
+
+.per-page span + * {
+  margin-left: 4px;
+}
+
+.next,
+.previous {
+  button + button {
+    margin-left: 8px;
+  }
+}
+
+.total {
+  span {
+    font-weight: 700;
+  }
+}
+
+.previous + .page,
+.per-page + .previous,
+.per-page + .page {
+  margin-left: 8px;
+}
+
+.page + .next {
+  margin-left: 8px;
+}
