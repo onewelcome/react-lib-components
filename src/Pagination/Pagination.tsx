@@ -38,12 +38,7 @@ export const Pagination = ({
   onPageSizeChange,
   ...rest
 }: Props) => {
-  const calculateAmountOfPages = () =>
-    totalElements
-      ? Math.ceil(totalElements / pageSize)
-      : console.error(
-          'Error in Pagination component: we cannot calculate the amount of pages, because totalElements prop was not passed'
-        );
+  const calculateAmountOfPages = () => (totalElements ? Math.ceil(totalElements / pageSize) : 0);
 
   const renderCurrentPageTranslation = () => {
     const amountOfPages = calculateAmountOfPages();
@@ -54,7 +49,7 @@ export const Pagination = ({
         translate.currentPage
           .replace(
             '%1',
-            `<input type="number" max="${calculateAmountOfPages()}" className="${
+            `<input type="number" max="${calculateAmountOfPages()}" class="${
               classes['current-value-input']
             }" name="current-value-input" value="${currentPage}" />`
           )
@@ -77,7 +72,7 @@ export const Pagination = ({
   };
 
   return (
-    <div {...rest} className={`${classes['pagination-wrapper']} ${className ? className : ''}}`}>
+    <div {...rest} className={`${classes['pagination-wrapper']} ${className ? className : ''}`}>
       {!disable.totalElements && totalElements && (
         <span className={classes.total}>
           {translate.totalItems}: <span>{totalElements}</span>
@@ -94,8 +89,8 @@ export const Pagination = ({
             </select>
           </div>
         )}
-        {calculateAmountOfPages() > 1 && currentPage && (
-          <Fragment>
+        <Fragment>
+          {((currentPage && currentPage > 2) || (currentPage && currentPage > 1)) && (
             <div className={classes.previous}>
               {currentPage > 2 && (
                 <IconButton onClick={onPageChangeHandler} data-paginate="first">
@@ -108,25 +103,25 @@ export const Pagination = ({
                 </IconButton>
               )}
             </div>
-            {totalElements && (
-              <div className={classes.page}>
-                <span>{renderCurrentPageTranslation()}</span>
-              </div>
-            )}
-            <div className={classes.next}>
-              {currentPage < calculateAmountOfPages() && (
-                <IconButton onClick={onPageChangeHandler} data-paginate="next">
-                  <Icon icon={Icons.ChevronRight} />
-                </IconButton>
-              )}
-              {currentPage < calculateAmountOfPages()! - 1 && (
-                <IconButton onClick={onPageChangeHandler} data-paginate="last">
-                  <Icon icon={Icons.NavigationLast} />
-                </IconButton>
-              )}
+          )}
+          {totalElements && (
+            <div className={classes.page}>
+              <span>{renderCurrentPageTranslation()}</span>
             </div>
-          </Fragment>
-        )}
+          )}
+          <div className={classes.next}>
+            {((currentPage && currentPage < calculateAmountOfPages()) || !totalElements) && (
+              <IconButton onClick={onPageChangeHandler} data-paginate="next">
+                <Icon icon={Icons.ChevronRight} />
+              </IconButton>
+            )}
+            {currentPage && currentPage < calculateAmountOfPages()! - 1 && (
+              <IconButton onClick={onPageChangeHandler} data-paginate="last">
+                <Icon icon={Icons.NavigationLast} />
+              </IconButton>
+            )}
+          </div>
+        </Fragment>
       </div>
     </div>
   );
