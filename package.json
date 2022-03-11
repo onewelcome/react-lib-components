@@ -1,51 +1,49 @@
 {
+  "name": "react-lib-components",
   "version": "0.1.0",
   "license": "MIT",
+  "author": "OneWelcome",
   "main": "dist/index.js",
+  "module": "dist/react-lib-components.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
-  "engines": {
-    "node": ">=10"
-  },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "prettier": "prettier --write --ignore-path .gitignore \"**/*.+(ts|tsx|scss)\"",
     "analyze": "size-limit --why",
+    "build": "dts build",
+    "build-storybook": "build-storybook",
+    "lint": "dts lint",
+    "prepare": "husky install &&dts build",
+    "size": "size-limit",
+    "start": "dts watch",
+    "prettier": "prettier --write --ignore-path .gitignore \"**/*.+(ts|tsx|scss)\"",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "test": "dts test --passWithNoTests"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   },
   "peerDependencies": {
-    "react": ">=16",
-    "react-dom": ">=16"
+    "react": ">=16"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
+  "engines": {
+    "node": ">=12"
   },
-  "name": "@onewelcome/components",
-  "author": "Daniel",
-  "module": "dist/library.esm.js",
   "size-limit": [
     {
-      "path": "dist/library.cjs.production.min.js",
+      "path": "dist/react-lib-components.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/library.esm.js",
+      "path": "dist/react-lib-components.esm.js",
       "limit": "10 KB"
     }
   ],
   "devDependencies": {
-    "@babel/core": "^7.17.0",
+    "@babel/core": "^7.17.5",
+    "html-webpack-plugin": "^5.5.0",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@storybook/addon-essentials": "^6.4.18",
     "@storybook/addon-info": "^5.3.21",
@@ -59,23 +57,23 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "@tsconfig/create-react-app": "^1.0.2",
+    "@tsconfig/recommended": "^1.0.1",
     "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11",
-    "babel-loader": "^8.2.3",
-    "html-webpack-plugin": "^5.5.0",
-    "husky": "^7.0.4",
+    "@types/react-dom": "^17.0.13",
     "identity-obj-proxy": "^3.0.0",
-    "jest-junit": "^13.0.0",
-    "lint-staged": "^12.3.3",
+    "babel-loader": "^8.2.3",
+    "dts-cli": "^1.4.0",
+    "husky": "^7.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
-    "rollup-plugin-styles": "^4.0.0",
-    "sass": "^1.49.7",
-    "size-limit": "^7.0.5",
-    "tsdx": "^0.14.1",
+    "size-limit": "^7.0.8",
     "tslib": "^2.3.1",
-    "typescript": "^4.5.4",
-    "webpack": "^5.68.0"
+    "typescript": "^4.6.2",
+    "jest-junit": "^13.0.0",
+    "lint-staged": "^12.3.3",
+    "rollup-plugin-styles": "^4.0.0",
+    "sass": "^1.49.7"
   }
 }
