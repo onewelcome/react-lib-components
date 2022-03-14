@@ -1,19 +1,19 @@
 import classes from './Select.module.scss';
 
-import React, { Fragment, HTMLProps, ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, HTMLProps, ReactElement, useEffect, useState } from 'react';
 import { Input } from '../Input/Input';
 import { Icon, Icons } from '../../Icon/Icon';
+import { FormElement } from '../form.interfaces';
+import { useBodyClick } from '../../hooks/useBodyClick';
 
-export interface Props extends HTMLProps<HTMLSelectElement> {
+export interface Props extends FormElement<HTMLSelectElement> {
   children: ReactElement[];
   name?: string;
-  disabled?: boolean;
   labeledBy?: string;
   describedBy?: string;
   placeholder?: string;
   searchPlaceholder?: string;
   className?: string;
-  error?: boolean;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
   onClear?: (event: React.MouseEvent<HTMLDivElement>) => void;
@@ -32,69 +32,66 @@ export const Select = ({
   value = '',
   onChange,
   onClear,
+  ...rest
 }: Props) => {
   const [expanded, setExpanded] = useState(false);
   const [filter, setFilter] = useState('');
   const [display, setDisplay] = useState('');
 
-  const onOptionChangeHandler =
-    <T extends HTMLElement>(child: ReactElement) =>
-    (event: React.ChangeEvent<T>) => {
-      /**
-       * We expose this to the outside inside of the onChange function as a parameter along with an optional second
-       * parameter of the option that was clicked.
-       */
-
-      setDisplay(child.props.children);
-
-      let newValue;
-      let multiple = false; // Potential support for future multiple select. This should be a prop obviously.
-
-      if (multiple) {
-        /** We will implement the mulitple select in the next iteration */
-      } else {
-        newValue = child.props.value;
-      }
-
-      if (onChange) {
-        // Redefine target to allow name and value to be read.
-        // This allows seamless integration with the most popular form libraries.
-        // Clone the event to not override `target` of the original event.
-        // Don't know how to fix this any.. compiler whines that it can't construct it otherwise.
-        const nativeEvent: any = event.nativeEvent || event;
-        const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
-
-        Object.defineProperty(clonedEvent as React.ChangeEvent<HTMLSelectElement>, 'target', {
-          writable: true,
-          value: { value: newValue },
-        });
-
-        onChange(clonedEvent as React.ChangeEvent<HTMLSelectElement>, child);
-      }
-
-      setDisplay(event.currentTarget.innerText);
-      setExpanded(false);
-    };
-
-  const handleSelectCloseOnBodyClick = useCallback(
-    (event: MouseEvent) => {
-      if (!(event.target as Element).closest('.custom-select') && expanded) {
-        setExpanded(false);
-      }
+  useBodyClick(
+    (event: MouseEvent) => !(event.target as Element).closest('.custom-select'),
+    () => {
+      setExpanded(!expanded);
+      console.log('EXECUTING');
     },
-    [expanded]
+    expanded
   );
+
+  const onOptionChangeHandler = (child: ReactElement) => (event: React.ChangeEvent) => {
+    /**
+     * We expose this to the outside inside of the onChange function as a parameter along with an optional second
+     * parameter of the option that was clicked.
+     */
+
+    setDisplay(child.props.children);
+
+    let newValue;
+    let multiple = false; // Potential support for future multiple select. This should be a prop obviously.
+
+    if (multiple) {
+      /** We will implement the mulitple select in the next iteration */
+    } else {
+      newValue = child.props.value;
+    }
+
+    if (onChange) {
+      // Redefine target to allow name and value to be read.
+      // This allows seamless integration with the most popular form libraries.
+      // Clone the event to not override `target` of the original event.
+      // Don't know how to fix this any.. compiler whines that it can't construct it otherwise.
+      const nativeEvent: any = event.nativeEvent || event;
+      const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
+
+      Object.defineProperty(clonedEvent as React.ChangeEvent<HTMLSelectElement>, 'target', {
+        writable: true,
+        value: { value: newValue },
+      });
+
+      onChange(clonedEvent as React.ChangeEvent<HTMLSelectElement>, child);
+    }
+
+    setDisplay((event.currentTarget as HTMLElement).innerText);
+    setExpanded(false);
+  };
 
   /**
    * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected at all times and if a filter is active.
    * The `children` prop can be either a single object (1 child) or an array of multiple children.
    */
   const renderOptions = () => {
-    if (!Array.isArray(children)) {
-      children = [children];
-    }
+    let clonedChildren = !Array.isArray(children) ? [children] : children;
 
-    return children?.map((child, index) => (
+    return clonedChildren.map((child, index) => (
       <Fragment key={index}>
         {React.cloneElement(child, {
           onOptionSelect: onOptionChangeHandler(child),
@@ -110,7 +107,7 @@ export const Select = ({
       autoFocus
       onChange={filterResults}
       className={classes['select-search']}
-      wrapperClass={classes['select-search-wrapper']}
+      wrapperProps={{ className: classes['select-search-wrapper'] }}
       type="text"
       name="search-option"
       placeholder={searchPlaceholder}
@@ -137,24 +134,6 @@ export const Select = ({
     return null;
   };
 
-  useEffect(() => {
-    /**
-     * Add body click listener to close select and remove it in the cleanup function whenever expanded state changes.
-     */
-    window.addEventListener('click', handleSelectCloseOnBodyClick);
-
-    /**
-     * Calculate dropdown maxheight
-     */
-
-    return () => {
-      /**
-       * Cleanup the eventlistener so we can set it again after expanded has changed.
-       */
-      window.removeEventListener('click', handleSelectCloseOnBodyClick);
-    };
-  }, [expanded]);
-
   /** Set initial display value */
   useEffect(() => {
     for (let child of children) {
@@ -165,25 +144,19 @@ export const Select = ({
   }, []);
 
   const additionalClasses = [];
-  if (expanded) additionalClasses.push(classes.expanded);
-  if (error) additionalClasses.push(classes.error);
-  if (disabled) additionalClasses.push(classes.disabled);
+  expanded && additionalClasses.push(classes.expanded);
+  error && additionalClasses.push(classes.error);
+  disabled && additionalClasses.push(classes.disabled);
 
   return (
     <div
+      {...(rest as HTMLProps<HTMLDivElement>)}
       className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
-        className ? className : ''
+        className ?? ''
       }`}
     >
-      <input
-        style={{ display: 'none' }}
-        value={value}
-        tabIndex={-1}
-        aria-hidden="true"
-        onChange={() => onOptionChangeHandler}
-      />
       <button
-        onClick={setExpanded.bind(null, !expanded)}
+        onClick={() => setExpanded(!expanded)}
         type="button"
         name={name}
         aria-disabled={disabled}

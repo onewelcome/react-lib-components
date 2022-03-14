@@ -4,12 +4,12 @@
 }
 
 .textarea {
-  padding: 20px;
+  padding: 1.75rem;
   border-color: var(--input-border-color);
   border-style: var(--input-border-style);
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
-  transition: all 0.15s ease-in-out;
+  transition: all 0.2s ease-in-out;
   font-family: var(--font-family);
   font-size: var(--font-size);
   width: 100%;
@@ -46,5 +46,5 @@
   position: absolute;
   right: 20px;
   top: 20px;
-  font-size: 20px;
+  font-size: 1.75rem;
 }

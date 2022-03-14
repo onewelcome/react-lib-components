@@ -5,9 +5,9 @@ export interface Props extends HTMLProps<HTMLFormElement> {
   children?: ReactNode;
 }
 
-export const Form = ({ children, ...rest }: Props) => {
+export const Form = ({ children, className, ...rest }: Props) => {
   return (
-    <form className={classes.form} {...rest}>
+    <form className={`${classes.form} ${className ?? ''}`} {...rest}>
       {children}
     </form>
   );

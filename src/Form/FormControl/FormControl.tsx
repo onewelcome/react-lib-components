@@ -1,11 +1,12 @@
-import React, { Fragment, HTMLProps, ReactElement } from 'react';
+import React, { Fragment, ReactElement } from 'react';
 import classes from './FormControl.module.scss';
+import { HTMLProps } from '../../interfaces';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   children: ReactElement | ReactElement[];
-  grid?: number;
+  grid?: 1 | 2 | 3;
   fieldsetDisabled?: boolean;
-  align?: string;
+  align?: 'top' | 'start' | 'middle' | 'center' | 'bottom' | 'end';
 }
 
 export const FormControl = ({
@@ -17,11 +18,9 @@ export const FormControl = ({
   ...rest
 }: Props) => {
   const renderChildren = () => {
-    if (!Array.isArray(children)) {
-      children = [children];
-    }
+    let clonedChildren = !Array.isArray(children) ? [children] : children;
 
-    return children.map((child, index) => {
+    return clonedChildren.map((child, index) => {
       if (child === undefined) return;
       const childElement = React.cloneElement(child, {
         disabled: fieldsetDisabled,
@@ -41,11 +40,11 @@ export const FormControl = ({
 
   return (
     <div
+      {...rest}
       data-formcontrol
       className={`${classes['form-control']} ${className ? className : ''} ${
         grid && grid > 1 ? `${classes.grid} ${classes['grid-' + grid]}` : ''
       } ${classes[align]}`}
-      {...rest}
     >
       {renderChildren()}
     </div>

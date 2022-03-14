@@ -7,25 +7,25 @@ import { Fieldset, Props as FieldsetProps } from '../../../Form/Fieldset/Fieldse
 
 export interface Props extends WrapperProps {
   children: ReactElement | ReactElement[];
-  fieldsetProps?: FieldsetProps;
+  fieldsetProps: FieldsetProps;
+  value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const RadioWrapper = ({
   children,
+  error,
   name,
   helperText,
-  error,
-  errorMessage,
   fieldsetProps,
-  required,
   value,
   onChange,
+  ...rest
 }: Props) => {
   const { errorId, helperId } = useWrapper(value);
 
   useEffect(() => {
-    if (fieldsetProps?.title === undefined) {
+    if (fieldsetProps.title === undefined) {
       console.error(
         `You should give your Fieldset component a title prop so a legend element is rendered. This error was thrown in RadioWrapper. You can add this title prop through the fieldsetProps prop by passing an object (fieldsetProps={{ title: "title here" }})`
       );
@@ -34,43 +34,43 @@ export const RadioWrapper = ({
 
   const renderChildren = () => {
     /** Always convert children to an array, even if only 1 Radio component is passed */
-    if (!Array.isArray(children)) {
-      children = [children];
-    }
+    let clonedChildren = !Array.isArray(children) ? [children] : children;
 
     /** In order to have the individual Radios have their "aria-describedby" property point to the error message in this RadioWrapper, we have to clone the children and add these props. */
-    return children?.map((child, index) => (
+    return clonedChildren.map((child, index) => (
       <Fragment key={index}>
         {React.cloneElement(child, {
-          errorMessageId: errorId,
+          parentErrorId: errorId,
           error: error,
           checked: child.props.value === value,
           name: name,
           parentHelperId: helperText ? helperId : false,
-          onChange: (e: React.ChangeEvent<HTMLInputElement>) => onChange(e),
+          onChange: onChange,
         })}
       </Fragment>
     ));
   };
 
   return (
-    <Wrapper
-      name={name}
-      helperId={helperId}
-      helperText={helperText}
-      required={required}
-      helperProps={{
-        className: `${classes['radio-wrapper-helper']} ${
-          error ? classes['radio-wrapper-error'] : ''
-        }`,
-      }}
-      error={error}
-      errorMessage={errorMessage}
-      errorId={errorId}
-      errorMessageIcon={Icons.Warning}
-      floatingLabel={false}
-    >
-      <Fieldset {...fieldsetProps}>{renderChildren()}</Fieldset>
-    </Wrapper>
+    <Fieldset {...fieldsetProps}>
+      <Wrapper
+        {...rest}
+        name={name}
+        label=""
+        helperId={helperId}
+        helperText={helperText}
+        helperProps={{
+          className: `${classes['radio-wrapper-helper']} ${
+            error ? classes['radio-wrapper-error'] : ''
+          }`,
+        }}
+        error={error}
+        errorId={errorId}
+        errorMessageIcon={Icons.Warning}
+        floatingLabel={false}
+      >
+        {renderChildren()}
+      </Wrapper>
+    </Fieldset>
   );
 };

@@ -1,26 +1,27 @@
-import React, { HTMLProps, ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
-import { FormHelperText } from '../FormHelperText/FormHelperText';
+import { FormHelperText, Props as FormHelperTextProps } from '../FormHelperText/FormHelperText';
 import classes from './Checkbox.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
+import { FormSelector } from '../form.interfaces';
+import { HTMLProps } from '../../interfaces';
 
-export interface CheckboxProps extends HTMLProps<HTMLInputElement> {
+export interface CheckboxProps extends FormSelector<HTMLInputElement> {
   children: string | ReactElement[];
   label?: string;
-  error?: boolean;
-  helperText?: string;
-  errorMessage?: string;
-  parentHelperId?: string;
   indeterminate?: boolean;
-  errorMessageId?: string;
+  helperProps?: FormHelperTextProps;
+  wrapperProps?: HTMLProps<HTMLDivElement>;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Checkbox = ({
   children,
   name,
   helperText,
+  helperProps,
   indeterminate,
-  errorMessageId,
+  parentErrorId,
   errorMessage,
   disabled,
   label,
@@ -28,13 +29,14 @@ export const Checkbox = ({
   className,
   error,
   checked = false,
+  wrapperProps,
   onChange,
   ...rest
 }: CheckboxProps) => {
   const { errorId, identifier, describedBy } = useFormSelector({
     name,
     helperText,
-    errorMessageId,
+    parentErrorId,
     errorMessage,
     error,
     parentHelperId,
@@ -73,10 +75,10 @@ export const Checkbox = ({
           return (
             <li key={index}>
               <Checkbox
-                parentHelperId={parentHelperId}
-                errorMessageId={errorMessageId}
-                error={error}
                 {...child.props}
+                parentHelperId={parentHelperId}
+                parentErrorId={parentErrorId}
+                error={error}
               >
                 {child.props.children}
               </Checkbox>
@@ -90,25 +92,26 @@ export const Checkbox = ({
   /** Default return value is the default checkbox */
   return (
     <div
+      {...wrapperProps}
       className={`${classes['checkbox-wrapper']} ${error ? classes.error : ''} ${
         disabled ? classes.disabled : ''
       } ${className ?? ''}`}
     >
       <div className={classes['checkbox-container']}>
         <input
+          {...rest}
           disabled={disabled}
           className={classes['native-input']}
           checked={checked}
           onChange={(event) => {
             onChange && onChange(event);
           }}
-          aria-invalid={error ? true : false}
+          aria-invalid={error as boolean}
           aria-checked={indeterminate ? 'mixed' : checked}
           aria-describedby={describedBy}
-          id={identifier}
+          id={`${identifier}-checkbox`}
           name={name}
           type="checkbox"
-          {...rest}
         />
 
         {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
@@ -116,14 +119,18 @@ export const Checkbox = ({
           <Icon className={classes.input} icon={Icons.CheckmarkSquare} />
         )}
         {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
-        <label htmlFor={identifier}>{determineLabel()}</label>
+        <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
       </div>
-      {helperText && (!error || errorMessageId || !errorMessage) && (
-        <FormHelperText id={`${identifier}`} className={classes['helper-text']} indent={28}>
+      {helperText && (!error || parentErrorId || !errorMessage) && (
+        <FormHelperText
+          {...helperProps}
+          id={`${identifier}`}
+          className={`${classes['helper-text']} ${helperProps?.className ?? ''}`}
+        >
           {helperText}
         </FormHelperText>
       )}
-      {errorMessage && !errorMessageId && error && (
+      {errorMessage && !parentErrorId && error && (
         <span className={classes['error-message']}>
           <Icon className={classes['error-icon']} icon={Icons.Warning} />
           <span id={errorId}>{errorMessage}</span>

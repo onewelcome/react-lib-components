@@ -5,7 +5,7 @@ export interface configObject {
   name: string | undefined;
   errorMessage?: string;
   error?: boolean;
-  errorMessageId?: string;
+  parentErrorId?: string;
   helperText?: string;
   parentHelperId?: string;
 }
@@ -16,28 +16,28 @@ export const useFormSelector = (configObject: configObject) => {
   const [errorId] = useState(generateID(15, configObject.errorMessage));
 
   useEffect(() => {
-    if (configObject.error && configObject.errorMessageId) {
-      setDescribedBy(configObject.errorMessageId);
+    if (configObject.error && configObject.parentErrorId) {
+      setDescribedBy(configObject.parentErrorId);
     }
 
     if (
       (!configObject.error && configObject.helperText) ||
-      (!configObject.errorMessageId && !configObject.errorMessage && configObject.helperText)
+      (!configObject.parentErrorId && !configObject.errorMessage && configObject.helperText)
     ) {
       setDescribedBy(`${identifier}`);
     }
 
     if (
       (!configObject.error && !configObject.helperText && configObject.parentHelperId) ||
-      (!configObject.errorMessageId && !configObject.errorMessage && configObject.parentHelperId)
+      (!configObject.parentErrorId && !configObject.errorMessage && configObject.parentHelperId)
     ) {
       setDescribedBy(`${configObject.parentHelperId}`);
     }
 
-    if (configObject.errorMessage && !configObject.errorMessageId && configObject.error) {
+    if (configObject.errorMessage && !configObject.parentErrorId && configObject.error) {
       setDescribedBy(errorId);
     }
-  }, [identifier, configObject.error, configObject.errorMessageId]);
+  }, [identifier, configObject.error, configObject.parentErrorId]);
 
   return {
     describedBy,

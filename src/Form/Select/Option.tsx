@@ -1,5 +1,6 @@
-import React, { HTMLProps, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './Select.module.scss';
+import { HTMLProps } from '../../interfaces';
 
 export interface Props extends HTMLProps<HTMLLIElement> {
   children: string;
@@ -13,6 +14,7 @@ export interface Props extends HTMLProps<HTMLLIElement> {
 
 export const Option = ({
   children,
+  className,
   selected = false,
   onOptionSelect,
   disabled,
@@ -38,9 +40,10 @@ export const Option = ({
 
   return (
     <li
+      {...rest}
       className={`${selected ? classes['selected-option'] : ''} ${
         disabled ? classes.disabled : ''
-      }`}
+      } ${className ?? ''}`}
       onClick={onSelectHandler}
       onKeyPress={(e) => {
         e.key === 'Enter' && onSelectHandler(e);
@@ -48,7 +51,6 @@ export const Option = ({
       aria-selected={selected}
       role="option"
       tabIndex={disabled ? -1 : 0}
-      {...rest}
     >
       {children}
     </li>

@@ -5,11 +5,7 @@ import { Option } from '../../Select/Option';
 
 describe('SelectWrapper should render', () => {
   it('renders without crashing', () => {
-    const onChangeHandler = () => {
-      console.log('ON CHANGE!');
-    };
-
-    const { container } = render(
+    const { getByTestId } = render(
       <SelectWrapper
         label="example"
         name="example"
@@ -17,7 +13,8 @@ describe('SelectWrapper should render', () => {
         errorMessage="errormessage"
         error={false}
         value="option1"
-        onChange={onChangeHandler}
+        onChange={jest.fn()}
+        data-testid="selectwrapper"
       >
         <Option value="option1">Option 1</Option>
         <Option value="option2">Option 2</Option>
@@ -25,7 +22,8 @@ describe('SelectWrapper should render', () => {
         <Option value="option4">Option 4</Option>
       </SelectWrapper>
     );
-    const selectwrapper = container.querySelector('.wrapper');
+
+    const selectwrapper = getByTestId('selectwrapper');
 
     expect(selectwrapper).toBeTruthy();
   });

@@ -40,10 +40,6 @@ const meta: Meta = {
 
 export default meta;
 
-declare global {
-  var setSelected: React.Dispatch<React.SetStateAction<string>>;
-}
-
 const Template: Story<Props> = (args) => {
   return (
     <Fragment>

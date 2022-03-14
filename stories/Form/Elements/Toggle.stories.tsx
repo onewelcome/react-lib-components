@@ -13,6 +13,12 @@ const meta: Meta = {
       },
       control: false,
     },
+    parentErrorId: {
+      table: {
+        disable: true,
+      },
+      control: false,
+    },
     errorMessageId: {
       table: {
         disable: true,

@@ -1,32 +1,18 @@
-import React, { HTMLProps, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import classes from './FormHelperText.module.scss';
+import { HTMLProps } from '../../interfaces';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   children?: ReactNode;
   disabled?: boolean;
   error?: boolean;
-  indent?: number;
 }
 
-export const FormHelperText = ({
-  children,
-  disabled,
-  error,
-  indent,
-  className,
-  ...rest
-}: Props) => {
-  const additionalClasses: string[] = [];
-
-  if (error) additionalClasses.push(classes.error);
-
+export const FormHelperText = ({ children, disabled, error, className, ...rest }: Props) => {
   return (
     <div
-      style={{ marginLeft: `${indent}px` }}
-      className={`${classes['form-helper-text']} ${additionalClasses} ${
-        className ? className : ''
-      }`}
       {...rest}
+      className={`${classes['form-helper-text']} ${error ? classes.error : ''} ${className ?? ''}`}
     >
       <span>{children}</span>
     </div>

@@ -4,12 +4,12 @@
 
 .input {
   height: 64px;
-  padding: 0 15px;
+  padding: 0 1.25rem;
   border-color: var(--input-border-color);
   border-style: var(--input-border-style);
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
-  transition: all 0.15s ease-in-out;
+  transition: all 0.2s ease-in-out;
   font-size: var(--font-size);
   font-family: var(--font-family);
   width: 100%;
@@ -20,14 +20,6 @@
     background-color: var(--disabled);
     border-color: #fff;
     cursor: not-allowed;
-  }
-
-  &:focus:not(:disabled) {
-    outline-color: var(--color-primary);
-  }
-
-  &:active:not(:disabled) {
-    border-color: var(--color-primary);
   }
 
   &:hover:not(:disabled) {
@@ -43,11 +35,20 @@
 .warning {
   color: var(--error);
   position: absolute;
-  right: 20px;
-  top: 20px;
-  font-size: 20px;
+  height: 100%;
+  width: 4rem;
+  right: 0;
+  top: 0px;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:before {
+    height: 1.3125rem; // There's a small gap above the icon for some reason. Giving it a height of 1px more than the font size fixes the issue that it's not centered.
+  }
 
   &.extra-indent {
-    right: 50px;
+    right: 3.125rem;
   }
 }

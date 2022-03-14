@@ -1,6 +1,7 @@
-import React, { HTMLProps, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import classes from './Input.module.scss';
 import { Icon, Icons } from '../../Icon/Icon';
+import { HTMLProps } from '../../interfaces';
 
 export type Type =
   | 'text'
@@ -16,9 +17,10 @@ export type Type =
   | 'hidden';
 
 export interface Props extends HTMLProps<HTMLInputElement> {
-  error?: boolean;
-  wrapperClass?: string;
+  wrapperProps?: HTMLProps<HTMLInputElement>;
   labeledBy?: string;
+  type: Type;
+  error?: boolean;
 }
 
 export const Input = ({
@@ -26,7 +28,7 @@ export const Input = ({
   className,
   name,
   style,
-  wrapperClass,
+  wrapperProps,
   type,
   labeledBy,
   ...rest
@@ -39,15 +41,16 @@ export const Input = ({
 
   return (
     <div
+      {...wrapperProps}
       style={{ ...style }}
-      className={`${classes['input-wrapper']} ${wrapperClass ? wrapperClass : ''}`}
+      className={`${classes['input-wrapper']} ${wrapperProps?.className ?? ''}`}
     >
       <input
+        {...rest}
         aria-labelledby={labeledBy}
         type={type}
         name={name}
-        className={`${classes.input} ${error ? classes.error : ''} ${className ? className : ''}`}
-        {...rest}
+        className={`${classes.input} ${error ? classes.error : ''} ${className ?? ''}`}
       />
       {error && (
         <Icon

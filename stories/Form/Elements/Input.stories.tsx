@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Input, Props, Type } from '../../../src/Form/Input/Input';
+import { Input, Props } from '../../../src/Form/Input/Input';
 import { Form } from '../../../src/Form/Form';
 
 const meta: Meta = {
@@ -8,6 +8,10 @@ const meta: Meta = {
   component: Input,
   argTypes: {
     className: {
+      table: { disable: true },
+      control: false,
+    },
+    labelledBy: {
       table: { disable: true },
       control: false,
     },

@@ -1,4 +1,4 @@
-$listItemHeight: 34px;
+$listItemHeight: 2.125rem;
 
 .select {
   border-color: var(--input-border-color);
@@ -7,7 +7,7 @@ $listItemHeight: 34px;
   border-radius: var(--input-border-radius);
   position: relative;
   box-sizing: border-box;
-  transition: all 0.15s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: #fff;
 
   &.expanded {
@@ -20,19 +20,16 @@ $listItemHeight: 34px;
   }
 
   &:hover:not(.disabled):not(.expanded) {
-    border-top-color: var(--default);
-    border-left-color: var(--default);
-    border-right-color: var(--default);
-    border-bottom-color: var(--default);
+    border-color: var(--default);
   }
 
   button {
     width: 100%;
-    min-height: 64px;
+    min-height: 4rem;
     background-color: transparent;
     border: 0;
     cursor: pointer;
-    padding: 0 15px;
+    padding: 0 1rem;
     position: relative;
     font-size: var(--font-size);
   }
@@ -53,7 +50,7 @@ $listItemHeight: 34px;
   }
   ul {
     box-sizing: border-box;
-    padding: 5px 0;
+    padding: 0.25rem 0;
     width: 100%;
     margin: 0;
     list-style: none;
@@ -65,7 +62,8 @@ $listItemHeight: 34px;
     max-height: calc($listItemHeight * 10);
 
     li {
-      padding: 8.5px 15px;
+      padding: 0.5rem 1rem;
+      font-size: var(--font-size);
       margin: 0;
       position: relative;
       line-height: 1;
@@ -112,25 +110,25 @@ $listItemHeight: 34px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 15px;
+  left: 16px;
   pointer-events: none;
 }
 
 .status {
   position: absolute;
   top: 50%;
-  right: 15px;
+  right: 16px;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
 
   .warning {
     color: var(--error);
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   * + * {
-    margin-left: 10px;
+    margin-left: 0.5rem;
   }
 }
 

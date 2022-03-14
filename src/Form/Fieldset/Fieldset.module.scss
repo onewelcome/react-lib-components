@@ -1,6 +1,6 @@
 .fieldset {
   border: 0;
-  padding: 16px 20px;
+  padding: 1rem 1.25rem;
   border-radius: 8px;
   margin: 0;
 
@@ -10,11 +10,11 @@
 
   + .wrapper,
   + .fieldset {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 
   .title {
     display: block;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
   }
 }

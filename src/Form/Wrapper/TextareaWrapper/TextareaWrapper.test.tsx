@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 describe('TextareaWrapper should render', () => {
   it('renders without crashing', () => {
-    const { container } = render(
+    const { getByTestId } = render(
       <TextareaWrapper
         helperText="Helpertext"
         errorMessage="Errormessage"
@@ -13,9 +13,10 @@ describe('TextareaWrapper should render', () => {
         onChange={() => jest.fn()}
         label="Label"
         name="Textarea"
+        data-testid="textareawrapper"
       />
     );
-    const textareawrapper = container?.querySelector('.wrapper');
+    const textareawrapper = getByTestId('textareawrapper');
 
     expect(textareawrapper).toBeDefined();
   });

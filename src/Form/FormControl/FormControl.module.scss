@@ -1,6 +1,6 @@
 .form-control {
   + .form-control {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 
   &.grid {
@@ -31,28 +31,28 @@
 
 .grid-2 {
   .column:nth-child(even) {
-    margin-left: 16px;
+    margin-left: 1rem;
   }
 
   .column:nth-child(n + 3) {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 }
 
 .grid-3 {
   .column:not(:nth-child(3n + 1)) {
-    margin-left: 16px;
+    margin-left: 1rem;
   }
 
   .column:nth-child(n + 4) {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 }
 
 .col-2 {
-  flex-basis: calc(calc(100% - 16px) / 2);
+  flex-basis: calc(calc(100% - 1rem) / 2);
 }
 
 .col-3 {
-  flex-basis: calc(calc(100% - 32px) / 3);
+  flex-basis: calc(calc(100% - 2rem) / 3);
 }

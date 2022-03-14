@@ -1,11 +1,9 @@
-import React, { HTMLProps } from 'react';
+import React from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
+import { FormElement } from '../form.interfaces';
 import classes from './Textarea.module.scss';
 
-export interface Props extends HTMLProps<HTMLTextAreaElement> {
-  error?: boolean;
-  disabled?: boolean;
-}
+export interface Props extends FormElement<HTMLTextAreaElement> {}
 
 export const Textarea = ({
   children,
@@ -20,9 +18,7 @@ export const Textarea = ({
       <textarea
         {...rest}
         rows={rows}
-        className={`${error ? classes.error : ''} ${classes.textarea} ${
-          className ? className : ''
-        }`}
+        className={`${error ? classes.error : ''} ${classes.textarea} ${className ?? ''}`}
         disabled={disabled}
       />
       {error && <Icon className={classes.warning} icon={Icons.Warning} />}

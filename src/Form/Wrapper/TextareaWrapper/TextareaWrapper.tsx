@@ -4,56 +4,58 @@ import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { Textarea, Props as TextareaProps } from '../../Textarea/Textarea';
 import { useWrapper } from '../../../hooks/useWrapper';
 
-export interface Props extends WrapperProps {
+export interface Props extends Omit<WrapperProps, 'onFocus' | 'onChange' | 'onBlur'> {
   placeholder?: string;
-  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   textareaProps?: TextareaProps;
+  value: string;
+  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
 }
 
 export const TextareaWrapper = ({
-  label,
   name,
-  helperText,
   error,
-  errorMessage,
-  required,
   value,
   placeholder,
   textareaProps,
   onChange,
+  onFocus,
+  onBlur,
+  ...rest
 }: Props) => {
   const { errorId, floatingLabelActive, setFloatingLabelActive, setHasFocus, helperId, labelId } =
     useWrapper(value, placeholder);
 
   return (
     <Wrapper
-      label={label}
+      {...rest}
       labelProps={{
         id: labelId,
         className: classes['textarea-label'],
       }}
       name={name}
       helperId={helperId}
-      helperText={helperText}
       helperProps={{ className: classes['textarea-helper-text'] }}
-      required={required}
       error={error}
-      errorMessage={errorMessage}
       floatingLabelActive={floatingLabelActive}
       errorId={errorId}
     >
       <Textarea
+        {...textareaProps}
         error={error}
         aria-labelledby={labelId}
         aria-describedby={error ? errorId : helperId}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        onFocus={() => {
+        onFocus={(e) => {
+          onFocus && onFocus(e);
           setHasFocus(true);
           setFloatingLabelActive(true);
         }}
         onBlur={(e) => {
+          onBlur && onBlur(e);
           setHasFocus(false);
           e.target.value || textareaProps?.placeholder?.length
             ? setFloatingLabelActive(true)

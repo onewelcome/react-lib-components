@@ -1,27 +1,31 @@
-import React, { ReactElement } from 'react';
+import React, { Fragment, ReactElement } from 'react';
 import { FormGroup, Props as FormGroupProps } from '../../FormGroup/FormGroup';
 import { Label, Props as LabelProps } from '../../Label/Label';
 import classes from './Wrapper.module.scss';
+import { Props as HelperProps } from '../../FormHelperText/FormHelperText';
+import { HTMLProps } from '../../../interfaces';
 
 export interface Props extends Omit<FormGroupProps, 'children'> {
   children: ReactElement | ReactElement[];
   floatingLabelActive?: boolean;
-  label?: string;
-  name: string;
-  labelProps?: LabelProps;
+  fieldsetDisabled?: boolean;
   floatingLabel?: boolean;
+  helperIndent?: number;
+  label?: string;
+  labelProps?: LabelProps;
+  name: string;
   /** This does NOT add validation! It simply adds an asterix on the Label! */
   required?: boolean;
 }
 
 /** For components that extend this component we create an interface (InputWrapper, SelectWrapper, etc.) */
-export interface WrapperProps {
-  label?: string;
-  name: string;
-  helperText?: string;
+export interface WrapperProps extends HTMLProps<HTMLDivElement> {
   errorMessage?: string;
   error: boolean;
-  value: string;
+  helperText?: string;
+  helperProps?: HelperProps;
+  label?: string;
+  name: string;
   required?: boolean;
 }
 
@@ -39,12 +43,27 @@ export const Wrapper = ({
   floatingLabelActive,
   required,
   helperProps,
+  helperIndent,
   labelProps,
   label,
+  fieldsetDisabled,
   name,
+  ...rest
 }: Props) => {
+  const renderChildren = () => {
+    let clonedChildren = !Array.isArray(children) ? [children] : children;
+
+    return (clonedChildren as ReactElement[]).map((child, index) => (
+      <Fragment key={index}>
+        {React.cloneElement(child, {
+          disabled: fieldsetDisabled,
+        })}
+      </Fragment>
+    ));
+  };
+
   return (
-    <div data-wrapper className={`${classes.wrapper} ${className ? className : ''}`}>
+    <div {...rest} className={`${classes.wrapper} ${className ? className : ''}`}>
       <FormGroup
         error={error}
         errorMessage={errorMessage}
@@ -54,6 +73,7 @@ export const Wrapper = ({
         helperText={helperText}
         helperId={helperId}
         helperProps={helperProps}
+        helperIndent={helperIndent}
       >
         <div className={floatingLabel ? classes['floating-wrapper'] : ''}>
           {label && (
@@ -69,7 +89,7 @@ export const Wrapper = ({
               {label}
             </Label>
           )}
-          {children}
+          {renderChildren()}
         </div>
       </FormGroup>
     </div>

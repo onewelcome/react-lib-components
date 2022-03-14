@@ -1,12 +1,13 @@
-import React, { Fragment, HTMLProps, ReactElement } from 'react';
+import React, { Fragment, ReactElement } from 'react';
 import readyclasses from '../../readyclasses.module.scss';
 import classes from './Fieldset.module.scss';
+import { HTMLProps } from '../../interfaces';
 
 type TitleStyle = 'h1' | 'h2' | 'h3' | 'body' | 'body-bold';
 
 export interface Props extends HTMLProps<HTMLFieldSetElement> {
   children?: ReactElement | ReactElement[];
-  title?: string;
+  title: string;
   titleStyle?: TitleStyle;
   hideTitle?: boolean;
   background?: string;
@@ -16,6 +17,7 @@ export interface Props extends HTMLProps<HTMLFieldSetElement> {
 
 export const Fieldset = ({
   children,
+  className,
   title,
   titleStyle = 'body',
   hideTitle = false,
@@ -34,11 +36,9 @@ export const Fieldset = ({
   }
 
   const renderChildren = () => {
-    if (!Array.isArray(children) && children) {
-      children = [children];
-    }
+    let clonedChildren = !Array.isArray(children) ? [children] : children;
 
-    return (children as ReactElement[]).map((child, index) => (
+    return (clonedChildren as ReactElement[]).map((child, index) => (
       <Fragment key={index}>
         {React.cloneElement(child, {
           fieldsetDisabled: disabled,
@@ -49,10 +49,10 @@ export const Fieldset = ({
 
   return (
     <fieldset
-      disabled={disabled}
-      style={{ backgroundColor: background }}
-      className={`${classes.fieldset} ${noPadding ? classes['no-padding'] : ''}`}
       {...rest}
+      disabled={disabled}
+      style={{ backgroundColor: background, ...rest.style }}
+      className={`${classes.fieldset} ${noPadding ? classes['no-padding'] : ''} ${className ?? ''}`}
     >
       {title && <legend className={readyclasses['sr-only']}>{title}</legend>}
       {title && !hideTitle && (

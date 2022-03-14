@@ -1,23 +1,21 @@
-import React, { HTMLProps } from 'react';
+import React from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormHelperText } from '../FormHelperText/FormHelperText';
 import classes from './Radio.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
+import { FormSelector } from '../form.interfaces';
 
-export interface Props extends HTMLProps<HTMLInputElement> {
+export interface Props extends FormSelector<HTMLInputElement> {
   children: string;
-  error?: boolean;
-  helperText?: string;
-  errorMessage?: string;
-  parentHelperId?: string;
-  errorMessageId?: string;
+  value: string;
 }
 
 export const Radio = ({
   children,
+  className,
   name,
   helperText,
-  errorMessageId,
+  parentErrorId,
   errorMessage,
   disabled,
   value,
@@ -30,7 +28,7 @@ export const Radio = ({
   const { errorId, identifier, describedBy } = useFormSelector({
     name,
     helperText,
-    errorMessageId,
+    parentErrorId,
     errorMessage,
     error,
     parentHelperId,
@@ -54,10 +52,11 @@ export const Radio = ({
     <div
       className={`${classes['radio-wrapper']} ${error ? classes.error : ''} ${
         disabled ? classes.disabled : ''
-      }`}
+      } ${className ?? ''}`}
     >
       <div className={classes['radio-container']}>
         <input
+          {...rest}
           disabled={disabled}
           tabIndex={0}
           className={classes['native-input']}
@@ -68,24 +67,23 @@ export const Radio = ({
           aria-describedby={describedBy}
           name={name}
           value={value}
-          id={identifier}
+          id={`${identifier}-radio`}
           type="radio"
-          {...rest}
         />
 
         {checked && <Icon className={classes.input} icon={Icons.Radio} />}
         {!checked && <Icon className={classes.input} icon={Icons.Circle} />}
 
-        <label onClick={onChangeHandler} htmlFor={identifier}>
+        <label onClick={onChangeHandler} htmlFor={`${identifier}-radio`}>
           {children}
         </label>
       </div>
-      {helperText && (!error || errorMessageId || !errorMessage) && (
-        <FormHelperText id={`${identifier}`} className={classes['helper-text']} indent={28}>
+      {helperText && (!error || parentErrorId || !errorMessage) && (
+        <FormHelperText id={`${identifier}`} className={classes['helper-text']}>
           {helperText}
         </FormHelperText>
       )}
-      {errorMessage && !errorMessageId && error && (
+      {errorMessage && !parentErrorId && error && (
         <span className={classes['error-message']}>
           <Icon className={classes['error-icon']} icon={Icons.Warning} />
           <span id={errorId}>{errorMessage}</span>

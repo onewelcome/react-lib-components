@@ -1,18 +1,17 @@
-import React, { HTMLProps, ReactChild } from 'react';
+import React from 'react';
 import classes from './Label.module.scss';
 import readyclasses from '../../readyclasses.module.scss';
+import { HTMLProps } from '../../interfaces';
+
 export interface Props extends HTMLProps<HTMLLabelElement> {
-  children?: ReactChild;
-  hidden?: boolean;
+  children?: string;
 }
 
 export const Label = ({ children, className, hidden = false, ...rest }: Props) => {
   return (
     <label
-      className={`${hidden ? readyclasses.hidden : ''} ${classes.label} ${
-        className ? className : ''
-      }`}
       {...rest}
+      className={`${hidden ? readyclasses.hidden : ''} ${classes.label} ${className ?? ''}`}
     >
       {children}
     </label>

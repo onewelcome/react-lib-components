@@ -1,7 +1,8 @@
-import React, { HTMLProps, ReactChild } from 'react';
+import React, { ReactChild } from 'react';
 import classes from './FormGroup.module.scss';
 import { FormHelperText, Props as HelperProps } from '../FormHelperText/FormHelperText';
 import { Icon, Icons } from '../../Icon/Icon';
+import { HTMLProps } from '../../interfaces';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   children: ReactChild[] | ReactChild;
@@ -10,36 +11,45 @@ export interface Props extends HTMLProps<HTMLDivElement> {
   errorMessageIconPosition?: 'before' | 'after';
   errorMessage?: string;
   errorId?: string;
+  helperIndent?: number;
   helperText?: string;
-  helperId: string;
+  helperId?: string;
   helperProps?: HelperProps;
 }
 
 export const FormGroup = ({
   children,
+  className,
   error,
   errorMessage,
   errorId,
-  helperText,
-  helperId,
-  className,
-  helperProps,
   errorMessageIcon,
   errorMessageIconPosition = 'before',
+  helperText,
+  helperId,
+  helperProps,
+  helperIndent,
   ...rest
 }: Props) => {
   return (
-    <div className={`${classes['form-group']} ${error ? classes.error : ''}`} {...rest}>
+    <div
+      {...rest}
+      className={`${classes['form-group']} ${error ? classes.error : ''} ${className ?? ''}`}
+    >
       {children}
 
       {(helperText || errorMessage) && (
         <div
-          style={{ marginLeft: `${helperProps?.indent}px` }}
+          style={{ marginLeft: `${helperIndent}px` }}
           className={`${classes['default-helper']} ${
             helperProps?.className ? helperProps.className : ''
           }`}
         >
-          {helperText && !error && <FormHelperText id={helperId}>{helperText}</FormHelperText>}
+          {helperText && !error && (
+            <FormHelperText {...helperProps} id={helperId}>
+              {helperText}
+            </FormHelperText>
+          )}
           {error && errorMessage && (
             <span className={classes['error-message']}>
               <span className={classes.message} id={errorId}>

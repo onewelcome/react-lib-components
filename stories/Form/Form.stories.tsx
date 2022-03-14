@@ -177,6 +177,7 @@ const Template: Story<Props> = (args) => {
               name="postalcode"
               errorMessage={address.postcode.errorMessage}
               type="text"
+              inputProps={{ placeholder: '1234AB' }}
               error={address.postcode.error}
               value={address.postcode.value}
               label="Postal code"
@@ -211,7 +212,7 @@ const Template: Story<Props> = (args) => {
           name="food-group"
           error={checkbox.error}
           errorMessage=""
-          fieldsetProps={{ title: 'Example title' }}
+          fieldsetProps={{ title: 'Would you like to make an appointment?' }}
         >
           <Checkbox
             onChange={(e) =>
@@ -243,7 +244,7 @@ const Template: Story<Props> = (args) => {
         <RadioWrapper
           name="callback"
           onChange={(e) => setCallBack((prevState) => ({ ...prevState, value: e.target.value }))}
-          fieldsetProps={{ title: 'Example title' }}
+          fieldsetProps={{ title: 'Would you like us to call you back?' }}
           value={callBack.value}
           error={callBack.error}
         >
@@ -251,7 +252,7 @@ const Template: Story<Props> = (args) => {
           <Radio value="no">No</Radio>
         </RadioWrapper>
         {callBack.value === 'yes' ? (
-          <Fieldset>
+          <Fieldset title="Callback time" hideTitle>
             <InputWrapper
               onChange={callBackTimeOnChangeHandler}
               label="Callback time"

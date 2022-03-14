@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { FormControl, Props } from '../../../src/Form/FormControl/FormControl';
 import { Form } from '../../../src/Form/Form';
-import { Input } from '../../../src/Form/Input/Input';
-import { Select } from '../../../src/Form/Select/Select';
-import { Option } from '../../../src/Form/Select/Option';
 import { RadioWrapper } from '../../../src/Form/Wrapper/RadioWrapper/RadioWrapper';
-import { Radio } from '../../../src/Form/Radio/Radio';
 import { Checkbox } from '../../../src/Form/Checkbox/Checkbox';
 import { CheckboxWrapper } from '../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper';
 import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
+import { Radio } from '../../../src/Form/Radio/Radio';
+import { Fieldset } from '../../../src/Form/Fieldset/Fieldset';
 
 const meta: Meta = {
   title: 'Form/Elements/FormControl',
@@ -127,6 +125,7 @@ const Template: Story<Props> = (args) => {
           name="electronics"
           onChange={(e) => setPreferredMobileDevice(e.target.value)}
           helperText="This is helper text"
+          fieldsetProps={{ title: 'Radio', hideTitle: true }}
         >
           <Radio value="mobile">Mobile</Radio>
           <Radio value="tv">TV</Radio>
@@ -138,6 +137,7 @@ const Template: Story<Props> = (args) => {
           errorMessage="Error message"
           name="electronics"
           helperText="This is helper text"
+          fieldsetProps={{ title: 'Radio', hideTitle: true }}
         >
           <Checkbox
             onChange={handleElectronicsOnChange}
@@ -157,15 +157,17 @@ const Template: Story<Props> = (args) => {
             </Checkbox>
           </Checkbox>
         </CheckboxWrapper>
-        <InputWrapper
-          helperText="Helper text for this field. Description should be short and not repeat the label"
-          name="input1"
-          errorMessage={'This is an error'}
-          type="text"
-          value=""
-          error={false}
-          label="Label for this inputfield"
-        />
+        <Fieldset title="Arbitrary input">
+          <InputWrapper
+            helperText="Helper text for this field. Description should be short and not repeat the label"
+            name="input1"
+            errorMessage={'This is an error'}
+            type="text"
+            value=""
+            error={false}
+            label="Label for this inputfield"
+          />
+        </Fieldset>
       </FormControl>
     </Form>
   );

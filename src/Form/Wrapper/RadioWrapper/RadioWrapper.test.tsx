@@ -3,29 +3,34 @@ import { RadioWrapper, Props } from './RadioWrapper';
 import { Radio } from '../../Radio/Radio';
 import { render } from '@testing-library/react';
 
-const createRadioWrapper = (params?: Props, checkedOptionValue = 'option1') => {
-  const onChangeHandler = jest.fn();
+const onChangeHandler = jest.fn();
+const checkedOptionValue = 'option1';
 
-  const queries = render(
-    <RadioWrapper
-      label="Label"
-      errorMessage="Error message"
-      helperText="Helper text"
-      error={false}
-      onChange={onChangeHandler}
-      fieldsetProps={{ title: 'Example title' }}
-      value={checkedOptionValue}
-      name="my-group"
-      {...params}
-    >
-      <Radio helperText="This is helpertext" value="option1">
-        Option 1
-      </Radio>
-      <Radio value="option2">Option 2</Radio>
-      <Radio value="option3">Option 3</Radio>
-    </RadioWrapper>
-  );
-  const radiowrapper = queries.container.querySelector('.wrapper');
+const defaultParams: Props = {
+  label: 'Label',
+  errorMessage: 'Error message',
+  helperText: 'Helper text',
+  error: false,
+  onChange: onChangeHandler,
+  fieldsetProps: { title: 'Example title' },
+  value: checkedOptionValue,
+  name: 'my-group',
+  children: [
+    <Radio helperText="This is helpertext" value="option1">
+      Option 1
+    </Radio>,
+    <Radio value="option2">Option 2</Radio>,
+    <Radio value="option3">Option 3</Radio>,
+  ],
+};
+
+const createRadioWrapper = (params?: (defaultParams: Props) => Props) => {
+  let parameters: Props = defaultParams;
+  if (params) {
+    parameters = params(defaultParams);
+  }
+  const queries = render(<RadioWrapper {...parameters} data-testid="radiowrapper" />);
+  const radiowrapper = queries.getByTestId('radiowrapper');
 
   return {
     ...queries,
@@ -50,23 +55,18 @@ describe('RadioWrapper should render', () => {
     const option1helper = option1RadioWrapper?.querySelector('.helper-text');
 
     if (option1helper && option1) {
-      expect(option1helper.getAttribute('id')).toBe(`${option1.getAttribute('id')}`);
+      expect(`${option1helper.getAttribute('id')}-radio`).toBe(`${option1.getAttribute('id')}`);
       expect(option1).toHaveAccessibleDescription();
       expect(option1).toHaveAttribute('aria-describedby', option1helper.getAttribute('id'));
     }
   });
 
   it("has all option's aria-describedby linked with the error message ID", () => {
-    const { radiowrapper } = createRadioWrapper({
+    const { radiowrapper } = createRadioWrapper((defaultParams) => ({
+      ...defaultParams,
       error: true,
-      children: <Radio value="test">Test</Radio>,
-      value: 'option1',
-      name: 'my-group',
       errorMessage: 'This is an error message',
-      label: 'Label',
-      helperText: 'HelperText',
-      onChange: () => jest.fn(),
-    });
+    }));
 
     const errorMessage = radiowrapper?.querySelector('.error-message .message');
     const option1 = radiowrapper?.querySelector('input[value="option1"]');
@@ -80,7 +80,10 @@ describe('RadioWrapper should render', () => {
 
 describe('RadioWrapper selection', () => {
   it('has option 2 selected, the rest is unselected', () => {
-    const { radiowrapper } = createRadioWrapper(undefined, 'option2');
+    const { radiowrapper } = createRadioWrapper((defaultParams) => ({
+      ...defaultParams,
+      value: 'option2',
+    }));
 
     expect(radiowrapper?.querySelector('input[value="option1"]')).toHaveAttribute(
       'aria-checked',
