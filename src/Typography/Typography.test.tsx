@@ -1,38 +1,15 @@
 import React from 'react';
-import { Typography } from './Typography';
+import { Typography, Props } from './Typography';
 import { render } from '@testing-library/react';
+import { Spacing } from '../hooks/useSpacing';
 
 const renderTypography = (
-  typoVariant:
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'body'
-    | 'body-bold'
-    | 'sub-text'
-    | 'code',
-  wrapper?:
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'p'
-    | 'div'
-    | 'code'
-    | 'span'
-    | 'sup'
-    | 'sub'
-    | 'strong'
-    | 'em'
-    | 'small'
-    | 'mark'
-    | 'del'
-    | 'ins'
-    | 'blockquote'
+  typoVariant: Props['variant'],
+  wrapper?: Props['tag'],
+  spacing?: Spacing
 ) => {
   const queries = render(
-    <Typography variant={typoVariant} tag={wrapper} data-testid="component">
+    <Typography variant={typoVariant} tag={wrapper} spacing={spacing} data-testid="component">
       Test
     </Typography>
   );
@@ -45,6 +22,8 @@ const renderTypography = (
   };
 };
 
+const className = (variant: Props['variant']) => `typography_style_${variant}`;
+
 describe('Typography should render', () => {
   it('renders without crashing', async () => {
     const { typography } = renderTypography('h1');
@@ -52,47 +31,61 @@ describe('Typography should render', () => {
   });
 });
 
-describe('Should give the correct default tags', () => {
+describe('Should give the correct default tags and corresponding classnames', () => {
   it('renders an h1', async () => {
-    const { typography } = renderTypography('h1');
+    const variant = 'h1';
+    const { typography } = renderTypography(variant);
 
     expect(typography.nodeName).toBe('H1');
+    expect(typography).toHaveClass(className(variant));
   });
 
   it('renders an h2', async () => {
-    const { typography } = renderTypography('h2');
+    const variant = 'h2';
+    const { typography } = renderTypography(variant);
 
     expect(typography.nodeName).toBe('H2');
+    expect(typography).toHaveClass(className(variant));
   });
 
   it('renders an h3', async () => {
-    const { typography } = renderTypography('h3');
+    const variant = 'h3';
+    const { typography } = renderTypography(variant);
 
     expect(typography.nodeName).toBe('H3');
+    expect(typography).toHaveClass(className(variant));
   });
 
   it('renders an h4', async () => {
-    const { typography } = renderTypography('h4');
+    const variant = 'h4';
+    const { typography } = renderTypography(variant);
 
     expect(typography.nodeName).toBe('H4');
+    expect(typography).toHaveClass(className(variant));
   });
 
   it('renders a p', async () => {
-    const { typography } = renderTypography('body');
+    const variant = 'body';
+    const { typography } = renderTypography(variant);
 
     expect(typography.nodeName).toBe('P');
+    expect(typography).toHaveClass(className(variant));
   });
 
   it('renders a p', async () => {
-    const { typography } = renderTypography('body-bold');
+    const variant = 'body-bold';
+    const { typography } = renderTypography(variant);
 
     expect(typography.nodeName).toBe('P');
+    expect(typography).toHaveClass(className(variant));
   });
 
   it('renders a code', async () => {
-    const { typography } = renderTypography('code');
+    const variant = 'code';
+    const { typography } = renderTypography(variant);
 
     expect(typography.nodeName).toBe('CODE');
+    expect(typography).toHaveClass(className(variant));
   });
 });
 
@@ -101,5 +94,13 @@ describe('Should override tagname', () => {
     const { typography } = renderTypography('h1', 'div');
 
     expect(typography.nodeName).toBe('DIV');
+  });
+});
+
+describe('Should override styling', () => {
+  it('renders h1 with overwritten margin properties', () => {
+    const { typography } = renderTypography('h1', undefined, { margin: 4, marginBottom: 8 });
+
+    expect(typography.style).toHaveProperty('margin', '1rem 1rem 2rem 1rem');
   });
 });

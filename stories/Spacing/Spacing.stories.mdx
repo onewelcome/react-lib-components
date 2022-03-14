@@ -1,0 +1,63 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { projectName } from '../configuration';
+import { Fragment } from 'react';
+import { Typography } from '../../src/Typography/Typography';
+
+<Meta
+  title="Spacing"
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+  }}
+/>
+
+# Spacing
+
+Spacing helps create consistient spacing between elements in your application.
+Margins and paddings can be set via `spacing` component propery.
+
+4px (0.25rem) scaling factor is used in <Typography tag="span" children={projectName} />.
+
+Spacing multiplies provided value via factor.
+
+## Setting spacings to components
+
+Components consumes object as a `spacing` property:
+
+```jsx
+<Typography spacing={{ margin: 4 }}>1rem margin</Typography>
+```
+
+Above example sets margin to be `1rem` (`4 * 0.25rem`).
+
+`spacing` configures beneath properties:
+
+- padding
+- paddingTop
+- paddingBottom
+- paddingLeft
+- paddingRight
+- margin
+- marginTop
+- marginBottom
+- marginLeft
+- marginRight
+
+`margin` and `padding` respect single, double, triple and quadruple values provided as a string property or single number value.
+All others consumes single number or string value. See beneath example:
+
+```jsx
+<Typography spacing={{ margin: '4 0 12 2' }}>1rem margin-top, 0 margin-right, 3rem margin-bottom, 0.5rem margin-left</Typography>
+<Typography spacing={{ margin: '4 0 12' }}>1rem margin-top, 0 margin-right & margin-left, 3rem margin-bottom</Typography>
+<Typography spacing={{ margin: '4 0' }}>1rem margin-top & margin-bottom, 0 margin-right & margin-left</Typography>
+<Typography spacing={{ margin: 4 }}>1rem margin</Typography>
+<Typography spacing={{ margin: '5' }}>1.25rem margin</Typography>
+<Typography spacing={{ paddingLeft: '6' }}>1.5rem padding-left</Typography>
+<Typography spacing={{ paddingRight: 7 }}>1.75rem padding-left</Typography>
+```
+
+### Supported components
+
+For now spacing is supported only in `<Typography/>` component.

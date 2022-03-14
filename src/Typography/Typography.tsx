@@ -1,17 +1,10 @@
 import React, { HTMLAttributes, ReactChild } from 'react';
 import classes from './Typography.module.scss';
+import { Spacing, useSpacing } from '../hooks/useSpacing';
 
 export interface Props extends HTMLAttributes<HTMLElement> {
-  children?: ReactChild;
-  variant:
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'body'
-    | 'body-bold'
-    | 'sub-text'
-    | 'code';
+  children: ReactChild;
+  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'body-bold' | 'sub-text' | 'code';
   tag?:
     | 'h1'
     | 'h2'
@@ -30,23 +23,28 @@ export interface Props extends HTMLAttributes<HTMLElement> {
     | 'del'
     | 'ins'
     | 'blockquote';
+  spacing?: Spacing;
 }
 
-export const Typography = ({ children, variant, tag, ...rest }: Props) => {
-  /** If tag is undefined, we assign defaults */
+export const Typography = ({
+  children,
+  variant,
+  tag,
+  style,
+  spacing,
+  className = '',
+  ...rest
+}: Props) => {
+  const styleWithSpacing = useSpacing(spacing, style);
+
   if (!tag) {
     switch (variant) {
       case 'h1':
-        tag = 'h1';
-        break;
       case 'h2':
-        tag = 'h2';
-        break;
       case 'h3':
-        tag = 'h3';
-        break;
       case 'h4':
-        tag = 'h4';
+      case 'code':
+        tag = variant;
         break;
       case 'body':
         tag = 'p';
@@ -57,9 +55,6 @@ export const Typography = ({ children, variant, tag, ...rest }: Props) => {
       case 'sub-text':
         tag = 'span';
         break;
-      case 'code':
-        tag = 'code';
-        break;
       default:
         tag = 'div';
         break;
@@ -69,7 +64,11 @@ export const Typography = ({ children, variant, tag, ...rest }: Props) => {
   let TagName = tag;
 
   return (
-    <TagName {...rest} className={classes['typography_style_' + variant]}>
+    <TagName
+      {...rest}
+      style={styleWithSpacing}
+      className={`${classes['typography_style_' + variant]} ${className}`}
+    >
       {children}
     </TagName>
   );

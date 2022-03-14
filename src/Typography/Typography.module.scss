@@ -1,41 +1,46 @@
+@mixin fontProperties($fontFamily, $fontSize, $fontWeight, $lineHeight) {
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  font-style: normal;
+  font-variant: normal;
+  line-height: $lineHeight;
+  font-weight: $fontWeight;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--default);
+  margin: 0 0 1rem 0;
+}
+
 .typography_style_ {
-	&h1 {
-		font-size: var(--font-size-h1);
-		line-height: calc(var(--font-size-h1) * 1.2);
-		font-weight: 700;
-	}
-	
-	&h2 {
-		font-size: var(--font-size-h2);
-		line-height: calc(var(--font-size-h2) * 1.2);
-		font-weight: 700;
-	}
-	&h3 {
-		font-size: var(--font-size-h3);
-		line-height: calc(var(--font-size-h3) * 1.2);
-		font-weight: 700;
-	}
-	&h4 {
-		font-size: var(--font-size-h4);
-		line-height: calc(var(--font-size-h4) * 1.2);
-		font-weight: 700;
-	}
+  &h1 {
+    @include fontProperties(var(--font-family), var(--font-size-h1), 700, 1.2);
+  }
 
-	&body {
-		font-size: var(--default-font-size);
-	}
+  &h2 {
+    @include fontProperties(var(--font-family), var(--font-size-h2), 700, 1.42857);
+  }
 
-	&body-bold {
-		font-weight: 700;	
-	}
+  &h3 {
+    @include fontProperties(var(--font-family), var(--font-size-h3), 500, 1.16666);
+  }
 
-	&sub-text {
-		font-size: var(--font-size-sub);
-		line-height: calc(var(--font-size-sub) * 1.6);
-	}
+  &h4 {
+    @include fontProperties(var(--font-family), var(--font-size-h4), 700, 1.2);
+  }
 
-	&code {
-		font-size: var(--default-font-size);
-		line-height: calc(var(--default-font-size) * 1.3);
-	}
+  &body {
+    @include fontProperties(var(--font-family), var(--font-size), 400, 1.5);
+  }
+
+  &body-bold {
+    @include fontProperties(var(--font-family), var(--font-size), 700, 1.5);
+  }
+
+  &sub-text {
+    @include fontProperties(var(--font-family), var(--font-size-sub), 400, 1.333);
+  }
+
+  &code {
+    @include fontProperties(var(--font-family-code), var(--font-size-code), 400, 1.5);
+  }
 }

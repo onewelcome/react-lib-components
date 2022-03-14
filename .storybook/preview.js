@@ -9,11 +9,7 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <BaseStyling
-      properties={{
-        fontFamily: "'Red Hat Display', sans-serif;",
-      }}
-    >
+    <BaseStyling>
       <Story />
     </BaseStyling>
   ),

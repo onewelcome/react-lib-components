@@ -4,7 +4,6 @@ interface CSSProperties {
   colorPrimary?: string;
   colorSecondary?: string;
   colorTertiary?: string;
-  defaultFontSize?: string;
   defaultLineHeight?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
@@ -15,18 +14,21 @@ interface CSSProperties {
   modalShadowColor?: string;
   modalBackgroundColor?: string;
   modalHeaderBackgroundColor?: string;
-  fontFamily?: string;
   default?: string;
   success?: string;
   error?: string;
   disabled?: string;
   greyedOut?: string;
   warning?: string;
+  fontFamily?: string;
+  fontFamilyCode?: string;
+  fontSize?: string;
   fontSizeH1?: string;
   fontSizeH2?: string;
   fontSizeH3?: string;
   fontSizeH4?: string;
   fontSizeSub?: string;
+  fontSizeCode?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -39,7 +41,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorPrimary: '#9e006b',
     colorSecondary: '#003b5e',
     colorTertiary: '#ff1e4e',
-    defaultFontSize: '16px',
     defaultLineHeight: '26px',
     buttonBorderRadius: '20px',
     buttonBorderWidth: '2px',
@@ -50,18 +51,21 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',
     modalBackgroundColor: '#F5F8F8',
     modalHeaderBackgroundColor: '#FFF',
-    fontFamily: "'Red Hat Display', sans-serif",
     default: '#0f0f1e',
     success: '#008A28',
     error: '#e22a1d',
     disabled: '#e9e9eb',
     greyedOut: '#6f6f76',
     warning: '#ff6105',
-    fontSizeH1: '40px',
-    fontSizeH2: '26px',
-    fontSizeH3: '24px',
-    fontSizeH4: '20px',
-    fontSizeSub: '12px',
+    fontFamily: "'Red Hat Display', sans-serif",
+    fontFamilyCode: "'Red Hat Mono', sans-serif",
+    fontSize: '1rem',
+    fontSizeH1: '2.5rem',
+    fontSizeH2: '1.625rem',
+    fontSizeH3: '1.5rem',
+    fontSizeH4: '1.25rem',
+    fontSizeSub: '.75rem',
+    fontSizeCode: '1rem',
   });
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
