@@ -68,7 +68,7 @@ export const generateID = (length = 15, stringToWeaveIn?: string) => {
   let id = '';
 
   /** Generate an id of x characters in length */
-  for (let i = 0; id.length < length; i++) {
+  for (let i = 0; i < length && id.length < length; i++) {
     let stringCharacter =
       stringToWeaveIn && stringToWeaveIn[i] !== undefined && !/\s/.test(stringToWeaveIn[i])
         ? stringToWeaveIn[i]

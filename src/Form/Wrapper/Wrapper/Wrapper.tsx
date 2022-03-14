@@ -53,7 +53,7 @@ export const Wrapper = ({
   const renderChildren = () => {
     let clonedChildren = !Array.isArray(children) ? [children] : children;
 
-    return (clonedChildren as ReactElement[]).map((child, index) => (
+    return clonedChildren.map((child, index) => (
       <Fragment key={index}>
         {React.cloneElement(child, {
           disabled: fieldsetDisabled,

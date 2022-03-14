@@ -4,13 +4,13 @@ import classes from './InputWrapper.module.scss';
 import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { useWrapper } from '../../../hooks/useWrapper';
 
-interface optionalInputProps extends Omit<InputProps, 'type'> {}
+interface OptionalInputProps extends Omit<InputProps, 'type'> {}
 
 export interface Props extends WrapperProps {
   label: string;
   type: Type;
   name: string;
-  inputProps?: optionalInputProps;
+  inputProps?: OptionalInputProps;
   value: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
