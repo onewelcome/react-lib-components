@@ -2,7 +2,7 @@
   position: relative;
 
   + .radio-wrapper {
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
 }
 
@@ -11,19 +11,19 @@
 }
 
 .helper-text {
-  margin-top: 4px;
-  font-size: 12px;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
 }
 
 .error-message {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   display: flex;
   align-items: bottom;
 }
 
 .error-icon {
-  margin-right: 8px;
-  font-size: 20px;
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
 }
 
 .radio-container {
@@ -32,7 +32,7 @@
 
   label {
     display: inline-block;
-    margin-left: 8px;
+    margin-left: 0.5rem;
     user-select: none;
 
     .disabled & {
@@ -43,11 +43,11 @@
 
 .radio-list {
   padding: 0;
-  margin: 20px 0 0 28px;
+  margin: 1.25rem 0 0 1.75rem;
   list-style: none;
 
   li + li {
-    margin-top: 20px;
+    margin-top: 1.7rem;
   }
 }
 
@@ -87,10 +87,10 @@
 }
 
 .input {
-  font-size: 20px;
+  font-size: 1.25rem;
   pointer-events: none;
-  width:20px;
-  height: 21px;
+  width: 20px;
+  height: 20px;
 
   .disabled & {
     color: var(--disabled);

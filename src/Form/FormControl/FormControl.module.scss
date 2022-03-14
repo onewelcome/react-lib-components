@@ -34,17 +34,17 @@
     margin-left: 16px;
   }
 
-  .column:nth-child(n+3) {
+  .column:nth-child(n + 3) {
     margin-top: 16px;
   }
 }
 
 .grid-3 {
-  .column:not(:nth-child(3n+1)) {
+  .column:not(:nth-child(3n + 1)) {
     margin-left: 16px;
   }
 
-  .column:nth-child(n+4) {
+  .column:nth-child(n + 4) {
     margin-top: 16px;
   }
 }

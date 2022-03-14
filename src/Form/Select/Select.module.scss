@@ -7,8 +7,8 @@ $listItemHeight: 34px;
   border-radius: var(--input-border-radius);
   position: relative;
   box-sizing: border-box;
-  transition: all .15s ease-in-out;
-  background-color: #FFF;
+  transition: all 0.15s ease-in-out;
+  background-color: #fff;
 
   &.expanded {
     border: var(--input-border-width) solid transparent;
@@ -47,7 +47,7 @@ $listItemHeight: 34px;
     z-index: 2;
     top: 0;
     left: 0;
-    width:100%;
+    width: 100%;
     opacity: 0;
     pointer-events: none;
   }
