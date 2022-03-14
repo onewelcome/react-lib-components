@@ -92,7 +92,7 @@ export const Checkbox = ({
     <div
       className={`${classes['checkbox-wrapper']} ${error ? classes.error : ''} ${
         disabled ? classes.disabled : ''
-      } ${className ? className : ''}`}
+      } ${className ?? ''}`}
     >
       <div className={classes['checkbox-container']}>
         <input
