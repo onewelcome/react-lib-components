@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import classes from './Input.module.scss';
+import readyclasses from '../../readyclasses.module.scss';
 import { Icon, Icons } from '../../Icon/Icon';
 import { HTMLProps } from '../../interfaces';
 
@@ -43,7 +44,9 @@ export const Input = ({
     <div
       {...wrapperProps}
       style={{ ...style }}
-      className={`${classes['input-wrapper']} ${wrapperProps?.className ?? ''}`}
+      className={`${classes['input-wrapper']} ${wrapperProps?.className ?? ''} ${
+        type === 'hidden' && readyclasses.hidden
+      }`}
     >
       <input
         {...rest}

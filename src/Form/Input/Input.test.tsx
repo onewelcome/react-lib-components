@@ -99,6 +99,13 @@ describe('Should render all different types of inputs', () => {
 
     expect(input).toHaveAttribute('type', 'datetime-local');
   });
+
+  it('should be hidden', () => {
+    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'hidden' }));
+
+    expect(input.parentElement).toHaveClass('hidden');
+    expect(input).toHaveAttribute('type', 'hidden');
+  });
 });
 
 describe('It should execute the listeners', () => {

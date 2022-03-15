@@ -11,7 +11,7 @@ export const Label = ({ children, className, hidden = false, ...rest }: Props) =
   return (
     <label
       {...rest}
-      className={`${hidden ? readyclasses.hidden : ''} ${classes.label} ${className ?? ''}`}
+      className={`${hidden ? readyclasses['sr-only'] : ''} ${classes.label} ${className ?? ''}`}
     >
       {children}
     </label>

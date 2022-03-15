@@ -21,7 +21,6 @@ export { Label } from './Form/Label/Label';
 export { Select } from './Form/Select/Select';
 export { Option } from './Form/Select/Option';
 export { Textarea } from './Form/Textarea/Textarea';
-export { Wrapper } from './Form/Wrapper/Wrapper/Wrapper';
 export { CheckboxWrapper } from './Form/Wrapper/CheckboxWrapper/CheckboxWrapper';
 export { InputWrapper } from './Form/Wrapper/InputWrapper/InputWrapper';
 export { RadioWrapper } from './Form/Wrapper/RadioWrapper/RadioWrapper';
