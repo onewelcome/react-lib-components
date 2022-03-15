@@ -1,6 +1,7 @@
 import React from 'react';
 import { InputWrapper, Props } from './InputWrapper';
 import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 const defaultParams: Props = {
   label: 'Example label',
@@ -10,6 +11,7 @@ const defaultParams: Props = {
   errorMessage: 'This is an error',
   error: false,
   value: 'value',
+  onChange: jest.fn(),
 };
 
 const createInputWrapper = (params?: (defaultParams: Props) => Props) => {
@@ -55,5 +57,35 @@ describe('InputWrapper should render', () => {
     const helperId = getByTestId('helper_text').getAttribute('id');
 
     expect(input).toHaveAttribute('aria-describedby', helperId);
+  });
+
+  it('executes the eventlisteners', () => {
+    const onFocusHandler = jest.fn();
+    const onChangeHandler = jest.fn();
+    const onBlurHandler = jest.fn();
+
+    const { getByTestId } = createInputWrapper((defaultParams) => ({
+      ...defaultParams,
+      inputProps: {
+        'data-testid': 'input',
+      },
+      onChange: onChangeHandler,
+      onFocus: onFocusHandler,
+      onBlur: onBlurHandler,
+      value: '',
+    }));
+
+    const input = getByTestId('input');
+
+    userEvent.tab();
+    userEvent.keyboard('test');
+
+    expect(input).toHaveFocus();
+    expect(onChangeHandler).toHaveBeenCalled();
+    expect(onFocusHandler).toHaveBeenCalled();
+
+    userEvent.tab();
+
+    expect(onBlurHandler).toHaveBeenCalled();
   });
 });

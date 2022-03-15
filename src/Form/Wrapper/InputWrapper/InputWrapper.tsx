@@ -54,7 +54,7 @@ export const InputWrapper = ({
         {...inputProps}
         aria-labelledby={labelId}
         aria-describedby={error ? errorId : helperId}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange && onChange(e)}
+        onChange={onChange}
         onFocus={(e) => {
           onFocus && onFocus(e);
           setHasFocus(true);
