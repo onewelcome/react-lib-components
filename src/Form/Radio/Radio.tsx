@@ -1,27 +1,32 @@
 import React from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
-import { FormHelperText } from '../FormHelperText/FormHelperText';
+import { FormHelperText, Props as HelperProps } from '../FormHelperText/FormHelperText';
 import classes from './Radio.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
 import { FormSelector } from '../form.interfaces';
+import { HTMLProps } from '../../interfaces';
 
 export interface Props extends FormSelector<HTMLInputElement> {
   children: string;
   value: string;
+  wrapperProps?: HTMLProps<HTMLDivElement>;
+  helperProps?: HelperProps;
 }
 
 export const Radio = ({
   children,
+  disabled,
   className,
+  value,
   name,
   helperText,
   parentErrorId,
-  errorMessage,
-  disabled,
-  value,
-  error,
   parentHelperId,
+  error,
+  errorMessage,
   checked = false,
+  wrapperProps,
+  helperProps,
   onChange,
   ...rest
 }: Props) => {
@@ -50,16 +55,17 @@ export const Radio = ({
   /** Default return value is the default radio */
   return (
     <div
+      {...wrapperProps}
       className={`${classes['radio-wrapper']} ${error ? classes.error : ''} ${
         disabled ? classes.disabled : ''
-      } ${className ?? ''}`}
+      } ${wrapperProps?.className ?? ''}`}
     >
       <div className={classes['radio-container']}>
         <input
           {...rest}
           disabled={disabled}
           tabIndex={0}
-          className={classes['native-input']}
+          className={`${classes['native-input']} ${className ?? ''}`}
           onChange={onChangeHandler}
           checked={checked}
           aria-invalid={error ? true : false}
@@ -79,7 +85,11 @@ export const Radio = ({
         </label>
       </div>
       {helperText && (!error || parentErrorId || !errorMessage) && (
-        <FormHelperText id={`${identifier}`} className={classes['helper-text']}>
+        <FormHelperText
+          {...helperProps}
+          id={`${identifier}`}
+          className={`${classes['helper-text']} ${helperProps?.className ?? ''}`}
+        >
           {helperText}
         </FormHelperText>
       )}

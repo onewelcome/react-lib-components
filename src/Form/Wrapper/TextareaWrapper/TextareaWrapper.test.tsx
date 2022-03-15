@@ -93,4 +93,15 @@ describe('TextareaWrapper & Textarea have the right attributes', () => {
     expect(onFocusHandler).toHaveBeenCalled();
     expect(onBlurHandler).toHaveBeenCalled();
   });
+
+  it('has floating label active when it has a placeholder', async () => {
+    const { findByText } = createTextareaWrapper((defaultParams) => ({
+      ...defaultParams,
+      placeholder: 'placeholder',
+    }));
+
+    const label = await findByText('textarea_label');
+
+    expect(label).toHaveClass('floating-label-active');
+  });
 });
