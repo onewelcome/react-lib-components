@@ -41,7 +41,7 @@ export const Fieldset = ({
     return (clonedChildren as ReactElement[]).map((child, index) => (
       <Fragment key={index}>
         {React.cloneElement(child, {
-          fieldsetDisabled: disabled,
+          disabled: disabled,
         })}
       </Fragment>
     ));

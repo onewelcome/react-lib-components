@@ -1,29 +1,39 @@
 import React from 'react';
-import { RadioWrapper } from '../Wrapper/RadioWrapper/RadioWrapper';
+import { Radio, Props } from './Radio';
 import { render } from '@testing-library/react';
-import { Radio } from './Radio';
 
-describe('RadioWrapper should render', () => {
-  it('renders without crashing', () => {
-    const { container } = render(
-      <RadioWrapper
-        label="Radiowrapper"
-        error={false}
-        errorMessage="Errormessage"
-        helperText="Helpertext"
-        value={'option1'}
-        name="my-group"
-        onChange={jest.fn()}
-        fieldsetProps={{ title: 'Example title' }}
-      >
-        <Radio value="option1">Option 1</Radio>
-        <Radio value="option2">Option 2</Radio>
-        <Radio value="option3">Option 3</Radio>
-      </RadioWrapper>
-    );
-    const component = container.querySelector('.wrapper');
-    expect(component).toBeTruthy();
+const defaultParams: Props = {
+  value: 'test',
+  children: 'Label',
+  checked: false,
+};
+
+const createRadio = (params?: (defaultParams: Props) => Props) => {
+  let parameters: Props = defaultParams;
+  if (params) {
+    parameters = params(defaultParams);
+  }
+  const queries = render(<Radio {...parameters} data-testid="radio" />);
+  const radio = queries.getByTestId('radio');
+
+  return {
+    ...queries,
+    radio,
+  };
+};
+
+describe('Radio should render', () => {
+  it('renders without crashing and has proper attributes/values', () => {
+    const { radio } = createRadio();
+
+    expect((radio as HTMLInputElement).value).toBe('test');
+    expect((radio as HTMLInputElement).checked).toBe(false);
+    expect(radio).toBeTruthy();
+  });
+
+  it('it is checked', () => {
+    const { radio } = createRadio((defaultParams) => ({ ...defaultParams, checked: true }));
+
+    expect((radio as HTMLInputElement).checked).toBe(true);
   });
 });
-
-/** The rest of the tests will be done in RadioWrapper */

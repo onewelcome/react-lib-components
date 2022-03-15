@@ -3,8 +3,6 @@ import { TextareaWrapper, Props } from './TextareaWrapper';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-const onChangeHandler = jest.fn();
-
 const defaultParams: Props = {
   name: 'textarea',
   label: 'textarea_label',
@@ -14,7 +12,7 @@ const defaultParams: Props = {
   helperProps: { 'data-testid': 'helpertext' },
   errorMessage: 'errormessage',
   textareaProps: { 'data-testid': 'textarea' },
-  onChange: onChangeHandler,
+  onChange: jest.fn(),
 };
 
 const createTextareaWrapper = (params?: (defaultParams: Props) => Props) => {
@@ -74,11 +72,25 @@ describe('TextareaWrapper & Textarea have the right attributes', () => {
   });
 
   it('Fires the onChange event', () => {
-    const { textarea } = createTextareaWrapper();
+    const onFocusHandler = jest.fn();
+    const onChangeHandler = jest.fn();
+    const onBlurHandler = jest.fn();
 
-    textarea.focus();
+    const { textarea } = createTextareaWrapper((defaultParams) => ({
+      ...defaultParams,
+      onChange: onChangeHandler,
+      onFocus: onFocusHandler,
+      onBlur: onBlurHandler,
+    }));
+
+    userEvent.tab();
+    expect(textarea).toHaveFocus();
+
     userEvent.keyboard('input');
+    userEvent.tab();
 
     expect(onChangeHandler).toHaveBeenCalledTimes(5);
+    expect(onFocusHandler).toHaveBeenCalled();
+    expect(onBlurHandler).toHaveBeenCalled();
   });
 });

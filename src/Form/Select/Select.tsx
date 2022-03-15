@@ -39,10 +39,9 @@ export const Select = ({
   const [display, setDisplay] = useState('');
 
   useBodyClick(
-    (event: MouseEvent) => !(event.target as Element).closest('.custom-select'),
+    (event: MouseEvent) => !(event.target as Element).closest('.custom-select') && expanded,
     () => {
       setExpanded(!expanded);
-      console.log('EXECUTING');
     },
     expanded
   );
