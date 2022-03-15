@@ -1,0 +1,37 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { projectName } from '../configuration';
+import { Typography } from '../../src/Typography/Typography';
+import LinkTo from '@storybook/addon-links/react';
+import { IconsTemplate } from './Icon.stories.tsx';
+
+<Meta
+  title="Icons/Icons List"
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+  }}
+/>
+
+# Icons
+
+&#x200B;<Typography tag="span" children={projectName[0].toUpperCase() + projectName.substring(1)}/> provides [material](https://fonts.google.com/icons) like icons.
+
+## Usage
+
+Icons are build in <Typography tag="span" children={projectName}/>. To use icon you have to use <LinkTo kind="icon--page">`Icon`</LinkTo> component.
+
+```jsx
+import { Icon, Icons } from 'react-lib-components';
+<Icon icon={Icons.Warning} />;
+```
+
+## Icons list
+
+| HINT: Click on the icon name to copy the JSX React Component (<code>&lt;Icon icon="Icon.icon_name" /&gt;</code>) |
+| ---------------------------------------------------------------------------------------------------------------- |
+
+<Canvas>
+  <Story name="Icons List">{IconsTemplate.bind({})}</Story>
+</Canvas>
