@@ -19,6 +19,7 @@ export const SelectWrapper = ({
   value,
   placeholder,
   selectProps,
+  helperProps,
   onChange,
   onClear,
   ...rest
@@ -32,7 +33,10 @@ export const SelectWrapper = ({
       errorId={errorId}
       helperId={helperId}
       labelProps={{ id: labelId }}
-      helperProps={{ className: classes['select-helper-text'] }}
+      helperProps={{
+        ...helperProps,
+        className: `${classes['select-helper-text']} ${helperProps?.className ?? ''}`,
+      }}
       error={error}
     >
       <Select

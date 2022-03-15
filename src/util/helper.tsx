@@ -76,5 +76,5 @@ export const generateID = (length = 15, stringToWeaveIn?: string) => {
     id = id + stringCharacter + hashCharacters[Math.floor(Math.random() * hashCharacters.length)];
   }
 
-  return id;
+  return id.slice(0, length);
 };

@@ -55,9 +55,10 @@ export const CheckboxWrapper = ({
         helperId={helperId}
         helperText={helperText}
         helperProps={{
+          ...helperProps,
           className: `${classes['checkbox-wrapper-helper']} ${
             error ? classes['checkbox-wrapper-error'] : ''
-          }`,
+          } ${helperProps?.className ?? ''} `,
         }}
         error={error}
         errorMessageIcon={Icons.Warning}

@@ -17,6 +17,7 @@ export const RadioWrapper = ({
   error,
   name,
   helperText,
+  helperProps,
   fieldsetProps,
   value,
   onChange,
@@ -60,9 +61,10 @@ export const RadioWrapper = ({
         helperId={helperId}
         helperText={helperText}
         helperProps={{
+          ...helperProps,
           className: `${classes['radio-wrapper-helper']} ${
             error ? classes['radio-wrapper-error'] : ''
-          }`,
+          } ${helperProps?.className ?? ''}`,
         }}
         error={error}
         errorId={errorId}

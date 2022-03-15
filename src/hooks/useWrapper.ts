@@ -16,12 +16,12 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
   }, []);
 
   useEffect(() => {
-    if (value?.length) {
+    if (value?.length || hasFocus) {
       setFloatingLabelActive(true);
     } else if (!placeholder && !hasFocus && type !== 'datetime-local' && type !== 'time') {
       setFloatingLabelActive(false);
     }
-  }, [value, placeholder, type]);
+  }, [value, placeholder, type, hasFocus]);
 
   return {
     helperId,

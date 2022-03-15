@@ -21,7 +21,7 @@ export const FormControl = ({
     let clonedChildren = !Array.isArray(children) ? [children] : children;
 
     return clonedChildren.map((child, index) => {
-      if (child === undefined) return;
+      if (child === undefined) return null;
       const childElement = React.cloneElement(child, {
         disabled: fieldsetDisabled,
       });

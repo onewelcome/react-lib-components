@@ -17,8 +17,10 @@ export const TextareaWrapper = ({
   name,
   error,
   value,
+  label,
   placeholder,
   textareaProps,
+  helperProps,
   onChange,
   onFocus,
   onBlur,
@@ -35,8 +37,9 @@ export const TextareaWrapper = ({
         className: classes['textarea-label'],
       }}
       name={name}
+      label={label}
       helperId={helperId}
-      helperProps={{ className: classes['textarea-helper-text'] }}
+      helperProps={{ ...helperProps, className: classes['textarea-helper-text'] }}
       error={error}
       floatingLabelActive={floatingLabelActive}
       errorId={errorId}
@@ -44,7 +47,7 @@ export const TextareaWrapper = ({
       <Textarea
         {...textareaProps}
         error={error}
-        aria-labelledby={labelId}
+        aria-labelledby={label && labelId}
         aria-describedby={error ? errorId : helperId}
         placeholder={placeholder}
         value={value}

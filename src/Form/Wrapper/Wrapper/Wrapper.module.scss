@@ -14,7 +14,7 @@
 
   &.floating-label-active {
     font-size: 0.75rem;
-    transform: translateY(-13px);
+    transform: translateY(-0.75rem);
   }
 }
 
@@ -26,6 +26,5 @@
 .required {
   &:after {
     content: '*';
-    color: var(--error);
   }
 }
