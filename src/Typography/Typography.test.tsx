@@ -80,6 +80,14 @@ describe('Should give the correct default tags and corresponding classnames', ()
     expect(typography).toHaveClass(className(variant));
   });
 
+  it('renders a span', async () => {
+    const variant = 'sub-text';
+    const { typography } = renderTypography(variant);
+
+    expect(typography.nodeName).toBe('SPAN');
+    expect(typography).toHaveClass(className(variant));
+  });
+
   it('renders a code', async () => {
     const variant = 'code';
     const { typography } = renderTypography(variant);
