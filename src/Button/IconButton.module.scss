@@ -40,14 +40,15 @@
   &.primary:not(:disabled) {
     color: var(--color-primary);
 
-    &:hover:not(:disabled) {
+    &:hover {
       border-color: var(--color-primary);
     }
 
-    &:active {
+    &:active  {
       background-color: transparent;
       position: relative;
       color: var(--color-primary);
+      border-color: var(--button-fill-background-color);
 
       &:after {
         content: '';
@@ -66,14 +67,15 @@
   &.secondary:not(:disabled) {
     color: var(--color-secondary);
 
-    &:hover:not(:disabled) {
+    &:hover {
       border-color: var(--color-secondary);
     }
 
-    &:active {
+    &:active  {
       background-color: transparent;
       position: relative;
       color: var(--color-secondary);
+      border-color: var(--button-fill-background-color);
 
       &:after {
         content: '';
@@ -92,14 +94,15 @@
   &.tertiary:not(:disabled) {
     color: var(--color-tertiary);
 
-    &:hover:not(:disabled) {
+    &:hover {
       border-color: var(--color-tertiary);
     }
 
-    &:active {
+    &:active  {
       background-color: transparent;
       position: relative;
       color: var(--color-tertiary);
+      border-color: var(--button-fill-background-color);
 
       &:after {
         content: '';
