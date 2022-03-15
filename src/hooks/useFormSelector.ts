@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { generateID } from '../util/helper';
 
-export interface configObject {
+export interface ConfigObject {
   name: string | undefined;
   errorMessage?: string;
   error?: boolean;
@@ -10,7 +10,7 @@ export interface configObject {
   parentHelperId?: string;
 }
 
-export const useFormSelector = (configObject: configObject) => {
+export const useFormSelector = (configObject: ConfigObject) => {
   const [identifier] = useState(generateID(15, configObject.name));
   const [describedBy, setDescribedBy] = useState('');
   const [errorId] = useState(generateID(15, configObject.errorMessage));
