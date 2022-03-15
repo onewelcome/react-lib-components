@@ -1,9 +1,9 @@
-import React, { HTMLAttributes, ReactChild } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
 import classes from './Typography.module.scss';
 import { Spacing, useSpacing } from '../hooks/useSpacing';
 
 export interface Props extends HTMLAttributes<HTMLElement> {
-  children: ReactChild;
+  children: ReactNode;
   variant: 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'body-bold' | 'sub-text' | 'code';
   tag?:
     | 'h1'
