@@ -3,8 +3,16 @@ import { IconButton, Props } from './IconButton';
 import { render, getByRole } from '@testing-library/react';
 import { Icon, Icons } from '../Icon/Icon';
 
-const createButton = (params?: Props, children = <Icon icon={Icons.Calendar} />) => {
-  const queries = render(<IconButton {...params}>{children}</IconButton>);
+const createButton = ({
+  title = 'Icon',
+  children = <Icon icon={Icons.Calendar} />,
+  ...rest
+}: Partial<Props> = {}) => {
+  const queries = render(
+    <IconButton {...rest} title={title}>
+      {children}
+    </IconButton>
+  );
   const button = getByRole(queries.container, 'button');
 
   return {
