@@ -22,4 +22,5 @@ Button.args = {
   color: 'primary',
   iconSize: 'm',
   type: 'button',
+  title: 'Calendar',
 };
