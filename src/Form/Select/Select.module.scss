@@ -9,6 +9,7 @@ $listItemHeight: 2.125rem;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
   background-color: #fff;
+  font-size: 1rem;
 
   &.expanded {
     border: var(--input-border-width) solid transparent;
@@ -48,6 +49,7 @@ $listItemHeight: 2.125rem;
     opacity: 0;
     pointer-events: none;
   }
+
   ul {
     box-sizing: border-box;
     padding: 0.25rem 0;
@@ -67,6 +69,7 @@ $listItemHeight: 2.125rem;
       margin: 0;
       position: relative;
       line-height: 1;
+      font-size: 1rem;
       cursor: pointer;
 
       &:after {
