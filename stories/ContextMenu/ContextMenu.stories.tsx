@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ContextMenu, Props } from '../../src/ContextMenu/ContextMenu';
-import { Button } from '../../src/Button/Button';
 import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
 import { action } from '@storybook/addon-actions/dist/esm';
+import { IconButton } from '../../src/Button/IconButton';
+import { Icon, Icons } from '../../src/Icon/Icon';
+import { Placement } from '../../src/Popover/Popover';
 
 const meta: Meta = {
   title: 'ContextMenu',
@@ -15,6 +17,12 @@ const meta: Meta = {
     show: {
       control: false,
     },
+    transformOrigin: {
+      control: false,
+    },
+    placement: {
+      control: false,
+    },
   },
 };
 
@@ -22,6 +30,8 @@ export default meta;
 
 const Template: Story<Props> = (args) => {
   const [showContextMenu, setShowContextMenu] = useState(false);
+  const [placement, setPlacement] = useState<Placement>({ vertical: 'bottom', horizontal: 'end' });
+  const [transformOrigin, setTransformOrigin] = useState<'left' | 'right'>('left');
 
   const handleCloseContextMenuOnBodyClick = useCallback(
     (event: MouseEvent) => {
@@ -46,12 +56,153 @@ const Template: Story<Props> = (args) => {
   }, [showContextMenu]);
 
   return (
-    <ContextMenu
-      {...args}
-      onShow={() => setShowContextMenu(!showContextMenu)}
-      show={showContextMenu}
-      placement={{ vertical: 'bottom', horizontal: 'start' }}
-    ></ContextMenu>
+    <Fragment>
+      <ContextMenu
+        {...args}
+        onShow={() => setShowContextMenu(!showContextMenu)}
+        show={showContextMenu}
+        placement={{ vertical: placement.vertical, horizontal: placement.horizontal }}
+        transformOrigin={transformOrigin}
+      ></ContextMenu>
+      <div style={{ marginTop: '20px', display: 'block', textAlign: 'left' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-evenly',
+            maxWidth: '600px',
+            margin: '0 auto',
+          }}
+        >
+          <fieldset>
+            <legend>Horizontal Placement</legend>
+            <div>
+              <input
+                onChange={(event) =>
+                  setPlacement((prevState) => ({
+                    ...prevState,
+                    horizontal: event.target.value as 'start',
+                  }))
+                }
+                name="placementhorizontal"
+                id="start"
+                type="radio"
+                value="start"
+                checked={placement.horizontal === 'start'}
+              />
+              <label htmlFor="start">Start</label>
+            </div>
+            <div>
+              <input
+                onChange={(event) =>
+                  setPlacement((prevState) => ({
+                    ...prevState,
+                    horizontal: event.target.value as 'center',
+                  }))
+                }
+                name="placementhorizontal"
+                id="centerhorizontal"
+                type="radio"
+                value="center"
+                checked={placement.horizontal === 'center'}
+              />
+              <label htmlFor="centerhorizontal">Center</label>
+            </div>
+            <div>
+              <input
+                onChange={(event) =>
+                  setPlacement((prevState) => ({
+                    ...prevState,
+                    horizontal: event.target.value as 'end',
+                  }))
+                }
+                name="placementhorizontal"
+                id="end"
+                type="radio"
+                value="end"
+                checked={placement.horizontal === 'end'}
+              />
+              <label htmlFor="end">End</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Vertical Placement</legend>
+            <div>
+              <input
+                onChange={(event) =>
+                  setPlacement((prevState) => ({
+                    ...prevState,
+                    vertical: event.target.value as 'top',
+                  }))
+                }
+                name="placementvertical"
+                id="top"
+                type="radio"
+                value="top"
+                checked={placement.vertical === 'top'}
+              />
+              <label htmlFor="top">Top</label>
+            </div>
+            <div>
+              <input
+                onChange={(event) =>
+                  setPlacement((prevState) => ({
+                    ...prevState,
+                    vertical: event.target.value as 'center',
+                  }))
+                }
+                name="placementvertical"
+                id="centervertical"
+                type="radio"
+                value="center"
+                checked={placement.vertical === 'center'}
+              />
+              <label htmlFor="centervertical">Center</label>
+            </div>
+            <div>
+              <input
+                onChange={(event) =>
+                  setPlacement((prevState) => ({
+                    ...prevState,
+                    vertical: event.target.value as 'bottom',
+                  }))
+                }
+                name="placementvertical"
+                id="bottom"
+                type="radio"
+                value="bottom"
+                checked={placement.vertical === 'bottom'}
+              />
+              <label htmlFor="bottom">Bottom</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Transform Origin</legend>
+            <div>
+              <input
+                onChange={(event) => setTransformOrigin(event.target.value as 'left')}
+                name="transformorigin"
+                id="left"
+                type="radio"
+                value="left"
+                checked={transformOrigin === 'left'}
+              />
+              <label htmlFor="left">Left</label>
+            </div>
+            <div>
+              <input
+                onChange={(event) => setTransformOrigin(event.target.value as 'right')}
+                name="transformorigin"
+                id="right"
+                type="radio"
+                value="right"
+                checked={transformOrigin === 'right'}
+              />
+              <label htmlFor="right">Right</label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </Fragment>
   );
 };
 
@@ -59,7 +210,11 @@ export const ContextMenuEl = Template.bind({});
 
 ContextMenuEl.args = {
   id: 'example-contextmenu',
-  trigger: <Button>Click me for a context menu</Button>,
+  trigger: (
+    <IconButton>
+      <Icon icon={Icons.EllipsisAlt} />
+    </IconButton>
+  ),
   children: [
     <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="1">
       Example item 1

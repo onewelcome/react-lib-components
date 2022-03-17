@@ -1,5 +1,10 @@
 .context-menu {
   position: relative;
+  display: inline-block;
+
+  ul {
+    white-space: nowrap;
+  }
 }
 
 .menu {

@@ -9,6 +9,7 @@ export interface Props extends HTMLProps<HTMLDivElement> {
   trigger: ReactElement<ButtonProps> | ReactElement<IconButtonProps>;
   children: ReactElement<ContextMenuItemProps> | ReactElement<ContextMenuItemProps>[];
   placement?: Placement;
+  transformOrigin?: 'left' | 'right';
   offset?: Offset;
   id: string;
   show: boolean;
@@ -23,6 +24,7 @@ export const ContextMenu = ({
   onShow,
   placement,
   offset,
+  transformOrigin,
   ...rest
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | EventTarget>(null);
@@ -49,7 +51,13 @@ export const ContextMenu = ({
   return (
     <div className={classes['context-menu']} {...rest}>
       {renderTrigger()}
-      <Popover placement={placement} offset={offset} anchorEl={anchorEl} show={show}>
+      <Popover
+        placement={placement}
+        transformOrigin={transformOrigin}
+        offset={offset}
+        anchorEl={anchorEl}
+        show={show}
+      >
         <ul className={classes.menu} id={`${id}-menu`} aria-describedby={id} role="menu">
           {children}
         </ul>
