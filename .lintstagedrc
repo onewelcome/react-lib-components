@@ -1,6 +1,6 @@
 {
   "**.+(tsx|ts)": [
-    "eslint"
+    "npm run lint"
   ],
   "*.+(tsx|ts|scss)": [
     "prettier --write"
