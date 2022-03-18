@@ -90,8 +90,8 @@ export const Select = ({
   const renderOptions = () => {
     let clonedChildren = !Array.isArray(children) ? [children] : children;
 
-    return clonedChildren.map((child, index) => (
-      <Fragment key={index}>
+    return clonedChildren.map((child) => (
+      <Fragment key={child.props.value}>
         {React.cloneElement(child, {
           onOptionSelect: onOptionChangeHandler(child),
           selected: child.props.value === value,

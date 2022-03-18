@@ -4,6 +4,7 @@ import { useWrapper } from '../../../hooks/useWrapper';
 import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { Icons } from '../../../Icon/Icon';
 import { Fieldset, Props as FieldsetProps } from '../../../Form/Fieldset/Fieldset';
+import { generateID } from '../../../util/helper';
 
 export interface Props extends WrapperProps {
   children: ReactElement[] | ReactElement;
@@ -35,8 +36,8 @@ export const CheckboxWrapper = ({
     let clonedChildren = !Array.isArray(children) ? [children] : children;
 
     /** In order to have the individual checkboxes have their "aria-describedby" property point to the error message in this CheckboxWrapper, we have to clone the children and add these props. */
-    return clonedChildren?.map((child, index) => (
-      <Fragment key={index}>
+    return clonedChildren?.map((child) => (
+      <Fragment key={generateID()}>
         {React.cloneElement(child, {
           onChange: onChange,
           parentErrorId: errorId,

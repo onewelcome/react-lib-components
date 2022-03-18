@@ -71,9 +71,9 @@ export const Checkbox = ({
   const renderNestedCheckboxes = () => {
     return (
       <ul className={classes['checkbox-list']}>
-        {(children as ReactElement[]).map((child, index) => {
+        {(children as ReactElement[]).map((child) => {
           return (
-            <li key={index}>
+            <li key={child.props.name}>
               <Checkbox
                 {...child.props}
                 parentHelperId={parentHelperId}

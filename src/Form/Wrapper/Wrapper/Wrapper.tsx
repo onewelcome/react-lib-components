@@ -54,7 +54,7 @@ export const Wrapper = ({
     let clonedChildren = !Array.isArray(children) ? [children] : children;
 
     return clonedChildren.map((child, index) => (
-      <Fragment key={index}>
+      <Fragment key={`${child.key}-${index}`}>
         {React.cloneElement(child, {
           disabled: fieldsetDisabled,
         })}

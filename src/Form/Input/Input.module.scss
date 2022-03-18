@@ -22,6 +22,10 @@
     cursor: not-allowed;
   }
 
+  &:focus:not(:disabled) {
+    outline-color: var(--color-primary);
+  }
+
   &:hover:not(:disabled) {
     border-color: var(--default);
   }

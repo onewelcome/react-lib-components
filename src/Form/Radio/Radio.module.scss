@@ -48,7 +48,7 @@
   list-style: none;
 
   li + li {
-    margin-top: 1.7rem;
+    margin-top: 1.75rem;
   }
 }
 
@@ -58,8 +58,8 @@
   left: 0;
   opacity: 0;
   margin: 0;
-  width: 20px;
-  height: 20px;
+  width: 1.75rem;
+  height: 1.75rem;
 
   &:focus,
   &:active {
@@ -93,6 +93,7 @@
   width: 20px;
   height: 20px;
 
+  /** The & behind disabled means parent selector (so in reality this means .disabled .input) */
   .disabled & {
     color: var(--disabled);
   }

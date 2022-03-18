@@ -1,6 +1,7 @@
 import React, { Fragment, ReactElement } from 'react';
 import classes from './FormControl.module.scss';
 import { HTMLProps } from '../../interfaces';
+import { generateID } from '../../util/helper';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   children: ReactElement | ReactElement[];
@@ -20,7 +21,7 @@ export const FormControl = ({
   const renderChildren = () => {
     let clonedChildren = !Array.isArray(children) ? [children] : children;
 
-    return clonedChildren.map((child, index) => {
+    return clonedChildren.map((child) => {
       if (child === undefined) return null;
       const childElement = React.cloneElement(child, {
         disabled: fieldsetDisabled,
@@ -28,13 +29,13 @@ export const FormControl = ({
 
       if (grid && grid > 1) {
         return (
-          <div key={index} className={`${classes['col-' + grid]} ${classes.column}`}>
+          <div key={generateID()} className={`${classes['col-' + grid]} ${classes.column}`}>
             {childElement}
           </div>
         );
       }
 
-      return <Fragment key={index}>{childElement}</Fragment>;
+      return <Fragment key={generateID()}>{childElement}</Fragment>;
     });
   };
 
