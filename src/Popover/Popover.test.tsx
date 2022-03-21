@@ -10,8 +10,8 @@ const defaultParams: Props = {
       <li>Test</li>
     </ul>
   ),
-  show: true,
-  placement: { vertical: 'bottom', horizontal: 'start' },
+  show: false,
+  placement: { vertical: 'top', horizontal: 'start' },
 };
 
 const createPopover = (params?: (defaultParams: Props) => Props) => {
@@ -43,5 +43,30 @@ describe('Popover should render', () => {
     const { popover } = createPopover();
 
     expect(popover).toBeTruthy();
+  });
+});
+
+describe('Popover props', () => {
+  it('should render if show is set to true', () => {
+    const { popover } = createPopover((defaultParams) => ({ ...defaultParams, show: true }));
+
+    expect(popover.querySelector('.popover')).toBeTruthy();
+  });
+
+  it('should have left and top value defined', () => {
+    const { popover } = createPopover((defaultParams) => ({ ...defaultParams, show: true }));
+
+    expect(popover.querySelector('.popover')).toHaveStyle({ top: '0px', left: '0px' });
+  });
+
+  it('should have right and top value defined', () => {
+    const { popover } = createPopover((defaultParams) => ({
+      ...defaultParams,
+      placement: { vertical: 'center', horizontal: 'end' },
+      transformOrigin: 'right',
+      show: true,
+    }));
+
+    expect(popover.querySelector('.popover')).toHaveStyle({ top: '0px', right: '1024px' });
   });
 });

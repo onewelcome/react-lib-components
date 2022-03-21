@@ -1,6 +1,16 @@
 .popover {
   position: fixed;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0px 30px 50px rgba(0,0,0,.29);
+  box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.29);
+  opacity: 0;
+  transform: scale(0.5);
+  transition-property: transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+
+  &.show {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

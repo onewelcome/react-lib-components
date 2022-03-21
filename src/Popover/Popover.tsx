@@ -1,4 +1,4 @@
-import React, { HTMLProps, ReactChild, useEffect, useRef, useState } from 'react';
+import React, { HTMLProps, ReactChild, ReactNode, useEffect, useRef, useState } from 'react';
 import classes from './Popover.module.scss';
 
 export interface Placement {
@@ -16,7 +16,7 @@ export interface Props extends HTMLProps<HTMLDivElement> {
   placement?: Placement;
   offset?: Offset;
   show?: boolean;
-  anchorEl?: EventTarget | Element | null;
+  anchorEl?: ReactNode;
   transformOrigin?: 'left' | 'right';
 }
 
@@ -33,14 +33,14 @@ export const Popover = ({
   const [position, setPosition] = useState({ top: 'initial', left: 'initial', right: 'initial' });
   const [positionCalculationFinished, setPositionCalculationFinished] = useState(false);
   const popoverEl = useRef<HTMLDivElement>(null);
-  const [popoverWidth, setPopoverWidth] = useState<number | undefined>(0);
-  const [popoverHeight, setPopoverHeight] = useState<number | undefined>(0);
+  const [popoverWidth, setPopoverWidth] = useState<number | undefined>(undefined);
+  const [popoverHeight, setPopoverHeight] = useState<number | undefined>(undefined);
   const el = anchorEl as HTMLElement;
 
-  useEffect(() => {
+  const calculatePopoverDimensions = () => {
     setPopoverWidth(popoverEl?.current?.querySelector('div')?.offsetWidth);
     setPopoverHeight(popoverEl?.current?.querySelector('div')?.offsetHeight);
-  }, [popoverEl]);
+  };
 
   if (show === undefined)
     throw new Error('Please make sure to define the "show" property on your Popover component');
@@ -59,7 +59,12 @@ export const Popover = ({
         break;
       case 'center':
         const topCenter =
-          (el.getBoundingClientRect().top - offscreenOffset + offset.vertical!).toString() + 'px';
+          (
+            el.getBoundingClientRect().top -
+            offscreenOffset +
+            el.offsetHeight / 2 +
+            offset.vertical!
+          ).toString() + 'px';
         setPosition((prevState) => ({ ...prevState, top: topCenter }));
 
         break;
@@ -115,6 +120,7 @@ export const Popover = ({
       popoverWidth && el.getBoundingClientRect().right < popoverWidth
         ? popoverWidth - el.getBoundingClientRect().right
         : 0;
+
     switch (placement?.horizontal) {
       case 'end':
         const rightEnd =
@@ -145,24 +151,21 @@ export const Popover = ({
           ).toString() + 'px';
         setPosition((prevState) => ({ ...prevState, right: rightStart, left: 'initial' }));
     }
-
-    console.log(position);
   };
 
   useEffect(() => {
-    if (show && anchorEl && popoverEl.current) {
+    calculatePopoverDimensions();
+
+    if (show && anchorEl && popoverWidth !== undefined && popoverHeight !== undefined) {
       if (placement?.vertical) {
-        console.log('calculating vertical placement...');
         calculateVerticalPlacement();
       }
 
       if (placement?.horizontal && transformOrigin === 'left') {
-        console.log('calculating left placement....');
         calculateHorizontalLeftPlacement();
       }
 
       if (placement?.horizontal && transformOrigin === 'right') {
-        console.log('calculating right placement....');
         calculateHorizontalRightPlacement();
       }
 
@@ -170,14 +173,15 @@ export const Popover = ({
     } else if (!show) {
       setPositionCalculationFinished(false);
     }
-  }, [show, positionCalculationFinished, popoverEl.current]);
+  }, [show, popoverWidth, popoverHeight]);
 
   return (
-    <div ref={popoverEl}>
-      {show && positionCalculationFinished && (
+    <div {...rest} ref={popoverEl}>
+      {show && (
         <div
-          {...rest}
-          className={`${classes.popover} ${className ?? ''}`}
+          className={`${classes.popover} ${className ?? ''} ${
+            positionCalculationFinished ? classes.show : ''
+          }`}
           style={{ top: position.top, left: position.left, right: position.right }}
         >
           {children}
