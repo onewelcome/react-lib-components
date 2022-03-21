@@ -54,7 +54,6 @@ export const BaseWizardSteps = ({
     const disabledStyleClassName = step.disabled ? classes['disabled'] : '';
     const clickableClassName = futureStepsClickable ? classes['clickable'] : '';
 
-    console.log(step);
     return (
       <button
         key={step.label.toLowerCase().replace(/\s/, '-')}
