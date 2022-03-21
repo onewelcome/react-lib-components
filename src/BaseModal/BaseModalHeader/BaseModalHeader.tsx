@@ -28,7 +28,7 @@ export const BaseModalHeader = ({ id, title, children, onClose, ...restProps }: 
           {/*TODO: replace with typography UCL-44*/}
           {title}
         </h1>
-        <IconButton onClick={onClose} className={classes['closeBtn']} aria-label="close modal">
+        <IconButton onClick={onClose} className={classes['closeBtn']} title="close modal">
           <Icon icon={Icons.Times} />
         </IconButton>
       </div>

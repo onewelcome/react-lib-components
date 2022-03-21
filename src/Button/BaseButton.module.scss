@@ -7,7 +7,7 @@
   margin: 0;
   padding: 10px 15px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: color, background-color, border-color 0.2s ease-in-out;
   font-family: var(--font-family);
 
   &:disabled {
