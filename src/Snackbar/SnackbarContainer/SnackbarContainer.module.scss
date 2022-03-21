@@ -1,0 +1,32 @@
+.snackbars {
+  position: fixed;
+  z-index: 20;
+
+  &.bottom {
+    bottom: 0;
+  }
+
+  &.top {
+    top: 0;
+  }
+
+  &.left {
+    left: 0;
+  }
+
+  &.center {
+    left: calc(50% - 18.75rem);
+  }
+
+  &.right {
+    right: 0;
+  }
+}
+
+@media only screen and (min-width: 37.5rem) {
+  .snackbar {
+    &.center {
+      left: 0;
+    }
+  }
+}

@@ -7,6 +7,7 @@ export interface Props extends BaseButtonProps {
   children?: React.ReactNode;
   color?: 'primary' | 'secondary' | 'tertiary';
   iconSize?: 's' | 'm' | 'l';
+  className?: string;
   title: string;
 }
 
@@ -14,13 +15,16 @@ export const IconButton = ({
   children,
   color = 'primary',
   iconSize = 'm',
+  className,
   title,
   ...rest
 }: Props) => {
   return (
     <BaseButton
       {...rest}
-      className={`${classes['icon-button']} ${classes[color]} ${classes['button-' + iconSize]}`}
+      className={`${classes['icon-button']} ${classes[color]} ${classes['button-' + iconSize]} ${
+        className ?? className
+      }`}
     >
       <>
         {children}

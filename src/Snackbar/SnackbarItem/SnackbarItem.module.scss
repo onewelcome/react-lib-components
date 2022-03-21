@@ -1,0 +1,69 @@
+.snackbar {
+  padding: 1rem 1.25rem;
+  border-radius: var(--snackbar-border-radius);
+
+  &.info {
+    background-color: var(--snackbar-info-background-color);
+  }
+
+  &.success {
+    background-color: var(--snackbar-success-background-color);
+  }
+
+  &.error {
+    background-color: var(--snackbar-error-background-color);
+  }
+
+  & + & {
+    margin-top: 0.5rem;
+  }
+
+  .headline {
+    display: flex;
+    color: var(--snackbar-text-color);
+
+    .close-btn {
+      color: var(--snackbar-text-color);
+
+      &:hover,
+      &:focus {
+        border-color: var(--snackbar-text-color);
+      }
+
+      &:active {
+        border-color: transparent;
+
+        &:after {
+          top: 0;
+          height: 100%;
+          background-color: var(--snackbar-text-color);
+        }
+      }
+    }
+  }
+
+  .icon {
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  .title {
+    flex: 1;
+    margin: 0.5rem 1.25rem 0 0.75rem;
+  }
+
+  .content {
+    margin: 0.25rem 0 0 0;
+    color: var(--snackbar-text-color);
+    /*below to be removed*/
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@media only screen and (min-width: 37.5rem) {
+  .snackbar {
+    width: 37.5rem;
+  }
+}

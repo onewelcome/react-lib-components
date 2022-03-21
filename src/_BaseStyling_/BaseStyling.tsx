@@ -14,6 +14,11 @@ interface CSSProperties {
   modalShadowColor?: string;
   modalBackgroundColor?: string;
   modalHeaderBackgroundColor?: string;
+  snackbarTextColor?: string;
+  snackbarInfoBackgroundColor?: string;
+  snackbarSuccessBackgroundColor?: string;
+  snackbarErrorBackgroundColor?: string;
+  snackbarBorderRadius?: string;
   fontFamily?: string;
   default?: string;
   success?: string;
@@ -43,9 +48,14 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',
     modalBackgroundColor: '#F5F8F8',
     modalHeaderBackgroundColor: '#FFF',
+    snackbarTextColor: '#fff',
+    snackbarInfoBackgroundColor: '#003b5e',
+    snackbarSuccessBackgroundColor: '#008a28',
+    snackbarErrorBackgroundColor: '#e22a1d',
+    snackbarBorderRadius: '8px',
     fontFamily: "'Red Hat Display', sans-serif",
     default: '#0f0f1e',
-    success: '#008A28',
+    success: '#008a28',
     error: '#e22a1d',
     disabled: '#e9e9eb',
     greyedOut: '#6f6f76',
