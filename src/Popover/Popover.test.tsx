@@ -31,8 +31,6 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
     </div>
   );
 
-  queries.debug();
-
   const popover = queries.getByTestId('popover');
   return {
     ...queries,

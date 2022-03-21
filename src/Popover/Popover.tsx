@@ -33,124 +33,137 @@ export const Popover = ({
   const [position, setPosition] = useState({ top: 'initial', left: 'initial', right: 'initial' });
   const [positionCalculationFinished, setPositionCalculationFinished] = useState(false);
   const popoverEl = useRef<HTMLDivElement>(null);
+  const [popoverWidth, setPopoverWidth] = useState<number | undefined>(0);
+  const [popoverHeight, setPopoverHeight] = useState<number | undefined>(0);
+  const el = anchorEl as HTMLElement;
+
+  useEffect(() => {
+    setPopoverWidth(popoverEl?.current?.querySelector('div')?.offsetWidth);
+    setPopoverHeight(popoverEl?.current?.querySelector('div')?.offsetHeight);
+  }, [popoverEl]);
 
   if (show === undefined)
     throw new Error('Please make sure to define the "show" property on your Popover component');
 
+  const calculateVerticalPlacement = () => {
+    const offscreenOffset =
+      popoverHeight && window.innerHeight - el.getBoundingClientRect().top < popoverHeight
+        ? popoverHeight - (window.innerHeight - el.getBoundingClientRect().top)
+        : 0;
+
+    switch (placement?.vertical) {
+      case 'top':
+        const topTop =
+          (el.getBoundingClientRect().top - offscreenOffset + offset.vertical!).toString() + 'px';
+        setPosition((prevState) => ({ ...prevState, top: topTop }));
+        break;
+      case 'center':
+        const topCenter =
+          (el.getBoundingClientRect().top - offscreenOffset + offset.vertical!).toString() + 'px';
+        setPosition((prevState) => ({ ...prevState, top: topCenter }));
+
+        break;
+      case 'bottom':
+        const topBottom =
+          (
+            el.getBoundingClientRect().top +
+            (offscreenOffset !== 0 ? -offscreenOffset : el.offsetHeight) +
+            offset.vertical!
+          ).toString() + 'px';
+        setPosition((prevState) => ({ ...prevState, top: topBottom }));
+        break;
+    }
+  };
+
+  const calculateHorizontalLeftPlacement = () => {
+    const offscreenOffset =
+      popoverWidth && window.innerWidth - el.getBoundingClientRect().left < popoverWidth
+        ? popoverWidth - (window.innerWidth - el.getBoundingClientRect().left)
+        : 0;
+    switch (placement?.horizontal) {
+      case 'start':
+        const leftStart =
+          (el.getBoundingClientRect().left - offscreenOffset + offset.horizontal!).toString() +
+          'px';
+        setPosition((prevState) => ({ ...prevState, left: leftStart, right: 'initial' }));
+        break;
+      case 'center':
+        const leftCenter =
+          (
+            el.getBoundingClientRect().left -
+            (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth / 2) +
+            offset.horizontal!
+          ).toString() + 'px';
+
+        setPosition((prevState) => ({ ...prevState, left: leftCenter, right: 'initial' }));
+
+        break;
+      case 'end':
+        const leftEnd =
+          (
+            el.getBoundingClientRect().left +
+            (offscreenOffset !== 0 ? -offscreenOffset : el.offsetWidth) +
+            offset.horizontal!
+          ).toString() + 'px';
+        setPosition((prevState) => ({ ...prevState, left: leftEnd, right: 'initial' }));
+        break;
+    }
+  };
+
+  const calculateHorizontalRightPlacement = () => {
+    const offscreenOffset =
+      popoverWidth && el.getBoundingClientRect().right < popoverWidth
+        ? popoverWidth - el.getBoundingClientRect().right
+        : 0;
+    switch (placement?.horizontal) {
+      case 'end':
+        const rightEnd =
+          (
+            window.innerWidth -
+            (el.getBoundingClientRect().right + offscreenOffset) +
+            offset.horizontal!
+          ).toString() + 'px';
+        setPosition((prevState) => ({ ...prevState, right: rightEnd, left: 'initial' }));
+        break;
+      case 'center':
+        const rightCenter =
+          (
+            window.innerWidth -
+            (el.getBoundingClientRect().right +
+              (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth / 2)) +
+            offset.horizontal!
+          ).toString() + 'px';
+        setPosition((prevState) => ({ ...prevState, right: rightCenter, left: 'initial' }));
+        break;
+      case 'start':
+        const rightStart =
+          (
+            window.innerWidth -
+            (el.getBoundingClientRect().right +
+              (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth)) +
+            offset.horizontal!
+          ).toString() + 'px';
+        setPosition((prevState) => ({ ...prevState, right: rightStart, left: 'initial' }));
+    }
+
+    console.log(position);
+  };
+
   useEffect(() => {
     if (show && anchorEl && popoverEl.current) {
-      const el = anchorEl as HTMLElement;
-      const popoverWidth = popoverEl.current.querySelector('div')?.offsetWidth;
-      const popoverHeight = popoverEl.current.querySelector('div')?.offsetHeight;
-
-      const styleOffset = {
-        top: offset.vertical,
-        [transformOrigin]: offset.horizontal,
-      };
-
       if (placement?.vertical) {
-        /** This offset is for when the contextmenu would display offscreen (which we don't want). We calculate the amount of pixels we need in order to have it fully on screen. Also done in the horizontal placement left & right. */
-        const offscreenOffset =
-          popoverHeight && window.innerHeight - el.getBoundingClientRect().top < popoverHeight
-            ? popoverHeight - (window.innerHeight - el.getBoundingClientRect().top)
-            : 0;
-
-        switch (placement.vertical) {
-          case 'top':
-            const topTop =
-              (el.getBoundingClientRect().top - offscreenOffset + styleOffset.top!).toString() +
-              'px';
-            setPosition((prevState) => ({ ...prevState, top: topTop }));
-            break;
-          case 'center':
-            const topCenter =
-              (el.getBoundingClientRect().top - offscreenOffset + styleOffset.top!).toString() +
-              'px';
-            setPosition((prevState) => ({ ...prevState, top: topCenter }));
-
-            break;
-          case 'bottom':
-            const topBottom =
-              (
-                el.getBoundingClientRect().top +
-                (offscreenOffset !== 0 ? -offscreenOffset : el.offsetHeight) +
-                styleOffset.top!
-              ).toString() + 'px';
-            setPosition((prevState) => ({ ...prevState, top: topBottom }));
-            break;
-        }
+        console.log('calculating vertical placement...');
+        calculateVerticalPlacement();
       }
 
       if (placement?.horizontal && transformOrigin === 'left') {
-        const offscreenOffset =
-          popoverWidth && window.innerWidth - el.getBoundingClientRect().left < popoverWidth
-            ? popoverWidth - (window.innerWidth - el.getBoundingClientRect().left)
-            : 0;
-        switch (placement.horizontal) {
-          case 'start':
-            const leftStart =
-              (el.getBoundingClientRect().left - offscreenOffset + styleOffset.left!).toString() +
-              'px';
-            setPosition((prevState) => ({ ...prevState, left: leftStart, right: 'initial' }));
-            break;
-          case 'center':
-            const leftCenter =
-              (
-                el.getBoundingClientRect().left -
-                (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth / 2) +
-                styleOffset.left!
-              ).toString() + 'px';
-
-            setPosition((prevState) => ({ ...prevState, left: leftCenter, right: 'initial' }));
-
-            break;
-          case 'end':
-            const leftEnd =
-              (
-                el.getBoundingClientRect().left +
-                (offscreenOffset !== 0 ? -offscreenOffset : el.offsetWidth) +
-                styleOffset.left!
-              ).toString() + 'px';
-            setPosition((prevState) => ({ ...prevState, left: leftEnd, right: 'initial' }));
-            break;
-        }
+        console.log('calculating left placement....');
+        calculateHorizontalLeftPlacement();
       }
 
       if (placement?.horizontal && transformOrigin === 'right') {
-        const offscreenOffset =
-          popoverWidth && el.getBoundingClientRect().right < popoverWidth
-            ? popoverWidth - el.getBoundingClientRect().right
-            : 0;
-        switch (placement.horizontal) {
-          case 'end':
-            const rightEnd =
-              (
-                window.innerWidth -
-                (el.getBoundingClientRect().right + offscreenOffset) +
-                styleOffset.right!
-              ).toString() + 'px';
-            setPosition((prevState) => ({ ...prevState, right: rightEnd, left: 'initial' }));
-            break;
-          case 'center':
-            const rightCenter =
-              (
-                window.innerWidth -
-                (el.getBoundingClientRect().right +
-                  (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth / 2)) +
-                styleOffset.right!
-              ).toString() + 'px';
-            setPosition((prevState) => ({ ...prevState, right: rightCenter, left: 'initial' }));
-            break;
-          case 'start':
-            const rightStart =
-              (
-                window.innerWidth -
-                (el.getBoundingClientRect().right +
-                  (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth)) +
-                styleOffset.right!
-              ).toString() + 'px';
-            setPosition((prevState) => ({ ...prevState, right: rightStart, left: 'initial' }));
-        }
+        console.log('calculating right placement....');
+        calculateHorizontalRightPlacement();
       }
 
       setPositionCalculationFinished(true);
