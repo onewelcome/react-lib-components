@@ -42,6 +42,10 @@ Development is done inside of `src`, `stories`.
 
 Whenever you are done developing a component and you want to include it in the production library, make sure to export it through `src/index.tsx`. This ensures that when you run `npm run build`, it will get included.
 
+### Adding new icons
+
+See [adding icons to font manual](font/README.md)
+
 ## Configuration
 
 Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
