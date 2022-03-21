@@ -20,14 +20,29 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
     parameters = params(defaultParams);
   }
 
-  let button = document.createElement('button');
-  button.innerText = 'test';
-  button.style.height = '200px';
-  button.style.width = '400px';
+  let button = (
+    <button style={{ height: '500px' }} data-testid="button">
+      Test
+    </button>
+  );
 
-  const queries = render(
+  const queries = render(<div>{button}</div>);
+
+  const queriedButton = queries.getByTestId('button');
+
+  /**
+   * We are kind of hacking here. Since jest doesn't actually render the element in a DOM it doesn't have an offsetHeight and offsetWidth property (which we use inside of Popover to calculate the proper position). In order to properly
+   * test this, we hack in the offset height and width of 500 so we can actually test it.
+   */
+  Object.defineProperty(queriedButton, 'offsetHeight', { configurable: true, value: 500 });
+  Object.defineProperty(queriedButton, 'offsetWidth', { configurable: true, value: 500 });
+
+  const popoverel = <Popover {...parameters} anchorEl={queriedButton} data-testid="popover" />;
+
+  queries.rerender(
     <div>
-      <Popover {...parameters} anchorEl={button} data-testid="popover" />
+      {button}
+      {popoverel}
     </div>
   );
 
@@ -53,20 +68,102 @@ describe('Popover props', () => {
     expect(popover.querySelector('.popover')).toBeTruthy();
   });
 
-  it('should have left and top value defined', () => {
+  it("it's positioned top left", () => {
     const { popover } = createPopover((defaultParams) => ({ ...defaultParams, show: true }));
 
     expect(popover.querySelector('.popover')).toHaveStyle({ top: '0px', left: '0px' });
   });
 
-  it('should have right and top value defined', () => {
+  it("it's positioned middle left", () => {
     const { popover } = createPopover((defaultParams) => ({
       ...defaultParams,
-      placement: { vertical: 'center', horizontal: 'end' },
+      show: true,
+      placement: { vertical: 'center', horizontal: 'start' },
+    }));
+
+    expect(popover.querySelector('.popover')).toHaveStyle({ top: '250px', left: '0px' });
+  });
+
+  it("it's positioned bottom left", () => {
+    const { popover } = createPopover((defaultParams) => ({
+      ...defaultParams,
+      show: true,
+      placement: { vertical: 'bottom', horizontal: 'start' },
+    }));
+
+    expect(popover.querySelector('.popover')).toHaveStyle({ top: '500px', left: '0px' });
+  });
+
+  it("it's positioned top center", () => {
+    const { popover } = createPopover((defaultParams) => ({
+      ...defaultParams,
+      placement: { vertical: 'top', horizontal: 'center' },
+      show: true,
+    }));
+
+    expect(popover.querySelector('.popover')).toHaveStyle({ top: '0px', left: '250px' });
+  });
+
+  it("it's positioned top end", () => {
+    const { popover } = createPopover((defaultParams) => ({
+      ...defaultParams,
+      placement: { vertical: 'top', horizontal: 'end' },
+      show: true,
+    }));
+
+    expect(popover.querySelector('.popover')).toHaveStyle({ top: '0px', left: '500px' });
+  });
+
+  it('transform origin is set to right and horizontally positioned to the end', () => {
+    const { popover } = createPopover((defaultParams) => ({
+      ...defaultParams,
+      placement: { vertical: 'top', horizontal: 'end' },
       transformOrigin: 'right',
       show: true,
     }));
 
     expect(popover.querySelector('.popover')).toHaveStyle({ top: '0px', right: '1024px' });
+  });
+
+  it('transform origin is set to right and horizontally positioned to the center', () => {
+    const { popover } = createPopover((defaultParams) => ({
+      ...defaultParams,
+      placement: { vertical: 'top', horizontal: 'center' },
+      transformOrigin: 'right',
+      show: true,
+    }));
+
+    expect(popover.querySelector('.popover')).toHaveStyle({ top: '0px', right: '1274px' });
+  });
+
+  it('transform origin is set to right and horizontally positioned to the start', () => {
+    const { popover } = createPopover((defaultParams) => ({
+      ...defaultParams,
+      placement: { vertical: 'top', horizontal: 'start' },
+      transformOrigin: 'right',
+      show: true,
+    }));
+
+    expect(popover.querySelector('.popover')).toHaveStyle({ top: '0px', right: '1524px' });
+  });
+
+  it('should throw an error', () => {
+    // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
+    const err = console.error;
+    console.error = jest.fn();
+
+    let actual;
+
+    try {
+      render(<Popover />);
+    } catch (e: any) {
+      actual = e.message;
+    }
+
+    const expected = 'Please make sure to define the "show" property on your Popover component';
+
+    expect(actual).toEqual(expected);
+
+    console.error = err;
   });
 });
