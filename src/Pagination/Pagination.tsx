@@ -17,14 +17,16 @@ enum DefaultTranslations {
   currentPage = 'Page %1 of %2',
 }
 
+type PageSize = 10 | 25 | 50;
+
 export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'translate'> {
   currentPage?: number;
   totalElements?: number;
-  pageSize?: 10 | 25 | 50;
+  pageSize?: PageSize;
   translate?: Translations;
   disable?: { totalElements: boolean; itemsPerPage: boolean };
   onPageChange: (pageChangeAction: PageChange) => void;
-  onPageSizeChange: (pageSize: 10 | 25 | 50) => void;
+  onPageSizeChange: (pageSize: PageSize) => void;
 }
 
 export const Pagination = ({
@@ -63,7 +65,7 @@ export const Pagination = ({
   };
 
   const pageSizeChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const pageNumber = Number(event.target.value) as 10 | 25 | 50;
+    const pageNumber = Number(event.target.value) as PageSize;
     onPageSizeChange(pageNumber);
   };
 
@@ -93,12 +95,12 @@ export const Pagination = ({
           {((currentPage && currentPage > 2) || (currentPage && currentPage > 1)) && (
             <div className={classes.previous}>
               {currentPage > 2 && (
-                <IconButton onClick={onPageChangeHandler} data-paginate="first">
+                <IconButton title="first" onClick={onPageChangeHandler} data-paginate="first">
                   <Icon icon={Icons.NavigationFirst} />
                 </IconButton>
               )}
               {currentPage > 1 && (
-                <IconButton onClick={onPageChangeHandler} data-paginate="previous">
+                <IconButton title="previous" onClick={onPageChangeHandler} data-paginate="previous">
                   <Icon icon={Icons.ChevronLeft} />
                 </IconButton>
               )}
@@ -111,12 +113,12 @@ export const Pagination = ({
           )}
           <div className={classes.next}>
             {((currentPage && currentPage < calculateAmountOfPages()) || !totalElements) && (
-              <IconButton onClick={onPageChangeHandler} data-paginate="next">
+              <IconButton title="next" onClick={onPageChangeHandler} data-paginate="next">
                 <Icon icon={Icons.ChevronRight} />
               </IconButton>
             )}
             {currentPage && currentPage < calculateAmountOfPages()! - 1 && (
-              <IconButton onClick={onPageChangeHandler} data-paginate="last">
+              <IconButton title="last" onClick={onPageChangeHandler} data-paginate="last">
                 <Icon icon={Icons.NavigationLast} />
               </IconButton>
             )}
