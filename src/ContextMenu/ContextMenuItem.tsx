@@ -6,9 +6,9 @@ export interface Props extends Omit<HTMLProps<HTMLLIElement>, 'onClick'> {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const ContextMenuItem = ({ children, onClick }: Props) => {
+export const ContextMenuItem = ({ children, onClick, ...rest }: Props) => {
   return (
-    <li role="menuitem" className={classes['context-menu-item']}>
+    <li {...rest} role="menuitem" className={classes['context-menu-item']}>
       <button onClick={(event) => onClick && onClick(event)}>{children}</button>
     </li>
   );
