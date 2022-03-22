@@ -4,7 +4,7 @@
   border: 1px solid #e9e9eb;
   border-radius: 8px;
   box-sizing: border-box;
-  padding: 0 0 1.75rem;
+  padding: 0 0 2rem;
   background-color: #fff;
   transition: box-shadow 0.2s ease-in-out;
 
@@ -24,11 +24,12 @@
 
   figure {
     margin: 0 0 1rem;
-    width: 3rem;
     height: 3rem;
 
-    image {
+    img {
       vertical-align: top;
+      height: 3rem;
+      width: auto;
     }
   }
 
@@ -38,6 +39,7 @@
     align-items: center;
     justify-content: center;
     cursor: default;
+    padding: 0 1rem;
   }
 
   &.loading {
@@ -49,10 +51,8 @@
       margin-top: 2.5rem;
       @include skeletonLoading();
       border-radius: 0.5rem;
-
-      img {
-        opacity: 0;
-      }
+      width: 3rem;
+      height: 3rem;
     }
 
     .title {

@@ -1,10 +1,10 @@
 .tiles {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 649px) {
   .grid-1,
   .grid-2,
   .grid-3 {
@@ -32,10 +32,11 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 650px) {
   .grid-2 {
     > * {
       flex: calc(50% - 0.5rem);
+      flex-grow: 0;
 
       &:nth-child(even) {
         margin-left: 1rem;
@@ -46,10 +47,30 @@
       }
     }
   }
+}
 
+@media screen and (min-width: 650px) and (max-width: 919px) {
+  .grid-3 {
+    > * {
+      flex: calc(50% - 0.5rem);
+      flex-grow: 0;
+
+      &:nth-child(even) {
+        margin-left: 1rem;
+      }
+
+      &:nth-child(n + 3) {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 920px) {
   .grid-3 {
     > * {
       flex: calc(calc(100% / 3) - calc(2rem / 3));
+      flex-grow: 0;
 
       &:not(:nth-child(3n + 1)) {
         margin-left: 1rem;
