@@ -18,7 +18,7 @@ export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'contextMenu'> {
 }
 
 export const Tile = ({ title, imageProps, loading, leftIcon, menu, ...rest }: Props) => {
-  if (!imageProps.src || !imageProps.alt) {
+  if (!imageProps?.src || !imageProps?.alt) {
     throw new Error(
       "Please make sure to include a src and alt key value pair in your imageProps object! Example: imageProps: {{ src: 'imagesource', alt: 'alt text for image' }}"
     );
