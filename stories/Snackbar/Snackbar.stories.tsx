@@ -20,18 +20,29 @@ const AppContent = () => {
       <Button onClick={() => enqueueSuccessSnackbar('Main message of the snackbar')}>
         Show sucess snackbar
       </Button>
+      <br />
+      <br />
       <Button onClick={() => enqueueErrorSnackbar('Social account unlink failed')}>
         Show error snackbar
       </Button>
+      <br />
+      <br />
       <Button onClick={() => enqueueSnackbar('Copy of your data is requested')}>
         Show info snackbar
       </Button>
+      <br />
+      <br />
       <Button
         onClick={() =>
           enqueueSnackbar(
             'Copy of your data is requested',
             'Body text of the snackbar. Keep it short. Users only have a few seconds to read it. Try to keep the text within the limit of 1 text message: 160 ch.',
-            { actions: [{ value: 'test', onClick: () => alert('Clicked') }] }
+            {
+              actions: [
+                { label: 'Contact support', onClick: () => alert('Clicked') },
+                { label: 'Contact Onewelcome', onClick: () => alert('Clicked') },
+              ],
+            }
           )
         }
       >

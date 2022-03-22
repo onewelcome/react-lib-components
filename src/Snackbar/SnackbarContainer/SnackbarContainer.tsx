@@ -6,13 +6,13 @@ export interface Position {
   horizontal: 'left' | 'center' | 'right';
 }
 
-interface SnackbarContainerProps {
+export interface Props {
   position: Position;
   children?: React.ReactNode;
   zIndex?: number;
 }
 
-export const SnackbarContainer = ({ position, children, zIndex }: SnackbarContainerProps) => {
+export const SnackbarContainer = ({ position, children, zIndex }: Props) => {
   return (
     <div
       style={{ zIndex }}

@@ -34,7 +34,6 @@ export const SnackbarProvider = ({
   domRoot = document.body,
   children,
 }: Props = {}) => {
-  console.log(position, stackSize);
   const [snackbars, setSnackbars] = useState<SnackbarItem[]>([]);
 
   const addSnackbar = (item: SnackbarItem) => {

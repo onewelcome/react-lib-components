@@ -6,14 +6,14 @@ import classes from './SnackbarItem.module.scss';
 
 const textColor = 'var(--snackbar-text-color)';
 
-interface SnackbarItemProps {
+export interface Props {
   id: string;
   title: string;
   duration: number;
   variant: Variant;
+  onClose: (key: string) => void;
   content?: string;
   actions?: Actions;
-  onClose: (key: string) => void;
 }
 
 export const SnackbarItem = ({
@@ -24,11 +24,11 @@ export const SnackbarItem = ({
   content,
   actions = [],
   onClose,
-}: SnackbarItemProps) => {
+}: Props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose(id);
-    }, duration * 100);
+    }, duration);
     return () => clearTimeout(timer);
   }, []);
 
@@ -47,28 +47,32 @@ export const SnackbarItem = ({
         onClose(id);
         actionProp.onClick && actionProp.onClick(e);
       }}
+      children={actionProp.label}
+      className={classes['action-button']}
     ></button>
   ));
 
   return (
     <div className={`${classes['snackbar']} ${classes[variant]}`}>
-      <div className={classes['headline']}>
-        <Icon icon={variantIcon} className={classes['icon']} />
-        {/* @TODO: change it */}
-        <h4 className={classes['title']} style={{ fontSize: 20, lineHeight: '24px' }}>
-          {title}
-        </h4>
-        <IconButton
-          onClick={() => onClose(id)}
-          className={classes['close-btn']}
-          title="close modal"
-        >
-          <Icon icon={Icons.Times} color={textColor} />
-        </IconButton>
+      <Icon icon={variantIcon} className={classes['icon']} />
+      <div className={classes['container']}>
+        <div className={classes['headline']}>
+          {/* @TODO: change it to Typography*/}
+          <h4 className={classes['title']} style={{ fontSize: 20, lineHeight: '24px' }}>
+            {title}
+          </h4>
+          <IconButton
+            onClick={() => onClose(id)}
+            className={classes['close-btn']}
+            title="close modal"
+          >
+            <Icon icon={Icons.Times} color={textColor} />
+          </IconButton>
+        </div>
+        {/* @TODO: change it to Typography*/}
+        {!!content && <p className={classes['content']}>{content}</p>}
+        {actionButtons.length > 0 && <div className={classes['actions']}>{actionButtons}</div>}
       </div>
-      {/* @TODO: change it */}
-      {!!content && <p className={classes['content']}>{content}</p>}
-      {actionButtons}
     </div>
   );
 };
