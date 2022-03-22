@@ -1,6 +1,7 @@
 .context-menu {
   position: relative;
   display: inline-block;
+  box-sizing: border-box;
 
   ul {
     white-space: nowrap;
@@ -8,7 +9,12 @@
 }
 
 .menu {
-  margin: 16px 0;
+  margin: 2rem 0;
   list-style: none;
   padding: 0;
+  min-width: 200px;
+
+  button {
+    text-align: left;
+  }
 }
