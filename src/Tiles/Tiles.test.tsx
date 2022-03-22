@@ -8,6 +8,7 @@ import { ContextMenuItem } from '../ContextMenu/ContextMenuItem';
 import { IconButton } from '../Button/IconButton';
 
 const onShow = jest.fn();
+const contextMenuItemOnClick = jest.fn();
 
 const contextMenu = (
   <ContextMenu
@@ -20,15 +21,22 @@ const contextMenu = (
       </IconButton>
     }
   >
-    <ContextMenuItem>Item 1</ContextMenuItem>
-    <ContextMenuItem>Item 2</ContextMenuItem>
-    <ContextMenuItem>Item 3</ContextMenuItem>
+    <ContextMenuItem data-testid="item1" onClick={contextMenuItemOnClick}>
+      Item 1
+    </ContextMenuItem>
+    <ContextMenuItem data-testid="item2" onClick={contextMenuItemOnClick}>
+      Item 2
+    </ContextMenuItem>
+    <ContextMenuItem data-testid="item3" onClick={contextMenuItemOnClick}>
+      Item 3
+    </ContextMenuItem>
   </ContextMenu>
 );
 
 const defaultParams: Props = {
   children: [
     <Tile
+      data-testid="tile"
       key="tile1"
       title="Tile1"
       imageProps={{
@@ -39,6 +47,7 @@ const defaultParams: Props = {
       menu={contextMenu}
     />,
     <Tile
+      data-testid="tile"
       key="tile2"
       title="Tile2"
       imageProps={{
@@ -49,6 +58,7 @@ const defaultParams: Props = {
       menu={contextMenu}
     />,
     <Tile
+      data-testid="tile"
       key="tile3"
       title="Tile3"
       imageProps={{
@@ -59,6 +69,7 @@ const defaultParams: Props = {
       menu={contextMenu}
     />,
   ],
+  grid: 1,
 };
 
 const createTiles = (params?: (defaultParams: Props) => Props) => {
@@ -69,16 +80,69 @@ const createTiles = (params?: (defaultParams: Props) => Props) => {
   const queries = render(<Tiles {...parameters} data-testid="tiles" />);
   const tiles = queries.getByTestId('tiles');
 
+  let individualTiles;
+
+  if (!parameters.loading) {
+    individualTiles = queries.getAllByTestId('tile');
+  }
+
   return {
     ...queries,
     tiles,
+    individualTiles,
   };
 };
 
 describe('Tiles should render', () => {
   it('renders without crashing', () => {
-    const { tiles } = createTiles();
+    const { tiles, individualTiles } = createTiles();
+
+    individualTiles?.forEach((tile, index) => {
+      expect(tile.querySelector('.title')).toHaveTextContent('Tile' + (index + 1).toFixed(0));
+      expect(tile.querySelector('img')).toBeTruthy();
+    });
 
     expect(tiles).toBeDefined();
+  });
+});
+
+describe('Tiles with different grids', () => {
+  it('has a grid of 1', () => {
+    const { individualTiles } = createTiles((defaultParams) => ({
+      ...defaultParams,
+      grid: 1,
+    }));
+
+    individualTiles?.forEach((tile) => {
+      expect(tile).toHaveStyle({ 'flex-basis': '100%;' });
+    });
+  });
+
+  it('has a grid of 2', () => {
+    const { individualTiles } = createTiles((defaultParams) => ({
+      ...defaultParams,
+      grid: 2,
+    }));
+
+    individualTiles?.forEach((tile) => {
+      expect(tile).toHaveStyle({ 'flex-basis': '50%;' });
+    });
+  });
+
+  it('has a grid of 3', () => {
+    const { individualTiles } = createTiles();
+
+    individualTiles?.forEach((tile) => {
+      expect(tile).toHaveStyle({ 'flex-basis': `${100 / 3}%;` });
+    });
+  });
+});
+
+describe('loading state should be handled properly', () => {
+  it('is loading', () => {
+    const { tiles } = createTiles((defaultParams) => ({ ...defaultParams, loading: true }));
+
+    expect(tiles).toHaveAttribute('aria-busy', 'true');
+    expect(tiles.querySelectorAll('.tile.loading').length).toBe(3);
   });
 });
