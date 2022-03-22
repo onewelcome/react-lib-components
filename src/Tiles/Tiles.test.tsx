@@ -103,6 +103,7 @@ describe('Tiles should render', () => {
       expect(tile.querySelector('img')).toBeTruthy();
     });
 
+    expect(tiles).toHaveClass('grid-1');
     expect(tiles).toHaveClass('example-classname');
     expect(tiles).toBeDefined();
   });
