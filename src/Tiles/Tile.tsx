@@ -32,7 +32,7 @@ export const Tile = ({ title, imageProps, loading, leftIcon, menu, ...rest }: Pr
     <div {...rest} className={`${classes.tile} ${loading ? classes.loading : ''}`}>
       <header>
         {leftIcon && <Icon className={classes.icon} icon={leftIcon} />}
-        {menu && menu}
+        {menu ?? null}
       </header>
       <div className={classes.content}>
         {imageProps.src && imageProps.alt && (
