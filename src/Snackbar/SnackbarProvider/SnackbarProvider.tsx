@@ -70,7 +70,6 @@ export const SnackbarProvider = ({
       duration,
       id: 'tmp' + Date.now(),
     };
-
     addSnackbar(item);
   };
 
@@ -91,8 +90,7 @@ export const SnackbarProvider = ({
   };
 
   const onItemClosed = (id: string) => {
-    const newSnackbars = [...snackbars].filter((item) => item.id !== id);
-    setSnackbars(newSnackbars);
+    setSnackbars((snackbars) => [...snackbars].filter((item) => item.id !== id));
   };
 
   const snackbarList = snackbars.map((item, index) =>
@@ -103,6 +101,8 @@ export const SnackbarProvider = ({
     <SnackbarContainer position={position}>{snackbarList}</SnackbarContainer>,
     domRoot
   );
+
+  console.log('snackbars', snackbars);
 
   return (
     <SnackbarContextProvider
