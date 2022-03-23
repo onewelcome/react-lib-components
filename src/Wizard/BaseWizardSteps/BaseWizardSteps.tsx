@@ -53,9 +53,10 @@ export const BaseWizardSteps = ({
     const stepState = getStepState(index);
     const disabledStyleClassName = step.disabled ? classes['disabled'] : '';
     const clickableClassName = futureStepsClickable ? classes['clickable'] : '';
+
     return (
       <button
-        key={index}
+        key={step.label.toLowerCase().replace(/\s/, '-')}
         disabled={
           step.disabled ||
           (stepState === 'future' && !futureStepsClickable) ||

@@ -1,0 +1,101 @@
+.radio-wrapper {
+  position: relative;
+
+  + .radio-wrapper {
+    margin-top: 1.25rem;
+  }
+}
+
+.error {
+  color: var(--error);
+}
+
+.helper-text {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  margin-left: 1.75rem;
+}
+
+.error-message {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: bottom;
+}
+
+.error-icon {
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.radio-container {
+  display: flex;
+  align-items: center;
+
+  label {
+    display: inline-block;
+    margin-left: 0.5rem;
+    user-select: none;
+    font-size: 1rem;
+
+    .disabled & {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.radio-list {
+  padding: 0;
+  margin: 1.25rem 0 0 1.75rem;
+  list-style: none;
+
+  li + li {
+    margin-top: 1.75rem;
+  }
+}
+
+.native-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  margin: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+
+  &:focus,
+  &:active {
+    + * {
+      color: var(--color-primary);
+
+      + label {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    + * {
+      outline: 5px auto rgba(0, 150, 255, 1);
+      -webkit-outline: 5px auto rgba(0, 150, 255, 1);
+      -moz-outline: 5px auto rgba(0, 150, 255, 1);
+      -ms-outline: 5px auto rgba(0, 150, 255, 1);
+      -o-outline: 5px auto rgba(0, 150, 255, 1);
+    }
+  }
+}
+
+.input {
+  font-size: 1.25rem;
+  pointer-events: none;
+  width: 1.25rem;
+  height: 1.25rem;
+
+  /** The & behind disabled means parent selector (so in reality this means .disabled .input) */
+  .disabled & {
+    color: var(--disabled);
+  }
+}
