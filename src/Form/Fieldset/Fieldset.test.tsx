@@ -2,7 +2,7 @@ import React from 'react';
 import { Fieldset, Props } from './Fieldset';
 import { render } from '@testing-library/react';
 import { FormControl } from '../FormControl/FormControl';
-import { Input } from '../..';
+import { Input } from '../Input/Input';
 import { Select } from '../Select/Select';
 import { Option } from '../Select/Option';
 

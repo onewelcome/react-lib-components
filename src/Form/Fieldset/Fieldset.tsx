@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import readyclasses from '../../readyclasses.module.scss';
 import classes from './Fieldset.module.scss';
 import { HTMLProps } from '../../interfaces';
@@ -37,13 +37,11 @@ export const Fieldset = ({
   const renderChildren = () => {
     if (!children) return;
 
-    return React.Children.map(children, (child: ReactElement) => (
-      <Fragment>
-        {React.cloneElement(child, {
-          disabled: disabled,
-        })}
-      </Fragment>
-    ));
+    return React.Children.map(children, (child: ReactElement) =>
+      React.cloneElement(child, {
+        disabled: disabled,
+      })
+    );
   };
 
   return (

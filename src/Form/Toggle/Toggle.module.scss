@@ -44,7 +44,7 @@
     width: 2rem;
   }
 
-  [data-icon] {
+  input + [aria-hidden] {
     display: none;
   }
 }

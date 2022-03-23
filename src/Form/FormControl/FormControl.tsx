@@ -19,7 +19,10 @@ export const FormControl = ({
 }: Props) => {
   const renderChildren = () =>
     React.Children.map(children, (child) => {
-      if (!child) return null;
+      if (!child) {
+        return null;
+      }
+
       const childElement = React.cloneElement(child, {
         disabled: fieldsetDisabled,
       });
