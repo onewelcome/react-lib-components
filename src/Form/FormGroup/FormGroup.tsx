@@ -1,3 +1,5 @@
+/** The empty className property on FormHelperText is on purpose! We want to basically "filter" out the className from helperProps because we're adding this to the surrounding div. This makes it so also the errormessage receives this styling. */
+
 import React, { ReactChild } from 'react';
 import classes from './FormGroup.module.scss';
 import { FormHelperText, Props as HelperProps } from '../FormHelperText/FormHelperText';
@@ -46,7 +48,7 @@ export const FormGroup = ({
           }`}
         >
           {helperText && !error && (
-            <FormHelperText {...helperProps} id={helperId}>
+            <FormHelperText {...helperProps} className={''} id={helperId}>
               {helperText}
             </FormHelperText>
           )}

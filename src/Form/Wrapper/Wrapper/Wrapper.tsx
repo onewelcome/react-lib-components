@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { FormGroup, Props as FormGroupProps } from '../../FormGroup/FormGroup';
 import { Label, Props as LabelProps } from '../../Label/Label';
 import classes from './Wrapper.module.scss';
@@ -50,17 +50,12 @@ export const Wrapper = ({
   name,
   ...rest
 }: Props) => {
-  const renderChildren = () => {
-    let clonedChildren = !Array.isArray(children) ? [children] : children;
-
-    return clonedChildren.map((child, index) => (
-      <Fragment key={`${child.key}-${index}`}>
-        {React.cloneElement(child, {
-          disabled: fieldsetDisabled,
-        })}
-      </Fragment>
-    ));
-  };
+  const renderChildren = () =>
+    React.Children.map(children, (child) =>
+      React.cloneElement(child, {
+        disabled: fieldsetDisabled,
+      })
+    );
 
   return (
     <div {...rest} className={`${classes.wrapper} ${className ? className : ''}`}>

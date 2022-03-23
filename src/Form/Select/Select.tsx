@@ -1,6 +1,6 @@
 import classes from './Select.module.scss';
 
-import React, { Fragment, HTMLProps, ReactElement, useEffect, useState } from 'react';
+import React, { HTMLProps, ReactElement, useEffect, useState } from 'react';
 import { Input } from '../Input/Input';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormElement } from '../form.interfaces';
@@ -87,19 +87,14 @@ export const Select = ({
    * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected at all times and if a filter is active.
    * The `children` prop can be either a single object (1 child) or an array of multiple children.
    */
-  const renderOptions = () => {
-    let clonedChildren = !Array.isArray(children) ? [children] : children;
-
-    return clonedChildren.map((child) => (
-      <Fragment key={child.props.value}>
-        {React.cloneElement(child, {
-          onOptionSelect: onOptionChangeHandler(child),
-          selected: child.props.value === value,
-          filter: filter,
-        })}
-      </Fragment>
-    ));
-  };
+  const renderOptions = () =>
+    React.Children.map(children, (child) =>
+      React.cloneElement(child, {
+        onOptionSelect: onOptionChangeHandler(child),
+        selected: child.props.value === value,
+        filter: filter,
+      })
+    );
 
   const renderSearch = () => (
     <Input

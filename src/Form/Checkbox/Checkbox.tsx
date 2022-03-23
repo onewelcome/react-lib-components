@@ -68,26 +68,24 @@ export const Checkbox = ({
     );
   };
 
-  const renderNestedCheckboxes = () => {
-    return (
-      <ul className={classes['checkbox-list']}>
-        {(children as ReactElement[]).map((child) => {
-          return (
-            <li key={child.props.name}>
-              <Checkbox
-                {...child.props}
-                parentHelperId={parentHelperId}
-                parentErrorId={parentErrorId}
-                error={error}
-              >
-                {child.props.children}
-              </Checkbox>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  };
+  const renderNestedCheckboxes = () => (
+    <ul className={classes['checkbox-list']}>
+      {React.Children.map(children as ReactElement[], (child) => {
+        return (
+          <li>
+            <Checkbox
+              {...child.props}
+              parentHelperId={parentHelperId}
+              parentErrorId={parentErrorId}
+              error={error}
+            >
+              {child.props.children}
+            </Checkbox>
+          </li>
+        );
+      })}
+    </ul>
+  );
 
   /** Default return value is the default checkbox */
   return (

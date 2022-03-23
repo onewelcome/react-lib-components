@@ -32,7 +32,7 @@ export const SelectWrapper = ({
       floatingLabelActive={floatingLabelActive}
       errorId={errorId}
       helperId={helperId}
-      labelProps={{ id: labelId }}
+      labelProps={{ id: labelId, className: classes['select-label'] }}
       helperProps={{
         ...helperProps,
         className: `${classes['select-helper-text']} ${helperProps?.className ?? ''}`,
@@ -48,7 +48,7 @@ export const SelectWrapper = ({
         onChange={onChange}
         onClear={onClear}
         placeholder={placeholder}
-        className={`${floatingLabelActive ?? classes['floating-label-active']} ${
+        className={`${floatingLabelActive ? classes['floating-label-active'] : ''} ${
           selectProps?.className ?? ''
         }`}
       >

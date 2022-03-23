@@ -30,7 +30,7 @@ $listItemHeight: 2.125rem;
     background-color: transparent;
     border: 0;
     cursor: pointer;
-    padding: 0 1rem;
+    padding: 0 1.25rem;
     position: relative;
     font-size: var(--font-size);
   }
@@ -112,7 +112,7 @@ $listItemHeight: 2.125rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 16px;
+  left: 1.25rem;
   pointer-events: none;
 }
 

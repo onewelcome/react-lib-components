@@ -1,3 +1,9 @@
+.input-label {
+  left: calc(
+    1.25rem + 2px
+  ); // 2px is for offset of the textarea border. It's relative to the parent div which doesn't have a border.
+}
+
 input {
   &.floating-label {
     padding-top: 0.625rem;

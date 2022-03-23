@@ -38,7 +38,7 @@ export const InputWrapper = ({
       {...rest}
       name={name}
       className={classes['input-wrapper']}
-      labelProps={{ id: labelId }}
+      labelProps={{ id: labelId, className: classes['input-label'] }}
       floatingLabelActive={floatingLabelActive}
       errorId={errorId}
       error={error}
@@ -54,7 +54,9 @@ export const InputWrapper = ({
         {...inputProps}
         aria-labelledby={labelId}
         aria-describedby={error ? errorId : helperId}
-        onChange={onChange}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          onChange && onChange(event);
+        }}
         onFocus={(e) => {
           onFocus && onFocus(e);
           setHasFocus(true);

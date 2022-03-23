@@ -1,7 +1,6 @@
-import React, { Fragment, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import classes from './FormControl.module.scss';
 import { HTMLProps } from '../../interfaces';
-import { generateID } from '../../util/helper';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   children: ReactElement | ReactElement[];
@@ -18,26 +17,19 @@ export const FormControl = ({
   align = 'center',
   ...rest
 }: Props) => {
-  const renderChildren = () => {
-    let clonedChildren = !Array.isArray(children) ? [children] : children;
-
-    return clonedChildren.map((child) => {
-      if (child === undefined) return null;
+  const renderChildren = () =>
+    React.Children.map(children, (child) => {
+      if (!child) return null;
       const childElement = React.cloneElement(child, {
         disabled: fieldsetDisabled,
       });
 
       if (grid && grid > 1) {
-        return (
-          <div key={generateID()} className={`${classes['col-' + grid]} ${classes.column}`}>
-            {childElement}
-          </div>
-        );
+        return <div className={`${classes['col-' + grid]} ${classes.column}`}>{childElement}</div>;
       }
 
-      return <Fragment key={generateID()}>{childElement}</Fragment>;
+      return childElement;
     });
-  };
 
   return (
     <div

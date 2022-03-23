@@ -25,6 +25,6 @@
 
 .required {
   &:after {
-    content: '*';
+    content: ' *';
   }
 }

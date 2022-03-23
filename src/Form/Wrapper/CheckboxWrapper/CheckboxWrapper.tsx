@@ -1,10 +1,9 @@
-import React, { Fragment, ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import classes from './CheckboxWrapper.module.scss';
 import { useWrapper } from '../../../hooks/useWrapper';
 import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { Icons } from '../../../Icon/Icon';
 import { Fieldset, Props as FieldsetProps } from '../../../Form/Fieldset/Fieldset';
-import { generateID } from '../../../util/helper';
 
 export interface Props extends WrapperProps {
   children: ReactElement[] | ReactElement;
@@ -31,22 +30,14 @@ export const CheckboxWrapper = ({
     }
   }, []);
 
-  const renderChildren = () => {
-    /** Always convert children to an array, even if only 1 Checkbox component is passed */
-    let clonedChildren = !Array.isArray(children) ? [children] : children;
-
-    /** In order to have the individual checkboxes have their "aria-describedby" property point to the error message in this CheckboxWrapper, we have to clone the children and add these props. */
-    return clonedChildren?.map((child) => (
-      <Fragment key={generateID()}>
-        {React.cloneElement(child, {
-          onChange: onChange,
-          parentErrorId: errorId,
-          error: error,
-          parentHelperId: helperText ? helperId : false,
-        })}
-      </Fragment>
-    ));
-  };
+  const renderChildren = () =>
+    React.Children.map(children, (child) =>
+      React.cloneElement(child, {
+        parentErrorId: errorId,
+        error: error,
+        parentHelperId: helperText ? helperId : false,
+      })
+    );
 
   return (
     <Fieldset {...fieldsetProps}>

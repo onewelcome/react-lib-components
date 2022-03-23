@@ -2,9 +2,9 @@ import React, { Fragment, ReactElement } from 'react';
 import readyclasses from '../../readyclasses.module.scss';
 import classes from './Fieldset.module.scss';
 import { HTMLProps } from '../../interfaces';
-import { generateID } from '../../util/helper';
 
 type TitleStyle = 'h1' | 'h2' | 'h3' | 'body' | 'body-bold';
+const validTitleStyles = ['h1', 'h2', 'h3', 'body', 'body-bold'];
 
 export interface Props extends HTMLProps<HTMLFieldSetElement> {
   children?: ReactElement | ReactElement[];
@@ -28,8 +28,6 @@ export const Fieldset = ({
   disabled = false,
   ...rest
 }: Props) => {
-  const validTitleStyles = ['h1', 'h2', 'h3', 'body', 'body-bold'];
-
   if (!validTitleStyles.includes(titleStyle)) {
     throw new Error(
       `You entered an invalid titleStyle. You can choose from: ${validTitleStyles}, you entered: ${titleStyle}`
@@ -37,10 +35,10 @@ export const Fieldset = ({
   }
 
   const renderChildren = () => {
-    let clonedChildren = !Array.isArray(children) ? [children] : children;
+    if (!children) return;
 
-    return (clonedChildren as ReactElement[]).map((child) => (
-      <Fragment key={generateID()}>
+    return React.Children.map(children, (child: ReactElement) => (
+      <Fragment>
         {React.cloneElement(child, {
           disabled: disabled,
         })}

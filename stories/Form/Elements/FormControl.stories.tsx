@@ -44,6 +44,7 @@ const Template: Story<Props> = (args) => {
     mobile: false,
     laptop: false,
   });
+  const [inputValue, setInputValue] = useState('');
 
   const onSelectChange = (event) => {
     setSelectValue(event.target.value);
@@ -163,7 +164,8 @@ const Template: Story<Props> = (args) => {
             name="input1"
             errorMessage={'This is an error'}
             type="text"
-            value=""
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             error={false}
             label="Label for this inputfield"
           />

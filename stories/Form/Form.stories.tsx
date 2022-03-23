@@ -209,18 +209,18 @@ const Template: Story<Props> = (args) => {
       </FormControl>
       <FormControl>
         <CheckboxWrapper
-          name="food-group"
+          name="checkbox-group"
           error={checkbox.error}
           errorMessage=""
           fieldsetProps={{ title: 'Would you like to make an appointment?' }}
         >
           <Checkbox
-            onChange={(e) =>
+            onChange={(e) => {
               setCheckbox((prevState) => ({
                 ...prevState,
                 checkbox1: { checked: !prevState.checkbox1.checked },
-              }))
-            }
+              }));
+            }}
             name="checkbox1"
             checked={checkbox.checkbox1.checked}
           >
