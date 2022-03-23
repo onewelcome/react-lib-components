@@ -1,0 +1,29 @@
+.form-group {
+  position: relative;
+}
+
+.error {
+  color: var(--error);
+}
+
+.error-message {
+  display: flex;
+  align-items: flex-end;
+}
+
+.error-icon {
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+
+  &-before {
+    margin-right: 0.5rem;
+  }
+
+  &-after {
+    margin-left: 0.5rem;
+  }
+}
+
+.default-helper {
+  font-size: 0.75rem;
+}

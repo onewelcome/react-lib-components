@@ -4,7 +4,7 @@ import { Dialog, Props } from '../../src/Dialog/Dialog';
 import { Button } from '../../src/Button/Button';
 
 const meta: Meta = {
-  title: 'Dialog',
+  title: 'UI/Dialog',
   component: Dialog,
   args: {
     id: 'dialog',

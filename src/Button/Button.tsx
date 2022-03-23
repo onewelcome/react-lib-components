@@ -18,11 +18,23 @@ export const Button = ({
   endIcon = false,
   ...rest
 }: Props) => {
+  const additionalClasses = [];
+
+  if (startIcon || endIcon) {
+    additionalClasses.push(classes['has-icon']);
+  }
+
+  if (startIcon) {
+    additionalClasses.push(classes['start-icon']);
+  }
+
+  if (endIcon) {
+    additionalClasses.push(classes['end-icon']);
+  }
+
   return (
     <BaseButton
-      className={`${classes[color]} ${classes[variant]} ${
-        startIcon || endIcon ? classes['has-icon'] : ''
-      }`}
+      className={`${classes[color]} ${classes[variant]} ${additionalClasses.join(' ')}`}
       {...rest}
     >
       {startIcon && <i>{startIcon}&nbsp;</i>}
