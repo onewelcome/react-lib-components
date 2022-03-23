@@ -3,7 +3,7 @@
 }
 
 .input {
-  height: 64px;
+  height: 4rem;
   padding: 0 1.25rem;
   border-color: var(--input-border-color);
   border-style: var(--input-border-style);
@@ -49,7 +49,7 @@
   justify-content: center;
 
   &:before {
-    height: 1.3125rem; // There's a small gap above the icon for some reason. Giving it a height of 1px more than the font size fixes the issue that it's not centered.
+    height: 1.3125rem;
   }
 
   &.extra-indent {

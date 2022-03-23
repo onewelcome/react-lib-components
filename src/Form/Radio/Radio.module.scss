@@ -91,8 +91,8 @@
 .input {
   font-size: 1.25rem;
   pointer-events: none;
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
 
   /** The & behind disabled means parent selector (so in reality this means .disabled .input) */
   .disabled & {

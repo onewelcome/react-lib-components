@@ -5,10 +5,10 @@
 }
 
 .toggle {
-  width: 33px;
-  height: 20px;
+  width: 2rem;
+  height: 1.25rem;
   background-color: var(--default);
-  border-radius: 40px;
+  border-radius: 2.5rem;
   position: relative;
   transition: background-color 0.2s ease-in-out;
   display: block;
@@ -16,22 +16,22 @@
 
   &:before {
     content: '';
-    width: 17px;
-    height: 17px;
+    width: 1rem;
+    height: 1rem;
     border-radius: 50%;
     display: block;
     background-color: #fff;
     position: absolute;
     top: 50%;
     transform: translateY(-50%) translateX(0);
-    left: 2px;
+    left: 0.125rem;
     transition: transform 0.2s ease-in-out;
   }
 
   &.checked {
     background-color: var(--color-primary);
     &:before {
-      transform: translateY(-50%) translateX(calc(100% - 4px));
+      transform: translateY(-50%) translateX(calc(100% - 0.25rem));
     }
   }
 }
@@ -41,7 +41,7 @@
   position: static;
 
   input {
-    width: 33px;
+    width: 2rem;
   }
 
   [data-icon] {

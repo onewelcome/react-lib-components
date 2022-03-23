@@ -119,7 +119,7 @@ $listItemHeight: 2.125rem;
 .status {
   position: absolute;
   top: 50%;
-  right: 16px;
+  right: 1rem;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
@@ -150,7 +150,6 @@ $listItemHeight: 2.125rem;
 .select-search {
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
