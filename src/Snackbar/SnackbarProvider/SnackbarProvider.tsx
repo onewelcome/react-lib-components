@@ -102,8 +102,6 @@ export const SnackbarProvider = ({
     domRoot
   );
 
-  console.log('snackbars', snackbars);
-
   return (
     <SnackbarContextProvider
       initialState={{ enqueueSnackbar, enqueueSuccessSnackbar, enqueueErrorSnackbar }}
