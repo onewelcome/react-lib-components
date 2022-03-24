@@ -28,15 +28,19 @@ describe('SnackbarItem', () => {
 
     expect(initParams.onClose).not.toBeCalled();
     userEvent.click(getByRole(container, 'button'));
-    expect(initParams.onClose).toBeCalledTimes(1);
-    expect(initParams.onClose).toHaveBeenCalledWith(initParams.id);
+    waitFor(() => {
+      expect(initParams.onClose).toBeCalledTimes(1);
+      expect(initParams.onClose).toHaveBeenCalledWith(initParams.id);
+    });
   });
 
   it('call close callback after provided duration', () => {
     render(<SnackbarItem {...initParams} />);
 
     expect(initParams.onClose).not.toBeCalled();
-    waitFor(async () => await expect(initParams.onClose).toBeCalledTimes(1));
-    expect(initParams.onClose).toHaveBeenCalledWith(initParams.id);
+    waitFor(() => {
+      expect(initParams.onClose).toBeCalledTimes(1);
+      expect(initParams.onClose).toHaveBeenCalledWith(initParams.id);
+    });
   });
 });
