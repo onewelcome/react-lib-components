@@ -88,7 +88,7 @@ export const WizardActions = ({
         </Button>
       )}
       {hasNextStep && (
-        <Button variant="outline" onClick={onNextWrapper}>
+        <Button variant={mode === 'edit' ? 'outline' : 'fill'} onClick={onNextWrapper}>
           {nextButtonLabel}
         </Button>
       )}

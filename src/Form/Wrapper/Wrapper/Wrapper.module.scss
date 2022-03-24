@@ -1,0 +1,30 @@
+.floating-wrapper {
+  position: relative;
+}
+
+.floating-label {
+  font-size: 1rem;
+  position: absolute;
+  z-index: 1;
+  top: 1.3125rem;
+  left: 1.25rem;
+  transform-origin: left top;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+
+  &.floating-label-active {
+    font-size: 0.75rem;
+    transform: translateY(-0.75rem);
+  }
+}
+
+.wrapper + fieldset,
+.wrapper + .wrapper {
+  margin-top: 1rem;
+}
+
+.required {
+  &:after {
+    content: ' *';
+  }
+}

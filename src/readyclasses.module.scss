@@ -9,6 +9,10 @@
   border: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 .slide-in {
   animation: slide-in 0.5s forwards;
 }
