@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { SnackbarContextProvider } from './SnackbarStateProvider';
 import { Actions, SnackbarOptionsProps, Variant } from '../interfaces';
-import { SnackbarItem } from '../SnackbarItem/SnackbarItem';
 import { Position, SnackbarContainer } from '../SnackbarContainer/SnackbarContainer';
+import { generateID } from '../../util/helper';
+import { SnackbarItem } from '../SnackbarItem/SnackbarItem';
 
+/** Short msg is when only title is provided. Long one when content or/and actions are provided (or type is error). */
 interface Duration {
   long: number;
   short: number;
 }
 
 export interface Props {
+  closeButtonTitle: string;
   children?: React.ReactNode;
   position?: Position;
   stackSize?: number;
@@ -18,7 +21,7 @@ export interface Props {
   autoHideDuration?: Duration;
 }
 
-interface SnackbarItem {
+interface Item {
   id: string;
   title: string;
   duration: number;
@@ -27,16 +30,19 @@ interface SnackbarItem {
   actions?: Actions;
 }
 
-export const SnackbarProvider = ({
-  position = { vertical: 'bottom', horizontal: 'center' },
-  autoHideDuration = { long: 8000, short: 4000 },
-  stackSize = 3,
-  domRoot = document.body,
-  children,
-}: Props = {}) => {
-  const [snackbars, setSnackbars] = useState<SnackbarItem[]>([]);
+export const SnackbarProvider = (
+  {
+    closeButtonTitle,
+    position = { vertical: 'bottom', horizontal: 'center' },
+    autoHideDuration = { long: 8000, short: 4000 },
+    stackSize = 3,
+    domRoot = document.body,
+    children,
+  }: Props = { closeButtonTitle: '' }
+) => {
+  const [snackbars, setSnackbars] = useState<Item[]>([]);
 
-  const addSnackbar = (item: SnackbarItem) => {
+  const addSnackbar = (item: Item) => {
     setSnackbars((items) => [...items, item]);
   };
 
@@ -49,9 +55,6 @@ export const SnackbarProvider = ({
     return autoHideDuration.short;
   };
 
-  /**
-   * Shows snackbar. Short msg is when only title is provided. Long one when content or/and actions are provided.
-   */
   const enqueueSnackbar = (
     title: string,
     content?: string,
@@ -62,13 +65,13 @@ export const SnackbarProvider = ({
       actions,
       duration = getDuration(variant, actions, content),
     } = options;
-    const item: SnackbarItem = {
+    const item: Item = {
       title,
       content,
       variant,
       actions,
       duration,
-      id: 'tmp' + Date.now(),
+      id: generateID(15, title),
     };
     addSnackbar(item);
   };
@@ -90,11 +93,18 @@ export const SnackbarProvider = ({
   };
 
   const onItemClosed = (id: string) => {
-    setSnackbars((snackbars) => [...snackbars].filter((item) => item.id !== id));
+    setSnackbars((items) => [...items].filter((item) => item.id !== id));
   };
 
   const snackbarList = snackbars.map((item, index) =>
-    index < stackSize ? <SnackbarItem {...item} key={item.id} onClose={onItemClosed} /> : null
+    index < stackSize ? (
+      <SnackbarItem
+        {...item}
+        key={item.id}
+        onClose={onItemClosed}
+        closeButtonTitle={closeButtonTitle}
+      />
+    ) : null
   );
 
   const snackbarPortal = createPortal(

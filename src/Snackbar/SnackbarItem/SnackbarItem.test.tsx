@@ -8,6 +8,7 @@ const initParams: Props = {
   title: 'title',
   duration: 1,
   variant: 'success',
+  closeButtonTitle: 'close',
   onClose: jest.fn(),
 };
 

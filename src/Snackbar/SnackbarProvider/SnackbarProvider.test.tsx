@@ -7,6 +7,7 @@ import {
   findAllByText,
   getAllByRole,
   getByText,
+  findByText,
 } from '@testing-library/react';
 import { SnackbarProvider, Props } from './SnackbarProvider';
 import { useSnackbar } from '../useSnackbar';
@@ -31,7 +32,7 @@ const infoProps = {
   },
 };
 
-const renderSnackbarProvider = (props?: Props) => {
+const renderSnackbarProvider = (props?: Partial<Props>) => {
   const AppComponent = () => {
     const { enqueueSuccessSnackbar, enqueueErrorSnackbar, enqueueSnackbar } = useSnackbar();
     const [index, setIndex] = useState(0);
@@ -70,7 +71,7 @@ const renderSnackbarProvider = (props?: Props) => {
   };
 
   const queries = render(
-    <SnackbarProvider {...props}>
+    <SnackbarProvider {...props} closeButtonTitle="close">
       <AppComponent />
     </SnackbarProvider>
   );
@@ -149,6 +150,35 @@ describe('SnackbarProvider', () => {
     waitFor(
       async () =>
         await expect(findAllByText(document.body, new RegExp(successProps.title))).not.toBeDefined()
+    );
+  });
+
+  it('should close snackbar after clicking X button', () => {
+    const { showSuccessSnackbarBtn } = renderSnackbarProvider({
+      autoHideDuration: { long: 1_000_000, short: 1_000_000 },
+    });
+
+    userEvent.click(showSuccessSnackbarBtn);
+    userEvent.click(showSuccessSnackbarBtn);
+    userEvent.click(showSuccessSnackbarBtn);
+    userEvent.click(showSuccessSnackbarBtn);
+
+    const closeButtons = getAllByRole(document.body, 'button', { name: 'close' });
+
+    expect(closeButtons).toHaveLength(3);
+    expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
+
+    userEvent.click(closeButtons[0]);
+    waitFor(() =>
+      expect(getAllByText(document.body, new RegExp(successProps.title + '[12]+'))).toHaveLength(2)
+    );
+
+    userEvent.click(closeButtons[1]);
+    waitFor(() => expect(getByText(document.body, successProps.title + '2')).toBeDefined());
+
+    userEvent.click(closeButtons[2]);
+    waitFor(() =>
+      expect(findByText(document.body, new RegExp(successProps.title))).not.toBeDefined()
     );
   });
 });

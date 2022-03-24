@@ -13,6 +13,7 @@ export interface Props {
   duration: number;
   variant: Variant;
   onClose: (key: string) => void;
+  closeButtonTitle: string;
   content?: string;
   actions?: Actions;
 }
@@ -44,6 +45,7 @@ export const SnackbarItem = ({
   content,
   actions = [],
   onClose,
+  closeButtonTitle,
 }: Props) => {
   const onAnimationEnd = () => onClose(id);
   const { ref, animationStarted, startAnimation } = useAnimation<HTMLDivElement>(onAnimationEnd);
@@ -53,12 +55,12 @@ export const SnackbarItem = ({
     return () => clearTimeout(timer);
   }, []);
 
-  const variantIcon =
-    variant === 'error'
-      ? Icons.TimesCircleAlt
-      : variant === 'success'
-      ? Icons.CheckmarkCircleBreakout
-      : Icons.InfoCircle;
+  const getVariantIcon = () => {
+    if (variant === 'error') {
+      return Icons.TimesCircleAlt;
+    }
+    return variant === 'success' ? Icons.CheckmarkCircleBreakout : Icons.InfoCircle;
+  };
 
   const actionButtons = actions.map((actionProp, index) => (
     <button
@@ -80,7 +82,7 @@ export const SnackbarItem = ({
         animationStarted ? readyclasses['slide-out'] : readyclasses['slide-in']
       }`}
     >
-      <Icon icon={variantIcon} className={classes['icon']} />
+      <Icon icon={getVariantIcon()} className={classes['icon']} />
       <div className={classes['container']}>
         <div className={classes['headline']}>
           {/* @TODO: change it to Typography*/}
@@ -90,7 +92,7 @@ export const SnackbarItem = ({
           <IconButton
             onClick={() => startAnimation()}
             className={classes['close-btn']}
-            title="close modal"
+            title={closeButtonTitle}
           >
             <Icon icon={Icons.Times} color={textColor} />
           </IconButton>

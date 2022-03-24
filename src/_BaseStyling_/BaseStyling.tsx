@@ -39,7 +39,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
-  const [colors, setColors] = useState<CSSProperties>({
+  const defaultProperties: CSSProperties = {
     colorPrimary: '#9e006b',
     colorSecondary: '#003b5e',
     colorTertiary: '#ff1e4e',
@@ -70,20 +70,10 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     disabled: '#e9e9eb',
     greyedOut: '#6f6f76',
     warning: '#ff6105',
-  });
+  };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
   const [isLoading, setIsLoading] = useState(true);
-
-  /** Check if the properties prop object is filled with anything. If it is, we want to shallow merge it with the default BaseStyling. */
-  useEffect(() => {
-    if (Object.keys(properties).length !== 0) {
-      const mergedState = { ...colors, ...properties };
-      setColors(mergedState);
-    }
-
-    setIsLoading(false);
-  }, []);
 
   /** Set the actual CSS properties on the HTML :root object */
   const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
@@ -93,7 +83,17 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     }
   };
 
-  setCSSProperties(colors);
+  /** Check if the properties prop object is filled with anything. If it is, we want to shallow merge it with the default BaseStyling. */
+  useEffect(() => {
+    console.log('test', properties);
+    if (Object.keys(properties).length !== 0) {
+      const mergedState = { ...defaultProperties, ...properties };
+      setCSSProperties(mergedState);
+    } else {
+      setCSSProperties(defaultProperties);
+    }
+    setIsLoading(false);
+  }, [properties]);
 
   /** Only render if we're not loading */
   return !isLoading ? <Fragment>{children}</Fragment> : null;

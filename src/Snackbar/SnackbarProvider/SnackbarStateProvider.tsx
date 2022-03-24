@@ -8,9 +8,9 @@ interface SnackbarContextProps {
 }
 
 const SnackbarContext = createContext<SnackbarContextProps>({
-  enqueueSnackbar: () => {},
-  enqueueSuccessSnackbar: () => {},
-  enqueueErrorSnackbar: () => {},
+  enqueueSnackbar: () => null,
+  enqueueSuccessSnackbar: () => null,
+  enqueueErrorSnackbar: () => null,
 });
 
 interface Props {
