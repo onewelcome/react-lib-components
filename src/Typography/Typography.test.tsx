@@ -25,14 +25,14 @@ const renderTypography = (
 const className = (variant: Props['variant']) => `typography_style_${variant}`;
 
 describe('Typography should render', () => {
-  it('renders without crashing', async () => {
+  it('renders without crashing', () => {
     const { typography } = renderTypography('h1');
     expect(typography).toBeDefined();
   });
 });
 
 describe('Should give the correct default tags and corresponding classnames', () => {
-  it('renders an h1', async () => {
+  it('renders an h1', () => {
     const variant = 'h1';
     const { typography } = renderTypography(variant);
 
@@ -40,7 +40,7 @@ describe('Should give the correct default tags and corresponding classnames', ()
     expect(typography).toHaveClass(className(variant));
   });
 
-  it('renders an h2', async () => {
+  it('renders an h2', () => {
     const variant = 'h2';
     const { typography } = renderTypography(variant);
 
@@ -48,7 +48,7 @@ describe('Should give the correct default tags and corresponding classnames', ()
     expect(typography).toHaveClass(className(variant));
   });
 
-  it('renders an h3', async () => {
+  it('renders an h3', () => {
     const variant = 'h3';
     const { typography } = renderTypography(variant);
 
@@ -56,7 +56,7 @@ describe('Should give the correct default tags and corresponding classnames', ()
     expect(typography).toHaveClass(className(variant));
   });
 
-  it('renders an h4', async () => {
+  it('renders an h4', () => {
     const variant = 'h4';
     const { typography } = renderTypography(variant);
 
@@ -64,7 +64,7 @@ describe('Should give the correct default tags and corresponding classnames', ()
     expect(typography).toHaveClass(className(variant));
   });
 
-  it('renders a p', async () => {
+  it('renders a p', () => {
     const variant = 'body';
     const { typography } = renderTypography(variant);
 
@@ -72,7 +72,7 @@ describe('Should give the correct default tags and corresponding classnames', ()
     expect(typography).toHaveClass(className(variant));
   });
 
-  it('renders a p', async () => {
+  it('renders a p', () => {
     const variant = 'body-bold';
     const { typography } = renderTypography(variant);
 
@@ -80,7 +80,7 @@ describe('Should give the correct default tags and corresponding classnames', ()
     expect(typography).toHaveClass(className(variant));
   });
 
-  it('renders a span', async () => {
+  it('renders a span', () => {
     const variant = 'sub-text';
     const { typography } = renderTypography(variant);
 
@@ -88,7 +88,7 @@ describe('Should give the correct default tags and corresponding classnames', ()
     expect(typography).toHaveClass(className(variant));
   });
 
-  it('renders a code', async () => {
+  it('renders a code', () => {
     const variant = 'code';
     const { typography } = renderTypography(variant);
 

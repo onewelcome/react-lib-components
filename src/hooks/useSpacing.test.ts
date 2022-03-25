@@ -1,25 +1,25 @@
 import { useSpacing } from './useSpacing';
 
 describe('useSpacing should set propert padding and margin css properties', () => {
-  it('should set padding and margin for 4 values definition', async () => {
+  it('should set padding and margin for 4 values definition', () => {
     const styles = useSpacing({ padding: '0 0.5 1 2', margin: '0 0.5 1 2' });
     expect(styles).toHaveProperty('padding', '0rem 0.125rem 0.25rem 0.5rem');
     expect(styles).toHaveProperty('margin', '0rem 0.125rem 0.25rem 0.5rem');
   });
 
-  it('should set padding and margin for 3 values definition', async () => {
+  it('should set padding and margin for 3 values definition', () => {
     const styles = useSpacing({ padding: '3 4 5', margin: '3 4 5' });
     expect(styles).toHaveProperty('padding', '0.75rem 1rem 1.25rem');
     expect(styles).toHaveProperty('margin', '0.75rem 1rem 1.25rem');
   });
 
-  it('should set padding and margin for 2 values definition', async () => {
+  it('should set padding and margin for 2 values definition', () => {
     const styles = useSpacing({ padding: '6 7', margin: '6 7' });
     expect(styles).toHaveProperty('padding', '1.5rem 1.75rem');
     expect(styles).toHaveProperty('margin', '1.5rem 1.75rem');
   });
 
-  it('should set padding and margin for 1 value definition', async () => {
+  it('should set padding and margin for 1 value definition', () => {
     const styles = useSpacing({ padding: 8, margin: '8' });
     expect(styles).toHaveProperty('padding', '2rem');
     expect(styles).toHaveProperty('margin', '2rem');
@@ -50,12 +50,12 @@ describe('useSpacing should set propert padding and margin css properties', () =
 });
 
 describe('useSpacing should add/repalce properties in passed style object', () => {
-  it('should add properties to style object', async () => {
+  it('should add properties to style object', () => {
     const styles = useSpacing({ padding: 8, margin: '8' }, { backgroundColor: 'red' });
     expect(styles).toStrictEqual({ padding: '2rem', margin: '2rem', backgroundColor: 'red' });
   });
 
-  it('should add and replace properties to style object', async () => {
+  it('should add and replace properties to style object', () => {
     const styles = useSpacing(
       { padding: 8, margin: '8' },
       { padding: '2px', paddingTop: 2, backgroundColor: 'red' }

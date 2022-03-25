@@ -15,8 +15,8 @@ import { Typography } from '../../src/Typography/Typography';
 
 # Spacing
 
-Spacing helps create consistient spacing between elements in your application.
-Margins and paddings can be set via `spacing` component propery.
+Spacing helps create consistent spacing between elements in your application.
+Margins and paddings can be set via the `spacing` component property.
 
 4px (0.25rem) scaling factor is used in <Typography tag="span" children={projectName} />.
 
@@ -24,13 +24,13 @@ Spacing multiplies provided value via factor.
 
 ## Setting spacings to components
 
-Components consumes object as a `spacing` property:
+Components consume object as a `spacing` property:
 
 ```jsx
 <Typography spacing={{ margin: 4 }}>1rem margin</Typography>
 ```
 
-Above example sets margin to be `1rem` (`4 * 0.25rem`).
+The above example sets the margin as `1rem` (`4 * 0.25rem`).
 
 `spacing` configures beneath properties:
 
@@ -46,7 +46,7 @@ Above example sets margin to be `1rem` (`4 * 0.25rem`).
 - marginRight
 
 `margin` and `padding` respect single, double, triple and quadruple values provided as a string property or single number value.
-All others consumes single number or string value. See beneath example:
+All others consume a single number or string value. See beneath example:
 
 ```jsx
 <Typography spacing={{ margin: '4 0 12 2' }}>1rem margin-top, 0 margin-right, 3rem margin-bottom, 0.5rem margin-left</Typography>
@@ -60,4 +60,4 @@ All others consumes single number or string value. See beneath example:
 
 ### Supported components
 
-For now spacing is supported only in `<Typography/>` component.
+For now, spacing is supported only in `<Typography/>` component.
