@@ -3,7 +3,7 @@ import { render, getByText } from '@testing-library/react';
 import { SnackbarContainer, Props } from './SnackbarContainer';
 
 const initParams: Props = {
-  position: { vertical: 'top', horizontal: 'center' },
+  placement: { vertical: 'top', horizontal: 'center' },
   children: <span>children</span>,
 };
 

@@ -141,15 +141,11 @@ describe('SnackbarProvider', () => {
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
 
     /** Looking for fourth one to be shown */
-    waitFor(
-      async () =>
-        await expect(findAllByText(document.body, successProps.title + '3')).toHaveLength(1)
-    );
+    waitFor(() => expect(findAllByText(document.body, successProps.title + '3')).toHaveLength(1));
 
     /** There shouldn't be any other snackbars */
-    waitFor(
-      async () =>
-        await expect(findAllByText(document.body, new RegExp(successProps.title))).not.toBeDefined()
+    waitFor(() =>
+      expect(findAllByText(document.body, new RegExp(successProps.title))).not.toBeDefined()
     );
   });
 

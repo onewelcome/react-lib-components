@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { SnackbarContextProvider } from './SnackbarStateProvider';
 import { Actions, SnackbarOptionsProps, Variant } from '../interfaces';
-import { Position, SnackbarContainer } from '../SnackbarContainer/SnackbarContainer';
+import { Placement, SnackbarContainer } from '../SnackbarContainer/SnackbarContainer';
 import { generateID } from '../../util/helper';
 import { SnackbarItem } from '../SnackbarItem/SnackbarItem';
 
@@ -15,7 +15,7 @@ interface Duration {
 export interface Props {
   closeButtonTitle: string;
   children?: React.ReactNode;
-  position?: Position;
+  placement?: Placement;
   stackSize?: number;
   domRoot?: HTMLElement;
   autoHideDuration?: Duration;
@@ -33,7 +33,7 @@ interface Item {
 export const SnackbarProvider = (
   {
     closeButtonTitle,
-    position = { vertical: 'bottom', horizontal: 'center' },
+    placement = { vertical: 'bottom', horizontal: 'center' },
     autoHideDuration = { long: 8000, short: 4000 },
     stackSize = 3,
     domRoot = document.body,
@@ -108,7 +108,7 @@ export const SnackbarProvider = (
   );
 
   const snackbarPortal = createPortal(
-    <SnackbarContainer position={position}>{snackbarList}</SnackbarContainer>,
+    <SnackbarContainer placement={placement}>{snackbarList}</SnackbarContainer>,
     domRoot
   );
 

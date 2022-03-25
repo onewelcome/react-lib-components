@@ -1,23 +1,23 @@
 import React from 'react';
 import classes from './SnackbarContainer.module.scss';
 
-export interface Position {
+export interface Placement {
   vertical: 'top' | 'bottom';
-  horizontal: 'left' | 'center' | 'right';
+  horizontal: 'start' | 'center' | 'end';
 }
 
 export interface Props {
-  position: Position;
+  placement: Placement;
   children?: React.ReactNode;
   zIndex?: number;
 }
 
-export const SnackbarContainer = ({ position, children, zIndex }: Props) => {
+export const SnackbarContainer = ({ placement, children, zIndex }: Props) => {
   return (
     <div
       style={{ zIndex }}
-      className={`${classes['snackbars']} ${classes[position.horizontal]} ${
-        classes[position.vertical]
+      className={`${classes['snackbars']} ${classes[placement.horizontal]} ${
+        classes[placement.vertical]
       }`}
     >
       {children}
