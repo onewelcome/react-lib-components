@@ -62,6 +62,7 @@ export const BaseWizardSteps = ({
           (stepState === 'future' && !futureStepsClickable) ||
           stepState === 'current'
         }
+        aria-current={stepState === 'current' ? 'step' : undefined}
         onClick={() => onClick && onClick(index)}
         className={`${classes['wizard-element']} ${classes[stepState]} ${clickableClassName} ${disabledStyleClassName}`}
       >
