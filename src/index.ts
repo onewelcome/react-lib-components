@@ -11,6 +11,9 @@ export { ModalActions } from './Modal/ModalActions/ModalActions';
 export { ModalContent } from './Modal/ModalContent/ModalContent';
 export { ModalHeader } from './Modal/ModalHeader/ModalHeader';
 
+export { SnackbarProvider } from './Snackbar/SnackbarProvider/SnackbarProvider';
+export { useSnackbar } from './Snackbar/useSnackbar';
+
 /** Form components */
 export { Form } from './Form/Form';
 export { Fieldset } from './Form/Fieldset/Fieldset';

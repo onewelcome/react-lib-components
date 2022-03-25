@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { SnackbarContextProvider } from './SnackbarStateProvider';
 import { Actions, SnackbarOptionsProps, Variant } from '../interfaces';
@@ -14,7 +14,7 @@ interface Duration {
 
 export interface Props {
   closeButtonTitle: string;
-  children?: React.ReactNode;
+  children?: ReactNode | ReactNode[];
   placement?: Placement;
   stackSize?: number;
   domRoot?: HTMLElement;
