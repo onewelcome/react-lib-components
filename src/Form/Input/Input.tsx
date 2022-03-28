@@ -45,7 +45,7 @@ export const Input = ({
       {...wrapperProps}
       style={{ ...style }}
       className={`${classes['input-wrapper']} ${wrapperProps?.className ?? ''} ${
-        type === 'hidden' && readyclasses.hidden
+        type === 'hidden' && readyclasses['hidden']
       }`}
     >
       <input
@@ -53,11 +53,13 @@ export const Input = ({
         aria-labelledby={labeledBy}
         type={type}
         name={name}
-        className={`${classes.input} ${error ? classes.error : ''} ${className ?? ''}`}
+        className={`${classes['input']} ${error ? classes['error'] : ''} ${
+          type === 'datetime-local' || type === 'time' ? classes['remove-extra-indent'] : ''
+        } ${className ?? ''}`}
       />
       {error && (
         <Icon
-          className={`${classes.warning} ${
+          className={`${classes['warning']} ${
             type === 'datetime-local' || type === 'time' ? classes['extra-indent'] : ''
           }`}
           icon={Icons.Warning}
