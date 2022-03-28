@@ -65,6 +65,7 @@ const Template: Story<Props> = (args) => {
     if (Number(event.target.valueAsNumber) < Date.now()) {
       setCallBackTime((prevState) => ({
         ...prevState,
+        time: event.target.value,
         error: true,
         errorMessage: "You can't select a time before right now!",
       }));

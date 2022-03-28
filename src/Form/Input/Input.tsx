@@ -12,6 +12,7 @@ export type Type =
   | 'password'
   | 'search'
   | 'tel'
+  | 'date'
   | 'time'
   | 'url'
   | 'datetime-local'
@@ -45,7 +46,7 @@ export const Input = ({
       {...wrapperProps}
       style={{ ...style }}
       className={`${classes['input-wrapper']} ${wrapperProps?.className ?? ''} ${
-        type === 'hidden' && readyclasses['hidden']
+        type === 'hidden' ? readyclasses['hidden'] : ''
       }`}
     >
       <input
