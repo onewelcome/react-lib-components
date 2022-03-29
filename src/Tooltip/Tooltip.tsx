@@ -39,7 +39,7 @@ export const Tooltip = ({
   const [identifier] = useState(generateID());
   const [visible, setVisible] = useState(false);
 
-  const relativeElement = useRef<HTMLDivElement>(null);
+  const relativeElement = useRef<HTMLOrSVGElement>(null);
   const elementToBePositioned = useRef<HTMLDivElement>(null);
 
   const { top, bottom, right, left, calculatePosition } = usePosition({

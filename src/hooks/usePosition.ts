@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-interface ConfigObject {
+export interface ConfigObject {
   relativeElement: React.RefObject<HTMLOrSVGElement> | undefined;
   elementToBePositioned: React.RefObject<HTMLOrSVGElement> | undefined;
   transformOrigin?: Placement;

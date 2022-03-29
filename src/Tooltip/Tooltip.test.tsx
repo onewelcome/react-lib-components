@@ -23,8 +23,27 @@ const createTooltip = (params?: (defaultParams: Props) => Props) => {
 
 describe('Tooltip should render', () => {
   it('renders without crashing', () => {
-    const { tooltip } = createTooltip();
+    const { tooltip, getByText } = createTooltip();
 
-    expect(tooltip).toBeDefined();
+    const tooltipText = getByText('This is a test message');
+    const label = getByText('Label');
+
+    expect(tooltipText).toHaveStyle({ top: '0px', left: '16px' });
+    expect(label).toBeTruthy();
+    expect(tooltipText).toBeTruthy();
+    expect(tooltip).toBeTruthy();
+  });
+
+  it('should override the default placement and offset values', () => {
+    const { tooltip, getByText } = createTooltip((defaultParams) => ({
+      ...defaultParams,
+      placement: { horizontal: 'center', vertical: 'center' },
+      offset: { top: 0, right: 16, left: 0, bottom: 16 },
+      transformOrigin: { horizontal: 'right', vertical: 'bottom' },
+    }));
+
+    const tooltipText = getByText('This is a test message');
+    expect(tooltipText).toHaveStyle({ right: '1024px', bottom: '768px' });
+    expect(tooltip).toBeTruthy();
   });
 });
