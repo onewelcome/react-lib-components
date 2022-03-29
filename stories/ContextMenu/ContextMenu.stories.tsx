@@ -49,7 +49,7 @@ const Template: Story<Props> = (args) => {
     window.addEventListener('click', handleCloseContextMenuOnBodyClick);
     return () => {
       /**
-       * Cleanup the eventlistener so we can set it again after expanded h  as changed.
+       * Cleanup the eventlistener so we can set it again after expanded has changed.
        */
       window.removeEventListener('click', handleCloseContextMenuOnBodyClick);
     };
@@ -211,7 +211,7 @@ export const ContextMenuEl = Template.bind({});
 ContextMenuEl.args = {
   id: 'example-contextmenu',
   trigger: (
-    <IconButton>
+    <IconButton title="click me for contextmenu">
       <Icon icon={Icons.EllipsisAlt} />
     </IconButton>
   ),

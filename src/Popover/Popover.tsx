@@ -1,4 +1,4 @@
-import React, { HTMLProps, ReactChild, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { HTMLProps, ReactNode, useEffect, useRef, useState } from 'react';
 import classes from './Popover.module.scss';
 
 export interface Placement {
@@ -12,7 +12,7 @@ export interface Offset {
 }
 
 export interface Props extends HTMLProps<HTMLDivElement> {
-  children?: ReactChild | ReactChild[];
+  children?: ReactNode;
   placement?: Placement;
   offset?: Offset;
   show?: boolean;
@@ -53,28 +53,25 @@ export const Popover = ({
 
     switch (placement?.vertical) {
       case 'top':
-        const topTop =
-          (el.getBoundingClientRect().top - offscreenOffset + offset.vertical!).toString() + 'px';
+        const topTop = el.getBoundingClientRect().top - offscreenOffset + offset.vertical! + 'px';
         setPosition((prevState) => ({ ...prevState, top: topTop }));
         break;
       case 'center':
         const topCenter =
-          (
-            el.getBoundingClientRect().top -
-            offscreenOffset +
-            el.offsetHeight / 2 +
-            offset.vertical!
-          ).toString() + 'px';
+          el.getBoundingClientRect().top -
+          offscreenOffset +
+          el.offsetHeight / 2 +
+          offset.vertical! +
+          'px';
         setPosition((prevState) => ({ ...prevState, top: topCenter }));
 
         break;
       case 'bottom':
         const topBottom =
-          (
-            el.getBoundingClientRect().top +
-            (offscreenOffset !== 0 ? -offscreenOffset : el.offsetHeight) +
-            offset.vertical!
-          ).toString() + 'px';
+          el.getBoundingClientRect().top +
+          (offscreenOffset !== 0 ? -offscreenOffset : el.offsetHeight) +
+          offset.vertical! +
+          'px';
         setPosition((prevState) => ({ ...prevState, top: topBottom }));
         break;
     }
@@ -88,28 +85,25 @@ export const Popover = ({
     switch (placement?.horizontal) {
       case 'start':
         const leftStart =
-          (el.getBoundingClientRect().left - offscreenOffset + offset.horizontal!).toString() +
-          'px';
+          el.getBoundingClientRect().left - offscreenOffset + offset.horizontal! + 'px';
         setPosition((prevState) => ({ ...prevState, left: leftStart, right: 'initial' }));
         break;
       case 'center':
         const leftCenter =
-          (
-            el.getBoundingClientRect().left -
-            (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth / 2) +
-            offset.horizontal!
-          ).toString() + 'px';
+          el.getBoundingClientRect().left -
+          (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth / 2) +
+          offset.horizontal! +
+          'px';
 
         setPosition((prevState) => ({ ...prevState, left: leftCenter, right: 'initial' }));
 
         break;
       case 'end':
         const leftEnd =
-          (
-            el.getBoundingClientRect().left +
-            (offscreenOffset !== 0 ? -offscreenOffset : el.offsetWidth) +
-            offset.horizontal!
-          ).toString() + 'px';
+          el.getBoundingClientRect().left +
+          (offscreenOffset !== 0 ? -offscreenOffset : el.offsetWidth) +
+          offset.horizontal! +
+          'px';
         setPosition((prevState) => ({ ...prevState, left: leftEnd, right: 'initial' }));
         break;
     }
@@ -124,31 +118,28 @@ export const Popover = ({
     switch (placement?.horizontal) {
       case 'end':
         const rightEnd =
-          (
-            window.innerWidth -
-            (el.getBoundingClientRect().right + offscreenOffset) +
-            offset.horizontal!
-          ).toString() + 'px';
+          window.innerWidth -
+          (el.getBoundingClientRect().right + offscreenOffset) +
+          offset.horizontal! +
+          'px';
         setPosition((prevState) => ({ ...prevState, right: rightEnd, left: 'initial' }));
         break;
       case 'center':
         const rightCenter =
-          (
-            window.innerWidth -
-            (el.getBoundingClientRect().right +
-              (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth / 2)) +
-            offset.horizontal!
-          ).toString() + 'px';
+          window.innerWidth -
+          (el.getBoundingClientRect().right +
+            (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth / 2)) +
+          offset.horizontal! +
+          'px';
         setPosition((prevState) => ({ ...prevState, right: rightCenter, left: 'initial' }));
         break;
       case 'start':
         const rightStart =
-          (
-            window.innerWidth -
-            (el.getBoundingClientRect().right +
-              (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth)) +
-            offset.horizontal!
-          ).toString() + 'px';
+          window.innerWidth -
+          (el.getBoundingClientRect().right +
+            (offscreenOffset !== 0 ? offscreenOffset : -el.offsetWidth)) +
+          offset.horizontal! +
+          'px';
         setPosition((prevState) => ({ ...prevState, right: rightStart, left: 'initial' }));
     }
   };

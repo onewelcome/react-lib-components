@@ -38,15 +38,14 @@ export const ContextMenu = ({
     onShow();
   };
 
-  const renderTrigger = () => {
-    return React.cloneElement(trigger, {
+  const renderTrigger = () =>
+    React.cloneElement(trigger, {
       id: id,
       ['aria-haspopup']: 'true',
       ['aria-controls']: `${id}-menu`,
       ['aria-expanded']: show,
       onClick: handleClick,
     });
-  };
 
   return (
     <div className={classes['context-menu']} {...rest}>
