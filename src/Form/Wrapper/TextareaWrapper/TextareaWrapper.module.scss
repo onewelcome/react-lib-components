@@ -1,0 +1,14 @@
+.textarea-label {
+  left: calc(
+    1.25rem + 2px
+  ); // 2px is for offset of the textarea border. It's relative to the parent div which doesn't have a border.
+}
+
+.textarea {
+  padding: 1.5rem 1.25rem 1.25rem;
+}
+
+.textarea-helper-text {
+  margin-top: 0.5rem;
+  margin-left: 1.25rem;
+}

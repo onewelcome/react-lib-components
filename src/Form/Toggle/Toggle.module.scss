@@ -1,0 +1,50 @@
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.toggle {
+  width: 2rem;
+  height: 1.25rem;
+  background-color: var(--default);
+  border-radius: 2.5rem;
+  position: relative;
+  transition: background-color 0.2s ease-in-out;
+  display: block;
+  pointer-events: none;
+
+  &:before {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    display: block;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(0);
+    left: 0.125rem;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &.checked {
+    background-color: var(--color-primary);
+    &:before {
+      transform: translateY(-50%) translateX(calc(100% - 0.25rem));
+    }
+  }
+}
+
+.checkbox {
+  z-index: 10;
+  position: static;
+
+  input {
+    width: 2rem;
+  }
+
+  input + [aria-hidden] {
+    display: none;
+  }
+}
