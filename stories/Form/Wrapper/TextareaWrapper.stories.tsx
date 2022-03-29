@@ -10,6 +10,9 @@ const meta: Meta = {
     required: {
       control: 'boolean',
     },
+    fieldsetDisabled: {
+      control: 'boolean',
+    },
   },
 };
 

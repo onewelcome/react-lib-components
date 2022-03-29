@@ -16,6 +16,7 @@ export interface Props extends Omit<FormGroupProps, 'children'> {
   name: string;
   /** This does NOT add validation! It simply adds an asterix on the Label! */
   required?: boolean;
+  innerClassName?: string;
 }
 
 /** For components that extend this component we create an interface (InputWrapper, SelectWrapper, etc.) */
@@ -27,6 +28,7 @@ export interface WrapperProps extends HTMLProps<HTMLDivElement> {
   label?: string;
   name: string;
   required?: boolean;
+  fieldsetDisabled?: boolean;
 }
 
 export const Wrapper = ({
@@ -48,6 +50,7 @@ export const Wrapper = ({
   label,
   fieldsetDisabled,
   name,
+  innerClassName,
   ...rest
 }: Props) => {
   const renderChildren = () =>
@@ -70,7 +73,11 @@ export const Wrapper = ({
         helperProps={helperProps}
         helperIndent={helperIndent}
       >
-        <div className={floatingLabel ? classes['floating-wrapper'] : ''}>
+        <div
+          className={`${floatingLabel ? classes['floating-wrapper'] : ''} ${
+            innerClassName ? innerClassName : ''
+          }`}
+        >
           {label && (
             <Label
               {...labelProps}
