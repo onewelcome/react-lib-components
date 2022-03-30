@@ -1,29 +1,37 @@
 import React from 'react';
-import { render, getByText } from '@testing-library/react';
 import { SnackbarContainer, Props } from './SnackbarContainer';
+import { render } from '@testing-library/react';
 
-const initParams: Props = {
+const defaultParams: Props = {
   placement: { vertical: 'top', horizontal: 'center' },
   children: <span>children</span>,
 };
 
-const getSnackbarContainer = (container: HTMLElement) => container.children[0];
+const createSnackbarContainer = (params?: (defaultParams: Props) => Props) => {
+  let parameters: Props = defaultParams;
+  if (params) {
+    parameters = params(defaultParams);
+  }
+  const queries = render(<SnackbarContainer {...parameters} data-testid="snackbarcontainer" />);
+  const snackbarcontainer = queries.getByTestId('snackbarcontainer');
+  return { ...queries, snackbarcontainer };
+};
 
-describe('SnackbarContainer', () => {
+describe('SnackbarContainer should render', () => {
   it('renders without crashing', () => {
-    const { container } = render(<SnackbarContainer {...initParams} />);
-    const snackbarContainer = getSnackbarContainer(container);
-
-    expect(snackbarContainer).toHaveClass('top');
-    expect(snackbarContainer).toHaveClass('center');
-    expect(snackbarContainer).toHaveStyle({ zIndex: '' });
-    expect(getByText(container, 'children')).toBeDefined();
+    const { snackbarcontainer, getByText } = createSnackbarContainer();
+    expect(snackbarcontainer).toHaveClass('top');
+    expect(snackbarcontainer).toHaveClass('center');
+    expect(snackbarcontainer).toHaveStyle({ zIndex: '' });
+    expect(getByText('children')).toBeDefined();
+    expect(snackbarcontainer).toBeDefined();
   });
 
   it('renders with zIndex', () => {
-    const { container } = render(<SnackbarContainer {...initParams} zIndex={1} />);
-    const snackbarContainer = getSnackbarContainer(container);
-
-    expect(snackbarContainer).toHaveStyle({ zIndex: '1' });
+    const { snackbarcontainer } = createSnackbarContainer((defaultParams) => ({
+      ...defaultParams,
+      zIndex: 1,
+    }));
+    expect(snackbarcontainer).toHaveStyle({ zIndex: '1' });
   });
 });

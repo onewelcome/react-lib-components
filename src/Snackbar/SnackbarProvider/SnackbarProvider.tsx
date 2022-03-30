@@ -19,6 +19,7 @@ export interface Props {
   stackSize?: number;
   domRoot?: HTMLElement;
   autoHideDuration?: Duration;
+  className?: string;
 }
 
 interface Item {
@@ -38,6 +39,7 @@ export const SnackbarProvider = (
     stackSize = 3,
     domRoot = document.body,
     children,
+    className,
   }: Props = { closeButtonTitle: '' }
 ) => {
   const [snackbars, setSnackbars] = useState<Item[]>([]);
@@ -108,7 +110,9 @@ export const SnackbarProvider = (
   );
 
   const snackbarPortal = createPortal(
-    <SnackbarContainer placement={placement}>{snackbarList}</SnackbarContainer>,
+    <SnackbarContainer placement={placement} className={className}>
+      {snackbarList}
+    </SnackbarContainer>,
     domRoot
   );
 

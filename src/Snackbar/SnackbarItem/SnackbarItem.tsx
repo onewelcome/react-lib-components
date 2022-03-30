@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { IconButton } from '../../Button/IconButton';
 import { Icon, Icons } from '../../Icon/Icon';
 import { Variant, Actions } from '../interfaces';
 import classes from './SnackbarItem.module.scss';
 import readyclasses from '../../readyclasses.module.scss';
+import { useAnimation } from '../../hooks/useAnimation';
 
 const textColor = 'var(--snackbar-text-color)';
 
@@ -17,25 +18,6 @@ export interface Props {
   content?: string;
   actions?: Actions;
 }
-
-const useAnimation = <RefElement extends HTMLElement>(callback: () => void) => {
-  const animatedObjectRef = useRef<RefElement>(null);
-  /** We need to store flag that says us when to call the callback - there might be other animation already applied */
-  const [animationStarted, setAnimationStarted] = useState(false);
-
-  const onAnimationEnd = () => animationStarted && callback();
-
-  useEffect(() => {
-    animatedObjectRef.current?.addEventListener('animationend', onAnimationEnd);
-    return () => animatedObjectRef.current?.removeEventListener('animationend', onAnimationEnd);
-  }, [animationStarted]);
-
-  return {
-    ref: animatedObjectRef,
-    animationStarted,
-    startAnimation: () => setAnimationStarted(true),
-  };
-};
 
 export const SnackbarItem = ({
   id,

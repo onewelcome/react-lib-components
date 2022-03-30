@@ -4,10 +4,11 @@ import {
   getByTestId,
   getAllByText,
   waitFor,
-  findAllByText,
   getAllByRole,
   getByText,
   findByText,
+  findAllByText,
+  queryByText,
 } from '@testing-library/react';
 import { SnackbarProvider, Props } from './SnackbarProvider';
 import { useSnackbar } from '../useSnackbar';
@@ -141,15 +142,15 @@ describe('SnackbarProvider', () => {
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
 
     /** Looking for fourth one to be shown */
-    waitFor(() => expect(findAllByText(document.body, successProps.title + '3')).toHaveLength(1));
+    waitFor(() => expect(getAllByText(document.body, successProps.title + '3')).toHaveLength(1));
 
     /** There shouldn't be any other snackbars */
     waitFor(() =>
-      expect(findAllByText(document.body, new RegExp(successProps.title))).not.toBeDefined()
+      expect(getAllByText(document.body, new RegExp(successProps.title))).not.toBeDefined()
     );
   });
 
-  it('should close snackbar after clicking X button', () => {
+  it('should close snackbar after clicking X button', async () => {
     const { showSuccessSnackbarBtn } = renderSnackbarProvider({
       autoHideDuration: { long: 1_000_000, short: 1_000_000 },
     });
@@ -165,16 +166,14 @@ describe('SnackbarProvider', () => {
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
 
     userEvent.click(closeButtons[0]);
-    waitFor(() =>
-      expect(getAllByText(document.body, new RegExp(successProps.title + '[12]+'))).toHaveLength(2)
-    );
+    expect(
+      await findAllByText(document.body, new RegExp(successProps.title + '[12]+'))
+    ).toHaveLength(2);
 
     userEvent.click(closeButtons[1]);
-    waitFor(() => expect(getByText(document.body, successProps.title + '2')).toBeDefined());
+    expect(await findByText(document.body, successProps.title + '2')).toBeDefined();
 
     userEvent.click(closeButtons[2]);
-    waitFor(() =>
-      expect(findByText(document.body, new RegExp(successProps.title))).not.toBeDefined()
-    );
+    waitFor(() => expect(queryByText(document.body, new RegExp(successProps.title))).toBeNull());
   });
 });

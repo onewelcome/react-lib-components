@@ -23,7 +23,7 @@ export const IconButton = ({
     <BaseButton
       {...rest}
       className={`${classes['icon-button']} ${classes[color]} ${classes['button-' + iconSize]} ${
-        className ?? className
+        className ?? ''
       }`}
     >
       <>
