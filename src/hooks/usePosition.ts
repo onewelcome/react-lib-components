@@ -72,6 +72,19 @@ const defaultConfigObject: ConfigObject = {
 
 export const usePosition = (configObject: ConfigObject = defaultConfigObject) => {
   configObject = { ...defaultConfigObject, ...configObject };
+
+  if (configObject.transformOrigin === undefined) {
+    configObject.transformOrigin = defaultConfigObject.transformOrigin;
+  }
+
+  if (configObject.placement === undefined) {
+    configObject.placement = defaultConfigObject.placement;
+  }
+
+  if (configObject.offset === undefined) {
+    configObject.offset = defaultConfigObject.offset;
+  }
+
   const [position, setPosition] = useState<Position>({
     left: 0,
     top: 0,
@@ -252,6 +265,7 @@ export const usePosition = (configObject: ConfigObject = defaultConfigObject) =>
   };
 
   const calculatePosition = () => {
+    if (!configObject.relativeElement?.current) return;
     const relativeElRect = (configObject.relativeElement!
       .current as HTMLElement)!.getBoundingClientRect();
     const elementToBePositionedDimensions: Dimensions = {
