@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { Icon as IconComponent, Props, Icons } from '../../src/Icon/Icon';
 
 const meta: Meta = {
-  title: 'Icons/Icon',
+  title: 'UI/Icon',
   component: IconComponent,
   argTypes: {
     color: {
