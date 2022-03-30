@@ -4,41 +4,46 @@ import { Button, Props } from '../../src/Button/Button';
 import { Icon, Icons } from '../../src/Icon/Icon';
 
 const meta: Meta = {
-  title: 'Button',
+  title: 'UI/Button',
   component: Button,
   argTypes: {
-    children: {
-      defaultValue: 'I am a button',
-    },
-    color: {
-      defaultValue: 'primary',
-    },
-    variant: {
-      defaultValue: 'fill',
-    },
-    type: {
-      defaultValue: 'button',
-    },
     startIcon: {
-      defaultValue: false,
+      options: Icons,
+      control: {
+        type: 'select',
+      },
     },
     endIcon: {
-      defaultValue: false,
+      options: Icons,
+      control: {
+        type: 'select',
+      },
     },
   },
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => <Button title="This is a button" {...args} />;
+const Template: Story<Props> = (args) => (
+  <Button title="This is a button" {...args}>
+    This is a button
+  </Button>
+);
 
 export const FilledButton = Template.bind({});
+
+FilledButton.args = {
+  color: 'primary',
+  variant: 'fill',
+  type: 'button',
+};
 
 export const OutlineButton = Template.bind({});
 
 OutlineButton.args = {
   color: 'primary',
   variant: 'outline',
+  type: 'button',
 };
 
 export const TextButton = Template.bind({});
@@ -46,6 +51,7 @@ export const TextButton = Template.bind({});
 TextButton.args = {
   color: 'primary',
   variant: 'text',
+  type: 'button',
 };
 
 export const StartIconButton = Template.bind({});
@@ -53,10 +59,16 @@ export const EndIconButton = Template.bind({});
 
 StartIconButton.args = {
   startIcon: <Icon icon={Icons.Calendar} />,
+  color: 'primary',
+  variant: 'fill',
+  type: 'button',
 };
 
 EndIconButton.args = {
   endIcon: <Icon icon={Icons.Calendar} />,
+  color: 'primary',
+  variant: 'fill',
+  type: 'button',
 };
 
 export const DisabledButton = Template.bind({});

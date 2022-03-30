@@ -10,7 +10,12 @@ interface CSSProperties {
   buttonFontSize?: string;
   buttonBorderStyle?: string;
   buttonFillTextColor?: string;
+  buttonFillBackgroundColor?: string;
   buttonOutlineHoverTextColor?: string;
+  inputBorderColor?: string;
+  inputBorderRadius?: string;
+  inputBorderWidth?: string;
+  inputBorderStyle?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
   modalHeaderBackgroundColor?: string;
@@ -44,10 +49,15 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     defaultLineHeight: '26px',
     buttonBorderRadius: '20px',
     buttonBorderWidth: '2px',
-    buttonFontSize: '16px',
+    buttonFontSize: '1rem',
     buttonBorderStyle: 'solid',
     buttonFillTextColor: '#FFF',
+    buttonFillBackgroundColor: '#FFF',
     buttonOutlineHoverTextColor: '#FFF',
+    inputBorderColor: '#e9e9eb',
+    inputBorderRadius: '8px',
+    inputBorderWidth: '1px',
+    inputBorderStyle: 'solid',
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',
     modalBackgroundColor: '#F5F8F8',
     modalHeaderBackgroundColor: '#FFF',

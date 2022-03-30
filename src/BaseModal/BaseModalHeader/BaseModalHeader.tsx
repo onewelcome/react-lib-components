@@ -18,7 +18,7 @@ export const BaseModalHeader = ({ id, title, children, onClose, ...restProps }: 
         <Typography id={id} className={classes['title']} tag="h1" variant="h4">
           {title}
         </Typography>
-        <IconButton onClick={onClose} className={classes['closeBtn']} aria-label="close modal">
+        <IconButton onClick={onClose} className={classes['closeBtn']} title="close modal">
           <Icon icon={Icons.Times} />
         </IconButton>
       </div>

@@ -1,0 +1,20 @@
+.fieldset {
+  border: 0;
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  margin: 0;
+
+  &.no-padding {
+    padding: 0;
+  }
+
+  + .wrapper,
+  + .fieldset {
+    margin-top: 1rem;
+  }
+
+  .title {
+    display: block;
+    margin-bottom: 1rem;
+  }
+}

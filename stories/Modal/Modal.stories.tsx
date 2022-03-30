@@ -8,7 +8,7 @@ import { Button } from '../../src/Button/Button';
 import { Typography } from '../../src/Typography/Typography';
 
 const meta: Meta = {
-  title: 'Modal',
+  title: 'UI/Modal',
   component: Modal,
   args: {
     id: 'modal',

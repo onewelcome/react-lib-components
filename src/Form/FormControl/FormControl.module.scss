@@ -1,0 +1,58 @@
+.form-control {
+  + .form-control {
+    margin-top: 1rem;
+  }
+
+  &.grid {
+    display: flex;
+    flex-wrap: wrap;
+
+    &.center,
+    &.middle {
+      align-items: center;
+    }
+
+    &.start,
+    &.top {
+      align-items: flex-start;
+    }
+
+    &.end,
+    &.bottom {
+      align-items: flex-end;
+    }
+  }
+}
+
+.column {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.grid-2 {
+  .column:nth-child(even) {
+    margin-left: 1rem;
+  }
+
+  .column:nth-child(n + 3) {
+    margin-top: 1rem;
+  }
+}
+
+.grid-3 {
+  .column:not(:nth-child(3n + 1)) {
+    margin-left: 1rem;
+  }
+
+  .column:nth-child(n + 4) {
+    margin-top: 1rem;
+  }
+}
+
+.col-2 {
+  flex-basis: calc(calc(100% - 1rem) / 2);
+}
+
+.col-3 {
+  flex-basis: calc(calc(100% - 2rem) / 3);
+}
