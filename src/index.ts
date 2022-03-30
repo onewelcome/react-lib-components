@@ -1,5 +1,6 @@
 /** Components */
 export { BaseStyling } from './_BaseStyling_/BaseStyling';
+export { Typography } from './Typography/Typography';
 export { Button } from './Button/Button';
 export { IconButton } from './Button/IconButton';
 
