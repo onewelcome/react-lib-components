@@ -5,6 +5,7 @@ import { Variant, Actions } from '../interfaces';
 import classes from './SnackbarItem.module.scss';
 import readyclasses from '../../readyclasses.module.scss';
 import { useAnimation } from '../../hooks/useAnimation';
+import { Typography } from '../../Typography/Typography';
 
 const textColor = 'var(--snackbar-text-color)';
 
@@ -67,10 +68,9 @@ export const SnackbarItem = ({
       <Icon icon={getVariantIcon()} className={classes['icon']} />
       <div className={classes['container']}>
         <div className={classes['headline']}>
-          {/* @TODO: change it to Typography*/}
-          <h4 className={classes['title']} style={{ fontSize: 20, lineHeight: '24px' }}>
+          <Typography className={classes['title']} variant="h4" tag="span">
             {title}
-          </h4>
+          </Typography>
           <IconButton
             onClick={() => startAnimation()}
             className={classes['close-btn']}
@@ -80,7 +80,11 @@ export const SnackbarItem = ({
           </IconButton>
         </div>
         {/* @TODO: change it to Typography*/}
-        {!!content && <p className={classes['content']}>{content}</p>}
+        {!!content && (
+          <Typography className={classes['content']} variant="body">
+            {content}
+          </Typography>
+        )}
         {actionButtons.length > 0 && <div className={classes['actions']}>{actionButtons}</div>}
       </div>
     </div>

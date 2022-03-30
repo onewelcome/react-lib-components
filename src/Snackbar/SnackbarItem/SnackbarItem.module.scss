@@ -57,6 +57,7 @@
   }
 
   .title {
+    color: var(--snackbar-text-color);
     flex: 1;
     margin: calc(0.5rem - 0.125rem) 1.25rem 0 0.75rem;
   }
@@ -64,9 +65,6 @@
   .content {
     margin: 0.25rem 0.75rem 0 0.75rem;
     color: var(--snackbar-text-color);
-    /*below to be removed*/
-    font-size: 16px;
-    line-height: 24px;
   }
 
   .actions {
