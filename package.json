@@ -15,10 +15,10 @@
     "build": "dts build",
     "build-storybook": "build-storybook",
     "lint": "dts lint",
-    "prepare": "husky install &&dts build",
+    "prepare": "husky install && dts build",
     "size": "size-limit",
     "start": "dts watch",
-    "prettier": "prettier --write --ignore-path .gitignore \"**/*.+(ts|tsx|scss)\"",
+    "prettier": "prettier --write --ignore-path .gitignore \"**/*.+(ts|tsx|scss|mdx)\"",
     "storybook": "start-storybook -p 6006",
     "test": "dts test --passWithNoTests"
   },
@@ -44,9 +44,9 @@
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@size-limit/preset-small-lib": "^7.0.8",
+    "@storybook/addon-docs": "^6.4.19",
     "@storybook/addon-a11y": "^6.4.18",
     "@storybook/addon-essentials": "^6.4.18",
-    "@storybook/addon-info": "^5.3.21",
     "@storybook/addon-links": "^6.4.18",
     "@storybook/addons": "^6.4.17",
     "@storybook/builder-webpack5": "^6.4.17",
