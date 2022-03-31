@@ -8,13 +8,14 @@ import { ContextMenuItem } from '../ContextMenu/ContextMenuItem';
 import { IconButton } from '../Button/IconButton';
 
 const onShow = jest.fn();
+const onClose = jest.fn();
 const contextMenuItemOnClick = jest.fn();
 
 const contextMenu = (
   <ContextMenu
     id="context_menu"
-    show={false}
     onShow={onShow}
+    onClose={onClose}
     trigger={
       <IconButton title="context menu">
         <Icon icon={Icons.EllipsisAlt} />
