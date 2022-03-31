@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 export interface ConfigObject {
-  relativeElement: React.RefObject<HTMLOrSVGElement> | undefined;
-  elementToBePositioned: React.RefObject<HTMLOrSVGElement> | undefined;
+  relativeElement: React.RefObject<HTMLOrSVGElement | ReactNode> | undefined;
+  elementToBePositioned: React.RefObject<HTMLOrSVGElement | ReactNode> | undefined;
   transformOrigin?: Placement;
   placement?: Placement;
   offset?: Offset;
