@@ -1,0 +1,10 @@
+.link {
+  color: var(--color-primary);
+  font-size: inherit;
+
+  &:focus,
+  &:hover,
+  &:active {
+    text-decoration-thickness: 0.125rem;
+  }
+}
