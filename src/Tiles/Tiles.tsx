@@ -3,7 +3,7 @@ import classes from './Tiles.module.scss';
 import { Tile } from './Tile';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
-  children: ReactNode[];
+  children: ReactNode;
   loading?: boolean;
   grid?: 1 | 2 | 3;
 }

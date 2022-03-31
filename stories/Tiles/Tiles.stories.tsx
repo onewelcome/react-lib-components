@@ -34,8 +34,8 @@ const Template: Story<Props> = (args) => {
         menu={
           <ContextMenu
             id="context_menu_1"
-            placement={{ vertical: 'bottom', horizontal: 'end' }}
-            transformOrigin="right"
+            placement={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             show={showContext1}
             onShow={() => {
               action('onShow');
@@ -64,8 +64,8 @@ const Template: Story<Props> = (args) => {
         menu={
           <ContextMenu
             id="context_menu_2"
-            placement={{ vertical: 'bottom', horizontal: 'end' }}
-            transformOrigin="right"
+            placement={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             show={showContext2}
             onShow={() => {
               action('onShow');
@@ -94,8 +94,8 @@ const Template: Story<Props> = (args) => {
         menu={
           <ContextMenu
             id="context_menu_3"
-            placement={{ vertical: 'bottom', horizontal: 'end' }}
-            transformOrigin="left"
+            placement={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             show={showContext3}
             onShow={() => {
               action('onShow');
@@ -124,8 +124,8 @@ const Template: Story<Props> = (args) => {
         menu={
           <ContextMenu
             id="context_menu_4"
-            placement={{ vertical: 'bottom', horizontal: 'end' }}
-            transformOrigin="right"
+            placement={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             show={showContext4}
             onShow={() => {
               action('onShow');
