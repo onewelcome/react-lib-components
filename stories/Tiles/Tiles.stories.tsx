@@ -16,11 +16,6 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = (args) => {
-  const [showContext1, setShowContext1] = useState(false);
-  const [showContext2, setShowContext2] = useState(false);
-  const [showContext3, setShowContext3] = useState(false);
-  const [showContext4, setShowContext4] = useState(false);
-
   return (
     <Tiles {...args}>
       <Tile
@@ -36,11 +31,6 @@ const Template: Story<Props> = (args) => {
             id="context_menu_1"
             placement={{ vertical: 'bottom', horizontal: 'right' }}
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            show={showContext1}
-            onShow={() => {
-              action('onShow');
-              setShowContext1(!showContext1);
-            }}
             trigger={
               <IconButton title="context menu">
                 <Icon icon={Icons.EllipsisAlt} />
@@ -66,11 +56,6 @@ const Template: Story<Props> = (args) => {
             id="context_menu_2"
             placement={{ vertical: 'bottom', horizontal: 'right' }}
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            show={showContext2}
-            onShow={() => {
-              action('onShow');
-              setShowContext2(!showContext2);
-            }}
             trigger={
               <IconButton title="context menu">
                 <Icon icon={Icons.EllipsisAlt} />
@@ -96,11 +81,6 @@ const Template: Story<Props> = (args) => {
             id="context_menu_3"
             placement={{ vertical: 'bottom', horizontal: 'right' }}
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            show={showContext3}
-            onShow={() => {
-              action('onShow');
-              setShowContext3(!showContext3);
-            }}
             trigger={
               <IconButton title="context menu">
                 <Icon icon={Icons.EllipsisAlt} />
@@ -126,11 +106,6 @@ const Template: Story<Props> = (args) => {
             id="context_menu_4"
             placement={{ vertical: 'bottom', horizontal: 'right' }}
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            show={showContext4}
-            onShow={() => {
-              action('onShow');
-              setShowContext4(!showContext4);
-            }}
             trigger={
               <IconButton title="context menu">
                 <Icon icon={Icons.EllipsisAlt} />
