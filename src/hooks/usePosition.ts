@@ -271,8 +271,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       elDimensions
     );
 
-    /** If after all the calculations done above, the value causes the elementToBePositioned to be outside of the viewport, we fix that. */
-
     return valueCorrectionForViewportOverflow;
   };
 
