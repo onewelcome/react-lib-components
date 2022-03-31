@@ -45,7 +45,7 @@ export const ContextMenu = ({
     });
 
   return (
-    <div className={classes['context-menu']} {...rest}>
+    <div {...rest} className={classes['context-menu']}>
       {renderTrigger()}
       <Popover
         placement={placement}
