@@ -11,6 +11,7 @@ export { Modal } from './Modal/Modal';
 export { ModalActions } from './Modal/ModalActions/ModalActions';
 export { ModalContent } from './Modal/ModalContent/ModalContent';
 export { ModalHeader } from './Modal/ModalHeader/ModalHeader';
+export { Tooltip } from './Tooltip/Tooltip';
 
 /** Form components */
 export { Form } from './Form/Form';
