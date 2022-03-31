@@ -114,17 +114,11 @@ export const Select = ({
 
   const statusIcon = () => {
     if (error) {
-      return <Icon className={classes.warning} icon={Icons.Warning} />;
+      return <Icon className={classes['warning']} icon={Icons.Warning} />;
     }
-
     if (value.length !== 0 && onClear) {
-      return (
-        <div onClick={onClear}>
-          <Icon icon={Icons.TimesThin} />
-        </div>
-      );
+      return <Icon tag="div" icon={Icons.TimesThin} onClick={onClear} />;
     }
-
     return null;
   };
 
@@ -153,6 +147,7 @@ export const Select = ({
         onClick={() => setExpanded(!expanded)}
         type="button"
         name={name}
+        disabled={disabled}
         aria-disabled={disabled}
         aria-invalid={error}
         aria-expanded={expanded}
@@ -160,15 +155,15 @@ export const Select = ({
         aria-labelledby={labeledBy}
         aria-describedby={describedBy}
       >
-        <div data-display className={classes.selected}>
+        <div data-display className={classes['selected']}>
           {value.length === 0 && placeholder && (
-            <span className={classes.placeholder}>{placeholder}</span>
+            <span className={classes['placeholder']}>{placeholder}</span>
           )}
           {value.length > 0 && <span>{display}</span>}
         </div>
-        <div className={classes.status}>
+        <div className={classes['status']}>
           {statusIcon()}
-          <Icon icon={Icons.TriangleDown} />
+          <Icon className={classes['triangle-down']} icon={Icons.TriangleDown} />
         </div>
       </button>
       <div
@@ -176,7 +171,9 @@ export const Select = ({
         style={{ display: expanded ? 'block' : 'none' }}
       >
         {Array.isArray(children) && children.length > 10 && renderSearch()}
-        <ul role="listbox">{renderOptions()}</ul>
+        <ul role="listbox" tabIndex={-1}>
+          {renderOptions()}
+        </ul>
       </div>
     </div>
   );

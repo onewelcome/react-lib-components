@@ -29,7 +29,7 @@ export const TextareaWrapper = ({
   onBlur,
   onMouseEnter,
   onMouseLeave,
-  fieldsetDisabled,
+  disabled,
   ...rest
 }: Props) => {
   const { errorId, floatingLabelActive, setFloatingLabelActive, setHasFocus, helperId, labelId } =
@@ -40,7 +40,7 @@ export const TextareaWrapper = ({
   return (
     <Wrapper
       {...rest}
-      fieldsetDisabled={fieldsetDisabled}
+      disabled={disabled}
       labelProps={{
         id: labelId,
         className: classes['textarea-label'],
@@ -86,7 +86,7 @@ export const TextareaWrapper = ({
         className={classes['textarea']}
         wrapperClassName={`${classes['textarea-wrapper']} ${focus ? classes['focus'] : ''} ${
           hover ? classes['hover'] : ''
-        } ${fieldsetDisabled ? classes['disabled'] : ''}`}
+        } ${disabled ? classes['disabled'] : ''}`}
         errorClassName={classes['error-icon']}
       />
     </Wrapper>

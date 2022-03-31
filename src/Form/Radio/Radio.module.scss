@@ -62,8 +62,8 @@
   width: 1.75rem;
   height: 1.75rem;
 
-  &:focus,
-  &:active {
+  &:not(:disabled):focus,
+  &:not(:disabled):active {
     + * {
       color: var(--color-primary);
 

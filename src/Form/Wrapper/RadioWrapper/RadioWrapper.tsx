@@ -21,6 +21,7 @@ export const RadioWrapper = ({
   fieldsetProps,
   value,
   onChange,
+  disabled,
   ...rest
 }: Props) => {
   const { errorId, helperId } = useWrapper(value);
@@ -34,21 +35,24 @@ export const RadioWrapper = ({
   }, []);
 
   const renderChildren = () =>
-    React.Children.map(children, (child) =>
-      React.cloneElement(child, {
+    React.Children.map(children, (child) => {
+      console.log(child, disabled);
+      return React.cloneElement(child, {
         parentErrorId: errorId,
         error: error,
         checked: child.props.value === value,
         name: name,
         parentHelperId: helperText ? helperId : false,
         onChange: onChange,
-      })
-    );
+        disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
+      });
+    });
 
   return (
     <Fieldset {...fieldsetProps}>
       <Wrapper
         {...rest}
+        disabled={disabled}
         name={name}
         label=""
         helperId={helperId}

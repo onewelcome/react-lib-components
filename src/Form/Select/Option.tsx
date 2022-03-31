@@ -3,8 +3,8 @@ import classes from './Select.module.scss';
 import { HTMLProps } from '../../interfaces';
 
 export interface Props extends HTMLProps<HTMLLIElement> {
-  children: string;
-  value: string;
+  children?: string;
+  value?: string;
   disabled?: boolean;
   selected?: boolean;
   label?: string;
@@ -18,7 +18,6 @@ export const Option = ({
   selected = false,
   onOptionSelect,
   disabled,
-  value,
   filter,
   ...rest
 }: Props) => {
@@ -30,7 +29,7 @@ export const Option = ({
 
   useEffect(() => {
     if (filter) {
-      setShowOption(children.toLowerCase().match(filter.toLowerCase()) !== null);
+      setShowOption(children?.toLowerCase().match(filter.toLowerCase()) !== null);
     } else {
       setShowOption(true);
     }

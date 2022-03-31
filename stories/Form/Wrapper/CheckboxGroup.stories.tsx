@@ -32,7 +32,7 @@ const meta: Meta = {
     required: {
       control: 'boolean',
     },
-    fieldsetDisabled: {
+    disabled: {
       control: 'boolean',
     },
   },

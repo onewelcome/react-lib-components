@@ -87,6 +87,13 @@ export const Checkbox = ({
     </ul>
   );
 
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (disabled) {
+      return;
+    }
+    onChange && onChange(event);
+  };
+
   /** Default return value is the default checkbox */
   return (
     <div
@@ -101,9 +108,7 @@ export const Checkbox = ({
           disabled={disabled}
           className={classes['native-input']}
           checked={checked}
-          onChange={(event) => {
-            onChange && onChange(event);
-          }}
+          onChange={onChangeHandler}
           aria-invalid={error as boolean}
           aria-checked={indeterminate ? 'mixed' : checked}
           aria-describedby={describedBy}

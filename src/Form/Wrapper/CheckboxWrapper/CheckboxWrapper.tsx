@@ -36,6 +36,7 @@ export const CheckboxWrapper = ({
         parentErrorId: errorId,
         error: error,
         parentHelperId: helperText ? helperId : false,
+        disabled: rest.disabled,
       })
     );
 

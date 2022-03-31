@@ -8,7 +8,6 @@ import { HTMLProps } from '../../../interfaces';
 export interface Props extends Omit<FormGroupProps, 'children'> {
   children: ReactElement | ReactElement[];
   floatingLabelActive?: boolean;
-  fieldsetDisabled?: boolean;
   floatingLabel?: boolean;
   helperIndent?: number;
   label?: string;
@@ -28,7 +27,6 @@ export interface WrapperProps extends HTMLProps<HTMLDivElement> {
   label?: string;
   name: string;
   required?: boolean;
-  fieldsetDisabled?: boolean;
 }
 
 export const Wrapper = ({
@@ -48,7 +46,7 @@ export const Wrapper = ({
   helperIndent,
   labelProps,
   label,
-  fieldsetDisabled,
+  disabled,
   name,
   innerClassName,
   ...rest
@@ -56,7 +54,7 @@ export const Wrapper = ({
   const renderChildren = () =>
     React.Children.map(children, (child) =>
       React.cloneElement(child, {
-        disabled: fieldsetDisabled,
+        disabled,
       })
     );
 

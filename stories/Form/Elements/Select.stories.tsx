@@ -35,6 +35,9 @@ const meta: Meta = {
       ],
       control: 'select',
     },
+    disabled: {
+      control: 'boolean',
+    },
   },
 };
 

@@ -5,13 +5,12 @@ import { HTMLProps } from '../../interfaces';
 export interface Props extends HTMLProps<HTMLDivElement> {
   children: ReactElement | ReactElement[];
   grid?: 1 | 2 | 3;
-  fieldsetDisabled?: boolean;
   align?: 'top' | 'start' | 'middle' | 'center' | 'bottom' | 'end';
 }
 
 export const FormControl = ({
   children,
-  fieldsetDisabled,
+  disabled,
   className,
   grid,
   align = 'center',
@@ -24,7 +23,7 @@ export const FormControl = ({
       }
 
       const childElement = React.cloneElement(child, {
-        disabled: fieldsetDisabled,
+        disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
       });
 
       if (grid && grid > 1) {

@@ -13,7 +13,7 @@ const meta: Meta = {
         type: 'select',
       },
     },
-    fieldsetDisabled: {
+    disabled: {
       control: 'boolean',
     },
   },
