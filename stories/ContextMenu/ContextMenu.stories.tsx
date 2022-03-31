@@ -33,11 +33,11 @@ const Template: Story<Props> = (args) => {
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [placement, setPlacement] = useState<Placement>({
     vertical: 'bottom',
-    horizontal: 'right',
+    horizontal: 'left',
   });
   const [transformOrigin, setTransformOrigin] = useState<Placement>({
     vertical: 'top',
-    horizontal: 'right',
+    horizontal: 'left',
   });
 
   useBodyClick(
