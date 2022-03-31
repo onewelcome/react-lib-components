@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 export interface ConfigObject {
-  relativeElement: React.RefObject<HTMLOrSVGElement> | undefined;
-  elementToBePositioned: React.RefObject<HTMLOrSVGElement> | undefined;
+  relativeElement: RefElement;
+  elementToBePositioned: RefElement;
   transformOrigin?: Placement;
   placement?: Placement;
   offset?: Offset;
@@ -10,6 +10,9 @@ export interface ConfigObject {
 
 export type HorizontalPlacment = 'left' | 'center' | 'centerh' | 'right';
 export type VerticalPlacement = 'top' | 'center' | 'centerv' | 'bottom';
+
+type Axis = 'vertical' | 'horizontal';
+type RefElement = React.RefObject<HTMLOrSVGElement> | undefined;
 
 interface DomRectObject {
   top: number;
@@ -70,8 +73,8 @@ const defaultConfigObject: ConfigObject = {
   },
 };
 
-export const usePosition = (configObject: ConfigObject = defaultConfigObject) => {
-  configObject = { ...defaultConfigObject, ...configObject };
+export const usePosition = (providedConfigObject: ConfigObject = defaultConfigObject) => {
+  const configObject = { ...defaultConfigObject, ...providedConfigObject };
 
   if (configObject.transformOrigin === undefined) {
     configObject.transformOrigin = defaultConfigObject.transformOrigin;
@@ -92,56 +95,66 @@ export const usePosition = (configObject: ConfigObject = defaultConfigObject) =>
     bottom: 'initial',
   });
 
-  const _calculatePlacementValue = (
+  const _fixPossibleViewportOverflow = (
+    value: number,
     transformOrigin: Placement,
-    placement: HorizontalPlacment | VerticalPlacement,
-    requestedReturnValue: 'vertical' | 'horizontal',
-    relEl: DomRectObject,
+    requestedReturnValue: Axis,
     elDimensions: Dimensions
-  ): number => {
-    let value = 0;
-    let placementOriginDefinition = placement;
+  ) => {
+    let returnValue = value;
 
-    if (requestedReturnValue === 'horizontal' && placement === 'center') {
-      placementOriginDefinition = 'centerh';
-    }
-
-    if (requestedReturnValue === 'vertical' && placement === 'center') {
-      placementOriginDefinition = 'centerv';
+    if (
+      (transformOrigin[requestedReturnValue] === 'left' && returnValue < 0) ||
+      (transformOrigin[requestedReturnValue] === 'top' && returnValue < 0) ||
+      (transformOrigin[requestedReturnValue] === 'center' && returnValue < 0) ||
+      (transformOrigin[requestedReturnValue] === 'bottom' && returnValue < 0)
+    ) {
+      returnValue = 0;
     }
 
     if (
-      transformOrigin[requestedReturnValue] === 'left' ||
-      transformOrigin[requestedReturnValue] === 'top'
+      (transformOrigin[requestedReturnValue] === 'left' &&
+        returnValue > window.innerWidth - elDimensions.width) ||
+      (transformOrigin[requestedReturnValue] === 'center' &&
+        requestedReturnValue === 'horizontal' &&
+        returnValue > window.innerWidth - elDimensions.width)
     ) {
-      value = relEl[placementOriginDefinition];
-    }
-
-    if (transformOrigin[requestedReturnValue] === 'center') {
-      value =
-        relEl[placementOriginDefinition] -
-        elDimensions[requestedReturnValue === 'horizontal' ? 'width' : 'height'] / 2;
+      returnValue = window.innerWidth - elDimensions.width;
     }
 
     if (
-      transformOrigin[requestedReturnValue] === 'right' ||
-      transformOrigin[requestedReturnValue] === 'bottom'
+      (transformOrigin[requestedReturnValue] === 'top' &&
+        returnValue > window.innerHeight - elDimensions.height) ||
+      (transformOrigin[requestedReturnValue] === 'center' &&
+        requestedReturnValue === 'vertical' &&
+        returnValue > window.innerHeight - elDimensions.height)
     ) {
-      value =
-        window[requestedReturnValue === 'horizontal' ? 'innerWidth' : 'innerHeight'] -
-        relEl[placementOriginDefinition];
+      returnValue = window.innerHeight - elDimensions.height;
     }
 
     if (
-      (transformOrigin[requestedReturnValue] === 'bottom' && value > window.innerHeight) ||
-      (transformOrigin[requestedReturnValue] === 'right' && value > window.innerWidth)
+      transformOrigin[requestedReturnValue] === 'right' &&
+      returnValue > window.innerWidth - elDimensions.width
     ) {
-      value =
-        window[requestedReturnValue === 'horizontal' ? 'innerWidth' : 'innerHeight'] -
-        elDimensions[requestedReturnValue === 'horizontal' ? 'width' : 'height'];
+      returnValue = window.innerWidth - elDimensions.width;
     }
 
-    /** Calculate the proper value when we have an offset. */
+    if (
+      transformOrigin[requestedReturnValue] === 'bottom' &&
+      returnValue > window.innerHeight - elDimensions.height
+    ) {
+      returnValue = window.innerHeight - elDimensions.height;
+    }
+
+    return returnValue;
+  };
+
+  const _applyOffsetToPlacementValue = (
+    value: number,
+    requestedReturnValue: Axis,
+    transformOrigin: Placement
+  ) => {
+    let returnValue = value;
     if (
       (requestedReturnValue === 'horizontal' && configObject.offset?.left !== 0) ||
       (requestedReturnValue === 'horizontal' && configObject.offset?.right !== 0)
@@ -150,13 +163,13 @@ export const usePosition = (configObject: ConfigObject = defaultConfigObject) =>
         transformOrigin[requestedReturnValue] === 'left' ||
         transformOrigin[requestedReturnValue] === 'center'
       ) {
-        value += configObject.offset?.left!;
-        value -= configObject.offset?.right!;
+        returnValue += configObject.offset?.left!;
+        returnValue -= configObject.offset?.right!;
       }
 
       if (transformOrigin[requestedReturnValue] === 'right') {
-        value -= configObject.offset?.left!;
-        value += configObject.offset?.right!;
+        returnValue -= configObject.offset?.left!;
+        returnValue += configObject.offset?.right!;
       }
     }
 
@@ -168,61 +181,99 @@ export const usePosition = (configObject: ConfigObject = defaultConfigObject) =>
         transformOrigin[requestedReturnValue] === 'top' ||
         transformOrigin[requestedReturnValue] === 'center'
       ) {
-        value += configObject.offset?.top!;
-        value -= configObject.offset?.bottom!;
+        returnValue += configObject.offset?.top!;
+        returnValue -= configObject.offset?.bottom!;
       }
 
       if (transformOrigin[requestedReturnValue] === 'bottom') {
-        value -= configObject.offset?.top!;
-        value += configObject.offset?.bottom!;
+        returnValue -= configObject.offset?.top!;
+        returnValue += configObject.offset?.bottom!;
       }
     }
 
-    /** If after all the calculations done above, the value causes the elementToBePositioned to be outside of the viewport, we fix that. */
-    if (
-      (transformOrigin[requestedReturnValue] === 'left' && value < 0) ||
-      (transformOrigin[requestedReturnValue] === 'top' && value < 0) ||
-      (transformOrigin[requestedReturnValue] === 'center' && value < 0) ||
-      (transformOrigin[requestedReturnValue] === 'bottom' && value < 0)
-    ) {
-      value = 0;
-    }
+    return returnValue;
+  };
+
+  const _calculateInitialPlacementValue = (
+    transformOrigin: Placement,
+    requestedReturnValue: Axis,
+    relEl: DomRectObject,
+    placementOriginDefinition: HorizontalPlacment | VerticalPlacement,
+    elDimensions: Dimensions
+  ) => {
+    let value = 0;
 
     if (
-      (transformOrigin[requestedReturnValue] === 'left' &&
-        value > window.innerWidth - elDimensions.width) ||
-      (transformOrigin[requestedReturnValue] === 'center' &&
-        requestedReturnValue === 'horizontal' &&
-        value > window.innerWidth - elDimensions.width)
+      transformOrigin[requestedReturnValue] === 'left' ||
+      transformOrigin[requestedReturnValue] === 'top'
     ) {
-      value = window.innerWidth - elDimensions.width;
-    }
-
-    if (
-      (transformOrigin[requestedReturnValue] === 'top' &&
-        value > window.innerHeight - elDimensions.height) ||
-      (transformOrigin[requestedReturnValue] === 'center' &&
-        requestedReturnValue === 'vertical' &&
-        value > window.innerHeight - elDimensions.height)
+      value = relEl[placementOriginDefinition];
+    } else if (transformOrigin[requestedReturnValue] === 'center') {
+      value =
+        relEl[placementOriginDefinition] -
+        elDimensions[requestedReturnValue === 'horizontal' ? 'width' : 'height'] / 2;
+    } else if (
+      transformOrigin[requestedReturnValue] === 'right' ||
+      transformOrigin[requestedReturnValue] === 'bottom'
     ) {
-      value = window.innerHeight - elDimensions.height;
-    }
-
-    if (
-      transformOrigin[requestedReturnValue] === 'right' &&
-      value > window.innerWidth - elDimensions.width
-    ) {
-      value = window.innerWidth - elDimensions.width;
-    }
-
-    if (
-      transformOrigin[requestedReturnValue] === 'bottom' &&
-      value > window.innerHeight - elDimensions.height
-    ) {
-      value = window.innerHeight - elDimensions.height;
+      value =
+        window[requestedReturnValue === 'horizontal' ? 'innerWidth' : 'innerHeight'] -
+        relEl[placementOriginDefinition];
     }
 
     return value;
+  };
+
+  /**
+   *
+   * @param requestedReturnValue whether the requested return value is for the horizontal or vertical axis
+   * @returns either the horizontally centered placement definition (centerh) or the vertically centered one (centerv)
+   */
+  const _determineCenteredPlacementOrigin = (requestedReturnValue: 'vertical' | 'horizontal') => {
+    if (requestedReturnValue === 'horizontal') {
+      return 'centerh';
+    } else if (requestedReturnValue === 'vertical') {
+      return 'centerv';
+    }
+    throw new Error(
+      `the requested return value isn\'t "vertical" or "horizontal" ${requestedReturnValue} was given.`
+    );
+  };
+
+  const _calculatePlacementValue = (
+    transformOrigin: Placement,
+    placement: HorizontalPlacment | VerticalPlacement,
+    requestedReturnValue: 'vertical' | 'horizontal',
+    relEl: DomRectObject,
+    elDimensions: Dimensions
+  ): number => {
+    const placementOriginDefinition =
+      placement === 'center' ? _determineCenteredPlacementOrigin(requestedReturnValue) : placement;
+
+    let value = _calculateInitialPlacementValue(
+      transformOrigin,
+      requestedReturnValue,
+      relEl,
+      placementOriginDefinition,
+      elDimensions
+    );
+
+    let valueWithOffset = _applyOffsetToPlacementValue(
+      value,
+      requestedReturnValue,
+      transformOrigin
+    );
+
+    let valueCorrectionForViewportOverflow = _fixPossibleViewportOverflow(
+      valueWithOffset,
+      transformOrigin,
+      requestedReturnValue,
+      elDimensions
+    );
+
+    /** If after all the calculations done above, the value causes the elementToBePositioned to be outside of the viewport, we fix that. */
+
+    return valueCorrectionForViewportOverflow;
   };
 
   const _calculatePlacement = (
