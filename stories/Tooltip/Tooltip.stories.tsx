@@ -7,11 +7,6 @@ const meta: Meta = {
   component: Tooltip,
 };
 
-document.documentElement.style.display = 'flex';
-document.documentElement.style.alignItems = 'center';
-document.documentElement.style.justifyContent = 'center';
-document.documentElement.style.height = '100%';
-
 export default meta;
 
 const Template: Story<Props> = (args) => <Tooltip {...args} />;
