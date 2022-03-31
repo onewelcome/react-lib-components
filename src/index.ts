@@ -12,6 +12,9 @@ export { ModalActions } from './Modal/ModalActions/ModalActions';
 export { ModalContent } from './Modal/ModalContent/ModalContent';
 export { ModalHeader } from './Modal/ModalHeader/ModalHeader';
 export { Tooltip } from './Tooltip/Tooltip';
+export { ContextMenu } from './ContextMenu/ContextMenu';
+export { ContextMenuItem } from './ContextMenu/ContextMenuItem';
+export { Popover } from './Popover/Popover';
 
 /** Form components */
 export { Form } from './Form/Form';
