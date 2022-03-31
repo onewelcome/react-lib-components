@@ -14,9 +14,9 @@ export interface Props extends HTMLProps<HTMLDivElement> {
   transformOrigin?: Placement;
   offset?: Offset;
   id: string;
-  show: boolean;
-  onShow: () => void;
-  onClose: () => void;
+  show?: boolean;
+  onShow?: () => void;
+  onClose?: () => void;
 }
 
 export const ContextMenu = ({
@@ -46,9 +46,9 @@ export const ContextMenu = ({
 
   useEffect(() => {
     if (showContextMenu === true) {
-      onShow();
+      onShow && onShow();
     } else {
-      onClose();
+      onClose && onClose();
     }
   }, [showContextMenu]);
 
