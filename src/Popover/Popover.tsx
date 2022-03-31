@@ -5,7 +5,7 @@ import classes from './Popover.module.scss';
 export interface Props extends HTMLProps<HTMLDivElement> {
   children?: ReactNode;
   show?: boolean;
-  anchorEl?: RefObject<HTMLOrSVGElement | ReactNode>;
+  anchorEl?: RefObject<HTMLOrSVGElement>;
   placement?: Placement;
   offset?: Offset;
   transformOrigin?: Placement;
