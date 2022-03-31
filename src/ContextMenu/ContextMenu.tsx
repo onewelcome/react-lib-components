@@ -6,6 +6,7 @@ import { Placement, Offset } from '../hooks/usePosition';
 import { Props as ContextMenuItemProps } from './ContextMenuItem';
 import classes from './ContextMenu.module.scss';
 import { useBodyClick } from '../hooks/useBodyClick';
+import { createPortal } from 'react-dom';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   trigger: ReactElement<ButtonProps> | ReactElement<IconButtonProps>;
@@ -15,6 +16,7 @@ export interface Props extends HTMLProps<HTMLDivElement> {
   offset?: Offset;
   id: string;
   show?: boolean;
+  domRoot?: HTMLElement;
   onShow?: () => void;
   onClose?: () => void;
 }
@@ -29,6 +31,7 @@ export const ContextMenu = ({
   placement = { horizontal: 'right', vertical: 'top' },
   offset = { top: 0, bottom: 0, left: 0, right: 0 },
   transformOrigin = { horizontal: 'left', vertical: 'top' },
+  domRoot = document.body,
   ...rest
 }: Props) => {
   const anchorEl = useRef<HTMLButtonElement>(null);
@@ -68,17 +71,20 @@ export const ContextMenu = ({
   return (
     <div {...rest} className={classes['context-menu']}>
       {renderTrigger()}
-      <Popover
-        placement={placement}
-        transformOrigin={transformOrigin}
-        offset={offset}
-        anchorEl={anchorEl}
-        show={showContextMenu}
-      >
-        <ul className={classes.menu} id={`${id}-menu`} aria-describedby={id} role="menu">
-          {children}
-        </ul>
-      </Popover>
+      {createPortal(
+        <Popover
+          placement={placement}
+          transformOrigin={transformOrigin}
+          offset={offset}
+          anchorEl={anchorEl}
+          show={showContextMenu}
+        >
+          <ul className={classes.menu} id={`${id}-menu`} aria-describedby={id} role="menu">
+            {children}
+          </ul>
+        </Popover>,
+        domRoot
+      )}
     </div>
   );
 };
