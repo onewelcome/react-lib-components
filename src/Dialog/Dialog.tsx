@@ -19,7 +19,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   zIndex?: number;
 }
 
-export interface Action extends Omit<ButtonProps, 'variant'> {
+export interface Action extends Omit<ButtonProps, 'variant' | 'ref'> {
   label: string;
   onClick: (event?: React.MouseEvent<HTMLButtonElement>) => unknown;
 }

@@ -66,21 +66,27 @@ export enum Icons {
   Warning = 'warning',
 }
 
-export interface Props extends HTMLAttributes<HTMLOrSVGElement> {
+type Tag = 'span' | 'div' | 'i';
+
+export interface Props extends Omit<HTMLAttributes<HTMLOrSVGElement>, 'size'> {
   icon: Icons;
   color?: string;
   size?: string;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: Tag;
 }
 
-export const Icon = ({ icon, color, className, style, size, tag = 'span', ...rest }: Props) => {
-  const Component = tag;
-  return (
-    <Component
-      {...rest}
-      style={{ color: color, ...style, fontSize: size }}
-      aria-hidden="true"
-      className={`${classes['icon']} ${classes['icon-' + icon]} ${className ? className : ''}`}
-    />
-  );
-};
+export const Icon = React.forwardRef(
+  ({ icon, color, className, style, size, tag = 'span', ...rest }: Props, ref) => {
+    const Component = tag;
+    return (
+      <Component
+        {...rest}
+        ref={ref as React.LegacyRef<HTMLDivElement>}
+        style={{ color: color, ...style, fontSize: size }}
+        data-icon
+        aria-hidden="true"
+        className={`${classes['icon']} ${classes['icon-' + icon]} ${className ? className : ''}`}
+      />
+    );
+  }
+);
