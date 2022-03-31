@@ -229,7 +229,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
    * @param requestedReturnValue whether the requested return value is for the horizontal or vertical axis
    * @returns either the horizontally centered placement definition (centerh) or the vertically centered one (centerv)
    */
-  const _determineCenteredPlacementOrigin = (requestedReturnValue: 'vertical' | 'horizontal') => {
+  const _determineCenteredPlacementOrigin = (requestedReturnValue: Axis) => {
     if (requestedReturnValue === 'horizontal') {
       return 'centerh';
     } else if (requestedReturnValue === 'vertical') {
@@ -243,14 +243,14 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
   const _calculatePlacementValue = (
     transformOrigin: Placement,
     placement: HorizontalPlacment | VerticalPlacement,
-    requestedReturnValue: 'vertical' | 'horizontal',
+    requestedReturnValue: Axis,
     relEl: DomRectObject,
     elDimensions: Dimensions
   ): number => {
     const placementOriginDefinition =
       placement === 'center' ? _determineCenteredPlacementOrigin(requestedReturnValue) : placement;
 
-    let value = _calculateInitialPlacementValue(
+    const value = _calculateInitialPlacementValue(
       transformOrigin,
       requestedReturnValue,
       relEl,
@@ -258,13 +258,13 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       elDimensions
     );
 
-    let valueWithOffset = _applyOffsetToPlacementValue(
+    const valueWithOffset = _applyOffsetToPlacementValue(
       value,
       requestedReturnValue,
       transformOrigin
     );
 
-    let valueCorrectionForViewportOverflow = _fixPossibleViewportOverflow(
+    const valueCorrectionForViewportOverflow = _fixPossibleViewportOverflow(
       valueWithOffset,
       transformOrigin,
       requestedReturnValue,
@@ -274,12 +274,8 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     return valueCorrectionForViewportOverflow;
   };
 
-  const _calculatePlacement = (
-    relEl: DomRectObject,
-    elDimensions: Dimensions,
-    axis: 'horizontal' | 'vertical'
-  ) => {
-    let placementValue = _calculatePlacementValue(
+  const _calculatePlacement = (relEl: DomRectObject, elDimensions: Dimensions, axis: Axis) => {
+    const placementValue = _calculatePlacementValue(
       configObject.transformOrigin!,
       configObject.placement![axis]!,
       axis,
