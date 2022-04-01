@@ -5,7 +5,7 @@ import { Radio } from '../../../src/Form/Radio/Radio';
 import { Button } from '../../../src/Button/Button';
 
 const meta: Meta = {
-  title: 'Form/Wrapper/RadioWrapper',
+  title: 'Stories/Form/Wrapper/RadioWrapper',
   component: RadioWrapper,
   argTypes: {
     value: {

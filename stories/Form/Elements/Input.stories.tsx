@@ -4,7 +4,7 @@ import { Input, Props } from '../../../src/Form/Input/Input';
 import { Form } from '../../../src/Form/Form';
 
 const meta: Meta = {
-  title: 'Form/Elements/Input',
+  title: 'Stories/Form/Elements/Input',
   component: Input,
   argTypes: {
     className: {

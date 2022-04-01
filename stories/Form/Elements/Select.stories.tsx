@@ -4,7 +4,7 @@ import { Select, Props } from '../../../src/Form/Select/Select';
 import { Option } from '../../../src/Form/Select/Option';
 
 const meta: Meta = {
-  title: 'Form/Elements/Select',
+  title: 'Stories/Form/Elements/Select',
   component: Select,
   argTypes: {
     labeledBy: {
