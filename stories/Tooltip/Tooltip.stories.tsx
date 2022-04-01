@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { Tooltip, Props } from '../../src/Tooltip/Tooltip';
 
 const meta: Meta = {
-  title: 'Tooltip',
+  title: 'Stories/UI/Tooltip',
   component: Tooltip,
 };
 

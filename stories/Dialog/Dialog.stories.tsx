@@ -5,7 +5,7 @@ import { Button } from '../../src/Button/Button';
 import { Typography } from '../../src/Typography/Typography';
 
 const meta: Meta = {
-  title: 'UI/Dialog',
+  title: 'Stories/UI/Dialog',
   component: Dialog,
   args: {
     id: 'dialog',
