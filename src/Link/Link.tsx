@@ -6,50 +6,41 @@ export interface Props {
   color?: 'primary' | 'secondary' | 'tertiary';
   type: 'external' | 'internal' | 'action';
   to: string;
-  disabled: boolean;
-  component?: 'a' | 'button' | React.ReactElement;
+  disabled?: boolean;
+  component?: React.ReactElement;
   action?: 'mailto' | 'tel';
-}
-
-export interface AnchorProps extends Props {
-  variant?: never;
-}
-
-export interface ButtonProps extends Props {
-  variant?: 'text' | 'fill' | 'outline';
 }
 
 export const Link = ({
   children,
   disabled = false,
-  variant = 'text',
   to,
   type,
-  component = 'a',
+  component,
+  action,
   ...rest
-}: AnchorProps | ButtonProps) => {
-  if (component == 'a') {
+}: Props) => {
+  if (component == null) {
     return (
       <a
         rel={'noopener noreferer'}
         {...rest}
+        href={`${action ? action + `:` + to : to}`}
         className={classes.link}
-        href={to}
         aria-disabled={disabled}
         target={type == 'external' ? '_blank' : ''}
       >
         {children}
       </a>
     );
-  } else if (component == 'button') {
-    return <button>_Button</button>;
   } else {
     return React.cloneElement(component, {
       className: classes.link,
-      disabled,
-      variant,
+      'aria-disabled': disabled,
       to,
+      rel: 'noopener noreferer',
       ...rest,
+      ...component.props,
     });
   }
 };

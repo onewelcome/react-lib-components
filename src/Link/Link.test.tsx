@@ -5,7 +5,6 @@ import { Link as LinkRouter } from 'react-router-dom';
 import { MemoryRouter } from 'react-router';
 
 const defaultParams: Props = {
-  disabled: false,
   type: 'external',
   to: '',
 };
@@ -15,7 +14,22 @@ const createLink = (params?: (defaultParams: Props) => Props) => {
   if (params) {
     parameters = params(defaultParams);
   }
-  parameters.component = <LinkRouter to={'https://onewelcome.com'}>Google</LinkRouter>;
+  const queries = render(
+    <Link {...parameters} data-testid="link">
+      Link content
+    </Link>
+  );
+  const link = queries.getByTestId('link');
+
+  return {
+    ...queries,
+    link,
+  };
+};
+
+const createLinkWithExistingRouterLink = () => {
+  let parameters: Props = defaultParams;
+  parameters.component = <LinkRouter to={'https://onewelcome.com'}>OneWelcome</LinkRouter>;
   const queries = render(
     <MemoryRouter>
       <Link {...parameters} data-testid="link">
@@ -36,5 +50,20 @@ describe('Link should render', () => {
     const { link } = createLink();
 
     expect(link).toBeDefined();
+    expect(link).toHaveAttribute('rel', 'noopener noreferer');
+  });
+
+  it('renders as disabled', () => {
+    const { link } = createLink();
+
+    expect(link).toBeDefined();
+    expect(link).toHaveAttribute('aria-disabled', true);
+  });
+
+  it('renders as router link without crashing', () => {
+    const link = createLinkWithExistingRouterLink();
+
+    expect(link).toBeDefined();
+    expect(link).toHaveAttribute('rel', 'noopener noreferer');
   });
 });
