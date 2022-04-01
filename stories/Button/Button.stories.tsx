@@ -4,7 +4,7 @@ import { Button, Props } from '../../src/Button/Button';
 import { Icon, Icons } from '../../src/Icon/Icon';
 
 const meta: Meta = {
-  title: 'UI/Button',
+  title: 'Stories/UI/Button',
   component: Button,
   argTypes: {
     startIcon: {

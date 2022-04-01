@@ -8,7 +8,7 @@ import {
 } from '../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper';
 
 const meta: Meta = {
-  title: 'Form/Wrapper/CheckboxWrapper',
+  title: 'Stories/Form/Wrapper/CheckboxWrapper',
   component: CheckboxWrapper,
   argTypes: {
     legendId: {

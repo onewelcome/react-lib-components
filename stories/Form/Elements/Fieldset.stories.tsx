@@ -9,7 +9,7 @@ import { Form } from '../../../src/Form/Form';
 import { SelectWrapper } from '../../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
 
 const meta: Meta = {
-  title: 'Form/Elements/Fieldset',
+  title: 'Stories/Form/Elements/Fieldset',
   component: Fieldset,
   argTypes: {
     disabled: {
