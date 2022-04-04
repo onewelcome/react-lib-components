@@ -1,6 +1,9 @@
 .link {
-  color: var(--color-primary);
   font-size: inherit;
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 
   &:focus,
   &:hover,
