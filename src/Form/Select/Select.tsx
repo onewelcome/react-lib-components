@@ -1,10 +1,19 @@
 import classes from './Select.module.scss';
 
-import React, { HTMLProps, ReactElement, useEffect, useState } from 'react';
+import React, {
+  HTMLProps,
+  ReactElement,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Input } from '../Input/Input';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormElement } from '../form.interfaces';
 import { useBodyClick } from '../../hooks/useBodyClick';
+import { Position } from '../../hooks/usePosition';
+import { useScroll } from '../../hooks/useScroll';
 
 export interface Props extends FormElement<HTMLSelectElement> {
   children: ReactElement[];
@@ -37,6 +46,9 @@ export const Select = ({
   const [expanded, setExpanded] = useState(false);
   const [filter, setFilter] = useState('');
   const [display, setDisplay] = useState('');
+  const [listPosition, setListPosition] = useState<Partial<Position>>({});
+  const containerReference = useRef<HTMLDivElement>(null);
+  const optionListReference = useRef<HTMLDivElement>(null);
 
   useBodyClick(
     (event: MouseEvent) => !(event.target as Element).closest('.custom-select') && expanded,
@@ -45,6 +57,29 @@ export const Select = ({
     },
     expanded
   );
+
+  const rePositionList = () => {
+    if (!expanded || !optionListReference.current || !containerReference.current) {
+      return;
+    }
+    const windowHeight = window.innerHeight;
+    const containerTopWithListHeight =
+      containerReference.current.getBoundingClientRect().bottom -
+      containerReference.current.getBoundingClientRect().height +
+      optionListReference.current.getBoundingClientRect().height;
+
+    if (containerTopWithListHeight > windowHeight) {
+      setListPosition({ top: 'initial', bottom: 0 });
+    } else {
+      setListPosition({ top: 0, bottom: 'initial' });
+    }
+  };
+
+  useScroll(rePositionList, [expanded]);
+
+  useLayoutEffect(() => {
+    rePositionList();
+  }, [expanded]);
 
   const onOptionChangeHandler = (child: ReactElement) => (event: React.ChangeEvent) => {
     /**
@@ -139,6 +174,7 @@ export const Select = ({
   return (
     <div
       {...(rest as HTMLProps<HTMLDivElement>)}
+      ref={containerReference}
       className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
         className ?? ''
       }`}
@@ -167,8 +203,9 @@ export const Select = ({
         </div>
       </button>
       <div
+        ref={optionListReference}
         className={`list-wrapper ${classes['list-wrapper']}`}
-        style={{ display: expanded ? 'block' : 'none' }}
+        style={{ display: expanded ? 'block' : 'none', ...listPosition }}
       >
         {Array.isArray(children) && children.length > 10 && renderSearch()}
         <ul role="listbox" tabIndex={-1}>

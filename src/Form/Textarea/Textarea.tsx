@@ -9,7 +9,6 @@ export interface Props extends FormElement<HTMLTextAreaElement> {
 }
 
 export const Textarea = ({
-  children,
   error = false,
   disabled = false,
   className,

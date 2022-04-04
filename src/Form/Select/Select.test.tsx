@@ -16,11 +16,11 @@ const createSelect = (amountOfOptions = 5, params?: Props) => {
   };
 
   const queries = render(
-    <Select onChange={jest.fn()} {...params}>
+    <Select onChange={jest.fn()} {...params} data-testid="custom-select">
       {renderOptions(amountOfOptions)}
     </Select>
   );
-  const select = queries.container.querySelector('.custom-select')!;
+  const select = queries.getByTestId('custom-select')!;
   const button = select.querySelector('button');
 
   if (button) {
