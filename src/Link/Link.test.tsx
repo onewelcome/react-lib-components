@@ -79,7 +79,7 @@ describe('Link should render', () => {
   });
 
   it('is another variation of phone', () => {
-    const { link: link } = createLink((defaultParams) => ({
+    const { link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'tel',
       to: 'tel:+3161234-1235',
@@ -89,7 +89,7 @@ describe('Link should render', () => {
   });
 
   it('is yet another variation of phone', () => {
-    const { link: link } = createLink((defaultParams) => ({
+    const { link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'telephone',
       to: 'tel:+31-61-234-1235-322',
@@ -112,7 +112,7 @@ describe('Link should render', () => {
   });
 
   it('is another variation of mail', () => {
-    const { link: link } = createLink((defaultParams) => ({
+    const { link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'email',
       to: 'mailto:test@test.com',
@@ -122,7 +122,7 @@ describe('Link should render', () => {
   });
 
   it('is yet another variation of mail', () => {
-    const { link: link } = createLink((defaultParams) => ({
+    const { link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'mailto',
       to: 'mailto:test@test.com',
@@ -131,25 +131,33 @@ describe('Link should render', () => {
     expect(link).toHaveAttribute('href', 'mailto:test@test.com');
   });
 
-  it('should throw an error because we pass an incorrect component type', () => {
-    // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
-    const err = console.error;
-    console.error = jest.fn();
+  it('should set the correct target', () => {
+    const { link } = createLink((defaultParams) => ({ ...defaultParams, target: '_parent' }));
 
-    let actual;
+    expect(link).toHaveAttribute('target', '_parent');
+  });
 
-    try {
-      // @ts-ignore
-      render(<Link component="test" />);
-    } catch (e: any) {
-      actual = e.message;
-    }
+  it('should accept this component prop', () => {
+    const RouterLink = ({ ...rest }) => (
+      <a data-testid="routerlink" {...rest}>
+        test
+      </a>
+    );
 
-    const expected =
-      'The component you have passed is not a React Router Link. Please make sure to pass it or remove the attribute entirely.';
+    const queries = render(<Link to="/contact" component={RouterLink} />);
 
-    expect(actual).toEqual(expected);
+    const routerLink = queries.getByTestId('routerlink');
 
-    console.error = err;
+    expect(routerLink).toBeTruthy();
+    expect(routerLink).toHaveClass('link');
+    expect(routerLink).toHaveAttribute('to', '/contact');
+  });
+
+  it('should be disabled', () => {
+    const { link } = createLink((defaultParams) => ({ ...defaultParams, disabled: true }));
+
+    expect(link).not.toHaveAttribute('href');
+    expect(link).toHaveClass('disabled');
+    expect(link).toHaveStyle({ color: 'var(--greyed-out)' });
   });
 });

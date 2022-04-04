@@ -12,17 +12,17 @@ type AnchorType =
   | 'email'
   | 'mail'
   | 'mailto';
-export interface Props extends HTMLProps<HTMLAnchorElement> {
-  children?: string;
-  color?: 'primary' | 'secondary' | 'tertiary';
-  type: AnchorType;
-  to: string;
-  disabled?: boolean;
-  component?: React.FunctionComponent;
-}
 
 interface RouterProps extends HTMLAttributes<HTMLElement> {
   to: string;
+}
+export interface Props extends HTMLProps<HTMLAnchorElement> {
+  children?: string;
+  color?: 'primary' | 'secondary' | 'tertiary';
+  type?: AnchorType;
+  to: string;
+  disabled?: boolean;
+  component?: React.FunctionComponent<RouterProps>;
 }
 
 export const Link = ({
@@ -31,7 +31,7 @@ export const Link = ({
   disabled = false,
   to,
   color,
-  type,
+  type = 'internal',
   component,
   ...rest
 }: Props) => {
@@ -47,30 +47,18 @@ export const Link = ({
     return '';
   };
 
-  if (
-    component &&
-    typeof component === 'object' &&
-    (component as React.FunctionComponent).displayName &&
-    (component as React.FunctionComponent).displayName === 'Link'
-  ) {
-    const Component: React.FunctionComponent<RouterProps> = component;
-
-    return (
-      <Component
-        to={to}
-        className={`${classes.link} ${disabled ? classes.disabled : ''} ${className ?? ''}`}
-        aria-disabled={disabled}
-        style={{
-          ...rest.style,
-          color: disabled ? 'var(--greyed-out)' : `var(--color-${color ?? 'primary'})`,
-        }}
-        children={children}
-      />
-    );
-  } else if (component !== undefined) {
-    throw new Error(
-      'The component you have passed is not a React Router Link. Please make sure to pass it or remove the attribute entirely.'
-    );
+  if (component) {
+    return React.createElement(component, {
+      ...rest,
+      to: to,
+      className: `${classes.link} ${disabled ? classes.disabled : ''} ${className ?? ''}`,
+      'aria-disabled': disabled,
+      style: {
+        ...rest.style,
+        color: disabled ? 'var(--greyed-out)' : `var(--color-${color ?? 'primary'})`,
+      },
+      children: children,
+    });
   }
 
   return (
