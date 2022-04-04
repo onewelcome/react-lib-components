@@ -160,4 +160,30 @@ describe('Link should render', () => {
     expect(link).toHaveClass('disabled');
     expect(link).toHaveStyle({ color: 'var(--greyed-out)' });
   });
+
+  it('should have a className added', () => {
+    const { link } = createLink((defaultParams) => ({ ...defaultParams, className: 'classname' }));
+
+    expect(link).toHaveClass('classname');
+  });
+});
+
+describe('colors', () => {
+  it('should be color primary', () => {
+    const { link } = createLink((defaultParams) => ({ ...defaultParams, color: 'primary' }));
+
+    expect(link).toHaveStyle({ color: 'var(--color-primary)' });
+  });
+
+  it('should be color secondary', () => {
+    const { link } = createLink((defaultParams) => ({ ...defaultParams, color: 'secondary' }));
+
+    expect(link).toHaveStyle({ color: 'var(--color-secondary)' });
+  });
+
+  it('should be color tertiary', () => {
+    const { link } = createLink((defaultParams) => ({ ...defaultParams, color: 'tertiary' }));
+
+    expect(link).toHaveStyle({ color: 'var(--color-tertiary)' });
+  });
 });
