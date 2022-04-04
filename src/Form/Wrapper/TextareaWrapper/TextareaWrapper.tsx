@@ -86,7 +86,7 @@ export const TextareaWrapper = ({
         className={classes['textarea']}
         wrapperClassName={`${classes['textarea-wrapper']} ${focus ? classes['focus'] : ''} ${
           hover ? classes['hover'] : ''
-        } ${disabled ? classes['disabled'] : ''}`}
+        } ${disabled ? classes['disabled'] : ''} ${error ? classes['error'] : ''}`}
         errorClassName={classes['error-icon']}
       />
     </Wrapper>

@@ -54,6 +54,10 @@
     border-color: #fff;
     cursor: not-allowed;
   }
+
+  &.error {
+    border-color: var(--error);
+  }
 }
 
 .error-icon {
