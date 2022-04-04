@@ -1,6 +1,9 @@
 import React from 'react';
 import { Radio, Props } from './Radio';
 import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+const onChangeHandeler = jest.fn();
 
 const defaultParams: Props = {
   value: 'test',
@@ -11,6 +14,7 @@ const defaultParams: Props = {
   disabled: false,
   wrapperProps: { 'data-testid': 'radiowrapper' },
   helperText: 'helpertext',
+  onChange: onChangeHandeler,
 };
 
 const createRadio = (params?: (defaultParams: Props) => Props) => {
@@ -63,5 +67,22 @@ describe('Radio should render', () => {
     const error = await findByText('errormessage');
 
     expect(radio).toHaveAttribute('aria-describedby', error.id);
+  });
+});
+
+describe('Radio should be interactive', () => {
+  it('should call onChange when clicked', () => {
+    const { radio } = createRadio();
+
+    expect(onChangeHandeler).not.toBeCalled();
+    userEvent.click(radio);
+    expect(onChangeHandeler).toBeCalledTimes(1);
+  });
+
+  it('should not call onChange when disabled', () => {
+    const { radio } = createRadio((defaultParams) => ({ ...defaultParams, disabled: true }));
+
+    userEvent.click(radio);
+    expect(onChangeHandeler).not.toBeCalled();
   });
 });
