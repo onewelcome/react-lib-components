@@ -69,7 +69,7 @@ describe('Link should render', () => {
     const { link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'phone',
-      to: '061234-1235',
+      to: 'tel:061234-1235',
     }));
 
     expect(link).toHaveAttribute('aria-disabled', 'false');
@@ -82,7 +82,7 @@ describe('Link should render', () => {
     const { link: link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'tel',
-      to: '+3161234-1235',
+      to: 'tel:+3161234-1235',
     }));
 
     expect(link).toHaveAttribute('href', 'tel:+3161234-1235');
@@ -92,38 +92,17 @@ describe('Link should render', () => {
     const { link: link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'telephone',
-      to: '+31-61-234-1235-322',
+      to: 'tel:+31-61-234-1235-322',
     }));
 
     expect(link).toHaveAttribute('href', 'tel:+31-61-234-1235-322');
-  });
-
-  it('should throw an error', () => {
-    // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
-    const err = console.error;
-    console.error = jest.fn();
-
-    let actual;
-
-    try {
-      render(<Link type="phone" to="shouldgiveerror" />);
-    } catch (e: any) {
-      actual = e.message;
-    }
-
-    const expected =
-      'You want an anchor tag with a phone number but you\'ve entered an invalid value as "to" prop. Expected example format: +316-1234-5676 | 0612345678 | +0123-123456 got shouldgiveerror';
-
-    expect(actual).toEqual(expected);
-
-    console.error = err;
   });
 
   it('is a email link with the right attributes', () => {
     const { link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'mail',
-      to: 'test@test.com',
+      to: 'mailto:test@test.com',
     }));
 
     expect(link).toHaveAttribute('aria-disabled', 'false');
@@ -136,7 +115,7 @@ describe('Link should render', () => {
     const { link: link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'email',
-      to: 'test@test.com',
+      to: 'mailto:test@test.com',
     }));
 
     expect(link).toHaveAttribute('href', 'mailto:test@test.com');
@@ -146,34 +125,13 @@ describe('Link should render', () => {
     const { link: link } = createLink((defaultParams) => ({
       ...defaultParams,
       type: 'mailto',
-      to: 'test@test.com',
+      to: 'mailto:test@test.com',
     }));
 
     expect(link).toHaveAttribute('href', 'mailto:test@test.com');
   });
 
-  it('should throw an error', () => {
-    // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
-    const err = console.error;
-    console.error = jest.fn();
-
-    let actual;
-
-    try {
-      render(<Link type="email" to="32r32r2233" />);
-    } catch (e: any) {
-      actual = e.message;
-    }
-
-    const expected =
-      'You want an anchor tag with an e-mail address but entered an invalid value as "to" prop. Expected example format: test@test.com | employee@onewelcome.com got 32r32r2233';
-
-    expect(actual).toEqual(expected);
-
-    console.error = err;
-  });
-
-  it('should throw an error because we miss the type attribute', () => {
+  it('should throw an error because we pass an incorrect component type', () => {
     // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
     const err = console.error;
     console.error = jest.fn();
@@ -182,13 +140,13 @@ describe('Link should render', () => {
 
     try {
       // @ts-ignore
-      render(<Link />);
+      render(<Link component="test" />);
     } catch (e: any) {
       actual = e.message;
     }
 
     const expected =
-      "Please make sure to enter the type of your <a>. You can choose the following options: 'external' | 'internal' | 'download' | 'phone' | 'tel' | 'telephone' | 'email' | 'mail'| 'mailto'";
+      'The component you have passed is not a React Router Link. Please make sure to pass it or remove the attribute entirely.';
 
     expect(actual).toEqual(expected);
 
