@@ -30,7 +30,7 @@ export const Link = ({
   ...rest
 }: Props) => {
   const determineHref = () => {
-    const phoneRegex = /^(\d+|\+)((-?\d+)+$)/g;
+    const phoneRegex = /^(\d+|\+)((-?\d+){1,10}$)/g;
     const mailRegex =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const evaluateType = (name: string, regex: RegExp) => type === name && regex.test(to);
