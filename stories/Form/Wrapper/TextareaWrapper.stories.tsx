@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { TextareaWrapper, Props } from '../../../src/Form/Wrapper/TextareaWrapper/TextareaWrapper';
-import { Button } from '../../../src/Button/Button';
 
 const meta: Meta = {
-  title: 'Form/Wrapper/TextareaWrapper',
+  title: 'Stories/Form/Wrapper/TextareaWrapper',
   component: TextareaWrapper,
   argTypes: {
     required: {

@@ -4,7 +4,7 @@ import { SelectWrapper, Props } from '../../../src/Form/Wrapper/SelectWrapper/Se
 import { Option } from '../../../src/Form/Select/Option';
 
 const meta: Meta = {
-  title: 'Form/Wrapper/SelectWrapper',
+  title: 'Stories/Form/Wrapper/SelectWrapper',
   component: SelectWrapper,
   argTypes: {
     value: {

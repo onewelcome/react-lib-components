@@ -4,7 +4,7 @@ import { Toggle } from '../../..//src/Form/Toggle/Toggle';
 import { CheckboxProps as Props } from '../../../src/Form/Checkbox/Checkbox';
 
 const meta: Meta = {
-  title: 'Form/Elements/Toggle',
+  title: 'Stories/Form/Elements/Toggle',
   component: Toggle,
   argTypes: {
     parentHelperId: {

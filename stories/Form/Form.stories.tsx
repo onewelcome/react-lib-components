@@ -15,7 +15,7 @@ import { Option } from '../../src/Form/Select/Option';
 import { Toggle } from '../../src/Form/Toggle/Toggle';
 
 const meta: Meta = {
-  title: 'Form/Form',
+  title: 'Stories/Form/Form',
   component: Form,
   argTypes: {
     method: {

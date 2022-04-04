@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { InputWrapper, Props } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
 
 const meta: Meta = {
-  title: 'Form/Wrapper/InputWrapper',
+  title: 'Stories/Form/Wrapper/InputWrapper',
   component: InputWrapper,
   argTypes: {
     onChange: {
