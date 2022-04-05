@@ -12,6 +12,8 @@ export { ModalActions } from './Modal/ModalActions/ModalActions';
 export { ModalContent } from './Modal/ModalContent/ModalContent';
 export { ModalHeader } from './Modal/ModalHeader/ModalHeader';
 export { Tooltip } from './Tooltip/Tooltip';
+export { Tiles } from './Tiles/Tiles';
+export { Tile } from './Tiles/Tile';
 export { ContextMenu } from './ContextMenu/ContextMenu';
 export { ContextMenuItem } from './ContextMenu/ContextMenuItem';
 
