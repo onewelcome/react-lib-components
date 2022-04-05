@@ -39,7 +39,7 @@ export const Tiles = ({ children, className, loading = false, grid = 3, ...rest 
   return (
     <div
       {...rest}
-      className={`${classes.tiles} ${classes['grid-' + grid.toString()]} ${className ?? ''}`}
+      className={`${classes['tiles']} ${classes['grid-' + grid.toString()]} ${className ?? ''}`}
       aria-live="polite"
       aria-busy={loading}
     >

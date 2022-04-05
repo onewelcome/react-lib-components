@@ -25,7 +25,7 @@ const Template: Story<Props> = (args) => {
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
           alt: 'OneWelcome logo',
         }}
-        leftIcon={Icons.Checkmark}
+        iconProps={{ icon: Icons.Forbidden }}
         menu={
           <ContextMenu
             id="context_menu_1"
@@ -46,11 +46,7 @@ const Template: Story<Props> = (args) => {
       <Tile
         key="tile2"
         title="Tile2"
-        imageProps={{
-          src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
-          alt: 'OneWelcome logo',
-        }}
-        leftIcon={Icons.Forbidden}
+        iconProps={{ icon: Icons.Bell }}
         menu={
           <ContextMenu
             id="context_menu_2"
@@ -75,7 +71,7 @@ const Template: Story<Props> = (args) => {
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
           alt: 'OneWelcome logo',
         }}
-        leftIcon={Icons.Checkmark}
+        iconProps={{ icon: Icons.Checkmark }}
         menu={
           <ContextMenu
             id="context_menu_3"
@@ -100,7 +96,7 @@ const Template: Story<Props> = (args) => {
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
           alt: 'OneWelcome logo',
         }}
-        leftIcon={Icons.Checkmark}
+        iconProps={{ icon: Icons.Bell }}
         menu={
           <ContextMenu
             id="context_menu_4"
