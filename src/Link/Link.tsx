@@ -51,7 +51,7 @@ export const Link = ({
     return React.createElement(component, {
       ...rest,
       to: to,
-      className: `${classes.link} ${disabled ? classes.disabled : ''} ${className ?? ''}`,
+      className: `${classes['link']} ${disabled ? classes['disabled'] : ''} ${className ?? ''}`,
       'aria-disabled': disabled,
       style: {
         ...rest.style,
@@ -67,7 +67,7 @@ export const Link = ({
       download={type === 'download'}
       rel={type === 'external' ? 'noopener noreferer' : undefined}
       href={!disabled ? to : undefined}
-      className={`${classes.link} ${disabled ? classes.disabled : ''} ${className ?? ''}`}
+      className={`${classes['link']} ${disabled ? classes['disabled'] : ''} ${className ?? ''}`}
       aria-disabled={disabled}
       target={determineTarget()}
       style={{
