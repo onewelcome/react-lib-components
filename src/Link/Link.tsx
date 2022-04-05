@@ -1,28 +1,17 @@
-import React, { HTMLAttributes } from 'react';
+import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import { HTMLProps } from '../interfaces';
 import classes from './Link.module.scss';
+import { LinkProps } from './types';
 
-type AnchorType =
-  | 'external'
-  | 'internal'
-  | 'download'
-  | 'phone'
-  | 'tel'
-  | 'telephone'
-  | 'email'
-  | 'mail'
-  | 'mailto';
+type AnchorType = 'external' | 'internal' | 'download';
 
-interface RouterProps extends HTMLAttributes<HTMLElement> {
-  to: string;
-}
 export interface Props extends HTMLProps<HTMLAnchorElement> {
   children?: string;
   color?: 'primary' | 'secondary' | 'tertiary';
   type?: AnchorType;
   to: string;
   disabled?: boolean;
-  component?: React.FunctionComponent<RouterProps>;
+  component?: ForwardRefExoticComponent<LinkProps & RefAttributes<HTMLAnchorElement>>;
 }
 
 export const Link = ({
@@ -49,7 +38,6 @@ export const Link = ({
 
   if (component) {
     return React.createElement(component, {
-      ...rest,
       to: to,
       className: `${classes['link']} ${disabled ? classes['disabled'] : ''} ${className ?? ''}`,
       'aria-disabled': disabled,

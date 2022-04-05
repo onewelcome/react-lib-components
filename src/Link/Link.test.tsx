@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, Props } from './Link';
 import { render } from '@testing-library/react';
+import { Link as RouterLink } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 const defaultParams: Props = {
   type: 'external',
@@ -65,72 +67,6 @@ describe('Link should render', () => {
     expect(link).toHaveAttribute('download');
   });
 
-  it('is a telephone link with the right attributes', () => {
-    const { link } = createLink((defaultParams) => ({
-      ...defaultParams,
-      type: 'phone',
-      to: 'tel:061234-1235',
-    }));
-
-    expect(link).toHaveAttribute('aria-disabled', 'false');
-    expect(link).not.toHaveAttribute('rel', 'noopener noreferer');
-    expect(link).not.toHaveAttribute('target', '_blank');
-    expect(link).toHaveAttribute('href', 'tel:061234-1235');
-  });
-
-  it('is another variation of phone', () => {
-    const { link } = createLink((defaultParams) => ({
-      ...defaultParams,
-      type: 'tel',
-      to: 'tel:+3161234-1235',
-    }));
-
-    expect(link).toHaveAttribute('href', 'tel:+3161234-1235');
-  });
-
-  it('is yet another variation of phone', () => {
-    const { link } = createLink((defaultParams) => ({
-      ...defaultParams,
-      type: 'telephone',
-      to: 'tel:+31-61-234-1235-322',
-    }));
-
-    expect(link).toHaveAttribute('href', 'tel:+31-61-234-1235-322');
-  });
-
-  it('is a email link with the right attributes', () => {
-    const { link } = createLink((defaultParams) => ({
-      ...defaultParams,
-      type: 'mail',
-      to: 'mailto:test@test.com',
-    }));
-
-    expect(link).toHaveAttribute('aria-disabled', 'false');
-    expect(link).not.toHaveAttribute('rel', 'noopener noreferer');
-    expect(link).not.toHaveAttribute('target', '_blank');
-    expect(link).toHaveAttribute('href', 'mailto:test@test.com');
-  });
-
-  it('is another variation of mail', () => {
-    const { link } = createLink((defaultParams) => ({
-      ...defaultParams,
-      type: 'email',
-      to: 'mailto:test@test.com',
-    }));
-
-    expect(link).toHaveAttribute('href', 'mailto:test@test.com');
-  });
-
-  it('is yet another variation of mail', () => {
-    const { link } = createLink((defaultParams) => ({
-      ...defaultParams,
-      type: 'mailto',
-      to: 'mailto:test@test.com',
-    }));
-
-    expect(link).toHaveAttribute('href', 'mailto:test@test.com');
-  });
-
   it('should set the correct target', () => {
     const { link } = createLink((defaultParams) => ({ ...defaultParams, target: '_parent' }));
 
@@ -138,19 +74,17 @@ describe('Link should render', () => {
   });
 
   it('should accept this component prop', () => {
-    const RouterLink = ({ ...rest }) => (
-      <a data-testid="routerlink" {...rest}>
-        test
-      </a>
+    const queries = render(
+      <BrowserRouter>
+        <Link to="/contact" component={RouterLink} children="Routerlink" />
+      </BrowserRouter>
     );
 
-    const queries = render(<Link to="/contact" component={RouterLink} />);
-
-    const routerLink = queries.getByTestId('routerlink');
+    const routerLink = queries.getByText('Routerlink');
 
     expect(routerLink).toBeTruthy();
     expect(routerLink).toHaveClass('link');
-    expect(routerLink).toHaveAttribute('to', '/contact');
+    expect(routerLink).toHaveAttribute('href', '/contact');
   });
 
   it('should be disabled', () => {
