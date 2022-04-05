@@ -120,6 +120,4 @@ const Template: Story<Props> = (args) => {
 
 export const TilesEl = Template.bind({});
 
-TilesEl.args = {
-  grid: 3,
-};
+TilesEl.args = {};
