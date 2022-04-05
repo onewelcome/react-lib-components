@@ -73,7 +73,7 @@ describe('Link should render', () => {
     expect(link).toHaveAttribute('target', '_parent');
   });
 
-  it('should accept this component prop', () => {
+  it('should accept this React Router Link prop and render as such', () => {
     const queries = render(
       <BrowserRouter>
         <Link to="/contact" component={RouterLink} children="Routerlink" />
