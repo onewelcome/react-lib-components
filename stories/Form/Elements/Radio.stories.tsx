@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { Radio, Props } from '../../../src/Form/Radio/Radio';
 
 const meta: Meta = {
-  title: 'Form/Elements/Radio',
+  title: 'Stories/Form/Elements/Radio',
   component: Radio,
   argTypes: {
     parentHelperId: {

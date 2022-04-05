@@ -11,6 +11,9 @@ export { Modal } from './Modal/Modal';
 export { ModalActions } from './Modal/ModalActions/ModalActions';
 export { ModalContent } from './Modal/ModalContent/ModalContent';
 export { ModalHeader } from './Modal/ModalHeader/ModalHeader';
+export { Tooltip } from './Tooltip/Tooltip';
+export { ContextMenu } from './ContextMenu/ContextMenu';
+export { ContextMenuItem } from './ContextMenu/ContextMenuItem';
 
 export { SnackbarProvider } from './Snackbar/SnackbarProvider/SnackbarProvider';
 export { useSnackbar } from './Snackbar/useSnackbar';

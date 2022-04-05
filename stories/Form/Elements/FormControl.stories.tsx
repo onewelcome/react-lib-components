@@ -10,7 +10,7 @@ import { Radio } from '../../../src/Form/Radio/Radio';
 import { Fieldset } from '../../../src/Form/Fieldset/Fieldset';
 
 const meta: Meta = {
-  title: 'Form/Elements/FormControl',
+  title: 'Stories/Form/Elements/FormControl',
   component: FormControl,
   argTypes: {
     fieldsetDisabled: {

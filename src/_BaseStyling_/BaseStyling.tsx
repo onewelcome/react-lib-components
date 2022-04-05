@@ -101,7 +101,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
 
   /** Check if the properties prop object is filled with anything. If it is, we want to shallow merge it with the default BaseStyling. */
   useEffect(() => {
-    console.log('test', properties);
     if (Object.keys(properties).length !== 0) {
       const mergedState = { ...defaultProperties, ...properties };
       setCSSProperties(mergedState);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { IconButton } from '../../Button/IconButton';
 import { Icon, Icons } from '../../Icon/Icon';
 import { Variant, Actions } from '../interfaces';
@@ -30,13 +30,24 @@ export const SnackbarItem = ({
   onClose,
   closeButtonTitle,
 }: Props) => {
+  const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => onClose(id);
   const { ref, animationStarted, startAnimation } = useAnimation<HTMLDivElement>(onAnimationEnd);
 
   useEffect(() => {
-    const timer = setTimeout(() => startAnimation(), duration);
-    return () => clearTimeout(timer);
+    timerHandler.current = setTimeout(() => startAnimation(), duration);
+    return () => {
+      timerHandler.current && clearTimeout(timerHandler.current);
+    };
   }, []);
+
+  const onMouseEnter = () => {
+    timerHandler.current && clearTimeout(timerHandler.current);
+  };
+
+  const onMouseLeave = () => {
+    timerHandler.current = setTimeout(() => startAnimation(), duration);
+  };
 
   const getVariantIcon = () => {
     if (variant === 'error') {
@@ -64,6 +75,8 @@ export const SnackbarItem = ({
       className={`${classes['snackbar']} ${classes[variant]} ${
         animationStarted ? readyclasses['slide-out'] : readyclasses['slide-in']
       }`}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <Icon icon={getVariantIcon()} className={classes['icon']} />
       <div className={classes['container']}>

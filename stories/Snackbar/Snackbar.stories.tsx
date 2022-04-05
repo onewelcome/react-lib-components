@@ -5,7 +5,7 @@ import { Button } from '../../src/Button/Button';
 import { useSnackbar } from '../../src/Snackbar/useSnackbar';
 
 const meta: Meta = {
-  title: 'Snackbar',
+  title: 'Stories/UI/Snackbar',
   component: SnackbarProvider,
   args: {},
 };

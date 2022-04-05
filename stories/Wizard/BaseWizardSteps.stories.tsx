@@ -7,7 +7,7 @@ const onClick = (stepNo: number) => {
 };
 
 const meta: Meta = {
-  title: 'WizardSteps',
+  title: 'Stories/Form/Wizard/WizardSteps',
   component: BaseWizardSteps,
   args: {
     steps: [
