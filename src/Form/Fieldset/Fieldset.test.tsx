@@ -8,7 +8,7 @@ import { Option } from '../Select/Option';
 
 const defaultParams: Props = {
   title: 'Example',
-  titleStyle: 'h2',
+  titleVariant: 'h2',
   children: [
     <FormControl data-testid="form-control">
       <Input placeholder="This is a placeholder" name="example" type="text" />
@@ -69,7 +69,7 @@ describe('Fieldset should get proper attributes and classes', () => {
 
     expect(legend).toHaveTextContent('Example');
     expect(legend).toBeTruthy();
-    expect(title).toHaveClass('style-h2');
+    expect(title).toHaveClass('typography_style_h2');
     expect(title).toBeTruthy();
     expect(title).toHaveTextContent('Example');
   });

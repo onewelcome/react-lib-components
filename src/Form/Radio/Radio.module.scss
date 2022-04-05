@@ -12,7 +12,6 @@
 
 .helper-text {
   margin-top: 0.25rem;
-  font-size: 0.75rem;
   margin-left: 1.75rem;
 }
 
@@ -35,7 +34,7 @@
     display: inline-block;
     margin-left: 0.5rem;
     user-select: none;
-    font-size: 1rem;
+    font-size: var(--font-size);
 
     .disabled & {
       cursor: not-allowed;
