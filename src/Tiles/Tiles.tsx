@@ -5,10 +5,9 @@ import { Tile } from './Tile';
 export interface Props extends HTMLProps<HTMLDivElement> {
   children: ReactNode;
   loading?: boolean;
-  grid?: 1 | 2 | 3;
 }
 
-export const Tiles = ({ children, className, loading = false, grid = 3, ...rest }: Props) => {
+export const Tiles = ({ children, className, loading = false, ...rest }: Props) => {
   const renderChildren = () => {
     if (loading) {
       return [
@@ -39,7 +38,7 @@ export const Tiles = ({ children, className, loading = false, grid = 3, ...rest 
   return (
     <div
       {...rest}
-      className={`${classes['tiles']} ${classes['grid-' + grid.toString()]} ${className ?? ''}`}
+      className={`${classes['tiles']} ${className ?? ''}`}
       aria-live="polite"
       aria-busy={loading}
     >

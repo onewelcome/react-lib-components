@@ -70,7 +70,6 @@ const defaultParams: Props = {
       menu={contextMenu}
     />,
   ],
-  grid: 1,
   className: 'example-classname',
 };
 
@@ -104,41 +103,8 @@ describe('Tiles should render', () => {
       expect(tile.querySelector('img')).toBeTruthy();
     });
 
-    expect(tiles).toHaveClass('grid-1');
     expect(tiles).toHaveClass('example-classname');
     expect(tiles).toBeDefined();
-  });
-});
-
-describe('Tiles with different grids', () => {
-  it('has a grid of 1', () => {
-    const { individualTiles } = createTiles((defaultParams) => ({
-      ...defaultParams,
-      grid: 1,
-    }));
-
-    individualTiles?.forEach((tile) => {
-      expect(tile).toHaveStyle({ 'flex-basis': '100%;' });
-    });
-  });
-
-  it('has a grid of 2', () => {
-    const { individualTiles } = createTiles((defaultParams) => ({
-      ...defaultParams,
-      grid: 2,
-    }));
-
-    individualTiles?.forEach((tile) => {
-      expect(tile).toHaveStyle({ 'flex-basis': '50%;' });
-    });
-  });
-
-  it('has a grid of 3', () => {
-    const { individualTiles } = createTiles();
-
-    individualTiles?.forEach((tile) => {
-      expect(tile).toHaveStyle({ 'flex-basis': `${100 / 3}%;` });
-    });
   });
 });
 

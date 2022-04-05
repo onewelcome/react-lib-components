@@ -1,5 +1,6 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 import classes from './Icon.module.scss';
+import { HTMLAttributes } from '../interfaces';
 
 export enum Icons {
   Bell = 'bell',
