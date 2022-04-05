@@ -9,7 +9,7 @@ import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
 import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
-  title: 'Tiles',
+  title: 'Stories/UI/Tiles',
   component: Tiles,
 };
 
