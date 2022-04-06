@@ -6,6 +6,7 @@ dist
 coverage/
 storybook-static/
 .nvmrc
+.vscode/
 
 # Intellij project files
 *.iml

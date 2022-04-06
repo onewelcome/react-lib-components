@@ -2,6 +2,7 @@
 export { BaseStyling } from './_BaseStyling_/BaseStyling';
 export { Typography } from './Typography/Typography';
 export { Button } from './Button/Button';
+export { Link } from './Link/Link';
 export { IconButton } from './Button/IconButton';
 
 export { Icon, Icons } from './Icon/Icon';
