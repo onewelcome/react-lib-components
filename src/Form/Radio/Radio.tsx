@@ -88,7 +88,9 @@ export const Radio = ({
         <FormHelperText
           {...helperProps}
           id={`${identifier}`}
-          className={`${classes['helper-text']} ${helperProps?.className ?? ''}`}
+          className={`${classes['helper-text']} ${helperProps?.className ?? ''} ${
+            error ? classes['error'] : ''
+          }`}
         >
           {helperText}
         </FormHelperText>
