@@ -1,11 +1,11 @@
-import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
+import React, { AriaAttributes, ForwardRefExoticComponent, RefAttributes } from 'react';
 import { HTMLProps } from '../interfaces';
 import classes from './Link.module.scss';
 import { LinkProps } from './types';
 
 type AnchorType = 'external' | 'internal' | 'download';
 
-export interface Props extends HTMLProps<HTMLAnchorElement> {
+export interface Props extends HTMLProps<HTMLAnchorElement>, AriaAttributes {
   children?: string;
   color?: 'primary' | 'secondary' | 'tertiary';
   type?: AnchorType;
@@ -37,7 +37,11 @@ export const Link = ({
   };
 
   if (component) {
+    const ariaProps = Object.fromEntries(
+      Object.entries(rest).filter(([key]) => key.startsWith('aria-'))
+    );
     return React.createElement(component, {
+      ...ariaProps,
       to: to,
       className: `${classes['link']} ${disabled ? classes['disabled'] : ''} ${className ?? ''}`,
       'aria-disabled': disabled,

@@ -1,7 +1,7 @@
 import React, { Fragment, HTMLProps, ReactElement } from 'react';
 import { Icon, Icons } from '../Icon/Icon';
+import { Link, Props as LinkProps } from '../Link/Link';
 import classes from './Breadcrumbs.module.scss';
-import { Link, Props as LinkProps } from './Link';
 
 type ChildrenType = ReactElement<LinkProps, typeof Link>;
 
