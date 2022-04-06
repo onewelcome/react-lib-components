@@ -1,0 +1,11 @@
+.tiles {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media screen and (min-width: 30em) {
+  .tiles {
+    grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
+  }
+}

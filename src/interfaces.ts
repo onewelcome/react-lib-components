@@ -9,3 +9,7 @@ type DataAttributeKey = `data-${string}`;
 export interface HTMLProps<T> extends React.HTMLProps<T> {
   [dataAttribute: DataAttributeKey]: any;
 }
+
+export interface HTMLAttributes<T> extends React.HTMLAttributes<T> {
+  [dataAttribute: DataAttributeKey]: any;
+}
