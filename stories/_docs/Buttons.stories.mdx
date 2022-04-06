@@ -1,0 +1,53 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Button } from '../../src/Button/Button';
+import { IconButton } from '../../src/Button/IconButton';
+
+<Meta
+  title="Docs/Button"
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+  }}
+/>
+
+# Button
+
+The button component is a staple within the component library and is used all throughout. There's two different kinds of buttons and they both extend our `BaseButton` component. The two kinds are:
+
+- `Button` component
+- `IconButton` component
+
+## Examples
+
+Examples of the `Button` and `IconButton` can be found in their respective story.
+
+- [Click here for `Button` story](/docs/stories-ui-button--filled-button)
+- [Click here for `IconButton` story](/docs/stories-ui-iconbutton--button)
+
+## Props
+
+Below you will find all of the props of the components. If you need information on what types are specific to React [click here](https://react-typescript-cheatsheet.netlify.app/docs/advanced/types_react_api/#typesreact).
+Prop names with a `?` are optional. Keep in mind that `...rest` is passed down through most components. Note that all of our components accept the `className` prop.
+
+### Button
+
+| Prop name   | Type                                                                           | Default value |
+| ----------- | ------------------------------------------------------------------------------ | ------------- |
+| children?:  | ReactNode                                                                      | undefined     |
+| variant?:   | 'fill' \|'text' \| 'outline'                                                   | 'fill'        |
+| color?:     | 'primary' \| 'secondary' \| 'tertiary'                                         | 'primary'     |
+| startIcon?: | &lt;Icon /> component \| false                                                 | false         |
+| endIcon?:   | &lt;Icon /> component \| false                                                 | false         |
+| ...rest?:   | [HTML button attributes](https://www.w3schools.com/tags/tag_button.asp#table1) | undefined     |
+
+### IconButton
+
+| Prop name  | Type                                                                           | Default value |
+| ---------- | ------------------------------------------------------------------------------ | ------------- |
+| children?: | ReactNode                                                                      | undefined     |
+| iconSize?: | 's' \|'m' \| 'l'                                                               | 'fill'        |
+| color?:    | 'primary' \| 'secondary' \| 'tertiary'                                         | 'primary'     |
+| title:     | string                                                                         | undefined     |
+| ...rest?:  | [HTML button attributes](https://www.w3schools.com/tags/tag_button.asp#table1) | undefined     |
