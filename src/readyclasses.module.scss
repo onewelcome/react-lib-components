@@ -42,3 +42,29 @@
 .hidden {
   display: none;
 }
+
+.slide-in {
+  animation: slide-in 0.5s forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}

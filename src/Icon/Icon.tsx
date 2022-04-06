@@ -13,7 +13,7 @@ export enum Icons {
   Checkmark = 'checkmark',
   CheckmarkCircle = 'checkmark-circle',
   CheckmarkCircleAlt = 'checkmark-circle-alt',
-  CheckmarkCircleBreakOut = 'checkmark-circle-breakout',
+  CheckmarkCircleBreakout = 'checkmark-circle-breakout',
   CheckmarkSquare = 'checkmark-square',
   ChevronUp = 'chevron-up',
   ChevronDown = 'chevron-down',

@@ -7,6 +7,7 @@ export interface Props extends Omit<BaseButtonProps, 'ref'> {
   children?: React.ReactNode;
   color?: 'primary' | 'secondary' | 'tertiary';
   iconSize?: 's' | 'm' | 'l';
+  className?: string;
   title: string;
   ref?: RefObject<HTMLButtonElement>;
 }

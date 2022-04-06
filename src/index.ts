@@ -17,6 +17,9 @@ export { Tile } from './Tiles/Tile';
 export { ContextMenu } from './ContextMenu/ContextMenu';
 export { ContextMenuItem } from './ContextMenu/ContextMenuItem';
 
+export { SnackbarProvider } from './Snackbar/SnackbarProvider/SnackbarProvider';
+export { useSnackbar } from './Snackbar/useSnackbar';
+
 /** Form components */
 export { Form } from './Form/Form';
 export { Fieldset } from './Form/Fieldset/Fieldset';
