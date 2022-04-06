@@ -7,7 +7,7 @@ import { Button, Modal, ModalHeader, ModalActions, ModalContent } from '../../sr
 import { Step } from '../../src/Wizard/BaseWizardSteps/BaseWizardSteps';
 
 const meta: Meta = {
-  title: 'Wizard',
+  title: 'Stories/Form/Wizard/Wizard',
   component: Wizard,
   args: {
     steps: [
@@ -45,7 +45,7 @@ const Template: Story<Props> = (args) => {
 
   const onNext = (stepNo: number) => {
     if (stepNo === 3) {
-      return confirm('Does the validation passed?');
+      return window.confirm('Does the validation passed?');
     }
     return true;
   };

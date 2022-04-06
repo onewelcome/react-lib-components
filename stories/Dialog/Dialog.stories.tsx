@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Dialog, Props } from '../../src/Dialog/Dialog';
 import { Button } from '../../src/Button/Button';
+import { Typography } from '../../src/Typography/Typography';
 
 const meta: Meta = {
-  title: 'UI/Dialog',
+  title: 'Stories/UI/Dialog',
   component: Dialog,
   args: {
     id: 'dialog',
     title: 'Discard changes?',
     alignActions: 'left',
-    children: <p style={{ margin: 0 }}>This cannot be undone and you will lose your changes.</p>,
+    children: (
+      <Typography variant="body" spacing={{ margin: 0 }}>
+        This cannot be undone and you will lose your changes.
+      </Typography>
+    ),
     primaryAction: {
       label: 'Discard',
       onClick: () => window.setDialogOpen(false),
@@ -57,13 +62,15 @@ RightAlignedActionDialog.args = {
   title: 'Verify email address',
   alignActions: 'right',
   children: (
-    <p style={{ margin: 0 }}>
-      You want to verify the email address <b>dana.george@mydomain.com</b>.
-      <br />
-      <br />
-      <b>Dana George</b> will receive an email with a verification link and must click the link to
-      complete the verification.
-    </p>
+    <>
+      <Typography variant="body">
+        You want to verify the email address <b>dana.george@mydomain.com</b>.
+      </Typography>
+      <Typography variant="body" spacing={{ margin: 0 }}>
+        <b>Dana George</b> will receive an email with a verification link and must click the link to
+        complete the verification.
+      </Typography>
+    </>
   ),
   primaryAction: {
     label: 'Send email',
@@ -80,7 +87,11 @@ export const SingleActionDialog = Template.bind({});
 SingleActionDialog.args = {
   title: 'Info',
   alignActions: 'right',
-  children: <p style={{ margin: 0 }}>You can't remove your account.</p>,
+  children: (
+    <Typography variant="body" spacing={{ margin: 0 }}>
+      You can't remove your account.
+    </Typography>
+  ),
   primaryAction: {
     label: 'Ok',
     onClick: () => window.setDialogOpen(false),
@@ -109,8 +120,10 @@ export const NestedDialogs = () => {
           onClick: () => setOpen(false),
         }}
       >
-        Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long
-        dialog content.
+        <Typography variant="body" spacing={{ margin: 0 }}>
+          Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long
+          dialog content.
+        </Typography>
       </Dialog>
       <Dialog
         id="dialog12"
@@ -123,7 +136,9 @@ export const NestedDialogs = () => {
           onClick: () => setOpen2(false),
         }}
       >
-        Short dialog content.
+        <Typography variant="body" spacing={{ margin: 0 }}>
+          Short dialog content.
+        </Typography>
       </Dialog>
     </>
   );

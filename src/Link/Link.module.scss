@@ -1,0 +1,13 @@
+.link {
+  font-size: inherit;
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  &:focus,
+  &:hover,
+  &:active {
+    text-decoration-thickness: 0.125rem;
+  }
+}

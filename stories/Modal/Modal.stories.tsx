@@ -5,9 +5,10 @@ import { ModalActions } from '../../src/Modal/ModalActions/ModalActions';
 import { ModalContent } from '../../src/Modal/ModalContent/ModalContent';
 import { ModalHeader } from '../../src/Modal/ModalHeader/ModalHeader';
 import { Button } from '../../src/Button/Button';
+import { Typography } from '../../src/Typography/Typography';
 
 const meta: Meta = {
-  title: 'UI/Modal',
+  title: 'Stories/UI/Modal',
   component: Modal,
   args: {
     id: 'modal',
@@ -52,12 +53,12 @@ const Template: Story<Props> = (args) => {
               onClose();
             }}
           >
-            <p style={{ margin: 0, paddingInline: 20 }}>
+            <Typography variant="body" spacing={{ margin: 0, paddingLeft: 5, paddingRight: 5 }}>
               This modal shows various options of form controls. It is not meant to be a realistic
               example of any of our forms.
               <br /> Clicking Save, Cancel or Close may bring you to a different screen than you
               came from.
-            </p>
+            </Typography>
             <input
               style={{
                 paddingBlock: 10,

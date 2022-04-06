@@ -6,9 +6,7 @@ import userEvent from '@testing-library/user-event';
 
 describe('Form should render', () => {
   it('renders without crashing', () => {
-    const { getByTestId } = render(
-      <Form data-testid="component">Content</Form>
-    );
+    const { getByTestId } = render(<Form data-testid="component">Content</Form>);
     const component = getByTestId('component');
     expect(component).toBeDefined();
   });

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import classes from './BaseButton.module.scss';
 
-export interface Props extends React.HTMLProps<HTMLButtonElement> {
+export interface Props extends Omit<React.HTMLProps<HTMLButtonElement>, 'ref'> {
   children?: React.ReactNode;
   type?: 'submit' | 'button' | 'reset';
   className?: string;
@@ -13,6 +13,7 @@ export interface Props extends React.HTMLProps<HTMLButtonElement> {
   formtarget?: string;
   name?: string;
   value?: string;
+  ref?: RefObject<HTMLButtonElement>;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => unknown;
   onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => unknown;
   onContextMenu?: (event: React.MouseEvent<HTMLButtonElement>) => unknown;
@@ -29,17 +30,24 @@ export interface Props extends React.HTMLProps<HTMLButtonElement> {
   onTouchStart?: (event: React.TouchEvent<HTMLButtonElement>) => unknown;
 }
 
-export const BaseButton = ({ children, type = 'button', className, ...rest }: Props) => {
-  const validTypes = ['submit', 'button', 'reset'];
+export const BaseButton = React.forwardRef<HTMLButtonElement, Props>(
+  ({ children, type = 'button', className, ...rest }, ref) => {
+    const validTypes = ['submit', 'button', 'reset'];
 
-  if (!validTypes.includes(type))
-    throw new Error(
-      `You have entered an invalid button type. Expected 'submit', 'button' or 'reset' got ${type}`
+    if (!validTypes.includes(type))
+      throw new Error(
+        `You have entered an invalid button type. Expected 'submit', 'button' or 'reset' got ${type}`
+      );
+
+    return (
+      <button
+        {...rest}
+        ref={ref}
+        type={type}
+        className={`${classes.button} ${className ? className : ''}`}
+      >
+        {children}
+      </button>
     );
-
-  return (
-    <button {...rest} type={type} className={`${classes.button} ${className ? className : ''}`}>
-      {children}
-    </button>
-  );
-};
+  }
+);
