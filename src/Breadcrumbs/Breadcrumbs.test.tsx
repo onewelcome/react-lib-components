@@ -17,7 +17,7 @@ const initParams: Props = {
 
 const getAllLinks = (container: HTMLElement) => getAllByTestId(container, 'link');
 
-describe('BaseWizardSteps', () => {
+describe('Breadcrumbs', () => {
   it('renders without crashing', () => {
     const { container } = render(<Breadcrumbs {...initParams} />);
     const [link1, link2] = getAllLinks(container);
@@ -25,5 +25,6 @@ describe('BaseWizardSteps', () => {
     expect(container).toBeDefined();
     expect(link1).not.toHaveAttribute('disabled');
     expect(link2).toHaveAttribute('disabled', '');
+    expect(link2).toHaveAttribute('aria-current', 'page');
   });
 });
