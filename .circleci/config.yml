@@ -111,16 +111,15 @@ workflows:
             - test
             - build-storybook
 
-      # Do not publish yet without having it properly configured
-      # - onegini-build/npm-publish:
-      #     name: publish-library
-      #     <<: *dev-context
-      #     <<: *require-build
-      #     <<: *filter-tags
+      - onegini-build/npm-publish:
+          name: publish-library
+          <<: *dev-context
+          <<: *require-build
+          <<: *filter-tags
 
-      # - onegini-build/notify-released:
-      #     name: notify-released
-      #     <<: *dev-context
-      #     <<: *filter-tags
-      #     requires:
-      #       - publish-library
+      - onegini-build/notify-released:
+          name: notify-released
+          <<: *dev-context
+          <<: *filter-tags
+          requires:
+            - publish-library
