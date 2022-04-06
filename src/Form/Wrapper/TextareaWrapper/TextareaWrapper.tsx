@@ -26,20 +26,30 @@ export const TextareaWrapper = ({
   onBlur,
   ...rest
 }: Props) => {
-  const { errorId, floatingLabelActive, setFloatingLabelActive, setHasFocus, helperId, labelId } =
-    useWrapper(value, placeholder);
+  const {
+    errorId,
+    floatingLabelActive,
+    setFloatingLabelActive,
+    hasFocus,
+    setHasFocus,
+    helperId,
+    labelId,
+  } = useWrapper(value, placeholder);
 
   return (
     <Wrapper
       {...rest}
       labelProps={{
         id: labelId,
-        className: classes['textarea-label'],
+        className: `${classes['textarea-label']} ${hasFocus ? classes['focus'] : ''}`,
       }}
       name={name}
       label={label}
       helperId={helperId}
-      helperProps={{ ...helperProps, className: classes['textarea-helper-text'] }}
+      helperProps={{
+        ...helperProps,
+        className: classes['textarea-helper-text'],
+      }}
       error={error}
       floatingLabelActive={floatingLabelActive}
       errorId={errorId}

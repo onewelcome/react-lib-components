@@ -29,6 +29,7 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
     labelId,
     floatingLabelActive,
     setFloatingLabelActive,
+    hasFocus,
     setHasFocus,
   };
 };

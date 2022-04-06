@@ -30,15 +30,25 @@ export const InputWrapper = ({
   onFocus,
   ...rest
 }: Props) => {
-  const { errorId, floatingLabelActive, setFloatingLabelActive, setHasFocus, helperId, labelId } =
-    useWrapper(value, inputProps?.placeholder, type);
+  const {
+    errorId,
+    floatingLabelActive,
+    setFloatingLabelActive,
+    hasFocus,
+    setHasFocus,
+    helperId,
+    labelId,
+  } = useWrapper(value, inputProps?.placeholder, type);
 
   return (
     <Wrapper
       {...rest}
       name={name}
       className={classes['input-wrapper']}
-      labelProps={{ id: labelId, className: classes['input-label'] }}
+      labelProps={{
+        id: labelId,
+        className: `${classes['input-label']} ${hasFocus ? classes['focus'] : ''}`,
+      }}
       floatingLabelActive={floatingLabelActive}
       errorId={errorId}
       error={error}
