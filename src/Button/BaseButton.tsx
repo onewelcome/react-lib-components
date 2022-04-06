@@ -1,4 +1,4 @@
-import React, { RefObject, useRef } from 'react';
+import React, { RefObject } from 'react';
 import classes from './BaseButton.module.scss';
 
 export interface Props extends Omit<React.HTMLProps<HTMLButtonElement>, 'ref'> {
@@ -33,8 +33,6 @@ export interface Props extends Omit<React.HTMLProps<HTMLButtonElement>, 'ref'> {
 export const BaseButton = React.forwardRef<HTMLButtonElement, Props>(
   ({ children, type = 'button', className, ...rest }, ref) => {
     const validTypes = ['submit', 'button', 'reset'];
-    const localRef = useRef<HTMLButtonElement>(null);
-    const buttonRef = ref || localRef;
 
     if (!validTypes.includes(type))
       throw new Error(
@@ -44,7 +42,7 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, Props>(
     return (
       <button
         {...rest}
-        ref={buttonRef}
+        ref={ref}
         type={type}
         className={`${classes.button} ${className ? className : ''}`}
       >

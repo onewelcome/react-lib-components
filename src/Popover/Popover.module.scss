@@ -1,5 +1,6 @@
 .popover {
   position: fixed;
+  pointer-events: none;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.29);
@@ -11,6 +12,7 @@
 
   &.show {
     transform: scale(1);
+    pointer-events: auto;
     opacity: 1;
   }
 }
