@@ -1,7 +1,7 @@
 {
   "name": "@onewelcome/react-lib-components",
   "version": "0.0.0-dev",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "author": "OneWelcome B.V.",
   "main": "dist/index.js",
   "module": "dist/react-lib-components.esm.js",
