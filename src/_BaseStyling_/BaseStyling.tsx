@@ -19,6 +19,11 @@ interface CSSProperties {
   modalShadowColor?: string;
   modalBackgroundColor?: string;
   modalHeaderBackgroundColor?: string;
+  snackbarTextColor?: string;
+  snackbarInfoBackgroundColor?: string;
+  snackbarSuccessBackgroundColor?: string;
+  snackbarErrorBackgroundColor?: string;
+  snackbarBorderRadius?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -42,7 +47,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
-  const [colors, setColors] = useState<CSSProperties>({
+  const defaultProperties: CSSProperties = {
     colorPrimary: '#9e006b',
     colorSecondary: '#003b5e',
     colorTertiary: '#ff1e4e',
@@ -61,8 +66,13 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',
     modalBackgroundColor: '#F5F8F8',
     modalHeaderBackgroundColor: '#FFF',
+    snackbarTextColor: '#fff',
+    snackbarInfoBackgroundColor: '#003b5e',
+    snackbarSuccessBackgroundColor: '#008a28',
+    snackbarErrorBackgroundColor: '#e22a1d',
+    snackbarBorderRadius: '8px',
     default: '#0f0f1e',
-    success: '#008A28',
+    success: '#008a28',
     error: '#e22a1d',
     disabled: '#e9e9eb',
     greyedOut: '#6f6f76',
@@ -76,20 +86,10 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH4: '1.25rem',
     fontSizeSub: '.75rem',
     fontSizeCode: '1rem',
-  });
+  };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
   const [isLoading, setIsLoading] = useState(true);
-
-  /** Check if the properties prop object is filled with anything. If it is, we want to shallow merge it with the default BaseStyling. */
-  useEffect(() => {
-    if (Object.keys(properties).length !== 0) {
-      const mergedState = { ...colors, ...properties };
-      setColors(mergedState);
-    }
-
-    setIsLoading(false);
-  }, []);
 
   /** Set the actual CSS properties on the HTML :root object */
   const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
@@ -99,7 +99,16 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     }
   };
 
-  setCSSProperties(colors);
+  /** Check if the properties prop object is filled with anything. If it is, we want to shallow merge it with the default BaseStyling. */
+  useEffect(() => {
+    if (Object.keys(properties).length !== 0) {
+      const mergedState = { ...defaultProperties, ...properties };
+      setCSSProperties(mergedState);
+    } else {
+      setCSSProperties(defaultProperties);
+    }
+    setIsLoading(false);
+  }, [properties]);
 
   /** Only render if we're not loading */
   return !isLoading ? <Fragment>{children}</Fragment> : null;

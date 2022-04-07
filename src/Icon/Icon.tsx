@@ -1,5 +1,6 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 import classes from './Icon.module.scss';
+import { HTMLAttributes } from '../interfaces';
 
 export enum Icons {
   Bell = 'bell',
@@ -12,7 +13,7 @@ export enum Icons {
   Checkmark = 'checkmark',
   CheckmarkCircle = 'checkmark-circle',
   CheckmarkCircleAlt = 'checkmark-circle-alt',
-  CheckmarkCircleBreakOut = 'checkmark-circle-breakout',
+  CheckmarkCircleBreakout = 'checkmark-circle-breakout',
   CheckmarkSquare = 'checkmark-square',
   ChevronUp = 'chevron-up',
   ChevronDown = 'chevron-down',
