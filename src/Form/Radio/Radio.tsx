@@ -1,10 +1,11 @@
 import React from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
-import { FormHelperText, Props as HelperProps } from '../FormHelperText/FormHelperText';
+import { Props as HelperProps } from '../FormHelperText/FormHelperText';
 import classes from './Radio.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
 import { FormSelector } from '../form.interfaces';
 import { HTMLProps } from '../../interfaces';
+import { FormSelectorWrapper } from '../FormSelectorWrapper/FormSelectorWrapper';
 
 export interface Props extends FormSelector<HTMLInputElement> {
   children: string;
@@ -54,53 +55,41 @@ export const Radio = ({
 
   /** Default return value is the default radio */
   return (
-    <div
+    <FormSelectorWrapper
       {...wrapperProps}
-      className={`${classes['radio-wrapper']} ${error ? classes.error : ''} ${
-        disabled ? classes.disabled : ''
-      } ${wrapperProps?.className ?? ''}`}
+      className={classes['radio-wrapper']}
+      containerProps={{ className: classes['radio-container'] }}
+      helperText={helperText}
+      helperProps={helperProps}
+      parentErrorId={parentErrorId}
+      errorId={errorId}
+      errorMessage={errorMessage}
+      error={error}
+      disabled={disabled}
+      identifier={identifier}
     >
-      <div className={classes['radio-container']}>
-        <input
-          {...rest}
-          disabled={disabled}
-          tabIndex={0}
-          className={`${classes['native-input']} ${className ?? ''}`}
-          onChange={onChangeHandler}
-          checked={checked}
-          aria-invalid={error ? true : false}
-          aria-checked={checked}
-          aria-describedby={describedBy}
-          name={name}
-          value={value}
-          id={`${identifier}-radio`}
-          type="radio"
-        />
+      <input
+        {...rest}
+        disabled={disabled}
+        tabIndex={0}
+        className={`${classes['native-input']} ${className ?? ''}`}
+        onChange={onChangeHandler}
+        checked={checked}
+        aria-invalid={error ? true : false}
+        aria-checked={checked}
+        aria-describedby={describedBy}
+        name={name}
+        value={value}
+        id={`${identifier}-radio`}
+        type="radio"
+      />
 
-        {checked && <Icon className={classes.input} icon={Icons.Radio} />}
-        {!checked && <Icon className={classes.input} icon={Icons.Circle} />}
+      {checked && <Icon className={classes.input} icon={Icons.Radio} />}
+      {!checked && <Icon className={classes.input} icon={Icons.Circle} />}
 
-        <label onClick={onChangeHandler} htmlFor={`${identifier}-radio`}>
-          {children}
-        </label>
-      </div>
-      {helperText && (!error || parentErrorId || !errorMessage) && (
-        <FormHelperText
-          {...helperProps}
-          id={`${identifier}`}
-          className={`${classes['helper-text']} ${helperProps?.className ?? ''} ${
-            error ? classes['error'] : ''
-          }`}
-        >
-          {helperText}
-        </FormHelperText>
-      )}
-      {errorMessage && !parentErrorId && error && (
-        <span className={classes['error-message']}>
-          <Icon className={classes['error-icon']} icon={Icons.Warning} />
-          <span id={errorId}>{errorMessage}</span>
-        </span>
-      )}
-    </div>
+      <label onClick={onChangeHandler} htmlFor={`${identifier}-radio`}>
+        {children}
+      </label>
+    </FormSelectorWrapper>
   );
 };

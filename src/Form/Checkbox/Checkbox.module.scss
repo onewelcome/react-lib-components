@@ -6,27 +6,6 @@
   }
 }
 
-.error {
-  color: var(--error);
-}
-
-.helper-text {
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  margin-left: 1.75rem;
-}
-
-.error-message {
-  margin-top: 1.25rem;
-  display: flex;
-  align-items: flex-end;
-}
-
-.error-icon {
-  margin-right: 0.5rem;
-  font-size: 1.25rem;
-}
-
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -36,10 +15,6 @@
     margin-left: 0.5rem;
     user-select: none;
     font-size: 1rem;
-
-    .disabled & {
-      cursor: not-allowed;
-    }
   }
 }
 
@@ -73,10 +48,6 @@
     }
   }
 
-  &:disabled {
-    cursor: not-allowed;
-  }
-
   &:focus-visible {
     + * {
       outline: 5px auto rgba(0, 150, 255, 1);
@@ -91,8 +62,4 @@
 .input {
   font-size: 1.25rem;
   pointer-events: none;
-
-  .disabled & {
-    color: var(--disabled);
-  }
 }
