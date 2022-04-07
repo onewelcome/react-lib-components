@@ -16,7 +16,7 @@
   width: 100%;
   box-sizing: border-box;
   vertical-align: top;
-  resize: none;
+  resize: vertical;
 
   &:disabled {
     color: var(--greyed-out);

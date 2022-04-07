@@ -29,7 +29,7 @@ export const Option = ({
 
   useEffect(() => {
     if (filter) {
-      setShowOption(children?.toLowerCase().match(filter.toLowerCase()) !== null);
+      setShowOption(children.toLowerCase().match(filter.toLowerCase()) !== null);
     } else {
       setShowOption(true);
     }
