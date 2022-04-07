@@ -41,11 +41,11 @@
   }
   &.focus {
     border-color: var(--color-primary);
-    outline: 2px auto var(--color-primary);
-    -webkit-outline: 2px auto var(--color-primary);
-    -moz-outline: 2px auto var(--color-primary);
-    -ms-outline: 2px auto var(--color-primary);
-    -o-outline: 2px auto var(--color-primary);
+    outline: 5px auto -webkit-focus-ring-color;
+    -webkit-outline: 5px auto -webkit-focus-ring-color;
+    -moz-outline: 5px auto rgba(0, 150, 255, 1);
+    -ms-outline: 5px auto rgba(0, 150, 255, 1);
+    -o-outline: 5px auto rgba(0, 150, 255, 1);
   }
 
   &.disabled {

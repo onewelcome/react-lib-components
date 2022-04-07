@@ -41,6 +41,16 @@ export const Input = ({
     }
   }, []);
 
+  const inputClassNames = [classes['input']];
+  error && inputClassNames.push(classes['error']);
+  (dateTypes as ReadonlyArray<string>).includes(type) &&
+    inputClassNames.push(classes['remove-extra-indent']);
+  className && inputClassNames.push(className);
+
+  const iconClassNames = [classes['warning']];
+  (dateTypes as ReadonlyArray<string>).includes(type) &&
+    iconClassNames.push(classes['extra-indent']);
+
   return (
     <div
       {...wrapperProps}
@@ -54,18 +64,9 @@ export const Input = ({
         aria-labelledby={labeledBy}
         type={type}
         name={name}
-        className={`${classes['input']} ${error ? classes['error'] : ''} ${
-          (dateTypes as ReadonlyArray<string>).includes(type) ? classes['remove-extra-indent'] : ''
-        } ${className ?? ''}`}
+        className={inputClassNames.join(' ')}
       />
-      {error && (
-        <Icon
-          className={`${classes['warning']} ${
-            (dateTypes as ReadonlyArray<string>).includes(type) ? classes['extra-indent'] : ''
-          }`}
-          icon={Icons.Warning}
-        />
-      )}
+      {error && <Icon className={iconClassNames.join(' ')} icon={Icons.Warning} />}
     </div>
   );
 };
