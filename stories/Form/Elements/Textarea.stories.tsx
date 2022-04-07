@@ -9,6 +9,9 @@ const meta: Meta = {
     value: {
       control: 'text',
     },
+    disabled: {
+      control: 'boolean',
+    },
   },
 };
 

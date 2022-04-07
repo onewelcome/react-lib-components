@@ -58,7 +58,9 @@ describe('InputWrapper should render', () => {
 
     expect(input).toHaveAttribute('aria-describedby', helperId);
   });
+});
 
+describe('InputWrapper should be interactive', () => {
   it('executes the eventlisteners', () => {
     const onFocusHandler = jest.fn();
     const onChangeHandler = jest.fn();

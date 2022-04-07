@@ -2,9 +2,12 @@ import React, { HTMLAttributes, ReactNode } from 'react';
 import classes from './Typography.module.scss';
 import { Spacing, useSpacing } from '../hooks/useSpacing';
 
+const validVariants = ['h1', 'h2', 'h3', 'h4', 'body', 'body-bold', 'sub-text', 'code'] as const;
+export type Variant = typeof validVariants[number];
+
 export interface Props extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
-  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'body-bold' | 'sub-text' | 'code';
+  variant: Variant;
   tag?:
     | 'h1'
     | 'h2'
@@ -35,6 +38,12 @@ export const Typography = ({
   className = '',
   ...rest
 }: Props) => {
+  if (!validVariants.includes(variant)) {
+    throw new Error(
+      `You entered an invalid variant. You can choose from: ${validVariants}, you entered: ${variant}`
+    );
+  }
+
   const styleWithSpacing = useSpacing(spacing, style);
 
   if (!tag) {
