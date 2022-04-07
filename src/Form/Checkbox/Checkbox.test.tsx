@@ -3,10 +3,13 @@ import { Checkbox, CheckboxProps as Props } from './Checkbox';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+const onChangeHandeler = jest.fn();
+
 const defaultParams: Props = {
   name: 'Testing',
   children: 'checkbox content',
   helperText: 'example helper',
+  onChange: onChangeHandeler,
 };
 
 const createCheckbox = (params?: (defaultParams: Props) => Props) => {
@@ -95,5 +98,22 @@ describe('Checkbox should have proper attributes', () => {
 
     expect(label).toBeTruthy();
     expect(label).toHaveTextContent('Label');
+  });
+});
+
+describe('Checkbox should be interactive', () => {
+  it('should call onChange when clicked', () => {
+    const { checkbox } = createCheckbox();
+
+    expect(onChangeHandeler).not.toBeCalled();
+    userEvent.click(checkbox);
+    expect(onChangeHandeler).toBeCalledTimes(1);
+  });
+
+  it('should not call onChange when disabled', () => {
+    const { checkbox } = createCheckbox((defaultParams) => ({ ...defaultParams, disabled: true }));
+
+    userEvent.click(checkbox);
+    expect(onChangeHandeler).not.toBeCalled();
   });
 });

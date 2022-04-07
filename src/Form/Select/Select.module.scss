@@ -9,7 +9,7 @@ $listItemHeight: 2.125rem;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
   background-color: #fff;
-  font-size: 1rem;
+  font-size: var(--font-size);
 
   &.expanded {
     border: var(--input-border-width) solid transparent;
@@ -119,7 +119,7 @@ $listItemHeight: 2.125rem;
 .status {
   position: absolute;
   top: 50%;
-  right: 1rem;
+  right: 1.625rem;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
@@ -129,8 +129,13 @@ $listItemHeight: 2.125rem;
     font-size: 1.25rem;
   }
 
+  .triangle-down {
+    color: var(--default);
+    font-size: 0.625rem;
+  }
+
   * + * {
-    margin-left: 0.5rem;
+    margin-left: 1.25rem;
   }
 }
 

@@ -29,6 +29,9 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
+    disabled: {
+      control: 'boolean',
+    },
   },
 };
 
