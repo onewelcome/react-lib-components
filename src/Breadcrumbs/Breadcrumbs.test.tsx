@@ -1,9 +1,9 @@
 import React from 'react';
 import { Breadcrumbs, Props } from './Breadcrumbs';
-import { getAllByTestId, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Link } from '../Link/Link';
 
-const initParams: Props = {
+const defaultParams: Props = {
   'aria-label': 'Breadcrumbs',
   children: [
     <Link key="0" to="#1" data-testid="link">
@@ -15,15 +15,28 @@ const initParams: Props = {
   ],
 };
 
-const getAllLinks = (container: HTMLElement) => getAllByTestId(container, 'link');
+const createBreadcrumbs = (params?: (defaultParams: Props) => Props) => {
+  let parameters: Props = defaultParams;
+  if (params) {
+    parameters = params(defaultParams);
+  }
+  const queries = render(<Breadcrumbs {...parameters} data-testid="breadcrumbs"></Breadcrumbs>);
+  const breadcrumbs = queries.getByTestId('breadcrumbs');
 
-describe('Breadcrumbs', () => {
+  return {
+    ...queries,
+    breadcrumbs,
+  };
+};
+
+describe('Breadcrumbs should render', () => {
   it('renders without crashing', () => {
-    const { container } = render(<Breadcrumbs {...initParams} />);
-    const [link1, link2] = getAllLinks(container);
+    const { breadcrumbs } = createBreadcrumbs();
 
-    expect(container).toBeDefined();
-    expect(link1).not.toHaveAttribute('aria-current');
-    expect(link2).toHaveAttribute('aria-current', 'page');
+    expect(breadcrumbs).toBeDefined();
+    expect(breadcrumbs.firstChild).not.toHaveAttribute('aria-current');
+    expect((breadcrumbs.firstChild as HTMLElement).tagName).toEqual('A');
+    expect(breadcrumbs.lastChild).toHaveAttribute('aria-current', 'page');
+    expect((breadcrumbs.lastChild as HTMLElement).tagName).toEqual('SPAN');
   });
 });

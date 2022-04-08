@@ -1,9 +1,7 @@
 .breadcrumbs {
-  & [aria-current='page'] {
+  .last {
     color: var(--greyed-out);
-    pointer-events: none;
-    cursor: not-allowed;
-    text-decoration: none;
+    margin: 0;
   }
 
   .icon {

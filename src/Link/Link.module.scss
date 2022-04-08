@@ -1,5 +1,12 @@
 .link {
-  font-size: inherit;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1.5;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: 0;
 
   &.disabled {
     cursor: not-allowed;
