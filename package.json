@@ -1,8 +1,8 @@
 {
-  "name": "react-lib-components",
-  "version": "0.1.0",
-  "license": "MIT",
-  "author": "OneWelcome",
+  "name": "@onewelcome/react-lib-components",
+  "version": "0.0.0-dev",
+  "license": "Apache-2.0",
+  "author": "OneWelcome B.V.",
   "main": "dist/index.js",
   "module": "dist/react-lib-components.esm.js",
   "typings": "dist/index.d.ts",
