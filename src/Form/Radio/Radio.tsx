@@ -40,6 +40,9 @@ export const Radio = ({
   });
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement> | React.MouseEvent) => {
+    if (disabled) {
+      return;
+    }
     /** We have to clone the native event we got here and change the "target" property to the value. Otherwise, this regular event has "on" as it's event.target.value, which is useless. */
     const nativeEvent: any = event.nativeEvent || event;
     const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);

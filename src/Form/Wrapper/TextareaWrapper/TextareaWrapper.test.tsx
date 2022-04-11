@@ -71,7 +71,20 @@ describe('TextareaWrapper & Textarea have the right attributes', () => {
     expect(textarea).toHaveAttribute('aria-describedby', errorMessage.id);
   });
 
-  it('Fires the onChange event', () => {
+  it('has floating label active when it has a placeholder', async () => {
+    const { findByText } = createTextareaWrapper((defaultParams) => ({
+      ...defaultParams,
+      placeholder: 'placeholder',
+    }));
+
+    const label = await findByText('textarea_label');
+
+    expect(label).toHaveClass('floating-label-active');
+  });
+});
+
+describe('TextarenaWrapper should be interactive', () => {
+  it('Fires the onChange, onFocus & onBlur events', () => {
     const onFocusHandler = jest.fn();
     const onChangeHandler = jest.fn();
     const onBlurHandler = jest.fn();
@@ -94,14 +107,19 @@ describe('TextareaWrapper & Textarea have the right attributes', () => {
     expect(onBlurHandler).toHaveBeenCalled();
   });
 
-  it('has floating label active when it has a placeholder', async () => {
-    const { findByText } = createTextareaWrapper((defaultParams) => ({
+  it('Fires the onMouseEnter & onMouseLeave events', () => {
+    const onMouseEnterHandler = jest.fn();
+    const onMouseLeaveHandler = jest.fn();
+
+    const { textarea } = createTextareaWrapper((defaultParams) => ({
       ...defaultParams,
-      placeholder: 'placeholder',
+      onMouseEnter: onMouseEnterHandler,
+      onMouseLeave: onMouseLeaveHandler,
     }));
 
-    const label = await findByText('textarea_label');
-
-    expect(label).toHaveClass('floating-label-active');
+    userEvent.hover(textarea);
+    expect(onMouseEnterHandler).toHaveBeenCalled();
+    userEvent.unhover(textarea);
+    expect(onMouseLeaveHandler).toHaveBeenCalled();
   });
 });

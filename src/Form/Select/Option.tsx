@@ -18,7 +18,6 @@ export const Option = ({
   selected = false,
   onOptionSelect,
   disabled,
-  value,
   filter,
   ...rest
 }: Props) => {

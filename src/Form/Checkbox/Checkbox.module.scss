@@ -12,7 +12,6 @@
 
 .helper-text {
   margin-top: 0.25rem;
-  font-size: 0.75rem;
   margin-left: 1.75rem;
 }
 
@@ -35,7 +34,7 @@
     display: inline-block;
     margin-left: 0.5rem;
     user-select: none;
-    font-size: 1rem;
+    font-size: var(--font-size);
 
     .disabled & {
       cursor: not-allowed;
@@ -62,8 +61,8 @@
   width: 1.25rem;
   height: 1.25rem;
 
-  &:focus,
-  &:active {
+  &:not(:disabled):focus,
+  &:not(:disabled):active {
     + * {
       color: var(--color-primary);
 
@@ -79,8 +78,8 @@
 
   &:focus-visible {
     + * {
-      outline: 5px auto rgba(0, 150, 255, 1);
-      -webkit-outline: 5px auto rgba(0, 150, 255, 1);
+      outline: 5px auto -webkit-focus-ring-color;
+      -webkit-outline: 5px auto -webkit-focus-ring-color;
       -moz-outline: 5px auto rgba(0, 150, 255, 1);
       -ms-outline: 5px auto rgba(0, 150, 255, 1);
       -o-outline: 5px auto rgba(0, 150, 255, 1);

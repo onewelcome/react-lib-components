@@ -4,6 +4,8 @@ import readyclasses from '../../readyclasses.module.scss';
 import { Icon, Icons } from '../../Icon/Icon';
 import { HTMLProps } from '../../interfaces';
 
+const dateTypes = ['date', 'time', 'datetime-local'] as const;
+
 export type Type =
   | 'text'
   | 'email'
@@ -12,10 +14,9 @@ export type Type =
   | 'password'
   | 'search'
   | 'tel'
-  | 'time'
   | 'url'
-  | 'datetime-local'
-  | 'hidden';
+  | 'hidden'
+  | typeof dateTypes[number];
 
 export interface Props extends HTMLProps<HTMLInputElement> {
   wrapperProps?: HTMLProps<HTMLInputElement>;
@@ -40,12 +41,22 @@ export const Input = ({
     }
   }, []);
 
+  const inputClassNames = [classes['input']];
+  error && inputClassNames.push(classes['error']);
+  (dateTypes as ReadonlyArray<string>).includes(type) &&
+    inputClassNames.push(classes['remove-extra-indent']);
+  className && inputClassNames.push(className);
+
+  const iconClassNames = [classes['warning']];
+  (dateTypes as ReadonlyArray<string>).includes(type) &&
+    iconClassNames.push(classes['extra-indent']);
+
   return (
     <div
       {...wrapperProps}
       style={{ ...style }}
       className={`${classes['input-wrapper']} ${wrapperProps?.className ?? ''} ${
-        type === 'hidden' && readyclasses.hidden
+        type === 'hidden' ? readyclasses['hidden'] : ''
       }`}
     >
       <input
@@ -53,16 +64,9 @@ export const Input = ({
         aria-labelledby={labeledBy}
         type={type}
         name={name}
-        className={`${classes.input} ${error ? classes.error : ''} ${className ?? ''}`}
+        className={inputClassNames.join(' ')}
       />
-      {error && (
-        <Icon
-          className={`${classes.warning} ${
-            type === 'datetime-local' || type === 'time' ? classes['extra-indent'] : ''
-          }`}
-          icon={Icons.Warning}
-        />
-      )}
+      {error && <Icon className={iconClassNames.join(' ')} icon={Icons.Warning} />}
     </div>
   );
 };
