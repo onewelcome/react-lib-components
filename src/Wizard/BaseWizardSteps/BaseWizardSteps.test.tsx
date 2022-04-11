@@ -33,9 +33,13 @@ describe('BaseWizardSteps', () => {
     expect(initParams.onClick).toHaveBeenCalledTimes(0);
 
     expect(buttons).toHaveLength(4);
+    expect(buttons[0]).not.toHaveAttribute('aria-current');
     expect(buttons[0].querySelector('.checkmark')).toBeDefined();
+    expect(buttons[1]).toHaveAttribute('aria-current', 'step');
     expect(getByText(buttons[1], '2')).toBeDefined();
+    expect(buttons[2]).not.toHaveAttribute('aria-current');
     expect(getByText(buttons[2], '3')).toBeDefined();
+    expect(buttons[3]).not.toHaveAttribute('aria-current');
     expect(getByText(buttons[3], '4')).toBeDefined();
 
     userEvent.click(buttons[0]);

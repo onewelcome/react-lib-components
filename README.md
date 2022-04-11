@@ -1,5 +1,9 @@
 # OneWelcome React Component Library
 
+This project provides 
+
+> Note: the package is publicly available.
+
 ## Commands
 
 ### Component library
@@ -64,4 +68,17 @@ TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rol
 
 ## Release
 
-TBD.
+The publishing process is fired by git tag creation. CircleCI builds a package and publishes it to the public npmjs.com registry. 
+Release notes should be provided via GitHub UI.
+After a successful release, the release notes are published on `#releases` slack channel.
+
+### Creating release
+
+Follow these steps to create a release:
+
+- note all changes introduced from the last release
+- create a release on the GitHub repository page:
+  - determine new version (bugfix/minor/major)
+  - put proper release notes based on previous releases
+  - click on the `CREATE RELEASE` button
+- check if the release is published on `https://www.npmjs.com/package/@onewelcome/react-lib-components`

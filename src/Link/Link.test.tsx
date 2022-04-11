@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link, Props } from './Link';
 import { render } from '@testing-library/react';
-import { Link as RouterLink } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Link as RouterLink } from 'react-router-dom';
 
 const defaultParams: Props = {
   type: 'external',
