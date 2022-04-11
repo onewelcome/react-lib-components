@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 import { BaseModal } from '../BaseModal/BaseModal';
 import { BaseModalContent } from '../BaseModal/BaseModalContent/BaseModalContent';
 import { DialogActions } from './DialogActions/DialogActions';
@@ -6,9 +6,10 @@ import classes from './Dialog.module.scss';
 import { DialogTitle } from './DialogTitle/DialogTitle';
 import { Button, Props as ButtonProps } from '../Button/Button';
 import { labelId, descriptionId } from '../BaseModal/BaseModalContext';
+import { generateID } from '../util/helper';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  id: string;
+  id?: string;
   open: boolean;
   children: React.ReactNode;
   alignActions: 'left' | 'right';
@@ -36,6 +37,7 @@ export const Dialog = ({
   zIndex,
   ...restProps
 }: Props) => {
+  const [dialogId] = useState(id ?? generateID(20));
   const { label: primaryLabel, ...restOfPrimaryAction } = primaryAction;
   const PrimaryButton = (
     <Button key="primary" {...restOfPrimaryAction}>
@@ -63,7 +65,7 @@ export const Dialog = ({
   return (
     <BaseModal
       {...restProps}
-      id={id}
+      id={dialogId}
       className={classes['dialog']}
       containerClassName={classes['container']}
       open={open}
@@ -71,8 +73,12 @@ export const Dialog = ({
       onClose={onClose}
       zIndex={zIndex}
     >
-      <DialogTitle id={labelId(id)} title={title} />
-      <BaseModalContent id={descriptionId(id)} className={classes['content']} disableAutoFocus>
+      <DialogTitle id={labelId(dialogId)} title={title} />
+      <BaseModalContent
+        id={descriptionId(dialogId)}
+        className={classes['content']}
+        disableAutoFocus
+      >
         {children}
       </BaseModalContent>
       <DialogActions align={alignActions}>

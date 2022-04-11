@@ -14,7 +14,7 @@ interface Duration {
 
 export interface Props {
   closeButtonTitle: string;
-  children?: ReactNode | ReactNode[];
+  children?: ReactNode;
   placement?: Placement;
   stackSize?: number;
   domRoot?: HTMLElement;

@@ -1,4 +1,5 @@
-import React, { HTMLAttributes, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { HTMLAttributes } from '../interfaces';
 import classes from './BaseModal.module.scss';
 import { labelId, descriptionId } from './BaseModalContext';
 
