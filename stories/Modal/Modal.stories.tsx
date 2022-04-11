@@ -42,7 +42,14 @@ const Template: Story<Props> = (args) => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Modal id={id} open={open} onClose={onClose} zIndex={args.zIndex}>
+      <Modal
+        id={id}
+        open={open}
+        onClose={onClose}
+        zIndex={args.zIndex}
+        disableBackdrop={args.disableBackdrop}
+        disableEscapeKeyDown={args.disableEscapeKeyDown}
+      >
         <ModalHeader id={`${id}-label`} title={args['header.title']} onClose={onClose} />
         <ModalContent id={`${id}-description`} disableAutoFocus={args['content.disableAutoFocus']}>
           <form

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { HTMLAttributes } from '../interfaces';
 import classes from './BaseModal.module.scss';
 import { labelId, descriptionId } from './BaseModalContext';
@@ -19,25 +19,6 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   disableBackdrop?: boolean;
   zIndex?: number;
 }
-
-const useBackdropOnCloseClick = (
-  disableBackdrop: boolean,
-  onClose?: (event?: React.MouseEvent<HTMLElement>) => unknown
-) => {
-  const backdropRef = useRef<HTMLDivElement>(null);
-  const onBackdropClick = () => onClose && onClose();
-
-  useEffect(() => {
-    !disableBackdrop && backdropRef.current?.addEventListener('click', onBackdropClick);
-    return () => {
-      !disableBackdrop && backdropRef.current?.removeEventListener('click', onBackdropClick);
-    };
-  }, []);
-
-  return {
-    backdropRef,
-  };
-};
 
 export const useSetBodyScroll = (open: boolean) => {
   const hideBodyScroll = () => {
@@ -75,7 +56,6 @@ export const BaseModal = ({
   zIndex,
   ...restProps
 }: Props) => {
-  const { backdropRef } = useBackdropOnCloseClick(disableBackdrop, onClose);
   useSetBodyScroll(open);
 
   const handleEscKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -84,6 +64,8 @@ export const BaseModal = ({
       onClose && onClose();
     }
   };
+
+  const handleBackdropClick = () => !disableBackdrop && onClose && onClose();
 
   return (
     <div
@@ -100,7 +82,7 @@ export const BaseModal = ({
       onKeyDown={handleEscKeyPress}
       style={{ zIndex }}
     >
-      <div ref={backdropRef} className={classes['backdrop']}></div>
+      <div className={classes['backdrop']} onClick={handleBackdropClick}></div>
       {open && (
         <div
           style={{ zIndex: zIndex && zIndex + 1 }}
