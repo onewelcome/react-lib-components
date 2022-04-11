@@ -14,10 +14,14 @@ import { IconButton } from '../../src/Button/IconButton';
 
 # Button
 
-The button component is a staple within the component library and is used all throughout. There's two different kinds of buttons and they both extend our `BaseButton` component. The two kinds are:
+The button component is used all throughout the component library. There's two different kinds of buttons and they both extend our `BaseButton` component. The two kinds are:
 
 - `Button` component
 - `IconButton` component
+
+The `Button` component is used to display a button with a label and an optional icon at the start or end.
+
+The `IconButton` component is used to display a button with only an icon, no label.
 
 ## Examples
 
@@ -28,26 +32,26 @@ Examples of the `Button` and `IconButton` can be found in their respective story
 
 ## Props
 
-Below you will find all of the props of the components. If you need information on what types are specific to React [click here](https://react-typescript-cheatsheet.netlify.app/docs/advanced/types_react_api/#typesreact).
+Below you will find all of the props of the components. [Read more about different React types here.](https://react-typescript-cheatsheet.netlify.app/docs/advanced/types_react_api/#typesreact).
 Prop names with a `?` are optional. Keep in mind that `...rest` is passed down through most components. Note that all of our components accept the `className` prop.
 
 ### Button
 
-| Prop name   | Type                                                                           | Default   | Description                                                      |
-| ----------- | ------------------------------------------------------------------------------ | --------- | ---------------------------------------------------------------- |
-| children?:  | ReactNode                                                                      | undefined | The content of the component                                     |
-| variant?:   | 'fill' \|'text' \| 'outline'                                                   | 'fill'    | The type of button                                               |
-| color?:     | 'primary' \| 'secondary' \| 'tertiary'                                         | 'primary' | The color of the button                                          |
-| startIcon?: | &lt;Icon /> component \| false                                                 | false     | Optional `<Icon />` component displayed to the left of children  |
-| endIcon?:   | &lt;Icon /> component \| false                                                 | false     | Optional `<Icon />` component displayed to the right of children |
-| ...rest?:   | [HTML button attributes](https://www.w3schools.com/tags/tag_button.asp#table1) | undefined | All other HTML button attributes                                 |
+| Prop name   | Type                                                                                                  | Default   | Description                                                      |
+| ----------- | ----------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------- |
+| children?:  | ReactNode                                                                                             | undefined | The content of the component                                     |
+| variant?:   | 'fill' \|'text' \| 'outline'                                                                          | 'fill'    | The type of button                                               |
+| color?:     | 'primary' \| 'secondary' \| 'tertiary'                                                                | 'primary' | The color of the button                                          |
+| startIcon?: | &lt;Icon /> component \| false                                                                        | false     | Optional `<Icon />` component displayed to the left of children  |
+| endIcon?:   | &lt;Icon /> component \| false                                                                        | false     | Optional `<Icon />` component displayed to the right of children |
+| ...rest?:   | [HTML button attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes) | undefined | All other HTML button attributes                                 |
 
 ### IconButton
 
-| Prop name  | Type                                                                           | Default   | Description                                        |
-| ---------- | ------------------------------------------------------------------------------ | --------- | -------------------------------------------------- |
-| children?: | ReactNode                                                                      | undefined | The content of the component                       |
-| iconSize?: | 's' \|'m' \| 'l'                                                               | 'fill'    | The size of the icon inside of the button          |
-| color?:    | 'primary' \| 'secondary' \| 'tertiary'                                         | 'primary' | The color of the button                            |
-| title:     | string                                                                         | undefined | Mandatory title for screenreaders (accessibility). |
-| ...rest?:  | [HTML button attributes](https://www.w3schools.com/tags/tag_button.asp#table1) | undefined | All other HTML button attributes                   |
+| Prop name  | Type                                                                                                  | Default   | Description                                        |
+| ---------- | ----------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------- |
+| children?: | ReactNode                                                                                             | undefined | The content of the component                       |
+| iconSize?: | 's' \|'m' \| 'l'                                                                                      | 'm'       | The size of the icon inside of the button          |
+| color?:    | 'primary' \| 'secondary' \| 'tertiary'                                                                | 'primary' | The color of the button                            |
+| title:     | string                                                                                                | undefined | Mandatory title for screenreaders (accessibility). |
+| ...rest?:  | [HTML button attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes) | undefined | All other HTML button attributes                   |
