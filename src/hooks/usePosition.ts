@@ -40,7 +40,7 @@ export interface Offset {
   left: number;
 }
 
-interface Position {
+export interface Position {
   top: PositionType;
   right: PositionType;
   bottom: PositionType;

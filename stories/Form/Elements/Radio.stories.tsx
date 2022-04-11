@@ -21,6 +21,9 @@ const meta: Meta = {
     checked: {
       type: 'boolean',
     },
+    disabled: {
+      control: 'boolean',
+    },
   },
 };
 

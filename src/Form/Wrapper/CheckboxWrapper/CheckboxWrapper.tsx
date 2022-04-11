@@ -8,7 +8,6 @@ import { Fieldset, Props as FieldsetProps } from '../../../Form/Fieldset/Fieldse
 export interface Props extends WrapperProps {
   children: ReactElement[] | ReactElement;
   fieldsetProps: FieldsetProps;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CheckboxWrapper = ({
@@ -17,7 +16,6 @@ export const CheckboxWrapper = ({
   helperText,
   helperProps,
   fieldsetProps,
-  onChange,
   ...rest
 }: Props) => {
   const { errorId, helperId } = useWrapper();
@@ -36,6 +34,7 @@ export const CheckboxWrapper = ({
         parentErrorId: errorId,
         error: error,
         parentHelperId: helperText ? helperId : false,
+        disabled: rest.disabled,
       })
     );
 
@@ -50,7 +49,7 @@ export const CheckboxWrapper = ({
           ...helperProps,
           className: `${classes['checkbox-wrapper-helper']} ${
             error ? classes['checkbox-wrapper-error'] : ''
-          } ${helperProps?.className ?? ''} `,
+          } ${helperProps?.className ?? ''}`,
         }}
         error={error}
         errorMessageIcon={Icons.Warning}

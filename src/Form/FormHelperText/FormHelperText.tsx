@@ -1,20 +1,22 @@
 import React, { ReactNode } from 'react';
 import classes from './FormHelperText.module.scss';
 import { HTMLProps } from '../../interfaces';
+import { Typography } from '../../Typography/Typography';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   children?: ReactNode;
-  disabled?: boolean;
   error?: boolean;
 }
 
-export const FormHelperText = ({ children, disabled, error, className, ...rest }: Props) => {
+export const FormHelperText = ({ children, error, className, ...rest }: Props) => {
   return (
-    <div
+    <Typography
       {...rest}
+      variant="sub-text"
+      tag="div"
       className={`${classes['form-helper-text']} ${error ? classes.error : ''} ${className ?? ''}`}
     >
-      <span>{children}</span>
-    </div>
+      {children}
+    </Typography>
   );
 };

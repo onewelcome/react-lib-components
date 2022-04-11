@@ -13,6 +13,9 @@ const meta: Meta = {
         type: 'select',
       },
     },
+    disabled: {
+      control: 'boolean',
+    },
   },
 };
 

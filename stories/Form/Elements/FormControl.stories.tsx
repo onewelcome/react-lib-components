@@ -13,7 +13,7 @@ const meta: Meta = {
   title: 'Stories/Form/Elements/FormControl',
   component: FormControl,
   argTypes: {
-    fieldsetDisabled: {
+    disabled: {
       table: {
         disable: true,
       },

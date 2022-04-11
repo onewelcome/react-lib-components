@@ -21,6 +21,7 @@ export const RadioWrapper = ({
   fieldsetProps,
   value,
   onChange,
+  disabled,
   ...rest
 }: Props) => {
   const { errorId, helperId } = useWrapper(value);
@@ -42,6 +43,7 @@ export const RadioWrapper = ({
         name: name,
         parentHelperId: helperText ? helperId : false,
         onChange: onChange,
+        disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
       })
     );
 
@@ -49,6 +51,7 @@ export const RadioWrapper = ({
     <Fieldset {...fieldsetProps}>
       <Wrapper
         {...rest}
+        disabled={disabled}
         name={name}
         label=""
         helperId={helperId}
