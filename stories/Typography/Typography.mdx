@@ -1,14 +1,77 @@
 import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Typography } from '../../src/Typography/Typography.tsx';
 
 <Title />
 <Subtitle />
 
-Typography information
+Typography component helps presenting text content. It has styling defined for all kinds of uses. Text can be rendered within all valid HTML tags, regardless of proper styling setting that should be used (e.g. text in div can be styled as an H1 element).
+
+## Font
+
+Typography was designed to support any font you like. This can be change by configuration provided to `BaseStyling` component. By default `Red Hat Display` font is set.
+`Red Hat Display` is not automatically loaded. You are responsible to include font in your application.
+
+| NOTE: `code block` is the only exception which uses `Red Hat Mono` font. If you don't use it you don't have to include it in your application |
+| --------------------------------------------------------------------------------------------------------------------------------------------- |
+
+## Google fonts
+
+You can take beneath HTML snippet and put it in your application.
+
+```html
+<link
+  href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+  rel="stylesheet"
+/>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono&display=swap" rel="stylesheet" />
+```
+
+## Install with npm
+
+Alternatively you can install font as dependency using npm to get benefits of self-hosting fonts. Read [more](https://www.npmjs.com/package/@fontsource/red-hat-display).
+
+```sh
+npm i @fontsource/red-hat-display @fontsource/red-hat-mono
+```
+
+## Changing default font-size & font-family
+
+`<BaseStyling/>` supports overwriting default properties. For Typography these propertis can be set:
+
+| Property name  | Default value                 | Description                                                              |
+| -------------- | ----------------------------- | ------------------------------------------------------------------------ |
+| fontFamily     | 'Red Hat Display', sans-serif | Base font family used for all Typography's variants beside `code` one    |
+| fontFamilyCode | 'Red Hat Mono', sans-serif    | Font family used for `code` Typography variant                           |
+| fontSize       | 1rem                          | Base font size used in Typography as well in other elements like buttons |
+| fontSizeH1     | 2.5rem                        | Font size of Heading1 variant                                            |
+| fontSizeH2     | 1.625rem                      | Font size of Heading2 variant                                            |
+| fontSizeH3     | 1.5rem                        | Font size of Heading3 variant                                            |
+| fontSizeH4     | 1.25rem                       | Font size of Heading4 variant                                            |
+| fontSizeSub    | 0.75rem                       | Font size of Sub text variant                                            |
+| fontSizeCode   | 1rem                          | Font size of Code variant                                                |
+
+## Using spacing
+
+By default all `Typography` elements have a `margin-bottom` property set to `1rem`. This can be changed by setting `spacing` property.
 
 # Examples
 
-Examples
+---
+
+<Typography variant="h1">Heading 1</Typography>
+<Typography variant="h2">Heading 2</Typography>
+<Typography variant="h3">Heading 3</Typography>
+<Typography variant="h4">Heading 4</Typography>
+<Typography variant="body">body</Typography>
+<Typography variant="body-bold">body-bold</Typography>
+<code>
+  <Typography variant="code">code</Typography>
+</code>
+<br />
+<Typography variant="sub-text">sub-text</Typography>
 
 # Props
+
+---
 
 <ArgsTable story={PRIMARY_STORY} />

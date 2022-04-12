@@ -35,6 +35,8 @@ Once you have informally discussed the change on Slack you might be asked to cre
 - Keep in mind to do a controlled components.
 - Code style & linter is configured to automatically format code & show problems with your changes.
 
+#### Hooks
+In case you have created a `hook` for your component. Please document the reason why it is needed. In addition, hooks need to be stored inside of `src/hooks` and needs to be tested. Make sure to also document your hook. Create a `stories.mdx` file inside of the `stories/hooks` folder. You can copy any existing hook's documentation to use as a template.
 ### Accepting the change
 
 If you have submitted a pull request you're done......
