@@ -1,0 +1,37 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+
+<Meta
+  title="Docs/ContextMenu"
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+  }}
+/>
+
+# ContextMenu
+
+The `ContextMenu` (root element is `<div>`) is used to display a list of items after clicking on a trigger. This trigger is either a `Button` or `IconButton` component. The ContextMenu has to be used in conjunction with the `ContextMenuItem` component. The `ContextMenuItem` component has to be a child of `ContextMenu` and can be regarded as a `<li>` HTMLElement.
+Within this `<li>` there's a `button` which executes and `onClick` event as soon as it is clicked on. Meaning `ContextMenuItem` can receive an `onClick` prop.
+
+The `ContextMenu` component can be used
+
+## Examples
+
+Examples of the ContextMenu & ContextMenuItem components can be found in it's [respective story](/story/stories-ui-contextmenu--context-menu).
+
+## Props
+
+Below you will find all of the props of the components. If you need information on what types are specific to React [click here](https://react-typescript-cheatsheet.netlify.app/docs/advanced/types_react_api/#typesreact). Prop names with a `?` are optional. Keep in mind that `...rest` is passed down through most components. Note that all of our components accept the `className` prop.
+
+### ContextMenu
+
+| Prop name             | Type                                                                                | Default   | Description                                                                                                                                |
+| --------------------- | ----------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| <code>children</code> | <code>ReactElement&lt;ContextMenuItem> \| ReactElement&lt;ContextMenuItem>[]</code> | undefined | The children of a `<ContextMenu />`. This needs to be the `<ContextMenuItem />` component.                                                 |
+| <code>trigger</code>  | <code>ReactElement&lt;Button> \| ReactElement&lt;IconButton></code>                 | undefined | This is the trigger that will be rendered by the `ContextMenu`. It will have an `onClick` event that opens the `<ContextMenu />` component |
+
+|
+
+### ContextMenuItem
