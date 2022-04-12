@@ -37,6 +37,25 @@ Once you have informally discussed the change on Slack you might be asked to cre
 
 #### Hooks
 In case you have created a `hook` for your component. Please document the reason why it is needed. In addition, hooks need to be stored inside of `src/hooks` and needs to be tested. Make sure to also document your hook. Create a `stories.mdx` file inside of the `stories/hooks` folder. You can copy any existing hook's documentation to use as a template.
+
+#### Folder structure
+If you've done everything correctly, you should have somewhat of the following folder structure. `Component` and `useHook` would be the possible components you've created:
+
+```
+├── src
+│   ├── Component
+│   │   ├── Component.module.scss
+│   │   ├── Component.test.tsx
+│   │   ├── Component.tsx
+│   ├── hooks
+│   │   ├── useHook.ts
+│   │   ├── useHook.test.ts
+├── stories
+│   ├── Component
+│   │   ├── Component.stories.tsx
+│   │   ├── Component.mdx
+```
+
 ### Accepting the change
 
 If you have submitted a pull request you're done......
