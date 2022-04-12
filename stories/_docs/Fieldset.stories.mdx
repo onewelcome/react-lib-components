@@ -1,0 +1,34 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+
+<Meta
+  title="Docs/Form/Fieldset"
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+  }}
+/>
+
+# Fieldset
+
+The `Fieldset` component is created to improve accessibility and give you an easier time with creating sections between parts of the form. The `title` prop will create a `legend` HTMLElement for you, which is hidden and used for screenreader purposes only. A `Typography` component that you can control through the `titleVariant` prop is rendered instead. You can also optionally hide the title by providing `true` to the `hideTitle` prop.
+
+## Examples
+
+Examples of the Fieldset component can be found in it's [respective story](/docs/stories-form-elements-fieldset--fieldset-el)
+
+## Props
+
+Below you will find all of the props of the components. If you need information on what types are specific to React [click here](https://react-typescript-cheatsheet.netlify.app/docs/advanced/types_react_api/#typesreact). Prop names with a `?` are optional. Keep in mind that `...rest` is passed down through most components. Note that all of our components accept the `className` prop.
+
+| Prop name      | Type                                                                                                                                                                                   | Default                | Description                                                                                                                              |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| children?:     | <code>ReactElement \| ReactElement[]</code>                                                                                                                                            | <code>undefined</code> | Has to be a `ReactElement`. Best is to use `FormControl` elements or any of the `Wrapper` elements (which are wrapped by `FormControl`). |
+| title:         | <code>string</code>                                                                                                                                                                    | <code>undefined</code> | Mandatory to be filled in for accessibility. Can be hidden by setting `hideTitle` to true.                                               |
+| titleVariant?: | <code>'h1' \| 'h2' \| 'h3' \| 'h4' \| 'p' \| 'div' <br />\| 'code' \| 'span' \| 'sup' \| 'sub' \| 'strong' <br />\| 'em' \| 'small' \| 'mark' \| 'del' \| 'ins' \| 'blockquote'</code> | <code>body</code>      | If you want to set a certain title style to the `Typography` component rendered by the `title` prop.                                     |
+| hideTitle?:    | <code>boolean</code>                                                                                                                                                                   | <code>false</code>     | Whether you would like to hide the title or not.                                                                                         |
+| background?:   | <code>HEX \| rgb() \| rgba() \| hsl()</code>                                                                                                                                           | <code>#FFF</code>      | The color code you want the background to be.                                                                                            |
+| noPadding?:    | <code>boolean</code>                                                                                                                                                                   | <code>false</code>     | Whether you would like to remove the padding from the Fieldset component.                                                                |
+| noBackground?: | <code>boolean</code>                                                                                                                                                                   | <code>false</code>     | Whether or not you want to remove the background entirely.                                                                               |
+| ...rest?:      | [HTML fieldset attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset)                                                                                         | <code>undefined</code> | Any HTML attribute that is allowed on a regular `fieldset`.                                                                              |
