@@ -1,10 +1,11 @@
 import React, { ReactElement, useEffect } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
-import { FormHelperText, Props as FormHelperTextProps } from '../FormHelperText/FormHelperText';
+import { Props as FormHelperTextProps } from '../FormHelperText/FormHelperText';
 import classes from './Checkbox.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
 import { FormSelector } from '../form.interfaces';
 import { HTMLProps } from '../../interfaces';
+import { FormSelectorWrapper } from '../FormSelectorWrapper/FormSelectorWrapper';
 
 export interface CheckboxProps extends FormSelector<HTMLInputElement> {
   children: string | ReactElement[];
@@ -96,50 +97,38 @@ export const Checkbox = ({
 
   /** Default return value is the default checkbox */
   return (
-    <div
+    <FormSelectorWrapper
       {...wrapperProps}
-      className={`${classes['checkbox-wrapper']} ${error ? classes.error : ''} ${
-        disabled ? classes.disabled : ''
-      } ${className ?? ''}`}
+      className={`${classes['checkbox-wrapper']} ${className ? className : ''}`}
+      containerProps={{ className: classes['checkbox-container'] }}
+      helperText={helperText}
+      helperProps={helperProps}
+      parentErrorId={parentErrorId}
+      errorId={errorId}
+      errorMessage={errorMessage}
+      error={error}
+      disabled={disabled}
+      identifier={identifier}
+      nestedChildren={typeof children === 'object' && renderNestedCheckboxes()}
     >
-      <div className={classes['checkbox-container']}>
-        <input
-          {...rest}
-          disabled={disabled}
-          className={classes['native-input']}
-          checked={checked}
-          onChange={onChangeHandler}
-          aria-invalid={error as boolean}
-          aria-checked={indeterminate ? 'mixed' : checked}
-          aria-describedby={describedBy}
-          id={`${identifier}-checkbox`}
-          name={name}
-          type="checkbox"
-        />
+      <input
+        {...rest}
+        disabled={disabled}
+        className={classes['native-input']}
+        checked={checked}
+        onChange={onChangeHandler}
+        aria-invalid={error as boolean}
+        aria-checked={indeterminate ? 'mixed' : checked}
+        aria-describedby={describedBy}
+        id={`${identifier}-checkbox`}
+        name={name}
+        type="checkbox"
+      />
 
-        {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
-        {checked && !indeterminate && (
-          <Icon className={classes.input} icon={Icons.CheckmarkSquare} />
-        )}
-        {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
-        <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
-      </div>
-      {helperText && (!error || parentErrorId || !errorMessage) && (
-        <FormHelperText
-          {...helperProps}
-          id={`${identifier}`}
-          className={`${classes['helper-text']} ${helperProps?.className ?? ''}`}
-        >
-          {helperText}
-        </FormHelperText>
-      )}
-      {errorMessage && !parentErrorId && error && (
-        <span className={classes['error-message']}>
-          <Icon className={classes['error-icon']} icon={Icons.Warning} />
-          <span id={errorId}>{errorMessage}</span>
-        </span>
-      )}
-      {typeof children === 'object' && renderNestedCheckboxes()}
-    </div>
+      {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
+      {checked && !indeterminate && <Icon className={classes.input} icon={Icons.CheckmarkSquare} />}
+      {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
+      <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
+    </FormSelectorWrapper>
   );
 };
