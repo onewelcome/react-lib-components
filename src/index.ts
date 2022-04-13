@@ -7,19 +7,20 @@ export { IconButton } from './Button/IconButton';
 
 export { Icon, Icons } from './Icon/Icon';
 
-export { Dialog } from './Dialog/Dialog';
-export { Modal } from './Modal/Modal';
-export { ModalActions } from './Modal/ModalActions/ModalActions';
-export { ModalContent } from './Modal/ModalContent/ModalContent';
-export { ModalHeader } from './Modal/ModalHeader/ModalHeader';
+export { Dialog } from './Notifications/Dialog/Dialog';
+export { Modal } from './Notifications/Modal/Modal';
+export { ModalActions } from './Notifications/Modal/ModalActions/ModalActions';
+export { ModalContent } from './Notifications/Modal/ModalContent/ModalContent';
+export { ModalHeader } from './Notifications/Modal/ModalHeader/ModalHeader';
+export { DiscardChangesModal } from './Notifications/DiscardChangesModal/DiscardChangesModal';
 export { Tooltip } from './Tooltip/Tooltip';
 export { Tiles } from './Tiles/Tiles';
 export { Tile } from './Tiles/Tile';
 export { ContextMenu } from './ContextMenu/ContextMenu';
 export { ContextMenuItem } from './ContextMenu/ContextMenuItem';
 
-export { SnackbarProvider } from './Snackbar/SnackbarProvider/SnackbarProvider';
-export { useSnackbar } from './Snackbar/useSnackbar';
+export { SnackbarProvider } from './Notifications/Snackbar/SnackbarProvider/SnackbarProvider';
+export { useSnackbar } from './Notifications/Snackbar/useSnackbar';
 
 /** Form components */
 export { Form } from './Form/Form';

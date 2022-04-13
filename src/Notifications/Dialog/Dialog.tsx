@@ -4,9 +4,9 @@ import { BaseModalContent } from '../BaseModal/BaseModalContent/BaseModalContent
 import { DialogActions } from './DialogActions/DialogActions';
 import classes from './Dialog.module.scss';
 import { DialogTitle } from './DialogTitle/DialogTitle';
-import { Button, Props as ButtonProps } from '../Button/Button';
+import { Button, Props as ButtonProps } from '../../Button/Button';
 import { labelId, descriptionId } from '../BaseModal/BaseModalContext';
-import { generateID } from '../util/helper';
+import { generateID } from '../../util/helper';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   id?: string;

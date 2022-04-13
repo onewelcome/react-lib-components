@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Dialog, Props } from '../../src/Dialog/Dialog';
-import { Button } from '../../src/Button/Button';
-import { Typography } from '../../src/Typography/Typography';
+import { Dialog, Props } from '../../../src/Notifications/Dialog/Dialog';
+import { Button } from '../../../src/Button/Button';
+import { Typography } from '../../../src/Typography/Typography';
 
 const meta: Meta = {
-  title: 'Stories/UI/Dialog',
+  title: 'Stories/Notifications/Dialog',
   component: Dialog,
   args: {
     id: 'dialog',

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HTMLAttributes } from '../interfaces';
+import { HTMLAttributes } from '../../interfaces';
 import classes from './BaseModal.module.scss';
 import { labelId, descriptionId } from './BaseModalContext';
 

@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
-  DiscardChangesModal as Component,
+  DiscardChangesModal as DiscardChangesModalComponent,
   Props,
-} from '../../src/DiscardChangesModal/DiscardChangesModal';
-import { ModalActions } from '../../src/Modal/ModalActions/ModalActions';
-import { ModalContent } from '../../src/Modal/ModalContent/ModalContent';
-import { Button } from '../../src/Button/Button';
-import { Typography } from '../../src/Typography/Typography';
-import { InputWrapper } from '../../src/Form/Wrapper/InputWrapper/InputWrapper';
-import { FormControl } from '../../src/Form/FormControl/FormControl';
-import { Form } from '../../src/Form/Form';
+} from '../../../src/Notifications/DiscardChangesModal/DiscardChangesModal';
+import { ModalActions } from '../../../src/Notifications/Modal/ModalActions/ModalActions';
+import { ModalContent } from '../../../src/Notifications/Modal/ModalContent/ModalContent';
+import { Button } from '../../../src/Button/Button';
+import { Typography } from '../../../src/Typography/Typography';
+import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
+import { FormControl } from '../../../src/Form/FormControl/FormControl';
+import { Form } from '../../../src/Form/Form';
 
 const meta: Meta = {
-  title: 'Stories/UI/DiscardChangesModal',
-  component: Component,
+  title: 'Stories/Notifications/Discard Changes Modal',
+  component: DiscardChangesModalComponent,
   args: {
     id: 'modal',
     ['headerProps.title']: 'Modal title',
@@ -67,7 +67,7 @@ const Template: Story<Props> = (args) => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Component
+      <DiscardChangesModalComponent
         id={id}
         open={open}
         onClose={onClose}
@@ -121,7 +121,7 @@ const Template: Story<Props> = (args) => {
             Save
           </Button>
         </ModalActions>
-      </Component>
+      </DiscardChangesModalComponent>
     </>
   );
 };

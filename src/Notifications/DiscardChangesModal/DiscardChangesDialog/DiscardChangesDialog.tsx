@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dialog } from '../../Dialog/Dialog';
-import { HTMLProps } from '../../interfaces';
-import { Typography } from '../../Typography/Typography';
+import { HTMLProps } from '../../../interfaces';
+import { Typography } from '../../../Typography/Typography';
 
 export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'children'> {
   open: boolean;

@@ -1,8 +1,8 @@
 import React, { HTMLAttributes } from 'react';
 import classes from './BaseModalHeader.module.scss';
-import { IconButton } from '../../Button/IconButton';
-import { Icon, Icons } from '../../Icon/Icon';
-import { Typography } from '../../Typography/Typography';
+import { IconButton } from '../../../Button/IconButton';
+import { Icon, Icons } from '../../../Icon/Icon';
+import { Typography } from '../../../Typography/Typography';
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   id: string;

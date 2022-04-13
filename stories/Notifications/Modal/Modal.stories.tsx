@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Modal, Props } from '../../src/Modal/Modal';
-import { ModalActions } from '../../src/Modal/ModalActions/ModalActions';
-import { ModalContent } from '../../src/Modal/ModalContent/ModalContent';
-import { ModalHeader } from '../../src/Modal/ModalHeader/ModalHeader';
-import { Button } from '../../src/Button/Button';
-import { Typography } from '../../src/Typography/Typography';
+import { Modal as ModalComponent, Props } from '../../../src/Notifications/Modal/Modal';
+import { ModalActions } from '../../../src/Notifications/Modal/ModalActions/ModalActions';
+import { ModalContent } from '../../../src/Notifications/Modal/ModalContent/ModalContent';
+import { ModalHeader } from '../../../src/Notifications/Modal/ModalHeader/ModalHeader';
+import { Button } from '../../../src/Button/Button';
+import { Typography } from '../../../src/Typography/Typography';
 
 const meta: Meta = {
-  title: 'Stories/UI/Modal',
-  component: Modal,
+  title: 'Stories/Notifications/Modal',
+  component: ModalComponent,
   args: {
     id: 'modal',
     ['header.title']: 'Modal title',
@@ -42,7 +42,7 @@ const Template: Story<Props> = (args) => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Modal
+      <ModalComponent
         id={id}
         open={open}
         onClose={onClose}
@@ -130,9 +130,9 @@ const Template: Story<Props> = (args) => {
             Save
           </Button>
         </ModalActions>
-      </Modal>
+      </ModalComponent>
     </>
   );
 };
 
-export const BasicModal = Template.bind({});
+export const Modal = Template.bind({});

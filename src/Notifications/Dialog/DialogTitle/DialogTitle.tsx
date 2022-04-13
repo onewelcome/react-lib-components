@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '../../Typography/Typography';
+import { Typography } from '../../../Typography/Typography';
 import classes from './DialogTitle.module.scss';
 
 export interface Props {

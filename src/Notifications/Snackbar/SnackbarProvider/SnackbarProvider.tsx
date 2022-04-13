@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { SnackbarContextProvider } from './SnackbarStateProvider';
 import { Actions, SnackbarOptionsProps, Variant } from '../interfaces';
 import { Placement, SnackbarContainer } from '../SnackbarContainer/SnackbarContainer';
-import { generateID } from '../../util/helper';
+import { generateID } from '../../../util/helper';
 import { SnackbarItem } from '../SnackbarItem/SnackbarItem';
 
 /** Short msg is when only title is provided. Long one when content or/and actions are provided (or type is error). */
