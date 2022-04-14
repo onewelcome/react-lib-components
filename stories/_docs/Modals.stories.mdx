@@ -1,0 +1,83 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+
+<Meta
+  title="Docs/Modals"
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+  }}
+/>
+
+# Modals
+
+Various of Modal component exists in component library. All extends `BaseModal` component. These are:
+
+- `Modal`
+- `Dialog`
+- `DiscardChangesModal`
+
+Dialogs are used when immediate user interaction is required.
+They block interaction with the application until a user has made a choice.
+Dialogs appear as a modal on top of the existing content.
+
+Modals are used to present interactive or larger content - like the modal with the form. Modals contain:
+
+- header: title, close button and additional content like wizard,
+- content: what ever content to display,
+- footer: containing action buttons to interact with content and modal.
+  Modals appear as a modal on top of the existing content.
+
+The special combination of Modal and Dialog is `DiscardChangesModal` component.
+It renders `Modal` and `Dialog` component.
+It's use to show `Discard Changes` dialog on pressing Close button, escape key or clicking outside the modal only when developer wishes to show it.
+
+## Examples
+
+Examples of the `Modal`, `Dialog` and `DiscardChangesModal` can be found in their respective story.
+
+- [Click here for `Modal` story](/docs/stories-ui-modal)
+- [Click here for `Dialog` story](/docs/stories-ui-dialog)
+- [Click here for `DiscardChangesModal` story](/docs/stories-ui-discardchangesmodal)
+
+## Props
+
+Below you will find all of the props of the components. If you need information on what types are specific to React [click here](https://react-typescript-cheatsheet.netlify.app/docs/advanced/types_react_api/#typesreact).
+Prop names with a `?` are optional. Keep in mind that `...rest` is passed down through most components. Note that all of our components accept the `className` prop.
+
+### Modal
+
+| Prop name              | Type                                                                        | Default   | Description                                                                                                     |
+| ---------------------- | --------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
+| children:              | ReactNode                                                                   | undefined | The content of the component, usually for composing `ModalHeader`, `ModalContent` and `ModalActions` components |
+| id:                    | string                                                                      | undefined | The id of modal used to specify accessibility features (`aria-*`)                                               |
+| open:                  | boolean                                                                     | undefined | Determines whenever dialog should be rendered                                                                   |
+| onClose?:              | (event?: React.MouseEvent&lt;HTMLElement&gt;) => unknown                    | undefined | Optional callback to be called on dialog close                                                                  |
+| containerClassName?:   | string                                                                      | ''        | Optional className for inner container element                                                                  |
+| labelledby?:           | string                                                                      | undefined | Optional `aria-labelledby` property. Otherwise id generated from modal id will be passed                        |
+| describedby?:          | string                                                                      | undefined | Optional `aria-describedby` property. Otherwise id generated from modal id will be passed                       |
+| disableEscapeKeyDown?: | boolean                                                                     | false     | Optional flag to disable closing modal by pressing Escape key                                                   |
+| disableBackdrop?:      | boolean                                                                     | false     | Optional flag to disable closing modal by clicking outside of the modal (on backdrop layer)                     |
+| zIndex?:               | number                                                                      | undefined | Optional zIndex property to be set                                                                              |
+| ...rest?:              | [HTML div attributes](https://www.w3schools.com/tags/tag_button.asp#table1) | undefined | All other HTML div attributes                                                                                   |
+
+### Dialog
+
+| Prop name  | Type                                                                           | Default   | Description                                        |
+| ---------- | ------------------------------------------------------------------------------ | --------- | -------------------------------------------------- |
+| children?: | ReactNode                                                                      | undefined | The content of the component                       |
+| iconSize?: | 's' \|'m' \| 'l'                                                               | 'fill'    | The size of the icon inside of the button          |
+| color?:    | 'primary' \| 'secondary' \| 'tertiary'                                         | 'primary' | The color of the button                            |
+| title:     | string                                                                         | undefined | Mandatory title for screenreaders (accessibility). |
+| ...rest?:  | [HTML button attributes](https://www.w3schools.com/tags/tag_button.asp#table1) | undefined | All other HTML button attributes                   |
+
+### DiscardChangesModal
+
+| Prop name  | Type                                                                           | Default   | Description                                        |
+| ---------- | ------------------------------------------------------------------------------ | --------- | -------------------------------------------------- |
+| children?: | ReactNode                                                                      | undefined | The content of the component                       |
+| iconSize?: | 's' \|'m' \| 'l'                                                               | 'fill'    | The size of the icon inside of the button          |
+| color?:    | 'primary' \| 'secondary' \| 'tertiary'                                         | 'primary' | The color of the button                            |
+| title:     | string                                                                         | undefined | Mandatory title for screenreaders (accessibility). |
+| ...rest?:  | [HTML button attributes](https://www.w3schools.com/tags/tag_button.asp#table1) | undefined | All other HTML button attributes                   |
