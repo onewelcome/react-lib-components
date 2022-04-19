@@ -1,3 +1,5 @@
+@import '../../readyclasses.module.scss';
+
 .snackbar {
   padding: 1rem 1.25rem;
   border-radius: var(--snackbar-border-radius);
@@ -92,6 +94,8 @@
       color: var(--greyed-out);
       cursor: not-allowed;
     }
+
+    @include focusOutline(var(--snackbar-text-color));
 
     &:not(:disabled):hover,
     &:not(:disabled):focus {

@@ -2,10 +2,16 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Button, Props } from '../../src/Button/Button';
 import { Icon, Icons } from '../../src/Icon/Icon';
+import ButtonsDocumentation from './Buttons.mdx';
 
 const meta: Meta = {
   title: 'Stories/UI/Button',
   component: Button,
+  parameters: {
+    docs: {
+      page: ButtonsDocumentation,
+    },
+  },
   argTypes: {
     startIcon: {
       options: Icons,

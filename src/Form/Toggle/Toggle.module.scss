@@ -1,3 +1,5 @@
+$borderRadius: 2.5rem;
+
 .toggle-wrapper {
   display: flex;
   align-items: center;
@@ -8,7 +10,7 @@
   width: 2rem;
   height: 1.25rem;
   background-color: var(--default);
-  border-radius: 2.5rem;
+  border-radius: $borderRadius;
   position: relative;
   transition: background-color 0.2s ease-in-out;
   display: block;
@@ -44,7 +46,13 @@
     width: 2rem;
   }
 
-  input + [aria-hidden] {
+  input ~ [data-icon][aria-hidden] {
     display: none;
+  }
+
+  input:focus-visible {
+    + * {
+      border-radius: $borderRadius;
+    }
   }
 }
