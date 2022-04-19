@@ -9,7 +9,7 @@ import { Placement } from '../../src/hooks/usePosition';
 import { useBodyClick } from '../../src/hooks/useBodyClick';
 
 const meta: Meta = {
-  title: 'Stories/UI/Context Menu',
+  title: 'Stories/UI/ContextMenu',
   component: ContextMenuComponent,
   argTypes: {
     onShow: {
@@ -296,3 +296,4 @@ ContextMenu.args = {
   ],
   show: false,
 };
+ContextMenu.storyName = 'ContextMenu';

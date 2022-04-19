@@ -4,7 +4,7 @@ import { IconButton as IconButtonComponent, Props } from '../../src/Button/IconB
 import { Icon, Icons } from '../../src/Icon/Icon';
 
 const meta: Meta = {
-  title: 'Stories/UI/Icon Button',
+  title: 'Stories/UI/IconButton',
   component: IconButtonComponent,
 };
 
@@ -24,3 +24,4 @@ IconButton.args = {
   type: 'button',
   title: 'Calendar',
 };
+IconButton.storyName = 'IconButton';
