@@ -77,7 +77,7 @@ See the [README.md](README.md) for further instructions how to work on the Markd
 
 ## Code snippets for creating components, tests, stories and documentation
 
-We'd love for you to contribute to the component library! In order to keep structure the same we've created snippets which should speed up your work by a significant margin. [If you've never used VSCode snippets before please see their documentation](https://code.visualstudio.com/docs/editor/userdefinedsnippets). We use placeholders, so make sure you read on how to use them!
+We'd love for you to contribute to the component library! In order to keep structure the same we've created snippets that should speed up your work by a significant margin. [If you've never used VSCode snippets before please see their documentation](https://code.visualstudio.com/docs/editor/userdefinedsnippets). We use placeholders, so make sure you read on how to use them!
 
 ### React Functional Component Typescript snippet
 
@@ -122,7 +122,7 @@ Note: in the snippet we import `HTMLProps` from `../interfaces.ts`. If you creat
   "body": [
       "const [${1:stateName}, set${1/(.)/${1:/capitalize}/}] = useState(${2:initial value})"
   ],
-  "description": "Insert react functional component for TypeScript"
+  "description": "Insert React useState snippet"
 },</code></pre>
 </details>
 
@@ -162,7 +162,7 @@ Note: in the snippet we import `HTMLProps` from `../interfaces.ts`. If you creat
     "\t",
     "};"
   ],
-  "description": "Insert test boilerplate."
+  "description": "Insert storybook story boilerplate."
 },</code></pre>
 </details>
 
@@ -245,6 +245,6 @@ const { component } = createComponent(defaultParams => ({ ...defaultParams, prop
     "",
     "&lt;ArgsTable story={PRIMARY_STORY} />"
   ],
-  "description": "Insert test boilerplate."
+  "description": "Insert documentation boilerplate."
 },</code></pre>
 </details>
