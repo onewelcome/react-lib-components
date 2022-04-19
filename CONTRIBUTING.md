@@ -30,7 +30,7 @@ Once you have informally discussed the change on Slack you might be asked to cre
 - Use TypeScript to add component [using this snippet](#react-functional-component-typescript-snippet).
 - Always add interactive stories to the Storybook showing the potential of the added / changed component [using this snippet](#storybook-story-snippet).
 - Write documentation to the component in an `.mdx` file [using this snippet](#mdx-documentation-snippet).
-- Write unit test which covers as many different usage of component as you added [using this snippet](#react-component-unit-test-snippet).
+- Write a unit test that covers as many different usages of a component as you added [using this snippet](#react-component-unit-test-snippet).
 - Align with all principles which are already in other components.
 - Keep in mind to do a controlled components.
 - Code style & linter is configured to automatically format code & show problems with your changes.
