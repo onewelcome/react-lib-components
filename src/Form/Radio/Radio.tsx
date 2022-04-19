@@ -60,7 +60,7 @@ export const Radio = ({
   return (
     <FormSelectorWrapper
       {...wrapperProps}
-      className={`${classes['radio-wrapper']} ${className ? className : ''}`}
+      className={`${classes['radio-wrapper']} ${className ?? ''}`}
       containerProps={{ className: classes['radio-container'] }}
       helperText={helperText}
       helperProps={helperProps}

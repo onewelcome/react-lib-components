@@ -41,14 +41,16 @@ export const Link = React.forwardRef(
       return '';
     };
 
+    const classNames = [classes['link'], classes[color]];
+    disabled && classNames.push(classes['disabled']);
+    className && classNames.push(className);
+
     if (component) {
       return React.createElement(component, {
         ...rest,
         ref: ref,
         to: to,
-        className: `${classes['link']} ${classes[color]} ${disabled ? classes['disabled'] : ''} ${
-          className ?? ''
-        }`,
+        className: classNames.join(' '),
         'aria-disabled': disabled,
         style: {
           ...rest.style,
@@ -64,9 +66,7 @@ export const Link = React.forwardRef(
         download={type === 'download'}
         rel={type === 'external' ? 'noopener noreferer' : undefined}
         href={!disabled ? to : undefined}
-        className={`${classes['link']} ${classes[color]} ${disabled ? classes['disabled'] : ''} ${
-          className ?? ''
-        }`}
+        className={classNames.join(' ')}
         aria-disabled={disabled}
         target={determineTarget()}
         style={{
