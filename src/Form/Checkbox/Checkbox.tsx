@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { Props as FormHelperTextProps } from '../FormHelperText/FormHelperText';
 import classes from './Checkbox.module.scss';
@@ -7,8 +7,10 @@ import { FormSelector } from '../form.interfaces';
 import { HTMLProps } from '../../interfaces';
 import { FormSelectorWrapper } from '../FormSelectorWrapper/FormSelectorWrapper';
 
+const isToggle = (children: ReactNode) => (children as ReactElement)?.props?.['data-toggle'];
+
 export interface CheckboxProps extends FormSelector<HTMLInputElement> {
-  children: string | ReactElement[];
+  children: ReactNode;
   label?: string;
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;
@@ -48,7 +50,7 @@ export const Checkbox = ({
       console.error("Please pass a 'name' prop to your <Checkbox> component.");
     }
 
-    if (typeof children === 'object' && indeterminate === undefined) {
+    if (typeof children === 'object' && !isToggle(children) && indeterminate === undefined) {
       throw new Error(
         'If you have nested checkboxes you have to manage the indeterminate state by passing a boolean to the `indeterminate` prop.'
       );
@@ -60,6 +62,7 @@ export const Checkbox = ({
       return label;
     }
 
+    console.log(children, label);
     if (typeof children === 'string') {
       return children;
     }
@@ -95,6 +98,8 @@ export const Checkbox = ({
     onChange && onChange(event);
   };
 
+  const renderToggle = () => React.Children.toArray(children).filter(isToggle);
+
   /** Default return value is the default checkbox */
   return (
     <FormSelectorWrapper
@@ -109,12 +114,14 @@ export const Checkbox = ({
       error={error}
       disabled={disabled}
       identifier={identifier}
-      nestedChildren={typeof children === 'object' && renderNestedCheckboxes()}
+      nestedChildren={
+        typeof children === 'object' && !isToggle(children) && renderNestedCheckboxes()
+      }
     >
       <input
         {...rest}
         disabled={disabled}
-        className={classes['native-input']}
+        className={`${classes['native-input']} ${error ? classes['error'] : ''}`}
         checked={checked}
         onChange={onChangeHandler}
         aria-invalid={error as boolean}
@@ -124,6 +131,7 @@ export const Checkbox = ({
         name={name}
         type="checkbox"
       />
+      {renderToggle()}
 
       {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
       {checked && !indeterminate && <Icon className={classes.input} icon={Icons.CheckmarkSquare} />}
