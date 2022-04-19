@@ -60,7 +60,7 @@ export const Radio = ({
   return (
     <FormSelectorWrapper
       {...wrapperProps}
-      className={classes['radio-wrapper']}
+      className={`${classes['radio-wrapper']} ${className ? className : ''}`}
       containerProps={{ className: classes['radio-container'] }}
       helperText={helperText}
       helperProps={helperProps}
@@ -75,7 +75,7 @@ export const Radio = ({
         {...rest}
         disabled={disabled}
         tabIndex={0}
-        className={`${classes['native-input']} ${className ?? ''}`}
+        className={`${classes['native-input']} ${error ? classes['error'] : ''}`}
         onChange={onChangeHandler}
         checked={checked}
         aria-invalid={error ? true : false}

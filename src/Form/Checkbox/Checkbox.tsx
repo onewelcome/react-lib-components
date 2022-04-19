@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { Props as FormHelperTextProps } from '../FormHelperText/FormHelperText';
 import classes from './Checkbox.module.scss';
@@ -14,6 +14,7 @@ export interface CheckboxProps extends FormSelector<HTMLInputElement> {
   helperProps?: FormHelperTextProps;
   wrapperProps?: HTMLProps<HTMLDivElement>;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  additionalElement?: ReactNode;
 }
 
 export const Checkbox = ({
@@ -32,6 +33,7 @@ export const Checkbox = ({
   checked = false,
   wrapperProps,
   onChange,
+  additionalElement,
   ...rest
 }: CheckboxProps) => {
   const { errorId, identifier, describedBy } = useFormSelector({
@@ -114,7 +116,7 @@ export const Checkbox = ({
       <input
         {...rest}
         disabled={disabled}
-        className={classes['native-input']}
+        className={`${classes['native-input']} ${error ? classes['error'] : ''}`}
         checked={checked}
         onChange={onChangeHandler}
         aria-invalid={error as boolean}
@@ -124,6 +126,7 @@ export const Checkbox = ({
         name={name}
         type="checkbox"
       />
+      {additionalElement}
 
       {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
       {checked && !indeterminate && <Icon className={classes.input} icon={Icons.CheckmarkSquare} />}

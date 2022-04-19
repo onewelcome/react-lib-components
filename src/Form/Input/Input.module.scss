@@ -10,6 +10,7 @@
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
   transition: all 0.2s ease-in-out;
+  color: var(--greyed-out);
   font-size: var(--font-size);
   font-family: var(--font-family);
   width: 100%;
@@ -27,6 +28,7 @@
   }
 
   &:focus:not(:disabled) {
+    outline: none;
     border-color: var(--color-primary);
   }
 }

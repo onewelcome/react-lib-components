@@ -22,7 +22,7 @@ export const Link = React.forwardRef(
       className,
       disabled = false,
       to,
-      color,
+      color = 'primary',
       type = 'internal',
       component,
       ...rest
@@ -46,11 +46,12 @@ export const Link = React.forwardRef(
         ...rest,
         ref: ref,
         to: to,
-        className: `${classes['link']} ${disabled ? classes['disabled'] : ''} ${className ?? ''}`,
+        className: `${classes['link']} ${classes[color]} ${disabled ? classes['disabled'] : ''} ${
+          className ?? ''
+        }`,
         'aria-disabled': disabled,
         style: {
           ...rest.style,
-          color: disabled ? 'var(--greyed-out)' : `var(--color-${color ?? 'primary'})`,
         },
         children: children,
       });
@@ -63,12 +64,13 @@ export const Link = React.forwardRef(
         download={type === 'download'}
         rel={type === 'external' ? 'noopener noreferer' : undefined}
         href={!disabled ? to : undefined}
-        className={`${classes['link']} ${disabled ? classes['disabled'] : ''} ${className ?? ''}`}
+        className={`${classes['link']} ${classes[color]} ${disabled ? classes['disabled'] : ''} ${
+          className ?? ''
+        }`}
         aria-disabled={disabled}
         target={determineTarget()}
         style={{
           ...rest.style,
-          color: disabled ? 'var(--greyed-out)' : `var(--color-${color ?? 'primary'})`,
         }}
       >
         {children}

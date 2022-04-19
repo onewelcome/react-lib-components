@@ -1,19 +1,19 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Tooltip, Props } from '../../src/Tooltip/Tooltip';
+import { Tooltip as TooltipComponent, Props } from '../../src/Tooltip/Tooltip';
 
 const meta: Meta = {
   title: 'Stories/UI/Tooltip',
-  component: Tooltip,
+  component: TooltipComponent,
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => <Tooltip {...args} />;
+const Template: Story<Props> = (args) => <TooltipComponent {...args} />;
 
-export const TooltipEl = Template.bind({});
+export const Tooltip = Template.bind({});
 
-TooltipEl.args = {
+Tooltip.args = {
   children: 'This is an example tooltip message.',
   label: 'Example label',
   placement: { horizontal: 'right', vertical: 'center' },

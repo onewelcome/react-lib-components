@@ -13,16 +13,16 @@
   padding-top: 0;
   padding-right: 0;
 
-  &:focus:not(:disabled) {
-    outline: none;
-  }
-
   &:active:not(:disabled) {
     border-color: white;
   }
 
   &:hover:not(:disabled) {
     border-color: white;
+  }
+
+  &:focus:not(:disabled) {
+    outline: none;
   }
 }
 
@@ -40,16 +40,16 @@
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
 
+  &.error {
+    border-color: var(--error);
+  }
+
   &.hover {
     border-color: var(--default);
   }
+
   &.focus {
     border-color: var(--color-primary);
-    outline: 5px auto -webkit-focus-ring-color;
-    -webkit-outline: 5px auto -webkit-focus-ring-color;
-    -moz-outline: 5px auto rgba(0, 150, 255, 1);
-    -ms-outline: 5px auto rgba(0, 150, 255, 1);
-    -o-outline: 5px auto rgba(0, 150, 255, 1);
   }
 
   &.disabled {
@@ -57,10 +57,6 @@
     background-color: var(--disabled);
     border-color: #fff;
     cursor: not-allowed;
-  }
-
-  &.error {
-    border-color: var(--error);
   }
 }
 

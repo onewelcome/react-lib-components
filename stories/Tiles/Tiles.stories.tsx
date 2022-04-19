@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Tiles, Props } from '../../src/Tiles/Tiles';
+import { Tiles as TitlesComponent, Props } from '../../src/Tiles/Tiles';
 import { Tile } from '../../src/Tiles/Tile';
 import { ContextMenu } from '../../src/ContextMenu/ContextMenu';
 import { IconButton } from '../../src/Button/IconButton';
@@ -10,14 +10,14 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Stories/UI/Tiles',
-  component: Tiles,
+  component: TitlesComponent,
 };
 
 export default meta;
 
 const Template: Story<Props> = (args) => {
   return (
-    <Tiles {...args}>
+    <TitlesComponent {...args}>
       <Tile
         key="tile1"
         title="Tile1"
@@ -114,10 +114,10 @@ const Template: Story<Props> = (args) => {
           </ContextMenu>
         }
       />
-    </Tiles>
+    </TitlesComponent>
   );
 };
 
-export const TilesEl = Template.bind({});
+export const Tiles = Template.bind({});
 
-TilesEl.args = {};
+Tiles.args = {};
