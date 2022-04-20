@@ -34,3 +34,9 @@
     transform: scale(1);
   }
 }
+
+.label {
+  &:focus-visible {
+    outline: 0.5px dashed var(--color-primary);
+  }
+}

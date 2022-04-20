@@ -1,26 +1,27 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { IconButton, Props } from '../../src/Button/IconButton';
+import { IconButton as IconButtonComponent, Props } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
 
 const meta: Meta = {
   title: 'Stories/UI/IconButton',
-  component: IconButton,
+  component: IconButtonComponent,
 };
 
 export default meta;
 
 const Template: Story<Props> = (args) => (
-  <IconButton {...args}>
+  <IconButtonComponent {...args}>
     <Icon icon={Icons.Calendar} />
-  </IconButton>
+  </IconButtonComponent>
 );
 
-export const Button = Template.bind({});
+export const IconButton = Template.bind({});
 
-Button.args = {
+IconButton.args = {
   color: 'primary',
   iconSize: 'm',
   type: 'button',
   title: 'Calendar',
 };
+IconButton.storyName = 'IconButton';

@@ -25,16 +25,17 @@
     cursor: not-allowed;
   }
 
-  &:focus:not(:disabled) {
-    border-color: var(--color-primary);
-  }
-
   &:active:not(:disabled) {
     border-color: var(--color-primary);
   }
 
   &:hover:not(:disabled) {
     border-color: var(--default);
+  }
+
+  &:focus:not(:disabled) {
+    border-color: var(--color-primary);
+    outline: none;
   }
 }
 
