@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   DiscardChangesModal as DiscardChangesModalComponent,
@@ -65,7 +65,7 @@ const Template: Story<Props> = (args) => {
   };
 
   return (
-    <>
+    <Fragment>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
       <DiscardChangesModalComponent
         id={id}
@@ -103,7 +103,7 @@ const Template: Story<Props> = (args) => {
                 value={formState.name}
                 error={false}
                 label="Name"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                onChange={(event) =>
                   setFormState((prevState) => ({
                     ...prevState,
                     name: event.target.value,
@@ -122,7 +122,7 @@ const Template: Story<Props> = (args) => {
           </Button>
         </ModalActions>
       </DiscardChangesModalComponent>
-    </>
+    </Fragment>
   );
 };
 

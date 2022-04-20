@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Modal as ModalComponent, Props } from '../../../src/Notifications/Modal/Modal';
 import { ModalActions } from '../../../src/Notifications/Modal/ModalActions/ModalActions';
@@ -40,7 +40,7 @@ const Template: Story<Props> = (args) => {
   const id = args.id;
   const onClose = () => setOpen(false);
   return (
-    <>
+    <Fragment>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
       <ModalComponent
         id={id}
@@ -131,7 +131,7 @@ const Template: Story<Props> = (args) => {
           </Button>
         </ModalActions>
       </ModalComponent>
-    </>
+    </Fragment>
   );
 };
 

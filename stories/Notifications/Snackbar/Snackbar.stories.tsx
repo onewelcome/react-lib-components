@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   SnackbarProvider,
@@ -19,7 +19,7 @@ const AppContent = () => {
   const { enqueueSuccessSnackbar, enqueueErrorSnackbar, enqueueSnackbar } = useSnackbar();
 
   return (
-    <>
+    <Fragment>
       <Button onClick={() => enqueueSuccessSnackbar('Main message of the snackbar')}>
         Show sucess snackbar
       </Button>
@@ -51,7 +51,7 @@ const AppContent = () => {
       >
         Show long snackbar
       </Button>
-    </>
+    </Fragment>
   );
 };
 

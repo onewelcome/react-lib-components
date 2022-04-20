@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { HTMLAttributes } from '../../interfaces';
 import classes from './BaseModal.module.scss';
 import { labelId, descriptionId } from './BaseModalContext';
@@ -18,6 +19,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   disableEscapeKeyDown?: boolean;
   disableBackdrop?: boolean;
   zIndex?: number;
+  domRoot?: HTMLElement;
 }
 
 export const useSetBodyScroll = (open: boolean) => {
@@ -54,6 +56,7 @@ export const BaseModal = ({
   disableEscapeKeyDown = false,
   disableBackdrop = false,
   zIndex,
+  domRoot = document.body,
   ...restProps
 }: Props) => {
   useSetBodyScroll(open);
@@ -67,7 +70,7 @@ export const BaseModal = ({
 
   const handleBackdropClick = () => !disableBackdrop && onClose && onClose();
 
-  return (
+  return createPortal(
     <div
       {...restProps}
       id={id}
@@ -91,6 +94,7 @@ export const BaseModal = ({
           {children}
         </div>
       )}
-    </div>
+    </div>,
+    domRoot
   );
 };

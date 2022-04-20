@@ -111,7 +111,7 @@ const Template: Story<Props> = (args) => {
           error={input1.error}
           value={input1.value}
           label="Label for this inputfield"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(event) => {
             setInput1((prevState) => ({
               ...prevState,
               value: event.target.value,
@@ -143,7 +143,7 @@ const Template: Story<Props> = (args) => {
               error={address.street.error}
               value={address.street.value}
               label="Streetname"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event) => {
                 setAddress((prevState) => ({
                   ...prevState,
                   street: {
@@ -162,7 +162,7 @@ const Template: Story<Props> = (args) => {
               error={address.housenumber.error}
               value={address.housenumber.value}
               label="House number"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event) => {
                 setAddress((prevState) => ({
                   ...prevState,
                   housenumber: {
@@ -182,7 +182,7 @@ const Template: Story<Props> = (args) => {
               error={address.postcode.error}
               value={address.postcode.value}
               label="Postal code"
-              onBlur={(event: React.FocusEvent<HTMLInputElement>) => {
+              onBlur={(event) => {
                 if (!/[0-9]{4}[a-zA-Z]{2}$/.test(event.target.value) && event.target.value.length) {
                   setAddress((prevState) => ({
                     ...prevState,
@@ -194,7 +194,7 @@ const Template: Story<Props> = (args) => {
                   }));
                 }
               }}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event) => {
                 setAddress((prevState) => ({
                   ...prevState,
                   postcode: {

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 import { render } from '@testing-library/react';
 import { ConfigObject, usePosition } from './usePosition';
 import userEvent from '@testing-library/user-event';
@@ -30,7 +30,7 @@ const createUsePositionComponent = (
     const { top, left, bottom, right, calculatePosition } = usePosition({ ...parameters });
 
     return (
-      <>
+      <Fragment>
         <button data-testid="button" onClick={calculatePosition} ref={relativeElement}>
           Test
         </button>
@@ -41,7 +41,7 @@ const createUsePositionComponent = (
         >
           Test
         </div>
-      </>
+      </Fragment>
     );
   };
 

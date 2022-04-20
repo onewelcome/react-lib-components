@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Dialog, Props } from '../../../src/Notifications/Dialog/Dialog';
 import { Button } from '../../../src/Button/Button';
@@ -37,7 +37,7 @@ const Template: Story<Props> = (args) => {
   const [open, setOpen] = useState(false);
   window.setDialogOpen = setOpen;
   return (
-    <>
+    <Fragment>
       <Button onClick={() => setOpen(true)}>Open dialog</Button>
       <Dialog
         id={args.id}
@@ -50,7 +50,7 @@ const Template: Story<Props> = (args) => {
       >
         {args.children}
       </Dialog>
-    </>
+    </Fragment>
   );
 };
 
@@ -62,7 +62,7 @@ RightAlignedActionDialog.args = {
   title: 'Verify email address',
   alignActions: 'right',
   children: (
-    <>
+    <Fragment>
       <Typography variant="body">
         You want to verify the email address <b>dana.george@mydomain.com</b>.
       </Typography>
@@ -70,7 +70,7 @@ RightAlignedActionDialog.args = {
         <b>Dana George</b> will receive an email with a verification link and must click the link to
         complete the verification.
       </Typography>
-    </>
+    </Fragment>
   ),
   primaryAction: {
     label: 'Send email',
@@ -103,7 +103,7 @@ export const NestedDialogs = () => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   return (
-    <>
+    <Fragment>
       <Button onClick={() => setOpen(true)}>Open dialog</Button>
       <Dialog
         id="dialog11"
@@ -140,6 +140,6 @@ export const NestedDialogs = () => {
           Short dialog content.
         </Typography>
       </Dialog>
-    </>
+    </Fragment>
   );
 };
