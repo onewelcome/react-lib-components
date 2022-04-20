@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Button, Props } from '../../src/Button/Button';
 import { Icon, Icons } from '../../src/Icon/Icon';
-import ButtonsDocumentation from './Buttons.mdx';
+import ButtonsDocumentation from './Button.mdx';
 
 const meta: Meta = {
   title: 'Stories/UI/Button',

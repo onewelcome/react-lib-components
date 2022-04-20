@@ -3,24 +3,34 @@ import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@story
 <Title />
 <Subtitle />
 
-The button component is used all throughout the component library. There's two different kinds of buttons and they both extend our `BaseButton` component. The two kinds are:
-
-- `Button` component
-- `IconButton` component
+The button component is used all throughout the component library and it extends the `BaseButton` component.
 
 The `Button` component is used to display a button with a label and an optional icon at the start or end.
-
-The `IconButton` component is used to display a button with only an icon, no visible label.
 
 `Button` and `IconButton` are used to perform certain actions. These actions should **not** be a route change or a `link` to somewhere. It should trigger a change on the page itself such as opening a modal or submitting a `Form`.
 
 # Examples
 
+In the below code snippet you'll see how you can create the buttons displayed down below.
+
+```jsx
+<Button title="This is a button">
+  This is a button
+</Button>
+
+<Button title="This is a button" variant="outline">
+  This is a button
+</Button>
+
+<Button title="This is a button" variant="text" startIcon={<Icon icon={Icons.Calendar} />}>
+  This is a button
+</Button>
+```
+
 <Canvas>
   <Story id="stories-ui-button--filled-button" />
   <Story id="stories-ui-button--outline-button" />
   <Story id="stories-ui-button--start-icon-button" />
-  <Story id="stories-ui-iconbutton--icon-button" />
 </Canvas>
 
 # Props
