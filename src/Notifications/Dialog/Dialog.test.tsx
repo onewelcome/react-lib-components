@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, Props } from './Dialog';
-import { render, getAllByRole, getByRole, fireEvent, getByText } from '@testing-library/react';
+import { render, getAllByRole, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const initParams: Props = {
@@ -24,11 +24,11 @@ const getButtons = (container: HTMLElement) => getAllByRole(container, 'button')
 
 describe('Dialog', () => {
   it('renders without crashing', () => {
-    const { container } = render(<Dialog {...initParams} />);
-    const [primaryButton, secondaryButton] = getButtons(container);
+    const { getByText } = render(<Dialog {...initParams} />);
+    const [primaryButton, secondaryButton] = getButtons(document.body);
 
-    expect(getByText(container, initParams.title)).toBeDefined();
-    expect(getByText(container, initParams.children as string)).toBeDefined();
+    expect(getByText(initParams.title)).toBeDefined();
+    expect(getByText(initParams.children as string)).toBeDefined();
     const actionsDiv = primaryButton.closest('footer');
     expect(actionsDiv).toHaveClass('left');
     expect(actionsDiv?.children[0]).toEqual(primaryButton);
@@ -38,8 +38,8 @@ describe('Dialog', () => {
   });
 
   it('renders action aligned to right', () => {
-    const { container } = render(<Dialog {...initParams} alignActions="right" />);
-    const [secondaryButton, primaryButton] = getButtons(container);
+    render(<Dialog {...initParams} alignActions="right" />);
+    const [secondaryButton, primaryButton] = getButtons(document.body);
 
     const actionsDiv = primaryButton.closest('footer');
     expect(actionsDiv).not.toHaveClass('left');
@@ -50,25 +50,25 @@ describe('Dialog', () => {
   });
 
   it('renders only one button', () => {
-    const { container } = render(<Dialog {...initParams} secondaryAction={undefined} />);
-    const buttons = getButtons(container);
+    render(<Dialog {...initParams} secondaryAction={undefined} />);
+    const buttons = getButtons(document.body);
 
     expect(buttons).toHaveLength(1);
     expect(buttons[0]).toHaveClass('fill');
   });
 
   it('should handle clicking on buttons, ESC and ENTER keys', () => {
-    const { container } = render(<Dialog {...initParams} />);
-    const [primaryButton, secondaryButton] = getButtons(container);
+    const { getByRole } = render(<Dialog {...initParams} />);
+    const [primaryButton, secondaryButton] = getButtons(document.body);
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(0);
     expect(initParams.secondaryAction?.onClick).toHaveBeenCalledTimes(0);
     expect(initParams.onClose).toHaveBeenCalledTimes(0);
 
-    const autoSummissionInput = container.querySelector('input') as HTMLElement;
+    const autoSummissionInput = document.body.querySelector('input') as HTMLElement;
     userEvent.type(autoSummissionInput, '{enter}');
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(1);
 
-    fireEvent.keyDown(getByRole(container, 'dialog'), { key: 'Escape' });
+    fireEvent.keyDown(getByRole('dialog'), { key: 'Escape' });
     expect(initParams.onClose).toHaveBeenCalledTimes(1);
 
     userEvent.click(primaryButton);

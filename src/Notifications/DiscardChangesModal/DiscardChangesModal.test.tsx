@@ -28,7 +28,7 @@ const createDiscardChangesModal = (params?: (defaultParams: Props) => Props) => 
   }
   const queries = render(<DiscardChangesModal {...parameters} data-testid="discardChangesModal" />);
   const discardChangesModal = queries.getByTestId('discardChangesModal');
-  // console.log(queries.debug());
+  console.log(queries.debug());
   const closeBtn = queries.getByRole('button', { name: 'close modal' });
 
   return {
@@ -74,7 +74,8 @@ describe('DiscardChangesModal should show DiscardChangesDialog', () => {
     (
       defaultParams.hasUnsavedChanges as jest.MockedFunction<typeof defaultParams.hasUnsavedChanges>
     ).mockReturnValue(true);
-    const { closeBtn, container } = createDiscardChangesModal();
+    const { closeBtn } = createDiscardChangesModal();
+    const container = document.body;
     expect(defaultParams.onClose).not.toBeCalled();
 
     userEvent.click(closeBtn);
@@ -96,7 +97,8 @@ describe('DiscardChangesModal should show DiscardChangesDialog', () => {
     (
       defaultParams.hasUnsavedChanges as jest.MockedFunction<typeof defaultParams.hasUnsavedChanges>
     ).mockReturnValue(true);
-    const { closeBtn, container } = createDiscardChangesModal();
+    const { closeBtn } = createDiscardChangesModal();
+    const container = document.body;
 
     userEvent.click(closeBtn);
 
