@@ -296,3 +296,4 @@ ContextMenu.args = {
   ],
   show: false,
 };
+ContextMenu.storyName = 'ContextMenu';

@@ -1,19 +1,19 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Link, Props } from '../../src/Link/Link';
+import { Link as LinkComponent, Props } from '../../src/Link/Link';
 
 const meta: Meta = {
   title: 'Stories/UI/Link',
-  component: Link,
+  component: LinkComponent,
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => <Link {...args}>content</Link>;
+const Template: Story<Props> = (args) => <LinkComponent {...args}>content</LinkComponent>;
 
-export const LinkEl = Template.bind({});
+export const Link = Template.bind({});
 
-LinkEl.args = {
+Link.args = {
   to: 'https://www.google.com',
   type: 'external',
 };
