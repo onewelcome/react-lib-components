@@ -7,10 +7,16 @@ import { IconButton } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
 import { Placement } from '../../src/hooks/usePosition';
 import { useBodyClick } from '../../src/hooks/useBodyClick';
+import ContextMenuDocumentation from './ContextMenu.mdx';
 
 const meta: Meta = {
   title: 'Stories/UI/ContextMenu',
   component: ContextMenuComponent,
+  parameters: {
+    docs: {
+      page: ContextMenuDocumentation,
+    },
+  },
   argTypes: {
     onShow: {
       control: false,
@@ -30,7 +36,6 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = (args) => {
-  const [showContextMenu, setShowContextMenu] = useState(false);
   const [placement, setPlacement] = useState<Placement>({
     vertical: 'bottom',
     horizontal: 'left',
@@ -40,18 +45,10 @@ const Template: Story<Props> = (args) => {
     horizontal: 'left',
   });
 
-  useBodyClick(
-    (event) => !(event.target as Element).closest('#example-contextmenu-menu') && showContextMenu,
-    () => setShowContextMenu(false),
-    showContextMenu
-  );
-
   return (
     <Fragment>
       <ContextMenuComponent
         {...args}
-        onShow={() => setShowContextMenu(!showContextMenu)}
-        show={showContextMenu}
         placement={{ vertical: placement.vertical, horizontal: placement.horizontal }}
         transformOrigin={transformOrigin}
       ></ContextMenuComponent>
@@ -294,6 +291,5 @@ ContextMenu.args = {
       Example item 3
     </ContextMenuItem>,
   ],
-  show: false,
 };
 ContextMenu.storyName = 'ContextMenu';
