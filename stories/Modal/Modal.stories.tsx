@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Modal, Props } from '../../src/Modal/Modal';
+import { Modal as ModalComponent, Props } from '../../src/Modal/Modal';
 import { ModalActions } from '../../src/Modal/ModalActions/ModalActions';
 import { ModalContent } from '../../src/Modal/ModalContent/ModalContent';
 import { ModalHeader } from '../../src/Modal/ModalHeader/ModalHeader';
@@ -9,7 +9,7 @@ import { Typography } from '../../src/Typography/Typography';
 
 const meta: Meta = {
   title: 'Stories/UI/Modal',
-  component: Modal,
+  component: ModalComponent,
   args: {
     id: 'modal',
     ['header.title']: 'Modal title',
@@ -42,7 +42,7 @@ const Template: Story<Props> = (args) => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Modal id={id} open={open} onClose={onClose} zIndex={args.zIndex}>
+      <ModalComponent id={id} open={open} onClose={onClose} zIndex={args.zIndex}>
         <ModalHeader id={`${id}-label`} title={args['header.title']} onClose={onClose} />
         <ModalContent id={`${id}-description`} disableAutoFocus={args['content.disableAutoFocus']}>
           <form
@@ -123,9 +123,9 @@ const Template: Story<Props> = (args) => {
             Save
           </Button>
         </ModalActions>
-      </Modal>
+      </ModalComponent>
     </>
   );
 };
 
-export const BasicModal = Template.bind({});
+export const Modal = Template.bind({});

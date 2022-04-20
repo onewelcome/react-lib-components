@@ -58,6 +58,14 @@ export const Wrapper = ({
       })
     );
 
+  const labelClasses = [];
+
+  floatingLabel && labelClasses.push(classes['floating-label']);
+  floatingLabel && floatingLabelActive && labelClasses.push(classes['floating-label-active']);
+  labelProps?.className && labelClasses.push(labelProps.className);
+  required && labelClasses.push(classes['required']);
+  error && labelClasses.push(classes['error']);
+
   return (
     <div {...rest} className={`${classes.wrapper} ${className ? className : ''}`}>
       <FormGroup
@@ -79,11 +87,7 @@ export const Wrapper = ({
           {label && (
             <Label
               {...labelProps}
-              className={`${classes.label} ${floatingLabel ? classes['floating-label'] : ''} ${
-                floatingLabelActive && floatingLabel ? classes['floating-label-active'] : ''
-              } ${labelProps?.className ? labelProps.className : ''} ${
-                required ? classes.required : ''
-              }`}
+              className={`${classes.label} ${labelClasses.join(' ')}`}
               htmlFor={name}
             >
               {label}
