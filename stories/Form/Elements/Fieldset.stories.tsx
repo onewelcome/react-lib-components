@@ -7,10 +7,16 @@ import { Option } from '../../../src/Form/Select/Option';
 import { Input } from '../../../src/Form/Input/Input';
 import { Form } from '../../../src/Form/Form';
 import { SelectWrapper } from '../../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
+import FieldsetDocumentation from './Fieldset.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Fieldset',
   component: Fieldset,
+  parameters: {
+    docs: {
+      page: FieldsetDocumentation,
+    },
+  },
   argTypes: {
     disabled: {
       control: {
@@ -38,7 +44,7 @@ const Template: Story<Props> = (args) => {
   };
   return (
     <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
-      <Fieldset disabled title="Name" {...args}>
+      <Fieldset title="Name" {...args}>
         <FormControl grid={3}>
           <SelectWrapper
             name="prefix"
