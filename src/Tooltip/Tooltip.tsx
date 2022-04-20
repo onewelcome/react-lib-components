@@ -77,11 +77,13 @@ export const Tooltip = ({
         onBlur: () => setVisible(false),
         'aria-describedby': identifier,
         tabIndex: 0,
+        className: classes['label'],
       });
     }
 
     return (
       <span
+        className={classes['label']}
         tabIndex={0}
         onFocus={() => setVisible(true)}
         onBlur={() => setVisible(false)}

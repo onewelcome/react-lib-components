@@ -1,3 +1,5 @@
+@import '../readyclasses.module.scss';
+
 .fill {
   color: var(--button-fill-text-color);
   font-weight: bold;
@@ -5,6 +7,8 @@
   &.primary:not(:disabled) {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
+
+    @include focusOutline(var(--color-primary));
 
     &:hover,
     &:focus {
@@ -33,6 +37,8 @@
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
 
+    @include focusOutline(var(--color-secondary));
+
     &:hover,
     &:focus {
       color: var(--color-secondary);
@@ -59,6 +65,8 @@
   &.tertiary:not(:disabled) {
     background-color: var(--color-tertiary);
     border-color: var(--color-tertiary);
+
+    @include focusOutline(var(--color-tertiary));
 
     &:hover,
     &:focus {
@@ -103,6 +111,8 @@
     border-color: var(--color-primary);
     color: var(--color-primary);
 
+    @include focusOutline(var(--color-primary));
+
     &:hover,
     &:focus {
       background-color: var(--color-primary);
@@ -112,6 +122,8 @@
   &.secondary:not(:disabled) {
     border-color: var(--color-secondary);
     color: var(--color-secondary);
+
+    @include focusOutline(var(--color-secondary));
 
     &:hover,
     &:focus {
@@ -123,6 +135,8 @@
     border-color: var(--color-tertiary);
     color: var(--color-tertiary);
 
+    @include focusOutline(var(--color-tertiary));
+
     &:hover,
     &:focus {
       background-color: var(--color-tertiary);
@@ -132,11 +146,6 @@
   &:hover:not(:disabled),
   &:focus:not(:disabled) {
     color: var(--button-outline-hover-text-color);
-  }
-
-  &:active:not(:disabled) {
-    border: none;
-    margin: 2px;
   }
 
   &:disabled {
@@ -152,6 +161,8 @@
   &.primary:not(:disabled) {
     color: var(--color-primary);
 
+    @include focusOutline(var(--color-primary));
+
     &:hover,
     &:focus {
       border-color: var(--color-primary);
@@ -166,7 +177,7 @@
       &:after {
         content: '';
         position: absolute;
-        top: calc(-1 * var(--button-border-width));
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
         left: 0;
         width: 100%;
         height: calc(100% + var(--button-border-width));
@@ -179,6 +190,8 @@
 
   &.secondary:not(:disabled) {
     color: var(--color-secondary);
+
+    @include focusOutline(var(--color-secondary));
 
     &:hover,
     &:focus {
@@ -194,7 +207,7 @@
       &:after {
         content: '';
         position: absolute;
-        top: calc(-1 * var(--button-border-width));
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
         left: 0;
         width: 100%;
         height: calc(100% + var(--button-border-width));
@@ -207,6 +220,8 @@
 
   &.tertiary:not(:disabled) {
     color: var(--color-tertiary);
+
+    @include focusOutline(var(--color-tertiary));
 
     &:hover,
     &:focus {
@@ -222,7 +237,7 @@
       &:after {
         content: '';
         position: absolute;
-        top: calc(-1 * var(--button-border-width));
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
         left: 0;
         width: 100%;
         height: calc(100% + var(--button-border-width));

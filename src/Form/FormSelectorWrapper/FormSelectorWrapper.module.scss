@@ -1,0 +1,33 @@
+.error {
+  color: var(--error);
+}
+
+.helper-text {
+  margin-top: 0.25rem;
+  margin-left: 1.75rem;
+}
+
+.error-message {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+.error-icon {
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.disabled {
+  input {
+    color: var(--disabled);
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  label {
+    cursor: not-allowed;
+  }
+}
