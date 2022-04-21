@@ -3,9 +3,7 @@ import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@story
 <Title />
 <Subtitle />
 
-The `IconButton` component is used all throughout the component library and it extends the `BaseButton` component.
-
-It is used to display a button with only an icon, no visible label. However, there is a `title` prop that is mandatory to fill in for accessibility. This way screenreaders know what the `IconButton` is for.
+The `IconButton` is used to display a button with only an icon, no visible label. However, there is a `title` prop that is mandatory to fill in for accessibility. This way screenreaders know what the `IconButton` is for.
 
 An example reason of using an `IconButton` instead of a regular `Button` component is when combining it with a `ContextMenu` component. For this, you can see the [Tiles component](/story/stories-ui-tiles--tiles). The `IconButton` is used in the top right of every tile
 in order to display a `ContextMenu`.
@@ -13,7 +11,7 @@ in order to display a `ContextMenu`.
 # Examples
 
 ```jsx
-<IconButton title="calendar button" color="primary">
+<IconButton title="Open calendar" color="primary">
   <Icon icon={Icons.Calendar} />
 </IconButton>
 ```
