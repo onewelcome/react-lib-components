@@ -38,6 +38,7 @@ export const DiscardChangesDialog = ({
         label: keepEditingButtonLabel,
         onClick: onKeepEditing,
       }}
+      disableEscapeKeyDown={false}
     >
       <Typography variant="body" spacing={{ margin: 0 }}>
         {contentLabel}

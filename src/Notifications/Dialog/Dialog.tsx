@@ -18,6 +18,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   primaryAction: Action;
   secondaryAction?: Action;
   zIndex?: number;
+  disableEscapeKeyDown?: boolean;
 }
 
 export interface Action extends Omit<ButtonProps, 'variant' | 'ref'> {
@@ -35,6 +36,7 @@ export const Dialog = ({
   primaryAction,
   secondaryAction,
   zIndex,
+  disableEscapeKeyDown = true,
   ...restProps
 }: Props) => {
   const [dialogId] = useState(id ?? generateID(20));
@@ -72,7 +74,7 @@ export const Dialog = ({
       disableBackdrop
       onClose={onClose}
       zIndex={zIndex}
-      disableEscapeKeyDown
+      disableEscapeKeyDown={disableEscapeKeyDown}
     >
       <DialogTitle id={labelId(dialogId)} title={title} />
       <BaseModalContent
