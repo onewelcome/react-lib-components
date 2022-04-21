@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, Props } from './Dialog';
-import { render, getAllByRole, fireEvent } from '@testing-library/react';
+import { render, getAllByRole } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const initParams: Props = {
@@ -57,8 +57,8 @@ describe('Dialog', () => {
     expect(buttons[0]).toHaveClass('fill');
   });
 
-  it('should handle clicking on buttons, ESC and ENTER keys', () => {
-    const { getByRole } = render(<Dialog {...initParams} />);
+  it('should handle clicking on buttons and ENTER press', () => {
+    render(<Dialog {...initParams} />);
     const [primaryButton, secondaryButton] = getButtons(document.body);
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(0);
     expect(initParams.secondaryAction?.onClick).toHaveBeenCalledTimes(0);
@@ -67,9 +67,6 @@ describe('Dialog', () => {
     const autoSummissionInput = document.body.querySelector('input') as HTMLElement;
     userEvent.type(autoSummissionInput, '{enter}');
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(1);
-
-    fireEvent.keyDown(getByRole('dialog'), { key: 'Escape' });
-    expect(initParams.onClose).toHaveBeenCalledTimes(1);
 
     userEvent.click(primaryButton);
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(2);
