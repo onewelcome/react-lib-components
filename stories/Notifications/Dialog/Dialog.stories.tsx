@@ -3,10 +3,16 @@ import { Meta, Story } from '@storybook/react';
 import { Dialog, Props } from '../../../src/Notifications/Dialog/Dialog';
 import { Button } from '../../../src/Button/Button';
 import { Typography } from '../../../src/Typography/Typography';
+import DialogDocumentation from './Dialog.mdx';
 
 const meta: Meta = {
   title: 'Stories/Notifications/Dialog',
   component: Dialog,
+  parameters: {
+    docs: {
+      page: DialogDocumentation,
+    },
+  },
   args: {
     id: 'dialog',
     title: 'Discard changes?',

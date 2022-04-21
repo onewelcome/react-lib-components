@@ -1,0 +1,88 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `DiscardChangesModal` component is a special combination of Modal and Dialog components.
+It shows the `Modal` component and displays a dialog that says a well-known sentence: "You have unsaved changes", whenever the user modifies form inputs and wants to close the modal.
+
+# Examples
+
+In the below code snippet, you'll see how you can create a `Modal` which shows `Dialog` whenever a user changes an input value and closes the modal.
+
+```jsx
+const [open, setOpen] = useState(false);
+const initialFormState = { name: 'Value' };
+const [formState, setFormState] = useState(initialFormState);
+const id = 'modal';
+
+const hasUnsavedChanges = () => JSON.stringify(initialFormState) !== JSON.stringify(formState);
+
+const onOpen = () => {
+  setOpen(true);
+  setFormState(initialFormState);
+};
+
+const onClose = () => {
+  setOpen(false);
+};
+
+return (
+  <Fragment>
+    <Button onClick={onOpen}>Open modal</Button>
+    <DiscardChangesModalComponent
+      {...args}
+      id={id}
+      open={open}
+      onClose={onClose}
+      hasUnsavedChanges={hasUnsavedChanges}
+    >
+      <ModalContent id={`${id}-description`}>
+        <Form
+          id="modalForm"
+          onSubmit={() => {
+            alert(JSON.stringify(formState));
+            onClose();
+          }}
+        >
+          <Typography variant="body" spacing={{ paddingLeft: 5, paddingRight: 5, marginBottom: 5 }}>
+            Changing the input value and closing modal should show 'DiscardChangesDialog'. Clicking
+            on 'Cancel' button should close modal without showing 'DiscardChangesDialog'.
+          </Typography>
+          <FormControl>
+            <InputWrapper
+              name="input1"
+              type="text"
+              value={formState.name}
+              error={false}
+              label="Name"
+              onChange={(event) =>
+                setFormState((prevState) => ({
+                  ...prevState,
+                  name: event.target.value,
+                }))
+              }
+            />
+          </FormControl>
+        </Form>
+      </ModalContent>
+      <ModalActions>
+        <Button variant="text" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button form="modalForm" type="submit">
+          Save
+        </Button>
+      </ModalActions>
+    </DiscardChangesModalComponent>
+  </Fragment>
+);
+```
+
+<Canvas>
+  <Story id="stories-notifications-discard-changes-modal--discard-changes-modal" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

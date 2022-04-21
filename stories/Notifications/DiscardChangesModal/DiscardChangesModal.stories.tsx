@@ -11,18 +11,31 @@ import { Typography } from '../../../src/Typography/Typography';
 import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
 import { FormControl } from '../../../src/Form/FormControl/FormControl';
 import { Form } from '../../../src/Form/Form';
+import DiscardChangesModalDocumentation from './DiscardChangesModal.mdx';
 
 const meta: Meta = {
   title: 'Stories/Notifications/Discard Changes Modal',
   component: DiscardChangesModalComponent,
+  subcomponents: {
+    ModalContent,
+    ModalActions,
+  },
+  parameters: {
+    docs: {
+      page: DiscardChangesModalDocumentation,
+    },
+  },
   args: {
     id: 'modal',
-    ['headerProps.title']: 'Modal title',
-    ['discardChangedDialogProps.discardChangesButtonLabel']: 'Discard',
-    ['discardChangedDialogProps.keepEditingButtonLabel']: 'Keep editing',
-    ['discardChangedDialogProps.contentLabel']:
-      'You have unsaved changes that will be lost. Do you want to discard them?',
-    ['discardChangedDialogProps.titleLabel']: 'Unsaved changes',
+    headerProps: {
+      title: 'Modal title',
+    },
+    discardChangedDialogProps: {
+      discardChangesButtonLabel: 'Discard',
+      keepEditingButtonLabel: 'Keep editing',
+      contentLabel: 'You have unsaved changes that will be lost. Do you want to discard them?',
+      titleLabel: 'Unsaved changes',
+    },
   },
   argTypes: {
     open: {
@@ -30,21 +43,6 @@ const meta: Meta = {
     },
     hasUnsavedChanges: {
       control: false,
-    },
-    ['header.title']: {
-      control: 'text',
-    },
-    ['discardChangedDialogProps.discardChangesButtonLabel']: {
-      control: 'boolean',
-    },
-    ['discardChangedDialogProps.keepEditingButtonLabel']: {
-      control: 'text',
-    },
-    ['discardChangedDialogProps.contentLabel']: {
-      control: 'text',
-    },
-    ['discardChangedDialogProps.titleLabel']: {
-      control: 'text',
     },
   },
 };
@@ -68,17 +66,11 @@ const Template: Story<Props> = (args) => {
     <Fragment>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
       <DiscardChangesModalComponent
+        {...args}
         id={id}
         open={open}
         onClose={onClose}
         hasUnsavedChanges={hasUnsavedChanges}
-        headerProps={{ title: args['headerProps.title'] }}
-        discardChangedDialogProps={{
-          discardChangesButtonLabel: args['discardChangedDialogProps.discardChangesButtonLabel'],
-          keepEditingButtonLabel: args['discardChangedDialogProps.keepEditingButtonLabel'],
-          contentLabel: args['discardChangedDialogProps.contentLabel'],
-          titleLabel: args['discardChangedDialogProps.titleLabel'],
-        }}
       >
         <ModalContent id={`${id}-description`}>
           <Form

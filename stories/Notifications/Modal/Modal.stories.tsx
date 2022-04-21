@@ -6,10 +6,23 @@ import { ModalContent } from '../../../src/Notifications/Modal/ModalContent/Moda
 import { ModalHeader } from '../../../src/Notifications/Modal/ModalHeader/ModalHeader';
 import { Button } from '../../../src/Button/Button';
 import { Typography } from '../../../src/Typography/Typography';
+import ModalDocumentation from './Modal.mdx';
+import { FormControl } from '../../../src/Form/FormControl/FormControl';
+import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
 
 const meta: Meta = {
   title: 'Stories/Notifications/Modal',
   component: ModalComponent,
+  subcomponents: {
+    ModalHeader,
+    ModalContent,
+    ModalActions,
+  },
+  parameters: {
+    docs: {
+      page: ModalDocumentation,
+    },
+  },
   args: {
     id: 'modal',
     ['header.title']: 'Modal title',
@@ -36,6 +49,7 @@ export default meta;
 
 const Template: Story<Props> = (args) => {
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('initial value');
 
   const id = args.id;
   const onClose = () => setOpen(false);
@@ -60,66 +74,56 @@ const Template: Story<Props> = (args) => {
               onClose();
             }}
           >
-            <Typography variant="body" spacing={{ margin: 0, paddingLeft: 5, paddingRight: 5 }}>
+            <Typography variant="body" spacing={{ margin: 0, padding: '0 5 5' }}>
               This modal shows various options of form controls. It is not meant to be a realistic
               example of any of our forms.
               <br /> Clicking Save, Cancel or Close may bring you to a different screen than you
               came from.
             </Typography>
-            <input
-              style={{
-                paddingBlock: 10,
-                marginTop: 20,
-                width: '100%',
-                boxSizing: 'border-box',
-              }}
-            ></input>
-            <p
-              style={{
-                margin: 0,
-                paddingTop: 5,
-                paddingInline: 20,
-                fontSize: 11,
-              }}
-            >
-              Helper text for this text field. Description should be short and not repeat the label.
-            </p>
-            <input
-              style={{
-                paddingBlock: 10,
-                marginTop: 20,
-                width: '100%',
-                boxSizing: 'border-box',
-              }}
-            ></input>
-            <p
-              style={{
-                margin: 0,
-                paddingTop: 5,
-                paddingInline: 20,
-                fontSize: 11,
-              }}
-            >
-              Helper text for this text field. Description should be short and not repeat the label.
-            </p>
-            <input
-              style={{
-                paddingBlock: 10,
-                marginTop: 20,
-                width: '100%',
-                boxSizing: 'border-box',
-              }}
-            ></input>
-            <p
-              style={{
-                margin: 0,
-                paddingTop: 5,
-                paddingInline: 20,
-                fontSize: 11,
-              }}
-            >
-              Helper text for this text field. Description should be short and not repeat the label.
-            </p>
+            <FormControl>
+              <InputWrapper
+                helperText="Helper text for this field. Description should be short and not repeat the label"
+                name="input1"
+                type="text"
+                value={value}
+                error={false}
+                label="Name"
+                onChange={(e) => setValue(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <InputWrapper
+                helperText="Helper text for this field. Description should be short and not repeat the label"
+                name="input2"
+                type="text"
+                value={value}
+                error={false}
+                label="Name"
+                onChange={(e) => setValue(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <InputWrapper
+                helperText="Helper text for this field. Description should be short and not repeat the label"
+                name="input3"
+                type="text"
+                value={value}
+                error={false}
+                label="Name"
+                onChange={(e) => setValue(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <InputWrapper
+                helperText="Helper text for this field. Description should be short and not repeat the label"
+                name="input4"
+                type="text"
+                value={value}
+                error={false}
+                label="Name"
+                onChange={(e) => setValue(e.target.value)}
+              />
+            </FormControl>
           </form>
         </ModalContent>
         <ModalActions className={args['actions.className']}>

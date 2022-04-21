@@ -72,6 +72,7 @@ export const Dialog = ({
       disableBackdrop
       onClose={onClose}
       zIndex={zIndex}
+      disableEscapeKeyDown
     >
       <DialogTitle id={labelId(dialogId)} title={title} />
       <BaseModalContent
