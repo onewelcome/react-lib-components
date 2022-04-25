@@ -24,7 +24,7 @@ This hook is used to place items somewhere on the viewport relative to a certain
 
 If all of these conditions are met, you can use the `usePosition` hook by importing it from the component library and executing it.
 
-## Arguments
+# Props
 
 Below you will find all of the args of the hook.
 
@@ -36,7 +36,7 @@ Below you will find all of the args of the hook.
 | transformOrigin       | <pre><code>{ <br />&nbsp;&nbsp;horizontal: 'start' \| 'center' \| 'end', <br />&nbsp;&nbsp;vertical: 'top' \| 'center' \| 'bottom'<br /> }</code></pre>       | <pre><code>{ <br />&nbsp;&nbsp;horizontal: 'start',<br />&nbsp;&nbsp;vertical: 'top'<br />}</code></pre>                                  | The position you want to place the element to be positioned from.                                                              |
 | offset                | <pre><code>{ <br />&nbsp;&nbsp;top: number, <br />&nbsp;&nbsp;right: number<br />&nbsp;&nbsp;bottom: number<br />&nbsp;&nbsp;left: number<br />}</code></pre> | <pre><code>{ <br />&nbsp;&nbsp;top: 0, <br />&nbsp;&nbsp;right: 0<br />&nbsp;&nbsp;bottom: 0<br />&nbsp;&nbsp;left: 0<br />}</code></pre> | What offset you want to create and from which direction (in pixels).                                                           |
 
-## Return values
+# Return values
 
 The `usePosition` hook takes 5 arguments, and also gives back 5 variables [you can extract using destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
 
@@ -48,7 +48,7 @@ The `usePosition` hook takes 5 arguments, and also gives back 5 variables [you c
 | left              | number     | 0         | The left value in px                                                                                               |
 | calculatePosition | `function` | undefined | Execute this function when you want to calculate the position using the arguments passed in the `usePosition` hook |
 
-## Examples
+# Examples
 
 You can play around with the `usePosition` API [in the ContextMenu story](/story/stories-ui-contextmenu--context-menu). An example component of the `usePosition` hook can be found below:
 
