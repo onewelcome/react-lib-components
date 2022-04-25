@@ -5,7 +5,7 @@ import { HTMLProps } from '../../interfaces';
 export interface Props extends HTMLProps<HTMLDivElement> {
   children: ReactElement | ReactElement[];
   grid?: 1 | 2 | 3;
-  align?: 'top' | 'start' | 'middle' | 'center' | 'bottom' | 'end';
+  align?: 'top' | 'start' | 'middle' | 'center' | 'bottom' | 'end' | 'stretch';
 }
 
 export const FormControl = ({
