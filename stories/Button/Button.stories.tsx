@@ -2,10 +2,16 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Button, Props } from '../../src/Button/Button';
 import { Icon, Icons } from '../../src/Icon/Icon';
+import ButtonsDocumentation from './Button.mdx';
 
 const meta: Meta = {
   title: 'Stories/UI/Button',
   component: Button,
+  parameters: {
+    docs: {
+      page: ButtonsDocumentation,
+    },
+  },
   argTypes: {
     startIcon: {
       options: Icons,
@@ -24,11 +30,18 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = (args) => (
-  <Button title="This is a button" {...args}>
-    This is a button
-  </Button>
-);
+const Template: Story<Props> = (args) => {
+  return (
+    <Button
+      {...args}
+      title="This is a button"
+      startIcon={args?.startIcon && <Icon icon={args?.startIcon as Icons} />}
+      endIcon={args?.endIcon && <Icon icon={args?.endIcon as Icons} />}
+    >
+      This is a button
+    </Button>
+  );
+};
 
 export const FilledButton = Template.bind({});
 
