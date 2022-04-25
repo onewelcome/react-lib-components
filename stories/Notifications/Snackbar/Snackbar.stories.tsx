@@ -21,7 +21,7 @@ const AppContent = () => {
   return (
     <Fragment>
       <Button onClick={() => enqueueSuccessSnackbar('Main message of the snackbar')}>
-        Show sucess snackbar
+        Show success snackbar
       </Button>
       <br />
       <br />
@@ -42,8 +42,8 @@ const AppContent = () => {
             'Body text of the snackbar. Keep it short. Users only have a few seconds to read it. Try to keep the text within the limit of 1 text message: 160 ch.',
             {
               actions: [
-                { label: 'Contact support', onClick: () => alert('Clicked') },
-                { label: 'Contact Onewelcome', onClick: () => alert('Clicked') },
+                { label: 'Contact support', onClick: () => alert('Clicked support') },
+                { label: 'Contact OneWelcome', onClick: () => alert('Clicked OneWelcome') },
               ],
             }
           )

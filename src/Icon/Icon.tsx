@@ -79,6 +79,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLOrSVGElement>, 'size'> {
 export const Icon = React.forwardRef(
   ({ icon, color, className, style, size, tag = 'span', ...rest }: Props, ref) => {
     const Component = tag;
+
     return (
       <Component
         {...rest}
