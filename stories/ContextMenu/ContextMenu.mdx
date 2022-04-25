@@ -1,4 +1,5 @@
 import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import './ContextMenuDocumentation.css';
 
 <Title />
 <Subtitle />
@@ -14,22 +15,27 @@ By default, the `ContextMenu` will be `React.Portal`ed to the `body` so that `tr
 
 # Examples
 
+<Canvas>
+  <Story id="stories-ui-contextmenu--context-menu" />
+</Canvas>
+
 The following code example will showcase how the [ContextMenu story](/story/stories-ui-contextmenu--context-menu) is created.
 
-```
+```jsx
 <ContextMenu
-  id: 'example-contextmenu',
-  trigger: (
+  id="example-contextmenu"
+  trigger={
     <IconButton title="click me for contextmenu">
       <Icon icon={Icons.EllipsisAlt} />
     </IconButton>
-  ),
+  }
   placement={{ vertical: 'bottom', horizontal: 'left' }}
-  transformOrigin={{ vertical: 'top', horizontal: 'left', }}>
+  transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+>
   <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="1">
     Example item 1
-  </ContextMenuItem>,
-  <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="2">
+  </ContextMenuItem>
+  ,<ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="2">
     Example item 2
   </ContextMenuItem>,
   <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="3">

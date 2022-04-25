@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ContextMenu as ContextMenuComponent, Props } from '../../src/ContextMenu/ContextMenu';
 import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
@@ -6,7 +6,6 @@ import { action } from '@storybook/addon-actions/dist/esm';
 import { IconButton } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
 import { Placement } from '../../src/hooks/usePosition';
-import { useBodyClick } from '../../src/hooks/useBodyClick';
 import ContextMenuDocumentation from './ContextMenu.mdx';
 
 const meta: Meta = {
@@ -52,7 +51,7 @@ const Template: Story<Props> = (args) => {
         placement={{ vertical: placement.vertical, horizontal: placement.horizontal }}
         transformOrigin={transformOrigin}
       ></ContextMenuComponent>
-      <div style={{ marginTop: '20px', display: 'block', textAlign: 'left' }}>
+      <div id="controls" style={{ marginTop: '20px', textAlign: 'left' }}>
         <div
           style={{
             display: 'flex',
