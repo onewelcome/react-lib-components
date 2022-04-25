@@ -8,10 +8,16 @@ import { CheckboxWrapper } from '../../../src/Form/Wrapper/CheckboxWrapper/Check
 import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
 import { Radio } from '../../../src/Form/Radio/Radio';
 import { Fieldset } from '../../../src/Form/Fieldset/Fieldset';
+import FormControlDocumentation from './FormControl.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/FormControl',
   component: FormControl,
+  parameters: {
+    docs: {
+      page: FormControlDocumentation,
+    },
+  },
   argTypes: {
     disabled: {
       table: {
