@@ -74,7 +74,7 @@ Releasing process is defined in [#README.md](README.md#release)
 
 ## Preparing the repository for development
 
-See the [README.md](README.md) for further instructions how to work on the Markdown files in this repository.
+See the [README.md](README.md) for further instructions on how to setup your local development environment.
 
 ## Code snippets for creating components, tests, stories and documentation
 
