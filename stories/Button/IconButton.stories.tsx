@@ -2,10 +2,16 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { IconButton as IconButtonComponent, Props } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
+import IconButtonDocumentation from './IconButton.mdx';
 
 const meta: Meta = {
   title: 'Stories/UI/IconButton',
   component: IconButtonComponent,
+  parameters: {
+    docs: {
+      page: IconButtonDocumentation,
+    },
+  },
 };
 
 export default meta;
