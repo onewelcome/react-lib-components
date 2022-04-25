@@ -12,7 +12,7 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs';
 
 # usePosition
 
-This hook is used to place items somewhere on the viewport relative to a certain element. In order to use this hook you will need to check the following:
+This hook places items somewhere on the viewport relative to a certain element. To use this hook, you will need to check the following:
 
 - You need to have a React `useRef` with the relative element.
 - You need to have a React `useRef` with the element to be positioned.
@@ -30,15 +30,16 @@ Below you will find all of the args of the hook.
 
 | Prop name             | Type                                                                                                                                                          | Default                                                                                                                                   | Description                                                                                                                    |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| relativeElement       | <code>Ref&lt;HTMLElement></code>                                                                                                                              | <code>undefined</code>                                                                                                                    | The relative element that is grabbed by placing a `ref` prop on an element in your JSX storing it in a `React.useRef` hook.    |
-| elementToBePositioned | <code>Ref&lt;HTMLElement></code>                                                                                                                              | <code>undefined</code>                                                                                                                    | The element to be positioned relatively by placing a `ref` prop on an element in your JSX storing it in a `React.useRef` hook. |
+| relativeElement       | <code>Ref&lt;HTMLElement></code>                                                                                                                              | <code>undefined</code>                                                                                                                    | The relative element that is grabbed by placing a `ref` prop on an element in your JSX, storing it in a `React.useRef` hook.    |
+| elementToBePositioned | <code>Ref&lt;HTMLElement></code>                                                                                                                              | <code>undefined</code>                                                                                                                    | The element to be positioned relatively by placing a `ref` prop on an element in your JSX, storing it in a `React.useRef` hook. |
 | placement             | <pre><code>{ <br />&nbsp;&nbsp;horizontal: 'start' \| 'center' \| 'end', <br />&nbsp;&nbsp;vertical: 'top' \| 'center' \| 'bottom'<br /> }</code></pre>       | <pre><code>{ <br />&nbsp;&nbsp;horizontal: 'start',<br />&nbsp;&nbsp;vertical: 'top'<br />}</code></pre>                                  | Where you want to place the element to be positioned in relation to the relative element.                                      |
 | transformOrigin       | <pre><code>{ <br />&nbsp;&nbsp;horizontal: 'start' \| 'center' \| 'end', <br />&nbsp;&nbsp;vertical: 'top' \| 'center' \| 'bottom'<br /> }</code></pre>       | <pre><code>{ <br />&nbsp;&nbsp;horizontal: 'start',<br />&nbsp;&nbsp;vertical: 'top'<br />}</code></pre>                                  | The position you want to place the element to be positioned from.                                                              |
-| offset                | <pre><code>{ <br />&nbsp;&nbsp;top: number, <br />&nbsp;&nbsp;right: number<br />&nbsp;&nbsp;bottom: number<br />&nbsp;&nbsp;left: number<br />}</code></pre> | <pre><code>{ <br />&nbsp;&nbsp;top: 0, <br />&nbsp;&nbsp;right: 0<br />&nbsp;&nbsp;bottom: 0<br />&nbsp;&nbsp;left: 0<br />}</code></pre> | What offset you want to create and from which direction (in pixels).                                                           |
+| offset                | <pre><code>{ <br />&nbsp;&nbsp;top: number, <br />&nbsp;&nbsp;right: number<br />&nbsp;&nbsp;bottom: number<br />&nbsp;&nbsp;left: number<br />}</code></pre> | <pre><code>{ <br />&nbsp;&nbsp;top: 0, <br />&nbsp;&nbsp;right: 0<br />&nbsp;&nbsp;bottom: 0<br />&nbsp;&nbsp;left: 0<br />}</code></pre> | What offset you want to create, and from which direction (in pixels).                                                           |
 
 # Return values
 
-The `usePosition` hook takes 5 arguments, and also gives back 5 variables [you can extract using destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
+The `usePosition` hook takes 5 arguments, and gives back 5 variables [you can extract using destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
+``` Maybe `also` is not needed?
 
 | Return value      | Type       | Default   | Description                                                                                                        |
 | ----------------- | ---------- | --------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -108,9 +109,9 @@ export default ExampleComponent;
 In the above example we create a component with the `usePosition` hook.
 
 - First, we declare the two `useRef`s.
-- Then we execute the `usePosition` hook, pass the correct config object and extract the values it returns.
-- Then we execute a `useEffect` to immediately calculate the position of the element to be positioned as soon as the `useRef`s are filled.
-- Then we return the `JSX` with the `IconButton` as `relativeElement` and the `div` below it as `elementToBePositioned`.
+- Then, we execute the `usePosition` hook, pass the correct config object and extract the values it returns.
+- Then, we execute a `useEffect` to immediately calculate the position of the element to be positioned as soon as the `useRef`s are filled.
+- Then, we return the `JSX` with the `IconButton` as `relativeElement` and the `div` below it as `elementToBePositioned`.
 - Make sure to pass `position: fixed` and the `top`, `right`, `bottom` and `left` values you receive from `usePosition` to the `elementToBePositioned`.
 
 All done, this should work now.
