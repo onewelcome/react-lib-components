@@ -14,9 +14,16 @@ import { SelectWrapper } from '../../src/Form/Wrapper/SelectWrapper/SelectWrappe
 import { Option } from '../../src/Form/Select/Option';
 import { Toggle } from '../../src/Form/Toggle/Toggle';
 
+import FormDocumentation from './Form.mdx';
+
 const meta: Meta = {
   title: 'Stories/Form/Form',
   component: Form,
+  parameters: {
+    docs: {
+      page: FormDocumentation,
+    },
+  },
   argTypes: {
     method: {
       options: ['POST', 'GET'],

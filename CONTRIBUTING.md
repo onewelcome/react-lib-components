@@ -1,4 +1,4 @@
-# Contributing to the Engineering guide
+# Contributing to the Component Library
 
 :+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
@@ -31,6 +31,7 @@ Once you have informally discussed the change on Slack you might be asked to cre
 - Always add interactive stories to the Storybook showing the potential of the added / changed component [using this snippet](#storybook-story-snippet).
 - Write documentation to the component in an `.mdx` file [using this snippet](#mdx-documentation-snippet).
 - Write a unit test that covers as many different usages of a component as you added [using this snippet](#react-component-unit-test-snippet).
+- Make sure to export your component through `index.tsx` so that it's publicly available after running `npm run build`.
 - Align with all principles which are already in other components.
 - Keep in mind to do a controlled components.
 - Code style & linter is configured to automatically format code & show problems with your changes.
@@ -73,7 +74,7 @@ Releasing process is defined in [#README.md](README.md#release)
 
 ## Preparing the repository for development
 
-See the [README.md](README.md) for further instructions how to work on the Markdown files in this repository.
+See the [README.md](README.md) for further instructions on how to setup your local development environment.
 
 ## Code snippets for creating components, tests, stories and documentation
 
