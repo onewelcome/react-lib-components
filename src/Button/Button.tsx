@@ -3,11 +3,11 @@ import { BaseButton, Props as BaseButtonProps } from './BaseButton';
 import classes from './Button.module.scss';
 
 export interface Props extends Omit<BaseButtonProps, 'ref'> {
+  startIcon?: React.ReactNode | false;
+  endIcon?: React.ReactNode | false;
   children?: React.ReactNode;
   variant?: 'text' | 'fill' | 'outline';
   color?: 'primary' | 'secondary' | 'tertiary';
-  startIcon?: React.ReactNode | false;
-  endIcon?: React.ReactNode | false;
   ref?: RefObject<HTMLButtonElement>;
 }
 
