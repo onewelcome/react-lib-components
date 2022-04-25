@@ -1,0 +1,35 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `Form` component will be used as a wrapper component for all form elements. Its root element is the default HTML `form` tag and thus also accepts all of its HTML attributes. You should use this component whenever you want to create a `form`.
+
+# Examples
+
+The `Form` component is a wrapper element. That means you can wrap any `FormElement` inside of it. See the code snippet below that showcases how you can use it.
+
+```
+<Form> onSubmit={onSubmitHandler}
+  <FormControl>
+    <InputWrapper {...args} />
+  </FormControl>
+  <FormControl grid={3}>
+    <InputWrapper {...args} />
+    <SelectWrapper {...args}>
+      <Option value="option1">Option1</Option>
+      <Option value="option2">Option2</Option>
+      <Option value="option3">Option3</Option>
+    </SelectWrapper>
+    <RadioWrapper {...args}>
+      <Radio value="radio1">Radio1</Radio>
+      <Radio value="radio2">Radio2</Radio>
+      <Radio value="radio3">Radio3</Radio>
+    </RadioWrapper>
+  </FormControl>
+</Form>
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
