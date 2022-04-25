@@ -109,7 +109,7 @@ export default ExampleComponent;
 In the above example we create a component with the `usePosition` hook.
 
 - First, we declare the two `useRef`s.
-- Then we execute the `usePosition` hook, pass the correct config object and extract the values it returns.
+- Then, we execute the `usePosition` hook, pass the correct config object and extract the values it returns.
 - Then we execute a `useEffect` to immediately calculate the position of the element to be positioned as soon as the `useRef`s are filled.
 - Then we return the `JSX` with the `IconButton` as `relativeElement` and the `div` below it as `elementToBePositioned`.
 - Make sure to pass `position: fixed` and the `top`, `right`, `bottom` and `left` values you receive from `usePosition` to the `elementToBePositioned`.
