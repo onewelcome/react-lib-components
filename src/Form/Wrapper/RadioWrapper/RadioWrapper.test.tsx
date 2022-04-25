@@ -12,7 +12,7 @@ const defaultParams: Props = {
   helperText: 'Helper text',
   error: false,
   onChange: onChangeHandler,
-  fieldsetProps: { title: 'Example title' },
+  fieldsetProps: { legend: 'Example title' },
   value: checkedOptionValue,
   name: 'my-group',
   children: [

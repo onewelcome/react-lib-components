@@ -62,7 +62,6 @@ export const Checkbox = ({
       return label;
     }
 
-    console.log(children, label);
     if (typeof children === 'string') {
       return children;
     }

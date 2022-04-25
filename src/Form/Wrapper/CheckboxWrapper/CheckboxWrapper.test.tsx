@@ -21,7 +21,7 @@ const defaultParams: Props = {
   error: false,
   helperText: 'Helpertext',
   name: 'Checkboxwrapper',
-  fieldsetProps: { title: 'Example title' },
+  fieldsetProps: { legend: 'Example title' },
   label: 'Label',
   children: [],
 };
