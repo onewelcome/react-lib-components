@@ -5,6 +5,7 @@ export interface Props extends Omit<React.HTMLProps<HTMLButtonElement>, 'ref'> {
   type?: 'submit' | 'button' | 'reset';
   disabled?: boolean;
   ref?: RefObject<HTMLButtonElement>;
+  color?: 'primary' | 'secondary' | 'tertiary' | 'default';
 }
 
 export const BaseButton = React.forwardRef<HTMLButtonElement, Props>(

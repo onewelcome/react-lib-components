@@ -275,7 +275,7 @@ export const ContextMenu = Template.bind({});
 ContextMenu.args = {
   id: 'example-contextmenu',
   trigger: (
-    <IconButton title="click me for contextmenu">
+    <IconButton color="default" title="click me for contextmenu">
       <Icon icon={Icons.EllipsisAlt} />
     </IconButton>
   ),
