@@ -3,7 +3,7 @@ import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@story
 <Title />
 <Subtitle />
 
-`Checkbox` is a `Form` component and should be nested in one **or** it should have a `form` attribute with the `id` property set to the id of the `form` you're linking it to.
+The `Checkbox` component is a native HTML `input` element. And just like the native elements, it should be linked to a `form`. This can be done by either nesting the `Checkbox` component inside of a `Form` component, or by linking to a `form` by using the appropriate `form` attribute.
 
 Checkboxes can be either singular or nested and should be linked to a `state` variable to control the `checked` state.
 
@@ -113,7 +113,7 @@ const ExampleForm = () => {
 }
 ```
 
-There are multiple ways to solve this. In this example we chose for 5 separate state variables, but you can also choose to use `useReducer` to manage all of the state variables. Alternatively you could also use a single `useState` with an object that manages all the state.
+There are multiple ways to keep track of all of the `Checkbox` states (whether they are checked or not). In this example we chose for 5 separate state variables, but you can also choose to use `useReducer` to manage all of the state variables. Alternatively you could also use a single `useState` with an object that manages all the state.
 
 We manage the indeterminate and checkbox state in the parent `Checkbox` with two different functions. Whenever the `laptop`, `tv` or `microphones` `Checkbox` components change, the `useEffect` will be executed and will set the parent `Checkbox`' `checked` or `indeterminate` values based on the `checked` state of its children `Checkbox`es. Alternatively, whenever the parent `Checkbox` is clicked, we execute the `handleElectronicsOnChange` function which either sets all the child `Checkbox` `checked` values to `true` or `false`.
 
