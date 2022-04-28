@@ -2,10 +2,16 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Input, Props } from '../../../src/Form/Input/Input';
 import { Form } from '../../../src/Form/Form';
+import InputDocumentation from './Input.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Input',
   component: Input,
+  parameters: {
+    docs: {
+      page: InputDocumentation,
+    },
+  },
   argTypes: {
     className: {
       table: { disable: true },
