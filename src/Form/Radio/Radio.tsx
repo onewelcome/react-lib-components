@@ -87,8 +87,18 @@ export const Radio = ({
         type="radio"
       />
 
-      {checked && <Icon className={classes.input} icon={Icons.Radio} />}
-      {!checked && <Icon className={classes.input} icon={Icons.Circle} />}
+      {checked && (
+        <Icon
+          className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
+          icon={Icons.Radio}
+        />
+      )}
+      {!checked && (
+        <Icon
+          className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
+          icon={Icons.Circle}
+        />
+      )}
 
       <label onClick={onChangeHandler} htmlFor={`${identifier}-radio`}>
         {children}

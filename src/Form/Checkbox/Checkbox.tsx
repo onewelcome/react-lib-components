@@ -133,9 +133,24 @@ export const Checkbox = ({
       />
       {renderToggle()}
 
-      {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
-      {checked && !indeterminate && <Icon className={classes.input} icon={Icons.CheckmarkSquare} />}
-      {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
+      {indeterminate && (
+        <Icon
+          className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
+          icon={Icons.MinusSquare}
+        />
+      )}
+      {checked && !indeterminate && (
+        <Icon
+          className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
+          icon={Icons.CheckmarkSquare}
+        />
+      )}
+      {!checked && !indeterminate && (
+        <Icon
+          className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
+          icon={Icons.Square}
+        />
+      )}
       <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
     </FormSelectorWrapper>
   );
