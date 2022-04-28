@@ -3,10 +3,14 @@ import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@story
 <Title />
 <Subtitle />
 
-The `DiscardChangesModal` component is a special combination of Modal and Dialog components.
-It shows the `Modal` component and displays a dialog that says a well-known sentence: "You have unsaved changes", whenever the user modifies form inputs and wants to close the modal.
+The `DiscardChangesModal` component is a special combination of the Modal and Dialog components.
+It shows the `Modal` component and displays a dialog that displays a well-known sentence: "You have unsaved changes", whenever the user modifies form inputs and wants to close the modal.
 
 # Examples
+
+<Canvas>
+  <Story id="stories-notifications-discard-changes-modal--discard-changes-modal" />
+</Canvas>
 
 In the below code snippet, you'll see how you can create a `Modal` which shows `Dialog` whenever a user changes an input value and closes the modal.
 
@@ -31,7 +35,6 @@ return (
   <Fragment>
     <Button onClick={onOpen}>Open modal</Button>
     <DiscardChangesModalComponent
-      {...args}
       id={id}
       open={open}
       onClose={onClose}
@@ -79,9 +82,8 @@ return (
 );
 ```
 
-<Canvas>
-  <Story id="stories-notifications-discard-changes-modal--discard-changes-modal" />
-</Canvas>
+As you can see, action buttons are rendered outside of the `Form` component.
+For the accessibility and handling of form submission/resetting `form` attribute has to refer to the `Form` component id.
 
 # Props
 

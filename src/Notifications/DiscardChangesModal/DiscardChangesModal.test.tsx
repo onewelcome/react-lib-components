@@ -28,7 +28,6 @@ const createDiscardChangesModal = (params?: (defaultParams: Props) => Props) => 
   }
   const queries = render(<DiscardChangesModal {...parameters} data-testid="discardChangesModal" />);
   const discardChangesModal = queries.getByTestId('discardChangesModal');
-  console.log(queries.debug());
   const closeBtn = queries.getByRole('button', { name: 'close modal' });
 
   return {
