@@ -1,12 +1,25 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Radio, Props } from '../../../src/Form/Radio/Radio';
+import { Radio as RadioComponent, Props } from '../../../src/Form/Radio/Radio';
+import { Fieldset } from '../../../src/Form/Fieldset/Fieldset';
+import RadioDocumentation from './Radio.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Radio',
-  component: Radio,
+  component: RadioComponent,
+  parameters: {
+    docs: {
+      page: RadioDocumentation,
+    },
+  },
   argTypes: {
     parentHelperId: {
+      table: {
+        disable: true,
+      },
+      control: false,
+    },
+    parentErrorId: {
       table: {
         disable: true,
       },
@@ -28,13 +41,20 @@ const meta: Meta = {
 };
 
 export default meta;
-
+// @TODO replace title attribute of Fieldset with legend as soon as UCL-89 has been merged
 const Template: Story<Props> = (args) => (
-  <Radio value="example-radio" {...args}>
-    Label
-  </Radio>
+  <Fieldset title="Example radio button">
+    <RadioComponent
+      helperText="Example helpertext"
+      errorMessage="Example error message"
+      value="example-radio"
+      {...args}
+    >
+      Label
+    </RadioComponent>
+  </Fieldset>
 );
 
-export const RadioEl = Template.bind({});
+export const Radio = Template.bind({});
 
-RadioEl.args = {};
+Radio.args = {};
