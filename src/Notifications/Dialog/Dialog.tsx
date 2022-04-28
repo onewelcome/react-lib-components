@@ -91,12 +91,14 @@ export const Dialog = ({
       </DialogActions>
       <input
         autoFocus
+        aria-hidden={true}
         style={{
           position: 'absolute',
           width: 0,
           height: 0,
           opacity: 0,
         }}
+        maxLength={0}
         tabIndex={-1}
         onKeyPress={onHiddenInputKeyPress}
       />

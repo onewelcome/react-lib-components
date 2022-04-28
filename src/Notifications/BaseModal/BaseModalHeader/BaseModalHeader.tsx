@@ -4,7 +4,7 @@ import { IconButton } from '../../../Button/IconButton';
 import { Icon, Icons } from '../../../Icon/Icon';
 import { Typography } from '../../../Typography/Typography';
 
-export interface Props extends HTMLAttributes<HTMLElement> {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   id: string;
   title: string;
   children?: React.ReactNode;
@@ -13,7 +13,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
 
 export const BaseModalHeader = ({ id, title, children, onClose, ...restProps }: Props) => {
   return (
-    <header {...restProps} className={classes['header']}>
+    <div {...restProps} className={classes['header']}>
       <div className={classes['headline']}>
         <Typography id={id} className={classes['title']} tag="h1" variant="h4">
           {title}
@@ -23,6 +23,6 @@ export const BaseModalHeader = ({ id, title, children, onClose, ...restProps }: 
         </IconButton>
       </div>
       {children}
-    </header>
+    </div>
   );
 };
