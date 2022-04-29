@@ -68,11 +68,31 @@ export const Select = ({
       containerReference.current.getBoundingClientRect().height +
       optionListReference.current.getBoundingClientRect().height;
 
-    if (containerTopWithListHeight > windowHeight) {
+    if (containerTopWithListHeight > windowHeight && containerTopWithListHeight < window.scrollY) {
       setListPosition({ top: 'initial', bottom: 0 });
     } else {
       setListPosition({ top: 0, bottom: 'initial' });
     }
+  };
+
+  const getOptionListMaxHeight = () => {
+    if (!containerReference.current || !optionListReference.current) {
+      return;
+    }
+
+    const availableHeightForOptionsList =
+      window.innerHeight - containerReference.current?.getBoundingClientRect().bottom - 16;
+
+    const containerTopWithListHeight =
+      containerReference.current.getBoundingClientRect().bottom -
+      containerReference.current.getBoundingClientRect().height +
+      optionListReference.current.getBoundingClientRect().height;
+
+    if (availableHeightForOptionsList < containerTopWithListHeight) {
+      return `${availableHeightForOptionsList}px`;
+    }
+
+    return 'none';
   };
 
   useScroll(rePositionList, [expanded]);
@@ -152,7 +172,17 @@ export const Select = ({
       return <Icon className={classes['warning']} icon={Icons.Warning} />;
     }
     if (value.length !== 0 && onClear) {
-      return <Icon tag="div" icon={Icons.TimesThin} onClick={onClear} />;
+      return (
+        <Icon
+          tag="div"
+          icon={Icons.TimesThin}
+          onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onClear(e);
+          }}
+        />
+      );
     }
     return null;
   };
@@ -205,10 +235,13 @@ export const Select = ({
       <div
         ref={optionListReference}
         className={`list-wrapper ${classes['list-wrapper']}`}
-        style={{ display: expanded ? 'block' : 'none', ...listPosition }}
+        style={{
+          display: expanded ? 'block' : 'none',
+          ...listPosition,
+        }}
       >
         {Array.isArray(children) && children.length > 10 && renderSearch()}
-        <ul role="listbox" tabIndex={-1}>
+        <ul style={{ maxHeight: getOptionListMaxHeight() }} role="listbox" tabIndex={-1}>
           {renderOptions()}
         </ul>
       </div>
