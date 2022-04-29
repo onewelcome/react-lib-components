@@ -64,12 +64,12 @@ const Template: Story<Props> = (args) => {
         <Option value="option9">Test9</Option>
         <Option value="option10">Test10</Option>
         <Option value="option11">Test11</Option>
-        <Option value="option6">Test12</Option>
-        <Option value="option7">Test13</Option>
-        <Option value="option8">Test14</Option>
-        <Option value="option9">Test15</Option>
-        <Option value="option10">Test16</Option>
-        <Option value="option11">Test17</Option>
+        <Option value="option12">Test12</Option>
+        <Option value="option13">Test13</Option>
+        <Option value="option14">Test14</Option>
+        <Option value="option15">Test15</Option>
+        <Option value="option16">Test16</Option>
+        <Option value="option17">Test17</Option>
       </SelectComponent>
     </Fragment>
   );
