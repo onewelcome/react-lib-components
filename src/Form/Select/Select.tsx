@@ -48,6 +48,12 @@ export const Select = ({
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (value) {
+      setDisplay(value);
+    }
+  }, []);
+
   useBodyClick(
     (event: MouseEvent) => !(event.target as Element).closest('.custom-select') && expanded,
     () => {
@@ -181,10 +187,12 @@ export const Select = ({
     if (error) {
       return <Icon className={classes['warning']} icon={Icons.Warning} />;
     }
+
     if (value.length !== 0 && onClear) {
       return (
         <Icon
           tag="div"
+          data-clear
           icon={Icons.TimesThin}
           onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             e.preventDefault();
@@ -231,11 +239,11 @@ export const Select = ({
         aria-labelledby={labeledBy}
         aria-describedby={describedBy}
       >
-        <div data-display className={classes['selected']}>
+        <div className={classes['selected']}>
           {value.length === 0 && placeholder && (
             <span className={classes['placeholder']}>{placeholder}</span>
           )}
-          {value.length > 0 && <span>{display}</span>}
+          {value.length > 0 && <span data-display>{display}</span>}
         </div>
         <div className={classes['status']}>
           {statusIcon()}
