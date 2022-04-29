@@ -1,19 +1,10 @@
 import classes from './Select.module.scss';
 
-import React, {
-  HTMLProps,
-  ReactElement,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { HTMLProps, ReactElement, useEffect, useRef, useState } from 'react';
 import { Input } from '../Input/Input';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormElement } from '../form.interfaces';
 import { useBodyClick } from '../../hooks/useBodyClick';
-import { Position } from '../../hooks/usePosition';
-import { useScroll } from '../../hooks/useScroll';
 
 export interface Props extends FormElement<HTMLSelectElement> {
   children: ReactElement[];
@@ -27,6 +18,11 @@ export interface Props extends FormElement<HTMLSelectElement> {
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
   onClear?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
+
+type Position = {
+  top: 0 | 'initial';
+  bottom: 0 | 'initial';
+};
 
 export const Select = ({
   children,
@@ -44,9 +40,11 @@ export const Select = ({
   ...rest
 }: Props) => {
   const [expanded, setExpanded] = useState(false);
+  const [opacity, setOpacity] = useState(0); // We set opacity because other wise if we calculate the max height you see the list full height for a split second and then it shortens.
   const [filter, setFilter] = useState('');
   const [display, setDisplay] = useState('');
   const [listPosition, setListPosition] = useState<Partial<Position>>({});
+  const [optionsListMaxHeight, setOptionsListMaxHeight] = useState('none');
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
 
@@ -54,6 +52,8 @@ export const Select = ({
     (event: MouseEvent) => !(event.target as Element).closest('.custom-select') && expanded,
     () => {
       setExpanded(!expanded);
+      setListPosition({ top: 0, bottom: 'initial' });
+      setOpacity(0);
     },
     expanded
   );
@@ -62,42 +62,52 @@ export const Select = ({
     if (!expanded || !optionListReference.current || !containerReference.current) {
       return;
     }
-    const windowHeight = window.innerHeight;
-    const containerTopWithListHeight =
-      containerReference.current.getBoundingClientRect().bottom -
-      containerReference.current.getBoundingClientRect().height +
-      optionListReference.current.getBoundingClientRect().height;
 
-    if (containerTopWithListHeight > windowHeight && containerTopWithListHeight < window.scrollY) {
-      setListPosition({ top: 'initial', bottom: 0 });
-    } else {
-      setListPosition({ top: 0, bottom: 'initial' });
+    // Check whether there is more space above or below the select
+    // Check space between the bottom of select and top of viewport
+    const spaceOnTopOfSelect = containerReference.current.getBoundingClientRect().bottom;
+
+    // Check space between the top of the select and bottom of viewport
+    const spaceOnBottomOfSelect =
+      window.innerHeight - containerReference.current.getBoundingClientRect().top;
+
+    // Set position as if there's more space on the bottom
+    let position: Position = { top: 0, bottom: 'initial' };
+
+    // Set the position of the select
+    if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
+      position = { top: 'initial', bottom: 0 };
     }
+
+    setListPosition(position);
+
+    // Calculate the potential max height of the options list
+    calculateOptionListMaxHeight(position);
   };
 
-  const getOptionListMaxHeight = () => {
-    if (!containerReference.current || !optionListReference.current) {
+  const calculateOptionListMaxHeight = (position: Position) => {
+    // Calculate max height if there's more space below the select
+    const listHeight = optionListReference.current!.getBoundingClientRect().height;
+    const transformOrigin = position.top !== 'initial' ? 'top' : 'bottom';
+
+    const availableSpace =
+      transformOrigin === 'top'
+        ? window.innerHeight -
+          containerReference.current!.getBoundingClientRect()[transformOrigin] -
+          16
+        : containerReference.current!.getBoundingClientRect()[transformOrigin] - 16;
+
+    if (availableSpace < listHeight) {
+      setOptionsListMaxHeight(`${availableSpace}px`);
+      setOpacity(100);
       return;
     }
 
-    const availableHeightForOptionsList =
-      window.innerHeight - containerReference.current?.getBoundingClientRect().bottom - 16;
-
-    const containerTopWithListHeight =
-      containerReference.current.getBoundingClientRect().bottom -
-      containerReference.current.getBoundingClientRect().height +
-      optionListReference.current.getBoundingClientRect().height;
-
-    if (availableHeightForOptionsList < containerTopWithListHeight) {
-      return `${availableHeightForOptionsList}px`;
-    }
-
-    return 'none';
+    setOptionsListMaxHeight('none');
+    setOpacity(100);
   };
 
-  useScroll(rePositionList, [expanded]);
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     rePositionList();
   }, [expanded]);
 
@@ -237,11 +247,13 @@ export const Select = ({
         className={`list-wrapper ${classes['list-wrapper']}`}
         style={{
           display: expanded ? 'block' : 'none',
+          opacity: opacity,
+          maxHeight: optionsListMaxHeight,
           ...listPosition,
         }}
       >
         {Array.isArray(children) && children.length > 10 && renderSearch()}
-        <ul style={{ maxHeight: getOptionListMaxHeight() }} role="listbox" tabIndex={-1}>
+        <ul role="listbox" tabIndex={-1}>
           {renderOptions()}
         </ul>
       </div>

@@ -94,3 +94,30 @@ describe('Selecting options using keyboard', () => {
     }, 50);
   });
 });
+
+describe('Expanded should be false whenever we click the body', () => {
+  it('closes select on body click', () => {
+    const { getByRole } = createSelect(14);
+
+    const button = getByRole('button');
+
+    expect(button).toHaveAttribute('aria-expanded', 'true');
+    userEvent.click(document.body);
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+  });
+});
+
+describe('List expansion', () => {
+  it('should expand upwards', () => {
+    const { list, debug } = createSelect(5);
+
+    Object.defineProperty(list, 'offsetHeight', { value: 100, writable: true });
+    Object.defineProperty(window, 'innerHeight', { value: 50, writable: true });
+
+    console.log((list as HTMLElement).offsetHeight);
+
+    debug();
+
+    expect(list).toBeInTheDocument();
+  });
+});
