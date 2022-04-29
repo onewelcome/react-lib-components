@@ -1,11 +1,17 @@
 import React, { Fragment, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Select, Props } from '../../../src/Form/Select/Select';
+import { Select as SelectComponent, Props } from '../../../src/Form/Select/Select';
 import { Option } from '../../../src/Form/Select/Option';
+import SelectDocumentation from './Select.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Select',
-  component: Select,
+  component: SelectComponent,
+  parameters: {
+    docs: {
+      page: SelectDocumentation,
+    },
+  },
   argTypes: {
     labeledBy: {
       table: { disable: true },
@@ -46,7 +52,7 @@ export default meta;
 const Template: Story<Props> = (args) => {
   return (
     <Fragment>
-      <Select {...args}>
+      <SelectComponent {...args}>
         <Option value="option1">Test</Option>
         <Option value="option2">Test2</Option>
         <Option value="option3">Test3</Option>
@@ -58,11 +64,13 @@ const Template: Story<Props> = (args) => {
         <Option value="option9">Test9</Option>
         <Option value="option10">Test10</Option>
         <Option value="option11">Test11</Option>
-      </Select>
+      </SelectComponent>
     </Fragment>
   );
 };
 
-export const SelectEl = Template.bind({});
+export const Select = Template.bind({});
 
-SelectEl.args = {};
+Select.args = {
+  onClear: () => {},
+};
