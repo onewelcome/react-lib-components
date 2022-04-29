@@ -109,15 +109,28 @@ describe('Expanded should be false whenever we click the body', () => {
 
 describe('List expansion', () => {
   it('should expand upwards', () => {
-    const { list, debug } = createSelect(5);
+    const { select, getByRole } = createSelect(5);
 
-    Object.defineProperty(list, 'offsetHeight', { value: 100, writable: true });
-    Object.defineProperty(window, 'innerHeight', { value: 50, writable: true });
+    Object.defineProperty(window, 'innerHeight', { value: 500, writable: true });
 
-    console.log((list as HTMLElement).offsetHeight);
+    select.getBoundingClientRect = () => ({
+      x: 50,
+      y: 50,
+      width: 500,
+      height: 50,
+      top: 250,
+      left: 250,
+      right: 750,
+      bottom: 750,
+      toJSON: () => jest.fn(),
+    });
 
-    debug();
+    userEvent.click(document.body);
+    const button = getByRole('button');
+    userEvent.click(button);
 
-    expect(list).toBeInTheDocument();
+    const listWrapper = select.querySelector('.list-wrapper');
+
+    expect(listWrapper).toHaveStyle({ bottom: '0px' });
   });
 });
