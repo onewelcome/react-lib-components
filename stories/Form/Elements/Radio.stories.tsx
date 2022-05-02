@@ -41,9 +41,10 @@ const meta: Meta = {
 };
 
 export default meta;
-// @TODO replace title attribute of Fieldset with legend as soon as UCL-89 has been merged
 const Template: Story<Props> = (args) => (
-  <Fieldset title="Example radio button">
+  // @ts-ignore
+  // @TODO remove @ts-ignore as soon as UCL-89 has been merged
+  <Fieldset legend="Radio button group">
     <RadioComponent
       helperText="Example helpertext"
       errorMessage="Example error message"
