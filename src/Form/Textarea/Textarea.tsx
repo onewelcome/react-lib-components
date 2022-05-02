@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormElement } from '../form.interfaces';
 import classes from './Textarea.module.scss';
-import { HTMLAttributes } from '../../../dist/interfaces';
+import { HTMLAttributes } from '../../interfaces';
 import { Props as IconProps } from '../../Icon/Icon';
 
 interface IconPropsPartial extends Partial<IconProps> {}
