@@ -3,7 +3,7 @@ import { Checkbox, CheckboxProps } from '../Checkbox/Checkbox';
 import classes from './Toggle.module.scss';
 
 export interface Props
-  extends Omit<CheckboxProps, 'indeterminate' | 'errorMessage' | 'error' | 'children'> {
+  extends Omit<CheckboxProps, 'indeterminate' | 'errorMessage' | 'error' | 'children' | 'label'> {
   children: string;
 }
 
