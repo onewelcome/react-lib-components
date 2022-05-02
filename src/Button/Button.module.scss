@@ -91,6 +91,35 @@
     }
   }
 
+  &.default:not(:disabled) {
+    background-color: var(--default);
+    border-color: var(--default);
+
+    @include focusOutline(var(--default));
+
+    &:hover,
+    &:focus {
+      color: var(--default);
+    }
+
+    &:active {
+      position: relative;
+      color: var(--default);
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: calc(-1 * var(--button-border-width));
+        left: 0;
+        width: 100%;
+        height: calc(100% + var(--button-border-width));
+        background-color: var(--default);
+        border-radius: var(--button-border-radius);
+        filter: opacity(0.1);
+      }
+    }
+  }
+
   &:hover:not(:disabled),
   &:focus:not(:disabled),
   &:active:not(:disabled) {
@@ -140,6 +169,18 @@
     &:hover,
     &:focus {
       background-color: var(--color-tertiary);
+    }
+  }
+
+  &.default:not(:disabled) {
+    border-color: var(--default);
+    color: var(--default);
+
+    @include focusOutline(var(--default));
+
+    &:hover,
+    &:focus {
+      background-color: var(--default);
     }
   }
 
@@ -242,6 +283,36 @@
         width: 100%;
         height: calc(100% + var(--button-border-width));
         background-color: var(--color-tertiary);
+        border-radius: var(--button-border-radius);
+        filter: opacity(0.1);
+      }
+    }
+  }
+
+  &.default:not(:disabled) {
+    color: var(--default);
+
+    @include focusOutline(var(--default));
+
+    &:hover,
+    &:focus {
+      border-color: var(--default);
+    }
+
+    &:active {
+      background-color: transparent;
+      position: relative;
+      color: var(--default);
+      border-color: var(--button-fill-background-color);
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+        left: 0;
+        width: 100%;
+        height: calc(100% + var(--button-border-width));
+        background-color: var(--default);
         border-radius: var(--button-border-radius);
         filter: opacity(0.1);
       }
