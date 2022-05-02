@@ -48,7 +48,6 @@ const Template: Story<Props> = (args) => {
         <FormControl grid={3}>
           <SelectWrapper
             name="prefix"
-            error={false}
             label="Prefix"
             value={prefix}
             onChange={prefixChangeHandler}

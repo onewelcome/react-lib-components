@@ -36,6 +36,7 @@ export const Fieldset = ({
     return React.Children.map(children, (child: ReactElement) =>
       React.cloneElement(child, {
         disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
+        error: child.props.error !== undefined ? child.props.error : error,
       })
     );
   };

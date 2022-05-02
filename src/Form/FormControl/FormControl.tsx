@@ -6,11 +6,13 @@ export interface Props extends HTMLProps<HTMLDivElement> {
   children: ReactElement | ReactElement[];
   grid?: 1 | 2 | 3;
   align?: 'top' | 'start' | 'middle' | 'center' | 'bottom' | 'end';
+  error?: boolean;
 }
 
 export const FormControl = ({
   children,
   disabled,
+  error,
   className,
   grid,
   align = 'center',
@@ -24,6 +26,7 @@ export const FormControl = ({
 
       const childElement = React.cloneElement(child, {
         disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
+        error: child.props.error !== undefined ? child.props.error : error,
       });
 
       if (grid && grid > 1) {
