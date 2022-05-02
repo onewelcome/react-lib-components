@@ -1,11 +1,20 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { RadioWrapper, Props } from '../../..//src/Form/Wrapper/RadioWrapper/RadioWrapper';
+import {
+  RadioWrapper as RadioWrapperComponent,
+  Props,
+} from '../../..//src/Form/Wrapper/RadioWrapper/RadioWrapper';
 import { Radio } from '../../../src/Form/Radio/Radio';
+import RadioWrapperDocumentation from './RadioWrapper.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Wrapper/RadioWrapper',
-  component: RadioWrapper,
+  component: RadioWrapperComponent,
+  parameters: {
+    docs: {
+      page: RadioWrapperDocumentation,
+    },
+  },
   argTypes: {
     value: {
       options: ['option1', 'option2', 'option3'],
@@ -27,24 +36,29 @@ export default meta;
 const Template: Story<Props> = (args) => {
   return (
     <div>
-      <RadioWrapper {...args}>
+      <RadioWrapperComponent {...args}>
         <Radio helperText="Individual helper" value="option1">
           Option 1
         </Radio>
         <Radio value="option2">Option 2</Radio>
         <Radio value="option3">Option 3</Radio>
-      </RadioWrapper>
+      </RadioWrapperComponent>
     </div>
   );
 };
 
-export const RadioWrapperEl = Template.bind({});
+export const RadioWrapper = Template.bind({});
 
-RadioWrapperEl.args = {
-  label: 'Radiowrapper',
+RadioWrapper.args = {
   error: false,
   errorMessage: 'Errormessage',
-  fieldsetProps: { title: 'Title', hideTitle: true, noPadding: true, noBackground: true },
+  fieldsetProps: {
+    legend: 'Title',
+    hideLegend: true,
+    noPadding: true,
+    noBackground: true,
+    legendVariant: 'h1',
+  },
   helperText: 'Helpertext',
   value: 'option1',
   name: 'my-group',
