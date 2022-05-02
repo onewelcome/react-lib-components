@@ -15,6 +15,23 @@ Down below you will find an `Input` component that you can control by setting Pr
   <Story id="stories-form-elements-input--input-text" />
 </Canvas>
 
+A code example with an `Input` component linked to state:
+
+```jsx
+const ExampleComponent = () => {
+  const [inputValue, setInputValue] = useState('');
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <Input
+      value={inputValue}
+      onChange={(event) => setInputValue(event.target.value)}
+      error={hasError}
+    />
+  );
+};
+```
+
 # Props
 
 <ArgsTable story={PRIMARY_STORY} />
