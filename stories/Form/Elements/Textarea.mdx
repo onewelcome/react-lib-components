@@ -15,6 +15,21 @@ Below you'll find an example of the `Textarea` component. You can toggle states 
   <Story id="stories-form-elements-textarea--textarea" />
 </Canvas>
 
+Example code with state:
+
+```jsx
+const ExampleComponent = () => {
+  const [textareaValue, setTextareaValue] = useState('');
+  const [hasError, setHasError] = useState(false);
+
+  <Textarea
+    value={textareaValue}
+    onChange={(event) => setTextareaValue(event.target.value)}
+    error={hasError}
+  />;
+};
+```
+
 # Props
 
 <ArgsTable story={PRIMARY_STORY} />
