@@ -23,14 +23,14 @@ Here is a code example that shows what it would look like if you linked the abov
 const ExampleForm = () => {
   const [checkboxState, setCheckboxState] = useState(false);
 
-  return {
+  return (
     <Form>
       <Checkbox
         checked={checkboxState}
         onChange={setCheckboxState(!checkboxState)}
         name="Example checkbox component" />
     </Form>
-  }
+  )
 }
 ```
 
