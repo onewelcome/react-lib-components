@@ -24,24 +24,26 @@ See below an example of a `Select` component. It is controlled by Storybook, and
 An example of how a `Select` component can be built using state and an `onClear` method looks as follows:
 
 ```jsx
-const ExampleComponent () => {
+const ExampleComponent = () => {
   const [selectValue, setSelectValue] = useState('');
   const [hasError, setHasError] = useState(false);
 
-  <Select
-    name="Example select element"
-    onClear={setSelectValue('')}
-    onChange={(event) => setSelectValue(event.target.value)}
-    value={selectValue}
-    error={hasError}
+  return (
+    <Select
+      name="Example select element"
+      onClear={setSelectValue('')}
+      onChange={(event) => setSelectValue(event.target.value)}
+      value={selectValue}
+      error={hasError}
     >
-    <Option value="option1">Option 1</Option>
-    <Option value="option2">Option 2</Option>
-    <Option value="option3">Option 3</Option>
-    <Option value="option4">Option 4</Option>
-    <Option value="option5">Option 5</Option>
-  </Select>
-}
+      <Option value="option1">Option 1</Option>
+      <Option value="option2">Option 2</Option>
+      <Option value="option3">Option 3</Option>
+      <Option value="option4">Option 4</Option>
+      <Option value="option5">Option 5</Option>
+    </Select>
+  );
+};
 ```
 
 As you can see in the example above, we simply set the state back to an empty string as soon as the `onClear` method is called.
