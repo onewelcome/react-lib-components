@@ -22,11 +22,13 @@ const ExampleComponent = () => {
   const [textareaValue, setTextareaValue] = useState('');
   const [hasError, setHasError] = useState(false);
 
-  <Textarea
-    value={textareaValue}
-    onChange={(event) => setTextareaValue(event.target.value)}
-    error={hasError}
-  />;
+  return (
+    <Textarea
+      value={textareaValue}
+      onChange={(event) => setTextareaValue(event.target.value)}
+      error={hasError}
+    />;
+  )
 };
 ```
 
