@@ -73,12 +73,10 @@ describe('Select should render', () => {
   });
 
   it('should be disabled', () => {
-    const { select, button, debug } = createSelect((defaultParams) => ({
+    const { select, button } = createSelect((defaultParams) => ({
       ...defaultParams,
       disabled: true,
     }));
-
-    debug();
 
     expect(select).toHaveClass('disabled');
     expect(button).toHaveAttribute('aria-disabled', 'true');
