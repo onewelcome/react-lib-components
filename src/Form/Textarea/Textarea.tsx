@@ -2,10 +2,14 @@ import React from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormElement } from '../form.interfaces';
 import classes from './Textarea.module.scss';
+import { HTMLAttributes } from '../../../dist/interfaces';
+import { Props as IconProps } from '../../Icon/Icon';
+
+interface IconPropsPartial extends Partial<IconProps> {}
 
 export interface Props extends FormElement<HTMLTextAreaElement> {
-  wrapperClassName?: string;
-  errorClassName?: string;
+  wrapperProps?: HTMLAttributes<HTMLDivElement>;
+  errorProps?: IconPropsPartial;
 }
 
 export const Textarea = ({
@@ -13,12 +17,12 @@ export const Textarea = ({
   disabled = false,
   className,
   rows = 4,
-  wrapperClassName,
-  errorClassName,
+  wrapperProps,
+  errorProps,
   ...rest
 }: Props) => {
   return (
-    <div className={`${classes['textarea-wrapper']} ${wrapperClassName ? wrapperClassName : ''}`}>
+    <div className={`${classes['textarea-wrapper']} ${wrapperProps?.className ?? ''}`}>
       <textarea
         {...rest}
         rows={rows}
@@ -26,7 +30,11 @@ export const Textarea = ({
         disabled={disabled}
       />
       {error && (
-        <Icon className={`${classes['warning']} ${errorClassName ?? ''}`} icon={Icons.Warning} />
+        <Icon
+          {...errorProps}
+          className={`${classes['warning']} ${errorProps?.className ?? ''}`}
+          icon={Icons.Warning}
+        />
       )}
     </div>
   );
