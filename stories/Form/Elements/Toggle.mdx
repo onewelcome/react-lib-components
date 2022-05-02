@@ -19,9 +19,11 @@ Example code with state:
 const ExampleComponent = () => {
   const [checked, setChecked] = useState(false);
 
-  <Toggle onChange={setChecked(!checked)} checked={checked} helperText="Example helper text">
-    Example toggle
-  </Toggle>;
+  return (
+    <Toggle onChange={setChecked(!checked)} checked={checked} helperText="Example helper text">
+      Example toggle
+    </Toggle>;
+  )
 };
 ```
 
