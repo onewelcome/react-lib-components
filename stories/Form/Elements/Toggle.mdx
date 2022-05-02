@@ -13,6 +13,18 @@ Below you can find an exampe of the `Toggle` component. It can be controlled thr
   <Story id="stories-form-elements-toggle--toggle" />
 </Canvas>
 
+Example code with state:
+
+```jsx
+const ExampleComponent = () => {
+  const [checked, setChecked] = useState(false);
+
+  <Toggle onChange={setChecked(!checked)} checked={checked} helperText="Example helper text">
+    Example toggle
+  </Toggle>;
+};
+```
+
 # Props
 
 <ArgsTable story={PRIMARY_STORY} />
