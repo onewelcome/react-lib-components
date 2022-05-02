@@ -50,7 +50,9 @@ export const RadioWrapper = ({
     );
 
   return (
-    <Fieldset {...fieldsetProps}>
+    //@ts-ignore
+    //@TODO remove ignore when UCL-89 is merged
+    <Fieldset {...fieldsetProps} error={error} disabled={disabled}>
       <Wrapper
         {...rest}
         disabled={disabled}
