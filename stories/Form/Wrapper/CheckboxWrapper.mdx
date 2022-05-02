@@ -29,11 +29,171 @@ The disabled state for all `Checkbox` components within the `CheckboxWrapper` ca
   <Story id="stories-form-wrapper-checkboxwrapper--checkboxes" />
 </Canvas>
 
+A code example of linking `Checkbox` components inside of `CheckboxWrapper` using state would look as follows:
+
+```jsx
+const ExampleComponent = () => {
+  const [checkboxStates, setCheckboxStates] = useState({
+    option1: false,
+    option2: false,
+    option3: false,
+    option4: false,
+    option5: false,
+  });
+  const [hasError, setHasError] = useState(false);
+
+  const onChangeHandler = (event) => {
+    setCheckboxStates((prevState) => ({
+      ...prevState,
+      [event.target.value]: !checkboxStates[event.target.value],
+    }));
+  };
+
+  return (
+    <CheckboxWrapper
+      name="Example checkboxes"
+      fieldsetProps={{
+        legend: 'Example fieldset legend',
+        legendVariant: 'h1',
+        hideLegend: false,
+        background: '#FFF',
+        noPadding: false,
+        noBackground: false,
+      }}
+      error={hasError}
+      errorMessage="Please check all the boxes"
+      helperText="Helpertext for the group"
+    >
+      <Checkbox
+        checked={checkboxStates.option1}
+        onChange={onChangeHandler}
+        name="Option 1"
+        value="option1"
+      >
+        Option 1
+      </Checkbox>
+      <Checkbox
+        checked={checkboxStates.option2}
+        onChange={onChangeHandler}
+        name="Option 2"
+        value="option2"
+      >
+        Option 2
+      </Checkbox>
+      <Checkbox
+        checked={checkboxStates.option3}
+        onChange={onChangeHandler}
+        name="Option 3"
+        value="option3"
+      >
+        Option 3
+      </Checkbox>
+      <Checkbox
+        checked={checkboxStates.option4}
+        onChange={onChangeHandler}
+        name="Option 4"
+        value="option4"
+      >
+        Option 4
+      </Checkbox>
+      <Checkbox
+        checked={checkboxStates.option5}
+        onChange={onChangeHandler}
+        name="Option 5"
+        value="option5"
+      >
+        Option 5
+      </Checkbox>
+    </CheckboxWrapper>
+  );
+};
+```
+
 [Nested checkboxes](/story/stories-form-wrapper-checkboxwrapper--nested-checkboxes):
 
 <Canvas>
   <Story id="stories-form-wrapper-checkboxwrapper--nested-checkboxes" />
 </Canvas>
+
+A code example of linking nested `Checkbox` components using state would look as follows:
+
+```jsx
+const ExampleForm = () => {
+  const [indeterminate, setIndeterminate] = useState(false);
+  const [electronics, setElectronics] = useState(false);
+  const [checkedLaptop, setCheckedLaptop] = useState(false);
+  const [checkedTV, setCheckedTV] = useState(false);
+  const [checkedMicrophone, setCheckedMicrophone] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    if (checkedLaptop && checkedTV && checkedMicrophone) {
+      setElectronics(true);
+      setIndeterminate(false);
+    } else if (checkedLaptop || checkedTV || checkedMicrophone) {
+      setElectronics(false);
+      setIndeterminate(true);
+    } else {
+      setElectronics(false);
+      setIndeterminate(false);
+    }
+  }, [checkedLaptop, checkedTV, checkedMicrophone]);
+  const handleElectronicsOnChange = () => {
+    setElectronics(!electronics);
+    setCheckedLaptop(!electronics);
+    setCheckedTV(!electronics);
+    setCheckedMicrophone(!electronics);
+  };
+
+  return (
+    <CheckboxWrapper
+      name="electronics"
+      fieldsetProps={{
+        legend: 'Electronics',
+        legendVariant: 'h1',
+        hideLegend: false,
+        background: '#FFF',
+        noPadding: false,
+        noBackground: false,
+      }}
+      error={hasError}
+      errorMessage="Please check all the boxes"
+      helperText="Helpertext for the group"
+      >
+      <Checkbox
+        indeterminate={indeterminate}
+        checked={electronics}
+        name="electronics"
+        label="Electronics"
+        onChange={handleElectronicsOnChange}
+      >
+        <Checkbox
+          onChange={setCheckedLaptop(!checkedLaptop);}
+          checked={checkedLaptop}
+          helperText="More examples"
+          name="laptop"
+        >
+          Laptop
+        </Checkbox>
+        <Checkbox
+          onChange={setCheckedTV(!checkedTV);}
+          checked={checkedTV}
+          name="tv"
+        >
+          TVs
+        </Checkbox>
+        <Checkbox
+          onChange={setCheckedMicrophone(!checkedMicrophone);}
+          checked={checkedMicrophone}
+          name="microphones"
+        >
+          Microphones
+        </Checkbox>
+      </Checkbox>
+    </CheckboxWrapper>
+  )
+}
+```
 
 # Props
 
