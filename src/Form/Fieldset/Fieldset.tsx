@@ -12,6 +12,8 @@ export interface Props extends HTMLProps<HTMLFieldSetElement> {
   background?: string;
   noPadding?: boolean;
   noBackground?: boolean;
+  required?: boolean;
+  error?: boolean;
 }
 
 export const Fieldset = ({
@@ -24,6 +26,8 @@ export const Fieldset = ({
   background = noBackground ? '' : '#FFF',
   noPadding = false,
   disabled = false,
+  required = false,
+  error = false,
   ...rest
 }: Props) => {
   const renderChildren = () => {
@@ -45,7 +49,14 @@ export const Fieldset = ({
     >
       {legend && <legend className={readyclasses['sr-only']}>{legend}</legend>}
       {legend && !hideLegend && (
-        <Typography variant={legendStyle} tag="span" aria-hidden="true" className={classes.legend}>
+        <Typography
+          variant={legendStyle}
+          tag="span"
+          aria-hidden="true"
+          className={`${classes['legend']} ${required ? classes['required'] : ''} ${
+            error ? classes['error'] : ''
+          }`}
+        >
           {legend}
         </Typography>
       )}
