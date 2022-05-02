@@ -28,6 +28,12 @@ const meta: Meta = {
         disable: true,
       },
     },
+    helperProps: {
+      controls: false,
+      table: {
+        disable: true,
+      },
+    },
     onChange: {
       controls: false,
       table: {
@@ -111,7 +117,14 @@ export const Checkboxes = CheckboxesTemplate.bind({});
 
 Checkboxes.args = {
   name: 'Example checkboxes',
-  fieldsetProps: { legend: 'Example fieldset legend' },
+  fieldsetProps: {
+    legend: 'Example fieldset legend',
+    legendVariant: 'h1',
+    hideLegend: false,
+    background: '#FFF',
+    noPadding: false,
+    noBackground: false,
+  },
   error: false,
   errorMessage: 'Please check all the boxes',
   helperText: 'Helpertext for the group',
@@ -198,8 +211,10 @@ export const NestedCheckboxes = NestedTemplate.bind({});
 NestedCheckboxes.args = {
   name: 'Electronics',
   fieldsetProps: {
-    legend: 'Fieldset legend',
+    legend: 'Example fieldset legend',
+    legendVariant: 'h1',
     hideLegend: true,
+    background: '#FFF',
     noPadding: true,
     noBackground: true,
   },
