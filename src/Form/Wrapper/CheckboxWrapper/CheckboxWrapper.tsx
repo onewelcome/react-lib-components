@@ -21,9 +21,11 @@ export const CheckboxWrapper = ({
   const { errorId, helperId } = useWrapper();
 
   useEffect(() => {
-    if (fieldsetProps.title === undefined) {
+    // @ts-ignore
+    // @TODO remove this ts-ignore when UCL-89 is merged inside this branch
+    if (fieldsetProps.legend === undefined) {
       console.error(
-        `You should give your Fieldset component a title prop so a legend element is rendered. This error was thrown in CheckboxWrapper. You can add this title prop through the fieldsetProps prop by passing an object (fieldsetProps={{ title: "title here" }})`
+        `You should give your Fieldset component a legend prop so a legend element is rendered. This error was thrown in CheckboxWrapper. You can add this legend prop through the fieldsetProps prop by passing an object (fieldsetProps={{ legend: "legend here" }})`
       );
     }
   }, []);
@@ -39,7 +41,12 @@ export const CheckboxWrapper = ({
     );
 
   return (
-    <Fieldset {...fieldsetProps}>
+    <Fieldset
+      {...fieldsetProps}
+      // @TODO: uncomment error prop here when UCL-89 is merged
+      // error={error}
+      required={rest.required}
+    >
       <Wrapper
         {...rest}
         label=""

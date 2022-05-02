@@ -111,7 +111,7 @@ export const Checkboxes = CheckboxesTemplate.bind({});
 
 Checkboxes.args = {
   name: 'Example checkboxes',
-  fieldsetProps: { legend: 'Example fieldset title' },
+  fieldsetProps: { legend: 'Example fieldset legend' },
   error: false,
   errorMessage: 'Please check all the boxes',
   helperText: 'Helpertext for the group',
@@ -197,7 +197,12 @@ export const NestedCheckboxes = NestedTemplate.bind({});
 
 NestedCheckboxes.args = {
   name: 'Electronics',
-  fieldsetProps: { title: 'Fieldset title', hideTitle: true, noPadding: true, noBackground: true },
+  fieldsetProps: {
+    legend: 'Fieldset legend',
+    hideLegend: true,
+    noPadding: true,
+    noBackground: true,
+  },
   error: false,
   errorMessage: 'Please check all the boxes',
   helperText: 'Helpertext for the group',
