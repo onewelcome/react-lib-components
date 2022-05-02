@@ -1,0 +1,20 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `Textarea` component is a `form` component based on the native `textarea` HTML element. It is wrapped by a `div` element, which can be configured through the `wrapperProps` prop if necessary.
+
+It has a built in `error` state and `disabled` state. Both are a `boolean` and can be passed as a prop. Styling will be applied automatically.
+
+# Examples
+
+Below you'll find an example of the `Textarea` component. You can toggle states and props through the propstable at the bottom.
+
+<Canvas>
+  <Story id="stories-form-elements-textarea--textarea" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
