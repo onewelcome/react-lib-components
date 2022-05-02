@@ -1,15 +1,20 @@
 import { Meta, Story } from '@storybook/react';
 import { useEffect, useState } from 'react';
 import { Checkbox } from '../../../src/Form/Checkbox/Checkbox';
-import { Button } from '../../../src/Button/Button';
 import {
   CheckboxWrapper,
   Props as CheckboxWrapperProps,
 } from '../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper';
+import CheckboxWrapperDocumentation from './CheckboxWrapper.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Wrapper/CheckboxWrapper',
   component: CheckboxWrapper,
+  parameters: {
+    docs: {
+      page: CheckboxWrapperDocumentation,
+    },
+  },
   argTypes: {
     legendId: {
       controls: false,
@@ -39,6 +44,78 @@ const meta: Meta = {
 };
 
 export default meta;
+
+const CheckboxesTemplate: Story<CheckboxWrapperProps> = (args) => {
+  const [checkboxStates, setCheckboxStates] = useState({
+    option1: false,
+    option2: false,
+    option3: false,
+    option4: false,
+    option5: false,
+  });
+
+  const onChangeHandler = (event) => {
+    setCheckboxStates((prevState) => ({
+      ...prevState,
+      [event.target.value]: !checkboxStates[event.target.value],
+    }));
+  };
+
+  return (
+    <CheckboxWrapper {...args}>
+      <Checkbox
+        checked={checkboxStates.option1}
+        onChange={onChangeHandler}
+        name="Option 1"
+        value="option1"
+      >
+        Option 1
+      </Checkbox>
+      <Checkbox
+        checked={checkboxStates.option2}
+        onChange={onChangeHandler}
+        name="Option 2"
+        value="option2"
+      >
+        Option 2
+      </Checkbox>
+      <Checkbox
+        checked={checkboxStates.option3}
+        onChange={onChangeHandler}
+        name="Option 3"
+        value="option3"
+      >
+        Option 3
+      </Checkbox>
+      <Checkbox
+        checked={checkboxStates.option4}
+        onChange={onChangeHandler}
+        name="Option 4"
+        value="option4"
+      >
+        Option 4
+      </Checkbox>
+      <Checkbox
+        checked={checkboxStates.option5}
+        onChange={onChangeHandler}
+        name="Option 5"
+        value="option5"
+      >
+        Option 5
+      </Checkbox>
+    </CheckboxWrapper>
+  );
+};
+
+export const Checkboxes = CheckboxesTemplate.bind({});
+
+Checkboxes.args = {
+  name: 'Example checkboxes',
+  fieldsetProps: { legend: 'Example fieldset title' },
+  error: false,
+  errorMessage: 'Please check all the boxes',
+  helperText: 'Helpertext for the group',
+};
 
 const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
   const [indeterminate, setIndeterminate] = useState(false);
