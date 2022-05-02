@@ -27,9 +27,11 @@ export const RadioWrapper = ({
   const { errorId, helperId } = useWrapper(value);
 
   useEffect(() => {
-    if (fieldsetProps.title === undefined) {
+    // @ts-ignore
+    // @TODO remove ignore after merging UCL-89
+    if (fieldsetProps.legend === undefined) {
       console.error(
-        `You should give your Fieldset component a title prop so a legend element is rendered. This error was thrown in RadioWrapper. You can add this title prop through the fieldsetProps prop by passing an object (fieldsetProps={{ title: "title here" }})`
+        `You should give your Fieldset component a legend prop so a legend element is rendered. This error was thrown in RadioWrapper. You can add this legend prop through the fieldsetProps prop by passing an object (fieldsetProps={{ legend: "legend here" }})`
       );
     }
   }, []);
@@ -53,7 +55,6 @@ export const RadioWrapper = ({
         {...rest}
         disabled={disabled}
         name={name}
-        label=""
         helperId={helperId}
         helperText={helperText}
         helperProps={{
