@@ -9,7 +9,7 @@ import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
 import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
-  title: 'Stories/UI/Tiles',
+  title: 'Stories/UI/Tiles/Tiles',
   component: TitlesComponent,
 };
 
@@ -24,7 +24,8 @@ const Template: Story<Props> = (args) => {
         imageProps={{
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
         }}
-        iconProps={{ icon: Icons.Forbidden }}
+        iconProps={{ icon: Icons.Forbidden, color: 'var(--default)' }}
+        tileDescription="Disabled OneWelcome identity provider"
         menu={
           <ContextMenu
             id="context_menu_1"
@@ -45,7 +46,8 @@ const Template: Story<Props> = (args) => {
       <Tile
         key="tile2"
         title="Tile2"
-        iconProps={{ icon: Icons.Bell }}
+        iconProps={{ icon: Icons.Checkmark, color: 'var(--success)' }}
+        tileDescription="Enabled OneWelcome identity provider"
         menu={
           <ContextMenu
             id="context_menu_2"
@@ -69,7 +71,8 @@ const Template: Story<Props> = (args) => {
         imageProps={{
           src: '',
         }}
-        iconProps={{ icon: Icons.Checkmark }}
+        iconProps={{ icon: Icons.Checkmark, color: 'var(--success)' }}
+        tileDescription="Enabled OneWelcome identity provider"
         menu={
           <ContextMenu
             id="context_menu_3"
@@ -93,7 +96,8 @@ const Template: Story<Props> = (args) => {
         imageProps={{
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
         }}
-        iconProps={{ icon: Icons.Bell }}
+        iconProps={{ icon: Icons.Forbidden, color: 'var(--default)' }}
+        tileDescription="Disabled OneWelcome identity provider"
         menu={
           <ContextMenu
             id="context_menu_4"
