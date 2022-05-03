@@ -68,7 +68,7 @@ const Template: Story<Props> = (args) => {
         key="tile3"
         title="Tile3"
         imageProps={{
-          src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
+          src: '',
           alt: 'OneWelcome logo',
         }}
         iconProps={{ icon: Icons.Checkmark }}

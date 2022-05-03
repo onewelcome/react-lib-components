@@ -37,10 +37,12 @@ export const Tile = ({
         {menu ?? null}
       </header>
       <div className={classes['content']}>
-        {imageProps && imageProps.src && imageProps.alt && (
+        {imageProps && imageProps.src.length > 0 && imageProps.alt && (
           <figure className={classes['image']}>{!loading && <img {...imageProps} />}</figure>
         )}
-        {!imageProps && <Icon className={classes['placeholder']} icon={Icons.Image} />}
+        {(!imageProps || imageProps.src.length === 0) && (
+          <Icon className={classes['placeholder']} icon={Icons.Image} />
+        )}
         <span className={classes['title']}>{title}</span>
       </div>
     </div>
