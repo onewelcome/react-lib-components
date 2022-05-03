@@ -37,7 +37,7 @@ export const Tile = ({
       </header>
       <div className={classes['content']}>
         {imageProps && imageProps.src.length > 0 && (
-          <figure className={classes['image']}>{!loading && <img {...imageProps} />}</figure>
+          <figure className={classes['image']}>{!loading && <img {...imageProps} alt="" />}</figure>
         )}
         {(!imageProps || imageProps.src.length === 0) && (
           <Icon className={classes['placeholder']} icon={Icons.Image} />
