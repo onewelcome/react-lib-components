@@ -42,7 +42,6 @@ const defaultParams: Props = {
       title="Tile1"
       imageProps={{
         src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
-        alt: 'OneWelcome logo',
       }}
       iconProps={{ icon: Icons.Checkmark }}
       menu={contextMenu}
@@ -53,7 +52,6 @@ const defaultParams: Props = {
       title="Tile2"
       imageProps={{
         src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
-        alt: 'OneWelcome logo',
       }}
       iconProps={{ icon: Icons.Forbidden }}
       menu={contextMenu}
@@ -64,7 +62,6 @@ const defaultParams: Props = {
       title="Tile3"
       imageProps={{
         src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
-        alt: 'OneWelcome logo',
       }}
       iconProps={{ icon: Icons.Checkmark }}
       menu={contextMenu}

@@ -85,7 +85,7 @@ describe("should throw errors since we don't pass props", () => {
 
     try {
       // @ts-ignore: mandatory props (test for non-typescript react projects)
-      render(<Tile imageProps={{ src: 'test', alt: 'test' }} />);
+      render(<Tile imageProps={{ src: 'test' }} />);
     } catch (e: any) {
       actual = e.message;
     }

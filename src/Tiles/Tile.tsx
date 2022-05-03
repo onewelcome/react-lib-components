@@ -6,7 +6,6 @@ import { Props as ContextMenuProps } from '../ContextMenu/ContextMenu';
 
 interface ImageProps {
   src: string;
-  alt: string;
 }
 
 export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'contextMenu'> {
@@ -37,7 +36,7 @@ export const Tile = ({
         {menu ?? null}
       </header>
       <div className={classes['content']}>
-        {imageProps && imageProps.src.length > 0 && imageProps.alt && (
+        {imageProps && imageProps.src.length > 0 && (
           <figure className={classes['image']}>{!loading && <img {...imageProps} />}</figure>
         )}
         {(!imageProps || imageProps.src.length === 0) && (

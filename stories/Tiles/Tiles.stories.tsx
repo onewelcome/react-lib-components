@@ -23,7 +23,6 @@ const Template: Story<Props> = (args) => {
         title="Tile1"
         imageProps={{
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
-          alt: 'OneWelcome logo',
         }}
         iconProps={{ icon: Icons.Forbidden }}
         menu={
@@ -69,7 +68,6 @@ const Template: Story<Props> = (args) => {
         title="Tile3"
         imageProps={{
           src: '',
-          alt: 'OneWelcome logo',
         }}
         iconProps={{ icon: Icons.Checkmark }}
         menu={
@@ -94,7 +92,6 @@ const Template: Story<Props> = (args) => {
         title="Tile4"
         imageProps={{
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
-          alt: 'OneWelcome logo',
         }}
         iconProps={{ icon: Icons.Bell }}
         menu={
