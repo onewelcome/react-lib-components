@@ -30,7 +30,7 @@ export const Tile = ({
   }
 
   return (
-    <div {...rest} className={`${classes['tile']} ${loading ? classes['loading'] : ''}`}>
+    <article {...rest} className={`${classes['tile']} ${loading ? classes['loading'] : ''}`}>
       <header>
         {iconProps && <Icon {...iconProps} className={`${classes['icon']} ${className ?? ''}`} />}
         {menu ?? null}
@@ -44,6 +44,6 @@ export const Tile = ({
         )}
         <span className={classes['title']}>{title}</span>
       </div>
-    </div>
+    </article>
   );
 };
