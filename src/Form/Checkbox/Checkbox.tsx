@@ -104,6 +104,8 @@ export const Checkbox = ({
 
   const renderToggle = () => React.Children.toArray(children).filter(isToggle);
 
+  const iconClasses = [classes['input'], disabled ? classes['disabled'] : ''];
+
   /** Default return value is the default checkbox */
   return (
     <FormSelectorWrapper
@@ -137,24 +139,11 @@ export const Checkbox = ({
       />
       {renderToggle()}
 
-      {indeterminate && (
-        <Icon
-          className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
-          icon={Icons.MinusSquare}
-        />
-      )}
+      {indeterminate && <Icon className={iconClasses.join(' ')} icon={Icons.MinusSquare} />}
       {checked && !indeterminate && (
-        <Icon
-          className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
-          icon={Icons.CheckmarkSquare}
-        />
+        <Icon className={iconClasses.join(' ')} icon={Icons.CheckmarkSquare} />
       )}
-      {!checked && !indeterminate && (
-        <Icon
-          className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
-          icon={Icons.Square}
-        />
-      )}
+      {!checked && !indeterminate && <Icon className={iconClasses.join(' ')} icon={Icons.Square} />}
       <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
     </FormSelectorWrapper>
   );
