@@ -10,6 +10,9 @@
     "dist",
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "analyze": "size-limit --why",
     "build": "dts build",

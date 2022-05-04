@@ -12,6 +12,14 @@ const meta: Meta = {
       page: IconButtonDocumentation,
     },
   },
+  argTypes: {
+    color: {
+      options: ['default', 'primary', 'secondary', 'tertiary'],
+      control: {
+        type: 'radio',
+      },
+    },
+  },
 };
 
 export default meta;

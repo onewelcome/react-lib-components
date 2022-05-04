@@ -60,9 +60,12 @@ export const Checkbox = ({
   const determineLabel = () => {
     if (label) {
       return label;
+    } else if (children === undefined) {
+      throw new Error(
+        'Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component.'
+      );
     }
 
-    console.log(children, label);
     if (typeof children === 'string') {
       return children;
     }

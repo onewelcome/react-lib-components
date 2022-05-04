@@ -17,6 +17,7 @@ export { Tiles } from './Tiles/Tiles';
 export { Tile } from './Tiles/Tile';
 export { ContextMenu } from './ContextMenu/ContextMenu';
 export { ContextMenuItem } from './ContextMenu/ContextMenuItem';
+export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs';
 
 export { SnackbarProvider } from './Snackbar/SnackbarProvider/SnackbarProvider';
 export { useSnackbar } from './Snackbar/useSnackbar';
