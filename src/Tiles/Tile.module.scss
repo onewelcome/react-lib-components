@@ -7,6 +7,7 @@
   padding: 0 0 2rem;
   background-color: #fff;
   transition: box-shadow 0.2s ease-in-out;
+  font-family: var(--font-family);
 
   &:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
