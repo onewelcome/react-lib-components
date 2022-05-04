@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import React, { Fragment, RefObject } from 'react';
 import { BaseButton, Props as BaseButtonProps } from './BaseButton';
 import classes from './IconButton.module.scss';
 import readyclasses from '../readyclasses.module.scss';
@@ -19,10 +19,10 @@ export const IconButton = React.forwardRef<HTMLButtonElement, Props>(
         ref={ref}
         className={`${classes['icon-button']} ${classes[color]} ${classes['button-' + iconSize]}`}
       >
-        <>
+        <Fragment>
           {children}
           <span className={readyclasses['sr-only']}>{title}</span>
-        </>
+        </Fragment>
       </BaseButton>
     );
   }

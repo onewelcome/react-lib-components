@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { SnackbarProvider, Props } from '../../src/Snackbar/SnackbarProvider/SnackbarProvider';
-import { Button } from '../../src/Button/Button';
-import { useSnackbar } from '../../src/Snackbar/useSnackbar';
+import {
+  SnackbarProvider,
+  Props,
+} from '../../../src/Notifications/Snackbar/SnackbarProvider/SnackbarProvider';
+import { Button } from '../../../src/Button/Button';
+import { useSnackbar } from '../../../src/Notifications/Snackbar/useSnackbar';
 
 const meta: Meta = {
-  title: 'Stories/UI/Snackbar',
+  title: 'Stories/Notifications/Snackbar',
   component: SnackbarProvider,
   args: {},
 };
@@ -16,7 +19,7 @@ const AppContent = () => {
   const { enqueueSuccessSnackbar, enqueueErrorSnackbar, enqueueSnackbar } = useSnackbar();
 
   return (
-    <>
+    <Fragment>
       <Button onClick={() => enqueueSuccessSnackbar('Main message of the snackbar')}>
         Show success snackbar
       </Button>
@@ -48,7 +51,7 @@ const AppContent = () => {
       >
         Show long snackbar
       </Button>
-    </>
+    </Fragment>
   );
 };
 
