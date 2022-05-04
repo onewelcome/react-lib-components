@@ -22,8 +22,7 @@ Tile.args = {
   imageProps: {
     src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
   },
-  iconProps: { icon: Icons.Forbidden },
-  tileDescription: 'Disabled OneWelcome identity provider',
+  enabled: false,
   tileAction: (
     <ContextMenu
       id="context_menu_1"

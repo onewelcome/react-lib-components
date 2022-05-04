@@ -27,8 +27,7 @@ const Template: Story<Props> = (args) => {
         imageProps={{
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
         }}
-        iconProps={{ icon: Icons.Forbidden, color: 'var(--default)' }}
-        tileDescription="Disabled OneWelcome identity provider"
+        enabled={false}
         tileAction={
           <ContextMenu
             id="context_menu_1"
@@ -49,8 +48,7 @@ const Template: Story<Props> = (args) => {
       <Tile
         key="tile2"
         title="Tile2"
-        iconProps={{ icon: Icons.Checkmark, color: 'var(--success)' }}
-        tileDescription="Enabled OneWelcome identity provider"
+        enabled={true}
         tileAction={
           <IconButton onClick={addToFavorites} title="Add to favorite">
             <Icon icon={Icons.StarAlt} />
@@ -63,8 +61,7 @@ const Template: Story<Props> = (args) => {
         imageProps={{
           src: '',
         }}
-        iconProps={{ icon: Icons.Checkmark, color: 'var(--success)' }}
-        tileDescription="Enabled OneWelcome identity provider"
+        enabled={true}
         tileAction={
           <ContextMenu
             id="context_menu_3"
@@ -88,8 +85,7 @@ const Template: Story<Props> = (args) => {
         imageProps={{
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
         }}
-        iconProps={{ icon: Icons.Forbidden, color: 'var(--default)' }}
-        tileDescription="Disabled OneWelcome identity provider"
+        enabled={false}
         tileAction={
           <IconButton onClick={addToFavorites} title="Add to favorite">
             <Icon icon={Icons.Star} />

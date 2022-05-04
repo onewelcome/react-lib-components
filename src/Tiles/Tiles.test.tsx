@@ -49,7 +49,7 @@ const defaultParams: Props = {
       imageProps={{
         src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
       }}
-      iconProps={{ icon: Icons.Checkmark }}
+      enabled={true}
       tileAction={contextMenu}
     />,
     <Tile
@@ -59,7 +59,7 @@ const defaultParams: Props = {
       imageProps={{
         src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
       }}
-      iconProps={{ icon: Icons.Forbidden }}
+      enabled={false}
       tileAction={addToFavoriteButton}
     />,
     <Tile
@@ -69,7 +69,6 @@ const defaultParams: Props = {
       imageProps={{
         src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
       }}
-      iconProps={{ icon: Icons.Checkmark }}
       tileAction={contextMenu}
     />,
   ],

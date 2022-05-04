@@ -1,5 +1,5 @@
 import React, { HTMLProps, ReactElement, useState } from 'react';
-import { Icon, Icons, Props as IconProps } from '../Icon/Icon';
+import { Icon, Icons } from '../Icon/Icon';
 import classes from './Tile.module.scss';
 import readyClasses from '../readyclasses.module.scss';
 
@@ -14,8 +14,7 @@ interface ImageProps {
 export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'contextMenu'> {
   title: string;
   imageProps?: ImageProps;
-  iconProps?: IconProps;
-  tileDescription?: string;
+  enabled?: boolean;
   loading?: boolean;
   tileAction?: ReactElement<ContextMenuProps> | ReactElement<IconButtonProps>;
 }
@@ -23,8 +22,7 @@ export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'contextMenu'> {
 export const Tile = ({
   title,
   imageProps,
-  iconProps,
-  tileDescription,
+  enabled,
   className,
   loading,
   tileAction,
@@ -36,18 +34,39 @@ export const Tile = ({
     throw new Error('Please make sure to pass a title prop to your Tile component.');
   }
 
+  const statusMessage = () => {
+    if (enabled) {
+      return 'Status: enabled';
+    }
+
+    return 'Status: disabled';
+  };
+
   return (
     <article
       tabIndex={0}
-      aria-labelledby={tileDescription ? tileDescriptionID : undefined}
+      aria-labelledby={tileDescriptionID}
       {...rest}
       className={`${classes['tile']} ${loading ? classes['loading'] : ''}`}
     >
       <header>
-        {iconProps && <Icon {...iconProps} className={`${classes['icon']} ${className ?? ''}`} />}
-        {tileDescription !== undefined && (
+        {enabled === true && (
+          <Icon
+            color="var(--success)"
+            icon={Icons.Checkmark}
+            className={`${classes['icon']} ${className ?? ''}`}
+          />
+        )}
+        {enabled === false && (
+          <Icon
+            color="var(--default)"
+            icon={Icons.Forbidden}
+            className={`${classes['icon']} ${className ?? ''}`}
+          />
+        )}
+        {enabled !== undefined && (
           <span id={tileDescriptionID} className={readyClasses['sr-only']}>
-            {tileDescription}
+            {`${title}. ${statusMessage()}`}
           </span>
         )}
         {tileAction ?? null}
