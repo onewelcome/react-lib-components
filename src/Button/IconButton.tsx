@@ -7,12 +7,16 @@ export interface Props extends Omit<BaseButtonProps, 'ref'> {
   children?: React.ReactNode;
   iconSize?: 's' | 'm' | 'l';
   className?: string;
-  title: string;
+  title?: string;
   ref?: RefObject<HTMLButtonElement>;
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, Props>(
   ({ children, color = 'primary', iconSize = 'm', title, ...rest }, ref) => {
+    if (!title) {
+      console.error("Please make sure to specify a 'title' prop to your IconButton component! ");
+    }
+
     return (
       <BaseButton
         {...rest}
