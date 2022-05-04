@@ -22,7 +22,6 @@ Tile.args = {
   imageProps: {
     src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
   },
-  enabled: false,
   tileAction: (
     <ContextMenu
       id="context_menu_1"

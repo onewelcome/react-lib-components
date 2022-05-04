@@ -49,7 +49,7 @@ export const Tile = ({
       {...rest}
       className={`${classes['tile']} ${loading ? classes['loading'] : ''}`}
     >
-      <header>
+      <header style={{ justifyContent: enabled === undefined ? 'flex-end' : 'space-between' }}>
         {enabled === true && (
           <Icon
             color="var(--success)"
@@ -59,7 +59,7 @@ export const Tile = ({
         )}
         {enabled === false && (
           <Icon
-            color="var(--default)"
+            color="var(--greyed-out)"
             icon={Icons.Forbidden}
             className={`${classes['icon']} ${className ?? ''}`}
           />
