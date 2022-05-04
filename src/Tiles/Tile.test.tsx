@@ -39,7 +39,7 @@ const contextMenu = (
 const defaultParams: Props = {
   title: 'tile',
   iconProps: { icon: Icons.Bell, onClick: iconClick, 'data-testid': 'icon' },
-  menu: contextMenu,
+  tileAction: contextMenu,
 };
 
 const createTile = (params?: (defaultParams: Props) => Props) => {

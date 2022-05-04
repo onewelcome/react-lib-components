@@ -34,6 +34,12 @@ const contextMenu = (
   </ContextMenu>
 );
 
+const addToFavoriteButton = (
+  <IconButton title="Add to favorite">
+    <Icon icon={Icons.Star} />
+  </IconButton>
+);
+
 const defaultParams: Props = {
   children: [
     <Tile
@@ -44,7 +50,7 @@ const defaultParams: Props = {
         src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
       }}
       iconProps={{ icon: Icons.Checkmark }}
-      menu={contextMenu}
+      tileAction={contextMenu}
     />,
     <Tile
       data-testid="tile"
@@ -54,7 +60,7 @@ const defaultParams: Props = {
         src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
       }}
       iconProps={{ icon: Icons.Forbidden }}
-      menu={contextMenu}
+      tileAction={addToFavoriteButton}
     />,
     <Tile
       data-testid="tile"
@@ -64,7 +70,7 @@ const defaultParams: Props = {
         src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
       }}
       iconProps={{ icon: Icons.Checkmark }}
-      menu={contextMenu}
+      tileAction={contextMenu}
     />,
   ],
   className: 'example-classname',

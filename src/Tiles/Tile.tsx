@@ -5,6 +5,7 @@ import readyClasses from '../readyclasses.module.scss';
 
 import { Props as ContextMenuProps } from '../ContextMenu/ContextMenu';
 import { generateID } from '../util/helper';
+import { Props as IconButtonProps } from '../Button/IconButton';
 
 interface ImageProps {
   src: string;
@@ -16,7 +17,7 @@ export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'contextMenu'> {
   iconProps?: IconProps;
   tileDescription?: string;
   loading?: boolean;
-  menu?: ReactElement<ContextMenuProps>;
+  tileAction?: ReactElement<ContextMenuProps> | ReactElement<IconButtonProps>;
 }
 
 export const Tile = ({
@@ -26,7 +27,7 @@ export const Tile = ({
   tileDescription,
   className,
   loading,
-  menu,
+  tileAction,
   ...rest
 }: Props) => {
   const [tileDescriptionID] = useState(generateID(20));
@@ -49,7 +50,7 @@ export const Tile = ({
             {tileDescription}
           </span>
         )}
-        {menu ?? null}
+        {tileAction ?? null}
       </header>
       <div className={classes['content']}>
         {imageProps && imageProps.src.length > 0 && (

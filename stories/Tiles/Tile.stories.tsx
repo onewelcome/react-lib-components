@@ -24,7 +24,7 @@ Tile.args = {
   },
   iconProps: { icon: Icons.Forbidden },
   tileDescription: 'Disabled OneWelcome identity provider',
-  menu: (
+  tileAction: (
     <ContextMenu
       id="context_menu_1"
       placement={{ vertical: 'bottom', horizontal: 'right' }}
