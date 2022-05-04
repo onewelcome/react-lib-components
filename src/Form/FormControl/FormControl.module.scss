@@ -21,6 +21,15 @@
     &.bottom {
       align-items: flex-end;
     }
+
+    &.stretch {
+      align-items: stretch;
+
+      > * > * {
+        box-sizing: border-box;
+        height: 100%;
+      }
+    }
   }
 }
 

@@ -1,0 +1,49 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import './ContextMenuDocumentation.css';
+
+<Title />
+<Subtitle />
+
+The `ContextMenu` (root element is `<div>`) is used to display a list of items after clicking on a trigger. This trigger is either a `Button` or `IconButton` component. The ContextMenu has to be used in conjunction with the `ContextMenuItem` component. The `ContextMenuItem` component has to be a child of `ContextMenu` and can be regarded as a `<li>` HTMLElement.
+Within this `<li>` there's a `button` which executes and `onClick` event as soon as it is clicked on. Meaning `ContextMenuItem` can receive an `onClick` prop.
+
+The `ContextMenu` component can be used to show a small menu that can execute certain actions.
+
+The `show` property of the ContextMenu component is controlled internally by the component library, but you can set its initial value. Use the `onShow` and `onClose` props when you need to trigger actions upon showing or closing the context menu.
+
+By default, the `ContextMenu` will be `React.Portal`ed to the `body` so that `transform` won't mess with the `usePlacement` hook.
+
+# Examples
+
+<Canvas>
+  <Story id="stories-ui-contextmenu--context-menu" />
+</Canvas>
+
+The following code example will showcase how the [ContextMenu story](/story/stories-ui-contextmenu--context-menu) is created.
+
+```jsx
+<ContextMenu
+  id="example-contextmenu"
+  trigger={
+    <IconButton color="default" title="click me for contextmenu">
+      <Icon icon={Icons.EllipsisAlt} />
+    </IconButton>
+  }
+  placement={{ vertical: 'bottom', horizontal: 'left' }}
+  transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+>
+  <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="1">
+    Example item 1
+  </ContextMenuItem>
+  <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="2">
+    Example item 2
+  </ContextMenuItem>
+  <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="3">
+    Example item 3
+  </ContextMenuItem>
+</ContextMenu>
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

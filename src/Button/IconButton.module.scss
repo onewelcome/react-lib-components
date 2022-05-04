@@ -128,4 +128,34 @@
       }
     }
   }
+
+  &.default {
+    color: var(--default);
+
+    @include focusOutline(var(--default));
+
+    &:hover,
+    &:focus {
+      border-color: var(--default);
+    }
+
+    &:active {
+      background-color: transparent;
+      position: relative;
+      color: var(--default);
+      border-color: var(--button-fill-background-color);
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+        left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+        width: calc(100% + var(--button-border-width));
+        height: calc(100% + var(--button-border-width));
+        background-color: var(--default);
+        border-radius: var(--button-border-radius);
+        filter: opacity(0.1);
+      }
+    }
+  }
 }
