@@ -10,7 +10,6 @@ import userEvent from '@testing-library/user-event';
 const onShow = jest.fn();
 const onClose = jest.fn();
 const contextMenuItemOnClick = jest.fn();
-const iconClick = jest.fn();
 
 const contextMenu = (
   <ContextMenu
@@ -38,8 +37,8 @@ const contextMenu = (
 
 const defaultParams: Props = {
   title: 'tile',
-  iconProps: { icon: Icons.Bell, onClick: iconClick, 'data-testid': 'icon' },
-  menu: contextMenu,
+  enabled: true,
+  tileAction: contextMenu,
 };
 
 const createTile = (params?: (defaultParams: Props) => Props) => {
@@ -54,24 +53,35 @@ const createTile = (params?: (defaultParams: Props) => Props) => {
   );
   const tile = queries.getByTestId('tile');
   const menutrigger = queries.getByTestId('contextmenu-trigger');
-  const icon = queries.getByTestId('icon');
 
   return {
     ...queries,
     tile,
     menutrigger,
-    icon,
   };
 };
 
 describe('Tile should render', () => {
-  it('renders without crashing', () => {
-    const { tile, icon } = createTile();
+  it('renders without crashing and enabled', () => {
+    const { tile } = createTile();
 
-    userEvent.click(icon);
-
-    expect(iconClick).toHaveBeenCalled();
+    expect(tile.querySelector('.icon-checkmark')).toBeTruthy();
+    expect(tile.querySelector('.icon-forbidden')).toBeFalsy();
     expect(tile).toBeDefined();
+  });
+
+  it('renders disabled', () => {
+    const { tile } = createTile((defaultParams) => ({ ...defaultParams, enabled: false }));
+
+    expect(tile.querySelector('.icon-checkmark')).toBeFalsy();
+    expect(tile.querySelector('.icon-forbidden')).toBeTruthy();
+  });
+
+  it('renders no status', () => {
+    const { tile } = createTile((defaultParams) => ({ ...defaultParams, enabled: undefined }));
+
+    expect(tile.querySelector('.icon-checkmark')).toBeFalsy();
+    expect(tile.querySelector('.icon-forbidden')).toBeFalsy();
   });
 });
 
@@ -85,7 +95,7 @@ describe("should throw errors since we don't pass props", () => {
 
     try {
       // @ts-ignore: mandatory props (test for non-typescript react projects)
-      render(<Tile imageProps={{ src: 'test', alt: 'test' }} />);
+      render(<Tile imageProps={{ src: 'test' }} />);
     } catch (e: any) {
       actual = e.message;
     }
