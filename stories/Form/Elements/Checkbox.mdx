@@ -28,10 +28,11 @@ const ExampleForm = () => {
       <Checkbox
         checked={checkboxState}
         onChange={setCheckboxState(!checkboxState)}
-        name="Example checkbox component" />
+        name="Example checkbox component"
+      />
     </Form>
-  )
-}
+  );
+};
 ```
 
 As you can see we link the `checked` prop to the `checkboxState` state variable. After that, we link the `onChange` event to set the `checkboxState` to what it was previously not.
