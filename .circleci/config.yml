@@ -114,7 +114,7 @@ workflows:
       - onegini-build/npm-publish:
           name: publish-library
           <<: *dev-context
-          <<: *require-build
+          <<: *require-test
           <<: *filter-tags
 
       - onegini-build/notify-released:
