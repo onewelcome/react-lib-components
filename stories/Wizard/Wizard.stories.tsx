@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Wizard, Props } from '../../src/Wizard/Wizard';
 import { WizardSteps } from '../../src/Wizard/WizardSteps/WizardSteps';
@@ -127,7 +127,7 @@ const WizardModalTemplate: Story<void> = () => {
   const onClose = () => setOpen(false);
   const modalId = 'modal-with-wizard';
   return (
-    <>
+    <Fragment>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
       <Modal id={modalId} open={open} onClose={onClose}>
         <Wizard
@@ -148,7 +148,7 @@ const WizardModalTemplate: Story<void> = () => {
                 came from.
               </p>
               {step === 0 && (
-                <>
+                <Fragment>
                   <input
                     id="checkbox"
                     type="checkbox"
@@ -162,10 +162,10 @@ const WizardModalTemplate: Story<void> = () => {
                   <label htmlFor="checkbox">
                     Checking this checkbox affects the activity of step 2
                   </label>
-                </>
+                </Fragment>
               )}
               {step === 1 && (
-                <>
+                <Fragment>
                   <input
                     style={{
                       paddingBlock: 10,
@@ -190,10 +190,10 @@ const WizardModalTemplate: Story<void> = () => {
                       'Helper text for this text field. Description should be short and not repeat the label.'
                     )}
                   </p>
-                </>
+                </Fragment>
               )}
               {step === 2 && (
-                <>
+                <Fragment>
                   <input
                     style={{
                       paddingBlock: 10,
@@ -213,7 +213,7 @@ const WizardModalTemplate: Story<void> = () => {
                     Helper text for this text field. Description should be short and not repeat the
                     label.
                   </p>
-                </>
+                </Fragment>
               )}
             </form>
           </ModalContent>
@@ -230,7 +230,7 @@ const WizardModalTemplate: Story<void> = () => {
           </ModalActions>
         </Wizard>
       </Modal>
-    </>
+    </Fragment>
   );
 };
 

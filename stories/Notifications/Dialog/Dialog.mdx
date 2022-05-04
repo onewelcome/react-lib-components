@@ -1,0 +1,148 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+Dialogs are used when immediate user interaction is required.
+They block interaction with the application until a user has made a choice.
+Dialogs appear as a modal on top of the existing content.
+
+When the user presses enter without tabbing through the interface, the primary button is triggered, even when it is a destructive action.
+There is no X (close) button, no event handler for the escape key and the dialog stays open when you click outside the dialog.
+
+# Examples
+
+The use of dialogues is very broad. See example usage below.
+
+_Note: triggering primary button on pressing enter doesn't work in documentation section (Enter key is intercepted)._
+
+## Action dialog
+
+In the below code snippet, you'll see how you can show dialog with buttons align to right.
+
+```jsx
+<Dialog
+  open={open}
+  onClose={onClose}
+  alignActions="right"
+  title="Verify email address"
+  primaryAction={label: 'Send email', onClick: onSendEmail}
+  secondaryAction={label: 'Cancel', onClick: onCancel}
+>
+  <Fragment>
+    <Typography variant="body">
+      You want to verify the email address <b>dana.george@mydomain.com</b>.
+    </Typography>
+    <Typography variant="body" spacing={{ margin: 0 }}>
+      <b>Dana George</b> will receive an email with a verification link and must click the link to
+      complete the verification.
+    </Typography>
+  </Fragment>
+</Dialog>
+```
+
+<Canvas>
+  <Story id="stories-notifications-dialog--right-aligned-action-dialog" />
+</Canvas>
+
+## Destructive operation
+
+In case of a destructive operation, the buttons align to the left instead of the right. This is to let users deliberately perform this destructive action.
+
+In the below code snippet, you'll see how you can show dialog with buttons align to left.
+
+```jsx
+<Dialog
+  open={open}
+  onClose={onClose}
+  alignActions="left"
+  title="Discard changes?"
+  primaryAction={label: 'Discard', onClick: onDiscard}
+  secondaryAction={label: 'Keep editing', onClick: onKeepEditing}
+>
+  <Typography variant="body" spacing={{ margin: 0 }}>
+    This cannot be undone and you will lose your changes.
+  </Typography>
+</Dialog>
+```
+
+<Canvas>
+  <Story id="stories-notifications-dialog--left-aligned-action-dialog" />
+</Canvas>
+
+## Single action
+
+In the below code snippet, you'll see how you can show dialog with on one button
+
+```jsx
+<Dialog
+  open={open}
+  onClose={onClose}
+  alignActions="right"
+  title="Info"
+  primaryAction={label: 'Ok', onClick}
+>
+  <Typography variant="body" spacing={{ margin: 0 }}>
+    You can't remove your account.
+  </Typography>
+</Dialog>
+```
+
+<Canvas>
+  <Story id="stories-notifications-dialog--single-action-dialog" />
+</Canvas>
+
+## Nesting dialogs
+
+In the below code snippet, you'll see how you can nest dialogs
+
+```jsx
+const [open, setOpen] = useState(false);
+const [open2, setOpen2] = useState(false);
+return (
+  <Fragment>
+    <Button onClick={() => setOpen(true)}>Open dialog</Button>
+    <Dialog
+      open={open}
+      alignActions="right"
+      title="Dialog 1"
+      onClose={() => setOpen(false)}
+      primaryAction={{
+        label: 'Open another dialog',
+        onClick: () => setOpen2(true),
+      }}
+      secondaryAction={{
+        label: 'Close',
+        onClick: () => setOpen(false),
+      }}
+    >
+      <Typography variant="body" spacing={{ margin: 0 }}>
+        Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long
+        dialog content.
+      </Typography>
+    </Dialog>
+    <Dialog
+      open={open2}
+      onClose={() => setOpen2(false)}
+      alignActions="left"
+      title="Dialog 2"
+      primaryAction={{
+        label: 'Close',
+        onClick: () => setOpen2(false),
+      }}
+    >
+      <Typography variant="body" spacing={{ margin: 0 }}>
+        Short dialog content.
+      </Typography>
+    </Dialog>
+  </Fragment>
+);
+```
+
+<Canvas>
+  <Story id="stories-notifications-dialog--nested-dialogs" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

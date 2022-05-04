@@ -1,0 +1,56 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+Modals are used to present interactive or larger content - like the modal with the form. Modals contain:
+
+- header: title, close button and additional content like wizard,
+- content: what ever content to display,
+- footer: containing action buttons to interact with content and modal.
+
+Modals appear as a modal on top of the existing content.
+
+# Examples
+
+In the below code snippet, you'll see how you can create a `Modal` with simple form.
+
+```jsx
+<Modal id="modal" open={open} onClose={onClose}>
+  <ModalHeader id="modal-label" title="Modal title" onClose={onClose} />
+  <ModalContent id="modal-description">
+    <form id="modalForm">
+      <Typography variant="body" spacing={{ margin: 0, padding: '0 5 5' }}>
+        This is simple modal.
+      </Typography>
+      <FormControl>
+        <InputWrapper
+          helperText="Helper text for this field. Description should be short and not repeat the label"
+          name="input1"
+          type="text"
+          value={value}
+          error={false}
+          label="Name"
+          onChange={(e) => setValue(e.target.value)}
+        />
+      </FormControl>
+    </form>
+  </ModalContent>
+  <ModalActions>
+    <Button variant="text" onClick={onClose}>
+      Cancel
+    </Button>
+    <Button form="modalForm" type="submit">
+      Save
+    </Button>
+  </ModalActions>
+</Modal>
+```
+
+<Canvas>
+  <Story id="stories-notifications-modal--modal" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
