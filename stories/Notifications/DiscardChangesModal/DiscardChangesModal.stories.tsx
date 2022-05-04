@@ -18,7 +18,6 @@ const meta: Meta = {
   component: DiscardChangesModalComponent,
   subcomponents: {
     ModalContent,
-    ModalActions,
   },
   parameters: {
     docs: {
