@@ -1,7 +1,6 @@
 import { Meta, Story } from '@storybook/react';
 import { useEffect, useState } from 'react';
 import { Checkbox } from '../../../src/Form/Checkbox/Checkbox';
-import { Button } from '../../../src/Button/Button';
 import {
   CheckboxWrapper,
   Props as CheckboxWrapperProps,

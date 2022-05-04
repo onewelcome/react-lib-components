@@ -42,11 +42,12 @@ export const ContextMenu = ({
   }
 
   useBodyClick(
-    (event) =>
-      showContextMenu &&
-      (event.target as Element).nodeName !== 'BUTTON' &&
-      (event.target as Element).parentElement?.tagName !== 'LI',
-    () => setShowContextMenu(false),
+    (event) => {
+      return showContextMenu && anchorEl.current !== event.target;
+    },
+    () => {
+      setShowContextMenu(false);
+    },
     showContextMenu
   );
 
