@@ -62,6 +62,7 @@ $listItemHeight: 2.125rem;
     width: 100%;
     opacity: 0;
     pointer-events: none;
+    overflow: auto;
   }
 
   ul {
@@ -74,7 +75,6 @@ $listItemHeight: 2.125rem;
     border-radius: var(--input-border-radius);
     color: var(--default);
     text-align: left;
-    overflow: auto;
     max-height: calc($listItemHeight * 10);
 
     li {
