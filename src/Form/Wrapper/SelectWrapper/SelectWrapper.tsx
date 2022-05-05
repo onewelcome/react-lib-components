@@ -4,10 +4,11 @@ import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { Select, Props as SelectProps } from '../../Select/Select';
 import { useWrapper } from '../../../hooks/useWrapper';
 
-export interface Props extends Omit<WrapperProps, 'onChange'> {
+export interface Props extends Omit<WrapperProps, 'onChange' | 'error'> {
   children: ReactChild | ReactChild[];
   placeholder?: string;
   value: string;
+  error?: boolean;
   selectProps?: SelectProps;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onClear?: () => void;

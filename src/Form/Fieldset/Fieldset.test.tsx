@@ -7,8 +7,8 @@ import { Select } from '../Select/Select';
 import { Option } from '../Select/Option';
 
 const defaultParams: Props = {
-  title: 'Example',
-  titleVariant: 'h2',
+  legend: 'Example',
+  legendStyle: 'h2',
   children: [
     <FormControl data-testid="form-control">
       <Input placeholder="This is a placeholder" name="example" type="text" />

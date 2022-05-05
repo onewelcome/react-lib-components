@@ -1,0 +1,63 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `Fieldset` component is created to improve accessibility and give you an easier time with creating sections between parts of the form. The `title` prop will create a `legend` HTMLElement for you, which is hidden and used for screenreader purposes only. A `Typography` component that you can control through the `titleVariant` prop is rendered instead. You can also optionally hide the title by providing `true` to the `hideTitle` prop.
+
+The fieldset component
+
+# Examples
+
+Below you will find a code snippet example of how you could implement a `Fieldset` component yourself.
+
+```jsx
+<Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
+  <Fieldset title="Name">
+    <FormControl grid={3}>
+      <SelectWrapper
+        name="prefix"
+        error={false}
+        label="Prefix"
+        value={prefix}
+        onChange={prefixChangeHandler}
+        onClear={prefixClearHandler}
+      >
+        <Option disabled value={undefined}>
+          Prefix
+        </Option>
+        <Option value="mr">Mr.</Option>
+        <Option value="mrs">Mrs.</Option>
+      </SelectWrapper>
+      <InputWrapper
+        onChange={() => {}}
+        label="First name"
+        errorMessage={'Error message'}
+        error={false}
+        value={''}
+        helperText={'Helper text'}
+        name="first-name"
+        type="text"
+      />
+      <InputWrapper
+        onChange={() => {}}
+        label="Last name"
+        errorMessage={'Error message'}
+        error={false}
+        value={''}
+        helperText={'Helper text'}
+        name="callback-time"
+        type="datetime-local"
+      />
+    </FormControl>
+  </Fieldset>
+</Form>
+```
+
+And this is how that code snippet would render:
+
+<Story id="stories-form-elements-fieldset--fieldset-el" />
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

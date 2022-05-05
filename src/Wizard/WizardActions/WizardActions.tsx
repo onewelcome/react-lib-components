@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { Fragment, useContext, useMemo } from 'react';
 import { Button } from '../../Button/Button';
 import { Step } from '../BaseWizardSteps/BaseWizardSteps';
 import { WizardMode } from '../Wizard';
@@ -78,7 +78,7 @@ export const WizardActions = ({
   };
 
   return (
-    <>
+    <Fragment>
       <Button variant="text" onClick={onCancel}>
         {cancelButtonLabel}
       </Button>
@@ -95,6 +95,6 @@ export const WizardActions = ({
       {isLastStepOrEditMode && (
         <Button onClick={onSaveAndCloseWrapper}>{saveAndCloseButtonLabel}</Button>
       )}
-    </>
+    </Fragment>
   );
 };
