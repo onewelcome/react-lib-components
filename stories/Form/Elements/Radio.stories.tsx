@@ -42,8 +42,6 @@ const meta: Meta = {
 
 export default meta;
 const Template: Story<Props> = (args) => (
-  // @ts-ignore
-  // @TODO remove @ts-ignore as soon as UCL-89 has been merged
   <Fieldset legend="Radio button group">
     <RadioComponent
       helperText="Example helpertext"

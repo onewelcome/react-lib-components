@@ -92,7 +92,6 @@ export const SnackbarItem = ({
             <Icon icon={Icons.Times} color={textColor} />
           </IconButton>
         </div>
-        {/* @TODO: change it to Typography*/}
         {!!content && (
           <Typography className={classes['content']} variant="body">
             {content}
