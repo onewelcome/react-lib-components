@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Fieldset, Props } from '../../../src/Form/Fieldset/Fieldset';
+import { Fieldset as FieldsetComponent, Props } from '../../../src/Form/Fieldset/Fieldset';
 import { FormControl } from '../../../src/Form/FormControl/FormControl';
 import { Select } from '../../../src/Form/Select/Select';
 import { Option } from '../../../src/Form/Select/Option';
 import { Input } from '../../../src/Form/Input/Input';
 import { Form } from '../../../src/Form/Form';
 import { SelectWrapper } from '../../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
+import FieldsetDocumentation from './Fieldset.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Fieldset',
-  component: Fieldset,
+  component: FieldsetComponent,
+  parameters: {
+    docs: {
+      page: FieldsetDocumentation,
+    },
+  },
   argTypes: {
     disabled: {
       control: {
@@ -38,11 +44,10 @@ const Template: Story<Props> = (args) => {
   };
   return (
     <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
-      <Fieldset disabled title="Name" {...args}>
+      <FieldsetComponent title="Name" {...args}>
         <FormControl grid={3}>
           <SelectWrapper
             name="prefix"
-            error={false}
             label="Prefix"
             value={prefix}
             onChange={prefixChangeHandler}
@@ -57,11 +62,11 @@ const Template: Story<Props> = (args) => {
           <Input name="first_name" type="text" />
           <Input name="last_name" type="text" />
         </FormControl>
-      </Fieldset>
+      </FieldsetComponent>
     </Form>
   );
 };
 
-export const FieldsetEl = Template.bind({});
+export const Fieldset = Template.bind({});
 
-FieldsetEl.args = {};
+Fieldset.args = {};
