@@ -45,6 +45,13 @@ export const TextareaWrapper = ({
   const [focus, setFocus] = useState(false);
   const [hover, setHover] = useState(false);
 
+  const optionalClasses: string[] = [];
+
+  focus && optionalClasses.push(classes['focus']);
+  hover && optionalClasses.push(classes['hover']);
+  disabled && optionalClasses.push(classes['disabled']);
+  error && optionalClasses.push(classes['error']);
+
   return (
     <Wrapper
       {...rest}
@@ -95,10 +102,8 @@ export const TextareaWrapper = ({
           setHover(false);
         }}
         className={classes['textarea']}
-        wrapperClassName={`${classes['textarea-wrapper']} ${focus ? classes['focus'] : ''} ${
-          hover ? classes['hover'] : ''
-        } ${disabled ? classes['disabled'] : ''} ${error ? classes['error'] : ''}`}
-        errorClassName={classes['error-icon']}
+        wrapperProps={{ className: `${classes['textarea-wrapper']}} ${optionalClasses.join(' ')}` }}
+        errorProps={{ className: classes['error-icon'] }}
       />
     </Wrapper>
   );
