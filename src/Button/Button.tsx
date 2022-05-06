@@ -12,7 +12,15 @@ export interface Props extends Omit<BaseButtonProps, 'ref'> {
 
 export const Button = React.forwardRef<HTMLButtonElement, Props>(
   (
-    { children, variant = 'fill', color = 'primary', startIcon = false, endIcon = false, ...rest },
+    {
+      children,
+      variant = 'fill',
+      color = 'primary',
+      startIcon = false,
+      endIcon = false,
+      className,
+      ...rest
+    },
     ref
   ) => {
     const additionalClasses = [];
@@ -27,6 +35,10 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(
 
     if (endIcon) {
       additionalClasses.push(classes['end-icon']);
+    }
+
+    if (className) {
+      additionalClasses.push(className);
     }
 
     return (
