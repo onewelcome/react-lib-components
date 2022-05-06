@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 import { Popover, Props } from './Popover';
 import { render } from '@testing-library/react';
 import { usePosition } from '../hooks/usePosition';
@@ -32,7 +32,7 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
     });
 
     return (
-      <>
+      <Fragment>
         <button data-testid="button" onClick={calculatePosition} ref={relativeElement}>
           Test
         </button>
@@ -44,7 +44,7 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
         >
           Test
         </Popover>
-      </>
+      </Fragment>
     );
   };
 

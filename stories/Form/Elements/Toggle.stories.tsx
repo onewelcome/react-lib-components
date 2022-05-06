@@ -1,11 +1,17 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Toggle } from '../../..//src/Form/Toggle/Toggle';
+import { Toggle as ToggleComponent } from '../../..//src/Form/Toggle/Toggle';
 import { CheckboxProps as Props } from '../../../src/Form/Checkbox/Checkbox';
+import ToggleDocumentation from './Toggle.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Toggle',
-  component: Toggle,
+  component: ToggleComponent,
+  parameters: {
+    docs: {
+      page: ToggleDocumentation,
+    },
+  },
   argTypes: {
     parentHelperId: {
       table: {
@@ -38,10 +44,12 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = (args) => <Toggle {...args}>Example toggle</Toggle>;
+const Template: Story<Props> = (args) => (
+  <ToggleComponent {...args}>Example toggle</ToggleComponent>
+);
 
-export const ToggleEl = Template.bind({});
+export const Toggle = Template.bind({});
 
-ToggleEl.args = {
+Toggle.args = {
   name: 'Example toggle',
 };

@@ -1,11 +1,17 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Input, Props } from '../../../src/Form/Input/Input';
+import { Input as InputComponent, Props } from '../../../src/Form/Input/Input';
 import { Form } from '../../../src/Form/Form';
+import InputDocumentation from './Input.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Input',
-  component: Input,
+  component: InputComponent,
+  parameters: {
+    docs: {
+      page: InputDocumentation,
+    },
+  },
   argTypes: {
     className: {
       table: { disable: true },
@@ -46,14 +52,14 @@ export default meta;
 const Template: Story<Props> = (args) => {
   return (
     <Form onSubmit={() => {}}>
-      <Input id="input-component" {...args} />
+      <InputComponent id="input-component" {...args} />
     </Form>
   );
 };
 
-export const inputText = Template.bind({});
+export const Input = Template.bind({});
 
-inputText.args = {
+Input.args = {
   type: 'text',
   name: 'input',
 };

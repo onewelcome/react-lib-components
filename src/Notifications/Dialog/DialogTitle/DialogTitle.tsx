@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '../../Typography/Typography';
+import { Typography } from '../../../Typography/Typography';
 import classes from './DialogTitle.module.scss';
 
 export interface Props {
@@ -9,10 +9,10 @@ export interface Props {
 
 export const DialogTitle = ({ id, title }: Props) => {
   return (
-    <header className={classes['header']}>
+    <div className={classes['header']}>
       <Typography id={id} className={classes['title']} tag="h1" variant="h4">
         {title}
       </Typography>
-    </header>
+    </div>
   );
 };

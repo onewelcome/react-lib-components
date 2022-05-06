@@ -21,8 +21,6 @@ export const CheckboxWrapper = ({
   const { errorId, helperId } = useWrapper();
 
   useEffect(() => {
-    // @ts-ignore
-    // @TODO remove this ts-ignore when UCL-89 is merged inside this branch
     if (fieldsetProps.legend === undefined) {
       console.error(
         `You should give your Fieldset component a legend prop so a legend element is rendered. This error was thrown in CheckboxWrapper. You can add this legend prop through the fieldsetProps prop by passing an object (fieldsetProps={{ legend: "legend here" }})`

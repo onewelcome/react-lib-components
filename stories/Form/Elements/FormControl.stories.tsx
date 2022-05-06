@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { FormControl, Props } from '../../../src/Form/FormControl/FormControl';
+import {
+  FormControl as FormControlComponent,
+  Props,
+} from '../../../src/Form/FormControl/FormControl';
 import { Form } from '../../../src/Form/Form';
 import { RadioWrapper } from '../../../src/Form/Wrapper/RadioWrapper/RadioWrapper';
 import { Checkbox } from '../../../src/Form/Checkbox/Checkbox';
@@ -8,10 +11,16 @@ import { CheckboxWrapper } from '../../../src/Form/Wrapper/CheckboxWrapper/Check
 import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
 import { Radio } from '../../../src/Form/Radio/Radio';
 import { Fieldset } from '../../../src/Form/Fieldset/Fieldset';
+import FormControlDocumentation from './FormControl.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/FormControl',
-  component: FormControl,
+  component: FormControlComponent,
+  parameters: {
+    docs: {
+      page: FormControlDocumentation,
+    },
+  },
   argTypes: {
     disabled: {
       table: {
@@ -20,11 +29,11 @@ const meta: Meta = {
       control: false,
     },
     grid: {
-      options: ['1', '2', '3'],
+      options: [1, 2, 3],
       control: 'radio',
     },
     align: {
-      options: ['start', 'center', 'end'],
+      options: ['start', 'center', 'end', 'stretch'],
       control: 'radio',
     },
   },
@@ -117,7 +126,7 @@ const Template: Story<Props> = (args) => {
 
   return (
     <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
-      <FormControl grid={2} {...args}>
+      <FormControlComponent {...args}>
         <RadioWrapper
           label="Radio label"
           error={false}
@@ -170,9 +179,14 @@ const Template: Story<Props> = (args) => {
             label="Label for this inputfield"
           />
         </Fieldset>
-      </FormControl>
+      </FormControlComponent>
     </Form>
   );
 };
 
-export const FormControlEl = Template.bind({});
+export const FormControl = Template.bind({});
+
+FormControl.args = {
+  grid: 3,
+  align: 'center',
+};

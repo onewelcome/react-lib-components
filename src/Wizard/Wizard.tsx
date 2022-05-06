@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { Step } from './BaseWizardSteps/BaseWizardSteps';
 import { WizardStateContext, WizardStateProvider } from './WizardStateProvider';
 import { setWizardState } from './wizardStateReducer';
@@ -36,7 +36,7 @@ const WizardContent = ({ steps, mode, stepScreenReaderLabel, onStepChange, child
   useSetWizardState(steps, mode, stepScreenReaderLabel);
   useStepChanging(onStepChange);
 
-  return <>{children}</>;
+  return <Fragment>{children}</Fragment>;
 };
 
 export const Wizard = (props: Props) => {

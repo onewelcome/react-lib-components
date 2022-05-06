@@ -13,7 +13,17 @@
     margin-top: 1rem;
   }
 
-  .title {
+  .legend {
     display: block;
+
+    &.required {
+      &:after {
+        content: ' *';
+      }
+    }
+
+    &.error {
+      color: var(--error);
+    }
   }
 }

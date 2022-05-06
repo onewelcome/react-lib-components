@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { IconButton } from '../../Button/IconButton';
-import { Icon, Icons } from '../../Icon/Icon';
+import { IconButton } from '../../../Button/IconButton';
+import { Icon, Icons } from '../../../Icon/Icon';
 import { Variant, Actions } from '../interfaces';
 import classes from './SnackbarItem.module.scss';
-import readyclasses from '../../readyclasses.module.scss';
-import { useAnimation } from '../../hooks/useAnimation';
-import { Typography } from '../../Typography/Typography';
+import readyclasses from '../../../readyclasses.module.scss';
+import { useAnimation } from '../../../hooks/useAnimation';
+import { Typography } from '../../../Typography/Typography';
 
 const textColor = 'var(--snackbar-text-color)';
 
@@ -92,7 +92,6 @@ export const SnackbarItem = ({
             <Icon icon={Icons.Times} color={textColor} />
           </IconButton>
         </div>
-        {/* @TODO: change it to Typography*/}
         {!!content && (
           <Typography className={classes['content']} variant="body">
             {content}

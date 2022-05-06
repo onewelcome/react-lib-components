@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Fieldset, Props } from '../../../src/Form/Fieldset/Fieldset';
+import { Fieldset as FieldsetComponent, Props } from '../../../src/Form/Fieldset/Fieldset';
 import { FormControl } from '../../../src/Form/FormControl/FormControl';
-import { Select } from '../../../src/Form/Select/Select';
 import { Option } from '../../../src/Form/Select/Option';
-import { Input } from '../../../src/Form/Input/Input';
 import { Form } from '../../../src/Form/Form';
 import { SelectWrapper } from '../../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
+import FieldsetDocumentation from './Fieldset.mdx';
+import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Fieldset',
-  component: Fieldset,
+  component: FieldsetComponent,
+  parameters: {
+    docs: {
+      page: FieldsetDocumentation,
+    },
+  },
   argTypes: {
     disabled: {
       control: {
@@ -29,24 +34,19 @@ export default meta;
 
 const Template: Story<Props> = (args) => {
   const [prefix, setPrefix] = useState('mr');
-  const prefixChangeHandler = (event) => {
-    setPrefix(event.target.value);
-  };
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
-  const prefixClearHandler = () => {
-    setPrefix('');
-  };
   return (
     <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
-      <Fieldset disabled title="Name" {...args}>
-        <FormControl grid={3}>
+      <FieldsetComponent legend="Name" {...args}>
+        <FormControl grid={3} align="top">
           <SelectWrapper
             name="prefix"
-            error={false}
             label="Prefix"
             value={prefix}
-            onChange={prefixChangeHandler}
-            onClear={prefixClearHandler}
+            onChange={(event) => setPrefix(event.target.value)}
+            onClear={() => setPrefix('')}
           >
             <Option disabled value={undefined}>
               Prefix
@@ -54,14 +54,32 @@ const Template: Story<Props> = (args) => {
             <Option value="mr">Mr.</Option>
             <Option value="mrs">Mrs.</Option>
           </SelectWrapper>
-          <Input name="first_name" type="text" />
-          <Input name="last_name" type="text" />
+          <InputWrapper
+            onChange={(event) => setFirstName(event.target.value)}
+            label="First name"
+            errorMessage={'Error message'}
+            error={false}
+            value={firstName}
+            helperText={'Helper text'}
+            name="first-name"
+            type="text"
+          />
+          <InputWrapper
+            onChange={(event) => setLastName(event.target.value)}
+            label="Last name"
+            errorMessage={'Error message'}
+            error={false}
+            value={lastName}
+            helperText={'Helper text'}
+            name="last-name"
+            type="text"
+          />
         </FormControl>
-      </Fieldset>
+      </FieldsetComponent>
     </Form>
   );
 };
 
-export const FieldsetEl = Template.bind({});
+export const Fieldset = Template.bind({});
 
-FieldsetEl.args = {};
+Fieldset.args = {};
