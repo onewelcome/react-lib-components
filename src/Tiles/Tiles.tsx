@@ -14,19 +14,19 @@ export const Tiles = ({ children, className, loading = false, ...rest }: Props) 
         <Tile
           key="placeholder1"
           title="placeholder"
-          imageProps={{ src: 'placeholder', alt: 'placeholder' }}
+          imageProps={{ src: 'placeholder' }}
           loading={true}
         />,
         <Tile
           key="placeholder2"
           title="placeholder"
-          imageProps={{ src: 'placeholder', alt: 'placeholder' }}
+          imageProps={{ src: 'placeholder' }}
           loading={true}
         />,
         <Tile
           key="placeholder3"
           title="placeholder"
-          imageProps={{ src: 'placeholder', alt: 'placeholder' }}
+          imageProps={{ src: 'placeholder' }}
           loading={true}
         />,
       ];

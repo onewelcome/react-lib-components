@@ -63,3 +63,7 @@
   font-size: 1.25rem;
   pointer-events: none;
 }
+
+.disabled {
+  color: var(--disabled);
+}

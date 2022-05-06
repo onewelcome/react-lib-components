@@ -1,14 +1,15 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 import { BaseModal } from '../BaseModal/BaseModal';
 import { BaseModalContent } from '../BaseModal/BaseModalContent/BaseModalContent';
 import { DialogActions } from './DialogActions/DialogActions';
 import classes from './Dialog.module.scss';
 import { DialogTitle } from './DialogTitle/DialogTitle';
-import { Button, Props as ButtonProps } from '../Button/Button';
+import { Button, Props as ButtonProps } from '../../Button/Button';
 import { labelId, descriptionId } from '../BaseModal/BaseModalContext';
+import { generateID } from '../../util/helper';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  id: string;
+  id?: string;
   open: boolean;
   children: React.ReactNode;
   alignActions: 'left' | 'right';
@@ -17,6 +18,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   primaryAction: Action;
   secondaryAction?: Action;
   zIndex?: number;
+  disableEscapeKeyDown?: boolean;
 }
 
 export interface Action extends Omit<ButtonProps, 'variant' | 'ref'> {
@@ -34,8 +36,10 @@ export const Dialog = ({
   primaryAction,
   secondaryAction,
   zIndex,
+  disableEscapeKeyDown = true,
   ...restProps
 }: Props) => {
+  const [dialogId] = useState(id ?? generateID(20));
   const { label: primaryLabel, ...restOfPrimaryAction } = primaryAction;
   const PrimaryButton = (
     <Button key="primary" {...restOfPrimaryAction}>
@@ -63,16 +67,21 @@ export const Dialog = ({
   return (
     <BaseModal
       {...restProps}
-      id={id}
+      id={dialogId}
       className={classes['dialog']}
       containerClassName={classes['container']}
       open={open}
       disableBackdrop
       onClose={onClose}
       zIndex={zIndex}
+      disableEscapeKeyDown={disableEscapeKeyDown}
     >
-      <DialogTitle id={labelId(id)} title={title} />
-      <BaseModalContent id={descriptionId(id)} className={classes['content']} disableAutoFocus>
+      <DialogTitle id={labelId(dialogId)} title={title} />
+      <BaseModalContent
+        id={descriptionId(dialogId)}
+        className={classes['content']}
+        disableAutoFocus
+      >
         {children}
       </BaseModalContent>
       <DialogActions align={alignActions}>
@@ -82,12 +91,14 @@ export const Dialog = ({
       </DialogActions>
       <input
         autoFocus
+        aria-hidden={true}
         style={{
           position: 'absolute',
           width: 0,
           height: 0,
           opacity: 0,
         }}
+        maxLength={0}
         tabIndex={-1}
         onKeyPress={onHiddenInputKeyPress}
       />

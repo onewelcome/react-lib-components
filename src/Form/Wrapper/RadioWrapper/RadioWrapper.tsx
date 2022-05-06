@@ -27,8 +27,6 @@ export const RadioWrapper = ({
   const { errorId, helperId } = useWrapper(value);
 
   useEffect(() => {
-    // @ts-ignore
-    // @TODO remove ignore after merging UCL-89
     if (fieldsetProps.legend === undefined) {
       console.error(
         `You should give your Fieldset component a legend prop so a legend element is rendered. This error was thrown in RadioWrapper. You can add this legend prop through the fieldsetProps prop by passing an object (fieldsetProps={{ legend: "legend here" }})`

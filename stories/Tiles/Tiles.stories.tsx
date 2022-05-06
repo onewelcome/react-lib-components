@@ -6,16 +6,19 @@ import { ContextMenu } from '../../src/ContextMenu/ContextMenu';
 import { IconButton } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
 import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
-import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
-  title: 'Stories/UI/Tiles',
+  title: 'Stories/UI/Tiles/Tiles',
   component: TitlesComponent,
 };
 
 export default meta;
 
 const Template: Story<Props> = (args) => {
+  const addToFavorites = () => {
+    window.alert('Add to favorites!');
+  };
+
   return (
     <TitlesComponent {...args}>
       <Tile
@@ -23,10 +26,9 @@ const Template: Story<Props> = (args) => {
         title="Tile1"
         imageProps={{
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
-          alt: 'OneWelcome logo',
         }}
-        iconProps={{ icon: Icons.Forbidden }}
-        menu={
+        enabled={false}
+        tileAction={
           <ContextMenu
             id="context_menu_1"
             placement={{ vertical: 'bottom', horizontal: 'right' }}
@@ -46,33 +48,21 @@ const Template: Story<Props> = (args) => {
       <Tile
         key="tile2"
         title="Tile2"
-        iconProps={{ icon: Icons.Bell }}
-        menu={
-          <ContextMenu
-            id="context_menu_2"
-            placement={{ vertical: 'bottom', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            trigger={
-              <IconButton title="context menu">
-                <Icon icon={Icons.EllipsisAlt} />
-              </IconButton>
-            }
-          >
-            <ContextMenuItem>Item 1</ContextMenuItem>
-            <ContextMenuItem>Item 2</ContextMenuItem>
-            <ContextMenuItem>Item 3</ContextMenuItem>
-          </ContextMenu>
+        enabled={true}
+        tileAction={
+          <IconButton onClick={addToFavorites} title="Add to favorite">
+            <Icon icon={Icons.StarAlt} />
+          </IconButton>
         }
       />
       <Tile
         key="tile3"
         title="Tile3"
         imageProps={{
-          src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
-          alt: 'OneWelcome logo',
+          src: '',
         }}
-        iconProps={{ icon: Icons.Checkmark }}
-        menu={
+        enabled={true}
+        tileAction={
           <ContextMenu
             id="context_menu_3"
             placement={{ vertical: 'bottom', horizontal: 'right' }}
@@ -94,24 +84,12 @@ const Template: Story<Props> = (args) => {
         title="Tile4"
         imageProps={{
           src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
-          alt: 'OneWelcome logo',
         }}
-        iconProps={{ icon: Icons.Bell }}
-        menu={
-          <ContextMenu
-            id="context_menu_4"
-            placement={{ vertical: 'bottom', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            trigger={
-              <IconButton title="context menu">
-                <Icon icon={Icons.EllipsisAlt} />
-              </IconButton>
-            }
-          >
-            <ContextMenuItem>Item 1</ContextMenuItem>
-            <ContextMenuItem>Item 2</ContextMenuItem>
-            <ContextMenuItem>Item 3</ContextMenuItem>
-          </ContextMenu>
+        enabled={false}
+        tileAction={
+          <IconButton onClick={addToFavorites} title="Add to favorite">
+            <Icon icon={Icons.Star} />
+          </IconButton>
         }
       />
     </TitlesComponent>

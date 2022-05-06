@@ -118,7 +118,7 @@ const Template: Story<Props> = (args) => {
           error={input1.error}
           value={input1.value}
           label="Label for this inputfield"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(event) => {
             setInput1((prevState) => ({
               ...prevState,
               value: event.target.value,
@@ -127,7 +127,7 @@ const Template: Story<Props> = (args) => {
         />
       </FormControl>
       <FormControl>
-        <Fieldset title="Subscribe to newsletter">
+        <Fieldset legend="Subscribe to newsletter">
           <Toggle
             onChange={() =>
               setSubscribe((prevState) => ({ ...prevState, checked: !prevState.checked }))
@@ -140,7 +140,7 @@ const Template: Story<Props> = (args) => {
         </Fieldset>
       </FormControl>
       <FormControl>
-        <Fieldset title="Address" noBackground noPadding>
+        <Fieldset legend="Address" noBackground noPadding>
           <FormControl grid={3}>
             <InputWrapper
               helperText="Input your streetname"
@@ -150,7 +150,7 @@ const Template: Story<Props> = (args) => {
               error={address.street.error}
               value={address.street.value}
               label="Streetname"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event) => {
                 setAddress((prevState) => ({
                   ...prevState,
                   street: {
@@ -169,7 +169,7 @@ const Template: Story<Props> = (args) => {
               error={address.housenumber.error}
               value={address.housenumber.value}
               label="House number"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event) => {
                 setAddress((prevState) => ({
                   ...prevState,
                   housenumber: {
@@ -189,7 +189,7 @@ const Template: Story<Props> = (args) => {
               error={address.postcode.error}
               value={address.postcode.value}
               label="Postal code"
-              onBlur={(event: React.FocusEvent<HTMLInputElement>) => {
+              onBlur={(event) => {
                 if (!/[0-9]{4}[a-zA-Z]{2}$/.test(event.target.value) && event.target.value.length) {
                   setAddress((prevState) => ({
                     ...prevState,
@@ -201,7 +201,7 @@ const Template: Story<Props> = (args) => {
                   }));
                 }
               }}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event) => {
                 setAddress((prevState) => ({
                   ...prevState,
                   postcode: {
@@ -220,7 +220,7 @@ const Template: Story<Props> = (args) => {
           name="checkbox-group"
           error={checkbox.error}
           errorMessage=""
-          fieldsetProps={{ title: 'Would you like to make an appointment?' }}
+          fieldsetProps={{ legend: 'Would you like to make an appointment?' }}
         >
           <Checkbox
             onChange={(e) => {
@@ -252,7 +252,7 @@ const Template: Story<Props> = (args) => {
         <RadioWrapper
           name="callback"
           onChange={(e) => setCallBack((prevState) => ({ ...prevState, value: e.target.value }))}
-          fieldsetProps={{ title: 'Would you like us to call you back?' }}
+          fieldsetProps={{ legend: 'Would you like us to call you back?' }}
           value={callBack.value}
           error={callBack.error}
         >
@@ -260,7 +260,7 @@ const Template: Story<Props> = (args) => {
           <Radio value="no">No</Radio>
         </RadioWrapper>
         {callBack.value === 'yes' ? (
-          <Fieldset title="Callback time" hideTitle>
+          <Fieldset legend="Callback time" hideLegend>
             <InputWrapper
               onChange={callBackTimeOnChangeHandler}
               label="Callback time"

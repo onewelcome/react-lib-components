@@ -60,9 +60,12 @@ export const Checkbox = ({
   const determineLabel = () => {
     if (label) {
       return label;
+    } else if (children === undefined) {
+      throw new Error(
+        'Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component.'
+      );
     }
 
-    console.log(children, label);
     if (typeof children === 'string') {
       return children;
     }
@@ -74,16 +77,17 @@ export const Checkbox = ({
 
   const renderNestedCheckboxes = () => (
     <ul className={classes['checkbox-list']}>
-      {React.Children.map(children as ReactElement[], (child) => {
+      {React.Children.map(children as ReactNode[], (child) => {
         return (
           <li>
             <Checkbox
-              {...child.props}
+              {...(child as ReactElement).props}
               parentHelperId={parentHelperId}
               parentErrorId={parentErrorId}
               error={error}
+              disabled={disabled ? disabled : (child as CheckboxProps).disabled}
             >
-              {child.props.children}
+              {(child as ReactElement).props.children}
             </Checkbox>
           </li>
         );
@@ -99,6 +103,8 @@ export const Checkbox = ({
   };
 
   const renderToggle = () => React.Children.toArray(children).filter(isToggle);
+
+  const iconClasses = [classes['input'], disabled ? classes['disabled'] : ''];
 
   /** Default return value is the default checkbox */
   return (
@@ -133,9 +139,11 @@ export const Checkbox = ({
       />
       {renderToggle()}
 
-      {indeterminate && <Icon className={classes.input} icon={Icons.MinusSquare} />}
-      {checked && !indeterminate && <Icon className={classes.input} icon={Icons.CheckmarkSquare} />}
-      {!checked && !indeterminate && <Icon className={classes.input} icon={Icons.Square} />}
+      {indeterminate && <Icon className={iconClasses.join(' ')} icon={Icons.MinusSquare} />}
+      {checked && !indeterminate && (
+        <Icon className={iconClasses.join(' ')} icon={Icons.CheckmarkSquare} />
+      )}
+      {!checked && !indeterminate && <Icon className={iconClasses.join(' ')} icon={Icons.Square} />}
       <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
     </FormSelectorWrapper>
   );

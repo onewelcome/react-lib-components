@@ -1,4 +1,6 @@
-import React, { HTMLAttributes, useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { HTMLAttributes } from '../../interfaces';
 import classes from './BaseModal.module.scss';
 import { labelId, descriptionId } from './BaseModalContext';
 
@@ -17,26 +19,8 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   disableEscapeKeyDown?: boolean;
   disableBackdrop?: boolean;
   zIndex?: number;
+  domRoot?: HTMLElement;
 }
-
-const useBackdropOnCloseClick = (
-  disableBackdrop: boolean,
-  onClose?: (event?: React.MouseEvent<HTMLElement>) => unknown
-) => {
-  const backdropRef = useRef<HTMLDivElement>(null);
-  const onBackdropClick = () => onClose && onClose();
-
-  useEffect(() => {
-    !disableBackdrop && backdropRef.current?.addEventListener('click', onBackdropClick);
-    return () => {
-      !disableBackdrop && backdropRef.current?.removeEventListener('click', onBackdropClick);
-    };
-  }, []);
-
-  return {
-    backdropRef,
-  };
-};
 
 export const useSetBodyScroll = (open: boolean) => {
   const hideBodyScroll = () => {
@@ -72,9 +56,9 @@ export const BaseModal = ({
   disableEscapeKeyDown = false,
   disableBackdrop = false,
   zIndex,
+  domRoot = document.body,
   ...restProps
 }: Props) => {
-  const { backdropRef } = useBackdropOnCloseClick(disableBackdrop, onClose);
   useSetBodyScroll(open);
 
   const handleEscKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -84,7 +68,9 @@ export const BaseModal = ({
     }
   };
 
-  return (
+  const handleBackdropClick = () => !disableBackdrop && onClose && onClose();
+
+  return createPortal(
     <div
       {...restProps}
       id={id}
@@ -99,7 +85,7 @@ export const BaseModal = ({
       onKeyDown={handleEscKeyPress}
       style={{ zIndex }}
     >
-      <div ref={backdropRef} className={classes['backdrop']}></div>
+      <div className={classes['backdrop']} onClick={handleBackdropClick}></div>
       {open && (
         <div
           style={{ zIndex: zIndex && zIndex + 1 }}
@@ -108,6 +94,7 @@ export const BaseModal = ({
           {children}
         </div>
       )}
-    </div>
+    </div>,
+    domRoot
   );
 };
