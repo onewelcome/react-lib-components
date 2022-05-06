@@ -4,6 +4,7 @@ import {
   Repeater as RepeaterComponent,
   Props,
   RepeatedComponentProps,
+  ReturnedInformation,
 } from '../../src/Repeater/Repeater';
 import RepeaterDocumentation from './Repeater.mdx';
 import { InputWrapper } from '../../src/Form/Wrapper/InputWrapper/InputWrapper';
@@ -39,6 +40,10 @@ const ComponentToRepeat = ({ onChange }: RepeatedComponentProps) => {
     onChange(inputState);
   }, []);
 
+  useEffect(() => {
+    onChange(inputState);
+  }, [inputState]);
+
   return (
     <FormControl>
       <InputWrapper
@@ -51,7 +56,6 @@ const ComponentToRepeat = ({ onChange }: RepeatedComponentProps) => {
         label="Label for this inputfield"
         onChange={(event) => {
           setInputState((prevState) => ({ ...prevState, value: event.target.value }));
-          onChange(inputState);
         }}
       />
     </FormControl>
@@ -59,26 +63,20 @@ const ComponentToRepeat = ({ onChange }: RepeatedComponentProps) => {
 };
 
 const Template: Story<Props> = () => {
-  const [tags, setTags] = useState<ComponentToRepeatState[]>([]);
+  const [tags, setTags] = useState<ReturnedInformation[]>([]);
 
-  const showChildChange = (allClonedChildren) => {
-    console.log(allClonedChildren);
-  };
-
-  const showChange = (identifier, parameter) => {
-    console.log(identifier);
-    console.log(parameter);
-  };
+  useEffect(() => {
+    console.log(tags);
+  }, [tags]);
 
   return (
     <RepeaterComponent
-      onChange={showChange}
-      onChildChange={showChildChange}
+      name="tags"
+      onChange={(array) => setTags(array)}
       addButtonLabel={'Add tag'}
       spacing={{ marginTop: 4 }}
-    >
-      <ComponentToRepeat />
-    </RepeaterComponent>
+      repeat={ComponentToRepeat}
+    />
   );
 };
 
