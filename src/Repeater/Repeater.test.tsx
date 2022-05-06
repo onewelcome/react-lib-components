@@ -17,7 +17,6 @@ const defaultParams: Props = {
     />
   ),
   addButtonLabel: 'Add tag',
-  state: { test: 'test' },
   onChange: jest.fn(),
 };
 
@@ -26,11 +25,7 @@ const createRepeater = (params?: (defaultParams: Props) => Props) => {
   if (params) {
     parameters = params(defaultParams);
   }
-  const queries = render(
-    <Repeater {...parameters} data-testid="repeater">
-      repeater content
-    </Repeater>
-  );
+  const queries = render(<Repeater {...parameters} data-testid="repeater" />);
   const repeater = queries.getByTestId('repeater');
 
   return {

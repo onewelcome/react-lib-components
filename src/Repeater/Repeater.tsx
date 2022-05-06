@@ -7,16 +7,16 @@ import { HTMLProps } from '../interfaces';
 import { generateID } from '../util/helper';
 import classes from './Repeater.module.scss';
 
-export interface Props extends HTMLProps<HTMLDivElement> {
+export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'onChange'> {
   children: ReactElement;
   addButtonLabel: string;
   spacing?: Spacing;
-  onChange?: (...parameters: unknown[]) => void;
+  onChange?: (identifier: string, state?: { [key: string]: unknown }) => void;
   onChildChange?: (allClonedChildren: ReactElement[]) => void;
 }
 
 export interface RepeatedComponentProps {
-  onChange?: (...parameters: unknown[]) => {};
+  onChange?: (state?: { [key: string]: unknown }) => {};
 }
 
 export const Repeater = ({
@@ -27,30 +27,31 @@ export const Repeater = ({
   onChildChange,
   ...rest
 }: Props) => {
+  const generateClonedChild = () => {
+    const identifier = generateID(20);
+
+    return React.cloneElement(children, {
+      onChange: (state: { [key: string]: unknown }) => {
+        onChange && onChange(identifier, state);
+      },
+      key: identifier,
+    });
+  };
+
   const [repeatedChildren, setRepeatedChildren] = useState<ReactElement[]>([generateClonedChild()]);
   const spacingForRepeatedItems = useSpacing(spacing);
 
-  function generateClonedChild() {
-    return (
-      <div
-        className={classes['repeated-child']}
-        key={generateID(20)}
-        style={{ ...spacingForRepeatedItems }}
-      >
-        {React.cloneElement(children, {
-          onChange: (...parameters: unknown[]) => onChange && onChange(parameters),
-        })}
-        <IconButton title="Remove repeated element">
-          <Icon icon={Icons.Trash} />
-        </IconButton>
-      </div>
-    );
-  }
+  const deleteRepeatedChild = (identifier: React.Key) => {
+    const updatedChildren = repeatedChildren.filter((child) => child.key !== identifier);
+
+    setRepeatedChildren(updatedChildren);
+  };
 
   const cloneChildren = () => {
     const newChild = generateClonedChild();
+    const newRepeatedChildren = [...repeatedChildren, newChild];
 
-    setRepeatedChildren((prevState) => [...prevState, newChild]);
+    setRepeatedChildren(newRepeatedChildren);
   };
 
   useEffect(() => {
@@ -59,7 +60,23 @@ export const Repeater = ({
 
   return (
     <div {...rest}>
-      {repeatedChildren}
+      {repeatedChildren.map((child, index) => (
+        <div
+          className={classes['repeated-child']}
+          style={{ ...spacingForRepeatedItems }}
+          key={child.key}
+        >
+          {child}
+          {index !== 0 && (
+            <IconButton
+              onClick={() => deleteRepeatedChild(child.key!)}
+              title="Remove repeated element"
+            >
+              <Icon icon={Icons.Trash} />
+            </IconButton>
+          )}
+        </div>
+      ))}
       <Button
         onClick={cloneChildren}
         variant="outline"
