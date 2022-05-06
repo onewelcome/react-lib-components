@@ -119,7 +119,7 @@ Checkboxes.args = {
   name: 'Example checkboxes',
   fieldsetProps: {
     legend: 'Example fieldset legend',
-    legendVariant: 'h1',
+    legendStyle: 'h1',
     hideLegend: false,
     background: '#FFF',
     noPadding: false,
@@ -212,7 +212,7 @@ NestedCheckboxes.args = {
   name: 'Electronics',
   fieldsetProps: {
     legend: 'Example fieldset legend',
-    legendVariant: 'h1',
+    legendStyle: 'h1',
     hideLegend: true,
     background: '#FFF',
     noPadding: true,

@@ -39,12 +39,7 @@ export const CheckboxWrapper = ({
     );
 
   return (
-    <Fieldset
-      {...fieldsetProps}
-      // @TODO: uncomment error prop here when UCL-89 is merged
-      // error={error}
-      required={rest.required}
-    >
+    <Fieldset {...fieldsetProps} error={error} required={rest.required}>
       <Wrapper
         {...rest}
         label=""
