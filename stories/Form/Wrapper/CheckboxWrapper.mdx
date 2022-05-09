@@ -3,17 +3,21 @@ import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@story
 <Title />
 <Subtitle />
 
-The `CheckboxWrapper` component has been created to make your life easier, as well as making sure that accessibility is taken care of in a proper way. It requires you to pass at least two props: a `name` and `fieldsetProps.legend`.
+The `CheckboxWrapper` component has been created to make your life easier, as well as making sure that accessibility is taken care of in a proper way.
+It requires you to pass at least two props: a `name` and `fieldsetProps.legend`.
 
 As the name implies, the `CheckboxWrapper` component should be used as a wrapper around your `Checkbox` components. It has a few functions that help you with retaining proper accessibility and functionality:
 
 ## It adds a Fieldset component
 
-And this `Fieldset` component requires a `legend` prop, which increases accessibility by telling screenreaders what your `Checkbox` group is used for. You will also have access to the rest of the `Fieldset` props through the `fieldsetProps` prop on the `CheckboxWrapper` component. For all of the props [see the `Fieldset` component documentation](/docs/stories-form-elements-fieldset--fieldset).
+It requires a `legend` prop, which increases accessibility by telling screenreaders what your `Checkbox` group is used for. You will also have access to the rest of the `Fieldset` props through the `fieldsetProps` prop on the `CheckboxWrapper` component.
+For all of the props [see the `Fieldset` component documentation](/docs/stories-form-elements-fieldset--fieldset).
 
 ## It enables proper accessibility features
 
-The `CheckboxWrapper` has an `error` state as well as an `errorMessage` state. The same goes for `helperText`. It will automatically set the `aria-describedby` property of all the nested `Checkbox` components to the `errorMessage` id of the parent `CheckboxWrapper` if there is one. The same goes for the `helperText`. If an individual `Checkbox` component has their own `helperText` it will be `aria-describedby` its own. If not, it will be `aria-describedby` the parent `CheckboxWrapper` `helperText`.
+The `CheckboxWrapper` has an `error` state and an `errorMessage` state. The same goes for `helperText`. It will automatically set the `aria-describedby` property of all the nested `Checkbox` components to the `errorMessage` id of the parent `CheckboxWrapper`.
+
+The same goes for the `helperText`. If an individual `Checkbox` component has its own `helperText` it will be `aria-describedby` on its own. If not, it will be `aria-describedby` the parent `CheckboxWrapper` `helperText`.
 
 You will not have to do anything for these complicated accessibility features. It's all done internally for you.
 
