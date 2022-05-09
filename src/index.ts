@@ -23,6 +23,10 @@ export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs';
 export { SnackbarProvider } from './Notifications/Snackbar/SnackbarProvider/SnackbarProvider';
 export { useSnackbar } from './Notifications/Snackbar/useSnackbar';
 
+export { useRepeater } from './hooks/useRepeater';
+
+export { generateID } from './util/helper';
+
 /** Form components */
 export { Form } from './Form/Form';
 export { Fieldset } from './Form/Fieldset/Fieldset';
