@@ -19,6 +19,7 @@ export const Option = ({
   onOptionSelect,
   disabled,
   filter,
+  value,
   ...rest
 }: Props) => {
   const [showOption, setShowOption] = useState(true);
@@ -40,6 +41,7 @@ export const Option = ({
   return (
     <li
       {...rest}
+      data-value={value}
       className={`${selected ? classes['selected-option'] : ''} ${
         disabled ? classes.disabled : ''
       } ${className ?? ''}`}

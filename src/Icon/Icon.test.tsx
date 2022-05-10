@@ -2,7 +2,9 @@ import React from 'react';
 import { Icon, Props, Icons } from './Icon';
 import { render } from '@testing-library/react';
 
-const initParams: Props = {
+interface PartialProps extends Omit<Props, 'ref'> {}
+
+const initParams: PartialProps = {
   icon: Icons.Calendar,
   color: 'rgb(26, 153, 60)',
 };
