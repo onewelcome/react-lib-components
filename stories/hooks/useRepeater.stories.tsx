@@ -41,13 +41,13 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
 
   return (
     <InputWrapper
-      helperText="Helper text for this field. Description should be short and not repeat the label"
+      helperText="Enter a tag"
       name={`input_${inputState.identifier}`}
       errorMessage={inputState.errorMessage}
       type="text"
       error={inputState.error}
       value={inputState.value}
-      label="Label for this inputfield"
+      label="Enter tag name"
       onChange={(event) => {
         setInputState((prevState) => ({ ...prevState, value: event.target.value }));
       }}
