@@ -135,6 +135,5 @@ describe('useRepeater should render', () => {
     expect(renderedItems.container.querySelector(`#${secondInputID}`)).toBeFalsy();
     const inputWrappers = renderedItems.container.querySelectorAll('.wrapper.input-wrapper');
     expect(inputWrappers.length).toBe(2);
-    renderedItems.debug();
   });
 });
