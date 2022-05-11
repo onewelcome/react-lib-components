@@ -89,12 +89,25 @@ export const filterProps = (props: any, regexPattern: RegExp, returnFiltered: bo
       return acc;
     }, {});
   } else {
-    return Object.entries(props).filter((obj) => {
-      if (!regexPattern.test(obj[0])) {
-        return obj;
+    const arrayOfKeyValuePairs = Object.entries(props).filter((obj) => {
+      if (regexPattern.test(obj[0])) {
+        return;
       }
 
-      return;
+      return obj;
     });
+
+    const returnObject: { [key: string]: unknown } = {};
+
+    arrayOfKeyValuePairs.forEach((pair) => {
+      const key: string = pair[0];
+      const value = pair[1];
+
+      if (typeof key === 'string') {
+        returnObject[key as string] = value;
+      }
+    });
+
+    return returnObject;
   }
 };
