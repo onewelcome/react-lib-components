@@ -104,7 +104,7 @@ export const filterProps = (props: any, regexPattern: RegExp, returnFiltered: bo
       const value = pair[1];
 
       if (typeof key === 'string') {
-        returnObject[key as string] = value;
+        returnObject[key] = value;
       }
     });
 
