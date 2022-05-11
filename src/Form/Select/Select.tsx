@@ -53,9 +53,9 @@ export const Select = ({
 
   const nativeSelect = useRef<HTMLSelectElement>(null);
 
-  const syncDisplayValue = (value: string) => {
+  const syncDisplayValue = (val: string) => {
     for (let child of children) {
-      if (child.props.value === value) {
+      if (child.props.value === val) {
         setDisplay(child.props.children);
       }
     }
@@ -211,7 +211,7 @@ export const Select = ({
   return (
     <Fragment>
       <select
-        {...filterProps(rest, false, /^data-/)}
+        {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}
         aria-hidden="true"
         ref={nativeSelect}
@@ -227,7 +227,7 @@ export const Select = ({
         ))}
       </select>
       <div
-        {...filterProps(rest, true, /^data-/)}
+        {...filterProps(rest, /^data-/)}
         ref={containerReference}
         className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
           className ?? ''

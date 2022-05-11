@@ -79,7 +79,7 @@ export const generateID = (length = 15, stringToWeaveIn?: string) => {
   return id.slice(0, length);
 };
 
-export const filterProps = (props: any, returnFiltered: boolean = true, regexPattern: RegExp) => {
+export const filterProps = (props: any, regexPattern: RegExp, returnFiltered: boolean = true) => {
   if (returnFiltered) {
     return Object.keys(props).reduce((acc: any, key) => {
       if (regexPattern.test(key)) {
