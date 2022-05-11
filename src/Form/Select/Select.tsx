@@ -207,10 +207,13 @@ export const Select = ({
   disabled && additionalClasses.push(classes.disabled);
   className && additionalClasses.push(className);
 
+  /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
     <Fragment>
       <select
         {...filterProps(rest, false, /^data-/)}
+        tabIndex={-1}
+        aria-hidden="true"
         ref={nativeSelect}
         key={selectValue}
         value={selectValue}

@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import readyclasses from '../../readyclasses.module.scss';
 import classes from './Fieldset.module.scss';
 import { HTMLProps } from '../../interfaces';
 import { Typography, Variant } from '../../Typography/Typography';
+import { Button } from '../../Button/Button';
 
 export interface Props extends HTMLProps<HTMLFieldSetElement> {
   children?: ReactElement | ReactElement[];
@@ -33,12 +34,22 @@ export const Fieldset = ({
   const renderChildren = () => {
     if (!children) return;
 
-    return React.Children.map(children, (child: ReactElement) =>
-      React.cloneElement(child, {
+    /* All right, so the issue is that whenever we try to add disabled and error to a component that doesn't accept it, 
+    React will throw an error. However, it might occur that we want a component inside of Fieldset because of aesthetic purposes 
+    (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
+    So instead we supply an array of components that we want to ignore and check if child.type equals one of these. */
+    const ignoredComponents: ReactNode[] = [Button];
+
+    return React.Children.map(children, (child: ReactElement) => {
+      if (ignoredComponents.includes(child.type)) {
+        return child;
+      }
+
+      return React.cloneElement(child, {
         disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
         error: child.props.error !== undefined ? child.props.error : error,
-      })
-    );
+      });
+    });
   };
 
   return (
