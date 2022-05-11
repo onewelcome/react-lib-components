@@ -6,6 +6,7 @@ import { Button } from '../../src/Button/Button';
 import { IconButton } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
 import RepeaterDocumentation from './useRepeater.mdx';
+import { generateID } from '../../src/util/helper';
 
 const meta: Meta = {
   title: 'hooks/useRepeater',
@@ -41,7 +42,7 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
   return (
     <InputWrapper
       helperText="Helper text for this field. Description should be short and not repeat the label"
-      name={`input_${identifier}`}
+      name={`input_${inputState.identifier}`}
       errorMessage={inputState.errorMessage}
       type="text"
       error={inputState.error}
@@ -77,7 +78,7 @@ const Template: Story = () => {
       {repeatedComponents.map((component, index) => (
         <div style={{ display: 'flex', width: '100%', marginBottom: '16px' }} key={component.key}>
           <div style={{ flexGrow: '1' }}>
-            {React.cloneElement(component, { identifier: `input_${index}` })}
+            {React.cloneElement(component, { identifier: generateID() })}
           </div>
           {index !== 0 && (
             <div style={{ marginTop: '10px', marginLeft: '8px' }}>
