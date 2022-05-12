@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Ref, useEffect, useState } from 'react';
 import classes from './Input.module.scss';
 import readyclasses from '../../readyclasses.module.scss';
 import { Icon, Icons } from '../../Icon/Icon';
@@ -18,55 +18,97 @@ export type Type =
   | 'hidden'
   | typeof dateTypes[number];
 
-export interface Props extends HTMLProps<HTMLInputElement> {
+export interface Props extends Omit<HTMLProps<HTMLInputElement>, 'ref'> {
   wrapperProps?: HTMLProps<HTMLInputElement>;
   labeledBy?: string;
   type: Type;
   error?: boolean;
+  suffix?: string;
+  prefix?: string;
 }
 
-export const Input = ({
-  error = false,
-  className,
-  name,
-  style,
-  wrapperProps,
-  type,
-  labeledBy,
-  ...rest
-}: Props) => {
-  useEffect(() => {
-    if (name === undefined) {
-      throw new Error("Please give your <Input /> component a 'name' attribute");
-    }
-  }, []);
+export const Input = React.forwardRef(
+  (
+    {
+      error = false,
+      className,
+      name,
+      style,
+      wrapperProps,
+      type,
+      labeledBy,
+      prefix,
+      suffix,
+      disabled,
+      onFocus,
+      onBlur,
+      ...rest
+    }: Props,
+    ref: Ref<HTMLInputElement>
+  ) => {
+    const [focus, setFocus] = useState(false);
 
-  const inputClassNames = [classes['input']];
-  error && inputClassNames.push(classes['error']);
-  (dateTypes as ReadonlyArray<string>).includes(type) &&
-    inputClassNames.push(classes['remove-extra-indent']);
-  className && inputClassNames.push(className);
+    useEffect(() => {
+      if (name === undefined) {
+        throw new Error("Please give your <Input /> component a 'name' attribute");
+      }
+    }, []);
 
-  const iconClassNames = [classes['warning']];
-  (dateTypes as ReadonlyArray<string>).includes(type) &&
-    iconClassNames.push(classes['extra-indent']);
+    const inputClassNames = [classes['input']];
 
-  return (
-    <div
-      {...wrapperProps}
-      style={{ ...style }}
-      className={`${classes['input-wrapper']} ${wrapperProps?.className ?? ''} ${
-        type === 'hidden' ? readyclasses['hidden'] : ''
-      }`}
-    >
-      <input
-        {...rest}
-        aria-labelledby={labeledBy}
-        type={type}
-        name={name}
-        className={inputClassNames.join(' ')}
-      />
-      {error && <Icon className={iconClassNames.join(' ')} icon={Icons.Warning} />}
-    </div>
-  );
-};
+    (dateTypes as ReadonlyArray<string>).includes(type) &&
+      inputClassNames.push(classes['remove-extra-indent']);
+    className && inputClassNames.push(className);
+
+    const iconClassNames = [classes['warning']];
+    (dateTypes as ReadonlyArray<string>).includes(type) &&
+      iconClassNames.push(classes['extra-indent']);
+
+    const wrapperClasses = [classes['input-wrapper']];
+
+    wrapperProps?.className && wrapperClasses.push(wrapperProps.className);
+    type === 'hidden' && wrapperClasses.push(readyclasses['hidden']);
+    prefix && wrapperClasses.push(classes['prefix']);
+    suffix && wrapperClasses.push(classes['suffix']);
+    disabled && wrapperClasses.push(classes['disabled']);
+    error && wrapperClasses.push(classes['error']);
+    focus && wrapperClasses.push(classes['focus']);
+
+    return (
+      <div
+        {...wrapperProps}
+        style={{ ...style }}
+        className={`${classes['input-wrapper']} ${wrapperClasses.join(' ')}`}
+      >
+        {prefix && (
+          <div data-prefix className={classes['prefix']}>
+            <span>{prefix}</span>
+          </div>
+        )}
+        <input
+          {...rest}
+          ref={ref}
+          onFocus={(event) => {
+            setFocus(true);
+            onFocus && onFocus(event);
+          }}
+          onBlur={(event) => {
+            setFocus(false);
+            onBlur && onBlur(event);
+          }}
+          aria-labelledby={labeledBy}
+          type={type}
+          name={name}
+          disabled={disabled}
+          className={inputClassNames.join(' ')}
+        />
+        {suffix && (
+          <div data-suffix className={classes['suffix']}>
+            <span>{suffix}</span>
+          </div>
+        )}
+        {error && <Icon className={iconClassNames.join(' ')} icon={Icons.Warning} />}
+      </div>
+    );
+  }
+);
