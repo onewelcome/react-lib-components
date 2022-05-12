@@ -3,9 +3,9 @@ import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@story
 <Title />
 <Subtitle />
 
-The `useRepeater` hook is written to help with duplicating a, or a set of, component(s). This can be useful, if a user is allowed enter 1 or multiple entries of the same set of fields.
+The `useRepeater` hook is written to help with duplicating a, or a set of, component(s). This can be useful if a user can enter 1 or multiple entries of the same set of fields.
 
-A practical example of this would be `Tags` for example. Keywords that could be searched by a user to find the thing they're looking for.
+A practical example of this would be `Tags`, for example. Keywords that could be searched by a user to find the thing they're looking for.
 
 The `useRepeater` hook only requires you to pass the React Component you want to repeat. This has to be a react component and has to be passed in its component form **not** as a reference (meaning `<Componentname />` and not `Componentname`). An advantage of this, is that you can immediately pass props to that component.
 
@@ -17,8 +17,8 @@ What `useRepeater` returns are three values:
 
 ## `repeat()`
 
-The repeat function does what its name suggests, create another instance of your component. You can, for example, create your own `Button` component, which has an `onClick` listener, that executes `repeat()` whenever its clicked on. This will add another
-instance of the component you want to repeat inside of the `repeatedComponents` array.
+The repeat function does what its name suggests, create another instance of your component. You can, for example, create your own `Button` component, which has an `onClick` listener that executes `repeat()` whenever it's clicked on. This will add another
+instance of the component you want to repeat inside the `repeatedComponents` array.
 
 ## `remove(component: JSX.Element)`
 
@@ -75,6 +75,6 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
 
 As you can see in the `ComponentToRepeat` example above, we simply define an `onChange` function that we execute whenever the `inputState` changes. We also pass an `identifier` to the component so we can give the `InputWrapper` inside a unique `name` attribute (which will also be added as an `id`).
 
-If you see the code example above the code snippet (click `Show code` in the lower right corner) you see that the `return` statement contains a loop in which we `map` over the `repeatedComponents` array that we get back from the `useRepeater` hook. Then, in order to add a unique `identifier` prop, we simply use `React.cloneElement` to clone the `compnent` we loop over and add an `identfier` prop with a unique value that we generate with the `generateID` function.
+If you see the code example above the code snippet (click `Show code` in the lower right corner), you see that the `return` statement contains a loop in which we `map` over the `repeatedComponents` array that we get back from the `useRepeater` hook. Then, in order to add a unique `identifier` prop, we simply use `React.cloneElement` to clone the `component` we loop over and add an `identifier` prop with a unique value that we generate with the `generateID` function.
 
-Now, whenever an `InputWrapper` component fires its `onChange` event, we get back that `inputState` that contains this `UID` and it's corresponding state. Make sure that the first element inside of your `map` function has a unique `key` property! If loop over the `repeatedComponents` array, then each component has a unique `key` prop that you can use.
+Now, whenever an `InputWrapper` component fires its `onChange` event, we get back that `inputState` that contains this `UID` and it's corresponding state. Make sure that the first element inside of your `map` function has a unique `key` property! If you loop over the `repeatedComponents` array, then each component has a unique `key` prop that you can use.
