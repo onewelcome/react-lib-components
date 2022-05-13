@@ -3,9 +3,9 @@ import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@story
 <Title />
 <Subtitle />
 
-The `RadioWrapper` component has been created to make your life easier, as well as making sure that accessibility is taken care of in a proper way. It requires you to pass at least four props: a `name`, `fieldsetProps.legend`, `value` and an `onChange`.
+The `RadioWrapper` component has been created to make your life easier, as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least four props: a `name`, `fieldsetProps.legend`, `value` and an `onChange`.
 
-The `value` prop should be linked to a React `state`, and the `onChange` prop should set this `state` to the `event.target.value` it receives. You can set the initial checked radio if you set the `state` to the `value` of the `Radio` component you want to be checked.
+The `value` prop should be linked to a React `state`, and the `onChange` prop should set this `state` to the `event.target.value` it receives. You can set the initially checked radio if you set the `state` to the `value` of the `Radio` component you want to be checked.
 
 As the name implies, the `RadioWrapper` component should be used as a wrapper around your `Radio` components. It has a few functions that help you with retaining proper accessibility and functionality:
 
@@ -15,9 +15,9 @@ And this `Fieldset` component requires a `legend` prop, which increases accessib
 
 ## It enables proper accessibility features
 
-The `RadioWrapper` component has an internal ID for its helper text and error message. The children `Radio` components will be linked to this helper text and error message through the `aria-describedby` accessibility feature automatically if needed. The way this works is as follows: if a nested `Radio` component has a helper text, the id of this helper text will be its `aria-describedby` value. In case the `Radio` component does **not** have a helper text, the `aria-describedby` value will the the ID of the helper text that it's parent `RadioWrapper` component has. Whenever the `RadioWrapper` has an error, and the `errorMessage` prop is filled, the `aria-describedby` attribute of all child `Radio` components will be the ID of this `errorMessage`.
+The `RadioWrapper` component has an internal ID for its helper text and error message. The children `Radio` components will be linked to this helper text and error message through the `aria-describedby` accessibility feature automatically if needed. This works as follows: if a nested `Radio` component has a helper text, the id of this helper text will be its `aria-describedby` value. In case the `Radio` component does **not** have a helper text, the `aria-describedby` value will be the ID of the helper text that its parent `RadioWrapper` component has. Whenever the `RadioWrapper` has an error, and the `errorMessage` prop is filled, the `aria-describedby` attribute of all child `Radio` components will be the ID of this `errorMessage`.
 
-You will not have to do anything for these complicated accessibility features. It's all done internally for you.
+You will not have to do anything about these complicated accessibility features. It's all done internally for you.
 
 ## It gives styling on error or disabled
 
@@ -25,7 +25,7 @@ The disabled state for all `Radio` components within the `RadioWrapper` can be c
 
 # Examples
 
-The story below is controlled by Storybook. Use the proptable at the bottom to configure it to your liking.
+The story below is controlled by Storybook. Use the Props table at the bottom to configure it to your liking.
 
 <Canvas>
   <Story id="stories-form-wrapper-radiowrapper--radio-wrapper" />
