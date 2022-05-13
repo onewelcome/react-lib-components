@@ -73,8 +73,8 @@
   }
 }
 
-[data-prefix],
-[data-suffix] {
+.input-wrapper [data-prefix],
+.input-wrapper [data-suffix] {
   transition: all 0.2s ease-in-out;
   // background-color: #FFF;
   display: block;
