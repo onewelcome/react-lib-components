@@ -23,8 +23,8 @@ input {
   font-size: 1.125rem;
 }
 
-[data-prefix],
-[data-suffix] {
+.input-wrapper [data-prefix],
+.input-wrapper [data-suffix] {
   transform: translateY(-0.125rem);
 }
 

@@ -65,5 +65,6 @@ InputWrapperEl.args = {
   value: '',
   inputProps: {
     prefix: 'https://',
+    suffix: '',
   },
 };
