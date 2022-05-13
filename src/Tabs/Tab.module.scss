@@ -1,0 +1,41 @@
+.tab {
+  border: 0;
+  border-bottom: var(--tab-border-width);
+  border-style: var(--tab-border-style);
+  border-color: transparent;
+  border-radius: 0;
+  font-size: var(--button-font-size);
+  line-height: var(--button-font-size);
+  margin: 0;
+  padding: 0.25rem 0 1rem 0;
+  min-height: 2.5rem;
+  cursor: pointer;
+  transition-property: border-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  font-family: var(--font-family);
+  background-color: transparent;
+  font-weight: bold;
+  color: transparent;
+  white-space: nowrap;
+  position: relative;
+
+  // transition to bold will alter the width of the tab and therefore all following tabs
+  // to prevent this from happening, the bold text is our default state/width
+  &:before {
+    font-weight: normal;
+    position: absolute;
+    color: var(--default);
+    content: attr(data-text);
+    opacity: 1;
+  }
+
+  &.selected {
+    border-bottom-color: var(--color-primary);
+    color: initial;
+
+    &:before {
+      opacity: 0;
+    }
+  }
+}
