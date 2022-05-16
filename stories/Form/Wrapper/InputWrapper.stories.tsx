@@ -63,4 +63,8 @@ InputWrapperEl.args = {
   errorMessage: 'This is an error message',
   error: false,
   value: '',
+  inputProps: {
+    prefix: 'https://',
+    suffix: '',
+  },
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Input, Type, Props as InputProps } from '../../Input/Input';
 import classes from './InputWrapper.module.scss';
 import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
@@ -39,15 +39,38 @@ export const InputWrapper = ({
     helperId,
     labelId,
   } = useWrapper(value, inputProps?.placeholder, type);
+  const [labelStyleObject, setLabelStyleObject] = useState({});
+
+  const wrapper = useRef<HTMLDivElement>(null);
+  const input = useRef<HTMLInputElement>(null);
+
+  const labelClasses = [classes['input-label']];
+
+  hasFocus && labelClasses.push(classes['focus']);
+
+  useEffect(() => {
+    if (wrapper.current && input.current && inputProps?.prefix) {
+      const prefixDifference =
+        input.current.getBoundingClientRect().left -
+        wrapper.current.getBoundingClientRect().left +
+        4;
+
+      setLabelStyleObject({
+        left: `${prefixDifference}px`,
+      });
+    }
+  }, [wrapper.current, input.current, inputProps?.prefix]);
 
   return (
     <Wrapper
       {...rest}
+      ref={wrapper}
       name={name}
       className={classes['input-wrapper']}
       labelProps={{
         id: labelId,
-        className: `${classes['input-label']} ${hasFocus ? classes['focus'] : ''}`,
+        className: labelClasses.join(' '),
+        style: { ...labelStyleObject },
       }}
       floatingLabelActive={floatingLabelActive}
       errorId={errorId}
@@ -62,6 +85,8 @@ export const InputWrapper = ({
     >
       <Input
         {...inputProps}
+        wrapperProps={{ className: floatingLabelActive ? classes['floating-label-active'] : '' }}
+        ref={input}
         aria-labelledby={labelId}
         aria-describedby={error ? errorId : helperId}
         onChange={onChange}

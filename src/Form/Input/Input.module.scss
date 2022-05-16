@@ -1,31 +1,41 @@
 .input-wrapper {
   position: relative;
-}
-
-.input {
-  height: 4rem;
+  display: flex;
+  align-items: center;
   padding: 0 1.25rem;
   border-color: var(--input-border-color);
   border-style: var(--input-border-style);
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
   transition: all 0.2s ease-in-out;
-  color: var(--greyed-out);
-  font-size: var(--font-size);
-  font-family: var(--font-family);
-  width: 100%;
-  box-sizing: border-box;
 
-  &:disabled {
-    color: var(--greyed-out);
+  &:hover:not(:disabled) {
+    border-color: var(--default);
+  }
+
+  &.disabled {
     background-color: var(--disabled);
     border-color: #fff;
     cursor: not-allowed;
   }
 
-  &:hover:not(:disabled) {
-    border-color: var(--default);
+  &.error {
+    border-color: var(--error);
   }
+
+  &.focus {
+    border-color: var(--color-primary);
+  }
+}
+
+.input {
+  height: 4rem;
+  border: 0;
+  color: var(--greyed-out);
+  font-size: var(--font-size);
+  font-family: var(--font-family);
+  width: 100%;
+  box-sizing: border-box;
 
   &:focus:not(:disabled) {
     outline: none;
@@ -33,8 +43,7 @@
   }
 }
 
-.error {
-  border-color: var(--error);
+.error input {
   color: var(--error);
   padding-right: 3.75rem;
 
@@ -62,4 +71,12 @@
   &.extra-indent {
     right: 3.75rem;
   }
+}
+
+.input-wrapper [data-prefix],
+.input-wrapper [data-suffix] {
+  transition: all 0.2s ease-in-out;
+  // background-color: #FFF;
+  display: block;
+  z-index: 1;
 }
