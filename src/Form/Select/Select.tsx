@@ -185,7 +185,7 @@ export const Select = ({
 
   const statusIcon = () => {
     if (error) {
-      return <Icon className={classes['warning']} icon={Icons.Warning} />;
+      return <Icon className={classes['warning']} icon={Icons.Error} />;
     }
 
     if (value.length !== 0 && onClear) {

@@ -107,7 +107,7 @@ export const Input = React.forwardRef(
             <span>{suffix}</span>
           </div>
         )}
-        {error && <Icon className={iconClassNames.join(' ')} icon={Icons.Warning} />}
+        {error && <Icon className={iconClassNames.join(' ')} icon={Icons.Error} />}
       </div>
     );
   }
