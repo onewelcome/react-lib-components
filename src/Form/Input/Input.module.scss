@@ -15,7 +15,7 @@
   }
 
   &.disabled,
-  &.disabled > input {
+  &.disabled input {
     background-color: var(--disabled);
     border-color: #fff;
     cursor: not-allowed;
