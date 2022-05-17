@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   padding: 0 1.25rem;
+  background-color: var(--input-background-color);
   border-color: var(--input-border-color);
   border-style: var(--input-border-style);
   border-width: var(--input-border-width);
@@ -13,7 +14,8 @@
     border-color: var(--default);
   }
 
-  &.disabled {
+  &.disabled,
+  &.disabled input {
     background-color: var(--disabled);
     border-color: #fff;
     cursor: not-allowed;
@@ -76,7 +78,6 @@
 .input-wrapper [data-prefix],
 .input-wrapper [data-suffix] {
   transition: all 0.2s ease-in-out;
-  // background-color: #FFF;
   display: block;
   z-index: 1;
 }
