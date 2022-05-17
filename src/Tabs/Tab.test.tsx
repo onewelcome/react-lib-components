@@ -28,4 +28,14 @@ describe('Tab should render', () => {
 
     expect(tab).toBeTruthy();
   });
+
+  it('should be selected when prop selected is passed', () => {
+    const { tab } = createTab((defaultParams) => ({
+      ...defaultParams,
+      selected: true,
+    }));
+
+    expect(tab).toHaveAttribute('aria-selected', 'true');
+    expect(tab).toHaveAttribute('tabIndex', '0');
+  });
 });

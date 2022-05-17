@@ -24,6 +24,7 @@ interface CSSProperties {
   snackbarSuccessBackgroundColor?: string;
   snackbarErrorBackgroundColor?: string;
   snackbarBorderRadius?: string;
+  tabsBackgroundColor?: string;
   tabBorderWidth?: string;
   tabBorderStyle?: string;
   tablistBorderWidth?: string;
@@ -76,6 +77,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     snackbarSuccessBackgroundColor: '#008a28',
     snackbarErrorBackgroundColor: '#e22a1d',
     snackbarBorderRadius: '8px',
+    tabsBackgroundColor: '#FFF',
     tabBorderWidth: '2px',
     tabBorderStyle: 'solid',
     tablistBorderWidth: '1px',

@@ -1,39 +1,41 @@
 import React, { HTMLAttributes, ReactElement, useState } from 'react';
-import { Tab, Props as TabProps } from './Tab';
+import { TabList, Props as TabListProps } from './TabList';
+import { TabPanels, Props as TabPanelsProps } from './TabPanels';
 import classes from './Tabs.module.scss';
 
-type ChildrenType = ReactElement<TabProps, typeof Tab>;
+type TabListType = ReactElement<TabListProps, typeof TabList>;
+type TabPanelsType = ReactElement<TabPanelsProps, typeof TabPanels>;
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ChildrenType | ChildrenType[];
-  'aria-label': string;
+  children: (TabListType | TabPanelsType)[];
   selected?: number;
 }
 
-export const Tabs = ({
-  children,
-  'aria-label': ariaLabel,
-  selected = 0,
-  className,
-  ...rest
-}: Props) => {
+export const Tabs = ({ children, selected = 0, className, ...rest }: Props) => {
   const [selectedTab, setSelectedTab] = useState(selected);
 
+  const changeTab = (index: number) => {
+    setSelectedTab(index);
+  };
+
   const renderTabs = () =>
-    React.Children.map(children, (child, index) =>
-      React.cloneElement(child, {
-        selected: selectedTab === index,
-        onClick: () => setSelectedTab(index),
-      })
-    );
+    React.Children.map(children, (child) => {
+      if (child.type === TabList) {
+        return React.cloneElement(child as TabListType, {
+          selected: selectedTab,
+          onTabChange: changeTab,
+        });
+      } else if (child.type === TabPanels) {
+        return React.cloneElement(child as TabPanelsType, {
+          selected: selectedTab,
+        });
+      } else {
+        return;
+      }
+    });
 
   return (
-    <div
-      {...rest}
-      className={`${classes['tabs']} ${className ?? ''}`}
-      role="tabs"
-      aria-label={ariaLabel}
-    >
+    <div {...rest} className={`${classes['tabs']} ${className ?? ''}`}>
       {renderTabs()}
     </div>
   );

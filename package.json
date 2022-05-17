@@ -17,13 +17,15 @@
     "analyze": "size-limit --why",
     "build": "dts build",
     "build-storybook": "build-storybook",
+    "dev": "npm-run-all -p start test:watch storybook",
     "lint": "dts lint",
     "prepare": "husky install && dts build",
     "size": "size-limit",
     "start": "dts watch",
     "prettier": "prettier --write --ignore-path .gitignore \"**/*.+(ts|tsx|scss|mdx)\"",
     "storybook": "start-storybook -p 6006",
-    "test": "dts test --passWithNoTests"
+    "test": "dts test --passWithNoTests",
+    "test:watch": "dts test --passWithNoTests --watch"
   },
   "jest": {
     "testEnvironment": "jsdom"
@@ -75,6 +77,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest-junit": "^13.0.0",
     "lint-staged": "^12.3.7",
+    "npm-run-all": "^4.1.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
