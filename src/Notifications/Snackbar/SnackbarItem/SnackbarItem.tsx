@@ -51,7 +51,7 @@ export const SnackbarItem = ({
 
   const getVariantIcon = () => {
     if (variant === 'error') {
-      return Icons.TimesCircleAlt;
+      return Icons.Error;
     }
     return variant === 'success' ? Icons.CheckmarkCircleBreakout : Icons.InfoCircle;
   };

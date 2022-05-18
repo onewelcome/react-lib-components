@@ -71,6 +71,6 @@ describe('Error status', () => {
     const { textarea } = createTextarea({ error: true });
 
     expect(textarea).toHaveClass('error');
-    expect(textarea.nextElementSibling).toHaveClass('icon-warning');
+    expect(textarea.nextElementSibling).toHaveClass('icon-error-circle');
   });
 });

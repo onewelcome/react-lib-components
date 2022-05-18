@@ -52,7 +52,7 @@ export const CheckboxWrapper = ({
           } ${helperProps?.className ?? ''}`,
         }}
         error={error}
-        errorMessageIcon={Icons.Warning}
+        errorMessageIcon={Icons.Error}
         errorId={errorId}
       >
         {renderChildren()}

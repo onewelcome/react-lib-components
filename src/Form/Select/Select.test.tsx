@@ -93,7 +93,7 @@ describe('Select should render', () => {
     expect(select).toHaveClass('error');
     expect(button).toHaveAttribute('aria-invalid', 'true');
     expect(select.querySelector('[data-clear]')).not.toBeInTheDocument();
-    expect(select.querySelector('.icon-warning')).toBeInTheDocument();
+    expect(select.querySelector('.icon-error-circle')).toBeInTheDocument();
   });
 });
 

@@ -32,7 +32,7 @@ export const Textarea = ({
         <Icon
           {...errorProps}
           className={`${classes['warning']} ${errorProps?.className ?? ''}`}
-          icon={Icons.Warning}
+          icon={Icons.Error}
         />
       )}
     </div>

@@ -63,7 +63,7 @@ export const RadioWrapper = ({
         }}
         error={error}
         errorId={errorId}
-        errorMessageIcon={Icons.Warning}
+        errorMessageIcon={Icons.Error}
         floatingLabel={false}
       >
         {renderChildren()}
