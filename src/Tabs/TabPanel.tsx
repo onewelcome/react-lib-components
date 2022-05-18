@@ -4,15 +4,16 @@ import classes from './TabPanel.module.scss';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   children?: React.ReactNode;
-  id?: string;
+  tabId?: string;
+  tabPanelId?: string;
   selected?: boolean;
   labelledBy?: string;
 }
 
 export const TabPanel = ({
   children,
-  id = generateID(15, 'tabpanel'),
-  labelledBy,
+  tabId = generateID(),
+  tabPanelId,
   selected = false,
   className,
   ...rest
@@ -20,13 +21,15 @@ export const TabPanel = ({
   return (
     <div
       {...rest}
-      aria-labelledby={labelledBy}
+      aria-labelledby={tabId}
       className={`${classes.tabpanel} ${selected ? classes.selected : ''} ${
         className ? className : ''
       }`}
-      id={id}
+      id={tabPanelId}
       role="tabpanel"
       tabIndex={0}
+      hidden={!selected}
+      aria-hidden={!selected}
     >
       {children}
     </div>

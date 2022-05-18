@@ -38,4 +38,13 @@
       opacity: 0;
     }
   }
+
+  &.focussed:not(.selected) {
+    border-bottom-color: var(--color-secondary);
+    color: initial;
+
+    &:before {
+      opacity: 0;
+    }
+  }
 }

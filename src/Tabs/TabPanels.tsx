@@ -8,14 +8,28 @@ type ChildrenType = ReactElement<TabPanelProps, typeof TabPanel>;
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ChildrenType | ChildrenType[];
   selected?: number;
+  tabIds?: string[];
+  tabPanelIds?: string[];
 }
 
-export const TabPanels = ({ children, selected = 0, className, ...rest }: Props) => {
+export const TabPanels = ({
+  children,
+  selected = 0,
+  tabIds,
+  tabPanelIds,
+  className,
+  ...rest
+}: Props) => {
   const renderTabPanels = () =>
     React.Children.map(children, (child, index) => {
+      const tabId = tabIds ? tabIds[index] : undefined;
+      const tabPanelId = tabPanelIds ? tabPanelIds[index] : generateID();
+
       return React.cloneElement(child, {
-        key: generateID(),
+        key: tabPanelId,
         selected: selected === index,
+        tabId,
+        tabPanelId,
       });
     });
 
