@@ -221,5 +221,35 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tab1).toHaveFocus();
     expect(tab1).toHaveClass('selected');
     expect(tab3).not.toHaveClass('focussed');
+
+    userEvent.keyboard('{ArrowRight}');
+
+    tab1 = tablist.firstChild as HTMLButtonElement;
+    tab3 = tablist.lastChild as HTMLButtonElement;
+
+    expect(tab1).not.toHaveFocus();
+    expect(tab3).not.toHaveFocus();
+    expect(tab1).not.toHaveClass('focussed');
+    expect(tab3).not.toHaveClass('focussed');
+
+    userEvent.keyboard('{ArrowLeft}');
+
+    tab1 = tablist.firstChild as HTMLButtonElement;
+    tab3 = tablist.lastChild as HTMLButtonElement;
+
+    expect(tab1).toHaveFocus();
+    expect(tab1).toHaveClass('selected');
+    expect(tab3).not.toHaveClass('focussed');
+
+    userEvent.keyboard('{ArrowLeft}');
+
+    tab1 = tablist.firstChild as HTMLButtonElement;
+    tab3 = tablist.lastChild as HTMLButtonElement;
+
+    tab3.blur();
+
+    expect(tab1).not.toHaveFocus();
+    expect(tab3).not.toHaveFocus();
+    expect(tab1).toHaveClass('selected');
   });
 });
