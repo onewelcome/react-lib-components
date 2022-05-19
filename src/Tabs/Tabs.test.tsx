@@ -173,9 +173,8 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tabpanel1).toHaveClass('selected');
     expect(tabpanel3).not.toHaveClass('selected');
 
-    userEvent.keyboard('{ArrowLeft}');
-    userEvent.keyboard('{Space}'); // does not seem to do anything
-    userEvent.keyboard('{Enter}');
+    userEvent.keyboard('[ArrowLeft]');
+    userEvent.keyboard('[Space]');
 
     tab1 = tablist.firstChild as HTMLButtonElement;
     tab3 = tablist.lastChild as HTMLButtonElement;
@@ -189,8 +188,8 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tabpanel3).toHaveClass('selected');
     expect(tabpanel1).not.toHaveClass('selected');
 
-    userEvent.keyboard('{ArrowRight}');
-    userEvent.keyboard('{Enter}');
+    userEvent.keyboard('[ArrowRight]');
+    userEvent.keyboard('[Enter]');
 
     tab1 = tablist.firstChild as HTMLButtonElement;
     tab3 = tablist.lastChild as HTMLButtonElement;
@@ -204,7 +203,7 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tabpanel1).toHaveClass('selected');
     expect(tabpanel3).not.toHaveClass('selected');
 
-    userEvent.keyboard('{End}');
+    userEvent.keyboard('[End]');
 
     tab1 = tablist.firstChild as HTMLButtonElement;
     tab3 = tablist.lastChild as HTMLButtonElement;
@@ -213,7 +212,7 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tab3).toHaveClass('focussed');
     expect(tab1).not.toHaveClass('focussed');
 
-    userEvent.keyboard('{Home}');
+    userEvent.keyboard('[Home]');
 
     tab1 = tablist.firstChild as HTMLButtonElement;
     tab3 = tablist.lastChild as HTMLButtonElement;
@@ -232,7 +231,7 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tab1).toHaveClass('selected');
     expect(tab3).not.toHaveClass('focussed');
 
-    userEvent.keyboard('{ArrowRight}');
+    userEvent.keyboard('[ArrowRight]');
 
     tab1 = tablist.firstChild as HTMLButtonElement;
     tab3 = tablist.lastChild as HTMLButtonElement;
@@ -242,7 +241,7 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tab1).not.toHaveClass('focussed');
     expect(tab3).not.toHaveClass('focussed');
 
-    userEvent.keyboard('{ArrowLeft}');
+    userEvent.keyboard('[ArrowLeft]');
 
     tab1 = tablist.firstChild as HTMLButtonElement;
     tab3 = tablist.lastChild as HTMLButtonElement;
@@ -251,7 +250,7 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tab1).toHaveClass('selected');
     expect(tab3).not.toHaveClass('focussed');
 
-    userEvent.keyboard('{ArrowLeft}');
+    userEvent.keyboard('[ArrowLeft]');
 
     tab1 = tablist.firstChild as HTMLButtonElement;
     tab3 = tablist.lastChild as HTMLButtonElement;
