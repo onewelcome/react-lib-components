@@ -23,7 +23,6 @@ export const Tab = ({
 
   useEffect(() => {
     if (focussed) {
-      // Does not seem to work when using tabs root component, needed for accessibility
       tabRef.current && tabRef.current.focus();
     }
   }, [focussed]);
@@ -31,14 +30,14 @@ export const Tab = ({
   return (
     <button
       {...rest}
-      aria-selected={focussed}
+      aria-selected={selected}
       key={tabId}
       className={`${classes.tab} ${selected ? classes.selected : ''} ${
         focussed && !selected ? classes.focussed : ''
       } ${className ? className : ''}`}
       ref={tabRef}
       role="tab"
-      tabIndex={focussed ? 0 : -1}
+      tabIndex={selected ? 0 : -1}
       type="button"
       aria-controls={tabPanelId}
       id={tabId}

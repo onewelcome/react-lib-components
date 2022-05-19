@@ -28,7 +28,7 @@ export const TabPanel = ({
       id={tabPanelId}
       role="tabpanel"
       tabIndex={0}
-      hidden={!selected}
+      hidden={!selected || undefined}
       aria-hidden={!selected}
     >
       {children}

@@ -38,4 +38,40 @@ describe('Tab should render', () => {
     expect(tab).toHaveAttribute('aria-selected', 'true');
     expect(tab).toHaveAttribute('tabIndex', '0');
   });
+
+  it('should be focussed when prop focussed is passed', () => {
+    const { tab } = createTab((defaultParams) => ({
+      ...defaultParams,
+      focussed: true,
+    }));
+
+    expect(tab).toHaveClass('focussed');
+  });
+
+  it('should set accessibility attributes when prop tabPanelId is passed', () => {
+    const { tab } = createTab((defaultParams) => ({
+      ...defaultParams,
+      tabPanelId: 'fakeId',
+    }));
+
+    expect(tab).toHaveAttribute('aria-controls', 'fakeId');
+  });
+
+  it('should set id attribute when prop tabId is passed', () => {
+    const { tab } = createTab((defaultParams) => ({
+      ...defaultParams,
+      tabId: 'fakeId',
+    }));
+
+    expect(tab).toHaveAttribute('id', 'fakeId');
+  });
+
+  it('should set class when prop className is passed', () => {
+    const { tab } = createTab((defaultParams) => ({
+      ...defaultParams,
+      className: 'customclass',
+    }));
+
+    expect(tab).toHaveClass('customclass');
+  });
 });

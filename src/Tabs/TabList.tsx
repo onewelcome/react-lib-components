@@ -25,18 +25,21 @@ export const TabList = ({
   ...rest
 }: Props) => {
   const [selectedTab, setSelectedTab] = useState(selected);
-  const [focussedTab, setFocussedTab] = useState(selected);
+  const [focussedTab, setFocussedTab] = useState(-1);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLElement>) {
     const max = React.Children.count(children) - 1;
     const min = 0;
 
+    // do not show focus unless we came here before
+    let currentFocussedTab = focussedTab === -1 ? selectedTab : focussedTab;
+
     switch (e.code) {
       case 'ArrowLeft':
-        setFocussedTab(focussedTab === min ? max : focussedTab - 1);
+        setFocussedTab(currentFocussedTab === min ? max : currentFocussedTab - 1);
         break;
       case 'ArrowRight':
-        setFocussedTab(focussedTab === max ? min : focussedTab + 1);
+        setFocussedTab(currentFocussedTab === max ? min : currentFocussedTab + 1);
         break;
       case 'Home':
         setFocussedTab(min);
@@ -46,7 +49,7 @@ export const TabList = ({
         break;
       case 'Space':
       case 'Enter':
-        activateTab(focussedTab);
+        activateTab(currentFocussedTab);
         break;
     }
   }
@@ -69,7 +72,7 @@ export const TabList = ({
       const tabPanelId = tabPanelIds ? tabPanelIds[index] : undefined;
 
       return React.cloneElement(child, {
-        key: tabId,
+        key: generateID(),
         selected: selectedTab === index,
         focussed: focussedTab === index,
         tabPanelId,

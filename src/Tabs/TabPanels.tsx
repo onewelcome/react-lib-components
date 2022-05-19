@@ -26,7 +26,7 @@ export const TabPanels = ({
       const tabPanelId = tabPanelIds ? tabPanelIds[index] : generateID();
 
       return React.cloneElement(child, {
-        key: tabPanelId,
+        key: generateID(),
         selected: selected === index,
         tabId,
         tabPanelId,

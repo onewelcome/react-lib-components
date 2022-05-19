@@ -14,20 +14,20 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Tabs = ({ children, selected = 0, onTabChange, className, ...rest }: Props) => {
-  function containedIndex(index: number): number {
-    const max = React.Children.count(children);
-    const min = 0;
-    return Math.min(max, Math.max(min, index));
-  }
-
-  const [selectedTab, setSelectedTab] = useState(containedIndex(selected));
   const tablist = React.Children.map(children, (child) => child).find(
     (child) => child.type === TabList
   );
   const amountOfTabs = React.Children.count(tablist?.props.children);
 
-  const tabIds = [...Array(amountOfTabs)].map(() => generateID());
-  const tabPanelIds = [...Array(amountOfTabs)].map(() => generateID());
+  function containedIndex(index: number): number {
+    const max = amountOfTabs - 1;
+    const min = 0;
+    return Math.min(max, Math.max(min, index));
+  }
+
+  const [selectedTab, setSelectedTab] = useState(containedIndex(selected));
+  const [tabIds] = useState([...Array(amountOfTabs)].map(() => generateID()));
+  const [tabPanelIds] = useState([...Array(amountOfTabs)].map(() => generateID()));
 
   const renderTabs = () =>
     React.Children.map(children, (child) => {
