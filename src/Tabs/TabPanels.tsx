@@ -34,7 +34,7 @@ export const TabPanels = ({
     });
 
   return (
-    <div {...rest} className={`${classes['tabpanels']} ${className ? className : ''}`}>
+    <div {...rest} className={`${className ? className : ''}`}>
       {renderTabPanels()}
     </div>
   );
