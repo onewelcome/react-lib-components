@@ -128,3 +128,19 @@ describe('Tabs should render', () => {
     expect(onTabChangeHandler).toHaveBeenCalled();
   });
 });
+
+describe('Tabs should not render other children then tablist or tabpanels', () => {
+  it('renders no tabs', () => {
+    const queries = render(
+      <Tabs {...defaultParams} data-testid="tabs">
+        <Tab>wrong component 1</Tab>
+        <Tab>wrong component 2</Tab>
+      </Tabs>
+    );
+
+    const tabs = queries.getByTestId('tabs');
+
+    expect(tabs).toBeDefined();
+    expect(tabs.children).toBeEmptyDOMElement;
+  });
+});
