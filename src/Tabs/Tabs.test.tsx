@@ -222,6 +222,16 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tab1).toHaveClass('selected');
     expect(tab3).not.toHaveClass('focussed');
 
+    // should have no effect
+    userEvent.keyboard('a');
+
+    tab1 = tablist.firstChild as HTMLButtonElement;
+    tab3 = tablist.lastChild as HTMLButtonElement;
+
+    expect(tab1).toHaveFocus();
+    expect(tab1).toHaveClass('selected');
+    expect(tab3).not.toHaveClass('focussed');
+
     userEvent.keyboard('{ArrowRight}');
 
     tab1 = tablist.firstChild as HTMLButtonElement;
