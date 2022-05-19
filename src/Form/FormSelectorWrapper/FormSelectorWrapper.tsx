@@ -55,7 +55,7 @@ export const FormSelectorWrapper = ({
       )}
       {errorMessage && !parentErrorId && error && (
         <span className={classes['error-message']}>
-          <Icon className={classes['error-icon']} icon={Icons.Warning} />
+          <Icon className={classes['error-icon']} icon={Icons.Error} />
           <span id={errorId}>{errorMessage}</span>
         </span>
       )}

@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 
-type SpacingMultiplier = 0 | 0.5 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type SpacingMultiplier = 0 | 0.5 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 type SpacingMultiplierStringOrNumber = `${SpacingMultiplier}` | SpacingMultiplier;
 type MultiValueSpacingMultiplier =
   | `${SpacingMultiplier} ${SpacingMultiplier} ${SpacingMultiplier} ${SpacingMultiplier}`

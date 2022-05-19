@@ -3,7 +3,7 @@ import classes from './FormControl.module.scss';
 import { HTMLProps } from '../../interfaces';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
-  children: ReactElement | ReactElement[];
+  children?: ReactElement | ReactElement[];
   grid?: 1 | 2 | 3;
   align?: 'top' | 'start' | 'middle' | 'center' | 'bottom' | 'end' | 'stretch';
   error?: boolean;

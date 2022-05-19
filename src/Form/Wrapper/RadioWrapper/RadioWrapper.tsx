@@ -29,7 +29,7 @@ export const RadioWrapper = ({
   useEffect(() => {
     if (fieldsetProps.legend === undefined) {
       console.error(
-        `You should give your Fieldset component a title prop so a legend element is rendered. This error was thrown in RadioWrapper. You can add this title prop through the fieldsetProps prop by passing an object (fieldsetProps={{ title: "title here" }})`
+        `You should give your Fieldset component a legend prop so a legend element is rendered. This error was thrown in RadioWrapper. You can add this legend prop through the fieldsetProps prop by passing an object (fieldsetProps={{ legend: "legend here" }})`
       );
     }
   }, []);
@@ -48,12 +48,11 @@ export const RadioWrapper = ({
     );
 
   return (
-    <Fieldset {...fieldsetProps}>
+    <Fieldset {...fieldsetProps} error={error} disabled={disabled}>
       <Wrapper
         {...rest}
         disabled={disabled}
         name={name}
-        label=""
         helperId={helperId}
         helperText={helperText}
         helperProps={{
@@ -64,7 +63,7 @@ export const RadioWrapper = ({
         }}
         error={error}
         errorId={errorId}
-        errorMessageIcon={Icons.Warning}
+        errorMessageIcon={Icons.Error}
         floatingLabel={false}
       >
         {renderChildren()}

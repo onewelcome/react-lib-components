@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Input, Type, Props as InputProps } from '../../Input/Input';
 import classes from './InputWrapper.module.scss';
 import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
@@ -16,6 +16,34 @@ export interface Props extends WrapperProps {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
+
+const useLabelOffset = (
+  wrapper: React.RefObject<HTMLDivElement>,
+  input: React.RefObject<HTMLInputElement>,
+  floatingLabelActive: boolean,
+  prefix?: string
+) => {
+  const [labelOffset, setLabelOffset] = useState({});
+
+  const resetLabelOffset = () => setLabelOffset({ left: undefined });
+
+  useEffect(() => {
+    if (wrapper.current && input.current && prefix) {
+      if (floatingLabelActive) {
+        resetLabelOffset();
+      } else {
+        const prefixDifference =
+          input.current.getBoundingClientRect().left -
+          wrapper.current.getBoundingClientRect().left +
+          4;
+
+        setLabelOffset({ left: `${prefixDifference}px` });
+      }
+    }
+  }, [wrapper.current, input.current, prefix, floatingLabelActive]);
+
+  return { labelOffset };
+};
 
 export const InputWrapper = ({
   type,
@@ -39,15 +67,25 @@ export const InputWrapper = ({
     helperId,
     labelId,
   } = useWrapper(value, inputProps?.placeholder, type);
+  const { prefix, suffix } = inputProps || {};
+  const wrapper = useRef<HTMLDivElement>(null);
+  const input = useRef<HTMLInputElement>(null);
+  const hasValueOrActiveFloatingLabel = !!value || floatingLabelActive;
+  const labelClasses = [classes['input-label']];
+  const { labelOffset } = useLabelOffset(wrapper, input, floatingLabelActive, prefix);
+
+  hasFocus && labelClasses.push(classes['focus']);
 
   return (
     <Wrapper
       {...rest}
+      ref={wrapper}
       name={name}
       className={classes['input-wrapper']}
       labelProps={{
         id: labelId,
-        className: `${classes['input-label']} ${hasFocus ? classes['focus'] : ''}`,
+        className: labelClasses.join(' '),
+        style: { ...labelOffset },
       }}
       floatingLabelActive={floatingLabelActive}
       errorId={errorId}
@@ -62,6 +100,10 @@ export const InputWrapper = ({
     >
       <Input
         {...inputProps}
+        prefix={hasValueOrActiveFloatingLabel ? prefix : ''}
+        suffix={hasValueOrActiveFloatingLabel ? suffix : ''}
+        wrapperProps={{ className: floatingLabelActive ? classes['floating-label-active'] : '' }}
+        ref={input}
         aria-labelledby={labelId}
         aria-describedby={error ? errorId : helperId}
         onChange={onChange}

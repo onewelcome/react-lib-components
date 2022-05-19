@@ -115,6 +115,7 @@ const Template: Story<Props> = (args) => {
           name="input1"
           errorMessage={input1.errorMessage}
           type="text"
+          inputProps={{ prefix: 'PREFIX', suffix: 'SUFFIX' }}
           error={input1.error}
           value={input1.value}
           label="Label for this inputfield"

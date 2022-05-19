@@ -1,0 +1,58 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `RadioWrapper` component has been created to make your life easier, as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least four props: a `name`, `fieldsetProps.legend`, `value` and an `onChange`.
+
+The `value` prop should be linked to a React `state`, and the `onChange` prop should set this `state` to the `event.target.value` it receives. You can set the initially checked radio if you set the `state` to the `value` of the `Radio` component you want to be checked.
+
+As the name implies, the `RadioWrapper` component should be used as a wrapper around your `Radio` components. It has a few functions that help you with retaining proper accessibility and functionality:
+
+## It adds a Fieldset component
+
+And this `Fieldset` component requires a `legend` prop, which increases accessibility by telling screenreaders what your `Radio` component is used for. You will also have access to the rest of the `Fieldset` props through the `fieldsetProps` prop on the `RadioWrapper` component. For all of the props [see the `Fieldset` component documentation](/docs/stories-form-elements-fieldset--fieldset).
+
+## It enables proper accessibility features
+
+The `RadioWrapper` component has an internal ID for its helper text and error message. The children `Radio` components will be linked to this helper text and error message through the `aria-describedby` accessibility feature automatically if needed. This works as follows: if a nested `Radio` component has a helper text, the id of this helper text will be its `aria-describedby` value. In case the `Radio` component does **not** have a helper text, the `aria-describedby` value will be the ID of the helper text that its parent `RadioWrapper` component has. Whenever the `RadioWrapper` has an error, and the `errorMessage` prop is filled, the `aria-describedby` attribute of all child `Radio` components will be the ID of this `errorMessage`.
+
+You will not have to do anything about these complicated accessibility features. It's all done internally for you.
+
+## It gives styling on error or disabled
+
+The disabled state for all `Radio` components within the `RadioWrapper` can be controlled through the `disabled` prop on `RadioWrapper`. The same goes for the `error` prop.
+
+# Examples
+
+The story below is controlled by Storybook. Use the Props table at the bottom to configure it to your liking.
+
+<Canvas>
+  <Story id="stories-form-wrapper-radiowrapper--radio-wrapper" />
+</Canvas>
+
+A code example of how you can configure a `RadioWrapper` within a React component:
+
+```jsx
+const ExampleComponent = () => {
+  const [radioValue, setRadioValue] = useState('option1');
+
+  return (
+    <RadioWrapper
+      name="radio group 1"
+      fieldsetProps={{ legend: 'Radio group' }}
+      value={radioValue}
+      onChange={(event) => setRadioValue(event.target.value)}
+    >
+      <Radio value="option1">Option 1</Radio>
+      <Radio value="option2">Option 2</Radio>
+      <Radio value="option3">Option 3</Radio>
+      <Radio value="option4">Option 4</Radio>
+    </RadioWrapper>
+  );
+};
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

@@ -22,3 +22,14 @@ input {
   transform: translateY(5px);
   font-size: 1.125rem;
 }
+
+.input-wrapper [data-prefix],
+.input-wrapper [data-suffix] {
+  transform: translateY(-0.125rem);
+}
+
+.floating-label-active [data-prefix],
+.floating-label-active [data-suffix] {
+  padding-top: 0.5rem;
+  transform: translateY(0);
+}

@@ -272,6 +272,10 @@
   content: '\e93c';
   @include fontProperties();
 }
+.icon-error-circle:before {
+  content: '\e93d';
+  @include fontProperties();
+}
 .icon-circle:before {
   content: '\e93e';
   @include fontProperties();
