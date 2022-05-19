@@ -44,6 +44,15 @@ describe('Tabs should render', () => {
     expect(tabs).toBeDefined();
   });
 
+  it('renders with properties passed', () => {
+    const { tabs } = createTabs((defaultParams) => ({
+      ...defaultParams,
+      className: 'testclass',
+    }));
+
+    expect(tabs).toHaveClass('testclass');
+  });
+
   it('switches to tab and tabpanel when selected property is changed', () => {
     const { tabs } = createTabs((defaultParams) => ({
       ...defaultParams,
@@ -98,5 +107,24 @@ describe('Tabs should render', () => {
 
     expect(tabpanel1).not.toHaveClass('selected');
     expect(tabpanel3).toHaveClass('selected');
+  });
+
+  it('triggers the onTabChange when switching tabs', () => {
+    const onTabChangeHandler = jest.fn();
+
+    const { tabs } = createTabs((defaultParams) => ({
+      ...defaultParams,
+      onTabChange: onTabChangeHandler,
+    }));
+
+    const tablist = tabs.firstChild as HTMLDivElement;
+
+    let tab3 = tablist.lastChild as HTMLButtonElement;
+
+    userEvent.click(tab3);
+
+    tab3 = tablist.lastChild as HTMLButtonElement;
+
+    expect(onTabChangeHandler).toHaveBeenCalled();
   });
 });

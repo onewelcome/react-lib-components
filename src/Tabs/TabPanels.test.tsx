@@ -29,6 +29,15 @@ describe('Tabpanels should render', () => {
     expect(tabpanels).toBeDefined();
   });
 
+  it('renders with properties passed', () => {
+    const { tabpanels } = createTabPanels((defaultParams) => ({
+      ...defaultParams,
+      className: 'testclass',
+    }));
+
+    expect(tabpanels).toHaveClass('testclass');
+  });
+
   it('should pass tabIds and tabpanelIds', () => {
     const { tabpanels } = createTabPanels((defaultParams) => ({
       ...defaultParams,

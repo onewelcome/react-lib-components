@@ -1,7 +1,6 @@
 import React, { HTMLAttributes, ReactElement } from 'react';
 import { generateID } from '../util/helper';
 import { TabPanel, Props as TabPanelProps } from './TabPanel';
-import classes from './TabPanels.module.scss';
 
 type ChildrenType = ReactElement<TabPanelProps, typeof TabPanel>;
 
