@@ -1,25 +1,15 @@
 import React from 'react';
 import { Tabs, Props } from './Tabs';
 import { render } from '@testing-library/react';
-import { TabList } from './TabList';
-import { Tab } from './Tab';
-import { TabPanels } from './TabPanels';
-import { TabPanel } from './TabPanel';
+import { TabButton as Tab } from './TabButton';
 import userEvent from '@testing-library/user-event';
 
 const defaultParams: Props = {
-  'aria-label': 'Tabs',
+  'aria-label': 'Entertainment',
   children: [
-    <TabList aria-label="test">
-      <Tab>Tab1</Tab>
-      <Tab>Tab2</Tab>
-      <Tab>Tab3</Tab>
-    </TabList>,
-    <TabPanels>
-      <TabPanel>Tabpanel1 content</TabPanel>
-      <TabPanel>Tabpanel2 content</TabPanel>
-      <TabPanel>Tabpanel3 content</TabPanel>
-    </TabPanels>,
+    <Tab title="Tab1">Tabpanel1 content</Tab>,
+    <Tab title="Tab2">Tabpanel2 content</Tab>,
+    <Tab title="Tab3">Tabpanel3 content</Tab>,
   ],
 };
 

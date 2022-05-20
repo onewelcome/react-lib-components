@@ -2,7 +2,10 @@ import React from 'react';
 import { TabPanel, Props } from './TabPanel';
 import { render } from '@testing-library/react';
 
-const defaultParams: Props = {};
+const defaultParams: Props = {
+  tabId: 'fakeTabId',
+  tabPanelId: 'fakeTabPanelId',
+};
 
 const createTabPanel = (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;

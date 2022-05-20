@@ -6,3 +6,13 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+.tablist {
+  border-bottom-style: var(--tablist-border-style);
+  border-bottom-width: var(--tablist-border-width);
+  border-bottom-color: var(--tablist-border-color);
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 2rem;
+}

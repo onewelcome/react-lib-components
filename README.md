@@ -22,12 +22,26 @@ To run tests, use `npm test` or `yarn test`.
 npm test # or yarn test
 ```
 
+For running and watching tests, use `npm run test:watch`.
+
+```bash
+npm test:watch
+```
+
 ### Storybook
 
 Run Storybook locally:
 
 ```bash
 npm run storybook # or yarn storybook
+```
+
+### All at once
+
+When developing stories, components and tests at the same time, it may be easier to run the command `npm run dev`. This will run the commands `start` `test:watch` and `storybook` in parallel.
+
+```bash
+npm run dev
 ```
 
 ## Development

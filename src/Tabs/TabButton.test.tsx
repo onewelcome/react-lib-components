@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tab, Props } from './Tab';
+import { TabButton as Tab, Props } from './TabButton';
 import { render } from '@testing-library/react';
 
 const defaultParams: Props = {};
