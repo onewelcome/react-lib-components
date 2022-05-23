@@ -3,9 +3,15 @@ import { Meta, Story } from '@storybook/react';
 import { Tabs as TabsComponent, Props } from '../../src/Tabs/Tabs';
 import { Typography } from '../../src/Typography/Typography';
 import { Tab } from '../../src/Tabs/Tab';
+import TabsDocumentation from './Tabs.mdx';
 
 const meta: Meta = {
   title: 'Stories/UI/Tabs',
+  parameters: {
+    docs: {
+      page: TabsDocumentation,
+    },
+  },
   component: TabsComponent,
 };
 
