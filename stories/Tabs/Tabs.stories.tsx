@@ -5,7 +5,7 @@ import { Typography } from '../../src/Typography/Typography';
 import { Tab } from '../../src/Tabs/Tab';
 
 const meta: Meta = {
-  title: 'Stories/UI/Tabs/Tabs',
+  title: 'Stories/UI/Tabs',
   component: TabsComponent,
 };
 
