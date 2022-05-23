@@ -8,4 +8,8 @@ export interface Props {
   onTabButtonClick?: () => void;
 }
 
-export class Tab extends React.Component<Props> {}
+export const Tab = (args: Props) => {
+  return (
+    <div {...args}>{`A <Tab /> component should only be used inside the <Tabs /> component.`}</div>
+  );
+};
