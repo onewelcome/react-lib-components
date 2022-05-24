@@ -1,8 +1,8 @@
-import React, { HTMLProps } from 'react';
+import React, { ComponentPropsWithRef } from 'react';
 import classes from './TabPanel.module.scss';
 
-export interface Props extends HTMLProps<HTMLDivElement> {
-  children?: React.ReactNode;
+export interface Props extends ComponentPropsWithRef<'div'> {
+  children: React.ReactNode;
   tabId: string;
   tabPanelId: string;
   selected?: boolean;

@@ -7,7 +7,7 @@
   font-size: var(--font-size);
   line-height: 1.5;
   margin: 0;
-  padding: 0.25rem 0 1rem 0;
+  padding: 0.25rem 0 calc(1rem - 2px) 0;
   min-height: 2.5rem;
   cursor: pointer;
   transition-property: border-color;

@@ -15,4 +15,11 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   gap: 2rem;
+  position: relative;
+}
+
+.indicator {
+  position: absolute;
+  height: 2px;
+  background-color: var(--color-primary);
 }

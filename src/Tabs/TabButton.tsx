@@ -1,7 +1,7 @@
-import React, { HTMLProps, useEffect, useRef } from 'react';
+import React, { ComponentPropsWithRef, useEffect, useRef } from 'react';
 import classes from './TabButton.module.scss';
 
-export interface Props extends HTMLProps<HTMLButtonElement> {
+export interface Props extends ComponentPropsWithRef<'button'> {
   children?: string;
   selected?: boolean;
   focussed?: boolean;
@@ -28,14 +28,18 @@ export const TabButton = ({
     }
   }, [focussed]);
 
+  const classNames = [classes['tabbutton']];
+
+  selected && classNames.push(classes['selected']);
+  focussed && !selected && classNames.push(classes['focussed']);
+  className && classNames.push(className);
+
   return (
     <button
       {...rest}
       aria-selected={selected}
       key={tabId}
-      className={`${classes['tabbutton']} ${selected ? classes['selected'] : ''} ${
-        focussed && !selected ? classes['focussed'] : ''
-      } ${className ?? ''}`}
+      className={classNames.join(' ')}
       ref={tabRef}
       role="tab"
       tabIndex={selected ? 0 : -1}

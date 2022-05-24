@@ -48,11 +48,13 @@ describe('Tabs should render', () => {
       ...defaultParams,
       selected: 2,
     }));
+
     const tablist = tabs.firstChild as HTMLDivElement;
     const tabpanels = tabs.lastChild as HTMLDivElement;
+    const tabButtons = tablist.querySelectorAll('.tabbutton');
 
-    const tab1 = tablist.firstChild as HTMLButtonElement;
-    const tab3 = tablist.lastChild as HTMLButtonElement;
+    const tab1 = tabButtons[0] as HTMLButtonElement;
+    const tab3 = tabButtons[2] as HTMLButtonElement;
 
     const tabpanel1 = tabpanels.firstChild as HTMLDivElement;
     const tabpanel3 = tabpanels.lastChild as HTMLDivElement;
@@ -64,16 +66,17 @@ describe('Tabs should render', () => {
     expect(tabpanel3).toHaveClass('selected');
   });
 
-  it('switches to tab and tabpanel when selected property is changed', () => {
+  it('switches to tab and tabpanel when tab is clicked', () => {
     const { tabs } = createTabs((defaultParams) => ({
       ...defaultParams,
     }));
 
     const tablist = tabs.firstChild as HTMLDivElement;
     const tabpanels = tabs.lastChild as HTMLDivElement;
+    let tabButtons = tablist.querySelectorAll('.tabbutton');
 
-    let tab1 = tablist.firstChild as HTMLButtonElement;
-    let tab3 = tablist.lastChild as HTMLButtonElement;
+    let tab1 = tabButtons[0] as HTMLButtonElement;
+    let tab3 = tabButtons[2] as HTMLButtonElement;
 
     let tabpanel1 = tabpanels.firstChild as HTMLDivElement;
     let tabpanel3 = tabpanels.lastChild as HTMLDivElement;
@@ -86,8 +89,10 @@ describe('Tabs should render', () => {
 
     userEvent.click(tab3);
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
 
     tabpanel1 = tabpanels.firstChild as HTMLDivElement;
     tabpanel3 = tabpanels.lastChild as HTMLDivElement;
@@ -108,12 +113,11 @@ describe('Tabs should render', () => {
     }));
 
     const tablist = tabs.firstChild as HTMLDivElement;
+    const tabButtons = tablist.querySelectorAll('.tabbutton');
 
-    let tab3 = tablist.lastChild as HTMLButtonElement;
+    let tab3 = tabButtons[2] as HTMLButtonElement;
 
     userEvent.click(tab3);
-
-    tab3 = tablist.lastChild as HTMLButtonElement;
 
     expect(onTabChangeHandler).toHaveBeenCalled();
   });
@@ -141,17 +145,19 @@ describe('Tabs should comply with accessibility rules', () => {
 
     const tablist = tabs.firstChild as HTMLDivElement;
     const tabpanels = tabs.lastChild as HTMLDivElement;
+    let tabButtons = tablist.querySelectorAll('.tabbutton');
 
-    let tab1 = tablist.firstChild as HTMLButtonElement;
-    let tab3 = tablist.lastChild as HTMLButtonElement;
+    let tab1 = tabButtons[0] as HTMLButtonElement;
+    let tab3 = tabButtons[2] as HTMLButtonElement;
 
     let tabpanel1 = tabpanels.firstChild as HTMLDivElement;
     let tabpanel3 = tabpanels.lastChild as HTMLDivElement;
 
     tab1.focus();
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
     tabpanel1 = tabpanels.firstChild as HTMLDivElement;
     tabpanel3 = tabpanels.lastChild as HTMLDivElement;
 
@@ -166,8 +172,9 @@ describe('Tabs should comply with accessibility rules', () => {
     userEvent.keyboard('[ArrowLeft]');
     userEvent.keyboard('[Space]');
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
     tabpanel1 = tabpanels.firstChild as HTMLDivElement;
     tabpanel3 = tabpanels.lastChild as HTMLDivElement;
 
@@ -181,8 +188,9 @@ describe('Tabs should comply with accessibility rules', () => {
     userEvent.keyboard('[ArrowRight]');
     userEvent.keyboard('[Enter]');
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
     tabpanel1 = tabpanels.firstChild as HTMLDivElement;
     tabpanel3 = tabpanels.lastChild as HTMLDivElement;
 
@@ -195,8 +203,9 @@ describe('Tabs should comply with accessibility rules', () => {
 
     userEvent.keyboard('[End]');
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
 
     expect(tab3).toHaveFocus();
     expect(tab3).toHaveClass('focussed');
@@ -204,8 +213,9 @@ describe('Tabs should comply with accessibility rules', () => {
 
     userEvent.keyboard('[Home]');
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
 
     expect(tab1).toHaveFocus();
     expect(tab1).toHaveClass('selected');
@@ -214,8 +224,9 @@ describe('Tabs should comply with accessibility rules', () => {
     // should have no effect
     userEvent.keyboard('a');
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
 
     expect(tab1).toHaveFocus();
     expect(tab1).toHaveClass('selected');
@@ -223,8 +234,9 @@ describe('Tabs should comply with accessibility rules', () => {
 
     userEvent.keyboard('[ArrowRight]');
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
 
     expect(tab1).not.toHaveFocus();
     expect(tab3).not.toHaveFocus();
@@ -233,8 +245,9 @@ describe('Tabs should comply with accessibility rules', () => {
 
     userEvent.keyboard('[ArrowLeft]');
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
 
     expect(tab1).toHaveFocus();
     expect(tab1).toHaveClass('selected');
@@ -242,8 +255,9 @@ describe('Tabs should comply with accessibility rules', () => {
 
     userEvent.keyboard('[ArrowLeft]');
 
-    tab1 = tablist.firstChild as HTMLButtonElement;
-    tab3 = tablist.lastChild as HTMLButtonElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+    tab1 = tabButtons[0] as HTMLButtonElement;
+    tab3 = tabButtons[2] as HTMLButtonElement;
 
     tab3.blur();
 

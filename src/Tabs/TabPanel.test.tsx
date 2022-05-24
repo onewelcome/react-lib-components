@@ -5,6 +5,7 @@ import { render } from '@testing-library/react';
 const defaultParams: Props = {
   tabId: 'fakeTabId',
   tabPanelId: 'fakeTabPanelId',
+  children: [],
 };
 
 const createTabPanel = (params?: (defaultParams: Props) => Props) => {
