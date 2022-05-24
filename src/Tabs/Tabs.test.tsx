@@ -123,12 +123,12 @@ describe('Tabs should render', () => {
   });
 });
 
-describe('Tabs should not render other children then tablist or tabpanels', () => {
+describe('Tabs should not render other children then tab components', () => {
   it('renders no tabs', () => {
     const queries = render(
       <Tabs data-testid="tabs">
-        <Tab>wrong component 1</Tab>
-        <Tab>wrong component 2</Tab>
+        <div>wrong component 1</div>
+        <div>wrong component 2</div>
       </Tabs>
     );
 
@@ -264,5 +264,54 @@ describe('Tabs should comply with accessibility rules', () => {
     expect(tab1).not.toHaveFocus();
     expect(tab3).not.toHaveFocus();
     expect(tab1).toHaveClass('selected');
+  });
+});
+
+describe('Tabs should update ids when children amount changes', () => {
+  it('renders tabs twice and updates the ids', () => {
+    const children = [
+      <Tab title="Tab1">Tabpanel1 content</Tab>,
+      <Tab title="Tab2">Tabpanel2 content</Tab>,
+      <Tab title="Tab3">Tabpanel3 content</Tab>,
+    ];
+
+    const { getByTestId, rerender } = render(
+      <Tabs
+        {...{
+          ...defaultParams,
+          children,
+        }}
+        data-testid="tabs"
+      ></Tabs>
+    );
+
+    let tabs = getByTestId('tabs');
+    let tablist = tabs.firstChild as HTMLDivElement;
+    let tabButtons = tablist.querySelectorAll('.tabbutton');
+
+    const tab1id = (tabButtons[0] as HTMLButtonElement).id;
+
+    expect(tabButtons.length).toEqual(3);
+
+    children.push(<Tab title="Tab4">Tabpanel4 content</Tab>);
+
+    rerender(
+      <Tabs
+        {...{
+          ...defaultParams,
+          children,
+        }}
+        data-testid="tabs"
+      ></Tabs>
+    );
+
+    tabs = getByTestId('tabs');
+    tablist = tabs.firstChild as HTMLDivElement;
+    tabButtons = tablist.querySelectorAll('.tabbutton');
+
+    const newtab1id = (tabButtons[0] as HTMLButtonElement).id;
+
+    expect(newtab1id).toEqual(tab1id);
+    expect(tabButtons.length).toEqual(4);
   });
 });
