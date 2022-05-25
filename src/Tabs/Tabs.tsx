@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithRef, useEffect, useRef, useState } from 'react';
+import React, { ComponentPropsWithRef, MutableRefObject, useEffect, useRef, useState } from 'react';
 import { generateID } from '../util/helper';
 import { Props as TabProps } from './Tab';
 import { TabButton } from './TabButton';
@@ -24,35 +24,36 @@ export const Tabs = ({
   const [indicatorPosition, setIndicatorPosition] = useState({ left: 0, top: 0 });
   const [indicatorWidth, setIndicatorWidth] = useState(0);
 
-  const [max, setMax] = useState(React.Children.count(children) - 1);
+  const [max] = useState(React.Children.count(children) - 1);
   const min = 0;
 
   const [selectedTab, setSelectedTab] = useState(Math.min(max, Math.max(min, selected)));
   const [focussedTab, setFocussedTab] = useState(-1);
-  const [tabIds, setTabIds] = useState([...Array(max)].map(() => generateID()));
-  const [tabPanelIds, setTabPanelIds] = useState([...Array(max)].map(() => generateID()));
+  const [tabIds] = useState([...Array(max)].map(() => generateID()));
+  const [tabPanelIds] = useState([...Array(max)].map(() => generateID()));
 
   useEffect(() => {
     setSelectedTab(Math.min(max, Math.max(min, selected)));
     setFocussedTab(-1);
-    calculateIndicatorPosition();
   }, [selected]);
 
   useEffect(() => {
-    const newMax = React.Children.count(children) - 1;
-    if (newMax !== max) {
-      setMax(newMax);
-      setTabIds([...Array(newMax)].map(() => generateID()));
-      setTabPanelIds([...Array(newMax)].map(() => generateID()));
-    }
-  }, [children]);
+    calculateIndicatorPosition();
+  }, [selectedTab]);
 
   const calculateIndicatorPosition = () => {
-    const newPosition = { left: 0, top: 0 };
-    const newWidth = 0;
+    const selectedTabButton = (
+      tabButtons[selectedTab].ref as MutableRefObject<HTMLButtonElement | null>
+    ).current as HTMLButtonElement;
 
-    setIndicatorPosition(newPosition);
-    setIndicatorWidth(newWidth);
+    setIndicatorPosition({
+      left: selectedTabButton.offsetLeft,
+      top:
+        selectedTabButton.offsetTop +
+        selectedTabButton.offsetHeight -
+        indicatorRef.current!.offsetHeight,
+    });
+    setIndicatorWidth(selectedTabButton.offsetWidth);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
@@ -98,6 +99,9 @@ export const Tabs = ({
       focussed: focussedTab === index,
       onTabButtonClick: () => activateTab(index),
       children: child.props.title,
+      /*eslint-disable */
+      ref: useRef<HTMLButtonElement>(null),
+      /*eslint-enable */
     })
   );
 

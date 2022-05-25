@@ -22,4 +22,7 @@
   position: absolute;
   height: 2px;
   background-color: var(--color-primary);
+  transition-property: left, width;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
 }
