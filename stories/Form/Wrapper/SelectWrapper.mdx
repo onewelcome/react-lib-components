@@ -5,9 +5,43 @@ import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@story
 
 The `SelectWrapper` component has been created to make your life easier as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least 3 attributes. It needs `children` (which have to be `Option` components), a `name` and a `value` prop, which should be linked to a `useState` variable.
 
+You can use the `onChange` event to update the linked `useState` variable whenever the user selects an option or uses the `onClear` event to clear the state completely.
+
+## It takes care of proper accessibility
+
+The `SelectWrapper` accepts a `name`, `helperText` and `errorMessage` prop. Based on the `error` prop (set to true or false) it will make sure to set its `aria-describedby` value to the `id` of the `errorMessage` or `helperText`.
+
 # Examples
 
-Any examples of the component you've created
+<Canvas>
+  <Story id="stories-form-wrapper-selectwrapper--select-wrapper" />
+</Canvas>
+
+A code example of how you can configure a `SelectWrapper` within a React component:
+
+```jsx
+const ExampleComponent = () => {
+  const [selectValue, setSelectValue] = useState('option1');
+
+  return (
+    <SelectWrapperComponent
+      label="Example select wrapper"
+      name="Example select"
+      helperText="Example helper text"
+      error={false}
+      errorMessage="This is an error message"
+      required={true}
+      value={selectValue}
+      onChange={(event) => setSelectValue(event.target.value)}
+    >
+      <Option value="option1">Option 1</Option>
+      <Option value="option2">Option 2</Option>
+      <Option value="option3">Option 3</Option>
+      <Option value="option4">Option 4</Option>
+    </SelectWrapperComponent>
+  );
+};
+```
 
 # Props
 
