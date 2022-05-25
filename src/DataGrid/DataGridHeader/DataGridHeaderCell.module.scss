@@ -1,0 +1,44 @@
+.header-cell {
+  & > * {
+    display: inline-flex;
+  }
+
+  & > button {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+}
+
+.headline {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: 1.5;
+  font-weight: 700;
+  color: var(--default);
+}
+
+.sorting-indicator-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.5rem;
+  justify-content: center;
+
+  & > * {
+    font-size: 0.625rem;
+  }
+
+  .indicator {
+    color: var(--greyed-out);
+
+    &.active {
+      color: var(--color-primary);
+    }
+
+    &.hidden {
+      visibility: hidden;
+    }
+  }
+}
