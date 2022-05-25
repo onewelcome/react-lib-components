@@ -54,11 +54,7 @@ export const TabButton = React.forwardRef(
         ref={(element) => {
           (tabRef as MutableRefObject<HTMLButtonElement | null>).current = element;
           if (ref) {
-            if (typeof ref === 'function') {
-              ref(element);
-            } else {
-              (ref as MutableRefObject<HTMLButtonElement | null>).current = element;
-            }
+            (ref as MutableRefObject<HTMLButtonElement | null>).current = element;
           }
         }}
         role="tab"
