@@ -235,17 +235,7 @@ describe('List expansion', () => {
 describe('onClear method', () => {
   it('should show a cross and fire the passed onClear function', async () => {
     const onClearHandler = jest.fn();
-
-    let count = 0;
-
-    const onChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      if (count === 0) {
-        expect(event.target.value).toBe('option4');
-        count++;
-      } else {
-        expect(event.target.value).toBe('option5');
-      }
-    };
+    const onChangeHandler = jest.fn();
 
     const { button, container } = createSelect((defaultParams) => ({
       ...defaultParams,
@@ -268,5 +258,8 @@ describe('onClear method', () => {
     expect(onClearButton).toBeInTheDocument();
     expect(container.querySelector('li[aria-selected="true"]')).toHaveTextContent('Test4');
     expect(container.querySelector('.selected-option')).toHaveTextContent('Test4');
+    expect(onChangeHandler).toBeCalledWith(
+      expect.objectContaining({ target: expect.objectContaining({ value: 'option5' }) })
+    );
   });
 });

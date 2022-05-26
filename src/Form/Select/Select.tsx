@@ -42,7 +42,6 @@ export const Select = ({
   ...rest
 }: Props) => {
   const [expanded, setExpanded] = useState(false);
-  const [selectValue, setSelectValue] = useState(value);
   const [opacity, setOpacity] = useState(0); // We set opacity because other wise if we calculate the max height you see the list full height for a split second and then it shortens.
   const [filter, setFilter] = useState('');
   const [display, setDisplay] = useState('');
@@ -110,9 +109,12 @@ export const Select = ({
     setOpacity(100);
   };
 
-  const onOptionChangeHandler = (event: React.ChangeEvent) => {
-    setSelectValue(event.currentTarget.getAttribute('data-value')!);
-    setDisplay((event.currentTarget as HTMLElement).innerText);
+  const onOptionChangeHandler = (event: React.MouseEvent<HTMLLIElement>) => {
+    if (nativeSelect.current) {
+      // We need to set value and the fire change event
+      nativeSelect.current.value = event.currentTarget.dataset.value!;
+      nativeSelect.current.dispatchEvent(new Event('change', { bubbles: true }));
+    }
     setExpanded(false);
   };
 
@@ -150,7 +152,7 @@ export const Select = ({
       return <Icon className={classes['warning']} icon={Icons.Warning} />;
     }
 
-    if (selectValue && selectValue.length !== 0 && onClear) {
+    if (value?.length !== 0 && onClear) {
       return (
         <Icon
           tag="div"
@@ -172,20 +174,8 @@ export const Select = ({
   };
 
   useEffect(() => {
-    setSelectValue(value);
     syncDisplayValue(value);
-  }, []);
-
-  useEffect(() => {
-    syncDisplayValue(value);
-    setSelectValue(value);
   }, [value]);
-
-  useEffect(() => {
-    if (nativeSelect.current) {
-      nativeSelect.current.dispatchEvent(new Event('change', { bubbles: true }));
-    }
-  }, [selectValue]);
 
   useEffect(() => {
     rePositionList();
@@ -213,10 +203,9 @@ export const Select = ({
       <select
         {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}
+        id="test"
         aria-hidden="true"
         ref={nativeSelect}
-        key={selectValue}
-        value={selectValue}
         name={name}
         onChange={nativeOnChangeHandler}
         className={readyclasses['sr-only']}
@@ -246,10 +235,8 @@ export const Select = ({
           aria-describedby={describedBy}
         >
           <div data-display className={classes['selected']}>
-            {!selectValue && placeholder && (
-              <span className={classes['placeholder']}>{placeholder}</span>
-            )}
-            {selectValue && selectValue.length > 0 && <span>{display}</span>}
+            {!value && placeholder && <span className={classes['placeholder']}>{placeholder}</span>}
+            {value?.length > 0 && <span>{display}</span>}
           </div>
           <div className={classes['status']}>
             {statusIcon()}
