@@ -1,10 +1,4 @@
-import React, {
-  ComponentPropsWithRef,
-  MutableRefObject,
-  RefObject,
-  useEffect,
-  useRef,
-} from 'react';
+import React, { ComponentPropsWithRef, useEffect } from 'react';
 import classes from './TabButton.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'button'> {
@@ -14,10 +8,9 @@ export interface Props extends ComponentPropsWithRef<'button'> {
   tabId?: string;
   tabPanelId?: string;
   onTabButtonClick?: () => void;
-  ref?: RefObject<HTMLButtonElement>;
 }
 
-export const TabButton = React.forwardRef(
+export const TabButton = React.forwardRef<HTMLButtonElement, Props>(
   (
     {
       children,
@@ -31,11 +24,9 @@ export const TabButton = React.forwardRef(
     }: Props,
     ref
   ) => {
-    const tabRef = useRef<HTMLButtonElement>(null);
-
     useEffect(() => {
-      if (focussed) {
-        tabRef.current && tabRef.current.focus();
+      if (focussed && ref) {
+        (ref as React.MutableRefObject<HTMLButtonElement>).current.focus();
       }
     }, [focussed]);
 
@@ -51,12 +42,7 @@ export const TabButton = React.forwardRef(
         aria-selected={selected}
         key={tabId}
         className={classNames.join(' ')}
-        ref={(element) => {
-          (tabRef as MutableRefObject<HTMLButtonElement | null>).current = element;
-          if (ref) {
-            (ref as MutableRefObject<HTMLButtonElement | null>).current = element;
-          }
-        }}
+        ref={ref}
         role="tab"
         tabIndex={selected ? 0 : -1}
         type="button"

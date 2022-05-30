@@ -1,4 +1,11 @@
-import React, { ComponentPropsWithRef, MutableRefObject, useEffect, useRef, useState } from 'react';
+import React, {
+  ComponentPropsWithRef,
+  createRef,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { generateID } from '../util/helper';
 import { Props as TabProps } from './Tab';
 import { TabButton } from './TabButton';
@@ -92,6 +99,7 @@ export const Tabs = ({
 
   const tabButtons = React.Children.map(children, (child, index) =>
     React.createElement(TabButton, {
+      ref: child.props.buttonRef || createRef<HTMLButtonElement>(),
       key: generateID(),
       tabId: tabIds[index],
       tabPanelId: tabPanelIds[index],
@@ -99,14 +107,12 @@ export const Tabs = ({
       focussed: focussedTab === index,
       onTabButtonClick: () => activateTab(index),
       children: child.props.title,
-      /*eslint-disable */
-      ref: useRef<HTMLButtonElement>(null),
-      /*eslint-enable */
     })
   );
 
   const tabPanels = React.Children.map(children, (child, index) =>
     React.createElement(TabPanel, {
+      ref: child.props.panelRef || createRef<HTMLDivElement>(),
       key: generateID(),
       selected: selectedTab === index,
       tabId: tabIds[index],

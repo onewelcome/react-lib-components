@@ -5,6 +5,8 @@ export interface Props {
   children?: React.ReactNode;
   selected?: boolean;
   focussed?: boolean;
+  buttonRef?: React.RefObject<HTMLButtonElement>;
+  panelRef?: React.RefObject<HTMLDivElement>;
   onTabButtonClick?: () => void;
 }
 
