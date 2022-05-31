@@ -53,11 +53,11 @@ export const Select = ({
   const nativeSelect = useRef<HTMLSelectElement>(null);
 
   const syncDisplayValue = (val: string) => {
-    for (let child of children) {
+    React.Children.forEach(children, (child) => {
       if (child.props.value === val) {
         setDisplay(child.props.children);
       }
-    }
+    });
   };
 
   const rePositionList = () => {

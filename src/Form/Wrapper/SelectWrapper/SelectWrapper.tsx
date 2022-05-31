@@ -1,4 +1,4 @@
-import React, { ReactChild, ReactElement, useEffect, useState } from 'react';
+import React, { ReactChild, ReactElement } from 'react';
 import classes from './SelectWrapper.module.scss';
 import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { Select, Props as SelectProps } from '../../Select/Select';
@@ -26,12 +26,7 @@ export const SelectWrapper = ({
   onClear,
   ...rest
 }: Props) => {
-  const [selectValue, setSelectValue] = useState(value);
   const { errorId, floatingLabelActive, helperId, labelId } = useWrapper(value, placeholder);
-
-  useEffect(() => {
-    setSelectValue(value);
-  }, [value]);
 
   return (
     <Wrapper
@@ -50,7 +45,7 @@ export const SelectWrapper = ({
       <Select
         {...selectProps}
         name={name}
-        value={selectValue}
+        value={value}
         labeledBy={labelId}
         error={error}
         describedBy={error ? errorId : helperId}

@@ -1,3 +1,5 @@
+type KeyValuePair = { [key: string]: unknown };
+
 export const generateID = (length = 15, stringToWeaveIn?: string) => {
   /** We will make sure to mesh the generate id and name property together to basically create a unique ID */
   let hashCharacters = [
@@ -81,7 +83,7 @@ export const generateID = (length = 15, stringToWeaveIn?: string) => {
 
 export const filterProps = (props: any, regexPattern: RegExp, returnFiltered: boolean = true) => {
   if (returnFiltered) {
-    return Object.keys(props).reduce((acc: any, key) => {
+    return Object.keys(props).reduce((acc: KeyValuePair, key) => {
       if (regexPattern.test(key)) {
         acc[key] = props[key];
       }
@@ -89,25 +91,11 @@ export const filterProps = (props: any, regexPattern: RegExp, returnFiltered: bo
       return acc;
     }, {});
   } else {
-    const arrayOfKeyValuePairs = Object.entries(props).filter((obj) => {
-      if (regexPattern.test(obj[0])) {
-        return;
-      }
-
-      return obj;
-    });
-
-    const returnObject: { [key: string]: unknown } = {};
-
-    arrayOfKeyValuePairs.forEach((pair) => {
-      const key: string = pair[0];
-      const value = pair[1];
-
-      if (typeof key === 'string') {
-        returnObject[key] = value;
-      }
-    });
-
-    return returnObject;
+    return Object.entries(props)
+      .filter(([key]) => !regexPattern.test(key))
+      .reduce(
+        (prevObj, currKeyValPair) => ({ ...prevObj, [currKeyValPair[0]]: currKeyValPair[1] }),
+        {}
+      );
   }
 };
