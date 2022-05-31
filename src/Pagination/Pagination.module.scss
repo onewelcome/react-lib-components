@@ -15,28 +15,39 @@
 }
 
 .per-page span + * {
-  margin-left: 4px;
+  margin-left: 0.25rem;
 }
 
 .next,
 .previous {
   button + button {
-    margin-left: 8px;
+    margin-left: 0.5rem;
   }
 }
 
 .total {
   span {
     font-weight: 700;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
   }
 }
 
 .previous + .page,
 .per-page + .previous,
 .per-page + .page {
-  margin-left: 8px;
+  margin-left: 0.5rem;
 }
 
 .page + .next {
-  margin-left: 8px;
+  margin-left: 0.5rem;
+}
+
+.current-page {
+  display: flex;
+  align-items: center;
+}
+
+.current-value-input {
+  margin: 0 0.5rem;
 }

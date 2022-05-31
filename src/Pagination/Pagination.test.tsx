@@ -7,6 +7,7 @@ const defaultParams: Props = {
   totalElements: 500,
   onPageChange: jest.fn(),
   onPageSizeChange: jest.fn(),
+  onCurrentPageChange: jest.fn(),
 };
 
 const createPagination = (params?: (defaultParams: Props) => Props) => {
@@ -49,7 +50,9 @@ describe('different current pages and their effect on what renders', () => {
     }));
 
     expect(pagination.querySelector('[data-paginate="first"]')).toBeFalsy();
-    expect((pagination.querySelector('.current-value-input') as HTMLInputElement).value).toBe('2');
+    expect((pagination.querySelector('.current-value-input input') as HTMLInputElement).value).toBe(
+      '2'
+    );
   });
 
   it('is on the second to last page and does not render last', () => {

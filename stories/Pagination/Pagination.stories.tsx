@@ -11,6 +11,12 @@ const meta: Meta = {
         type: 'object',
       },
     },
+    pageSize: {
+      control: {
+        type: 'radio',
+        options: ['10', '25', '50'],
+      },
+    },
   },
 };
 
