@@ -5,3 +5,10 @@ export type Sort = {
   direction: Direction;
 }[];
 export type OnSortFunction = (sort: Sort) => void;
+
+export interface HeaderCell {
+  name: ColumnName;
+  headline: string;
+  disableSorting?: boolean;
+  hidden?: boolean;
+}

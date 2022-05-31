@@ -1,14 +1,5 @@
-.header {
-  display: grid;
-  grid-template-columns: auto;
-  grid-auto-columns: minmax(3.125rem, auto);
-  column-gap: 20px;
-  row-gap: 0.25rem;
-
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #0f0f1e40;
-  position: sticky;
-  top: 0;
-  background-color: #fff;
-  z-index: 1;
+.line {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: #0f0f1e40;
 }

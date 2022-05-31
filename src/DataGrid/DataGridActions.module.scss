@@ -1,0 +1,13 @@
+.actions {
+  margin-bottom: 1rem;
+  display: flex;
+
+  .left-actions {
+    flex: 1;
+  }
+
+  .right-actions {
+    display: flex;
+    column-gap: 2rem;
+  }
+}

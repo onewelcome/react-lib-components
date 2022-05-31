@@ -1,0 +1,36 @@
+.grid-wrapper {
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 1rem;
+  box-sizing: border-box;
+  max-width: 56.75rem;
+  overflow-x: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto;
+  column-gap: 20px;
+  row-gap: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.actions {
+  margin-bottom: 1rem;
+  display: flex;
+
+  .left-actions {
+    flex: 1;
+  }
+
+  .right-actions {
+    display: flex;
+    column-gap: 2rem;
+  }
+}
+
+@media only screen and (min-width: 50rem) {
+  .grid-wrapper {
+    padding: 1rem 1.25rem;
+  }
+}

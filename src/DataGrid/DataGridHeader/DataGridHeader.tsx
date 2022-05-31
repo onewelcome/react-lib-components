@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { HTMLProps } from '../../interfaces';
-import { ColumnName, Direction, OnSortFunction, Sort } from '../interfaces';
+import React, { Fragment, useEffect, useState } from 'react';
+import { ColumnName, Direction, HeaderCell, OnSortFunction, Sort } from '../interfaces';
 import { DataGridHeaderCell } from './DataGridHeaderCell';
 import classes from './DataGridHeader.module.scss';
 
-interface HeaderCell {
-  name: ColumnName;
-  headline: string;
-  disableSorting?: boolean;
-  hidden?: boolean;
-}
-
-export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'headers'> {
+export interface Props {
   initialSort?: Sort;
   onSort?: OnSortFunction;
   headers: HeaderCell[];
@@ -19,16 +11,8 @@ export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'headers'> {
 
 const sortingStates = [undefined, 'ASC', 'DESC'] as (Direction | undefined)[];
 
-export const DataGridHeader = ({
-  children,
-  initialSort,
-  onSort,
-  headers,
-  style,
-  className,
-  ...rest
-}: Props) => {
-  const [sortList, setSortList] = useState(initialSort || []);
+export const DataGridHeader = ({ initialSort, onSort, headers, ...rest }: Props) => {
+  const [sortList, setSortList] = useState(initialSort || ([] as Sort));
 
   useEffect(() => {
     setSortList(initialSort || []);
@@ -77,15 +61,10 @@ export const DataGridHeader = ({
   });
 
   return (
-    <div
-      {...rest}
-      className={`${classes['header']} ${className ?? ''}`}
-      style={{
-        ...style,
-        gridTemplateColumns: `repeat(${headers.length}, 1fr) 2.5rem`,
-      }}
-    >
+    <Fragment {...rest}>
       {headerCells}
-    </div>
+      <div></div>
+      <div className={classes['line']}></div>
+    </Fragment>
   );
 };
