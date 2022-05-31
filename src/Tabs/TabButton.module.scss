@@ -31,7 +31,6 @@
   }
 
   &.selected {
-    // border-bottom-color: var(--color-primary);
     color: initial;
 
     &:before {
@@ -39,12 +38,9 @@
     }
   }
 
-  &.focussed:not(.selected) {
-    border-bottom-color: var(--color-secondary);
-    color: initial;
-
-    &:before {
-      opacity: 0;
-    }
+  &.focussed,
+  &.selected:focus-visible {
+    box-shadow: inset 0 0 0 2px #0085f2;
+    outline: 0;
   }
 }
