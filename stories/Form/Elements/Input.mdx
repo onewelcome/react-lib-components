@@ -1,0 +1,37 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `Input` component is a default `input` form element that is wrapped by a containing `div` element. You can add properties to this wrapping `div` element by using the `wrapperProps` prop on the `Input` component.
+
+It also has built-in `error` and `disabled` props that you can set to either `true` or `false`, and it will give appropriate styling based on the chosen values.
+
+# Examples
+
+Down below you will find an `Input` component that you can control by setting Props from the [Props table](#props).
+
+<Canvas>
+  <Story id="stories-form-elements-input--input" />
+</Canvas>
+
+A code example with an `Input` component linked to state:
+
+```jsx
+const ExampleComponent = () => {
+  const [inputValue, setInputValue] = useState('');
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <Input
+      value={inputValue}
+      onChange={(event) => setInputValue(event.target.value)}
+      error={hasError}
+    />
+  );
+};
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

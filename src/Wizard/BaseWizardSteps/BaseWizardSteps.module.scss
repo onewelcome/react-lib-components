@@ -56,6 +56,11 @@
   padding: 0;
   margin: 0;
 
+  &:focus-visible {
+    outline: 1px dashed var(--color-primary);
+    outline-offset: 1px;
+  }
+
   // Completed/finished state
   &.finished {
     .number-wrapper {
@@ -161,6 +166,7 @@
   color: var(--greyed-out);
   line-height: 1.5rem;
   background-color: #ffffff;
+  box-sizing: content-box;
 }
 
 .two-line-text-overflow {

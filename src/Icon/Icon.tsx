@@ -1,5 +1,6 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 import classes from './Icon.module.scss';
+import { HTMLAttributes } from '../interfaces';
 
 export enum Icons {
   Bell = 'bell',
@@ -12,7 +13,7 @@ export enum Icons {
   Checkmark = 'checkmark',
   CheckmarkCircle = 'checkmark-circle',
   CheckmarkCircleAlt = 'checkmark-circle-alt',
-  CheckmarkCircleBreakOut = 'checkmark-circle-breakout',
+  CheckmarkCircleBreakout = 'checkmark-circle-breakout',
   CheckmarkSquare = 'checkmark-square',
   ChevronUp = 'chevron-up',
   ChevronDown = 'chevron-down',
@@ -25,6 +26,7 @@ export enum Icons {
   Ellipsis = 'ellipsis',
   EllipsisAlt = 'ellipsis-alt',
   Equal = 'equal',
+  Error = 'error-circle',
   Eye = 'eye',
   Filter = 'filter',
   FilterAlt = 'filter-alt',
@@ -66,21 +68,28 @@ export enum Icons {
   Warning = 'warning',
 }
 
-export interface Props extends HTMLAttributes<HTMLOrSVGElement> {
+type Tag = 'span' | 'div' | 'i';
+
+export interface Props extends Omit<HTMLAttributes<HTMLOrSVGElement>, 'size'> {
   icon: Icons;
   color?: string;
   size?: string;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: Tag;
 }
 
-export const Icon = ({ icon, color, className, style, size, tag = 'span', ...rest }: Props) => {
-  const Component = tag;
-  return (
-    <Component
-      {...rest}
-      style={{ color: color, ...style, fontSize: size }}
-      aria-hidden="true"
-      className={`${classes['icon']} ${classes['icon-' + icon]} ${className ? className : ''}`}
-    />
-  );
-};
+export const Icon = React.forwardRef(
+  ({ icon, color, className, style, size, tag = 'span', ...rest }: Props, ref) => {
+    const Component = tag;
+
+    return (
+      <Component
+        {...rest}
+        ref={ref as React.LegacyRef<HTMLDivElement>}
+        style={{ color: color, ...style, fontSize: size }}
+        data-icon
+        aria-hidden="true"
+        className={`${classes['icon']} ${classes['icon-' + icon]} ${className ? className : ''}`}
+      />
+    );
+  }
+);

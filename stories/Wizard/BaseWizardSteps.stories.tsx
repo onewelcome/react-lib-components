@@ -1,13 +1,13 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { BaseWizardSteps, Step, Props } from '../../src/Wizard/BaseWizardSteps/BaseWizardSteps';
+import { BaseWizardSteps, Props } from '../../src/Wizard/BaseWizardSteps/BaseWizardSteps';
 
 const onClick = (stepNo: number) => {
   alert('Clicked stepNo:' + stepNo);
 };
 
 const meta: Meta = {
-  title: 'WizardSteps',
+  title: 'Stories/Form/Wizard/WizardSteps',
   component: BaseWizardSteps,
   args: {
     steps: [
@@ -42,4 +42,5 @@ export default meta;
 
 const Template: Story<Props> = (args) => <BaseWizardSteps {...args} />;
 
-export const BasicWizardSteps = Template.bind({});
+export const WizardSteps = Template.bind({});
+WizardSteps.storyName = 'WizardSteps';

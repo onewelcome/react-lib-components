@@ -1,0 +1,20 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Icon, Icons } from '../../src/Icon/Icon.tsx';
+
+<Title />
+<Subtitle />
+
+The `Tooltip` component is used to give the end user information related to an element on the page. For instance, it might be used to give information about an input field in a form. It uses the [usePosition hook](/docs/hooks-useposition--page) under the hood
+and therefor also accepts the `placement`, `transformOrigin` and `offset` props.
+
+You can define a `label` prop which displays text, followed by an <Icon icon={Icons.InfoCircle} /> icon. The contents in between the `<Tooltip></Tooltip>` tags becomes the content of the popup that appears when you hover over the icon.
+
+# Examples
+
+<Canvas>
+  <Story id="stories-ui-tooltip--tooltip" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

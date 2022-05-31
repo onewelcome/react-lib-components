@@ -1,0 +1,46 @@
+.link {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1.5;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: 0;
+
+  &.disabled {
+    cursor: not-allowed;
+    color: var(--greyed-out);
+  }
+
+  &:focus,
+  &:hover,
+  &:active {
+    text-decoration-thickness: 0.125rem;
+    outline: 0;
+  }
+
+  &.primary {
+    color: var(--color-primary);
+
+    &:focus-visible {
+      outline: 0.5px dashed var(--color-primary);
+    }
+  }
+
+  &.secondary {
+    color: var(--color-secondary);
+
+    &:focus-visible {
+      outline: 0.5px dashed var(--color-primary);
+    }
+  }
+
+  &.tertiary {
+    color: var(--color-tertiary);
+
+    &:focus-visible {
+      outline: 0.5px dashed var(--color-primary);
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.input-label {
+  left: calc(
+    1.25rem + 2px
+  ); // 2px is for offset of the textarea border. It's relative to the parent div which doesn't have a border.
+
+  &.focus {
+    color: var(--color-primary);
+  }
+}
+
+input {
+  &.floating-label {
+    padding-top: 0.625rem;
+  }
+}
+
+.input-wrapper-helper {
+  margin-top: 0.25rem;
+}
+
+.input-wrapper [data-icon]:before {
+  transform: translateY(5px);
+  font-size: 1.125rem;
+}
+
+.input-wrapper [data-prefix],
+.input-wrapper [data-suffix] {
+  transform: translateY(-0.125rem);
+}
+
+.floating-label-active [data-prefix],
+.floating-label-active [data-suffix] {
+  padding-top: 0.5rem;
+  transform: translateY(0);
+}

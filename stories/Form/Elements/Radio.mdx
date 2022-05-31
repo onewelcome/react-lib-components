@@ -1,0 +1,65 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `Radio` component is a native HTML `input` element. And just like the native elements, it should be linked to a `form`. This can be done by either nesting the `Radio` component inside of a `Form` component, or by linking to a `form` element by using the appropriate `form` attribute. As is default with `<input type="radio"/>` HTMLElements, `Radio`s are grouped together through the `name` attribute.
+
+For proper accessibility, it is recommended to nest the `Radio` component inside a `Fieldset` component, so it has a `legend` element that tells the end-user what they represent. [The `RadioWrapper` component already does this for you.](/docs/stories-form-wrapper-radiowrapper--radio-wrapper)
+
+Each individual radio button can have its own `helperText` and `errorMessage`. By default, the `helperText` will be shown **if** this prop is filled in. As soon as the `error` prop is set to `true`, the `errorMessage` will be shown.
+
+# Examples
+
+<Canvas>
+  <Story id="stories-form-elements-radio--radio" />
+</Canvas>
+
+A code example of how you could use the `Radio` component with state:
+
+```jsx
+const ExampleComponent = () => {
+  const [radioValue, setRadioValue] = useState('option1');
+
+  return (
+    <Fieldset legend="Radio button group">
+      <Radio
+        name="example-name"
+        value="option1"
+        onChange={(event) => setRadioValue(event.target.value)}
+        checked={radioValue === 'option1'}
+      >
+        Option 1
+      </Radio>
+      <Radio
+        name="example-name"
+        value="option2"
+        onChange={(event) => setRadioValue(event.target.value)}
+        checked={radioValue === 'option2'}
+      >
+        Option 2
+      </Radio>
+      <Radio
+        name="example-name"
+        value="option3"
+        onChange={(event) => setRadioValue(event.target.value)}
+        checked={radioValue === 'option3'}
+      >
+        Option 3
+      </Radio>
+      <Radio
+        name="example-name"
+        value="option4"
+        onChange={(event) => setRadioValue(event.target.value)}
+        checked={radioValue === 'option4'}
+      >
+        Option 4
+      </Radio>
+    </Fieldset>
+  );
+};
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

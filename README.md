@@ -1,5 +1,9 @@
 # OneWelcome React Component Library
 
+This project provides React components built according to the [UI Component Library design](https://xd.adobe.com/view/1f7161d7-5ade-4e54-bb3d-6e4aa3a1d1a0-4a22/grid/). It uses the [DTS tool](https://weiran-zsd.github.io/dts-cli/) which provides for a consistent setup and configuration.
+
+> Note: the package is publicly available.
+
 ## Commands
 
 ### Component library
@@ -27,20 +31,7 @@ npm run storybook # or yarn storybook
 ```
 
 ## Development
-Development is done inside of `src`, `stories`.
-
-```bash
-- src
-	- ComponentName <folder>
-		- Component.tsx
-		- Component.module.scss
-		- ComponentName.test.tsx
-- stories
-	- ComponentName <folder>
-	- ComponentName.stories.tsx
-```
-
-Whenever you are done developing a component and you want to include it in the production library, make sure to export it through `src/index.tsx`. This ensures that when you run `npm run build`, it will get included.
+Please see the [CONTRIBUTING.md](https://github.com/onewelcome/react-lib-components/blob/master/CONTRIBUTING.md) file for information on how to develop for the Component Library.
 
 ### Adding new icons
 
@@ -56,7 +47,7 @@ Calculates the real cost of your library using [size-limit](https://github.com/a
 
 ### Rollup
 
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
+[DTS](https://weiran-zsd.github.io/dts-cli/) uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
 
 ### TypeScript
 
@@ -64,4 +55,17 @@ TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rol
 
 ## Release
 
-TBD.
+The publishing process is fired by git tag creation. CircleCI builds a package and publishes it to the public npmjs.com registry. 
+Release notes should be provided via GitHub UI.
+After a successful release, the release notes are published on `#releases` slack channel.
+
+### Creating release
+
+Follow these steps to create a release:
+
+- note all changes introduced from the last release
+- create a release on the GitHub repository page:
+  - determine new version (bugfix/minor/major)
+  - put proper release notes based on previous releases
+  - click on the `CREATE RELEASE` button
+- check if the release is published on `https://www.npmjs.com/package/@onewelcome/react-lib-components`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classes from './BaseWizardSteps.module.scss';
 import readyclasses from '../../readyclasses.module.scss';
 import { Icon, Icons } from '../../Icon/Icon';
@@ -41,10 +41,10 @@ export const BaseWizardSteps = ({
       return disabled ? null : <Icon className={classes['checkmark']} icon={Icons.Checkmark} />;
     } else {
       return (
-        <>
+        <Fragment>
           <span className={readyclasses['sr-only']}>{stepScreenReaderLabel} </span>
           {stepNumberString}
-        </>
+        </Fragment>
       );
     }
   };
@@ -53,14 +53,16 @@ export const BaseWizardSteps = ({
     const stepState = getStepState(index);
     const disabledStyleClassName = step.disabled ? classes['disabled'] : '';
     const clickableClassName = futureStepsClickable ? classes['clickable'] : '';
+
     return (
       <button
-        key={index}
+        key={step.label.toLowerCase().replace(/\s/, '-')}
         disabled={
           step.disabled ||
           (stepState === 'future' && !futureStepsClickable) ||
           stepState === 'current'
         }
+        aria-current={stepState === 'current' ? 'step' : undefined}
         onClick={() => onClick && onClick(index)}
         className={`${classes['wizard-element']} ${classes[stepState]} ${clickableClassName} ${disabledStyleClassName}`}
       >

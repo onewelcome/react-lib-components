@@ -1,0 +1,83 @@
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 1.25rem;
+  background-color: var(--input-background-color);
+  border-color: var(--input-border-color);
+  border-style: var(--input-border-style);
+  border-width: var(--input-border-width);
+  border-radius: var(--input-border-radius);
+  transition: all 0.2s ease-in-out;
+
+  &:hover:not(:disabled) {
+    border-color: var(--default);
+  }
+
+  &.disabled,
+  &.disabled input {
+    background-color: var(--disabled);
+    border-color: #fff;
+    cursor: not-allowed;
+  }
+
+  &.error {
+    border-color: var(--error);
+  }
+
+  &.focus {
+    border-color: var(--color-primary);
+  }
+}
+
+.input {
+  height: 4rem;
+  border: 0;
+  color: var(--greyed-out);
+  font-size: var(--font-size);
+  font-family: var(--font-family);
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus:not(:disabled) {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+}
+
+.error input {
+  color: var(--error);
+  padding-right: 3.75rem;
+
+  &.remove-extra-indent {
+    padding-right: 1.25rem;
+  }
+}
+
+.warning {
+  color: var(--error);
+  position: absolute;
+  height: 100%;
+  width: 1.25rem;
+  right: 1.25rem;
+  top: 0px;
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:before {
+    height: 1.3125rem;
+  }
+
+  &.extra-indent {
+    right: 3.75rem;
+  }
+}
+
+.input-wrapper [data-prefix],
+.input-wrapper [data-suffix] {
+  transition: all 0.2s ease-in-out;
+  display: block;
+  z-index: 1;
+}

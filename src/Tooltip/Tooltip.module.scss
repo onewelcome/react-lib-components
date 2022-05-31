@@ -1,0 +1,42 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.tooltip-wrapper {
+  .icon {
+    margin-left: 0.5rem;
+    transition: all 0.2s ease-in-out;
+    color: var(--greyed-out);
+
+    &:hover {
+      color: var(--default);
+    }
+  }
+}
+
+.tooltip {
+  position: fixed;
+  background-color: var(--default);
+  padding: 0.1875rem 0.5rem;
+  color: #fff;
+  max-width: 330px;
+  opacity: 0;
+  transform: scale(0);
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  transition-property: opacity, transform;
+  transform-origin: center left;
+  pointer-events: none;
+
+  &.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.label {
+  &:focus-visible {
+    outline: 0.5px dashed var(--color-primary);
+  }
+}

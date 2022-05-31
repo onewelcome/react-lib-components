@@ -1,3 +1,5 @@
+@import '../readyclasses.module.scss';
+
 .fill {
   color: var(--button-fill-text-color);
   font-weight: bold;
@@ -5,6 +7,8 @@
   &.primary:not(:disabled) {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
+
+    @include focusOutline(var(--color-primary));
 
     &:hover,
     &:focus {
@@ -33,6 +37,8 @@
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
 
+    @include focusOutline(var(--color-secondary));
+
     &:hover,
     &:focus {
       color: var(--color-secondary);
@@ -60,6 +66,8 @@
     background-color: var(--color-tertiary);
     border-color: var(--color-tertiary);
 
+    @include focusOutline(var(--color-tertiary));
+
     &:hover,
     &:focus {
       color: var(--color-tertiary);
@@ -77,6 +85,35 @@
         width: 100%;
         height: calc(100% + var(--button-border-width));
         background-color: var(--color-tertiary);
+        border-radius: var(--button-border-radius);
+        filter: opacity(0.1);
+      }
+    }
+  }
+
+  &.default:not(:disabled) {
+    background-color: var(--default);
+    border-color: var(--default);
+
+    @include focusOutline(var(--default));
+
+    &:hover,
+    &:focus {
+      color: var(--default);
+    }
+
+    &:active {
+      position: relative;
+      color: var(--default);
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: calc(-1 * var(--button-border-width));
+        left: 0;
+        width: 100%;
+        height: calc(100% + var(--button-border-width));
+        background-color: var(--default);
         border-radius: var(--button-border-radius);
         filter: opacity(0.1);
       }
@@ -103,6 +140,8 @@
     border-color: var(--color-primary);
     color: var(--color-primary);
 
+    @include focusOutline(var(--color-primary));
+
     &:hover,
     &:focus {
       background-color: var(--color-primary);
@@ -112,6 +151,8 @@
   &.secondary:not(:disabled) {
     border-color: var(--color-secondary);
     color: var(--color-secondary);
+
+    @include focusOutline(var(--color-secondary));
 
     &:hover,
     &:focus {
@@ -123,20 +164,29 @@
     border-color: var(--color-tertiary);
     color: var(--color-tertiary);
 
+    @include focusOutline(var(--color-tertiary));
+
     &:hover,
     &:focus {
       background-color: var(--color-tertiary);
     }
   }
 
+  &.default:not(:disabled) {
+    border-color: var(--default);
+    color: var(--default);
+
+    @include focusOutline(var(--default));
+
+    &:hover,
+    &:focus {
+      background-color: var(--default);
+    }
+  }
+
   &:hover:not(:disabled),
   &:focus:not(:disabled) {
     color: var(--button-outline-hover-text-color);
-  }
-
-  &:active:not(:disabled) {
-    border: none;
-    margin: 2px;
   }
 
   &:disabled {
@@ -152,6 +202,8 @@
   &.primary:not(:disabled) {
     color: var(--color-primary);
 
+    @include focusOutline(var(--color-primary));
+
     &:hover,
     &:focus {
       border-color: var(--color-primary);
@@ -166,7 +218,7 @@
       &:after {
         content: '';
         position: absolute;
-        top: calc(-1 * var(--button-border-width));
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
         left: 0;
         width: 100%;
         height: calc(100% + var(--button-border-width));
@@ -179,6 +231,8 @@
 
   &.secondary:not(:disabled) {
     color: var(--color-secondary);
+
+    @include focusOutline(var(--color-secondary));
 
     &:hover,
     &:focus {
@@ -194,7 +248,7 @@
       &:after {
         content: '';
         position: absolute;
-        top: calc(-1 * var(--button-border-width));
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
         left: 0;
         width: 100%;
         height: calc(100% + var(--button-border-width));
@@ -207,6 +261,8 @@
 
   &.tertiary:not(:disabled) {
     color: var(--color-tertiary);
+
+    @include focusOutline(var(--color-tertiary));
 
     &:hover,
     &:focus {
@@ -222,11 +278,41 @@
       &:after {
         content: '';
         position: absolute;
-        top: calc(-1 * var(--button-border-width));
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
         left: 0;
         width: 100%;
         height: calc(100% + var(--button-border-width));
         background-color: var(--color-tertiary);
+        border-radius: var(--button-border-radius);
+        filter: opacity(0.1);
+      }
+    }
+  }
+
+  &.default:not(:disabled) {
+    color: var(--default);
+
+    @include focusOutline(var(--default));
+
+    &:hover,
+    &:focus {
+      border-color: var(--default);
+    }
+
+    &:active {
+      background-color: transparent;
+      position: relative;
+      color: var(--default);
+      border-color: var(--button-fill-background-color);
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+        left: 0;
+        width: 100%;
+        height: calc(100% + var(--button-border-width));
+        background-color: var(--default);
         border-radius: var(--button-border-radius);
         filter: opacity(0.1);
       }
@@ -238,8 +324,13 @@
   display: flex;
   align-items: center;
 
-  svg {
-    vertical-align: top;
-    font-size: 19px;
+  &.start-icon {
+    padding-left: 1rem;
+    padding-right: 1.25rem;
+  }
+
+  &.end-icon {
+    padding-left: 1.25rem;
+    padding-right: 1rem;
   }
 }

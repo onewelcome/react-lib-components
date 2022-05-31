@@ -1,0 +1,14 @@
+.select-label {
+  left: calc(
+    1.25rem + 2px
+  ); // 2px is for offset of the textarea border. It's relative to the parent div which doesn't have a border.
+}
+
+.select-helper-text {
+  margin-top: 0.25rem;
+  margin-left: 1.25rem;
+}
+
+.floating-label-active [data-display] {
+  top: calc(50% + 0.5rem);
+}

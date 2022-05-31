@@ -1,0 +1,72 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `Fieldset` component is created to improve accessibility and give you an easier time with creating sections between parts of the form. The `title` prop will create a `legend` HTMLElement for you, which is hidden and used for screenreader purposes only. A `Typography` component that you can control through the `titleVariant` prop is rendered instead. You can also optionally hide the title by providing `true` to the `hideTitle` prop.
+
+The fieldset component
+
+# Examples
+
+Below you will find an example `Fieldset` component:
+
+<Canvas>
+  <Story id="stories-form-elements-fieldset--fieldset" />
+</Canvas>
+
+And here's how that would look like in your code:
+
+```jsx
+const ExampleComponent = () => {
+  const [prefix, setPrefix] = useState('mr');
+  const [firstName, setFirstName] = useState('');
+  const [date, setDate] = useState('');
+
+  return (
+    <Form style={{ padding: '20px', backgroundColor: '#F5F8F8' }}>
+      <Fieldset legend="Name">
+        <FormControl grid={3} align="top">
+          <SelectWrapper
+            name="prefix"
+            label="Prefix"
+            value={prefix}
+            onChange={(event) => setPrefix(event.target.value)}
+            onClear={() => setPrefix('')}
+          >
+            <Option disabled value={undefined}>
+              Prefix
+            </Option>
+            <Option value="mr">Mr.</Option>
+            <Option value="mrs">Mrs.</Option>
+          </SelectWrapper>
+          <InputWrapper
+            onChange={(event) => setFirstName(event.target.value)}
+            label="First name"
+            errorMessage={'Error message'}
+            error={false}
+            value={firstName}
+            helperText={'Helper text'}
+            name="first-name"
+            type="text"
+          />
+          <InputWrapper
+            onChange={(event) => setDate(event.target.value)}
+            label="Last name"
+            errorMessage={'Error message'}
+            error={false}
+            value={date}
+            helperText={'Helper text'}
+            name="callback-time"
+            type="datetime-local"
+          />
+        </FormControl>
+      </Fieldset>
+    </Form>
+  );
+};
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
