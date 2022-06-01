@@ -13,11 +13,43 @@ import { DataGridActions } from '../../src/DataGrid/DataGridActions';
 import { Button } from '../../src/Button/Button';
 
 type DataType = { name: string; created: Date; id: string; type: string; enabled: boolean };
+const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
+  name: 'Adyen' + idx,
+  created: new Date(new Date().getTime() + 86400000 * idx),
+  id: idx + '343454435435435',
+  type: 'Stock',
+  enabled: !!(idx % 2),
+}));
 
 const meta: Meta = {
   title: 'Stories/UI/DataGrid',
   component: DataGridPrototype,
-  args: {},
+  args: {
+    data,
+    headers: [
+      { name: 'name', headline: 'Name' },
+      { name: 'created', headline: 'Created' },
+      { name: 'id', headline: 'Identifier' },
+      { name: 'type', headline: 'Type' },
+      { name: 'enabled', headline: 'Enabled' },
+    ],
+    initialSort: [
+      { name: 'name', direction: 'ASC' },
+      { name: 'created', direction: 'DESC' },
+    ],
+    onSort: (sort) => console.log(JSON.stringify(sort)),
+    actions: {
+      addBtnProps: { onClick: () => console.log('add btn clicked') },
+      columnsBtnProps: { onClick: () => console.log('columns btn clicked') },
+      searchBtnProps: { onClick: () => console.log('search btn clicked') },
+    },
+    disableContexMenuColumn: false,
+    paginationProps: {
+      totalElements: 105,
+      pageSize: 10,
+      currentPage: 1,
+    },
+  },
   decorators: [
     (Story) => (
       <div style={{ backgroundColor: '#F5F8F8', padding: 30 }}>
@@ -29,60 +61,24 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = (args) => {
-  const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
-    name: 'Adyen' + idx,
-    created: new Date(new Date().getTime() + 86400000 * idx),
-    id: idx + '343454435435435',
-    type: 'Stock',
-    enabled: !!(idx % 2),
-  }));
-
+const Template: Story<Props<DataType>> = (args) => {
   return (
     <Fragment>
       <DataGridComponent {...args}>
-        <DataGridActions
-          columnsBtnProps={{ onClick: () => console.log('Columns btn clicked') }}
-          searchBtnProps={{ onClick: () => console.log('Search btn clicked') }}
-        >
-          <Button
-            color="primary"
-            startIcon={<Icon icon={Icons.Plus} />}
-            title="Add item"
-            type="button"
-            variant="outline"
-          >
-            Add item
-          </Button>
-        </DataGridActions>
-        <DataGridHeader
-          headers={[
-            { name: 'name', headline: 'Name' },
-            { name: 'created', headline: 'Created' },
-            { name: 'id', headline: 'Identifier' },
-            { name: 'type', headline: 'Type' },
-            { name: 'enabled', headline: 'Enabled' },
-          ]}
-          initialSort={[
-            { name: 'name', direction: 'ASC' },
-            { name: 'created', direction: 'DESC' },
-          ]}
-          onSort={(sort) => console.log(JSON.stringify(sort))}
-        />
-        <DataGridBody data={data}>
-          {(item) => (
-            <Fragment key={item.id}>
-              <DataGridCell>{item.name}</DataGridCell>
-              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
-              <DataGridCell>{item.id}</DataGridCell>
-              <DataGridCell>{item.type}</DataGridCell>
-              <DataGridCell>
-                {item.enabled ? (
-                  <span style={{ color: 'green' }}>Yes</span>
-                ) : (
-                  <span style={{ color: 'red' }}>No</span>
-                )}
-              </DataGridCell>
+        {({ item }) => (
+          <Fragment key={item.id}>
+            <DataGridCell>{item.name}</DataGridCell>
+            <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
+            <DataGridCell>{item.id}</DataGridCell>
+            <DataGridCell>{item.type}</DataGridCell>
+            <DataGridCell>
+              {item.enabled ? (
+                <span style={{ color: 'green' }}>Yes</span>
+              ) : (
+                <span style={{ color: 'red' }}>No</span>
+              )}
+            </DataGridCell>
+            {!args.disableContexMenuColumn && (
               <DataGridCell>
                 <ContextMenu
                   id={`consent_menu_${item.id}`}
@@ -99,12 +95,10 @@ const Template: Story<Props> = (args) => {
                   <ContextMenuItem>Item 3</ContextMenuItem>
                 </ContextMenu>
               </DataGridCell>
-            </Fragment>
-          )}
-        </DataGridBody>
+            )}
+          </Fragment>
+        )}
       </DataGridComponent>
-      <div style={{ marginBottom: 100 }}></div>
-      {/* <DataGridPrototype {...args} /> */}
     </Fragment>
   );
 };

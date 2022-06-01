@@ -4,14 +4,21 @@ import { DataGridHeaderCell } from './DataGridHeaderCell';
 import classes from './DataGridHeader.module.scss';
 
 export interface Props {
+  headers: HeaderCell[];
   initialSort?: Sort;
   onSort?: OnSortFunction;
-  headers: HeaderCell[];
+  disableContexMenuColumn?: boolean;
 }
 
 const sortingStates = [undefined, 'ASC', 'DESC'] as (Direction | undefined)[];
 
-export const DataGridHeader = ({ initialSort, onSort, headers, ...rest }: Props) => {
+export const DataGridHeader = ({
+  initialSort,
+  onSort,
+  headers,
+  disableContexMenuColumn,
+  ...rest
+}: Props) => {
   const [sortList, setSortList] = useState(initialSort || ([] as Sort));
 
   useEffect(() => {
@@ -63,7 +70,7 @@ export const DataGridHeader = ({ initialSort, onSort, headers, ...rest }: Props)
   return (
     <Fragment {...rest}>
       {headerCells}
-      <div></div>
+      {!disableContexMenuColumn && <div></div>}
       <div className={classes['line']}></div>
     </Fragment>
   );

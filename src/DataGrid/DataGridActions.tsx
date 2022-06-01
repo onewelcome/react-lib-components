@@ -1,45 +1,58 @@
-import React, { HTMLProps, ReactNode } from 'react';
+import React from 'react';
 import { Button, Props as ButtonProps } from '../Button/Button';
 import { Icon, Icons } from '../Icon/Icon';
 import classes from './DataGridActions.module.scss';
 
-export interface Props extends HTMLProps<HTMLDivElement> {
-  children?: ReactNode;
+export interface Props {
+  addBtnProps?: ButtonProps;
   columnsBtnProps?: ButtonProps;
   searchBtnProps?: ButtonProps;
 }
 
-export const DataGridActions = ({ children, columnsBtnProps, searchBtnProps, ...rest }: Props) => {
-  const columnsBtn = columnsBtnProps && (
-    <Button
-      {...columnsBtnProps}
-      color="primary"
-      startIcon={<Icon icon={Icons.Change} />}
-      type="button"
-      variant="text"
-    >
-      Columns
-    </Button>
-  );
-
-  const searchBtn = columnsBtnProps && (
-    <Button
-      {...searchBtnProps}
-      color="primary"
-      startIcon={<Icon icon={Icons.Search} />}
-      type="button"
-      variant="text"
-    >
-      Search
-    </Button>
-  );
-
+export const DataGridActions = ({
+  addBtnProps,
+  columnsBtnProps,
+  searchBtnProps,
+  ...rest
+}: Props) => {
   return (
     <div {...rest} className={classes['actions']}>
-      <div className={classes['left-actions']}>{children}</div>
+      <div className={classes['left-actions']}>
+        {addBtnProps && (
+          <Button
+            color="primary"
+            startIcon={<Icon icon={Icons.Plus} />}
+            title="Add item"
+            type="button"
+            variant="outline"
+            children="Add item"
+            {...addBtnProps}
+          />
+        )}
+      </div>
       <div className={classes['right-actions']}>
-        {columnsBtn}
-        {searchBtn}
+        {columnsBtnProps && (
+          <Button
+            color="primary"
+            startIcon={<Icon icon={Icons.Change} />}
+            type="button"
+            title="Show/hide columns"
+            variant="text"
+            children="Columns"
+            {...columnsBtnProps}
+          />
+        )}
+        {searchBtnProps && (
+          <Button
+            color="primary"
+            startIcon={<Icon icon={Icons.Change} />}
+            type="button"
+            title="Search"
+            variant="text"
+            children="Search"
+            {...searchBtnProps}
+          />
+        )}
       </div>
     </div>
   );

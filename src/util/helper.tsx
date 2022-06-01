@@ -1,3 +1,5 @@
+import { JSXElementConstructor, ReactElement, Children, ReactNode } from 'react';
+
 export const generateID = (length = 15, stringToWeaveIn?: string) => {
   /** We will make sure to mesh the generate id and name property together to basically create a unique ID */
   let hashCharacters = [
@@ -78,3 +80,11 @@ export const generateID = (length = 15, stringToWeaveIn?: string) => {
 
   return id.slice(0, length);
 };
+
+export const getChildByType = <T extends unknown>(
+  children: ReactNode | ReactNode[],
+  type: string | JSXElementConstructor<any>
+): T | undefined =>
+  Children.map(children, (child) => child)?.find(
+    (child) => typeof child == 'object' && 'type' in child && child?.type === type
+  ) as T;

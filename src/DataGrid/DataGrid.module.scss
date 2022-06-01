@@ -4,7 +4,6 @@
   padding: 1rem;
   box-sizing: border-box;
   max-width: 56.75rem;
-  overflow-x: auto;
 }
 
 .grid {
@@ -13,6 +12,7 @@
   column-gap: 20px;
   row-gap: 0.5rem;
   padding-top: 0.5rem;
+  overflow-x: auto;
 }
 
 .actions {
