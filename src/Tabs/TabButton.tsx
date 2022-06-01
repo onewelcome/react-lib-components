@@ -48,7 +48,6 @@ export const TabButton = React.forwardRef<HTMLButtonElement, Props>(
         type="button"
         aria-controls={tabPanelId}
         id={tabId}
-        data-text={children}
         onClick={onTabButtonClick}
       >
         {children}

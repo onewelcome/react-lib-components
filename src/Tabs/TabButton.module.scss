@@ -15,32 +15,16 @@
   transition-timing-function: ease-in-out;
   font-family: var(--font-family);
   background-color: transparent;
-  font-weight: bold;
-  color: transparent;
   white-space: nowrap;
   position: relative;
 
-  // transition to bold will alter the width of the tab and therefore all following tabs
-  // to prevent this from happening, the bold text is our default state/width
-  &:before {
-    font-weight: normal;
-    position: absolute;
-    color: var(--default);
-    content: attr(data-text);
-    opacity: 1;
-  }
-
   &.selected {
-    color: initial;
-
-    &:before {
-      opacity: 0;
-    }
+    font-weight: bold;
   }
 
   &.focussed,
   &.selected:focus-visible {
-    box-shadow: inset 0 0 0 2px #0085f2;
+    box-shadow: inset 0 0 0 2px var(--a11y-focus-color);
     outline: 0;
   }
 }

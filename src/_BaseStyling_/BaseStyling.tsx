@@ -1,6 +1,7 @@
 import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from 'react';
 
 interface CSSProperties {
+  a11yFocusColor?: string;
   colorPrimary?: string;
   colorSecondary?: string;
   colorTertiary?: string;
@@ -55,6 +56,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
+    a11yFocusColor: '#0085f2',
     colorPrimary: '#9e006b',
     colorSecondary: '#003b5e',
     colorTertiary: '#ff1e4e',
