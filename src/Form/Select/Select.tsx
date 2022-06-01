@@ -1,20 +1,22 @@
 import classes from './Select.module.scss';
 
-import React, { HTMLProps, ReactElement, useEffect, useRef, useState } from 'react';
+import React, { Fragment, ReactElement, useEffect, useRef, useState } from 'react';
 import { Input } from '../Input/Input';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormElement } from '../form.interfaces';
 import { useBodyClick } from '../../hooks/useBodyClick';
+import readyclasses from '../../readyclasses.module.scss';
+import { filterProps } from '../../util/helper';
 
 export interface Props extends FormElement<HTMLSelectElement> {
   children: ReactElement[];
-  name?: string;
+  name: string;
   labeledBy?: string;
   describedBy?: string;
   placeholder?: string;
   searchPlaceholder?: string;
   className?: string;
-  value?: string;
+  value: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
   onClear?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
@@ -34,7 +36,7 @@ export const Select = ({
   searchPlaceholder = 'Search item',
   className,
   error = false,
-  value = '',
+  value,
   onChange,
   onClear,
   ...rest
@@ -48,21 +50,15 @@ export const Select = ({
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (value) {
-      setDisplay(value);
-    }
-  }, []);
+  const nativeSelect = useRef<HTMLSelectElement>(null);
 
-  useBodyClick(
-    (event: MouseEvent) => !(event.target as Element).closest('.custom-select') && expanded,
-    () => {
-      setExpanded(!expanded);
-      setListPosition({ top: 0, bottom: 'initial' });
-      setOpacity(0);
-    },
-    expanded
-  );
+  const syncDisplayValue = (val: string) => {
+    React.Children.forEach(children, (child) => {
+      if (child.props.value === val) {
+        setDisplay(child.props.children);
+      }
+    });
+  };
 
   const rePositionList = () => {
     if (!expanded || !optionListReference.current || !containerReference.current) {
@@ -113,44 +109,12 @@ export const Select = ({
     setOpacity(100);
   };
 
-  useEffect(() => {
-    rePositionList();
-  }, [expanded]);
-
-  const onOptionChangeHandler = (child: ReactElement) => (event: React.ChangeEvent) => {
-    /**
-     * We expose this to the outside inside of the onChange function as a parameter along with an optional second
-     * parameter of the option that was clicked.
-     */
-
-    setDisplay(child.props.children);
-
-    let newValue;
-    let multiple = false; // Potential support for future multiple select. This should be a prop obviously.
-
-    if (multiple) {
-      /** We will implement the mulitple select in the next iteration */
-    } else {
-      newValue = child.props.value;
+  const onOptionChangeHandler = (event: React.MouseEvent<HTMLLIElement>) => {
+    if (nativeSelect.current) {
+      // We need to set value and the fire change event
+      nativeSelect.current.value = event.currentTarget.dataset.value!;
+      nativeSelect.current.dispatchEvent(new Event('change', { bubbles: true }));
     }
-
-    if (onChange) {
-      // Redefine target to allow name and value to be read.
-      // This allows seamless integration with the most popular form libraries.
-      // Clone the event to not override `target` of the original event.
-      // Don't know how to fix this any.. compiler whines that it can't construct it otherwise.
-      const nativeEvent: any = event.nativeEvent || event;
-      const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
-
-      Object.defineProperty(clonedEvent as React.ChangeEvent<HTMLSelectElement>, 'target', {
-        writable: true,
-        value: { value: newValue },
-      });
-
-      onChange(clonedEvent as React.ChangeEvent<HTMLSelectElement>, child);
-    }
-
-    setDisplay((event.currentTarget as HTMLElement).innerText);
     setExpanded(false);
   };
 
@@ -161,7 +125,7 @@ export const Select = ({
   const renderOptions = () =>
     React.Children.map(children, (child) =>
       React.cloneElement(child, {
-        onOptionSelect: onOptionChangeHandler(child),
+        onOptionSelect: onOptionChangeHandler,
         selected: child.props.value === value,
         filter: filter,
       })
@@ -188,7 +152,7 @@ export const Select = ({
       return <Icon className={classes['warning']} icon={Icons.Error} />;
     }
 
-    if (value.length !== 0 && onClear) {
+    if (value?.length !== 0 && onClear) {
       return (
         <Icon
           tag="div"
@@ -205,66 +169,96 @@ export const Select = ({
     return null;
   };
 
-  /** Set initial display value */
+  const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    onChange && onChange(event);
+  };
+
   useEffect(() => {
-    for (let child of children) {
-      if (child.props.value === value) {
-        setDisplay(child.props.children);
-      }
-    }
-  }, []);
+    syncDisplayValue(value);
+  }, [value]);
+
+  useEffect(() => {
+    rePositionList();
+  }, [expanded]);
+
+  useBodyClick(
+    (event: MouseEvent) => !(event.target as Element).closest('.custom-select') && expanded,
+    () => {
+      setExpanded(!expanded);
+      setListPosition({ top: 0, bottom: 'initial' });
+      setOpacity(0);
+    },
+    expanded
+  );
 
   const additionalClasses = [];
   expanded && additionalClasses.push(classes.expanded);
   error && additionalClasses.push(classes.error);
   disabled && additionalClasses.push(classes.disabled);
+  className && additionalClasses.push(className);
 
+  /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
-    <div
-      {...(rest as HTMLProps<HTMLDivElement>)}
-      ref={containerReference}
-      className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
-        className ?? ''
-      }`}
-    >
-      <button
-        onClick={() => setExpanded(!expanded)}
-        type="button"
+    <Fragment>
+      <select
+        {...filterProps(rest, /^data-/, false)}
+        tabIndex={-1}
+        id="test"
+        aria-hidden="true"
+        ref={nativeSelect}
         name={name}
-        disabled={disabled}
-        aria-disabled={disabled}
-        aria-invalid={error}
-        aria-expanded={expanded}
-        aria-haspopup="listbox"
-        aria-labelledby={labeledBy}
-        aria-describedby={describedBy}
+        onChange={nativeOnChangeHandler}
+        className={readyclasses['sr-only']}
       >
-        <div className={classes['selected']}>
-          {value.length === 0 && placeholder && (
-            <span className={classes['placeholder']}>{placeholder}</span>
-          )}
-          {value.length > 0 && <span data-display>{display}</span>}
-        </div>
-        <div className={classes['status']}>
-          {statusIcon()}
-          <Icon className={classes['triangle-down']} icon={Icons.TriangleDown} />
-        </div>
-      </button>
+        <option value=""></option>
+        {React.Children.map(children, (child) => (
+          <option value={child.props.value}></option>
+        ))}
+      </select>
       <div
-        ref={optionListReference}
-        className={`list-wrapper ${classes['list-wrapper']}`}
-        style={{
-          display: expanded ? 'block' : 'none',
-          opacity: opacity,
-          maxHeight: optionsListMaxHeight,
-          ...listPosition,
-        }}
+        {...filterProps(rest, /^data-/)}
+        ref={containerReference}
+        className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
+          className ?? ''
+        }`}
       >
-        {Array.isArray(children) && children.length > 10 && renderSearch()}
-        <ul role="listbox" tabIndex={-1}>
-          {renderOptions()}
-        </ul>
+        <button
+          onClick={() => setExpanded(!expanded)}
+          type="button"
+          name={name}
+          disabled={disabled}
+          aria-disabled={disabled}
+          aria-invalid={error}
+          aria-expanded={expanded}
+          aria-haspopup="listbox"
+          aria-labelledby={labeledBy}
+          aria-describedby={describedBy}
+        >
+          <div data-display className={classes['selected']}>
+            {!value && placeholder && <span className={classes['placeholder']}>{placeholder}</span>}
+            {value?.length > 0 && <span>{display}</span>}
+          </div>
+          <div className={classes['status']}>
+            {statusIcon()}
+            <Icon className={classes['triangle-down']} icon={Icons.TriangleDown} />
+          </div>
+        </button>
+        <div
+          ref={optionListReference}
+          className={`list-wrapper ${classes['list-wrapper']}`}
+          style={{
+            display: expanded ? 'block' : 'none',
+            opacity: opacity,
+            maxHeight: optionsListMaxHeight,
+            ...listPosition,
+          }}
+        >
+          {Array.isArray(children) && children.length > 10 && renderSearch()}
+          <ul role="listbox" tabIndex={-1}>
+            {renderOptions()}
+          </ul>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 };

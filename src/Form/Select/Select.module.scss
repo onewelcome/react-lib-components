@@ -13,6 +13,10 @@ $listItemHeight: 2.125rem;
   background-color: #fff;
   font-size: var(--font-size);
 
+  [data-display] {
+    color: var(--greyed-out);
+  }
+
   &.expanded {
     border: var(--input-border-width) solid transparent;
 
