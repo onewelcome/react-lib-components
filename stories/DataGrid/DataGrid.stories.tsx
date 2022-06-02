@@ -11,6 +11,7 @@ import { Icon, Icons } from '../../src/Icon/Icon';
 import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
 import { DataGridActions } from '../../src/DataGrid/DataGridActions';
 import { Button } from '../../src/Button/Button';
+import { DataGridRow } from '../../src/DataGrid/DataGridBody/DataGridRow';
 
 type DataType = { name: string; created: Date; id: string; type: string; enabled: boolean };
 const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
@@ -30,8 +31,8 @@ const meta: Meta = {
       { name: 'name', headline: 'Name' },
       { name: 'created', headline: 'Created' },
       { name: 'id', headline: 'Identifier' },
-      { name: 'type', headline: 'Type' },
-      { name: 'enabled', headline: 'Enabled' },
+      { name: 'type', headline: 'Type', disableSorting: true },
+      { name: 'enabled', headline: 'Enabled', disableSorting: true },
     ],
     initialSort: [
       { name: 'name', direction: 'ASC' },
@@ -66,7 +67,7 @@ const Template: Story<Props<DataType>> = (args) => {
     <Fragment>
       <DataGridComponent {...args}>
         {({ item }) => (
-          <Fragment key={item.id}>
+          <DataGridRow key={item.id}>
             <DataGridCell>{item.name}</DataGridCell>
             <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
             <DataGridCell>{item.id}</DataGridCell>
@@ -96,7 +97,7 @@ const Template: Story<Props<DataType>> = (args) => {
                 </ContextMenu>
               </DataGridCell>
             )}
-          </Fragment>
+          </DataGridRow>
         )}
       </DataGridComponent>
     </Fragment>

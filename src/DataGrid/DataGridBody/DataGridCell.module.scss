@@ -1,5 +1,24 @@
 .cell {
-  align-items: center;
-  display: flex;
-  min-height: 2.5rem;
+  min-height: 3.5rem;
+  padding: 0.5rem 0.625rem;
+
+  &:first-child {
+    padding-left: 1rem;
+  }
+
+  &:last-child {
+    padding-right: 1rem;
+  }
+}
+
+@media only screen and (min-width: 50rem) {
+  .cell {
+    &:first-child {
+      padding-left: 1.25rem;
+    }
+
+    &:last-child {
+      padding-right: 1.25rem;
+    }
+  }
 }

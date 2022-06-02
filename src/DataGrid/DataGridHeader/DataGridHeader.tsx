@@ -2,8 +2,9 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { ColumnName, Direction, HeaderCell, OnSortFunction, Sort } from '../interfaces';
 import { DataGridHeaderCell } from './DataGridHeaderCell';
 import classes from './DataGridHeader.module.scss';
+import { HTMLProps } from '../../interfaces';
 
-export interface Props {
+export interface Props extends Omit<HTMLProps<HTMLTableSectionElement>, 'headers'> {
   headers: HeaderCell[];
   initialSort?: Sort;
   onSort?: OnSortFunction;
@@ -68,10 +69,13 @@ export const DataGridHeader = ({
   });
 
   return (
-    <Fragment {...rest}>
-      {headerCells}
-      {!disableContexMenuColumn && <div></div>}
-      <div className={classes['line']}></div>
-    </Fragment>
+    <thead {...rest} className={classes['thead']}>
+      <tr className={classes['row']}>
+        {headerCells}
+        {!disableContexMenuColumn && (
+          <th style={{ width: '4.125rem', boxSizing: 'border-box' }}></th>
+        )}
+      </tr>
+    </thead>
   );
 };

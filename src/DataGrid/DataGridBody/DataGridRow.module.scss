@@ -1,0 +1,7 @@
+.row {
+  background-color: var(--data-grid-row-background-color);
+
+  &:hover {
+    background-color: var(--data-grid-row-hover-background-color);
+  }
+}

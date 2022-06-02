@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './DataGridPagination.module.scss';
 
 export interface Props {
   totalElements?: number;
@@ -8,7 +9,7 @@ export interface Props {
 
 export const DataGridPagination = ({ totalElements, pageSize, currentPage }: Props) => {
   return (
-    <div>
+    <div className={classes['pagination']}>
       Total items: <b>{totalElements}</b>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       Items per page {pageSize}; Page {currentPage} of{' '}

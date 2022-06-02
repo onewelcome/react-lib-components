@@ -61,13 +61,13 @@ export const DataGridHeaderCell = ({
     );
 
   return (
-    <div className={classes['header-cell']}>
+    <th className={classes['header-cell']}>
       <InnerContainer>
         <span className={classes['headline']}>{headline}</span>
         {!disableSorting && (
           <div className={classes['sorting-indicator-container']}>{sortingIndicator()}</div>
         )}
       </InnerContainer>
-    </div>
+    </th>
   );
 };

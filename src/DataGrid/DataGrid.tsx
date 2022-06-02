@@ -34,7 +34,6 @@ export const DataGrid = <T extends {}>({
   paginationProps,
   ...rest
 }: Props<T>) => {
-  const columns = headers?.length;
   if (!headers) {
     throw new Error('Headers definition has to be provided');
   }
@@ -49,20 +48,15 @@ export const DataGrid = <T extends {}>({
         columnsBtnProps={actions?.columnsBtnProps}
         searchBtnProps={actions?.searchBtnProps}
       />
-      <div
-        className={classes['grid']}
-        style={{
-          gridTemplateColumns: `repeat(${columns}, 1fr) ${disableContexMenuColumn ? '' : '2.5rem'}`,
-        }}
-      >
+      <table className={classes['table']}>
         <DataGridHeader
           headers={headers}
           initialSort={initialSort}
           onSort={onSort}
           disableContexMenuColumn={disableContexMenuColumn}
         />
-        <DataGridBody children={children} data={data as T[]} columns={columns} />
-      </div>
+        <DataGridBody children={children} data={data as T[]} headers={headers} />
+      </table>
       {paginationProps && <DataGridPagination {...paginationProps} />}
     </div>
   );

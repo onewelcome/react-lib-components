@@ -1,5 +1,23 @@
-.line {
-  grid-column: 1 / -1;
-  height: 1px;
-  background: #0f0f1e40;
+.thead {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 2rem);
+    left: 1rem;
+    border-bottom: 1px solid #0f0f1e40; //fixme
+  }
+}
+
+.row {
+  height: 2.5rem;
+}
+
+@media only screen and (min-width: 50rem) {
+  .thead::after {
+    width: calc(100% - 2.5rem);
+    left: 1.25rem;
+  }
 }
