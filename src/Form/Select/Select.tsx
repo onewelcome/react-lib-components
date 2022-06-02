@@ -203,7 +203,6 @@ export const Select = ({
       <select
         {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}
-        id="test"
         aria-hidden="true"
         ref={nativeSelect}
         name={name}
