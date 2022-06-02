@@ -1,7 +1,7 @@
 import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from 'react';
 
 interface CSSProperties {
-  a11yFocusColor?: string;
+  colorFocus?: string;
   colorPrimary?: string;
   colorSecondary?: string;
   colorTertiary?: string;
@@ -32,6 +32,7 @@ interface CSSProperties {
   tablistBorderWidth?: string;
   tablistBorderStyle?: string;
   tablistBorderColor?: string;
+  tabTextColor?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -56,7 +57,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
-    a11yFocusColor: '#0085f2',
+    colorFocus: '#0085f2',
     colorPrimary: '#9e006b',
     colorSecondary: '#003b5e',
     colorTertiary: '#ff1e4e',
@@ -87,6 +88,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     tablistBorderWidth: '1px',
     tablistBorderStyle: 'solid',
     tablistBorderColor: '#c2c2c6',
+    tabTextColor: '#0f0f1e',
     default: '#0f0f1e',
     success: '#008a28',
     error: '#e22a1d',
@@ -110,7 +112,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
   /** Set the actual CSS properties on the HTML :root object */
   const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
     for (const [key, value] of Object.entries(CSSPropertiesObject)) {
-      const formattedPropertyName = key.replaceAll(/([A-Z])/g, (val) => `-${val.toLowerCase()}`);
+      const formattedPropertyName = key.replace(/([A-Z])/g, (val) => `-${val.toLowerCase()}`);
       document.documentElement.style.setProperty(`--${formattedPropertyName}`, value);
     }
   };

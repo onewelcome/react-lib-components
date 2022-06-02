@@ -50,6 +50,7 @@ export const TabButton = React.forwardRef<HTMLButtonElement, Props>(
         id={tabId}
         onClick={onTabButtonClick}
       >
+        <span aria-hidden="true">{children}</span>
         {children}
       </button>
     );

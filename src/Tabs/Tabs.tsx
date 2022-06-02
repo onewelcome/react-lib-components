@@ -130,6 +130,7 @@ export const Tabs = ({
         aria-label={ariaLabel}
         className={classes['tablist']}
       >
+        <div className={classes['tabdivider']} />
         {tabButtons}
         <div
           className={classes['indicator']}

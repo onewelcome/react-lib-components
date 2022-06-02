@@ -62,7 +62,7 @@ describe('Tab useRef should work for panel and button', () => {
       buttonRef: React.RefObject<HTMLButtonElement>,
       panelRef: React.RefObject<HTMLDivElement>
     ) => {
-      expect(buttonRef.current?.innerHTML).toEqual('ShouldBeButtonRef');
+      expect(buttonRef.current?.innerHTML).toContain('ShouldBeButtonRef');
       expect(panelRef.current?.innerHTML).toEqual('<span>Should be panel ref</span>');
     };
 

@@ -1,3 +1,5 @@
+$focus-width: 5px;
+
 .tabs {
   background-color: var(--tabs-background-color);
   padding: 1rem 1.25rem;
@@ -8,14 +10,14 @@
 }
 
 .tablist {
-  border-bottom-style: var(--tablist-border-style);
-  border-bottom-width: var(--tablist-border-width);
-  border-bottom-color: var(--tablist-border-color);
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   gap: 2rem;
   position: relative;
+  margin: -$focus-width;
+  padding: $focus-width;
+  z-index: 0;
 }
 
 .indicator {
@@ -25,4 +27,15 @@
   transition-property: left, width;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
+}
+
+.tabdivider {
+  border-bottom-style: var(--tablist-border-style);
+  border-bottom-width: var(--tablist-border-width);
+  border-bottom-color: var(--tablist-border-color);
+  width: calc(100% - ($focus-width * 2));
+  position: absolute;
+  bottom: $focus-width;
+  left: $focus-width;
+  z-index: -1;
 }
