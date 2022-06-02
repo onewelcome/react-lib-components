@@ -87,7 +87,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     tabBorderStyle: 'solid',
     tablistBorderWidth: '1px',
     tablistBorderStyle: 'solid',
-    tablistBorderColor: '#c2c2c6',
+    tablistBorderColor: '#C3C3C7',
     tabTextColor: '#0f0f1e',
     default: '#0f0f1e',
     success: '#008a28',
