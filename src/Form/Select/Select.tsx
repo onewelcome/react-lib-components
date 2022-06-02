@@ -1,6 +1,14 @@
 import classes from './Select.module.scss';
 
-import React, { Fragment, ReactElement, useEffect, useRef, useState } from 'react';
+import React, {
+  ComponentPropsWithRef,
+  Fragment,
+  ReactElement,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Input } from '../Input/Input';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormElement } from '../form.interfaces';
@@ -8,9 +16,9 @@ import { useBodyClick } from '../../hooks/useBodyClick';
 import readyclasses from '../../readyclasses.module.scss';
 import { filterProps } from '../../util/helper';
 
-export interface Props extends FormElement<HTMLSelectElement> {
+export interface Props extends ComponentPropsWithRef<'select'>, FormElement {
   children: ReactElement[];
-  name: string;
+  name?: string;
   labeledBy?: string;
   describedBy?: string;
   placeholder?: string;
@@ -26,239 +34,251 @@ type Position = {
   bottom: 0 | 'initial';
 };
 
-export const Select = ({
-  children,
-  name,
-  disabled = false,
-  labeledBy,
-  placeholder,
-  describedBy,
-  searchPlaceholder = 'Search item',
-  className,
-  error = false,
-  value,
-  onChange,
-  onClear,
-  ...rest
-}: Props) => {
-  const [expanded, setExpanded] = useState(false);
-  const [opacity, setOpacity] = useState(0); // We set opacity because other wise if we calculate the max height you see the list full height for a split second and then it shortens.
-  const [filter, setFilter] = useState('');
-  const [display, setDisplay] = useState('');
-  const [listPosition, setListPosition] = useState<Partial<Position>>({});
-  const [optionsListMaxHeight, setOptionsListMaxHeight] = useState('none');
-  const containerReference = useRef<HTMLDivElement>(null);
-  const optionListReference = useRef<HTMLDivElement>(null);
+export const Select = React.forwardRef<HTMLSelectElement, Props>(
+  (
+    {
+      children,
+      name,
+      disabled = false,
+      labeledBy,
+      placeholder,
+      describedBy,
+      searchPlaceholder = 'Search item',
+      className,
+      error = false,
+      value,
+      onChange,
+      onClear,
+      ...rest
+    }: Props,
+    ref
+  ) => {
+    const [expanded, setExpanded] = useState(false);
+    const [opacity, setOpacity] = useState(0); // We set opacity because other wise if we calculate the max height you see the list full height for a split second and then it shortens.
+    const [filter, setFilter] = useState('');
+    const [display, setDisplay] = useState('');
+    const [listPosition, setListPosition] = useState<Partial<Position>>({});
+    const [optionsListMaxHeight, setOptionsListMaxHeight] = useState('none');
+    const containerReference = useRef<HTMLDivElement>(null);
+    const optionListReference = useRef<HTMLDivElement>(null);
 
-  const nativeSelect = useRef<HTMLSelectElement>(null);
+    const nativeSelect = useRef<HTMLSelectElement>(null);
 
-  const syncDisplayValue = (val: string) => {
-    React.Children.forEach(children, (child) => {
-      if (child.props.value === val) {
-        setDisplay(child.props.children);
+    const syncDisplayValue = (val: string) => {
+      React.Children.forEach(children, (child) => {
+        if (child.props.value === val) {
+          setDisplay(child.props.children);
+        }
+      });
+    };
+
+    const rePositionList = () => {
+      if (!expanded || !optionListReference.current || !containerReference.current) {
+        return;
       }
-    });
-  };
 
-  const rePositionList = () => {
-    if (!expanded || !optionListReference.current || !containerReference.current) {
-      return;
-    }
+      // Check whether there is more space above or below the select
+      // Check space between the bottom of select and top of viewport
+      const spaceOnTopOfSelect = containerReference.current.getBoundingClientRect().bottom;
 
-    // Check whether there is more space above or below the select
-    // Check space between the bottom of select and top of viewport
-    const spaceOnTopOfSelect = containerReference.current.getBoundingClientRect().bottom;
+      // Check space between the top of the select and bottom of viewport
+      const spaceOnBottomOfSelect =
+        window.innerHeight - containerReference.current.getBoundingClientRect().top;
 
-    // Check space between the top of the select and bottom of viewport
-    const spaceOnBottomOfSelect =
-      window.innerHeight - containerReference.current.getBoundingClientRect().top;
+      // Set position as if there's more space on the bottom
+      let position: Position = { top: 0, bottom: 'initial' };
 
-    // Set position as if there's more space on the bottom
-    let position: Position = { top: 0, bottom: 'initial' };
+      // Set the position of the select
+      if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
+        position = { top: 'initial', bottom: 0 };
+      }
 
-    // Set the position of the select
-    if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
-      position = { top: 'initial', bottom: 0 };
-    }
+      setListPosition(position);
 
-    setListPosition(position);
+      // Calculate the potential max height of the options list
+      calculateOptionListMaxHeight(position);
+    };
 
-    // Calculate the potential max height of the options list
-    calculateOptionListMaxHeight(position);
-  };
+    const calculateOptionListMaxHeight = (position: Position) => {
+      // Calculate max height if there's more space below the select
+      const listHeight = optionListReference.current!.getBoundingClientRect().height;
+      const transformOrigin = position.top !== 'initial' ? 'top' : 'bottom';
 
-  const calculateOptionListMaxHeight = (position: Position) => {
-    // Calculate max height if there's more space below the select
-    const listHeight = optionListReference.current!.getBoundingClientRect().height;
-    const transformOrigin = position.top !== 'initial' ? 'top' : 'bottom';
+      const availableSpace =
+        transformOrigin === 'top'
+          ? window.innerHeight -
+            containerReference.current!.getBoundingClientRect()[transformOrigin] -
+            16
+          : containerReference.current!.getBoundingClientRect()[transformOrigin] - 16;
 
-    const availableSpace =
-      transformOrigin === 'top'
-        ? window.innerHeight -
-          containerReference.current!.getBoundingClientRect()[transformOrigin] -
-          16
-        : containerReference.current!.getBoundingClientRect()[transformOrigin] - 16;
+      if (availableSpace < listHeight) {
+        setOptionsListMaxHeight(`${availableSpace}px`);
+        setOpacity(100);
+        return;
+      }
 
-    if (availableSpace < listHeight) {
-      setOptionsListMaxHeight(`${availableSpace}px`);
+      setOptionsListMaxHeight('none');
       setOpacity(100);
-      return;
-    }
+    };
 
-    setOptionsListMaxHeight('none');
-    setOpacity(100);
-  };
+    const onOptionChangeHandler = (event: React.MouseEvent<HTMLLIElement>) => {
+      // We need to set value and the fire change event. If a custom ref has been given we pass that value, otherwise we use the ref we've created ourselves when the component was instantiated.
+      if (nativeSelect.current) {
+        nativeSelect.current.value = event.currentTarget.dataset.value!;
+        nativeSelect.current.dispatchEvent(new Event('change', { bubbles: true }));
+      } else if (ref) {
+        (ref as RefObject<HTMLSelectElement>).current!.value = event.currentTarget.dataset.value!;
+        (ref as RefObject<HTMLSelectElement>).current!.dispatchEvent(
+          new Event('change', { bubbles: true })
+        );
+      }
+      setExpanded(false);
+    };
 
-  const onOptionChangeHandler = (event: React.MouseEvent<HTMLLIElement>) => {
-    if (nativeSelect.current) {
-      // We need to set value and the fire change event
-      nativeSelect.current.value = event.currentTarget.dataset.value!;
-      nativeSelect.current.dispatchEvent(new Event('change', { bubbles: true }));
-    }
-    setExpanded(false);
-  };
+    /**
+     * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected at all times and if a filter is active.
+     * The `children` prop can be either a single object (1 child) or an array of multiple children.
+     */
+    const renderOptions = () =>
+      React.Children.map(children, (child) =>
+        React.cloneElement(child, {
+          onOptionSelect: onOptionChangeHandler,
+          selected: child.props.value === value,
+          filter: filter,
+        })
+      );
 
-  /**
-   * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected at all times and if a filter is active.
-   * The `children` prop can be either a single object (1 child) or an array of multiple children.
-   */
-  const renderOptions = () =>
-    React.Children.map(children, (child) =>
-      React.cloneElement(child, {
-        onOptionSelect: onOptionChangeHandler,
-        selected: child.props.value === value,
-        filter: filter,
-      })
+    const renderSearch = () => (
+      <Input
+        autoFocus
+        onChange={filterResults}
+        className={classes['select-search']}
+        wrapperProps={{ className: classes['select-search-wrapper'] }}
+        type="text"
+        name="search-option"
+        placeholder={searchPlaceholder}
+      />
     );
 
-  const renderSearch = () => (
-    <Input
-      autoFocus
-      onChange={filterResults}
-      className={classes['select-search']}
-      wrapperProps={{ className: classes['select-search-wrapper'] }}
-      type="text"
-      name="search-option"
-      placeholder={searchPlaceholder}
-    />
-  );
+    const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFilter(event.currentTarget.value);
+    };
 
-  const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(event.currentTarget.value);
-  };
+    const statusIcon = () => {
+      if (error) {
+        return <Icon className={classes['warning']} icon={Icons.Warning} />;
+      }
 
-  const statusIcon = () => {
-    if (error) {
-      return <Icon className={classes['warning']} icon={Icons.Error} />;
-    }
+      if (value?.length !== 0 && onClear) {
+        return (
+          <Icon
+            tag="div"
+            data-clear
+            icon={Icons.TimesThin}
+            onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClear(e);
+            }}
+          />
+        );
+      }
+      return null;
+    };
 
-    if (value?.length !== 0 && onClear) {
-      return (
-        <Icon
-          tag="div"
-          data-clear
-          icon={Icons.TimesThin}
-          onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            onClear(e);
-          }}
-        />
-      );
-    }
-    return null;
-  };
+    const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      onChange && onChange(event);
+    };
 
-  const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange && onChange(event);
-  };
+    useEffect(() => {
+      syncDisplayValue(value);
+    }, [value]);
 
-  useEffect(() => {
-    syncDisplayValue(value);
-  }, [value]);
+    useEffect(() => {
+      rePositionList();
+    }, [expanded]);
 
-  useEffect(() => {
-    rePositionList();
-  }, [expanded]);
+    useBodyClick(
+      (event: MouseEvent) => !(event.target as Element).closest('.custom-select') && expanded,
+      () => {
+        setExpanded(!expanded);
+        setListPosition({ top: 0, bottom: 'initial' });
+        setOpacity(0);
+      },
+      expanded
+    );
 
-  useBodyClick(
-    (event: MouseEvent) => !(event.target as Element).closest('.custom-select') && expanded,
-    () => {
-      setExpanded(!expanded);
-      setListPosition({ top: 0, bottom: 'initial' });
-      setOpacity(0);
-    },
-    expanded
-  );
+    const additionalClasses = [];
+    expanded && additionalClasses.push(classes.expanded);
+    error && additionalClasses.push(classes.error);
+    disabled && additionalClasses.push(classes.disabled);
+    className && additionalClasses.push(className);
 
-  const additionalClasses = [];
-  expanded && additionalClasses.push(classes.expanded);
-  error && additionalClasses.push(classes.error);
-  disabled && additionalClasses.push(classes.disabled);
-  className && additionalClasses.push(className);
-
-  /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
-  return (
-    <Fragment>
-      <select
-        {...filterProps(rest, /^data-/, false)}
-        tabIndex={-1}
-        id="test"
-        aria-hidden="true"
-        ref={nativeSelect}
-        name={name}
-        onChange={nativeOnChangeHandler}
-        className={readyclasses['sr-only']}
-      >
-        <option value=""></option>
-        {React.Children.map(children, (child) => (
-          <option value={child.props.value}></option>
-        ))}
-      </select>
-      <div
-        {...filterProps(rest, /^data-/)}
-        ref={containerReference}
-        className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
-          className ?? ''
-        }`}
-      >
-        <button
-          onClick={() => setExpanded(!expanded)}
-          type="button"
+    /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
+    return (
+      <Fragment>
+        <select
+          {...filterProps(rest, /^data-/, false)}
+          tabIndex={-1}
+          id="test"
+          aria-hidden="true"
+          ref={ref || nativeSelect}
           name={name}
-          disabled={disabled}
-          aria-disabled={disabled}
-          aria-invalid={error}
-          aria-expanded={expanded}
-          aria-haspopup="listbox"
-          aria-labelledby={labeledBy}
-          aria-describedby={describedBy}
+          onChange={nativeOnChangeHandler}
+          className={readyclasses['sr-only']}
         >
-          <div data-display className={classes['selected']}>
-            {!value && placeholder && <span className={classes['placeholder']}>{placeholder}</span>}
-            {value?.length > 0 && <span>{display}</span>}
-          </div>
-          <div className={classes['status']}>
-            {statusIcon()}
-            <Icon className={classes['triangle-down']} icon={Icons.TriangleDown} />
-          </div>
-        </button>
+          <option value=""></option>
+          {React.Children.map(children, (child) => (
+            <option value={child.props.value}></option>
+          ))}
+        </select>
         <div
-          ref={optionListReference}
-          className={`list-wrapper ${classes['list-wrapper']}`}
-          style={{
-            display: expanded ? 'block' : 'none',
-            opacity: opacity,
-            maxHeight: optionsListMaxHeight,
-            ...listPosition,
-          }}
+          {...filterProps(rest, /^data-/)}
+          ref={containerReference}
+          className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
+            className ?? ''
+          }`}
         >
-          {Array.isArray(children) && children.length > 10 && renderSearch()}
-          <ul role="listbox" tabIndex={-1}>
-            {renderOptions()}
-          </ul>
+          <button
+            onClick={() => setExpanded(!expanded)}
+            type="button"
+            name={name}
+            disabled={disabled}
+            aria-disabled={disabled}
+            aria-invalid={error}
+            aria-expanded={expanded}
+            aria-haspopup="listbox"
+            aria-labelledby={labeledBy}
+            aria-describedby={describedBy}
+          >
+            <div data-display className={classes['selected']}>
+              {!value && placeholder && (
+                <span className={classes['placeholder']}>{placeholder}</span>
+              )}
+              {value?.length > 0 && <span>{display}</span>}
+            </div>
+            <div className={classes['status']}>
+              {statusIcon()}
+              <Icon className={classes['triangle-down']} icon={Icons.TriangleDown} />
+            </div>
+          </button>
+          <div
+            ref={optionListReference}
+            className={`list-wrapper ${classes['list-wrapper']}`}
+            style={{
+              display: expanded ? 'block' : 'none',
+              opacity: opacity,
+              maxHeight: optionsListMaxHeight,
+              ...listPosition,
+            }}
+          >
+            {Array.isArray(children) && children.length > 10 && renderSearch()}
+            <ul role="listbox" tabIndex={-1}>
+              {renderOptions()}
+            </ul>
+          </div>
         </div>
-      </div>
-    </Fragment>
-  );
-};
+      </Fragment>
+    );
+  }
+);

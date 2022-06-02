@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { SelectWrapper, Props } from './SelectWrapper';
 import { render } from '@testing-library/react';
 import { Option } from '../../Select/Option';
@@ -52,6 +52,48 @@ describe('SelectWrapper should render', () => {
     const { selectwrapper } = createSelectWrapper();
 
     expect(selectwrapper).toBeDefined();
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (
+        ref: React.RefObject<HTMLElement>,
+        innerRef: React.RefObject<HTMLInputElement>
+      ) => void;
+    }) => {
+      const ref = useRef(null);
+      const innerRef = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref, innerRef);
+        }
+      }, [ref]);
+
+      return (
+        <SelectWrapper
+          {...defaultParams}
+          selectProps={{ ref: innerRef, 'data-ref': 'inner-testing' }}
+          name="test"
+          data-ref="testing"
+          ref={ref}
+        />
+      );
+    };
+
+    const refCheck = (
+      ref: React.RefObject<HTMLElement>,
+      innerRef: React.RefObject<HTMLElement>
+    ) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(innerRef.current!.nodeName).toBe('SELECT');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 

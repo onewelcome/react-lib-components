@@ -1,8 +1,9 @@
-import React, { Ref, useEffect, useState } from 'react';
+import React, { ComponentPropsWithRef, Ref, useEffect, useState } from 'react';
 import classes from './Input.module.scss';
 import readyclasses from '../../readyclasses.module.scss';
 import { Icon, Icons } from '../../Icon/Icon';
 import { HTMLProps } from '../../interfaces';
+import { FormElement } from '../form.interfaces';
 
 const dateTypes = ['date', 'time', 'datetime-local'] as const;
 
@@ -18,11 +19,10 @@ export type Type =
   | 'hidden'
   | typeof dateTypes[number];
 
-export interface Props extends Omit<HTMLProps<HTMLInputElement>, 'ref'> {
+export interface Props extends ComponentPropsWithRef<'input'>, FormElement {
   wrapperProps?: HTMLProps<HTMLInputElement>;
   labeledBy?: string;
   type: Type;
-  error?: boolean;
   suffix?: string;
   prefix?: string;
 }

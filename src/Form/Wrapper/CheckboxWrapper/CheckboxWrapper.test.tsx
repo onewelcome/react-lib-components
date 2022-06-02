@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CheckboxWrapper, Props } from './CheckboxWrapper';
 import { Checkbox, CheckboxProps } from '../../Checkbox/Checkbox';
 import { render } from '@testing-library/react';
@@ -60,6 +60,32 @@ describe('checkboxwrapper should render', () => {
   it('renders without crashing', () => {
     const { checkboxwrapper } = createCheckboxWrapper();
     expect(checkboxwrapper).toBeTruthy();
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <CheckboxWrapper {...defaultParams} name="test" data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 

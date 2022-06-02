@@ -1,10 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
 import { HTMLProps } from '../../interfaces';
 import { FormHelperText, Props as FormHelperTextProps } from '../FormHelperText/FormHelperText';
 import classes from './FormSelectorWrapper.module.scss';
 
-export interface Props extends HTMLProps<HTMLDivElement> {
+export interface Props extends ComponentPropsWithoutRef<'div'> {
   children?: ReactNode;
   nestedChildren?: ReactNode;
   containerProps: HTMLProps<HTMLDivElement>;
