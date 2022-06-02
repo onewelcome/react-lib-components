@@ -79,25 +79,27 @@ describe('Properties of the button', () => {
 });
 
 describe('ref should work', () => {
-  const ExampleComponent = ({
-    propagateRef,
-  }: {
-    propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
-  }) => {
-    const ref = useRef(null);
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
 
-    useEffect(() => {
-      if (ref.current) {
-        propagateRef && propagateRef(ref);
-      }
-    }, [ref]);
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
 
-    return <BaseButton {...defaultParams} data-ref="testing" ref={ref} />;
-  };
+      return <BaseButton {...defaultParams} data-ref="testing" ref={ref} />;
+    };
 
-  const refCheck = (ref: React.RefObject<HTMLElement>) => {
-    expect(ref.current).toHaveAttribute('data-ref', 'testing');
-  };
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
 
-  render(<ExampleComponent propagateRef={refCheck} />);
+    render(<ExampleComponent propagateRef={refCheck} />);
+  });
 });
