@@ -116,6 +116,7 @@ export const InputWrapper = ({
           onBlur && onBlur(e);
           setHasFocus(false);
           e.target.value ||
+          e.target.placeholder ||
           inputProps?.placeholder?.length ||
           type === 'datetime-local' ||
           type === 'time'

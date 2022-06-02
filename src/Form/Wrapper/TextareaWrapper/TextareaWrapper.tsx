@@ -41,13 +41,11 @@ export const TextareaWrapper = ({
     helperId,
     labelId,
   } = useWrapper(value, placeholder);
-
-  const [focus, setFocus] = useState(false);
   const [hover, setHover] = useState(false);
 
   const optionalClasses: string[] = [];
 
-  focus && optionalClasses.push(classes['focus']);
+  hasFocus && optionalClasses.push(classes['focus']);
   hover && optionalClasses.push(classes['hover']);
   disabled && optionalClasses.push(classes['disabled']);
   error && optionalClasses.push(classes['error']);
@@ -77,19 +75,19 @@ export const TextareaWrapper = ({
         aria-labelledby={label && labelId}
         aria-describedby={error ? errorId : helperId}
         placeholder={placeholder}
+        name={name}
+        id={name}
         value={value}
         onChange={onChange}
         onFocus={(e) => {
           onFocus && onFocus(e);
           setHasFocus(true);
           setFloatingLabelActive(true);
-          setFocus(true);
         }}
         onBlur={(e) => {
           onBlur && onBlur(e);
           setHasFocus(false);
-          setFocus(false);
-          e.target.value || textareaProps?.placeholder?.length
+          e.target.value || e.target.placeholder || textareaProps?.placeholder?.length
             ? setFloatingLabelActive(true)
             : setFloatingLabelActive(false);
         }}

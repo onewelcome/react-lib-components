@@ -10,13 +10,18 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
   const [hasFocus, setHasFocus] = useState(false);
 
   useEffect(() => {
-    if (value?.length || placeholder || type === 'datetime-local' || type === 'time') {
+    if (
+      (value?.length && value.length > 0) ||
+      placeholder ||
+      type === 'datetime-local' ||
+      type === 'time'
+    ) {
       setFloatingLabelActive(true);
     }
   }, []);
 
   useEffect(() => {
-    if (value?.length || hasFocus) {
+    if ((value?.length && value.length > 0) || hasFocus) {
       setFloatingLabelActive(true);
     } else if (!placeholder && !hasFocus && type !== 'datetime-local' && type !== 'time') {
       setFloatingLabelActive(false);
