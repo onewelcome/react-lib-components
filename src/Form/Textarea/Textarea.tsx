@@ -4,7 +4,7 @@ import { FormElement } from '../form.interfaces';
 import classes from './Textarea.module.scss';
 import { HTMLAttributes } from '../../interfaces';
 
-interface IconPropsPartial extends Partial<IconProps> {}
+interface IconPropsPartial extends Omit<Partial<IconProps>, 'ref'> {}
 
 export interface Props extends FormElement<HTMLTextAreaElement> {
   wrapperProps?: HTMLAttributes<HTMLDivElement>;
