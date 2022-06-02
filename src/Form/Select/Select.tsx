@@ -220,7 +220,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         <select
           {...filterProps(rest, /^data-/, false)}
           tabIndex={-1}
-          id="test"
           aria-hidden="true"
           ref={ref || nativeSelect}
           name={name}

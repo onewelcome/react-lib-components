@@ -74,8 +74,8 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, Props>(
       return React.Children.map(children, (child: ReactElement) => {
         if (allowedComponents.includes(child.type) && !disablePropagation) {
           return React.cloneElement(child, {
-            disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
-            error: child.props.error !== undefined ? child.props.error : error,
+            disabled: child.props.disabled ?? disabled,
+            error: child.props.error ?? error,
           });
         }
 
