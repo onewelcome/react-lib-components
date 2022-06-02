@@ -5,6 +5,7 @@ import { Option } from './Option';
 import userEvent from '@testing-library/user-event';
 
 const defaultParams: Props = {
+  name: 'Example select',
   children: [
     <Option value="option1">Test</Option>,
     <Option value="option2">Test2</Option>,
@@ -24,6 +25,7 @@ const defaultParams: Props = {
     <Option value="option16">Test16</Option>,
     <Option value="option17">Test17</Option>,
   ],
+  value: '',
 };
 
 const createSelect = (params?: (defaultParams: Props) => Props) => {
@@ -233,6 +235,7 @@ describe('List expansion', () => {
 describe('onClear method', () => {
   it('should show a cross and fire the passed onClear function', async () => {
     const onClearHandler = jest.fn();
+    const onChangeHandler = jest.fn();
 
     const { button, container } = createSelect((defaultParams) => ({
       ...defaultParams,
@@ -241,15 +244,11 @@ describe('onClear method', () => {
       value: 'option4',
     }));
 
-    function onChangeHandler(event: React.ChangeEvent<HTMLSelectElement>) {
-      expect(event.target.value).toBe('option5');
-    }
-
     if (button) {
       userEvent.click(button);
     }
 
-    const optionToClick = container.querySelector('li[value="option5"]')!;
+    const optionToClick = container.querySelector('li[data-value="option5"]')!;
     const onClearButton = container.querySelector('[data-clear]')!;
 
     userEvent.click(optionToClick);
@@ -259,5 +258,8 @@ describe('onClear method', () => {
     expect(onClearButton).toBeInTheDocument();
     expect(container.querySelector('li[aria-selected="true"]')).toHaveTextContent('Test4');
     expect(container.querySelector('.selected-option')).toHaveTextContent('Test4');
+    expect(onChangeHandler).toBeCalledWith(
+      expect.objectContaining({ target: expect.objectContaining({ value: 'option5' }) })
+    );
   });
 });
