@@ -1,3 +1,5 @@
+@import '../../readyclasses.module.scss';
+
 .cell {
   min-height: 3.5rem;
   padding: 0.5rem 0.625rem;
@@ -8,6 +10,13 @@
 
   &:last-child {
     padding-right: 1rem;
+  }
+
+  .loading {
+    @include skeletonLoading();
+    border-radius: 0.5rem;
+    height: 1.25rem;
+    margin: 0.625rem 0;
   }
 }
 

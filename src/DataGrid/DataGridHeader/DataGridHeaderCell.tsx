@@ -49,19 +49,13 @@ export const DataGridHeaderCell = ({
   };
 
   const InnerContainer = ({ children }: { children: ReactNode }) =>
-    disableSorting ? (
-      <div>{children}</div>
-    ) : (
-      <button
-        onClick={onCellClick}
-        aria-sort={activeSortDirection && ariaSortMapping[activeSortDirection]}
-      >
-        {children}
-      </button>
-    );
+    disableSorting ? <div>{children}</div> : <button onClick={onCellClick}>{children}</button>;
 
   return (
-    <th className={classes['header-cell']}>
+    <th
+      className={classes['header-cell']}
+      aria-sort={activeSortDirection && ariaSortMapping[activeSortDirection]}
+    >
       <InnerContainer>
         <span className={classes['headline']}>{headline}</span>
         {!disableSorting && (

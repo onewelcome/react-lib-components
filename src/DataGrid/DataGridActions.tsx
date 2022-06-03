@@ -45,7 +45,7 @@ export const DataGridActions = ({
         {searchBtnProps && (
           <Button
             color="primary"
-            startIcon={<Icon icon={Icons.Change} />}
+            startIcon={<Icon icon={Icons.TableSearch} />}
             type="button"
             title="Search"
             variant="text"

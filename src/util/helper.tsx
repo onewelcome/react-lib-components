@@ -1,4 +1,4 @@
-import { JSXElementConstructor, ReactElement, Children, ReactNode } from 'react';
+import { JSXElementConstructor, Children, ReactNode } from 'react';
 
 export const generateID = (length = 15, stringToWeaveIn?: string) => {
   /** We will make sure to mesh the generate id and name property together to basically create a unique ID */

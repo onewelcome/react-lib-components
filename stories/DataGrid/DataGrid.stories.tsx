@@ -50,6 +50,7 @@ const meta: Meta = {
       pageSize: 10,
       currentPage: 1,
     },
+    isLoading: false,
   },
   decorators: [
     (Story) => (
@@ -74,9 +75,9 @@ const Template: Story<Props<DataType>> = (args) => {
             <DataGridCell>{item.type}</DataGridCell>
             <DataGridCell>
               {item.enabled ? (
-                <span style={{ color: 'green' }}>Yes</span>
+                <span style={{ color: 'var(--success)' }}>Yes</span>
               ) : (
-                <span style={{ color: 'red' }}>No</span>
+                <span style={{ color: 'var(--error)' }}>No</span>
               )}
             </DataGridCell>
             {!args.disableContexMenuColumn && (

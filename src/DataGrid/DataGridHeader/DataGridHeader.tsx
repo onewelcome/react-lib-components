@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColumnName, Direction, HeaderCell, OnSortFunction, Sort } from '../interfaces';
 import { DataGridHeaderCell } from './DataGridHeaderCell';
 import classes from './DataGridHeader.module.scss';
@@ -61,7 +61,7 @@ export const DataGridHeader = ({
         key={header.name}
         name={header.name}
         headline={header.headline}
-        disableSorting={header.disableSorting}
+        disableSorting={header.disableSorting || !onSort}
         onSort={wrapOnSort}
         activeSortDirection={sort?.direction}
       />
@@ -73,7 +73,7 @@ export const DataGridHeader = ({
       <tr className={classes['row']}>
         {headerCells}
         {!disableContexMenuColumn && (
-          <th style={{ width: '4.125rem', boxSizing: 'border-box' }}></th>
+          <td aria-label="context menu" className={classes['context-menu']}></td>
         )}
       </tr>
     </thead>

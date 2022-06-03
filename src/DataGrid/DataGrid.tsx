@@ -1,4 +1,4 @@
-import React, { HTMLProps, ReactChild } from 'react';
+import React, { HTMLProps, ReactElement } from 'react';
 import { Props as ButtonProps } from '../Button/Button';
 import classes from './DataGrid.module.scss';
 import { DataGridHeader } from './DataGridHeader/DataGridHeader';
@@ -8,7 +8,7 @@ import { DataGridPagination, Props as DataGridPaginationProps } from './DataGrid
 import { HeaderCell, OnSortFunction, Sort } from './interfaces';
 
 export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'data'> {
-  children: ({ item, index }: { item: T; index: number }) => ReactChild;
+  children: ({ item, index }: { item: T; index: number }) => ReactElement;
   data?: T[];
   initialSort?: Sort;
   onSort?: OnSortFunction;
@@ -20,6 +20,7 @@ export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'd
   };
   paginationProps: DataGridPaginationProps;
   disableContexMenuColumn: boolean;
+  isLoading?: boolean;
 }
 
 export const DataGrid = <T extends {}>({
@@ -32,6 +33,7 @@ export const DataGrid = <T extends {}>({
   initialSort,
   disableContexMenuColumn,
   paginationProps,
+  isLoading,
   ...rest
 }: Props<T>) => {
   if (!headers) {
@@ -55,9 +57,15 @@ export const DataGrid = <T extends {}>({
           onSort={onSort}
           disableContexMenuColumn={disableContexMenuColumn}
         />
-        <DataGridBody children={children} data={data as T[]} headers={headers} />
+        <DataGridBody
+          children={children}
+          data={data as T[]}
+          headers={headers}
+          isLoading={isLoading}
+          disableContexMenuColumn={disableContexMenuColumn}
+        />
       </table>
-      {paginationProps && <DataGridPagination {...paginationProps} />}
+      {paginationProps && !isLoading && <DataGridPagination {...paginationProps} />}
     </div>
   );
 };
