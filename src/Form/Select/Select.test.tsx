@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Select as SelectComponent, Props } from './Select';
 import { render } from '@testing-library/react';
 import { Option } from './Option';
@@ -95,7 +95,32 @@ describe('Select should render', () => {
     expect(select).toHaveClass('error');
     expect(button).toHaveAttribute('aria-invalid', 'true');
     expect(select.querySelector('[data-clear]')).not.toBeInTheDocument();
-    expect(select.querySelector('.icon-error-circle')).toBeInTheDocument();
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <SelectComponent {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current!.nodeName).toBe('SELECT');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 

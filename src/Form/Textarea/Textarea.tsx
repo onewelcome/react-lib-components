@@ -1,40 +1,46 @@
-import React from 'react';
+import React, { ComponentPropsWithRef } from 'react';
 import { Icon, Props as IconProps, Icons } from '../../Icon/Icon';
-import { FormElement } from '../form.interfaces';
 import classes from './Textarea.module.scss';
 import { HTMLAttributes } from '../../interfaces';
+import { FormElement } from '../form.interfaces';
 
 interface IconPropsPartial extends Omit<Partial<IconProps>, 'ref'> {}
 
-export interface Props extends FormElement<HTMLTextAreaElement> {
+export interface Props extends ComponentPropsWithRef<'textarea'>, FormElement {
   wrapperProps?: HTMLAttributes<HTMLDivElement>;
   errorProps?: IconPropsPartial;
 }
 
-export const Textarea = ({
-  error = false,
-  disabled = false,
-  className,
-  rows = 4,
-  wrapperProps,
-  errorProps,
-  ...rest
-}: Props) => {
-  return (
-    <div className={`${classes['textarea-wrapper']} ${wrapperProps?.className ?? ''}`}>
-      <textarea
-        {...rest}
-        rows={rows}
-        className={`${error ? classes['error'] : ''} ${classes['textarea']} ${className ?? ''}`}
-        disabled={disabled}
-      />
-      {error && (
-        <Icon
-          {...errorProps}
-          className={`${classes['warning']} ${errorProps?.className ?? ''}`}
-          icon={Icons.Error}
+export const Textarea = React.forwardRef<HTMLTextAreaElement, Props>(
+  (
+    {
+      error = false,
+      disabled = false,
+      className,
+      rows = 4,
+      wrapperProps,
+      errorProps,
+      ...rest
+    }: Props,
+    ref
+  ) => {
+    return (
+      <div className={`${classes['textarea-wrapper']} ${wrapperProps?.className ?? ''}`}>
+        <textarea
+          {...rest}
+          ref={ref}
+          rows={rows}
+          className={`${error ? classes['error'] : ''} ${classes['textarea']} ${className ?? ''}`}
+          disabled={disabled}
         />
-      )}
-    </div>
-  );
-};
+        {error && (
+          <Icon
+            {...errorProps}
+            className={`${classes['warning']} ${errorProps?.className ?? ''}`}
+            icon={Icons.Error}
+          />
+        )}
+      </div>
+    );
+  }
+);

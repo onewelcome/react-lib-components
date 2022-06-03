@@ -1,8 +1,8 @@
-import React, { forwardRef, HTMLProps, ReactNode, RefObject, useEffect, useRef } from 'react';
+import React, { ComponentPropsWithRef, ReactNode, RefObject, useEffect, useRef } from 'react';
 import { usePosition, Offset, Placement } from '../hooks/usePosition';
 import classes from './Popover.module.scss';
 
-export interface Props extends HTMLProps<HTMLDivElement> {
+export interface Props extends ComponentPropsWithRef<'div'> {
   children?: ReactNode;
   show?: boolean;
   anchorEl?: RefObject<HTMLOrSVGElement>;
@@ -11,7 +11,7 @@ export interface Props extends HTMLProps<HTMLDivElement> {
   transformOrigin?: Placement;
 }
 
-export const Popover = forwardRef<HTMLDivElement, Props>(
+export const Popover = React.forwardRef<HTMLDivElement, Props>(
   ({ children, className, show, placement, offset, transformOrigin, anchorEl, ...rest }, ref) => {
     const elToBePositioned = useRef<HTMLDivElement>(null);
 
