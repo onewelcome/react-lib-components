@@ -9,11 +9,7 @@ const createDataGridPagination = (params?: (defaultParams: Props) => Props) => {
   if (params) {
     parameters = params(defaultParams);
   }
-  const queries = render(
-    <DataGridPagination {...parameters} data-testid="dataGridPagination">
-      dataGridPagination content
-    </DataGridPagination>
-  );
+  const queries = render(<DataGridPagination {...parameters} data-testid="dataGridPagination" />);
   const dataGridPagination = queries.getByTestId('dataGridPagination');
 
   return {
