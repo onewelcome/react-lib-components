@@ -32,7 +32,7 @@
     "react": ">=16"
   },
   "engines": {
-    "node": ">=12"
+    "node": "=16"
   },
   "size-limit": [
     {

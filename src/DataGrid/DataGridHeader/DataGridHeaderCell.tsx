@@ -22,6 +22,7 @@ export const DataGridHeaderCell = ({
   disableSorting,
   activeSortDirection,
   onSort,
+  ...rest
 }: Props) => {
   const onCellClick = () => {
     onSort && onSort(name);
@@ -53,6 +54,7 @@ export const DataGridHeaderCell = ({
 
   return (
     <th
+      {...rest}
       className={classes['header-cell']}
       aria-sort={activeSortDirection && ariaSortMapping[activeSortDirection]}
     >

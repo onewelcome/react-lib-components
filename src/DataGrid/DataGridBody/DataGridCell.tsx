@@ -7,13 +7,15 @@ export interface Props extends HTMLProps<HTMLTableCellElement> {
   isLoading?: boolean;
 }
 
-export const DataGridCell = ({ children, className, isLoading }: Props) => {
+export const DataGridCell = ({ children, className, isLoading, ...rest }: Props) => {
   return (
-    <td className={`${classes['cell']} ${className ?? ''}`}>
-      {isLoading && <div className={classes['loading']}></div>}
-      <Typography variant="body" tag="span">
-        {children}
-      </Typography>
+    <td {...rest} className={`${classes['cell']} ${className ?? ''}`}>
+      {isLoading && <div className={classes['loading']} aria-busy="true" aria-live="polite"></div>}
+      {!isLoading && (
+        <Typography variant="body" tag="span">
+          {children}
+        </Typography>
+      )}
     </td>
   );
 };

@@ -1,16 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { DataGrid as DataGridComponent, Props } from '../../src/DataGrid/DataGrid';
-import { DataGridHeader } from '../../src/DataGrid/DataGridHeader/DataGridHeader';
-import { DataGridPrototype } from '../../src/DataGrid/DataGridPrototype';
-import { DataGridBody } from '../../src/DataGrid/DataGridBody/DataGridBody';
 import { DataGridCell } from '../../src/DataGrid/DataGridBody/DataGridCell';
 import { ContextMenu } from '../../src/ContextMenu/ContextMenu';
 import { IconButton } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
 import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
-import { DataGridActions } from '../../src/DataGrid/DataGridActions';
-import { Button } from '../../src/Button/Button';
 import { DataGridRow } from '../../src/DataGrid/DataGridBody/DataGridRow';
 
 type DataType = { name: string; created: Date; id: string; type: string; enabled: boolean };
@@ -24,7 +19,7 @@ const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
 
 const meta: Meta = {
   title: 'Stories/UI/DataGrid',
-  component: DataGridPrototype,
+  component: DataGridComponent,
   args: {
     data,
     headers: [

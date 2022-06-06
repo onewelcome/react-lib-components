@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, Props as ButtonProps } from '../Button/Button';
 import { Icon, Icons } from '../Icon/Icon';
+import { HTMLProps } from '../interfaces';
 import classes from './DataGridActions.module.scss';
 
-export interface Props {
+export interface Props extends HTMLProps<HTMLDivElement> {
   addBtnProps?: ButtonProps;
   columnsBtnProps?: ButtonProps;
   searchBtnProps?: ButtonProps;
@@ -15,6 +16,10 @@ export const DataGridActions = ({
   searchBtnProps,
   ...rest
 }: Props) => {
+  const isHidden = !(addBtnProps || columnsBtnProps || searchBtnProps);
+  if (isHidden) {
+    return null;
+  }
   return (
     <div {...rest} className={classes['actions']}>
       <div className={classes['left-actions']}>

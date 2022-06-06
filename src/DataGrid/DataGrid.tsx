@@ -18,8 +18,8 @@ export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'd
     columnsBtnProps?: ButtonProps;
     searchBtnProps?: ButtonProps;
   };
-  paginationProps: DataGridPaginationProps;
-  disableContexMenuColumn: boolean;
+  paginationProps?: DataGridPaginationProps;
+  disableContexMenuColumn?: boolean;
   isLoading?: boolean;
 }
 
