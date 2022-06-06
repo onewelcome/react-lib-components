@@ -14,6 +14,7 @@ export const FormHelperText = ({ children, error, className, ...rest }: Props) =
       {...rest}
       variant="sub-text"
       tag="div"
+      ref={undefined}
       className={`${classes['form-helper-text']} ${error ? classes.error : ''} ${className ?? ''}`}
     >
       {children}
