@@ -8,7 +8,7 @@ import { Select } from '../Form/Select/Select';
 import { Option } from '../Form/Select/Option';
 import { Label } from '../Form/Label/Label';
 
-export type Translations = {
+export type PaginationTranslations = {
   totalItems: string;
   itemsPerPage: string;
   itemsPerPageLabel: string;
@@ -16,7 +16,7 @@ export type Translations = {
   currentPageLabel: string;
 };
 
-export type DefaultLabels = 'next' | 'previous' | 'first' | 'last';
+export type PageChangeLabels = 'next' | 'previous' | 'first' | 'last';
 
 enum DefaultTranslations {
   totalItems = 'Total items',
@@ -26,15 +26,15 @@ enum DefaultTranslations {
   currentPageLabel = 'What page you are currently on.',
 }
 
-type PageSize = 10 | 25 | 50;
+export type PageSize = 10 | 25 | 50;
 
 export interface Props extends Omit<ComponentPropsWithRef<'div'>, 'translate'> {
   currentPage?: number;
   totalElements?: number;
   pageSize?: PageSize;
-  translate?: Translations;
+  translate?: PaginationTranslations;
   disable?: { totalElements: boolean; itemsPerPage: boolean };
-  onPageChange: (pageChangeAction: DefaultLabels) => void;
+  onPageChange: (pageChangeAction: PageChangeLabels) => void;
   onPageSizeChange: (pageSize: PageSize) => void;
   onCurrentPageChange: (pageNumber: string) => void;
 }
@@ -119,7 +119,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
     };
 
     const onPageChangeHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-      onPageChange((event.target as HTMLElement).getAttribute('data-paginate') as DefaultLabels);
+      onPageChange((event.target as HTMLElement).getAttribute('data-paginate') as PageChangeLabels);
     };
 
     return (
