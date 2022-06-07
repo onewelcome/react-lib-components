@@ -5,9 +5,10 @@ import classes from './TextEllipsis.module.scss';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   children?: string;
+  popoverClassName?: string;
 }
 
-export const TextEllipsis = ({ children, ...rest }: Props) => {
+export const TextEllipsis = ({ children, popoverClassName, ...rest }: Props) => {
   const [showPopover, setShowPopover] = useState(false);
   const textContainer = useRef<HTMLDivElement>(null);
 
@@ -46,7 +47,7 @@ export const TextEllipsis = ({ children, ...rest }: Props) => {
         aria-hidden={!showPopover}
         show={showPopover}
         anchorEl={textContainer}
-        className={classes.popover}
+        className={`${classes.popover} ${popoverClassName ? popoverClassName : ''}`}
       >
         {children}
       </Popover>
