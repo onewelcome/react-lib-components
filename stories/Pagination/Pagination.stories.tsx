@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Pagination, Props } from '../../src/Pagination/Pagination';
+import { Pagination as PaginationComponent, Props } from '../../src/Pagination/Pagination';
 
 const meta: Meta = {
-  title: 'Pagination',
-  component: Pagination,
+  title: 'Stories/UI/Pagination',
+  component: PaginationComponent,
   argTypes: {
     translate: {
       control: {
@@ -22,11 +22,15 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = (args) => <Pagination {...args} />;
+const Template: Story<Props> = (args) => (
+  <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <PaginationComponent {...args} />
+  </div>
+);
 
-export const PaginationEl = Template.bind({});
+export const Pagination = Template.bind({});
 
-PaginationEl.args = {
+Pagination.args = {
   currentPage: 1,
   totalElements: 700,
   pageSize: 10,

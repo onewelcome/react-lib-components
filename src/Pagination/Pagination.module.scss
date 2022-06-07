@@ -3,51 +3,107 @@
   font-size: var(--font-size);
   color: var(--greyed-out);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
-.pagination,
-.next,
-.previous {
-  display: flex;
-  align-items: center;
-}
+.form-element {
+  height: 2.5rem;
 
-.per-page span + * {
-  margin-left: 0.25rem;
-}
-
-.next,
-.previous {
-  button + button {
-    margin-left: 0.5rem;
+  button {
+    min-height: 2.5rem;
   }
 }
 
 .total {
-  span {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span > span {
     font-weight: 700;
     font-family: var(--font-family);
     font-size: var(--font-size);
+    margin-left: 0.25rem;
   }
 }
 
-.previous + .page,
-.per-page + .previous,
-.per-page + .page {
-  margin-left: 0.5rem;
+.pagination {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
-.page + .next {
-  margin-left: 0.5rem;
+.per-page {
+  display: none;
+  align-items: center;
 }
 
-.current-page {
+.previous,
+.next {
   display: flex;
   align-items: center;
 }
 
+.page {
+  display: flex;
+  align-items: center;
+  flex-basis: min-content;
+}
+
+.page-size-select {
+  border-color: #fff;
+  margin: 0 0.25rem;
+
+  button {
+    min-width: 55px;
+    padding: 0;
+
+    div[data-display] {
+      left: 0.5rem;
+    }
+
+    div:not([data-display]) {
+      right: 0.5rem;
+    }
+  }
+}
+
 .current-value-input {
-  margin: 0 0.5rem;
+  margin: 0 0.25rem 0 0;
+  padding: 0;
+
+  input {
+    border-radius: var(--input-border-radius);
+    padding: 0 1rem;
+    width: auto;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 30em) {
+  .pagination-wrapper {
+    flex-direction: row;
+  }
+
+  .total {
+    justify-content: flex-start;
+  }
+
+  .pagination {
+    margin-top: 0;
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (min-width: 48em) {
+  .per-page {
+    display: flex;
+  }
 }

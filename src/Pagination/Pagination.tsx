@@ -1,15 +1,19 @@
-import React, { Fragment, HTMLProps } from 'react';
+import React, { Fragment, HTMLProps, useState } from 'react';
 import classes from './Pagination.module.scss';
+import readyclasses from '../readyclasses.module.scss';
 import { IconButton } from '../Button/IconButton';
 import { Icons, Icon } from '../Icon/Icon';
 import { Input } from '../Form/Input/Input';
 import { Select } from '../Form/Select/Select';
 import { Option } from '../Form/Select/Option';
+import { Label } from '../Form/Label/Label';
 
 export type Translations = {
   totalItems: string;
   itemsPerPage: string;
+  itemsPerPageLabel: string;
   currentPage: string;
+  currentPageLabel: string;
 };
 
 export type DefaultLabels = 'next' | 'previous' | 'first' | 'last';
@@ -18,6 +22,8 @@ enum DefaultTranslations {
   totalItems = 'Total items',
   itemsPerPage = 'Items per page',
   currentPage = 'Page %1 of %2',
+  itemsPerPageLabel = 'Select how many items per page you want to see.',
+  currentPageLabel = 'What page you are currently on.',
 }
 
 type PageSize = 10 | 25 | 50;
@@ -30,7 +36,7 @@ export interface Props extends Omit<HTMLProps<HTMLDivElement>, 'translate'> {
   disable?: { totalElements: boolean; itemsPerPage: boolean };
   onPageChange: (pageChangeAction: DefaultLabels) => void;
   onPageSizeChange: (pageSize: PageSize) => void;
-  onCurrentPageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCurrentPageChange: (pageNumber: string) => void;
 }
 
 export const Pagination = ({
@@ -45,7 +51,15 @@ export const Pagination = ({
   onCurrentPageChange,
   ...rest
 }: Props) => {
+  /** We use an internal state variable, because we don't want to fire onCurrentPageChange whenever onChange fires on the input. Rather, only when the Enter key is pressed. */
+  const [internalCurrentPage, setInternalCurrentPage] = useState(currentPage?.toString() || '1');
   const calculateAmountOfPages = () => (totalElements ? Math.ceil(totalElements / pageSize) : 0);
+
+  const onEnterListener = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.code === 'Enter') {
+      onCurrentPageChange(internalCurrentPage);
+    }
+  };
 
   const renderCurrentPageTranslation = () => {
     const amountOfPages = calculateAmountOfPages();
@@ -56,23 +70,39 @@ export const Pagination = ({
       return splitCurrentPageTranslation.map((string) => {
         if (string.includes('%1')) {
           return (
-            <Input
-              key="input"
-              type="number"
-              max={calculateAmountOfPages()}
-              wrapperProps={{ className: classes['current-value-input'] }}
-              name="current-value-input"
-              value={currentPage}
-              onChange={onCurrentPageChange}
-            />
+            <Fragment key={string}>
+              <Label
+                id="current-value-input-label"
+                htmlFor="current-value-input"
+                className={readyclasses['sr-only']}
+              >
+                {translate.currentPageLabel}
+              </Label>
+              <Input
+                aria-labelledby="current-value-input-label"
+                key="input"
+                id="current-value-input"
+                type="text"
+                size={currentPage?.toString().length}
+                max={calculateAmountOfPages()}
+                wrapperProps={{ className: classes['current-value-input'] }}
+                onKeyUp={onEnterListener}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setInternalCurrentPage(e.target.value)
+                }
+                name="current-value-input"
+                value={internalCurrentPage}
+                className={`${classes['form-element']} ${classes['current-page-input']}`}
+              />
+            </Fragment>
           );
         }
 
         if (string.includes('%2')) {
-          return `${string.replace('%2', amountOfPages.toString())} `;
+          return <div key={string}>{string.replace('%2', amountOfPages.toString())}&nbsp;</div>;
         }
 
-        return `${string} `;
+        return <div key={string}>{string}&nbsp;</div>;
       });
     }
 
@@ -91,16 +121,22 @@ export const Pagination = ({
   return (
     <div {...rest} className={`${classes['pagination-wrapper']} ${className ? className : ''}`}>
       {!disable.totalElements && totalElements && (
-        <span className={classes.total}>
-          {translate.totalItems}: <span>{totalElements}</span>
-        </span>
+        <div className={classes['total']}>
+          <span tabIndex={0}>
+            {translate.totalItems}: <span>{totalElements}</span>
+          </span>
+        </div>
       )}
-      <div className={classes.pagination}>
+      <div className={classes['pagination']}>
         {!disable.itemsPerPage && (
           <div className={classes['per-page']}>
-            <span>{translate.itemsPerPage}</span>
-            {pageSize.toString()}
-            <Select value={pageSize.toString()} onChange={pageSizeChangeHandler}>
+            <Label id="page-size-select-label">{translate.itemsPerPage}</Label>
+            <Select
+              labeledBy="page-size-select-label"
+              className={`${classes['form-element']} ${classes['page-size-select']}`}
+              value={pageSize.toString()}
+              onChange={pageSizeChangeHandler}
+            >
               <Option value="10">10</Option>
               <Option value="25">25</Option>
               <Option value="50">50</Option>
@@ -109,7 +145,7 @@ export const Pagination = ({
         )}
         <Fragment>
           {((currentPage && currentPage > 2) || (currentPage && currentPage > 1)) && (
-            <div className={classes.previous}>
+            <div className={classes['previous']}>
               {currentPage > 2 && (
                 <IconButton title="first" onClick={onPageChangeHandler} data-paginate="first">
                   <Icon icon={Icons.NavigationFirst} />
@@ -122,12 +158,8 @@ export const Pagination = ({
               )}
             </div>
           )}
-          {totalElements && (
-            <div className={classes['page']}>
-              <div className={classes['current-page']}>{renderCurrentPageTranslation()}</div>
-            </div>
-          )}
-          <div className={classes.next}>
+          {totalElements && <div className={classes['page']}>{renderCurrentPageTranslation()}</div>}
+          <div className={classes['next']}>
             {((currentPage && currentPage < calculateAmountOfPages()) || !totalElements) && (
               <IconButton title="next" onClick={onPageChangeHandler} data-paginate="next">
                 <Icon icon={Icons.ChevronRight} />
