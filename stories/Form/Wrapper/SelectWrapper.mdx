@@ -11,6 +11,8 @@ You can use the `onChange` event to update the linked `useState` variable whenev
 
 The `SelectWrapper` accepts a `name`, `helperText` and `errorMessage` prop. Based on the `error` prop (set to true or false) it will make sure to set its `aria-describedby` value to the `id` of the `errorMessage` or `helperText`.
 
+The `value` prop should be linked to a `useState` variable that gets updated using the `onChange` event.
+
 # Examples
 
 <Canvas>
