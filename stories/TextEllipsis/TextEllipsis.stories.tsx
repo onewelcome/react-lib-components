@@ -1,6 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { TextEllipsis as TextEllipsisComponent, Props } from '../../src/TextEllipsis/TextEllipsis';
+import { Typography } from '../../src/Typography/Typography';
+
 import TextEllipsisDocumentation from './TextEllipsis.mdx';
 
 const meta: Meta = {
@@ -15,12 +17,16 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = (args) => <TextEllipsisComponent {...args} />;
+const Template: Story<Props> = (args) => (
+  <div style={{ width: '200px' }}>
+    <Typography variant="body">
+      <TextEllipsisComponent {...args} />
+    </Typography>
+  </div>
+);
 
 export const TextEllipsis = Template.bind({});
 
 TextEllipsis.args = {
-  children:
-    "Hey there! That's quite a long text you've got there pal. Would've been a shame if it overflowed.",
-  variant: 'body',
+  children: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 };

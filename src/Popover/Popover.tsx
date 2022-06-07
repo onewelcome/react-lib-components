@@ -32,7 +32,7 @@ export const Popover = forwardRef<HTMLDivElement, Props>(
     }, [show]);
 
     return (
-      <div ref={ref} {...rest}>
+      <div ref={ref} role="tooltip" {...rest}>
         <div
           ref={elToBePositioned}
           className={`${classes.popover} ${className ?? ''} ${show ? classes.show : ''}`}

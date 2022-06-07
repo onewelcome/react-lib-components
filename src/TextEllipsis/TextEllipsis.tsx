@@ -1,19 +1,15 @@
-import React, { ReactNode, useRef, useEffect, MouseEventHandler, useState } from 'react';
+import React, { useRef, MouseEventHandler, useState } from 'react';
 import { HTMLProps } from '../interfaces';
 import { Popover } from '../Popover/Popover';
-import { Typography, Variant } from '../Typography/Typography';
 import classes from './TextEllipsis.module.scss';
 
 export interface Props extends HTMLProps<HTMLDivElement> {
-  children?: ReactNode;
-  variant: Variant;
+  children?: string;
 }
 
-export const TextEllipsis = ({ children, variant, ...rest }: Props) => {
+export const TextEllipsis = ({ children, ...rest }: Props) => {
   const [showPopover, setShowPopover] = useState(false);
   const textContainer = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {}, []);
 
   const ellipsisVisible = () => {
     if (
@@ -29,27 +25,29 @@ export const TextEllipsis = ({ children, variant, ...rest }: Props) => {
     return false;
   };
 
-  const wrapperOnMouseEnter: MouseEventHandler<HTMLDivElement> = () => {
+  const onMouseEnter: MouseEventHandler<HTMLDivElement> = () => {
     ellipsisVisible() && setShowPopover(true);
   };
 
-  const wrapperOnMouseLeave: MouseEventHandler<HTMLDivElement> = () => {
-    setShowPopover(false);
+  const onMouseLeave: MouseEventHandler<HTMLDivElement> = () => {
+    ellipsisVisible() && setShowPopover(false);
   };
 
   return (
-    <div>
-      <Typography
-        {...rest}
-        className={classes['text-ellipsis']}
-        ref={textContainer}
-        onMouseEnter={wrapperOnMouseEnter}
-        onMouseLeave={wrapperOnMouseLeave}
-        variant={variant}
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={classes['text-ellipsis']}
+      ref={textContainer}
+      {...rest}
+    >
+      {children}
+      <Popover
+        aria-hidden={!showPopover}
+        show={showPopover}
+        anchorEl={textContainer}
+        className={classes.popover}
       >
-        {children}
-      </Typography>
-      <Popover show={showPopover} anchorEl={textContainer}>
         {children}
       </Popover>
     </div>
