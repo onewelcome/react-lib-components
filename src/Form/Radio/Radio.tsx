@@ -4,13 +4,15 @@ import { Props as HelperProps } from '../FormHelperText/FormHelperText';
 import classes from './Radio.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
 import { FormSelector } from '../form.interfaces';
-import { HTMLProps } from '../../interfaces';
-import { FormSelectorWrapper } from '../FormSelectorWrapper/FormSelectorWrapper';
+import {
+  FormSelectorWrapper,
+  Props as FormSelectorWrapperProps,
+} from '../FormSelectorWrapper/FormSelectorWrapper';
 
 export interface Props extends ComponentPropsWithRef<'input'>, FormSelector {
   children: string;
   value: string;
-  wrapperProps?: HTMLProps<HTMLDivElement>;
+  formSelectorWrapperProps?: FormSelectorWrapperProps;
   helperProps?: HelperProps;
 }
 
@@ -28,7 +30,7 @@ export const Radio = React.forwardRef<HTMLInputElement, Props>(
       error,
       errorMessage,
       checked = false,
-      wrapperProps,
+      formSelectorWrapperProps,
       helperProps,
       onChange,
       ...rest
@@ -63,7 +65,7 @@ export const Radio = React.forwardRef<HTMLInputElement, Props>(
     /** Default return value is the default radio */
     return (
       <FormSelectorWrapper
-        {...wrapperProps}
+        {...formSelectorWrapperProps}
         className={`${classes['radio-wrapper']} ${className ?? ''}`}
         containerProps={{ className: classes['radio-container'] }}
         helperText={helperText}

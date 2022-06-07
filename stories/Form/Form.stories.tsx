@@ -66,6 +66,12 @@ const Template: Story<Props> = (args) => {
     helperText: 'This should be a date after Date.now()',
   });
 
+  const helper = useRef(null);
+
+  useEffect(() => {
+    console.log(helper);
+  }, [helper]);
+
   const [selectValue, setSelectValue] = useState('');
 
   const callBackTimeOnChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -279,7 +285,7 @@ const Template: Story<Props> = (args) => {
       </FormControl>
       <FormControl>
         <SelectWrapper
-          ref={selectRef}
+          selectProps={{ ref: selectRef }}
           label="Example select wrapper"
           name="Example select"
           helperText="Example helper text"

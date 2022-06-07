@@ -1,13 +1,12 @@
 import React, { ComponentPropsWithRef } from 'react';
 import { Icon, Props as IconProps, Icons } from '../../Icon/Icon';
 import classes from './Textarea.module.scss';
-import { HTMLAttributes } from '../../interfaces';
 import { FormElement } from '../form.interfaces';
 
 interface IconPropsPartial extends Omit<Partial<IconProps>, 'ref'> {}
 
 export interface Props extends ComponentPropsWithRef<'textarea'>, FormElement {
-  wrapperProps?: HTMLAttributes<HTMLDivElement>;
+  wrapperProps?: ComponentPropsWithRef<'div'>;
   errorProps?: IconPropsPartial;
 }
 
@@ -25,7 +24,10 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, Props>(
     ref
   ) => {
     return (
-      <div className={`${classes['textarea-wrapper']} ${wrapperProps?.className ?? ''}`}>
+      <div
+        {...wrapperProps}
+        className={`${classes['textarea-wrapper']} ${wrapperProps?.className ?? ''}`}
+      >
         <textarea
           {...rest}
           ref={ref}
