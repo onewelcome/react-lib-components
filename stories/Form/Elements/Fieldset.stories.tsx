@@ -7,6 +7,7 @@ import { Form } from '../../../src/Form/Form';
 import { SelectWrapper } from '../../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
 import FieldsetDocumentation from './Fieldset.mdx';
 import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
+import { Button } from '../../../src/Button/Button';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Fieldset',
@@ -75,6 +76,7 @@ const Template: Story<Props> = (args) => {
             type="text"
           />
         </FormControl>
+        <Button>Test</Button>
       </FieldsetComponent>
     </Form>
   );

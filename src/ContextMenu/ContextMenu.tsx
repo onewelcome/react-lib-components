@@ -62,9 +62,9 @@ export const ContextMenu = ({
   const renderTrigger = () =>
     React.cloneElement(trigger, {
       id: id,
-      ['aria-haspopup']: 'true',
-      ['aria-controls']: `${id}-menu`,
-      ['aria-expanded']: show,
+      'aria-haspopup': 'true',
+      'aria-controls': `${id}-menu`,
+      'aria-expanded': show,
       onClick: () => setShowContextMenu(!showContextMenu),
       ref: anchorEl,
     });

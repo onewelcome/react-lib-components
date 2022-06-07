@@ -22,6 +22,12 @@ To run tests, use `npm test` or `yarn test`.
 npm test # or yarn test
 ```
 
+For running and watching tests, use `npm run test:watch`.
+
+```bash
+npm run test:watch
+```
+
 ### Storybook
 
 Run Storybook locally:
@@ -30,7 +36,16 @@ Run Storybook locally:
 npm run storybook # or yarn storybook
 ```
 
+### All at once
+
+When developing stories, components and tests at the same time, it may be easier to run the command `npm run dev`. This will run the commands `start`, `test:watch` and `storybook` in parallel.
+
+```bash
+npm run dev
+```
+
 ## Development
+
 Please see the [CONTRIBUTING.md](https://github.com/onewelcome/react-lib-components/blob/master/CONTRIBUTING.md) file for information on how to develop for the Component Library.
 
 ### Adding new icons
@@ -55,7 +70,7 @@ Calculates the real cost of your library using [size-limit](https://github.com/a
 
 ## Release
 
-The publishing process is fired by git tag creation. CircleCI builds a package and publishes it to the public npmjs.com registry. 
+The publishing process is fired by git tag creation. CircleCI builds a package and publishes it to the public npmjs.com registry.
 Release notes should be provided via GitHub UI.
 After a successful release, the release notes are published on `#releases` slack channel.
 

@@ -9,16 +9,14 @@
 }
 
 .textarea {
-  border: 0;
-  padding-top: 0;
-  padding-right: 0;
+  padding-top: 1.625rem;
 
   &:active:not(:disabled) {
-    border-color: white;
+    border-color: var(--color-primary);
   }
 
   &:hover:not(:disabled) {
-    border-color: white;
+    border-color: var(--default);
   }
 
   &:focus:not(:disabled) {

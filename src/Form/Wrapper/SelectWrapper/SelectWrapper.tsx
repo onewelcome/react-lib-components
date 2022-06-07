@@ -21,6 +21,7 @@ export const SelectWrapper = ({
   placeholder,
   selectProps,
   helperProps,
+  name,
   onChange,
   onClear,
   ...rest
@@ -30,6 +31,7 @@ export const SelectWrapper = ({
   return (
     <Wrapper
       {...rest}
+      name={name}
       floatingLabelActive={floatingLabelActive}
       errorId={errorId}
       helperId={helperId}
@@ -42,6 +44,7 @@ export const SelectWrapper = ({
     >
       <Select
         {...selectProps}
+        name={name}
         value={value}
         labeledBy={labelId}
         error={error}

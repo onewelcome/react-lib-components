@@ -14,7 +14,7 @@ const defaultParams: Props = {
       <Input placeholder="This is a placeholder" name="example" type="text" />
     </FormControl>,
     <FormControl data-testid="form-control">
-      <Select value="placeholder" onChange={jest.fn}>
+      <Select name="Example select" value="placeholder" onChange={jest.fn}>
         <Option value="option1">Option1</Option>
         <Option value="option2">Option2</Option>
         <Option value="option3">Option3</Option>

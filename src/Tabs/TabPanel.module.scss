@@ -1,0 +1,7 @@
+.tabpanel {
+  display: none;
+
+  &.selected {
+    display: block;
+  }
+}
