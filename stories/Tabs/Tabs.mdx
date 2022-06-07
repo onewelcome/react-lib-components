@@ -1,0 +1,28 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Tabs } from '../../src/Tabs/Tabs.tsx';
+
+<Title />
+<Subtitle />
+
+The `Tabs` component is used to display tabs and accompanying tab panels.
+The contents between the `<Tab></Tab>` tags can contain any content.
+
+# Examples
+
+In the below code snippet, you'll see how you can create the tabs component.
+
+```jsx
+<Tabs>
+  <Tab title="tab 1">Tab content 1</Tab>
+  <Tab title="tab 2">Tab content 2</Tab>
+  <Tab title="tab 3">Tab content 3</Tab>
+</Tabs>
+```
+
+<Canvas>
+  <Story id="stories-ui-tabs--tabs" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
