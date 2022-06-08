@@ -4,7 +4,6 @@ import classes from './TextEllipsis.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'div'> {
   children?: string;
-  className?: string;
   popoverClassName?: string;
 }
 
@@ -41,7 +40,8 @@ export const TextEllipsis = React.forwardRef<HTMLDivElement, Props>(
       >
         {children}
         <Popover
-          aria-hidden={!showPopover}
+          aria-hidden={true}
+          data-hidden={!showPopover}
           show={showPopover}
           role="tooltip"
           anchorEl={textContainer}

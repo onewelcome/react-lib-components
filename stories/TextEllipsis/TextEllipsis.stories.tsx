@@ -8,9 +8,22 @@ import TextEllipsisDocumentation from './TextEllipsis.mdx';
 const meta: Meta = {
   title: 'Stories/UI/TextEllipsis',
   component: TextEllipsisComponent,
+  decorators: [
+    (Story) => (
+      <div style={{ width: '200px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     docs: {
       page: TextEllipsisDocumentation,
+    },
+  },
+  argTypes: {
+    children: {
+      control: 'text',
+      defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
   },
 };
@@ -18,15 +31,9 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = (args) => (
-  <div style={{ width: '200px' }}>
-    <Typography variant="body" tag="div">
-      <TextEllipsisComponent {...args} />
-    </Typography>
-  </div>
+  <Typography variant="body" tag="div">
+    <TextEllipsisComponent {...args} />
+  </Typography>
 );
 
 export const TextEllipsis = Template.bind({});
-
-TextEllipsis.args = {
-  children: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-};
