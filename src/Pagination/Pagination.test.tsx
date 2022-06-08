@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { Pagination, Props } from './Pagination';
-import { render } from '@testing-library/react';
+import { PageSize, Pagination, Props } from './Pagination';
+import { render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 const defaultParams: Props = {
   currentPage: 1,
   totalElements: 500,
   onPageChange: jest.fn(),
   onPageSizeChange: jest.fn(),
-  onCurrentPageChange: jest.fn(),
 };
 
 const createPagination = (params?: (defaultParams: Props) => Props) => {
@@ -32,6 +32,63 @@ describe('Pagination should render', () => {
     const { pagination } = createPagination();
 
     expect(pagination).toBeTruthy();
+  });
+});
+
+describe('Pagination events', () => {
+  it('should give us the correct values', async () => {
+    let pageChangeNumber: number;
+    let selectedPageSize = 10;
+
+    const onPageChange = (pageToGoTo: number) => {
+      pageChangeNumber = pageToGoTo;
+    };
+
+    const onPageSizeChange = (pageSize: PageSize) => {
+      selectedPageSize = pageSize;
+    };
+
+    const { pagination } = createPagination((defaultParams) => ({
+      ...defaultParams,
+      currentPage: 10,
+      onPageChange: onPageChange,
+      onPageSizeChange: onPageSizeChange,
+    }));
+
+    const next = pagination.querySelector('[data-paginate="next"]')!;
+    const previous = pagination.querySelector('[data-paginate="previous"]')!;
+    const first = pagination.querySelector('[data-paginate="first"]')!;
+    const last = pagination.querySelector('[data-paginate="last"]')!;
+    const pageSizeSelect = pagination.querySelector('.page-size-select')!;
+    const currentPageInput = pagination.querySelector('#current-value-input')!;
+
+    userEvent.click(next);
+
+    expect(selectedPageSize).toBe(10);
+    await waitFor(() => expect(pageChangeNumber).toBe(11));
+
+    userEvent.click(previous);
+    await waitFor(() => expect(pageChangeNumber).toBe(9));
+
+    userEvent.click(first);
+    await waitFor(() => expect(pageChangeNumber).toBe(0));
+
+    userEvent.click(last);
+    await waitFor(() => expect(pageChangeNumber).toBe(50));
+
+    userEvent.click(pageSizeSelect);
+
+    const option25 = pageSizeSelect.querySelector('[data-value="25"]')!;
+
+    userEvent.click(option25);
+
+    await waitFor(() => expect(selectedPageSize).toBe(25));
+
+    (currentPageInput as HTMLInputElement).focus();
+
+    userEvent.keyboard('{backspace}{backspace}30{enter}');
+
+    await waitFor(() => expect(pageChangeNumber).toBe(30));
   });
 });
 

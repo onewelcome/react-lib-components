@@ -33,10 +33,8 @@ export interface Props extends Omit<ComponentPropsWithRef<'div'>, 'translate'> {
   totalElements?: number;
   pageSize?: PageSize;
   translate?: PaginationTranslations;
-  disable?: { totalElements: boolean; itemsPerPage: boolean };
-  onPageChange: (pageChangeAction: PageChangeLabels) => void;
+  onPageChange: (pageToGoTo: number) => void;
   onPageSizeChange: (pageSize: PageSize) => void;
-  onCurrentPageChange: (pageNumber: string) => void;
 }
 
 export const Pagination = React.forwardRef<HTMLDivElement, Props>(
@@ -47,10 +45,8 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
       translate = DefaultTranslations,
       currentPage,
       className,
-      disable = { totalElements: false, itemsPerPage: false },
       onPageChange,
       onPageSizeChange,
-      onCurrentPageChange,
       ...rest
     }: Props,
     ref
@@ -61,7 +57,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
 
     const onEnterListener = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.code === 'Enter') {
-        onCurrentPageChange(internalCurrentPage);
+        onPageChange(Number(internalCurrentPage));
       }
     };
 
@@ -113,13 +109,13 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
       return null;
     };
 
-    const pageSizeChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const pageNumber = Number(event.target.value) as PageSize;
-      onPageSizeChange(pageNumber);
+    const onPageSizeChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const pageSizeNumber = Number(event.target.value) as PageSize;
+      onPageSizeChange(pageSizeNumber);
     };
 
-    const onPageChangeHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-      onPageChange((event.target as HTMLElement).getAttribute('data-paginate') as PageChangeLabels);
+    const onPageChangeHandler = (pageToGoTo: number) => {
+      onPageChange(pageToGoTo);
     };
 
     return (
@@ -128,7 +124,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
         ref={ref}
         className={`${classes['pagination-wrapper']} ${className ? className : ''}`}
       >
-        {!disable.totalElements && totalElements && (
+        {totalElements && (
           <div className={classes['total']}>
             <span tabIndex={0}>
               {translate.totalItems}: <span>{totalElements}</span>
@@ -136,14 +132,14 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
           </div>
         )}
         <div className={classes['pagination']}>
-          {!disable.itemsPerPage && (
+          {totalElements && pageSize && (
             <div className={classes['per-page']}>
               <Label id="page-size-select-label">{translate.itemsPerPage}</Label>
               <Select
                 labeledBy="page-size-select-label"
                 className={`${classes['form-element']} ${classes['page-size-select']}`}
                 value={pageSize.toString()}
-                onChange={pageSizeChangeHandler}
+                onChange={onPageSizeChangeHandler}
               >
                 <Option value="10">10</Option>
                 <Option value="25">25</Option>
@@ -155,14 +151,18 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
             {((currentPage && currentPage > 2) || (currentPage && currentPage > 1)) && (
               <div className={classes['previous']}>
                 {currentPage > 2 && (
-                  <IconButton title="first" onClick={onPageChangeHandler} data-paginate="first">
+                  <IconButton
+                    title="first"
+                    onClick={() => onPageChangeHandler(0)}
+                    data-paginate="first"
+                  >
                     <Icon icon={Icons.NavigationFirst} />
                   </IconButton>
                 )}
                 {currentPage > 1 && (
                   <IconButton
                     title="previous"
-                    onClick={onPageChangeHandler}
+                    onClick={() => onPageChangeHandler(currentPage - 1)}
                     data-paginate="previous"
                   >
                     <Icon icon={Icons.ChevronLeft} />
@@ -174,13 +174,22 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
               <div className={classes['page']}>{renderCurrentPageTranslation()}</div>
             )}
             <div className={classes['next']}>
-              {((currentPage && currentPage < calculateAmountOfPages()) || !totalElements) && (
-                <IconButton title="next" onClick={onPageChangeHandler} data-paginate="next">
+              {((currentPage && currentPage < calculateAmountOfPages()) ||
+                (currentPage && !totalElements)) && (
+                <IconButton
+                  title="next"
+                  onClick={() => onPageChangeHandler(currentPage + 1)}
+                  data-paginate="next"
+                >
                   <Icon icon={Icons.ChevronRight} />
                 </IconButton>
               )}
-              {currentPage && currentPage < calculateAmountOfPages()! - 1 && (
-                <IconButton title="last" onClick={onPageChangeHandler} data-paginate="last">
+              {currentPage && totalElements && currentPage < calculateAmountOfPages()! - 1 && (
+                <IconButton
+                  title="last"
+                  onClick={() => onPageChangeHandler(totalElements / pageSize)}
+                  data-paginate="last"
+                >
                   <Icon icon={Icons.NavigationLast} />
                 </IconButton>
               )}
