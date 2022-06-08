@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { render } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import { Props, TextEllipsis } from './TextEllipsis';
@@ -50,5 +50,31 @@ describe('TextEllipsis should render', () => {
     expect(getByRole('tooltip', { hidden: true })).toHaveAttribute('aria-hidden', 'false');
     user.unhover(textEllipsis);
     expect(getByRole('tooltip', { hidden: true })).toHaveAttribute('aria-hidden', 'true');
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <TextEllipsis data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

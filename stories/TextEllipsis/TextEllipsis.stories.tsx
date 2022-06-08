@@ -19,7 +19,7 @@ export default meta;
 
 const Template: Story<Props> = (args) => (
   <div style={{ width: '200px' }}>
-    <Typography variant="body">
+    <Typography variant="body" tag="div">
       <TextEllipsisComponent {...args} />
     </Typography>
   </div>

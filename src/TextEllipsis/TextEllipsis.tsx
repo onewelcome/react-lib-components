@@ -4,23 +4,20 @@ import classes from './TextEllipsis.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'div'> {
   children?: string;
+  className?: string;
   popoverClassName?: string;
 }
 
 export const TextEllipsis = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, popoverClassName, ...rest }: Props, ref) => {
+  ({ children, popoverClassName, className, ...rest }: Props, ref) => {
     const [showPopover, setShowPopover] = useState(false);
     const textContainer = useRef<HTMLDivElement>(null);
 
     const ellipsisVisible = () => {
       if (
-        !textContainer ||
-        !textContainer.current?.offsetWidth ||
-        !textContainer.current?.scrollWidth
-      )
-        return false;
-
-      if (textContainer.current.offsetWidth < textContainer.current.scrollWidth) {
+        textContainer.current &&
+        textContainer.current.offsetWidth < textContainer.current.scrollWidth
+      ) {
         return true;
       }
       return false;
@@ -36,18 +33,19 @@ export const TextEllipsis = React.forwardRef<HTMLDivElement, Props>(
 
     return (
       <div
+        {...rest}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        className={classes['text-ellipsis']}
+        className={`${classes['text-ellipsis']} ${className ?? ''}`}
         ref={ref || textContainer}
-        {...rest}
       >
         {children}
         <Popover
           aria-hidden={!showPopover}
           show={showPopover}
+          role="tooltip"
           anchorEl={textContainer}
-          className={`${classes.popover} ${popoverClassName ? popoverClassName : ''}`}
+          className={`${classes.popover} ${popoverClassName ?? ''}`}
         >
           {children}
         </Popover>
