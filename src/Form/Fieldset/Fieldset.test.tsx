@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Fieldset, Props } from './Fieldset';
 import { render } from '@testing-library/react';
 import { FormControl } from '../FormControl/FormControl';
@@ -42,6 +42,32 @@ describe('Fieldset should render', () => {
     const { fieldset } = createFieldset();
 
     expect(fieldset).toBeTruthy();
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <Fieldset {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 

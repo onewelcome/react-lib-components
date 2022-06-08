@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FormControl, Props } from './FormControl';
 import { render } from '@testing-library/react';
 import { Input } from '../Input/Input';
@@ -32,6 +32,32 @@ describe('FormControl should render', () => {
     const { formcontrol } = createFormControl();
 
     expect(formcontrol).toBeTruthy();
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <FormControl {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 

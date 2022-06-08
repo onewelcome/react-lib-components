@@ -1,14 +1,16 @@
-import React, { HTMLAttributes } from 'react';
+import React, { ComponentPropsWithRef } from 'react';
 import classes from './BaseModalActions.module.scss';
 
-export interface Props extends HTMLAttributes<HTMLElement> {
+export interface Props extends ComponentPropsWithRef<'footer'> {
   children?: React.ReactNode;
 }
 
-export const BaseModalActions = ({ children, className = '', ...restProps }: Props) => {
-  return (
-    <footer {...restProps} className={`${classes['actions']} ${className}`}>
-      {children}
-    </footer>
-  );
-};
+export const BaseModalActions = React.forwardRef<HTMLElement, Props>(
+  ({ children, className = '', ...rest }: Props, ref) => {
+    return (
+      <footer {...rest} ref={ref} className={`${classes['actions']} ${className}`}>
+        {children}
+      </footer>
+    );
+  }
+);

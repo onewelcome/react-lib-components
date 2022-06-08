@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Tiles, Props } from './Tiles';
 import { Tile } from './Tile';
 import { render } from '@testing-library/react';
@@ -116,5 +116,31 @@ describe('loading state should be handled properly', () => {
 
     expect(tiles).toHaveAttribute('aria-busy', 'true');
     expect(tiles.querySelectorAll('.tile.loading').length).toBe(3);
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <Tiles {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

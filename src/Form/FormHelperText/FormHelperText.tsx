@@ -1,22 +1,26 @@
-import React, { ReactNode } from 'react';
+import React, { ComponentPropsWithRef, ReactNode } from 'react';
 import classes from './FormHelperText.module.scss';
-import { HTMLProps } from '../../interfaces';
 import { Typography } from '../../Typography/Typography';
+import { FormElement } from '../form.interfaces';
 
-export interface Props extends HTMLProps<HTMLDivElement> {
+export interface Props extends ComponentPropsWithRef<'div'>, FormElement {
   children?: ReactNode;
-  error?: boolean;
 }
 
-export const FormHelperText = ({ children, error, className, ...rest }: Props) => {
-  return (
-    <Typography
-      {...rest}
-      variant="sub-text"
-      tag="div"
-      className={`${classes['form-helper-text']} ${error ? classes.error : ''} ${className ?? ''}`}
-    >
-      {children}
-    </Typography>
-  );
-};
+export const FormHelperText = React.forwardRef<HTMLDivElement, Props>(
+  ({ children, error, className, ...rest }: Props, ref) => {
+    return (
+      <Typography
+        {...rest}
+        ref={ref}
+        variant="sub-text"
+        tag="div"
+        className={`${classes['form-helper-text']} ${error ? classes.error : ''} ${
+          className ?? ''
+        }`}
+      >
+        {children}
+      </Typography>
+    );
+  }
+);

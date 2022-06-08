@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BaseModalContent, Props } from './BaseModalContent';
 import { render } from '@testing-library/react';
 import { descriptionId } from '../BaseModalContext';
@@ -18,6 +18,32 @@ describe('BaseModalContent', () => {
     expect(dialogContentContainer).toHaveClass('content', classNames[0], classNames[1]);
     expect(dialogContentContainer).toHaveTextContent(initParams.children as string);
     expect(dialogContentContainer).toEqual(document.activeElement);
+  });
+
+  describe('ref should work', () => {
+    it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+      const ExampleComponent = ({
+        propagateRef,
+      }: {
+        propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+      }) => {
+        const ref = useRef(null);
+
+        useEffect(() => {
+          if (ref.current) {
+            propagateRef && propagateRef(ref);
+          }
+        }, [ref]);
+
+        return <BaseModalContent children="test" data-ref="testing" ref={ref} />;
+      };
+
+      const refCheck = (ref: React.RefObject<HTMLElement>) => {
+        expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      };
+
+      render(<ExampleComponent propagateRef={refCheck} />);
+    });
   });
 
   it('should renders not focused div', () => {
