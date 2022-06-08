@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { SelectWrapper, Props } from '../../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
+import {
+  SelectWrapper as SelectWrapperComponent,
+  Props,
+} from '../../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
 import { Option } from '../../../src/Form/Select/Option';
+
+import SelectWrapperDocumentation from './SelectWrapper.mdx';
 
 const meta: Meta = {
   title: 'Stories/Form/Wrapper/SelectWrapper',
-  component: SelectWrapper,
+  component: SelectWrapperComponent,
+  parameters: {
+    docs: {
+      page: SelectWrapperDocumentation,
+    },
+  },
   argTypes: {
     value: {
       options: ['option1', 'option2', 'option3', 'option4'],
@@ -23,18 +33,18 @@ export default meta;
 
 const Template: Story<Props> = (args) => {
   return (
-    <SelectWrapper {...args}>
+    <SelectWrapperComponent {...args}>
       <Option value="option1">Option 1</Option>
       <Option value="option2">Option 2</Option>
       <Option value="option3">Option 3</Option>
       <Option value="option4">Option 4</Option>
-    </SelectWrapper>
+    </SelectWrapperComponent>
   );
 };
 
-export const SelectWrapperEl = Template.bind({});
+export const SelectWrapper = Template.bind({});
 
-SelectWrapperEl.args = {
+SelectWrapper.args = {
   label: 'Example select wrapper',
   name: 'Example select',
   helperText: 'Example helper text',
