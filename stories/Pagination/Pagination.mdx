@@ -1,0 +1,50 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The pagination component makes the content readable by separating it into different chunks (read: pages). You, as a developer, are responsible for requesting the right content for the page that's active and for keeping track of the current page and page size.
+
+It has a few strings of text that can be translated. These are accessible through the `translate` prop; English is the default language. Please see the props table for the object interface. The `itemsPerPageLabel` and `currentPageLabel` are specifically for accessibility. Whenever the user tabs onto the `Select` component for `itemsPerPage` or the `Input` component for the `currentPage`, their respective labels will be read by the screen reader.
+
+# Examples
+
+<Canvas>
+  <Story id="stories-ui-pagination--pagination" />
+</Canvas>
+
+An example component that's using the `Pagination` component is shown below:
+
+```jsx
+const ExampleComponent = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalElements, setTotalElements] = useState(100);
+  const [pageSize, setPageSize] = useState(10)
+
+  const onPageChange = (action: 'first' | 'previous' | 'next', 'last') => {
+    switch(action) {
+      case 'first':
+        setCurrentPage(0);
+      case 'previous':
+        setCurrentPage(currPage => currPage - 1);
+      case: 'next':
+        setCurrentPage(currPage => currPage + 1);
+      case: 'last':
+        setCurrentPage(totalElements / pageSize);
+    }
+  }
+
+  <Pagination
+    currentPage={currentPage}
+    totalElements={totalElements}
+    pageSize={pageSize}
+    onCurrentPageChange={(pageNumber: number) => setCurrentPage(pageNumber)}
+    onPageChange={(pageChangeAction: 'first' | 'previous' | 'next', 'last') => onPageChange(pageChangeAction)}
+    onPageSizeChange={(pageSize: 10 | 25 | 50) => setPageSize(pageSize)}
+     />
+}
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

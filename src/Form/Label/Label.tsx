@@ -1,9 +1,9 @@
-import React, { ComponentPropsWithRef } from 'react';
+import React, { ComponentPropsWithRef, ReactNode } from 'react';
 import classes from './Label.module.scss';
 import readyclasses from '../../readyclasses.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'label'> {
-  children?: string;
+  children?: ReactNode;
 }
 
 export const Label = React.forwardRef<HTMLLabelElement, Props>(
