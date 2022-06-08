@@ -5,7 +5,7 @@
 }
 
 .popover {
-  max-width: 90%;
+  max-width: min(75ch, 90%);
   padding: 0.6875rem 0.6875rem 0.6875rem 0.875rem;
   border-radius: 0.25rem;
 
