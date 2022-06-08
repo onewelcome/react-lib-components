@@ -3,8 +3,10 @@ import { Icon, Icons } from '../../Icon/Icon';
 import { Props as FormHelperTextProps } from '../FormHelperText/FormHelperText';
 import classes from './Checkbox.module.scss';
 import { useFormSelector } from '../../hooks/useFormSelector';
-import { HTMLProps } from '../../interfaces';
-import { FormSelectorWrapper } from '../FormSelectorWrapper/FormSelectorWrapper';
+import {
+  FormSelectorWrapper,
+  Props as FormSelectorWrapperProps,
+} from '../FormSelectorWrapper/FormSelectorWrapper';
 import { FormSelector } from '../form.interfaces';
 
 const isToggle = (children: ReactNode) => (children as ReactElement)?.props?.['data-toggle'];
@@ -14,7 +16,7 @@ export interface CheckboxProps extends ComponentPropsWithRef<'input'>, FormSelec
   label?: string;
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;
-  wrapperProps?: HTMLProps<HTMLDivElement>;
+  formSelectorWrapperProps?: FormSelectorWrapperProps;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -34,7 +36,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       className,
       error,
       checked = false,
-      wrapperProps,
+      formSelectorWrapperProps,
       onChange,
       ...rest
     }: CheckboxProps,
@@ -113,7 +115,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     /** Default return value is the default checkbox */
     return (
       <FormSelectorWrapper
-        {...wrapperProps}
+        {...formSelectorWrapperProps}
         className={`${classes['checkbox-wrapper']} ${className ? className : ''}`}
         containerProps={{ className: classes['checkbox-container'] }}
         helperText={helperText}

@@ -4,10 +4,6 @@ import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
 import { Textarea, Props as TextareaProps } from '../../Textarea/Textarea';
 import { useWrapper } from '../../../hooks/useWrapper';
 
-/**
- * We want the events (onChange, onFocus, etc) to be directly on the <TextareaWrapper /> component instead of having to do <TextareaWrapper textareaProps={{ onChange: onChangeHandler }} /> you can just do <TextareaWrapper onChange={onChangeHandler} /> but for this
- * we have to omit the default events from the existing interfaces that we extend.
- */
 export interface Props
   extends Omit<
       ComponentPropsWithRef<'div'>,

@@ -12,7 +12,7 @@ const defaultParams: Props = {
   error: false,
   errorMessage: 'errormessage',
   disabled: false,
-  wrapperProps: { 'data-testid': 'radiowrapper' },
+  formSelectorWrapperProps: { 'data-testid': 'radiowrapper' },
   helperText: 'helpertext',
   onChange: onChangeHandeler,
 };

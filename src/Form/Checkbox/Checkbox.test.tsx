@@ -101,7 +101,7 @@ describe('Checkbox should have proper attributes', () => {
       ...defaultParams,
       error: true,
       errorMessage: 'This is an error',
-      wrapperProps: { 'data-testid': 'checkbox-wrapper' },
+      formSelectorWrapperProps: { 'data-testid': 'checkbox-wrapper' },
     }));
 
     expect(checkbox).toHaveAttribute(
