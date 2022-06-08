@@ -18,12 +18,10 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = (args) => (
-  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-    <div style={{ width: '200px' }}>
-      <Typography variant="body">
-        <TextEllipsisComponent {...args} />
-      </Typography>
-    </div>
+  <div style={{ width: '200px' }}>
+    <Typography variant="body">
+      <TextEllipsisComponent {...args} />
+    </Typography>
   </div>
 );
 
