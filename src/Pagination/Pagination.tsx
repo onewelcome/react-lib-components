@@ -87,6 +87,9 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
                   max={calculateAmountOfPages()}
                   wrapperProps={{ className: classes['current-value-input'] }}
                   onKeyUp={onEnterListener}
+                  onBlur={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    onPageChange(Number(event.target.value))
+                  }
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setInternalCurrentPage(e.target.value)
                   }
