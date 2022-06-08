@@ -34,14 +34,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 1rem;
-}
 
-.per-page {
-  display: none;
-  align-items: center;
-}
-
-.pagination {
   .previous,
   .next {
     display: flex;
@@ -55,6 +48,11 @@
       font-size: 0.75rem;
     }
   }
+}
+
+.per-page {
+  display: none;
+  align-items: center;
 }
 
 .page {
