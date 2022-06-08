@@ -1,47 +1,82 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { IconButton, Props } from './IconButton';
-import { render, getByRole } from '@testing-library/react';
-import { Icon, Icons } from '../Icon/Icon';
+import { render } from '@testing-library/react';
 
-const createButton = ({
-  title = 'Icon',
-  children = <Icon icon={Icons.Calendar} />,
-  ...rest
-}: Partial<Props> = {}) => {
+const defaultParams: Props = {
+  title: 'iconbutton',
+};
+
+const createIconButton = (params?: (defaultParams: Props) => Props) => {
+  let parameters: Props = defaultParams;
+  if (params) {
+    parameters = params(defaultParams);
+  }
   const queries = render(
-    <IconButton {...rest} title={title}>
-      {children}
+    <IconButton {...parameters} data-testid="iconButton">
+      iconButton content
     </IconButton>
   );
-  const button = getByRole(queries.container, 'button');
+  const iconButton = queries.getByTestId('iconButton');
 
   return {
     ...queries,
-    button,
+    iconButton,
   };
 };
 
-describe('IconButton', () => {
+describe('IconButton should render', () => {
   it('renders without crashing', () => {
-    const { button } = createButton();
+    const { iconButton } = createIconButton();
 
-    expect(button).toBeDefined();
+    expect(iconButton).toBeDefined();
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <IconButton {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 
 describe('Different variants of the button', () => {
   it('should have a class of "primary"', () => {
-    const { button } = createButton({ color: 'primary' });
-    expect(button.classList.contains('primary')).toBe(true);
+    const { iconButton } = createIconButton();
+    expect(iconButton.classList.contains('primary')).toBe(true);
   });
 
   it('should have a class of "secondary"', () => {
-    const { button } = createButton({ color: 'secondary' });
-    expect(button.classList.contains('secondary')).toBe(true);
+    const { iconButton } = createIconButton((defaultParams) => ({
+      ...defaultParams,
+      color: 'secondary',
+    }));
+    expect(iconButton.classList.contains('secondary')).toBe(true);
   });
 
   it('should have a class of "tertiary"', () => {
-    const { button } = createButton({ color: 'tertiary' });
-    expect(button.classList.contains('tertiary')).toBe(true);
+    const { iconButton } = createIconButton((defaultParams) => ({
+      ...defaultParams,
+      color: 'tertiary',
+    }));
+    expect(iconButton.classList.contains('tertiary')).toBe(true);
   });
 });

@@ -1,13 +1,12 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import { BaseButton, Props as BaseButtonProps } from './BaseButton';
 import classes from './Button.module.scss';
 
-export interface Props extends Omit<BaseButtonProps, 'ref'> {
+export interface Props extends BaseButtonProps {
   startIcon?: React.ReactNode | false;
   endIcon?: React.ReactNode | false;
   children?: React.ReactNode;
   variant?: 'text' | 'fill' | 'outline';
-  ref?: RefObject<HTMLButtonElement>;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, Props>(

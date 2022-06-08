@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BaseModalHeader, Props } from './BaseModalHeader';
 import { render, getByRole, getByTestId, getByText } from '@testing-library/react';
 import { labelId } from '../BaseModalContext';
@@ -26,5 +26,33 @@ describe('BaseModalHeader', () => {
     expect(titleContainer).toHaveAttribute('id', 'modal-label');
     expect(getByTestId(container, 'additional-content')).toHaveTextContent(additionalContent);
     expect(initParams.onClose).toBeCalledTimes(1);
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return (
+        <BaseModalHeader id="test" title="test" onClose={jest.fn()} data-ref="testing" ref={ref} />
+      );
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

@@ -1,7 +1,7 @@
-import { HTMLProps } from '../interfaces';
+import { DataAttributeKey } from '../interfaces';
 
 /** Radios */
-export interface FormSelector<T> extends FormElement<T> {
+export interface FormSelector extends FormElement {
   helperText?: string;
   errorMessage?: string;
   parentHelperId?: string;
@@ -9,6 +9,7 @@ export interface FormSelector<T> extends FormElement<T> {
 }
 
 /** Default form elements */
-export interface FormElement<T> extends HTMLProps<T> {
+export interface FormElement {
   error?: boolean;
+  [dataAttribute: DataAttributeKey]: any;
 }

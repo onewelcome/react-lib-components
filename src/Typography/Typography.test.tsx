@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Typography, Props } from './Typography';
 import { render } from '@testing-library/react';
 import { Spacing } from '../hooks/useSpacing';
@@ -110,5 +110,31 @@ describe('Should override styling', () => {
     const { typography } = renderTypography('h1', undefined, { margin: 4, marginBottom: 8 });
 
     expect(typography.style).toHaveProperty('margin', '1rem 1rem 2rem 1rem');
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <Typography variant="body" data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
