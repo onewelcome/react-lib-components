@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { PageSize, Pagination, Props } from './Pagination';
+import { Pagination, Props } from './Pagination';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -37,16 +37,9 @@ describe('Pagination should render', () => {
 
 describe('Pagination events', () => {
   it('should give us the correct values', async () => {
-    let pageChangeNumber: number;
-    let selectedPageSize = 10;
+    const onPageChange = jest.fn();
 
-    const onPageChange = (pageToGoTo: number) => {
-      pageChangeNumber = pageToGoTo;
-    };
-
-    const onPageSizeChange = (pageSize: PageSize) => {
-      selectedPageSize = pageSize;
-    };
+    const onPageSizeChange = jest.fn();
 
     const { pagination } = createPagination((defaultParams) => ({
       ...defaultParams,
@@ -64,17 +57,16 @@ describe('Pagination events', () => {
 
     userEvent.click(next);
 
-    expect(selectedPageSize).toBe(10);
-    await waitFor(() => expect(pageChangeNumber).toBe(11));
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(11));
 
     userEvent.click(previous);
-    await waitFor(() => expect(pageChangeNumber).toBe(9));
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(9));
 
     userEvent.click(first);
-    await waitFor(() => expect(pageChangeNumber).toBe(0));
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(0));
 
     userEvent.click(last);
-    await waitFor(() => expect(pageChangeNumber).toBe(50));
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(50));
 
     userEvent.click(pageSizeSelect);
 
@@ -82,13 +74,13 @@ describe('Pagination events', () => {
 
     userEvent.click(option25);
 
-    await waitFor(() => expect(selectedPageSize).toBe(25));
+    await waitFor(() => expect(onPageSizeChange).toHaveBeenCalledWith(25));
 
     (currentPageInput as HTMLInputElement).focus();
 
     userEvent.keyboard('{backspace}{backspace}30{enter}');
 
-    await waitFor(() => expect(pageChangeNumber).toBe(30));
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(30));
   });
 });
 
