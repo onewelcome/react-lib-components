@@ -130,10 +130,58 @@ describe('DataGridHeader should be interactive', () => {
     expect(lastNameCell).not.toHaveAttribute('aria-sort');
   });
 
-  it('clicking on multiple cells call onSort callback', () => {
+  it('clicking on multiple cells call onSort callback with one column selected when single-sorting is enabled', () => {
     const onSortHandler = jest.fn();
     const { getAllByRole } = createDataGridHeader((params) => ({
       ...params,
+      onSort: onSortHandler,
+    }));
+
+    const [firstNameCell, lastNameCell] = getAllByRole('columnheader');
+
+    userEvent.click(getByRole(firstNameCell, 'button'));
+    userEvent.click(getByRole(lastNameCell, 'button'));
+    expect(onSortHandler).toBeCalledWith([
+      { name: defaultParams.headers[0].name, direction: 'ASC' },
+    ]);
+    expect(onSortHandler).toBeCalledWith([
+      { name: defaultParams.headers[1].name, direction: 'ASC' },
+    ]);
+    expect(firstNameCell).not.toHaveAttribute('aria-sort');
+    expect(lastNameCell).toHaveAttribute('aria-sort', 'ascending');
+
+    userEvent.click(getByRole(lastNameCell, 'button'));
+    expect(onSortHandler).toBeCalledWith([
+      { name: defaultParams.headers[1].name, direction: 'DESC' },
+    ]);
+    expect(firstNameCell).not.toHaveAttribute('aria-sort');
+    expect(lastNameCell).toHaveAttribute('aria-sort', 'descending');
+
+    userEvent.click(getByRole(firstNameCell, 'button'));
+    expect(onSortHandler).toBeCalledWith([
+      { name: defaultParams.headers[0].name, direction: 'ASC' },
+    ]);
+    expect(firstNameCell).toHaveAttribute('aria-sort', 'ascending');
+    expect(lastNameCell).not.toHaveAttribute('aria-sort');
+
+    userEvent.click(getByRole(firstNameCell, 'button'));
+    expect(onSortHandler).toBeCalledWith([
+      { name: defaultParams.headers[1].name, direction: 'DESC' },
+    ]);
+    expect(firstNameCell).toHaveAttribute('aria-sort', 'descending');
+    expect(lastNameCell).not.toHaveAttribute('aria-sort');
+
+    userEvent.click(getByRole(firstNameCell, 'button'));
+    expect(onSortHandler).toBeCalledWith([]);
+    expect(firstNameCell).not.toHaveAttribute('aria-sort');
+    expect(lastNameCell).not.toHaveAttribute('aria-sort');
+  });
+
+  it('clicking on multiple cells call onSort callback with multiple columns selected when multi-sorting is enabled', () => {
+    const onSortHandler = jest.fn();
+    const { getAllByRole } = createDataGridHeader((params) => ({
+      ...params,
+      enableMultiSorting: true,
       onSort: onSortHandler,
     }));
 

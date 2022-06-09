@@ -27,6 +27,8 @@ interface CSSProperties {
   snackbarBorderRadius?: string;
   dataGridRowBackgroundColor?: string;
   dataGridRowHoverBackgroundColor?: string;
+  cardBackgroundColor?: string;
+  cardBorderRadius?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -76,7 +78,9 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     snackbarErrorBackgroundColor: '#e22a1d',
     snackbarBorderRadius: '8px',
     dataGridRowBackgroundColor: 'transparent',
-    dataGridRowHoverBackgroundColor: '#F5E6F0',
+    dataGridRowHoverBackgroundColor: '#c5e6f0',
+    cardBackgroundColor: '#fff',
+    cardBorderRadius: '8px',
     default: '#0f0f1e',
     success: '#008a28',
     error: '#e22a1d',

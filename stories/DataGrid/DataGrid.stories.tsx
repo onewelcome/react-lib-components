@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { DataGrid as DataGridComponent, Props } from '../../src/DataGrid/DataGrid';
 import { DataGridCell } from '../../src/DataGrid/DataGridBody/DataGridCell';
@@ -7,6 +7,9 @@ import { IconButton } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
 import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
 import { DataGridRow } from '../../src/DataGrid/DataGridBody/DataGridRow';
+import { action } from '@storybook/addon-actions/dist/esm';
+import DataGridDocumentation from './DataGrid.mdx';
+import './DataGridStory.css';
 
 type DataType = { name: string; created: Date; id: string; type: string; enabled: boolean };
 const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
@@ -20,6 +23,11 @@ const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
 const meta: Meta = {
   title: 'Stories/UI/DataGrid',
   component: DataGridComponent,
+  parameters: {
+    docs: {
+      page: DataGridDocumentation,
+    },
+  },
   args: {
     data,
     headers: [
@@ -29,78 +37,148 @@ const meta: Meta = {
       { name: 'type', headline: 'Type', disableSorting: true },
       { name: 'enabled', headline: 'Enabled', disableSorting: true },
     ],
-    initialSort: [
-      { name: 'name', direction: 'ASC' },
-      { name: 'created', direction: 'DESC' },
-    ],
-    onSort: (sort) => console.log(JSON.stringify(sort)),
-    actions: {
-      addBtnProps: { onClick: () => console.log('add btn clicked') },
-      columnsBtnProps: { onClick: () => console.log('columns btn clicked') },
-      searchBtnProps: { onClick: () => console.log('search btn clicked') },
-    },
-    disableContexMenuColumn: false,
-    paginationProps: {
-      totalElements: 105,
-      pageSize: 10,
-      currentPage: 1,
-    },
-    isLoading: false,
   },
-  decorators: [
-    (Story) => (
-      <div style={{ backgroundColor: '#F5F8F8', padding: 30 }}>
-        <Story />
-      </div>
-    ),
-  ],
 };
 
 export default meta;
 
 const Template: Story<Props<DataType>> = (args) => {
-  return (
-    <Fragment>
-      <DataGridComponent {...args}>
-        {({ item }) => (
-          <DataGridRow key={item.id}>
-            <DataGridCell>{item.name}</DataGridCell>
-            <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
-            <DataGridCell>{item.id}</DataGridCell>
-            <DataGridCell>{item.type}</DataGridCell>
-            <DataGridCell>
-              {item.enabled ? (
-                <span style={{ color: 'var(--success)' }}>Yes</span>
-              ) : (
-                <span style={{ color: 'var(--error)' }}>No</span>
-              )}
-            </DataGridCell>
-            {!args.disableContexMenuColumn && (
-              <DataGridCell>
-                <ContextMenu
-                  id={`consent_menu_${item.id}`}
-                  placement={{ vertical: 'bottom', horizontal: 'right' }}
-                  transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                  trigger={
-                    <IconButton title={`Actions for ${item.name}`} color="default">
-                      <Icon icon={Icons.EllipsisAlt} />
-                    </IconButton>
-                  }
-                >
-                  <ContextMenuItem>Item 1</ContextMenuItem>
-                  <ContextMenuItem>Item 2</ContextMenuItem>
-                  <ContextMenuItem>Item 3</ContextMenuItem>
-                </ContextMenu>
-              </DataGridCell>
-            )}
-          </DataGridRow>
+  const children =
+    args.children ??
+    (({ item }) => (
+      <DataGridRow key={item.id}>
+        <DataGridCell>{item.name}</DataGridCell>
+        <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
+        <DataGridCell>{item.id}</DataGridCell>
+        <DataGridCell>{item.type}</DataGridCell>
+        <DataGridCell>
+          {item.enabled ? (
+            <span style={{ color: 'var(--success)' }}>Yes</span>
+          ) : (
+            <span style={{ color: 'var(--error)' }}>No</span>
+          )}
+        </DataGridCell>
+        {!args.disableContextMenuColumn && (
+          <DataGridCell>
+            <ContextMenu
+              id={`consent_menu_${item.id}`}
+              placement={{ vertical: 'bottom', horizontal: 'right' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+              trigger={
+                <IconButton title={`Actions for ${item.name}`} color="default">
+                  <Icon icon={Icons.EllipsisAlt} />
+                </IconButton>
+              }
+            >
+              <ContextMenuItem>Item 1</ContextMenuItem>
+              <ContextMenuItem>Item 2</ContextMenuItem>
+              <ContextMenuItem>Item 3</ContextMenuItem>
+            </ContextMenu>
+          </DataGridCell>
         )}
-      </DataGridComponent>
-    </Fragment>
-  );
+      </DataGridRow>
+    ));
+  return <DataGridComponent {...args}>{children}</DataGridComponent>;
 };
 
 export const DataGrid = Template.bind({});
 
-DataGrid.args = {};
+DataGrid.args = {
+  initialSort: [
+    { name: 'name', direction: 'ASC' },
+    { name: 'created', direction: 'DESC' },
+  ],
+  onSort: (sort) => action(`Sort callback: ${sort}`),
+  actions: {
+    addBtnProps: { onClick: () => action('add btn clicked') },
+    columnsBtnProps: { onClick: () => action('columns btn clicked') },
+    searchBtnProps: { onClick: () => action('search btn clicked') },
+  },
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 105,
+    pageSize: 10,
+    currentPage: 1,
+  },
+  isLoading: false,
+  enableMultiSorting: true,
+};
 DataGrid.storyName = 'DataGrid';
+
+export const HideColumnDataGrid = Template.bind({});
+HideColumnDataGrid.storyName = 'Hide columns in DataGrid';
+HideColumnDataGrid.args = {
+  headers: [
+    { name: 'name', headline: 'Name' },
+    { name: 'created', headline: 'Created', hidden: true },
+    { name: 'id', headline: 'Identifier', hidden: true },
+    { name: 'type', headline: 'Type', disableSorting: true },
+    { name: 'enabled', headline: 'Enabled', disableSorting: true },
+  ],
+  actions: undefined,
+  paginationProps: undefined,
+  initialSort: [{ name: 'name', direction: 'ASC' }],
+  data: data.filter((_, idx) => idx < 3),
+};
+
+export const SimpleDataGrid = Template.bind({});
+SimpleDataGrid.storyName = 'Simple DataGrid';
+SimpleDataGrid.args = {
+  data: data.filter((_, idx) => idx < 3),
+};
+
+export const IndexDataGrid = Template.bind({});
+IndexDataGrid.storyName = 'Index column';
+IndexDataGrid.args = {
+  data: data.filter((_, idx) => idx < 3),
+  headers: [
+    { name: 'index', headline: '#' },
+    { name: 'name', headline: 'Name' },
+    { name: 'number', headline: 'Random number' },
+  ],
+  onSort: undefined,
+  children: ({ item, index }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{index + 1}</DataGridCell>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{Math.random()}</DataGridCell>
+      <DataGridCell>
+        <ContextMenu
+          id={`consent_menu_${item.id}`}
+          placement={{ vertical: 'bottom', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          trigger={
+            <IconButton title={`Actions for ${item.name}`} color="default">
+              <Icon icon={Icons.EllipsisAlt} />
+            </IconButton>
+          }
+        >
+          <ContextMenuItem>Item 1</ContextMenuItem>
+          <ContextMenuItem>Item 2</ContextMenuItem>
+          <ContextMenuItem>Item 3</ContextMenuItem>
+        </ContextMenu>
+      </DataGridCell>
+    </DataGridRow>
+  ),
+};
+
+export const SkeletonLoadingAnimationDataGrid = Template.bind({});
+SkeletonLoadingAnimationDataGrid.storyName = 'Loading animation';
+SkeletonLoadingAnimationDataGrid.args = {
+  isLoading: true,
+};
+
+export const ActionsDataGrid = Template.bind({});
+ActionsDataGrid.storyName = 'Actions section in DataGrid';
+ActionsDataGrid.args = {
+  data: data.filter((_, idx) => idx < 1),
+  actions: {
+    addBtnProps: { onClick: () => action('add btn clicked') },
+    columnsBtnProps: { onClick: () => action('columns btn clicked') },
+    searchBtnProps: {
+      onClick: () => action('search btn clicked'),
+      title: 'Zoeken',
+      children: 'Zoeken',
+    },
+  },
+};

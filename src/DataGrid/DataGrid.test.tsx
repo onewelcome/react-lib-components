@@ -36,6 +36,7 @@ const defaultParams: Props<DataType> = {
     { name: 'lastName', headline: 'Last name' },
     { name: 'date', headline: 'Date' },
   ],
+  enableMultiSorting: true,
   data: [
     { firstName: 'Paweł', lastName: 'Napieracz', date: '12.12.1990' },
     { firstName: 'Michał', lastName: 'Górski', date: '12.12.1994' },

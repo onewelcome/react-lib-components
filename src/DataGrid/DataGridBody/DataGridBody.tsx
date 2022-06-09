@@ -9,7 +9,7 @@ export interface Props<T> extends Omit<HTMLProps<HTMLTableSectionElement>, 'head
   data?: T[];
   headers: HeaderCell[];
   isLoading?: boolean;
-  disableContexMenuColumn?: boolean;
+  disableContextMenuColumn?: boolean;
 }
 
 const skeletonLoadingRows = 9;
@@ -19,7 +19,7 @@ export const DataGridBody = <T extends {}>({
   data,
   headers,
   isLoading,
-  disableContexMenuColumn,
+  disableContextMenuColumn,
   ...rest
 }: Props<T>) => {
   if (isLoading) {
@@ -31,7 +31,7 @@ export const DataGridBody = <T extends {}>({
             {Array.from(Array(visibleColumns)).map((__, colIdx) => (
               <DataGridCell key={colIdx} isLoading></DataGridCell>
             ))}
-            {!disableContexMenuColumn && <DataGridCell></DataGridCell>}
+            {!disableContextMenuColumn && <DataGridCell></DataGridCell>}
           </DataGridRow>
         ))}
       </tbody>

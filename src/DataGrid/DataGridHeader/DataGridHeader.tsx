@@ -8,7 +8,8 @@ export interface Props extends Omit<HTMLProps<HTMLTableSectionElement>, 'headers
   headers: HeaderCell[];
   initialSort?: Sort;
   onSort?: OnSortFunction;
-  disableContexMenuColumn?: boolean;
+  disableContextMenuColumn?: boolean;
+  enableMultiSorting?: boolean;
 }
 
 const sortingStates = [undefined, 'ASC', 'DESC'] as (Direction | undefined)[];
@@ -17,7 +18,8 @@ export const DataGridHeader = ({
   initialSort,
   onSort,
   headers,
-  disableContexMenuColumn,
+  disableContextMenuColumn,
+  enableMultiSorting,
   ...rest
 }: Props) => {
   const [sortList, setSortList] = useState(initialSort || ([] as Sort));
@@ -37,7 +39,7 @@ export const DataGridHeader = ({
    */
   const updateSortList = (name: ColumnName): Sort => {
     const current = sortList.find((item) => item.name === name);
-    const restSortList = sortList.filter((item) => item.name !== name);
+    const restSortList = enableMultiSorting ? sortList.filter((item) => item.name !== name) : [];
     const newSortDirection = calculateNextSortState(current?.direction);
     return newSortDirection
       ? [{ name, direction: newSortDirection }, ...restSortList]
@@ -72,7 +74,7 @@ export const DataGridHeader = ({
     <thead {...rest} className={classes['thead']}>
       <tr className={classes['row']}>
         {headerCells}
-        {!disableContexMenuColumn && (
+        {!disableContextMenuColumn && (
           <td aria-label="context menu" className={classes['context-menu']}></td>
         )}
       </tr>

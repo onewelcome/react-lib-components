@@ -1,0 +1,170 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import './DataGridDocumentation.css';
+
+<Title />
+<Subtitle />
+
+The `DataGrid` is used to represent data that have no clear graphical distinction between items. Under the hood it's built with `HTML table`.
+
+The `DataGrid` component shows provided data in the table. Moreover it includes pagination and additional buttons in action section (above table header) for you.
+
+The `DataGrid` is wrapped inside `Card` component. The table is in the middle, action section is above it, and the pagination is at the bottom.
+Table shows data based on provided data list and template. Template describe how to render each row.
+The last column of table is used to put row action, such as `ContextMenu` component.
+Table header has a support for multisorting.
+
+# Table
+
+The heart of `DataGrid` component is HTML table. Table header is generated based on provided `headers` props. Table body is generated based on provided `data` and template.
+
+```jsx
+<DataGrid
+  headers={[
+    { name: 'name', headline: 'Name' },
+    { name: 'created', headline: 'Created' },
+    { name: 'id', headline: 'Identifier' },
+    { name: 'type', headline: 'Type' },
+    { name: 'enabled', headline: 'Enabled' },
+  ]}
+  data={[...]}
+>
+  {({ item }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
+      <DataGridCell>{item.id}</DataGridCell>
+      <DataGridCell>{item.type}</DataGridCell>
+      <DataGridCell>...</DataGridCell>
+      <DataGridCell>
+        <ContextMenu ... />
+      </DataGridCell>
+    </DataGridRow>
+  )}
+</DataGrid>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--simple-data-grid" />
+</Canvas>
+
+## Table header
+
+The `headers` property is a list of headers object. These objects contains column name (to be passed in sorting callback), headline that is use to render header cell content,
+and optionally `hidden` & `disableSorting` properties that indicate visibility of the column (in the table header and in the table body) and disable sorting.
+
+In the below example `Created` & `Identifier` columns are hidden. Sorting is possible only by `Name` column.
+
+```jsx
+<DataGrid
+  headers={[
+    { name: 'name', headline: 'Name' },
+    { name: 'created', headline: 'Created', hidden: true },
+    { name: 'id', headline: 'Identifier', hidden: true },
+    { name: 'type', headline: 'Type', disableSorting: true },
+    { name: 'enabled', headline: 'Enabled', disableSorting: true },
+  ]}
+  data={[...]}
+  onSort={...}
+  initialSort={[ { name: 'name', direction: 'ASC' } ]}
+/>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--hide-column-data-grid" />
+</Canvas>
+
+### Sorting
+
+The sorting indicators (icons) are not rendered until `onSort` callback function is set.
+By clicking header cells `onSort` callback is called with parameters indicate sorting column name and direction.
+Each column has a tripple option state. Clicking once on header cell sets the sorting direction to `ascending`, second click sets to `descending` and third one turns off sorting.
+Clicking on other header cell sets the sorting direction to `ascending` for the current column - the previous one is forgotten.
+
+By default single column sorting is enabled. To enable multi-sorting `enableMultiSorting` property should be set.
+By enabling multi-sorting `onSort` callback takes an array of columns names & directions pairs. It means that each column has it's independent sorting state.
+Clicking on different header cells don't make previous once to be forgotten, but moves those to be later in array.
+
+_NOTE: The order of sorting pairs reflects the sort priority._
+
+`initialSort` property consume the initial settings for sorting feature. To support single and multi sorting it consumes array of column name and direction pair.
+
+## Table body
+
+Rows are generated based on provided template.
+Template should wrap content in `DataGridRow` component. Each cell should be wrapped with `DataGridCell` component.
+The last cell of each row is reserved for item actions. `ContextMenu` component is supposed to handle all actions that can be done within row.
+
+```jsx
+<DataGrid
+  headers={[
+    { name: 'index', headline: '#' },
+    { name: 'name', headline: 'Name' },
+    { name: 'number', headline: 'Random number' },
+  ]}
+  data={[...]}
+>
+  {({ item, index }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{index + 1}</DataGridCell>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{Math.random()}</DataGridCell>
+      <DataGridCell>
+        <ContextMenu ... />
+    </DataGridRow>
+  )}
+</DataGrid>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--index-data-grid" />
+</Canvas>
+
+### Disabling context menu column
+
+To disable context menu column set `disableContextMenuColumn` property.
+
+### Skeleton loading animation
+
+To show loading animation set `isLoading` property to `true`.
+It renders 10 rows with skeleton loading animation in all defined cells.
+
+```jsx
+<DataGrid isLoading />
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--skeleton-loading-animation-data-grid" />
+</Canvas>
+
+# Action section
+
+It's possible to show `Add item`, `Columns` and `Search` buttons. Setting one of the action's button properties cause input to be shown.
+Based on the need there is possibility to override buttons props, like changing labels.
+
+```jsx
+<DataGrid
+  actions={{
+    addBtnProps: { onClick },
+    columnsBtnProps: { onClick },
+    searchBtnProps: { onClick, title: 'Zoeken', children: 'Zoeken' },
+  }}
+/>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--actions-data-grid" />
+</Canvas>
+
+# Pagination
+
+//@TODO!
+
+# Full example
+
+<Canvas>
+  <Story id="stories-ui-datagrid--data-grid" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

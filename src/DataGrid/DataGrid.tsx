@@ -6,6 +6,7 @@ import { DataGridActions } from './DataGridActions';
 import { DataGridBody } from './DataGridBody/DataGridBody';
 import { DataGridPagination, Props as DataGridPaginationProps } from './DataGridPagination';
 import { HeaderCell, OnSortFunction, Sort } from './interfaces';
+import { Card } from '../Card/Card';
 
 export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'data'> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
@@ -19,21 +20,22 @@ export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'd
     searchBtnProps?: ButtonProps;
   };
   paginationProps?: DataGridPaginationProps;
-  disableContexMenuColumn?: boolean;
+  disableContextMenuColumn?: boolean;
   isLoading?: boolean;
+  enableMultiSorting?: boolean;
 }
 
 export const DataGrid = <T extends {}>({
   children,
   data,
-  actions,
-  headers,
-  onSort,
-  className,
   initialSort,
-  disableContexMenuColumn,
+  onSort,
+  headers,
+  actions,
   paginationProps,
+  disableContextMenuColumn,
   isLoading,
+  enableMultiSorting,
   ...rest
 }: Props<T>) => {
   if (!headers) {
@@ -44,7 +46,7 @@ export const DataGrid = <T extends {}>({
   }
 
   return (
-    <div {...rest} className={`${classes['grid-wrapper']}  ${className ?? ''}`}>
+    <Card {...rest}>
       <DataGridActions
         addBtnProps={actions?.addBtnProps}
         columnsBtnProps={actions?.columnsBtnProps}
@@ -55,17 +57,18 @@ export const DataGrid = <T extends {}>({
           headers={headers}
           initialSort={initialSort}
           onSort={onSort}
-          disableContexMenuColumn={disableContexMenuColumn}
+          disableContextMenuColumn={disableContextMenuColumn}
+          enableMultiSorting={enableMultiSorting}
         />
         <DataGridBody
           children={children}
           data={data as T[]}
           headers={headers}
           isLoading={isLoading}
-          disableContexMenuColumn={disableContexMenuColumn}
+          disableContextMenuColumn={disableContextMenuColumn}
         />
       </table>
       {paginationProps && !isLoading && <DataGridPagination {...paginationProps} />}
-    </div>
+    </Card>
   );
 };
