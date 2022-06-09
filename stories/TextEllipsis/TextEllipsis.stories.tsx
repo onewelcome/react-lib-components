@@ -20,11 +20,8 @@ const meta: Meta = {
       page: TextEllipsisDocumentation,
     },
   },
-  argTypes: {
-    children: {
-      control: 'text',
-      defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    },
+  args: {
+    children: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
 };
 
