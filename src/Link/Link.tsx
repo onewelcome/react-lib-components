@@ -1,21 +1,19 @@
-import React, { ForwardRefExoticComponent, Ref, RefAttributes } from 'react';
-import { HTMLProps } from '../interfaces';
+import React, { ComponentPropsWithRef, ForwardRefExoticComponent, RefAttributes } from 'react';
 import classes from './Link.module.scss';
 import { LinkProps } from './types';
 
 type AnchorType = 'external' | 'internal' | 'download';
 
-export interface Props extends HTMLProps<HTMLAnchorElement> {
+export interface Props extends ComponentPropsWithRef<'a'> {
   children?: string;
   color?: 'primary' | 'secondary' | 'tertiary';
   type?: AnchorType;
   to: string;
   disabled?: boolean;
   component?: ForwardRefExoticComponent<LinkProps & RefAttributes<HTMLAnchorElement>>;
-  ref?: Ref<HTMLAnchorElement>;
 }
 
-export const Link = React.forwardRef(
+export const Link = React.forwardRef<HTMLAnchorElement, Props>(
   (
     {
       children,
@@ -27,7 +25,7 @@ export const Link = React.forwardRef(
       component,
       ...rest
     }: Props,
-    ref: Ref<HTMLAnchorElement>
+    ref
   ) => {
     const determineTarget = () => {
       if (rest.target) {

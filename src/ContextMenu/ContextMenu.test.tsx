@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ContextMenu, Props } from './ContextMenu';
 import { render, getByRole } from '@testing-library/react';
 import { Button } from '../Button/Button';
@@ -89,5 +89,31 @@ describe('ContextMenu should render', () => {
     expect(actual).toEqual(expected);
 
     console.error = err;
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <ContextMenu {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BaseModal, Props } from './BaseModal';
 import { render, getByText, queryByText, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -48,5 +48,31 @@ describe('BaseModal', () => {
 
     fireEvent.keyDown(modal, { key: 'Escape' });
     expect(initParams.onClose).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <BaseModal id="test" children="test" open={true} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Icon, Props, Icons } from './Icon';
 import { render } from '@testing-library/react';
 
-const initParams: Props = {
+interface PartialProps extends Omit<Props, 'ref'> {}
+
+const initParams: PartialProps = {
   icon: Icons.Calendar,
   color: 'rgb(26, 153, 60)',
 };
@@ -35,5 +37,31 @@ describe('Icon', () => {
 
     expect(icon).toBeDefined();
     expect(icon.tagName.toLowerCase()).toBe(tag);
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <Icon {...initParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

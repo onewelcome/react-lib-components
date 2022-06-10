@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Form, Props } from '../../src/Form/Form';
 import { InputWrapper } from '../../src/Form/Wrapper/InputWrapper/InputWrapper';
@@ -66,6 +66,12 @@ const Template: Story<Props> = (args) => {
     helperText: 'This should be a date after Date.now()',
   });
 
+  const helper = useRef(null);
+
+  useEffect(() => {
+    console.log(helper);
+  }, [helper]);
+
   const [selectValue, setSelectValue] = useState('');
 
   const callBackTimeOnChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +92,8 @@ const Template: Story<Props> = (args) => {
       errorMessage: '',
     }));
   };
+
+  const selectRef = useRef<HTMLSelectElement | null>(null);
 
   useEffect(() => {
     if (/onegini|iwelcome/i.test(input1.value)) {
@@ -277,6 +285,7 @@ const Template: Story<Props> = (args) => {
       </FormControl>
       <FormControl>
         <SelectWrapper
+          selectProps={{ ref: selectRef }}
           label="Example select wrapper"
           name="Example select"
           helperText="Example helper text"

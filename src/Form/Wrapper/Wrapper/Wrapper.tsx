@@ -1,11 +1,11 @@
-import React, { LegacyRef, ReactElement } from 'react';
+import React, { ComponentPropsWithRef, ReactElement } from 'react';
 import { FormGroup, Props as FormGroupProps } from '../../FormGroup/FormGroup';
 import { Label, Props as LabelProps } from '../../Label/Label';
 import classes from './Wrapper.module.scss';
 import { Props as HelperProps } from '../../FormHelperText/FormHelperText';
-import { HTMLProps } from '../../../interfaces';
+import { FormElement } from '../../form.interfaces';
 
-export interface Props extends Omit<FormGroupProps, 'children' | 'ref'> {
+export interface Props extends ComponentPropsWithRef<'div'>, FormGroupProps {
   children: ReactElement | ReactElement[];
   floatingLabelActive?: boolean;
   floatingLabel?: boolean;
@@ -16,21 +16,20 @@ export interface Props extends Omit<FormGroupProps, 'children' | 'ref'> {
   /** This does NOT add validation! It simply adds an asterix on the Label! */
   required?: boolean;
   innerClassName?: string;
-  ref?: LegacyRef<HTMLDivElement>;
 }
 
 /** For components that extend this component we create an interface (InputWrapper, SelectWrapper, etc.) */
-export interface WrapperProps extends Omit<HTMLProps<HTMLDivElement>, 'ref'> {
+export interface WrapperProps extends FormElement {
   errorMessage?: string;
-  error: boolean;
   helperText?: string;
   helperProps?: HelperProps;
   label?: string;
   name: string;
   required?: boolean;
+  disabled?: boolean;
 }
 
-export const Wrapper = React.forwardRef(
+export const Wrapper = React.forwardRef<HTMLDivElement, Props>(
   (
     {
       children,
@@ -54,7 +53,7 @@ export const Wrapper = React.forwardRef(
       innerClassName,
       ...rest
     }: Props,
-    ref: LegacyRef<HTMLDivElement>
+    ref
   ) => {
     const renderChildren = () =>
       React.Children.map(children, (child) =>

@@ -1,0 +1,120 @@
+.pagination-wrapper {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  color: var(--greyed-out);
+  display: flex;
+  flex-direction: column;
+}
+
+.form-element {
+  height: 2.5rem;
+
+  button {
+    min-height: 2.5rem;
+  }
+}
+
+.total {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span > span {
+    font-weight: 700;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    margin-left: 0.25rem;
+  }
+}
+
+.pagination {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+
+  .previous,
+  .next {
+    display: flex;
+    align-items: center;
+
+    button {
+      margin: 0.25rem;
+    }
+
+    button span:before {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+.per-page {
+  display: none;
+  align-items: center;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  flex-basis: min-content;
+}
+
+.page-size-select {
+  border-color: #fff;
+  margin: 0 0.25rem;
+
+  button {
+    min-width: 55px;
+    padding: 0;
+
+    div[data-display] {
+      left: 0.5rem;
+    }
+
+    div:not([data-display]) {
+      right: 0.5rem;
+    }
+  }
+}
+
+.current-value-input {
+  margin: 0 0.25rem 0 0;
+  padding: 0;
+
+  input {
+    border-radius: var(--input-border-radius);
+    padding: 0 1rem;
+    width: auto;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 30em) {
+  .pagination-wrapper {
+    flex-direction: row;
+  }
+
+  .total {
+    justify-content: flex-start;
+  }
+
+  .pagination {
+    margin-top: 0;
+    justify-content: flex-end;
+
+    .previous,
+    .next {
+      button {
+        margin: 0.5rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 48em) {
+  .per-page {
+    display: flex;
+  }
+}

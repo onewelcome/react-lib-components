@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { ComponentPropsWithRef } from 'react';
 import classes from './Icon.module.scss';
-import { HTMLAttributes } from '../interfaces';
 
 export enum Icons {
   Bell = 'bell',
@@ -71,21 +70,21 @@ export enum Icons {
 
 type Tag = 'span' | 'div' | 'i';
 
-export interface Props extends Omit<HTMLAttributes<HTMLOrSVGElement>, 'size'> {
+export interface Props extends ComponentPropsWithRef<'div'> {
   icon: Icons;
   color?: string;
   size?: string;
   tag?: Tag;
 }
 
-export const Icon = React.forwardRef(
+export const Icon = React.forwardRef<HTMLDivElement, Props>(
   ({ icon, color, className, style, size, tag = 'span', ...rest }: Props, ref) => {
     const Component = tag;
 
     return (
       <Component
         {...rest}
-        ref={ref as React.LegacyRef<HTMLDivElement>}
+        ref={ref}
         style={{ color: color, ...style, fontSize: size }}
         data-icon
         aria-hidden="true"

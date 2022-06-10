@@ -1,4 +1,4 @@
-import { JSXElementConstructor, Children, ReactNode } from 'react';
+type KeyValuePair = { [key: string]: unknown };
 
 export const generateID = (length = 15, stringToWeaveIn?: string) => {
   /** We will make sure to mesh the generate id and name property together to basically create a unique ID */
@@ -81,10 +81,21 @@ export const generateID = (length = 15, stringToWeaveIn?: string) => {
   return id.slice(0, length);
 };
 
-export const getChildByType = <T extends unknown>(
-  children: ReactNode | ReactNode[],
-  type: string | JSXElementConstructor<any>
-): T | undefined =>
-  Children.map(children, (child) => child)?.find(
-    (child) => typeof child == 'object' && 'type' in child && child?.type === type
-  ) as T;
+export const filterProps = (props: any, regexPattern: RegExp, returnFiltered: boolean = true) => {
+  if (returnFiltered) {
+    return Object.keys(props).reduce((acc: KeyValuePair, key) => {
+      if (regexPattern.test(key)) {
+        acc[key] = props[key];
+      }
+
+      return acc;
+    }, {});
+  } else {
+    return Object.entries(props)
+      .filter(([key]) => !regexPattern.test(key))
+      .reduce(
+        (prevObj, currKeyValPair) => ({ ...prevObj, [currKeyValPair[0]]: currKeyValPair[1] }),
+        {}
+      );
+  }
+};

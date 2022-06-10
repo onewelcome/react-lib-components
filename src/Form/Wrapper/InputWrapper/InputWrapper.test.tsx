@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { InputWrapper, Props } from './InputWrapper';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -57,6 +57,48 @@ describe('InputWrapper should render', () => {
     const helperId = getByTestId('helper_text').getAttribute('id');
 
     expect(input).toHaveAttribute('aria-describedby', helperId);
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (
+        ref: React.RefObject<HTMLElement>,
+        innerRef: React.RefObject<HTMLInputElement>
+      ) => void;
+    }) => {
+      const ref = useRef(null);
+      const innerRef = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref, innerRef);
+        }
+      }, [ref]);
+
+      return (
+        <InputWrapper
+          {...defaultParams}
+          inputProps={{ ref: innerRef, 'data-ref': 'inner-testing' }}
+          name="test"
+          data-ref="testing"
+          ref={ref}
+        />
+      );
+    };
+
+    const refCheck = (
+      ref: React.RefObject<HTMLElement>,
+      innerRef: React.RefObject<HTMLElement>
+    ) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(innerRef.current).toHaveAttribute('data-ref', 'inner-testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 

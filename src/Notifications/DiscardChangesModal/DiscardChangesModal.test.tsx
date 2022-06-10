@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DiscardChangesModal, Props } from './DiscardChangesModal';
 import { findByTestId, getAllByRole, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -107,5 +107,56 @@ describe('DiscardChangesModal should show DiscardChangesDialog', () => {
 
     userEvent.click(discardBtn);
     expect(defaultParams.onClose).toBeCalled();
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (
+        ref1: React.RefObject<HTMLElement>,
+        ref2: React.RefObject<HTMLElement>
+      ) => void;
+    }) => {
+      const modalRef = useRef(null);
+      const dialogRef = useRef(null);
+
+      useEffect(() => {
+        if (dialogRef.current && modalRef.current) {
+          propagateRef && propagateRef(modalRef, dialogRef);
+        }
+      }, [modalRef, dialogRef]);
+
+      return (
+        <DiscardChangesModal
+          modalRef={modalRef}
+          dialogRef={dialogRef}
+          data-ref="testing"
+          hasUnsavedChanges={jest.fn()}
+          onClose={jest.fn()}
+          headerProps={{ title: 'test' }}
+          open={false}
+          children="test"
+          discardChangedDialogProps={{
+            contentLabel: 'test',
+            discardChangesButtonLabel: 'test',
+            keepEditingButtonLabel: 'test',
+            titleLabel: 'test',
+            'data-ref': 'testing',
+          }}
+          title="test"
+          id="test"
+        />
+      );
+    };
+
+    const refCheck = (ref1: React.RefObject<HTMLElement>, ref2: React.RefObject<HTMLElement>) => {
+      expect(ref1.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref2.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

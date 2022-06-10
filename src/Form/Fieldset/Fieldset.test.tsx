@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Fieldset, Props } from './Fieldset';
 import { render } from '@testing-library/react';
 import { FormControl } from '../FormControl/FormControl';
@@ -14,7 +14,7 @@ const defaultParams: Props = {
       <Input placeholder="This is a placeholder" name="example" type="text" />
     </FormControl>,
     <FormControl data-testid="form-control">
-      <Select value="placeholder" onChange={jest.fn}>
+      <Select name="Example select" value="placeholder" onChange={jest.fn}>
         <Option value="option1">Option1</Option>
         <Option value="option2">Option2</Option>
         <Option value="option3">Option3</Option>
@@ -42,6 +42,32 @@ describe('Fieldset should render', () => {
     const { fieldset } = createFieldset();
 
     expect(fieldset).toBeTruthy();
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return <Fieldset {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 

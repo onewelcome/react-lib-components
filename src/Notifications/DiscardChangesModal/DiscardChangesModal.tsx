@@ -14,15 +14,19 @@ export interface Props extends Omit<ModalProps, 'onClose'> {
     DiscardChangesDialogProps,
     'open' | 'onKeepEditing' | 'onDiscardChanges'
   >;
+  modalRef?: React.RefObject<HTMLDivElement>;
+  dialogRef?: React.RefObject<HTMLDivElement>;
 }
 
 export const DiscardChangesModal = ({
   id,
-  onClose,
   children,
-  hasUnsavedChanges,
   headerProps,
   discardChangedDialogProps,
+  modalRef,
+  dialogRef,
+  onClose,
+  hasUnsavedChanges,
   ...rest
 }: Props) => {
   const [openDiscardChangesDialog, setOpenDiscardChangesDialog] = useState(false);
@@ -41,12 +45,13 @@ export const DiscardChangesModal = ({
 
   return (
     <Fragment>
-      <Modal id={id} onClose={onCloseWrapper} {...rest}>
+      <Modal id={id} ref={modalRef} onClose={onCloseWrapper} {...rest}>
         <ModalHeader {...headerProps} id={`${id}-label`} onClose={onCloseWrapper} />
         {children}
       </Modal>
       <DiscardChangesDialog
         {...discardChangedDialogProps}
+        ref={dialogRef}
         open={openDiscardChangesDialog}
         onKeepEditing={onDialogKeepEditing}
         onDiscardChanges={onDialogDiscardChanges}

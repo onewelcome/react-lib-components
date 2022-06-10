@@ -1,10 +1,9 @@
-import React, { RefObject } from 'react';
+import React, { ComponentPropsWithRef } from 'react';
 import classes from './BaseButton.module.scss';
 
-export interface Props extends Omit<React.HTMLProps<HTMLButtonElement>, 'ref'> {
+export interface Props extends ComponentPropsWithRef<'button'> {
   type?: 'submit' | 'button' | 'reset';
   disabled?: boolean;
-  ref?: RefObject<HTMLButtonElement>;
   color?: 'primary' | 'secondary' | 'tertiary' | 'default';
 }
 
