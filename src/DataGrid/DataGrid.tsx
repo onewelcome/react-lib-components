@@ -15,10 +15,12 @@ export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'd
   onSort?: OnSortFunction;
   headers: HeaderCell[];
   actions?: {
+    enableAddBtn?: boolean;
+    enableColumnsBtn?: boolean;
+    enableSearchBtn?: boolean;
     addBtnProps?: ButtonProps;
     columnsBtnProps?: ButtonProps;
     searchBtnProps?: ButtonProps;
-    showColumnsBtn?: boolean;
   };
   paginationProps?: DataGridPaginationProps;
   disableContextMenuColumn?: boolean;
@@ -61,22 +63,24 @@ export const DataGrid = <T extends {}>({
   return (
     <Card {...rest}>
       <DataGridActions {...actions} headers={internalHeaders} onColumnToggled={onColumnToggled} />
-      <table className={classes['table']}>
-        <DataGridHeader
-          headers={internalHeaders}
-          initialSort={initialSort}
-          onSort={onSort}
-          disableContextMenuColumn={disableContextMenuColumn}
-          enableMultiSorting={enableMultiSorting}
-        />
-        <DataGridBody
-          children={children}
-          data={data as T[]}
-          headers={internalHeaders}
-          isLoading={isLoading}
-          disableContextMenuColumn={disableContextMenuColumn}
-        />
-      </table>
+      <div className={classes['table-wrapper']}>
+        <table className={classes['table']}>
+          <DataGridHeader
+            headers={internalHeaders}
+            initialSort={initialSort}
+            onSort={onSort}
+            disableContextMenuColumn={disableContextMenuColumn}
+            enableMultiSorting={enableMultiSorting}
+          />
+          <DataGridBody
+            children={children}
+            data={data as T[]}
+            headers={internalHeaders}
+            isLoading={isLoading}
+            disableContextMenuColumn={disableContextMenuColumn}
+          />
+        </table>
+      </div>
       {paginationProps && !isLoading && <DataGridPagination {...paginationProps} />}
     </Card>
   );

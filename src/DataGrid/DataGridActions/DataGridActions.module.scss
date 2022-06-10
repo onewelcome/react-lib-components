@@ -3,19 +3,33 @@
   padding: 0 1rem;
   display: flex;
   flex-wrap: wrap;
+}
 
-  .left-actions {
-    flex: 1;
-  }
+.left-actions {
+  flex: 1;
+}
 
-  .right-actions {
-    display: flex;
-    column-gap: 2rem;
-  }
+.right-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.desktop {
+  display: none;
 }
 
 @media only screen and (min-width: 50rem) {
   .actions {
     padding: 0 1.25rem;
+  }
+}
+
+@media only screen and (min-width: 30rem) {
+  .desktop {
+    display: block;
+  }
+
+  .mobile {
+    display: none;
   }
 }

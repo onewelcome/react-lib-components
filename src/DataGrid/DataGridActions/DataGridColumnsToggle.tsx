@@ -55,10 +55,11 @@ export const DataGridColumnsToggle = ({
       aria-modal="true"
       aria-labelledby={labelledId}
     >
-      {createPortal(
-        <div className={classes['backdrop']} onClick={handleBackdropClick}></div>,
-        domRoot
-      )}
+      {open &&
+        createPortal(
+          <div className={classes['backdrop']} onClick={handleBackdropClick}></div>,
+          domRoot
+        )}
       <div className={classes['header']}>
         <Typography id={labelledId} className={classes['title']} tag="span" variant="h4">
           {titleLabel}

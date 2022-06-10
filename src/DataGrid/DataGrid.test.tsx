@@ -85,18 +85,18 @@ describe('DataGrid should render', () => {
     const { dataGrid } = createDataGrid((params) => ({
       ...params,
       actions: {
-        addBtnProps: { onClick: jest.fn() },
-        columnsBtnProps: { onClick: jest.fn() },
-        searchBtnProps: { onClick: jest.fn() },
+        enableAddBtn: true,
+        enableColumnsBtn: true,
+        enableSearchBtn: true,
       },
     }));
-    const [addBtn, columnsBtn, searchBtn] = getAllByRole(
-      dataGrid.querySelector('.actions')!,
-      'button'
-    );
+    const [addBtn, desktopColumnsBtn, mobileColumnsBtn, desktopSearchBtn, mobileSearchBtn] =
+      getAllByRole(dataGrid.querySelector('.actions')!, 'button');
     expect(addBtn).toHaveTextContent('Add item');
-    expect(columnsBtn).toHaveTextContent('Columns');
-    expect(searchBtn).toHaveTextContent('Search');
+    expect(desktopColumnsBtn).toHaveTextContent('Columns');
+    expect(mobileColumnsBtn).toHaveTextContent('Show/hide columns');
+    expect(desktopSearchBtn).toHaveTextContent('Search');
+    expect(mobileSearchBtn).toHaveTextContent('Search');
   });
 
   it('renders table with initialized sorting indicators', () => {
@@ -197,7 +197,7 @@ describe('DataGrid should have interactive table header', () => {
   it('clicking on show/hide columns popover should show/hide columns', async () => {
     const { getByRole, findByLabelText, ...queries } = createDataGrid((params) => ({
       ...params,
-      actions: { showColumnsBtn: true },
+      actions: { enableColumnsBtn: true },
     }));
     expect(queries.getAllByRole('columnheader')).toHaveLength(3);
 
