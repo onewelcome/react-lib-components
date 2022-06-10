@@ -8,6 +8,7 @@ $borderRadius: 2.5rem;
 
 .toggle {
   width: 2rem;
+  min-width: 2rem;
   height: 1.25rem;
   background-color: var(--default);
   border-radius: $borderRadius;

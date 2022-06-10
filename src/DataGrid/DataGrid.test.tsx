@@ -120,7 +120,7 @@ describe('DataGrid should render', () => {
     const colsCount = defaultParams.headers?.length!;
     const { getAllByRole } = createDataGrid((params) => ({
       ...params,
-      disableContexMenuColumn: true,
+      disableContextMenuColumn: true,
       children: ({ item }) => (
         <DataGridRow key={item.firstName}>
           <DataGridCell>{item.firstName}</DataGridCell>
@@ -192,5 +192,35 @@ describe('DataGrid should have interactive table header', () => {
     userEvent.click(getByRole(lastNameHeader, 'button'));
     expect(onSort).toBeCalledWith([{ name: defaultParams.headers[1].name, direction: 'DESC' }]);
     expect(onSort).toBeCalledTimes(8);
+  });
+
+  it('clicking on show/hide columns popover should show/hide columns', async () => {
+    const { getByRole, findByLabelText, ...queries } = createDataGrid((params) => ({
+      ...params,
+      actions: { showColumnsBtn: true },
+    }));
+    expect(queries.getAllByRole('columnheader')).toHaveLength(3);
+
+    userEvent.click(getByRole('button', { name: 'Columns' }));
+
+    const nameToggle = await findByLabelText(defaultParams.headers[1].headline);
+    expect(nameToggle).toBeChecked();
+    userEvent.click(nameToggle);
+    expect(nameToggle).not.toBeChecked();
+    expect(getByRole('button', { name: 'Close show columns dialog' })).toBeDefined();
+
+    const columns = queries.getAllByRole('columnheader');
+    expect(columns).toHaveLength(2);
+    expect(columns[0]).toHaveTextContent(defaultParams.headers[0].headline);
+    expect(columns[1]).toHaveTextContent(defaultParams.headers[2].headline);
+
+    const rowsCount = defaultParams.data?.length!;
+    const colsCount = defaultParams.headers.length;
+    const hiddenColsCount = defaultParams.headers.length;
+    const contextMenuColsCount = defaultParams.headers.length;
+    const [_thead, tbody] = queries.getAllByRole('rowgroup');
+    expect(getAllByRole(tbody, 'cell')).toHaveLength(
+      rowsCount * (colsCount - hiddenColsCount + contextMenuColsCount)
+    );
   });
 });

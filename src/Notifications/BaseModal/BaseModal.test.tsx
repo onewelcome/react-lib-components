@@ -40,7 +40,7 @@ describe('BaseModal', () => {
   it('should handle clicking on backdrop & ESC key', () => {
     const { getByRole } = render(<BaseModal {...initParams} />);
     const modal = getByRole('dialog');
-    const backdrop = modal.querySelector('.backdrop') as HTMLElement;
+    const backdrop = modal.querySelector('.backdrop')!;
     expect(initParams.onClose).toHaveBeenCalledTimes(0);
 
     userEvent.click(backdrop);

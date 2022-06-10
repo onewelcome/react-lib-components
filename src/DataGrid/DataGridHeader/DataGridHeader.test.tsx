@@ -54,7 +54,7 @@ describe('DataGridHeader should render', () => {
   it('renders without contenxt-menu empty cell', () => {
     const { dataGridHeader, getAllByRole, queryByRole } = createDataGridHeader((params) => ({
       ...params,
-      disableContexMenuColumn: true,
+      disableContextMenuColumn: true,
     }));
 
     expect(dataGridHeader).toBeDefined();

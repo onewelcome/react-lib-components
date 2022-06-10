@@ -1,11 +1,11 @@
-import React, { HTMLProps, ReactElement } from 'react';
+import React, { HTMLProps, ReactElement, useEffect, useState } from 'react';
 import { Props as ButtonProps } from '../Button/Button';
 import classes from './DataGrid.module.scss';
 import { DataGridHeader } from './DataGridHeader/DataGridHeader';
-import { DataGridActions } from './DataGridActions';
+import { DataGridActions } from './DataGridActions/DataGridActions';
 import { DataGridBody } from './DataGridBody/DataGridBody';
 import { DataGridPagination, Props as DataGridPaginationProps } from './DataGridPagination';
-import { HeaderCell, OnSortFunction, Sort } from './interfaces';
+import { ColumnName, HeaderCell, OnSortFunction, Sort } from './interfaces';
 import { Card } from '../Card/Card';
 
 export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'data'> {
@@ -18,6 +18,7 @@ export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'd
     addBtnProps?: ButtonProps;
     columnsBtnProps?: ButtonProps;
     searchBtnProps?: ButtonProps;
+    showColumnsBtn?: boolean;
   };
   paginationProps?: DataGridPaginationProps;
   disableContextMenuColumn?: boolean;
@@ -31,7 +32,7 @@ export const DataGrid = <T extends {}>({
   initialSort,
   onSort,
   headers,
-  actions,
+  actions = {},
   paginationProps,
   disableContextMenuColumn,
   isLoading,
@@ -45,16 +46,24 @@ export const DataGrid = <T extends {}>({
     throw new Error('DataGridBody should be provieded with a template how to render rows');
   }
 
+  const [internalHeaders, setInternalHeaders] = useState(headers);
+
+  useEffect(() => setInternalHeaders(headers), [headers]);
+
+  const onColumnToggled = (colName: ColumnName) => {
+    setInternalHeaders(
+      internalHeaders.map((item) =>
+        item.name !== colName ? item : { ...item, hidden: !item.hidden }
+      )
+    );
+  };
+
   return (
     <Card {...rest}>
-      <DataGridActions
-        addBtnProps={actions?.addBtnProps}
-        columnsBtnProps={actions?.columnsBtnProps}
-        searchBtnProps={actions?.searchBtnProps}
-      />
+      <DataGridActions {...actions} headers={internalHeaders} onColumnToggled={onColumnToggled} />
       <table className={classes['table']}>
         <DataGridHeader
-          headers={headers}
+          headers={internalHeaders}
           initialSort={initialSort}
           onSort={onSort}
           disableContextMenuColumn={disableContextMenuColumn}
@@ -63,7 +72,7 @@ export const DataGrid = <T extends {}>({
         <DataGridBody
           children={children}
           data={data as T[]}
-          headers={headers}
+          headers={internalHeaders}
           isLoading={isLoading}
           disableContextMenuColumn={disableContextMenuColumn}
         />

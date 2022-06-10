@@ -7,6 +7,8 @@ const defaultParams: Props = {
   addBtnProps: {},
   columnsBtnProps: {},
   searchBtnProps: {},
+  headers: [],
+  onColumnToggled: jest.fn(),
 };
 
 const createDataGridActions = (params?: (defaultParams: Props) => Props) => {
@@ -48,10 +50,25 @@ describe('DataGridActions should render', () => {
     expect(buttons[0]).toHaveTextContent('Add item');
   });
 
-  it('renders only columns button', () => {
+  it('renders only columns button when columnsBtnProps are defined', () => {
     const { dataGridActions, getAllByRole } = createDataGridActions((params) => ({
       ...params,
       addBtnProps: undefined,
+      searchBtnProps: undefined,
+    }));
+
+    expect(dataGridActions).toBeDefined();
+    const buttons = getAllByRole('button');
+    expect(buttons).toHaveLength(1);
+    expect(buttons[0]).toHaveTextContent('Columns');
+  });
+
+  it('renders only columns button when showColumnsBtn is true', () => {
+    const { dataGridActions, getAllByRole } = createDataGridActions((params) => ({
+      ...params,
+      showColumnsBtn: true,
+      addBtnProps: undefined,
+      columnsBtnProps: undefined,
       searchBtnProps: undefined,
     }));
 
@@ -93,11 +110,31 @@ describe('DataGridActions should render', () => {
     expect(columnsBtn).toHaveAttribute('title', columnsBtnProps.title);
     expect(searchBtn).toHaveTextContent(searchBtnProps.children);
     expect(searchBtn).toHaveAttribute('title', searchBtnProps.title);
-    ///@TODO; add to docs that you can override buttons props
   });
 });
 
+//TODO: add test for headers ;)
+
 describe('DataGridActions should be interactive', () => {
+  it('clicking on columns button opens show/hide columns popover', async () => {
+    const toggleHeader = { name: 'test', headline: 'Label' };
+    const { getAllByRole, findByLabelText } = createDataGridActions((params) => ({
+      ...params,
+      columnsBtnProps: undefined,
+      showColumnsBtn: true,
+      headers: [toggleHeader],
+    }));
+
+    userEvent.click(getAllByRole('button')[1]);
+
+    const toggle = await findByLabelText(toggleHeader.headline);
+    expect(toggle).toBeDefined();
+    expect(toggle).toBeChecked();
+
+    userEvent.click(toggle);
+    expect(defaultParams.onColumnToggled).toBeCalledWith(toggleHeader.name);
+  });
+
   it('clicking on add button runs callback', () => {
     const onClick = jest.fn();
     const { getAllByRole } = createDataGridActions((params) => ({
@@ -106,18 +143,6 @@ describe('DataGridActions should be interactive', () => {
     }));
 
     userEvent.click(getAllByRole('button')[0]);
-
-    expect(onClick).toBeCalledTimes(1);
-  });
-
-  it('clicking on columns button runs callback', () => {
-    const onClick = jest.fn();
-    const { getAllByRole } = createDataGridActions((params) => ({
-      ...params,
-      columnsBtnProps: { onClick },
-    }));
-
-    userEvent.click(getAllByRole('button')[1]);
 
     expect(onClick).toBeCalledTimes(1);
   });
