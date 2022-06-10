@@ -1,5 +1,4 @@
-import React from 'react';
-import { HTMLProps } from '../interfaces';
+import React, { HTMLProps } from 'react';
 import classes from './DataGridPagination.module.scss';
 
 export interface Props extends HTMLProps<HTMLDivElement> {

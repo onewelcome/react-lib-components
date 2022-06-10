@@ -1,5 +1,4 @@
-import React from 'react';
-import { HTMLProps } from '../../interfaces';
+import React, { HTMLProps } from 'react';
 import { HeaderCell } from '../interfaces';
 import classes from './DataGridRow.module.scss';
 

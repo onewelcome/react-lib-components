@@ -1,5 +1,4 @@
-import React, { ReactElement } from 'react';
-import { HTMLProps } from '../../interfaces';
+import React, { HTMLProps, ReactElement } from 'react';
 import { HeaderCell } from '../interfaces';
 import { DataGridCell } from './DataGridCell';
 import { DataGridRow } from './DataGridRow';

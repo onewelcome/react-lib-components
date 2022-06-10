@@ -1,8 +1,7 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, HTMLProps, useRef, useState } from 'react';
 import { Button, Props as ButtonProps } from '../../Button/Button';
 import { IconButton } from '../../Button/IconButton';
 import { Icon, Icons } from '../../Icon/Icon';
-import { HTMLProps } from '../../interfaces';
 import { HeaderCell, ColumnName } from '../interfaces';
 import classes from './DataGridActions.module.scss';
 import { DataGridColumnsToggle } from './DataGridColumnsToggle';

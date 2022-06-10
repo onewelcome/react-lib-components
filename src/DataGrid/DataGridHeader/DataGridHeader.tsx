@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { HTMLProps, useEffect, useState } from 'react';
 import { ColumnName, Direction, HeaderCell, OnSortFunction, Sort } from '../interfaces';
 import { DataGridHeaderCell } from './DataGridHeaderCell';
 import classes from './DataGridHeader.module.scss';
-import { HTMLProps } from '../../interfaces';
 
 export interface Props extends Omit<HTMLProps<HTMLTableSectionElement>, 'headers'> {
   headers: HeaderCell[];
