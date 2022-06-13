@@ -82,7 +82,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
         {...rest}
         ref={ref}
         id={id}
-        className={`${classes['modal']} ${open && classes['visible']} ${className}`}
+        className={`${classes['modal']} ${open ? classes['visible'] : ''} ${className}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledby || labelId(id)}
@@ -99,6 +99,8 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
         ></div>
         {forceContainerOpen ? (
           <div
+            aria-hidden={!open}
+            hidden={!open}
             style={{ zIndex: zIndex && zIndex + 1 }}
             className={`${classes['container']} ${containerClassName}`}
           >

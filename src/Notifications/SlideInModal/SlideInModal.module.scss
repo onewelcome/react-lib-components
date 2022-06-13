@@ -6,6 +6,10 @@
   transition: transform 0.3s ease-in-out;
   transform: translate(120%);
 
+  &.hidden {
+    visibility: hidden;
+  }
+
   &.visible {
     visibility: visible;
     transform: translate(0%);
@@ -14,10 +18,6 @@
       background-color: transparent;
     }
   }
-}
-
-.onHide {
-  visibility: hidden;
 }
 
 .backdrop-slide {

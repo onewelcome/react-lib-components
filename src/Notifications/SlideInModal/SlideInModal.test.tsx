@@ -1,7 +1,7 @@
 import React from 'react';
 import { SlideInModal } from './SlideInModal';
 import { Props } from '../Modal/Modal';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 const defaultParams: Props = {
   id: '',
@@ -28,5 +28,16 @@ describe('SlideInModal should render', () => {
     const { slideInModal } = createSlideInModal();
 
     expect(slideInModal).toBeDefined();
+  });
+
+  it("makes modal content's container visible after opening transition ends", () => {
+    const { slideInModal, rerender } = createSlideInModal();
+
+    expect(slideInModal).toHaveClass('hidden');
+
+    rerender(<SlideInModal {...defaultParams} open />);
+    fireEvent.transitionEnd(slideInModal);
+
+    expect(slideInModal).not.toHaveClass('hidden');
   });
 });
