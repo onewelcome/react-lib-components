@@ -14,7 +14,7 @@ import classes from './ContextMenu.module.scss';
 import { useBodyClick } from '../hooks/useBodyClick';
 import { createPortal } from 'react-dom';
 
-export interface Props extends Omit<ComponentPropsWithRef<'div'>, 'onChange'> {
+export interface Props extends ComponentPropsWithRef<'div'> {
   trigger: ReactElement<ButtonProps> | ReactElement<IconButtonProps>;
   children: ReactNode;
   placement?: Placement;
@@ -23,7 +23,6 @@ export interface Props extends Omit<ComponentPropsWithRef<'div'>, 'onChange'> {
   id: string;
   show?: boolean;
   domRoot?: HTMLElement;
-  onChange?: (selectedButton: HTMLButtonElement) => void;
   onShow?: () => void;
   onClose?: () => void;
 }
@@ -37,7 +36,6 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
       show = false,
       onShow,
       onClose,
-      onChange,
       placement = { horizontal: 'right', vertical: 'top' },
       offset = { top: 0, bottom: 0, left: 0, right: 0 },
       transformOrigin = { horizontal: 'left', vertical: 'top' },
