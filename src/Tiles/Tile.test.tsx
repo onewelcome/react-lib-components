@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Tile, Props } from './Tile';
-import { render, getByRole } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Icon, Icons } from '../Icon/Icon';
 import { ContextMenu } from '../ContextMenu/ContextMenu';
 import { IconButton } from '../Button/IconButton';
@@ -130,9 +130,9 @@ describe('contextmenu', () => {
     expect(popover).toHaveClass('show');
     expect(popover).toHaveStyle({ opacity: '1;' });
 
-    userEvent.click(getByRole(menuitem1, 'button'));
-    userEvent.click(getByRole(menuitem2, 'button'));
-    userEvent.click(getByRole(menuitem3, 'button'));
+    userEvent.click(menuitem1);
+    userEvent.click(menuitem2);
+    userEvent.click(menuitem3);
 
     expect(contextMenuItemOnClick).toHaveBeenCalledTimes(3);
   });
