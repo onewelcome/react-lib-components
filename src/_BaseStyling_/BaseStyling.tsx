@@ -87,7 +87,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     snackbarErrorBackgroundColor: '#e22a1d',
     snackbarBorderRadius: '8px',
     dataGridRowBackgroundColor: 'transparent',
-    dataGridRowHoverBackgroundColor: '#c5e6f0',
+    dataGridRowHoverBackgroundColor: '#f5e6f0',
     cardBackgroundColor: '#fff',
     cardBorderRadius: '8px',
     tabsBackgroundColor: '#FFF',

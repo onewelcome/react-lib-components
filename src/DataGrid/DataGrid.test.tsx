@@ -148,8 +148,34 @@ describe('DataGrid should render', () => {
     ).toBeUndefined();
   });
 
-  //@TODO; add test for hiding pagination!
-  //@TODO: add test for pagination interactions
+  it('renders empty state', () => {
+    const emptyLabel = 'emptyLabel';
+    const { ...queries } = createDataGrid((params) => ({ ...params, emptyLabel, data: [] }));
+
+    const [_thead, tbody] = queries.getAllByRole('rowgroup');
+    const rows = getAllByRole(tbody, 'row');
+    const firstRowCells = getAllByRole(rows[0], 'cell');
+    expect(firstRowCells).toHaveLength(1);
+    expect(firstRowCells[0]).toHaveAttribute('colspan', `${defaultParams.headers.length + 1}`);
+    expect(firstRowCells[0]).toHaveTextContent(emptyLabel);
+  });
+
+  it('renders pagination', () => {
+    const { getByRole } = createDataGrid((params) => ({
+      ...params,
+      paginationProps: {
+        totalElements: 105,
+        pageSize: 10,
+        currentPage: 2,
+        onPageChange: jest.fn(),
+        onPageSizeChange: jest.fn(),
+      },
+    }));
+
+    expect(getByRole('button', { name: 'previous' })).toBeDefined();
+    expect(getByRole('button', { name: 'next' })).toBeDefined();
+    expect(getByRole('button', { name: 'last' })).toBeDefined();
+  });
 });
 
 describe('DataGrid should have interactive table header', () => {

@@ -7,7 +7,7 @@ import { IconButton } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
 import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
 import { DataGridRow } from '../../src/DataGrid/DataGridBody/DataGridRow';
-import { action } from '@storybook/addon-actions/dist/esm';
+import { action } from '@storybook/addon-actions';
 import DataGridDocumentation from './DataGrid.mdx';
 
 type DataType = { name: string; created: Date; id: string; type: string; enabled: boolean };
@@ -105,7 +105,6 @@ DataGrid.args = {
   disableContextMenuColumn: false,
   paginationProps: {
     totalElements: 105,
-    pageSize: 10,
     currentPage: 1,
   },
   isLoading: false,
@@ -188,5 +187,22 @@ ActionsDataGrid.args = {
       title: 'Zoeken',
       children: 'Zoeken',
     },
+  },
+};
+
+export const EmptyDataGrid = Template.bind({});
+EmptyDataGrid.storyName = 'Empty DataGrid';
+EmptyDataGrid.args = {
+  data: [],
+  emptyLabel: 'There are no vegetables within the current selection',
+};
+
+export const PaginationDataGrid = Template.bind({});
+PaginationDataGrid.storyName = 'DataGrid with Pagination';
+PaginationDataGrid.args = {
+  data: data.filter((_, idx) => idx < 1),
+  paginationProps: {
+    totalElements: 105,
+    currentPage: 2,
   },
 };

@@ -1,20 +1,22 @@
 import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import LinkTo from '@storybook/addon-links/react';
 
 <Title />
 <Subtitle />
 
-The `DataGrid` is used to represent data that have no clear graphical distinction between items. Under the hood it's built with `HTML table`.
+The `DataGrid` is used to represent data that have no clear graphical distinction between items. Under the hood, it's built with `HTML table`.
 
-The `DataGrid` component shows provided data in the table. Moreover it includes pagination and additional buttons in action section (above table header) for you.
+The `DataGrid` component shows provided data in the table. Moreover, it includes pagination and additional buttons in the action section (above table header) with a popup to show/hide table columns.
 
-The `DataGrid` is wrapped inside `Card` component. The table is in the middle, action section is above it, and the pagination is at the bottom.
-Table shows data based on provided data list and template. Template describe how to render each row.
-The last column of table is used to put row action, such as `ContextMenu` component.
-Table header has a support for multisorting.
+The `DataGrid` is wrapped inside `Card` component. The table is in the middle, the action section is above it, and the pagination is at the bottom.
+Table shows data based on provided data list and template. The template describes how to render each row.
+The last column of a table is used to put row action, such as `ContextMenu` component.
+The table header has support for single- & multi-sorting.
 
 # Table
 
-The heart of `DataGrid` component is HTML table. Table header is generated based on provided `headers` props. Table body is generated based on provided `data` and template.
+The heart of `DataGrid` component is the `HTML table`. The able header is generated based on provided `headers` props.
+Table body is generated based on provided `data` and template.
 
 ```jsx
 <DataGrid
@@ -48,8 +50,8 @@ The heart of `DataGrid` component is HTML table. Table header is generated based
 
 ## Table header
 
-The `headers` property is a list of headers object. These objects contains column name (to be passed in sorting callback), headline that is use to render header cell content,
-and optionally `hidden` & `disableSorting` properties that indicate visibility of the column (in the table header and in the table body) and disable sorting.
+The `headers` property is a list of header objects. These objects contain column name (to be passed in sorting callback), a headline that is used to render header cell content,
+and optionally `hidden` & `disableSorting` properties that indicate the visibility of the column (in the table header and in the table body) and disable sorting.
 
 In the below example `Created` & `Identifier` columns are hidden. Sorting is possible only by `Name` column.
 
@@ -75,23 +77,23 @@ In the below example `Created` & `Identifier` columns are hidden. Sorting is pos
 ### Sorting
 
 The sorting indicators (icons) are not rendered until `onSort` callback function is set.
-By clicking header cells `onSort` callback is called with parameters indicate sorting column name and direction.
-Each column has a tripple option state. Clicking once on header cell sets the sorting direction to `ascending`, second click sets to `descending` and third one turns off sorting.
-Clicking on other header cell sets the sorting direction to `ascending` for the current column - the previous one is forgotten.
+By clicking header cells `onSort` callback is called with parameters indicating the sorting column name and direction.
+Each column has a triple-option state. Clicking once on the header cell sets the sorting direction to `ascending`, the second click sets it to `descending` and the third one turns off sorting.
+Clicking on the other header cell sets the sorting direction to `ascending` for the current column - the previous one is forgotten.
 
-By default single column sorting is enabled. To enable multi-sorting `enableMultiSorting` property should be set.
-By enabling multi-sorting `onSort` callback takes an array of columns names & directions pairs. It means that each column has it's independent sorting state.
-Clicking on different header cells don't make previous once to be forgotten, but moves those to be later in array.
+By default, single-column sorting is enabled. To enable multi-sorting `enableMultiSorting` property should be set.
+By enabling multi-sorting `onSort` callback takes an array of column names & directions pairs. It means that each column has its independent sorting state.
+Clicking on different header cells doesn't make previous once to be forgotten, but moves those to be later in array.
 
 _NOTE: The order of sorting pairs reflects the sort priority._
 
-`initialSort` property consume the initial settings for sorting feature. To support single and multi sorting it consumes array of column name and direction pair.
+`initialSort` property consumes the initial settings for the sorting feature. To support single and multi sorting, it consumes an array of column names and directions pairs.
 
 ## Table body
 
 Rows are generated based on provided template.
-Template should wrap content in `DataGridRow` component. Each cell should be wrapped with `DataGridCell` component.
-The last cell of each row is reserved for item actions. `ContextMenu` component is supposed to handle all actions that can be done within row.
+The template should wrap content in `DataGridRow` component. Each cell should be wrapped with `DataGridCell` component.
+The last cell of each row is reserved for item actions. `ContextMenu` component is supposed to handle all actions that can be done within a row.
 
 ```jsx
 <DataGrid
@@ -124,7 +126,7 @@ To disable context menu column set `disableContextMenuColumn` property.
 
 ### Skeleton loading animation
 
-To show loading animation set `isLoading` property to `true`.
+To show loading animation, set the `isLoading` property to `true`.
 It renders 10 rows with skeleton loading animation in all defined cells.
 
 ```jsx
@@ -135,14 +137,27 @@ It renders 10 rows with skeleton loading animation in all defined cells.
   <Story id="stories-ui-datagrid--skeleton-loading-animation-data-grid" />
 </Canvas>
 
+### Showing empty table message
+
+To show an empty table message, set the `emptyLabel` property with the text to display.
+Text will be displayed only if the `data` property is empty.
+
+```jsx
+<DataGrid emptyLabel="There are no vegetables within the current selection" data={undefined} />
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--empty-data-grid" />
+</Canvas>
+
 # Action section
 
-It's possible to show `Add item`, `Columns` and `Search` buttons.
+It's possible to show the `Add item`, `Columns` and `Search` buttons.
 
-Clicking `Columns` button opens `Show columns` popup with a list of available columns whch can be togged.
-However it is the developer's responsibility to handle the `Add item` and `Search` button actions.
+Clicking the `Columns` button opens the `Show columns` popup with a list of available columns whch can be togged.
+However, the developer must handle the `Add item` and `Search` button actions.
 
-Each button can be customised by providing props as in bellow example.
+Each button can be customized by providing props as in bellow example.
 
 ```jsx
 <DataGrid
@@ -161,7 +176,22 @@ Each button can be customised by providing props as in bellow example.
 
 # Pagination
 
-//@TODO!
+Pagination in `DataGrid` component is rendered base on provided `paginationProps`. For more information <LinkTo kind="stories-ui-pagination--pagination">Pagination</LinkTo> documentation.
+
+An example can be found below:
+
+```jsx
+<DataGrid
+  paginationProps={{
+    totalElements: 105,
+    currentPage: 2,
+  }}
+/>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--pagination-data-grid" />
+</Canvas>
 
 # Full example
 

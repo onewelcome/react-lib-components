@@ -80,4 +80,19 @@ describe('DataGridBody should render', () => {
     expect(firstRowCells).toHaveLength(3);
     expect(firstRowCells[0]).toHaveTextContent(defaultParams.data?.[0].lastName!);
   });
+
+  it('renders empty state', () => {
+    const emptyLabel = 'emptyLabel';
+    const { dataGridBody } = createDataGridBody((params) => ({
+      ...params,
+      emptyLabel,
+      data: undefined,
+    }));
+
+    const rows = getAllByRole(dataGridBody, 'row');
+    const firstRowCells = getAllByRole(rows[0], 'cell');
+    expect(firstRowCells).toHaveLength(1);
+    expect(firstRowCells[0]).toHaveAttribute('colspan', `${defaultParams.headers.length + 1}`);
+    expect(firstRowCells[0]).toHaveTextContent(emptyLabel);
+  });
 });

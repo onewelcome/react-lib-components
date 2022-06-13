@@ -22,6 +22,7 @@ export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'd
     columnsBtnProps?: ButtonProps;
     searchBtnProps?: ButtonProps;
   };
+  emptyLabel?: string;
   paginationProps?: DataGridPaginationProps;
   disableContextMenuColumn?: boolean;
   isLoading?: boolean;
@@ -39,6 +40,7 @@ export const DataGrid = <T extends {}>({
   disableContextMenuColumn,
   isLoading,
   enableMultiSorting,
+  emptyLabel,
   ...rest
 }: Props<T>) => {
   if (!headers) {
@@ -78,6 +80,7 @@ export const DataGrid = <T extends {}>({
             headers={internalHeaders}
             isLoading={isLoading}
             disableContextMenuColumn={disableContextMenuColumn}
+            emptyLabel={emptyLabel}
           />
         </table>
       </div>
