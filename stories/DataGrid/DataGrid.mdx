@@ -1,5 +1,4 @@
 import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
-import './DataGridDocumentation.css';
 
 <Title />
 <Subtitle />
@@ -138,15 +137,20 @@ It renders 10 rows with skeleton loading animation in all defined cells.
 
 # Action section
 
-It's possible to show `Add item`, `Columns` and `Search` buttons. Setting one of the action's button properties cause input to be shown.
-Based on the need there is possibility to override buttons props, like changing labels.
+It's possible to show `Add item`, `Columns` and `Search` buttons.
+
+Clicking `Columns` button opens `Show columns` popup with a list of available columns whch can be togged.
+However it is the developer's responsibility to handle the `Add item` and `Search` button actions.
+
+Each button can be customised by providing props as in bellow example.
 
 ```jsx
 <DataGrid
   actions={{
-    addBtnProps: { onClick },
-    columnsBtnProps: { onClick },
-    searchBtnProps: { onClick, title: 'Zoeken', children: 'Zoeken' },
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    searchBtnProps: { title: 'Zoeken', children: 'Zoeken', onClick },
   }}
 />
 ```

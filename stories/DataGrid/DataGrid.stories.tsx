@@ -9,7 +9,6 @@ import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
 import { DataGridRow } from '../../src/DataGrid/DataGridBody/DataGridRow';
 import { action } from '@storybook/addon-actions/dist/esm';
 import DataGridDocumentation from './DataGrid.mdx';
-import './DataGridStory.css';
 
 type DataType = { name: string; created: Date; id: string; type: string; enabled: boolean };
 const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
@@ -38,6 +37,13 @@ const meta: Meta = {
       { name: 'enabled', headline: 'Enabled', disableSorting: true },
     ],
   },
+  decorators: [
+    (Story) => (
+      <div style={{ padding: '1rem', backgroundColor: '#F5F8F8' }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
@@ -90,8 +96,10 @@ DataGrid.args = {
   ],
   onSort: (sort) => action(`Sort callback: ${sort}`),
   actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
     addBtnProps: { onClick: () => action('add btn clicked') },
-    columnsBtnProps: { onClick: () => action('columns btn clicked') },
     searchBtnProps: { onClick: () => action('search btn clicked') },
   },
   disableContextMenuColumn: false,
@@ -173,10 +181,10 @@ ActionsDataGrid.storyName = 'Actions section in DataGrid';
 ActionsDataGrid.args = {
   data: data.filter((_, idx) => idx < 1),
   actions: {
-    addBtnProps: { onClick: () => action('add btn clicked') },
-    columnsBtnProps: { onClick: () => action('columns btn clicked') },
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
     searchBtnProps: {
-      onClick: () => action('search btn clicked'),
       title: 'Zoeken',
       children: 'Zoeken',
     },
