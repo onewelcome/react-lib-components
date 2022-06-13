@@ -1,0 +1,36 @@
+.slideInModal {
+  justify-content: flex-end;
+
+  visibility: visible;
+
+  transition: transform 0.3s ease-in-out;
+  transform: translate(120%);
+
+  &.visible {
+    visibility: visible;
+    transform: translate(0%);
+
+    .backdrop-slide {
+      background-color: transparent;
+    }
+  }
+}
+
+.onHide {
+  visibility: hidden;
+}
+
+.backdrop-slide {
+  background-color: transparent;
+}
+
+@media only screen and (min-width: 50rem) {
+  .container {
+    margin-top: 0;
+    width: 50rem;
+    height: 100%;
+    max-height: unset;
+    border-radius: 0px;
+    box-shadow: 0 1.875rem 3.125rem var(--modal-shadow-color);
+  }
+}

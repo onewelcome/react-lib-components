@@ -13,10 +13,12 @@ export interface Props extends ComponentPropsWithRef<'div'> {
   onClose?: (event?: React.MouseEvent<HTMLElement>) => unknown;
   className?: string;
   containerClassName?: string;
+  backdropClassName?: string;
   labelledby?: string;
   describedby?: string;
   disableEscapeKeyDown?: boolean;
   disableBackdrop?: boolean;
+  forceContainerOpen?: boolean;
   zIndex?: number;
   domRoot?: HTMLElement;
 }
@@ -52,10 +54,12 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
       onClose,
       className = '',
       containerClassName = '',
+      backdropClassName = '',
       labelledby,
       describedby,
       disableEscapeKeyDown = false,
       disableBackdrop = false,
+      forceContainerOpen = false,
       zIndex,
       domRoot = document.body,
       ...rest
@@ -89,14 +93,26 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
         onKeyDown={handleEscKeyPress}
         style={{ zIndex }}
       >
-        <div className={classes['backdrop']} onClick={handleBackdropClick}></div>
-        {open && (
+        <div
+          className={`${classes['backdrop']} ${backdropClassName}`}
+          onClick={handleBackdropClick}
+        ></div>
+        {forceContainerOpen ? (
           <div
             style={{ zIndex: zIndex && zIndex + 1 }}
             className={`${classes['container']} ${containerClassName}`}
           >
             {children}
           </div>
+        ) : (
+          open && (
+            <div
+              style={{ zIndex: zIndex && zIndex + 1 }}
+              className={`${classes['container']} ${containerClassName}`}
+            >
+              {children}
+            </div>
+          )
         )}
       </div>,
       domRoot
