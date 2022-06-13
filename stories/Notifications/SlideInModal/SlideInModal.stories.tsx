@@ -30,8 +30,8 @@ const Template: Story<Props> = (args) => {
     <>
       <Button onClick={onOpen}>Open modal</Button>
       <SlideInModalComponent {...args} open={open} onClose={onClose}>
-        <ModalHeader id={''} title={'Modal header'} onClose={onClose} />
-        <ModalContent id={`$-description`} disableAutoFocus={args['content.disableAutoFocus']}>
+        <ModalHeader id={'modal-header'} title={'Modal header'} onClose={onClose} />
+        <ModalContent id={`modal-description`} disableAutoFocus={args['content.disableAutoFocus']}>
           Modal content
         </ModalContent>
       </SlideInModalComponent>
@@ -40,5 +40,3 @@ const Template: Story<Props> = (args) => {
 };
 
 export const SlideInModal = Template.bind({});
-
-SlideInModal.args = {};
