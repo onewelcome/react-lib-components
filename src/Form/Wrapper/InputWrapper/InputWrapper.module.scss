@@ -18,10 +18,14 @@ input {
   margin-top: 0.25rem;
 }
 
-.input-wrapper .floating-label-active [data-icon]:before {
+.input-wrapper [data-icon]:before {
   transition: 0.2s ease-in-out;
-  transform: translateY(5px);
+  transform: translateY(0px);
   font-size: 1.125rem;
+}
+
+.input-wrapper .floating-label-active [data-icon]:before {
+  transform: translateY(5px);
 }
 
 .input-wrapper [data-prefix],
