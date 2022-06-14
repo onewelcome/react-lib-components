@@ -54,6 +54,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
       helperText,
       helperProps,
       value,
+      className,
       error,
       onChange,
       onBlur,
@@ -90,7 +91,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
         {...rest}
         ref={ref || wrapper}
         name={name}
-        className={classes['input-wrapper']}
+        className={`${classes['input-wrapper']} ${className ?? ''}`}
         labelProps={{
           id: labelId,
           className: labelClasses.join(' '),
