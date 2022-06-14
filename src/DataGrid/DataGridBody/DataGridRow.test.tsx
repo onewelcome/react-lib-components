@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DataGridRow, Props } from './DataGridRow';
 import { render } from '@testing-library/react';
 import { DataGridCell } from './DataGridCell';
@@ -16,7 +16,7 @@ const createDataGridRow = (params?: (defaultParams: Props) => Props) => {
   if (params) {
     parameters = params(defaultParams);
   }
-  const container = document.createElement('table');
+  const container = document.createElement('tbody');
   const queries = render(<DataGridRow {...parameters} data-testid="dataGridRow" />, { container });
   const dataGridRow = queries.getByTestId('dataGridRow');
 
@@ -72,5 +72,30 @@ describe('DataGridRow should render', () => {
     expect(cells).toHaveLength(2);
     expect(cells[0]).toHaveTextContent('3');
     expect(cells[1]).toHaveTextContent('4');
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        propagateRef(ref);
+      }, [ref]);
+
+      return <DataGridRow {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    const container = document.createElement('tbody');
+    render(<ExampleComponent propagateRef={refCheck} />, { container });
   });
 });

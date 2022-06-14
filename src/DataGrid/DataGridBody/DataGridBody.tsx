@@ -1,11 +1,11 @@
-import React, { HTMLProps, ReactElement } from 'react';
+import React, { ComponentPropsWithRef, ReactElement, Ref } from 'react';
 import { HeaderCell } from '../interfaces';
 import { DataGridCell } from './DataGridCell';
 import { DataGridRow } from './DataGridRow';
 import classes from './DataGridBody.module.scss';
 import { Typography } from '../../Typography/Typography';
 
-export interface Props<T> extends Omit<HTMLProps<HTMLTableSectionElement>, 'headers' | 'data'> {
+export interface Props<T> extends ComponentPropsWithRef<'tbody'> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
   data?: T[];
   headers: HeaderCell[];
@@ -16,35 +16,26 @@ export interface Props<T> extends Omit<HTMLProps<HTMLTableSectionElement>, 'head
 
 const skeletonLoadingRows = 9;
 
-export const DataGridBody = <T extends {}>({
-  children,
-  data,
-  headers,
-  isLoading,
-  disableContextMenuColumn,
-  emptyLabel,
-  ...rest
-}: Props<T>) => {
-  const visibleColumns = headers.filter((header) => !header.hidden).length;
-  if (isLoading) {
-    return (
-      <tbody {...rest}>
-        {Array.from(Array(skeletonLoadingRows)).map((_, rowIdx) => (
-          <DataGridRow key={rowIdx} isLoading>
-            {Array.from(Array(visibleColumns)).map((__, colIdx) => (
-              <DataGridCell key={colIdx} isLoading></DataGridCell>
-            ))}
-            {!disableContextMenuColumn && <DataGridCell></DataGridCell>}
-          </DataGridRow>
-        ))}
-      </tbody>
-    );
-  }
+const DataGridBodyInner = <T extends {}>(
+  { children, data, headers, isLoading, disableContextMenuColumn, emptyLabel, ...rest }: Props<T>,
+  ref: Ref<HTMLTableSectionElement>
+) => {
+  const renderContent = () => {
+    const visibleColumns = headers.filter((header) => !header.hidden).length;
+    if (isLoading) {
+      return Array.from(Array(skeletonLoadingRows)).map((_, rowIdx) => (
+        <DataGridRow key={rowIdx} isLoading>
+          {Array.from(Array(visibleColumns)).map((__, colIdx) => (
+            <DataGridCell key={colIdx} isLoading></DataGridCell>
+          ))}
+          {!disableContextMenuColumn && <DataGridCell></DataGridCell>}
+        </DataGridRow>
+      ));
+    }
 
-  const emptyData = !data || data.length === 0;
-  if (emptyData) {
-    return (
-      <tbody {...rest}>
+    const emptyData = !data || data.length === 0;
+    if (emptyData) {
+      return (
         <tr>
           <td
             className={classes['empty']}
@@ -55,12 +46,19 @@ export const DataGridBody = <T extends {}>({
             </Typography>
           </td>
         </tr>
-      </tbody>
-    );
-  }
+      );
+    }
 
-  const rows = data?.map((item, index) => {
-    return React.cloneElement(children({ item, index }), { headers });
-  });
-  return <tbody {...rest}>{rows}</tbody>;
+    return data?.map((item, index) => React.cloneElement(children({ item, index }), { headers }));
+  };
+
+  return (
+    <tbody {...rest} ref={ref}>
+      {renderContent()}
+    </tbody>
+  );
 };
+
+export const DataGridBody = React.forwardRef(DataGridBodyInner) as <T extends {}>(
+  p: Props<T> & { ref?: Ref<HTMLTableSectionElement> }
+) => ReactElement;

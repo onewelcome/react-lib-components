@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DataGridColumnsToggle, Props } from './DataGridColumnsToggle';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -55,5 +55,29 @@ describe('DataGridColumnsToggle should be interactive', () => {
     userEvent.click(document.querySelector('.backdrop')!);
 
     expect(defaultParams.onClose).toBeCalledTimes(1);
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        propagateRef(ref);
+      }, [ref]);
+
+      return <DataGridColumnsToggle {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

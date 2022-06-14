@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DataGridBody, Props } from './DataGridBody';
 import { render, getAllByRole } from '@testing-library/react';
 import { DataGridRow } from './DataGridRow';
@@ -94,5 +94,30 @@ describe('DataGridBody should render', () => {
     expect(firstRowCells).toHaveLength(1);
     expect(firstRowCells[0]).toHaveAttribute('colspan', `${defaultParams.headers.length + 1}`);
     expect(firstRowCells[0]).toHaveTextContent(emptyLabel);
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        propagateRef(ref);
+      }, [ref]);
+
+      return <DataGridBody {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    const container = document.createElement('table');
+    render(<ExampleComponent propagateRef={refCheck} />, { container });
   });
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DataGridActions, Props } from './DataGridActions';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -156,5 +156,29 @@ describe('DataGridActions should be interactive', () => {
     userEvent.click(getAllByRole('button')[0]);
 
     expect(onClick).toBeCalledTimes(1);
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        propagateRef(ref);
+      }, [ref]);
+
+      return <DataGridActions {...defaultParams} data-ref="testing" enableAddBtn ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

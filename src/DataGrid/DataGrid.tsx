@@ -1,4 +1,4 @@
-import React, { HTMLProps, ReactElement, useEffect, useState } from 'react';
+import React, { ComponentPropsWithRef, ReactElement, Ref, useEffect, useState } from 'react';
 import { Props as ButtonProps } from '../Button/Button';
 import classes from './DataGrid.module.scss';
 import { DataGridHeader } from './DataGridHeader/DataGridHeader';
@@ -8,7 +8,7 @@ import { DataGridPagination, Props as DataGridPaginationProps } from './DataGrid
 import { ColumnName, HeaderCell, OnSortFunction, Sort } from './interfaces';
 import { Card } from '../Card/Card';
 
-export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'data'> {
+export interface Props<T> extends ComponentPropsWithRef<'div'> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
   data?: T[];
   initialSort?: Sort;
@@ -29,20 +29,23 @@ export interface Props<T> extends Omit<HTMLProps<HTMLDivElement>, 'headers' | 'd
   enableMultiSorting?: boolean;
 }
 
-export const DataGrid = <T extends {}>({
-  children,
-  data,
-  initialSort,
-  onSort,
-  headers,
-  actions = {},
-  paginationProps,
-  disableContextMenuColumn,
-  isLoading,
-  enableMultiSorting,
-  emptyLabel,
-  ...rest
-}: Props<T>) => {
+const DataGridInner = <T extends {}>(
+  {
+    children,
+    data,
+    initialSort,
+    onSort,
+    headers,
+    actions = {},
+    paginationProps,
+    disableContextMenuColumn,
+    isLoading,
+    enableMultiSorting,
+    emptyLabel,
+    ...rest
+  }: Props<T>,
+  ref: Ref<HTMLDivElement>
+) => {
   if (!headers) {
     throw new Error('Headers definition has to be provided');
   }
@@ -63,7 +66,7 @@ export const DataGrid = <T extends {}>({
   };
 
   return (
-    <Card {...rest}>
+    <Card {...rest} ref={ref}>
       <DataGridActions {...actions} headers={internalHeaders} onColumnToggled={onColumnToggled} />
       <div className={classes['table-wrapper']}>
         <table className={classes['table']}>
@@ -88,3 +91,7 @@ export const DataGrid = <T extends {}>({
     </Card>
   );
 };
+
+export const DataGrid = React.forwardRef(DataGridInner) as <T extends {}>(
+  p: Props<T> & { ref?: Ref<HTMLDivElement> }
+) => ReactElement;

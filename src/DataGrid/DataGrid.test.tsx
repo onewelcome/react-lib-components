@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DataGrid, Props } from './DataGrid';
 import { getAllByRole, render, queryAllByRole, getByRole } from '@testing-library/react';
 import { DataGridRow } from './DataGridBody/DataGridRow';
@@ -248,5 +248,29 @@ describe('DataGrid should have interactive table header', () => {
     expect(getAllByRole(tbody, 'cell')).toHaveLength(
       rowsCount * (colsCount - hiddenColsCount + contextMenuColsCount)
     );
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        propagateRef(ref);
+      }, [ref]);
+
+      return <DataGrid {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

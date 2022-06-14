@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DataGridHeaderCell, Props } from './DataGridHeaderCell';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -99,5 +99,30 @@ describe('DataGridHeaderCell should be interactive', () => {
     userEvent.click(getByRole('button'));
 
     expect(onSortHandler).toBeCalledWith(defaultParams.name);
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        propagateRef(ref);
+      }, [ref]);
+
+      return <DataGridHeaderCell {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    const container = document.createElement('tr');
+    render(<ExampleComponent propagateRef={refCheck} />, { container });
   });
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DataGridCell, Props } from './DataGridCell';
 import { render } from '@testing-library/react';
 
@@ -45,5 +45,30 @@ describe('DataGridCell should render', () => {
     expect(skeletonLoadingEl).toHaveClass('loading');
     expect(skeletonLoadingEl).toHaveAttribute('aria-busy', 'true');
     expect(skeletonLoadingEl).toHaveAttribute('aria-live', 'polite');
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        propagateRef(ref);
+      }, [ref]);
+
+      return <DataGridCell {...defaultParams} data-ref="testing" ref={ref} />;
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    const container = document.createElement('tr');
+    render(<ExampleComponent propagateRef={refCheck} />, { container });
   });
 });
