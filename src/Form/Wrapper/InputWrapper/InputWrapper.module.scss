@@ -18,7 +18,8 @@ input {
   margin-top: 0.25rem;
 }
 
-.input-wrapper [data-icon]:before {
+.input-wrapper .floating-label-active [data-icon]:before {
+  transition: 0.2s ease-in-out;
   transform: translateY(5px);
   font-size: 1.125rem;
 }
