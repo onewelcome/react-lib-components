@@ -45,7 +45,7 @@ export const FormGroup = React.forwardRef<HTMLDivElement, Props>(
       >
         {children}
 
-        {(helperText || errorMessage) && (
+        {(helperText || (errorMessage && error)) && (
           <div
             style={{ marginLeft: `${helperIndent}px` }}
             className={`${classes['default-helper']} ${
