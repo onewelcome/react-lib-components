@@ -57,7 +57,11 @@
       &:after {
         content: '';
         position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+        @if $variant == 'fill' {
+          top: calc(-1 * var(--button-border-width));
+        } @else {
+          top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+        }
         @if $type == 'default' {
           left: 0;
           width: 100%;
