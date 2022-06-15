@@ -1,124 +1,84 @@
 @import '../readyclasses.module.scss';
 
+@mixin buttonColorVariants($variant: 'text', $type: 'default') {
+  &.primary:not(:disabled) {
+    @include buttonVariantStyles(var(--color-primary), $variant, $type);
+  }
+
+  &.secondary:not(:disabled) {
+    @include buttonVariantStyles(var(--color-secondary), $variant, $type);
+  }
+
+  &.tertiary:not(:disabled) {
+    @include buttonVariantStyles(var(--color-tertiary), $variant, $type);
+  }
+
+  &.default {
+    @include buttonVariantStyles(var(--default), $variant, $type);
+  }
+}
+
+@mixin buttonVariantStyles($color, $variant: 'text', $type: 'default') {
+  @if $variant == 'text' {
+    color: $color;
+  } @else if $variant == 'fill' {
+    background-color: $color;
+    border-color: $color;
+  } @else if $variant == 'outline' {
+    border-color: $color;
+    color: $color;
+  }
+
+  @include focusOutline($color);
+
+  &:hover,
+  &:focus {
+    @if $variant == 'text' {
+      border-color: $color;
+    } @else if $variant == 'fill' {
+      color: $color;
+    } @else if $variant == 'outline' {
+      background-color: $color;
+    }
+  }
+
+  @if $variant == 'text' or $variant == 'fill' {
+    &:active {
+      @if $variant == 'text' {
+        background-color: transparent;
+        position: relative;
+        color: $color;
+        border-color: var(--button-fill-background-color);
+      } @else if $variant == 'fill' {
+        position: relative;
+        color: $color;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+        @if $type == 'default' {
+          left: 0;
+          width: 100%;
+        } @else if $type == 'icon' {
+          left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+          width: calc(100% + var(--button-border-width));
+        }
+        height: calc(100% + var(--button-border-width));
+        background-color: $color;
+        border-radius: var(--button-border-radius);
+        filter: opacity(0.1);
+      }
+    }
+  }
+}
+
 .fill {
   color: var(--button-fill-text-color);
   font-weight: bold;
 
-  &.primary:not(:disabled) {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-
-    @include focusOutline(var(--color-primary));
-
-    &:hover,
-    &:focus {
-      color: var(--color-primary);
-    }
-
-    &:active {
-      position: relative;
-      color: var(--color-primary);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width));
-        left: 0;
-        width: 100%;
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-primary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
-
-  &.secondary:not(:disabled) {
-    background-color: var(--color-secondary);
-    border-color: var(--color-secondary);
-
-    @include focusOutline(var(--color-secondary));
-
-    &:hover,
-    &:focus {
-      color: var(--color-secondary);
-    }
-
-    &:active {
-      position: relative;
-      color: var(--color-secondary);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width));
-        left: 0;
-        width: 100%;
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-secondary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
-
-  &.tertiary:not(:disabled) {
-    background-color: var(--color-tertiary);
-    border-color: var(--color-tertiary);
-
-    @include focusOutline(var(--color-tertiary));
-
-    &:hover,
-    &:focus {
-      color: var(--color-tertiary);
-    }
-
-    &:active {
-      position: relative;
-      color: var(--color-tertiary);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width));
-        left: 0;
-        width: 100%;
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-tertiary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
-
-  &.default:not(:disabled) {
-    background-color: var(--default);
-    border-color: var(--default);
-
-    @include focusOutline(var(--default));
-
-    &:hover,
-    &:focus {
-      color: var(--default);
-    }
-
-    &:active {
-      position: relative;
-      color: var(--default);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width));
-        left: 0;
-        width: 100%;
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--default);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
+  @include buttonColorVariants('fill');
 
   &:hover:not(:disabled),
   &:focus:not(:disabled),
@@ -136,53 +96,7 @@
   background-color: var(--button-fill-background-color);
   font-weight: bold;
 
-  &.primary:not(:disabled) {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-
-    @include focusOutline(var(--color-primary));
-
-    &:hover,
-    &:focus {
-      background-color: var(--color-primary);
-    }
-  }
-
-  &.secondary:not(:disabled) {
-    border-color: var(--color-secondary);
-    color: var(--color-secondary);
-
-    @include focusOutline(var(--color-secondary));
-
-    &:hover,
-    &:focus {
-      background-color: var(--color-secondary);
-    }
-  }
-
-  &.tertiary:not(:disabled) {
-    border-color: var(--color-tertiary);
-    color: var(--color-tertiary);
-
-    @include focusOutline(var(--color-tertiary));
-
-    &:hover,
-    &:focus {
-      background-color: var(--color-tertiary);
-    }
-  }
-
-  &.default:not(:disabled) {
-    border-color: var(--default);
-    color: var(--default);
-
-    @include focusOutline(var(--default));
-
-    &:hover,
-    &:focus {
-      background-color: var(--default);
-    }
-  }
+  @include buttonColorVariants('outline');
 
   &:hover:not(:disabled),
   &:focus:not(:disabled) {
@@ -199,125 +113,7 @@
   border-color: transparent;
   background-color: transparent;
 
-  &.primary:not(:disabled) {
-    color: var(--color-primary);
-
-    @include focusOutline(var(--color-primary));
-
-    &:hover,
-    &:focus {
-      border-color: var(--color-primary);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--color-primary);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: 0;
-        width: 100%;
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-primary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
-
-  &.secondary:not(:disabled) {
-    color: var(--color-secondary);
-
-    @include focusOutline(var(--color-secondary));
-
-    &:hover,
-    &:focus {
-      border-color: var(--color-secondary);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--color-secondary);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: 0;
-        width: 100%;
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-secondary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
-
-  &.tertiary:not(:disabled) {
-    color: var(--color-tertiary);
-
-    @include focusOutline(var(--color-tertiary));
-
-    &:hover,
-    &:focus {
-      border-color: var(--color-tertiary);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--color-tertiary);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: 0;
-        width: 100%;
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-tertiary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
-
-  &.default:not(:disabled) {
-    color: var(--default);
-
-    @include focusOutline(var(--default));
-
-    &:hover,
-    &:focus {
-      border-color: var(--default);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--default);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: 0;
-        width: 100%;
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--default);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
+  @include buttonColorVariants('text');
 }
 
 .has-icon {

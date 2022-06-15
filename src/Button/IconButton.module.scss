@@ -1,4 +1,5 @@
 @import '../readyclasses.module.scss';
+@import './Button.module.scss';
 
 .icon-button {
   border: var(--button-border-width) var(--button-border-style) transparent;
@@ -38,124 +39,45 @@
     height: 50px;
   }
 
-  /** Colors **/
-  &.primary:not(:disabled) {
-    color: var(--color-primary);
+  &.fill {
+    color: var(--button-fill-text-color);
+    font-weight: bold;
 
-    @include focusOutline(var(--color-primary));
+    @include buttonColorVariants('fill', 'icon');
 
-    &:hover,
-    &:focus {
-      border-color: var(--color-primary);
+    &:hover:not(:disabled),
+    &:focus:not(:disabled),
+    &:active:not(:disabled) {
+      background-color: var(--button-fill-background-color);
     }
 
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--color-primary);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        width: calc(100% + var(--button-border-width));
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-primary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
+    &:disabled {
+      background-color: var(--disabled);
+      border-color: var(--disabled);
     }
   }
 
-  &.secondary:not(:disabled) {
-    color: var(--color-secondary);
+  &.text {
+    border-color: transparent;
+    background-color: transparent;
 
-    @include focusOutline(var(--color-secondary));
-
-    &:hover,
-    &:focus {
-      border-color: var(--color-secondary);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--color-secondary);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        width: calc(100% + var(--button-border-width));
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-secondary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
+    @include buttonColorVariants('text', 'icon');
   }
 
-  &.tertiary:not(:disabled) {
-    color: var(--color-tertiary);
+  &.outline {
+    background-color: var(--button-fill-background-color);
+    font-weight: bold;
 
-    @include focusOutline(var(--color-tertiary));
+    @include buttonColorVariants('outline', 'icon');
 
-    &:hover,
-    &:focus {
-      border-color: var(--color-tertiary);
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+      color: var(--button-outline-hover-text-color);
     }
 
-    &:active {
+    &:disabled {
+      border-color: var(--greyed-out);
       background-color: transparent;
-      position: relative;
-      color: var(--color-tertiary);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        width: calc(100% + var(--button-border-width));
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-tertiary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
-
-  &.default {
-    color: var(--default);
-
-    @include focusOutline(var(--default));
-
-    &:hover,
-    &:focus {
-      border-color: var(--default);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--default);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        width: calc(100% + var(--button-border-width));
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--default);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
     }
   }
 }
