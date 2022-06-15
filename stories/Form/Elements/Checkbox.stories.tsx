@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Checkbox, CheckboxProps as CheckboxProps } from '../../../src/Form/Checkbox/Checkbox';
 import CheckboxDocumentation from './Checkbox.mdx';
+import { Link } from '../../../src/Link/Link';
 
 const meta: Meta = {
   title: 'Stories/Form/Elements/Checkbox',
@@ -51,7 +52,13 @@ export const SingleCheckbox = Template.bind({});
 
 SingleCheckbox.args = {
   children: 'Example',
-  helperText: 'Example helpertext',
+  helperProps: {
+    children: (
+      <Link style={{ fontSize: 'inherit' }} to="#">
+        Go to our privacy policy
+      </Link>
+    ),
+  },
   name: 'Checkbox',
 };
 

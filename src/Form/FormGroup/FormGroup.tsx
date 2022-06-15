@@ -54,7 +54,7 @@ export const FormGroup = React.forwardRef<HTMLDivElement, Props>(
           >
             {helperText && !error && (
               <FormHelperText {...helperProps} className={''} id={helperId}>
-                {helperText}
+                {(helperProps && helperProps.children) || helperText}
               </FormHelperText>
             )}
             {error && errorMessage && (
