@@ -9,14 +9,14 @@ export interface Props
 }
 
 export const Toggle = React.forwardRef<HTMLInputElement, Props>(
-  ({ children, checked, disabled, ...rest }: Props, ref) => (
+  ({ children, checked, disabled, helperProps, ...rest }: Props, ref) => (
     <div className={classes['toggle-wrapper']}>
       <Checkbox
         {...rest}
         ref={ref}
         checked={checked}
         className={classes['checkbox']}
-        helperProps={{ className: classes['toggle-helper'] }}
+        helperProps={{ className: classes['toggle-helper'], ...helperProps }}
         disabled={disabled}
         label={children}
       >
