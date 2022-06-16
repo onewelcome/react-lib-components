@@ -280,13 +280,13 @@ ContextMenu.args = {
     </IconButton>
   ),
   children: [
-    <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="1">
+    <ContextMenuItem onClick={action('ContextMenuItem 1 onClick event')} key="1">
       Example item 1
     </ContextMenuItem>,
-    <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="2">
+    <ContextMenuItem onClick={action('ContextMenuItem 2 onClick event')} key="2">
       Example item 2
     </ContextMenuItem>,
-    <ContextMenuItem onClick={action('ContextMenuItem onClick event')} key="3">
+    <ContextMenuItem onClick={action('ContextMenuItem 3 onClick event')} key="3">
       Example item 3
     </ContextMenuItem>,
   ],
