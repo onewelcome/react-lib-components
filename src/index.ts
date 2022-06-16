@@ -55,6 +55,7 @@ export { TextareaWrapper } from './Form/Wrapper/TextareaWrapper/TextareaWrapper'
 export { Input } from './Form/Input/Input';
 export { Radio } from './Form/Radio/Radio';
 export { Checkbox } from './Form/Checkbox/Checkbox';
+export { Toggle } from './Form/Toggle/Toggle';
 
 /** Wizard */
 export {
