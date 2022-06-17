@@ -1,4 +1,21 @@
 @mixin button($variant: 'text', $type: 'default') {
+  @if $variant == 'text' {
+    border-color: transparent;
+    background-color: transparent;
+  } @else if $variant == 'fill' {
+    @if $type == 'default' {
+      color: var(--button-fill-text-color);
+    } @else if $type == 'icon' {
+      &:not(:disabled) {
+        color: var(--button-fill-text-color);
+      }
+    }
+    font-weight: bold;
+  } @else if $variant == 'outline' {
+    background-color: var(--button-fill-background-color);
+    font-weight: bold;
+  }
+
   &.primary:not(:disabled) {
     @include buttonStyles(var(--color-primary), $variant, $type);
   }
@@ -11,22 +28,11 @@
     @include buttonStyles(var(--color-tertiary), $variant, $type);
   }
 
-  &.default {
+  &.default:not(:disabled) {
     @include buttonStyles(var(--default), $variant, $type);
   }
-}
 
-@mixin buttonStyles($color, $variant: 'text', $type: 'default') {
-  @if $variant == 'text' {
-    border-color: transparent;
-    background-color: transparent;
-    color: $color;
-  } @else if $variant == 'fill' {
-    border-color: $color;
-    background-color: $color;
-    color: var(--button-fill-text-color);
-    font-weight: bold;
-
+  @if $variant == 'fill' {
     &:hover:not(:disabled),
     &:focus:not(:disabled),
     &:active:not(:disabled) {
@@ -38,11 +44,6 @@
       border-color: var(--disabled);
     }
   } @else if $variant == 'outline' {
-    border-color: $color;
-    background-color: var(--button-fill-background-color);
-    color: $color;
-    font-weight: bold;
-
     &:hover:not(:disabled),
     &:focus:not(:disabled) {
       color: var(--button-outline-hover-text-color);
@@ -52,6 +53,18 @@
       border-color: var(--greyed-out);
       background-color: transparent;
     }
+  }
+}
+
+@mixin buttonStyles($color, $variant: 'text', $type: 'default') {
+  @if $variant == 'text' {
+    color: $color;
+  } @else if $variant == 'fill' {
+    border-color: $color;
+    background-color: $color;
+  } @else if $variant == 'outline' {
+    border-color: $color;
+    color: $color;
   }
 
   @include focusOutline($color);
