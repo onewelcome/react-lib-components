@@ -52,4 +52,5 @@ export const Toggle = Template.bind({});
 
 Toggle.args = {
   name: 'Example toggle',
+  helperProps: { children: <a href="https://www.google.com">Test</a> },
 };

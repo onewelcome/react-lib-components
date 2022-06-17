@@ -85,3 +85,27 @@ describe('Correct error state', () => {
     expect(errorMessage?.querySelector('#error_id')).toHaveTextContent('example error message');
   });
 });
+
+describe('no helpertext, but errorMessage is defined', () => {
+  it("doesn't show the div with 'default-helper' class when there's no error and no helpertext defined", () => {
+    const { formgroup } = createFormGroup((defaultParams) => ({
+      ...defaultParams,
+      error: false,
+      helperText: undefined,
+      errorMessage: 'example error message',
+    }));
+
+    expect(formgroup.querySelector('.default-helper')).toBeFalsy();
+  });
+
+  it("does show the div with 'default-helper' class when there's an error and no helpertext defined", () => {
+    const { formgroup } = createFormGroup((defaultParams) => ({
+      ...defaultParams,
+      error: true,
+      helperText: undefined,
+      errorMessage: 'example error message',
+    }));
+
+    expect(formgroup.querySelector('.default-helper')).toBeTruthy();
+  });
+});

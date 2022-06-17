@@ -66,5 +66,7 @@ InputWrapperEl.args = {
   inputProps: {
     prefix: 'https://',
     suffix: '',
+    className: 'input-classname',
+    wrapperProps: { className: 'wrapper-classname' },
   },
 };

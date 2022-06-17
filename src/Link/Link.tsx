@@ -1,11 +1,16 @@
-import React, { ComponentPropsWithRef, ForwardRefExoticComponent, RefAttributes } from 'react';
+import React, {
+  ComponentPropsWithRef,
+  ForwardRefExoticComponent,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 import classes from './Link.module.scss';
 import { LinkProps } from './types';
 
 type AnchorType = 'external' | 'internal' | 'download';
 
 export interface Props extends ComponentPropsWithRef<'a'> {
-  children?: string;
+  children?: ReactNode;
   color?: 'primary' | 'secondary' | 'tertiary';
   type?: AnchorType;
   to: string;

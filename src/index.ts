@@ -13,6 +13,9 @@ export {
 } from './Pagination/Pagination';
 export { Icon, Icons } from './Icon/Icon';
 
+export { Tabs, Props as TabsProps } from './Tabs/Tabs';
+export { Tab, Props as TabProps } from './Tabs/Tab';
+
 export { Dialog } from './Notifications/Dialog/Dialog';
 export { Modal } from './Notifications/Modal/Modal';
 export { ModalActions } from './Notifications/Modal/ModalActions/ModalActions';
@@ -56,6 +59,7 @@ export { TextareaWrapper } from './Form/Wrapper/TextareaWrapper/TextareaWrapper'
 export { Input } from './Form/Input/Input';
 export { Radio } from './Form/Radio/Radio';
 export { Checkbox } from './Form/Checkbox/Checkbox';
+export { Toggle } from './Form/Toggle/Toggle';
 
 /** Wizard */
 export {

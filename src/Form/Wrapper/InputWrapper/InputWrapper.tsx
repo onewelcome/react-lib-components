@@ -54,6 +54,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
       helperText,
       helperProps,
       value,
+      className,
       error,
       onChange,
       onBlur,
@@ -90,7 +91,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
         {...rest}
         ref={ref || wrapper}
         name={name}
-        className={classes['input-wrapper']}
+        className={`${classes['input-wrapper']} ${className ?? ''}`}
         labelProps={{
           id: labelId,
           className: labelClasses.join(' '),
@@ -111,7 +112,11 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
           {...inputProps}
           prefix={hasValueOrActiveFloatingLabel ? prefix : ''}
           suffix={hasValueOrActiveFloatingLabel ? suffix : ''}
-          wrapperProps={{ className: floatingLabelActive ? classes['floating-label-active'] : '' }}
+          wrapperProps={{
+            className: `${floatingLabelActive ? classes['floating-label-active'] : ''} ${
+              inputProps?.wrapperProps?.className ?? ''
+            }`,
+          }}
           ref={(inputProps && inputProps.ref) || input}
           aria-labelledby={labelId}
           aria-describedby={error ? errorId : helperId}
@@ -132,7 +137,9 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
               ? setFloatingLabelActive(true)
               : setFloatingLabelActive(false);
           }}
-          className={floatingLabelActive ? classes['floating-label'] : ''}
+          className={`${floatingLabelActive ? classes['floating-label'] : ''} ${
+            inputProps?.className ?? ''
+          }`}
           name={name}
           error={error}
           id={name}
