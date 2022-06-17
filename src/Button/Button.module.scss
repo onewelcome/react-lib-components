@@ -1,123 +1,16 @@
 @import '../readyclasses.module.scss';
-
-@mixin buttonColorVariants($variant: 'text', $type: 'default') {
-  &.primary:not(:disabled) {
-    @include buttonVariantStyles(var(--color-primary), $variant, $type);
-  }
-
-  &.secondary:not(:disabled) {
-    @include buttonVariantStyles(var(--color-secondary), $variant, $type);
-  }
-
-  &.tertiary:not(:disabled) {
-    @include buttonVariantStyles(var(--color-tertiary), $variant, $type);
-  }
-
-  &.default {
-    @include buttonVariantStyles(var(--default), $variant, $type);
-  }
-}
-
-@mixin buttonVariantStyles($color, $variant: 'text', $type: 'default') {
-  @if $variant == 'text' {
-    color: $color;
-  } @else if $variant == 'fill' {
-    background-color: $color;
-    border-color: $color;
-  } @else if $variant == 'outline' {
-    border-color: $color;
-    color: $color;
-  }
-
-  @include focusOutline($color);
-
-  &:hover,
-  &:focus {
-    @if $variant == 'text' {
-      border-color: $color;
-    } @else if $variant == 'fill' {
-      color: $color;
-    } @else if $variant == 'outline' {
-      background-color: $color;
-    }
-  }
-
-  @if $variant == 'text' or $variant == 'fill' {
-    &:active {
-      @if $variant == 'text' {
-        background-color: transparent;
-        position: relative;
-        color: $color;
-        border-color: var(--button-fill-background-color);
-      } @else if $variant == 'fill' {
-        position: relative;
-        color: $color;
-      }
-
-      &:after {
-        content: '';
-        position: absolute;
-        @if $variant == 'fill' {
-          top: calc(-1 * var(--button-border-width));
-        } @else {
-          top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        }
-        @if $type == 'default' {
-          left: 0;
-          width: 100%;
-        } @else if $type == 'icon' {
-          left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-          width: calc(100% + var(--button-border-width));
-        }
-        height: calc(100% + var(--button-border-width));
-        background-color: $color;
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
-}
+@import '../mixins.module.scss';
 
 .fill {
-  color: var(--button-fill-text-color);
-  font-weight: bold;
-
-  @include buttonColorVariants('fill');
-
-  &:hover:not(:disabled),
-  &:focus:not(:disabled),
-  &:active:not(:disabled) {
-    background-color: var(--button-fill-background-color);
-  }
-
-  &:disabled {
-    background-color: var(--disabled);
-    border-color: var(--disabled);
-  }
+  @include button('fill');
 }
 
 .outline {
-  background-color: var(--button-fill-background-color);
-  font-weight: bold;
-
-  @include buttonColorVariants('outline');
-
-  &:hover:not(:disabled),
-  &:focus:not(:disabled) {
-    color: var(--button-outline-hover-text-color);
-  }
-
-  &:disabled {
-    border-color: var(--greyed-out);
-    background-color: transparent;
-  }
+  @include button('outline');
 }
 
 .text {
-  border-color: transparent;
-  background-color: transparent;
-
-  @include buttonColorVariants('text');
+  @include button('text');
 }
 
 .has-icon {
