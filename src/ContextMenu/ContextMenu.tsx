@@ -63,6 +63,7 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
         setFocusedContextMenuItem(selectedContextMenuItem);
       }
 
+      event.preventDefault();
       switch (event.code) {
         case 'ArrowDown':
           if (!showContextMenu) {
@@ -80,6 +81,11 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
           return;
         case 'Enter':
         case 'Space':
+          if (!showContextMenu) {
+            setShowContextMenu(true);
+            return;
+          }
+
           setShouldClick(true);
           setSelectedContextMenuItem(focusedContextMenuItem);
           setShowContextMenu(false);
@@ -124,6 +130,7 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
         'aria-controls': `${id}-menu`,
         'aria-expanded': showContextMenu,
         onClick: () => setShowContextMenu(!showContextMenu),
+        tabIndex: 0,
         ref: anchorEl,
       });
 
