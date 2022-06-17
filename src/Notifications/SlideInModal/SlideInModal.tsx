@@ -6,7 +6,7 @@ export const SlideInModal = React.forwardRef<HTMLDivElement, ModalProps>(
   ({ children, id, open, ...rest }: ModalProps, ref) => {
     const [classHideOnTransition, setClassHideOnTransition] = useState<'hidden' | ''>('hidden');
 
-    const onTransitionEnd = () => setClassHideOnTransition((prev) => (prev ? 'hidden' : ''));
+    const onTransitionEnd = () => setClassHideOnTransition((prev) => (prev ? '' : 'hidden'));
 
     return (
       <Modal
@@ -14,7 +14,7 @@ export const SlideInModal = React.forwardRef<HTMLDivElement, ModalProps>(
         id={id}
         open={open}
         className={`${classes.slideInModal} ${open ? classes.visible : ''} ${
-          !open ? classHideOnTransition : ''
+          !open ? classes[classHideOnTransition] : ''
         }`}
         containerClassName={`${classes.container}`}
         backdropClassName={classes['backdrop-slide']}

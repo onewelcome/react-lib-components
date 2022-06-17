@@ -68,6 +68,38 @@ describe('BaseModal', () => {
     expect(container).toHaveAttribute('aria-hidden', 'true');
   });
 
+  it('propagates containerProps to container element', () => {
+    const { getByRole } = createBaseModal((params) => ({
+      ...params,
+      open: true,
+      containerProps: {
+        id: 'container',
+      },
+    }));
+
+    const modal = getByRole('dialog');
+    const container = modal.querySelector('.container') as HTMLElement;
+
+    expect(container).toBeInTheDocument();
+    expect(container).toHaveAttribute('id', 'container');
+  });
+
+  it('propagates backdropProps to backdrop element', () => {
+    const { getByRole } = createBaseModal((params) => ({
+      ...params,
+      open: true,
+      backdropProps: {
+        id: 'backdrop',
+      },
+    }));
+
+    const modal = getByRole('dialog');
+    const backdrop = modal.querySelector('.backdrop') as HTMLElement;
+
+    expect(backdrop).toBeInTheDocument();
+    expect(backdrop).toHaveAttribute('id', 'backdrop');
+  });
+
   it('should handle clicking on backdrop & ESC key', () => {
     const { getByRole } = createBaseModal();
 
