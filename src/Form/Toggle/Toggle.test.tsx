@@ -1,16 +1,43 @@
-import React, { useEffect, useRef } from 'react';
-import { Toggle } from './Toggle';
+import React, { useRef, useEffect } from 'react';
+import { Toggle, Props } from './Toggle';
 import { render } from '@testing-library/react';
+
+const defaultParams: Props = {
+  children: 'label',
+  name: 'example toggle',
+};
+
+const createToggle = (params?: (defaultParams: Props) => Props) => {
+  let parameters: Props = defaultParams;
+  if (params) {
+    parameters = params(defaultParams);
+  }
+  const queries = render(
+    <Toggle {...parameters} data-testid="toggle">
+      toggle content
+    </Toggle>
+  );
+  const toggle = queries.getByTestId('toggle');
+
+  return {
+    ...queries,
+    toggle,
+  };
+};
 
 describe('Toggle should render', () => {
   it('renders without crashing', () => {
-    const { getByTestId } = render(
-      <Toggle name="toggle" data-testid="component">
-        Toggle
-      </Toggle>
-    );
-    const component = getByTestId('component');
-    expect(component).toBeDefined();
+    const { toggle } = createToggle();
+
+    expect(toggle).toBeDefined();
+  });
+});
+
+describe('Toggle attributes', () => {
+  it('should be checked', () => {
+    const { toggle } = createToggle((defaultParams) => ({ ...defaultParams, checked: true }));
+
+    expect(toggle).toHaveAttribute('aria-checked', 'true');
   });
 });
 
@@ -29,7 +56,7 @@ describe('ref should work', () => {
         }
       }, [ref]);
 
-      return <Toggle name="test" children="test" data-ref="testing" ref={ref} />;
+      return <Toggle {...defaultParams} data-ref="testing" ref={ref} />;
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
@@ -40,16 +67,15 @@ describe('ref should work', () => {
   });
 });
 
-describe('Toggle attributes', () => {
-  it('should be checked', () => {
-    const { getByTestId } = render(
-      <Toggle checked={true} name="toggle" data-testid="component">
-        Toggle
-      </Toggle>
-    );
+describe('helperProps should be properly propagated down', () => {
+  it('renders an anchor tag as helper', () => {
+    const { getByTestId } = createToggle((defaultParams) => ({
+      ...defaultParams,
+      helperProps: { children: <a data-testid="helpertextanchor">test</a> },
+    }));
 
-    const component = getByTestId('component');
+    const helperTextAnchor = getByTestId('helpertextanchor');
 
-    expect(component).toHaveAttribute('aria-checked', 'true');
+    expect(helperTextAnchor).toBeTruthy();
   });
 });
