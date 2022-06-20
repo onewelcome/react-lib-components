@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { StatusIndicator, Props } from './StatusIndicator';
 import { render } from '@testing-library/react';
 
@@ -32,19 +32,19 @@ describe('StatusIndicator should render', () => {
     expect(getByText('content')).toBeInTheDocument();
   });
 
-  it('should have an "active" class', () => {
+  it('should pass "active" class to status badge', () => {
     const { statusIndicator } = createStatusIndicator();
 
     expect(statusIndicator.firstChild).toHaveClass('active');
   });
 
-  it('should have an "error" class', () => {
+  it('should pass "error" class to status badge', () => {
     const { statusIndicator } = createStatusIndicator((params) => ({ ...params, status: 'error' }));
 
     expect(statusIndicator.firstChild).toHaveClass('error');
   });
 
-  it('should have a "neutral" class', () => {
+  it('should pass "neutral" class to status badge', () => {
     const { statusIndicator } = createStatusIndicator((params) => ({
       ...params,
       status: 'neutral',
@@ -53,12 +53,49 @@ describe('StatusIndicator should render', () => {
     expect(statusIndicator.firstChild).toHaveClass('neutral');
   });
 
-  it('should have a "warning" class', () => {
+  it('should pass "warning" class to status badge', () => {
     const { statusIndicator } = createStatusIndicator((params) => ({
       ...params,
       status: 'warning',
     }));
 
     expect(statusIndicator.firstChild).toHaveClass('warning');
+  });
+
+  it('should pass custom class to status badge', () => {
+    const { statusIndicator } = createStatusIndicator((params) => ({
+      ...params,
+      badgeClassName: 'custom',
+    }));
+
+    expect(statusIndicator.firstChild).toHaveClass('custom');
+  });
+});
+
+describe('ref should work', () => {
+  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+    const ExampleComponent = ({
+      propagateRef,
+    }: {
+      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+    }) => {
+      const ref = useRef(null);
+
+      useEffect(() => {
+        if (ref.current) {
+          propagateRef && propagateRef(ref);
+        }
+      }, [ref]);
+
+      return (
+        <StatusIndicator id="test" children="test" data-ref="testing" ref={ref} status="active" />
+      );
+    };
+
+    const refCheck = (ref: React.RefObject<HTMLElement>) => {
+      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+    };
+
+    render(<ExampleComponent propagateRef={refCheck} />);
   });
 });

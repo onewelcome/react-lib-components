@@ -15,6 +15,9 @@ const meta: Meta = {
       page: StatusIndicatorDocumentation,
     },
   },
+  args: {
+    status: 'active',
+  },
 };
 
 export default meta;
@@ -30,7 +33,3 @@ const Template: Story<Props> = (args) => (
 );
 
 export const StatusIndicator = Template.bind({});
-
-StatusIndicator.args = {
-  status: 'active',
-};
