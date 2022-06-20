@@ -1,0 +1,147 @@
+@mixin button($variant: 'text', $type: 'default') {
+  @if $variant == 'text' {
+    border-color: transparent;
+    background-color: transparent;
+  } @else if $variant == 'fill' {
+    @if $type == 'default' {
+      color: var(--button-fill-text-color);
+    } @else if $type == 'icon' {
+      &:not(:disabled) {
+        color: var(--button-fill-text-color);
+      }
+    }
+    font-weight: bold;
+  } @else if $variant == 'outline' {
+    background-color: var(--button-fill-background-color);
+    font-weight: bold;
+  }
+
+  &.primary:not(:disabled) {
+    @include buttonStyles(var(--color-primary), $variant, $type);
+  }
+
+  &.secondary:not(:disabled) {
+    @include buttonStyles(var(--color-secondary), $variant, $type);
+  }
+
+  &.tertiary:not(:disabled) {
+    @include buttonStyles(var(--color-tertiary), $variant, $type);
+  }
+
+  &.default:not(:disabled) {
+    @include buttonStyles(var(--default), $variant, $type);
+  }
+
+  @if $variant == 'fill' {
+    &:hover:not(:disabled),
+    &:focus:not(:disabled),
+    &:active:not(:disabled) {
+      background-color: var(--button-fill-background-color);
+    }
+
+    &:disabled {
+      background-color: var(--disabled);
+      border-color: var(--disabled);
+    }
+  } @else if $variant == 'outline' {
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+      color: var(--button-outline-hover-text-color);
+    }
+
+    &:disabled {
+      border-color: var(--greyed-out);
+      background-color: transparent;
+    }
+  }
+}
+
+@mixin buttonStyles($color, $variant: 'text', $type: 'default') {
+  @if $variant == 'text' {
+    color: $color;
+  } @else if $variant == 'fill' {
+    border-color: $color;
+    background-color: $color;
+  } @else if $variant == 'outline' {
+    border-color: $color;
+    color: $color;
+  }
+
+  @include focusOutline($color);
+
+  &:hover,
+  &:focus {
+    @if $variant == 'text' {
+      border-color: $color;
+    } @else if $variant == 'fill' {
+      color: $color;
+    } @else if $variant == 'outline' {
+      background-color: $color;
+    }
+  }
+
+  @if $variant == 'text' or $variant == 'fill' {
+    &:active {
+      @if $variant == 'text' {
+        background-color: transparent;
+        position: relative;
+        color: $color;
+        border-color: var(--button-fill-background-color);
+      } @else if $variant == 'fill' {
+        position: relative;
+        color: $color;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        @if $variant == 'fill' {
+          top: calc(-1 * var(--button-border-width));
+        } @else {
+          top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+        }
+        @if $type == 'default' {
+          left: 0;
+          width: 100%;
+        } @else if $type == 'icon' {
+          left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
+          width: calc(100% + var(--button-border-width));
+        }
+        height: calc(100% + var(--button-border-width));
+        background-color: $color;
+        border-radius: var(--button-border-radius);
+        filter: opacity(0.1);
+      }
+    }
+  }
+}
+
+@mixin skeletonLoading() {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--disabled);
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(#fff, 0) 0,
+      rgba(#fff, 0.2) 20%,
+      rgba(#fff, 0.5) 60%,
+      rgba(#fff, 0)
+    );
+    animation: shimmer 2s infinite;
+    content: '';
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}

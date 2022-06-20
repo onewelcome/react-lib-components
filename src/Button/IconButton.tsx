@@ -6,18 +6,23 @@ import readyclasses from '../readyclasses.module.scss';
 export interface Props extends BaseButtonProps {
   children?: React.ReactNode;
   iconSize?: 's' | 'm' | 'l';
+  variant?: 'text' | 'fill' | 'outline';
   className?: string;
   title?: string;
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, Props>(
-  ({ children, color = 'primary', iconSize = 'm', title, className, ...rest }, ref) => {
+  (
+    { children, color = 'primary', variant = 'text', iconSize = 'm', title, className, ...rest },
+    ref
+  ) => {
     if (!title) {
       console.error("Please make sure to specify a 'title' prop to your IconButton component! ");
     }
 
     const iconButtonClasses = [
       classes['icon-button'],
+      classes[variant],
       classes[color],
       classes['button-' + iconSize],
     ];
