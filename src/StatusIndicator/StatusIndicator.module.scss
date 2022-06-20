@@ -1,0 +1,27 @@
+.statusIndicator {
+  display: flex;
+  align-items: baseline;
+}
+
+.statusBadge {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+}
+
+.active {
+  background-color: var(--success);
+}
+
+.error {
+  background-color: var(--error);
+}
+
+.neutral {
+  background-color: var(--greyed-out);
+}
+
+.warning {
+  background-color: var(--warning);
+}

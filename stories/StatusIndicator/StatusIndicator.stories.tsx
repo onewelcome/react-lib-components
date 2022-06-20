@@ -4,6 +4,7 @@ import {
   StatusIndicator as StatusIndicatorComponent,
   Props,
 } from '../../src/StatusIndicator/StatusIndicator';
+import { Typography } from '../../src/Typography/Typography';
 import StatusIndicatorDocumentation from './StatusIndicator.mdx';
 
 const meta: Meta = {
@@ -19,9 +20,17 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = (args) => (
-  <StatusIndicatorComponent {...args}>content</StatusIndicatorComponent>
+  <div>
+    <StatusIndicatorComponent {...args}>
+      <Typography variant="body">
+        {`${args.status[0].toUpperCase()}${args.status.slice(1)}`}
+      </Typography>
+    </StatusIndicatorComponent>
+  </div>
 );
 
 export const StatusIndicator = Template.bind({});
 
-StatusIndicator.args = {};
+StatusIndicator.args = {
+  status: 'active',
+};
