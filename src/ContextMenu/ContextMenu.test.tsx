@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { ContextMenu, Props } from './ContextMenu';
-import { render, getByRole } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Button } from '../Button/Button';
 import { ContextMenuItem } from './ContextMenuItem';
 import userEvent from '@testing-library/user-event';
@@ -15,8 +15,12 @@ const defaultParams: Props = {
     <ContextMenuItem onClick={onClick} data-testid="contextmenuitem" key="1">
       Example item 1
     </ContextMenuItem>,
-    <ContextMenuItem key="2">Example item 2</ContextMenuItem>,
-    <ContextMenuItem key="3">Example item 3</ContextMenuItem>,
+    <ContextMenuItem onClick={onClick} data-testid="contextmenuitem2" key="2">
+      Example item 2
+    </ContextMenuItem>,
+    <ContextMenuItem onClick={onClick} data-testid="contextmenuitem3" key="3">
+      Example item 3
+    </ContextMenuItem>,
   ],
   show: false,
   onShow: onShow,
@@ -61,12 +65,10 @@ describe('ContextMenu should render', () => {
       show: true,
     }));
 
-    const contextmenuitem = getByTestId('contextmenuitem');
-    const button = getByRole(contextmenuitem, 'button');
+    const button = getByTestId('contextmenuitem');
 
     userEvent.click(button);
 
-    expect(contextmenuitem).toBeTruthy();
     expect(onClick).toHaveBeenCalled();
   });
 
@@ -115,5 +117,118 @@ describe('ref should work', () => {
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);
+  });
+});
+
+describe('accessibility controls', () => {
+  it('opening works correctly with arrow key down, then navigation should work with arrow keys', () => {
+    const { getByTestId, trigger } = createContextMenu();
+    const firstContextMenuItem = getByTestId('contextmenuitem');
+    const secondContextMenuItem = getByTestId('contextmenuitem2');
+    const thirdContextMenuItem = getByTestId('contextmenuitem3');
+
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(firstContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{arrowdown}');
+    expect(secondContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{arrowdown}');
+    expect(thirdContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{arrowdown}');
+    expect(firstContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{arrowup}');
+    expect(thirdContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{arrowup}');
+    expect(secondContextMenuItem).toHaveFocus();
+  });
+
+  it('opens correctly with enter key, closing works with escape key.', async () => {
+    const { trigger } = createContextMenu();
+
+    userEvent.keyboard('{enter}');
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    userEvent.keyboard('{escape}');
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('opens correctly with space, home and end buttons work', () => {
+    const { trigger, getByTestId } = createContextMenu();
+    const firstContextMenuItem = getByTestId('contextmenuitem');
+    const thirdContextMenuItem = getByTestId('contextmenuitem3');
+
+    userEvent.keyboard('{space}');
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    userEvent.keyboard('{end}');
+
+    expect(thirdContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{home}');
+
+    expect(firstContextMenuItem).toHaveFocus();
+  });
+
+  it('opens correctly with space, navigate with arrow keys, select with enter', () => {
+    onClick.mockImplementation((e) => {
+      expect(e.target.getAttribute('data-testid')).toBe('contextmenuitem3');
+    });
+
+    const { trigger, getByTestId } = createContextMenu((defaultParams) => ({
+      ...defaultParams,
+    }));
+    const thirdContextMenuItem = getByTestId('contextmenuitem3');
+
+    userEvent.keyboard('{space}');
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+
+    expect(thirdContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{enter}');
+
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('opens correctly with enter, navigate with arrow keys, select with space', () => {
+    onClick.mockImplementation((e) => {
+      expect(e.target.getAttribute('data-testid')).toBe('contextmenuitem3');
+    });
+
+    const { trigger, getByTestId } = createContextMenu((defaultParams) => ({
+      ...defaultParams,
+    }));
+    const thirdContextMenuItem = getByTestId('contextmenuitem3');
+
+    userEvent.keyboard('{enter}');
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+
+    expect(thirdContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{space}');
+
+    expect(onClick).toHaveBeenCalled();
+
+    userEvent.keyboard('{space}');
+
+    expect(thirdContextMenuItem).toHaveFocus();
   });
 });
