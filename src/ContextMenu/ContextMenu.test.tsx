@@ -226,5 +226,9 @@ describe('accessibility controls', () => {
     userEvent.keyboard('{space}');
 
     expect(onClick).toHaveBeenCalled();
+
+    userEvent.keyboard('{space}');
+
+    expect(thirdContextMenuItem).toHaveFocus();
   });
 });
