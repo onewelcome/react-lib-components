@@ -12,9 +12,7 @@ export interface Props extends ComponentPropsWithRef<'div'> {
   open: boolean;
   onClose?: (event?: React.MouseEvent<HTMLElement>) => unknown;
   className?: string;
-  containerClassName?: string;
   containerProps?: ComponentPropsWithRef<'div'>;
-  backdropClassName?: string;
   backdropProps?: ComponentPropsWithRef<'div'>;
   labelledby?: string;
   describedby?: string;
@@ -55,9 +53,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
       open,
       onClose,
       className = '',
-      containerClassName = '',
       containerProps,
-      backdropClassName = '',
       backdropProps,
       labelledby,
       describedby,
@@ -99,7 +95,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
       >
         <div
           {...backdropProps}
-          className={`${classes['backdrop']} ${backdropClassName}`}
+          className={`${classes['backdrop']} ${backdropProps?.className ?? ''}`}
           onClick={handleBackdropClick}
         ></div>
         {forceContainerOpen ? (
@@ -108,7 +104,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
             aria-hidden={!open}
             hidden={!open}
             style={{ zIndex: zIndex && zIndex + 1 }}
-            className={`${classes['container']} ${containerClassName}`}
+            className={`${classes['container']} ${containerProps?.className ?? ''}`}
           >
             {children}
           </div>
@@ -117,7 +113,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
             <div
               {...containerProps}
               style={{ zIndex: zIndex && zIndex + 1 }}
-              className={`${classes['container']} ${containerClassName}`}
+              className={`${classes['container']} ${containerProps?.className ?? ''}`}
             >
               {children}
             </div>

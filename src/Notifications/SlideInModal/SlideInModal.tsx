@@ -13,11 +13,11 @@ export const SlideInModal = React.forwardRef<HTMLDivElement, ModalProps>(
         {...rest}
         id={id}
         open={open}
-        className={`${classes.slideInModal} ${open ? classes.visible : ''} ${
+        className={`${classes['slide-in-modal']} ${open ? classes['visible'] : ''} ${
           !open ? classes[classHideOnTransition] : ''
         }`}
-        containerClassName={`${classes.container}`}
-        backdropClassName={classes['backdrop-slide']}
+        containerProps={{ className: classes['container'] }}
+        backdropProps={{ className: classes['backdrop-slide'] }}
         forceContainerOpen
         onTransitionEnd={onTransitionEnd}
         ref={ref}

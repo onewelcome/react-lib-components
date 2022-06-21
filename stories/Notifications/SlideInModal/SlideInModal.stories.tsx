@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   SlideInModal as SlideInModalComponent,
@@ -27,7 +27,7 @@ const Template: Story<Props> = (args) => {
   const onClose = () => setOpen(false);
 
   return (
-    <>
+    <Fragment>
       <Button onClick={onOpen}>Open modal</Button>
       <SlideInModalComponent {...args} id="slide-in-modal" open={open} onClose={onClose}>
         <ModalHeader id={'modal-header'} title={'Modal header'} onClose={onClose} />
@@ -35,7 +35,7 @@ const Template: Story<Props> = (args) => {
           Modal content
         </ModalContent>
       </SlideInModalComponent>
-    </>
+    </Fragment>
   );
 };
 

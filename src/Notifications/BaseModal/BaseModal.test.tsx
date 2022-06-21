@@ -11,7 +11,7 @@ const defaultParams: Props = {
   open: true,
   onClose: jest.fn(),
   className: classNames.join(' '),
-  containerClassName: containerClassNames.join(' '),
+  containerProps: { className: containerClassNames.join(' ') },
   children: 'This is example dialog content.',
 };
 
