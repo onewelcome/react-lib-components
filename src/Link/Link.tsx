@@ -12,6 +12,8 @@ type AnchorType = 'external' | 'internal' | 'download';
 export interface Props extends ComponentPropsWithRef<'a'> {
   children?: ReactNode;
   color?: 'primary' | 'secondary' | 'tertiary';
+  display?: 'link' | 'button';
+  buttonVariant?: 'outline' | 'text' | 'fill';
   type?: AnchorType;
   to: string;
   disabled?: boolean;
@@ -27,6 +29,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, Props>(
       to,
       color = 'primary',
       type = 'internal',
+      display = 'link',
+      buttonVariant = 'fill',
       component,
       ...rest
     }: Props,
@@ -44,7 +48,10 @@ export const Link = React.forwardRef<HTMLAnchorElement, Props>(
       return '';
     };
 
-    const classNames = [classes['link'], classes[color]];
+    const classNames =
+      display === 'link'
+        ? [classes['link'], classes[color]]
+        : [classes['button'], classes[buttonVariant], classes[color]];
     disabled && classNames.push(classes['disabled']);
     className && classNames.push(className);
 

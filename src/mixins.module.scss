@@ -1,3 +1,5 @@
+@import './readyclasses.module.scss';
+
 @mixin button($variant: 'text', $type: 'default') {
   @if $variant == 'text' {
     border-color: transparent;
@@ -9,6 +11,10 @@
       &:not(:disabled) {
         color: var(--button-fill-text-color);
       }
+    } @else if $type == 'link' {
+      &:not(.disabled) {
+        color: var(--button-fill-text-color);
+      }
     }
     font-weight: bold;
   } @else if $variant == 'outline' {
@@ -16,42 +22,85 @@
     font-weight: bold;
   }
 
-  &.primary:not(:disabled) {
-    @include buttonStyles(var(--color-primary), $variant, $type);
-  }
+  @if $type != 'link' {
+    &.primary:not(:disabled) {
+      @include buttonStyles(var(--color-primary), $variant, $type);
+    }
 
-  &.secondary:not(:disabled) {
-    @include buttonStyles(var(--color-secondary), $variant, $type);
-  }
+    &.secondary:not(:disabled) {
+      @include buttonStyles(var(--color-secondary), $variant, $type);
+    }
 
-  &.tertiary:not(:disabled) {
-    @include buttonStyles(var(--color-tertiary), $variant, $type);
-  }
+    &.tertiary:not(:disabled) {
+      @include buttonStyles(var(--color-tertiary), $variant, $type);
+    }
 
-  &.default:not(:disabled) {
-    @include buttonStyles(var(--default), $variant, $type);
+    &.default:not(:disabled) {
+      @include buttonStyles(var(--default), $variant, $type);
+    }
+  } @else if $type == 'link' {
+    &.primary:not(.disabled) {
+      @include buttonStyles(var(--color-primary), $variant, $type);
+    }
+
+    &.secondary:not(.disabled) {
+      @include buttonStyles(var(--color-secondary), $variant, $type);
+    }
+
+    &.tertiary:not(.disabled) {
+      @include buttonStyles(var(--color-tertiary), $variant, $type);
+    }
+
+    &.default:not(.disabled) {
+      @include buttonStyles(var(--default), $variant, $type);
+    }
   }
 
   @if $variant == 'fill' {
-    &:hover:not(:disabled),
-    &:focus:not(:disabled),
-    &:active:not(:disabled) {
-      background-color: var(--button-fill-background-color);
-    }
+    @if $type != 'link' {
+      &:hover:not(:disabled),
+      &:focus:not(:disabled),
+      &:active:not(:disabled) {
+        background-color: var(--button-fill-background-color);
+      }
 
-    &:disabled {
-      background-color: var(--disabled);
-      border-color: var(--disabled);
+      &:disabled {
+        background-color: var(--disabled);
+        border-color: var(--disabled);
+      }
+    } @else if $type == 'link' {
+      &:hover:not(.disabled),
+      &:focus:not(.disabled),
+      &:active:not(.disabled) {
+        background-color: var(--button-fill-background-color);
+      }
+
+      &.disabled {
+        background-color: var(--disabled);
+        border-color: var(--disabled);
+      }
     }
   } @else if $variant == 'outline' {
-    &:hover:not(:disabled),
-    &:focus:not(:disabled) {
-      color: var(--button-outline-hover-text-color);
-    }
+    @if $type != 'link' {
+      &:hover:not(:disabled),
+      &:focus:not(:disabled) {
+        color: var(--button-outline-hover-text-color);
+      }
 
-    &:disabled {
-      border-color: var(--greyed-out);
-      background-color: transparent;
+      &:disabled {
+        border-color: var(--greyed-out);
+        background-color: transparent;
+      }
+    } @else if $type == 'link' {
+      &:hover:not(.disabled),
+      &:focus:not(.disabled) {
+        color: var(--button-outline-hover-text-color);
+      }
+
+      &.disabled {
+        border-color: var(--greyed-out);
+        background-color: transparent;
+      }
     }
   }
 }
@@ -69,8 +118,8 @@
 
   @include focusOutline($color);
 
-  &:hover,
-  &:focus {
+  &:hover:not(.disabled),
+  &:focus:not(.disabled) {
     @if $variant == 'text' {
       border-color: $color;
     } @else if $variant == 'fill' {
@@ -81,7 +130,7 @@
   }
 
   @if $variant == 'text' or $variant == 'fill' {
-    &:active {
+    &:active:not(.disabled) {
       @if $variant == 'text' {
         background-color: transparent;
         position: relative;
@@ -100,7 +149,7 @@
         } @else {
           top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
         }
-        @if $type == 'default' {
+        @if $type == 'default' or $type == 'link' {
           left: 0;
           width: 100%;
         } @else if $type == 'icon' {
@@ -112,6 +161,34 @@
         border-radius: var(--button-border-radius);
         filter: opacity(0.1);
       }
+    }
+  }
+}
+
+@mixin buttonBase($type: 'default') {
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-radius: var(--button-border-radius);
+  font-size: var(--button-font-size);
+  line-height: var(--button-font-size);
+  margin: 0;
+  padding: 0.5rem 1.25rem;
+  min-height: 2.5rem;
+  cursor: pointer;
+  transition-property: color, background-color, border-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  font-family: var(--font-family);
+
+  @if $type != 'link' {
+    &:disabled {
+      color: var(--greyed-out);
+      cursor: not-allowed;
+    }
+  } @else if $type == 'link' {
+    &.disabled {
+      color: var(--greyed-out);
+      cursor: not-allowed;
     }
   }
 }
