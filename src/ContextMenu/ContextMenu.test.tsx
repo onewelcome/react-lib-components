@@ -15,10 +15,10 @@ const defaultParams: Props = {
     <ContextMenuItem onClick={onClick} data-testid="contextmenuitem" key="1">
       Example item 1
     </ContextMenuItem>,
-    <ContextMenuItem data-testid="contextmenuitem2" key="2">
+    <ContextMenuItem onClick={onClick} data-testid="contextmenuitem2" key="2">
       Example item 2
     </ContextMenuItem>,
-    <ContextMenuItem data-testid="contextmenuitem3" key="3">
+    <ContextMenuItem onClick={onClick} data-testid="contextmenuitem3" key="3">
       Example item 3
     </ContextMenuItem>,
   ],
@@ -143,6 +143,9 @@ describe('accessibility controls', () => {
 
     userEvent.keyboard('{arrowup}');
     expect(thirdContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{arrowup}');
+    expect(secondContextMenuItem).toHaveFocus();
   });
 
   it('opens correctly with enter key, closing works with escape key.', async () => {
@@ -173,5 +176,55 @@ describe('accessibility controls', () => {
     userEvent.keyboard('{home}');
 
     expect(firstContextMenuItem).toHaveFocus();
+  });
+
+  it('opens correctly with space, navigate with arrow keys, select with enter', () => {
+    onClick.mockImplementation((e) => {
+      expect(e.target.getAttribute('data-testid')).toBe('contextmenuitem3');
+    });
+
+    const { trigger, getByTestId } = createContextMenu((defaultParams) => ({
+      ...defaultParams,
+    }));
+    const thirdContextMenuItem = getByTestId('contextmenuitem3');
+
+    userEvent.keyboard('{space}');
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+
+    expect(thirdContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{enter}');
+
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('opens correctly with enter, navigate with arrow keys, select with space', () => {
+    onClick.mockImplementation((e) => {
+      expect(e.target.getAttribute('data-testid')).toBe('contextmenuitem3');
+    });
+
+    const { trigger, getByTestId } = createContextMenu((defaultParams) => ({
+      ...defaultParams,
+    }));
+    const thirdContextMenuItem = getByTestId('contextmenuitem3');
+
+    userEvent.keyboard('{enter}');
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+
+    expect(thirdContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard('{space}');
+
+    expect(onClick).toHaveBeenCalled();
   });
 });
