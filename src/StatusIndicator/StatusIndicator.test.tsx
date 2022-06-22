@@ -32,19 +32,32 @@ describe('StatusIndicator should render', () => {
     expect(getByText('content')).toBeInTheDocument();
   });
 
-  it('should pass "active" class to status badge', () => {
-    const { statusIndicator } = createStatusIndicator();
+  it('passes through custom props', () => {
+    const { statusIndicator } = createStatusIndicator((params) => ({
+      ...params,
+      'aria-label': 'status indicator',
+    }));
+
+    expect(statusIndicator).toBeDefined();
+    expect(statusIndicator).toHaveAttribute('aria-label', 'status indicator');
+  });
+
+  it('should set "active" class on status badge', () => {
+    const { statusIndicator } = createStatusIndicator((params) => ({
+      ...params,
+      status: 'active',
+    }));
 
     expect(statusIndicator.firstChild).toHaveClass('active');
   });
 
-  it('should pass "error" class to status badge', () => {
+  it('should set "error" class on status badge', () => {
     const { statusIndicator } = createStatusIndicator((params) => ({ ...params, status: 'error' }));
 
     expect(statusIndicator.firstChild).toHaveClass('error');
   });
 
-  it('should pass "neutral" class to status badge', () => {
+  it('should set "neutral" class on status badge', () => {
     const { statusIndicator } = createStatusIndicator((params) => ({
       ...params,
       status: 'neutral',
@@ -65,7 +78,7 @@ describe('StatusIndicator should render', () => {
   it('should pass custom class to status badge', () => {
     const { statusIndicator } = createStatusIndicator((params) => ({
       ...params,
-      badgeClassName: 'custom',
+      badgeProps: { className: 'custom' },
     }));
 
     expect(statusIndicator.firstChild).toHaveClass('custom');

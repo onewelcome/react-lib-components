@@ -4,17 +4,15 @@ import classes from './StatusIndicator.module.scss';
 export interface Props extends ComponentPropsWithRef<'div'> {
   children?: ReactNode;
   status: 'active' | 'error' | 'neutral' | 'warning';
-  badgeClassName?: string;
+  badgeProps?: ComponentPropsWithRef<'div'>;
 }
 
 export const StatusIndicator = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, status = 'active', badgeClassName, ...rest }: Props, ref) => {
+  ({ children, status, badgeProps, ...rest }: Props, ref) => {
     return (
-      <div {...rest} className={classes.statusIndicator} ref={ref}>
+      <div {...rest} className={classes['status-indicator']} ref={ref}>
         <div
-          className={`${classes.statusBadge} ${classes[status]} ${
-            badgeClassName ? badgeClassName : ''
-          }`}
+          className={`${classes['status-badge']} ${classes[status]} ${badgeProps?.className ?? ''}`}
         />
         {children}
       </div>
