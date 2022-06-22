@@ -1,4 +1,5 @@
 @import '../readyclasses.module.scss';
+@import '../mixins.module.scss';
 
 .icon-button {
   border: var(--button-border-width) var(--button-border-style) transparent;
@@ -8,154 +9,46 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: auto;
 
-  svg {
+  span {
     vertical-align: top;
   }
 
   /** Sizes **/
   &.button-s {
-    svg {
-      font-size: 14px;
+    span {
+      font-size: 0.75rem;
     }
-    width: 30px;
-    height: 30px;
+    width: 1.875rem;
+    height: 1.875rem;
   }
 
   &.button-m {
-    svg {
-      font-size: 24px;
+    span {
+      font-size: 1rem;
     }
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   &.button-l {
-    svg {
-      font-size: 34px;
+    span {
+      font-size: 1.375rem;
     }
-    width: 50px;
-    height: 50px;
+    width: 3.125rem;
+    height: 3.125rem;
   }
 
-  /** Colors **/
-  &.primary:not(:disabled) {
-    color: var(--color-primary);
-
-    @include focusOutline(var(--color-primary));
-
-    &:hover,
-    &:focus {
-      border-color: var(--color-primary);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--color-primary);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        width: calc(100% + var(--button-border-width));
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-primary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
+  &.fill {
+    @include button('fill', 'icon');
   }
 
-  &.secondary:not(:disabled) {
-    color: var(--color-secondary);
-
-    @include focusOutline(var(--color-secondary));
-
-    &:hover,
-    &:focus {
-      border-color: var(--color-secondary);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--color-secondary);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        width: calc(100% + var(--button-border-width));
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-secondary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
+  &.text {
+    @include button('text', 'icon');
   }
 
-  &.tertiary:not(:disabled) {
-    color: var(--color-tertiary);
-
-    @include focusOutline(var(--color-tertiary));
-
-    &:hover,
-    &:focus {
-      border-color: var(--color-tertiary);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--color-tertiary);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        width: calc(100% + var(--button-border-width));
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--color-tertiary);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
-  }
-
-  &.default {
-    color: var(--default);
-
-    @include focusOutline(var(--default));
-
-    &:hover,
-    &:focus {
-      border-color: var(--default);
-    }
-
-    &:active {
-      background-color: transparent;
-      position: relative;
-      color: var(--default);
-      border-color: var(--button-fill-background-color);
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        width: calc(100% + var(--button-border-width));
-        height: calc(100% + var(--button-border-width));
-        background-color: var(--default);
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
-    }
+  &.outline {
+    @include button('outline', 'icon');
   }
 }

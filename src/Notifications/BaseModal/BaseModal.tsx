@@ -12,11 +12,13 @@ export interface Props extends ComponentPropsWithRef<'div'> {
   open: boolean;
   onClose?: (event?: React.MouseEvent<HTMLElement>) => unknown;
   className?: string;
-  containerClassName?: string;
+  containerProps?: ComponentPropsWithRef<'div'>;
+  backdropProps?: ComponentPropsWithRef<'div'>;
   labelledby?: string;
   describedby?: string;
   disableEscapeKeyDown?: boolean;
   disableBackdrop?: boolean;
+  forceContainerOpen?: boolean;
   zIndex?: number;
   domRoot?: HTMLElement;
 }
@@ -51,11 +53,13 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
       open,
       onClose,
       className = '',
-      containerClassName = '',
+      containerProps,
+      backdropProps,
       labelledby,
       describedby,
       disableEscapeKeyDown = false,
       disableBackdrop = false,
+      forceContainerOpen = false,
       zIndex,
       domRoot = document.body,
       ...rest
@@ -78,7 +82,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
         {...rest}
         ref={ref}
         id={id}
-        className={`${classes['modal']} ${open && classes['visible']} ${className}`}
+        className={`${classes['modal']} ${open ? classes['visible'] : ''} ${className}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledby || labelId(id)}
@@ -89,14 +93,31 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
         onKeyDown={handleEscKeyPress}
         style={{ zIndex }}
       >
-        <div className={classes['backdrop']} onClick={handleBackdropClick}></div>
-        {open && (
+        <div
+          {...backdropProps}
+          className={`${classes['backdrop']} ${backdropProps?.className ?? ''}`}
+          onClick={handleBackdropClick}
+        ></div>
+        {forceContainerOpen ? (
           <div
+            {...containerProps}
+            aria-hidden={!open}
+            hidden={!open}
             style={{ zIndex: zIndex && zIndex + 1 }}
-            className={`${classes['container']} ${containerClassName}`}
+            className={`${classes['container']} ${containerProps?.className ?? ''}`}
           >
             {children}
           </div>
+        ) : (
+          open && (
+            <div
+              {...containerProps}
+              style={{ zIndex: zIndex && zIndex + 1 }}
+              className={`${classes['container']} ${containerProps?.className ?? ''}`}
+            >
+              {children}
+            </div>
+          )
         )}
       </div>,
       domRoot

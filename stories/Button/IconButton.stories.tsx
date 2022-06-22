@@ -19,6 +19,12 @@ const meta: Meta = {
         type: 'radio',
       },
     },
+    variant: {
+      options: ['text', 'fill', 'outline'],
+      control: {
+        type: 'radio',
+      },
+    },
   },
 };
 
@@ -34,6 +40,7 @@ export const IconButton = Template.bind({});
 
 IconButton.args = {
   color: 'primary',
+  variant: 'text',
   iconSize: 'm',
   type: 'button',
   title: 'Calendar',

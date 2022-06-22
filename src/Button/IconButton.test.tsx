@@ -79,4 +79,28 @@ describe('Different variants of the button', () => {
     }));
     expect(iconButton.classList.contains('tertiary')).toBe(true);
   });
+
+  it('should have a class of "fill"', () => {
+    const { iconButton } = createIconButton((defaultParams) => ({
+      ...defaultParams,
+      variant: 'fill',
+    }));
+    expect(iconButton.classList.contains('fill')).toBe(true);
+  });
+
+  it('should have a class of "outline"', () => {
+    const { iconButton } = createIconButton((defaultParams) => ({
+      ...defaultParams,
+      variant: 'outline',
+    }));
+    expect(iconButton.classList.contains('outline')).toBe(true);
+  });
+
+  it('should have a class of "text"', () => {
+    const { iconButton } = createIconButton((defaultParams) => ({
+      ...defaultParams,
+      variant: 'text',
+    }));
+    expect(iconButton.classList.contains('text')).toBe(true);
+  });
 });

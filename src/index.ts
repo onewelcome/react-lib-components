@@ -23,6 +23,10 @@ export { ModalContent } from './Notifications/Modal/ModalContent/ModalContent';
 export { ModalHeader } from './Notifications/Modal/ModalHeader/ModalHeader';
 export { DiscardChangesModal } from './Notifications/DiscardChangesModal/DiscardChangesModal';
 export { TextEllipsis, Props as TextEllipsisProps } from './TextEllipsis/TextEllipsis';
+export {
+  SlideInModal,
+  Props as SlideInModalProps,
+} from './Notifications/SlideInModal/SlideInModal';
 export { Tooltip } from './Tooltip/Tooltip';
 export { Tiles } from './Tiles/Tiles';
 export { Tile } from './Tiles/Tile';

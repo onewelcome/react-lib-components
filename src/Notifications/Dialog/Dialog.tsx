@@ -74,7 +74,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, Props>(
         ref={ref}
         id={dialogId}
         className={classes['dialog']}
-        containerClassName={classes['container']}
+        containerProps={{ className: classes['container'] }}
         open={open}
         disableBackdrop
         onClose={onClose}
