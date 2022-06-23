@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Select as SelectComponent, Props } from './Select';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Option } from './Option';
 import userEvent from '@testing-library/user-event';
 
@@ -148,32 +148,34 @@ describe('Select should render with search', () => {
 });
 
 describe('Selecting options using keyboard', () => {
-  it('should focus through list items and select on enterpress', () => {
-    const { select, button, list } = createSelect();
+  it('should focus through list items and select on enterpress', async () => {
+    const onChangeHandler = jest.fn();
+    const { select } = createSelect((defaultParams) => ({
+      ...defaultParams,
+      onChange: onChangeHandler,
+    }));
 
-    if (button) {
-      userEvent.click(button);
-    }
-
-    userEvent.tab();
-    userEvent.tab();
-    expect(list?.querySelectorAll('li')[0]).toHaveFocus();
-    userEvent.tab();
-    expect(list?.querySelectorAll('li')[1]).toHaveFocus();
-    userEvent.tab();
-    expect(list?.querySelectorAll('li')[2]).toHaveFocus();
-    userEvent.tab();
-    expect(list?.querySelectorAll('li')[3]).toHaveFocus();
-    userEvent.tab();
-    expect(list?.querySelectorAll('li')[4]).toHaveFocus();
-    userEvent.tab();
-    expect(list?.querySelectorAll('li')[5]).toHaveFocus();
-
+    (select.querySelector('.custom-select') as HTMLElement)!.focus();
     userEvent.keyboard('{enter}');
 
-    setTimeout(() => {
-      expect(select.querySelector('button > span > span')?.innerHTML).toBe('Test5');
-    }, 50);
+    await waitFor(() => {
+      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'true');
+      return true;
+    });
+
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{enter}');
+
+    await waitFor(() => {
+      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'false');
+      return true;
+    });
+
+    expect(onChangeHandler).toHaveBeenCalled();
+    expect(onChangeHandler).toBeCalledWith(
+      expect.objectContaining({ target: expect.objectContaining({ value: 'option2' }) })
+    );
   });
 });
 
@@ -260,32 +262,22 @@ describe('List expansion', () => {
 describe('onClear method', () => {
   it('should show a cross and fire the passed onClear function', async () => {
     const onClearHandler = jest.fn();
-    const onChangeHandler = jest.fn();
 
-    const { button, container } = createSelect((defaultParams) => ({
+    const { select } = createSelect((defaultParams) => ({
       ...defaultParams,
       onClear: onClearHandler,
-      onChange: onChangeHandler,
       value: 'option4',
     }));
 
-    if (button) {
-      userEvent.click(button);
-    }
+    (select.querySelector('.custom-select') as HTMLElement)!.focus();
+    const clearButton = select.querySelector('[data-clear]');
 
-    const optionToClick = container.querySelector('li[data-value="option5"]')!;
-    const onClearButton = container.querySelector('div[role="button"]')!;
+    userEvent.tab();
 
-    userEvent.click(optionToClick);
+    expect(clearButton).toHaveFocus();
 
-    expect(onClearButton).toBeInTheDocument();
-
-    userEvent.click(onClearButton);
+    userEvent.keyboard('{enter}');
 
     expect(onClearHandler).toHaveBeenCalled();
-
-    expect(onChangeHandler).toBeCalledWith(
-      expect.objectContaining({ target: expect.objectContaining({ value: 'option5' }) })
-    );
   });
 });

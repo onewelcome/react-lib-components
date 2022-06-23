@@ -25,7 +25,7 @@ export interface Props extends ComponentPropsWithRef<'select'>, FormElement {
   searchPlaceholder?: string;
   className?: string;
   value: string;
-  onClearLabel?: string;
+  clearLabel?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
   onClear?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
@@ -48,7 +48,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
       className,
       error = false,
       value,
-      onClearLabel,
+      clearLabel = 'Clear selection',
       onChange,
       onClear,
       ...rest
@@ -229,8 +229,8 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
       React.Children.map(children, (child, index) =>
         React.cloneElement(child, {
           onFocusChange: (childIndex: number) => setFocusedSelectItem(childIndex),
-          onOptionSelect: (ref: React.RefObject<HTMLLIElement>) => {
-            onOptionChangeHandler(ref);
+          onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
+            onOptionChangeHandler(optionRef);
             setShouldClick(false);
           },
           isSelected: child.props.value === value,
@@ -285,7 +285,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
               }
             }}
           >
-            <span className={readyclasses['sr-only']}>{onClearLabel || 'Clear selection'}</span>
+            <span className={readyclasses['sr-only']}>{clearLabel}</span>
             <Icon tag="span" icon={Icons.TimesThin} />
           </div>
         );
@@ -365,7 +365,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
               {!value && placeholder && (
                 <span className={classes['placeholder']}>{placeholder}</span>
               )}
-              {value?.length > 0 && <span>{display}</span>}
+              {value?.length > 0 && <span data-display-inner>{display}</span>}
             </div>
             <div className={classes['status']}>
               {statusIcon()}
