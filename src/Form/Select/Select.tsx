@@ -63,7 +63,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     const [optionsListMaxHeight, setOptionsListMaxHeight] = useState('none');
     const containerReference = useRef<HTMLDivElement>(null);
     const optionListReference = useRef<HTMLDivElement>(null);
-
+    const [isSearching, setIsSearching] = useState(false);
     const [selectedSelectItem, setSelectedSelectItem] = useState(-1);
     const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
     const [shouldClick, setShouldClick] =
@@ -74,9 +74,10 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     const [childrenCount] = useState(React.Children.count(children));
 
     const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
+    const searchInputRef = useRef<HTMLInputElement>(null);
 
     const onArrowNavigation = (event: React.KeyboardEvent) => {
-      /** If we hit enter, or click, on the onClear button, we don't want the select to open. */
+      /** If we hit enter, or click, on the onClear button, we don't want the select to open or close. */
       if ((event.target as HTMLElement).nodeName === 'DIV') {
         return;
       }
@@ -93,65 +94,108 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         'Home',
       ];
 
-      if (focusedSelectItem === -1 && selectedSelectItem !== -1) {
+      /** If the select is expanded, we also want to control the Tab key */
+      if (expanded) {
+        codesToPrevenDefault.push('Tab');
+      }
+
+      /** Set the previously selected item as the focused item on select open */
+      if (focusedSelectItem === -1 && selectedSelectItem !== -1 && filter === '') {
         setFocusedSelectItem(selectedSelectItem);
       }
-      if (codesToPrevenDefault.includes(event.code)) {
+
+      /** We will handle the way certain key strokes affect the Select, unless we're searching */
+      if (codesToPrevenDefault.includes(event.code) && !isSearching) {
         event.preventDefault();
       }
+
+      /** If we select an option with "enter" or "space" it'll propagate the event up to the button for some reason and open the select again. */
       if (!shouldOpen) {
         setShouldOpen(true);
         return;
       }
-      switch (event.code) {
-        case 'ArrowDown':
-          if (!expanded) {
-            setExpanded(true);
-            return;
-          }
-          setFocusedSelectItem((prevState) => {
-            return prevState + 1 > childrenCount - 1 ? 0 : prevState + 1;
-          });
-          return;
-        case 'ArrowUp':
-          setFocusedSelectItem((prevState) => {
-            return prevState - 1 < 0 ? childrenCount - 1 : prevState - 1;
-          });
-          return;
-        case 'Enter':
-        case 'Space':
-          if (!expanded) {
-            setExpanded(true);
-            return;
-          }
 
-          setShouldClick(true);
-          setSelectedSelectItem(focusedSelectItem);
-          setExpanded(false);
-          containerReference.current && containerReference.current.querySelector('button')!.focus();
-          return;
-        case 'Tab':
-          if (childrenCount >= 10) {
+      if (isSearching) {
+        switch (event.code) {
+          case 'ArrowDown':
+          case 'Enter':
+            setIsSearching(false);
+            setFocusedSelectItem(0);
             return;
-          }
-          setExpanded(false);
-
-          return;
-        case 'Escape':
-          if (expanded) {
+          case 'ArrowUp':
+            setIsSearching(false);
+            setFocusedSelectItem(childrenCount - 1);
+            return;
+          case 'Tab':
+          case 'Escape':
+            setIsSearching(false);
             setExpanded(false);
             containerReference.current &&
               containerReference.current.querySelector('button')!.focus();
-          }
-          return;
-        case 'End':
-          setFocusedSelectItem(childrenCount - 1);
-          return;
-        case 'Home':
-          setFocusedSelectItem(0);
-          return;
+            return;
+        }
+      } else {
+        switch (event.code) {
+          case 'ArrowDown':
+            if (!expanded) {
+              setExpanded(true);
+              return;
+            }
+
+            setFocusedSelectItem((prevState) => {
+              return prevState + 1 > childrenCount - 1 ? 0 : prevState + 1;
+            });
+            return;
+          case 'ArrowUp':
+            setFocusedSelectItem((prevState) => {
+              return prevState - 1 < 0 ? childrenCount - 1 : prevState - 1;
+            });
+            return;
+          case 'Enter':
+          case 'Space':
+            if (!expanded) {
+              setExpanded(true);
+              return;
+            }
+            setShouldClick(true);
+            setSelectedSelectItem(focusedSelectItem);
+            setExpanded(false);
+            containerReference.current &&
+              containerReference.current.querySelector('button')!.focus();
+            return;
+          case 'Tab':
+            if (childrenCount >= 10) {
+              setIsSearching(true);
+              searchInputRef.current && searchInputRef.current.focus();
+              return;
+            }
+            setExpanded(false);
+
+            return;
+          case 'Escape':
+            if (expanded) {
+              setExpanded(false);
+              containerReference.current &&
+                containerReference.current.querySelector('button')!.focus();
+            }
+            return;
+          case 'End':
+            setFocusedSelectItem(childrenCount - 1);
+            return;
+          case 'Home':
+            setFocusedSelectItem(0);
+            return;
+        }
       }
     };
+
+    useEffect(() => {
+      if (document.activeElement === searchInputRef.current) {
+        setIsSearching(true);
+      } else if (expanded && document.activeElement !== searchInputRef.current) {
+        setIsSearching(false);
+      }
+    }, [expanded, document.activeElement]);
 
     const syncDisplayValue = (val: string) => {
       React.Children.forEach(children, (child) => {
@@ -225,26 +269,42 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
      * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected and focused at all times and if a filter is active.
      * The `children` prop can be either a single object (1 child) or an array of multiple children.
      */
-    const renderOptions = () =>
-      React.Children.map(children, (child, index) =>
-        React.cloneElement(child, {
-          onFocusChange: (childIndex: number) => setFocusedSelectItem(childIndex),
-          onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
-            onOptionChangeHandler(optionRef);
-            setShouldClick(false);
-          },
-          isSelected: child.props.value === value,
-          filter: filter,
-          selectOpened: expanded,
-          childIndex: index,
-          hasFocus: focusedSelectItem === index,
-          shouldClick: shouldClick,
-        })
-      );
+    const renderOptions = () => {
+      if (isSearching || filter !== '') {
+        const filteredChildren = React.Children.toArray(children).filter(
+          (child) =>
+            (child as ReactElement).props.children.toLowerCase().match(filter.toLowerCase()) !==
+            null
+        );
+
+        return _internalRenderChildren(filteredChildren as ReactElement[]);
+      }
+
+      return _internalRenderChildren(children);
+
+      function _internalRenderChildren(internalChildren: ReactElement[]) {
+        return React.Children.map(internalChildren, (child, index) => {
+          return React.cloneElement(child, {
+            onFocusChange: (childIndex: number) => setFocusedSelectItem(childIndex),
+            onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
+              onOptionChangeHandler(optionRef);
+              setShouldClick(false);
+            },
+            isSelected: child.props.value === value,
+            isSearching: isSearching,
+            selectOpened: expanded,
+            childIndex: index,
+            hasFocus: focusedSelectItem === index,
+            shouldClick: shouldClick,
+          });
+        });
+      }
+    };
 
     const renderSearch = () => (
       <Input
         autoFocus
+        ref={searchInputRef}
         onChange={filterResults}
         className={classes['select-search']}
         wrapperProps={{ className: classes['select-search-wrapper'] }}

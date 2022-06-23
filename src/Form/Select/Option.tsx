@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithRef, createRef, RefObject, useEffect, useState } from 'react';
+import React, { ComponentPropsWithRef, createRef, RefObject, useEffect } from 'react';
 import classes from './Select.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'li'> {
@@ -9,8 +9,8 @@ export interface Props extends ComponentPropsWithRef<'li'> {
   selectOpened?: boolean;
   hasFocus?: boolean;
   shouldClick?: boolean;
+  isSearching?: boolean;
   label?: string;
-  filter?: string;
   childIndex?: number;
   onOptionSelect?: (ref: React.RefObject<HTMLLIElement>) => void;
   onFocusChange?: (childIndex: number) => void;
@@ -25,18 +25,16 @@ export const Option = React.forwardRef<HTMLLIElement, Props>(
       shouldClick,
       hasFocus,
       selectOpened,
+      isSearching,
       childIndex,
       onOptionSelect,
       onFocusChange,
       disabled,
-      filter,
       value,
       ...rest
     }: Props,
     ref
   ) => {
-    const [showOption, setShowOption] = useState(true);
-
     let innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
 
     useEffect(() => {
@@ -46,25 +44,15 @@ export const Option = React.forwardRef<HTMLLIElement, Props>(
     }, [isSelected, shouldClick]);
 
     useEffect(() => {
-      if (innerOptionRef.current && hasFocus && selectOpened) {
+      if (innerOptionRef.current && hasFocus && selectOpened && !isSearching) {
         onFocusChange && childIndex && onFocusChange(childIndex);
         innerOptionRef.current.focus();
       }
-    }, [hasFocus, innerOptionRef, selectOpened]);
+    }, [hasFocus, innerOptionRef, selectOpened, isSearching]);
 
     const onSelectHandler = () => {
       if (onOptionSelect) onOptionSelect(innerOptionRef);
     };
-
-    useEffect(() => {
-      if (filter) {
-        setShowOption(children.toLowerCase().match(filter.toLowerCase()) !== null);
-      } else {
-        setShowOption(true);
-      }
-    }, [filter]);
-
-    if (!showOption) return null;
 
     return (
       <li

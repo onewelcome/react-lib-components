@@ -25,7 +25,7 @@ const defaultParams: Props = {
     <Option value="option16">Test16</Option>,
     <Option value="option17">Test17</Option>,
   ],
-  value: '',
+  value: 'option1',
 };
 
 const createSelect = (params?: (defaultParams: Props) => Props) => {
@@ -60,6 +60,7 @@ describe('Select should render', () => {
         <Option value="option5">Test5</Option>,
       ],
       placeholder: 'Placeholder',
+      value: '',
     }));
 
     if (button) {
@@ -173,9 +174,41 @@ describe('Selecting options using keyboard', () => {
     });
 
     expect(onChangeHandler).toHaveBeenCalled();
-    expect(onChangeHandler).toBeCalledWith(
-      expect.objectContaining({ target: expect.objectContaining({ value: 'option2' }) })
-    );
+
+    userEvent.keyboard('{enter}');
+
+    await waitFor(() => {
+      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'false');
+      return true;
+    });
+
+    userEvent.keyboard('{arrowdown}');
+
+    await waitFor(() => {
+      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'true');
+      return true;
+    });
+
+    expect(select.querySelector('li[data-value="option3"]')).toHaveFocus();
+
+    userEvent.keyboard('{arrowup}');
+    userEvent.keyboard('{arrowup}');
+    userEvent.keyboard('{arrowup}');
+
+    expect(select.querySelector('li[data-value="option17"]')).toHaveFocus();
+    userEvent.keyboard('{arrowup}');
+    expect(select.querySelector('li[data-value="option16"]')).toHaveFocus();
+
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+
+    expect(select.querySelector('li[data-value="option1"]')).toHaveFocus();
+
+    userEvent.keyboard('{escape}');
+
+    await waitFor(() => {
+      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'false');
+    });
   });
 });
 
