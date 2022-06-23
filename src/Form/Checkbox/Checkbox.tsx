@@ -11,7 +11,7 @@ import { FormSelector } from '../form.interfaces';
 
 const isToggle = (children: ReactNode) => (children as ReactElement)?.props?.['data-toggle'];
 
-export interface CheckboxProps extends ComponentPropsWithRef<'input'>, FormSelector {
+export interface Props extends ComponentPropsWithRef<'input'>, FormSelector {
   children: ReactNode;
   label?: string;
   indeterminate?: boolean;
@@ -20,7 +20,7 @@ export interface CheckboxProps extends ComponentPropsWithRef<'input'>, FormSelec
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
+export const Checkbox = React.forwardRef<HTMLInputElement, Props>(
   (
     {
       children,
@@ -39,7 +39,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       formSelectorWrapperProps,
       onChange,
       ...rest
-    }: CheckboxProps,
+    }: Props,
     ref
   ) => {
     const { errorId, identifier, describedBy } = useFormSelector({
@@ -91,7 +91,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 parentHelperId={parentHelperId}
                 parentErrorId={parentErrorId}
                 error={error}
-                disabled={disabled ? disabled : (child as CheckboxProps).disabled}
+                disabled={disabled ? disabled : (child as Props).disabled}
               >
                 {(child as ReactElement).props.children}
               </Checkbox>

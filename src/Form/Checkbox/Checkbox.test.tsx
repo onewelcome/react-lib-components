@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Checkbox, CheckboxProps as Props } from './Checkbox';
+import { Checkbox, Props } from './Checkbox';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
