@@ -4,9 +4,8 @@ import classes from './DataGrid.module.scss';
 import { DataGridHeader } from './DataGridHeader/DataGridHeader';
 import { DataGridActions } from './DataGridActions/DataGridActions';
 import { DataGridBody } from './DataGridBody/DataGridBody';
-import { DataGridPagination, Props as DataGridPaginationProps } from './DataGridPagination';
-import { ColumnName, HeaderCell, OnSortFunction, Sort } from './interfaces';
-import { Card } from '../Card/Card';
+import { ColumnName, HeaderCell, OnSortFunction, Sort } from './datagrid.interfaces';
+import { Pagination, Props as PaginationProps } from '../Pagination/Pagination';
 
 export interface Props<T> extends ComponentPropsWithRef<'div'> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
@@ -23,7 +22,7 @@ export interface Props<T> extends ComponentPropsWithRef<'div'> {
     searchBtnProps?: ButtonProps;
   };
   emptyLabel?: string;
-  paginationProps?: DataGridPaginationProps;
+  paginationProps?: PaginationProps;
   disableContextMenuColumn?: boolean;
   isLoading?: boolean;
   enableMultiSorting?: boolean;
@@ -66,7 +65,7 @@ const DataGridInner = <T extends {}>(
   };
 
   return (
-    <Card {...rest} ref={ref}>
+    <div {...rest} ref={ref}>
       <DataGridActions {...actions} headers={internalHeaders} onColumnToggled={onColumnToggled} />
       <div className={classes['table-wrapper']}>
         <table className={classes['table']}>
@@ -79,7 +78,7 @@ const DataGridInner = <T extends {}>(
           />
           <DataGridBody
             children={children}
-            data={data as T[]}
+            data={data}
             headers={internalHeaders}
             isLoading={isLoading}
             disableContextMenuColumn={disableContextMenuColumn}
@@ -87,8 +86,13 @@ const DataGridInner = <T extends {}>(
           />
         </table>
       </div>
-      {paginationProps && !isLoading && <DataGridPagination {...paginationProps} />}
-    </Card>
+      {paginationProps && !isLoading && (
+        <Pagination
+          {...paginationProps}
+          className={`${classes['pagination']} ${paginationProps.className ?? ''}`}
+        />
+      )}
+    </div>
   );
 };
 

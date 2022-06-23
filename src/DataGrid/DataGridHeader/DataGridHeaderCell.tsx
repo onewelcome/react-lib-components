@@ -1,6 +1,6 @@
-import React, { ComponentPropsWithRef, Fragment, ReactNode } from 'react';
+import React, { ComponentPropsWithRef, Fragment } from 'react';
 import { Icon, Icons } from '../../Icon/Icon';
-import { ColumnName, Direction } from '../interfaces';
+import { ColumnName, Direction } from '../datagrid.interfaces';
 import classes from './DataGridHeaderCell.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'th'> {
@@ -25,13 +25,10 @@ export const DataGridHeaderCell = React.forwardRef<HTMLTableCellElement, Props>(
     const sortingIndicator = () => {
       const getSortingIndicatorClasses = (direction: Direction) => {
         const sortingIndicatorClasses = [classes['indicator']];
-        if (activeSortDirection) {
-          if (activeSortDirection === direction) {
-            sortingIndicatorClasses.push(classes['active']);
-          } else {
-            sortingIndicatorClasses.push(classes['hidden']);
-          }
-        }
+        activeSortDirection &&
+          sortingIndicatorClasses.push(
+            activeSortDirection === direction ? classes['active'] : classes['hidden']
+          );
         return sortingIndicatorClasses;
       };
 
@@ -46,8 +43,14 @@ export const DataGridHeaderCell = React.forwardRef<HTMLTableCellElement, Props>(
       );
     };
 
-    const InnerContainer = ({ children }: { children: ReactNode }) =>
-      disableSorting ? <div>{children}</div> : <button onClick={onCellClick}>{children}</button>;
+    const innerContent = (
+      <Fragment>
+        <span className={classes['headline']}>{headline}</span>
+        {!disableSorting && (
+          <div className={classes['sorting-indicator-container']}>{sortingIndicator()}</div>
+        )}
+      </Fragment>
+    );
 
     return (
       <th
@@ -56,12 +59,13 @@ export const DataGridHeaderCell = React.forwardRef<HTMLTableCellElement, Props>(
         className={classes['header-cell']}
         aria-sort={activeSortDirection && ariaSortMapping[activeSortDirection]}
       >
-        <InnerContainer>
-          <span className={classes['headline']}>{headline}</span>
-          {!disableSorting && (
-            <div className={classes['sorting-indicator-container']}>{sortingIndicator()}</div>
-          )}
-        </InnerContainer>
+        {disableSorting ? (
+          <div key={name}>{innerContent}</div>
+        ) : (
+          <button key={name} onClick={onCellClick}>
+            {innerContent}
+          </button>
+        )}
       </th>
     );
   }

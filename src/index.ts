@@ -63,7 +63,7 @@ export { WizardSteps } from './Wizard/WizardSteps/WizardSteps';
 export { Wizard, Props as WizardProps } from './Wizard/Wizard';
 
 /** DataGrid */
-export { HeaderCell } from './DataGrid/interfaces';
+export { HeaderCell } from './DataGrid/datagrid.interfaces';
 export { DataGrid, Props as DataGridProps } from './DataGrid/DataGrid';
 export { DataGridRow, Props as DataGridRowProps } from './DataGrid/DataGridBody/DataGridRow';
 export { DataGridCell, Props as DataGridCellProps } from './DataGrid/DataGridBody/DataGridCell';

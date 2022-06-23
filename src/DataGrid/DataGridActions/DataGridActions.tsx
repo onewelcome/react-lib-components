@@ -2,7 +2,7 @@ import React, { ComponentPropsWithRef, Fragment, useRef, useState } from 'react'
 import { Button, Props as ButtonProps } from '../../Button/Button';
 import { IconButton } from '../../Button/IconButton';
 import { Icon, Icons } from '../../Icon/Icon';
-import { HeaderCell, ColumnName } from '../interfaces';
+import { HeaderCell, ColumnName } from '../datagrid.interfaces';
 import classes from './DataGridActions.module.scss';
 import { DataGridColumnsToggle } from './DataGridColumnsToggle';
 

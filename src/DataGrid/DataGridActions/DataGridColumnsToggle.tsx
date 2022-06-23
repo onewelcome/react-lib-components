@@ -1,15 +1,15 @@
-import React, { PropsWithRef, useState } from 'react';
+import React, { useState } from 'react';
 import { IconButton } from '../../Button/IconButton';
 import { Toggle } from '../../Form/Toggle/Toggle';
 import { Icon, Icons } from '../../Icon/Icon';
 import { Popover, Props as PopoverProps } from '../../Popover/Popover';
 import { Typography } from '../../Typography/Typography';
 import { generateID } from '../../util/helper';
-import { ColumnName, HeaderCell } from '../interfaces';
+import { ColumnName, HeaderCell } from '../datagrid.interfaces';
 import classes from './DataGridColumnsToggle.module.scss';
 import { createPortal } from 'react-dom';
 
-export interface Props extends Omit<PropsWithRef<PopoverProps>, 'headers'> {
+export interface Props extends PopoverProps {
   open: boolean;
   headers: HeaderCell[];
   titleLabel?: string;

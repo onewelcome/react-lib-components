@@ -40,7 +40,16 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '1rem', backgroundColor: '#F5F8F8' }}>
-        <Story />
+        <div
+          style={{
+            borderRadius: 'var(--card-border-radius)',
+            backgroundColor: 'var(--card-background-color)',
+            padding: '1rem 0',
+            boxSizing: 'border-box',
+          }}
+        >
+          <Story />
+        </div>
       </div>
     ),
   ],

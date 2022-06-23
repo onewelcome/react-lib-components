@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithRef, useEffect, useState } from 'react';
-import { ColumnName, Direction, HeaderCell, OnSortFunction, Sort } from '../interfaces';
+import { ColumnName, Direction, HeaderCell, OnSortFunction, Sort } from '../datagrid.interfaces';
 import { DataGridHeaderCell } from './DataGridHeaderCell';
 import classes from './DataGridHeader.module.scss';
 
@@ -18,7 +18,7 @@ export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
     { initialSort, onSort, headers, disableContextMenuColumn, enableMultiSorting, ...rest }: Props,
     ref
   ) => {
-    const [sortList, setSortList] = useState(initialSort || ([] as Sort));
+    const [sortList, setSortList] = useState(initialSort || []);
 
     useEffect(() => {
       setSortList(initialSort || []);

@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithRef } from 'react';
-import { HeaderCell } from '../interfaces';
+import { HeaderCell } from '../datagrid.interfaces';
 import classes from './DataGridRow.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'tr'> {
