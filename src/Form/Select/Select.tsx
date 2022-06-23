@@ -2,9 +2,9 @@ import classes from './Select.module.scss';
 
 import React, {
   ComponentPropsWithRef,
+  createRef,
   Fragment,
   ReactElement,
-  RefObject,
   useEffect,
   useRef,
   useState,
@@ -25,8 +25,9 @@ export interface Props extends ComponentPropsWithRef<'select'>, FormElement {
   searchPlaceholder?: string;
   className?: string;
   value: string;
+  onClearLabel?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
-  onClear?: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onClear?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 type Position = {
@@ -47,6 +48,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
       className,
       error = false,
       value,
+      onClearLabel,
       onChange,
       onClear,
       ...rest
@@ -62,7 +64,94 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     const containerReference = useRef<HTMLDivElement>(null);
     const optionListReference = useRef<HTMLDivElement>(null);
 
-    const nativeSelect = useRef<HTMLSelectElement>(null);
+    const [selectedSelectItem, setSelectedSelectItem] = useState(-1);
+    const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
+    const [shouldClick, setShouldClick] =
+      useState(
+        false
+      ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
+    const [shouldOpen, setShouldOpen] = useState(true);
+    const [childrenCount] = useState(React.Children.count(children));
+
+    const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
+
+    const onArrowNavigation = (event: React.KeyboardEvent) => {
+      /** If we hit enter, or click, on the onClear button, we don't want the select to open. */
+      if ((event.target as HTMLElement).nodeName === 'DIV') {
+        return;
+      }
+
+      const codesToPrevenDefault = [
+        'ArrowDown',
+        'ArrowUp',
+        'ArrowLeft',
+        'ArrowRight',
+        'Enter',
+        'Space',
+        'Escape',
+        'End',
+        'Home',
+      ];
+
+      if (focusedSelectItem === -1 && selectedSelectItem !== -1) {
+        setFocusedSelectItem(selectedSelectItem);
+      }
+      if (codesToPrevenDefault.includes(event.code)) {
+        event.preventDefault();
+      }
+      if (!shouldOpen) {
+        setShouldOpen(true);
+        return;
+      }
+      switch (event.code) {
+        case 'ArrowDown':
+          if (!expanded) {
+            setExpanded(true);
+            return;
+          }
+          setFocusedSelectItem((prevState) => {
+            return prevState + 1 > childrenCount - 1 ? 0 : prevState + 1;
+          });
+          return;
+        case 'ArrowUp':
+          setFocusedSelectItem((prevState) => {
+            return prevState - 1 < 0 ? childrenCount - 1 : prevState - 1;
+          });
+          return;
+        case 'Enter':
+        case 'Space':
+          if (!expanded) {
+            setExpanded(true);
+            return;
+          }
+
+          setShouldClick(true);
+          setSelectedSelectItem(focusedSelectItem);
+          setExpanded(false);
+          containerReference.current && containerReference.current.querySelector('button')!.focus();
+          return;
+        case 'Tab':
+          if (childrenCount >= 10) {
+            return;
+          }
+          setExpanded(false);
+
+          return;
+        case 'Escape':
+          if (expanded) {
+            setExpanded(false);
+            containerReference.current &&
+              containerReference.current.querySelector('button')!.focus();
+          }
+          return;
+        case 'End':
+          setFocusedSelectItem(childrenCount - 1);
+          return;
+        case 'Home':
+          setFocusedSelectItem(0);
+          return;
+      }
+    };
 
     const syncDisplayValue = (val: string) => {
       React.Children.forEach(children, (child) => {
@@ -121,30 +210,35 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
       setOpacity(100);
     };
 
-    const onOptionChangeHandler = (event: React.MouseEvent<HTMLLIElement>) => {
-      // We need to set value and the fire change event. If a custom ref has been given we pass that value, otherwise we use the ref we've created ourselves when the component was instantiated.
-      if (nativeSelect.current) {
-        nativeSelect.current.value = event.currentTarget.dataset.value!;
+    const onOptionChangeHandler = (optionRef: React.RefObject<HTMLLIElement>) => {
+      if (nativeSelect.current && optionRef.current) {
+        nativeSelect.current.value = optionRef.current.getAttribute('data-value')!;
         nativeSelect.current.dispatchEvent(new Event('change', { bubbles: true }));
-      } else if (ref) {
-        (ref as RefObject<HTMLSelectElement>).current!.value = event.currentTarget.dataset.value!;
-        (ref as RefObject<HTMLSelectElement>).current!.dispatchEvent(
-          new Event('change', { bubbles: true })
-        );
       }
+      setShouldOpen(false);
       setExpanded(false);
+
+      containerReference.current && containerReference.current.querySelector('button')!.focus();
     };
 
     /**
-     * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected at all times and if a filter is active.
+     * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected and focused at all times and if a filter is active.
      * The `children` prop can be either a single object (1 child) or an array of multiple children.
      */
     const renderOptions = () =>
-      React.Children.map(children, (child) =>
+      React.Children.map(children, (child, index) =>
         React.cloneElement(child, {
-          onOptionSelect: onOptionChangeHandler,
-          selected: child.props.value === value,
+          onFocusChange: (childIndex: number) => setFocusedSelectItem(childIndex),
+          onOptionSelect: (ref: React.RefObject<HTMLLIElement>) => {
+            onOptionChangeHandler(ref);
+            setShouldClick(false);
+          },
+          isSelected: child.props.value === value,
           filter: filter,
+          selectOpened: expanded,
+          childIndex: index,
+          hasFocus: focusedSelectItem === index,
+          shouldClick: shouldClick,
         })
       );
 
@@ -171,16 +265,29 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
       if (value?.length !== 0 && onClear) {
         return (
-          <Icon
-            tag="div"
+          <div
+            aria-hidden={false}
+            role="button"
+            tabIndex={0}
             data-clear
-            icon={Icons.TimesThin}
             onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-              e.preventDefault();
-              e.stopPropagation();
+              setShouldOpen(false);
               onClear(e);
             }}
-          />
+            onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+              if (e.code === 'Enter' || e.code === 'Space') {
+                e.preventDefault();
+                e.stopPropagation();
+                setShouldOpen(false);
+                onClear(e);
+                containerReference.current &&
+                  containerReference.current.querySelector('button')!.focus();
+              }
+            }}
+          >
+            <span className={readyclasses['sr-only']}>{onClearLabel || 'Clear selection'}</span>
+            <Icon tag="span" icon={Icons.TimesThin} />
+          </div>
         );
       }
       return null;
@@ -221,7 +328,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
           {...filterProps(rest, /^data-/, false)}
           tabIndex={-1}
           aria-hidden="true"
-          ref={ref || nativeSelect}
+          ref={nativeSelect}
           name={name}
           onChange={nativeOnChangeHandler}
           className={readyclasses['sr-only']}
@@ -234,12 +341,15 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         <div
           {...filterProps(rest, /^data-/)}
           ref={containerReference}
+          onKeyDown={onArrowNavigation}
           className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
             className ?? ''
           }`}
         >
           <button
-            onClick={() => setExpanded(!expanded)}
+            onClick={() => {
+              setExpanded(!expanded);
+            }}
             type="button"
             name={name}
             disabled={disabled}
@@ -249,6 +359,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             aria-haspopup="listbox"
             aria-labelledby={labeledBy}
             aria-describedby={describedBy}
+            className={classes['custom-select']}
           >
             <div data-display className={classes['selected']}>
               {!value && placeholder && (

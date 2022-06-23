@@ -274,15 +274,16 @@ describe('onClear method', () => {
     }
 
     const optionToClick = container.querySelector('li[data-value="option5"]')!;
-    const onClearButton = container.querySelector('[data-clear]')!;
+    const onClearButton = container.querySelector('div[role="button"]')!;
 
     userEvent.click(optionToClick);
+
+    expect(onClearButton).toBeInTheDocument();
+
     userEvent.click(onClearButton);
 
     expect(onClearHandler).toHaveBeenCalled();
-    expect(onClearButton).toBeInTheDocument();
-    expect(container.querySelector('li[aria-selected="true"]')).toHaveTextContent('Test4');
-    expect(container.querySelector('.selected-option')).toHaveTextContent('Test4');
+
     expect(onChangeHandler).toBeCalledWith(
       expect.objectContaining({ target: expect.objectContaining({ value: 'option5' }) })
     );

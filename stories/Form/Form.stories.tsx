@@ -66,12 +66,6 @@ const Template: Story<Props> = (args) => {
     helperText: 'This should be a date after Date.now()',
   });
 
-  const helper = useRef(null);
-
-  useEffect(() => {
-    console.log(helper);
-  }, [helper]);
-
   const [selectValue, setSelectValue] = useState('');
 
   const callBackTimeOnChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -268,7 +262,7 @@ const Template: Story<Props> = (args) => {
           <Radio value="yes">Yes</Radio>
           <Radio value="no">No</Radio>
         </RadioWrapper>
-        {callBack.value === 'yes' ? (
+        {callBack.value === 'yes' && (
           <Fieldset legend="Callback time" hideLegend>
             <InputWrapper
               onChange={callBackTimeOnChangeHandler}
@@ -281,7 +275,7 @@ const Template: Story<Props> = (args) => {
               type="datetime-local"
             />
           </Fieldset>
-        ) : undefined}
+        )}
       </FormControl>
       <FormControl>
         <SelectWrapper

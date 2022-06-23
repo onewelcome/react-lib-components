@@ -1,14 +1,19 @@
-import React, { ComponentPropsWithRef, useEffect, useState } from 'react';
+import React, { ComponentPropsWithRef, createRef, RefObject, useEffect, useState } from 'react';
 import classes from './Select.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'li'> {
   children: string;
   value: string;
   disabled?: boolean;
-  selected?: boolean;
+  isSelected?: boolean;
+  selectOpened?: boolean;
+  hasFocus?: boolean;
+  shouldClick?: boolean;
   label?: string;
   filter?: string;
-  onOptionSelect?: (event: React.SyntheticEvent<HTMLLIElement>) => void;
+  childIndex?: number;
+  onOptionSelect?: (ref: React.RefObject<HTMLLIElement>) => void;
+  onFocusChange?: (childIndex: number) => void;
 }
 
 export const Option = React.forwardRef<HTMLLIElement, Props>(
@@ -16,8 +21,13 @@ export const Option = React.forwardRef<HTMLLIElement, Props>(
     {
       children,
       className,
-      selected = false,
+      isSelected = false,
+      shouldClick,
+      hasFocus,
+      selectOpened,
+      childIndex,
       onOptionSelect,
+      onFocusChange,
       disabled,
       filter,
       value,
@@ -27,8 +37,23 @@ export const Option = React.forwardRef<HTMLLIElement, Props>(
   ) => {
     const [showOption, setShowOption] = useState(true);
 
-    const onSelectHandler = (event: React.SyntheticEvent<HTMLLIElement>) => {
-      if (onOptionSelect) onOptionSelect(event);
+    let innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
+
+    useEffect(() => {
+      if (isSelected && innerOptionRef.current && shouldClick) {
+        innerOptionRef.current.click();
+      }
+    }, [isSelected, shouldClick]);
+
+    useEffect(() => {
+      if (innerOptionRef.current && hasFocus && selectOpened) {
+        onFocusChange && childIndex && onFocusChange(childIndex);
+        innerOptionRef.current.focus();
+      }
+    }, [hasFocus, innerOptionRef, selectOpened]);
+
+    const onSelectHandler = () => {
+      if (onOptionSelect) onOptionSelect(innerOptionRef);
     };
 
     useEffect(() => {
@@ -44,16 +69,14 @@ export const Option = React.forwardRef<HTMLLIElement, Props>(
     return (
       <li
         {...rest}
-        ref={ref}
+        ref={innerOptionRef}
         data-value={value}
-        className={`${selected ? classes['selected-option'] : ''} ${
+        className={`${isSelected ? classes['selected-option'] : ''} ${
           disabled ? classes.disabled : ''
         } ${className ?? ''}`}
         onClick={onSelectHandler}
-        onKeyPress={(e) => {
-          e.key === 'Enter' && onSelectHandler(e);
-        }}
-        aria-selected={selected}
+        onKeyDownCapture={(event) => (event.code === 'Enter' ? onSelectHandler() : '')}
+        aria-selected={isSelected}
         role="option"
         tabIndex={disabled ? -1 : 0}
       >
