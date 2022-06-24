@@ -13,12 +13,20 @@ export {
 } from './Pagination/Pagination';
 export { Icon, Icons } from './Icon/Icon';
 
+export { Tabs, Props as TabsProps } from './Tabs/Tabs';
+export { Tab, Props as TabProps } from './Tabs/Tab';
+
 export { Dialog } from './Notifications/Dialog/Dialog';
 export { Modal } from './Notifications/Modal/Modal';
 export { ModalActions } from './Notifications/Modal/ModalActions/ModalActions';
 export { ModalContent } from './Notifications/Modal/ModalContent/ModalContent';
 export { ModalHeader } from './Notifications/Modal/ModalHeader/ModalHeader';
 export { DiscardChangesModal } from './Notifications/DiscardChangesModal/DiscardChangesModal';
+export { TextEllipsis, Props as TextEllipsisProps } from './TextEllipsis/TextEllipsis';
+export {
+  SlideInModal,
+  Props as SlideInModalProps,
+} from './Notifications/SlideInModal/SlideInModal';
 export { Tooltip } from './Tooltip/Tooltip';
 export { Tiles } from './Tiles/Tiles';
 export { Tile } from './Tiles/Tile';
@@ -51,6 +59,7 @@ export { TextareaWrapper } from './Form/Wrapper/TextareaWrapper/TextareaWrapper'
 export { Input } from './Form/Input/Input';
 export { Radio } from './Form/Radio/Radio';
 export { Checkbox } from './Form/Checkbox/Checkbox';
+export { Toggle } from './Form/Toggle/Toggle';
 
 /** Wizard */
 export {

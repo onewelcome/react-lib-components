@@ -45,8 +45,9 @@ Array [
             aria-controls="consent_menu_Paweł-menu"
             aria-expanded="false"
             aria-haspopup="true"
-            class="button icon-button default button-m"
+            class="button icon-button text default button-m"
             id="consent_menu_Paweł"
+            tabindex="0"
             type="button"
           >
             <span
@@ -107,8 +108,9 @@ Array [
             aria-controls="consent_menu_Michał-menu"
             aria-expanded="false"
             aria-haspopup="true"
-            class="button icon-button default button-m"
+            class="button icon-button text default button-m"
             id="consent_menu_Michał"
+            tabindex="0"
             type="button"
           >
             <span
@@ -169,8 +171,9 @@ Array [
             aria-controls="consent_menu_Daniel-menu"
             aria-expanded="false"
             aria-haspopup="true"
-            class="button icon-button default button-m"
+            class="button icon-button text default button-m"
             id="consent_menu_Daniel"
+            tabindex="0"
             type="button"
           >
             <span
@@ -231,8 +234,9 @@ Array [
             aria-controls="consent_menu_Jasha-menu"
             aria-expanded="false"
             aria-haspopup="true"
-            class="button icon-button default button-m"
+            class="button icon-button text default button-m"
             id="consent_menu_Jasha"
+            tabindex="0"
             type="button"
           >
             <span

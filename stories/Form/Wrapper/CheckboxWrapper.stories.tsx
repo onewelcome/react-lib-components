@@ -127,7 +127,6 @@ Checkboxes.args = {
   },
   error: false,
   errorMessage: 'Please check all the boxes',
-  helperText: 'Helpertext for the group',
 };
 
 const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {

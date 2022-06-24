@@ -6,48 +6,113 @@ import userEvent from '@testing-library/user-event';
 const classNames = ['class11', 'class12'];
 const containerClassNames = ['class21', 'class22'];
 
-const initParams: Props = {
+const defaultParams: Props = {
   id: 'modal',
   open: true,
   onClose: jest.fn(),
   className: classNames.join(' '),
-  containerClassName: containerClassNames.join(' '),
+  containerProps: { className: containerClassNames.join(' ') },
   children: 'This is example dialog content.',
+};
+
+const createBaseModal = (params?: (defaultParams: Props) => Props) => {
+  let parameters: Props = defaultParams;
+  if (params) {
+    parameters = params(defaultParams);
+  }
+  const queries = render(<BaseModal {...parameters} data-testid="BaseModal" />);
+  const slideInModal = queries.getByTestId('BaseModal');
+
+  return {
+    ...queries,
+    slideInModal,
+  };
 };
 
 describe('BaseModal', () => {
   it('renders without crashing', () => {
-    const { getByRole } = render(<BaseModal {...initParams} />);
+    const { getByRole } = createBaseModal();
     const dialog = getByRole('dialog');
+
     expect(dialog).toHaveAttribute('aria-modal', 'true');
     expect(dialog).toHaveAttribute('aria-labelledby', 'modal-label');
     expect(dialog).toHaveAttribute('aria-describedby', 'modal-description');
     expect(dialog).toHaveAttribute('data-hidden', 'false');
     expect(dialog).toHaveAttribute('aria-hidden', 'false');
-    expect(getByText(dialog, initParams.children as string)).toBeDefined();
+    expect(getByText(dialog, defaultParams.children as string)).toBeDefined();
     expect(document.body).toHaveStyle('overflow: hidden');
   });
 
-  it('should render close modal without content', () => {
-    const { queryByRole } = render(<BaseModal {...initParams} open={false} />);
+  it('should render closed modal without content', () => {
+    const { queryByRole } = createBaseModal((params) => ({ ...params, open: false }));
+
     const dialogByRole = queryByRole('dialog');
     const dialog = document.body.children[1] as HTMLElement;
+
     expect(dialogByRole).toBeNull();
     expect(dialog).toHaveAttribute('aria-hidden', 'true');
-    expect(queryByText(dialog, initParams.children as string)).toBeNull();
+    expect(queryByText(dialog, defaultParams.children as string)).toBeNull();
+  });
+
+  it('should render closed modal with content when forceContainerOpen is provided', () => {
+    const { getByRole } = createBaseModal((params) => ({
+      ...params,
+      open: false,
+      forceContainerOpen: true,
+    }));
+
+    const modal = getByRole('dialog', { hidden: true });
+    const container = modal.querySelector('.container') as HTMLElement;
+
+    expect(container).toBeInTheDocument();
+    expect(container).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('propagates containerProps to container element', () => {
+    const { getByRole } = createBaseModal((params) => ({
+      ...params,
+      open: true,
+      containerProps: {
+        id: 'container',
+      },
+    }));
+
+    const modal = getByRole('dialog');
+    const container = modal.querySelector('.container') as HTMLElement;
+
+    expect(container).toBeInTheDocument();
+    expect(container).toHaveAttribute('id', 'container');
+  });
+
+  it('propagates backdropProps to backdrop element', () => {
+    const { getByRole } = createBaseModal((params) => ({
+      ...params,
+      open: true,
+      backdropProps: {
+        id: 'backdrop',
+      },
+    }));
+
+    const modal = getByRole('dialog');
+    const backdrop = modal.querySelector('.backdrop') as HTMLElement;
+
+    expect(backdrop).toBeInTheDocument();
+    expect(backdrop).toHaveAttribute('id', 'backdrop');
   });
 
   it('should handle clicking on backdrop & ESC key', () => {
-    const { getByRole } = render(<BaseModal {...initParams} />);
+    const { getByRole } = createBaseModal();
+
     const modal = getByRole('dialog');
+
     const backdrop = modal.querySelector('.backdrop')!;
-    expect(initParams.onClose).toHaveBeenCalledTimes(0);
+    expect(defaultParams.onClose).toHaveBeenCalledTimes(0);
 
     userEvent.click(backdrop);
-    expect(initParams.onClose).toHaveBeenCalledTimes(1);
+    expect(defaultParams.onClose).toHaveBeenCalledTimes(1);
 
     fireEvent.keyDown(modal, { key: 'Escape' });
-    expect(initParams.onClose).toHaveBeenCalledTimes(2);
+    expect(defaultParams.onClose).toHaveBeenCalledTimes(2);
   });
 });
 
