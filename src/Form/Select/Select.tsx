@@ -39,6 +39,9 @@ type Position = {
   bottom: 0 | 'initial';
 };
 
+/** Amount of items to be rendered before a search input is rendered */
+const renderSearchCondition = 10;
+
 export const Select = React.forwardRef<HTMLSelectElement, Props>(
   (
     {
@@ -70,13 +73,11 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     const containerReference = useRef<HTMLDivElement>(null);
     const optionListReference = useRef<HTMLDivElement>(null);
     const [isSearching, setIsSearching] = useState(false);
-    const [selectedSelectItem, setSelectedSelectItem] = useState(-1);
     const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
     const [shouldClick, setShouldClick] =
       useState(
         false
       ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
-    const [shouldOpen, setShouldOpen] = useState(true);
     const [childrenCount] = useState(React.Children.count(children));
 
     const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
@@ -105,20 +106,9 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         codesToPrevenDefault.push('Tab');
       }
 
-      /** Set the previously selected item as the focused item on select open */
-      if (focusedSelectItem === -1 && selectedSelectItem !== -1 && filter === '') {
-        setFocusedSelectItem(selectedSelectItem);
-      }
-
       /** We will handle the way certain key strokes affect the Select, unless we're searching */
       if (codesToPrevenDefault.includes(event.code) && !isSearching) {
         event.preventDefault();
-      }
-
-      /** If we select an option with "enter" or "space" it'll propagate the event up to the button for some reason and open the select again. */
-      if (!shouldOpen) {
-        setShouldOpen(true);
-        return;
       }
 
       if (isSearching) {
@@ -129,7 +119,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             setFocusedSelectItem(0);
             return;
           case 'ArrowUp':
-            console.log('doing arrow up');
             setIsSearching(false);
             setFocusedSelectItem(childrenCount - 1);
             return;
@@ -165,13 +154,12 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
               return;
             }
             setShouldClick(true);
-            setSelectedSelectItem(focusedSelectItem);
             setExpanded(false);
             containerReference.current &&
               containerReference.current.querySelector('button')!.focus();
             return;
           case 'Tab':
-            if (childrenCount >= 10) {
+            if (childrenCount >= renderSearchCondition) {
               setIsSearching(true);
               searchInputRef.current && searchInputRef.current.focus();
               return;
@@ -199,8 +187,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     useEffect(() => {
       if (document.activeElement === searchInputRef.current) {
         setIsSearching(true);
-      } else if (expanded && document.activeElement !== searchInputRef.current) {
-        setIsSearching(false);
       }
     }, [expanded, document.activeElement]);
 
@@ -266,7 +252,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         nativeSelect.current.value = optionRef.current.getAttribute('data-value')!;
         nativeSelect.current.dispatchEvent(new Event('change', { bubbles: true }));
       }
-      setShouldOpen(false);
+
       setExpanded(false);
 
       containerReference.current && containerReference.current.querySelector('button')!.focus();
@@ -341,14 +327,14 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             tabIndex={0}
             data-clear
             onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-              setShouldOpen(false);
+              e.preventDefault();
+              e.stopPropagation();
               onClear(e);
             }}
             onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
               if (e.code === 'Enter' || e.code === 'Space') {
                 e.preventDefault();
                 e.stopPropagation();
-                setShouldOpen(false);
                 onClear(e);
                 containerReference.current &&
                   containerReference.current.querySelector('button')!.focus();
@@ -453,7 +439,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
               ...listPosition,
             }}
           >
-            {Array.isArray(children) && children.length > 10 && renderSearch()}
+            {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()}
             <ul role="listbox">{renderOptions()}</ul>
           </div>
         </div>

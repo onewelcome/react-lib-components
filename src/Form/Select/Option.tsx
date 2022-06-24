@@ -63,7 +63,14 @@ export const Option = React.forwardRef<HTMLLIElement, Props>(
           disabled ? classes.disabled : ''
         } ${className ?? ''}`}
         onClick={onSelectHandler}
-        onKeyDownCapture={(event) => (event.code === 'Enter' ? onSelectHandler() : '')}
+        onKeyDownCapture={(event) => {
+          if (event.code === 'Enter') {
+            event.stopPropagation();
+            event.preventDefault();
+
+            onSelectHandler();
+          }
+        }}
         aria-selected={isSelected}
         role="option"
         tabIndex={disabled ? -1 : 0}

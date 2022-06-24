@@ -295,6 +295,14 @@ const Template: Story<Props> = (args) => {
           <Option value="option2">Option 2</Option>
           <Option value="option3">Option 3</Option>
           <Option value="option4">Option 4</Option>
+          <Option value="option1">Option 1</Option>
+          <Option value="option2">Option 2</Option>
+          <Option value="option3">Option 3</Option>
+          <Option value="option4">Option 4</Option>
+          <Option value="option1">Option 1</Option>
+          <Option value="option2">Option 2</Option>
+          <Option value="option3">Option 3</Option>
+          <Option value="option4">Option 4</Option>
         </SelectWrapper>
       </FormControl>
       <div style={{ marginTop: '20px', textAlign: 'right' }}>

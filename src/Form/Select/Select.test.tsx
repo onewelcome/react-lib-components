@@ -174,14 +174,13 @@ describe('Selecting options using keyboard', () => {
 
     userEvent.keyboard('{enter}');
 
-    expect(button).toHaveAttribute('aria-expanded', 'false');
+    expect(button).toHaveAttribute('aria-expanded', 'true');
 
     userEvent.keyboard('{arrowdown}');
 
-    expect(button).toHaveAttribute('aria-expanded', 'true');
+    expect(select.querySelector('li[data-value="option4"]')).toHaveFocus();
 
-    expect(select.querySelector('li[data-value="option3"]')).toHaveFocus();
-
+    userEvent.keyboard('{arrowup}');
     userEvent.keyboard('{arrowup}');
     userEvent.keyboard('{arrowup}');
     userEvent.keyboard('{arrowup}');
