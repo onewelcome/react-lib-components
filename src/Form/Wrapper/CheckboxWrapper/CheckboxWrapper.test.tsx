@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { CheckboxWrapper, Props } from './CheckboxWrapper';
-import { Checkbox, CheckboxProps } from '../../Checkbox/Checkbox';
+import { Checkbox, Props as CheckboxProps } from '../../Checkbox/Checkbox';
 import { render } from '@testing-library/react';
 
 const defaultParentParams: CheckboxProps = {
