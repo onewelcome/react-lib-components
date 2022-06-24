@@ -136,7 +136,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
               setExpanded(true);
               return;
             }
-
             setFocusedSelectItem((prevState) => {
               return prevState + 1 > childrenCount - 1 ? 0 : prevState + 1;
             });
@@ -182,12 +181,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         }
       }
     };
-
-    useEffect(() => {
-      if (document.activeElement === searchInputRef.current && expanded) {
-        setIsSearching(true);
-      }
-    }, [document.activeElement]);
 
     const syncDisplayValue = (val: string) => {
       React.Children.forEach(children, (child) => {
@@ -298,6 +291,8 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         {...searchInputProps}
         autoFocus
         ref={searchInputRef}
+        onFocus={() => setIsSearching(true)}
+        onBlur={() => setIsSearching(false)}
         onChange={filterResults}
         className={classes['select-search']}
         wrapperProps={{
