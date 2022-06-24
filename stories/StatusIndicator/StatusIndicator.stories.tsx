@@ -25,9 +25,7 @@ export default meta;
 const Template: Story<Props> = (args) => (
   <div>
     <StatusIndicatorComponent {...args}>
-      <Typography variant="body">
-        {`${args.status[0].toUpperCase()}${args.status.slice(1)}`}
-      </Typography>
+      {`${args.status[0].toUpperCase()}${args.status.slice(1)}`}
     </StatusIndicatorComponent>
   </div>
 );

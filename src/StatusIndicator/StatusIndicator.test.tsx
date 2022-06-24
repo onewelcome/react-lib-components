@@ -32,6 +32,19 @@ describe('StatusIndicator should render', () => {
     expect(getByText('content')).toBeInTheDocument();
   });
 
+  it('passes through custom typography props', () => {
+    const { statusIndicator, getByText } = createStatusIndicator((params) => ({
+      ...params,
+      typographyProps: {
+        variant: 'body',
+        children: <strong>custom children</strong>,
+      },
+    }));
+
+    expect(statusIndicator).toBeDefined();
+    expect(getByText('custom children')).toBeInTheDocument();
+  });
+
   it('passes through custom props', () => {
     const { statusIndicator } = createStatusIndicator((params) => ({
       ...params,
