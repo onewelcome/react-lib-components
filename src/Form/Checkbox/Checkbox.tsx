@@ -83,7 +83,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, Props>(
 
     const renderNestedCheckboxes = () => (
       <ul className={classes['checkbox-list']}>
-        {React.Children.map(children as ReactElement[], (child: ReactElement) => {
+        {React.Children.map(children as ReactElement[], (child) => {
           return (
             <li>
               <Checkbox
@@ -93,7 +93,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, Props>(
                 error={error}
                 disabled={child.props.disabled ? child.props.disabled : disabled}
               >
-                {(child as ReactElement).props.children}
+                {child.props.children}
               </Checkbox>
             </li>
           );
