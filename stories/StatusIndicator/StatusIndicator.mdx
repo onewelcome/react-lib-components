@@ -1,0 +1,18 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+`StatusIndicator` component is used to display a status badge along the status text.
+It accepts a `status` prop, which can be used to change the badge's color and a `badgeClassName`, which can be used to style the status badge.
+`StatusIndicator` uses a `Typography` component to display the status text - `typographyProps` prop can be used to adjust that component to your liking.
+
+# Examples
+
+<Canvas>
+  <Story id="stories-ui-statusindicator--status-indicator" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

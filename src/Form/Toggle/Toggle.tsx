@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithRef } from 'react';
-import { Checkbox, CheckboxProps } from '../Checkbox/Checkbox';
+import { Checkbox, Props as CheckboxProps } from '../Checkbox/Checkbox';
 import classes from './Toggle.module.scss';
 
 export interface Props
