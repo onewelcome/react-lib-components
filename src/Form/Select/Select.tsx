@@ -9,12 +9,14 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Input } from '../Input/Input';
+import { Input, Props as InputProps } from '../Input/Input';
 import { Icon, Icons } from '../../Icon/Icon';
 import { FormElement } from '../form.interfaces';
 import { useBodyClick } from '../../hooks/useBodyClick';
 import readyclasses from '../../readyclasses.module.scss';
 import { filterProps } from '../../util/helper';
+
+type PartialInputProps = Partial<InputProps>;
 
 export interface Props extends ComponentPropsWithRef<'select'>, FormElement {
   children: ReactElement[];
@@ -23,6 +25,8 @@ export interface Props extends ComponentPropsWithRef<'select'>, FormElement {
   describedBy?: string;
   placeholder?: string;
   searchPlaceholder?: string;
+  searchInputProps?: PartialInputProps;
+  selectButtonProps?: ComponentPropsWithRef<'button'>;
   className?: string;
   value: string;
   clearLabel?: string;
@@ -45,6 +49,8 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
       placeholder,
       describedBy,
       searchPlaceholder = 'Search item',
+      searchInputProps,
+      selectButtonProps,
       className,
       error = false,
       value,
@@ -78,7 +84,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
     const onArrowNavigation = (event: React.KeyboardEvent) => {
       /** If we hit enter, or click, on the onClear button, we don't want the select to open or close. */
-      if ((event.target as HTMLElement).nodeName === 'DIV') {
+      if ((event.target as HTMLElement).getAttribute('[data-clear]')) {
         return;
       }
 
@@ -123,6 +129,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             setFocusedSelectItem(0);
             return;
           case 'ArrowUp':
+            console.log('doing arrow up');
             setIsSearching(false);
             setFocusedSelectItem(childrenCount - 1);
             return;
@@ -303,11 +310,14 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
     const renderSearch = () => (
       <Input
+        {...searchInputProps}
         autoFocus
         ref={searchInputRef}
         onChange={filterResults}
         className={classes['select-search']}
-        wrapperProps={{ className: classes['select-search-wrapper'] }}
+        wrapperProps={{
+          className: `${classes['select-search-wrapper']} ${searchInputProps?.wrapperProps?.className}`,
+        }}
         type="text"
         name="search-option"
         placeholder={searchPlaceholder}
@@ -407,6 +417,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
           }`}
         >
           <button
+            {...selectButtonProps}
             onClick={() => {
               setExpanded(!expanded);
             }}
@@ -443,9 +454,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             }}
           >
             {Array.isArray(children) && children.length > 10 && renderSearch()}
-            <ul role="listbox" tabIndex={-1}>
-              {renderOptions()}
-            </ul>
+            <ul role="listbox">{renderOptions()}</ul>
           </div>
         </div>
       </Fragment>

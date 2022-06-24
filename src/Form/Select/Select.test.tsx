@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Select as SelectComponent, Props } from './Select';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Option } from './Option';
 import userEvent from '@testing-library/user-event';
 
@@ -26,6 +26,9 @@ const defaultParams: Props = {
     <Option value="option17">Test17</Option>,
   ],
   value: 'option1',
+  searchInputProps: { 'data-testid': 'search-input' },
+  // @ts-ignore it does exist Typescript, pls.
+  selectButtonProps: { 'data-testid': 'select-button' },
 };
 
 const createSelect = (params?: (defaultParams: Props) => Props) => {
@@ -35,7 +38,7 @@ const createSelect = (params?: (defaultParams: Props) => Props) => {
   }
   const queries = render(<SelectComponent {...parameters} data-testid="select" />);
   const select = queries.getByTestId('select');
-  const button = select.querySelector('button');
+  const button = queries.getByTestId('select-button');
   const list = select.querySelector('ul[role="listbox"]');
   const dropdownWrapper = select.querySelector('.list-wrapper');
 
@@ -127,20 +130,20 @@ describe('ref should work', () => {
 
 describe('Select should render with search', () => {
   it('shows the search and filtering works', () => {
-    const { select, list, button, dropdownWrapper } = createSelect();
+    const { select, list, button, getByTestId } = createSelect();
+
+    const searchInput = getByTestId('search-input');
 
     if (button) {
       userEvent.click(button);
     }
 
-    const search = dropdownWrapper?.querySelector('input');
-
     expect(select).toBeTruthy();
-    expect(search).toBeTruthy();
+    expect(searchInput).toBeTruthy();
     expect(list?.querySelectorAll("li[role='option']").length).toBe(17);
 
-    if (search) {
-      userEvent.type(search, '17');
+    if (searchInput) {
+      userEvent.type(searchInput, '17');
     }
 
     expect(list?.querySelectorAll("li[role='option']").length).toBe(1);
@@ -151,43 +154,31 @@ describe('Select should render with search', () => {
 describe('Selecting options using keyboard', () => {
   it('should focus through list items and select on enterpress', async () => {
     const onChangeHandler = jest.fn();
-    const { select } = createSelect((defaultParams) => ({
+    const { select, button } = createSelect((defaultParams) => ({
       ...defaultParams,
       onChange: onChangeHandler,
     }));
 
-    (select.querySelector('.custom-select') as HTMLElement)!.focus();
+    button.focus();
     userEvent.keyboard('{enter}');
 
-    await waitFor(() => {
-      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'true');
-      return true;
-    });
+    expect(button).toHaveAttribute('aria-expanded', 'true');
 
     userEvent.keyboard('{arrowdown}');
     userEvent.keyboard('{arrowdown}');
     userEvent.keyboard('{enter}');
 
-    await waitFor(() => {
-      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'false');
-      return true;
-    });
+    expect(button).toHaveAttribute('aria-expanded', 'false');
 
     expect(onChangeHandler).toHaveBeenCalled();
 
     userEvent.keyboard('{enter}');
 
-    await waitFor(() => {
-      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'false');
-      return true;
-    });
+    expect(button).toHaveAttribute('aria-expanded', 'false');
 
     userEvent.keyboard('{arrowdown}');
 
-    await waitFor(() => {
-      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'true');
-      return true;
-    });
+    expect(button).toHaveAttribute('aria-expanded', 'true');
 
     expect(select.querySelector('li[data-value="option3"]')).toHaveFocus();
 
@@ -206,9 +197,7 @@ describe('Selecting options using keyboard', () => {
 
     userEvent.keyboard('{escape}');
 
-    await waitFor(() => {
-      expect(select.querySelector('.custom-select')).toHaveAttribute('aria-expanded', 'false');
-    });
+    expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 });
 
@@ -228,7 +217,7 @@ describe('Expanded should be false whenever we click the body', () => {
 
 describe('List expansion', () => {
   it('should expand upwards', () => {
-    const { select, button } = createSelect();
+    const { select, button, dropdownWrapper } = createSelect();
 
     Object.defineProperty(window, 'innerHeight', { value: 500, writable: true });
 
@@ -248,16 +237,13 @@ describe('List expansion', () => {
       userEvent.click(button);
     }
 
-    const listWrapper = select.querySelector('.list-wrapper');
-
-    expect(listWrapper).toHaveStyle({ bottom: '0px' });
+    expect(dropdownWrapper).toHaveStyle({ bottom: '0px' });
   });
 
   it('should expand downwards with a max height set', () => {
-    const { select, getByRole } = createSelect();
-    const listWrapper = select.querySelector('.list-wrapper');
+    const { select, getByRole, dropdownWrapper } = createSelect();
 
-    listWrapper!.getBoundingClientRect = () => ({
+    dropdownWrapper!.getBoundingClientRect = () => ({
       x: 50,
       y: 50,
       width: 500,
@@ -287,8 +273,8 @@ describe('List expansion', () => {
     const button = getByRole('button');
     userEvent.click(button);
 
-    expect(listWrapper).toHaveStyle({ maxHeight: '474px' });
-    expect(listWrapper).toHaveStyle({ top: '0px' });
+    expect(dropdownWrapper).toHaveStyle({ maxHeight: '474px' });
+    expect(dropdownWrapper).toHaveStyle({ top: '0px' });
   });
 });
 
@@ -296,13 +282,13 @@ describe('onClear method', () => {
   it('should show a cross and fire the passed onClear function', async () => {
     const onClearHandler = jest.fn();
 
-    const { select } = createSelect((defaultParams) => ({
+    const { select, button } = createSelect((defaultParams) => ({
       ...defaultParams,
       onClear: onClearHandler,
       value: 'option4',
     }));
 
-    (select.querySelector('.custom-select') as HTMLElement)!.focus();
+    button.focus();
     const clearButton = select.querySelector('[data-clear]');
 
     userEvent.tab();
@@ -312,5 +298,59 @@ describe('onClear method', () => {
     userEvent.keyboard('{enter}');
 
     expect(onClearHandler).toHaveBeenCalled();
+    expect(button?.getAttribute('aria-expanded')).toBe('false');
+  });
+});
+
+describe('previously selected item', () => {
+  it('should have focus', () => {
+    const { select, button } = createSelect((defaultParams) => ({
+      ...defaultParams,
+      value: 'option4',
+    }));
+
+    button.focus();
+
+    userEvent.keyboard('{enter}');
+    expect(button).toHaveAttribute('aria-expanded', 'true');
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{arrowdown}');
+    userEvent.keyboard('{enter}');
+
+    userEvent.click(button);
+
+    expect(document.activeElement).toBe(select.querySelector('li[data-value="option3"]'));
+  });
+});
+
+describe('search input', () => {
+  it('listenes to different keyboard inputs', async () => {
+    const { button } = createSelect((defaultParams) => ({
+      ...defaultParams,
+    }));
+
+    const searchInput = document.querySelector('.select-search')!;
+
+    userEvent.click(button);
+    userEvent.keyboard('{enter}');
+    userEvent.tab();
+
+    // console.log(document.activeElement);
+
+    // await waitFor(() => expect(searchInput).toHaveFocus());
+
+    userEvent.keyboard('{arrowup}');
+
+    // console.log(document.activeElement);
+
+    // expect(select.querySelector('li[data-value="option17"]')).toHaveFocus();
+
+    userEvent.tab();
+
+    userEvent.click(searchInput);
+
+    userEvent.keyboard('{escape}');
+
+    expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 });
