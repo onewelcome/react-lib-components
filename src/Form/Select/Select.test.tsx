@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Select as SelectComponent, Props } from './Select';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Option } from './Option';
 import userEvent from '@testing-library/user-event';
 
@@ -325,29 +325,26 @@ describe('previously selected item', () => {
 
 describe('search input', () => {
   it('listenes to different keyboard inputs', async () => {
-    const { button } = createSelect((defaultParams) => ({
+    const { button, select } = createSelect((defaultParams) => ({
       ...defaultParams,
     }));
 
     const searchInput = document.querySelector('.select-search')!;
 
     userEvent.click(button);
-    userEvent.keyboard('{enter}');
     userEvent.tab();
 
-    // console.log(document.activeElement);
-
-    // await waitFor(() => expect(searchInput).toHaveFocus());
+    await waitFor(() => expect(searchInput).toHaveFocus());
 
     userEvent.keyboard('{arrowup}');
 
-    // console.log(document.activeElement);
-
-    // expect(select.querySelector('li[data-value="option17"]')).toHaveFocus();
+    await waitFor(() => expect(select.querySelector('li[data-value="option17"]')).toHaveFocus());
 
     userEvent.tab();
 
-    userEvent.click(searchInput);
+    (searchInput as HTMLElement).focus();
+
+    expect(select.querySelector('.select-search')!).toHaveFocus();
 
     userEvent.keyboard('{escape}');
 
