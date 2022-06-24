@@ -84,22 +84,18 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     const searchInputRef = useRef<HTMLInputElement>(null);
 
     const onArrowNavigation = (event: React.KeyboardEvent) => {
-      /** If we hit enter, or click, on the onClear button, we don't want the select to open or close. */
-      if ((event.target as HTMLElement).getAttribute('[data-clear]')) {
-        return;
-      }
-
       const codesToPrevenDefault = [
         'ArrowDown',
         'ArrowUp',
         'ArrowLeft',
         'ArrowRight',
-        'Enter',
         'Space',
         'Escape',
         'End',
         'Home',
       ];
+
+      const codesToPreventDefaultWhenSearching = ['ArrowDown', 'ArrowUp', 'Enter', 'Escape'];
 
       /** If the select is expanded, we also want to control the Tab key */
       if (expanded) {
@@ -108,6 +104,10 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
       /** We will handle the way certain key strokes affect the Select, unless we're searching */
       if (codesToPrevenDefault.includes(event.code) && !isSearching) {
+        event.preventDefault();
+      }
+
+      if (isSearching && codesToPreventDefaultWhenSearching.includes(event.code)) {
         event.preventDefault();
       }
 
@@ -122,13 +122,12 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             setIsSearching(false);
             setFocusedSelectItem(childrenCount - 1);
             return;
-          case 'Tab':
           case 'Escape':
+          case 'Tab':
             setIsSearching(false);
             setExpanded(false);
             containerReference.current &&
               containerReference.current.querySelector('button')!.focus();
-            return;
         }
       } else {
         switch (event.code) {
@@ -147,19 +146,19 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
               return prevState - 1 < 0 ? childrenCount - 1 : prevState - 1;
             });
             return;
-          case 'Enter':
           case 'Space':
             if (!expanded) {
               setExpanded(true);
               return;
             }
+
             setShouldClick(true);
             setExpanded(false);
             containerReference.current &&
               containerReference.current.querySelector('button')!.focus();
             return;
           case 'Tab':
-            if (childrenCount >= renderSearchCondition) {
+            if (childrenCount >= renderSearchCondition && expanded) {
               setIsSearching(true);
               searchInputRef.current && searchInputRef.current.focus();
               return;
@@ -185,10 +184,10 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     };
 
     useEffect(() => {
-      if (document.activeElement === searchInputRef.current) {
+      if (document.activeElement === searchInputRef.current && expanded) {
         setIsSearching(true);
       }
-    }, [expanded, document.activeElement]);
+    }, [document.activeElement]);
 
     const syncDisplayValue = (val: string) => {
       React.Children.forEach(children, (child) => {

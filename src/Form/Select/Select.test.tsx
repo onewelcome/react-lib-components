@@ -159,8 +159,7 @@ describe('Selecting options using keyboard', () => {
       onChange: onChangeHandler,
     }));
 
-    button.focus();
-    userEvent.keyboard('{enter}');
+    userEvent.click(button);
 
     expect(button).toHaveAttribute('aria-expanded', 'true');
 
@@ -178,17 +177,18 @@ describe('Selecting options using keyboard', () => {
 
     userEvent.keyboard('{arrowdown}');
 
-    expect(select.querySelector('li[data-value="option4"]')).toHaveFocus();
+    expect(select.querySelector('li[data-value="option3"]')).toHaveFocus();
 
     userEvent.keyboard('{arrowup}');
     userEvent.keyboard('{arrowup}');
     userEvent.keyboard('{arrowup}');
     userEvent.keyboard('{arrowup}');
 
-    expect(select.querySelector('li[data-value="option17"]')).toHaveFocus();
-    userEvent.keyboard('{arrowup}');
     expect(select.querySelector('li[data-value="option16"]')).toHaveFocus();
+    userEvent.keyboard('{arrowup}');
+    expect(select.querySelector('li[data-value="option15"]')).toHaveFocus();
 
+    userEvent.keyboard('{arrowdown}');
     userEvent.keyboard('{arrowdown}');
     userEvent.keyboard('{arrowdown}');
 
@@ -310,23 +310,38 @@ describe('previously selected item', () => {
 
     button.focus();
 
+    const option2 = select.querySelector('li[data-value="option2"]')!;
+
     userEvent.keyboard('{enter}');
     expect(button).toHaveAttribute('aria-expanded', 'true');
     userEvent.keyboard('{arrowdown}');
     userEvent.keyboard('{arrowdown}');
-    userEvent.keyboard('{enter}');
+    userEvent.keyboard('{space}');
 
     userEvent.click(button);
 
-    expect(document.activeElement).toBe(select.querySelector('li[data-value="option3"]'));
+    expect(document.activeElement).toBe(option2);
   });
 });
 
 describe('search input', () => {
   it('listenes to different keyboard inputs', async () => {
-    const { button, select } = createSelect((defaultParams) => ({
-      ...defaultParams,
-    }));
+    const { button, select } = createSelect();
+
+    const searchInput = document.querySelector('.select-search')!;
+
+    userEvent.click(button);
+    userEvent.tab();
+
+    expect(searchInput).toHaveFocus();
+
+    userEvent.keyboard('{arrowup}');
+
+    await waitFor(() => expect(select.querySelector('li[data-value="option17"]')).toHaveFocus());
+  });
+
+  it('closes on escape', async () => {
+    const { button } = createSelect();
 
     const searchInput = document.querySelector('.select-search')!;
 
@@ -335,18 +350,37 @@ describe('search input', () => {
 
     await waitFor(() => expect(searchInput).toHaveFocus());
 
-    userEvent.keyboard('{arrowup}');
-
-    await waitFor(() => expect(select.querySelector('li[data-value="option17"]')).toHaveFocus());
-
-    userEvent.tab();
-
-    (searchInput as HTMLElement).focus();
-
-    expect(select.querySelector('.select-search')!).toHaveFocus();
-
     userEvent.keyboard('{escape}');
 
     expect(button).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('closes on tab', async () => {
+    const { button } = createSelect();
+
+    const searchInput = document.querySelector('.select-search')!;
+
+    userEvent.click(button);
+    userEvent.tab();
+    expect(searchInput).toHaveFocus();
+    userEvent.tab();
+  });
+});
+
+describe('home and end keys work', () => {
+  it('goes to home and end', () => {
+    const { button } = createSelect();
+
+    userEvent.click(button);
+
+    const firstOption = document.querySelector('li[data-value="option1"]');
+    const lastOption = document.querySelector('li[data-value="option17"]');
+
+    userEvent.keyboard('{end}');
+
+    expect(lastOption).toHaveFocus();
+    userEvent.keyboard('{home}');
+
+    expect(firstOption).toHaveFocus();
   });
 });
