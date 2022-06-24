@@ -4,7 +4,7 @@ export { Button, Props as ButtonProps } from './Button/Button';
 export { Breadcrumbs, Props as BreadcrumbsProps } from './Breadcrumbs/Breadcrumbs';
 export { ContextMenu, Props as ContextMenuProps } from './ContextMenu/ContextMenu';
 export { ContextMenuItem, Props as ContextMenuItemProps } from './ContextMenu/ContextMenuItem';
-export { Link, Props as LinkProps } from './Link/Link';
+export { Link, Props as LinkProps, AnchorType } from './Link/Link';
 export { Icon, Icons, Props as IconProps } from './Icon/Icon';
 export { IconButton, Props as IconButtonProps } from './Button/IconButton';
 export { Tab, Props as TabProps } from './Tabs/Tab';

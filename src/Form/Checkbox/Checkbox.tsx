@@ -53,7 +53,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, Props>(
 
     useEffect(() => {
       if (!name) {
-        console.error("Please pass a 'name' prop to your <Checkbox> component.");
+        throw new Error("Please pass a 'name' prop to your <Checkbox> component.");
       }
 
       if (typeof children === 'object' && !isToggle(children) && indeterminate === undefined) {
@@ -83,15 +83,15 @@ export const Checkbox = React.forwardRef<HTMLInputElement, Props>(
 
     const renderNestedCheckboxes = () => (
       <ul className={classes['checkbox-list']}>
-        {React.Children.map(children as ReactNode[], (child) => {
+        {React.Children.map(children as ReactElement[], (child: ReactElement) => {
           return (
             <li>
               <Checkbox
-                {...(child as ReactElement).props}
+                {...child.props}
                 parentHelperId={parentHelperId}
                 parentErrorId={parentErrorId}
                 error={error}
-                disabled={disabled ? disabled : (child as Props).disabled}
+                disabled={child.props.disabled ? child.props.disabled : disabled}
               >
                 {(child as ReactElement).props.children}
               </Checkbox>
