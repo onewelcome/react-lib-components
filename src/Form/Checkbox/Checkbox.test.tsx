@@ -1,15 +1,16 @@
 import React, { useEffect, useRef } from 'react';
-import { Checkbox, CheckboxProps as Props } from './Checkbox';
+import { Checkbox, Props } from './Checkbox';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Toggle } from '../Toggle/Toggle';
 
-const onChangeHandeler = jest.fn();
+const onChangeHandler = jest.fn();
 
 const defaultParams: Props = {
   name: 'Testing',
   children: 'checkbox content',
   helperText: 'example helper',
-  onChange: onChangeHandeler,
+  onChange: onChangeHandler,
 };
 
 const createCheckbox = (params?: (defaultParams: Props) => Props) => {
@@ -83,9 +84,35 @@ describe('Checkbox should have proper attributes', () => {
   });
 
   it('should be disabled', () => {
-    const { checkbox } = createCheckbox((defaultParams) => ({ ...defaultParams, disabled: true }));
+    const onChangeHandler = jest.fn();
+    const { checkbox } = createCheckbox((defaultParams) => ({
+      ...defaultParams,
+      onChange: onChangeHandler,
+      disabled: true,
+    }));
 
-    expect(checkbox).toHaveAttribute('disabled');
+    expect(checkbox).toBeDisabled();
+
+    userEvent.click(checkbox);
+
+    expect(onChangeHandler).not.toHaveBeenCalled();
+  });
+
+  it('nested checkbox should be disabled', () => {
+    const { getByTestId } = createCheckbox((defaultParams) => ({
+      ...defaultParams,
+      indeterminate: false,
+      label: 'test',
+      children: (
+        <Checkbox data-testid="nested-checkbox" name="test" disabled={true}>
+          test
+        </Checkbox>
+      ),
+    }));
+
+    const nestedCheckbox = getByTestId('nested-checkbox');
+
+    expect(nestedCheckbox).toBeDisabled();
   });
 
   it('should have helpertext rendered', () => {
@@ -131,15 +158,124 @@ describe('Checkbox should be interactive', () => {
   it('should call onChange when clicked', () => {
     const { checkbox } = createCheckbox();
 
-    expect(onChangeHandeler).not.toBeCalled();
+    expect(onChangeHandler).not.toBeCalled();
     userEvent.click(checkbox);
-    expect(onChangeHandeler).toBeCalledTimes(1);
+    expect(onChangeHandler).toBeCalledTimes(1);
   });
 
   it('should not call onChange when disabled', () => {
     const { checkbox } = createCheckbox((defaultParams) => ({ ...defaultParams, disabled: true }));
 
     userEvent.click(checkbox);
-    expect(onChangeHandeler).not.toBeCalled();
+    expect(onChangeHandler).not.toBeCalled();
+  });
+});
+
+describe('toggle version', () => {
+  it('should turn into a toggle', () => {
+    const { container } = render(<Toggle name="toggle">Test</Toggle>);
+
+    expect(container.querySelector('[data-toggle]')).toBeInTheDocument();
+  });
+});
+
+describe('missing attributes gets us errors', () => {
+  it('throws an error for missing label prop', () => {
+    // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
+    const err = console.error;
+    console.error = jest.fn();
+
+    let actual;
+
+    try {
+      // @ts-ignore: mandatory props (test for non-typescript react projects)
+      createCheckbox((defaultParams) => ({
+        ...defaultParams,
+        name: 'testing',
+        children: <Checkbox name="test">Test</Checkbox>,
+      }));
+    } catch (e: any) {
+      actual = e.message;
+    }
+
+    const expected =
+      'If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox.';
+
+    expect(actual).toEqual(expected);
+
+    console.error = err;
+  });
+
+  it('throws an error for indeterminate prop', () => {
+    // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
+    const err = console.error;
+    console.error = jest.fn();
+
+    let actual;
+
+    try {
+      // @ts-ignore: mandatory props (test for non-typescript react projects)
+      createCheckbox((defaultParams) => ({
+        ...defaultParams,
+        label: 'testing',
+        children: <Checkbox name="test">Test</Checkbox>,
+      }));
+    } catch (e: any) {
+      actual = e.message;
+    }
+
+    const expected =
+      'If you have nested checkboxes you have to manage the indeterminate state by passing a boolean to the `indeterminate` prop.';
+
+    expect(actual).toEqual(expected);
+
+    console.error = err;
+  });
+
+  it('throws an error for incorrect children prop', () => {
+    // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
+    const err = console.error;
+    console.error = jest.fn();
+
+    let actual;
+
+    try {
+      // @ts-ignore: mandatory props (test for non-typescript react projects)
+      createCheckbox((defaultParams) => ({
+        name: undefined,
+      }));
+    } catch (e: any) {
+      actual = e.message;
+    }
+
+    const expected =
+      'Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component.';
+
+    expect(actual).toEqual(expected);
+
+    console.error = err;
+  });
+
+  it('throws an error for missing name prop', () => {
+    // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
+    const err = console.error;
+    console.error = jest.fn();
+
+    let actual;
+
+    try {
+      // @ts-ignore: mandatory props (test for non-typescript react projects)
+      createCheckbox((defaultParams) => ({
+        children: 'test',
+      }));
+    } catch (e: any) {
+      actual = e.message;
+    }
+
+    const expected = "Please pass a 'name' prop to your <Checkbox> component.";
+
+    expect(actual).toEqual(expected);
+
+    console.error = err;
   });
 });

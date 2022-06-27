@@ -7,7 +7,7 @@ import React, {
 import classes from './Link.module.scss';
 import { LinkProps } from './types';
 
-type AnchorType = 'external' | 'internal' | 'download';
+export type AnchorType = 'external' | 'internal' | 'download';
 
 export interface Props extends ComponentPropsWithRef<'a'> {
   children?: ReactNode;
