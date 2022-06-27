@@ -99,6 +99,39 @@ describe('Link should render', () => {
 
     expect(link).toHaveClass('classname');
   });
+
+  it('should render as a filled button ', () => {
+    const { link } = createLink((defaultParams) => ({
+      ...defaultParams,
+      display: 'button',
+      buttonVariant: 'fill',
+    }));
+
+    expect(link).toHaveClass('button');
+    expect(link).toHaveClass('fill');
+  });
+
+  it('should render as a text button ', () => {
+    const { link } = createLink((defaultParams) => ({
+      ...defaultParams,
+      display: 'button',
+      buttonVariant: 'text',
+    }));
+
+    expect(link).toHaveClass('button');
+    expect(link).toHaveClass('text');
+  });
+
+  it('should render as an outline button ', () => {
+    const { link } = createLink((defaultParams) => ({
+      ...defaultParams,
+      display: 'button',
+      buttonVariant: 'outline',
+    }));
+
+    expect(link).toHaveClass('button');
+    expect(link).toHaveClass('outline');
+  });
 });
 
 describe('ref should work', () => {
