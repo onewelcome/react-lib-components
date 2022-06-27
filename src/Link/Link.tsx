@@ -48,10 +48,9 @@ export const Link = React.forwardRef<HTMLAnchorElement, Props>(
       return '';
     };
 
-    const classNames =
-      display === 'link'
-        ? [classes['link'], classes[color]]
-        : [classes['button'], classes[buttonVariant], classes[color]];
+    const classNames = [classes[color]];
+    display === 'link' && classNames.push(classes['link']);
+    display === 'button' && classNames.push(classes['button'], classes[buttonVariant]);
     disabled && classNames.push(classes['disabled']);
     className && classNames.push(className);
 

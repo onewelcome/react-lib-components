@@ -1,18 +1,16 @@
 @import './readyclasses.module.scss';
 
 @mixin button($variant: 'text', $type: 'default') {
+  $disabledSelector: if($type == 'link', '.disabled', ':disabled');
+
   @if $variant == 'text' {
     border-color: transparent;
     background-color: transparent;
   } @else if $variant == 'fill' {
     @if $type == 'default' {
       color: var(--button-fill-text-color);
-    } @else if $type == 'icon' {
-      &:not(:disabled) {
-        color: var(--button-fill-text-color);
-      }
-    } @else if $type == 'link' {
-      &:not(.disabled) {
+    } @else if $type == 'icon' or $type == 'link' {
+      &:not(#{$disabledSelector}) {
         color: var(--button-fill-text-color);
       }
     }
@@ -22,85 +20,39 @@
     font-weight: bold;
   }
 
-  @if $type != 'link' {
-    &.primary:not(:disabled) {
-      @include buttonStyles(var(--color-primary), $variant, $type);
-    }
-
-    &.secondary:not(:disabled) {
-      @include buttonStyles(var(--color-secondary), $variant, $type);
-    }
-
-    &.tertiary:not(:disabled) {
-      @include buttonStyles(var(--color-tertiary), $variant, $type);
-    }
-
-    &.default:not(:disabled) {
-      @include buttonStyles(var(--default), $variant, $type);
-    }
-  } @else if $type == 'link' {
-    &.primary:not(.disabled) {
-      @include buttonStyles(var(--color-primary), $variant, $type);
-    }
-
-    &.secondary:not(.disabled) {
-      @include buttonStyles(var(--color-secondary), $variant, $type);
-    }
-
-    &.tertiary:not(.disabled) {
-      @include buttonStyles(var(--color-tertiary), $variant, $type);
-    }
-
-    &.default:not(.disabled) {
-      @include buttonStyles(var(--default), $variant, $type);
-    }
+  &.primary:not(#{$disabledSelector}) {
+    @include buttonStyles(var(--color-primary), $variant, $type);
+  }
+  &.secondary:not(#{$disabledSelector}) {
+    @include buttonStyles(var(--color-secondary), $variant, $type);
+  }
+  &.tertiary:not(#{$disabledSelector}) {
+    @include buttonStyles(var(--color-tertiary), $variant, $type);
+  }
+  &.default:not(#{$disabledSelector}) {
+    @include buttonStyles(var(--default), $variant, $type);
   }
 
   @if $variant == 'fill' {
-    @if $type != 'link' {
-      &:hover:not(:disabled),
-      &:focus:not(:disabled),
-      &:active:not(:disabled) {
-        background-color: var(--button-fill-background-color);
-      }
+    &:hover:not(#{$disabledSelector}),
+    &:focus:not(#{$disabledSelector}),
+    &:active:not(#{$disabledSelector}) {
+      background-color: var(--button-fill-background-color);
+    }
 
-      &:disabled {
-        background-color: var(--disabled);
-        border-color: var(--disabled);
-      }
-    } @else if $type == 'link' {
-      &:hover:not(.disabled),
-      &:focus:not(.disabled),
-      &:active:not(.disabled) {
-        background-color: var(--button-fill-background-color);
-      }
-
-      &.disabled {
-        background-color: var(--disabled);
-        border-color: var(--disabled);
-      }
+    &#{$disabledSelector} {
+      background-color: var(--disabled);
+      border-color: var(--disabled);
     }
   } @else if $variant == 'outline' {
-    @if $type != 'link' {
-      &:hover:not(:disabled),
-      &:focus:not(:disabled) {
-        color: var(--button-outline-hover-text-color);
-      }
+    &:hover:not(#{$disabledSelector}),
+    &:focus:not(#{$disabledSelector}) {
+      color: var(--button-outline-hover-text-color);
+    }
 
-      &:disabled {
-        border-color: var(--greyed-out);
-        background-color: transparent;
-      }
-    } @else if $type == 'link' {
-      &:hover:not(.disabled),
-      &:focus:not(.disabled) {
-        color: var(--button-outline-hover-text-color);
-      }
-
-      &.disabled {
-        border-color: var(--greyed-out);
-        background-color: transparent;
-      }
+    &#{$disabledSelector} {
+      border-color: var(--greyed-out);
+      background-color: transparent;
     }
   }
 }
@@ -166,6 +118,8 @@
 }
 
 @mixin buttonBase($type: 'default') {
+  $disabledSelector: if($type == 'link', '.disabled', ':disabled');
+
   border-width: var(--button-border-width);
   border-style: var(--button-border-style);
   border-radius: var(--button-border-radius);
@@ -180,16 +134,9 @@
   transition-timing-function: ease-in-out;
   font-family: var(--font-family);
 
-  @if $type != 'link' {
-    &:disabled {
-      color: var(--greyed-out);
-      cursor: not-allowed;
-    }
-  } @else if $type == 'link' {
-    &.disabled {
-      color: var(--greyed-out);
-      cursor: not-allowed;
-    }
+  &#{$disabledSelector} {
+    color: var(--greyed-out);
+    cursor: not-allowed;
   }
 }
 
