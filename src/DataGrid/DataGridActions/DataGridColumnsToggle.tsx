@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { IconButton } from '../../Button/IconButton';
 import { Toggle } from '../../Form/Toggle/Toggle';
 import { Icon, Icons } from '../../Icon/Icon';
@@ -65,19 +65,23 @@ export const DataGridColumnsToggle = React.forwardRef<HTMLDivElement, Props>(
             <div className={classes['backdrop']} onClick={handleBackdropClick}></div>,
             domRoot
           )}
-        <div className={classes['header']}>
-          <Typography id={labelledId} className={classes['title']} tag="span" variant="h4">
-            {titleLabel}
-          </Typography>
-          <IconButton
-            onClick={onClose}
-            className={`${classes['close-btn']}`}
-            title={closeButtonTitle}
-          >
-            <Icon icon={Icons.Times} />
-          </IconButton>
-        </div>
-        <div className={classes['content']}>{toggles}</div>
+        {open && (
+          <Fragment>
+            <div className={classes['header']}>
+              <Typography id={labelledId} className={classes['title']} tag="span" variant="h4">
+                {titleLabel}
+              </Typography>
+              <IconButton
+                onClick={onClose}
+                className={`${classes['close-btn']}`}
+                title={closeButtonTitle}
+              >
+                <Icon icon={Icons.Times} />
+              </IconButton>
+            </div>
+            <div className={classes['content']}>{toggles}</div>
+          </Fragment>
+        )}
       </Popover>
     );
   }
