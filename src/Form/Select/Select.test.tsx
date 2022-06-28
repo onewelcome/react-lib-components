@@ -358,7 +358,7 @@ describe('previously selected item', () => {
 });
 
 describe('search input', () => {
-  it('listenes to different keyboard inputs', async () => {
+  it('listens to different keyboard inputs', async () => {
     const { button, select } = createSelect();
 
     const searchInput = document.querySelector('.select-search')!;

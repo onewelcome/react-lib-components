@@ -84,7 +84,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     const searchInputRef = useRef<HTMLInputElement>(null);
 
     const onArrowNavigation = (event: React.KeyboardEvent) => {
-      const codesToPrevenDefault = [
+      const codesToPreventDefault = [
         'ArrowDown',
         'ArrowUp',
         'ArrowLeft',
@@ -99,11 +99,11 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
       /** If the select is expanded, we also want to control the Tab key */
       if (expanded) {
-        codesToPrevenDefault.push('Tab');
+        codesToPreventDefault.push('Tab');
       }
 
       /** We will handle the way certain key strokes affect the Select, unless we're searching */
-      if (codesToPrevenDefault.includes(event.code) && !isSearching) {
+      if (codesToPreventDefault.includes(event.code) && !isSearching) {
         event.preventDefault();
       }
 
