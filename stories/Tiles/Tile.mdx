@@ -1,0 +1,20 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `Tile` component should always be nested in the `Tiles` component. It renders a container that stretches based on its parent. There are multiple things a `Tile` component can render for you:
+
+## Enabled
+
+The `enabled` prop has three states: `true`, `false`, and `undefined`. Then it's set to `true`, a checkmark will be displayed in the top left corner, if it's `false` it will be a forbidden icon
+
+# Examples
+
+<Canvas>
+  <Story id="stories-ui-tiles-tile--tile" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

@@ -1,0 +1,21 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+
+<Title />
+<Subtitle />
+
+The `Tiles` component has been created to display a single, or multiple, `Tile` components. It can, and should, be utilized as a wrapper to the `Tile` component to provide a proper pre-defined grid structure.
+The maximum amount of `Tile` component next to each other is 3 on desktop and it scales down automatically when the window resizes to a smaller viewport.
+
+At the same time it will provide you with the option to enable and disable a `loading` state which will show 3 `Tile` components with Skeleton Loading.
+
+For documentation regarding individual `Tile` components, [see this page](?path=/docs/stories-ui-tiles-tile--tile).
+
+# Examples
+
+<Canvas>
+  <Story id="stories-ui-tiles-tiles--tiles" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
