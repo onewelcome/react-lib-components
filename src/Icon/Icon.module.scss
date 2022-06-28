@@ -280,3 +280,7 @@
   content: '\e93e';
   @include fontProperties();
 }
+.icon-table-search:before {
+  content: '\e93f';
+  @include fontProperties();
+}

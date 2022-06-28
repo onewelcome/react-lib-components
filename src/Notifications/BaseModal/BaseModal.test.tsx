@@ -104,7 +104,8 @@ describe('BaseModal', () => {
     const { getByRole } = createBaseModal();
 
     const modal = getByRole('dialog');
-    const backdrop = modal.querySelector('.backdrop') as HTMLElement;
+
+    const backdrop = modal.querySelector('.backdrop')!;
     expect(defaultParams.onClose).toHaveBeenCalledTimes(0);
 
     userEvent.click(backdrop);

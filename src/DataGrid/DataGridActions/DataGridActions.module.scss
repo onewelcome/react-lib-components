@@ -1,0 +1,35 @@
+.actions {
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.left-actions {
+  flex: 1;
+}
+
+.right-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.desktop {
+  display: none;
+}
+
+@media only screen and (min-width: 50em) {
+  .actions {
+    padding: 0 1.25rem;
+  }
+}
+
+@media only screen and (min-width: 30em) {
+  .desktop {
+    display: block;
+  }
+
+  .mobile {
+    display: none;
+  }
+}

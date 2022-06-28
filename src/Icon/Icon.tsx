@@ -53,6 +53,7 @@ export enum Icons {
   Square = 'square',
   Star = 'star',
   StarAlt = 'star-alt',
+  TableSearch = 'table-search',
   Times = 'times',
   TimesCircle = 'times-circle',
   TimesCircleAlt = 'times-circle-alt',
