@@ -1,0 +1,21 @@
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.table {
+  border-collapse: collapse;
+  padding-top: 0.5rem;
+  width: 100%;
+  position: relative;
+}
+
+.pagination {
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+@media only screen and (min-width: 50em) {
+  .pagination {
+    padding: 0 1.25rem;
+  }
+}

@@ -63,7 +63,22 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
         setFocusedContextMenuItem(selectedContextMenuItem);
       }
 
-      event.preventDefault();
+      const codesToPrevenDefault = [
+        'ArrowDown',
+        'ArrowUp',
+        'ArrowLeft',
+        'ArrowRight',
+        'Enter',
+        'Space',
+        'Escape',
+        'End',
+        'Home',
+      ];
+
+      if (codesToPrevenDefault.includes(event.code)) {
+        event.preventDefault();
+      }
+
       switch (event.code) {
         case 'ArrowDown':
           if (!showContextMenu) {
