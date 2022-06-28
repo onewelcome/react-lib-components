@@ -7,11 +7,13 @@ import React, {
 import classes from './Link.module.scss';
 import { LinkProps } from './types';
 
-type AnchorType = 'external' | 'internal' | 'download';
+export type AnchorType = 'external' | 'internal' | 'download';
 
 export interface Props extends ComponentPropsWithRef<'a'> {
   children?: ReactNode;
   color?: 'primary' | 'secondary' | 'tertiary';
+  display?: 'link' | 'button';
+  buttonVariant?: 'outline' | 'text' | 'fill';
   type?: AnchorType;
   to: string;
   disabled?: boolean;
@@ -27,6 +29,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, Props>(
       to,
       color = 'primary',
       type = 'internal',
+      display = 'link',
+      buttonVariant = 'fill',
       component,
       ...rest
     }: Props,
@@ -44,7 +48,9 @@ export const Link = React.forwardRef<HTMLAnchorElement, Props>(
       return '';
     };
 
-    const classNames = [classes['link'], classes[color]];
+    const classNames = [classes[color]];
+    display === 'link' && classNames.push(classes['link']);
+    display === 'button' && classNames.push(classes['button'], classes[buttonVariant]);
     disabled && classNames.push(classes['disabled']);
     className && classNames.push(className);
 

@@ -1,20 +1,5 @@
-.button {
-  border-width: var(--button-border-width);
-  border-style: var(--button-border-style);
-  border-radius: var(--button-border-radius);
-  font-size: var(--button-font-size);
-  line-height: var(--button-font-size);
-  margin: 0;
-  padding: 0.5rem 1.25rem;
-  min-height: 2.5rem;
-  cursor: pointer;
-  transition-property: color, background-color, border-color;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
-  font-family: var(--font-family);
+@import '../mixins.module.scss';
 
-  &:disabled {
-    color: var(--greyed-out);
-    cursor: not-allowed;
-  }
+.button {
+  @include buttonBase();
 }

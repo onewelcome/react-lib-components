@@ -15,7 +15,7 @@ export interface Props
   error?: boolean;
   selectProps?: PartialSelectProps;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onClear?: () => void;
+  onClear?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 export const SelectWrapper = React.forwardRef<HTMLDivElement, Props>(
@@ -56,7 +56,9 @@ export const SelectWrapper = React.forwardRef<HTMLDivElement, Props>(
           error={error}
           describedBy={error ? errorId : helperId}
           onChange={onChange}
-          onClear={onClear}
+          onClear={(e) => {
+            onClear && onClear(e);
+          }}
           placeholder={placeholder}
           className={`${floatingLabelActive ? classes['floating-label-active'] : ''} ${
             selectProps?.className ?? ''
