@@ -1,6 +1,5 @@
 .actions {
   margin-bottom: 1rem;
-  padding: 0 1rem;
   display: flex;
   flex-wrap: wrap;
 }
@@ -16,12 +15,6 @@
 
 .desktop {
   display: none;
-}
-
-@media only screen and (min-width: 50em) {
-  .actions {
-    padding: 0 1.25rem;
-  }
 }
 
 @media only screen and (min-width: 30em) {
