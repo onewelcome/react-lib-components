@@ -6,6 +6,7 @@ import { DataGridActions } from './DataGridActions/DataGridActions';
 import { DataGridBody } from './DataGridBody/DataGridBody';
 import { ColumnName, HeaderCell, OnSortFunction, Sort } from './datagrid.interfaces';
 import { Pagination, Props as PaginationProps } from '../Pagination/Pagination';
+import { Spacing, useSpacing } from '../hooks/useSpacing';
 
 export interface Props<T> extends ComponentPropsWithRef<'div'> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
@@ -26,6 +27,7 @@ export interface Props<T> extends ComponentPropsWithRef<'div'> {
   disableContextMenuColumn?: boolean;
   isLoading?: boolean;
   enableMultiSorting?: boolean;
+  spacing?: Spacing;
 }
 
 const DataGridInner = <T extends {}>(
@@ -41,6 +43,8 @@ const DataGridInner = <T extends {}>(
     isLoading,
     enableMultiSorting,
     emptyLabel,
+    spacing = { padding: 4 },
+    style,
     ...rest
   }: Props<T>,
   ref: Ref<HTMLDivElement>
@@ -53,6 +57,7 @@ const DataGridInner = <T extends {}>(
   }
 
   const [internalHeaders, setInternalHeaders] = useState(headers);
+  const styleWithSpacing = useSpacing(spacing, style);
 
   useEffect(() => setInternalHeaders(headers), [headers]);
 
@@ -64,9 +69,52 @@ const DataGridInner = <T extends {}>(
     );
   };
 
+  if (styleWithSpacing?.padding) {
+    const splitPaddings = styleWithSpacing.padding.toString().split(' ');
+
+    let paddingLeftIndex: number = 0;
+
+    if (splitPaddings.length >= 2) {
+      paddingLeftIndex = 1;
+    }
+    if (splitPaddings.length === 4) {
+      paddingLeftIndex = 3;
+    }
+
+    Object.defineProperties(styleWithSpacing, {
+      paddingTop: {
+        value: splitPaddings[0],
+      },
+      paddingRight: {
+        value: splitPaddings[splitPaddings.length - 1 > 0 ? 1 : 0],
+      },
+      paddingBottom: {
+        value: splitPaddings[splitPaddings.length / 3 >= 1 ? 2 : 0],
+      },
+      paddingLeft: {
+        value: splitPaddings[paddingLeftIndex],
+      },
+    });
+  }
+
   return (
-    <div {...rest} ref={ref}>
-      <DataGridActions {...actions} headers={internalHeaders} onColumnToggled={onColumnToggled} />
+    <div
+      {...rest}
+      ref={ref}
+      style={{
+        paddingTop: styleWithSpacing?.paddingTop,
+        paddingBottom: styleWithSpacing?.paddingBottom,
+      }}
+    >
+      <DataGridActions
+        {...actions}
+        style={{
+          paddingLeft: styleWithSpacing?.paddingLeft,
+          paddingRight: styleWithSpacing?.paddingRight,
+        }}
+        headers={internalHeaders}
+        onColumnToggled={onColumnToggled}
+      />
       <div className={classes['table-wrapper']}>
         <table className={classes['table']}>
           <DataGridHeader
@@ -75,6 +123,7 @@ const DataGridInner = <T extends {}>(
             onSort={onSort}
             disableContextMenuColumn={disableContextMenuColumn}
             enableMultiSorting={enableMultiSorting}
+            spacing={styleWithSpacing}
           />
           <DataGridBody
             children={children}
@@ -83,12 +132,18 @@ const DataGridInner = <T extends {}>(
             isLoading={isLoading}
             disableContextMenuColumn={disableContextMenuColumn}
             emptyLabel={emptyLabel}
+            spacing={styleWithSpacing}
           />
         </table>
       </div>
       {paginationProps && !isLoading && (
         <Pagination
           {...paginationProps}
+          style={{
+            ...paginationProps.style,
+            paddingLeft: styleWithSpacing?.paddingLeft,
+            paddingRight: styleWithSpacing?.paddingRight,
+          }}
           className={`${classes['pagination']} ${paginationProps.className ?? ''}`}
         />
       )}

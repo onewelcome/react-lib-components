@@ -9,13 +9,22 @@ export interface Props extends ComponentPropsWithRef<'thead'> {
   onSort?: OnSortFunction;
   disableContextMenuColumn?: boolean;
   enableMultiSorting?: boolean;
+  spacing?: React.CSSProperties;
 }
 
 const sortingStates = [undefined, 'ASC', 'DESC'] as (Direction | undefined)[];
 
 export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
   (
-    { initialSort, onSort, headers, disableContextMenuColumn, enableMultiSorting, ...rest }: Props,
+    {
+      initialSort,
+      onSort,
+      headers,
+      disableContextMenuColumn,
+      enableMultiSorting,
+      spacing,
+      ...rest
+    }: Props,
     ref
   ) => {
     const [sortList, setSortList] = useState(initialSort || []);
@@ -48,9 +57,18 @@ export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
       setSortList(newSort);
     };
 
-    const headerCells = headers.map((header) => {
+    const headerCells = headers.map((header, index) => {
       if (header.hidden) {
         return null;
+      }
+
+      let headerStyle: React.CSSProperties = {};
+
+      if (index === 0) {
+        headerStyle.paddingLeft = spacing?.paddingLeft;
+      }
+      if (index === headers.length - 1 && disableContextMenuColumn) {
+        headerStyle.paddingRight = spacing?.paddingRight;
       }
 
       const sort = sortList.find((item) => item.name === header.name);
@@ -62,6 +80,7 @@ export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
           disableSorting={header.disableSorting || !onSort}
           onSort={wrapOnSort}
           activeSortDirection={sort?.direction}
+          style={headerStyle}
         />
       );
     });
@@ -71,7 +90,11 @@ export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
         <tr className={classes['row']}>
           {headerCells}
           {!disableContextMenuColumn && (
-            <td aria-label="context menu" className={classes['context-menu']}></td>
+            <td
+              style={{ paddingRight: spacing?.paddingRight }}
+              aria-label="context menu"
+              className={classes['context-menu']}
+            ></td>
           )}
         </tr>
       </thead>

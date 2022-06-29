@@ -274,3 +274,148 @@ describe('ref should work', () => {
     render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
+
+describe('spacing should work correctly', () => {
+  it('gives the proper paddings to the right elements', () => {
+    const { dataGrid } = createDataGrid((defaultParams) => ({
+      ...defaultParams,
+      spacing: { padding: 4 },
+      paginationProps: {
+        totalElements: 105,
+        pageSize: 10,
+        currentPage: 2,
+        onPageChange: jest.fn(),
+        onPageSizeChange: jest.fn(),
+      },
+    }));
+
+    const firstHeaderCell = dataGrid.querySelector('.table .thead .row .header-cell');
+    const lastHeaderCell = dataGrid.querySelector('.table .thead .row td');
+    const firstBodyCell = dataGrid.querySelector('.table tbody .row .cell');
+    const lastBodyCell = dataGrid.querySelector('.table tbody .row td:last-of-type');
+    const pagination = dataGrid.querySelector('.pagination-wrapper');
+
+    expect(dataGrid).toHaveStyle({ 'padding-top': '1rem', 'padding-bottom': '1rem' });
+    expect(firstHeaderCell).toHaveStyle({ 'padding-left': '1rem' });
+    expect(lastHeaderCell).toHaveStyle({ 'padding-right': '1rem' });
+    expect(firstBodyCell).toHaveStyle({ 'padding-left': '1rem' });
+    expect(lastBodyCell).toHaveStyle({ 'padding-right': '1rem' });
+    expect(pagination).toHaveStyle({ 'padding-left': '1rem', 'padding-right': '1rem' });
+  });
+
+  it('gives the proper paddings to the right elements', () => {
+    const { dataGrid } = createDataGrid((defaultParams) => ({
+      ...defaultParams,
+      spacing: { padding: '4 5' },
+      paginationProps: {
+        totalElements: 105,
+        pageSize: 10,
+        currentPage: 2,
+        onPageChange: jest.fn(),
+        onPageSizeChange: jest.fn(),
+      },
+    }));
+
+    const firstHeaderCell = dataGrid.querySelector('.table .thead .row .header-cell');
+    const lastHeaderCell = dataGrid.querySelector('.table .thead .row td');
+    const firstBodyCell = dataGrid.querySelector('.table tbody .row .cell');
+    const lastBodyCell = dataGrid.querySelector('.table tbody .row td:last-of-type');
+    const pagination = dataGrid.querySelector('.pagination-wrapper');
+
+    expect(dataGrid).toHaveStyle({ 'padding-top': '1rem', 'padding-bottom': '1rem' });
+    expect(firstHeaderCell).toHaveStyle({ 'padding-left': '1.25rem' });
+    expect(lastHeaderCell).toHaveStyle({ 'padding-right': '1.25rem' });
+    expect(firstBodyCell).toHaveStyle({ 'padding-left': '1.25rem' });
+    expect(lastBodyCell).toHaveStyle({ 'padding-right': '1.25rem' });
+    expect(pagination).toHaveStyle({ 'padding-left': '1.25rem', 'padding-right': '1.25rem' });
+  });
+
+  it('gives the proper paddings to the right elements', () => {
+    const { dataGrid } = createDataGrid((defaultParams) => ({
+      ...defaultParams,
+      spacing: { padding: '4 5 8' },
+      paginationProps: {
+        totalElements: 105,
+        pageSize: 10,
+        currentPage: 2,
+        onPageChange: jest.fn(),
+        onPageSizeChange: jest.fn(),
+      },
+    }));
+
+    const firstHeaderCell = dataGrid.querySelector('.table .thead .row .header-cell');
+    const lastHeaderCell = dataGrid.querySelector('.table .thead .row td');
+    const firstBodyCell = dataGrid.querySelector('.table tbody .row .cell');
+    const lastBodyCell = dataGrid.querySelector('.table tbody .row td:last-of-type');
+    const pagination = dataGrid.querySelector('.pagination-wrapper');
+
+    expect(dataGrid).toHaveStyle({ 'padding-top': '1rem', 'padding-bottom': '2rem' });
+    expect(firstHeaderCell).toHaveStyle({ 'padding-left': '1.25rem' });
+    expect(lastHeaderCell).toHaveStyle({ 'padding-right': '1.25rem' });
+    expect(firstBodyCell).toHaveStyle({ 'padding-left': '1.25rem' });
+    expect(lastBodyCell).toHaveStyle({ 'padding-right': '1.25rem' });
+    expect(pagination).toHaveStyle({ 'padding-left': '1.25rem', 'padding-right': '1.25rem' });
+  });
+
+  it('gives the proper paddings to the right elements', () => {
+    const { dataGrid } = createDataGrid((defaultParams) => ({
+      ...defaultParams,
+      spacing: { padding: '6 4 8 8' },
+      paginationProps: {
+        totalElements: 105,
+        pageSize: 10,
+        currentPage: 2,
+        onPageChange: jest.fn(),
+        onPageSizeChange: jest.fn(),
+      },
+    }));
+
+    const firstHeaderCell = dataGrid.querySelector('.table .thead .row .header-cell');
+    const lastHeaderCell = dataGrid.querySelector('.table .thead .row td');
+    const firstBodyCell = dataGrid.querySelector('.table tbody .row .cell');
+    const lastBodyCell = dataGrid.querySelector('.table tbody .row td:last-of-type');
+    const pagination = dataGrid.querySelector('.pagination-wrapper');
+
+    expect(dataGrid).toHaveStyle({ 'padding-top': '1.5rem', 'padding-bottom': '2rem' });
+    expect(firstHeaderCell).toHaveStyle({ 'padding-left': '2rem' });
+    expect(lastHeaderCell).toHaveStyle({ 'padding-right': '1rem' });
+    expect(firstBodyCell).toHaveStyle({ 'padding-left': '2rem' });
+    expect(lastBodyCell).toHaveStyle({ 'padding-right': '1rem' });
+    expect(pagination).toHaveStyle({ 'padding-left': '2rem', 'padding-right': '1rem' });
+  });
+
+  it('gives the proper paddings to the right elements, also with contextmenu disabled', () => {
+    const { dataGrid } = createDataGrid((defaultParams) => ({
+      ...defaultParams,
+      spacing: { padding: '6 4 8 8' },
+      disableContextMenuColumn: true,
+      paginationProps: {
+        totalElements: 105,
+        pageSize: 10,
+        currentPage: 2,
+        onPageChange: jest.fn(),
+        onPageSizeChange: jest.fn(),
+      },
+      children: ({ item }) => (
+        <DataGridRow key={item.firstName}>
+          <DataGridCell>{item.firstName}</DataGridCell>
+          <DataGridCell>{item.lastName}</DataGridCell>
+          <DataGridCell>{item.date}</DataGridCell>
+        </DataGridRow>
+      ),
+    }));
+
+    const firstHeaderCell = dataGrid.querySelector('.table .thead .row .header-cell');
+    const lastHeaderCell = dataGrid.querySelector('.table .thead .row th:last-of-type');
+    const firstBodyCell = dataGrid.querySelector('.table tbody .row .cell');
+    const lastBodyCell = dataGrid.querySelector('.table tbody .row td:last-of-type');
+    const pagination = dataGrid.querySelector('.pagination-wrapper');
+
+    expect(dataGrid).toHaveStyle({ 'padding-top': '1.5rem', 'padding-bottom': '2rem' });
+    expect(firstHeaderCell).toHaveStyle({ 'padding-left': '2rem' });
+    expect(lastHeaderCell).toHaveStyle({ 'padding-right': '1rem' });
+    expect(firstBodyCell).toHaveStyle({ 'padding-left': '2rem' });
+    expect(lastBodyCell).toHaveStyle({ 'padding-right': '1rem' });
+    expect(pagination).toHaveStyle({ 'padding-left': '2rem', 'padding-right': '1rem' });
+  });
+});

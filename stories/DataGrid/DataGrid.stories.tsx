@@ -44,7 +44,7 @@ const meta: Meta = {
           style={{
             borderRadius: 'var(--card-border-radius)',
             backgroundColor: 'var(--card-background-color)',
-            padding: '1rem 0',
+            padding: '0',
             boxSizing: 'border-box',
           }}
         >
@@ -111,7 +111,7 @@ DataGrid.args = {
     addBtnProps: { onClick: () => action('add btn clicked') },
     searchBtnProps: { onClick: () => action('search btn clicked') },
   },
-  disableContextMenuColumn: false,
+  disableContextMenuColumn: true,
   paginationProps: {
     totalElements: 105,
     currentPage: 1,
