@@ -1,14 +1,19 @@
-import React, { ComponentPropsWithRef, useEffect, useState } from 'react';
+import React, { ComponentPropsWithRef, createRef, RefObject, useEffect } from 'react';
 import classes from './Select.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'li'> {
   children: string;
   value: string;
   disabled?: boolean;
-  selected?: boolean;
+  isSelected?: boolean;
+  selectOpened?: boolean;
+  hasFocus?: boolean;
+  shouldClick?: boolean;
+  isSearching?: boolean;
   label?: string;
-  filter?: string;
-  onOptionSelect?: (event: React.SyntheticEvent<HTMLLIElement>) => void;
+  childIndex?: number;
+  onOptionSelect?: (ref: React.RefObject<HTMLLIElement>) => void;
+  onFocusChange?: (childIndex: number) => void;
 }
 
 export const Option = React.forwardRef<HTMLLIElement, Props>(
@@ -16,44 +21,57 @@ export const Option = React.forwardRef<HTMLLIElement, Props>(
     {
       children,
       className,
-      selected = false,
+      isSelected = false,
+      shouldClick,
+      hasFocus,
+      selectOpened,
+      isSearching,
+      childIndex,
       onOptionSelect,
+      onFocusChange,
       disabled,
-      filter,
       value,
       ...rest
     }: Props,
     ref
   ) => {
-    const [showOption, setShowOption] = useState(true);
-
-    const onSelectHandler = (event: React.SyntheticEvent<HTMLLIElement>) => {
-      if (onOptionSelect) onOptionSelect(event);
-    };
+    let innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
 
     useEffect(() => {
-      if (filter) {
-        setShowOption(children.toLowerCase().match(filter.toLowerCase()) !== null);
-      } else {
-        setShowOption(true);
+      if (isSelected && innerOptionRef.current && shouldClick) {
+        innerOptionRef.current.click();
       }
-    }, [filter]);
+    }, [isSelected, shouldClick]);
 
-    if (!showOption) return null;
+    useEffect(() => {
+      if (innerOptionRef.current && hasFocus && selectOpened && !isSearching) {
+        onFocusChange && childIndex && onFocusChange(childIndex);
+        innerOptionRef.current.focus();
+      }
+    }, [hasFocus, innerOptionRef, selectOpened, isSearching]);
+
+    const onSelectHandler = () => {
+      if (onOptionSelect) onOptionSelect(innerOptionRef);
+    };
 
     return (
       <li
         {...rest}
-        ref={ref}
+        ref={innerOptionRef}
         data-value={value}
-        className={`${selected ? classes['selected-option'] : ''} ${
+        className={`${isSelected ? classes['selected-option'] : ''} ${
           disabled ? classes.disabled : ''
         } ${className ?? ''}`}
         onClick={onSelectHandler}
-        onKeyPress={(e) => {
-          e.key === 'Enter' && onSelectHandler(e);
+        onKeyDownCapture={(event) => {
+          if (event.code === 'Enter') {
+            event.stopPropagation();
+            event.preventDefault();
+
+            onSelectHandler();
+          }
         }}
-        aria-selected={selected}
+        aria-selected={isSelected}
         role="option"
         tabIndex={disabled ? -1 : 0}
       >

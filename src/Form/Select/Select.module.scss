@@ -36,7 +36,7 @@ $listItemHeight: 2.125rem;
     }
   }
 
-  button {
+  .custom-select {
     position: relative;
     width: 100%;
     min-height: calc(4rem - (2 * var(--input-border-width)));
