@@ -2,7 +2,9 @@
   position: relative;
   display: flex;
   align-items: center;
+  height: calc(4rem - (2 * var(--input-border-width)));
   padding: 0 1.25rem;
+
   background-color: var(--input-background-color);
   border-color: var(--input-border-color);
   border-style: var(--input-border-style);
@@ -10,8 +12,12 @@
   border-radius: var(--input-border-radius);
   transition: all 0.2s ease-in-out;
 
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled):not(.error) {
+    height: calc(4rem - (2 * var(--input-border-width)));
+    padding: 0 1.25rem;
+
     border-color: var(--default);
+    border-width: var(--input-border-width);
   }
 
   &.disabled,
@@ -26,12 +32,18 @@
   }
 
   &.focus {
+    height: calc(4rem - (2 * var(--input-border-width-focus)));
+    padding: 0 calc(1.25rem - var(--input-border-width));
+    border-width: var(--input-border-width-focus);
+  }
+
+  &.focus:not(.error) {
     border-color: var(--color-primary);
   }
 }
 
 .input {
-  height: 4rem;
+  height: calc(4rem - (2 * var(--input-border-width)));
   border: 0;
   color: var(--greyed-out);
   font-size: var(--font-size);
@@ -41,6 +53,7 @@
   padding: 0;
 
   &:focus:not(:disabled) {
+    height: calc(4rem - (2 * var(--input-border-width-focus)));
     outline: none;
     border-color: var(--color-primary);
   }

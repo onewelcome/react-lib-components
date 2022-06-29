@@ -242,6 +242,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             onClick={() => setExpanded(!expanded)}
             type="button"
             name={name}
+            className={`${additionalClasses.join(' ')} `}
             disabled={disabled}
             aria-disabled={disabled}
             aria-invalid={error}
