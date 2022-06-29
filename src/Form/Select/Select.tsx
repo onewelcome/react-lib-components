@@ -403,7 +403,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             }}
             type="button"
             name={name}
-            className={`${additionalClasses.join(' ')} `}
+            className={`${classes['custom-select']} ${additionalClasses.join(' ')} `}
             disabled={disabled}
             aria-disabled={disabled}
             aria-invalid={error}
@@ -411,7 +411,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             aria-haspopup="listbox"
             aria-labelledby={labeledBy}
             aria-describedby={describedBy}
-            className={classes['custom-select']}
           >
             <div data-display className={classes['selected']}>
               {!value && placeholder && (

@@ -25,7 +25,7 @@ $listItemHeight: 2.125rem;
 
   &:not(.expanded) {
     button:focus-visible:not(.error) {
-      border: 2px solid var(--color-primary);
+      border: var(--input-border-width-focus) solid var(--color-primary);
     }
   }
 
