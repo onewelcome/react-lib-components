@@ -26,6 +26,10 @@ interface CSSProperties {
   snackbarSuccessBackgroundColor?: string;
   snackbarErrorBackgroundColor?: string;
   snackbarBorderRadius?: string;
+  dataGridRowBackgroundColor?: string;
+  dataGridRowHoverBackgroundColor?: string;
+  cardBackgroundColor?: string;
+  cardBorderRadius?: string;
   tabsBackgroundColor?: string;
   tabBorderWidth?: string;
   tabBorderStyle?: string;
@@ -66,22 +70,26 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonBorderWidth: '2px',
     buttonFontSize: '1rem',
     buttonBorderStyle: 'solid',
-    buttonFillTextColor: '#FFF',
-    buttonFillBackgroundColor: '#FFF',
-    buttonOutlineHoverTextColor: '#FFF',
+    buttonFillTextColor: '#fff',
+    buttonFillBackgroundColor: '#fff',
+    buttonOutlineHoverTextColor: '#fff',
     inputBorderColor: '#e9e9eb',
     inputBorderRadius: '8px',
     inputBorderWidth: '1px',
     inputBorderStyle: 'solid',
-    inputBackgroundColor: '#FFF',
+    inputBackgroundColor: '#fff',
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',
-    modalBackgroundColor: '#F5F8F8',
-    modalHeaderBackgroundColor: '#FFF',
+    modalBackgroundColor: '#f5f8f8',
+    modalHeaderBackgroundColor: '#fff',
     snackbarTextColor: '#fff',
     snackbarInfoBackgroundColor: '#003b5e',
     snackbarSuccessBackgroundColor: '#008a28',
     snackbarErrorBackgroundColor: '#e22a1d',
     snackbarBorderRadius: '8px',
+    dataGridRowBackgroundColor: 'transparent',
+    dataGridRowHoverBackgroundColor: '#f5e6f0',
+    cardBackgroundColor: '#fff',
+    cardBorderRadius: '8px',
     tabsBackgroundColor: '#FFF',
     tabBorderWidth: '2px',
     tabBorderStyle: 'solid',

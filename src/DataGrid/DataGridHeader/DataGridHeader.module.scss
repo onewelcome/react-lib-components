@@ -1,0 +1,26 @@
+.thead {
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2.5rem;
+    width: calc(100% - 2rem);
+    left: 1rem;
+    border-bottom: 1px solid #c3c3c7;
+  }
+}
+
+.row {
+  height: 2.5rem;
+}
+
+.context-menu {
+  width: 4.125rem;
+  box-sizing: border-box;
+}
+
+@media only screen and (min-width: 50em) {
+  .thead::after {
+    width: calc(100% - 2.5rem);
+    left: 1.25rem;
+  }
+}
