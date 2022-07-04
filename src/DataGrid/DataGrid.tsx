@@ -43,7 +43,7 @@ const DataGridInner = <T extends {}>(
     isLoading,
     enableMultiSorting,
     emptyLabel,
-    spacing = { padding: 4 },
+    spacing,
     style,
     ...rest
   }: Props<T>,
@@ -100,6 +100,7 @@ const DataGridInner = <T extends {}>(
   return (
     <div
       {...rest}
+      className={classes['grid-wrapper']}
       ref={ref}
       style={{
         paddingTop: styleWithSpacing?.paddingTop,
