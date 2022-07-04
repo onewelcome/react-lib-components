@@ -42,8 +42,8 @@ const meta: Meta = {
       <div style={{ padding: '1rem', backgroundColor: '#F5F8F8' }}>
         <div
           style={{
-            borderRadius: 'var(--card-border-radius)',
-            backgroundColor: 'var(--card-background-color)',
+            borderRadius: '0.5rem',
+            backgroundColor: '#fff',
             padding: '1rem 0',
             boxSizing: 'border-box',
           }}
