@@ -111,7 +111,7 @@ DataGrid.args = {
     addBtnProps: { onClick: () => action('add btn clicked') },
     searchBtnProps: { onClick: () => action('search btn clicked') },
   },
-  disableContextMenuColumn: true,
+  disableContextMenuColumn: false,
   paginationProps: {
     totalElements: 105,
     currentPage: 1,
