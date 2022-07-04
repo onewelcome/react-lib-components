@@ -37,8 +37,7 @@ const Template: Story<Props> = (args) => (
 export const Pagination = Template.bind({});
 
 Pagination.args = {
-  currentPage: 1,
-  totalElements: 700,
+  currentPage: 0,
   pageSize: 10,
   translate: {
     totalItems: 'Total items',
