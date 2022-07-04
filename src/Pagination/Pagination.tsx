@@ -53,7 +53,15 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
   ) => {
     /** We use an internal state variable, because we don't want to fire onCurrentPageChange whenever onChange fires on the input. Rather, only when the Enter key is pressed. */
     const [internalCurrentPage, setInternalCurrentPage] = useState(currentPage?.toString() || '1');
-    const calculateAmountOfPages = () => (totalElements ? Math.ceil(totalElements / pageSize) : 0);
+    const calculateAmountOfPages = () => {
+      if (!totalElements) return 1;
+
+      if (Math.ceil(totalElements / pageSize) < 1) {
+        return 1;
+      }
+
+      return Math.ceil(totalElements / pageSize);
+    };
 
     const onEnterListener = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.code === 'Enter') {
@@ -102,7 +110,11 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
           }
 
           if (string.includes('%2')) {
-            return <div key={string}>{string.replace('%2', amountOfPages.toString())}&nbsp;</div>;
+            return (
+              <div key={string}>
+                <strong>{string.replace('%2', amountOfPages.toString())}</strong>&nbsp;
+              </div>
+            );
           }
 
           return <div key={string}>{string}&nbsp;</div>;
@@ -135,7 +147,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
           </div>
         )}
         <div className={classes['pagination']}>
-          {totalElements && pageSize && (
+          {pageSize && (
             <div className={classes['per-page']}>
               <Label id="page-size-select-label">{translate.itemsPerPage}</Label>
               <Select
@@ -151,7 +163,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
             </div>
           )}
           <Fragment>
-            {((currentPage && currentPage > 2) || (currentPage && currentPage > 1)) && (
+            {!!((currentPage && currentPage > 2) || (currentPage && currentPage > 1)) && (
               <div className={classes['previous']}>
                 {currentPage > 2 && (
                   <IconButton
@@ -173,12 +185,14 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
                 )}
               </div>
             )}
-            {totalElements && (
+            {totalElements && calculateAmountOfPages() && (
               <div className={classes['page']}>{renderCurrentPageTranslation()}</div>
             )}
             <div className={classes['next']}>
-              {((currentPage && currentPage < calculateAmountOfPages()) ||
-                (currentPage && !totalElements)) && (
+              {!!(
+                (currentPage !== undefined && currentPage < calculateAmountOfPages()!) ||
+                (currentPage !== undefined && !totalElements)
+              ) && (
                 <IconButton
                   title="next"
                   onClick={() => onPageChangeHandler(currentPage + 1)}
@@ -187,7 +201,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
                   <Icon icon={Icons.ChevronRight} />
                 </IconButton>
               )}
-              {currentPage && totalElements && currentPage < calculateAmountOfPages()! - 1 && (
+              {!!(currentPage && totalElements && currentPage < calculateAmountOfPages()! - 1) && (
                 <IconButton
                   title="last"
                   onClick={() => onPageChangeHandler(totalElements / pageSize)}
