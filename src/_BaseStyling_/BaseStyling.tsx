@@ -28,8 +28,6 @@ interface CSSProperties {
   snackbarBorderRadius?: string;
   dataGridRowBackgroundColor?: string;
   dataGridRowHoverBackgroundColor?: string;
-  cardBackgroundColor?: string;
-  cardBorderRadius?: string;
   tabsBackgroundColor?: string;
   tabBorderWidth?: string;
   tabBorderStyle?: string;
@@ -88,8 +86,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     snackbarBorderRadius: '8px',
     dataGridRowBackgroundColor: 'transparent',
     dataGridRowHoverBackgroundColor: '#f5e6f0',
-    cardBackgroundColor: '#fff',
-    cardBorderRadius: '8px',
     tabsBackgroundColor: '#FFF',
     tabBorderWidth: '2px',
     tabBorderStyle: 'solid',

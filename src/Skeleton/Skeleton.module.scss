@@ -1,0 +1,20 @@
+@import '../mixins.module.scss';
+
+.skeleton {
+  display: block;
+  height: auto;
+  @include skeletonLoading();
+}
+
+.no-height::before {
+  content: ' ';
+  white-space: pre-wrap;
+}
+
+.text {
+  border-radius: 0.5rem;
+}
+
+.circular {
+  border-radius: 50%;
+}
