@@ -12,12 +12,22 @@ export interface Props<T> extends ComponentPropsWithRef<'tbody'> {
   isLoading?: boolean;
   disableContextMenuColumn?: boolean;
   emptyLabel?: string;
+  spacing?: React.CSSProperties;
 }
 
 const skeletonLoadingRows = 9;
 
 const DataGridBodyInner = <T extends {}>(
-  { children, data, headers, isLoading, disableContextMenuColumn, emptyLabel, ...rest }: Props<T>,
+  {
+    children,
+    data,
+    headers,
+    isLoading,
+    disableContextMenuColumn,
+    emptyLabel,
+    spacing,
+    ...rest
+  }: Props<T>,
   ref: Ref<HTMLTableSectionElement>
 ) => {
   const renderContent = () => {
@@ -49,7 +59,13 @@ const DataGridBodyInner = <T extends {}>(
       );
     }
 
-    return data?.map((item, index) => React.cloneElement(children({ item, index }), { headers }));
+    return data?.map((item, index) => {
+      return React.cloneElement(children({ item, index }), {
+        headers,
+        spacing,
+        disableContextMenuColumn,
+      });
+    });
   };
 
   return (

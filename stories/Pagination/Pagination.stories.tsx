@@ -38,7 +38,6 @@ export const Pagination = Template.bind({});
 
 Pagination.args = {
   currentPage: 1,
-  totalElements: 700,
   pageSize: 10,
   translate: {
     totalItems: 'Total items',

@@ -44,7 +44,7 @@ const meta: Meta = {
           style={{
             borderRadius: '0.5rem',
             backgroundColor: '#fff',
-            padding: '1rem 0',
+            padding: '0',
             boxSizing: 'border-box',
           }}
         >
