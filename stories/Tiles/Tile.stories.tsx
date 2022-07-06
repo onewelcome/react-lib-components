@@ -5,10 +5,16 @@ import { Icon, Icons } from '../../src/Icon/Icon';
 import { ContextMenu } from '../../src/ContextMenu/ContextMenu';
 import { IconButton } from '../../src/Button/IconButton';
 import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
+import TileDocumentation from './Tile.mdx';
 
 const meta: Meta = {
   title: 'Stories/UI/Tiles/Tile',
   component: TileComponent,
+  parameters: {
+    docs: {
+      page: TileDocumentation,
+    },
+  },
 };
 
 export default meta;
@@ -38,4 +44,5 @@ Tile.args = {
       <ContextMenuItem>Item 3</ContextMenuItem>
     </ContextMenu>
   ),
+  enabled: true,
 };

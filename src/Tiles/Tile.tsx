@@ -1,4 +1,9 @@
-import React, { ComponentPropsWithRef, ReactElement, useState } from 'react';
+import React, {
+  ComponentPropsWithoutRef,
+  ComponentPropsWithRef,
+  ReactElement,
+  useState,
+} from 'react';
 import { Icon, Icons } from '../Icon/Icon';
 import classes from './Tile.module.scss';
 import readyClasses from '../readyclasses.module.scss';
@@ -7,7 +12,7 @@ import { Props as ContextMenuProps } from '../ContextMenu/ContextMenu';
 import { generateID } from '../util/helper';
 import { Props as IconButtonProps } from '../Button/IconButton';
 
-interface ImageProps {
+interface ImageProps extends ComponentPropsWithoutRef<'img'> {
   src: string;
 }
 

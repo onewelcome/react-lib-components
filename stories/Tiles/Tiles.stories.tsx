@@ -6,10 +6,16 @@ import { ContextMenu } from '../../src/ContextMenu/ContextMenu';
 import { IconButton } from '../../src/Button/IconButton';
 import { Icon, Icons } from '../../src/Icon/Icon';
 import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
+import TilesDocumentation from './Tiles.mdx';
 
 const meta: Meta = {
   title: 'Stories/UI/Tiles/Tiles',
   component: TitlesComponent,
+  parameters: {
+    docs: {
+      page: TilesDocumentation,
+    },
+  },
 };
 
 export default meta;
