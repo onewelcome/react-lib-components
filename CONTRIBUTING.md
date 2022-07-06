@@ -37,9 +37,11 @@ Once you have informally discussed the change on Slack you might be asked to cre
 - Code style & linter is configured to automatically format code & show problems with your changes. If `VSCode` is complaining that you can't commit something, just run `npm run lint` in your project and find the `errors` that prevent you from being able to commit your code.
 
 #### Hooks
+
 In case you have created a `hook` for your component. Please document the reason why it is needed. In addition, hooks need to be stored inside of `src/hooks` and need to be tested. Make sure to also document your hook. Create a `<hookName>.mdx` file inside of the `stories/hooks` folder. You can copy any existing hook's documentation to use as a template.
 
 #### Folder structure
+
 If you've done everything correctly, you should have somewhat of the following folder structure. `Component` and `useHook` would be the possible files you've created:
 
 ```
@@ -109,55 +111,14 @@ We'd love for you to contribute to the component library! In order to keep struc
 },</code></pre>
 </details>
 
-### React useState snippet
+### Storybook Story snippet
 
 <details>
   <summary>Show me the snippet!</summary>
   <pre>
   <code>
-"React Use State Snippet": {
-  "prefix": "reus",
-  "body": [
-      "const [${1:stateName}, set${1/(.)/${1:/capitalize}/}] = useState(${2:initial value})"
-  ],
-  "description": "Insert React useState snippet."
-},</code></pre>
-</details>
-
-### React scoped className
-
-<details>
-  <summary>Show me the snippet!</summary>
-  <pre>
-  <code>
-"React scoped className": {
-  "prefix": "rescoped",
-  "body": ["className={classes[\"${1:class name}\"]}"],
-  "description": "Insert scoped className snippet."
-},</code></pre>
-</details>
-
-### React import scoped classes
-
-<details>
-  <summary>Show me the snippet!</summary>
-  <pre>
-  <code>
-"import scoped classes": {
-  "prefix": "importscoped",
-  "body": ["import classes from \"./${1:filename}.module.${2:scss}\";"],
-  "description": "Insert import scoped classes snippet."
-},</code></pre>
-</details>
-
-### Storybook story snippet
-
-<details>
-  <summary>Show me the snippet!</summary>
-  <pre>
-  <code>
-"Storybook story": {
-  "prefix": "sbstory",
+"Component Library Story": {
+  "prefix": "clstory",
   "body": [
     "import React from 'react';",
     "import { Meta, Story } from '@storybook/react';",
@@ -194,14 +155,14 @@ We'd love for you to contribute to the component library! In order to keep struc
 The path to your component might not be correct. Make sure to correct it if necessary and create the `COMPONENT_NAME.mdx` file with the snippet further down.
 </sub>
 
-### React Component Library Unit test snippet
+### React Component Library unit test snippet
 
 <details>
   <summary>Show me the snippet!</summary>
   <pre>
   <code>
-"React test with Jest & React Testing Library": {
-  "prefix": "reacttest",
+"Component Library Test": {
+  "prefix": "cltest",
   "body": [
     "import React from 'react';",
     "import { ${1:component}, Props } from './${1:component}';",
@@ -239,7 +200,7 @@ The path to your component might not be correct. Make sure to correct it if nece
 
 <sub>
 Instructions: the defaultParams `const` is where you should enter all of the props your components needs to get rendered. You can override and add props by executing the function and returning an object with the defaultParams any additional props you want. See other tests for examples.
-</sub>  
+</sub>
 
 ```
 const { component } = createComponent(defaultParams => ({ ...defaultParams, prop1: value, prop2: value }))
@@ -251,8 +212,8 @@ const { component } = createComponent(defaultParams => ({ ...defaultParams, prop
   <summary>Show me the snippet!</summary>
   <pre>
   <code>
-"MDX snippet to make quick documentation": {
-  "prefix": "sbmdx",
+"Component Library MDX": {
+  "prefix": "clmdx",
   "body": [
     "import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';",
     "",
@@ -270,5 +231,46 @@ const { component } = createComponent(defaultParams => ({ ...defaultParams, prop
     "&lt;ArgsTable story={PRIMARY_STORY} />"
   ],
   "description": "Insert MDX documentation snippet."
+},</code></pre>
+</details>
+
+### React useState snippet
+
+<details>
+  <summary>Show me the snippet!</summary>
+  <pre>
+  <code>
+"React Use State Snippet": {
+  "prefix": "russ",
+  "body": [
+      "const [${1:stateName}, set${1/(.)/${1:/capitalize}/}] = useState(${2:initial value})"
+  ],
+  "description": "Insert React useState snippet."
+},</code></pre>
+</details>
+
+### React scoped className
+
+<details>
+  <summary>Show me the snippet!</summary>
+  <pre>
+  <code>
+"React scoped className": {
+  "prefix": "resc",
+  "body": ["className={classes[\"${1:class name}\"]}"],
+  "description": "Insert scoped className snippet."
+},</code></pre>
+</details>
+
+### React import scoped classes
+
+<details>
+  <summary>Show me the snippet!</summary>
+  <pre>
+  <code>
+"import scoped classes": {
+  "prefix": "impscoped",
+  "body": ["import classes from \"./${1:filename}.module.${2:scss}\";"],
+  "description": "Insert import scoped classes snippet."
 },</code></pre>
 </details>
