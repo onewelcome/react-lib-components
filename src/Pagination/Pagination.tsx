@@ -82,7 +82,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
                 <Label
                   id="current-value-input-label"
                   htmlFor="current-value-input"
-                  className={readyclasses['sr-only']}
+                  className={`${readyclasses['sr-only']} ${classes['current-value-input-label']}`}
                 >
                   {translate.currentPageLabel}
                 </Label>

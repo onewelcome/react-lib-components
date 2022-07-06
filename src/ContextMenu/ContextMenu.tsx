@@ -177,7 +177,7 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
             anchorEl={anchorEl}
             show={showContextMenu}
           >
-            <ul className={classes.menu} id={`${id}-menu`} aria-describedby={id} role="menu">
+            <ul className={classes['menu']} id={`${id}-menu`} aria-describedby={id} role="menu">
               {renderChildren()}
             </ul>
           </Popover>,
