@@ -7,23 +7,23 @@ The `Tile` component should always be nested in the `Tiles` component. It render
 
 ## `title`
 
-The only mandatory prop. This tells screenreaders what the `Tile` is. So make it a description, for example `OneWelcome Identity Provider`.
+It tells screenreaders what the `Tile` is. So make it a description, for example, `OneWelcome Identity Provider`.
 
 ## `imageProps`
 
-Is an object that accepts every single attribute for an `img` HTML element. Obviously the most important one here is the `src`, which should be a string linking to the image.
+It is an object that accepts every single attribute for an `img` HTML element. The most important one here is the `src`, which should be a string linking to the image.
 
 ## `tileAction`
 
-Should be a component that could trigger something. Think about an `IconButton` to add something to your favorites, or a `ContextMenu` to display a list of items.
+It should be a component that could trigger something. Think about an `IconButton` to add something to your favorites or a `ContextMenu` to display a list of items.
 
 ## `enabled`
 
-The `enabled` prop has three states: `true`, `false`, and `undefined`. When it's set to `true`, a checkmark will be displayed in the top left corner, if it's `false` it will be a forbidden icon and `undefined` will not render anything.
+The `enabled` prop has three states: `true`, `false`, and `undefined`. When it's set to `true`, a checkmark will be displayed in the top left corner, if it's `false`, it will be a forbidden icon, and `undefined` will not render anything.
 
 ## `loading`
 
-This prop will be inherited from the `Tiles` wrapper component. But if you use `Tile` as an individual component you can always set the `loading` state manually through this prop.
+This prop will be inherited from the `Tiles` wrapper component. But if you use `Tile` as an individual component, you can always manually set the `loading` state through this prop.
 
 # Examples
 
