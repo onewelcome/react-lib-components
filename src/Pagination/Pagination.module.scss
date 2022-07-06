@@ -5,6 +5,10 @@
   display: flex;
   flex-direction: column;
 
+  label {
+    margin-bottom: 0;
+  }
+
   .form-element {
     height: 2.5rem;
 
