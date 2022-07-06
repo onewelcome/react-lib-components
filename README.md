@@ -2,30 +2,32 @@
 
 This project provides React components built according to the [UI Component Library design](https://xd.adobe.com/view/1f7161d7-5ade-4e54-bb3d-6e4aa3a1d1a0-4a22/grid/). It uses the [DTS tool](https://weiran-zsd.github.io/dts-cli/) which provides for a consistent setup and configuration.
 
-> Note: the package is publicly available.
+> Note: the package is publicly available [on npm](https://www.npmjs.com/package/@onewelcome/react-lib-components).
 
 ## Commands
 
 ### Component library
 
-Run lib locally:
+When you are developing for the component library, you're going to want to run the Typescript compiler, test watcher and storybook. Please see the commands below for more information.
+
+Run the Typescript compiler:
 
 ```bash
-npm start # or yarn start
+npm start
 ```
 
 This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
 
-To run tests, use `npm test` or `yarn test`.
+To run tests, use `npm test`
 
 ```bash
-npm test # or yarn test
+npm test
 ```
 
-For running and watching tests, use `npm run test:watch`.
+For running and watching tests, use `npm test -- --watch`.
 
 ```bash
-npm run test:watch
+npm test -- --watch
 ```
 
 ### Storybook
@@ -33,7 +35,7 @@ npm run test:watch
 Run Storybook locally:
 
 ```bash
-npm run storybook # or yarn storybook
+npm run storybook
 ```
 
 ### All at once
@@ -52,13 +54,13 @@ Please see the [CONTRIBUTING.md](https://github.com/onewelcome/react-lib-compone
 
 See [adding icons to font manual](font/README.md)
 
-## Configuration
+## Code quality
 
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
+Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. This is to ensure that formatting is the same in every file of the component library. If you would like to suggest a change, please let the `SASSy` team know.
 
 ### Bundle analysis
 
-Calculates the real cost of your library using [size-limit](https://github.com/ai/size-limit) with `npm run size` and visulize it with `npm run analyze`.
+Calculates the real cost of your library using [size-limit](https://github.com/ai/size-limit) with `npm run size` and visualise it with `npm run analyze`.
 
 ### Rollup
 
