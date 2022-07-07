@@ -36,7 +36,7 @@
 
       &:hover,
       &:focus {
-        border-color: var(--snackbar-text-color);
+        border-color: var(--snackbar-text-color) !important;
       }
 
       &:active {
