@@ -30,23 +30,23 @@
   .headline {
     display: flex;
     color: var(--snackbar-text-color);
+  }
 
-    .close-btn.close-btn.close-btn {
-      color: var(--snackbar-text-color);
+  #close-btn {
+    color: var(--snackbar-text-color);
 
-      &:hover,
-      &:focus {
-        border-color: var(--snackbar-text-color);
-      }
+    &:hover,
+    &:focus {
+      border-color: var(--snackbar-text-color);
+    }
 
-      &:active {
-        border-color: transparent;
+    &:active {
+      border-color: transparent;
 
-        &:after {
-          top: 0;
-          height: 100%;
-          background-color: var(--snackbar-text-color);
-        }
+      &:after {
+        top: 0;
+        height: 100%;
+        background-color: var(--snackbar-text-color);
       }
     }
   }
