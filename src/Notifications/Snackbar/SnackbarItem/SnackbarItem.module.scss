@@ -31,12 +31,12 @@
     display: flex;
     color: var(--snackbar-text-color);
 
-    .close-btn {
+    .close-btn.close-btn.close-btn {
       color: var(--snackbar-text-color);
 
       &:hover,
       &:focus {
-        border-color: var(--snackbar-text-color) !important;
+        border-color: var(--snackbar-text-color);
       }
 
       &:active {
