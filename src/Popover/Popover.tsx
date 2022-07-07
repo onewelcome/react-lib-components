@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithRef, ReactNode, RefObject, useEffect, useRef } from 'react';
-import { usePosition, Offset, Placement } from '../hooks/usePosition';
+import { Offset, Placement, usePosition } from '../hooks/usePosition';
 import classes from './Popover.module.scss';
 
 export interface Props extends ComponentPropsWithRef<'div'> {

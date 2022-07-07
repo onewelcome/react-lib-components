@@ -1,22 +1,22 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
-import { Typography } from '../../src/Typography/Typography.tsx';
+import {ArgsTable, PRIMARY_STORY, Subtitle, Title} from '@storybook/addon-docs';
+import {Typography} from '../../src/Typography/Typography.tsx';
 
-<Title />
-<Subtitle />
+<Title/>
+<Subtitle/>
 
-Typography component helps presenting text content. It has styling defined for all kinds of uses. Text can be rendered within all valid HTML tags, regardless of proper styling setting that should be used (e.g. text in div can be styled as an H1 element).
+The typography component helps present text content. It has styling defined for all kinds of uses. Text can be rendered within all valid HTML tags, regardless of the proper styling setting that should be used (e.g., text in div can be styled as an H1 element).
 
 ## Font
 
-Typography was designed to support any font you like. This can be change by configuration provided to `BaseStyling` component. By default `Red Hat Display` font is set.
-`Red Hat Display` is not automatically loaded. You are responsible to include font in your application.
+Typography was designed to support any font you like. This can be changed by the configuration provided to the `BaseStyling` component. By default `Red Hat Display` font is set.
+`Red Hat Display` is not automatically loaded. You are responsible for including font in your application.
 
-| NOTE: `code block` is the only exception which uses `Red Hat Mono` font. If you don't use it you don't have to include it in your application |
+| NOTE: `code block` is the only exception that uses `Red Hat Mono` font. If you don't use it you don't have to include it in your application  |
 | --------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ## Google fonts
 
-You can take beneath HTML snippet and put it in your application.
+You can take the HTML snippet beneath and put it in your application.
 
 ```html
 <link
@@ -28,7 +28,7 @@ You can take beneath HTML snippet and put it in your application.
 
 ## Install with npm
 
-Alternatively you can install font as dependency using npm to get benefits of self-hosting fonts. Read [more](https://www.npmjs.com/package/@fontsource/red-hat-display).
+Alternatively, you can install font as a dependency using npm to get the benefits of self-hosting fonts. Read [more](https://www.npmjs.com/package/@fontsource/red-hat-display).
 
 ```sh
 npm i @fontsource/red-hat-display @fontsource/red-hat-mono
@@ -36,11 +36,11 @@ npm i @fontsource/red-hat-display @fontsource/red-hat-mono
 
 ## Changing default font-size & font-family
 
-`<BaseStyling/>` supports overwriting default properties. For Typography these propertis can be set:
+`<BaseStyling/>` supports overwriting default properties. For Typography, these properties can be set:
 
 | Property name  | Default value                 | Description                                                              |
 | -------------- | ----------------------------- | ------------------------------------------------------------------------ |
-| fontFamily     | 'Red Hat Display', sans-serif | Base font family used for all Typography's variants beside `code` one    |
+| fontFamily     | 'Red Hat Display', sans-serif | Base font family used for all Typography's variants beside `code`        |
 | fontFamilyCode | 'Red Hat Mono', sans-serif    | Font family used for `code` Typography variant                           |
 | fontSize       | 1rem                          | Base font size used in Typography as well in other elements like buttons |
 | fontSizeH1     | 2.5rem                        | Font size of Heading1 variant                                            |
@@ -56,7 +56,10 @@ By default all `Typography` elements have a `margin-bottom` property set to `1re
 
 # Examples
 
----
+```tsx
+<Typography variant="h1">Heading 1</Typography>
+```
+You can see all the variants below:
 
 <Typography variant="h1">Heading 1</Typography>
 <Typography variant="h2">Heading 2</Typography>
@@ -67,11 +70,9 @@ By default all `Typography` elements have a `margin-bottom` property set to `1re
 <code>
   <Typography variant="code">code</Typography>
 </code>
-<br />
+<br/>
 <Typography variant="sub-text">sub-text</Typography>
 
 # Props
 
----
-
-<ArgsTable story={PRIMARY_STORY} />
+<ArgsTable story={PRIMARY_STORY}/>

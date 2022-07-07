@@ -2,7 +2,16 @@ import React, { ComponentPropsWithRef, ReactNode } from 'react';
 import classes from './Typography.module.scss';
 import { Spacing, useSpacing } from '../hooks/useSpacing';
 
-const validVariants = ['h1', 'h2', 'h3', 'h4', 'body', 'body-bold', 'sub-text', 'code'] as const;
+export const validVariants = [
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'body',
+  'body-bold',
+  'sub-text',
+  'code',
+] as const;
 export type Variant = typeof validVariants[number];
 
 type Tags =
@@ -24,7 +33,6 @@ type Tags =
   | 'ins'
   | 'blockquote';
 
-/** I couldn't find anything on the internet that indicated that ComponentPropsWithRef can take multiple tags. Since the TagName can be many different things I have to use any here. Using a mix of tags (like the Tags type) will throw an error. */
 export interface Props extends ComponentPropsWithRef<any> {
   children: ReactNode;
   variant: Variant;
