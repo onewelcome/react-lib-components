@@ -15,6 +15,7 @@ export { Tiles, Props as TilesProps } from './Tiles/Tiles';
 export { Tooltip, Props as TooltipProps } from './Tooltip/Tooltip';
 export { Typography, Variant, Props as TypographyProps } from './Typography/Typography';
 export { Skeleton, Props as SkeletonProps } from './Skeleton/Skeleton';
+export { StatusIndicator, Props as StatusIndicatorProps } from './StatusIndicator/StatusIndicator';
 export {
   Pagination,
   Props as PaginationProps,
