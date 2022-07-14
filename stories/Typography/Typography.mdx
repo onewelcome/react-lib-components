@@ -1,8 +1,8 @@
-import {ArgsTable, PRIMARY_STORY, Subtitle, Title} from '@storybook/addon-docs';
-import {Typography} from '../../src/Typography/Typography.tsx';
+import { ArgsTable, PRIMARY_STORY, Subtitle, Title } from '@storybook/addon-docs';
+import { Typography } from '../../src/Typography/Typography.tsx';
 
-<Title/>
-<Subtitle/>
+<Title />
+<Subtitle />
 
 The typography component helps present text content. It has styling defined for all kinds of uses. Text can be rendered within all valid HTML tags, regardless of the proper styling setting that should be used (e.g., text in div can be styled as an H1 element).
 
@@ -11,8 +11,8 @@ The typography component helps present text content. It has styling defined for 
 Typography was designed to support any font you like. This can be changed by the configuration provided to the `BaseStyling` component. By default `Red Hat Display` font is set.
 `Red Hat Display` is not automatically loaded. You are responsible for including font in your application.
 
-| NOTE: `code block` is the only exception that uses `Red Hat Mono` font. If you don't use it you don't have to include it in your application  |
-| --------------------------------------------------------------------------------------------------------------------------------------------- |
+| NOTE: `code block` is the only exception that uses `Red Hat Mono` font. If you don't use it you don't have to include it in your application |
+| -------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ## Google fonts
 
@@ -59,6 +59,7 @@ By default all `Typography` elements have a `margin-bottom` property set to `1re
 ```tsx
 <Typography variant="h1">Heading 1</Typography>
 ```
+
 You can see all the variants below:
 
 <Typography variant="h1">Heading 1</Typography>
@@ -70,9 +71,9 @@ You can see all the variants below:
 <code>
   <Typography variant="code">code</Typography>
 </code>
-<br/>
+<br />
 <Typography variant="sub-text">sub-text</Typography>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY}/>
+<ArgsTable story={PRIMARY_STORY} />
