@@ -85,8 +85,8 @@ export const SnackbarItem = ({
             {title}
           </Typography>
           <IconButton
+            id={classes['close-btn']}
             onClick={() => startAnimation()}
-            className={classes['close-btn']}
             title={closeButtonTitle}
           >
             <Icon icon={Icons.Times} color={textColor} />
