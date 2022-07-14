@@ -1,6 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Typography as TypographyComponent, Props } from '../../src/Typography/Typography';
+import {
+  Props,
+  Typography as TypographyComponent,
+  validVariants,
+} from '../../src/Typography/Typography';
 import TypographyDocumentation from './Typography.mdx';
 
 const meta: Meta = {
@@ -11,6 +15,12 @@ const meta: Meta = {
       page: TypographyDocumentation,
     },
   },
+  argTypes: {
+    variant: {
+      options: validVariants,
+      control: 'select',
+    },
+  },
 };
 
 export default meta;
@@ -19,8 +29,8 @@ const Template: Story<Props> = (args) => (
   <TypographyComponent {...args}>content</TypographyComponent>
 );
 
-export const TypographyEl = Template.bind({});
+export const Typography = Template.bind({});
 
-TypographyEl.args = {
+Typography.args = {
   variant: 'h1',
 };

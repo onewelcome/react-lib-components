@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Tiles as TitlesComponent, Props } from '../../src/Tiles/Tiles';
-import { Tile } from '../../src/Tiles/Tile';
-import { ContextMenu } from '../../src/ContextMenu/ContextMenu';
-import { IconButton } from '../../src/Button/IconButton';
-import { Icon, Icons } from '../../src/Icon/Icon';
-import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
+import { Props, Tiles as TitlesComponent } from '../../src/Tiles/Tiles';
+import { ContextMenu, ContextMenuItem, Icon, IconButton, Icons, Tile } from '../../src';
 import TilesDocumentation from './Tiles.mdx';
 
 const meta: Meta = {
