@@ -16,6 +16,7 @@ interface CSSProperties {
   inputBorderColor?: string;
   inputBorderRadius?: string;
   inputBorderWidth?: string;
+  inputBorderWidthFocus?: string;
   inputBorderStyle?: string;
   inputBackgroundColor?: string;
   modalShadowColor?: string;
@@ -74,6 +75,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderColor: '#e9e9eb',
     inputBorderRadius: '8px',
     inputBorderWidth: '1px',
+    inputBorderWidthFocus: '2px',
     inputBorderStyle: 'solid',
     inputBackgroundColor: '#fff',
     modalShadowColor: 'rgba(0, 0, 0, 0.16)',

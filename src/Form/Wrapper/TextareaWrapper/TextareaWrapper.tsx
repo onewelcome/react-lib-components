@@ -65,7 +65,7 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
         disabled={disabled}
         labelProps={{
           id: labelId,
-          className: `${classes['textarea-label']} ${hasFocus ? classes['focus'] : ''}`,
+          className: `${classes['textarea-label']} ${optionalClasses.join('')}`,
         }}
         name={name}
         label={label}
@@ -108,7 +108,7 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
             onMouseLeave && onMouseLeave(e);
             setHover(false);
           }}
-          className={classes['textarea']}
+          className={`${classes['textarea']} ${error ? classes['error'] : ''}`}
           wrapperProps={{
             className: `${classes['textarea-wrapper']}} ${optionalClasses.join(' ')}`,
           }}

@@ -26,17 +26,18 @@
     cursor: not-allowed;
   }
 
-  &:active:not(:disabled) {
-    border-color: var(--color-primary);
-  }
-
-  &:hover:not(:disabled) {
-    border-color: var(--default);
-  }
-
   &:focus:not(:disabled) {
-    border-color: var(--color-primary);
     outline: none;
+    border-width: var(--input-border-width-focus);
+  }
+
+  &:focus:not(:disabled):not(.error) {
+    border-color: var(--color-primary);
+  }
+
+  &:hover:not(:disabled):not(.error) {
+    border-color: var(--default);
+    border-width: var(--input-border-width);
   }
 }
 
