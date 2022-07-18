@@ -133,7 +133,8 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
             e.target.placeholder ||
             inputProps?.placeholder?.length ||
             type === 'datetime-local' ||
-            type === 'time'
+            type === 'time' ||
+            type === 'date'
               ? setFloatingLabelActive(true)
               : setFloatingLabelActive(false);
           }}
