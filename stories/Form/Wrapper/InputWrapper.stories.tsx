@@ -28,6 +28,7 @@ const meta: Meta = {
         'time',
         'url',
         'datetime-local',
+        'date',
       ],
       control: {
         type: 'select',
