@@ -14,7 +14,8 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
       (value?.length && value.length > 0) ||
       placeholder ||
       type === 'datetime-local' ||
-      type === 'time'
+      type === 'time' ||
+      type === 'date'
     ) {
       setFloatingLabelActive(true);
     }
@@ -23,7 +24,13 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
   useEffect(() => {
     if ((value?.length && value.length > 0) || hasFocus) {
       setFloatingLabelActive(true);
-    } else if (!placeholder && !hasFocus && type !== 'datetime-local' && type !== 'time') {
+    } else if (
+      !placeholder &&
+      !hasFocus &&
+      type !== 'datetime-local' &&
+      type !== 'time' &&
+      type !== 'date'
+    ) {
       setFloatingLabelActive(false);
     }
   }, [value, placeholder, type, hasFocus]);
