@@ -4,9 +4,10 @@ import classes from './SlideInModal.module.scss';
 
 export const SlideInModal = React.forwardRef<HTMLDivElement, ModalProps>(
   ({ children, id, open, ...rest }: ModalProps, ref) => {
-    const [classHideOnTransition, setClassHideOnTransition] = useState<'hidden' | ''>('hidden');
+    const [classHideOnTransition, setClassHideOnTransition] = useState<string>(classes['hidden']);
 
-    const onTransitionEnd = () => setClassHideOnTransition((prev) => (prev ? '' : 'hidden'));
+    const onTransitionEnd = () =>
+      setClassHideOnTransition((prev) => (prev ? '' : classes['hidden']));
 
     return (
       <Modal

@@ -8,6 +8,7 @@ import SlideInModalDocumentation from './SlideInModal.mdx';
 import { Button } from '../../../src/Button/Button';
 import { ModalHeader } from '../../../src/Notifications/Modal/ModalHeader/ModalHeader';
 import { ModalContent } from '../../../src/Notifications/Modal/ModalContent/ModalContent';
+import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
 
 const meta: Meta = {
   title: 'Stories/Notifications/SlideInModal',
@@ -23,6 +24,7 @@ export default meta;
 
 const Template: Story<Props> = (args) => {
   const [open, setOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
 
@@ -32,7 +34,13 @@ const Template: Story<Props> = (args) => {
       <SlideInModalComponent {...args} id="slide-in-modal" open={open} onClose={onClose}>
         <ModalHeader id={'modal-header'} title={'Modal header'} onClose={onClose} />
         <ModalContent id={`modal-description`} disableAutoFocus={args['content.disableAutoFocus']}>
-          Modal content
+          <InputWrapper
+            type="text"
+            label="Name"
+            name="Name"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
         </ModalContent>
       </SlideInModalComponent>
     </Fragment>
