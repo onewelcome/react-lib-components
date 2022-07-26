@@ -64,14 +64,17 @@ export const Input = React.forwardRef(
       iconClassNames.push(classes['extra-indent']);
 
     const wrapperClasses = [classes['input-wrapper']];
+    const outlineClasses = [classes['outline']];
 
     wrapperProps?.className && wrapperClasses.push(wrapperProps.className);
     type === 'hidden' && wrapperClasses.push(readyclasses['hidden']);
     prefix && wrapperClasses.push(classes['prefix']);
     suffix && wrapperClasses.push(classes['suffix']);
-    disabled && wrapperClasses.push(classes['disabled']);
-    error && wrapperClasses.push(classes['error']);
-    focus && wrapperClasses.push(classes['focus']);
+    disabled &&
+      wrapperClasses.push(classes['disabled']) &&
+      outlineClasses.push(classes['disabled']);
+    error && wrapperClasses.push(classes['error']) && outlineClasses.push(classes['error']);
+    focus && wrapperClasses.push(classes['focus']) && outlineClasses.push(classes['focus']);
 
     return (
       <div
@@ -106,7 +109,9 @@ export const Input = React.forwardRef(
             <span>{suffix}</span>
           </div>
         )}
+        {/* TODO: error icons renders on sufix :( ) */}
         {error && <Icon className={iconClassNames.join(' ')} icon={Icons.Error} />}
+        <span className={outlineClasses.join(' ')}></span>
       </div>
     );
   }

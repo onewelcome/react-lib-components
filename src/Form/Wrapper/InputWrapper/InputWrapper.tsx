@@ -18,7 +18,6 @@ export interface Props extends ComponentPropsWithRef<'div'>, WrapperProps {
 }
 
 const useLabelOffset = (
-  wrapper: React.RefObject<HTMLDivElement>,
   input: React.RefObject<HTMLInputElement>,
   floatingLabelActive: boolean,
   prefix?: string
@@ -28,19 +27,15 @@ const useLabelOffset = (
   const resetLabelOffset = () => setLabelOffset({ left: undefined });
 
   useEffect(() => {
-    if (wrapper.current && input.current && prefix) {
+    if (input.current && prefix) {
       if (floatingLabelActive) {
         resetLabelOffset();
       } else {
-        const prefixDifference =
-          input.current.getBoundingClientRect().left -
-          wrapper.current.getBoundingClientRect().left +
-          4;
-
+        const prefixDifference = getComputedStyle(input.current).paddingLeft + 4;
         setLabelOffset({ left: `${prefixDifference}px` });
       }
     }
-  }, [wrapper.current, input.current, prefix, floatingLabelActive]);
+  }, [input.current, prefix, floatingLabelActive]);
 
   return { labelOffset };
 };
@@ -73,12 +68,10 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
       labelId,
     } = useWrapper(value, inputProps?.placeholder, type);
     const { prefix, suffix } = inputProps || {};
-    const wrapper = useRef<HTMLDivElement>(null);
     const input = useRef<HTMLInputElement>(null);
     const hasValueOrActiveFloatingLabel = !!value || floatingLabelActive;
     const labelClasses = [classes['input-label']];
     const { labelOffset } = useLabelOffset(
-      (ref as React.RefObject<HTMLDivElement>) || wrapper,
       (inputProps && (inputProps.ref as React.RefObject<HTMLInputElement>)) || input,
       floatingLabelActive,
       prefix
@@ -89,7 +82,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
     return (
       <Wrapper
         {...rest}
-        ref={ref || wrapper}
+        ref={ref}
         name={name}
         className={`${classes['input-wrapper']} ${className ?? ''}`}
         labelProps={{

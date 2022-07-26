@@ -26,6 +26,7 @@ $listItemHeight: 2.125rem;
   &:not(.expanded) {
     button:focus-visible:not(.error) {
       border: var(--input-border-width-focus) solid var(--color-primary);
+      padding: 0 calc(1.25rem - var(--input-border-width-focus) + var(--input-border-width));
     }
   }
 
@@ -147,7 +148,6 @@ $listItemHeight: 2.125rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 1.25rem;
   pointer-events: none;
 }
 

@@ -140,6 +140,49 @@
   }
 }
 
+@mixin outline {
+  .outline {
+    pointer-events: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    inset: 0;
+    border-color: var(--input-border-color);
+    border-style: var(--input-border-style);
+    border-width: var(--input-border-width);
+    border-radius: var(--input-border-radius);
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+@mixin outlineStates {
+  &:hover .outline {
+    border-color: var(--default);
+  }
+
+  .outline.disabled {
+    border-color: #fff;
+  }
+
+  .outline.error {
+    border-color: var(--error);
+  }
+
+  .outline.focus {
+    border-width: var(--input-border-width-focus);
+  }
+
+  .outline.focus:not(.error) {
+    border-color: var(--color-primary);
+  }
+}
+
+@mixin browserOutlineDisabled {
+  &:focus:not(:disabled) {
+    outline: none;
+  }
+}
+
 @mixin skeletonLoading() {
   position: relative;
   overflow: hidden;
