@@ -85,6 +85,7 @@
   .current-value-input {
     margin: 0 0.25rem 0 0;
     padding: 0;
+    height: auto;
 
     input {
       border-radius: var(--input-border-radius);
@@ -120,5 +121,6 @@
 @media screen and (min-width: 48em) {
   .pagination-wrapper .per-page {
     display: flex;
+    margin-right: 0.5rem;
   }
 }
