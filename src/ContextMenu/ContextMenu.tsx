@@ -46,6 +46,7 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
   ) => {
     const anchorEl = useRef<HTMLButtonElement>(null);
     const [showContextMenu, setShowContextMenu] = useState(show);
+    const [hasBeenClosed, setHasBeenClosed] = useState(false);
     const [selectedContextMenuItem, setSelectedContextMenuItem] = useState(-1);
     const [focusedContextMenuItem, setFocusedContextMenuItem] = useState(-1);
     const [shouldClick, setShouldClick] =
@@ -133,8 +134,9 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
         onShow && onShow();
       } else {
         onClose && onClose();
+        !hasBeenClosed && setHasBeenClosed(true);
         setFocusedContextMenuItem(-1);
-        anchorEl.current && anchorEl.current.focus();
+        hasBeenClosed && anchorEl.current && anchorEl.current.focus();
       }
     }, [showContextMenu]);
 

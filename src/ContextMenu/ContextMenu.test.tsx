@@ -127,6 +127,7 @@ describe('accessibility controls', () => {
     const secondContextMenuItem = getByTestId('contextmenuitem2');
     const thirdContextMenuItem = getByTestId('contextmenuitem3');
 
+    userEvent.tab();
     userEvent.keyboard('{arrowdown}');
     userEvent.keyboard('{arrowdown}');
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
@@ -151,6 +152,7 @@ describe('accessibility controls', () => {
   it('opens correctly with enter key, closing works with escape key.', async () => {
     const { trigger } = createContextMenu();
 
+    userEvent.tab();
     userEvent.keyboard('{enter}');
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
@@ -165,6 +167,7 @@ describe('accessibility controls', () => {
     const firstContextMenuItem = getByTestId('contextmenuitem');
     const thirdContextMenuItem = getByTestId('contextmenuitem3');
 
+    userEvent.tab();
     userEvent.keyboard('{space}');
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
@@ -188,6 +191,7 @@ describe('accessibility controls', () => {
     }));
     const thirdContextMenuItem = getByTestId('contextmenuitem3');
 
+    userEvent.tab();
     userEvent.keyboard('{space}');
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
@@ -213,6 +217,7 @@ describe('accessibility controls', () => {
     }));
     const thirdContextMenuItem = getByTestId('contextmenuitem3');
 
+    userEvent.tab();
     userEvent.keyboard('{enter}');
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
