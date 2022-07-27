@@ -6,7 +6,9 @@ $listItemHeight: 2.125rem;
   position: relative;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
-  background-color: #fff;
+  border: 0;
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-background-color);
   font-size: var(--font-size);
 
   [data-display] {
