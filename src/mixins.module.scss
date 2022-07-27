@@ -183,6 +183,12 @@
   }
 }
 
+@mixin inputLabelPrimaryColorOnFocus($labelSelector) {
+  #{$labelSelector}.focus {
+    color: var(--color-primary);
+  }
+}
+
 @mixin skeletonLoading() {
   position: relative;
   overflow: hidden;

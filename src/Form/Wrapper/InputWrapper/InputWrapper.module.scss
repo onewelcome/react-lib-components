@@ -1,10 +1,6 @@
-.input-label {
-  left: 1.25rem;
+@import '../../../mixins.module.scss';
 
-  &.focus {
-    color: var(--color-primary);
-  }
-}
+@include inputLabelPrimaryColorOnFocus('label.input-label');
 
 input {
   &.floating-label {

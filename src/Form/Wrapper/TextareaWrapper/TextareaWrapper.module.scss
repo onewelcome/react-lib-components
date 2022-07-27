@@ -1,15 +1,6 @@
-.textarea-label {
-  left: calc(
-    1.25rem + 1px
-  ); // 1px is for offset of the textarea border. It's relative to the parent div which doesn't have a border.
+@import '../../../mixins.module.scss';
 
-  &.focus {
-    color: var(--color-primary);
-  }
-  &.error {
-    color: var(--error);
-  }
-}
+@include inputLabelPrimaryColorOnFocus('label.textarea-label');
 
 .textarea {
   padding-top: 1.625rem;
