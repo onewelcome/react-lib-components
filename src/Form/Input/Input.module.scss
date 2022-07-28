@@ -37,10 +37,10 @@
 
 .error input {
   color: var(--error);
-  padding-right: 3.75rem;
+  padding-right: 3.5rem;
 
   &.remove-extra-indent {
-    padding-right: 1.25rem;
+    padding-right: 0rem;
   }
 }
 

@@ -31,7 +31,9 @@ const useLabelOffset = (
       if (floatingLabelActive) {
         resetLabelOffset();
       } else {
-        const prefixDifference = getComputedStyle(input.current).paddingLeft + 4;
+        const spacingBetweenPrefixAndInput = 4;
+        const prefixDifference =
+          getComputedStyle(input.current).paddingLeft + spacingBetweenPrefixAndInput;
         setLabelOffset({ left: `${prefixDifference}px` });
       }
     }

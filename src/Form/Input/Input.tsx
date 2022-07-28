@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithRef, Ref, useEffect, useState } from 'react';
+import React, { ComponentPropsWithRef, Ref, useEffect, useRef, useState } from 'react';
 import classes from './Input.module.scss';
 import readyclasses from '../../readyclasses.module.scss';
 import { Icon, Icons } from '../../Icon/Icon';
@@ -26,6 +26,42 @@ export interface Props extends ComponentPropsWithRef<'input'>, FormElement {
   prefix?: string;
 }
 
+const useErrorOffset = (
+  suffix: React.RefObject<HTMLDivElement>,
+  errorIcon: React.RefObject<HTMLDivElement>,
+  inputWrapper: React.RefObject<HTMLDivElement>,
+  suffixContent: string = '',
+  error: boolean,
+  type: Type
+) => {
+  const [errorOffset, setErrorOffset] = useState({});
+  const [defaultErrorOffset, setDefaultErrorOffset] = useState<number | null>(null);
+
+  const getErrorIconOffset = () => parseFloat(getComputedStyle(errorIcon.current!).right);
+
+  useEffect(() => {
+    if (errorIcon.current && inputWrapper.current) {
+      let defaultOffset = defaultErrorOffset;
+      if (!defaultOffset) {
+        defaultOffset = getErrorIconOffset();
+        setDefaultErrorOffset(defaultOffset);
+      }
+
+      if (suffix.current && suffixContent) {
+        const inputPadingRight = (dateTypes as ReadonlyArray<string>).includes(type)
+          ? 0
+          : parseFloat(getComputedStyle(inputWrapper.current).paddingRight);
+        const prefixDifference = suffix.current.offsetWidth + inputPadingRight + defaultOffset;
+        setErrorOffset({ right: `${prefixDifference}px` });
+      } else {
+        setErrorOffset({ right: `${defaultOffset}px` });
+      }
+    }
+  }, [suffix.current, errorIcon.current, inputWrapper.current, suffixContent, error, type]);
+
+  return { errorOffset };
+};
+
 export const Input = React.forwardRef(
   (
     {
@@ -46,6 +82,17 @@ export const Input = React.forwardRef(
     ref: Ref<HTMLInputElement>
   ) => {
     const [focus, setFocus] = useState(false);
+    const inputWrapperRef = useRef<HTMLDivElement>(null);
+    const errorIconRef = useRef<HTMLDivElement>(null);
+    const suffixRef = useRef<HTMLDivElement>(null);
+    const { errorOffset } = useErrorOffset(
+      suffixRef,
+      errorIconRef,
+      inputWrapperRef,
+      suffix,
+      error,
+      type
+    );
 
     useEffect(() => {
       if (name === undefined) {
@@ -78,6 +125,7 @@ export const Input = React.forwardRef(
 
     return (
       <div
+        ref={inputWrapperRef}
         {...wrapperProps}
         style={{ ...style }}
         className={`${classes['input-wrapper']} ${wrapperClasses.join(' ')}`}
@@ -105,12 +153,18 @@ export const Input = React.forwardRef(
           className={inputClassNames.join(' ')}
         />
         {suffix && (
-          <div data-suffix className={classes['suffix']}>
+          <div ref={suffixRef} data-suffix className={classes['suffix']}>
             <span>{suffix}</span>
           </div>
         )}
-        {/* TODO: error icons renders on sufix :( ) */}
-        {error && <Icon className={iconClassNames.join(' ')} icon={Icons.Error} />}
+        {error && (
+          <Icon
+            style={errorOffset}
+            ref={errorIconRef}
+            className={iconClassNames.join(' ')}
+            icon={Icons.Error}
+          />
+        )}
         <span className={outlineClasses.join(' ')}></span>
       </div>
     );
