@@ -30,9 +30,9 @@ const useErrorOffset = (
   suffix: React.RefObject<HTMLDivElement>,
   errorIcon: React.RefObject<HTMLDivElement>,
   inputWrapper: React.RefObject<HTMLDivElement>,
-  suffixContent: string = '',
   error: boolean,
-  type: Type
+  type: Type,
+  suffixContent: string = ''
 ) => {
   const [errorOffset, setErrorOffset] = useState({});
   const [defaultErrorOffset, setDefaultErrorOffset] = useState<number | null>(null);
@@ -48,6 +48,7 @@ const useErrorOffset = (
       }
 
       if (suffix.current && suffixContent) {
+        /** We don't want additinal padding since it's already added via css classes ('extra-indent') */
         const inputPadingRight = (dateTypes as ReadonlyArray<string>).includes(type)
           ? 0
           : parseFloat(getComputedStyle(inputWrapper.current).paddingRight);
@@ -57,7 +58,7 @@ const useErrorOffset = (
         setErrorOffset({ right: `${defaultOffset}px` });
       }
     }
-  }, [suffix.current, errorIcon.current, inputWrapper.current, suffixContent, error, type]);
+  }, [suffix.current, errorIcon.current, inputWrapper.current, error, type, suffixContent]);
 
   return { errorOffset };
 };
@@ -89,9 +90,9 @@ export const Input = React.forwardRef(
       suffixRef,
       errorIconRef,
       inputWrapperRef,
-      suffix,
       error,
-      type
+      type,
+      suffix
     );
 
     useEffect(() => {
