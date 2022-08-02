@@ -38,6 +38,10 @@ const useErrorOffset = (
   const [defaultErrorOffset, setDefaultErrorOffset] = useState<number | null>(null);
 
   const getErrorIconOffset = () => parseFloat(getComputedStyle(errorIcon.current!).right);
+  const getInputPaddingRight = (input: HTMLDivElement) =>
+    (dateTypes as ReadonlyArray<string>).includes(type)
+      ? 0
+      : parseFloat(getComputedStyle(input).paddingRight);
 
   useEffect(() => {
     if (errorIcon.current && inputWrapper.current) {
@@ -48,11 +52,8 @@ const useErrorOffset = (
       }
 
       if (suffix.current && suffixContent) {
-        /** We don't want additinal padding since it's already added via css classes ('extra-indent') */
-        const inputPadingRight = (dateTypes as ReadonlyArray<string>).includes(type)
-          ? 0
-          : parseFloat(getComputedStyle(inputWrapper.current).paddingRight);
-        const prefixDifference = suffix.current.offsetWidth + inputPadingRight + defaultOffset;
+        const inputPaddingRight = getInputPaddingRight(inputWrapper.current);
+        const prefixDifference = suffix.current.offsetWidth + inputPaddingRight + defaultOffset;
         setErrorOffset({ right: `${prefixDifference}px` });
       } else {
         setErrorOffset({ right: `${defaultOffset}px` });
