@@ -1,15 +1,17 @@
+@import '../../mixins.module.scss';
+
 .textarea-wrapper {
   position: relative;
   box-sizing: border-box;
   width: 100%;
+
+  @include outlineStates;
 }
 
 .textarea {
   padding: 0.75rem 3.75rem 0.75rem 1.25rem;
   box-sizing: border-box;
-  border-color: var(--input-border-color);
-  border-style: var(--input-border-style);
-  border-width: var(--input-border-width);
+  border: 0;
   border-radius: var(--input-border-radius);
   transition: all 0.2s ease-in-out;
   font-family: var(--font-family);
@@ -20,26 +22,14 @@
   resize: vertical;
 
   &:disabled {
-    color: var(--greyed-out);
     background-color: var(--disabled);
-    border-color: #fff;
     cursor: not-allowed;
   }
 
-  &:focus:not(:disabled) {
-    outline: none;
-    border-width: var(--input-border-width-focus);
-  }
-
-  &:focus:not(:disabled):not(.error) {
-    border-color: var(--color-primary);
-  }
-
-  &:hover:not(:disabled):not(.error) {
-    border-color: var(--default);
-    border-width: var(--input-border-width);
-  }
+  @include browserOutlineDisabled;
 }
+
+@include outline;
 
 .error {
   border-color: var(--error);

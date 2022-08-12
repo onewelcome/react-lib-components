@@ -159,3 +159,30 @@ describe('It should execute the listeners', () => {
     expect(onChangeHandler).toHaveBeenCalled();
   });
 });
+
+describe('It should render prefix and suffix ', () => {
+  it('renders prefix and suffix', () => {
+    const prefix = 'http://';
+    const suffix = '.com';
+    const { getByText } = createInput((defaultParams) => ({
+      ...defaultParams,
+      prefix,
+      suffix,
+    }));
+
+    expect(getByText(prefix)).toBeDefined();
+    expect(getByText(suffix)).toBeDefined();
+  });
+
+  it('error icon should be visible with suffix', () => {
+    const suffix = '.com';
+    const { input, getByText } = createInput((defaultParams) => ({
+      ...defaultParams,
+      error: true,
+      suffix,
+    }));
+
+    expect(input.querySelector('icon-warning')).toBeDefined();
+    expect(getByText(suffix)).toBeDefined();
+  });
+});
