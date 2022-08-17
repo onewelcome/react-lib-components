@@ -1,18 +1,18 @@
-import React, { useEffect, useRef } from 'react';
-import { TextareaWrapper, Props } from './TextareaWrapper';
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import React, { useEffect, useRef } from "react";
+import { TextareaWrapper, Props } from "./TextareaWrapper";
+import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
-  name: 'textarea',
-  label: 'textarea_label',
-  value: 'value',
+  name: "textarea",
+  label: "textarea_label",
+  value: "value",
   error: false,
-  helperText: 'helpertext',
-  helperProps: { 'data-testid': 'helpertext' },
-  errorMessage: 'errormessage',
-  textareaProps: { 'data-testid': 'textarea' },
-  onChange: jest.fn(),
+  helperText: "helpertext",
+  helperProps: { "data-testid": "helpertext" },
+  errorMessage: "errormessage",
+  textareaProps: { "data-testid": "textarea" },
+  onChange: jest.fn()
 };
 
 const createTextareaWrapper = (params?: (defaultParams: Props) => Props) => {
@@ -21,28 +21,28 @@ const createTextareaWrapper = (params?: (defaultParams: Props) => Props) => {
     parameters = params(defaultParams);
   }
   const queries = render(<TextareaWrapper {...parameters} data-testid="textareawrapper" />);
-  const textareawrapper = queries.getByTestId('textareawrapper');
-  const textarea = queries.getByTestId('textarea');
+  const textareawrapper = queries.getByTestId("textareawrapper");
+  const textarea = queries.getByTestId("textarea");
 
   return {
     ...queries,
     textareawrapper,
-    textarea,
+    textarea
   };
 };
 
-describe('TextareaWrapper should render', () => {
-  it('renders without crashing', () => {
+describe("TextareaWrapper should render", () => {
+  it("renders without crashing", () => {
     const { textareawrapper } = createTextareaWrapper();
 
     expect(textareawrapper).toBeDefined();
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (
         ref: React.RefObject<HTMLElement>,
@@ -61,7 +61,7 @@ describe('ref should work', () => {
       return (
         <TextareaWrapper
           {...defaultParams}
-          textareaProps={{ ref: innerRef, 'data-ref': 'inner-testing' }}
+          textareaProps={{ ref: innerRef, "data-ref": "inner-testing" }}
           name="test"
           data-ref="testing"
           ref={ref}
@@ -73,75 +73,75 @@ describe('ref should work', () => {
       ref: React.RefObject<HTMLElement>,
       innerRef: React.RefObject<HTMLElement>
     ) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
-      expect(innerRef.current).toHaveAttribute('data-ref', 'inner-testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
+      expect(innerRef.current).toHaveAttribute("data-ref", "inner-testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 
-describe('TextareaWrapper & Textarea have the right attributes', () => {
-  it('textarea has aria values', async () => {
+describe("TextareaWrapper & Textarea have the right attributes", () => {
+  it("textarea has aria values", async () => {
     const { textarea, getByTestId, findByText } = createTextareaWrapper();
 
-    const helpertext = getByTestId('helpertext');
-    const label = await findByText('textarea_label');
+    const helpertext = getByTestId("helpertext");
+    const label = await findByText("textarea_label");
 
-    expect(textarea).toHaveAttribute('aria-describedby', helpertext.id);
-    expect(textarea).toHaveAttribute('aria-labelledby', label.id);
+    expect(textarea).toHaveAttribute("aria-describedby", helpertext.id);
+    expect(textarea).toHaveAttribute("aria-labelledby", label.id);
   });
 
-  it('TextareaWrapper has the right helpertext', () => {
+  it("TextareaWrapper has the right helpertext", () => {
     const { getByTestId } = createTextareaWrapper();
 
-    const helpertext = getByTestId('helpertext');
+    const helpertext = getByTestId("helpertext");
 
     expect(helpertext).toBeTruthy();
-    expect(helpertext).toHaveTextContent('helpertext');
+    expect(helpertext).toHaveTextContent("helpertext");
   });
 
-  it('TextareaWrapper has the right errormessage', async () => {
-    const { findByText, textarea } = createTextareaWrapper((defaultParams) => ({
+  it("TextareaWrapper has the right errormessage", async () => {
+    const { findByText, textarea } = createTextareaWrapper(defaultParams => ({
       ...defaultParams,
-      error: true,
+      error: true
     }));
 
-    const errorMessage = await findByText('errormessage');
+    const errorMessage = await findByText("errormessage");
 
     expect(errorMessage).toBeTruthy();
-    expect(textarea).toHaveAttribute('aria-describedby', errorMessage.id);
+    expect(textarea).toHaveAttribute("aria-describedby", errorMessage.id);
   });
 
-  it('has floating label active when it has a placeholder', async () => {
-    const { findByText } = createTextareaWrapper((defaultParams) => ({
+  it("has floating label active when it has a placeholder", async () => {
+    const { findByText } = createTextareaWrapper(defaultParams => ({
       ...defaultParams,
-      placeholder: 'placeholder',
+      placeholder: "placeholder"
     }));
 
-    const label = await findByText('textarea_label');
+    const label = await findByText("textarea_label");
 
-    expect(label).toHaveClass('floating-label-active');
+    expect(label).toHaveClass("floating-label-active");
   });
 });
 
-describe('TextarenaWrapper should be interactive', () => {
-  it('Fires the onChange, onFocus & onBlur events', () => {
+describe("TextarenaWrapper should be interactive", () => {
+  it("Fires the onChange, onFocus & onBlur events", () => {
     const onFocusHandler = jest.fn();
     const onChangeHandler = jest.fn();
     const onBlurHandler = jest.fn();
 
-    const { textarea } = createTextareaWrapper((defaultParams) => ({
+    const { textarea } = createTextareaWrapper(defaultParams => ({
       ...defaultParams,
       onChange: onChangeHandler,
       onFocus: onFocusHandler,
-      onBlur: onBlurHandler,
+      onBlur: onBlurHandler
     }));
 
     userEvent.tab();
     expect(textarea).toHaveFocus();
 
-    userEvent.keyboard('input');
+    userEvent.keyboard("input");
     userEvent.tab();
 
     expect(onChangeHandler).toHaveBeenCalledTimes(5);
@@ -149,14 +149,14 @@ describe('TextarenaWrapper should be interactive', () => {
     expect(onBlurHandler).toHaveBeenCalled();
   });
 
-  it('Fires the onMouseEnter & onMouseLeave events', () => {
+  it("Fires the onMouseEnter & onMouseLeave events", () => {
     const onMouseEnterHandler = jest.fn();
     const onMouseLeaveHandler = jest.fn();
 
-    const { textarea } = createTextareaWrapper((defaultParams) => ({
+    const { textarea } = createTextareaWrapper(defaultParams => ({
       ...defaultParams,
       onMouseEnter: onMouseEnterHandler,
-      onMouseLeave: onMouseLeaveHandler,
+      onMouseLeave: onMouseLeaveHandler
     }));
 
     userEvent.hover(textarea);

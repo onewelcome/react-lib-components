@@ -1,29 +1,29 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Textarea as TextareaComponent, Props } from '../../../src/Form/Textarea/Textarea';
-import TextareaDocumentation from './Textarea.mdx';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import { Textarea as TextareaComponent, Props } from "../../../src/Form/Textarea/Textarea";
+import TextareaDocumentation from "./Textarea.mdx";
 
 const meta: Meta = {
-  title: 'Stories/Form/Elements/TextArea',
+  title: "Stories/Form/Elements/TextArea",
   component: TextareaComponent,
   parameters: {
     docs: {
-      page: TextareaDocumentation,
-    },
+      page: TextareaDocumentation
+    }
   },
   argTypes: {
     value: {
-      control: 'text',
+      control: "text"
     },
     disabled: {
-      control: 'boolean',
-    },
-  },
+      control: "boolean"
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => <TextareaComponent {...args} />;
+const Template: Story<Props> = args => <TextareaComponent {...args} />;
 
 export const Textarea = Template.bind({});
 

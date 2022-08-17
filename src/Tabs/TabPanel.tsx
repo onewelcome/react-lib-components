@@ -1,7 +1,7 @@
-import React, { ComponentPropsWithRef } from 'react';
-import classes from './TabPanel.module.scss';
+import React, { ComponentPropsWithRef } from "react";
+import classes from "./TabPanel.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   children: React.ReactNode;
   tabId: string;
   tabPanelId: string;
@@ -14,7 +14,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, Props>(
       {...rest}
       ref={ref}
       aria-labelledby={tabId}
-      className={`${classes['tabpanel']} ${selected ? classes['selected'] : ''} ${className ?? ''}`}
+      className={`${classes["tabpanel"]} ${selected ? classes["selected"] : ""} ${className ?? ""}`}
       id={tabPanelId}
       role="tabpanel"
       tabIndex={0}

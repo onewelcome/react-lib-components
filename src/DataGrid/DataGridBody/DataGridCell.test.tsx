@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
-import { DataGridCell, Props } from './DataGridCell';
-import { render } from '@testing-library/react';
+import React, { useEffect, useRef } from "react";
+import { DataGridCell, Props } from "./DataGridCell";
+import { render } from "@testing-library/react";
 
 const defaultParams: Props = {
-  children: 'cell',
+  children: "cell"
 };
 
 const createDataGridCell = (params?: (defaultParams: Props) => Props) => {
@@ -11,47 +11,47 @@ const createDataGridCell = (params?: (defaultParams: Props) => Props) => {
   if (params) {
     parameters = params(defaultParams);
   }
-  const container = document.createElement('tr');
+  const container = document.createElement("tr");
   const queries = render(<DataGridCell {...parameters} data-testid="dataGridCell" />, {
-    container,
+    container
   });
-  const dataGridCell = queries.getByTestId('dataGridCell');
+  const dataGridCell = queries.getByTestId("dataGridCell");
 
   return {
     ...queries,
-    dataGridCell,
+    dataGridCell
   };
 };
 
-describe('DataGridCell should render', () => {
-  it('renders without crashing', () => {
+describe("DataGridCell should render", () => {
+  it("renders without crashing", () => {
     const { dataGridCell } = createDataGridCell();
 
     expect(dataGridCell).toBeDefined();
-    expect(dataGridCell).toHaveClass('cell');
+    expect(dataGridCell).toHaveClass("cell");
     expect(dataGridCell).toHaveTextContent(defaultParams.children as string);
   });
 
-  it('renders with additional class', () => {
-    const { dataGridCell } = createDataGridCell((params) => ({ ...params, className: 'test' }));
+  it("renders with additional class", () => {
+    const { dataGridCell } = createDataGridCell(params => ({ ...params, className: "test" }));
 
-    expect(dataGridCell).toHaveClass('cell', 'test');
+    expect(dataGridCell).toHaveClass("cell", "test");
   });
 
-  it('renders loading state', () => {
-    const { dataGridCell } = createDataGridCell((params) => ({ ...params, isLoading: true }));
+  it("renders loading state", () => {
+    const { dataGridCell } = createDataGridCell(params => ({ ...params, isLoading: true }));
 
-    const skeletonLoadingEl = dataGridCell.querySelector('div');
-    expect(skeletonLoadingEl).toHaveClass('loading');
-    expect(skeletonLoadingEl).toHaveAttribute('aria-busy', 'true');
-    expect(skeletonLoadingEl).toHaveAttribute('aria-live', 'polite');
+    const skeletonLoadingEl = dataGridCell.querySelector("div");
+    expect(skeletonLoadingEl).toHaveClass("loading");
+    expect(skeletonLoadingEl).toHaveAttribute("aria-busy", "true");
+    expect(skeletonLoadingEl).toHaveAttribute("aria-live", "polite");
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -65,10 +65,10 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
-    const container = document.createElement('tr');
+    const container = document.createElement("tr");
     render(<ExampleComponent propagateRef={refCheck} />, { container });
   });
 });

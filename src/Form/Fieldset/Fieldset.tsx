@@ -1,22 +1,22 @@
-import React, { ComponentPropsWithRef, ReactNode, ReactElement } from 'react';
-import readyclasses from '../../readyclasses.module.scss';
-import classes from './Fieldset.module.scss';
-import { Typography, Variant } from '../../Typography/Typography';
-import { Input } from '../Input/Input';
-import { Select } from '../Select/Select';
-import { Radio } from '../Radio/Radio';
-import { Checkbox } from '../Checkbox/Checkbox';
-import { Textarea } from '../Textarea/Textarea';
-import { Toggle } from '../Toggle/Toggle';
-import { Label } from '../Label/Label';
-import { FormControl } from '../FormControl/FormControl';
-import { FormSelectorWrapper } from '../FormSelectorWrapper/FormSelectorWrapper';
-import { FormHelperText } from '../FormHelperText/FormHelperText';
-import { InputWrapper } from '../Wrapper/InputWrapper/InputWrapper';
-import { SelectWrapper } from '../Wrapper/SelectWrapper/SelectWrapper';
-import { TextareaWrapper } from '../Wrapper/TextareaWrapper/TextareaWrapper';
+import React, { ComponentPropsWithRef, ReactNode, ReactElement } from "react";
+import readyclasses from "../../readyclasses.module.scss";
+import classes from "./Fieldset.module.scss";
+import { Typography, Variant } from "../../Typography/Typography";
+import { Input } from "../Input/Input";
+import { Select } from "../Select/Select";
+import { Radio } from "../Radio/Radio";
+import { Checkbox } from "../Checkbox/Checkbox";
+import { Textarea } from "../Textarea/Textarea";
+import { Toggle } from "../Toggle/Toggle";
+import { Label } from "../Label/Label";
+import { FormControl } from "../FormControl/FormControl";
+import { FormSelectorWrapper } from "../FormSelectorWrapper/FormSelectorWrapper";
+import { FormHelperText } from "../FormHelperText/FormHelperText";
+import { InputWrapper } from "../Wrapper/InputWrapper/InputWrapper";
+import { SelectWrapper } from "../Wrapper/SelectWrapper/SelectWrapper";
+import { TextareaWrapper } from "../Wrapper/TextareaWrapper/TextareaWrapper";
 
-export interface Props extends ComponentPropsWithRef<'fieldset'> {
+export interface Props extends ComponentPropsWithRef<"fieldset"> {
   children?: ReactElement | ReactElement[];
   legend: string;
   legendStyle?: Variant;
@@ -35,10 +35,10 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, Props>(
       children,
       className,
       legend,
-      legendStyle = 'body',
+      legendStyle = "body",
       hideLegend = false,
       noBackground,
-      background = noBackground ? '' : '#FFF',
+      background = noBackground ? "" : "#FFF",
       noPadding = false,
       disabled = false,
       required = false,
@@ -68,14 +68,14 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, Props>(
         FormHelperText,
         InputWrapper,
         SelectWrapper,
-        TextareaWrapper,
+        TextareaWrapper
       ];
 
       return React.Children.map(children, (child: ReactElement) => {
         if (allowedComponents.includes(child.type) && !disablePropagation) {
           return React.cloneElement(child, {
             disabled: child.props.disabled ?? disabled,
-            error: child.props.error ?? error,
+            error: child.props.error ?? error
           });
         }
 
@@ -89,18 +89,18 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, Props>(
         ref={ref}
         disabled={disabled}
         style={{ backgroundColor: background, ...rest.style }}
-        className={`${classes.fieldset} ${noPadding ? classes['no-padding'] : ''} ${
-          className ?? ''
+        className={`${classes.fieldset} ${noPadding ? classes["no-padding"] : ""} ${
+          className ?? ""
         }`}
       >
-        {legend && <legend className={readyclasses['sr-only']}>{legend}</legend>}
+        {legend && <legend className={readyclasses["sr-only"]}>{legend}</legend>}
         {legend && !hideLegend && (
           <Typography
             variant={legendStyle}
             tag="span"
             aria-hidden="true"
-            className={`${classes['legend']} ${required ? classes['required'] : ''} ${
-              error ? classes['error'] : ''
+            className={`${classes["legend"]} ${required ? classes["required"] : ""} ${
+              error ? classes["error"] : ""
             }`}
           >
             {legend}

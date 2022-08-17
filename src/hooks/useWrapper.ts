@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { generateID } from '../util/helper';
-import { Type as InputTypes } from '../Form/Input/Input';
+import { useEffect, useState } from "react";
+import { generateID } from "../util/helper";
+import { Type as InputTypes } from "../Form/Input/Input";
 
 export const useWrapper = (value?: string, placeholder?: string, type?: InputTypes) => {
   const [helperId] = useState(generateID(20));
@@ -13,9 +13,9 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
     if (
       (value?.length && value.length > 0) ||
       placeholder ||
-      type === 'datetime-local' ||
-      type === 'time' ||
-      type === 'date'
+      type === "datetime-local" ||
+      type === "time" ||
+      type === "date"
     ) {
       setFloatingLabelActive(true);
     }
@@ -27,9 +27,9 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
     } else if (
       !placeholder &&
       !hasFocus &&
-      type !== 'datetime-local' &&
-      type !== 'time' &&
-      type !== 'date'
+      type !== "datetime-local" &&
+      type !== "time" &&
+      type !== "date"
     ) {
       setFloatingLabelActive(false);
     }
@@ -42,6 +42,6 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
     floatingLabelActive,
     setFloatingLabelActive,
     hasFocus,
-    setHasFocus,
+    setHasFocus
   };
 };

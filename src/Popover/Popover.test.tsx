@@ -1,7 +1,7 @@
-import React, { Fragment, useRef } from 'react';
-import { Popover, Props } from './Popover';
-import { render } from '@testing-library/react';
-import { usePosition } from '../hooks/usePosition';
+import React, { Fragment, useRef } from "react";
+import { Popover, Props } from "./Popover";
+import { render } from "@testing-library/react";
+import { usePosition } from "../hooks/usePosition";
 
 const createPopover = (params?: (defaultParams: Props) => Props) => {
   const Component = () => {
@@ -17,7 +17,7 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
         </ul>
       ),
       show: false,
-      placement: { vertical: 'top', horizontal: 'left' },
+      placement: { vertical: "top", horizontal: "left" }
     };
     let parameters: Props = defaultParams;
 
@@ -28,7 +28,7 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
     const { top, left, bottom, right, calculatePosition } = usePosition({
       elementToBePositioned: elementToBePositioned,
       relativeElement: relativeElement,
-      ...parameters,
+      ...parameters
     });
 
     return (
@@ -49,34 +49,34 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
   };
 
   const queries = render(<Component />);
-  const button = queries.getByTestId('button');
-  const popover = queries.getByTestId('popover');
+  const button = queries.getByTestId("button");
+  const popover = queries.getByTestId("popover");
 
   /** Let the hacking begin */
-  Object.defineProperty(button, 'offsetHeight', { configurable: true, value: 500 });
-  Object.defineProperty(button, 'offsetWidth', { configurable: true, value: 500 });
+  Object.defineProperty(button, "offsetHeight", { configurable: true, value: 500 });
+  Object.defineProperty(button, "offsetWidth", { configurable: true, value: 500 });
 
-  Object.defineProperty(window, 'innerHeight', {
+  Object.defineProperty(window, "innerHeight", {
     configurable: true,
-    value: 1000,
+    value: 1000
   });
-  Object.defineProperty(window, 'innerWidth', {
+  Object.defineProperty(window, "innerWidth", {
     configurable: true,
-    value: 1000,
+    value: 1000
   });
 
-  Object.defineProperty(popover, 'offsetHeight', { configurable: true, value: 100 });
-  Object.defineProperty(popover, 'offsetWidth', { configurable: true, value: 100 });
+  Object.defineProperty(popover, "offsetHeight", { configurable: true, value: 100 });
+  Object.defineProperty(popover, "offsetWidth", { configurable: true, value: 100 });
 
   return {
     ...queries,
     popover,
-    button,
+    button
   };
 };
 
-describe('Popover should render', () => {
-  it('renders without crashing and has default left and top attributes', () => {
+describe("Popover should render", () => {
+  it("renders without crashing and has default left and top attributes", () => {
     const { popover } = createPopover();
 
     expect(popover).toBeTruthy();

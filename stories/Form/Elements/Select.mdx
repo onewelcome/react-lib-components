@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -25,14 +25,14 @@ An example of how a `Select` component can be built using state and an `onClear`
 
 ```jsx
 const ExampleComponent = () => {
-  const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState("");
   const [hasError, setHasError] = useState(false);
 
   return (
     <Select
       name="Example select element"
-      onClear={setSelectValue('')}
-      onChange={(event) => setSelectValue(event.target.value)}
+      onClear={setSelectValue("")}
+      onChange={event => setSelectValue(event.target.value)}
       value={selectValue}
       error={hasError}
     >

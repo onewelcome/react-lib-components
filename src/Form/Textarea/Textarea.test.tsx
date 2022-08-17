@@ -1,29 +1,29 @@
-import React, { useEffect, useRef } from 'react';
-import { Textarea, Props } from './Textarea';
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import React, { useEffect, useRef } from "react";
+import { Textarea, Props } from "./Textarea";
+import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 const createTextarea = (params?: Props) => {
   const queries = render(<Textarea data-testid="textarea" {...params} />);
-  const textarea = queries.getByRole('textbox');
+  const textarea = queries.getByRole("textbox");
 
   return {
     ...queries,
-    textarea,
+    textarea
   };
 };
 
-describe('Textarea should render', () => {
-  it('renders without crashing', () => {
+describe("Textarea should render", () => {
+  it("renders without crashing", () => {
     const { textarea } = createTextarea();
     expect(textarea).toBeTruthy();
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -39,37 +39,37 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 
-describe('Textarea properties', () => {
-  it('is disabled', () => {
+describe("Textarea properties", () => {
+  it("is disabled", () => {
     const { textarea } = createTextarea({ disabled: true });
 
-    expect(textarea).toHaveAttribute('disabled');
+    expect(textarea).toHaveAttribute("disabled");
   });
 
-  it('has 20 columns', () => {
+  it("has 20 columns", () => {
     const { textarea } = createTextarea({ cols: 20 });
 
-    expect(textarea).toHaveAttribute('cols', '20');
+    expect(textarea).toHaveAttribute("cols", "20");
   });
 
-  it('has autofocus', () => {
+  it("has autofocus", () => {
     const { textarea } = createTextarea({ autoFocus: true });
 
     setTimeout(() => {
-      expect(textarea).toHaveAttribute('autofocus');
+      expect(textarea).toHaveAttribute("autofocus");
     }, 0);
   });
 });
 
-describe('Textarea listeners', () => {
-  it('executes the functions', () => {
+describe("Textarea listeners", () => {
+  it("executes the functions", () => {
     const onChangeHandler = jest.fn();
     const onKeyUpHandler = jest.fn();
     const onKeyDownHandler = jest.fn();
@@ -77,14 +77,14 @@ describe('Textarea listeners', () => {
     const { textarea } = createTextarea({
       onKeyUp: onKeyUpHandler,
       onKeyDown: onKeyDownHandler,
-      onChange: onChangeHandler,
+      onChange: onChangeHandler
     });
 
     textarea.focus();
 
     expect(textarea).toHaveFocus();
 
-    userEvent.keyboard('test');
+    userEvent.keyboard("test");
 
     expect(onKeyUpHandler).toHaveBeenCalled();
     expect(onKeyDownHandler).toHaveBeenCalled();
@@ -92,11 +92,11 @@ describe('Textarea listeners', () => {
   });
 });
 
-describe('Error status', () => {
-  it('has error class, and an icon', () => {
+describe("Error status", () => {
+  it("has error class, and an icon", () => {
     const { textarea } = createTextarea({ error: true });
 
-    expect(textarea).toHaveClass('error');
-    expect(textarea.nextElementSibling).toHaveClass('icon-error-circle');
+    expect(textarea).toHaveClass("error");
+    expect(textarea.nextElementSibling).toHaveClass("icon-error-circle");
   });
 });

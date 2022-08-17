@@ -4,15 +4,15 @@ import React, {
   useEffect,
   useLayoutEffect,
   useRef,
-  useState,
-} from 'react';
-import { Icon, Icons } from '../Icon/Icon';
-import classes from './Tooltip.module.scss';
-import { generateID } from '../util/helper';
-import { Offset, Placement, usePosition } from '../hooks/usePosition';
-import { createPortal } from 'react-dom';
+  useState
+} from "react";
+import { Icon, Icons } from "../Icon/Icon";
+import classes from "./Tooltip.module.scss";
+import { generateID } from "../util/helper";
+import { Offset, Placement, usePosition } from "../hooks/usePosition";
+import { createPortal } from "react-dom";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   label: string | ReactNode;
   children: string;
   placement?: Placement;
@@ -28,9 +28,9 @@ interface DefaultPosition {
 }
 
 const defaultPosition: DefaultPosition = {
-  placement: { horizontal: 'right', vertical: 'center' },
+  placement: { horizontal: "right", vertical: "center" },
   offset: { left: 16, right: 0, top: 0, bottom: 0 },
-  transformOrigin: { horizontal: 'left', vertical: 'center' },
+  transformOrigin: { horizontal: "left", vertical: "center" }
 };
 
 export const Tooltip = React.forwardRef<HTMLDivElement, Props>(
@@ -58,22 +58,22 @@ export const Tooltip = React.forwardRef<HTMLDivElement, Props>(
       elementToBePositioned: elementToBePositioned,
       placement: placement,
       offset: offset,
-      transformOrigin: transformOrigin,
+      transformOrigin: transformOrigin
     });
 
     useEffect(() => {
       if (!visible) return;
 
       function escapePressHandler(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
+        if (event.key === "Escape") {
           setVisible(false);
         }
       }
 
-      document.addEventListener('keyup', escapePressHandler);
+      document.addEventListener("keyup", escapePressHandler);
 
       return () => {
-        document.removeEventListener('keyup', escapePressHandler);
+        document.removeEventListener("keyup", escapePressHandler);
       };
     }, [visible]);
 
@@ -86,15 +86,15 @@ export const Tooltip = React.forwardRef<HTMLDivElement, Props>(
         return React.cloneElement(label, {
           onFocus: () => setVisible(true),
           onBlur: () => setVisible(false),
-          'aria-describedby': identifier,
+          "aria-describedby": identifier,
           tabIndex: 0,
-          className: classes['label'],
+          className: classes["label"]
         });
       }
 
       return (
         <span
-          className={classes['label']}
+          className={classes["label"]}
           tabIndex={0}
           onFocus={() => setVisible(true)}
           onBlur={() => setVisible(false)}
@@ -106,9 +106,9 @@ export const Tooltip = React.forwardRef<HTMLDivElement, Props>(
     };
 
     return (
-      <div {...rest} ref={ref} className={`${classes.wrapper} ${className ?? ''}`}>
+      <div {...rest} ref={ref} className={`${classes.wrapper} ${className ?? ""}`}>
         {renderChildren()}
-        <div className={`${classes['tooltip-wrapper']}`}>
+        <div className={`${classes["tooltip-wrapper"]}`}>
           <Icon
             ref={relativeElement}
             tag="div"
@@ -125,11 +125,11 @@ export const Tooltip = React.forwardRef<HTMLDivElement, Props>(
                 top: top,
                 left: left,
                 right: right,
-                bottom: bottom,
+                bottom: bottom
               }}
               aria-hidden={!visible}
               id={identifier}
-              className={`${classes.tooltip} ${visible ? classes.visible : ''}`}
+              className={`${classes.tooltip} ${visible ? classes.visible : ""}`}
             >
               {children}
             </div>,

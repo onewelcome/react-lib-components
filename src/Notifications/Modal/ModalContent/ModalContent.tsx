@@ -1,4 +1,4 @@
 export {
   BaseModalContent as ModalContent,
-  Props,
-} from '../../BaseModal/BaseModalContent/BaseModalContent';
+  Props
+} from "../../BaseModal/BaseModalContent/BaseModalContent";

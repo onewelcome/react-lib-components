@@ -1,9 +1,9 @@
-import React, { ComponentPropsWithRef, useEffect, useState } from 'react';
-import { ColumnName, Direction, HeaderCell, OnSortFunction, Sort } from '../datagrid.interfaces';
-import { DataGridHeaderCell } from './DataGridHeaderCell';
-import classes from './DataGridHeader.module.scss';
+import React, { ComponentPropsWithRef, useEffect, useState } from "react";
+import { ColumnName, Direction, HeaderCell, OnSortFunction, Sort } from "../datagrid.interfaces";
+import { DataGridHeaderCell } from "./DataGridHeaderCell";
+import classes from "./DataGridHeader.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'thead'> {
+export interface Props extends ComponentPropsWithRef<"thead"> {
   headers: HeaderCell[];
   initialSort?: Sort;
   onSort?: OnSortFunction;
@@ -12,7 +12,7 @@ export interface Props extends ComponentPropsWithRef<'thead'> {
   spacing?: React.CSSProperties;
 }
 
-const sortingStates = [undefined, 'ASC', 'DESC'] as (Direction | undefined)[];
+const sortingStates = [undefined, "ASC", "DESC"] as (Direction | undefined)[];
 
 export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
   (
@@ -34,7 +34,7 @@ export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
     }, [initialSort]);
 
     const calculateNextSortState = (direction?: Direction) => {
-      const currentDirectionIdx = sortingStates.findIndex((item) => item === direction);
+      const currentDirectionIdx = sortingStates.findIndex(item => item === direction);
       return sortingStates[currentDirectionIdx + (1 % sortingStates.length)];
     };
 
@@ -43,8 +43,8 @@ export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
      * Last modified sorting column has the highest priority.
      */
     const updateSortList = (name: ColumnName): Sort => {
-      const current = sortList.find((item) => item.name === name);
-      const restSortList = enableMultiSorting ? sortList.filter((item) => item.name !== name) : [];
+      const current = sortList.find(item => item.name === name);
+      const restSortList = enableMultiSorting ? sortList.filter(item => item.name !== name) : [];
       const newSortDirection = calculateNextSortState(current?.direction);
       return newSortDirection
         ? [{ name, direction: newSortDirection }, ...restSortList]
@@ -71,7 +71,7 @@ export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
         headerStyle.paddingRight = spacing?.paddingRight;
       }
 
-      const sort = sortList.find((item) => item.name === header.name);
+      const sort = sortList.find(item => item.name === header.name);
       return (
         <DataGridHeaderCell
           key={header.name}
@@ -86,14 +86,14 @@ export const DataGridHeader = React.forwardRef<HTMLTableSectionElement, Props>(
     });
 
     return (
-      <thead {...rest} ref={ref} className={classes['thead']}>
-        <tr className={classes['row']}>
+      <thead {...rest} ref={ref} className={classes["thead"]}>
+        <tr className={classes["row"]}>
           {headerCells}
           {!disableContextMenuColumn && (
             <td
               style={{ paddingRight: spacing?.paddingRight }}
               aria-label="context menu"
-              className={classes['context-menu']}
+              className={classes["context-menu"]}
             ></td>
           )}
         </tr>

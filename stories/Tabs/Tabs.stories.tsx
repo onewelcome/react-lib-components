@@ -1,23 +1,23 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Tabs as TabsComponent, Props } from '../../src/Tabs/Tabs';
-import { Typography } from '../../src/Typography/Typography';
-import { Tab } from '../../src/Tabs/Tab';
-import TabsDocumentation from './Tabs.mdx';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import { Tabs as TabsComponent, Props } from "../../src/Tabs/Tabs";
+import { Typography } from "../../src/Typography/Typography";
+import { Tab } from "../../src/Tabs/Tab";
+import TabsDocumentation from "./Tabs.mdx";
 
 const meta: Meta = {
-  title: 'Stories/UI/Tabs',
+  title: "Stories/UI/Tabs",
   parameters: {
     docs: {
-      page: TabsDocumentation,
-    },
+      page: TabsDocumentation
+    }
   },
-  component: TabsComponent,
+  component: TabsComponent
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   return (
     <TabsComponent {...args}>
       <Tab title="First tab">

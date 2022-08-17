@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { Tiles, Props } from './Tiles';
-import { Tile } from './Tile';
-import { render } from '@testing-library/react';
-import { Icon, Icons } from '../Icon/Icon';
-import { ContextMenu } from '../ContextMenu/ContextMenu';
-import { ContextMenuItem } from '../ContextMenu/ContextMenuItem';
-import { IconButton } from '../Button/IconButton';
+import React, { useEffect, useRef } from "react";
+import { Tiles, Props } from "./Tiles";
+import { Tile } from "./Tile";
+import { render } from "@testing-library/react";
+import { Icon, Icons } from "../Icon/Icon";
+import { ContextMenu } from "../ContextMenu/ContextMenu";
+import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
+import { IconButton } from "../Button/IconButton";
 
 const onShow = jest.fn();
 const onClose = jest.fn();
@@ -47,7 +47,7 @@ const defaultParams: Props = {
       key="tile1"
       title="Tile1"
       imageProps={{
-        src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
+        src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
       }}
       enabled={true}
       tileAction={contextMenu}
@@ -57,7 +57,7 @@ const defaultParams: Props = {
       key="tile2"
       title="Tile2"
       imageProps={{
-        src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
+        src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
       }}
       enabled={false}
       tileAction={addToFavoriteButton}
@@ -67,12 +67,12 @@ const defaultParams: Props = {
       key="tile3"
       title="Tile3"
       imageProps={{
-        src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
+        src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
       }}
       tileAction={contextMenu}
-    />,
+    />
   ],
-  className: 'example-classname',
+  className: "example-classname"
 };
 
 const createTiles = (params?: (defaultParams: Props) => Props) => {
@@ -81,48 +81,48 @@ const createTiles = (params?: (defaultParams: Props) => Props) => {
     parameters = params(defaultParams);
   }
   const queries = render(<Tiles {...parameters} data-testid="tiles" />);
-  const tiles = queries.getByTestId('tiles');
+  const tiles = queries.getByTestId("tiles");
 
   let individualTiles;
 
   if (!parameters.loading) {
-    individualTiles = queries.getAllByTestId('tile');
+    individualTiles = queries.getAllByTestId("tile");
   }
 
   return {
     ...queries,
     tiles,
-    individualTiles,
+    individualTiles
   };
 };
 
-describe('Tiles should render', () => {
-  it('renders without crashing', () => {
+describe("Tiles should render", () => {
+  it("renders without crashing", () => {
     const { tiles, individualTiles } = createTiles();
 
     individualTiles?.forEach((tile, index) => {
-      expect(tile.querySelector('.title')).toHaveTextContent('Tile' + (index + 1).toFixed(0));
-      expect(tile.querySelector('img')).toBeTruthy();
+      expect(tile.querySelector(".title")).toHaveTextContent("Tile" + (index + 1).toFixed(0));
+      expect(tile.querySelector("img")).toBeTruthy();
     });
 
-    expect(tiles).toHaveClass('example-classname');
+    expect(tiles).toHaveClass("example-classname");
     expect(tiles).toBeDefined();
   });
 });
 
-describe('loading state should be handled properly', () => {
-  it('is loading', () => {
-    const { tiles } = createTiles((defaultParams) => ({ ...defaultParams, loading: true }));
+describe("loading state should be handled properly", () => {
+  it("is loading", () => {
+    const { tiles } = createTiles(defaultParams => ({ ...defaultParams, loading: true }));
 
-    expect(tiles).toHaveAttribute('aria-busy', 'true');
-    expect(tiles.querySelectorAll('.tile.loading').length).toBe(3);
+    expect(tiles).toHaveAttribute("aria-busy", "true");
+    expect(tiles.querySelectorAll(".tile.loading").length).toBe(3);
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -138,7 +138,7 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);

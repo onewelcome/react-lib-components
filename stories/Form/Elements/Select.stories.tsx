@@ -1,61 +1,61 @@
-import React, { Fragment, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Select as SelectComponent, Props } from '../../../src/Form/Select/Select';
-import { Option } from '../../../src/Form/Select/Option';
-import SelectDocumentation from './Select.mdx';
+import React, { Fragment, useState } from "react";
+import { Meta, Story } from "@storybook/react";
+import { Select as SelectComponent, Props } from "../../../src/Form/Select/Select";
+import { Option } from "../../../src/Form/Select/Option";
+import SelectDocumentation from "./Select.mdx";
 
 const meta: Meta = {
-  title: 'Stories/Form/Elements/Select',
+  title: "Stories/Form/Elements/Select",
   component: SelectComponent,
   parameters: {
     docs: {
-      page: SelectDocumentation,
-    },
+      page: SelectDocumentation
+    }
   },
   argTypes: {
     labeledBy: {
       table: { disable: true },
-      control: false,
+      control: false
     },
     describedBy: {
       table: { disable: true },
-      control: false,
+      control: false
     },
     className: {
       table: { disable: true },
-      control: false,
+      control: false
     },
     value: {
       options: [
-        'option1',
-        'option2',
-        'option3',
-        'option4',
-        'option5',
-        'option6',
-        'option7',
-        'option8',
-        'option9',
-        'option10',
-        'option11',
-        'option12',
-        'option13',
-        'option14',
-        'option15',
-        'option16',
-        'option17',
+        "option1",
+        "option2",
+        "option3",
+        "option4",
+        "option5",
+        "option6",
+        "option7",
+        "option8",
+        "option9",
+        "option10",
+        "option11",
+        "option12",
+        "option13",
+        "option14",
+        "option15",
+        "option16",
+        "option17"
       ],
-      control: 'select',
+      control: "select"
     },
     disabled: {
-      control: 'boolean',
-    },
-  },
+      control: "boolean"
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   return (
     <SelectComponent {...args}>
       <Option value="option1">Test</Option>
@@ -83,5 +83,5 @@ export const Select = Template.bind({});
 
 Select.args = {
   onClear: () => {},
-  name: 'Example select',
+  name: "Example select"
 };

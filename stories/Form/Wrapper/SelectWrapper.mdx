@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -23,7 +23,7 @@ A code example of how you can configure a `SelectWrapper` within a React compone
 
 ```jsx
 const ExampleComponent = () => {
-  const [selectValue, setSelectValue] = useState('option1');
+  const [selectValue, setSelectValue] = useState("option1");
 
   return (
     <SelectWrapperComponent
@@ -34,7 +34,7 @@ const ExampleComponent = () => {
       errorMessage="This is an error message"
       required={true}
       value={selectValue}
-      onChange={(event) => setSelectValue(event.target.value)}
+      onChange={event => setSelectValue(event.target.value)}
     >
       <Option value="option1">Option 1</Option>
       <Option value="option2">Option 2</Option>

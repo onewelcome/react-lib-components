@@ -1,19 +1,19 @@
-import React, { useEffect, useRef } from 'react';
-import { Meta, Story } from '@storybook/react';
+import React, { useEffect, useRef } from "react";
+import { Meta, Story } from "@storybook/react";
 import {
   FormSelectorWrapper,
-  Props,
-} from '../../../src/Form/FormSelectorWrapper/FormSelectorWrapper';
-import FormSelectorWrapperDocumentation from './FormSelectorWrapper.mdx';
+  Props
+} from "../../../src/Form/FormSelectorWrapper/FormSelectorWrapper";
+import FormSelectorWrapperDocumentation from "./FormSelectorWrapper.mdx";
 
 const meta: Meta = {
-  title: 'FormSelectorWrapper',
+  title: "FormSelectorWrapper",
   component: FormSelectorWrapper,
   parameters: {
     docs: {
-      page: FormSelectorWrapperDocumentation,
-    },
-  },
+      page: FormSelectorWrapperDocumentation
+    }
+  }
 };
 
 export default meta;

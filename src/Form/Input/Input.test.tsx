@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { Input, Props } from './Input';
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import React, { useEffect, useRef } from "react";
+import { Input, Props } from "./Input";
+import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
-  name: 'input',
-  type: 'text',
+  name: "input",
+  type: "text"
 };
 
 const createInput = (params?: (defaultParams: Props) => Props) => {
@@ -14,25 +14,25 @@ const createInput = (params?: (defaultParams: Props) => Props) => {
     parameters = params(defaultParams);
   }
   const queries = render(<Input {...parameters} data-testid="input" />);
-  const input = queries.getByTestId('input');
+  const input = queries.getByTestId("input");
 
   return {
     ...queries,
-    input,
+    input
   };
 };
 
-describe('Input should render', () => {
-  it('renders without crashing and has a name and type', () => {
+describe("Input should render", () => {
+  it("renders without crashing and has a name and type", () => {
     const { input } = createInput();
     expect(input).toBeTruthy();
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -48,111 +48,111 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 
-describe('Should have the appropriate attributes', () => {
-  it('is disabled and has a class', () => {
-    const { input } = createInput((defaultParams) => ({
+describe("Should have the appropriate attributes", () => {
+  it("is disabled and has a class", () => {
+    const { input } = createInput(defaultParams => ({
       ...defaultParams,
       disabled: true,
-      className: 'classname',
+      className: "classname"
     }));
 
-    expect(input).toHaveAttribute('disabled');
-    expect(input).toHaveClass('classname');
+    expect(input).toHaveAttribute("disabled");
+    expect(input).toHaveClass("classname");
   });
 });
 
-describe('Should render all different types of inputs', () => {
-  it('should render a text input', () => {
-    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'text' }));
+describe("Should render all different types of inputs", () => {
+  it("should render a text input", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "text" }));
 
-    expect(input).toHaveAttribute('type', 'text');
+    expect(input).toHaveAttribute("type", "text");
   });
 
-  it('should render a email input', () => {
-    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'email' }));
+  it("should render a email input", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "email" }));
 
-    expect(input).toHaveAttribute('type', 'email');
+    expect(input).toHaveAttribute("type", "email");
   });
 
-  it('should render a tel input', () => {
-    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'tel' }));
+  it("should render a tel input", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "tel" }));
 
-    expect(input).toHaveAttribute('type', 'tel');
+    expect(input).toHaveAttribute("type", "tel");
   });
 
-  it('should render a number input', () => {
-    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'number' }));
+  it("should render a number input", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "number" }));
 
-    expect(input).toHaveAttribute('type', 'number');
+    expect(input).toHaveAttribute("type", "number");
   });
 
-  it('should render a password input', () => {
-    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'password' }));
+  it("should render a password input", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "password" }));
 
-    expect(input).toHaveAttribute('type', 'password');
+    expect(input).toHaveAttribute("type", "password");
   });
 
-  it('should render a search input', () => {
-    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'search' }));
+  it("should render a search input", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "search" }));
 
-    expect(input).toHaveAttribute('type', 'search');
+    expect(input).toHaveAttribute("type", "search");
   });
 
-  it('should render a time input', () => {
-    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'time' }));
+  it("should render a time input", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "time" }));
 
-    expect(input).toHaveAttribute('type', 'time');
+    expect(input).toHaveAttribute("type", "time");
   });
 
-  it('should render a url input', () => {
-    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'url' }));
+  it("should render a url input", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "url" }));
 
-    expect(input).toHaveAttribute('type', 'url');
+    expect(input).toHaveAttribute("type", "url");
   });
 
-  it('should render a datetime input', () => {
-    const { input } = createInput((defaultParams) => ({
+  it("should render a datetime input", () => {
+    const { input } = createInput(defaultParams => ({
       ...defaultParams,
-      type: 'datetime-local',
+      type: "datetime-local"
     }));
 
-    expect(input).toHaveAttribute('type', 'datetime-local');
+    expect(input).toHaveAttribute("type", "datetime-local");
   });
 
-  it('should be hidden', () => {
-    const { input } = createInput((defaultParams) => ({ ...defaultParams, type: 'hidden' }));
+  it("should be hidden", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "hidden" }));
 
-    expect(input.parentElement).toHaveClass('hidden');
-    expect(input).toHaveAttribute('type', 'hidden');
+    expect(input.parentElement).toHaveClass("hidden");
+    expect(input).toHaveAttribute("type", "hidden");
   });
 });
 
-describe('It should execute the listeners', () => {
-  it('fires event handlers', () => {
+describe("It should execute the listeners", () => {
+  it("fires event handlers", () => {
     const onChangeHandler = jest.fn();
     const onKeyUpHandler = jest.fn();
     const onKeyDownHandler = jest.fn();
 
-    const { input } = createInput((defaultParams) => ({
+    const { input } = createInput(defaultParams => ({
       ...defaultParams,
-      type: 'text',
+      type: "text",
       onKeyUp: onKeyUpHandler,
       onKeyDown: onKeyDownHandler,
-      onChange: onChangeHandler,
+      onChange: onChangeHandler
     }));
 
     input.focus();
 
     expect(input).toHaveFocus();
 
-    userEvent.keyboard('test');
+    userEvent.keyboard("test");
 
     expect(onKeyUpHandler).toHaveBeenCalled();
     expect(onKeyDownHandler).toHaveBeenCalled();
@@ -160,29 +160,29 @@ describe('It should execute the listeners', () => {
   });
 });
 
-describe('It should render prefix and suffix ', () => {
-  it('renders prefix and suffix', () => {
-    const prefix = 'http://';
-    const suffix = '.com';
-    const { getByText } = createInput((defaultParams) => ({
+describe("It should render prefix and suffix ", () => {
+  it("renders prefix and suffix", () => {
+    const prefix = "http://";
+    const suffix = ".com";
+    const { getByText } = createInput(defaultParams => ({
       ...defaultParams,
       prefix,
-      suffix,
+      suffix
     }));
 
     expect(getByText(prefix)).toBeDefined();
     expect(getByText(suffix)).toBeDefined();
   });
 
-  it('error icon should be visible with suffix', () => {
-    const suffix = '.com';
-    const { input, getByText } = createInput((defaultParams) => ({
+  it("error icon should be visible with suffix", () => {
+    const suffix = ".com";
+    const { input, getByText } = createInput(defaultParams => ({
       ...defaultParams,
       error: true,
-      suffix,
+      suffix
     }));
 
-    expect(input.querySelector('icon-warning')).toBeDefined();
+    expect(input.querySelector("icon-warning")).toBeDefined();
     expect(getByText(suffix)).toBeDefined();
   });
 });

@@ -1,4 +1,4 @@
-@import '../mixins.module.scss';
+@import "../mixins.module.scss";
 
 .skeleton {
   display: block;
@@ -7,7 +7,7 @@
 }
 
 .no-height::before {
-  content: ' ';
+  content: " ";
   white-space: pre-wrap;
 }
 

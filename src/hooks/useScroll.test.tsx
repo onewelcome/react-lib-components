@@ -1,9 +1,9 @@
-import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-import { useScroll } from './useScroll';
+import React from "react";
+import { fireEvent, render } from "@testing-library/react";
+import { useScroll } from "./useScroll";
 
-describe('function should be executed', () => {
-  it('should execute', () => {
+describe("function should be executed", () => {
+  it("should execute", () => {
     const scrollHandler = jest.fn();
 
     const Component = () => {

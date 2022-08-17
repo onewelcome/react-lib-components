@@ -1,33 +1,33 @@
-import React, { useReducer } from 'react';
-import { WizardSteps, Props } from './WizardSteps';
-import { getAllByRole, getByText, render } from '@testing-library/react';
-import { WizardStateContext, Props as ProviderProps } from '../WizardStateProvider';
-import { WizardStateType, reducer, changeCurrentStepNo } from '../wizardStateReducer';
-import userEvent from '@testing-library/user-event';
+import React, { useReducer } from "react";
+import { WizardSteps, Props } from "./WizardSteps";
+import { getAllByRole, getByText, render } from "@testing-library/react";
+import { WizardStateContext, Props as ProviderProps } from "../WizardStateProvider";
+import { WizardStateType, reducer, changeCurrentStepNo } from "../wizardStateReducer";
+import userEvent from "@testing-library/user-event";
 
 const initWizardState: WizardStateType = {
   steps: [
     {
-      label: 'Step 1',
+      label: "Step 1"
     },
     {
-      label: 'Step 2',
+      label: "Step 2"
     },
     {
-      label: 'Step 3',
-      disabled: true,
+      label: "Step 3",
+      disabled: true
     },
     {
-      label: 'Step 4',
-    },
+      label: "Step 4"
+    }
   ],
   currentStepNo: 1,
-  stepScreenReaderLabel: 'Step',
-  mode: 'add',
+  stepScreenReaderLabel: "Step",
+  mode: "add"
 };
 
 const initParams: Props = {
-  onStepClick: jest.fn(),
+  onStepClick: jest.fn()
 };
 
 const renderWizardSteps = (initReducerState?: WizardStateType) => {
@@ -51,14 +51,14 @@ const renderWizardSteps = (initReducerState?: WizardStateType) => {
 
   return {
     ...renderObj,
-    dispatch,
+    dispatch
   };
 };
 
-const getStepButtons = (container: HTMLElement) => getAllByRole(container, 'button');
+const getStepButtons = (container: HTMLElement) => getAllByRole(container, "button");
 
-describe('WizardSteps', () => {
-  it('renders without crashing', () => {
+describe("WizardSteps", () => {
+  it("renders without crashing", () => {
     const { container, dispatch } = renderWizardSteps();
     const buttons = getStepButtons(container);
     (
@@ -69,10 +69,10 @@ describe('WizardSteps', () => {
     userEvent.click(buttons[0]);
     expect(initParams.onStepClick).toHaveBeenCalledWith(initWizardState.currentStepNo, 0);
     expect(dispatch).toBeCalledWith(changeCurrentStepNo(0));
-    expect(buttons[0].querySelector('.checkmark')).toBeDefined();
-    expect(getByText(buttons[1], '2')).toBeDefined();
-    expect(getByText(buttons[2], '3')).toBeDefined();
-    expect(getByText(buttons[3], '4')).toBeDefined();
+    expect(buttons[0].querySelector(".checkmark")).toBeDefined();
+    expect(getByText(buttons[1], "2")).toBeDefined();
+    expect(getByText(buttons[2], "3")).toBeDefined();
+    expect(getByText(buttons[3], "4")).toBeDefined();
 
     userEvent.click(buttons[1]);
     userEvent.click(buttons[2]);
@@ -80,8 +80,8 @@ describe('WizardSteps', () => {
     expect(initParams.onStepClick).toHaveBeenCalledTimes(1);
   });
 
-  it('should allow to click on future and prev steps but not on current and disabled steps when mode is set to `edit`', () => {
-    const { container, dispatch } = renderWizardSteps({ ...initWizardState, mode: 'edit' });
+  it("should allow to click on future and prev steps but not on current and disabled steps when mode is set to `edit`", () => {
+    const { container, dispatch } = renderWizardSteps({ ...initWizardState, mode: "edit" });
     const buttons = getStepButtons(container);
     (
       initParams.onStepClick as jest.MockedFunction<typeof initParams.onStepClick>
@@ -96,8 +96,8 @@ describe('WizardSteps', () => {
     expect(initParams.onStepClick).toHaveBeenCalledTimes(1);
   });
 
-  it('should do not change step when `onStepClick` callback returns false', () => {
-    const { container, dispatch } = renderWizardSteps({ ...initWizardState, mode: 'edit' });
+  it("should do not change step when `onStepClick` callback returns false", () => {
+    const { container, dispatch } = renderWizardSteps({ ...initWizardState, mode: "edit" });
     const buttons = getStepButtons(container);
     (
       initParams.onStepClick as jest.MockedFunction<typeof initParams.onStepClick>

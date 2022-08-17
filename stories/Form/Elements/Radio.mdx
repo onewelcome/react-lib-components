@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -19,39 +19,39 @@ A code example of how you could use the `Radio` component with state:
 
 ```jsx
 const ExampleComponent = () => {
-  const [radioValue, setRadioValue] = useState('option1');
+  const [radioValue, setRadioValue] = useState("option1");
 
   return (
     <Fieldset legend="Radio button group">
       <Radio
         name="example-name"
         value="option1"
-        onChange={(event) => setRadioValue(event.target.value)}
-        checked={radioValue === 'option1'}
+        onChange={event => setRadioValue(event.target.value)}
+        checked={radioValue === "option1"}
       >
         Option 1
       </Radio>
       <Radio
         name="example-name"
         value="option2"
-        onChange={(event) => setRadioValue(event.target.value)}
-        checked={radioValue === 'option2'}
+        onChange={event => setRadioValue(event.target.value)}
+        checked={radioValue === "option2"}
       >
         Option 2
       </Radio>
       <Radio
         name="example-name"
         value="option3"
-        onChange={(event) => setRadioValue(event.target.value)}
-        checked={radioValue === 'option3'}
+        onChange={event => setRadioValue(event.target.value)}
+        checked={radioValue === "option3"}
       >
         Option 3
       </Radio>
       <Radio
         name="example-name"
         value="option4"
-        onChange={(event) => setRadioValue(event.target.value)}
-        checked={radioValue === 'option4'}
+        onChange={event => setRadioValue(event.target.value)}
+        checked={radioValue === "option4"}
       >
         Option 4
       </Radio>

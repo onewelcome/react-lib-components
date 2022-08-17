@@ -1,15 +1,15 @@
-import React, { ComponentPropsWithRef } from 'react';
-import classes from './BaseButton.module.scss';
+import React, { ComponentPropsWithRef } from "react";
+import classes from "./BaseButton.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'button'> {
-  type?: 'submit' | 'button' | 'reset';
+export interface Props extends ComponentPropsWithRef<"button"> {
+  type?: "submit" | "button" | "reset";
   disabled?: boolean;
-  color?: 'primary' | 'secondary' | 'tertiary' | 'default';
+  color?: "primary" | "secondary" | "tertiary" | "default";
 }
 
 export const BaseButton = React.forwardRef<HTMLButtonElement, Props>(
-  ({ children, type = 'button', className, ...rest }, ref) => {
-    const validTypes = ['submit', 'button', 'reset'];
+  ({ children, type = "button", className, ...rest }, ref) => {
+    const validTypes = ["submit", "button", "reset"];
 
     if (!validTypes.includes(type))
       throw new Error(
@@ -21,7 +21,7 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, Props>(
         {...rest}
         ref={ref}
         type={type}
-        className={`${classes.button} ${className ? className : ''}`}
+        className={`${classes.button} ${className ? className : ""}`}
       >
         {children}
       </button>

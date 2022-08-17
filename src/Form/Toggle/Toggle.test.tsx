@@ -1,10 +1,10 @@
-import React, { useRef, useEffect } from 'react';
-import { Toggle, Props } from './Toggle';
-import { render } from '@testing-library/react';
+import React, { useRef, useEffect } from "react";
+import { Toggle, Props } from "./Toggle";
+import { render } from "@testing-library/react";
 
 const defaultParams: Props = {
-  children: 'label',
-  name: 'example toggle',
+  children: "label",
+  name: "example toggle"
 };
 
 const createToggle = (params?: (defaultParams: Props) => Props) => {
@@ -17,34 +17,34 @@ const createToggle = (params?: (defaultParams: Props) => Props) => {
       toggle content
     </Toggle>
   );
-  const toggle = queries.getByTestId('toggle');
+  const toggle = queries.getByTestId("toggle");
 
   return {
     ...queries,
-    toggle,
+    toggle
   };
 };
 
-describe('Toggle should render', () => {
-  it('renders without crashing', () => {
+describe("Toggle should render", () => {
+  it("renders without crashing", () => {
     const { toggle } = createToggle();
 
     expect(toggle).toBeDefined();
   });
 });
 
-describe('Toggle attributes', () => {
-  it('should be checked', () => {
-    const { toggle } = createToggle((defaultParams) => ({ ...defaultParams, checked: true }));
+describe("Toggle attributes", () => {
+  it("should be checked", () => {
+    const { toggle } = createToggle(defaultParams => ({ ...defaultParams, checked: true }));
 
-    expect(toggle).toHaveAttribute('aria-checked', 'true');
+    expect(toggle).toHaveAttribute("aria-checked", "true");
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -60,21 +60,21 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 
-describe('helperProps should be properly propagated down', () => {
-  it('renders an anchor tag as helper', () => {
-    const { getByTestId } = createToggle((defaultParams) => ({
+describe("helperProps should be properly propagated down", () => {
+  it("renders an anchor tag as helper", () => {
+    const { getByTestId } = createToggle(defaultParams => ({
       ...defaultParams,
-      helperProps: { children: <a data-testid="helpertextanchor">test</a> },
+      helperProps: { children: <a data-testid="helpertextanchor">test</a> }
     }));
 
-    const helperTextAnchor = getByTestId('helpertextanchor');
+    const helperTextAnchor = getByTestId("helpertextanchor");
 
     expect(helperTextAnchor).toBeTruthy();
   });

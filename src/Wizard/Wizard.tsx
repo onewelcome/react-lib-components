@@ -1,9 +1,9 @@
-import React, { Fragment, useContext, useEffect } from 'react';
-import { Step } from './BaseWizardSteps/BaseWizardSteps';
-import { WizardStateContext, WizardStateProvider } from './WizardStateProvider';
-import { setWizardState } from './wizardStateReducer';
+import React, { Fragment, useContext, useEffect } from "react";
+import { Step } from "./BaseWizardSteps/BaseWizardSteps";
+import { WizardStateContext, WizardStateProvider } from "./WizardStateProvider";
+import { setWizardState } from "./wizardStateReducer";
 
-export type WizardMode = 'add' | 'edit';
+export type WizardMode = "add" | "edit";
 
 export interface Props {
   steps: Step[];
@@ -24,7 +24,7 @@ const useSetWizardState = (steps: Step[], mode: WizardMode, stepScreenReaderLabe
 
 const useStepChanging = (onStepChange: (stepNo: number) => void) => {
   const {
-    state: { currentStepNo },
+    state: { currentStepNo }
   } = useContext(WizardStateContext);
 
   useEffect(() => {

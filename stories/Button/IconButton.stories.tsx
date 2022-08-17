@@ -1,36 +1,36 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { IconButton as IconButtonComponent, Props } from '../../src/Button/IconButton';
-import { Icon, Icons } from '../../src/Icon/Icon';
-import IconButtonDocumentation from './IconButton.mdx';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import { IconButton as IconButtonComponent, Props } from "../../src/Button/IconButton";
+import { Icon, Icons } from "../../src/Icon/Icon";
+import IconButtonDocumentation from "./IconButton.mdx";
 
 const meta: Meta = {
-  title: 'Stories/UI/IconButton',
+  title: "Stories/UI/IconButton",
   component: IconButtonComponent,
   parameters: {
     docs: {
-      page: IconButtonDocumentation,
-    },
+      page: IconButtonDocumentation
+    }
   },
   argTypes: {
     color: {
-      options: ['default', 'primary', 'secondary', 'tertiary'],
+      options: ["default", "primary", "secondary", "tertiary"],
       control: {
-        type: 'radio',
-      },
+        type: "radio"
+      }
     },
     variant: {
-      options: ['text', 'fill', 'outline'],
+      options: ["text", "fill", "outline"],
       control: {
-        type: 'radio',
-      },
-    },
-  },
+        type: "radio"
+      }
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => (
+const Template: Story<Props> = args => (
   <IconButtonComponent {...args}>
     <Icon icon={Icons.Calendar} />
   </IconButtonComponent>
@@ -39,10 +39,10 @@ const Template: Story<Props> = (args) => (
 export const IconButton = Template.bind({});
 
 IconButton.args = {
-  color: 'primary',
-  variant: 'text',
-  iconSize: 'm',
-  type: 'button',
-  title: 'Calendar',
+  color: "primary",
+  variant: "text",
+  iconSize: "m",
+  type: "button",
+  title: "Calendar"
 };
-IconButton.storyName = 'IconButton';
+IconButton.storyName = "IconButton";

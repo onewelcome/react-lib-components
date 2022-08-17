@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -20,7 +20,7 @@ In the below code snippet, you'll see how you can create a `Modal` with simple f
   <ModalHeader id="modal-label" title="Modal title" onClose={onClose} />
   <ModalContent id="modal-description">
     <form id="modalForm">
-      <Typography variant="body" spacing={{ margin: 0, padding: '0 5 5' }}>
+      <Typography variant="body" spacing={{ margin: 0, padding: "0 5 5" }}>
         This is simple modal.
       </Typography>
       <FormControl>
@@ -31,7 +31,7 @@ In the below code snippet, you'll see how you can create a `Modal` with simple f
           value={value}
           error={false}
           label="Name"
-          onChange={(e) => setValue(e.target.value)}
+          onChange={e => setValue(e.target.value)}
         />
       </FormControl>
     </form>

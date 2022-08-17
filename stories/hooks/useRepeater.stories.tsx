@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
-import { InputWrapper } from '../../src/Form/Wrapper/InputWrapper/InputWrapper';
-import { useRepeater } from '../../src/hooks/useRepeater';
-import { Button } from '../../src/Button/Button';
-import { IconButton } from '../../src/Button/IconButton';
-import { Icon, Icons } from '../../src/Icon/Icon';
-import RepeaterDocumentation from './useRepeater.mdx';
-import { generateID } from '../../src/util/helper';
+import React, { useEffect, useState } from "react";
+import { Meta, Story } from "@storybook/react";
+import { InputWrapper } from "../../src/Form/Wrapper/InputWrapper/InputWrapper";
+import { useRepeater } from "../../src/hooks/useRepeater";
+import { Button } from "../../src/Button/Button";
+import { IconButton } from "../../src/Button/IconButton";
+import { Icon, Icons } from "../../src/Icon/Icon";
+import RepeaterDocumentation from "./useRepeater.mdx";
+import { generateID } from "../../src/util/helper";
 
 const meta: Meta = {
-  title: 'hooks/useRepeater',
+  title: "hooks/useRepeater",
   parameters: {
     docs: {
-      page: RepeaterDocumentation,
+      page: RepeaterDocumentation
     },
     controls: {
-      hideNoControlsWarning: true,
-    },
-  },
+      hideNoControlsWarning: true
+    }
+  }
 };
 
 export default meta;
@@ -29,10 +29,10 @@ export interface RepeatedComponentProps {
 
 const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => {
   const [inputState, setInputState] = useState({
-    errorMessage: 'random error',
+    errorMessage: "random error",
     error: false,
-    value: '',
-    identifier: identifier,
+    value: "",
+    identifier: identifier
   });
 
   useEffect(() => {
@@ -48,8 +48,8 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
       error={inputState.error}
       value={inputState.value}
       label="Enter tag name"
-      onChange={(event) => {
-        setInputState((prevState) => ({ ...prevState, value: event.target.value }));
+      onChange={event => {
+        setInputState(prevState => ({ ...prevState, value: event.target.value }));
       }}
     />
   );
@@ -58,13 +58,13 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
 const Template: Story = () => {
   const [tags, setTags] = useState([]);
 
-  const onChangeHandler = (state) => {
+  const onChangeHandler = state => {
     console.log(state);
-    console.log('executing on change handler');
+    console.log("executing on change handler");
   };
 
   const { repeatedComponents, repeat, remove } = useRepeater<RepeatedComponentProps>({
-    componentToRepeat: <ComponentToRepeat onChange={onChangeHandler} />,
+    componentToRepeat: <ComponentToRepeat onChange={onChangeHandler} />
   });
 
   useEffect(() => {}, [repeatedComponents]);
@@ -76,12 +76,12 @@ const Template: Story = () => {
   return (
     <div>
       {repeatedComponents.map((component, index) => (
-        <div style={{ display: 'flex', width: '100%', marginBottom: '16px' }} key={component.key}>
-          <div style={{ flexGrow: '1' }}>
+        <div style={{ display: "flex", width: "100%", marginBottom: "16px" }} key={component.key}>
+          <div style={{ flexGrow: "1" }}>
             {React.cloneElement(component, { identifier: generateID() })}
           </div>
           {index !== 0 && (
-            <div style={{ marginTop: '10px', marginLeft: '8px' }}>
+            <div style={{ marginTop: "10px", marginLeft: "8px" }}>
               <IconButton title="Remove repeated component" onClick={() => remove(component)}>
                 <Icon icon={Icons.Trash} />
               </IconButton>

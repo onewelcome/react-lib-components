@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -16,9 +16,9 @@ In the below code snippet, you'll see how you can create a `Modal` which shows `
 
 ```jsx
 const [open, setOpen] = useState(false);
-const initialFormState = { name: 'Value' };
+const initialFormState = { name: "Value" };
 const [formState, setFormState] = useState(initialFormState);
-const id = 'modal';
+const id = "modal";
 
 const hasUnsavedChanges = () => JSON.stringify(initialFormState) !== JSON.stringify(formState);
 
@@ -59,10 +59,10 @@ return (
               value={formState.name}
               error={false}
               label="Name"
-              onChange={(event) =>
-                setFormState((prevState) => ({
+              onChange={event =>
+                setFormState(prevState => ({
                   ...prevState,
-                  name: event.target.value,
+                  name: event.target.value
                 }))
               }
             />

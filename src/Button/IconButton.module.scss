@@ -1,5 +1,5 @@
-@import '../readyclasses.module.scss';
-@import '../mixins.module.scss';
+@import "../readyclasses.module.scss";
+@import "../mixins.module.scss";
 
 .icon-button {
   border: var(--button-border-width) var(--button-border-style) transparent;
@@ -41,14 +41,14 @@
   }
 
   &.fill {
-    @include button('fill', 'icon');
+    @include button("fill", "icon");
   }
 
   &.text {
-    @include button('text', 'icon');
+    @include button("text", "icon");
   }
 
   &.outline {
-    @include button('outline', 'icon');
+    @include button("outline", "icon");
   }
 }

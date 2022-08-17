@@ -1,8 +1,8 @@
-import React, { ComponentPropsWithRef, ReactNode } from 'react';
-import classes from './Tiles.module.scss';
-import { Tile } from './Tile';
+import React, { ComponentPropsWithRef, ReactNode } from "react";
+import classes from "./Tiles.module.scss";
+import { Tile } from "./Tile";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   children: ReactNode;
   loading?: boolean;
 }
@@ -15,21 +15,21 @@ export const Tiles = React.forwardRef<HTMLDivElement, Props>(
           <Tile
             key="placeholder1"
             title="placeholder"
-            imageProps={{ src: 'placeholder' }}
+            imageProps={{ src: "placeholder" }}
             loading={true}
           />,
           <Tile
             key="placeholder2"
             title="placeholder"
-            imageProps={{ src: 'placeholder' }}
+            imageProps={{ src: "placeholder" }}
             loading={true}
           />,
           <Tile
             key="placeholder3"
             title="placeholder"
-            imageProps={{ src: 'placeholder' }}
+            imageProps={{ src: "placeholder" }}
             loading={true}
-          />,
+          />
         ];
       }
 
@@ -40,7 +40,7 @@ export const Tiles = React.forwardRef<HTMLDivElement, Props>(
       <div
         {...rest}
         ref={ref}
-        className={`${classes['tiles']} ${className ?? ''}`}
+        className={`${classes["tiles"]} ${className ?? ""}`}
         aria-live="polite"
         aria-busy={loading}
       >

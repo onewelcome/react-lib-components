@@ -1,18 +1,18 @@
-import React, { ComponentPropsWithRef, useState } from 'react';
-import { BaseModal } from '../BaseModal/BaseModal';
-import { BaseModalContent } from '../BaseModal/BaseModalContent/BaseModalContent';
-import { DialogActions } from './DialogActions/DialogActions';
-import classes from './Dialog.module.scss';
-import { DialogTitle } from './DialogTitle/DialogTitle';
-import { Button, Props as ButtonProps } from '../../Button/Button';
-import { labelId, descriptionId } from '../BaseModal/BaseModalContext';
-import { generateID } from '../../util/helper';
+import React, { ComponentPropsWithRef, useState } from "react";
+import { BaseModal } from "../BaseModal/BaseModal";
+import { BaseModalContent } from "../BaseModal/BaseModalContent/BaseModalContent";
+import { DialogActions } from "./DialogActions/DialogActions";
+import classes from "./Dialog.module.scss";
+import { DialogTitle } from "./DialogTitle/DialogTitle";
+import { Button, Props as ButtonProps } from "../../Button/Button";
+import { labelId, descriptionId } from "../BaseModal/BaseModalContext";
+import { generateID } from "../../util/helper";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   id?: string;
   open: boolean;
   children: React.ReactNode;
-  alignActions: 'left' | 'right';
+  alignActions: "left" | "right";
   onClose: () => void;
   title: string;
   primaryAction: Action;
@@ -21,7 +21,7 @@ export interface Props extends ComponentPropsWithRef<'div'> {
   disableEscapeKeyDown?: boolean;
 }
 
-export interface Action extends Omit<ButtonProps, 'variant' | 'ref'> {
+export interface Action extends Omit<ButtonProps, "variant" | "ref"> {
   label: string;
   onClick: (event?: React.MouseEvent<HTMLButtonElement>) => unknown;
 }
@@ -63,7 +63,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, Props>(
 
     const onHiddenInputKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
       /** It has to be here because then we will need to check if user doesn't click tab to select action button and want to do another action then primary one? */
-      if (event.key === 'Enter') {
+      if (event.key === "Enter") {
         primaryAction.onClick();
       }
     };
@@ -73,8 +73,8 @@ export const Dialog = React.forwardRef<HTMLDivElement, Props>(
         {...rest}
         ref={ref}
         id={dialogId}
-        className={classes['dialog']}
-        containerProps={{ className: classes['container'] }}
+        className={classes["dialog"]}
+        containerProps={{ className: classes["container"] }}
         open={open}
         disableBackdrop
         onClose={onClose}
@@ -84,13 +84,13 @@ export const Dialog = React.forwardRef<HTMLDivElement, Props>(
         <DialogTitle id={labelId(dialogId)} title={title} />
         <BaseModalContent
           id={descriptionId(dialogId)}
-          className={classes['content']}
+          className={classes["content"]}
           disableAutoFocus
         >
           {children}
         </BaseModalContent>
         <DialogActions align={alignActions}>
-          {alignActions === 'left'
+          {alignActions === "left"
             ? [PrimaryButton, TertiaryButton]
             : [TertiaryButton, PrimaryButton]}
         </DialogActions>
@@ -98,10 +98,10 @@ export const Dialog = React.forwardRef<HTMLDivElement, Props>(
           autoFocus
           aria-hidden={true}
           style={{
-            position: 'absolute',
+            position: "absolute",
             width: 0,
             height: 0,
-            opacity: 0,
+            opacity: 0
           }}
           maxLength={0}
           tabIndex={-1}

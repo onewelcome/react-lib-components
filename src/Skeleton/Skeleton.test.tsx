@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { Skeleton, Props } from './Skeleton';
-import { render } from '@testing-library/react';
+import React, { useEffect, useRef } from "react";
+import { Skeleton, Props } from "./Skeleton";
+import { render } from "@testing-library/react";
 
 const defaultParams: Props = {};
 
@@ -10,70 +10,70 @@ const createSkeleton = (params?: (defaultParams: Props) => Props) => {
     parameters = params(defaultParams);
   }
   const queries = render(<Skeleton {...parameters} data-testid="skeleton" />);
-  const skeleton = queries.getByTestId('skeleton');
+  const skeleton = queries.getByTestId("skeleton");
 
   return {
     ...queries,
-    skeleton,
+    skeleton
   };
 };
 
-describe('Skeleton should render', () => {
-  it('renders without crashing', () => {
+describe("Skeleton should render", () => {
+  it("renders without crashing", () => {
     const { skeleton } = createSkeleton();
 
-    expect(skeleton).toHaveClass('skeleton text no-height', { exact: true });
+    expect(skeleton).toHaveClass("skeleton text no-height", { exact: true });
 
     expect(skeleton).toBeDefined();
   });
 
-  it('renders with properties passed', () => {
-    const testClass = 'testclass';
-    const { skeleton } = createSkeleton((defaultParams) => ({
+  it("renders with properties passed", () => {
+    const testClass = "testclass";
+    const { skeleton } = createSkeleton(defaultParams => ({
       ...defaultParams,
-      className: testClass,
+      className: testClass
     }));
 
     expect(skeleton).toHaveClass(`skeleton text no-height ${testClass}`, { exact: true });
   });
 
-  it('renders text variant with width and height', () => {
-    const width = '10rem';
+  it("renders text variant with width and height", () => {
+    const width = "10rem";
     const height = 10;
-    const { skeleton } = createSkeleton((defaultParams) => ({
+    const { skeleton } = createSkeleton(defaultParams => ({
       ...defaultParams,
-      variant: 'text',
+      variant: "text",
       width,
-      height,
+      height
     }));
 
     expect(skeleton).toHaveClass(`skeleton text`, { exact: true });
-    expect(skeleton).toHaveStyle({ width, height: '10px' });
+    expect(skeleton).toHaveStyle({ width, height: "10px" });
   });
 
-  it('renders rectangle variant', () => {
-    const { skeleton } = createSkeleton((defaultParams) => ({
+  it("renders rectangle variant", () => {
+    const { skeleton } = createSkeleton(defaultParams => ({
       ...defaultParams,
-      variant: 'rectangle',
+      variant: "rectangle"
     }));
 
     expect(skeleton).toHaveClass(`skeleton no-height`, { exact: true });
   });
 
-  it('renders circular variant', () => {
-    const { skeleton } = createSkeleton((defaultParams) => ({
+  it("renders circular variant", () => {
+    const { skeleton } = createSkeleton(defaultParams => ({
       ...defaultParams,
-      variant: 'circular',
+      variant: "circular"
     }));
 
     expect(skeleton).toHaveClass(`skeleton no-height circular`, { exact: true });
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -87,10 +87,10 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
-    const container = document.createElement('tbody');
+    const container = document.createElement("tbody");
     render(<ExampleComponent propagateRef={refCheck} />, { container });
   });
 });

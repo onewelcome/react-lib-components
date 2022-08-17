@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from "react";
 
 export const useScroll = (
   callbackFunction: (event: Event) => unknown,
@@ -7,10 +7,10 @@ export const useScroll = (
   const scrollListener = (event: Event) => callbackFunction(event);
 
   useLayoutEffect(() => {
-    window.addEventListener('scroll', scrollListener);
+    window.addEventListener("scroll", scrollListener);
 
     return () => {
-      window.removeEventListener('scroll', scrollListener);
+      window.removeEventListener("scroll", scrollListener);
     };
   }, [...dependingStateVariable]);
 };
