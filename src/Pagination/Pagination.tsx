@@ -185,7 +185,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, Props>(
                 )}
               </div>
             )}
-            {totalElements && calculateAmountOfPages() && (
+            {totalElements && !!calculateAmountOfPages() && (
               <div className={classes["page"]}>{renderCurrentPageTranslation()}</div>
             )}
             <div className={classes["next"]}>
