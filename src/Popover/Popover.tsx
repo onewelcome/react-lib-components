@@ -1,11 +1,11 @@
-import React, { ComponentPropsWithRef, ReactNode, RefObject, useEffect, useRef } from 'react';
-import { Offset, Placement, usePosition } from '../hooks/usePosition';
-import classes from './Popover.module.scss';
+import React, { ComponentPropsWithRef, ReactNode, RefObject, useEffect, useRef } from "react";
+import { Offset, Placement, usePosition } from "../hooks/usePosition";
+import classes from "./Popover.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   children?: ReactNode;
   show?: boolean;
-  anchorEl?: RefObject<HTMLOrSVGElement>;
+  anchorEl?: RefObject<HTMLOrSVGElement>; //eslint-disable-line no-undef
   placement?: Placement;
   offset?: Offset;
   transformOrigin?: Placement;
@@ -24,7 +24,7 @@ export const Popover = React.forwardRef<HTMLDivElement, Props>(
       relativeElement: anchorEl,
       offset: offset,
       placement: placement,
-      transformOrigin: transformOrigin,
+      transformOrigin: transformOrigin
     });
 
     useEffect(() => {
@@ -35,7 +35,7 @@ export const Popover = React.forwardRef<HTMLDivElement, Props>(
       <div ref={ref} {...rest}>
         <div
           ref={elToBePositioned}
-          className={`${classes.popover} ${className ?? ''} ${show ? classes.show : ''}`}
+          className={`${classes.popover} ${className ?? ""} ${show ? classes.show : ""}`}
           style={{ top: top, left: left, right: right, bottom: bottom }}
         >
           {children}
