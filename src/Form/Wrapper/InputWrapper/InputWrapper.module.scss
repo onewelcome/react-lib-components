@@ -1,6 +1,6 @@
-@import '../../../mixins.module.scss';
+@import "../../../mixins.module.scss";
 
-@include inputLabelPrimaryColorOnFocus('label.input-label');
+@include inputLabelPrimaryColorOnFocus("label.input-label");
 
 input {
   &.floating-label {

@@ -1,9 +1,9 @@
-import React from 'react';
-import classes from './SnackbarContainer.module.scss';
+import React from "react";
+import classes from "./SnackbarContainer.module.scss";
 
 export interface Placement {
-  vertical: 'top' | 'bottom';
-  horizontal: 'start' | 'center' | 'end';
+  vertical: "top" | "bottom";
+  horizontal: "start" | "center" | "end";
 }
 
 export interface Props {
@@ -18,9 +18,9 @@ export const SnackbarContainer = ({ placement, children, zIndex, className, ...r
     <div
       {...rest}
       style={{ zIndex }}
-      className={`${classes['snackbars']} ${classes[placement.horizontal]} ${
+      className={`${classes["snackbars"]} ${classes[placement.horizontal]} ${
         classes[placement.vertical]
-      } ${className ?? ''}`}
+      } ${className ?? ""}`}
     >
       {children}
     </div>

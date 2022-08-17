@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react';
-import { DataGridColumnsToggle, Props } from './DataGridColumnsToggle';
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import React, { useEffect, useRef } from "react";
+import { DataGridColumnsToggle, Props } from "./DataGridColumnsToggle";
+import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
   open: true,
   headers: [
-    { headline: 'Name', name: 'name' },
-    { headline: 'Date', name: 'date', hidden: true },
+    { headline: "Name", name: "name" },
+    { headline: "Date", name: "date", hidden: true }
   ],
   onClose: jest.fn(),
-  onToggleClicked: jest.fn(),
+  onToggleClicked: jest.fn()
 };
 
 const createDataGridColumnsToggle = (params?: (defaultParams: Props) => Props) => {
@@ -21,47 +21,47 @@ const createDataGridColumnsToggle = (params?: (defaultParams: Props) => Props) =
   const queries = render(
     <DataGridColumnsToggle {...parameters} data-testid="dataGridColumnsToggle" />
   );
-  const dataGridColumnsToggle = queries.getByTestId('dataGridColumnsToggle');
+  const dataGridColumnsToggle = queries.getByTestId("dataGridColumnsToggle");
 
   return {
     ...queries,
-    dataGridColumnsToggle,
+    dataGridColumnsToggle
   };
 };
 
-describe('DataGridColumnsToggle should render', () => {
-  it('renders without crashing', () => {
+describe("DataGridColumnsToggle should render", () => {
+  it("renders without crashing", () => {
     const { dataGridColumnsToggle, getByLabelText, getByText } = createDataGridColumnsToggle();
 
     expect(dataGridColumnsToggle).toBeDefined();
-    expect(getByText('Show columns')).toBeDefined();
+    expect(getByText("Show columns")).toBeDefined();
     expect(getByLabelText(defaultParams.headers[0].headline)).toBeChecked();
     expect(getByLabelText(defaultParams.headers[1].headline)).not.toBeChecked();
   });
 });
 
-describe('DataGridColumnsToggle should be interactive', () => {
-  it('clicking on close calls onClose callback', () => {
+describe("DataGridColumnsToggle should be interactive", () => {
+  it("clicking on close calls onClose callback", () => {
     const { getByRole } = createDataGridColumnsToggle();
 
-    userEvent.click(getByRole('button'));
+    userEvent.click(getByRole("button"));
 
     expect(defaultParams.onClose).toBeCalledTimes(1);
   });
 
-  it('clicking outside of container (on backdrop layer) calls onClose callback', () => {
+  it("clicking outside of container (on backdrop layer) calls onClose callback", () => {
     createDataGridColumnsToggle();
 
-    userEvent.click(document.querySelector('.backdrop')!);
+    userEvent.click(document.querySelector(".backdrop")!);
 
     expect(defaultParams.onClose).toBeCalledTimes(1);
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -75,7 +75,7 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);

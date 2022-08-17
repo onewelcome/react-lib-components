@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   render,
   getByTestId,
@@ -8,29 +8,29 @@ import {
   getByText,
   findByText,
   findAllByText,
-  queryByText,
-} from '@testing-library/react';
-import { SnackbarProvider, Props } from './SnackbarProvider';
-import { useSnackbar } from '../useSnackbar';
-import userEvent from '@testing-library/user-event';
+  queryByText
+} from "@testing-library/react";
+import { SnackbarProvider, Props } from "./SnackbarProvider";
+import { useSnackbar } from "../useSnackbar";
+import userEvent from "@testing-library/user-event";
 
 const successProps = {
-  title: 'success title',
+  title: "success title"
 };
 
 const errorProps = {
-  title: 'error title',
+  title: "error title"
 };
 
 const infoProps = {
-  title: 'info title',
-  content: 'test content',
+  title: "info title",
+  content: "test content",
   options: {
     actions: [
-      { label: 'Contact support', onClick: jest.fn() },
-      { label: 'Contact Onewelcome', onClick: jest.fn() },
-    ],
-  },
+      { label: "Contact support", onClick: jest.fn() },
+      { label: "Contact Onewelcome", onClick: jest.fn() }
+    ]
+  }
 };
 
 const renderSnackbarProvider = (props?: Partial<Props>) => {
@@ -77,26 +77,26 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
     </SnackbarProvider>
   );
 
-  const showSuccessSnackbarBtn = getByTestId(queries.container, 'show-success');
-  const showErrorSnackbarBtn = getByTestId(queries.container, 'show-error');
-  const showInfoSnackbarBtn = getByTestId(queries.container, 'show-info');
+  const showSuccessSnackbarBtn = getByTestId(queries.container, "show-success");
+  const showErrorSnackbarBtn = getByTestId(queries.container, "show-error");
+  const showInfoSnackbarBtn = getByTestId(queries.container, "show-info");
 
   return {
     ...queries,
     showSuccessSnackbarBtn,
     showErrorSnackbarBtn,
-    showInfoSnackbarBtn,
+    showInfoSnackbarBtn
   };
 };
 
-describe('SnackbarProvider', () => {
-  it('renders without crashing', () => {
+describe("SnackbarProvider", () => {
+  it("renders without crashing", () => {
     const { container } = renderSnackbarProvider();
 
-    expect(container).toHaveTextContent('content');
+    expect(container).toHaveTextContent("content");
   });
 
-  it('should stack 3 snackbars at one time', () => {
+  it("should stack 3 snackbars at one time", () => {
     const { showSuccessSnackbarBtn } = renderSnackbarProvider();
 
     userEvent.click(showSuccessSnackbarBtn);
@@ -107,7 +107,7 @@ describe('SnackbarProvider', () => {
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
   });
 
-  it('should render 3 variants of snackbars', () => {
+  it("should render 3 variants of snackbars", () => {
     const { showSuccessSnackbarBtn, showErrorSnackbarBtn, showInfoSnackbarBtn } =
       renderSnackbarProvider();
 
@@ -119,7 +119,7 @@ describe('SnackbarProvider', () => {
     expect(getByText(document.body, new RegExp(errorProps.title))).toBeDefined();
     expect(getByText(document.body, new RegExp(infoProps.title))).toBeDefined();
     expect(getByText(document.body, infoProps.content)).toBeDefined();
-    const infoSnackbarActions = getAllByRole(document.body, 'button', { name: /Contact/i });
+    const infoSnackbarActions = getAllByRole(document.body, "button", { name: /Contact/i });
     expect(infoSnackbarActions).toHaveLength(2);
 
     userEvent.click(infoSnackbarActions[0]);
@@ -129,9 +129,9 @@ describe('SnackbarProvider', () => {
     waitFor(() => expect(infoProps.options.actions[1].onClick).toBeCalledTimes(1));
   });
 
-  it('should stack 3 snackbars at one time and then after 3 disapear show the fourth one', () => {
+  it("should stack 3 snackbars at one time and then after 3 disapear show the fourth one", () => {
     const { showSuccessSnackbarBtn } = renderSnackbarProvider({
-      autoHideDuration: { long: 1, short: 1 },
+      autoHideDuration: { long: 1, short: 1 }
     });
 
     userEvent.click(showSuccessSnackbarBtn);
@@ -142,7 +142,7 @@ describe('SnackbarProvider', () => {
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
 
     /** Looking for fourth one to be shown */
-    waitFor(() => expect(getAllByText(document.body, successProps.title + '3')).toHaveLength(1));
+    waitFor(() => expect(getAllByText(document.body, successProps.title + "3")).toHaveLength(1));
 
     /** There shouldn't be any other snackbars */
     waitFor(() =>
@@ -150,9 +150,9 @@ describe('SnackbarProvider', () => {
     );
   });
 
-  it('should close snackbar after clicking X button', async () => {
+  it("should close snackbar after clicking X button", async () => {
     const { showSuccessSnackbarBtn } = renderSnackbarProvider({
-      autoHideDuration: { long: 1_000_000, short: 1_000_000 },
+      autoHideDuration: { long: 1_000_000, short: 1_000_000 }
     });
 
     userEvent.click(showSuccessSnackbarBtn);
@@ -160,18 +160,18 @@ describe('SnackbarProvider', () => {
     userEvent.click(showSuccessSnackbarBtn);
     userEvent.click(showSuccessSnackbarBtn);
 
-    const closeButtons = getAllByRole(document.body, 'button', { name: 'close' });
+    const closeButtons = getAllByRole(document.body, "button", { name: "close" });
 
     expect(closeButtons).toHaveLength(3);
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
 
     userEvent.click(closeButtons[0]);
     expect(
-      await findAllByText(document.body, new RegExp(successProps.title + '[12]+'))
+      await findAllByText(document.body, new RegExp(successProps.title + "[12]+"))
     ).toHaveLength(2);
 
     userEvent.click(closeButtons[1]);
-    expect(await findByText(document.body, successProps.title + '2')).toBeDefined();
+    expect(await findByText(document.body, successProps.title + "2")).toBeDefined();
 
     userEvent.click(closeButtons[2]);
     waitFor(() => expect(queryByText(document.body, new RegExp(successProps.title))).toBeNull());

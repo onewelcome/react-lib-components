@@ -1,13 +1,13 @@
-import React, { Fragment, useState } from 'react';
-import { IconButton } from '../../Button/IconButton';
-import { Toggle } from '../../Form/Toggle/Toggle';
-import { Icon, Icons } from '../../Icon/Icon';
-import { Popover, Props as PopoverProps } from '../../Popover/Popover';
-import { Typography } from '../../Typography/Typography';
-import { generateID } from '../../util/helper';
-import { ColumnName, HeaderCell } from '../datagrid.interfaces';
-import classes from './DataGridColumnsToggle.module.scss';
-import { createPortal } from 'react-dom';
+import React, { Fragment, useState } from "react";
+import { IconButton } from "../../Button/IconButton";
+import { Toggle } from "../../Form/Toggle/Toggle";
+import { Icon, Icons } from "../../Icon/Icon";
+import { Popover, Props as PopoverProps } from "../../Popover/Popover";
+import { Typography } from "../../Typography/Typography";
+import { generateID } from "../../util/helper";
+import { ColumnName, HeaderCell } from "../datagrid.interfaces";
+import classes from "./DataGridColumnsToggle.module.scss";
+import { createPortal } from "react-dom";
 
 export interface Props extends PopoverProps {
   open: boolean;
@@ -24,8 +24,8 @@ export const DataGridColumnsToggle = React.forwardRef<HTMLDivElement, Props>(
     {
       open,
       headers,
-      titleLabel = 'Show columns',
-      closeButtonTitle = 'Close show columns dialog',
+      titleLabel = "Show columns",
+      closeButtonTitle = "Close show columns dialog",
       onClose,
       onToggleClicked,
       className,
@@ -35,9 +35,9 @@ export const DataGridColumnsToggle = React.forwardRef<HTMLDivElement, Props>(
     ref
   ) => {
     const [id] = useState(generateID());
-    const labelledId = id + '_header';
+    const labelledId = id + "_header";
 
-    const toggles = headers.map((item) => (
+    const toggles = headers.map(item => (
       <Toggle
         key={item.name}
         name={item.name}
@@ -54,7 +54,7 @@ export const DataGridColumnsToggle = React.forwardRef<HTMLDivElement, Props>(
       <Popover
         {...rest}
         ref={ref}
-        className={`${classes['popover']} ${className}`}
+        className={`${classes["popover"]} ${className}`}
         show={open}
         role="dialog"
         aria-modal="true"
@@ -62,24 +62,24 @@ export const DataGridColumnsToggle = React.forwardRef<HTMLDivElement, Props>(
       >
         {open &&
           createPortal(
-            <div className={classes['backdrop']} onClick={handleBackdropClick}></div>,
+            <div className={classes["backdrop"]} onClick={handleBackdropClick}></div>,
             domRoot
           )}
         {open && (
           <Fragment>
-            <div className={classes['header']}>
-              <Typography id={labelledId} className={classes['title']} tag="span" variant="h4">
+            <div className={classes["header"]}>
+              <Typography id={labelledId} className={classes["title"]} tag="span" variant="h4">
                 {titleLabel}
               </Typography>
               <IconButton
                 onClick={onClose}
-                className={`${classes['close-btn']}`}
+                className={`${classes["close-btn"]}`}
                 title={closeButtonTitle}
               >
                 <Icon icon={Icons.Times} />
               </IconButton>
             </div>
-            <div className={classes['content']}>{toggles}</div>
+            <div className={classes["content"]}>{toggles}</div>
           </Fragment>
         )}
       </Popover>

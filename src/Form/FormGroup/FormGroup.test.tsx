@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react';
-import { FormGroup, Props } from './FormGroup';
-import { render } from '@testing-library/react';
+import React, { useEffect, useRef } from "react";
+import { FormGroup, Props } from "./FormGroup";
+import { render } from "@testing-library/react";
 
 const defaultParams: Props = {
-  children: 'Formcontent here',
-  helperId: 'helper_id',
-  helperText: 'example helper text',
-  errorMessage: 'example error message',
-  errorId: 'error_id',
+  children: "Formcontent here",
+  helperId: "helper_id",
+  helperText: "example helper text",
+  errorMessage: "example error message",
+  errorId: "error_id"
 };
 
 const createFormGroup = (params?: (defaultParams: Props) => Props) => {
@@ -16,38 +16,38 @@ const createFormGroup = (params?: (defaultParams: Props) => Props) => {
     parameters = params(defaultParams);
   }
   const queries = render(<FormGroup {...parameters} data-testid="formgroup"></FormGroup>);
-  const formgroup = queries.getByTestId('formgroup');
+  const formgroup = queries.getByTestId("formgroup");
 
   return {
     ...queries,
-    formgroup,
+    formgroup
   };
 };
 
-describe('FormSelectorGroup should render', () => {
-  it('renders without crashing', () => {
+describe("FormSelectorGroup should render", () => {
+  it("renders without crashing", () => {
     const { formgroup } = createFormGroup();
 
     expect(formgroup).toBeDefined();
   });
 
-  it('has the correct values and attributes', () => {
-    const { getByTestId } = createFormGroup((defaultParams) => ({
+  it("has the correct values and attributes", () => {
+    const { getByTestId } = createFormGroup(defaultParams => ({
       ...defaultParams,
-      helperProps: { 'data-testid': 'helper_text' },
+      helperProps: { "data-testid": "helper_text" }
     }));
 
-    const helperText = getByTestId('helper_text');
+    const helperText = getByTestId("helper_text");
 
-    expect(helperText).toHaveAttribute('id', 'helper_id');
-    expect(helperText).toHaveTextContent('example helper text');
+    expect(helperText).toHaveAttribute("id", "helper_id");
+    expect(helperText).toHaveTextContent("example helper text");
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -63,49 +63,49 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 
-describe('Correct error state', () => {
-  it('has the correct state', () => {
-    const { formgroup } = createFormGroup((defaultParams) => ({
+describe("Correct error state", () => {
+  it("has the correct state", () => {
+    const { formgroup } = createFormGroup(defaultParams => ({
       ...defaultParams,
       error: true,
-      errorMessage: 'example error message',
-      errorId: 'error_id',
+      errorMessage: "example error message",
+      errorId: "error_id"
     }));
-    const errorMessage = formgroup.querySelector('.error-message');
+    const errorMessage = formgroup.querySelector(".error-message");
 
     expect(errorMessage).toBeTruthy();
-    expect(errorMessage?.querySelector('#error_id')).toBeTruthy();
-    expect(errorMessage?.querySelector('#error_id')).toHaveTextContent('example error message');
+    expect(errorMessage?.querySelector("#error_id")).toBeTruthy();
+    expect(errorMessage?.querySelector("#error_id")).toHaveTextContent("example error message");
   });
 });
 
-describe('no helpertext, but errorMessage is defined', () => {
+describe("no helpertext, but errorMessage is defined", () => {
   it("doesn't show the div with 'default-helper' class when there's no error and no helpertext defined", () => {
-    const { formgroup } = createFormGroup((defaultParams) => ({
+    const { formgroup } = createFormGroup(defaultParams => ({
       ...defaultParams,
       error: false,
       helperText: undefined,
-      errorMessage: 'example error message',
+      errorMessage: "example error message"
     }));
 
-    expect(formgroup.querySelector('.default-helper')).toBeFalsy();
+    expect(formgroup.querySelector(".default-helper")).toBeFalsy();
   });
 
   it("does show the div with 'default-helper' class when there's an error and no helpertext defined", () => {
-    const { formgroup } = createFormGroup((defaultParams) => ({
+    const { formgroup } = createFormGroup(defaultParams => ({
       ...defaultParams,
       error: true,
       helperText: undefined,
-      errorMessage: 'example error message',
+      errorMessage: "example error message"
     }));
 
-    expect(formgroup.querySelector('.default-helper')).toBeTruthy();
+    expect(formgroup.querySelector(".default-helper")).toBeTruthy();
   });
 });

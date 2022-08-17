@@ -1,14 +1,14 @@
-import React, { useEffect, useRef } from 'react';
-import { Fieldset, Props } from './Fieldset';
-import { render } from '@testing-library/react';
-import { FormControl } from '../FormControl/FormControl';
-import { Input } from '../Input/Input';
-import { Select } from '../Select/Select';
-import { Option } from '../Select/Option';
+import React, { useEffect, useRef } from "react";
+import { Fieldset, Props } from "./Fieldset";
+import { render } from "@testing-library/react";
+import { FormControl } from "../FormControl/FormControl";
+import { Input } from "../Input/Input";
+import { Select } from "../Select/Select";
+import { Option } from "../Select/Option";
 
 const defaultParams: Props = {
-  legend: 'Example',
-  legendStyle: 'h2',
+  legend: "Example",
+  legendStyle: "h2",
   children: [
     <FormControl data-testid="form-control">
       <Input placeholder="This is a placeholder" name="example" type="text" />
@@ -19,8 +19,8 @@ const defaultParams: Props = {
         <Option value="option2">Option2</Option>
         <Option value="option3">Option3</Option>
       </Select>
-    </FormControl>,
-  ],
+    </FormControl>
+  ]
 };
 
 const createFieldset = (params?: (defaultParams: Props) => Props) => {
@@ -29,26 +29,26 @@ const createFieldset = (params?: (defaultParams: Props) => Props) => {
     parameters = params(defaultParams);
   }
   const queries = render(<Fieldset {...parameters} data-testid="fieldset" />);
-  const fieldset = queries.getByTestId('fieldset');
+  const fieldset = queries.getByTestId("fieldset");
 
   return {
     ...queries,
-    fieldset,
+    fieldset
   };
 };
 
-describe('Fieldset should render', () => {
-  it('renders without crashing', () => {
+describe("Fieldset should render", () => {
+  it("renders without crashing", () => {
     const { fieldset } = createFieldset();
 
     expect(fieldset).toBeTruthy();
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -64,46 +64,46 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 
-describe('Fieldset should get proper attributes and classes', () => {
-  it('has no padding class', () => {
-    const { fieldset } = createFieldset((defaultParams) => ({ ...defaultParams, noPadding: true }));
+describe("Fieldset should get proper attributes and classes", () => {
+  it("has no padding class", () => {
+    const { fieldset } = createFieldset(defaultParams => ({ ...defaultParams, noPadding: true }));
 
-    expect(fieldset).toHaveClass('no-padding');
+    expect(fieldset).toHaveClass("no-padding");
   });
 
-  it('has no background styling', () => {
-    const { fieldset } = createFieldset((defaultParams) => ({
+  it("has no background styling", () => {
+    const { fieldset } = createFieldset(defaultParams => ({
       ...defaultParams,
-      noBackground: true,
+      noBackground: true
     }));
 
-    expect(fieldset.style.backgroundColor).toBe('');
+    expect(fieldset.style.backgroundColor).toBe("");
   });
 
-  it('has a correct legend and title <span> element', () => {
+  it("has a correct legend and title <span> element", () => {
     const { getByText } = createFieldset();
 
-    const legend = getByText(/example/i, { selector: 'legend' });
-    const title = getByText(/example/i, { selector: 'span' });
+    const legend = getByText(/example/i, { selector: "legend" });
+    const title = getByText(/example/i, { selector: "span" });
 
-    expect(legend).toHaveTextContent('Example');
+    expect(legend).toHaveTextContent("Example");
     expect(legend).toBeTruthy();
-    expect(title).toHaveClass('typography_style_h2');
+    expect(title).toHaveClass("typography_style_h2");
     expect(title).toBeTruthy();
-    expect(title).toHaveTextContent('Example');
+    expect(title).toHaveTextContent("Example");
   });
 
-  it('renders its children correctly', () => {
+  it("renders its children correctly", () => {
     const { getAllByTestId } = createFieldset();
 
-    const formcontrols = getAllByTestId('form-control');
+    const formcontrols = getAllByTestId("form-control");
 
     expect(formcontrols).toBeTruthy();
     expect(formcontrols).toHaveLength(2);

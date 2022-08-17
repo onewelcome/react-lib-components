@@ -1,15 +1,15 @@
-import React, { ComponentPropsWithRef, useState } from 'react';
-import classes from './TextareaWrapper.module.scss';
-import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
-import { Textarea, Props as TextareaProps } from '../../Textarea/Textarea';
-import { useWrapper } from '../../../hooks/useWrapper';
+import React, { ComponentPropsWithRef, useState } from "react";
+import classes from "./TextareaWrapper.module.scss";
+import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
+import { Textarea, Props as TextareaProps } from "../../Textarea/Textarea";
+import { useWrapper } from "../../../hooks/useWrapper";
 
 export interface Props
   extends Omit<
-      ComponentPropsWithRef<'div'>,
-      'onFocus' | 'onChange' | 'onBlur' | 'onMouseEnter' | 'onMouseLeave'
+      ComponentPropsWithRef<"div">,
+      "onFocus" | "onChange" | "onBlur" | "onMouseEnter" | "onMouseLeave"
     >,
-    Omit<WrapperProps, 'onFocus' | 'onChange' | 'onBlur' | 'onMouseEnter' | 'onMouseLeave'> {
+    Omit<WrapperProps, "onFocus" | "onChange" | "onBlur" | "onMouseEnter" | "onMouseLeave"> {
   placeholder?: string;
   textareaProps?: TextareaProps;
   value: string;
@@ -47,16 +47,16 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
       hasFocus,
       setHasFocus,
       helperId,
-      labelId,
+      labelId
     } = useWrapper(value, placeholder);
     const [hover, setHover] = useState(false);
 
     const optionalClasses: string[] = [];
 
-    hasFocus && optionalClasses.push(classes['focus']);
-    hover && optionalClasses.push(classes['hover']);
-    disabled && optionalClasses.push(classes['disabled']);
-    error && optionalClasses.push(classes['error']);
+    hasFocus && optionalClasses.push(classes["focus"]);
+    hover && optionalClasses.push(classes["hover"]);
+    disabled && optionalClasses.push(classes["disabled"]);
+    error && optionalClasses.push(classes["error"]);
 
     return (
       <Wrapper
@@ -65,14 +65,14 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
         disabled={disabled}
         labelProps={{
           id: labelId,
-          className: `${classes['textarea-label']} ${optionalClasses.join(' ')}`,
+          className: `${classes["textarea-label"]} ${optionalClasses.join(" ")}`
         }}
         name={name}
         label={label}
         helperId={helperId}
         helperProps={{
           ...helperProps,
-          className: classes['textarea-helper-text'],
+          className: classes["textarea-helper-text"]
         }}
         error={error}
         floatingLabelActive={floatingLabelActive}
@@ -88,31 +88,31 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
           id={name}
           value={value}
           onChange={onChange}
-          onFocus={(e) => {
+          onFocus={e => {
             onFocus && onFocus(e);
             setHasFocus(true);
             setFloatingLabelActive(true);
           }}
-          onBlur={(e) => {
+          onBlur={e => {
             onBlur && onBlur(e);
             setHasFocus(false);
             e.target.value || e.target.placeholder || textareaProps?.placeholder?.length
               ? setFloatingLabelActive(true)
               : setFloatingLabelActive(false);
           }}
-          onMouseEnter={(e) => {
+          onMouseEnter={e => {
             onMouseEnter && onMouseEnter(e);
             setHover(true);
           }}
-          onMouseLeave={(e) => {
+          onMouseLeave={e => {
             onMouseLeave && onMouseLeave(e);
             setHover(false);
           }}
-          className={`${classes['textarea']} ${error ? classes['error'] : ''}`}
+          className={`${classes["textarea"]} ${error ? classes["error"] : ""}`}
           wrapperProps={{
-            className: `${classes['textarea-wrapper']}} ${optionalClasses.join(' ')}`,
+            className: `${classes["textarea-wrapper"]}} ${optionalClasses.join(" ")}`
           }}
-          errorProps={{ className: classes['error-icon'] }}
+          errorProps={{ className: classes["error-icon"] }}
         />
       </Wrapper>
     );

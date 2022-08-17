@@ -1,19 +1,19 @@
-import React, { ComponentPropsWithRef, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import classes from './BaseModal.module.scss';
-import { labelId, descriptionId } from './BaseModalContext';
+import React, { ComponentPropsWithRef, useEffect } from "react";
+import { createPortal } from "react-dom";
+import classes from "./BaseModal.module.scss";
+import { labelId, descriptionId } from "./BaseModalContext";
 
-const SCROLL_PROPERTY_NAME = 'overflow';
-const SCROLL_PROPERTY_VALUE = 'hidden';
+const SCROLL_PROPERTY_NAME = "overflow";
+const SCROLL_PROPERTY_VALUE = "hidden";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   id: string;
   children: React.ReactNode;
   open: boolean;
   onClose?: (event?: React.MouseEvent<HTMLElement>) => unknown;
   className?: string;
-  containerProps?: ComponentPropsWithRef<'div'>;
-  backdropProps?: ComponentPropsWithRef<'div'>;
+  containerProps?: ComponentPropsWithRef<"div">;
+  backdropProps?: ComponentPropsWithRef<"div">;
   labelledby?: string;
   describedby?: string;
   disableEscapeKeyDown?: boolean;
@@ -30,7 +30,7 @@ export const useSetBodyScroll = (open: boolean) => {
 
   const showBodyScroll = () => {
     const allModalsClosed =
-      document.querySelectorAll('[role=dialog][data-hidden=false]').length === 0;
+      document.querySelectorAll("[role=dialog][data-hidden=false]").length === 0;
     if (allModalsClosed) {
       document.body.style.removeProperty(SCROLL_PROPERTY_NAME);
     }
@@ -52,7 +52,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
       children,
       open,
       onClose,
-      className = '',
+      className = "",
       containerProps,
       backdropProps,
       labelledby,
@@ -69,7 +69,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
     useSetBodyScroll(open);
 
     const handleEscKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (!disableEscapeKeyDown && event.key === 'Escape') {
+      if (!disableEscapeKeyDown && event.key === "Escape") {
         event.stopPropagation();
         onClose && onClose();
       }
@@ -82,7 +82,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
         {...rest}
         ref={ref}
         id={id}
-        className={`${classes['modal']} ${open ? classes['visible'] : ''} ${className}`}
+        className={`${classes["modal"]} ${open ? classes["visible"] : ""} ${className}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledby || labelId(id)}
@@ -95,7 +95,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
       >
         <div
           {...backdropProps}
-          className={`${classes['backdrop']} ${backdropProps?.className ?? ''}`}
+          className={`${classes["backdrop"]} ${backdropProps?.className ?? ""}`}
           onClick={handleBackdropClick}
         ></div>
         {forceContainerOpen ? (
@@ -104,7 +104,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
             aria-hidden={!open}
             hidden={!open}
             style={{ zIndex: zIndex && zIndex + 1 }}
-            className={`${classes['container']} ${containerProps?.className ?? ''}`}
+            className={`${classes["container"]} ${containerProps?.className ?? ""}`}
           >
             {children}
           </div>
@@ -113,7 +113,7 @@ export const BaseModal = React.forwardRef<HTMLDivElement, Props>(
             <div
               {...containerProps}
               style={{ zIndex: zIndex && zIndex + 1 }}
-              className={`${classes['container']} ${containerProps?.className ?? ''}`}
+              className={`${classes["container"]} ${containerProps?.className ?? ""}`}
             >
               {children}
             </div>

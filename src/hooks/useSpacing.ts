@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties } from "react";
 
 export type SpacingMultiplier = 0 | 0.5 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 type SpacingMultiplierStringOrNumber = `${SpacingMultiplier}` | SpacingMultiplier;
@@ -22,7 +22,7 @@ export interface Spacing {
 }
 
 const defaultFactor = 0.25;
-const defaultUnit = 'rem';
+const defaultUnit = "rem";
 const spacingNumberRegex = /(\d+\.?\d*)+/g;
 
 export const useSpacing = (
@@ -34,7 +34,7 @@ export const useSpacing = (
       const matches = String(multiplier).matchAll(spacingNumberRegex);
       const cssSpacingValue = Array.from(matches)
         .map(([multiplierValue]) => `${Number(multiplierValue) * defaultFactor}${defaultUnit}`)
-        .join(' ');
+        .join(" ");
       return { ...prev, [spacing]: cssSpacingValue };
     }, style ?? {});
   }

@@ -1,15 +1,14 @@
-import { Canvas, Meta, Story } from '@storybook/addon-docs';
-import { projectName } from '../configuration';
-import { Fragment } from 'react';
-import { Typography } from '../../src/Typography/Typography';
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { Fragment } from "react";
+import { Typography } from "../../src/Typography/Typography";
 
 <Meta
   title="Hooks/useSpacing"
   parameters={{
-    viewMode: 'docs',
+    viewMode: "docs",
     previewTabs: {
-      canvas: { hidden: true },
-    },
+      canvas: { hidden: true }
+    }
   }}
 />
 
@@ -18,7 +17,7 @@ import { Typography } from '../../src/Typography/Typography';
 Spacing helps create consistent spacing between elements in your application.
 Margins and paddings can be set via the `spacing` component property.
 
-4px (0.25rem) scaling factor is used in <Typography variant="body" tag="span" children={projectName} />.
+4px (0.25rem) scaling factor is used in <Typography variant="body" tag="span" children="react-lib-components" />.
 
 Spacing multiplies provided value via factor.
 

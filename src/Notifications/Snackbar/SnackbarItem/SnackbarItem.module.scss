@@ -1,4 +1,4 @@
-@import '../../../readyclasses.module.scss';
+@import "../../../readyclasses.module.scss";
 
 .snackbar {
   padding: 1rem 1.25rem;
@@ -110,7 +110,7 @@
         calc(1.25rem + var(--button-border-width));
 
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;

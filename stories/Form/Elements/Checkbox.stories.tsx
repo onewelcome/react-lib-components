@@ -1,73 +1,73 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Checkbox, CheckboxProps as CheckboxProps } from '../../../src/Form/Checkbox/Checkbox';
-import CheckboxDocumentation from './Checkbox.mdx';
-import { Link } from '../../../src/Link/Link';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import { Checkbox, CheckboxProps as CheckboxProps } from "../../../src/Form/Checkbox/Checkbox";
+import CheckboxDocumentation from "./Checkbox.mdx";
+import { Link } from "../../../src/Link/Link";
 
 const meta: Meta = {
-  title: 'Stories/Form/Elements/Checkbox',
+  title: "Stories/Form/Elements/Checkbox",
   component: Checkbox,
   parameters: {
     docs: {
-      page: CheckboxDocumentation,
-    },
+      page: CheckboxDocumentation
+    }
   },
   argTypes: {
     parentHelperId: {
       table: {
-        disable: true,
+        disable: true
       },
-      control: false,
+      control: false
     },
     parentErrorId: {
       table: {
-        disable: true,
+        disable: true
       },
-      control: false,
+      control: false
     },
     errorMessageId: {
       table: {
-        disable: true,
+        disable: true
       },
-      control: false,
+      control: false
     },
     checked: {
       control: {
-        type: 'boolean',
-      },
+        type: "boolean"
+      }
     },
     disabled: {
-      control: 'boolean',
-    },
-  },
+      control: "boolean"
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<CheckboxProps> = (args) => {
+const Template: Story<CheckboxProps> = args => {
   return <Checkbox {...args} />;
 };
 
 export const SingleCheckbox = Template.bind({});
 
 SingleCheckbox.args = {
-  children: 'Example',
+  children: "Example",
   helperProps: {
     children: (
-      <Link style={{ fontSize: 'inherit' }} to="#">
+      <Link style={{ fontSize: "inherit" }} to="#">
         Go to our privacy policy
       </Link>
-    ),
+    )
   },
-  name: 'Checkbox',
+  name: "Checkbox"
 };
 
 export const NestedCheckbox = Template.bind({});
 
 NestedCheckbox.args = {
   indeterminate: false,
-  label: 'Electronics',
-  name: 'electronics',
+  label: "Electronics",
+  name: "electronics",
   children: [
     <Checkbox name="laptop" key="1">
       Option 1
@@ -77,6 +77,6 @@ NestedCheckbox.args = {
     </Checkbox>,
     <Checkbox name="microphones" key="3">
       Option 3
-    </Checkbox>,
-  ],
+    </Checkbox>
+  ]
 };

@@ -1,28 +1,28 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
 import {
   StatusIndicator as StatusIndicatorComponent,
-  Props,
-} from '../../src/StatusIndicator/StatusIndicator';
-import { Typography } from '../../src/Typography/Typography';
-import StatusIndicatorDocumentation from './StatusIndicator.mdx';
+  Props
+} from "../../src/StatusIndicator/StatusIndicator";
+import { Typography } from "../../src/Typography/Typography";
+import StatusIndicatorDocumentation from "./StatusIndicator.mdx";
 
 const meta: Meta = {
-  title: 'Stories/UI/StatusIndicator',
+  title: "Stories/UI/StatusIndicator",
   component: StatusIndicatorComponent,
   parameters: {
     docs: {
-      page: StatusIndicatorDocumentation,
-    },
+      page: StatusIndicatorDocumentation
+    }
   },
   args: {
-    status: 'active',
-  },
+    status: "active"
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => (
+const Template: Story<Props> = args => (
   <div>
     <StatusIndicatorComponent {...args}>
       {`${args.status[0].toUpperCase()}${args.status.slice(1)}`}

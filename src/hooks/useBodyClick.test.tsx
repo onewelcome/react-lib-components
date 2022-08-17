@@ -1,10 +1,10 @@
-import React, { Fragment, useState } from 'react';
-import { useBodyClick } from './useBodyClick';
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import React, { Fragment, useState } from "react";
+import { useBodyClick } from "./useBodyClick";
+import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-describe('function should be executed', () => {
-  it('should execute', () => {
+describe("function should be executed", () => {
+  it("should execute", () => {
     const clickHandler = jest.fn();
     const validateFunction = jest.fn(() => true);
 
@@ -27,8 +27,8 @@ describe('function should be executed', () => {
 
     const { getByTestId } = render(<Component></Component>);
 
-    const button1 = getByTestId('button1');
-    const button2 = getByTestId('button2');
+    const button1 = getByTestId("button1");
+    const button2 = getByTestId("button2");
 
     userEvent.click(button1);
     userEvent.click(button2);

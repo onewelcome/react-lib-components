@@ -1,5 +1,5 @@
-import React, { createContext } from 'react';
-import { SnackbarOptionsProps } from '../interfaces';
+import React, { createContext } from "react";
+import { SnackbarOptionsProps } from "../interfaces";
 
 interface SnackbarContextProps {
   enqueueSnackbar: (title: string, content?: string, options?: SnackbarOptionsProps) => void;
@@ -10,7 +10,7 @@ interface SnackbarContextProps {
 const SnackbarContext = createContext<SnackbarContextProps>({
   enqueueSnackbar: () => null,
   enqueueSuccessSnackbar: () => null,
-  enqueueErrorSnackbar: () => null,
+  enqueueErrorSnackbar: () => null
 });
 
 interface Props {

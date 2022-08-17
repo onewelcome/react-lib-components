@@ -1,4 +1,4 @@
 export {
   BaseModalActions as ModalActions,
-  Props,
-} from '../../BaseModal/BaseModalActions/BaseModalActions';
+  Props
+} from "../../BaseModal/BaseModalActions/BaseModalActions";

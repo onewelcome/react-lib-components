@@ -1,14 +1,14 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Breadcrumbs as Component, Props } from '../../src/Breadcrumbs/Breadcrumbs';
-import { Link } from '../../src/Link/Link';
-import { BrowserRouter, Link as RouterLink } from 'react-router-dom';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import { Breadcrumbs as Component, Props } from "../../src/Breadcrumbs/Breadcrumbs";
+import { Link } from "../../src/Link/Link";
+import { BrowserRouter, Link as RouterLink } from "react-router-dom";
 
 const meta: Meta = {
-  title: 'Stories/UI/Breadcrumbs',
+  title: "Stories/UI/Breadcrumbs",
   component: Component,
   args: {
-    'aria-label': 'breadcrumbs',
+    "aria-label": "breadcrumbs",
     children: [
       <Link key="1" to="#">
         Home
@@ -21,18 +21,18 @@ const meta: Meta = {
       </Link>,
       <Link key="4" to="#invoice/123-456-789/tax">
         Tax liabilities
-      </Link>,
-    ],
-  },
+      </Link>
+    ]
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => <Component {...args} />;
+const Template: Story<Props> = args => <Component {...args} />;
 
 export const Breadcrumbs = Template.bind({});
 
-const TemplateWithReactRouter: Story<Props> = (args) => (
+const TemplateWithReactRouter: Story<Props> = args => (
   <BrowserRouter>
     <Component {...args} />
   </BrowserRouter>
@@ -53,6 +53,6 @@ BreadcrumbsWithReactRouter.args = {
     </Link>,
     <Link key="4" to="#invoice/123-456-789/tax" component={RouterLink}>
       Tax liabilities
-    </Link>,
-  ],
+    </Link>
+  ]
 };

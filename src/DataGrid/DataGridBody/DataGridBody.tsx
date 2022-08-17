@@ -1,11 +1,11 @@
-import React, { ComponentPropsWithRef, ReactElement, Ref } from 'react';
-import { HeaderCell } from '../datagrid.interfaces';
-import { DataGridCell } from './DataGridCell';
-import { DataGridRow } from './DataGridRow';
-import classes from './DataGridBody.module.scss';
-import { Typography } from '../../Typography/Typography';
+import React, { ComponentPropsWithRef, ReactElement, Ref } from "react";
+import { HeaderCell } from "../datagrid.interfaces";
+import { DataGridCell } from "./DataGridCell";
+import { DataGridRow } from "./DataGridRow";
+import classes from "./DataGridBody.module.scss";
+import { Typography } from "../../Typography/Typography";
 
-export interface Props<T> extends ComponentPropsWithRef<'tbody'> {
+export interface Props<T> extends ComponentPropsWithRef<"tbody"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
   data?: T[];
   headers: HeaderCell[];
@@ -31,7 +31,7 @@ const DataGridBodyInner = <T extends {}>(
   ref: Ref<HTMLTableSectionElement>
 ) => {
   const renderContent = () => {
-    const visibleColumns = headers.filter((header) => !header.hidden).length;
+    const visibleColumns = headers.filter(header => !header.hidden).length;
     if (isLoading) {
       return Array.from(Array(skeletonLoadingRows)).map((_, rowIdx) => (
         <DataGridRow key={rowIdx} isLoading>
@@ -48,7 +48,7 @@ const DataGridBodyInner = <T extends {}>(
       return (
         <tr>
           <td
-            className={classes['empty']}
+            className={classes["empty"]}
             colSpan={visibleColumns + (disableContextMenuColumn ? 0 : 1)}
           >
             <Typography variant="body" spacing={{ margin: 0 }}>
@@ -63,7 +63,7 @@ const DataGridBodyInner = <T extends {}>(
       return React.cloneElement(children({ item, index }), {
         headers,
         spacing,
-        disableContextMenuColumn,
+        disableContextMenuColumn
       });
     });
   };

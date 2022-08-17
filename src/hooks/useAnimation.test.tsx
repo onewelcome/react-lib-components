@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { useAnimation } from './useAnimation';
+import React, { Fragment } from "react";
+import { render, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { useAnimation } from "./useAnimation";
 
-describe('useAnimation', () => {
-  it('should execute', () => {
+describe("useAnimation", () => {
+  it("should execute", () => {
     const callback = jest.fn();
 
     const Component = () => {
@@ -18,7 +18,7 @@ describe('useAnimation', () => {
           <div
             data-testid="animated-div"
             ref={ref}
-            className={animationStarted ? 'animation-started' : ''}
+            className={animationStarted ? "animation-started" : ""}
           >
             animated div
           </div>
@@ -28,18 +28,18 @@ describe('useAnimation', () => {
 
     const { getByTestId } = render(<Component />);
 
-    const animatedDiv = getByTestId('animated-div');
-    const startButton = getByTestId('button');
+    const animatedDiv = getByTestId("animated-div");
+    const startButton = getByTestId("button");
 
-    expect(animatedDiv).not.toHaveClass('animation-started');
+    expect(animatedDiv).not.toHaveClass("animation-started");
     expect(callback).not.toBeCalled();
 
     userEvent.click(startButton);
-    expect(animatedDiv).toHaveClass('animation-started');
+    expect(animatedDiv).toHaveClass("animation-started");
     expect(callback).not.toBeCalled();
 
     fireEvent.animationEnd(animatedDiv);
-    expect(animatedDiv).toHaveClass('animation-started');
+    expect(animatedDiv).toHaveClass("animation-started");
     expect(callback).toBeCalled();
   });
 });

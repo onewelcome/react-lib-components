@@ -1,4 +1,4 @@
-import { DataAttributeKey } from '../interfaces';
+import { DataAttributeKey } from "../interfaces";
 
 /** Radios */
 export interface FormSelector extends FormElement {

@@ -1,9 +1,9 @@
-import React, { ComponentPropsWithRef, useContext } from 'react';
-import { WizardStateContext } from '../WizardStateProvider';
-import { BaseWizardSteps } from '../BaseWizardSteps/BaseWizardSteps';
-import { changeCurrentStepNo } from '../wizardStateReducer';
+import React, { ComponentPropsWithRef, useContext } from "react";
+import { WizardStateContext } from "../WizardStateProvider";
+import { BaseWizardSteps } from "../BaseWizardSteps/BaseWizardSteps";
+import { changeCurrentStepNo } from "../wizardStateReducer";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   onStepClick: (currentStepNo: number, selectedStepNo: number) => boolean;
 }
 
@@ -11,7 +11,7 @@ export const WizardSteps = React.forwardRef<HTMLDivElement, Props>(
   ({ onStepClick, ...rest }: Props, ref) => {
     const {
       state: { currentStepNo, mode, stepScreenReaderLabel, steps },
-      dispatch,
+      dispatch
     } = useContext(WizardStateContext);
 
     const onClick = (selectedStepNo: number) => {
@@ -26,7 +26,7 @@ export const WizardSteps = React.forwardRef<HTMLDivElement, Props>(
         steps={steps}
         currentStepNo={currentStepNo}
         stepScreenReaderLabel={stepScreenReaderLabel}
-        futureStepsClickable={mode === 'edit'}
+        futureStepsClickable={mode === "edit"}
       />
     );
   }

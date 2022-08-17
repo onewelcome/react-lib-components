@@ -1,9 +1,9 @@
-import React, { ComponentPropsWithRef, Fragment } from 'react';
-import { Icon, Icons } from '../../Icon/Icon';
-import { ColumnName, Direction } from '../datagrid.interfaces';
-import classes from './DataGridHeaderCell.module.scss';
+import React, { ComponentPropsWithRef, Fragment } from "react";
+import { Icon, Icons } from "../../Icon/Icon";
+import { ColumnName, Direction } from "../datagrid.interfaces";
+import classes from "./DataGridHeaderCell.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'th'> {
+export interface Props extends ComponentPropsWithRef<"th"> {
   headline: string;
   name: ColumnName;
   disableSorting?: boolean;
@@ -12,8 +12,8 @@ export interface Props extends ComponentPropsWithRef<'th'> {
 }
 
 const ariaSortMapping = {
-  ASC: 'ascending',
-  DESC: 'descending',
+  ASC: "ascending",
+  DESC: "descending"
 } as const;
 
 export const DataGridHeaderCell = React.forwardRef<HTMLTableCellElement, Props>(
@@ -24,19 +24,19 @@ export const DataGridHeaderCell = React.forwardRef<HTMLTableCellElement, Props>(
 
     const sortingIndicator = () => {
       const getSortingIndicatorClasses = (direction: Direction) => {
-        const sortingIndicatorClasses = [classes['indicator']];
+        const sortingIndicatorClasses = [classes["indicator"]];
         activeSortDirection &&
           sortingIndicatorClasses.push(
-            activeSortDirection === direction ? classes['active'] : classes['hidden']
+            activeSortDirection === direction ? classes["active"] : classes["hidden"]
           );
         return sortingIndicatorClasses;
       };
 
       return (
         <Fragment>
-          <Icon className={getSortingIndicatorClasses('ASC').join(' ')} icon={Icons.TriangleUp} />
+          <Icon className={getSortingIndicatorClasses("ASC").join(" ")} icon={Icons.TriangleUp} />
           <Icon
-            className={getSortingIndicatorClasses('DESC').join(' ')}
+            className={getSortingIndicatorClasses("DESC").join(" ")}
             icon={Icons.TriangleDown}
           />
         </Fragment>
@@ -45,9 +45,9 @@ export const DataGridHeaderCell = React.forwardRef<HTMLTableCellElement, Props>(
 
     const innerContent = (
       <Fragment>
-        <span className={classes['headline']}>{headline}</span>
+        <span className={classes["headline"]}>{headline}</span>
         {!disableSorting && (
-          <div className={classes['sorting-indicator-container']}>{sortingIndicator()}</div>
+          <div className={classes["sorting-indicator-container"]}>{sortingIndicator()}</div>
         )}
       </Fragment>
     );
@@ -56,7 +56,7 @@ export const DataGridHeaderCell = React.forwardRef<HTMLTableCellElement, Props>(
       <th
         {...rest}
         ref={ref}
-        className={classes['header-cell']}
+        className={classes["header-cell"]}
         aria-sort={activeSortDirection && ariaSortMapping[activeSortDirection]}
       >
         {disableSorting ? (

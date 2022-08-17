@@ -1,19 +1,19 @@
-import React, { Fragment } from 'react';
-import { BaseButton, Props as BaseButtonProps } from './BaseButton';
-import classes from './IconButton.module.scss';
-import readyclasses from '../readyclasses.module.scss';
+import React, { Fragment } from "react";
+import { BaseButton, Props as BaseButtonProps } from "./BaseButton";
+import classes from "./IconButton.module.scss";
+import readyclasses from "../readyclasses.module.scss";
 
 export interface Props extends BaseButtonProps {
   children?: React.ReactNode;
-  iconSize?: 's' | 'm' | 'l';
-  variant?: 'text' | 'fill' | 'outline';
+  iconSize?: "s" | "m" | "l";
+  variant?: "text" | "fill" | "outline";
   className?: string;
   title?: string;
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, Props>(
   (
-    { children, color = 'primary', variant = 'text', iconSize = 'm', title, className, ...rest },
+    { children, color = "primary", variant = "text", iconSize = "m", title, className, ...rest },
     ref
   ) => {
     if (!title) {
@@ -21,10 +21,10 @@ export const IconButton = React.forwardRef<HTMLButtonElement, Props>(
     }
 
     const iconButtonClasses = [
-      classes['icon-button'],
+      classes["icon-button"],
       classes[variant],
       classes[color],
-      classes['button-' + iconSize],
+      classes["button-" + iconSize]
     ];
 
     if (className) {
@@ -32,10 +32,10 @@ export const IconButton = React.forwardRef<HTMLButtonElement, Props>(
     }
 
     return (
-      <BaseButton {...rest} ref={ref} className={iconButtonClasses.join(' ')}>
+      <BaseButton {...rest} ref={ref} className={iconButtonClasses.join(" ")}>
         <Fragment>
           {children}
-          <span className={readyclasses['sr-only']}>{title}</span>
+          <span className={readyclasses["sr-only"]}>{title}</span>
         </Fragment>
       </BaseButton>
     );

@@ -1,4 +1,4 @@
-@import '../../readyclasses.module.scss';
+@import "../../readyclasses.module.scss";
 
 $listItemHeight: 2.125rem;
 
@@ -105,7 +105,7 @@ $listItemHeight: 2.125rem;
       cursor: pointer;
 
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -135,7 +135,7 @@ $listItemHeight: 2.125rem;
 
 .selected-option {
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;

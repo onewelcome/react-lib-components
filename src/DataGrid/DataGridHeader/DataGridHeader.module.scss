@@ -1,6 +1,6 @@
 .thead {
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     width: calc(100% - 2rem);
     left: 1rem;

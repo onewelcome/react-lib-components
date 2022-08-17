@@ -4,25 +4,25 @@ import React, {
   MutableRefObject,
   useEffect,
   useRef,
-  useState,
-} from 'react';
-import { generateID } from '../util/helper';
-import { Props as TabProps } from './Tab';
-import { TabButton } from './TabButton';
-import { TabPanel } from './TabPanel';
-import classes from './Tabs.module.scss';
+  useState
+} from "react";
+import { generateID } from "../util/helper";
+import { Props as TabProps } from "./Tab";
+import { TabButton } from "./TabButton";
+import { TabPanel } from "./TabPanel";
+import classes from "./Tabs.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   children: React.ReactElement<TabProps> | React.ReactElement<TabProps>[];
   selected?: number;
-  'aria-label'?: string;
+  "aria-label"?: string;
   onTabChange?: (index: number) => void;
 }
 
 export const Tabs = ({
   children,
   selected = 0,
-  'aria-label': ariaLabel,
+  "aria-label": ariaLabel,
   onTabChange,
   className,
   ...rest
@@ -58,7 +58,7 @@ export const Tabs = ({
       top:
         selectedTabButton.offsetTop +
         selectedTabButton.offsetHeight -
-        indicatorRef.current!.offsetHeight,
+        indicatorRef.current!.offsetHeight
     });
     setIndicatorWidth(selectedTabButton.offsetWidth);
   };
@@ -68,20 +68,20 @@ export const Tabs = ({
     let currentFocussedTab = focussedTab === -1 ? selectedTab : focussedTab;
 
     switch (e.code) {
-      case 'ArrowLeft':
+      case "ArrowLeft":
         setFocussedTab(currentFocussedTab === min ? max : currentFocussedTab - 1);
         break;
-      case 'ArrowRight':
+      case "ArrowRight":
         setFocussedTab(currentFocussedTab === max ? min : currentFocussedTab + 1);
         break;
-      case 'Home':
+      case "Home":
         setFocussedTab(min);
         break;
-      case 'End':
+      case "End":
         setFocussedTab(max);
         break;
-      case 'Space':
-      case 'Enter':
+      case "Space":
+      case "Enter":
         activateTab(currentFocussedTab);
         break;
     }
@@ -106,7 +106,7 @@ export const Tabs = ({
       selected: selectedTab === index,
       focussed: focussedTab === index,
       onTabButtonClick: () => activateTab(index),
-      children: child.props.title,
+      children: child.props.title
     })
   );
 
@@ -117,33 +117,33 @@ export const Tabs = ({
       selected: selectedTab === index,
       tabId: tabIds[index],
       tabPanelId: tabPanelIds[index],
-      children: child.props.children,
+      children: child.props.children
     })
   );
 
   return (
-    <div {...rest} className={`${classes['tabs']} ${className ?? ''}`}>
+    <div {...rest} className={`${classes["tabs"]} ${className ?? ""}`}>
       <div
         role="tablist"
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
         aria-label={ariaLabel}
-        className={classes['tablist']}
+        className={classes["tablist"]}
       >
-        <div className={classes['tabdivider']} />
+        <div className={classes["tabdivider"]} />
         {tabButtons}
         <div
-          className={classes['indicator']}
+          className={classes["indicator"]}
           ref={indicatorRef}
           aria-hidden="true"
           tabIndex={-1}
           style={{
             width: indicatorWidth,
-            ...indicatorPosition,
+            ...indicatorPosition
           }}
         />
       </div>
-      <div className={classes['tabpanels']}>{tabPanels}</div>
+      <div className={classes["tabpanels"]}>{tabPanels}</div>
     </div>
   );
 };

@@ -1,15 +1,15 @@
-import React, { ComponentPropsWithRef } from 'react';
-import { Icon, Icons } from '../../Icon/Icon';
-import { Props as HelperProps } from '../FormHelperText/FormHelperText';
-import classes from './Radio.module.scss';
-import { useFormSelector } from '../../hooks/useFormSelector';
-import { FormSelector } from '../form.interfaces';
+import React, { ComponentPropsWithRef } from "react";
+import { Icon, Icons } from "../../Icon/Icon";
+import { Props as HelperProps } from "../FormHelperText/FormHelperText";
+import classes from "./Radio.module.scss";
+import { useFormSelector } from "../../hooks/useFormSelector";
+import { FormSelector } from "../form.interfaces";
 import {
   FormSelectorWrapper,
-  Props as FormSelectorWrapperProps,
-} from '../FormSelectorWrapper/FormSelectorWrapper';
+  Props as FormSelectorWrapperProps
+} from "../FormSelectorWrapper/FormSelectorWrapper";
 
-export interface Props extends ComponentPropsWithRef<'input'>, FormSelector {
+export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
   children: string;
   value: string;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
@@ -43,7 +43,7 @@ export const Radio = React.forwardRef<HTMLInputElement, Props>(
       parentErrorId,
       errorMessage,
       error,
-      parentHelperId,
+      parentHelperId
     });
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement> | React.MouseEvent) => {
@@ -54,9 +54,9 @@ export const Radio = React.forwardRef<HTMLInputElement, Props>(
       const nativeEvent: any = event.nativeEvent || event;
       const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
 
-      Object.defineProperty(clonedEvent, 'target', {
+      Object.defineProperty(clonedEvent, "target", {
         writable: true,
-        value: { value: value },
+        value: { value: value }
       });
 
       onChange && onChange(clonedEvent);
@@ -66,8 +66,8 @@ export const Radio = React.forwardRef<HTMLInputElement, Props>(
     return (
       <FormSelectorWrapper
         {...formSelectorWrapperProps}
-        className={`${classes['radio-wrapper']} ${className ?? ''}`}
-        containerProps={{ className: classes['radio-container'] }}
+        className={`${classes["radio-wrapper"]} ${className ?? ""}`}
+        containerProps={{ className: classes["radio-container"] }}
         helperText={helperText}
         helperProps={helperProps}
         parentErrorId={parentErrorId}
@@ -82,7 +82,7 @@ export const Radio = React.forwardRef<HTMLInputElement, Props>(
           ref={ref}
           disabled={disabled}
           tabIndex={0}
-          className={`${classes['native-input']} ${error ? classes['error'] : ''}`}
+          className={`${classes["native-input"]} ${error ? classes["error"] : ""}`}
           onChange={onChangeHandler}
           checked={checked}
           aria-invalid={error ? true : false}
@@ -96,13 +96,13 @@ export const Radio = React.forwardRef<HTMLInputElement, Props>(
 
         {checked && (
           <Icon
-            className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
+            className={`${classes["input"]} ${disabled ? classes["disabled"] : ""}`}
             icon={Icons.Radio}
           />
         )}
         {!checked && (
           <Icon
-            className={`${classes['input']} ${disabled ? classes['disabled'] : ''}`}
+            className={`${classes["input"]} ${disabled ? classes["disabled"] : ""}`}
             icon={Icons.Circle}
           />
         )}

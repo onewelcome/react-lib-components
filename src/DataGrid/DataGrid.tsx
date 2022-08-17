@@ -1,14 +1,14 @@
-import React, { ComponentPropsWithRef, ReactElement, Ref, useEffect, useState } from 'react';
-import { Props as ButtonProps } from '../Button/Button';
-import classes from './DataGrid.module.scss';
-import { DataGridHeader } from './DataGridHeader/DataGridHeader';
-import { DataGridActions } from './DataGridActions/DataGridActions';
-import { DataGridBody } from './DataGridBody/DataGridBody';
-import { ColumnName, HeaderCell, OnSortFunction, Sort } from './datagrid.interfaces';
-import { Pagination, Props as PaginationProps } from '../Pagination/Pagination';
-import { Spacing, useSpacing } from '../hooks/useSpacing';
+import React, { ComponentPropsWithRef, ReactElement, Ref, useEffect, useState } from "react";
+import { Props as ButtonProps } from "../Button/Button";
+import classes from "./DataGrid.module.scss";
+import { DataGridHeader } from "./DataGridHeader/DataGridHeader";
+import { DataGridActions } from "./DataGridActions/DataGridActions";
+import { DataGridBody } from "./DataGridBody/DataGridBody";
+import { ColumnName, HeaderCell, OnSortFunction, Sort } from "./datagrid.interfaces";
+import { Pagination, Props as PaginationProps } from "../Pagination/Pagination";
+import { Spacing, useSpacing } from "../hooks/useSpacing";
 
-export interface Props<T> extends ComponentPropsWithRef<'div'> {
+export interface Props<T> extends ComponentPropsWithRef<"div"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
   data?: T[];
   initialSort?: Sort;
@@ -50,10 +50,10 @@ const DataGridInner = <T extends {}>(
   ref: Ref<HTMLDivElement>
 ) => {
   if (!headers) {
-    throw new Error('Headers definition has to be provided');
+    throw new Error("Headers definition has to be provided");
   }
   if (!children) {
-    throw new Error('DataGridBody should be provieded with a template how to render rows');
+    throw new Error("DataGridBody should be provieded with a template how to render rows");
   }
 
   const [internalHeaders, setInternalHeaders] = useState(headers);
@@ -63,14 +63,14 @@ const DataGridInner = <T extends {}>(
 
   const onColumnToggled = (colName: ColumnName) => {
     setInternalHeaders(
-      internalHeaders.map((item) =>
+      internalHeaders.map(item =>
         item.name !== colName ? item : { ...item, hidden: !item.hidden }
       )
     );
   };
 
   if (styleWithSpacing?.padding) {
-    const splitPaddings = styleWithSpacing.padding.toString().split(' ');
+    const splitPaddings = styleWithSpacing.padding.toString().split(" ");
 
     let paddingLeftIndex: number = 0;
 
@@ -83,41 +83,41 @@ const DataGridInner = <T extends {}>(
 
     Object.defineProperties(styleWithSpacing, {
       paddingTop: {
-        value: splitPaddings[0],
+        value: splitPaddings[0]
       },
       paddingRight: {
-        value: splitPaddings[splitPaddings.length - 1 > 0 ? 1 : 0],
+        value: splitPaddings[splitPaddings.length - 1 > 0 ? 1 : 0]
       },
       paddingBottom: {
-        value: splitPaddings[splitPaddings.length / 3 >= 1 ? 2 : 0],
+        value: splitPaddings[splitPaddings.length / 3 >= 1 ? 2 : 0]
       },
       paddingLeft: {
-        value: splitPaddings[paddingLeftIndex],
-      },
+        value: splitPaddings[paddingLeftIndex]
+      }
     });
   }
 
   return (
     <div
       {...rest}
-      className={classes['grid-wrapper']}
+      className={classes["grid-wrapper"]}
       ref={ref}
       style={{
         paddingTop: styleWithSpacing?.paddingTop,
-        paddingBottom: styleWithSpacing?.paddingBottom,
+        paddingBottom: styleWithSpacing?.paddingBottom
       }}
     >
       <DataGridActions
         {...actions}
         style={{
           paddingLeft: styleWithSpacing?.paddingLeft,
-          paddingRight: styleWithSpacing?.paddingRight,
+          paddingRight: styleWithSpacing?.paddingRight
         }}
         headers={internalHeaders}
         onColumnToggled={onColumnToggled}
       />
-      <div className={classes['table-wrapper']}>
-        <table className={classes['table']}>
+      <div className={classes["table-wrapper"]}>
+        <table className={classes["table"]}>
           <DataGridHeader
             headers={internalHeaders}
             initialSort={initialSort}
@@ -143,9 +143,9 @@ const DataGridInner = <T extends {}>(
           style={{
             ...paginationProps.style,
             paddingLeft: styleWithSpacing?.paddingLeft,
-            paddingRight: styleWithSpacing?.paddingRight,
+            paddingRight: styleWithSpacing?.paddingRight
           }}
-          className={`${classes['pagination']} ${paginationProps.className ?? ''}`}
+          className={`${classes["pagination"]} ${paginationProps.className ?? ""}`}
         />
       )}
     </div>

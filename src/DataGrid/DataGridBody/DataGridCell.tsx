@@ -1,8 +1,8 @@
-import React, { ComponentPropsWithRef, ReactChild } from 'react';
-import { Typography } from '../../Typography/Typography';
-import classes from './DataGridCell.module.scss';
+import React, { ComponentPropsWithRef, ReactChild } from "react";
+import { Typography } from "../../Typography/Typography";
+import classes from "./DataGridCell.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'td'> {
+export interface Props extends ComponentPropsWithRef<"td"> {
   children?: ReactChild;
   isLoading?: boolean;
   spacing?: React.CSSProperties;
@@ -42,10 +42,10 @@ export const DataGridCell = React.forwardRef<HTMLTableCellElement, Props>(
         {...rest}
         ref={ref}
         style={{ ...rest.style, ...cellStyle }}
-        className={`${classes['cell']} ${className ?? ''}`}
+        className={`${classes["cell"]} ${className ?? ""}`}
       >
         {isLoading && (
-          <div className={classes['loading']} aria-busy="true" aria-live="polite"></div>
+          <div className={classes["loading"]} aria-busy="true" aria-live="polite"></div>
         )}
         {!isLoading && (
           <Typography variant="body" tag="span">

@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react';
-import { DiscardChangesDialog, Props } from './DiscardChangesDialog';
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import React, { useEffect, useRef } from "react";
+import { DiscardChangesDialog, Props } from "./DiscardChangesDialog";
+import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
   open: true,
   onKeepEditing: jest.fn(),
   onDiscardChanges: jest.fn(),
-  discardChangesButtonLabel: 'Discard Changes',
-  keepEditingButtonLabel: 'Keep Editing',
-  contentLabel: 'Content',
-  titleLabel: 'Unsaved changes',
+  discardChangesButtonLabel: "Discard Changes",
+  keepEditingButtonLabel: "Keep Editing",
+  contentLabel: "Content",
+  titleLabel: "Unsaved changes"
 };
 
 const createDiscardChangesDialog = (params?: (defaultParams: Props) => Props) => {
@@ -21,24 +21,24 @@ const createDiscardChangesDialog = (params?: (defaultParams: Props) => Props) =>
   const queries = render(
     <DiscardChangesDialog {...parameters} data-testid="DiscardChangesDialog"></DiscardChangesDialog>
   );
-  const discardChangesDialog = queries.getByTestId('DiscardChangesDialog');
-  const discardChangesBtn = queries.getByRole('button', {
-    name: defaultParams.discardChangesButtonLabel,
+  const discardChangesDialog = queries.getByTestId("DiscardChangesDialog");
+  const discardChangesBtn = queries.getByRole("button", {
+    name: defaultParams.discardChangesButtonLabel
   });
-  const keepEditingBtn = queries.getByRole('button', {
-    name: defaultParams.keepEditingButtonLabel,
+  const keepEditingBtn = queries.getByRole("button", {
+    name: defaultParams.keepEditingButtonLabel
   });
 
   return {
     ...queries,
     discardChangesDialog,
     discardChangesBtn,
-    keepEditingBtn,
+    keepEditingBtn
   };
 };
 
-describe('DiscardChangesDialog should render', () => {
-  it('renders without crashing', () => {
+describe("DiscardChangesDialog should render", () => {
+  it("renders without crashing", () => {
     const { discardChangesDialog, discardChangesBtn, keepEditingBtn } =
       createDiscardChangesDialog();
 
@@ -54,10 +54,10 @@ describe('DiscardChangesDialog should render', () => {
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -87,7 +87,7 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);

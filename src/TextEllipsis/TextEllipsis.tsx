@@ -1,8 +1,8 @@
-import React, { useRef, MouseEventHandler, useState, ComponentPropsWithRef } from 'react';
-import { Popover } from '../Popover/Popover';
-import classes from './TextEllipsis.module.scss';
+import React, { useRef, MouseEventHandler, useState, ComponentPropsWithRef } from "react";
+import { Popover } from "../Popover/Popover";
+import classes from "./TextEllipsis.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   children?: string;
   popoverClassName?: string;
 }
@@ -35,7 +35,7 @@ export const TextEllipsis = React.forwardRef<HTMLDivElement, Props>(
         {...rest}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        className={`${classes['text-ellipsis']} ${className ?? ''}`}
+        className={`${classes["text-ellipsis"]} ${className ?? ""}`}
         ref={ref || textContainer}
       >
         {children}
@@ -45,7 +45,7 @@ export const TextEllipsis = React.forwardRef<HTMLDivElement, Props>(
           show={showPopover}
           role="tooltip"
           anchorEl={textContainer}
-          className={`${classes.popover} ${popoverClassName ?? ''}`}
+          className={`${classes.popover} ${popoverClassName ?? ""}`}
         >
           {children}
         </Popover>

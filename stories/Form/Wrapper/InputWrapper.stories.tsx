@@ -1,46 +1,46 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { InputWrapper, Props } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import { InputWrapper, Props } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
 
 const meta: Meta = {
-  title: 'Stories/Form/Wrapper/InputWrapper',
+  title: "Stories/Form/Wrapper/InputWrapper",
   component: InputWrapper,
   argTypes: {
     onChange: {
-      action: 'onChange event fired',
-      control: false,
+      action: "onChange event fired",
+      control: false
     },
     onBlur: {
-      action: 'onBlur event fired',
+      action: "onBlur event fired"
     },
     onFocus: {
-      action: 'onFocus event fired',
+      action: "onFocus event fired"
     },
     type: {
       options: [
-        'text',
-        'email',
-        'file',
-        'number',
-        'password',
-        'search',
-        'tel',
-        'time',
-        'url',
-        'datetime-local',
-        'date',
+        "text",
+        "email",
+        "file",
+        "number",
+        "password",
+        "search",
+        "tel",
+        "time",
+        "url",
+        "datetime-local",
+        "date"
       ],
       control: {
-        type: 'select',
-      },
+        type: "select"
+      }
     },
     required: {
-      control: 'boolean',
+      control: "boolean"
     },
     disabled: {
-      control: 'boolean',
-    },
-  },
+      control: "boolean"
+    }
+  }
 };
 
 declare global {
@@ -49,25 +49,25 @@ declare global {
 
 export default meta;
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   return <InputWrapper {...args} />;
 };
 
 export const InputWrapperEl = Template.bind({});
 
 InputWrapperEl.args = {
-  label: 'Example label',
-  type: 'text',
-  name: 'Example name',
-  helperText: 'This is helpertext',
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
   onChange: () => {},
-  errorMessage: 'This is an error message',
+  errorMessage: "This is an error message",
   error: false,
-  value: '',
+  value: "",
   inputProps: {
-    prefix: 'https://',
-    suffix: '',
-    className: 'input-classname',
-    wrapperProps: { className: 'wrapper-classname' },
-  },
+    prefix: "https://",
+    suffix: "",
+    className: "input-classname",
+    wrapperProps: { className: "wrapper-classname" }
+  }
 };

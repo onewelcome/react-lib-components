@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react';
-import { Meta, Story } from '@storybook/react';
+import React, { Fragment } from "react";
+import { Meta, Story } from "@storybook/react";
 import {
   SnackbarProvider,
-  Props,
-} from '../../../src/Notifications/Snackbar/SnackbarProvider/SnackbarProvider';
-import { Button } from '../../../src/Button/Button';
-import { useSnackbar } from '../../../src/Notifications/Snackbar/useSnackbar';
+  Props
+} from "../../../src/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
+import { Button } from "../../../src/Button/Button";
+import { useSnackbar } from "../../../src/Notifications/Snackbar/useSnackbar";
 
 const meta: Meta = {
-  title: 'Stories/Notifications/Snackbar',
+  title: "Stories/Notifications/Snackbar",
   component: SnackbarProvider,
-  args: {},
+  args: {}
 };
 
 export default meta;
@@ -20,17 +20,17 @@ const AppContent = () => {
 
   return (
     <Fragment>
-      <Button onClick={() => enqueueSuccessSnackbar('Main message of the snackbar')}>
+      <Button onClick={() => enqueueSuccessSnackbar("Main message of the snackbar")}>
         Show success snackbar
       </Button>
       <br />
       <br />
-      <Button onClick={() => enqueueErrorSnackbar('Social account unlink failed')}>
+      <Button onClick={() => enqueueErrorSnackbar("Social account unlink failed")}>
         Show error snackbar
       </Button>
       <br />
       <br />
-      <Button onClick={() => enqueueSnackbar('Copy of your data is requested')}>
+      <Button onClick={() => enqueueSnackbar("Copy of your data is requested")}>
         Show info snackbar
       </Button>
       <br />
@@ -38,13 +38,13 @@ const AppContent = () => {
       <Button
         onClick={() =>
           enqueueSnackbar(
-            'Copy of your data is requested',
-            'Body text of the snackbar. Keep it short. Users only have a few seconds to read it. Try to keep the text within the limit of 1 text message: 160 ch.',
+            "Copy of your data is requested",
+            "Body text of the snackbar. Keep it short. Users only have a few seconds to read it. Try to keep the text within the limit of 1 text message: 160 ch.",
             {
               actions: [
-                { label: 'Contact support', onClick: () => alert('Clicked support') },
-                { label: 'Contact OneWelcome', onClick: () => alert('Clicked OneWelcome') },
-              ],
+                { label: "Contact support", onClick: () => alert("Clicked support") },
+                { label: "Contact OneWelcome", onClick: () => alert("Clicked OneWelcome") }
+              ]
             }
           )
         }
@@ -55,7 +55,7 @@ const AppContent = () => {
   );
 };
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   return (
     <SnackbarProvider {...args}>
       <AppContent />

@@ -1,6 +1,6 @@
-@import '../../../mixins.module.scss';
+@import "../../../mixins.module.scss";
 
-@include inputLabelPrimaryColorOnFocus('label.textarea-label');
+@include inputLabelPrimaryColorOnFocus("label.textarea-label");
 
 .textarea {
   padding-top: 1.625rem;

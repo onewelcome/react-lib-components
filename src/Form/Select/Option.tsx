@@ -1,7 +1,7 @@
-import React, { ComponentPropsWithRef, createRef, RefObject, useEffect } from 'react';
-import classes from './Select.module.scss';
+import React, { ComponentPropsWithRef, createRef, RefObject, useEffect } from "react";
+import classes from "./Select.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'li'> {
+export interface Props extends ComponentPropsWithRef<"li"> {
   children: string;
   value: string;
   disabled?: boolean;
@@ -59,12 +59,12 @@ export const Option = React.forwardRef<HTMLLIElement, Props>(
         {...rest}
         ref={innerOptionRef}
         data-value={value}
-        className={`${isSelected ? classes['selected-option'] : ''} ${
-          disabled ? classes.disabled : ''
-        } ${className ?? ''}`}
+        className={`${isSelected ? classes["selected-option"] : ""} ${
+          disabled ? classes.disabled : ""
+        } ${className ?? ""}`}
         onClick={onSelectHandler}
-        onKeyDownCapture={(event) => {
-          if (event.code === 'Enter') {
+        onKeyDownCapture={event => {
+          if (event.code === "Enter") {
             event.stopPropagation();
             event.preventDefault();
 

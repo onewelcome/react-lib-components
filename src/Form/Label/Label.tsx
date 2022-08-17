@@ -1,8 +1,8 @@
-import React, { ComponentPropsWithRef, ReactNode } from 'react';
-import classes from './Label.module.scss';
-import readyclasses from '../../readyclasses.module.scss';
+import React, { ComponentPropsWithRef, ReactNode } from "react";
+import classes from "./Label.module.scss";
+import readyclasses from "../../readyclasses.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'label'> {
+export interface Props extends ComponentPropsWithRef<"label"> {
   children?: ReactNode;
 }
 
@@ -12,8 +12,8 @@ export const Label = React.forwardRef<HTMLLabelElement, Props>(
       <label
         {...rest}
         ref={ref}
-        className={`${hidden ? readyclasses['sr-only'] : ''} ${classes['label']} ${
-          className ?? ''
+        className={`${hidden ? readyclasses["sr-only"] : ""} ${classes["label"]} ${
+          className ?? ""
         }`}
       >
         {children}

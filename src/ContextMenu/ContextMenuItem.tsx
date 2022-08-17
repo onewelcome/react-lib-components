@@ -1,7 +1,7 @@
-import React, { ComponentPropsWithRef, createRef, RefObject, useEffect } from 'react';
-import classes from './ContextMenuItem.module.scss';
+import React, { ComponentPropsWithRef, createRef, RefObject, useEffect } from "react";
+import classes from "./ContextMenuItem.module.scss";
 
-export interface Props extends Omit<ComponentPropsWithRef<'button'>, 'onClick'> {
+export interface Props extends Omit<ComponentPropsWithRef<"button">, "onClick"> {
   children?: string;
   hasFocus?: boolean;
   isSelected?: boolean;
@@ -45,12 +45,12 @@ export const ContextMenuItem = React.forwardRef<HTMLButtonElement, Props>(
     }, [hasFocus, innerButtonRef, contextMenuOpened]);
 
     return (
-      <li role="menuitem" className={classes['context-menu-item']}>
+      <li role="menuitem" className={classes["context-menu-item"]}>
         <button
           {...rest}
           ref={innerButtonRef}
           data-focus={hasFocus}
-          onClick={(event) => {
+          onClick={event => {
             onClick && onClick(event);
             onSelectedChange && childIndex && onSelectedChange(childIndex);
           }}

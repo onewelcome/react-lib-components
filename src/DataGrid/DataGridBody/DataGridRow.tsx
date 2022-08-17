@@ -1,8 +1,8 @@
-import React, { ComponentPropsWithRef } from 'react';
-import { HeaderCell } from '../datagrid.interfaces';
-import classes from './DataGridRow.module.scss';
+import React, { ComponentPropsWithRef } from "react";
+import { HeaderCell } from "../datagrid.interfaces";
+import classes from "./DataGridRow.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'tr'> {
+export interface Props extends ComponentPropsWithRef<"tr"> {
   headers?: HeaderCell[];
   isLoading?: boolean;
   spacing?: React.CSSProperties;
@@ -20,7 +20,7 @@ export const DataGridRow = React.forwardRef<HTMLTableRowElement, Props>(
           spacing: spacing,
           cellIndex: index,
           columnLength: headers?.length,
-          disableContextMenuColumn,
+          disableContextMenuColumn
         });
 
         const visible = headers?.length! > index ? !headers![index].hidden : true;
@@ -29,12 +29,12 @@ export const DataGridRow = React.forwardRef<HTMLTableRowElement, Props>(
       return null;
     });
 
-    const classNames = [classes['row']];
+    const classNames = [classes["row"]];
     className && classNames.push(className);
-    isLoading && classNames.push(classes['loading']);
+    isLoading && classNames.push(classes["loading"]);
 
     return (
-      <tr {...rest} ref={ref} className={classNames.join(' ')}>
+      <tr {...rest} ref={ref} className={classNames.join(" ")}>
         {visibleCells}
       </tr>
     );

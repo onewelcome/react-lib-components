@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import { FormSelectorWrapper, Props } from './FormSelectorWrapper';
-import { render } from '@testing-library/react';
+import React, { useRef, useEffect } from "react";
+import { FormSelectorWrapper, Props } from "./FormSelectorWrapper";
+import { render } from "@testing-library/react";
 
 const defaultParams: Props = {};
 
@@ -14,26 +14,26 @@ const createFormSelectorWrapper = (params?: (defaultParams: Props) => Props) => 
       formSelectorWrapper content
     </FormSelectorWrapper>
   );
-  const formSelectorWrapper = queries.getByTestId('formSelectorWrapper');
+  const formSelectorWrapper = queries.getByTestId("formSelectorWrapper");
 
   return {
     ...queries,
-    formSelectorWrapper,
+    formSelectorWrapper
   };
 };
 
-describe('FormSelectorWrapper should render', () => {
-  it('renders without crashing', () => {
+describe("FormSelectorWrapper should render", () => {
+  it("renders without crashing", () => {
     const { formSelectorWrapper } = createFormSelectorWrapper();
 
     expect(formSelectorWrapper).toBeDefined();
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (
         ref: React.RefObject<HTMLElement>,
@@ -54,9 +54,9 @@ describe('ref should work', () => {
       return (
         <FormSelectorWrapper
           {...defaultParams}
-          containerProps={{ 'data-ref': 'testing', ref: containerRef }}
+          containerProps={{ "data-ref": "testing", ref: containerRef }}
           helperText="helpertext"
-          helperProps={{ 'data-ref': 'testing', ref: helperRef }}
+          helperProps={{ "data-ref": "testing", ref: helperRef }}
           data-ref="testing"
           ref={ref}
         />
@@ -68,9 +68,9 @@ describe('ref should work', () => {
       ref2: React.RefObject<HTMLElement>,
       ref3: React.RefObject<HTMLElement>
     ) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
-      expect(ref2.current).toHaveAttribute('data-ref', 'testing');
-      expect(ref3.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
+      expect(ref2.current).toHaveAttribute("data-ref", "testing");
+      expect(ref3.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);

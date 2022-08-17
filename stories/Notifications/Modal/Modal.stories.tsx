@@ -1,55 +1,55 @@
-import React, { Fragment, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Modal as ModalComponent, Props } from '../../../src/Notifications/Modal/Modal';
-import { ModalActions } from '../../../src/Notifications/Modal/ModalActions/ModalActions';
-import { ModalContent } from '../../../src/Notifications/Modal/ModalContent/ModalContent';
-import { ModalHeader } from '../../../src/Notifications/Modal/ModalHeader/ModalHeader';
-import { Button } from '../../../src/Button/Button';
-import { Typography } from '../../../src/Typography/Typography';
-import ModalDocumentation from './Modal.mdx';
-import { FormControl } from '../../../src/Form/FormControl/FormControl';
-import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
+import React, { Fragment, useState } from "react";
+import { Meta, Story } from "@storybook/react";
+import { Modal as ModalComponent, Props } from "../../../src/Notifications/Modal/Modal";
+import { ModalActions } from "../../../src/Notifications/Modal/ModalActions/ModalActions";
+import { ModalContent } from "../../../src/Notifications/Modal/ModalContent/ModalContent";
+import { ModalHeader } from "../../../src/Notifications/Modal/ModalHeader/ModalHeader";
+import { Button } from "../../../src/Button/Button";
+import { Typography } from "../../../src/Typography/Typography";
+import ModalDocumentation from "./Modal.mdx";
+import { FormControl } from "../../../src/Form/FormControl/FormControl";
+import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
 
 const meta: Meta = {
-  title: 'Stories/Notifications/Modal',
+  title: "Stories/Notifications/Modal",
   component: ModalComponent,
   subcomponents: {
     ModalHeader,
     ModalContent,
-    ModalActions,
+    ModalActions
   },
   parameters: {
     docs: {
-      page: ModalDocumentation,
-    },
+      page: ModalDocumentation
+    }
   },
   args: {
-    id: 'modal',
-    ['header.title']: 'Modal title',
-    ['content.disableAutoFocus']: false,
-    ['actions.className']: undefined,
+    id: "modal",
+    ["header.title"]: "Modal title",
+    ["content.disableAutoFocus"]: false,
+    ["actions.className"]: undefined
   },
   argTypes: {
     open: {
-      control: false,
+      control: false
     },
-    ['header.title']: {
-      control: 'text',
+    ["header.title"]: {
+      control: "text"
     },
-    ['content.disableAutoFocus']: {
-      control: 'boolean',
+    ["content.disableAutoFocus"]: {
+      control: "boolean"
     },
-    ['actions.className']: {
-      control: 'text',
-    },
-  },
+    ["actions.className"]: {
+      control: "text"
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('initial value');
+  const [value, setValue] = useState("initial value");
 
   const id = args.id;
   const onClose = () => setOpen(false);
@@ -64,17 +64,17 @@ const Template: Story<Props> = (args) => {
         disableBackdrop={args.disableBackdrop}
         disableEscapeKeyDown={args.disableEscapeKeyDown}
       >
-        <ModalHeader id={`${id}-label`} title={args['header.title']} onClose={onClose} />
-        <ModalContent id={`${id}-description`} disableAutoFocus={args['content.disableAutoFocus']}>
+        <ModalHeader id={`${id}-label`} title={args["header.title"]} onClose={onClose} />
+        <ModalContent id={`${id}-description`} disableAutoFocus={args["content.disableAutoFocus"]}>
           <form
             id="modalForm"
-            onSubmit={(e) => {
+            onSubmit={e => {
               e.preventDefault();
-              alert('form submitted');
+              alert("form submitted");
               onClose();
             }}
           >
-            <Typography variant="body" spacing={{ margin: 0, padding: '0 5 5' }}>
+            <Typography variant="body" spacing={{ margin: 0, padding: "0 5 5" }}>
               This modal shows various options of form controls. It is not meant to be a realistic
               example of any of our forms.
               <br /> Clicking Save, Cancel or Close may bring you to a different screen than you
@@ -88,7 +88,7 @@ const Template: Story<Props> = (args) => {
                 value={value}
                 error={false}
                 label="Name"
-                onChange={(e) => setValue(e.target.value)}
+                onChange={e => setValue(e.target.value)}
               />
             </FormControl>
             <FormControl>
@@ -99,7 +99,7 @@ const Template: Story<Props> = (args) => {
                 value={value}
                 error={false}
                 label="Name"
-                onChange={(e) => setValue(e.target.value)}
+                onChange={e => setValue(e.target.value)}
               />
             </FormControl>
             <FormControl>
@@ -110,7 +110,7 @@ const Template: Story<Props> = (args) => {
                 value={value}
                 error={false}
                 label="Name"
-                onChange={(e) => setValue(e.target.value)}
+                onChange={e => setValue(e.target.value)}
               />
             </FormControl>
             <FormControl>
@@ -121,12 +121,12 @@ const Template: Story<Props> = (args) => {
                 value={value}
                 error={false}
                 label="Name"
-                onChange={(e) => setValue(e.target.value)}
+                onChange={e => setValue(e.target.value)}
               />
             </FormControl>
           </form>
         </ModalContent>
-        <ModalActions className={args['actions.className']}>
+        <ModalActions className={args["actions.className"]}>
           <Button variant="text" onClick={onClose}>
             Cancel
           </Button>

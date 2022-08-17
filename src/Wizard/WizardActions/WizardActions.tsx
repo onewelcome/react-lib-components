@@ -1,9 +1,9 @@
-import React, { Fragment, useContext, useMemo } from 'react';
-import { Button } from '../../Button/Button';
-import { Step } from '../BaseWizardSteps/BaseWizardSteps';
-import { WizardMode } from '../Wizard';
-import { WizardStateContext } from '../WizardStateProvider';
-import { changeCurrentStepNo } from '../wizardStateReducer';
+import React, { Fragment, useContext, useMemo } from "react";
+import { Button } from "../../Button/Button";
+import { Step } from "../BaseWizardSteps/BaseWizardSteps";
+import { WizardMode } from "../Wizard";
+import { WizardStateContext } from "../WizardStateProvider";
+import { changeCurrentStepNo } from "../wizardStateReducer";
 
 export interface Props extends React.HTMLProps<HTMLDivElement> {
   cancelButtonLabel: string;
@@ -44,20 +44,20 @@ export const WizardActions = ({
   cancelButtonLabel,
   previousButtonLabel,
   nextButtonLabel,
-  saveAndCloseButtonLabel,
+  saveAndCloseButtonLabel
 }: Props) => {
   const {
     state: { mode, steps, currentStepNo },
-    dispatch,
+    dispatch
   } = useContext(WizardStateContext);
   const nextStepNo = useNextStepNo(mode, currentStepNo, steps);
   const hasNextStep = nextStepNo !== -1;
   const previousStepNo = usePreviousStepNo(mode, currentStepNo, steps);
   const hasPreviousStep = previousStepNo !== -1;
-  const isLastStepOrEditMode = !hasNextStep || mode === 'edit';
+  const isLastStepOrEditMode = !hasNextStep || mode === "edit";
 
-  const changeStepNo = (direction: 'forward' | 'backward') => {
-    if (direction === 'forward') {
+  const changeStepNo = (direction: "forward" | "backward") => {
+    if (direction === "forward") {
       hasNextStep && dispatch(changeCurrentStepNo(nextStepNo));
     } else {
       hasPreviousStep && dispatch(changeCurrentStepNo(previousStepNo));
@@ -65,12 +65,12 @@ export const WizardActions = ({
   };
 
   const onNextWrapper = () => {
-    onNext(currentStepNo) && changeStepNo('forward');
+    onNext(currentStepNo) && changeStepNo("forward");
   };
 
   const onPreviousWrapper = () => {
     onPrevious && onPrevious();
-    changeStepNo('backward');
+    changeStepNo("backward");
   };
 
   const onSaveAndCloseWrapper = () => {
@@ -88,7 +88,7 @@ export const WizardActions = ({
         </Button>
       )}
       {hasNextStep && (
-        <Button variant={mode === 'edit' ? 'outline' : 'fill'} onClick={onNextWrapper}>
+        <Button variant={mode === "edit" ? "outline" : "fill"} onClick={onNextWrapper}>
           {nextButtonLabel}
         </Button>
       )}
