@@ -1,4 +1,4 @@
-@import '../../../readyclasses.module.scss';
+@import "../../../readyclasses.module.scss";
 
 .snackbar {
   padding: 1rem 1.25rem;
@@ -30,23 +30,23 @@
   .headline {
     display: flex;
     color: var(--snackbar-text-color);
+  }
 
-    .close-btn {
-      color: var(--snackbar-text-color);
+  #close-btn {
+    color: var(--snackbar-text-color);
 
-      &:hover,
-      &:focus {
-        border-color: var(--snackbar-text-color);
-      }
+    &:hover,
+    &:focus {
+      border-color: var(--snackbar-text-color);
+    }
 
-      &:active {
-        border-color: transparent;
+    &:active {
+      border-color: transparent;
 
-        &:after {
-          top: 0;
-          height: 100%;
-          background-color: var(--snackbar-text-color);
-        }
+      &:after {
+        top: 0;
+        height: 100%;
+        background-color: var(--snackbar-text-color);
       }
     }
   }
@@ -110,7 +110,7 @@
         calc(1.25rem + var(--button-border-width));
 
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -128,7 +128,7 @@
   }
 }
 
-@media only screen and (min-width: 37.5rem) {
+@media only screen and (min-width: 37.5em) {
   .snackbar {
     width: 37.5rem;
   }

@@ -1,21 +1,21 @@
-import React, { ComponentPropsWithRef, ReactChild, ReactElement } from 'react';
-import classes from './SelectWrapper.module.scss';
-import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
-import { Select, Props as SelectProps } from '../../Select/Select';
-import { useWrapper } from '../../../hooks/useWrapper';
+import React, { ComponentPropsWithRef, ReactChild, ReactElement } from "react";
+import classes from "./SelectWrapper.module.scss";
+import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
+import { Select, Props as SelectProps } from "../../Select/Select";
+import { useWrapper } from "../../../hooks/useWrapper";
 
 interface PartialSelectProps extends Partial<SelectProps> {}
 
 export interface Props
-  extends Omit<ComponentPropsWithRef<'div'>, 'onChange'>,
-    Omit<WrapperProps, 'onChange' | 'error'> {
+  extends Omit<ComponentPropsWithRef<"div">, "onChange">,
+    Omit<WrapperProps, "onChange" | "error"> {
   children: ReactChild | ReactChild[];
   placeholder?: string;
   value: string;
   error?: boolean;
   selectProps?: PartialSelectProps;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onClear?: () => void;
+  onClear?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 export const SelectWrapper = React.forwardRef<HTMLDivElement, Props>(
@@ -42,10 +42,10 @@ export const SelectWrapper = React.forwardRef<HTMLDivElement, Props>(
         floatingLabelActive={floatingLabelActive}
         errorId={errorId}
         helperId={helperId}
-        labelProps={{ id: labelId, className: classes['select-label'] }}
+        labelProps={{ id: labelId, className: classes["select-label"] }}
         helperProps={{
           ...helperProps,
-          className: `${classes['select-helper-text']} ${helperProps?.className ?? ''}`,
+          className: `${classes["select-helper-text"]} ${helperProps?.className ?? ""}`
         }}
         error={error}
       >
@@ -56,10 +56,12 @@ export const SelectWrapper = React.forwardRef<HTMLDivElement, Props>(
           error={error}
           describedBy={error ? errorId : helperId}
           onChange={onChange}
-          onClear={onClear}
+          onClear={e => {
+            onClear && onClear(e);
+          }}
           placeholder={placeholder}
-          className={`${floatingLabelActive ? classes['floating-label-active'] : ''} ${
-            selectProps?.className ?? ''
+          className={`${floatingLabelActive ? classes["floating-label-active"] : ""} ${
+            selectProps?.className ?? ""
           }`}
         >
           {children as ReactElement[]}

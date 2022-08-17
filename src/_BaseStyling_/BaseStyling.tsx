@@ -1,4 +1,4 @@
-import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from 'react';
+import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from "react";
 
 interface CSSProperties {
   colorFocus?: string;
@@ -16,6 +16,7 @@ interface CSSProperties {
   inputBorderColor?: string;
   inputBorderRadius?: string;
   inputBorderWidth?: string;
+  inputBorderWidthFocus?: string;
   inputBorderStyle?: string;
   inputBackgroundColor?: string;
   modalShadowColor?: string;
@@ -26,6 +27,8 @@ interface CSSProperties {
   snackbarSuccessBackgroundColor?: string;
   snackbarErrorBackgroundColor?: string;
   snackbarBorderRadius?: string;
+  dataGridRowBackgroundColor?: string;
+  dataGridRowHoverBackgroundColor?: string;
   tabsBackgroundColor?: string;
   tabBorderWidth?: string;
   tabBorderStyle?: string;
@@ -57,53 +60,56 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
-    colorFocus: '#0085f2',
-    colorPrimary: '#9e006b',
-    colorSecondary: '#003b5e',
-    colorTertiary: '#ff1e4e',
-    defaultLineHeight: '26px',
-    buttonBorderRadius: '20px',
-    buttonBorderWidth: '2px',
-    buttonFontSize: '1rem',
-    buttonBorderStyle: 'solid',
-    buttonFillTextColor: '#FFF',
-    buttonFillBackgroundColor: '#FFF',
-    buttonOutlineHoverTextColor: '#FFF',
-    inputBorderColor: '#e9e9eb',
-    inputBorderRadius: '8px',
-    inputBorderWidth: '1px',
-    inputBorderStyle: 'solid',
-    inputBackgroundColor: '#FFF',
-    modalShadowColor: 'rgba(0, 0, 0, 0.16)',
-    modalBackgroundColor: '#F5F8F8',
-    modalHeaderBackgroundColor: '#FFF',
-    snackbarTextColor: '#fff',
-    snackbarInfoBackgroundColor: '#003b5e',
-    snackbarSuccessBackgroundColor: '#008a28',
-    snackbarErrorBackgroundColor: '#e22a1d',
-    snackbarBorderRadius: '8px',
-    tabsBackgroundColor: '#FFF',
-    tabBorderWidth: '2px',
-    tabBorderStyle: 'solid',
-    tablistBorderWidth: '1px',
-    tablistBorderStyle: 'solid',
-    tablistBorderColor: '#C3C3C7',
-    tabTextColor: '#0f0f1e',
-    default: '#0f0f1e',
-    success: '#008a28',
-    error: '#e22a1d',
-    disabled: '#e9e9eb',
-    greyedOut: '#6f6f76',
-    warning: '#ff6105',
+    colorFocus: "#0085f2",
+    colorPrimary: "#9e006b",
+    colorSecondary: "#003b5e",
+    colorTertiary: "#ff1e4e",
+    defaultLineHeight: "26px",
+    buttonBorderRadius: "20px",
+    buttonBorderWidth: "2px",
+    buttonFontSize: "1rem",
+    buttonBorderStyle: "solid",
+    buttonFillTextColor: "#fff",
+    buttonFillBackgroundColor: "#fff",
+    buttonOutlineHoverTextColor: "#fff",
+    inputBorderColor: "#e9e9eb",
+    inputBorderRadius: "8px",
+    inputBorderWidth: "1px",
+    inputBorderWidthFocus: "2px",
+    inputBorderStyle: "solid",
+    inputBackgroundColor: "#fff",
+    modalShadowColor: "rgba(0, 0, 0, 0.16)",
+    modalBackgroundColor: "#f5f8f8",
+    modalHeaderBackgroundColor: "#fff",
+    snackbarTextColor: "#fff",
+    snackbarInfoBackgroundColor: "#003b5e",
+    snackbarSuccessBackgroundColor: "#008a28",
+    snackbarErrorBackgroundColor: "#e22a1d",
+    snackbarBorderRadius: "8px",
+    dataGridRowBackgroundColor: "transparent",
+    dataGridRowHoverBackgroundColor: "#f5e6f0",
+    tabsBackgroundColor: "#FFF",
+    tabBorderWidth: "2px",
+    tabBorderStyle: "solid",
+    tablistBorderWidth: "1px",
+    tablistBorderStyle: "solid",
+    tablistBorderColor: "#C3C3C7",
+    tabTextColor: "#0f0f1e",
+    default: "#0f0f1e",
+    success: "#008a28",
+    error: "#e22a1d",
+    disabled: "#e9e9eb",
+    greyedOut: "#6f6f76",
+    warning: "#ff6105",
     fontFamily: "'Red Hat Display', sans-serif",
     fontFamilyCode: "'Red Hat Mono', sans-serif",
-    fontSize: '1rem',
-    fontSizeH1: '2.5rem',
-    fontSizeH2: '1.625rem',
-    fontSizeH3: '1.5rem',
-    fontSizeH4: '1.25rem',
-    fontSizeSub: '.75rem',
-    fontSizeCode: '1rem',
+    fontSize: "1rem",
+    fontSizeH1: "2.5rem",
+    fontSizeH2: "1.625rem",
+    fontSizeH3: "1.5rem",
+    fontSizeH4: "1.25rem",
+    fontSizeSub: ".75rem",
+    fontSizeCode: "1rem"
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
@@ -112,7 +118,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
   /** Set the actual CSS properties on the HTML :root object */
   const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
     for (const [key, value] of Object.entries(CSSPropertiesObject)) {
-      const formattedPropertyName = key.replace(/([A-Z])/g, (val) => `-${val.toLowerCase()}`);
+      const formattedPropertyName = key.replace(/([A-Z])/g, val => `-${val.toLowerCase()}`);
       document.documentElement.style.setProperty(`--${formattedPropertyName}`, value);
     }
   };

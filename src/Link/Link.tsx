@@ -2,16 +2,18 @@ import React, {
   ComponentPropsWithRef,
   ForwardRefExoticComponent,
   ReactNode,
-  RefAttributes,
-} from 'react';
-import classes from './Link.module.scss';
-import { LinkProps } from './types';
+  RefAttributes
+} from "react";
+import classes from "./Link.module.scss";
+import { LinkProps } from "./types";
 
-type AnchorType = 'external' | 'internal' | 'download';
+export type AnchorType = "external" | "internal" | "download";
 
-export interface Props extends ComponentPropsWithRef<'a'> {
+export interface Props extends ComponentPropsWithRef<"a"> {
   children?: ReactNode;
-  color?: 'primary' | 'secondary' | 'tertiary';
+  color?: "primary" | "secondary" | "tertiary";
+  display?: "link" | "button";
+  buttonVariant?: "outline" | "text" | "fill";
   type?: AnchorType;
   to: string;
   disabled?: boolean;
@@ -25,8 +27,10 @@ export const Link = React.forwardRef<HTMLAnchorElement, Props>(
       className,
       disabled = false,
       to,
-      color = 'primary',
-      type = 'internal',
+      color = "primary",
+      type = "internal",
+      display = "link",
+      buttonVariant = "fill",
       component,
       ...rest
     }: Props,
@@ -37,15 +41,17 @@ export const Link = React.forwardRef<HTMLAnchorElement, Props>(
         return rest.target;
       }
 
-      if (type === 'external') {
-        return '_blank';
+      if (type === "external") {
+        return "_blank";
       }
 
-      return '';
+      return "";
     };
 
-    const classNames = [classes['link'], classes[color]];
-    disabled && classNames.push(classes['disabled']);
+    const classNames = [classes[color]];
+    display === "link" && classNames.push(classes["link"]);
+    display === "button" && classNames.push(classes["button"], classes[buttonVariant]);
+    disabled && classNames.push(classes["disabled"]);
     className && classNames.push(className);
 
     if (component) {
@@ -53,12 +59,12 @@ export const Link = React.forwardRef<HTMLAnchorElement, Props>(
         ...rest,
         ref: ref,
         to: to,
-        className: classNames.join(' '),
-        'aria-disabled': disabled,
+        className: classNames.join(" "),
+        "aria-disabled": disabled,
         style: {
-          ...rest.style,
+          ...rest.style
         },
-        children: children,
+        children: children
       });
     }
 
@@ -66,14 +72,14 @@ export const Link = React.forwardRef<HTMLAnchorElement, Props>(
       <a
         {...rest}
         ref={ref}
-        download={type === 'download'}
-        rel={type === 'external' ? 'noopener noreferer' : undefined}
+        download={type === "download"}
+        rel={type === "external" ? "noopener noreferer" : undefined}
         href={!disabled ? to : undefined}
-        className={classNames.join(' ')}
+        className={classNames.join(" ")}
         aria-disabled={disabled}
         target={determineTarget()}
         style={{
-          ...rest.style,
+          ...rest.style
         }}
       >
         {children}

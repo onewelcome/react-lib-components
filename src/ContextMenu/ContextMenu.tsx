@@ -4,17 +4,17 @@ import React, {
   ReactNode,
   useEffect,
   useRef,
-  useState,
-} from 'react';
-import { Props as ButtonProps } from '../Button/Button';
-import { Props as IconButtonProps } from '../Button/IconButton';
-import { Popover } from '../Popover/Popover';
-import { Placement, Offset } from '../hooks/usePosition';
-import classes from './ContextMenu.module.scss';
-import { useBodyClick } from '../hooks/useBodyClick';
-import { createPortal } from 'react-dom';
+  useState
+} from "react";
+import { Props as ButtonProps } from "../Button/Button";
+import { Props as IconButtonProps } from "../Button/IconButton";
+import { Popover } from "../Popover/Popover";
+import { Placement, Offset } from "../hooks/usePosition";
+import classes from "./ContextMenu.module.scss";
+import { useBodyClick } from "../hooks/useBodyClick";
+import { createPortal } from "react-dom";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   trigger: ReactElement<ButtonProps> | ReactElement<IconButtonProps>;
   children: ReactNode;
   placement?: Placement;
@@ -36,9 +36,9 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
       show = false,
       onShow,
       onClose,
-      placement = { horizontal: 'right', vertical: 'top' },
+      placement = { horizontal: "right", vertical: "top" },
       offset = { top: 0, bottom: 0, left: 0, right: 0 },
-      transformOrigin = { horizontal: 'left', vertical: 'top' },
+      transformOrigin = { horizontal: "left", vertical: "top" },
       domRoot = document.body,
       ...rest
     }: Props,
@@ -46,6 +46,7 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
   ) => {
     const anchorEl = useRef<HTMLButtonElement>(null);
     const [showContextMenu, setShowContextMenu] = useState(show);
+    const [hasBeenClosed, setHasBeenClosed] = useState(false);
     const [selectedContextMenuItem, setSelectedContextMenuItem] = useState(-1);
     const [focusedContextMenuItem, setFocusedContextMenuItem] = useState(-1);
     const [shouldClick, setShouldClick] =
@@ -55,7 +56,7 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
     const [childrenCount] = useState(React.Children.count(children));
 
     if (!id) {
-      throw new Error('You need to provide an ID to the context menu');
+      throw new Error("You need to provide an ID to the context menu");
     }
 
     const onArrowNavigation = (event: React.KeyboardEvent) => {
@@ -63,24 +64,39 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
         setFocusedContextMenuItem(selectedContextMenuItem);
       }
 
-      event.preventDefault();
+      const codesToPrevenDefault = [
+        "ArrowDown",
+        "ArrowUp",
+        "ArrowLeft",
+        "ArrowRight",
+        "Enter",
+        "Space",
+        "Escape",
+        "End",
+        "Home"
+      ];
+
+      if (codesToPrevenDefault.includes(event.code)) {
+        event.preventDefault();
+      }
+
       switch (event.code) {
-        case 'ArrowDown':
+        case "ArrowDown":
           if (!showContextMenu) {
             setShowContextMenu(true);
             return;
           }
-          setFocusedContextMenuItem((prevState) => {
+          setFocusedContextMenuItem(prevState => {
             return prevState + 1 > childrenCount - 1 ? 0 : prevState + 1;
           });
           return;
-        case 'ArrowUp':
-          setFocusedContextMenuItem((prevState) => {
+        case "ArrowUp":
+          setFocusedContextMenuItem(prevState => {
             return prevState - 1 < 0 ? childrenCount - 1 : prevState - 1;
           });
           return;
-        case 'Enter':
-        case 'Space':
+        case "Enter":
+        case "Space":
           if (!showContextMenu) {
             setShowContextMenu(true);
             return;
@@ -90,21 +106,21 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
           setSelectedContextMenuItem(focusedContextMenuItem);
           setShowContextMenu(false);
           return;
-        case 'Tab':
-        case 'Escape':
+        case "Tab":
+        case "Escape":
           setShowContextMenu(false);
           return;
-        case 'End':
+        case "End":
           setFocusedContextMenuItem(childrenCount - 1);
           return;
-        case 'Home':
+        case "Home":
           setFocusedContextMenuItem(0);
           return;
       }
     };
 
     useBodyClick(
-      (event) => {
+      event => {
         return showContextMenu && anchorEl.current !== event.target;
       },
       () => {
@@ -118,20 +134,21 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
         onShow && onShow();
       } else {
         onClose && onClose();
+        !hasBeenClosed && setHasBeenClosed(true);
         setFocusedContextMenuItem(-1);
-        anchorEl.current && anchorEl.current.focus();
+        hasBeenClosed && anchorEl.current && anchorEl.current.focus();
       }
     }, [showContextMenu]);
 
     const renderTrigger = () =>
       React.cloneElement(trigger, {
         id: id,
-        'aria-haspopup': 'true',
-        'aria-controls': `${id}-menu`,
-        'aria-expanded': showContextMenu,
+        "aria-haspopup": "true",
+        "aria-controls": `${id}-menu`,
+        "aria-expanded": showContextMenu,
         onClick: () => setShowContextMenu(!showContextMenu),
         tabIndex: 0,
-        ref: anchorEl,
+        ref: anchorEl
       });
 
     const renderChildren = () => {
@@ -146,13 +163,13 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
           hasFocus: focusedContextMenuItem === index,
           isSelected: selectedContextMenuItem === index,
           contextMenuOpened: showContextMenu,
-          shouldClick: shouldClick,
+          shouldClick: shouldClick
         });
       });
     };
 
     return (
-      <div {...rest} ref={ref} onKeyDown={onArrowNavigation} className={classes['context-menu']}>
+      <div {...rest} ref={ref} onKeyDown={onArrowNavigation} className={classes["context-menu"]}>
         {renderTrigger()}
         {createPortal(
           <Popover
@@ -162,7 +179,7 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
             anchorEl={anchorEl}
             show={showContextMenu}
           >
-            <ul className={classes.menu} id={`${id}-menu`} aria-describedby={id} role="menu">
+            <ul className={classes["menu"]} id={`${id}-menu`} aria-describedby={id} role="menu">
               {renderChildren()}
             </ul>
           </Popover>,

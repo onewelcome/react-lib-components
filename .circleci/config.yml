@@ -69,12 +69,6 @@ workflows:
           <<: *require-build
           <<: *filter-branches-tags
 
-      - onegini-build/npm-audit:
-          name: check
-          audit_level: critical
-          <<: *dev-context
-          <<: *require-build
-
       - onegini-build/sonar:
           name: analyse
           <<: *dev-context

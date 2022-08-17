@@ -1,16 +1,14 @@
-@import '../../readyclasses.module.scss';
+@import "../../readyclasses.module.scss";
 
 $listItemHeight: 2.125rem;
 
 .select {
-  border-color: var(--input-border-color);
-  border-style: var(--input-border-style);
-  border-width: var(--input-border-width);
-  border-radius: var(--input-border-radius);
   position: relative;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
-  background-color: #fff;
+  border: 0;
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-background-color);
   font-size: var(--font-size);
 
   [data-display] {
@@ -28,28 +26,45 @@ $listItemHeight: 2.125rem;
   }
 
   &:not(.expanded) {
-    button:focus-visible {
-      outline: 1px solid var(--color-primary);
+    button:focus-visible:not(.error) {
+      border: var(--input-border-width-focus) solid var(--color-primary);
+      padding: 0 calc(1.25rem - var(--input-border-width-focus) + var(--input-border-width));
     }
   }
 
-  &:hover:not(.disabled):not(.expanded) {
-    border-color: var(--default);
+  &:hover:not(.disabled):not(.expanded):not(.error) {
+    button {
+      border-color: var(--default);
+      border-width: var(--input-border-width);
+    }
   }
 
-  button {
-    width: 100%;
-    min-height: 4rem;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-    padding: 0 1.25rem;
+  .custom-select {
     position: relative;
-    font-size: var(--font-size);
+    width: 100%;
+    min-height: calc(4rem - (2 * var(--input-border-width)));
+    border: 0;
+    padding: 0 1.25rem;
+    background-color: transparent;
+    border-color: var(--input-border-color);
+    border-style: var(--input-border-style);
+    border-width: var(--input-border-width);
     border-radius: var(--input-border-radius);
+    font-size: var(--font-size);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 
     &:focus-visible {
       outline: 0;
+    }
+
+    &.error {
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    &.error:focus-visible {
+      border-width: var(--input-border-width-focus);
     }
   }
 
@@ -90,7 +105,7 @@ $listItemHeight: 2.125rem;
       cursor: pointer;
 
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -120,7 +135,7 @@ $listItemHeight: 2.125rem;
 
 .selected-option {
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -135,7 +150,6 @@ $listItemHeight: 2.125rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 1.25rem;
   pointer-events: none;
 }
 
@@ -164,11 +178,6 @@ $listItemHeight: 2.125rem;
 
 .placeholder {
   color: var(--greyed-out);
-}
-
-.error {
-  border-color: var(--error);
-  color: var(--error);
 }
 
 .select-search-wrapper + ul {

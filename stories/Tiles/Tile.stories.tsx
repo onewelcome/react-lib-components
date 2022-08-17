@@ -1,32 +1,38 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Tile as TileComponent, Props } from '../../src/Tiles/Tile';
-import { Icon, Icons } from '../../src/Icon/Icon';
-import { ContextMenu } from '../../src/ContextMenu/ContextMenu';
-import { IconButton } from '../../src/Button/IconButton';
-import { ContextMenuItem } from '../../src/ContextMenu/ContextMenuItem';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import { Tile as TileComponent, Props } from "../../src/Tiles/Tile";
+import { Icon, Icons } from "../../src/Icon/Icon";
+import { ContextMenu } from "../../src/ContextMenu/ContextMenu";
+import { IconButton } from "../../src/Button/IconButton";
+import { ContextMenuItem } from "../../src/ContextMenu/ContextMenuItem";
+import TileDocumentation from "./Tile.mdx";
 
 const meta: Meta = {
-  title: 'Stories/UI/Tiles/Tile',
+  title: "Stories/UI/Tiles/Tile",
   component: TileComponent,
+  parameters: {
+    docs: {
+      page: TileDocumentation
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => <TileComponent {...args} />;
+const Template: Story<Props> = args => <TileComponent {...args} />;
 
 export const Tile = Template.bind({});
 
 Tile.args = {
-  title: 'Tile1',
+  title: "Tile1",
   imageProps: {
-    src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
+    src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
   },
   tileAction: (
     <ContextMenu
       id="context_menu_1"
-      placement={{ vertical: 'bottom', horizontal: 'right' }}
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      placement={{ vertical: "bottom", horizontal: "right" }}
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
       trigger={
         <IconButton title="context menu">
           <Icon icon={Icons.EllipsisAlt} />
@@ -38,4 +44,5 @@ Tile.args = {
       <ContextMenuItem>Item 3</ContextMenuItem>
     </ContextMenu>
   ),
+  enabled: true
 };

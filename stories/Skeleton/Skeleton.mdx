@@ -1,0 +1,31 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+
+<Title />
+<Subtitle />
+
+The `Skeleton` component is used to render loading animation.
+
+It can be used to mock text, circular objects, or any rectangle by passing the `variant` property.
+
+The `height` and `width` properties are optional. The width is by default set to 100%.
+If the `height` property is not defined, it takes a `height` of the current font size.
+
+# Examples
+
+```jsx
+<Skeleton />
+<Skeleton variant="rectangle" height={50} width={100}/>
+<Typography variant="h1">
+  <Skeleton />
+</Typography>
+```
+
+<Canvas isColumn={true} columns={1}>
+  <Story id="stories-ui-skeleton--skeleton" />
+  <Story id="stories-ui-skeleton--rectangle-skeleton" />
+  <Story id="stories-ui-skeleton--typography-skeleton" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

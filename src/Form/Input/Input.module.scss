@@ -1,57 +1,46 @@
+@import "../../mixins.module.scss";
+
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0 1.25rem;
-  background-color: var(--input-background-color);
-  border-color: var(--input-border-color);
-  border-style: var(--input-border-style);
-  border-width: var(--input-border-width);
+  height: 4rem;
+  border: 0;
   border-radius: var(--input-border-radius);
+  background-color: var(--input-background-color);
+  padding: 0 1.25rem;
   transition: all 0.2s ease-in-out;
 
-  &:hover:not(:disabled) {
-    border-color: var(--default);
-  }
-
-  &.disabled,
-  &.disabled input {
-    background-color: var(--disabled);
-    border-color: #fff;
-    cursor: not-allowed;
-  }
-
-  &.error {
-    border-color: var(--error);
-  }
-
-  &.focus {
-    border-color: var(--color-primary);
-  }
+  @include outlineStates;
 }
 
 .input {
+  padding: 0;
   height: 4rem;
-  border: 0;
   color: var(--greyed-out);
   font-size: var(--font-size);
   font-family: var(--font-family);
   width: 100%;
   box-sizing: border-box;
-  padding: 0;
+  border: 0;
+  border-radius: var(--input-border-radius);
 
-  &:focus:not(:disabled) {
-    outline: none;
-    border-color: var(--color-primary);
+  &:disabled {
+    background-color: var(--disabled);
+    cursor: not-allowed;
   }
+
+  @include browserOutlineDisabled;
 }
+
+@include outline;
 
 .error input {
   color: var(--error);
-  padding-right: 3.75rem;
+  padding-right: 3.5rem;
 
   &.remove-extra-indent {
-    padding-right: 1.25rem;
+    padding-right: 0rem;
   }
 }
 

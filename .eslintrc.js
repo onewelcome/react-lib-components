@@ -28,7 +28,8 @@ module.exports = {
         "react/no-children-prop": "warn",
         "@typescript-eslint/explicit-function-return-type": "warn",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
-        "no-useless-escape": "warn"
+        "no-useless-escape": "warn",
+        "react/prop-types": 0
       }
     }
   ],

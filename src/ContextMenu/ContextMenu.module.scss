@@ -2,14 +2,11 @@
   position: relative;
   display: inline-block;
   box-sizing: border-box;
-
-  ul {
-    white-space: nowrap;
-    margin: 1rem 0;
-  }
 }
 
 .menu {
+  white-space: nowrap;
+  margin: 1rem 0;
   list-style: none;
   padding: 0;
   min-width: 200px;

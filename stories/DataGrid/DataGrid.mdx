@@ -1,0 +1,211 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import LinkTo from "@storybook/addon-links/react";
+
+<Title />
+<Subtitle />
+
+The `DataGrid` is used to represent data that have no clear graphical distinction between items. Under the hood, it's built with the default HTML `<table>` element.
+
+The `DataGrid` component shows provided data in the table. Moreover, it includes pagination and additional buttons in the action section above table header. The column button will trigger a popup to show/hide table columns.
+
+The `DataGrid` is wrapped inside `Card` component. The table is in the middle, the action section is above it, and the pagination is at the bottom.
+Table shows data based on provided data list and template. The template describes how to render each row.
+The last column of a table is used to display actions, such as a `ContextMenu` component. This menu can, for example, display an `Edit` or `Delete` option.
+The table header has support for single- & multi-sorting.
+
+The `DataGrid` utilises the `useSpacing` hook, which means you can add spacing through the `spacing` prop. This component **only accepts padding spacing**. This means: `padding`, `paddingTop`, `paddingRight`, `paddingBottom` and `paddingBottom` are supported. Any `margin` property
+that you pass into the `spacing` prop will be ignored! This is because the hover effect on each individual row needs to stretch to the entire container. If you want to add margin, you can do so by adding a `className` to `DataGrid`. Padding is complex, because it gets added
+to multiple different components and layers within `DataGrid` to get the desired effect. The default value for the `spacing` prop is: `spacing={{ padding: 4 }}`, which means it adds `1rem` of padding on each side. [See the `useSpacing` documentation for more information.](?path=/docs/hooks-usespacing--page)
+
+# Table
+
+The DataGrid header is generated based on provided `headers` props, and the body is generated through the data passed in the `data` prop. The rows will be rendered based on the rendering function passed to the `children` prop.
+
+```jsx
+<DataGrid
+  headers={[
+    { name: 'name', headline: 'Name' },
+    { name: 'created', headline: 'Created' },
+    { name: 'id', headline: 'Identifier' },
+    { name: 'type', headline: 'Type' },
+    { name: 'enabled', headline: 'Enabled' },
+  ]}
+  data={[...]}
+  spacing={{ padding: 4 }}
+>
+  {({ item }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
+      <DataGridCell>{item.id}</DataGridCell>
+      <DataGridCell>{item.type}</DataGridCell>
+      <DataGridCell>...</DataGridCell>
+      <DataGridCell>
+        <ContextMenu ... />
+      </DataGridCell>
+    </DataGridRow>
+  )}
+</DataGrid>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--simple-data-grid" />
+</Canvas>
+
+## Table header
+
+The `headers` property is a list of header objects. These objects contain a column name (to be passed in sorting callback), a headline that is used to render header cell content,
+and optionally `hidden`, which triggers the visibility of the column, and/or `disableSorting`, which disables sorting.
+
+In the example below, the `Created` & `Identifier` columns are hidden. Sorting is possible only by the `Name` column.
+
+```jsx
+<DataGrid
+  headers={[
+    { name: 'name', headline: 'Name' },
+    { name: 'created', headline: 'Created', hidden: true },
+    { name: 'id', headline: 'Identifier', hidden: true },
+    { name: 'type', headline: 'Type', disableSorting: true },
+    { name: 'enabled', headline: 'Enabled', disableSorting: true },
+  ]}
+  data={[...]}
+  onSort={...}
+  initialSort={[ { name: 'name', direction: 'ASC' } ]}
+  spacing={{ padding: '4 8' }}
+/>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--hide-column-data-grid" />
+</Canvas>
+
+### Sorting
+
+The sorting indicators (icons) are not rendered until `onSort` callback function is set.
+By clicking the header cells the `onSort` callback is called with the parameters; 'columnName' and 'sortingDirection'.
+Each column has three different states; clicking once sets it to `ascending`, the second click sets it to `descending`, and the third one turns off sorting.
+Clicking on any of the other header cells sets the sorting direction to `ascending` for the current column - the previous one is forgotten.
+
+By default, single-column sorting is enabled. To enable multi-sorting the `enableMultiSorting` property should be set.
+By enabling multi-sorting the `onSort` callback takes an array of column names & directions pairs. It means that each column has its independent sorting state.
+Clicking on different header cells doesn't cause the previous ones to be forgotten but moves them to a higher index in the array instead.
+
+_NOTE: The order of sorting pairs reflects the sort priority._
+
+`initialSort` property consumes the initial settings for the sorting feature. To support single and multi sorting, it consumes an array of column names and directions pairs.
+
+## Table body
+
+Rows are generated based on the provided template using the `children` prop.
+The template should wrap its content in the `DataGridRow` component. Each cell should be wrapped with a `DataGridCell` component.
+The last cell of each row is reserved for item actions that can affect it, which could be editing or deleting something. The `ContextMenu` component is supposed to handle all of this.
+
+```jsx
+<DataGrid
+  headers={[
+    { name: 'index', headline: '#' },
+    { name: 'name', headline: 'Name' },
+    { name: 'number', headline: 'Random number' },
+  ]}
+  data={[...]}
+  spacing={{ paddingLeft: 4, paddingRight: 8 }}
+>
+  {({ item, index }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{index + 1}</DataGridCell>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{Math.random()}</DataGridCell>
+      <DataGridCell>
+        <ContextMenu ... />
+      </DataGridCell>
+    </DataGridRow>
+  )}
+</DataGrid>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--index-data-grid" />
+</Canvas>
+
+### Disabling context menu column
+
+To disable context menu column set the `disableContextMenuColumn` property to `true`.
+
+### Skeleton loading animation
+
+To show a loading animation, set the `isLoading` property to `true`.
+It renders 9 rows with skeleton loading animation in all defined cells.
+
+```jsx
+<DataGrid isLoading />
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--skeleton-loading-animation-data-grid" />
+</Canvas>
+
+### Showing empty table message
+
+To show an empty table message, set the `emptyLabel` property with the text to display.
+Text will be displayed only if the `data` property is empty, and `isLoading` is set to `false`.
+
+```jsx
+<DataGrid emptyLabel="There are no vegetables within the current selection" data={undefined} />
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--empty-data-grid" />
+</Canvas>
+
+# Action section
+
+It's possible to show the `Add item`, `Columns` and `Search` buttons.
+
+Clicking the `Columns` button opens the `Show columns` popup with a list of available columns whch can be toggled.
+However, the developer must handle the `Add item` and `Search` button actions.
+
+Each button can be customized by providing props as in the example below.
+
+```jsx
+<DataGrid
+  actions={{
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    searchBtnProps: { title: "Zoeken", children: "Zoeken", onClick }
+  }}
+/>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--actions-data-grid" />
+</Canvas>
+
+# Pagination
+
+Pagination in `DataGrid` component is rendered based on the provided `paginationProps`. For more information read the <LinkTo kind="stories-ui-pagination--pagination">Pagination documentation</LinkTo>.
+
+An example can be found below:
+
+```jsx
+<DataGrid
+  paginationProps={{
+    totalElements: 105,
+    currentPage: 2
+  }}
+/>
+```
+
+<Canvas>
+  <Story id="stories-ui-datagrid--pagination-data-grid" />
+</Canvas>
+
+# Full example
+
+<Canvas>
+  <Story id="stories-ui-datagrid--data-grid" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

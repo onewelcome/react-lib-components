@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react';
-import { IconButton } from '../../../Button/IconButton';
-import { Icon, Icons } from '../../../Icon/Icon';
-import { Variant, Actions } from '../interfaces';
-import classes from './SnackbarItem.module.scss';
-import readyclasses from '../../../readyclasses.module.scss';
-import { useAnimation } from '../../../hooks/useAnimation';
-import { Typography } from '../../../Typography/Typography';
+import React, { useEffect, useRef } from "react";
+import { IconButton } from "../../../Button/IconButton";
+import { Icon, Icons } from "../../../Icon/Icon";
+import { Variant, Actions } from "../interfaces";
+import classes from "./SnackbarItem.module.scss";
+import readyclasses from "../../../readyclasses.module.scss";
+import { useAnimation } from "../../../hooks/useAnimation";
+import { Typography } from "../../../Typography/Typography";
 
-const textColor = 'var(--snackbar-text-color)';
+const textColor = "var(--snackbar-text-color)";
 
 export interface Props {
   id: string;
@@ -28,7 +28,7 @@ export const SnackbarItem = ({
   content,
   actions = [],
   onClose,
-  closeButtonTitle,
+  closeButtonTitle
 }: Props) => {
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => onClose(id);
@@ -50,54 +50,54 @@ export const SnackbarItem = ({
   };
 
   const getVariantIcon = () => {
-    if (variant === 'error') {
+    if (variant === "error") {
       return Icons.Error;
     }
-    return variant === 'success' ? Icons.CheckmarkCircleBreakout : Icons.InfoCircle;
+    return variant === "success" ? Icons.CheckmarkCircleBreakout : Icons.InfoCircle;
   };
 
   const actionButtons = actions.map((actionProp, index) => (
     <button
       key={index}
       {...actionProp}
-      onClick={(e) => {
+      onClick={e => {
         onClose(id);
         actionProp.onClick && actionProp.onClick(e);
       }}
       children={actionProp.label}
-      className={classes['action-button']}
+      className={classes["action-button"]}
     ></button>
   ));
 
   return (
     <div
       ref={ref}
-      className={`${classes['snackbar']} ${classes[variant]} ${
-        animationStarted ? readyclasses['slide-out'] : readyclasses['slide-in']
+      className={`${classes["snackbar"]} ${classes[variant]} ${
+        animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"]
       }`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Icon icon={getVariantIcon()} className={classes['icon']} />
-      <div className={classes['container']}>
-        <div className={classes['headline']}>
-          <Typography className={classes['title']} variant="h4" tag="span">
+      <Icon icon={getVariantIcon()} className={classes["icon"]} />
+      <div className={classes["container"]}>
+        <div className={classes["headline"]}>
+          <Typography className={classes["title"]} variant="h4" tag="span">
             {title}
           </Typography>
           <IconButton
+            id={classes["close-btn"]}
             onClick={() => startAnimation()}
-            className={classes['close-btn']}
             title={closeButtonTitle}
           >
             <Icon icon={Icons.Times} color={textColor} />
           </IconButton>
         </div>
         {!!content && (
-          <Typography className={classes['content']} variant="body">
+          <Typography className={classes["content"]} variant="body">
             {content}
           </Typography>
         )}
-        {actionButtons.length > 0 && <div className={classes['actions']}>{actionButtons}</div>}
+        {actionButtons.length > 0 && <div className={classes["actions"]}>{actionButtons}</div>}
       </div>
     </div>
   );
