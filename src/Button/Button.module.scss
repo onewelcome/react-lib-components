@@ -1,16 +1,16 @@
-@import '../readyclasses.module.scss';
-@import '../mixins.module.scss';
+@import "../readyclasses.module.scss";
+@import "../mixins.module.scss";
 
 .fill {
-  @include button('fill');
+  @include button("fill");
 }
 
 .outline {
-  @include button('outline');
+  @include button("outline");
 }
 
 .text {
-  @include button('text');
+  @include button("text");
 }
 
 .has-icon {

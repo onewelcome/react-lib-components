@@ -1,12 +1,12 @@
-import React, { createContext, Dispatch, useReducer } from 'react';
-import { WizardActions, WizardStateType, reducer } from './wizardStateReducer';
+import React, { createContext, Dispatch, useReducer } from "react";
+import { WizardActions, WizardStateType, reducer } from "./wizardStateReducer";
 
 const WizardStateContext = createContext<{
   state: WizardStateType;
   dispatch: Dispatch<WizardActions>;
 }>({
   state: {} as WizardStateType,
-  dispatch: () => null,
+  dispatch: () => null
 });
 
 export interface Props {

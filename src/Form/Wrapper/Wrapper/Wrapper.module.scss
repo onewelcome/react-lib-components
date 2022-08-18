@@ -8,7 +8,7 @@
   position: absolute;
   z-index: 1;
   top: 1.3125rem;
-  left: 1.35rem;
+  left: 1.25rem;
   transform-origin: left top;
   transition: all 0.2s ease-in-out;
   pointer-events: none;
@@ -31,6 +31,6 @@
 
 .required {
   &:after {
-    content: ' *';
+    content: " *";
   }
 }

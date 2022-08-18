@@ -1,12 +1,12 @@
-import React, { ComponentPropsWithRef, Fragment, useRef, useState } from 'react';
-import { Button, Props as ButtonProps } from '../../Button/Button';
-import { IconButton } from '../../Button/IconButton';
-import { Icon, Icons } from '../../Icon/Icon';
-import { HeaderCell, ColumnName } from '../datagrid.interfaces';
-import classes from './DataGridActions.module.scss';
-import { DataGridColumnsToggle } from './DataGridColumnsToggle';
+import React, { ComponentPropsWithRef, Fragment, useRef, useState } from "react";
+import { Button, Props as ButtonProps } from "../../Button/Button";
+import { IconButton } from "../../Button/IconButton";
+import { Icon, Icons } from "../../Icon/Icon";
+import { HeaderCell, ColumnName } from "../datagrid.interfaces";
+import classes from "./DataGridActions.module.scss";
+import { DataGridColumnsToggle } from "./DataGridColumnsToggle";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   enableAddBtn?: boolean;
   enableColumnsBtn?: boolean;
   enableSearchBtn?: boolean;
@@ -38,8 +38,8 @@ export const DataGridActions = React.forwardRef<HTMLDivElement, Props>(
     const showColumnBtn = useRef<HTMLButtonElement>(null);
 
     return isHidden ? null : (
-      <div {...rest} ref={ref} className={`${classes['actions']} ${className ?? ''}`}>
-        <div className={classes['left-actions']}>
+      <div {...rest} ref={ref} className={`${classes["actions"]} ${className ?? ""}`}>
+        <div className={classes["left-actions"]}>
           {enableAddBtn && (
             <Button
               color="primary"
@@ -52,7 +52,7 @@ export const DataGridActions = React.forwardRef<HTMLDivElement, Props>(
             />
           )}
         </div>
-        <div className={classes['right-actions']}>
+        <div className={classes["right-actions"]}>
           {enableColumnsBtn && (
             <Fragment>
               <Button
@@ -61,7 +61,7 @@ export const DataGridActions = React.forwardRef<HTMLDivElement, Props>(
                 variant="text"
                 children="Columns"
                 {...columnsBtnProps}
-                className={`${classes['desktop']} ${columnsBtnProps?.className ?? ''}`}
+                className={`${classes["desktop"]} ${columnsBtnProps?.className ?? ""}`}
                 ref={showColumnBtn}
                 onClick={() => setShowColsPopover(true)}
               />
@@ -69,7 +69,7 @@ export const DataGridActions = React.forwardRef<HTMLDivElement, Props>(
                 title="Show/hide columns"
                 {...columnsBtnProps}
                 onClick={() => setShowColsPopover(true)}
-                className={`${classes['mobile']} ${columnsBtnProps?.className ?? ''}`}
+                className={`${classes["mobile"]} ${columnsBtnProps?.className ?? ""}`}
               >
                 <Icon icon={Icons.Change} />
               </IconButton>
@@ -91,12 +91,12 @@ export const DataGridActions = React.forwardRef<HTMLDivElement, Props>(
                 variant="text"
                 children="Search"
                 {...searchBtnProps}
-                className={`${classes['desktop']} ${searchBtnProps?.className ?? ''}`}
+                className={`${classes["desktop"]} ${searchBtnProps?.className ?? ""}`}
               />
               <IconButton
                 title="Search"
                 {...searchBtnProps}
-                className={`${classes['mobile']} ${columnsBtnProps?.className ?? ''}`}
+                className={`${classes["mobile"]} ${columnsBtnProps?.className ?? ""}`}
               >
                 <Icon icon={Icons.TableSearch} />
               </IconButton>

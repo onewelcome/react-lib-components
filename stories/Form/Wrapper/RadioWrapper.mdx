@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -35,14 +35,14 @@ A code example of how you can configure a `RadioWrapper` within a React componen
 
 ```jsx
 const ExampleComponent = () => {
-  const [radioValue, setRadioValue] = useState('option1');
+  const [radioValue, setRadioValue] = useState("option1");
 
   return (
     <RadioWrapper
       name="radio group 1"
-      fieldsetProps={{ legend: 'Radio group' }}
+      fieldsetProps={{ legend: "Radio group" }}
       value={radioValue}
-      onChange={(event) => setRadioValue(event.target.value)}
+      onChange={event => setRadioValue(event.target.value)}
     >
       <Radio value="option1">Option 1</Radio>
       <Radio value="option2">Option 2</Radio>

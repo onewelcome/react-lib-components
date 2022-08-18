@@ -1,4 +1,4 @@
-@import '../../readyclasses.module.scss';
+@import "../../readyclasses.module.scss";
 
 $listItemHeight: 2.125rem;
 
@@ -6,7 +6,9 @@ $listItemHeight: 2.125rem;
   position: relative;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
-  background-color: #fff;
+  border: 0;
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-background-color);
   font-size: var(--font-size);
 
   [data-display] {
@@ -26,6 +28,7 @@ $listItemHeight: 2.125rem;
   &:not(.expanded) {
     button:focus-visible:not(.error) {
       border: var(--input-border-width-focus) solid var(--color-primary);
+      padding: 0 calc(1.25rem - var(--input-border-width-focus) + var(--input-border-width));
     }
   }
 
@@ -102,7 +105,7 @@ $listItemHeight: 2.125rem;
       cursor: pointer;
 
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -132,7 +135,7 @@ $listItemHeight: 2.125rem;
 
 .selected-option {
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -147,7 +150,6 @@ $listItemHeight: 2.125rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 1.25rem;
   pointer-events: none;
 }
 

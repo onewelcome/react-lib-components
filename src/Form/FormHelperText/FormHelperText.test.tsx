@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import { FormHelperText, Props } from './FormHelperText';
-import { render } from '@testing-library/react';
+import React, { useEffect, useRef } from "react";
+import { FormHelperText, Props } from "./FormHelperText";
+import { render } from "@testing-library/react";
 
 const defaultParams: Props = {
   error: false,
-  children: 'This is a field description',
+  children: "This is a field description"
 };
 
 const createFormHelperText = (params?: (defaultParams: Props) => Props) => {
@@ -13,26 +13,26 @@ const createFormHelperText = (params?: (defaultParams: Props) => Props) => {
     parameters = params(defaultParams);
   }
   const queries = render(<FormHelperText {...parameters} data-testid="formhelpertext" />);
-  const formhelpertext = queries.getByTestId('formhelpertext');
+  const formhelpertext = queries.getByTestId("formhelpertext");
 
   return {
     ...queries,
-    formhelpertext,
+    formhelpertext
   };
 };
 
-describe('FormHelperText should render', () => {
-  it('renders without crashing', () => {
+describe("FormHelperText should render", () => {
+  it("renders without crashing", () => {
     const { formhelpertext } = createFormHelperText();
 
     expect(formhelpertext).toBeTruthy();
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -48,21 +48,21 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 
-describe('Attributes', () => {
-  it('contains the error class', () => {
-    const { formhelpertext } = createFormHelperText((defaultParams) => ({
+describe("Attributes", () => {
+  it("contains the error class", () => {
+    const { formhelpertext } = createFormHelperText(defaultParams => ({
       ...defaultParams,
-      error: true,
+      error: true
     }));
 
-    expect(formhelpertext).toHaveClass('error');
-    expect(formhelpertext).toHaveStyle({ color: 'rgb(226, 42, 29);' });
+    expect(formhelpertext).toHaveClass("error");
+    expect(formhelpertext).toHaveStyle({ color: "rgb(226, 42, 29);" });
   });
 });

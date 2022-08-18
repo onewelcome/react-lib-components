@@ -1,7 +1,7 @@
-import React, { ComponentPropsWithRef, createRef, useEffect } from 'react';
-import classes from './BaseModalContent.module.scss';
+import React, { ComponentPropsWithRef, createRef, useEffect } from "react";
+import classes from "./BaseModalContent.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   id?: string;
   children: React.ReactNode;
   className?: string;
@@ -9,7 +9,7 @@ export interface Props extends ComponentPropsWithRef<'div'> {
 }
 
 export const BaseModalContent = React.forwardRef<HTMLDivElement, Props>(
-  ({ id, children, className = '', disableAutoFocus = false, ...rest }: Props, ref) => {
+  ({ id, children, className = "", disableAutoFocus = false, ...rest }: Props, ref) => {
     const contentRef = createRef<HTMLDivElement>();
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export const BaseModalContent = React.forwardRef<HTMLDivElement, Props>(
         {...rest}
         ref={ref || contentRef}
         id={id}
-        className={`${classes['content']} ${className}`}
+        className={`${classes["content"]} ${className}`}
         tabIndex={-1}
       >
         {children}

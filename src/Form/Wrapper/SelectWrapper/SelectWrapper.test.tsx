@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { SelectWrapper, Props } from './SelectWrapper';
-import { render } from '@testing-library/react';
-import { Option } from '../../Select/Option';
-import userEvent from '@testing-library/user-event';
+import React, { useEffect, useRef } from "react";
+import { SelectWrapper, Props } from "./SelectWrapper";
+import { render } from "@testing-library/react";
+import { Option } from "../../Select/Option";
+import userEvent from "@testing-library/user-event";
 
 const onChangeHandler = jest.fn();
 const onClearHandler = jest.fn();
@@ -20,17 +20,17 @@ const defaultParams: Props = {
     </Option>,
     <Option key="4" value="option4">
       Option 4
-    </Option>,
+    </Option>
   ],
-  label: 'select_label',
-  name: 'select',
-  helperText: 'helpertext',
-  helperProps: { 'data-testid': 'helpertext' },
-  errorMessage: 'errormessage',
+  label: "select_label",
+  name: "select",
+  helperText: "helpertext",
+  helperProps: { "data-testid": "helpertext" },
+  errorMessage: "errormessage",
   error: false,
-  value: 'option1',
+  value: "option1",
   onChange: onChangeHandler,
-  onClear: onClearHandler,
+  onClear: onClearHandler
 };
 
 const createSelectWrapper = (params?: (defaultParams: Props) => Props) => {
@@ -39,28 +39,28 @@ const createSelectWrapper = (params?: (defaultParams: Props) => Props) => {
     parameters = params(defaultParams);
   }
   const queries = render(<SelectWrapper {...parameters} data-testid="selectwrapper" />);
-  const selectwrapper = queries.getByTestId('selectwrapper');
-  const select = selectwrapper.querySelector('button');
+  const selectwrapper = queries.getByTestId("selectwrapper");
+  const select = selectwrapper.querySelector("button");
 
   return {
     ...queries,
     selectwrapper,
-    select,
+    select
   };
 };
 
-describe('SelectWrapper should render', () => {
-  it('renders without crashing', () => {
+describe("SelectWrapper should render", () => {
+  it("renders without crashing", () => {
     const { selectwrapper } = createSelectWrapper();
 
     expect(selectwrapper).toBeDefined();
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (
         ref: React.RefObject<HTMLElement>,
@@ -79,7 +79,7 @@ describe('ref should work', () => {
       return (
         <SelectWrapper
           {...defaultParams}
-          selectProps={{ ref: innerRef, 'data-ref': 'inner-testing' }}
+          selectProps={{ ref: innerRef, "data-ref": "inner-testing" }}
           name="test"
           data-ref="testing"
           ref={ref}
@@ -91,94 +91,94 @@ describe('ref should work', () => {
       ref: React.RefObject<HTMLElement>,
       innerRef: React.RefObject<HTMLElement>
     ) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
-      expect(innerRef.current!.nodeName).toBe('SELECT');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
+      expect(innerRef.current!.nodeName).toBe("SELECT");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);
   });
 });
 
-describe('SelectWrapper & Select have the right attributes', () => {
-  it('select has aria values', async () => {
+describe("SelectWrapper & Select have the right attributes", () => {
+  it("select has aria values", async () => {
     const { select, getByTestId, findByText } = createSelectWrapper();
 
-    const helpertext = getByTestId('helpertext');
-    const label = await findByText('select_label');
+    const helpertext = getByTestId("helpertext");
+    const label = await findByText("select_label");
 
-    expect(select).toHaveAttribute('aria-describedby', helpertext.id);
-    expect(select).toHaveAttribute('aria-labelledby', label.id);
+    expect(select).toHaveAttribute("aria-describedby", helpertext.id);
+    expect(select).toHaveAttribute("aria-labelledby", label.id);
   });
 
-  it('SelectWrapper has the right helpertext', () => {
+  it("SelectWrapper has the right helpertext", () => {
     const { getByTestId } = createSelectWrapper();
 
-    const helpertext = getByTestId('helpertext');
+    const helpertext = getByTestId("helpertext");
 
     expect(helpertext).toBeTruthy();
-    expect(helpertext).toHaveTextContent('helpertext');
+    expect(helpertext).toHaveTextContent("helpertext");
   });
 
-  it('Passes the proper helperProps class', () => {
-    const { getByTestId } = createSelectWrapper((defaultParams) => ({
+  it("Passes the proper helperProps class", () => {
+    const { getByTestId } = createSelectWrapper(defaultParams => ({
       ...defaultParams,
-      helperProps: { ...defaultParams.helperProps, className: 'example-helper-classname' },
+      helperProps: { ...defaultParams.helperProps, className: "example-helper-classname" }
     }));
 
-    const helpertext = getByTestId('helpertext');
+    const helpertext = getByTestId("helpertext");
 
-    expect(helpertext.parentElement).toHaveClass('example-helper-classname');
+    expect(helpertext.parentElement).toHaveClass("example-helper-classname");
   });
 
-  it('Passes the proper selectProps class', () => {
-    const { getByTestId } = createSelectWrapper((defaultParams) => ({
+  it("Passes the proper selectProps class", () => {
+    const { getByTestId } = createSelectWrapper(defaultParams => ({
       ...defaultParams,
       selectProps: {
         ...defaultParams.selectProps,
-        'data-testid': 'select-element',
-        className: 'example-select-classname',
-      },
+        "data-testid": "select-element",
+        className: "example-select-classname"
+      }
     }));
 
-    const select = getByTestId('select-element');
+    const select = getByTestId("select-element");
 
-    expect(select).toHaveClass('example-select-classname');
+    expect(select).toHaveClass("example-select-classname");
   });
 
-  it('SelectWrapper has the right errormessage', async () => {
-    const { findByText, select } = createSelectWrapper((defaultParams) => ({
+  it("SelectWrapper has the right errormessage", async () => {
+    const { findByText, select } = createSelectWrapper(defaultParams => ({
       ...defaultParams,
-      error: true,
+      error: true
     }));
 
-    const errorMessage = await findByText('errormessage');
+    const errorMessage = await findByText("errormessage");
 
     expect(errorMessage).toBeTruthy();
-    expect(select).toHaveAttribute('aria-describedby', errorMessage.id);
+    expect(select).toHaveAttribute("aria-describedby", errorMessage.id);
   });
 
-  it('Fires the onChange event', async () => {
+  it("Fires the onChange event", async () => {
     const { select, findByText } = createSelectWrapper();
 
     userEvent.click(select as Element);
 
-    const option3 = await findByText('Option 3');
+    const option3 = await findByText("Option 3");
 
     userEvent.click(option3 as Element);
 
     expect(onChangeHandler).toHaveBeenCalled();
   });
 
-  it('Fires the onClear event', async () => {
+  it("Fires the onClear event", async () => {
     const { select, findByText } = createSelectWrapper();
 
     userEvent.click(select as Element);
 
-    const option3 = await findByText('Option 3');
+    const option3 = await findByText("Option 3");
 
     userEvent.click(option3 as Element);
 
-    const clearButton = select!.querySelector('[data-clear]')!;
+    const clearButton = select!.querySelector("[data-clear]")!;
 
     userEvent.click(clearButton);
 

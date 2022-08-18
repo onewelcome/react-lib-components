@@ -1,11 +1,11 @@
-import React, { ComponentPropsWithRef, ReactElement, useEffect } from 'react';
-import classes from './RadioWrapper.module.scss';
-import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
-import { useWrapper } from '../../../hooks/useWrapper';
-import { Icons } from '../../../Icon/Icon';
-import { Fieldset, Props as FieldsetProps } from '../../../Form/Fieldset/Fieldset';
+import React, { ComponentPropsWithRef, ReactElement, useEffect } from "react";
+import classes from "./RadioWrapper.module.scss";
+import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
+import { useWrapper } from "../../../hooks/useWrapper";
+import { Icons } from "../../../Icon/Icon";
+import { Fieldset, Props as FieldsetProps } from "../../../Form/Fieldset/Fieldset";
 
-export interface Props extends ComponentPropsWithRef<'div'>, WrapperProps {
+export interface Props extends ComponentPropsWithRef<"div">, WrapperProps {
   children: ReactElement | ReactElement[];
   fieldsetProps: FieldsetProps;
   value: string;
@@ -39,7 +39,7 @@ export const RadioWrapper = React.forwardRef<HTMLDivElement, Props>(
     }, []);
 
     const renderChildren = () =>
-      React.Children.map(children, (child) =>
+      React.Children.map(children, child =>
         React.cloneElement(child, {
           parentErrorId: errorId,
           error: error,
@@ -47,7 +47,7 @@ export const RadioWrapper = React.forwardRef<HTMLDivElement, Props>(
           name: name,
           parentHelperId: helperText ? helperId : false,
           onChange: onChange,
-          disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
+          disabled: child.props.disabled !== undefined ? child.props.disabled : disabled
         })
       );
 
@@ -62,9 +62,9 @@ export const RadioWrapper = React.forwardRef<HTMLDivElement, Props>(
           helperText={helperText}
           helperProps={{
             ...helperProps,
-            className: `${classes['radio-wrapper-helper']} ${
-              error ? classes['radio-wrapper-error'] : ''
-            } ${helperProps?.className ?? ''}`,
+            className: `${classes["radio-wrapper-helper"]} ${
+              error ? classes["radio-wrapper-error"] : ""
+            } ${helperProps?.className ?? ""}`
           }}
           error={error}
           errorId={errorId}

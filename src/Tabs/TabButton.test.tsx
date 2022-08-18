@@ -1,6 +1,6 @@
-import React from 'react';
-import { Props, TabButton } from './TabButton';
-import { render } from '@testing-library/react';
+import React from "react";
+import { Props, TabButton } from "./TabButton";
+import { render } from "@testing-library/react";
 
 const defaultParams: Props = {};
 
@@ -14,64 +14,64 @@ const createTabButton = (params?: (defaultParams: Props) => Props) => {
       tab content
     </TabButton>
   );
-  const tabButton = queries.getByTestId('tabbutton');
+  const tabButton = queries.getByTestId("tabbutton");
 
   return {
     ...queries,
-    tabButton,
+    tabButton
   };
 };
 
-describe('Tab should render', () => {
-  it('renders without crashing', () => {
+describe("Tab should render", () => {
+  it("renders without crashing", () => {
     const { tabButton } = createTabButton();
 
     expect(tabButton).toBeTruthy();
   });
 
-  it('should be selected when prop selected is passed', () => {
-    const { tabButton } = createTabButton((defaultParams) => ({
+  it("should be selected when prop selected is passed", () => {
+    const { tabButton } = createTabButton(defaultParams => ({
       ...defaultParams,
-      selected: true,
+      selected: true
     }));
 
-    expect(tabButton).toHaveAttribute('aria-selected', 'true');
-    expect(tabButton).toHaveAttribute('tabIndex', '0');
+    expect(tabButton).toHaveAttribute("aria-selected", "true");
+    expect(tabButton).toHaveAttribute("tabIndex", "0");
   });
 
-  it('should be focussed when prop focussed is passed', () => {
-    const { tabButton } = createTabButton((defaultParams) => ({
+  it("should be focussed when prop focussed is passed", () => {
+    const { tabButton } = createTabButton(defaultParams => ({
       ...defaultParams,
-      focussed: true,
+      focussed: true
     }));
 
-    expect(tabButton).toHaveClass('focussed');
+    expect(tabButton).toHaveClass("focussed");
   });
 
-  it('should set accessibility attributes when prop tabPanelId is passed', () => {
-    const { tabButton } = createTabButton((defaultParams) => ({
+  it("should set accessibility attributes when prop tabPanelId is passed", () => {
+    const { tabButton } = createTabButton(defaultParams => ({
       ...defaultParams,
-      tabPanelId: 'fakeId',
+      tabPanelId: "fakeId"
     }));
 
-    expect(tabButton).toHaveAttribute('aria-controls', 'fakeId');
+    expect(tabButton).toHaveAttribute("aria-controls", "fakeId");
   });
 
-  it('should set id attribute when prop tabId is passed', () => {
-    const { tabButton } = createTabButton((defaultParams) => ({
+  it("should set id attribute when prop tabId is passed", () => {
+    const { tabButton } = createTabButton(defaultParams => ({
       ...defaultParams,
-      tabId: 'fakeId',
+      tabId: "fakeId"
     }));
 
-    expect(tabButton).toHaveAttribute('id', 'fakeId');
+    expect(tabButton).toHaveAttribute("id", "fakeId");
   });
 
-  it('should set class when prop className is passed', () => {
-    const { tabButton } = createTabButton((defaultParams) => ({
+  it("should set class when prop className is passed", () => {
+    const { tabButton } = createTabButton(defaultParams => ({
       ...defaultParams,
-      className: 'customclass',
+      className: "customclass"
     }));
 
-    expect(tabButton).toHaveClass('customclass');
+    expect(tabButton).toHaveClass("customclass");
   });
 });

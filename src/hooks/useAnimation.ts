@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 export const useAnimation = <RefElement extends HTMLElement>(callback: () => void) => {
   const animatedObjectRef = useRef<RefElement>(null);
@@ -8,13 +8,13 @@ export const useAnimation = <RefElement extends HTMLElement>(callback: () => voi
   const onAnimationEnd = () => animationStarted && callback();
 
   useEffect(() => {
-    animatedObjectRef.current?.addEventListener('animationend', onAnimationEnd);
-    return () => animatedObjectRef.current?.removeEventListener('animationend', onAnimationEnd);
+    animatedObjectRef.current?.addEventListener("animationend", onAnimationEnd);
+    return () => animatedObjectRef.current?.removeEventListener("animationend", onAnimationEnd);
   }, [animationStarted]);
 
   return {
     ref: animatedObjectRef,
     animationStarted,
-    startAnimation: () => setAnimationStarted(true),
+    startAnimation: () => setAnimationStarted(true)
   };
 };

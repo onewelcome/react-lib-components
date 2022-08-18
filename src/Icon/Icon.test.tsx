@@ -1,38 +1,38 @@
-import React, { useEffect, useRef } from 'react';
-import { Icon, Props, Icons } from './Icon';
-import { render } from '@testing-library/react';
+import React, { useEffect, useRef } from "react";
+import { Icon, Props, Icons } from "./Icon";
+import { render } from "@testing-library/react";
 
-interface PartialProps extends Omit<Props, 'ref'> {}
+interface PartialProps extends Omit<Props, "ref"> {}
 
 const initParams: PartialProps = {
   icon: Icons.Calendar,
-  color: 'rgb(26, 153, 60)',
+  color: "rgb(26, 153, 60)"
 };
 
 const createIcon = (params = initParams) => {
   const queries = render(
     <Icon {...params} data-testid="icon-component" color={params.color} icon={params.icon} />
   );
-  const icon = queries.getByTestId('icon-component');
+  const icon = queries.getByTestId("icon-component");
 
   return {
     ...queries,
-    icon,
+    icon
   };
 };
 
-describe('Icon', () => {
-  it('renders without crashing', () => {
+describe("Icon", () => {
+  it("renders without crashing", () => {
     const { icon } = createIcon();
 
     expect(icon).toBeDefined();
-    expect(icon).toHaveClass('icon-calendar');
-    expect(icon.tagName.toLowerCase()).toBe('span');
-    expect(icon.getAttribute('style')).toBe('color: rgb(26, 153, 60);');
+    expect(icon).toHaveClass("icon-calendar");
+    expect(icon.tagName.toLowerCase()).toBe("span");
+    expect(icon.getAttribute("style")).toBe("color: rgb(26, 153, 60);");
   });
 
-  it('should render icon with within div tag', () => {
-    const tag = 'div';
+  it("should render icon with within div tag", () => {
+    const tag = "div";
     const { icon } = createIcon({ ...initParams, tag });
 
     expect(icon).toBeDefined();
@@ -40,10 +40,10 @@ describe('Icon', () => {
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -59,7 +59,7 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);

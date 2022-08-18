@@ -1,7 +1,7 @@
-import React, { ComponentPropsWithRef, useEffect } from 'react';
-import classes from './TabButton.module.scss';
+import React, { ComponentPropsWithRef, useEffect } from "react";
+import classes from "./TabButton.module.scss";
 
-export interface Props extends ComponentPropsWithRef<'button'> {
+export interface Props extends ComponentPropsWithRef<"button"> {
   children?: string;
   selected?: boolean;
   focussed?: boolean;
@@ -30,10 +30,10 @@ export const TabButton = React.forwardRef<HTMLButtonElement, Props>(
       }
     }, [focussed]);
 
-    const classNames = [classes['tabbutton']];
+    const classNames = [classes["tabbutton"]];
 
-    selected && classNames.push(classes['selected']);
-    focussed && !selected && classNames.push(classes['focussed']);
+    selected && classNames.push(classes["selected"]);
+    focussed && !selected && classNames.push(classes["focussed"]);
     className && classNames.push(className);
 
     return (
@@ -41,7 +41,7 @@ export const TabButton = React.forwardRef<HTMLButtonElement, Props>(
         {...rest}
         aria-selected={selected}
         key={tabId}
-        className={classNames.join(' ')}
+        className={classNames.join(" ")}
         ref={ref}
         role="tab"
         tabIndex={selected ? 0 : -1}

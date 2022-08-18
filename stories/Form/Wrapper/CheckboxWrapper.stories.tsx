@@ -1,69 +1,69 @@
-import { Meta, Story } from '@storybook/react';
-import { useEffect, useState } from 'react';
-import { Checkbox } from '../../../src/Form/Checkbox/Checkbox';
+import { Meta, Story } from "@storybook/react";
+import { useEffect, useState } from "react";
+import { Checkbox } from "../../../src/Form/Checkbox/Checkbox";
 import {
   CheckboxWrapper,
-  Props as CheckboxWrapperProps,
-} from '../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper';
-import CheckboxWrapperDocumentation from './CheckboxWrapper.mdx';
+  Props as CheckboxWrapperProps
+} from "../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
+import CheckboxWrapperDocumentation from "./CheckboxWrapper.mdx";
 
 const meta: Meta = {
-  title: 'Stories/Form/Wrapper/CheckboxWrapper',
+  title: "Stories/Form/Wrapper/CheckboxWrapper",
   component: CheckboxWrapper,
   parameters: {
     docs: {
-      page: CheckboxWrapperDocumentation,
-    },
+      page: CheckboxWrapperDocumentation
+    }
   },
   argTypes: {
     legendId: {
       controls: false,
       table: {
-        disable: true,
-      },
+        disable: true
+      }
     },
     label: {
       controls: false,
       table: {
-        disable: true,
-      },
+        disable: true
+      }
     },
     helperProps: {
       controls: false,
       table: {
-        disable: true,
-      },
+        disable: true
+      }
     },
     onChange: {
       controls: false,
       table: {
-        disable: true,
-      },
+        disable: true
+      }
     },
     required: {
-      control: 'boolean',
+      control: "boolean"
     },
     disabled: {
-      control: 'boolean',
-    },
-  },
+      control: "boolean"
+    }
+  }
 };
 
 export default meta;
 
-const CheckboxesTemplate: Story<CheckboxWrapperProps> = (args) => {
+const CheckboxesTemplate: Story<CheckboxWrapperProps> = args => {
   const [checkboxStates, setCheckboxStates] = useState({
     option1: false,
     option2: false,
     option3: false,
     option4: false,
-    option5: false,
+    option5: false
   });
 
-  const onChangeHandler = (event) => {
-    setCheckboxStates((prevState) => ({
+  const onChangeHandler = event => {
+    setCheckboxStates(prevState => ({
       ...prevState,
-      [event.target.value]: !checkboxStates[event.target.value],
+      [event.target.value]: !checkboxStates[event.target.value]
     }));
   };
 
@@ -116,20 +116,20 @@ const CheckboxesTemplate: Story<CheckboxWrapperProps> = (args) => {
 export const Checkboxes = CheckboxesTemplate.bind({});
 
 Checkboxes.args = {
-  name: 'Example checkboxes',
+  name: "Example checkboxes",
   fieldsetProps: {
-    legend: 'Example fieldset legend',
-    legendStyle: 'h1',
+    legend: "Example fieldset legend",
+    legendStyle: "h1",
     hideLegend: false,
-    background: '#FFF',
+    background: "#FFF",
     noPadding: false,
-    noBackground: false,
+    noBackground: false
   },
   error: false,
-  errorMessage: 'Please check all the boxes',
+  errorMessage: "Please check all the boxes"
 };
 
-const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
+const NestedTemplate: Story<CheckboxWrapperProps> = args => {
   const [indeterminate, setIndeterminate] = useState(false);
   const [electronics, setElectronics] = useState(false);
   const [checkedLaptop, setCheckedLaptop] = useState(false);
@@ -157,17 +157,17 @@ const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
   };
 
   const onLaptopCheckHandler = () => {
-    console.log('Laptop Checked');
+    console.log("Laptop Checked");
     setCheckedLaptop(!checkedLaptop);
   };
 
   const onTVCheckHandler = () => {
-    console.log('TV Checked');
+    console.log("TV Checked");
     setCheckedTV(!checkedTV);
   };
 
   const onMicrophoneCheckHandler = () => {
-    console.log('Microphone Checked');
+    console.log("Microphone Checked");
     setCheckedMicrophone(!checkedMicrophone);
   };
 
@@ -208,16 +208,16 @@ const NestedTemplate: Story<CheckboxWrapperProps> = (args) => {
 export const NestedCheckboxes = NestedTemplate.bind({});
 
 NestedCheckboxes.args = {
-  name: 'Electronics',
+  name: "Electronics",
   fieldsetProps: {
-    legend: 'Example fieldset legend',
-    legendStyle: 'h1',
+    legend: "Example fieldset legend",
+    legendStyle: "h1",
     hideLegend: true,
-    background: '#FFF',
+    background: "#FFF",
     noPadding: true,
-    noBackground: true,
+    noBackground: true
   },
   error: false,
-  errorMessage: 'Please check all the boxes',
-  helperText: 'Helpertext for the group',
+  errorMessage: "Please check all the boxes",
+  helperText: "Helpertext for the group"
 };

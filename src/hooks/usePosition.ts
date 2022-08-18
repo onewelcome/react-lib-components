@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface ConfigObject {
   relativeElement: RefElement;
@@ -8,10 +8,10 @@ export interface ConfigObject {
   offset?: Offset;
 }
 
-export type HorizontalPlacment = 'left' | 'center' | 'centerh' | 'right';
-export type VerticalPlacement = 'top' | 'center' | 'centerv' | 'bottom';
+export type HorizontalPlacment = "left" | "center" | "centerh" | "right";
+export type VerticalPlacement = "top" | "center" | "centerv" | "bottom";
 
-type Axis = 'vertical' | 'horizontal';
+type Axis = "vertical" | "horizontal";
 type RefElement = React.RefObject<HTMLOrSVGElement> | undefined;
 
 interface DomRectObject {
@@ -52,25 +52,25 @@ interface Dimensions {
   width: number;
 }
 
-type PositionType = number | 'initial';
+type PositionType = number | "initial";
 
 const defaultConfigObject: ConfigObject = {
   relativeElement: undefined,
   elementToBePositioned: undefined,
   transformOrigin: {
-    horizontal: 'left',
-    vertical: 'top',
+    horizontal: "left",
+    vertical: "top"
   },
   placement: {
-    horizontal: 'left',
-    vertical: 'top',
+    horizontal: "left",
+    vertical: "top"
   },
   offset: {
     top: 0,
     right: 0,
     bottom: 0,
-    left: 0,
-  },
+    left: 0
+  }
 };
 
 export const usePosition = (providedConfigObject: ConfigObject = defaultConfigObject) => {
@@ -91,8 +91,8 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
   const [position, setPosition] = useState<Position>({
     left: 0,
     top: 0,
-    right: 'initial',
-    bottom: 'initial',
+    right: "initial",
+    bottom: "initial"
   });
 
   const _fixPossibleViewportOverflow = (
@@ -104,43 +104,43 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     let returnValue = value;
 
     if (
-      (transformOrigin[requestedReturnValue] === 'left' && returnValue < 0) ||
-      (transformOrigin[requestedReturnValue] === 'top' && returnValue < 0) ||
-      (transformOrigin[requestedReturnValue] === 'center' && returnValue < 0) ||
-      (transformOrigin[requestedReturnValue] === 'bottom' && returnValue < 0)
+      (transformOrigin[requestedReturnValue] === "left" && returnValue < 0) ||
+      (transformOrigin[requestedReturnValue] === "top" && returnValue < 0) ||
+      (transformOrigin[requestedReturnValue] === "center" && returnValue < 0) ||
+      (transformOrigin[requestedReturnValue] === "bottom" && returnValue < 0)
     ) {
       returnValue = 0;
     }
 
     if (
-      (transformOrigin[requestedReturnValue] === 'left' &&
+      (transformOrigin[requestedReturnValue] === "left" &&
         returnValue > window.innerWidth - elDimensions.width) ||
-      (transformOrigin[requestedReturnValue] === 'center' &&
-        requestedReturnValue === 'horizontal' &&
+      (transformOrigin[requestedReturnValue] === "center" &&
+        requestedReturnValue === "horizontal" &&
         returnValue > window.innerWidth - elDimensions.width)
     ) {
       returnValue = window.innerWidth - elDimensions.width;
     }
 
     if (
-      (transformOrigin[requestedReturnValue] === 'top' &&
+      (transformOrigin[requestedReturnValue] === "top" &&
         returnValue > window.innerHeight - elDimensions.height) ||
-      (transformOrigin[requestedReturnValue] === 'center' &&
-        requestedReturnValue === 'vertical' &&
+      (transformOrigin[requestedReturnValue] === "center" &&
+        requestedReturnValue === "vertical" &&
         returnValue > window.innerHeight - elDimensions.height)
     ) {
       returnValue = window.innerHeight - elDimensions.height;
     }
 
     if (
-      transformOrigin[requestedReturnValue] === 'right' &&
+      transformOrigin[requestedReturnValue] === "right" &&
       returnValue > window.innerWidth - elDimensions.width
     ) {
       returnValue = window.innerWidth - elDimensions.width;
     }
 
     if (
-      transformOrigin[requestedReturnValue] === 'bottom' &&
+      transformOrigin[requestedReturnValue] === "bottom" &&
       returnValue > window.innerHeight - elDimensions.height
     ) {
       returnValue = window.innerHeight - elDimensions.height;
@@ -156,36 +156,36 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
   ) => {
     let returnValue = value;
     if (
-      (requestedReturnValue === 'horizontal' && configObject.offset?.left !== 0) ||
-      (requestedReturnValue === 'horizontal' && configObject.offset?.right !== 0)
+      (requestedReturnValue === "horizontal" && configObject.offset?.left !== 0) ||
+      (requestedReturnValue === "horizontal" && configObject.offset?.right !== 0)
     ) {
       if (
-        transformOrigin[requestedReturnValue] === 'left' ||
-        transformOrigin[requestedReturnValue] === 'center'
+        transformOrigin[requestedReturnValue] === "left" ||
+        transformOrigin[requestedReturnValue] === "center"
       ) {
         returnValue += configObject.offset?.left!;
         returnValue -= configObject.offset?.right!;
       }
 
-      if (transformOrigin[requestedReturnValue] === 'right') {
+      if (transformOrigin[requestedReturnValue] === "right") {
         returnValue -= configObject.offset?.left!;
         returnValue += configObject.offset?.right!;
       }
     }
 
     if (
-      (requestedReturnValue === 'vertical' && configObject.offset?.top !== 0) ||
-      (requestedReturnValue === 'vertical' && configObject.offset?.bottom !== 0)
+      (requestedReturnValue === "vertical" && configObject.offset?.top !== 0) ||
+      (requestedReturnValue === "vertical" && configObject.offset?.bottom !== 0)
     ) {
       if (
-        transformOrigin[requestedReturnValue] === 'top' ||
-        transformOrigin[requestedReturnValue] === 'center'
+        transformOrigin[requestedReturnValue] === "top" ||
+        transformOrigin[requestedReturnValue] === "center"
       ) {
         returnValue += configObject.offset?.top!;
         returnValue -= configObject.offset?.bottom!;
       }
 
-      if (transformOrigin[requestedReturnValue] === 'bottom') {
+      if (transformOrigin[requestedReturnValue] === "bottom") {
         returnValue -= configObject.offset?.top!;
         returnValue += configObject.offset?.bottom!;
       }
@@ -204,20 +204,20 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     let value = 0;
 
     if (
-      transformOrigin[requestedReturnValue] === 'left' ||
-      transformOrigin[requestedReturnValue] === 'top'
+      transformOrigin[requestedReturnValue] === "left" ||
+      transformOrigin[requestedReturnValue] === "top"
     ) {
       value = relEl[placementOriginDefinition];
-    } else if (transformOrigin[requestedReturnValue] === 'center') {
+    } else if (transformOrigin[requestedReturnValue] === "center") {
       value =
         relEl[placementOriginDefinition] -
-        elDimensions[requestedReturnValue === 'horizontal' ? 'width' : 'height'] / 2;
+        elDimensions[requestedReturnValue === "horizontal" ? "width" : "height"] / 2;
     } else if (
-      transformOrigin[requestedReturnValue] === 'right' ||
-      transformOrigin[requestedReturnValue] === 'bottom'
+      transformOrigin[requestedReturnValue] === "right" ||
+      transformOrigin[requestedReturnValue] === "bottom"
     ) {
       value =
-        window[requestedReturnValue === 'horizontal' ? 'innerWidth' : 'innerHeight'] -
+        window[requestedReturnValue === "horizontal" ? "innerWidth" : "innerHeight"] -
         relEl[placementOriginDefinition];
     }
 
@@ -230,10 +230,10 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
    * @returns either the horizontally centered placement definition (centerh) or the vertically centered one (centerv)
    */
   const _determineCenteredPlacementOrigin = (requestedReturnValue: Axis) => {
-    if (requestedReturnValue === 'horizontal') {
-      return 'centerh';
-    } else if (requestedReturnValue === 'vertical') {
-      return 'centerv';
+    if (requestedReturnValue === "horizontal") {
+      return "centerh";
+    } else if (requestedReturnValue === "vertical") {
+      return "centerv";
     }
     throw new Error(
       `the requested return value isn\'t "vertical" or "horizontal" ${requestedReturnValue} was given.`
@@ -248,7 +248,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     elDimensions: Dimensions
   ): number => {
     const placementOriginDefinition =
-      placement === 'center' ? _determineCenteredPlacementOrigin(requestedReturnValue) : placement;
+      placement === "center" ? _determineCenteredPlacementOrigin(requestedReturnValue) : placement;
 
     const value = _calculateInitialPlacementValue(
       transformOrigin,
@@ -283,29 +283,29 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       elDimensions
     );
 
-    let direction = 'left';
-    let oppositeDirection = 'right';
+    let direction = "left";
+    let oppositeDirection = "right";
 
-    if (axis === 'horizontal' && configObject.transformOrigin?.horizontal === 'right') {
-      direction = 'right';
-      oppositeDirection = 'left';
-    } else if (axis === 'horizontal') {
-      direction = 'left';
-      oppositeDirection = 'right';
+    if (axis === "horizontal" && configObject.transformOrigin?.horizontal === "right") {
+      direction = "right";
+      oppositeDirection = "left";
+    } else if (axis === "horizontal") {
+      direction = "left";
+      oppositeDirection = "right";
     }
 
-    if (axis === 'vertical' && configObject.transformOrigin?.vertical === 'bottom') {
-      direction = 'bottom';
-      oppositeDirection = 'top';
-    } else if (axis === 'vertical') {
-      direction = 'top';
-      oppositeDirection = 'bottom';
+    if (axis === "vertical" && configObject.transformOrigin?.vertical === "bottom") {
+      direction = "bottom";
+      oppositeDirection = "top";
+    } else if (axis === "vertical") {
+      direction = "top";
+      oppositeDirection = "bottom";
     }
 
-    setPosition((prevState) => ({
+    setPosition(prevState => ({
       ...prevState,
       [direction]: placementValue,
-      [oppositeDirection]: 'initial',
+      [oppositeDirection]: "initial"
     }));
   };
 
@@ -315,7 +315,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       .current as HTMLElement)!.getBoundingClientRect();
     const elementToBePositionedDimensions: Dimensions = {
       height: (configObject.elementToBePositioned!.current as HTMLElement).offsetHeight,
-      width: (configObject.elementToBePositioned!.current as HTMLElement).offsetWidth,
+      width: (configObject.elementToBePositioned!.current as HTMLElement).offsetWidth
     };
 
     /** We want to add a center (horizontal and vertical) property to the DOMRect object. Since it's a special object we can't modify so we clone it and add it. */
@@ -330,11 +330,11 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       width: relativeElRect.width,
       height: relativeElRect.height,
       x: relativeElRect.x,
-      y: relativeElRect.y,
+      y: relativeElRect.y
     };
 
-    _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, 'horizontal');
-    _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, 'vertical');
+    _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "horizontal");
+    _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "vertical");
   };
 
   return {
@@ -342,6 +342,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     bottom: position.bottom,
     left: position.left,
     right: position.right,
-    calculatePosition,
+    calculatePosition
   };
 };

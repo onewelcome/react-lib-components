@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { generateID } from '../util/helper';
+import { useEffect, useState } from "react";
+import { generateID } from "../util/helper";
 
 export interface ConfigObject {
   name: string | undefined;
@@ -12,7 +12,7 @@ export interface ConfigObject {
 
 export const useFormSelector = (configObject: ConfigObject) => {
   const [identifier] = useState(generateID(15, configObject.name));
-  const [describedBy, setDescribedBy] = useState('');
+  const [describedBy, setDescribedBy] = useState("");
   const [errorId] = useState(generateID(15, configObject.errorMessage));
 
   useEffect(() => {
@@ -42,6 +42,6 @@ export const useFormSelector = (configObject: ConfigObject) => {
   return {
     describedBy,
     errorId,
-    identifier,
+    identifier
   };
 };

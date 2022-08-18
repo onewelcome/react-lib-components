@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
-import { StatusIndicator, Props } from './StatusIndicator';
-import { render } from '@testing-library/react';
+import React, { useEffect, useRef } from "react";
+import { StatusIndicator, Props } from "./StatusIndicator";
+import { render } from "@testing-library/react";
 
 const defaultParams: Props = {
-  status: 'active',
+  status: "active"
 };
 
 const createStatusIndicator = (params?: (defaultParams: Props) => Props) => {
@@ -16,92 +16,92 @@ const createStatusIndicator = (params?: (defaultParams: Props) => Props) => {
       content
     </StatusIndicator>
   );
-  const statusIndicator = queries.getByTestId('StatusIndicator');
+  const statusIndicator = queries.getByTestId("StatusIndicator");
 
   return {
     ...queries,
-    statusIndicator,
+    statusIndicator
   };
 };
 
-describe('StatusIndicator should render', () => {
-  it('renders without crashing', () => {
+describe("StatusIndicator should render", () => {
+  it("renders without crashing", () => {
     const { statusIndicator, getByText } = createStatusIndicator();
 
     expect(statusIndicator).toBeDefined();
-    expect(getByText('content')).toBeInTheDocument();
+    expect(getByText("content")).toBeInTheDocument();
   });
 
-  it('passes through custom typography props', () => {
-    const { statusIndicator, getByText } = createStatusIndicator((params) => ({
+  it("passes through custom typography props", () => {
+    const { statusIndicator, getByText } = createStatusIndicator(params => ({
       ...params,
       typographyProps: {
-        variant: 'body',
-        children: <strong>custom children</strong>,
-      },
+        variant: "body",
+        children: <strong>custom children</strong>
+      }
     }));
 
     expect(statusIndicator).toBeDefined();
-    expect(getByText('custom children')).toBeInTheDocument();
+    expect(getByText("custom children")).toBeInTheDocument();
   });
 
-  it('passes through custom props', () => {
-    const { statusIndicator } = createStatusIndicator((params) => ({
+  it("passes through custom props", () => {
+    const { statusIndicator } = createStatusIndicator(params => ({
       ...params,
-      'aria-label': 'status indicator',
+      "aria-label": "status indicator"
     }));
 
     expect(statusIndicator).toBeDefined();
-    expect(statusIndicator).toHaveAttribute('aria-label', 'status indicator');
+    expect(statusIndicator).toHaveAttribute("aria-label", "status indicator");
   });
 
   it('should set "active" class on status badge', () => {
-    const { statusIndicator } = createStatusIndicator((params) => ({
+    const { statusIndicator } = createStatusIndicator(params => ({
       ...params,
-      status: 'active',
+      status: "active"
     }));
 
-    expect(statusIndicator.firstChild).toHaveClass('active');
+    expect(statusIndicator.firstChild).toHaveClass("active");
   });
 
   it('should set "error" class on status badge', () => {
-    const { statusIndicator } = createStatusIndicator((params) => ({ ...params, status: 'error' }));
+    const { statusIndicator } = createStatusIndicator(params => ({ ...params, status: "error" }));
 
-    expect(statusIndicator.firstChild).toHaveClass('error');
+    expect(statusIndicator.firstChild).toHaveClass("error");
   });
 
   it('should set "neutral" class on status badge', () => {
-    const { statusIndicator } = createStatusIndicator((params) => ({
+    const { statusIndicator } = createStatusIndicator(params => ({
       ...params,
-      status: 'neutral',
+      status: "neutral"
     }));
 
-    expect(statusIndicator.firstChild).toHaveClass('neutral');
+    expect(statusIndicator.firstChild).toHaveClass("neutral");
   });
 
   it('should pass "warning" class to status badge', () => {
-    const { statusIndicator } = createStatusIndicator((params) => ({
+    const { statusIndicator } = createStatusIndicator(params => ({
       ...params,
-      status: 'warning',
+      status: "warning"
     }));
 
-    expect(statusIndicator.firstChild).toHaveClass('warning');
+    expect(statusIndicator.firstChild).toHaveClass("warning");
   });
 
-  it('should pass custom class to status badge', () => {
-    const { statusIndicator } = createStatusIndicator((params) => ({
+  it("should pass custom class to status badge", () => {
+    const { statusIndicator } = createStatusIndicator(params => ({
       ...params,
-      badgeProps: { className: 'custom' },
+      badgeProps: { className: "custom" }
     }));
 
-    expect(statusIndicator.firstChild).toHaveClass('custom');
+    expect(statusIndicator.firstChild).toHaveClass("custom");
   });
 });
 
-describe('ref should work', () => {
-  it('should give back the proper data prop, this also checks if the component propagates ...rest properly', () => {
+describe("ref should work", () => {
+  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
-      propagateRef,
+      propagateRef
     }: {
       propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
     }) => {
@@ -119,7 +119,7 @@ describe('ref should work', () => {
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute('data-ref', 'testing');
+      expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
     render(<ExampleComponent propagateRef={refCheck} />);

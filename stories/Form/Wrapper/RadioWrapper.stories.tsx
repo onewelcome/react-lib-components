@@ -1,39 +1,39 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
 import {
   RadioWrapper as RadioWrapperComponent,
-  Props,
-} from '../../..//src/Form/Wrapper/RadioWrapper/RadioWrapper';
-import { Radio } from '../../../src/Form/Radio/Radio';
-import RadioWrapperDocumentation from './RadioWrapper.mdx';
+  Props
+} from "../../..//src/Form/Wrapper/RadioWrapper/RadioWrapper";
+import { Radio } from "../../../src/Form/Radio/Radio";
+import RadioWrapperDocumentation from "./RadioWrapper.mdx";
 
 const meta: Meta = {
-  title: 'Stories/Form/Wrapper/RadioWrapper',
+  title: "Stories/Form/Wrapper/RadioWrapper",
   component: RadioWrapperComponent,
   parameters: {
     docs: {
-      page: RadioWrapperDocumentation,
-    },
+      page: RadioWrapperDocumentation
+    }
   },
   argTypes: {
     value: {
-      options: ['option1', 'option2', 'option3'],
+      options: ["option1", "option2", "option3"],
       control: {
-        type: 'radio',
-      },
+        type: "radio"
+      }
     },
     required: {
-      control: 'boolean',
+      control: "boolean"
     },
     disabled: {
-      control: 'boolean',
-    },
-  },
+      control: "boolean"
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   return (
     <div>
       <RadioWrapperComponent {...args}>
@@ -51,16 +51,16 @@ export const RadioWrapper = Template.bind({});
 
 RadioWrapper.args = {
   error: false,
-  errorMessage: 'Errormessage',
+  errorMessage: "Errormessage",
   fieldsetProps: {
-    legend: 'Radio buttons',
+    legend: "Radio buttons",
     hideLegend: false,
-    legendStyle: 'h1',
+    legendStyle: "h1",
     noPadding: true,
-    noBackground: true,
+    noBackground: true
   },
-  helperText: 'Helpertext',
-  value: 'option1',
-  name: 'my-group',
-  onChange: () => {},
+  helperText: "Helpertext",
+  value: "option1",
+  name: "my-group",
+  onChange: () => {}
 };

@@ -1,36 +1,36 @@
-import React, { Fragment, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Dialog, Props } from '../../../src/Notifications/Dialog/Dialog';
-import { Button } from '../../../src/Button/Button';
-import { Typography } from '../../../src/Typography/Typography';
-import DialogDocumentation from './Dialog.mdx';
+import React, { Fragment, useState } from "react";
+import { Meta, Story } from "@storybook/react";
+import { Dialog, Props } from "../../../src/Notifications/Dialog/Dialog";
+import { Button } from "../../../src/Button/Button";
+import { Typography } from "../../../src/Typography/Typography";
+import DialogDocumentation from "./Dialog.mdx";
 
 const meta: Meta = {
-  title: 'Stories/Notifications/Dialog',
+  title: "Stories/Notifications/Dialog",
   component: Dialog,
   parameters: {
     docs: {
-      page: DialogDocumentation,
-    },
+      page: DialogDocumentation
+    }
   },
   args: {
-    id: 'dialog',
-    title: 'Discard changes?',
-    alignActions: 'left',
+    id: "dialog",
+    title: "Discard changes?",
+    alignActions: "left",
     children: (
       <Typography variant="body" spacing={{ margin: 0 }}>
         This cannot be undone and you will lose your changes.
       </Typography>
     ),
     primaryAction: {
-      label: 'Discard',
-      onClick: () => window.setDialogOpen(false),
+      label: "Discard",
+      onClick: () => window.setDialogOpen(false)
     },
     secondaryAction: {
-      label: 'Keep editing',
-      onClick: () => window.setDialogOpen(false),
-    },
-  },
+      label: "Keep editing",
+      onClick: () => window.setDialogOpen(false)
+    }
+  }
 };
 
 export default meta;
@@ -39,7 +39,7 @@ declare global {
   var setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   const [open, setOpen] = useState(false);
   window.setDialogOpen = setOpen;
   return (
@@ -65,8 +65,8 @@ export const LeftAlignedActionDialog = Template.bind({});
 export const RightAlignedActionDialog = Template.bind({});
 
 RightAlignedActionDialog.args = {
-  title: 'Verify email address',
-  alignActions: 'right',
+  title: "Verify email address",
+  alignActions: "right",
   children: (
     <Fragment>
       <Typography variant="body">
@@ -79,30 +79,30 @@ RightAlignedActionDialog.args = {
     </Fragment>
   ),
   primaryAction: {
-    label: 'Send email',
-    onClick: () => window.setDialogOpen(false),
+    label: "Send email",
+    onClick: () => window.setDialogOpen(false)
   },
   secondaryAction: {
-    label: 'Cancel',
-    onClick: () => window.setDialogOpen(false),
-  },
+    label: "Cancel",
+    onClick: () => window.setDialogOpen(false)
+  }
 };
 
 export const SingleActionDialog = Template.bind({});
 
 SingleActionDialog.args = {
-  title: 'Info',
-  alignActions: 'right',
+  title: "Info",
+  alignActions: "right",
   children: (
     <Typography variant="body" spacing={{ margin: 0 }}>
       You can't remove your account.
     </Typography>
   ),
   primaryAction: {
-    label: 'Ok',
-    onClick: () => window.setDialogOpen(false),
+    label: "Ok",
+    onClick: () => window.setDialogOpen(false)
   },
-  secondaryAction: undefined,
+  secondaryAction: undefined
 };
 
 export const NestedDialogs = () => {
@@ -118,12 +118,12 @@ export const NestedDialogs = () => {
         title="Dialog 1"
         onClose={() => setOpen(false)}
         primaryAction={{
-          label: 'Open another dialog',
-          onClick: () => setOpen2(true),
+          label: "Open another dialog",
+          onClick: () => setOpen2(true)
         }}
         secondaryAction={{
-          label: 'Close',
-          onClick: () => setOpen(false),
+          label: "Close",
+          onClick: () => setOpen(false)
         }}
       >
         <Typography variant="body" spacing={{ margin: 0 }}>
@@ -138,8 +138,8 @@ export const NestedDialogs = () => {
         alignActions="left"
         title="Dialog 2"
         primaryAction={{
-          label: 'Close',
-          onClick: () => setOpen2(false),
+          label: "Close",
+          onClick: () => setOpen2(false)
         }}
       >
         <Typography variant="body" spacing={{ margin: 0 }}>

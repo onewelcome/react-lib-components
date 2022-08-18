@@ -1,9 +1,9 @@
-import React, { ComponentPropsWithRef } from 'react';
-import { Dialog } from '../../Dialog/Dialog';
-import { Typography } from '../../../Typography/Typography';
-import { DataAttributeKey } from '../../../interfaces';
+import React, { ComponentPropsWithRef } from "react";
+import { Dialog } from "../../Dialog/Dialog";
+import { Typography } from "../../../Typography/Typography";
+import { DataAttributeKey } from "../../../interfaces";
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   open: boolean;
   discardChangesButtonLabel: string;
   keepEditingButtonLabel: string;
@@ -38,11 +38,11 @@ export const DiscardChangesDialog = React.forwardRef<HTMLDivElement, Props>(
         onClose={onKeepEditing}
         primaryAction={{
           label: discardChangesButtonLabel,
-          onClick: onDiscardChanges,
+          onClick: onDiscardChanges
         }}
         secondaryAction={{
           label: keepEditingButtonLabel,
-          onClick: onKeepEditing,
+          onClick: onKeepEditing
         }}
         disableEscapeKeyDown={false}
       >

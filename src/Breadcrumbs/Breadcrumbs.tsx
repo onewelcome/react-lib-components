@@ -1,18 +1,18 @@
-import React, { ComponentPropsWithRef, Fragment, ReactElement } from 'react';
-import { Icon, Icons } from '../Icon/Icon';
-import { Link, Props as LinkProps } from '../Link/Link';
-import { Typography } from '../Typography/Typography';
-import classes from './Breadcrumbs.module.scss';
+import React, { ComponentPropsWithRef, Fragment, ReactElement } from "react";
+import { Icon, Icons } from "../Icon/Icon";
+import { Link, Props as LinkProps } from "../Link/Link";
+import { Typography } from "../Typography/Typography";
+import classes from "./Breadcrumbs.module.scss";
 
 type ChildrenType = ReactElement<LinkProps, typeof Link>;
 
-export interface Props extends ComponentPropsWithRef<'div'> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   children: ChildrenType | ChildrenType[];
-  'aria-label': string;
+  "aria-label": string;
 }
 
 export const Breadcrumbs = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, 'aria-label': ariaLabel, className = '', ...rest }: Props, ref) => {
+  ({ children, "aria-label": ariaLabel, className = "", ...rest }: Props, ref) => {
     const items = React.Children.map(children, (child, index) => {
       const isLastElement = Array.isArray(children) ? index === children.length - 1 : true;
       if (isLastElement) {
@@ -21,7 +21,7 @@ export const Breadcrumbs = React.forwardRef<HTMLDivElement, Props>(
             key={child.key}
             variant="body"
             tag="span"
-            className={classes['last']}
+            className={classes["last"]}
             aria-current="page"
           >
             {child.props.children}
@@ -31,7 +31,7 @@ export const Breadcrumbs = React.forwardRef<HTMLDivElement, Props>(
         return (
           <Fragment key={child.key}>
             {React.cloneElement(child)}
-            <Icon icon={Icons.ChevronRight} className={classes['icon']} />
+            <Icon icon={Icons.ChevronRight} className={classes["icon"]} />
           </Fragment>
         );
       }
@@ -41,7 +41,7 @@ export const Breadcrumbs = React.forwardRef<HTMLDivElement, Props>(
         {...rest}
         ref={ref}
         aria-label={ariaLabel}
-        className={`${classes['breadcrumbs']} ${className}`}
+        className={`${classes["breadcrumbs"]} ${className}`}
       >
         {items}
       </nav>

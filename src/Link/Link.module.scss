@@ -1,4 +1,4 @@
-@import '../mixins.module.scss';
+@import "../mixins.module.scss";
 
 .link {
   font-family: var(--font-family);
@@ -48,19 +48,19 @@
 }
 
 .button {
-  @include buttonBase('link');
+  @include buttonBase("link");
 
   text-decoration: none;
 
   &.fill {
-    @include button('fill', 'link');
+    @include button("fill", "link");
   }
 
   &.outline {
-    @include button('outline', 'link');
+    @include button("outline", "link");
   }
 
   &.text {
-    @include button('text', 'link');
+    @include button("text", "link");
   }
 }

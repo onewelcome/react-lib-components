@@ -1,11 +1,11 @@
-import React, { ComponentPropsWithRef, ReactElement, useEffect } from 'react';
-import classes from './CheckboxWrapper.module.scss';
-import { useWrapper } from '../../../hooks/useWrapper';
-import { Wrapper, WrapperProps } from '../Wrapper/Wrapper';
-import { Icons } from '../../../Icon/Icon';
-import { Fieldset, Props as FieldsetProps } from '../../../Form/Fieldset/Fieldset';
+import React, { ComponentPropsWithRef, ReactElement, useEffect } from "react";
+import classes from "./CheckboxWrapper.module.scss";
+import { useWrapper } from "../../../hooks/useWrapper";
+import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
+import { Icons } from "../../../Icon/Icon";
+import { Fieldset, Props as FieldsetProps } from "../../../Form/Fieldset/Fieldset";
 
-export interface Props extends ComponentPropsWithRef<'div'>, WrapperProps {
+export interface Props extends ComponentPropsWithRef<"div">, WrapperProps {
   children: ReactElement[] | ReactElement;
   fieldsetProps: FieldsetProps;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -24,12 +24,12 @@ export const CheckboxWrapper = React.forwardRef<HTMLDivElement, Props>(
     }, []);
 
     const renderChildren = () =>
-      React.Children.map(children, (child) =>
+      React.Children.map(children, child =>
         React.cloneElement(child, {
           parentErrorId: errorId,
           error: error,
           parentHelperId: helperText ? helperId : false,
-          disabled: rest.disabled,
+          disabled: rest.disabled
         })
       );
 
@@ -43,9 +43,9 @@ export const CheckboxWrapper = React.forwardRef<HTMLDivElement, Props>(
           helperText={helperText}
           helperProps={{
             ...helperProps,
-            className: `${classes['checkbox-wrapper-helper']} ${
-              error ? classes['checkbox-wrapper-error'] : ''
-            } ${helperProps?.className ?? ''}`,
+            className: `${classes["checkbox-wrapper-helper"]} ${
+              error ? classes["checkbox-wrapper-error"] : ""
+            } ${helperProps?.className ?? ""}`
           }}
           error={error}
           errorMessageIcon={Icons.Error}

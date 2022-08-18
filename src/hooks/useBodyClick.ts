@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export const useBodyClick = (
   checkFunction: (event: MouseEvent) => boolean,
@@ -11,10 +11,10 @@ export const useBodyClick = (
     }
   }
   useEffect(() => {
-    window.addEventListener('click', bodyClickListener);
+    window.addEventListener("click", bodyClickListener);
 
     return () => {
-      window.removeEventListener('click', bodyClickListener);
+      window.removeEventListener("click", bodyClickListener);
     };
   }, [dependingStateVariable]);
 };

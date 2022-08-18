@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -108,12 +108,12 @@ return (
       title="Dialog 1"
       onClose={() => setOpen(false)}
       primaryAction={{
-        label: 'Open another dialog',
-        onClick: () => setOpen2(true),
+        label: "Open another dialog",
+        onClick: () => setOpen2(true)
       }}
       secondaryAction={{
-        label: 'Close',
-        onClick: () => setOpen(false),
+        label: "Close",
+        onClick: () => setOpen(false)
       }}
     >
       <Typography variant="body" spacing={{ margin: 0 }}>
@@ -127,8 +127,8 @@ return (
       alignActions="left"
       title="Dialog 2"
       primaryAction={{
-        label: 'Close',
-        onClick: () => setOpen2(false),
+        label: "Close",
+        onClick: () => setOpen2(false)
       }}
     >
       <Typography variant="body" spacing={{ margin: 0 }}>

@@ -1,24 +1,24 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { Props, Tiles as TitlesComponent } from '../../src/Tiles/Tiles';
-import { ContextMenu, ContextMenuItem, Icon, IconButton, Icons, Tile } from '../../src';
-import TilesDocumentation from './Tiles.mdx';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import { Props, Tiles as TitlesComponent } from "../../src/Tiles/Tiles";
+import { ContextMenu, ContextMenuItem, Icon, IconButton, Icons, Tile } from "../../src";
+import TilesDocumentation from "./Tiles.mdx";
 
 const meta: Meta = {
-  title: 'Stories/UI/Tiles/Tiles',
+  title: "Stories/UI/Tiles/Tiles",
   component: TitlesComponent,
   parameters: {
     docs: {
-      page: TilesDocumentation,
-    },
-  },
+      page: TilesDocumentation
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   const addToFavorites = () => {
-    window.alert('Add to favorites!');
+    window.alert("Add to favorites!");
   };
 
   return (
@@ -27,14 +27,14 @@ const Template: Story<Props> = (args) => {
         key="tile1"
         title="Tile1"
         imageProps={{
-          src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
+          src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
         }}
         enabled={false}
         tileAction={
           <ContextMenu
             id="context_menu_1"
-            placement={{ vertical: 'bottom', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            placement={{ vertical: "bottom", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
             trigger={
               <IconButton title="context menu">
                 <Icon icon={Icons.EllipsisAlt} />
@@ -61,14 +61,14 @@ const Template: Story<Props> = (args) => {
         key="tile3"
         title="Tile3"
         imageProps={{
-          src: '',
+          src: ""
         }}
         enabled={true}
         tileAction={
           <ContextMenu
             id="context_menu_3"
-            placement={{ vertical: 'bottom', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            placement={{ vertical: "bottom", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
             trigger={
               <IconButton title="context menu">
                 <Icon icon={Icons.EllipsisAlt} />
@@ -85,7 +85,7 @@ const Template: Story<Props> = (args) => {
         key="tile4"
         title="Tile4"
         imageProps={{
-          src: 'https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg',
+          src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
         }}
         enabled={false}
         tileAction={

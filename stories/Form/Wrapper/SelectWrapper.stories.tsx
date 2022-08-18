@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import React, { useEffect, useState } from "react";
+import { Meta, Story } from "@storybook/react";
 import {
   SelectWrapper as SelectWrapperComponent,
-  Props,
-} from '../../../src/Form/Wrapper/SelectWrapper/SelectWrapper';
-import { Option } from '../../../src/Form/Select/Option';
+  Props
+} from "../../../src/Form/Wrapper/SelectWrapper/SelectWrapper";
+import { Option } from "../../../src/Form/Select/Option";
 
-import SelectWrapperDocumentation from './SelectWrapper.mdx';
+import SelectWrapperDocumentation from "./SelectWrapper.mdx";
 
 const meta: Meta = {
-  title: 'Stories/Form/Wrapper/SelectWrapper',
+  title: "Stories/Form/Wrapper/SelectWrapper",
   component: SelectWrapperComponent,
   parameters: {
     docs: {
-      page: SelectWrapperDocumentation,
-    },
+      page: SelectWrapperDocumentation
+    }
   },
   argTypes: {
     value: {
-      options: ['option1', 'option2', 'option3', 'option4'],
+      options: ["option1", "option2", "option3", "option4"],
       control: {
-        type: 'select',
-      },
+        type: "select"
+      }
     },
     disabled: {
-      control: 'boolean',
-    },
-  },
+      control: "boolean"
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   return (
     <SelectWrapperComponent {...args}>
       <Option value="option1">Option 1</Option>
@@ -45,10 +45,10 @@ const Template: Story<Props> = (args) => {
 export const SelectWrapper = Template.bind({});
 
 SelectWrapper.args = {
-  label: 'Example select wrapper',
-  name: 'Example select',
-  helperText: 'Example helper text',
+  label: "Example select wrapper",
+  name: "Example select",
+  helperText: "Example helper text",
   error: false,
-  errorMessage: 'This is an error message',
-  required: true,
+  errorMessage: "This is an error message",
+  required: true
 };

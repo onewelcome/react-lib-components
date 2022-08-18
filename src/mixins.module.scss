@@ -1,21 +1,21 @@
-@import './readyclasses.module.scss';
+@import "./readyclasses.module.scss";
 
-@mixin button($variant: 'text', $type: 'default') {
-  $disabledSelector: if($type == 'link', '.disabled', ':disabled');
+@mixin button($variant: "text", $type: "default") {
+  $disabledSelector: if($type == "link", ".disabled", ":disabled");
 
-  @if $variant == 'text' {
+  @if $variant == "text" {
     border-color: transparent;
     background-color: transparent;
-  } @else if $variant == 'fill' {
-    @if $type == 'default' {
+  } @else if $variant == "fill" {
+    @if $type == "default" {
       color: var(--button-fill-text-color);
-    } @else if $type == 'icon' or $type == 'link' {
+    } @else if $type == "icon" or $type == "link" {
       &:not(#{$disabledSelector}) {
         color: var(--button-fill-text-color);
       }
     }
     font-weight: bold;
-  } @else if $variant == 'outline' {
+  } @else if $variant == "outline" {
     background-color: var(--button-fill-background-color);
     font-weight: bold;
   }
@@ -33,7 +33,7 @@
     @include buttonStyles(var(--default), $variant, $type);
   }
 
-  @if $variant == 'fill' {
+  @if $variant == "fill" {
     &:hover:not(#{$disabledSelector}),
     &:focus:not(#{$disabledSelector}),
     &:active:not(#{$disabledSelector}) {
@@ -44,7 +44,7 @@
       background-color: var(--disabled);
       border-color: var(--disabled);
     }
-  } @else if $variant == 'outline' {
+  } @else if $variant == "outline" {
     &:hover:not(#{$disabledSelector}),
     &:focus:not(#{$disabledSelector}) {
       color: var(--button-outline-hover-text-color);
@@ -57,13 +57,13 @@
   }
 }
 
-@mixin buttonStyles($color, $variant: 'text', $type: 'default') {
-  @if $variant == 'text' {
+@mixin buttonStyles($color, $variant: "text", $type: "default") {
+  @if $variant == "text" {
     color: $color;
-  } @else if $variant == 'fill' {
+  } @else if $variant == "fill" {
     border-color: $color;
     background-color: $color;
-  } @else if $variant == 'outline' {
+  } @else if $variant == "outline" {
     border-color: $color;
     color: $color;
   }
@@ -72,39 +72,39 @@
 
   &:hover:not(.disabled),
   &:focus:not(.disabled) {
-    @if $variant == 'text' {
+    @if $variant == "text" {
       border-color: $color;
-    } @else if $variant == 'fill' {
+    } @else if $variant == "fill" {
       color: $color;
-    } @else if $variant == 'outline' {
+    } @else if $variant == "outline" {
       background-color: $color;
     }
   }
 
-  @if $variant == 'text' or $variant == 'fill' {
+  @if $variant == "text" or $variant == "fill" {
     &:active:not(.disabled) {
-      @if $variant == 'text' {
+      @if $variant == "text" {
         background-color: transparent;
         position: relative;
         color: $color;
         border-color: var(--button-fill-background-color);
-      } @else if $variant == 'fill' {
+      } @else if $variant == "fill" {
         position: relative;
         color: $color;
       }
 
       &:after {
-        content: '';
+        content: "";
         position: absolute;
-        @if $variant == 'fill' {
+        @if $variant == "fill" {
           top: calc(-1 * var(--button-border-width));
         } @else {
           top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
         }
-        @if $type == 'default' or $type == 'link' {
+        @if $type == "default" or $type == "link" {
           left: 0;
           width: 100%;
-        } @else if $type == 'icon' {
+        } @else if $type == "icon" {
           left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
           width: calc(100% + var(--button-border-width));
         }
@@ -117,8 +117,8 @@
   }
 }
 
-@mixin buttonBase($type: 'default') {
-  $disabledSelector: if($type == 'link', '.disabled', ':disabled');
+@mixin buttonBase($type: "default") {
+  $disabledSelector: if($type == "link", ".disabled", ":disabled");
 
   border-width: var(--button-border-width);
   border-style: var(--button-border-style);
@@ -137,6 +137,55 @@
   &#{$disabledSelector} {
     color: var(--greyed-out);
     cursor: not-allowed;
+  }
+}
+
+@mixin outline {
+  .outline {
+    pointer-events: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    inset: 0;
+    border-color: var(--input-border-color);
+    border-style: var(--input-border-style);
+    border-width: var(--input-border-width);
+    border-radius: var(--input-border-radius);
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+@mixin outlineStates {
+  &:hover .outline {
+    border-color: var(--default);
+  }
+
+  .outline.disabled {
+    border-color: #fff;
+  }
+
+  .outline.error {
+    border-color: var(--error);
+  }
+
+  .outline.focus {
+    border-width: var(--input-border-width-focus);
+  }
+
+  .outline.focus:not(.error) {
+    border-color: var(--color-primary);
+  }
+}
+
+@mixin browserOutlineDisabled {
+  &:focus:not(:disabled) {
+    outline: none;
+  }
+}
+
+@mixin inputLabelPrimaryColorOnFocus($labelSelector) {
+  #{$labelSelector}.focus {
+    color: var(--color-primary);
   }
 }
 
@@ -160,7 +209,7 @@
       rgba(#fff, 0)
     );
     animation: shimmer 2s infinite;
-    content: '';
+    content: "";
   }
 
   @keyframes shimmer {

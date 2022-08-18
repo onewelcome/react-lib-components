@@ -1,4 +1,4 @@
-import * as H from 'history';
+import * as H from "history";
 
 export interface LinkProps<S = H.LocationState>
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {

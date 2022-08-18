@@ -1,4 +1,4 @@
-import classes from './Select.module.scss';
+import classes from "./Select.module.scss";
 
 import React, {
   ComponentPropsWithRef,
@@ -7,18 +7,18 @@ import React, {
   ReactElement,
   useEffect,
   useRef,
-  useState,
-} from 'react';
-import { Input, Props as InputProps } from '../Input/Input';
-import { Icon, Icons } from '../../Icon/Icon';
-import { FormElement } from '../form.interfaces';
-import { useBodyClick } from '../../hooks/useBodyClick';
-import readyclasses from '../../readyclasses.module.scss';
-import { filterProps } from '../../util/helper';
+  useState
+} from "react";
+import { Input, Props as InputProps } from "../Input/Input";
+import { Icon, Icons } from "../../Icon/Icon";
+import { FormElement } from "../form.interfaces";
+import { useBodyClick } from "../../hooks/useBodyClick";
+import readyclasses from "../../readyclasses.module.scss";
+import { filterProps } from "../../util/helper";
 
 type PartialInputProps = Partial<InputProps>;
 
-export interface Props extends ComponentPropsWithRef<'select'>, FormElement {
+export interface Props extends ComponentPropsWithRef<"select">, FormElement {
   children: ReactElement[];
   name?: string;
   labeledBy?: string;
@@ -26,7 +26,7 @@ export interface Props extends ComponentPropsWithRef<'select'>, FormElement {
   placeholder?: string;
   searchPlaceholder?: string;
   searchInputProps?: PartialInputProps;
-  selectButtonProps?: ComponentPropsWithRef<'button'>;
+  selectButtonProps?: ComponentPropsWithRef<"button">;
   className?: string;
   value: string;
   clearLabel?: string;
@@ -35,8 +35,8 @@ export interface Props extends ComponentPropsWithRef<'select'>, FormElement {
 }
 
 type Position = {
-  top: 0 | 'initial';
-  bottom: 0 | 'initial';
+  top: 0 | "initial";
+  bottom: 0 | "initial";
 };
 
 /** Amount of items to be rendered before a search input is rendered */
@@ -51,13 +51,13 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
       labeledBy,
       placeholder,
       describedBy,
-      searchPlaceholder = 'Search item',
+      searchPlaceholder = "Search item",
       searchInputProps,
       selectButtonProps,
       className,
       error = false,
       value,
-      clearLabel = 'Clear selection',
+      clearLabel = "Clear selection",
       onChange,
       onClear,
       ...rest
@@ -66,10 +66,10 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
   ) => {
     const [expanded, setExpanded] = useState(false);
     const [opacity, setOpacity] = useState(0); // We set opacity because other wise if we calculate the max height you see the list full height for a split second and then it shortens.
-    const [filter, setFilter] = useState('');
-    const [display, setDisplay] = useState('');
+    const [filter, setFilter] = useState("");
+    const [display, setDisplay] = useState("");
     const [listPosition, setListPosition] = useState<Partial<Position>>({});
-    const [optionsListMaxHeight, setOptionsListMaxHeight] = useState('none');
+    const [optionsListMaxHeight, setOptionsListMaxHeight] = useState("none");
     const containerReference = useRef<HTMLDivElement>(null);
     const optionListReference = useRef<HTMLDivElement>(null);
     const [isSearching, setIsSearching] = useState(false);
@@ -85,21 +85,21 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
     const onArrowNavigation = (event: React.KeyboardEvent) => {
       const codesToPreventDefault = [
-        'ArrowDown',
-        'ArrowUp',
-        'ArrowLeft',
-        'ArrowRight',
-        'Space',
-        'Escape',
-        'End',
-        'Home',
+        "ArrowDown",
+        "ArrowUp",
+        "ArrowLeft",
+        "ArrowRight",
+        "Space",
+        "Escape",
+        "End",
+        "Home"
       ];
 
-      const codesToPreventDefaultWhenSearching = ['ArrowDown', 'ArrowUp', 'Enter', 'Escape'];
+      const codesToPreventDefaultWhenSearching = ["ArrowDown", "ArrowUp", "Enter", "Escape"];
 
       /** If the select is expanded, we also want to control the Tab key */
       if (expanded) {
-        codesToPreventDefault.push('Tab');
+        codesToPreventDefault.push("Tab");
       }
 
       /** We will handle the way certain key strokes affect the Select, unless we're searching */
@@ -113,39 +113,39 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
       if (isSearching) {
         switch (event.code) {
-          case 'ArrowDown':
-          case 'Enter':
+          case "ArrowDown":
+          case "Enter":
             setIsSearching(false);
             setFocusedSelectItem(0);
             return;
-          case 'ArrowUp':
+          case "ArrowUp":
             setIsSearching(false);
             setFocusedSelectItem(childrenCount - 1);
             return;
-          case 'Escape':
-          case 'Tab':
+          case "Escape":
+          case "Tab":
             setIsSearching(false);
             setExpanded(false);
             containerReference.current &&
-              containerReference.current.querySelector('button')!.focus();
+              containerReference.current.querySelector("button")!.focus();
         }
       } else {
         switch (event.code) {
-          case 'ArrowDown':
+          case "ArrowDown":
             if (!expanded) {
               setExpanded(true);
               return;
             }
-            setFocusedSelectItem((prevState) => {
+            setFocusedSelectItem(prevState => {
               return prevState + 1 > childrenCount - 1 ? 0 : prevState + 1;
             });
             return;
-          case 'ArrowUp':
-            setFocusedSelectItem((prevState) => {
+          case "ArrowUp":
+            setFocusedSelectItem(prevState => {
               return prevState - 1 < 0 ? childrenCount - 1 : prevState - 1;
             });
             return;
-          case 'Space':
+          case "Space":
             if (!expanded) {
               setExpanded(true);
               return;
@@ -154,9 +154,9 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             setShouldClick(true);
             setExpanded(false);
             containerReference.current &&
-              containerReference.current.querySelector('button')!.focus();
+              containerReference.current.querySelector("button")!.focus();
             return;
-          case 'Tab':
+          case "Tab":
             if (childrenCount >= renderSearchCondition && expanded) {
               setIsSearching(true);
               searchInputRef.current && searchInputRef.current.focus();
@@ -165,17 +165,17 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             setExpanded(false);
 
             return;
-          case 'Escape':
+          case "Escape":
             if (expanded) {
               setExpanded(false);
               containerReference.current &&
-                containerReference.current.querySelector('button')!.focus();
+                containerReference.current.querySelector("button")!.focus();
             }
             return;
-          case 'End':
+          case "End":
             setFocusedSelectItem(childrenCount - 1);
             return;
-          case 'Home':
+          case "Home":
             setFocusedSelectItem(0);
             return;
         }
@@ -183,7 +183,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     };
 
     const syncDisplayValue = (val: string) => {
-      React.Children.forEach(children, (child) => {
+      React.Children.forEach(children, child => {
         if (child.props.value === val) {
           setDisplay(child.props.children);
         }
@@ -204,11 +204,11 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         window.innerHeight - containerReference.current.getBoundingClientRect().top;
 
       // Set position as if there's more space on the bottom
-      let position: Position = { top: 0, bottom: 'initial' };
+      let position: Position = { top: 0, bottom: "initial" };
 
       // Set the position of the select
       if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
-        position = { top: 'initial', bottom: 0 };
+        position = { top: "initial", bottom: 0 };
       }
 
       setListPosition(position);
@@ -220,10 +220,10 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     const calculateOptionListMaxHeight = (position: Position) => {
       // Calculate max height if there's more space below the select
       const listHeight = optionListReference.current!.getBoundingClientRect().height;
-      const transformOrigin = position.top !== 'initial' ? 'top' : 'bottom';
+      const transformOrigin = position.top !== "initial" ? "top" : "bottom";
 
       const availableSpace =
-        transformOrigin === 'top'
+        transformOrigin === "top"
           ? window.innerHeight -
             containerReference.current!.getBoundingClientRect()[transformOrigin] -
             16
@@ -235,19 +235,19 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         return;
       }
 
-      setOptionsListMaxHeight('none');
+      setOptionsListMaxHeight("none");
       setOpacity(100);
     };
 
     const onOptionChangeHandler = (optionRef: React.RefObject<HTMLLIElement>) => {
       if (nativeSelect.current && optionRef.current) {
-        nativeSelect.current.value = optionRef.current.getAttribute('data-value')!;
-        nativeSelect.current.dispatchEvent(new Event('change', { bubbles: true }));
+        nativeSelect.current.value = optionRef.current.getAttribute("data-value")!;
+        nativeSelect.current.dispatchEvent(new Event("change", { bubbles: true }));
       }
 
       setExpanded(false);
 
-      containerReference.current && containerReference.current.querySelector('button')!.focus();
+      containerReference.current && containerReference.current.querySelector("button")!.focus();
     };
 
     /**
@@ -255,9 +255,9 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
      * The `children` prop can be either a single object (1 child) or an array of multiple children.
      */
     const renderOptions = () => {
-      if (isSearching || filter !== '') {
+      if (isSearching || filter !== "") {
         const filteredChildren = React.Children.toArray(children).filter(
-          (child) =>
+          child =>
             (child as ReactElement).props.children.toLowerCase().match(filter.toLowerCase()) !==
             null
         );
@@ -280,7 +280,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             selectOpened: expanded,
             childIndex: index,
             hasFocus: focusedSelectItem === index,
-            shouldClick: shouldClick,
+            shouldClick: shouldClick
           });
         });
       }
@@ -294,9 +294,9 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         onFocus={() => setIsSearching(true)}
         onBlur={() => setIsSearching(false)}
         onChange={filterResults}
-        className={classes['select-search']}
+        className={classes["select-search"]}
         wrapperProps={{
-          className: `${classes['select-search-wrapper']} ${searchInputProps?.wrapperProps?.className}`,
+          className: `${classes["select-search-wrapper"]} ${searchInputProps?.wrapperProps?.className}`
         }}
         type="text"
         name="search-option"
@@ -310,7 +310,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
     const statusIcon = () => {
       if (error) {
-        return <Icon className={classes['warning']} icon={Icons.Warning} />;
+        return <Icon className={classes["warning"]} icon={Icons.Warning} />;
       }
 
       if (value?.length !== 0 && onClear) {
@@ -326,16 +326,16 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
               onClear(e);
             }}
             onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-              if (e.code === 'Enter' || e.code === 'Space') {
+              if (e.code === "Enter" || e.code === "Space") {
                 e.preventDefault();
                 e.stopPropagation();
                 onClear(e);
                 containerReference.current &&
-                  containerReference.current.querySelector('button')!.focus();
+                  containerReference.current.querySelector("button")!.focus();
               }
             }}
           >
-            <span className={readyclasses['sr-only']}>{clearLabel}</span>
+            <span className={readyclasses["sr-only"]}>{clearLabel}</span>
             <Icon tag="span" icon={Icons.TimesThin} />
           </div>
         );
@@ -356,10 +356,10 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     }, [expanded]);
 
     useBodyClick(
-      (event: MouseEvent) => !(event.target as Element).closest('.custom-select') && expanded,
+      (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
       () => {
         setExpanded(!expanded);
-        setListPosition({ top: 0, bottom: 'initial' });
+        setListPosition({ top: 0, bottom: "initial" });
         setOpacity(0);
       },
       expanded
@@ -381,10 +381,10 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
           ref={nativeSelect}
           name={name}
           onChange={nativeOnChangeHandler}
-          className={readyclasses['sr-only']}
+          className={readyclasses["sr-only"]}
         >
           <option value=""></option>
-          {React.Children.map(children, (child) => (
+          {React.Children.map(children, child => (
             <option value={child.props.value}></option>
           ))}
         </select>
@@ -392,8 +392,8 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
           {...filterProps(rest, /^data-/)}
           ref={containerReference}
           onKeyDown={onArrowNavigation}
-          className={`custom-select ${classes.select} ${additionalClasses.join(' ')} ${
-            className ?? ''
+          className={`custom-select ${classes.select} ${additionalClasses.join(" ")} ${
+            className ?? ""
           }`}
         >
           <button
@@ -403,7 +403,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             }}
             type="button"
             name={name}
-            className={`${classes['custom-select']} ${additionalClasses.join(' ')} `}
+            className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
             disabled={disabled}
             aria-disabled={disabled}
             aria-invalid={error}
@@ -412,25 +412,25 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             aria-labelledby={labeledBy}
             aria-describedby={describedBy}
           >
-            <div data-display className={classes['selected']}>
+            <div data-display className={classes["selected"]}>
               {!value && placeholder && (
-                <span className={classes['placeholder']}>{placeholder}</span>
+                <span className={classes["placeholder"]}>{placeholder}</span>
               )}
               {value?.length > 0 && <span data-display-inner>{display}</span>}
             </div>
-            <div className={classes['status']}>
+            <div className={classes["status"]}>
               {statusIcon()}
-              <Icon className={classes['triangle-down']} icon={Icons.TriangleDown} />
+              <Icon className={classes["triangle-down"]} icon={Icons.TriangleDown} />
             </div>
           </button>
           <div
             ref={optionListReference}
-            className={`list-wrapper ${classes['list-wrapper']}`}
+            className={`list-wrapper ${classes["list-wrapper"]}`}
             style={{
-              display: expanded ? 'block' : 'none',
+              display: expanded ? "block" : "none",
               opacity: opacity,
               maxHeight: optionsListMaxHeight,
-              ...listPosition,
+              ...listPosition
             }}
           >
             {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()}

@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -42,14 +42,14 @@ const ExampleComponent = () => {
     option2: false,
     option3: false,
     option4: false,
-    option5: false,
+    option5: false
   });
   const [hasError, setHasError] = useState(false);
 
-  const onChangeHandler = (event) => {
-    setCheckboxStates((prevState) => ({
+  const onChangeHandler = event => {
+    setCheckboxStates(prevState => ({
       ...prevState,
-      [event.target.value]: !checkboxStates[event.target.value],
+      [event.target.value]: !checkboxStates[event.target.value]
     }));
   };
 
@@ -57,12 +57,12 @@ const ExampleComponent = () => {
     <CheckboxWrapper
       name="Example checkboxes"
       fieldsetProps={{
-        legend: 'Example fieldset legend',
-        legendVariant: 'h1',
+        legend: "Example fieldset legend",
+        legendVariant: "h1",
         hideLegend: false,
-        background: '#FFF',
+        background: "#FFF",
         noPadding: false,
-        noBackground: false,
+        noBackground: false
       }}
       error={hasError}
       errorMessage="Please check all the boxes"

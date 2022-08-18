@@ -1,56 +1,56 @@
-import React, { Fragment, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import React, { Fragment, useState } from "react";
+import { Meta, Story } from "@storybook/react";
 import {
   DiscardChangesModal as DiscardChangesModalComponent,
-  Props,
-} from '../../../src/Notifications/DiscardChangesModal/DiscardChangesModal';
-import { ModalActions } from '../../../src/Notifications/Modal/ModalActions/ModalActions';
-import { ModalContent } from '../../../src/Notifications/Modal/ModalContent/ModalContent';
-import { Button } from '../../../src/Button/Button';
-import { Typography } from '../../../src/Typography/Typography';
-import { InputWrapper } from '../../../src/Form/Wrapper/InputWrapper/InputWrapper';
-import { FormControl } from '../../../src/Form/FormControl/FormControl';
-import { Form } from '../../../src/Form/Form';
-import DiscardChangesModalDocumentation from './DiscardChangesModal.mdx';
+  Props
+} from "../../../src/Notifications/DiscardChangesModal/DiscardChangesModal";
+import { ModalActions } from "../../../src/Notifications/Modal/ModalActions/ModalActions";
+import { ModalContent } from "../../../src/Notifications/Modal/ModalContent/ModalContent";
+import { Button } from "../../../src/Button/Button";
+import { Typography } from "../../../src/Typography/Typography";
+import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
+import { FormControl } from "../../../src/Form/FormControl/FormControl";
+import { Form } from "../../../src/Form/Form";
+import DiscardChangesModalDocumentation from "./DiscardChangesModal.mdx";
 
 const meta: Meta = {
-  title: 'Stories/Notifications/Discard Changes Modal',
+  title: "Stories/Notifications/Discard Changes Modal",
   component: DiscardChangesModalComponent,
   subcomponents: {
-    ModalContent,
+    ModalContent
   },
   parameters: {
     docs: {
-      page: DiscardChangesModalDocumentation,
-    },
+      page: DiscardChangesModalDocumentation
+    }
   },
   args: {
-    id: 'modal',
+    id: "modal",
     headerProps: {
-      title: 'Modal title',
+      title: "Modal title"
     },
     discardChangedDialogProps: {
-      discardChangesButtonLabel: 'Discard',
-      keepEditingButtonLabel: 'Keep editing',
-      contentLabel: 'You have unsaved changes that will be lost. Do you want to discard them?',
-      titleLabel: 'Unsaved changes',
-    },
+      discardChangesButtonLabel: "Discard",
+      keepEditingButtonLabel: "Keep editing",
+      contentLabel: "You have unsaved changes that will be lost. Do you want to discard them?",
+      titleLabel: "Unsaved changes"
+    }
   },
   argTypes: {
     open: {
-      control: false,
+      control: false
     },
     hasUnsavedChanges: {
-      control: false,
-    },
-  },
+      control: false
+    }
+  }
 };
 
 export default meta;
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props> = args => {
   const [open, setOpen] = useState(false);
-  const initialFormState = { name: 'Name' };
+  const initialFormState = { name: "Name" };
   const [formState, setFormState] = useState(initialFormState);
   const id = args.id;
 
@@ -94,10 +94,10 @@ const Template: Story<Props> = (args) => {
                 value={formState.name}
                 error={false}
                 label="Name"
-                onChange={(event) =>
-                  setFormState((prevState) => ({
+                onChange={event =>
+                  setFormState(prevState => ({
                     ...prevState,
-                    name: event.target.value,
+                    name: event.target.value
                   }))
                 }
               />
