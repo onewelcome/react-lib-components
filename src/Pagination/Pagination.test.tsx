@@ -68,7 +68,7 @@ describe("Pagination events", () => {
     userEvent.click(last);
     await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(50));
 
-    userEvent.click(pageSizeSelect);
+    userEvent.click(pageSizeSelect.querySelector("button")!);
 
     const option25 = pageSizeSelect.querySelector('[data-value="25"]')!;
 
