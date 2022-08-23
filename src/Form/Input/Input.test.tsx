@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, Fragment } from "react";
-import { Input, Props } from "./Input";
+import { Input, Props, Type } from "./Input";
 import { fireEvent, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Label } from "../Label/Label";
@@ -21,6 +21,35 @@ const createInput = (params?: (defaultParams: Props) => Props) => {
     ...queries,
     input
   };
+};
+
+const CreateInputComponent = ({
+  onValueChange,
+  type
+}: {
+  onValueChange: (value: string) => void;
+  type: Type;
+}) => {
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    if (inputValue !== "") {
+      onValueChange(inputValue);
+    }
+  }, [inputValue]);
+
+  return (
+    <Fragment>
+      <Label htmlFor="sample-input">Test</Label>
+      <Input
+        name="sample_input"
+        type={type}
+        id="sample-input"
+        value={inputValue}
+        onChange={e => setInputValue(e.target.value)}
+      />
+    </Fragment>
+  );
 };
 
 describe("Input should render", () => {
@@ -71,33 +100,10 @@ describe("Should have the appropriate attributes", () => {
 
 describe("Should render all different types of inputs", () => {
   it("should render a text input and can bind values", async () => {
-    const TextInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
-      const [inputValue, setInputValue] = useState("");
-
-      useEffect(() => {
-        if (inputValue !== "") {
-          onValueChange(inputValue);
-        }
-      }, [inputValue]);
-
-      return (
-        <Fragment>
-          <Label htmlFor="sample-input">Test</Label>
-          <Input
-            name="sample_input"
-            type="text"
-            id="sample-input"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-        </Fragment>
-      );
-    };
-
     let changedValue = "";
 
     const { findByLabelText } = render(
-      <TextInput onValueChange={value => (changedValue = value)} />
+      <CreateInputComponent type="text" onValueChange={value => (changedValue = value)} />
     );
 
     const input = await findByLabelText(/Test/);
@@ -110,33 +116,10 @@ describe("Should render all different types of inputs", () => {
   });
 
   it("should render a email input", async () => {
-    const EmailInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
-      const [inputValue, setInputValue] = useState("");
-
-      useEffect(() => {
-        if (inputValue !== "") {
-          onValueChange(inputValue);
-        }
-      }, [inputValue]);
-
-      return (
-        <Fragment>
-          <Label htmlFor="sample-input">Test</Label>
-          <Input
-            name="sample_input"
-            type="email"
-            id="sample-input"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-        </Fragment>
-      );
-    };
-
     let changedValue = "";
 
     const { findByLabelText } = render(
-      <EmailInput onValueChange={value => (changedValue = value)} />
+      <CreateInputComponent type="email" onValueChange={value => (changedValue = value)} />
     );
 
     const input = await findByLabelText(/Test/);
@@ -149,33 +132,10 @@ describe("Should render all different types of inputs", () => {
   });
 
   it("should render a tel input", async () => {
-    const TelInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
-      const [inputValue, setInputValue] = useState("");
-
-      useEffect(() => {
-        if (inputValue !== "") {
-          onValueChange(inputValue);
-        }
-      }, [inputValue]);
-
-      return (
-        <Fragment>
-          <Label htmlFor="sample-input">Test</Label>
-          <Input
-            name="sample_input"
-            type="tel"
-            id="sample-input"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-        </Fragment>
-      );
-    };
-
     let changedValue = "";
 
     const { findByLabelText } = render(
-      <TelInput onValueChange={value => (changedValue = value)} />
+      <CreateInputComponent type="tel" onValueChange={value => (changedValue = value)} />
     );
 
     const input = await findByLabelText(/Test/);
@@ -188,33 +148,10 @@ describe("Should render all different types of inputs", () => {
   });
 
   it("should render a number input", async () => {
-    const NumberInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
-      const [inputValue, setInputValue] = useState("");
-
-      useEffect(() => {
-        if (inputValue !== "") {
-          onValueChange(inputValue);
-        }
-      }, [inputValue]);
-
-      return (
-        <Fragment>
-          <Label htmlFor="sample-input">Test</Label>
-          <Input
-            name="sample_input"
-            type="number"
-            id="sample-input"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-        </Fragment>
-      );
-    };
-
     let changedValue = "";
 
     const { findByLabelText } = render(
-      <NumberInput onValueChange={value => (changedValue = value)} />
+      <CreateInputComponent type="number" onValueChange={value => (changedValue = value)} />
     );
 
     const input = await findByLabelText(/Test/);
@@ -233,33 +170,10 @@ describe("Should render all different types of inputs", () => {
   });
 
   it("should render a search input", async () => {
-    const SearchInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
-      const [inputValue, setInputValue] = useState("");
-
-      useEffect(() => {
-        if (inputValue !== "") {
-          onValueChange(inputValue);
-        }
-      }, [inputValue]);
-
-      return (
-        <Fragment>
-          <Label htmlFor="sample-input">Test</Label>
-          <Input
-            name="sample_input"
-            type="search"
-            id="sample-input"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-        </Fragment>
-      );
-    };
-
     let changedValue = "";
 
     const { findByLabelText } = render(
-      <SearchInput onValueChange={value => (changedValue = value)} />
+      <CreateInputComponent type="search" onValueChange={value => (changedValue = value)} />
     );
 
     const input = await findByLabelText(/Test/);
@@ -272,33 +186,10 @@ describe("Should render all different types of inputs", () => {
   });
 
   it("should render a time input", async () => {
-    const TimeInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
-      const [inputValue, setInputValue] = useState("");
-
-      useEffect(() => {
-        if (inputValue !== "") {
-          onValueChange(inputValue);
-        }
-      }, [inputValue]);
-
-      return (
-        <Fragment>
-          <Label htmlFor="sample-input">Test</Label>
-          <Input
-            name="sample_input"
-            type="time"
-            id="sample-input"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-        </Fragment>
-      );
-    };
-
     let changedValue = "";
 
     const { findByLabelText } = render(
-      <TimeInput onValueChange={value => (changedValue = value)} />
+      <CreateInputComponent type="time" onValueChange={value => (changedValue = value)} />
     );
 
     const input = await findByLabelText(/Test/);
@@ -311,33 +202,10 @@ describe("Should render all different types of inputs", () => {
   });
 
   it("should render a url input", async () => {
-    const UrlInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
-      const [inputValue, setInputValue] = useState("");
-
-      useEffect(() => {
-        if (inputValue !== "") {
-          onValueChange(inputValue);
-        }
-      }, [inputValue]);
-
-      return (
-        <Fragment>
-          <Label htmlFor="sample-input">Test</Label>
-          <Input
-            name="sample_input"
-            type="url"
-            id="sample-input"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-        </Fragment>
-      );
-    };
-
     let changedValue = "";
 
     const { findByLabelText } = render(
-      <UrlInput onValueChange={value => (changedValue = value)} />
+      <CreateInputComponent type="url" onValueChange={value => (changedValue = value)} />
     );
 
     const input = await findByLabelText(/Test/);
@@ -350,33 +218,10 @@ describe("Should render all different types of inputs", () => {
   });
 
   it("should render a datetime input", async () => {
-    const DateTimeInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
-      const [inputValue, setInputValue] = useState("");
-
-      useEffect(() => {
-        if (inputValue !== "") {
-          onValueChange(inputValue);
-        }
-      }, [inputValue]);
-
-      return (
-        <Fragment>
-          <Label htmlFor="sample-input">Test</Label>
-          <Input
-            name="sample_input"
-            type="datetime-local"
-            id="sample-input"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-        </Fragment>
-      );
-    };
-
     let changedValue = "";
 
     const { findByLabelText } = render(
-      <DateTimeInput onValueChange={value => (changedValue = value)} />
+      <CreateInputComponent type="datetime-local" onValueChange={value => (changedValue = value)} />
     );
 
     const input = await findByLabelText(/Test/);
