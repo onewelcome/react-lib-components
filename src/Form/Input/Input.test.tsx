@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState, Fragment } from "react";
 import { Input, Props } from "./Input";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Label } from "../Label/Label";
 
 const defaultParams: Props = {
   name: "input",
@@ -69,28 +70,160 @@ describe("Should have the appropriate attributes", () => {
 });
 
 describe("Should render all different types of inputs", () => {
-  it("should render a text input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "text" }));
+  it("should render a text input and can bind values", async () => {
+    const TextInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
+      const [inputValue, setInputValue] = useState("");
 
-    expect(input).toHaveAttribute("type", "text");
+      useEffect(() => {
+        if (inputValue !== "") {
+          onValueChange(inputValue);
+        }
+      }, [inputValue]);
+
+      return (
+        <Fragment>
+          <Label htmlFor="sample-input">Test</Label>
+          <Input
+            name="sample_input"
+            type="text"
+            id="sample-input"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+          />
+        </Fragment>
+      );
+    };
+
+    let changedValue = "";
+
+    const { findByLabelText } = render(
+      <TextInput onValueChange={value => (changedValue = value)} />
+    );
+
+    const input = await findByLabelText(/Test/);
+
+    input.focus();
+
+    userEvent.keyboard("testing");
+
+    expect(changedValue).toBe("testing");
   });
 
-  it("should render a email input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "email" }));
+  it("should render a email input", async () => {
+    const EmailInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
+      const [inputValue, setInputValue] = useState("");
 
-    expect(input).toHaveAttribute("type", "email");
+      useEffect(() => {
+        if (inputValue !== "") {
+          onValueChange(inputValue);
+        }
+      }, [inputValue]);
+
+      return (
+        <Fragment>
+          <Label htmlFor="sample-input">Test</Label>
+          <Input
+            name="sample_input"
+            type="email"
+            id="sample-input"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+          />
+        </Fragment>
+      );
+    };
+
+    let changedValue = "";
+
+    const { findByLabelText } = render(
+      <EmailInput onValueChange={value => (changedValue = value)} />
+    );
+
+    const input = await findByLabelText(/Test/);
+
+    input.focus();
+
+    userEvent.keyboard("testing@testing.com");
+
+    expect(changedValue).toBe("testing@testing.com");
   });
 
-  it("should render a tel input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "tel" }));
+  it("should render a tel input", async () => {
+    const TelInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
+      const [inputValue, setInputValue] = useState("");
 
-    expect(input).toHaveAttribute("type", "tel");
+      useEffect(() => {
+        if (inputValue !== "") {
+          onValueChange(inputValue);
+        }
+      }, [inputValue]);
+
+      return (
+        <Fragment>
+          <Label htmlFor="sample-input">Test</Label>
+          <Input
+            name="sample_input"
+            type="tel"
+            id="sample-input"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+          />
+        </Fragment>
+      );
+    };
+
+    let changedValue = "";
+
+    const { findByLabelText } = render(
+      <TelInput onValueChange={value => (changedValue = value)} />
+    );
+
+    const input = await findByLabelText(/Test/);
+
+    input.focus();
+
+    userEvent.keyboard("06123456789");
+
+    expect(changedValue).toBe("06123456789");
   });
 
-  it("should render a number input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "number" }));
+  it("should render a number input", async () => {
+    const NumberInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
+      const [inputValue, setInputValue] = useState("");
 
-    expect(input).toHaveAttribute("type", "number");
+      useEffect(() => {
+        if (inputValue !== "") {
+          onValueChange(inputValue);
+        }
+      }, [inputValue]);
+
+      return (
+        <Fragment>
+          <Label htmlFor="sample-input">Test</Label>
+          <Input
+            name="sample_input"
+            type="number"
+            id="sample-input"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+          />
+        </Fragment>
+      );
+    };
+
+    let changedValue = "";
+
+    const { findByLabelText } = render(
+      <NumberInput onValueChange={value => (changedValue = value)} />
+    );
+
+    const input = await findByLabelText(/Test/);
+
+    input.focus();
+
+    userEvent.keyboard("1234567890");
+
+    expect(changedValue).toBe("1234567890");
   });
 
   it("should render a password input", () => {
@@ -99,31 +232,159 @@ describe("Should render all different types of inputs", () => {
     expect(input).toHaveAttribute("type", "password");
   });
 
-  it("should render a search input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "search" }));
+  it("should render a search input", async () => {
+    const SearchInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
+      const [inputValue, setInputValue] = useState("");
 
-    expect(input).toHaveAttribute("type", "search");
+      useEffect(() => {
+        if (inputValue !== "") {
+          onValueChange(inputValue);
+        }
+      }, [inputValue]);
+
+      return (
+        <Fragment>
+          <Label htmlFor="sample-input">Test</Label>
+          <Input
+            name="sample_input"
+            type="search"
+            id="sample-input"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+          />
+        </Fragment>
+      );
+    };
+
+    let changedValue = "";
+
+    const { findByLabelText } = render(
+      <SearchInput onValueChange={value => (changedValue = value)} />
+    );
+
+    const input = await findByLabelText(/Test/);
+
+    input.focus();
+
+    userEvent.keyboard("example");
+
+    expect(changedValue).toBe("example");
   });
 
-  it("should render a time input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "time" }));
+  it("should render a time input", async () => {
+    const TimeInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
+      const [inputValue, setInputValue] = useState("");
 
-    expect(input).toHaveAttribute("type", "time");
+      useEffect(() => {
+        if (inputValue !== "") {
+          onValueChange(inputValue);
+        }
+      }, [inputValue]);
+
+      return (
+        <Fragment>
+          <Label htmlFor="sample-input">Test</Label>
+          <Input
+            name="sample_input"
+            type="time"
+            id="sample-input"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+          />
+        </Fragment>
+      );
+    };
+
+    let changedValue = "";
+
+    const { findByLabelText } = render(
+      <TimeInput onValueChange={value => (changedValue = value)} />
+    );
+
+    const input = await findByLabelText(/Test/);
+
+    input.focus();
+
+    userEvent.keyboard("1234");
+
+    expect(changedValue).toBe("12:34");
   });
 
-  it("should render a url input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "url" }));
+  it("should render a url input", async () => {
+    const UrlInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
+      const [inputValue, setInputValue] = useState("");
 
-    expect(input).toHaveAttribute("type", "url");
+      useEffect(() => {
+        if (inputValue !== "") {
+          onValueChange(inputValue);
+        }
+      }, [inputValue]);
+
+      return (
+        <Fragment>
+          <Label htmlFor="sample-input">Test</Label>
+          <Input
+            name="sample_input"
+            type="url"
+            id="sample-input"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+          />
+        </Fragment>
+      );
+    };
+
+    let changedValue = "";
+
+    const { findByLabelText } = render(
+      <UrlInput onValueChange={value => (changedValue = value)} />
+    );
+
+    const input = await findByLabelText(/Test/);
+
+    input.focus();
+
+    userEvent.keyboard("https://www.onewelcome.com");
+
+    expect(changedValue).toBe("https://www.onewelcome.com");
   });
 
-  it("should render a datetime input", () => {
-    const { input } = createInput(defaultParams => ({
-      ...defaultParams,
-      type: "datetime-local"
-    }));
+  it("should render a datetime input", async () => {
+    const DateTimeInput = ({ onValueChange }: { onValueChange: (value: string) => void }) => {
+      const [inputValue, setInputValue] = useState("");
 
-    expect(input).toHaveAttribute("type", "datetime-local");
+      useEffect(() => {
+        if (inputValue !== "") {
+          onValueChange(inputValue);
+        }
+      }, [inputValue]);
+
+      return (
+        <Fragment>
+          <Label htmlFor="sample-input">Test</Label>
+          <Input
+            name="sample_input"
+            type="datetime-local"
+            id="sample-input"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+          />
+        </Fragment>
+      );
+    };
+
+    let changedValue = "";
+
+    const { findByLabelText } = render(
+      <DateTimeInput onValueChange={value => (changedValue = value)} />
+    );
+
+    const input = await findByLabelText(/Test/);
+
+    const testValue = "2019-03-29T12:34";
+    fireEvent.change(input, { target: { value: testValue } });
+
+    expect(changedValue).toBe(testValue);
   });
 
   it("should be hidden", () => {

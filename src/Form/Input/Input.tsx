@@ -4,19 +4,26 @@ import readyclasses from "../../readyclasses.module.scss";
 import { Icon, Icons } from "../../Icon/Icon";
 import { FormElement } from "../form.interfaces";
 
-const dateTypes = ["date", "time", "datetime-local"] as const;
+export const inputTypes = [
+  "text",
+  "email",
+  "file",
+  "number",
+  "password",
+  "search",
+  "tel",
+  "url",
+  "hidden",
+  "date",
+  "time",
+  "datetime-local"
+] as const;
 
-export type Type =
-  | "text"
-  | "email"
-  | "file"
-  | "number"
-  | "password"
-  | "search"
-  | "tel"
-  | "url"
-  | "hidden"
-  | typeof dateTypes[number];
+type ElementType<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<infer ElementType>
+  ? ElementType
+  : never;
+
+export type Type = ElementType<typeof inputTypes>;
 
 export interface Props extends ComponentPropsWithRef<"input">, FormElement {
   wrapperProps?: ComponentPropsWithRef<"div">;
@@ -39,9 +46,7 @@ const useErrorOffset = (
 
   const getErrorIconOffset = () => parseFloat(getComputedStyle(errorIcon.current!).right);
   const getInputPaddingRight = (input: HTMLDivElement) =>
-    (dateTypes as ReadonlyArray<string>).includes(type)
-      ? 0
-      : parseFloat(getComputedStyle(input).paddingRight);
+    inputTypes.includes(type) ? 0 : parseFloat(getComputedStyle(input).paddingRight);
 
   useEffect(() => {
     if (errorIcon.current && inputWrapper.current) {
@@ -104,13 +109,11 @@ export const Input = React.forwardRef(
 
     const inputClassNames = [classes["input"]];
 
-    (dateTypes as ReadonlyArray<string>).includes(type) &&
-      inputClassNames.push(classes["remove-extra-indent"]);
+    inputTypes.includes(type) && inputClassNames.push(classes["remove-extra-indent"]);
     className && inputClassNames.push(className);
 
     const iconClassNames = [classes["warning"]];
-    (dateTypes as ReadonlyArray<string>).includes(type) &&
-      iconClassNames.push(classes["extra-indent"]);
+    inputTypes.includes(type) && iconClassNames.push(classes["extra-indent"]);
 
     const wrapperClasses = [classes["input-wrapper"]];
     const outlineClasses = [classes["outline"]];
