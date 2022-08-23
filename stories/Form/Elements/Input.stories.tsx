@@ -40,7 +40,7 @@ export default meta;
 const Template: Story<Props> = args => {
   return (
     <Form onSubmit={() => {}}>
-      <InputComponent onChange={event => console.log(event)} id="input-component" {...args} />
+      <InputComponent id="input-component" {...args} />
     </Form>
   );
 };

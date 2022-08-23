@@ -4,6 +4,8 @@ import readyclasses from "../../readyclasses.module.scss";
 import { Icon, Icons } from "../../Icon/Icon";
 import { FormElement } from "../form.interfaces";
 
+const dateTypes = ["datetime-local", "date", "time"];
+
 export const inputTypes = [
   "text",
   "email",
@@ -46,7 +48,7 @@ const useErrorOffset = (
 
   const getErrorIconOffset = () => parseFloat(getComputedStyle(errorIcon.current!).right);
   const getInputPaddingRight = (input: HTMLDivElement) =>
-    inputTypes.includes(type) ? 0 : parseFloat(getComputedStyle(input).paddingRight);
+    dateTypes.includes(type) ? 0 : parseFloat(getComputedStyle(input).paddingRight);
 
   useEffect(() => {
     if (errorIcon.current && inputWrapper.current) {
