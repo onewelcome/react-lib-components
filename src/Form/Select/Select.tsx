@@ -358,7 +358,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     useBodyClick(
       (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
       () => {
-        setExpanded(!expanded);
+        setExpanded(false);
         setListPosition({ top: 0, bottom: "initial" });
         setOpacity(0);
       },
@@ -430,6 +430,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
               display: expanded ? "block" : "none",
               opacity: opacity,
               maxHeight: optionsListMaxHeight,
+              pointerEvents: expanded ? "auto" : "none",
               ...listPosition
             }}
           >

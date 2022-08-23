@@ -20,8 +20,6 @@ $listItemHeight: 2.125rem;
 
     .list-wrapper {
       background: #fff;
-      opacity: 1;
-      pointer-events: auto;
     }
   }
 
@@ -79,8 +77,6 @@ $listItemHeight: 2.125rem;
     top: 0;
     left: 0;
     width: 100%;
-    opacity: 0;
-    pointer-events: none;
     overflow: auto;
   }
 
