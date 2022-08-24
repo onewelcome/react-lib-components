@@ -72,6 +72,22 @@ describe("ContextMenu should render", () => {
     expect(onClick).toHaveBeenCalled();
   });
 
+  it("passes custom class to ContextMenuItem", () => {
+    const { getByRole } = createContextMenu(defaultParams => ({
+      ...defaultParams,
+      show: true,
+      children: [
+        <ContextMenuItem data-testid="contextmenuitem" key="1" className="custom">
+          Item 1
+        </ContextMenuItem>
+      ]
+    }));
+
+    const child = getByRole("menuitem");
+
+    expect(child).toHaveClass("custom");
+  });
+
   it("should throw an error", () => {
     // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
     const err = console.error;
