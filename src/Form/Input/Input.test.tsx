@@ -99,122 +99,37 @@ describe("Should have the appropriate attributes", () => {
 });
 
 describe("Should render all different types of inputs", () => {
-  it("should render a text input and can bind values", async () => {
-    let changedValue = "";
+  it.each([
+    ["text", "testing", "testing"],
+    ["email", "testing@testing.com", "testing@testing.com"],
+    ["tel", "06123456789", "06123456789"],
+    ["number", "1234567890", "1234567890"],
+    ["search", "example", "example"],
+    ["time", "1234", "12:34"],
+    ["url", "https://www.onewelcome.com", "https://www.onewelcome.com"]
+  ])(
+    "renders a %p input with %p as a value",
+    async (type: string, value: string, result: string) => {
+      let changedValue = "";
 
-    const { findByLabelText } = render(
-      <CreateInputComponent type="text" onValueChange={value => (changedValue = value)} />
-    );
+      const { findByLabelText } = render(
+        <CreateInputComponent type={type as Type} onValueChange={value => (changedValue = value)} />
+      );
 
-    const input = await findByLabelText(/Test/);
+      const input = await findByLabelText(/Test/);
 
-    input.focus();
+      input.focus();
 
-    userEvent.keyboard("testing");
+      userEvent.keyboard(value);
 
-    expect(changedValue).toBe("testing");
-  });
-
-  it("should render a email input", async () => {
-    let changedValue = "";
-
-    const { findByLabelText } = render(
-      <CreateInputComponent type="email" onValueChange={value => (changedValue = value)} />
-    );
-
-    const input = await findByLabelText(/Test/);
-
-    input.focus();
-
-    userEvent.keyboard("testing@testing.com");
-
-    expect(changedValue).toBe("testing@testing.com");
-  });
-
-  it("should render a tel input", async () => {
-    let changedValue = "";
-
-    const { findByLabelText } = render(
-      <CreateInputComponent type="tel" onValueChange={value => (changedValue = value)} />
-    );
-
-    const input = await findByLabelText(/Test/);
-
-    input.focus();
-
-    userEvent.keyboard("06123456789");
-
-    expect(changedValue).toBe("06123456789");
-  });
-
-  it("should render a number input", async () => {
-    let changedValue = "";
-
-    const { findByLabelText } = render(
-      <CreateInputComponent type="number" onValueChange={value => (changedValue = value)} />
-    );
-
-    const input = await findByLabelText(/Test/);
-
-    input.focus();
-
-    userEvent.keyboard("1234567890");
-
-    expect(changedValue).toBe("1234567890");
-  });
+      expect(changedValue).toBe(result);
+    }
+  );
 
   it("should render a password input", () => {
     const { input } = createInput(defaultParams => ({ ...defaultParams, type: "password" }));
 
     expect(input).toHaveAttribute("type", "password");
-  });
-
-  it("should render a search input", async () => {
-    let changedValue = "";
-
-    const { findByLabelText } = render(
-      <CreateInputComponent type="search" onValueChange={value => (changedValue = value)} />
-    );
-
-    const input = await findByLabelText(/Test/);
-
-    input.focus();
-
-    userEvent.keyboard("example");
-
-    expect(changedValue).toBe("example");
-  });
-
-  it("should render a time input", async () => {
-    let changedValue = "";
-
-    const { findByLabelText } = render(
-      <CreateInputComponent type="time" onValueChange={value => (changedValue = value)} />
-    );
-
-    const input = await findByLabelText(/Test/);
-
-    input.focus();
-
-    userEvent.keyboard("1234");
-
-    expect(changedValue).toBe("12:34");
-  });
-
-  it("should render a url input", async () => {
-    let changedValue = "";
-
-    const { findByLabelText } = render(
-      <CreateInputComponent type="url" onValueChange={value => (changedValue = value)} />
-    );
-
-    const input = await findByLabelText(/Test/);
-
-    input.focus();
-
-    userEvent.keyboard("https://www.onewelcome.com");
-
-    expect(changedValue).toBe("https://www.onewelcome.com");
   });
 
   it("should render a datetime input", async () => {
