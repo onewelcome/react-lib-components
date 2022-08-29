@@ -121,7 +121,11 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
 
     useBodyClick(
       event => {
-        return showContextMenu && anchorEl.current !== event.target;
+        return (
+          showContextMenu &&
+          anchorEl.current !== event.target &&
+          anchorEl.current !== (event.target as HTMLElement).parentElement
+        );
       },
       () => {
         setShowContextMenu(false);
