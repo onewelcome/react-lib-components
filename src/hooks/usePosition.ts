@@ -8,7 +8,7 @@ export interface ConfigObject {
   offset?: Offset;
 }
 
-export type HorizontalPlacment = "left" | "center" | "centerh" | "right";
+export type HorizontalPlacement = "left" | "center" | "centerh" | "right";
 export type VerticalPlacement = "top" | "center" | "centerv" | "bottom";
 
 type Axis = "vertical" | "horizontal";
@@ -29,7 +29,7 @@ interface DomRectObject {
 }
 
 export interface Placement {
-  horizontal: HorizontalPlacment;
+  horizontal: HorizontalPlacement;
   vertical: VerticalPlacement;
 }
 
@@ -199,7 +199,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     transformOrigin: Placement,
     requestedReturnValue: Axis,
     relEl: DomRectObject,
-    placementOriginDefinition: HorizontalPlacment | VerticalPlacement,
+    placementOriginDefinition: HorizontalPlacement | VerticalPlacement,
     elDimensions: Dimensions
   ) => {
     let value = 0;
@@ -243,7 +243,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
   const _calculatePlacementValue = (
     transformOrigin: Placement,
-    placement: HorizontalPlacment | VerticalPlacement,
+    placement: HorizontalPlacement | VerticalPlacement,
     requestedReturnValue: Axis,
     relEl: DomRectObject,
     elDimensions: Dimensions
