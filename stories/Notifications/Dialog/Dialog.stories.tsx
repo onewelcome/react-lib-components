@@ -95,7 +95,7 @@ SingleActionDialog.args = {
   alignActions: "right",
   children: (
     <Typography variant="body" spacing={{ margin: 0 }}>
-      You can't remove your account.
+      You can&apos;t remove your account.
     </Typography>
   ),
   primaryAction: {

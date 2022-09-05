@@ -83,8 +83,9 @@ const Template: Story<Props> = args => {
               variant="body"
               spacing={{ paddingLeft: 5, paddingRight: 5, marginBottom: 5 }}
             >
-              Changing the input value and closing modal should show 'DiscardChangesDialog'.
-              Clicking on 'Cancel' button should close modal without showing 'DiscardChangesDialog'.
+              Changing the input value and closing modal should show
+              &apos;DiscardChangesDialog&apos;. Clicking on &apos;Cancel&apos; button should close
+              modal without showing &apos;DiscardChangesDialog&apos;.
             </Typography>
             <FormControl>
               <InputWrapper
