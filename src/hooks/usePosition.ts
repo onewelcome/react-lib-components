@@ -73,6 +73,7 @@ const defaultConfigObject: ConfigObject = {
   }
 };
 
+/* eslint-disable @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain*/
 export const usePosition = (providedConfigObject: ConfigObject = defaultConfigObject) => {
   const configObject = { ...defaultConfigObject, ...providedConfigObject };
 
@@ -236,7 +237,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       return "centerv";
     }
     throw new Error(
-      `the requested return value isn\'t "vertical" or "horizontal" ${requestedReturnValue} was given.`
+      `the requested return value isn't "vertical" or "horizontal" ${requestedReturnValue} was given.`
     );
   };
 

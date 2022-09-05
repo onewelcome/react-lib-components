@@ -23,7 +23,7 @@ export const DataGridRow = React.forwardRef<HTMLTableRowElement, Props>(
           disableContextMenuColumn
         });
 
-        const visible = headers?.length! > index ? !headers![index].hidden : true;
+        const visible = (headers?.length ?? 0) > index ? !headers![index]?.hidden : true;
         return visible && cellWithSpacing;
       }
       return null;
