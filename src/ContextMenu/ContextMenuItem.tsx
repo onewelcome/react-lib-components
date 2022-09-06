@@ -25,6 +25,7 @@ export const ContextMenuItem = React.forwardRef<HTMLButtonElement, Props>(
       childIndex,
       contextMenuOpened,
       shouldClick,
+      className,
       ...rest
     }: Props,
     ref
@@ -45,11 +46,12 @@ export const ContextMenuItem = React.forwardRef<HTMLButtonElement, Props>(
     }, [hasFocus, innerButtonRef, contextMenuOpened]);
 
     return (
-      <li role="menuitem" className={classes["context-menu-item"]}>
+      <li role="menuitem" className={`${classes["context-menu-item"]} ${className ?? ""}`}>
         <button
           {...rest}
           ref={innerButtonRef}
           data-focus={hasFocus}
+          tabIndex={-1}
           onClick={event => {
             onClick && onClick(event);
             onSelectedChange && childIndex && onSelectedChange(childIndex);

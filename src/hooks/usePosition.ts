@@ -8,7 +8,7 @@ export interface ConfigObject {
   offset?: Offset;
 }
 
-export type HorizontalPlacment = "left" | "center" | "centerh" | "right";
+export type HorizontalPlacement = "left" | "center" | "centerh" | "right";
 export type VerticalPlacement = "top" | "center" | "centerv" | "bottom";
 
 type Axis = "vertical" | "horizontal";
@@ -29,7 +29,7 @@ interface DomRectObject {
 }
 
 export interface Placement {
-  horizontal: HorizontalPlacment;
+  horizontal: HorizontalPlacement;
   vertical: VerticalPlacement;
 }
 
@@ -73,6 +73,7 @@ const defaultConfigObject: ConfigObject = {
   }
 };
 
+/* eslint-disable @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain*/
 export const usePosition = (providedConfigObject: ConfigObject = defaultConfigObject) => {
   const configObject = { ...defaultConfigObject, ...providedConfigObject };
 
@@ -198,7 +199,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     transformOrigin: Placement,
     requestedReturnValue: Axis,
     relEl: DomRectObject,
-    placementOriginDefinition: HorizontalPlacment | VerticalPlacement,
+    placementOriginDefinition: HorizontalPlacement | VerticalPlacement,
     elDimensions: Dimensions
   ) => {
     let value = 0;
@@ -236,13 +237,13 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       return "centerv";
     }
     throw new Error(
-      `the requested return value isn\'t "vertical" or "horizontal" ${requestedReturnValue} was given.`
+      `the requested return value isn't "vertical" or "horizontal" ${requestedReturnValue} was given.`
     );
   };
 
   const _calculatePlacementValue = (
     transformOrigin: Placement,
-    placement: HorizontalPlacment | VerticalPlacement,
+    placement: HorizontalPlacement | VerticalPlacement,
     requestedReturnValue: Axis,
     relEl: DomRectObject,
     elDimensions: Dimensions

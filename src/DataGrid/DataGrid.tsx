@@ -8,7 +8,7 @@ import { ColumnName, HeaderCell, OnSortFunction, Sort } from "./datagrid.interfa
 import { Pagination, Props as PaginationProps } from "../Pagination/Pagination";
 import { Spacing, useSpacing } from "../hooks/useSpacing";
 
-export interface Props<T> extends ComponentPropsWithRef<"div"> {
+export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
   data?: T[];
   initialSort?: Sort;
