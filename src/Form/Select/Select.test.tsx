@@ -53,7 +53,7 @@ const createSelect = (params?: (defaultParams: Props) => Props) => {
 
 describe("Select should render", () => {
   it("renders with 5 options and proper attributes", () => {
-    const { select, button, list } = createSelect(defaultParams => ({
+    const { select, button, list, dropdownWrapper } = createSelect(defaultParams => ({
       ...defaultParams,
       children: [
         <Option value="option1">Test</Option>,
@@ -66,6 +66,8 @@ describe("Select should render", () => {
       value: ""
     }));
 
+    expect(dropdownWrapper).toHaveStyle({ "pointer-events": "none" });
+
     if (button) {
       userEvent.click(button);
     }
@@ -76,6 +78,7 @@ describe("Select should render", () => {
     expect(button?.getAttribute("aria-disabled")).toBe("false");
     expect(list).toBeDefined();
     expect(list?.querySelectorAll("li[role='option']").length).toBe(5);
+    expect(dropdownWrapper).toHaveStyle({ "pointer-events": "auto" });
   });
 
   it("should be disabled", () => {

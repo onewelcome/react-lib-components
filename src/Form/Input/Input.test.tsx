@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { Input, Props } from "./Input";
-import { render } from "@testing-library/react";
+import React, { useEffect, useRef, useState, Fragment } from "react";
+import { Input, Props, Type } from "./Input";
+import { fireEvent, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Label } from "../Label/Label";
 
 const defaultParams: Props = {
   name: "input",
@@ -20,6 +21,35 @@ const createInput = (params?: (defaultParams: Props) => Props) => {
     ...queries,
     input
   };
+};
+
+const CreateInputComponent = ({
+  onValueChange,
+  type
+}: {
+  onValueChange: (value: string) => void;
+  type: Type;
+}) => {
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    if (inputValue !== "") {
+      onValueChange(inputValue);
+    }
+  }, [inputValue]);
+
+  return (
+    <Fragment>
+      <Label htmlFor="sample-input">Test</Label>
+      <Input
+        name="sample_input"
+        type={type}
+        id="sample-input"
+        value={inputValue}
+        onChange={e => setInputValue(e.target.value)}
+      />
+    </Fragment>
+  );
 };
 
 describe("Input should render", () => {
@@ -69,29 +99,32 @@ describe("Should have the appropriate attributes", () => {
 });
 
 describe("Should render all different types of inputs", () => {
-  it("should render a text input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "text" }));
+  it.each([
+    ["text", "testing", "testing"],
+    ["email", "testing@testing.com", "testing@testing.com"],
+    ["tel", "06123456789", "06123456789"],
+    ["number", "1234567890", "1234567890"],
+    ["search", "example", "example"],
+    ["time", "1234", "12:34"],
+    ["url", "https://www.onewelcome.com", "https://www.onewelcome.com"]
+  ])(
+    "renders a %p input with %p as a value",
+    async (type: string, value: string, result: string) => {
+      let changedValue = "";
 
-    expect(input).toHaveAttribute("type", "text");
-  });
+      const { findByLabelText } = render(
+        <CreateInputComponent type={type as Type} onValueChange={value => (changedValue = value)} />
+      );
 
-  it("should render a email input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "email" }));
+      const input = await findByLabelText(/Test/);
 
-    expect(input).toHaveAttribute("type", "email");
-  });
+      input.focus();
 
-  it("should render a tel input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "tel" }));
+      userEvent.keyboard(value);
 
-    expect(input).toHaveAttribute("type", "tel");
-  });
-
-  it("should render a number input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "number" }));
-
-    expect(input).toHaveAttribute("type", "number");
-  });
+      expect(changedValue).toBe(result);
+    }
+  );
 
   it("should render a password input", () => {
     const { input } = createInput(defaultParams => ({ ...defaultParams, type: "password" }));
@@ -99,31 +132,19 @@ describe("Should render all different types of inputs", () => {
     expect(input).toHaveAttribute("type", "password");
   });
 
-  it("should render a search input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "search" }));
+  it("should render a datetime input", async () => {
+    let changedValue = "";
 
-    expect(input).toHaveAttribute("type", "search");
-  });
+    const { findByLabelText } = render(
+      <CreateInputComponent type="datetime-local" onValueChange={value => (changedValue = value)} />
+    );
 
-  it("should render a time input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "time" }));
+    const input = await findByLabelText(/Test/);
 
-    expect(input).toHaveAttribute("type", "time");
-  });
+    const testValue = "2019-03-29T12:34";
+    fireEvent.change(input, { target: { value: testValue } });
 
-  it("should render a url input", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, type: "url" }));
-
-    expect(input).toHaveAttribute("type", "url");
-  });
-
-  it("should render a datetime input", () => {
-    const { input } = createInput(defaultParams => ({
-      ...defaultParams,
-      type: "datetime-local"
-    }));
-
-    expect(input).toHaveAttribute("type", "datetime-local");
+    expect(changedValue).toBe(testValue);
   });
 
   it("should be hidden", () => {
