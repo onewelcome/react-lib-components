@@ -1,5 +1,5 @@
 export type DataAttributeKey = `data-${string}`;
 
 export interface KeyValuePair {
-  [dataAttribute: DataAttributeKey]: any;
+  [dataAttribute: DataAttributeKey]: unknown;
 }

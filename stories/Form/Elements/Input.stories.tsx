@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Input as InputComponent, Props } from "../../../src/Form/Input/Input";
+import { Input as InputComponent, inputTypes, Props } from "../../../src/Form/Input/Input";
 import { Form } from "../../../src/Form/Form";
 import InputDocumentation from "./Input.mdx";
 
@@ -25,19 +25,7 @@ const meta: Meta = {
       control: "text"
     },
     type: {
-      options: [
-        "text",
-        "email",
-        "file",
-        "number",
-        "password",
-        "search",
-        "tel",
-        "time",
-        "url",
-        "datetime-local",
-        "hidden"
-      ],
+      options: inputTypes,
       control: "select"
     },
     disabled: {

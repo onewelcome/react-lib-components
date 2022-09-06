@@ -36,7 +36,7 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
   });
 
   useEffect(() => {
-    onChange(inputState);
+    onChange && onChange(inputState);
   }, [inputState]);
 
   return (
@@ -56,7 +56,7 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
 };
 
 const Template: Story = () => {
-  const [tags, setTags] = useState([]);
+  const [tags] = useState([]);
 
   const onChangeHandler = state => {
     console.log(state);
