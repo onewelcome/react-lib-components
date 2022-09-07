@@ -85,7 +85,7 @@ describe("ContextMenu should render", () => {
 
     const child = getByRole("menuitem");
 
-    expect(child).toHaveClass("custom");
+    expect(child.parentElement).toHaveClass("custom");
   });
 
   it("should throw an error", () => {
