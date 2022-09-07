@@ -46,8 +46,9 @@ export const ContextMenuItem = React.forwardRef<HTMLButtonElement, Props>(
     }, [hasFocus, innerButtonRef, contextMenuOpened]);
 
     return (
-      <li role="menuitem" className={`${classes["context-menu-item"]} ${className ?? ""}`}>
+      <li role="none" className={`${classes["context-menu-item"]} ${className ?? ""}`}>
         <button
+          role="menuitem"
           {...rest}
           ref={innerButtonRef}
           data-focus={hasFocus}
