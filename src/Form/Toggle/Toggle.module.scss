@@ -17,11 +17,6 @@ $borderRadius: 2.5rem;
   display: block;
   pointer-events: none;
 
-  &.disabled {
-    opacity: 0.25;
-    cursor: not-allowed;
-  }
-
   &:before {
     content: "";
     width: 1rem;
@@ -41,6 +36,11 @@ $borderRadius: 2.5rem;
     &:before {
       transform: translateY(-50%) translateX(calc(100% - 0.25rem));
     }
+  }
+
+  &.disabled {
+    background-color: var(--disabled);
+    cursor: not-allowed;
   }
 }
 
