@@ -29,6 +29,7 @@ interface Item {
   variant: Variant;
   content?: string;
   actions?: Actions;
+  onClose?: () => void;
 }
 
 export const SnackbarProvider = (
@@ -65,7 +66,8 @@ export const SnackbarProvider = (
     const {
       variant = "info",
       actions,
-      duration = getDuration(variant, actions, content)
+      duration = getDuration(variant, actions, content),
+      onClose
     } = options;
     const item: Item = {
       title,
@@ -73,7 +75,8 @@ export const SnackbarProvider = (
       variant,
       actions,
       duration,
-      id: generateID(15, title)
+      id: generateID(15, title),
+      onClose
     };
     addSnackbar(item);
   };
@@ -103,7 +106,10 @@ export const SnackbarProvider = (
       <SnackbarItem
         {...item}
         key={item.id}
-        onClose={onItemClosed}
+        onClose={() => {
+          onItemClosed(item.id);
+          item.onClose && item.onClose();
+        }}
         closeButtonTitle={closeButtonTitle}
       />
     ) : null
