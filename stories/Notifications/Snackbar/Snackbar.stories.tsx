@@ -20,17 +20,35 @@ const AppContent = () => {
 
   return (
     <Fragment>
-      <Button onClick={() => enqueueSuccessSnackbar("Main message of the snackbar")}>
+      <Button
+        onClick={() =>
+          enqueueSuccessSnackbar("Main message of the snackbar", undefined, {
+            onClose: () => console.log("onClose handler")
+          })
+        }
+      >
         Show success snackbar
       </Button>
       <br />
       <br />
-      <Button onClick={() => enqueueErrorSnackbar("Social account unlink failed")}>
+      <Button
+        onClick={() =>
+          enqueueErrorSnackbar("Social account unlink failed", undefined, {
+            onClose: () => console.log("onClose handler")
+          })
+        }
+      >
         Show error snackbar
       </Button>
       <br />
       <br />
-      <Button onClick={() => enqueueSnackbar("Copy of your data is requested")}>
+      <Button
+        onClick={() =>
+          enqueueSnackbar("Copy of your data is requested", undefined, {
+            onClose: () => console.log("onClose handler")
+          })
+        }
+      >
         Show info snackbar
       </Button>
       <br />

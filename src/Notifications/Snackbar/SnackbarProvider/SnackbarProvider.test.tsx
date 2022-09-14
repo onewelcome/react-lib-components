@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   render,
   getByTestId,
@@ -6,20 +6,26 @@ import {
   waitFor,
   getAllByRole,
   getByText,
-  findByText,
-  findAllByText,
-  queryByText
+  fireEvent
 } from "@testing-library/react";
 import { SnackbarProvider, Props } from "./SnackbarProvider";
 import { useSnackbar } from "../useSnackbar";
 import userEvent from "@testing-library/user-event";
 
 const successProps = {
-  title: "success title"
+  title: "success title",
+  options: {
+    duration: 10,
+    onClose: jest.fn()
+  }
 };
 
 const errorProps = {
-  title: "error title"
+  title: "error title",
+  options: {
+    duration: 10,
+    onClose: jest.fn()
+  }
 };
 
 const infoProps = {
@@ -43,7 +49,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-success"
           onClick={() => {
-            enqueueSuccessSnackbar(successProps.title + index);
+            enqueueSuccessSnackbar(successProps.title + index, undefined, successProps.options);
             setIndex(index + 1);
           }}
         >
@@ -96,24 +102,24 @@ describe("SnackbarProvider", () => {
     expect(container).toHaveTextContent("content");
   });
 
-  it("should stack 3 snackbars at one time", () => {
+  it("should stack 3 snackbars at one time", async () => {
     const { showSuccessSnackbarBtn } = renderSnackbarProvider();
 
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
 
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
   });
 
-  it("should render 3 variants of snackbars", () => {
+  it("should render 3 variants of snackbars", async () => {
     const { showSuccessSnackbarBtn, showErrorSnackbarBtn, showInfoSnackbarBtn } =
       renderSnackbarProvider();
 
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showErrorSnackbarBtn);
-    userEvent.click(showInfoSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showErrorSnackbarBtn);
+    await userEvent.click(showInfoSnackbarBtn);
 
     expect(getByText(document.body, new RegExp(successProps.title))).toBeDefined();
     expect(getByText(document.body, new RegExp(errorProps.title))).toBeDefined();
@@ -122,58 +128,45 @@ describe("SnackbarProvider", () => {
     const infoSnackbarActions = getAllByRole(document.body, "button", { name: /Contact/i });
     expect(infoSnackbarActions).toHaveLength(2);
 
-    userEvent.click(infoSnackbarActions[0]);
-    userEvent.click(infoSnackbarActions[1]);
+    await userEvent.click(infoSnackbarActions[0]);
+    await userEvent.click(infoSnackbarActions[1]);
 
     expect(infoProps.options.actions[0].onClick).toBeCalledTimes(1);
-    waitFor(() => expect(infoProps.options.actions[1].onClick).toBeCalledTimes(1));
   });
+});
 
-  it("should stack 3 snackbars at one time and then after 3 disapear show the fourth one", () => {
-    const { showSuccessSnackbarBtn } = renderSnackbarProvider({
-      autoHideDuration: { long: 1, short: 1 }
-    });
+describe("handlers", () => {
+  it("should fire onClose", async () => {
+    const onCloseHandler = jest.fn();
+    const ExampleComponent = () => {
+      const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useSnackbar();
 
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showSuccessSnackbarBtn);
+      useEffect(() => {
+        enqueueErrorSnackbar("error", undefined, { onClose: onCloseHandler, duration: 1 });
+        enqueueSuccessSnackbar("success", undefined, { onClose: onCloseHandler, duration: 1 });
+      }, []);
 
-    expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
+      return <div></div>;
+    };
 
-    /** Looking for fourth one to be shown */
-    waitFor(() => expect(getAllByText(document.body, successProps.title + "3")).toHaveLength(1));
-
-    /** There shouldn't be any other snackbars */
-    waitFor(() =>
-      expect(getAllByText(document.body, new RegExp(successProps.title))).not.toBeDefined()
+    const queries = render(
+      <SnackbarProvider closeButtonTitle="close">
+        <ExampleComponent />
+      </SnackbarProvider>
     );
-  });
 
-  it("should close snackbar after clicking X button", async () => {
-    const { showSuccessSnackbarBtn } = renderSnackbarProvider({
-      autoHideDuration: { long: 1_000_000, short: 1_000_000 }
-    });
+    const errorSnackbar = await queries.findByText(/error/i);
+    const successSnackbar = await queries.findByText(/success/i);
 
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showSuccessSnackbarBtn);
-    userEvent.click(showSuccessSnackbarBtn);
+    expect(errorSnackbar).toBeTruthy();
+    expect(successSnackbar).toBeTruthy();
 
-    const closeButtons = getAllByRole(document.body, "button", { name: "close" });
+    const parentErrorSnackbar = errorSnackbar.closest(".snackbar")!;
+    const parentSuccessSnackbar = successSnackbar.closest(".snackbar")!;
 
-    expect(closeButtons).toHaveLength(3);
-    expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
+    await fireEvent.animationEnd(parentErrorSnackbar);
+    await fireEvent.animationEnd(parentSuccessSnackbar);
 
-    userEvent.click(closeButtons[0]);
-    expect(
-      await findAllByText(document.body, new RegExp(successProps.title + "[12]+"))
-    ).toHaveLength(2);
-
-    userEvent.click(closeButtons[1]);
-    expect(await findByText(document.body, successProps.title + "2")).toBeDefined();
-
-    userEvent.click(closeButtons[2]);
-    waitFor(() => expect(queryByText(document.body, new RegExp(successProps.title))).toBeNull());
+    await waitFor(() => expect(onCloseHandler).toHaveBeenCalledTimes(2));
   });
 });

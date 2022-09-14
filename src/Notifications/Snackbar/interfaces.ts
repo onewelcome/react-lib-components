@@ -8,4 +8,5 @@ export interface SnackbarOptionsProps {
   actions?: Actions;
   variant?: Variant;
   duration?: number;
+  onClose?: () => void;
 }
