@@ -101,8 +101,8 @@ export const SnackbarProvider = (
     setSnackbars(items => [...items].filter(item => item.id !== id));
   };
 
-  const snackbarList = snackbars.map((item, index) => {
-    return index < stackSize ? (
+  const snackbarList = snackbars.map((item, index) =>
+    index < stackSize ? (
       <SnackbarItem
         {...item}
         key={item.id}
@@ -112,8 +112,8 @@ export const SnackbarProvider = (
         }}
         closeButtonTitle={closeButtonTitle}
       />
-    ) : null;
-  });
+    ) : null
+  );
 
   const snackbarPortal = createPortal(
     <SnackbarContainer placement={placement} className={className}>
