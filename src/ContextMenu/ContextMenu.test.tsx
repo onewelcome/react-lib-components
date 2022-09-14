@@ -88,6 +88,16 @@ describe("ContextMenu should render", () => {
     expect(child.parentElement).toHaveClass("custom");
   });
 
+  it("renders the decorative element", () => {
+    const { getByText } = createContextMenu(defaultParams => ({
+      ...defaultParams,
+      show: true,
+      decorativeElement: <div>test</div>
+    }));
+
+    expect(getByText("test")).toBeInTheDocument();
+  });
+
   it("should throw an error", () => {
     // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
     const err = console.error;
@@ -235,6 +245,39 @@ describe("accessibility controls", () => {
 
     userEvent.tab();
     userEvent.keyboard("{enter}");
+
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+
+    userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{arrowdown}");
+
+    expect(thirdContextMenuItem).toHaveFocus();
+
+    userEvent.keyboard("{space}");
+
+    expect(onClick).toHaveBeenCalled();
+
+    userEvent.keyboard("{space}");
+
+    expect(thirdContextMenuItem).toHaveFocus();
+  });
+
+  it("opens correctly with enter, navigate with arrow keys skipping the decorative element", () => {
+    onClick.mockImplementation(e => {
+      expect(e.target.getAttribute("data-testid")).toBe("contextmenuitem3");
+    });
+
+    const { trigger, getByTestId, getByText } = createContextMenu(defaultParams => ({
+      ...defaultParams,
+      decorativeElement: <div>test</div>
+    }));
+    const thirdContextMenuItem = getByTestId("contextmenuitem3");
+
+    userEvent.tab();
+    userEvent.keyboard("{enter}");
+
+    expect(getByText("test")).toBeInTheDocument();
 
     expect(trigger).toHaveAttribute("aria-expanded", "true");
 
