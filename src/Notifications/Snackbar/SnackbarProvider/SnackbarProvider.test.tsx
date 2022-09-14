@@ -5,10 +5,7 @@ import {
   getAllByText,
   waitFor,
   getAllByRole,
-  getByText,
-  findByText,
-  findAllByText,
-  queryByText
+  getByText
 } from "@testing-library/react";
 import { SnackbarProvider, Props } from "./SnackbarProvider";
 import { useSnackbar } from "../useSnackbar";
@@ -33,6 +30,8 @@ const infoProps = {
   }
 };
 
+const onCloseHandler = jest.fn();
+
 const renderSnackbarProvider = (props?: Partial<Props>) => {
   const AppComponent = () => {
     const { enqueueSuccessSnackbar, enqueueErrorSnackbar, enqueueSnackbar } = useSnackbar();
@@ -43,7 +42,10 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-success"
           onClick={() => {
-            enqueueSuccessSnackbar(successProps.title + index);
+            enqueueSuccessSnackbar(successProps.title + index, undefined, {
+              onClose: onCloseHandler,
+              duration: 1
+            });
             setIndex(index + 1);
           }}
         >
@@ -52,7 +54,10 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-error"
           onClick={() => {
-            enqueueErrorSnackbar(errorProps.title + index);
+            enqueueErrorSnackbar(errorProps.title + index, undefined, {
+              onClose: onCloseHandler,
+              duration: 1
+            });
             setIndex(index + 1);
           }}
         >
@@ -96,7 +101,7 @@ describe("SnackbarProvider", () => {
     expect(container).toHaveTextContent("content");
   });
 
-  it("should stack 3 snackbars at one time", () => {
+  it("should stack 3 snackbars at one time", async () => {
     const { showSuccessSnackbarBtn } = renderSnackbarProvider();
 
     userEvent.click(showSuccessSnackbarBtn);
@@ -165,15 +170,15 @@ describe("SnackbarProvider", () => {
     expect(closeButtons).toHaveLength(3);
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
 
-    userEvent.click(closeButtons[0]);
-    expect(
-      await findAllByText(document.body, new RegExp(successProps.title + "[12]+"))
-    ).toHaveLength(2);
+    await userEvent.click(closeButtons[0]);
+    expect(getAllByText(document.body, new RegExp(successProps.title + "[12]+"))).toHaveLength(2);
 
-    userEvent.click(closeButtons[1]);
-    expect(await findByText(document.body, successProps.title + "2")).toBeDefined();
+    await userEvent.click(closeButtons[1]);
+    expect(getByText(document.body, successProps.title + "2")).toBeDefined();
 
-    userEvent.click(closeButtons[2]);
-    waitFor(() => expect(queryByText(document.body, new RegExp(successProps.title))).toBeNull());
+    await userEvent.click(closeButtons[2]);
+    waitFor(() => expect(getByText(document.body, new RegExp(successProps.title))).toBeNull());
+
+    waitFor(() => expect(onCloseHandler).toHaveBeenCalled());
   });
 });
