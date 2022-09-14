@@ -5,18 +5,29 @@ import {
   getAllByText,
   waitFor,
   getAllByRole,
-  getByText
+  getByText,
+  findByText,
+  findAllByText,
+  queryByText
 } from "@testing-library/react";
 import { SnackbarProvider, Props } from "./SnackbarProvider";
 import { useSnackbar } from "../useSnackbar";
 import userEvent from "@testing-library/user-event";
 
 const successProps = {
-  title: "success title"
+  title: "success title",
+  options: {
+    duration: 0,
+    onClose: jest.fn()
+  }
 };
 
 const errorProps = {
-  title: "error title"
+  title: "error title",
+  options: {
+    duration: 0,
+    onClose: jest.fn()
+  }
 };
 
 const infoProps = {
@@ -30,8 +41,6 @@ const infoProps = {
   }
 };
 
-const onCloseHandler = jest.fn();
-
 const renderSnackbarProvider = (props?: Partial<Props>) => {
   const AppComponent = () => {
     const { enqueueSuccessSnackbar, enqueueErrorSnackbar, enqueueSnackbar } = useSnackbar();
@@ -42,10 +51,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-success"
           onClick={() => {
-            enqueueSuccessSnackbar(successProps.title + index, undefined, {
-              onClose: onCloseHandler,
-              duration: 1
-            });
+            enqueueSuccessSnackbar(successProps.title + index, undefined, successProps.options);
             setIndex(index + 1);
           }}
         >
@@ -54,10 +60,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-error"
           onClick={() => {
-            enqueueErrorSnackbar(errorProps.title + index, undefined, {
-              onClose: onCloseHandler,
-              duration: 1
-            });
+            enqueueErrorSnackbar(errorProps.title + index);
             setIndex(index + 1);
           }}
         >
@@ -101,7 +104,7 @@ describe("SnackbarProvider", () => {
     expect(container).toHaveTextContent("content");
   });
 
-  it("should stack 3 snackbars at one time", async () => {
+  it("should stack 3 snackbars at one time", () => {
     const { showSuccessSnackbarBtn } = renderSnackbarProvider();
 
     userEvent.click(showSuccessSnackbarBtn);
@@ -170,15 +173,28 @@ describe("SnackbarProvider", () => {
     expect(closeButtons).toHaveLength(3);
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
 
-    await userEvent.click(closeButtons[0]);
-    expect(getAllByText(document.body, new RegExp(successProps.title + "[12]+"))).toHaveLength(2);
+    userEvent.click(closeButtons[0]);
+    expect(
+      await findAllByText(document.body, new RegExp(successProps.title + "[12]+"))
+    ).toHaveLength(2);
 
-    await userEvent.click(closeButtons[1]);
-    expect(getByText(document.body, successProps.title + "2")).toBeDefined();
+    userEvent.click(closeButtons[1]);
+    expect(await findByText(document.body, successProps.title + "2")).toBeDefined();
 
-    await userEvent.click(closeButtons[2]);
-    waitFor(() => expect(getByText(document.body, new RegExp(successProps.title))).toBeNull());
+    userEvent.click(closeButtons[2]);
+    waitFor(() => expect(queryByText(document.body, new RegExp(successProps.title))).toBeNull());
+  });
 
-    waitFor(() => expect(onCloseHandler).toHaveBeenCalled());
+  it("should fire onClose", async () => {
+    const { showSuccessSnackbarBtn, showErrorSnackbarBtn } = renderSnackbarProvider();
+
+    expect(successProps.options.onClose).not.toHaveBeenCalled();
+    expect(errorProps.options.onClose).not.toHaveBeenCalled();
+
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showErrorSnackbarBtn);
+
+    waitFor(() => expect(successProps.options.onClose).toHaveBeenCalledTimes(1));
+    waitFor(() => expect(errorProps.options.onClose).toHaveBeenCalledTimes(1));
   });
 });
