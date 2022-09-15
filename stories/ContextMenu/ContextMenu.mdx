@@ -46,6 +46,34 @@ The following code example will showcase how the [ContextMenu story](/story/stor
 </ContextMenu>
 ```
 
+<Canvas>
+  <Story id="stories-ui-contextmenu--context-menu-with-decorative-element" />
+</Canvas>
+
+The following code example shows how one can [add a decorative element to ContextMenu](/story/stories-ui-contextmenu--context-menu-with-decorative-element).
+
+```jsx
+<ContextMenu
+  id="example-contextmenu"
+  decorativeElement={
+    <Typography variant="body-bold" spacing={{ marginLeft: 5, marginBottom: 0 }}>
+      Decorative element
+    </Typography>
+  }
+  trigger={
+    <IconButton color="default" title="click me for contextmenu">
+      <Icon icon={Icons.EllipsisAlt} />
+    </IconButton>
+  }
+  placement={{ vertical: "bottom", horizontal: "left" }}
+  transformOrigin={{ vertical: "top", horizontal: "left" }}
+>
+  <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")} key="1">
+    Example item 1
+  </ContextMenuItem>
+</ContextMenu>
+```
+
 # Props
 
 <ArgsTable story={PRIMARY_STORY} />
