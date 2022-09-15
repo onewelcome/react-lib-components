@@ -16,6 +16,7 @@ import { createPortal } from "react-dom";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   trigger: ReactElement<ButtonProps> | ReactElement<IconButtonProps>;
+  decorativeElement?: ReactNode;
   children: ReactNode;
   placement?: Placement;
   transformOrigin?: Placement;
@@ -32,6 +33,7 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
     {
       trigger,
       children,
+      decorativeElement,
       id,
       show = false,
       onShow,
@@ -183,7 +185,15 @@ export const ContextMenu = React.forwardRef<HTMLDivElement, Props>(
             anchorEl={anchorEl}
             show={showContextMenu}
           >
-            <ul className={classes["menu"]} id={`${id}-menu`} aria-describedby={id} role="menu">
+            {decorativeElement && (
+              <div className={classes["decorative-element"]}>{decorativeElement}</div>
+            )}
+            <ul
+              className={`${classes["menu"]} ${decorativeElement ? classes["no-margin-top"] : ""}`}
+              id={`${id}-menu`}
+              aria-describedby={id}
+              role="menu"
+            >
               {renderChildren()}
             </ul>
           </Popover>,

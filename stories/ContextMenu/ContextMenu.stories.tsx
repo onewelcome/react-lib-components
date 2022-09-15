@@ -7,6 +7,7 @@ import { IconButton } from "../../src/Button/IconButton";
 import { Icon, Icons } from "../../src/Icon/Icon";
 import { Placement } from "../../src/hooks/usePosition";
 import ContextMenuDocumentation from "./ContextMenu.mdx";
+import { Typography } from "../../src/Typography/Typography";
 
 const meta: Meta = {
   title: "Stories/UI/ContextMenu",
@@ -292,3 +293,25 @@ ContextMenu.args = {
   ]
 };
 ContextMenu.storyName = "ContextMenu";
+
+export const ContextMenuWithDecorativeElement = Template.bind({});
+
+ContextMenuWithDecorativeElement.args = {
+  id: "example-contextmenu",
+  decorativeElement: (
+    <Typography variant="body-bold" spacing={{ marginLeft: 5, marginBottom: 0 }}>
+      Decorative element
+    </Typography>
+  ),
+  trigger: (
+    <IconButton color="default" title="click me for contextmenu">
+      <Icon icon={Icons.EllipsisAlt} />
+    </IconButton>
+  ),
+  children: [
+    <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")} key="1">
+      Example item
+    </ContextMenuItem>
+  ]
+};
+ContextMenuWithDecorativeElement.storyName = "ContextMenu with decorative element";

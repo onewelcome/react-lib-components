@@ -11,7 +11,15 @@
   padding: 0;
   min-width: 200px;
 
+  &.no-margin-top {
+    margin: 0 0 1rem;
+  }
+
   button {
     text-align: left;
   }
+}
+
+.decorative-element {
+  margin-top: 1rem;
 }
