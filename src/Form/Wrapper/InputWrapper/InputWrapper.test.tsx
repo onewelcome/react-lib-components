@@ -78,15 +78,6 @@ describe("InputWrapper should render", () => {
 
     expect(container.querySelector(".testClass")).toBeDefined();
   });
-
-  it("consume wrapper props classname", () => {
-    const { container } = createInputWrapper(defaultParams => ({
-      ...defaultParams,
-      inputProps: { wrapperProps: { className: "testClass" } }
-    }));
-
-    expect(container.querySelector(".testClass")).toBeDefined();
-  });
 });
 
 describe("ref should work", () => {
