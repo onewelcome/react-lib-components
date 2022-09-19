@@ -58,6 +58,17 @@ describe("InputWrapper should render", () => {
 
     expect(input).toHaveAttribute("aria-describedby", helperId);
   });
+
+  it("is disabled", () => {
+    const { getByLabelText } = createInputWrapper(defaultParams => ({
+      ...defaultParams,
+      disabled: true
+    }));
+
+    const input = getByLabelText("Example label");
+
+    expect(input).toBeDisabled();
+  });
 });
 
 describe("ref should work", () => {
