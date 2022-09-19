@@ -59,7 +59,7 @@ describe("InputWrapper should render", () => {
     expect(input).toHaveAttribute("aria-describedby", helperId);
   });
 
-  it("is disabled", () => {
+  it("disabled input", () => {
     const { getByLabelText } = createInputWrapper(defaultParams => ({
       ...defaultParams,
       disabled: true
@@ -68,6 +68,24 @@ describe("InputWrapper should render", () => {
     const input = getByLabelText("Example label");
 
     expect(input).toBeDisabled();
+  });
+
+  it("consume wrapper props classname", () => {
+    const { container } = createInputWrapper(defaultParams => ({
+      ...defaultParams,
+      inputProps: { wrapperProps: { className: "testClass" } }
+    }));
+
+    expect(container.querySelector(".testClass")).toBeDefined();
+  });
+
+  it("consume wrapper props classname", () => {
+    const { container } = createInputWrapper(defaultParams => ({
+      ...defaultParams,
+      inputProps: { wrapperProps: { className: "testClass" } }
+    }));
+
+    expect(container.querySelector(".testClass")).toBeDefined();
   });
 });
 
