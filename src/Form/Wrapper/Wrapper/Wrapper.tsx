@@ -69,9 +69,10 @@ export const Wrapper = React.forwardRef<HTMLDivElement, Props>(
     labelProps?.className && labelClasses.push(labelProps.className);
     required && labelClasses.push(classes["required"]);
     error && labelClasses.push(classes["error"]);
+    disabled && labelClasses.push(classes["disabled"]);
 
     return (
-      <div {...rest} ref={ref} className={`${classes.wrapper} ${className ? className : ""}`}>
+      <div {...rest} ref={ref} className={`${classes.wrapper} ${className ?? ""}`}>
         <FormGroup
           error={error}
           errorMessage={errorMessage}
