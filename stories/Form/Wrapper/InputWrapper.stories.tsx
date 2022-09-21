@@ -1,10 +1,16 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { InputWrapper, Props } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
+import InputWrapperDocumentation from "./InputWrapper.mdx";
 
 const meta: Meta = {
   title: "Stories/Form/Wrapper/InputWrapper",
   component: InputWrapper,
+  parameters: {
+    docs: {
+      page: InputWrapperDocumentation
+    }
+  },
   argTypes: {
     onChange: {
       action: "onChange event fired",
