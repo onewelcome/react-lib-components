@@ -24,6 +24,7 @@
   box-sizing: border-box;
   border: 0;
   border-radius: var(--input-border-radius);
+  transition: all 0.2s ease-in-out;
 
   &:disabled {
     background-color: var(--disabled);
