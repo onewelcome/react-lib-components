@@ -1,0 +1,49 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+
+<Title />
+<Subtitle />
+
+The `TextareaWrapper` component has been created to make your life easier as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least 2 attributes. It needs a `name` and a `value` (which should be linked to a `useState` variable).
+
+You can use the `onChange` event to update the linked `useState` variable whenever the user types something inside of the rendered `textarea`.
+
+## It takes care of proper accessibility
+
+The `TextareaWrapper` accepts a `name`, `helperText` and `errorMessage` prop. Based on the `error` prop (set to true or false) it will make sure to set its `aria-describedby` value to the `id` of the `errorMessage` or `helperText`.
+
+## Customize `textarea` HTML element
+
+You can change anything pertaining to the `textarea` element that's rendered by passing a configuration object to `textareaProps`. An example is shown below.
+
+# Examples
+
+<Canvas>
+  <Story id="stories-form-wrapper-textareawrapper--textarea-wrapper" />
+</Canvas>
+
+A code example of how you can configure a `TextareaWrapper` within a React component:
+
+```jsx
+const ExampleComponent = () => {
+  const [textareaValue, setTextareaValue] = useState("");
+
+  return (
+    <TextareaWrapper
+      label="Example textarea"
+      name="Textarea"
+      helperText="Example textarea helpertext"
+      errorMessage="Textarea error message"
+      onChange={e => setTextareaValue(e.target.value)}
+      textareaProps={{
+        rows: 50
+      }}
+      error={error}
+      value={textareaValue}
+    />
+  );
+};
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

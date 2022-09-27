@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { Meta, Story } from "@storybook/react";
-import { TextareaWrapper, Props } from "../../../src/Form/Wrapper/TextareaWrapper/TextareaWrapper";
+import {
+  TextareaWrapper as TextareaWrapperComponent,
+  Props
+} from "../../../src/Form/Wrapper/TextareaWrapper/TextareaWrapper";
+import TextareaWrapperDocumentation from "./TextareaWrapper.mdx";
 
 const meta: Meta = {
   title: "Stories/Form/Wrapper/TextareaWrapper",
-  component: TextareaWrapper,
+  component: TextareaWrapperComponent,
+  parameters: {
+    docs: {
+      page: TextareaWrapperDocumentation
+    }
+  },
   argTypes: {
     required: {
       control: "boolean"
@@ -18,12 +27,13 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => {
-  const [error, setError] = useState(false);
+  const [error] = useState(false);
   const [textareaValue, setTextareaValue] = useState("");
 
   return (
     <div>
-      <TextareaWrapper
+      <TextareaWrapperComponent
+        {...args}
         label="Example textarea"
         name="Textarea"
         helperText="Example textarea helpertext"
@@ -31,12 +41,11 @@ const Template: Story<Props> = args => {
         onChange={e => setTextareaValue(e.target.value)}
         error={error}
         value={textareaValue}
-        {...args}
       />
     </div>
   );
 };
 
-export const TextareaWrapperEl = Template.bind({});
+export const TextareaWrapper = Template.bind({});
 
-TextareaWrapperEl.args = {};
+TextareaWrapper.args = {};
