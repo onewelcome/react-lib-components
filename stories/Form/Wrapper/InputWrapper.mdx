@@ -3,9 +3,9 @@ import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@story
 <Title />
 <Subtitle />
 
-The `InputWrapper` component has been created to make your life easier as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least 3 attributes. It needs `children` (which have to be `Option` components), a `name` and a `value` prop, which should be linked to a `useState` variable.
+The `InputWrapper` component has been created to make your life easier as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least 2 attributes. A `name` and a `value` prop, which should be linked to a `useState` variable.
 
-You can use the `onChange` event to update the linked `useState` variable whenever the user selects an option or uses the `onClear` event to clear the state completely.
+You can use the `onChange` event to update the linked `useState` variable whenever the user types something.
 
 ## It takes care of proper accessibility
 
@@ -16,25 +16,25 @@ The `value` prop should be linked to a `useState` variable that gets updated usi
 # Examples
 
 <Canvas>
-  <Story id="stories-form-wrapper-InputWrapper--select-wrapper" />
+  <Story id="stories-form-wrapper-inputwrapper--input-wrapper" />
 </Canvas>
 
 A code example of how you can configure a `InputWrapper` within a React component:
 
 ```jsx
 const ExampleComponent = () => {
-  const [inputValue, setInputValue] = useState("")
+  const [inputValue, setInputValue] = useState("");
 
   return (
-    <InputWrapperComponent
+    <InputWrapper
       label="Example label"
       type="text"
       name="Example name"
       helperText="This is helpertext"
-      onChange={() => {}}
+      onChange={(event) => setInputValue(event.target.value)}
       errorMessage="This is an error message"
       error={false}
-      value=""
+      value={inputValue}
       inputProps= {
         prefix: "https://",
         suffix: "",

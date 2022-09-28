@@ -1,11 +1,14 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { InputWrapper, Props } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
+import {
+  InputWrapper as InputWrapperComponent,
+  Props
+} from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
 import InputWrapperDocumentation from "./InputWrapper.mdx";
 
 const meta: Meta = {
   title: "Stories/Form/Wrapper/InputWrapper",
-  component: InputWrapper,
+  component: InputWrapperComponent,
   parameters: {
     docs: {
       page: InputWrapperDocumentation
@@ -56,12 +59,12 @@ declare global {
 export default meta;
 
 const Template: Story<Props> = args => {
-  return <InputWrapper {...args} />;
+  return <InputWrapperComponent {...args} />;
 };
 
-export const InputWrapperEl = Template.bind({});
+export const InputWrapper = Template.bind({});
 
-InputWrapperEl.args = {
+InputWrapper.args = {
   label: "Example label",
   type: "text",
   name: "Example name",
