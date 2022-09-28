@@ -1,0 +1,123 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+
+<Title />
+<Subtitle />
+
+The `Snackbar` components and hook are there for you to make it easy to notify a user. You have the option of displaying an error, success or information `snackbar`. In order to use all of these different `Snackbar`s you'll have to wrap your entire application
+in the `SnackbarProvider` component. This will enable to `Snackbar` component to be portaled and displayed in the top levels of the DOM.
+
+Once you've wrapped your application with the `SnackbarProvider` component, you are free to use the `useSnackbar` hook to create any `Snackbar` you like. This hook does **not** accept any arguments, but it returns 3 different functions.
+
+The following functions will all accept three different arguments when called.
+
+- title (`string`): The title displayed at the top of the snackbar.
+- content (`string`): The content that should be displayed inside of the snackbar.
+- options (`object`): Different options you can add to configure the snackbar to your liking.
+
+The option object looks as follows:
+
+```js
+{
+  actions?: (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
+  variant?: "info" | "success" | "error";
+  duration?: number;
+  onClose?: () => void;
+}
+```
+
+The `actions` parameter might seem confusing, but this is simply an array of `Button` props. In the example down below, the "Show long snackbar" has this `actions` prop filled to make it more clear as to how this would look like.
+
+By default the `duration` property is `4000` (4 seconds). You can increase or decrease this as you like.
+
+## `enqueueSnackbar`
+
+This function will allow you to create a regular info `Snackbar`. You could use the `variant` prop to specify a variant, but using `enqueueSuccessSnackbar` or `enqueueErrorSnackbar` is an easier way of doing this.
+
+## `enqueueErrorSnackbar`
+
+Will allow you to easily and quickly create an error `Snackbar`. The `variant` prop is already set to be `error`.
+
+## `enqueueSuccessSnackbar`
+
+Creates a success snackbar with the `variant` prop already set to `success`.
+
+# Examples
+
+<Canvas>
+  <Story id="stories-notifications-snackbar--snackbar" />
+</Canvas>
+
+First wrap your entire application inside the `SnackbarProvider` component.
+
+```jsx
+<SnackbarProvider>
+  <AppContent />
+</SnackbarProvider>
+```
+
+Then use the `useSnackbar()` hook inside your application.
+
+```jsx
+const AppContent = () => {
+  const { enqueueSuccessSnackbar, enqueueErrorSnackbar, enqueueSnackbar } = useSnackbar();
+
+  return (
+    <Fragment>
+      <Button
+        onClick={() =>
+          enqueueSuccessSnackbar("Main message of the snackbar", undefined, {
+            duration: 10000,
+            onClose: () => console.log("onClose handler")
+          })
+        }
+      >
+        Show success snackbar
+      </Button>
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          enqueueErrorSnackbar("Social account unlink failed", undefined, {
+            onClose: () => console.log("onClose handler")
+          })
+        }
+      >
+        Show error snackbar
+      </Button>
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          enqueueSnackbar("Copy of your data is requested", undefined, {
+            onClose: () => console.log("onClose handler")
+          })
+        }
+      >
+        Show info snackbar
+      </Button>
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          enqueueSnackbar(
+            "Copy of your data is requested",
+            "Body text of the snackbar. Keep it short. Users only have a few seconds to read it. Try to keep the text within the limit of 1 text message: 160 ch.",
+            {
+              actions: [
+                { label: "Contact support", onClick: () => alert("Clicked support") },
+                { label: "Contact OneWelcome", onClick: () => alert("Clicked OneWelcome") }
+              ]
+            }
+          )
+        }
+      >
+        Show long snackbar
+      </Button>
+    </Fragment>
+  );
+};
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
