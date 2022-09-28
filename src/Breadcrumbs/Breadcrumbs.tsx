@@ -8,11 +8,11 @@ type ChildrenType = ReactElement<LinkProps, typeof Link>;
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   children: ChildrenType | ChildrenType[];
-  "aria-label": string;
+  ariaLabel: string;
 }
 
 export const Breadcrumbs = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, "aria-label": ariaLabel, className = "", ...rest }: Props, ref) => {
+  ({ children, ariaLabel, className = "", ...rest }: Props, ref) => {
     const items = React.Children.map(children, (child, index) => {
       const isLastElement = Array.isArray(children) ? index === children.length - 1 : true;
       if (isLastElement) {

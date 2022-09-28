@@ -4,7 +4,7 @@ import { render } from "@testing-library/react";
 import { Link } from "../Link/Link";
 
 const defaultParams: Props = {
-  "aria-label": "Breadcrumbs",
+  ariaLabel: "Breadcrumbs",
   children: [
     <Link key="0" to="#1" data-testid="link">
       Test1
