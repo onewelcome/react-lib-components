@@ -22,6 +22,10 @@
   &.error {
     color: var(--error);
   }
+
+  &.disabled {
+    color: var(--greyed-out);
+  }
 }
 
 .wrapper + fieldset,

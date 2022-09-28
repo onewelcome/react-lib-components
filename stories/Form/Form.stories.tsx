@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { Form, Props } from "../../src/Form/Form";
 import { InputWrapper } from "../../src/Form/Wrapper/InputWrapper/InputWrapper";
@@ -262,20 +262,22 @@ const Template: Story<Props> = args => {
           <Radio value="yes">Yes</Radio>
           <Radio value="no">No</Radio>
         </RadioWrapper>
-        {callBack.value === "yes" && (
-          <Fieldset legend="Callback time" hideLegend>
-            <InputWrapper
-              onChange={callBackTimeOnChangeHandler}
-              label="Callback time"
-              errorMessage={callBackTime.errorMessage}
-              error={callBackTime.error}
-              value={callBackTime.time}
-              helperText={callBackTime.helperText}
-              name="callback-time"
-              type="datetime-local"
-            />
-          </Fieldset>
-        )}
+        <Fragment>
+          {callBack.value === "yes" && (
+            <Fieldset legend="Callback time" hideLegend>
+              <InputWrapper
+                onChange={callBackTimeOnChangeHandler}
+                label="Callback time"
+                errorMessage={callBackTime.errorMessage}
+                error={callBackTime.error}
+                value={callBackTime.time}
+                helperText={callBackTime.helperText}
+                name="callback-time"
+                type="datetime-local"
+              />
+            </Fieldset>
+          )}
+        </Fragment>
       </FormControl>
       <FormControl>
         <SelectWrapper
@@ -295,14 +297,14 @@ const Template: Story<Props> = args => {
           <Option value="option2">Option 2</Option>
           <Option value="option3">Option 3</Option>
           <Option value="option4">Option 4</Option>
-          <Option value="option1">Option 1</Option>
-          <Option value="option2">Option 2</Option>
-          <Option value="option3">Option 3</Option>
-          <Option value="option4">Option 4</Option>
-          <Option value="option1">Option 1</Option>
-          <Option value="option2">Option 2</Option>
-          <Option value="option3">Option 3</Option>
-          <Option value="option4">Option 4</Option>
+          <Option value="option5">Option 5</Option>
+          <Option value="option6">Option 6</Option>
+          <Option value="option7">Option 7</Option>
+          <Option value="option8">Option 8</Option>
+          <Option value="option9">Option 9</Option>
+          <Option value="option10">Option 10</Option>
+          <Option value="option11">Option 11</Option>
+          <Option value="option12">Option 12</Option>
         </SelectWrapper>
       </FormControl>
       <div style={{ marginTop: "20px", textAlign: "right" }}>

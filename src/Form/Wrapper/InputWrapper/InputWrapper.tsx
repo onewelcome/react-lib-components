@@ -56,6 +56,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
       onChange,
       onBlur,
       onFocus,
+      disabled,
       ...rest
     }: Props,
     ref
@@ -72,14 +73,20 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
     const { prefix, suffix } = inputProps || {};
     const input = useRef<HTMLInputElement>(null);
     const hasValueOrActiveFloatingLabel = !!value || floatingLabelActive;
-    const labelClasses = [classes["input-label"]];
     const { labelOffset } = useLabelOffset(
       (inputProps && (inputProps.ref as React.RefObject<HTMLInputElement>)) || input,
       floatingLabelActive,
       prefix
     );
 
+    const labelClasses = [classes["input-label"]];
     hasFocus && labelClasses.push(classes["focus"]);
+
+    const inputWrapperClasses = [];
+    floatingLabelActive && inputWrapperClasses.push(classes["floating-label-active"]);
+    inputProps?.wrapperProps?.className &&
+      inputWrapperClasses.push(inputProps?.wrapperProps?.className);
+    disabled && inputWrapperClasses.push(classes["disabled"]);
 
     return (
       <Wrapper
@@ -102,15 +109,14 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
           className: `${classes["input-wrapper-helper"]} ${helperProps?.className ?? ""} `
         }}
         helperIndent={20}
+        disabled={disabled}
       >
         <Input
           {...inputProps}
           prefix={hasValueOrActiveFloatingLabel ? prefix : ""}
           suffix={hasValueOrActiveFloatingLabel ? suffix : ""}
           wrapperProps={{
-            className: `${floatingLabelActive ? classes["floating-label-active"] : ""} ${
-              inputProps?.wrapperProps?.className ?? ""
-            }`
+            className: inputWrapperClasses.join(" ")
           }}
           ref={(inputProps && inputProps.ref) || input}
           aria-labelledby={labelId}

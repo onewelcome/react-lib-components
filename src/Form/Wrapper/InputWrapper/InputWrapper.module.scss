@@ -12,19 +12,26 @@ input {
   margin-top: 0.25rem;
 }
 
-.input-wrapper [data-icon]:before {
-  transition: 0.2s ease-in-out;
-  transform: translateY(0px);
-  font-size: 1.125rem;
-}
+.input-wrapper {
+  [data-icon]:before {
+    transition: 0.2s ease-in-out;
+    transform: translateY(0px);
+    font-size: 1.125rem;
+  }
 
-.input-wrapper .floating-label-active [data-icon]:before {
-  transform: translateY(5px);
-}
+  .floating-label-active [data-icon]:before {
+    transform: translateY(5px);
+  }
 
-.input-wrapper [data-prefix],
-.input-wrapper [data-suffix] {
-  transform: translateY(-0.125rem);
+  [data-prefix],
+  [data-suffix] {
+    transform: translateY(-0.125rem);
+  }
+
+  .disabled {
+    background-color: var(--disabled);
+    cursor: not-allowed;
+  }
 }
 
 .floating-label-active [data-prefix],

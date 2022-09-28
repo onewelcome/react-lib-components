@@ -58,6 +58,26 @@ describe("InputWrapper should render", () => {
 
     expect(input).toHaveAttribute("aria-describedby", helperId);
   });
+
+  it("disabled input", () => {
+    const { getByLabelText } = createInputWrapper(defaultParams => ({
+      ...defaultParams,
+      disabled: true
+    }));
+
+    const input = getByLabelText("Example label");
+
+    expect(input).toBeDisabled();
+  });
+
+  it("consume wrapper props classname", () => {
+    const { container } = createInputWrapper(defaultParams => ({
+      ...defaultParams,
+      inputProps: { wrapperProps: { className: "testClass" } }
+    }));
+
+    expect(container.querySelector(".testClass")).toBeDefined();
+  });
 });
 
 describe("ref should work", () => {
