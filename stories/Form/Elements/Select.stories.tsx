@@ -82,6 +82,5 @@ const Template: Story<Props> = args => {
 export const Select = Template.bind({});
 
 Select.args = {
-  onClear: () => {},
   name: "Example select"
 };
