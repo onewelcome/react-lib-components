@@ -1,6 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { BaseWizardSteps, Props } from "../../src/Wizard/BaseWizardSteps/BaseWizardSteps";
+import WizardDocumentation from "./Wizard.mdx";
 
 const onClick = (stepNo: number) => {
   alert("Clicked stepNo:" + stepNo);
@@ -9,6 +10,11 @@ const onClick = (stepNo: number) => {
 const meta: Meta = {
   title: "Stories/Form/Wizard/WizardSteps",
   component: BaseWizardSteps,
+  parameters: {
+    docs: {
+      page: WizardDocumentation
+    }
+  },
   args: {
     steps: [
       {
@@ -33,7 +39,6 @@ const meta: Meta = {
       }
     ],
     currentStepNo: 3,
-    stepScreenReaderLabel: "Step",
     onClick
   }
 };

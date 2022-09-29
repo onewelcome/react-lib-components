@@ -1,0 +1,143 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+
+<Title />
+<Subtitle />
+
+The `Wizard` component is used to give the user some sort of indication of how far they are in a process. This could, for example, be a form with many different steps.
+
+In order to configure the `Wizard` correctly, there's a few different components you will use.
+
+## <Wizard />
+
+This is the main wrapping component you will use to configure your `Wizard`. It has the following props:
+
+```tsx
+steps: Step[];
+mode: "add" | "edit";
+initialStepNo?: number;
+onStepChange: (stepNo: number) => void;
+children: React.ReactNode;
+```
+
+### `steps`
+
+As you can see the steps and their labels will be configured through the `steps` prop. This will be an array of the following object:
+
+```ts
+{
+  label: string;
+  disabled?: boolean;
+}
+```
+
+Each step will have a label, and can be set to a disabled state. The number on the step is generated automatically for you.
+
+### `mode`
+
+The `mode` prop will control whether your users can jump ahead to steps by clicking on them. If your user has previously entered all sorts of
+information in all the forms in the different steps, you can set the mode to `edit` and they can easily jump to a step instead of
+having to click the Next button many times.
+
+On the other hand if you want your users to follow through the entire step process you've created you can set the mode to `add`. This
+will force them to use the next button, and you'll be able to validate the contents of the steps and guide them towards completion.
+
+### `initialStepNo`
+
+If you'd like your users to start on a different step than the first one, you can fill this prop with a number. Remember: the index starts at `0`. So step 1 in
+your `Wizard` component will equal to `initialStepNo` of 0 and step 6 will equal to an `initialStepNo` of 5. You could use this if your user closes
+in the middle of your Wizard. You can save the step they're at and re-open at that same step whenever they open it again.
+
+### `onStepChange`
+
+This function will allow you to listen to the event that the user goes to a next or previous step. This way, you can create your own
+state variable that keeps track of which step the user is on, and set it to the correct step you get as the first, and only, parameter.
+
+### `children`
+
+Here is where you will render anything that you want to show depending on the step that is active. You can simply use the `&&` sign to conditionally render a certain piece of JSX.
+
+An example is [found below](#Examples)
+
+## `<WizardSteps />`
+
+You can determine where exactly you want the `steps` you've passed to the `Wizard` component are being rendered. Simply put this component anywhere within your `<Wizard />` component. This component takes
+a single prop.
+
+```
+onStepClick: (currentStepNo: number, selectedStepNo: number) => boolean;
+```
+
+Whenever the user clicks on one of the steps, this function will fire with the step they came from, and the step they're going to. In reality you'll not need this function as the
+`onStepChange` prop on the `<Wizard />` component should be enough for you. If, for whatever reason, you need the step they came from. Use this prop instead.
+
+## `<WizardActions />`
+
+Wizard actions with allow you to render different buttons based on what step the user is on. The following buttons will be rendered:
+
+- Cancel (always available)
+- Previous (available if there's a previous step to go to)
+- Next (available if there's a next step to go to)
+- Save & Close (available on the last step)
+
+The `WizardActions` component will accept the following props:
+
+```tsx
+cancelButtonLabel: string;
+previousButtonLabel: string;
+nextButtonLabel: string;
+saveAndCloseButtonLabel: string;
+onCancel: () => void;
+onNext: (currentStepNo: number) => boolean;
+onPrevious?: () => void;
+onSaveAndClose: (currentStepNo: number) => void;
+```
+
+### `cancelButtonLabel`
+
+The label for the Cancel button.
+
+### `previousButtonLabel`
+
+The label for the Previous button.
+
+### `nextButtonLabel`
+
+The label for the Next button.
+
+### `saveAndCloseButtonLabel`
+
+The label for the Save & Close button.
+
+### `onCancel`
+
+A function that will get executed as soon as the user clicks on the Cancel button. You can use this to, for example, close the modal that the `Wizard` is in.
+
+### `onNext`
+
+A function that will get executed when the user clicks on the Next button. Use this to update the active step state you've created to go to the next step.
+
+### `onPrevious`
+
+A function that will get executed when the user clicks on the Previous button. Use this to update the active step state you've created to go to the previous step.
+
+### `onSaveAndClose`
+
+A function that will get executed when the user clicks on the Save & Close button. Gets the current step number as an argument.
+
+# Examples
+
+Normal Wizard:
+
+<Canvas>
+  <Story id="stories-form-wizard-wizard--basic-wizard" />
+</Canvas>
+
+Wizard within a modal:
+
+<Canvas>
+  <Story id="stories-form-wizard-wizard--wizard-in-modal" />
+</Canvas>
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

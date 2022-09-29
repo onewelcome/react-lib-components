@@ -6,7 +6,6 @@ type WizardStateType = {
   steps: Step[];
   currentStepNo: number;
   mode: WizardMode;
-  stepScreenReaderLabel: string;
 };
 
 interface SetWizardStateAction {
@@ -14,7 +13,6 @@ interface SetWizardStateAction {
   payload: {
     steps: Step[];
     mode: WizardMode;
-    stepScreenReaderLabel: string;
   };
 }
 
@@ -23,12 +21,8 @@ interface ChangeCurrentStepNoAction {
   payload: number;
 }
 
-const setWizardState = (
-  steps: Step[],
-  mode: WizardMode,
-  stepScreenReaderLabel: string
-): SetWizardStateAction => {
-  return { type: "SET_STATE", payload: { steps, mode, stepScreenReaderLabel } };
+const setWizardState = (steps: Step[], mode: WizardMode): SetWizardStateAction => {
+  return { type: "SET_STATE", payload: { steps, mode } };
 };
 
 const changeCurrentStepNo = (currentStepNo: number): ChangeCurrentStepNoAction => {
