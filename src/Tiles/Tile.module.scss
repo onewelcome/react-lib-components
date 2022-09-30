@@ -1,7 +1,7 @@
 @import "../mixins.module.scss";
 
 .tile {
-  border: 1px solid #e9e9eb;
+  border: 1px solid var(--light-grey-border);
   border-radius: 8px;
   box-sizing: border-box;
   padding: 0 0 2rem;

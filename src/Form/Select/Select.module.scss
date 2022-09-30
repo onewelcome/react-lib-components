@@ -44,7 +44,7 @@ $listItemHeight: 2.125rem;
     border: 0;
     padding: 0 1.25rem;
     background-color: transparent;
-    border-color: var(--input-border-color);
+    border-color: var(--light-grey-border);
     border-style: var(--input-border-style);
     border-width: var(--input-border-width);
     border-radius: var(--input-border-radius);
@@ -67,7 +67,7 @@ $listItemHeight: 2.125rem;
   }
 
   .list-wrapper {
-    border-color: var(--input-border-color);
+    border-color: var(--light-grey-border);
     border-style: var(--input-border-style);
     border-width: var(--input-border-width);
     border-radius: var(--input-border-radius);
