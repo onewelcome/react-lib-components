@@ -19,7 +19,7 @@ $listItemHeight: 2.125rem;
     border: var(--input-border-width) solid transparent;
 
     .list-wrapper {
-      background: #fff;
+      background: var(--white);
     }
   }
 
@@ -86,7 +86,7 @@ $listItemHeight: 2.125rem;
     width: 100%;
     margin: 0;
     list-style: none;
-    background-color: #fff;
+    background-color: var(--white);
     border-radius: var(--input-border-radius);
     color: var(--default);
     text-align: left;
