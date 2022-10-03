@@ -28,6 +28,12 @@ export const Popover = React.forwardRef<HTMLDivElement, Props>(
     });
 
     useEffect(() => {
+      window.addEventListener("resize", calculatePosition);
+
+      return () => window.removeEventListener("resize", calculatePosition);
+    }, []);
+
+    useEffect(() => {
       calculatePosition();
     }, [show]);
 
