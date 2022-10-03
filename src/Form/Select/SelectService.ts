@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import {
   Position,
-  useArrowNavigationParams,
-  useSelectPositionListParams
+  UseArrowNavigationParams,
+  UseSelectPositionListParams
 } from "./Select.interfaces";
 
 export const useArrowNavigation = ({
@@ -16,7 +16,7 @@ export const useArrowNavigation = ({
   setShouldClick,
   searchInputRef,
   renderSearchCondition
-}: useArrowNavigationParams) => {
+}: UseArrowNavigationParams) => {
   const onArrowNavigation = (event: React.KeyboardEvent) => {
     const codesToPreventDefault = [
       "ArrowDown",
@@ -120,7 +120,7 @@ export const useSelectPositionList = ({
   expanded,
   optionListReference,
   containerReference
-}: useSelectPositionListParams) => {
+}: UseSelectPositionListParams) => {
   const [optionsListMaxHeight, setOptionsListMaxHeight] = useState("none");
   const [opacity, setOpacity] = useState(0); // We set opacity because other wise if we calculate the max height you see the list full height for a split second and then it shortens.
   const [listPosition, setListPosition] = useState<Partial<Position>>({});

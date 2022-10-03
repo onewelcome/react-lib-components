@@ -3,7 +3,7 @@ export type Position = {
   bottom: 0 | "initial";
 };
 
-export interface useArrowNavigationParams {
+export interface UseArrowNavigationParams {
   expanded: boolean;
   setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
   isSearching: boolean;
@@ -16,7 +16,7 @@ export interface useArrowNavigationParams {
   renderSearchCondition: number;
 }
 
-export interface useSelectPositionListParams {
+export interface UseSelectPositionListParams {
   expanded: boolean;
   optionListReference: React.RefObject<HTMLDivElement>;
   containerReference: React.RefObject<HTMLDivElement>;
