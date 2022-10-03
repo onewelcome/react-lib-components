@@ -47,7 +47,7 @@
   &.disabled {
     color: var(--greyed-out);
     background-color: var(--disabled);
-    border-color: var(--white);
+    border-color: var(--light);
     cursor: not-allowed;
   }
 }

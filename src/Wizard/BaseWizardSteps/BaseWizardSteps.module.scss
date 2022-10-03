@@ -7,7 +7,7 @@
     .number-wrapper {
       .number {
         background-color: var(--color-primary);
-        color: var(--white);
+        color: var(--light);
       }
     }
 
@@ -87,7 +87,7 @@
   &.current {
     .number-wrapper {
       .number {
-        color: var(--white);
+        color: var(--light);
         border: 2px solid var(--color-primary);
         background-color: var(--color-primary);
       }
@@ -161,7 +161,7 @@
   height: 1.5rem;
   color: var(--greyed-out);
   line-height: 1.5rem;
-  background-color: var(--white);
+  background-color: var(--light);
   box-sizing: content-box;
 }
 
