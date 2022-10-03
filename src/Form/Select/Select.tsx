@@ -15,6 +15,7 @@ import { FormElement } from "../form.interfaces";
 import { useBodyClick } from "../../hooks/useBodyClick";
 import readyclasses from "../../readyclasses.module.scss";
 import { filterProps } from "../../util/helper";
+import { useArrowNavigation, useSelectPositionList } from "./SelectService";
 
 type PartialInputProps = Partial<InputProps>;
 
@@ -33,11 +34,6 @@ export interface Props extends ComponentPropsWithRef<"select">, FormElement {
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
   onClear?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
-
-type Position = {
-  top: 0 | "initial";
-  bottom: 0 | "initial";
-};
 
 /** Amount of items to be rendered before a search input is rendered */
 const renderSearchCondition = 10;
@@ -65,11 +61,8 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
     ref
   ) => {
     const [expanded, setExpanded] = useState(false);
-    const [opacity, setOpacity] = useState(0); // We set opacity because other wise if we calculate the max height you see the list full height for a split second and then it shortens.
     const [filter, setFilter] = useState("");
     const [display, setDisplay] = useState("");
-    const [listPosition, setListPosition] = useState<Partial<Position>>({});
-    const [optionsListMaxHeight, setOptionsListMaxHeight] = useState("none");
     const containerReference = useRef<HTMLDivElement>(null);
     const optionListReference = useRef<HTMLDivElement>(null);
     const [isSearching, setIsSearching] = useState(false);
@@ -82,105 +75,23 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
     const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
     const searchInputRef = useRef<HTMLInputElement>(null);
+    const customSelectButtonRef = useRef<HTMLButtonElement>(null);
 
-    const onArrowNavigation = (event: React.KeyboardEvent) => {
-      const codesToPreventDefault = [
-        "ArrowDown",
-        "ArrowUp",
-        "ArrowLeft",
-        "ArrowRight",
-        "Space",
-        "Escape",
-        "End",
-        "Home"
-      ];
+    const { onArrowNavigation } = useArrowNavigation({
+      expanded,
+      setExpanded,
+      isSearching,
+      setIsSearching,
+      setFocusedSelectItem,
+      childrenCount,
+      customSelectButtonRef,
+      setShouldClick,
+      searchInputRef,
+      renderSearchCondition
+    });
 
-      const codesToPreventDefaultWhenSearching = ["ArrowDown", "ArrowUp", "Enter", "Escape"];
-
-      /** If the select is expanded, we also want to control the Tab key */
-      if (expanded) {
-        codesToPreventDefault.push("Tab");
-      }
-
-      /** We will handle the way certain key strokes affect the Select, unless we're searching */
-      if (codesToPreventDefault.includes(event.code) && !isSearching) {
-        event.preventDefault();
-      }
-
-      if (isSearching && codesToPreventDefaultWhenSearching.includes(event.code)) {
-        event.preventDefault();
-      }
-
-      if (isSearching) {
-        switch (event.code) {
-          case "ArrowDown":
-          case "Enter":
-            setIsSearching(false);
-            setFocusedSelectItem(0);
-            return;
-          case "ArrowUp":
-            setIsSearching(false);
-            setFocusedSelectItem(childrenCount - 1);
-            return;
-          case "Escape":
-          case "Tab":
-            setIsSearching(false);
-            setExpanded(false);
-            containerReference.current &&
-              containerReference.current.querySelector("button")!.focus();
-        }
-      } else {
-        switch (event.code) {
-          case "ArrowDown":
-            if (!expanded) {
-              setExpanded(true);
-              return;
-            }
-            setFocusedSelectItem(prevState => {
-              return prevState + 1 > childrenCount - 1 ? 0 : prevState + 1;
-            });
-            return;
-          case "ArrowUp":
-            setFocusedSelectItem(prevState => {
-              return prevState - 1 < 0 ? childrenCount - 1 : prevState - 1;
-            });
-            return;
-          case "Space":
-            if (!expanded) {
-              setExpanded(true);
-              return;
-            }
-
-            setShouldClick(true);
-            setExpanded(false);
-            containerReference.current &&
-              containerReference.current.querySelector("button")!.focus();
-            return;
-          case "Tab":
-            if (childrenCount >= renderSearchCondition && expanded) {
-              setIsSearching(true);
-              searchInputRef.current && searchInputRef.current.focus();
-              return;
-            }
-            setExpanded(false);
-
-            return;
-          case "Escape":
-            if (expanded) {
-              setExpanded(false);
-              containerReference.current &&
-                containerReference.current.querySelector("button")!.focus();
-            }
-            return;
-          case "End":
-            setFocusedSelectItem(childrenCount - 1);
-            return;
-          case "Home":
-            setFocusedSelectItem(0);
-            return;
-        }
-      }
-    };
+    const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
+      useSelectPositionList({ expanded, optionListReference, containerReference });
 
     const syncDisplayValue = (val: string) => {
       React.Children.forEach(children, child => {
@@ -188,55 +99,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
           setDisplay(child.props.children);
         }
       });
-    };
-
-    const rePositionList = () => {
-      if (!expanded || !optionListReference.current || !containerReference.current) {
-        return;
-      }
-
-      // Check whether there is more space above or below the select
-      // Check space between the bottom of select and top of viewport
-      const spaceOnTopOfSelect = containerReference.current.getBoundingClientRect().bottom;
-
-      // Check space between the top of the select and bottom of viewport
-      const spaceOnBottomOfSelect =
-        window.innerHeight - containerReference.current.getBoundingClientRect().top;
-
-      // Set position as if there's more space on the bottom
-      let position: Position = { top: 0, bottom: "initial" };
-
-      // Set the position of the select
-      if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
-        position = { top: "initial", bottom: 0 };
-      }
-
-      setListPosition(position);
-
-      // Calculate the potential max height of the options list
-      calculateOptionListMaxHeight(position);
-    };
-
-    const calculateOptionListMaxHeight = (position: Position) => {
-      // Calculate max height if there's more space below the select
-      const listHeight = optionListReference.current!.getBoundingClientRect().height;
-      const transformOrigin = position.top !== "initial" ? "top" : "bottom";
-
-      const availableSpace =
-        transformOrigin === "top"
-          ? window.innerHeight -
-            containerReference.current!.getBoundingClientRect()[transformOrigin] -
-            16
-          : containerReference.current!.getBoundingClientRect()[transformOrigin] - 16;
-
-      if (availableSpace < listHeight) {
-        setOptionsListMaxHeight(`${availableSpace}px`);
-        setOpacity(100);
-        return;
-      }
-
-      setOptionsListMaxHeight("none");
-      setOpacity(100);
     };
 
     const onOptionChangeHandler = (optionRef: React.RefObject<HTMLLIElement>) => {
@@ -247,7 +109,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
 
       setExpanded(false);
 
-      containerReference.current && containerReference.current.querySelector("button")!.focus();
+      customSelectButtonRef.current && customSelectButtonRef.current.focus();
     };
 
     /**
@@ -351,10 +213,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
       syncDisplayValue(value);
     }, [value]);
 
-    useEffect(() => {
-      rePositionList();
-    }, [expanded]);
-
     useBodyClick(
       (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
       () => {
@@ -401,6 +259,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             onClick={() => {
               setExpanded(!expanded);
             }}
+            ref={customSelectButtonRef}
             type="button"
             name={name}
             className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
