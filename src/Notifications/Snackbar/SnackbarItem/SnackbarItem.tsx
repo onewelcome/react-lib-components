@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { IconButton } from "../../../Button/IconButton";
 import { Icon, Icons } from "../../../Icon/Icon";
 import { Variant, Actions } from "../interfaces";
@@ -6,6 +6,7 @@ import classes from "./SnackbarItem.module.scss";
 import readyclasses from "../../../readyclasses.module.scss";
 import { useAnimation } from "../../../hooks/useAnimation";
 import { Typography } from "../../../Typography/Typography";
+import { SnackbarContext } from "../SnackbarProvider/SnackbarStateProvider";
 
 const textColor = "var(--snackbar-text-color)";
 
@@ -33,6 +34,13 @@ export const SnackbarItem = ({
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => onClose(id);
   const { ref, animationStarted, startAnimation } = useAnimation<HTMLDivElement>(onAnimationEnd);
+  const ctx = useContext(SnackbarContext);
+
+  useEffect(() => {
+    if (ref.current) {
+      ctx.setSnackbarHeight(id, ref.current.getBoundingClientRect().height);
+    }
+  }, [ref.current]);
 
   useEffect(() => {
     timerHandler.current = setTimeout(() => startAnimation(), duration);

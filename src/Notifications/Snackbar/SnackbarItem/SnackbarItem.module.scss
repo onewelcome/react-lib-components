@@ -5,7 +5,9 @@
   border-radius: var(--snackbar-border-radius);
   display: flex;
   width: 100%;
-  box-sizing: border-box;
+  box-sizing: content-box;
+  transition: height 0.2s ease-in-out;
+  flex-grow: 0;
 
   &.info {
     background-color: var(--snackbar-info-background-color);

@@ -22,10 +22,11 @@ export interface Props {
   className?: string;
 }
 
-interface Item {
+export interface Item {
   id: string;
   title: string;
   duration: number;
+  height: number;
   variant: Variant;
   content?: string;
   actions?: Actions;
@@ -47,6 +48,18 @@ export const SnackbarProvider = (
 
   const addSnackbar = (item: Item) => {
     setSnackbars(items => [...items, item]);
+  };
+
+  const setSnackbarHeight = (id: string, height: number) => {
+    const newSnackbarsState = snackbars.map(snackbar => {
+      if (snackbar.id !== id) return snackbar;
+
+      snackbar.height = height;
+
+      return snackbar;
+    });
+
+    setSnackbars(newSnackbarsState);
   };
 
   const getDuration = (variant: Variant, actions?: Actions, content?: string) => {
@@ -75,6 +88,7 @@ export const SnackbarProvider = (
       variant,
       actions,
       duration,
+      height: 0,
       id: generateID(15, title),
       onClose
     };
@@ -124,7 +138,13 @@ export const SnackbarProvider = (
 
   return (
     <SnackbarContextProvider
-      initialState={{ enqueueSnackbar, enqueueSuccessSnackbar, enqueueErrorSnackbar }}
+      initialState={{
+        enqueueSnackbar,
+        enqueueSuccessSnackbar,
+        enqueueErrorSnackbar,
+        setSnackbarHeight,
+        snackbars
+      }}
     >
       {children}
       {snackbarPortal}
