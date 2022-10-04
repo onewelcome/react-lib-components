@@ -19,7 +19,7 @@ $listItemHeight: 2.125rem;
     border: var(--input-border-width) solid transparent;
 
     .list-wrapper {
-      background: #fff;
+      background: var(--light);
     }
   }
 
@@ -44,7 +44,7 @@ $listItemHeight: 2.125rem;
     border: 0;
     padding: 0 1.25rem;
     background-color: transparent;
-    border-color: var(--input-border-color);
+    border-color: var(--light-grey-border);
     border-style: var(--input-border-style);
     border-width: var(--input-border-width);
     border-radius: var(--input-border-radius);
@@ -67,7 +67,7 @@ $listItemHeight: 2.125rem;
   }
 
   .list-wrapper {
-    border-color: var(--input-border-color);
+    border-color: var(--light-grey-border);
     border-style: var(--input-border-style);
     border-width: var(--input-border-width);
     border-radius: var(--input-border-radius);
@@ -86,7 +86,7 @@ $listItemHeight: 2.125rem;
     width: 100%;
     margin: 0;
     list-style: none;
-    background-color: #fff;
+    background-color: var(--light);
     border-radius: var(--input-border-radius);
     color: var(--default);
     text-align: left;

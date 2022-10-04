@@ -1,0 +1,51 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+
+<Title />
+<Subtitle />
+
+The `InputWrapper` component has been created to make your life easier as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least 2 attributes - a `name` and a `value` prop, which should be linked to a `useState` variable.
+
+You can use the `onChange` event to update the linked `useState` variable whenever the user types something.
+
+## It takes care of proper accessibility
+
+The `InputWrapper` accepts a `name`, `helperText` and `errorMessage` prop. Based on the `error` prop (set to true or false) it will make sure to set its `aria-describedby` value to the `id` of the `errorMessage` or `helperText`.
+
+The `value` prop should be linked to a `useState` variable that gets updated using the `onChange` event.
+
+# Examples
+
+<Canvas>
+  <Story id="stories-form-wrapper-inputwrapper--input-wrapper" />
+</Canvas>
+
+A code example of how you can configure a `InputWrapper` within a React component:
+
+```jsx
+const ExampleComponent = () => {
+  const [inputValue, setInputValue] = useState("");
+
+  return (
+    <InputWrapper
+      label="Example label"
+      type="text"
+      name="Example name"
+      helperText="This is helpertext"
+      onChange={(event) => setInputValue(event.target.value)}
+      errorMessage="This is an error message"
+      error={false}
+      value={inputValue}
+      inputProps= {
+        prefix: "https://",
+        suffix: "",
+        className: "input-classname",
+        wrapperProps: { className: "wrapper-classname" }
+      }
+    />
+  );
+};
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
