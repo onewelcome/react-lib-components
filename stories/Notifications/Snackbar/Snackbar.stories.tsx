@@ -28,7 +28,7 @@ const AppContent = () => {
       <Button
         onClick={() =>
           enqueueSuccessSnackbar("Main message of the snackbar", undefined, {
-            duration: 20000,
+            duration: 10000,
             onClose: () => console.log("onClose handler")
           })
         }
@@ -40,7 +40,6 @@ const AppContent = () => {
       <Button
         onClick={() =>
           enqueueErrorSnackbar("Social account unlink failed", undefined, {
-            duration: 20000,
             onClose: () => console.log("onClose handler")
           })
         }
@@ -82,7 +81,7 @@ const AppContent = () => {
 
 const Template: Story<Props> = args => {
   return (
-    <SnackbarProvider {...args} closeButtonTitle="Close">
+    <SnackbarProvider {...args}>
       <AppContent />
     </SnackbarProvider>
   );
