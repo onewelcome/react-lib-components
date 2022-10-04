@@ -8,7 +8,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   id: string;
   title: string;
   children?: React.ReactNode;
-  onClose: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const BaseModalHeader = React.forwardRef<HTMLDivElement, Props>(
