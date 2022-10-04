@@ -26,7 +26,7 @@ The check function is the function that will be executed every time the user cli
 It gives you the `event` object that you can work with in order to check things.
 
 Coming back to our modal example, our check function could check whether the `event.target` that was clicked on was the modal or any of its children. If that's the case, we do not want
-the modal to be closed, so our check function should return false. However, if it's not the case, the user clicked outside the modal and we want to execute the callback function.
+the modal to be closed, so our check function should return false. However, if it's not the case, the user clicks outside the modal, and we want to execute the callback function.
 
 Example check function:
 
