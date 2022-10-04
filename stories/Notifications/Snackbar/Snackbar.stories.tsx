@@ -6,11 +6,16 @@ import {
 } from "../../../src/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
 import { Button } from "../../../src/Button/Button";
 import { useSnackbar } from "../../../src/Notifications/Snackbar/useSnackbar";
+import SnackbarDocumentation from "./Snackbar.mdx";
 
 const meta: Meta = {
   title: "Stories/Notifications/Snackbar",
   component: SnackbarProvider,
-  args: {}
+  parameters: {
+    docs: {
+      page: SnackbarDocumentation
+    }
+  }
 };
 
 export default meta;
@@ -23,6 +28,7 @@ const AppContent = () => {
       <Button
         onClick={() =>
           enqueueSuccessSnackbar("Main message of the snackbar", undefined, {
+            duration: 10000,
             onClose: () => console.log("onClose handler")
           })
         }
