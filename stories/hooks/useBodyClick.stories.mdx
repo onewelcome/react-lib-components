@@ -51,7 +51,7 @@ setOpen(false);
 ### Statevariable
 
 Whenever our component gets rendered and rerendered, we want to prevent that our `window.addEventListener` gets added more than once. After all,
-if we add it more times that could lead to some massive issues. That's why we add a depending state variable that indicates when we
+if we add it more times, that could lead to some massive issues. That's why we add a depending state variable that indicates when we
 need to add or remove the event listener. In the case of our modal example, this is the `open` state. Think of it like a `useEffect`s dependency array.
 
 ## Complete example
