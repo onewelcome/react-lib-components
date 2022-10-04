@@ -7,7 +7,7 @@
     .number-wrapper {
       .number {
         background-color: var(--color-primary);
-        color: #ffffff;
+        color: var(--light);
       }
     }
 
@@ -87,13 +87,9 @@
   &.current {
     .number-wrapper {
       .number {
-        color: #fff;
+        color: var(--light);
         border: 2px solid var(--color-primary);
         background-color: var(--color-primary);
-      }
-
-      &:after {
-        border-bottom: 2px solidvar(--color-primary);
       }
 
       &:before {
@@ -165,7 +161,7 @@
   height: 1.5rem;
   color: var(--greyed-out);
   line-height: 1.5rem;
-  background-color: #ffffff;
+  background-color: var(--light);
   box-sizing: content-box;
 }
 

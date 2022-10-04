@@ -27,7 +27,7 @@
   padding-top: 1.75rem;
   padding-right: 3.75rem;
   padding-bottom: 0.75rem;
-  border-color: var(--input-border-color);
+  border-color: var(--light-grey-border);
   border-style: var(--input-border-style);
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
@@ -47,7 +47,7 @@
   &.disabled {
     color: var(--greyed-out);
     background-color: var(--disabled);
-    border-color: #fff;
+    border-color: var(--light);
     cursor: not-allowed;
   }
 }
