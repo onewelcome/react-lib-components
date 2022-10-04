@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { Select as SelectComponent, Props } from "../../../src/Form/Select/Select";
 import { Option } from "../../../src/Form/Select/Option";
@@ -82,6 +82,5 @@ const Template: Story<Props> = args => {
 export const Select = Template.bind({});
 
 Select.args = {
-  onClear: () => {},
   name: "Example select"
 };

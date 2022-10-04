@@ -13,7 +13,6 @@ interface CSSProperties {
   buttonFillTextColor?: string;
   buttonFillBackgroundColor?: string;
   buttonOutlineHoverTextColor?: string;
-  inputBorderColor?: string;
   inputBorderRadius?: string;
   inputBorderWidth?: string;
   inputBorderWidthFocus?: string;
@@ -41,7 +40,10 @@ interface CSSProperties {
   error?: string;
   disabled?: string;
   greyedOut?: string;
+  lightGreyBorder?: string;
   warning?: string;
+  light?: string;
+  grey?: string;
   fontFamily?: string;
   fontFamilyCode?: string;
   fontSize?: string;
@@ -72,7 +74,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonFillTextColor: "#fff",
     buttonFillBackgroundColor: "#fff",
     buttonOutlineHoverTextColor: "#fff",
-    inputBorderColor: "#e9e9eb",
     inputBorderRadius: "8px",
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "2px",
@@ -100,7 +101,10 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     error: "#d9291c",
     disabled: "#e9e9eb",
     greyedOut: "#6f6f76",
+    lightGreyBorder: "#e9e9eb",
     warning: "#ff6105",
+    light: "#FFF",
+    grey: "#c3c3c7",
     fontFamily: "'Red Hat Display', sans-serif",
     fontFamilyCode: "'Red Hat Mono', sans-serif",
     fontSize: "1rem",

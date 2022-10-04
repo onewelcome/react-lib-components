@@ -32,7 +32,6 @@ export interface Props extends ComponentPropsWithRef<"select">, FormElement {
   value: string;
   clearLabel?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
-  onClear?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 /** Amount of items to be rendered before a search input is rendered */
@@ -55,7 +54,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
       value,
       clearLabel = "Clear selection",
       onChange,
-      onClear,
       ...rest
     }: Props,
     ref
@@ -175,33 +173,6 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
         return <Icon className={classes["warning"]} icon={Icons.Warning} />;
       }
 
-      if (value?.length !== 0 && onClear) {
-        return (
-          <div
-            aria-hidden={false}
-            role="button"
-            tabIndex={0}
-            data-clear
-            onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onClear(e);
-            }}
-            onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-              if (e.code === "Enter" || e.code === "Space") {
-                e.preventDefault();
-                e.stopPropagation();
-                onClear(e);
-                containerReference.current &&
-                  containerReference.current.querySelector("button")!.focus();
-              }
-            }}
-          >
-            <span className={readyclasses["sr-only"]}>{clearLabel}</span>
-            <Icon tag="span" icon={Icons.TimesThin} />
-          </div>
-        );
-      }
       return null;
     };
 

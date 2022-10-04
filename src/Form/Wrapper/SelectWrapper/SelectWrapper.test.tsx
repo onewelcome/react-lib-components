@@ -5,7 +5,6 @@ import { Option } from "../../Select/Option";
 import userEvent from "@testing-library/user-event";
 
 const onChangeHandler = jest.fn();
-const onClearHandler = jest.fn();
 
 const defaultParams: Props = {
   children: [
@@ -29,8 +28,7 @@ const defaultParams: Props = {
   errorMessage: "errormessage",
   error: false,
   value: "option1",
-  onChange: onChangeHandler,
-  onClear: onClearHandler
+  onChange: onChangeHandler
 };
 
 const createSelectWrapper = (params?: (defaultParams: Props) => Props) => {
@@ -167,21 +165,5 @@ describe("SelectWrapper & Select have the right attributes", () => {
     userEvent.click(option3 as Element);
 
     expect(onChangeHandler).toHaveBeenCalled();
-  });
-
-  it("Fires the onClear event", async () => {
-    const { select, findByText } = createSelectWrapper();
-
-    userEvent.click(select as Element);
-
-    const option3 = await findByText("Option 3");
-
-    userEvent.click(option3 as Element);
-
-    const clearButton = select!.querySelector("[data-clear]")!;
-
-    userEvent.click(clearButton);
-
-    expect(onClearHandler).toHaveBeenCalled();
   });
 });
