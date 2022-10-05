@@ -13,6 +13,7 @@ $listItemHeight: 2.125rem;
 
   [data-display] {
     color: var(--greyed-out);
+    font-family: var(--font-family);
   }
 
   &.expanded {
