@@ -42,12 +42,12 @@ const meta: Meta = {
 
 export default meta;
 const Template: Story<Props> = args => (
-  <Fieldset legend="Radio button group">
+  <Fieldset legend="Radio button group" legendStyle={"body-bold"}>
     <RadioComponent
+      {...args}
       helperText="Example helpertext"
       errorMessage="Example error message"
       value="example-radio"
-      {...args}
     >
       Label
     </RadioComponent>
