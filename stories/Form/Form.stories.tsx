@@ -289,9 +289,6 @@ const Template: Story<Props> = args => {
           errorMessage="This is an error message"
           value={selectValue}
           onChange={e => setSelectValue(e.target.value)}
-          onClear={() => {
-            setSelectValue("");
-          }}
         >
           <Option value="option1">Option 1</Option>
           <Option value="option2">Option 2</Option>
