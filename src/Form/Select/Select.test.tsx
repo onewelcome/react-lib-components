@@ -280,63 +280,6 @@ describe("List expansion", () => {
   });
 });
 
-describe("onClear method", () => {
-  it("should show a cross and fire the passed onClear function with enter", async () => {
-    const onClearHandler = jest.fn();
-
-    const { select, button } = createSelect(defaultParams => ({
-      ...defaultParams,
-      onClear: onClearHandler,
-      value: "option4"
-    }));
-
-    button.focus();
-    const clearButton = select.querySelector("[data-clear]");
-
-    userEvent.tab();
-
-    expect(clearButton).toHaveFocus();
-
-    userEvent.keyboard("{enter}");
-
-    expect(onClearHandler).toHaveBeenCalled();
-    expect(button?.getAttribute("aria-expanded")).toBe("false");
-  });
-
-  it("should show a cross and fire the passed onClear function with enter", async () => {
-    const onClearHandler = jest.fn();
-
-    const { select, button } = createSelect(defaultParams => ({
-      ...defaultParams,
-      onClear: onClearHandler,
-      value: "option4"
-    }));
-
-    button.focus();
-    const clearButton = select.querySelector("[data-clear]");
-    expect(document.querySelector("[data-display-inner]")).toBeInTheDocument();
-
-    userEvent.tab();
-
-    expect(clearButton).toHaveFocus();
-
-    userEvent.keyboard("{space}");
-
-    expect(onClearHandler).toHaveBeenCalled();
-    expect(button?.getAttribute("aria-expanded")).toBe("false");
-  });
-
-  it("should not show cross", () => {
-    createSelect(defaultParams => ({
-      ...defaultParams,
-      value: ""
-    }));
-
-    expect(document.querySelector("[data-clear]")).not.toBeInTheDocument();
-    expect(document.querySelector("[data-display-inner]")).not.toBeInTheDocument();
-  });
-});
-
 describe("previously selected item", () => {
   it("should have focus", () => {
     const { select, button } = createSelect(defaultParams => ({

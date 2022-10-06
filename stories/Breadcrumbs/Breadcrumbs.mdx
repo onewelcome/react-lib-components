@@ -1,0 +1,40 @@
+import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+
+<Title />
+<Subtitle />
+
+The breadcrumbs component exists to give you easily formatted navigation links to put in your application. It accepts
+`children`, which should be only `<Link />` components. The last `<Link />` component that you pass will automatically
+be converted to a normal `<Typography />` element since we don't need the current page you're on to be clickable.
+
+## Accessibility
+
+For accessibility reasons, an `ariaLabel` prop is mandatory. This is because, by default, screenreaders will not know if a `nav` element
+is used as a menu or other purposes. You should pass the translation of `breadcrumbs` in the active language to this prop.
+
+# Examples
+
+<Canvas>
+  <Story id="stories-ui-breadcrumbs--breadcrumbs" />
+</Canvas>
+
+```jsx
+<Breadcrumbs ariaLabel="breadcrumbs">
+  <Link key="1" to="#">
+    Home
+  </Link>
+  <Link key="2" to="#invoice">
+    Invoices
+  </Link>
+  <Link key="3" to="#invoice/123-456-789">
+    Invoice #01/02/1990
+  </Link>
+  <Link key="4" to="#invoice/123-456-789/tax">
+    Tax liabilities
+  </Link>
+</Breadcrumbs>
+```
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />

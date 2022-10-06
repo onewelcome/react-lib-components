@@ -26,44 +26,6 @@ export interface Props extends ComponentPropsWithRef<"input">, FormElement {
   prefix?: string;
 }
 
-const useErrorOffset = (
-  suffix: React.RefObject<HTMLDivElement>,
-  errorIcon: React.RefObject<HTMLDivElement>,
-  inputWrapper: React.RefObject<HTMLDivElement>,
-  error: boolean,
-  type: Type,
-  suffixContent: string = ""
-) => {
-  const [errorOffset, setErrorOffset] = useState({});
-  const [defaultErrorOffset, setDefaultErrorOffset] = useState<number | null>(null);
-
-  const getErrorIconOffset = () => parseFloat(getComputedStyle(errorIcon.current!).right);
-  const getInputPaddingRight = (input: HTMLDivElement) =>
-    (dateTypes as ReadonlyArray<string>).includes(type)
-      ? 0
-      : parseFloat(getComputedStyle(input).paddingRight);
-
-  useEffect(() => {
-    if (errorIcon.current && inputWrapper.current) {
-      let defaultOffset = defaultErrorOffset;
-      if (!defaultOffset) {
-        defaultOffset = getErrorIconOffset();
-        setDefaultErrorOffset(defaultOffset);
-      }
-
-      if (suffix.current && suffixContent) {
-        const inputPaddingRight = getInputPaddingRight(inputWrapper.current);
-        const prefixDifference = suffix.current.offsetWidth + inputPaddingRight + defaultOffset;
-        setErrorOffset({ right: `${prefixDifference}px` });
-      } else {
-        setErrorOffset({ right: `${defaultOffset}px` });
-      }
-    }
-  }, [suffix.current, errorIcon.current, inputWrapper.current, error, type, suffixContent]);
-
-  return { errorOffset };
-};
-
 export const Input = React.forwardRef(
   (
     {
@@ -87,14 +49,6 @@ export const Input = React.forwardRef(
     const inputWrapperRef = useRef<HTMLDivElement>(null);
     const errorIconRef = useRef<HTMLDivElement>(null);
     const suffixRef = useRef<HTMLDivElement>(null);
-    const { errorOffset } = useErrorOffset(
-      suffixRef,
-      errorIconRef,
-      inputWrapperRef,
-      error,
-      type,
-      suffix
-    );
 
     useEffect(() => {
       if (name === undefined) {
@@ -105,13 +59,10 @@ export const Input = React.forwardRef(
     const inputClassNames = [classes["input"]];
 
     (dateTypes as ReadonlyArray<string>).includes(type) &&
-      inputClassNames.push(classes["remove-extra-indent"]);
+      inputClassNames.push(classes["shrink-width-for-date-icon"]);
     className && inputClassNames.push(className);
 
     const iconClassNames = [classes["warning"]];
-    (dateTypes as ReadonlyArray<string>).includes(type) &&
-      iconClassNames.push(classes["extra-indent"]);
-
     const wrapperClasses = [classes["input-wrapper"]];
     const outlineClasses = [classes["outline"]];
 
@@ -160,12 +111,7 @@ export const Input = React.forwardRef(
           </div>
         )}
         {error && (
-          <Icon
-            style={errorOffset}
-            ref={errorIconRef}
-            className={iconClassNames.join(" ")}
-            icon={Icons.Error}
-          />
+          <Icon ref={errorIconRef} className={iconClassNames.join(" ")} icon={Icons.Error} />
         )}
         <span className={outlineClasses.join(" ")}></span>
       </div>

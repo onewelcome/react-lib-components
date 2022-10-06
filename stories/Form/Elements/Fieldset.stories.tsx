@@ -40,16 +40,15 @@ const Template: Story<Props> = args => {
 
   return (
     <Form style={{ padding: "20px", backgroundColor: "#F5F8F8" }}>
-      <FieldsetComponent legend="Name" {...args}>
+      <FieldsetComponent {...args} legend="Name">
         <FormControl grid={3} align="top">
           <SelectWrapper
             name="prefix"
             label="Prefix"
             value={prefix}
             onChange={event => setPrefix(event.target.value)}
-            onClear={() => setPrefix("")}
           >
-            <Option disabled value={undefined}>
+            <Option disabled value={""}>
               Prefix
             </Option>
             <Option value="mr">Mr.</Option>

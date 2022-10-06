@@ -23,7 +23,7 @@ $borderRadius: 2.5rem;
     height: 1rem;
     border-radius: 50%;
     display: block;
-    background-color: #fff;
+    background-color: var(--light);
     position: absolute;
     top: 50%;
     transform: translateY(-50%) translateX(0);
