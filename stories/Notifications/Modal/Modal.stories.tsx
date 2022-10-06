@@ -11,7 +11,7 @@ import { FormControl } from "../../../src/Form/FormControl/FormControl";
 import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
 
 const meta: Meta = {
-  title: "Stories/Notifications/Modal",
+  title: "components/Utils/Modal",
   component: ModalComponent,
   subcomponents: {
     ModalHeader,

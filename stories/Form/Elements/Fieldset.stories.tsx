@@ -10,7 +10,7 @@ import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrappe
 import { Button } from "../../../src/Button/Button";
 
 const meta: Meta = {
-  title: "Stories/Form/Elements/Fieldset",
+  title: "components/Layout/Fieldset",
   component: FieldsetComponent,
   parameters: {
     docs: {

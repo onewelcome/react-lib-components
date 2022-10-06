@@ -1,11 +1,11 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Checkbox, CheckboxProps as CheckboxProps } from "../../../src/Form/Checkbox/Checkbox";
+import { Checkbox, Props as CheckboxProps } from "../../../src/Form/Checkbox/Checkbox";
 import CheckboxDocumentation from "./Checkbox.mdx";
 import { Link } from "../../../src/Link/Link";
 
 const meta: Meta = {
-  title: "Stories/Form/Elements/Checkbox",
+  title: "components/Inputs/Checkbox",
   component: Checkbox,
   parameters: {
     docs: {

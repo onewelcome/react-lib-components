@@ -7,7 +7,7 @@ import { Button, Modal, ModalHeader, ModalActions, ModalContent } from "../../sr
 import { Step } from "../../src/Wizard/BaseWizardSteps/BaseWizardSteps";
 
 const meta: Meta = {
-  title: "Stories/Form/Wizard/Wizard",
+  title: "components/Layout/Wizard/Wizard",
   component: Wizard,
   args: {
     steps: [
@@ -64,7 +64,7 @@ const Template: Story<Props> = args => {
         <WizardSteps onStepClick={() => true} />
       </div>
       <div>
-        <p>Step {step + 1} content.</p>
+        <p>Step {step! + 1} content.</p>
       </div>
       <div>
         <WizardActions

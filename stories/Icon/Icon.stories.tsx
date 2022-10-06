@@ -4,7 +4,7 @@ import { Icon as IconComponent, Props, Icons } from "../../src/Icon/Icon";
 import IconDocumentation from "./Icon.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Icon",
+  title: "components/Data Display/Icon",
   component: IconComponent,
   argTypes: {
     color: {

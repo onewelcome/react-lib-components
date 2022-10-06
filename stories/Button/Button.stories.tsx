@@ -5,7 +5,7 @@ import { Icon, Icons } from "../../src/Icon/Icon";
 import ButtonsDocumentation from "./Button.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Button",
+  title: "components/Inputs/Button",
   component: Button,
   parameters: {
     docs: {
@@ -71,14 +71,14 @@ export const StartIconButton = Template.bind({});
 export const EndIconButton = Template.bind({});
 
 StartIconButton.args = {
-  startIcon: <Icon icon={Icons.Calendar} />,
+  startIcon: Icons.Calendar,
   color: "primary",
   variant: "fill",
   type: "button"
 };
 
 EndIconButton.args = {
-  endIcon: <Icon icon={Icons.Calendar} />,
+  endIcon: Icons.Calendar,
   color: "primary",
   variant: "fill",
   type: "button"

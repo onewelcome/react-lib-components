@@ -11,7 +11,7 @@ import { ModalContent } from "../../../src/Notifications/Modal/ModalContent/Moda
 import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
 
 const meta: Meta = {
-  title: "Stories/Notifications/SlideInModal",
+  title: "components/Utils/SlideInModal",
   component: SlideInModalComponent,
   parameters: {
     docs: {

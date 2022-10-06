@@ -7,7 +7,7 @@ import {
 import InputWrapperDocumentation from "./InputWrapper.mdx";
 
 const meta: Meta = {
-  title: "Stories/Form/Wrapper/InputWrapper",
+  title: "components/Wrappers/InputWrapper",
   component: InputWrapperComponent,
   parameters: {
     docs: {

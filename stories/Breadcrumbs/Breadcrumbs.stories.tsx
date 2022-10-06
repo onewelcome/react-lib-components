@@ -6,7 +6,7 @@ import { BrowserRouter, Link as RouterLink } from "react-router-dom";
 import BreadcrumbsDocumentation from "./Breadcrumbs.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Breadcrumbs",
+  title: "components/Navigation/Breadcrumbs",
   component: BreadcrumbsComponent,
   parameters: {
     docs: {
