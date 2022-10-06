@@ -2,6 +2,21 @@
 
 @include inputLabelPrimaryColorOnFocus("label.textarea-label");
 
+.textarea-wrapper {
+  &:after {
+    content: "";
+    display: block;
+    width: calc(95%);
+    height: 1.625rem;
+    background-color: var(--light);
+    position: absolute;
+    z-index: 0;
+    left: 1px;
+    top: 1px;
+    border-radius: var(--input-border-radius) var(--input-border-radius) 0 0;
+  }
+}
+
 .textarea {
   padding-top: 1.625rem;
 
@@ -21,35 +36,6 @@
 .textarea-helper-text {
   margin-top: 0.25rem;
   margin-left: 1.25rem;
-}
-
-.textarea-wrapper {
-  padding-top: 1.75rem;
-  padding-right: 3.75rem;
-  padding-bottom: 0.75rem;
-  border-color: var(--light-grey-border);
-  border-style: var(--input-border-style);
-  border-width: var(--input-border-width);
-  border-radius: var(--input-border-radius);
-
-  &.error {
-    border-color: var(--error);
-  }
-
-  &.hover {
-    border-color: var(--default);
-  }
-
-  &.focus {
-    border-color: var(--color-primary);
-  }
-
-  &.disabled {
-    color: var(--greyed-out);
-    background-color: var(--disabled);
-    border-color: var(--light);
-    cursor: not-allowed;
-  }
 }
 
 .error-icon {

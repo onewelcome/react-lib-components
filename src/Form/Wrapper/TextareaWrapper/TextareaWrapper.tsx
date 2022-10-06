@@ -51,12 +51,12 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
     } = useWrapper(value, placeholder);
     const [hover, setHover] = useState(false);
 
-    const optionalClasses: string[] = [];
+    const wrapperClasses: string[] = [];
 
-    hasFocus && optionalClasses.push(classes["focus"]);
-    hover && optionalClasses.push(classes["hover"]);
-    disabled && optionalClasses.push(classes["disabled"]);
-    error && optionalClasses.push(classes["error"]);
+    hasFocus && wrapperClasses.push(classes["focus"]);
+    hover && wrapperClasses.push(classes["hover"]);
+    disabled && wrapperClasses.push(classes["disabled"]);
+    error && wrapperClasses.push(classes["error"]);
 
     return (
       <Wrapper
@@ -65,7 +65,7 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
         disabled={disabled}
         labelProps={{
           id: labelId,
-          className: `${classes["textarea-label"]} ${optionalClasses.join(" ")}`
+          className: wrapperClasses.join(" ")
         }}
         name={name}
         label={label}
@@ -110,7 +110,7 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
           }}
           className={`${classes["textarea"]} ${error ? classes["error"] : ""}`}
           wrapperProps={{
-            className: `${classes["textarea-wrapper"]}} ${optionalClasses.join(" ")}`
+            className: `${wrapperClasses.join(" ")} ${classes["textarea-wrapper"]}`
           }}
           errorProps={{ className: classes["error-icon"] }}
         />
