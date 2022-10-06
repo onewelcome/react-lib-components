@@ -128,26 +128,24 @@ const Template: Story<Props> = args => {
     <Form style={{ padding: "20px", backgroundColor: "#F5F8F8" }}>
       <FormControlComponent {...args}>
         <RadioWrapper
-          label="Radio label"
           error={false}
           errorMessage="Error message"
           value={preferredMobileDevice}
           name="electronics"
           onChange={e => setPreferredMobileDevice(e.target.value)}
           helperText="This is helper text"
-          fieldsetProps={{ title: "Radio", hideTitle: true }}
+          fieldsetProps={{ legend: "Radio legend", legendStyle: "body-bold" }}
         >
           <Radio value="mobile">Mobile</Radio>
           <Radio value="tv">TV</Radio>
           <Radio value="pc">PC</Radio>
         </RadioWrapper>
         <CheckboxWrapper
-          label="Radio label"
           error={false}
           errorMessage="Error message"
           name="electronics"
           helperText="This is helper text"
-          fieldsetProps={{ title: "Radio", hideTitle: true }}
+          fieldsetProps={{ legend: "Electronics legend", legendStyle: "body-bold" }}
         >
           <Checkbox
             onChange={handleElectronicsOnChange}
@@ -167,7 +165,7 @@ const Template: Story<Props> = args => {
             </Checkbox>
           </Checkbox>
         </CheckboxWrapper>
-        <Fieldset title="Arbitrary input">
+        <Fieldset legend="Arbitrary input" legendStyle="body-bold">
           <InputWrapper
             helperText="Helper text for this field. Description should be short and not repeat the label"
             name="input1"

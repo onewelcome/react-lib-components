@@ -13,6 +13,7 @@ $listItemHeight: 2.125rem;
 
   [data-display] {
     color: var(--greyed-out);
+    font-family: var(--font-family);
   }
 
   &.expanded {
@@ -22,14 +23,14 @@ $listItemHeight: 2.125rem;
   }
 
   &:not(.expanded) {
-    button:focus-visible:not(.error) {
+    button:focus:not(.error) {
       border: var(--input-border-width-focus) solid var(--color-primary);
       padding: 0 calc(1.25rem - var(--input-border-width-focus) + var(--input-border-width));
     }
   }
 
   &:hover:not(.disabled):not(.expanded):not(.error) {
-    button {
+    button:not(:focus) {
       border-color: var(--default);
       border-width: var(--input-border-width);
     }
@@ -50,7 +51,7 @@ $listItemHeight: 2.125rem;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
-    &:focus-visible {
+    &:focus {
       outline: 0;
     }
 
@@ -59,7 +60,7 @@ $listItemHeight: 2.125rem;
       color: var(--error);
     }
 
-    &.error:focus-visible {
+    &.error:focus {
       border-width: var(--input-border-width-focus);
     }
   }
@@ -109,7 +110,7 @@ $listItemHeight: 2.125rem;
         opacity: 0.05;
       }
 
-      &:focus-visible {
+      &:focus {
         outline: 1px solid var(--color-primary);
         outline-offset: -1px;
       }
