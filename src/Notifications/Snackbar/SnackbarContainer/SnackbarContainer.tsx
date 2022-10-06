@@ -14,22 +14,29 @@ export interface Props {
   className?: string;
 }
 
-export const SnackbarContainer = ({ placement, children, zIndex, className, ...rest }: Props) => {
+const useSnackbarContainerHeightAnimation = () => {
   const { snackbars } = useContext(SnackbarContext);
   const [height, setHeight] = useState(0);
   const [justifyContent, setJustifyContent] = useState<"flex-start" | "flex-end">("flex-start");
+  const spaceBetweenSnackbars = 8;
+  const exceedsMaximumVisibleSnackbars = snackbars.length >= 3;
 
   useEffect(() => {
     const allHeights = snackbars.map(snackbar => snackbar.height);
 
     let totalHeight = allHeights.reduce((prev, curr) => prev + curr, 0);
 
-    totalHeight += (snackbars.length - 1) * 8;
+    totalHeight += (Math.min(snackbars.length, 3) - 1) * spaceBetweenSnackbars;
 
-    if (snackbars.length >= 3)
+    /**
+     * Once we reach the maximum amount of snackbars, they will start to disappear. We have to wait with reversing the justify-content until the last snackbar
+     * has completed their animationIn. This is around 500ms. Then we want to reverse it, because otherwise whenever a snackbar disappears they shift up
+     * and then down again, which looks really bad.
+     * */
+    if (exceedsMaximumVisibleSnackbars)
       setTimeout(() => {
         setJustifyContent("flex-end");
-      }, 800);
+      }, 500);
 
     if (height > totalHeight && justifyContent !== "flex-end") {
       setJustifyContent("flex-end");
@@ -37,8 +44,14 @@ export const SnackbarContainer = ({ placement, children, zIndex, className, ...r
       setJustifyContent("flex-start");
     }
 
-    setTimeout(() => setHeight(totalHeight), 200);
+    setHeight(totalHeight);
   }, [snackbars]);
+
+  return { height, justifyContent };
+};
+
+export const SnackbarContainer = ({ placement, children, zIndex, className, ...rest }: Props) => {
+  const { height, justifyContent } = useSnackbarContainerHeightAnimation();
 
   return (
     <div
