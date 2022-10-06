@@ -5,6 +5,7 @@
 .textarea-wrapper {
   &:after {
     content: "";
+    transition: all 0.15s ease-in-out;
     display: block;
     width: calc(95%);
     height: 1.625rem;
@@ -14,6 +15,11 @@
     left: 1px;
     top: 1px;
     border-radius: var(--input-border-radius) var(--input-border-radius) 0 0;
+  }
+
+  &.focus:after {
+    left: 2px;
+    top: 2px;
   }
 }
 
