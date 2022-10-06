@@ -56,7 +56,7 @@ export const SnackbarContainer = ({ placement, children, zIndex, className, ...r
   return (
     <div
       {...rest}
-      style={{ zIndex, height: height, justifyContent }}
+      style={{ zIndex, height, justifyContent }}
       className={`${classes["snackbars"]} ${classes[placement.horizontal]} ${
         classes[placement.vertical]
       } ${className ?? ""}`}
