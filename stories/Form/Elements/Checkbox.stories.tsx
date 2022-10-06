@@ -5,7 +5,7 @@ import CheckboxDocumentation from "./Checkbox.mdx";
 import { Link } from "../../../src/Link/Link";
 
 const meta: Meta = {
-  title: "Stories/Form/Elements/Checkbox",
+  title: "components/Inputs/Checkbox",
   component: Checkbox,
   parameters: {
     docs: {

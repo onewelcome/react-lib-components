@@ -1,11 +1,11 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Input as InputComponent, inputTypes, Props } from "../../../src/Form/Input/Input";
+import { dateTypes, Input as InputComponent, Props } from "../../../src/Form/Input/Input";
 import { Form } from "../../../src/Form/Form";
 import InputDocumentation from "./Input.mdx";
 
 const meta: Meta = {
-  title: "Stories/Form/Elements/Input",
+  title: "components/Inputs/Input",
   component: InputComponent,
   parameters: {
     docs: {
@@ -25,7 +25,18 @@ const meta: Meta = {
       control: "text"
     },
     type: {
-      options: inputTypes,
+      options: [
+        "text",
+        "email",
+        "file",
+        "number",
+        "password",
+        "search",
+        "tel",
+        "url",
+        "hidden",
+        ...dateTypes
+      ],
       control: "select"
     },
     disabled: {

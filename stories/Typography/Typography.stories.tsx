@@ -8,7 +8,7 @@ import {
 import TypographyDocumentation from "./Typography.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Typography",
+  title: "components/Data Display/Typography",
   component: TypographyComponent,
   parameters: {
     docs: {

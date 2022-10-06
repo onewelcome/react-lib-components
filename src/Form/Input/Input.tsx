@@ -4,7 +4,7 @@ import readyclasses from "../../readyclasses.module.scss";
 import { Icon, Icons } from "../../Icon/Icon";
 import { FormElement } from "../form.interfaces";
 
-const dateTypes = ["date", "time", "datetime-local"] as const;
+export const dateTypes = ["date", "time", "datetime-local"] as const;
 
 export type Type =
   | "text"

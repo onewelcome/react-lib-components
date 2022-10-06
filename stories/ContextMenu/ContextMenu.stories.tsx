@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { ContextMenu as ContextMenuComponent, Props } from "../../src/ContextMenu/ContextMenu";
 import { ContextMenuItem } from "../../src/ContextMenu/ContextMenuItem";
-import { action } from "@storybook/addon-actions/dist/esm";
+import { action } from "@storybook/addon-actions";
 import { IconButton } from "../../src/Button/IconButton";
 import { Icon, Icons } from "../../src/Icon/Icon";
 import { Placement } from "../../src/hooks/usePosition";
@@ -10,7 +10,7 @@ import ContextMenuDocumentation from "./ContextMenu.mdx";
 import { Typography } from "../../src/Typography/Typography";
 
 const meta: Meta = {
-  title: "Stories/UI/ContextMenu",
+  title: "components/Navigation/ContextMenu",
   component: ContextMenuComponent,
   parameters: {
     docs: {

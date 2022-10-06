@@ -4,7 +4,7 @@ import { Link as LinkComponent, Props } from "../../src/Link/Link";
 import LinkDocumentation from "./Link.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Link",
+  title: "components/Navigation/Link",
   component: LinkComponent,
   parameters: {
     docs: {

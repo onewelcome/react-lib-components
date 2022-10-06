@@ -13,12 +13,6 @@ We automatically display a search ' Input ' field when you have a `Select` compo
 
 # Examples
 
-See below an example of a `Select` component. It is controlled by Storybook, and selecting a value will not do anything. However, you can change the value by selecting it in the [Props table](#props).
-
-<Canvas>
-  <Story id="stories-form-elements-select--select" />
-</Canvas>
-
 An example of how a `Select` component can be built using state looks as follows:
 
 ```jsx
@@ -44,6 +38,12 @@ const ExampleComponent = () => {
 ```
 
 The `onChange` method: if we click an `Option` we receive the `event` object as a parameter in our function, which has `target` prop, which has a `value` prop. This `value` corresponds to the `value` prop on the `Option` component that was clicked. You can see this if you go to [the Canvas tab](/story/stories-form-elements-select--select) and then click the `Actions` tab next to `Controls`. If you do not see this, press the `a` key on your keyboard. Then while on the `Actions` tab, select an option from the `Select` component in the `Canvas` and you'll see that the `onChange` function was fired. The very first object (index `0`) is the `event` object we send you. The second object we give you is the `React instance` of the `Option` component.
+
+See below an example of a `Select` component. It is controlled by Storybook, and selecting a value will not do anything. However, you can change the value by selecting it in the [Props table](#props).
+
+<Canvas>
+  <Story id="components-inputs-select--select" />
+</Canvas>
 
 # Props
 

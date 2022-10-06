@@ -9,7 +9,7 @@ import RepeaterDocumentation from "./useRepeater.mdx";
 import { generateID } from "../../src/util/helper";
 
 const meta: Meta = {
-  title: "hooks/useRepeater",
+  title: "Hooks/useRepeater",
   parameters: {
     docs: {
       page: RepeaterDocumentation

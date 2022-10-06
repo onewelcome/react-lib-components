@@ -8,7 +8,7 @@ import { ContextMenuItem } from "../../src/ContextMenu/ContextMenuItem";
 import TileDocumentation from "./Tile.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Tiles/Tile",
+  title: "components/Layout/Tiles/Tile",
   component: TileComponent,
   parameters: {
     docs: {
@@ -24,7 +24,7 @@ const Template: Story<Props> = args => <TileComponent {...args} />;
 export const Tile = Template.bind({});
 
 Tile.args = {
-  title: "Tile1",
+  title: "components/Tile1",
   imageProps: {
     src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
   },

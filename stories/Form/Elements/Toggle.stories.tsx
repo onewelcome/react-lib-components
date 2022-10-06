@@ -1,11 +1,11 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { Toggle as ToggleComponent } from "../../..//src/Form/Toggle/Toggle";
-import { CheckboxProps as Props } from "../../../src/Form/Checkbox/Checkbox";
+import { Props } from "../../../src/Form/Checkbox/Checkbox";
 import ToggleDocumentation from "./Toggle.mdx";
 
 const meta: Meta = {
-  title: "Stories/Form/Elements/Toggle",
+  title: "components/Inputs/Toggle",
   component: ToggleComponent,
   parameters: {
     docs: {

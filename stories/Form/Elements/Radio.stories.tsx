@@ -5,7 +5,7 @@ import { Fieldset } from "../../../src/Form/Fieldset/Fieldset";
 import RadioDocumentation from "./Radio.mdx";
 
 const meta: Meta = {
-  title: "Stories/Form/Elements/Radio",
+  title: "components/Inputs/Radio",
   component: RadioComponent,
   parameters: {
     docs: {

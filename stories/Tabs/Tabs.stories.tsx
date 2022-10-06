@@ -6,7 +6,7 @@ import { Tab } from "../../src/Tabs/Tab";
 import TabsDocumentation from "./Tabs.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Tabs",
+  title: "components/Navigation/Tabs",
   parameters: {
     docs: {
       page: TabsDocumentation
