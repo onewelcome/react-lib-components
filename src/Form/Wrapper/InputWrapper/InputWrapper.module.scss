@@ -4,7 +4,7 @@
 
 input {
   &.floating-label {
-    padding-top: 0.625rem;
+    padding-top: 1rem;
   }
 }
 
@@ -28,6 +28,14 @@ input {
     transform: translateY(-0.125rem);
   }
 
+  [data-prefix] + input {
+    padding-left: 0.5rem;
+  }
+
+  input + [data-suffix] {
+    padding-left: 0.5rem;
+  }
+
   .disabled {
     background-color: var(--disabled);
     cursor: not-allowed;
@@ -36,6 +44,6 @@ input {
 
 .floating-label-active [data-prefix],
 .floating-label-active [data-suffix] {
-  padding-top: 0.5rem;
+  padding-top: 1rem;
   transform: translateY(0);
 }

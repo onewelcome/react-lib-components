@@ -57,7 +57,6 @@
   color: var(--greyed-out);
   font-size: var(--font-size);
   font-family: var(--font-family);
-  width: 100%;
   box-sizing: border-box;
   border: 0;
   border-radius: var(--input-border-radius);
@@ -65,9 +64,17 @@
   background-color: transparent;
   z-index: 1;
 
+  &:not(.shrink-width-for-date-icon) {
+    width: 100%;
+  }
+
   &:disabled {
     background-color: var(--disabled);
     cursor: not-allowed;
+  }
+
+  &.shrink-width-for-date-icon {
+    width: auto;
   }
 
   @include browserOutlineDisabled;
@@ -99,10 +106,6 @@
 
   &:before {
     height: 1.3125rem;
-  }
-
-  &.extra-indent {
-    right: 3.75rem;
   }
 }
 
