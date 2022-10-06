@@ -61,11 +61,8 @@
   width: 1.75rem;
   height: 1.75rem;
 
-  &:not(.error):not(:disabled):focus,
-  &:not(.error):not(:disabled):active {
-    + * {
-      color: var(--color-primary);
-    }
+  &:checked + * {
+    color: var(--color-primary);
   }
 
   &:disabled {

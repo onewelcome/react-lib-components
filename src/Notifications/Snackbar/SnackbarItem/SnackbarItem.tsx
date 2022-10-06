@@ -80,6 +80,7 @@ export const SnackbarItem = ({
   return (
     <div
       ref={ref}
+      aria-live="polite"
       className={`${classes["snackbar"]} ${classes[variant]} ${
         animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"]
       }`}

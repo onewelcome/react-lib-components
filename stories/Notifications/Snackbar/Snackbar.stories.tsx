@@ -82,7 +82,7 @@ const AppContent = () => {
 
 const Template: Story<Props> = args => {
   return (
-    <SnackbarProvider {...args} closeButtonTitle="Close">
+    <SnackbarProvider closeButtonTitle="Close">
       <AppContent />
     </SnackbarProvider>
   );
