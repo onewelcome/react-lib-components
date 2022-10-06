@@ -52,11 +52,11 @@ export const SnackbarProvider = (
 
   const setSnackbarHeight = (id: string, height: number) => {
     const newSnackbarsState = snackbars.map(snackbar => {
-      if (snackbar.id !== id) return snackbar;
+      if (snackbar.id !== id) {
+        return snackbar;
+      }
 
-      snackbar.height = height;
-
-      return snackbar;
+      return { ...snackbar, height };
     });
 
     setSnackbars(newSnackbarsState);
