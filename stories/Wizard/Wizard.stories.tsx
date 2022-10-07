@@ -5,10 +5,16 @@ import { WizardSteps } from "../../src/Wizard/WizardSteps/WizardSteps";
 import { WizardActions } from "../../src/Wizard/WizardActions/WizardActions";
 import { Button, Modal, ModalHeader, ModalActions, ModalContent } from "../../src/";
 import { Step } from "../../src/Wizard/BaseWizardSteps/BaseWizardSteps";
+import WizardDocumentation from "./Wizard.mdx";
 
 const meta: Meta = {
   title: "components/Layout/Wizard/Wizard",
   component: Wizard,
+  parameters: {
+    docs: {
+      page: WizardDocumentation
+    }
+  },
   args: {
     steps: [
       {
@@ -32,9 +38,8 @@ const meta: Meta = {
         label: "Last step"
       }
     ],
-    initialStepNo: 0,
-    mode: "edit",
-    stepScreenReaderLabel: "Step"
+    initialStepNo: 1,
+    mode: "add"
   }
 };
 
@@ -130,12 +135,7 @@ const WizardModalTemplate: Story<void> = () => {
     <Fragment>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
       <Modal id={modalId} open={open} onClose={onClose}>
-        <Wizard
-          stepScreenReaderLabel="Step"
-          steps={steps}
-          mode="add"
-          onStepChange={(stepNo: number) => setStep(stepNo)}
-        >
+        <Wizard steps={steps} mode="add" onStepChange={(stepNo: number) => setStep(stepNo)}>
           <ModalHeader id={`${modalId}-label`} title="Example modal with wizard" onClose={onClose}>
             <WizardSteps style={{ paddingBottom: 0 }} onStepClick={() => true} />
           </ModalHeader>

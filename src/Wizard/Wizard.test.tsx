@@ -31,7 +31,6 @@ const initWizardParams: initWizardPropsType = {
     }
   ],
   initialStepNo: 0,
-  stepScreenReaderLabel: "Step",
   mode: "add"
 };
 
