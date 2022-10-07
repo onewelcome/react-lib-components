@@ -22,7 +22,6 @@ const initWizardState: WizardStateType = {
     }
   ],
   currentStepNo: 0,
-  stepScreenReaderLabel: "Step",
   mode: "add"
 };
 
