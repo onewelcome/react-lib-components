@@ -17,7 +17,7 @@ import { Toggle } from "../../src/Form/Toggle/Toggle";
 import FormDocumentation from "./Form.mdx";
 
 const meta: Meta = {
-  title: "Examples/Form",
+  title: "Components/layout/Form",
   component: FormComponent,
   parameters: {
     docs: {
