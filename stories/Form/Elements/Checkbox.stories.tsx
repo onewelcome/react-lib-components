@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Checkbox, CheckboxProps as CheckboxProps } from "../../../src/Form/Checkbox/Checkbox";
+import { Checkbox, Props as CheckboxProps } from "../../../src/Form/Checkbox/Checkbox";
 import CheckboxDocumentation from "./Checkbox.mdx";
 import { Link } from "../../../src/Link/Link";
 
