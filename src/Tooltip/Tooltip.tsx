@@ -1,5 +1,6 @@
 import React, {
   ComponentPropsWithRef,
+  ReactElement,
   ReactNode,
   useEffect,
   useLayoutEffect,
@@ -83,7 +84,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement, Props>(
 
     const renderChildren = () => {
       if (React.isValidElement(label)) {
-        return React.cloneElement(label, {
+        return React.cloneElement(label as ReactElement, {
           onFocus: () => setVisible(true),
           onBlur: () => setVisible(false),
           "aria-describedby": identifier,
