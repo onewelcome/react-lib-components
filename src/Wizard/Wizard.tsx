@@ -10,16 +10,15 @@ export interface Props {
   mode: WizardMode;
   initialStepNo?: number;
   onStepChange: (stepNo: number) => void;
-  stepScreenReaderLabel: string;
   children: React.ReactNode;
 }
 
-const useSetWizardState = (steps: Step[], mode: WizardMode, stepScreenReaderLabel: string) => {
+const useSetWizardState = (steps: Step[], mode: WizardMode) => {
   const { dispatch } = useContext(WizardStateContext);
 
   useEffect(() => {
-    dispatch(setWizardState(steps, mode, stepScreenReaderLabel));
-  }, [steps, mode, stepScreenReaderLabel]);
+    dispatch(setWizardState(steps, mode));
+  }, [steps, mode]);
 };
 
 const useStepChanging = (onStepChange: (stepNo: number) => void) => {
@@ -32,17 +31,17 @@ const useStepChanging = (onStepChange: (stepNo: number) => void) => {
   }, [currentStepNo]);
 };
 
-const WizardContent = ({ steps, mode, stepScreenReaderLabel, onStepChange, children }: Props) => {
-  useSetWizardState(steps, mode, stepScreenReaderLabel);
+const WizardContent = ({ steps, mode, onStepChange, children }: Props) => {
+  useSetWizardState(steps, mode);
   useStepChanging(onStepChange);
 
   return <Fragment>{children}</Fragment>;
 };
 
 export const Wizard = (props: Props) => {
-  const { steps, initialStepNo: currentStepNo = 0, mode, stepScreenReaderLabel } = props;
+  const { steps, initialStepNo: currentStepNo = 0, mode } = props;
   return (
-    <WizardStateProvider initialState={{ steps, currentStepNo, mode, stepScreenReaderLabel }}>
+    <WizardStateProvider initialState={{ steps, currentStepNo, mode }}>
       <WizardContent {...props} />
     </WizardStateProvider>
   );

@@ -1,6 +1,5 @@
 import React, { ComponentPropsWithRef, Fragment } from "react";
 import classes from "./BaseWizardSteps.module.scss";
-import readyclasses from "../../readyclasses.module.scss";
 import { Icon, Icons } from "../../Icon/Icon";
 
 type StepState = "finished" | "current" | "future";
@@ -15,21 +14,10 @@ export interface Props extends Omit<ComponentPropsWithRef<"div">, "onClick"> {
   currentStepNo: number;
   onClick?: (stepNo: number) => void;
   futureStepsClickable?: boolean;
-  stepScreenReaderLabel: string;
 }
 
 export const BaseWizardSteps = React.forwardRef<HTMLDivElement, Props>(
-  (
-    {
-      steps,
-      currentStepNo,
-      onClick,
-      futureStepsClickable = false,
-      stepScreenReaderLabel,
-      ...rest
-    }: Props,
-    ref
-  ) => {
+  ({ steps, currentStepNo, onClick, futureStepsClickable = false, ...rest }: Props, ref) => {
     const getStepState = (stepNo: number): StepState => {
       if (currentStepNo === stepNo) {
         return "current";
@@ -44,12 +32,7 @@ export const BaseWizardSteps = React.forwardRef<HTMLDivElement, Props>(
       if (stepState === "finished") {
         return disabled ? null : <Icon className={classes["checkmark"]} icon={Icons.Checkmark} />;
       } else {
-        return (
-          <Fragment>
-            <span className={readyclasses["sr-only"]}>{stepScreenReaderLabel} </span>
-            {stepNumberString}
-          </Fragment>
-        );
+        return <Fragment>{stepNumberString}</Fragment>;
       }
     };
 

@@ -20,7 +20,6 @@ const initParams: Props = {
     }
   ],
   currentStepNo: 1,
-  stepScreenReaderLabel: "Step",
   onClick: jest.fn()
 };
 
