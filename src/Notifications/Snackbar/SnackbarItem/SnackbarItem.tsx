@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { IconButton } from "../../../Button/IconButton";
 import { Icon, Icons } from "../../../Icon/Icon";
 import { Variant, Actions } from "../interfaces";
@@ -6,6 +6,7 @@ import classes from "./SnackbarItem.module.scss";
 import readyclasses from "../../../readyclasses.module.scss";
 import { useAnimation } from "../../../hooks/useAnimation";
 import { Typography } from "../../../Typography/Typography";
+import { SnackbarContext } from "../SnackbarProvider/SnackbarStateProvider";
 
 const textColor = "var(--snackbar-text-color)";
 
@@ -20,6 +21,19 @@ export interface Props {
   actions?: Actions;
 }
 
+const useRegisterSnackbarHeight = (
+  singleSnackbarRef: React.RefObject<HTMLDivElement>,
+  snackbarId: string
+) => {
+  const ctx = useContext(SnackbarContext);
+
+  useEffect(() => {
+    if (singleSnackbarRef.current) {
+      ctx.setSnackbarHeight(snackbarId, singleSnackbarRef.current.getBoundingClientRect().height);
+    }
+  }, [singleSnackbarRef.current]);
+};
+
 export const SnackbarItem = ({
   id,
   title,
@@ -33,6 +47,8 @@ export const SnackbarItem = ({
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => onClose(id);
   const { ref, animationStarted, startAnimation } = useAnimation<HTMLDivElement>(onAnimationEnd);
+
+  useRegisterSnackbarHeight(ref, id);
 
   useEffect(() => {
     timerHandler.current = setTimeout(() => startAnimation(), duration);
