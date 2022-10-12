@@ -1,5 +1,11 @@
 # OneWelcome React Component Library
 
+# VERSION 1.0: AQUAMAN
+
+<p style="text-align: center">
+ <img src="https://media.tenor.com/nGWukNYUMdUAAAAC/king-aquaman-strong-man.gif" alt="Aquaman" />
+</p>
+
 This project provides React components built according to the [UI Component Library design](https://xd.adobe.com/view/1f7161d7-5ade-4e54-bb3d-6e4aa3a1d1a0-4a22/grid/). It uses the [DTS tool](https://weiran-zsd.github.io/dts-cli/) which provides for a consistent setup and configuration.
 
 > Note: the package is publicly available [on npm](https://www.npmjs.com/package/@onewelcome/react-lib-components).
