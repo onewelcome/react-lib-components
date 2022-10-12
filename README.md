@@ -2,7 +2,7 @@
 
 # VERSION 1.0: AQUAMAN
 
-<p style="text-align: center">
+<p align="center">
  <img src="https://media.tenor.com/nGWukNYUMdUAAAAC/king-aquaman-strong-man.gif" alt="Aquaman" />
 </p>
 
