@@ -17,6 +17,10 @@
     border-radius: var(--input-border-radius) var(--input-border-radius) 0 0;
   }
 
+  &.disabled:after {
+    background-color: var(--disabled);
+  }
+
   &.focus:after {
     left: 2px;
     top: 2px;
