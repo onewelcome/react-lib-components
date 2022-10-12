@@ -10,7 +10,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
 export const WizardSteps = React.forwardRef<HTMLDivElement, Props>(
   ({ onStepClick, ...rest }: Props, ref) => {
     const {
-      state: { currentStepNo, mode, stepScreenReaderLabel, steps },
+      state: { currentStepNo, mode, steps },
       dispatch
     } = useContext(WizardStateContext);
 
@@ -25,7 +25,6 @@ export const WizardSteps = React.forwardRef<HTMLDivElement, Props>(
         onClick={onClick}
         steps={steps}
         currentStepNo={currentStepNo}
-        stepScreenReaderLabel={stepScreenReaderLabel}
         futureStepsClickable={mode === "edit"}
       />
     );

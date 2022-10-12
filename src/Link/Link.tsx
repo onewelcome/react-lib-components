@@ -1,11 +1,5 @@
-import React, {
-  ComponentPropsWithRef,
-  ForwardRefExoticComponent,
-  ReactNode,
-  RefAttributes
-} from "react";
+import React, { ComponentPropsWithRef, ForwardRefExoticComponent, ReactNode } from "react";
 import classes from "./Link.module.scss";
-import { LinkProps } from "./types";
 
 export type AnchorType = "external" | "internal" | "download";
 
@@ -17,7 +11,7 @@ export interface Props extends ComponentPropsWithRef<"a"> {
   type?: AnchorType;
   to: string;
   disabled?: boolean;
-  component?: ForwardRefExoticComponent<LinkProps & RefAttributes<HTMLAnchorElement>>;
+  component?: ForwardRefExoticComponent<any>;
 }
 
 export const Link = React.forwardRef<HTMLAnchorElement, Props>(

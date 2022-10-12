@@ -28,7 +28,6 @@ const AppContent = () => {
       <Button
         onClick={() =>
           enqueueSuccessSnackbar("Main message of the snackbar", undefined, {
-            duration: 10000,
             onClose: () => console.log("onClose handler")
           })
         }

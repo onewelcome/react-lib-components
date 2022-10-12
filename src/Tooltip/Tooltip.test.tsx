@@ -39,6 +39,16 @@ describe("Tooltip should render", () => {
     expect(tooltip).toBeTruthy();
   });
 
+  it("renders with label as ReactElement", () => {
+    const labelText = "llaabbeell";
+    const { getByText } = createTooltip(defaultParams => ({
+      ...defaultParams,
+      label: <div>{labelText}</div>
+    }));
+
+    expect(getByText(labelText)).toBeDefined();
+  });
+
   it("should override the default placement and offset values", () => {
     const { tooltip, getByText } = createTooltip(defaultParams => ({
       ...defaultParams,

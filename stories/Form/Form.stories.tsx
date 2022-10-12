@@ -130,6 +130,31 @@ const Template: Story<Props> = args => {
         />
       </FormControl>
       <FormControl>
+        <SelectWrapper
+          selectProps={{ ref: selectRef }}
+          label="Example select wrapper"
+          name="Example select"
+          helperText="Example helper text"
+          error={false}
+          errorMessage="This is an error message"
+          value={selectValue}
+          onChange={e => setSelectValue(e.target.value)}
+        >
+          <Option value="option1">Option 1</Option>
+          <Option value="option2">Option 2</Option>
+          <Option value="option3">Option 3</Option>
+          <Option value="option4">Option 4</Option>
+          <Option value="option5">Option 5</Option>
+          <Option value="option6">Option 6</Option>
+          <Option value="option7">Option 7</Option>
+          <Option value="option8">Option 8</Option>
+          <Option value="option9">Option 9</Option>
+          <Option value="option10">Option 10</Option>
+          <Option value="option11">Option 11</Option>
+          <Option value="option12">Option 12</Option>
+        </SelectWrapper>
+      </FormControl>
+      <FormControl>
         <Fieldset legend="Subscribe to newsletter">
           <Toggle
             onChange={() =>
@@ -278,31 +303,6 @@ const Template: Story<Props> = args => {
             </Fieldset>
           )}
         </Fragment>
-      </FormControl>
-      <FormControl>
-        <SelectWrapper
-          selectProps={{ ref: selectRef }}
-          label="Example select wrapper"
-          name="Example select"
-          helperText="Example helper text"
-          error={false}
-          errorMessage="This is an error message"
-          value={selectValue}
-          onChange={e => setSelectValue(e.target.value)}
-        >
-          <Option value="option1">Option 1</Option>
-          <Option value="option2">Option 2</Option>
-          <Option value="option3">Option 3</Option>
-          <Option value="option4">Option 4</Option>
-          <Option value="option5">Option 5</Option>
-          <Option value="option6">Option 6</Option>
-          <Option value="option7">Option 7</Option>
-          <Option value="option8">Option 8</Option>
-          <Option value="option9">Option 9</Option>
-          <Option value="option10">Option 10</Option>
-          <Option value="option11">Option 11</Option>
-          <Option value="option12">Option 12</Option>
-        </SelectWrapper>
       </FormControl>
       <div style={{ marginTop: "20px", textAlign: "right" }}>
         <Button type="submit">Submit</Button>
