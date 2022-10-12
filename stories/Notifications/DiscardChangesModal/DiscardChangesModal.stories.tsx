@@ -14,7 +14,7 @@ import { Form } from "../../../src/Form/Form";
 import DiscardChangesModalDocumentation from "./DiscardChangesModal.mdx";
 
 const meta: Meta = {
-  title: "components/Utils/Discard Changes Modal",
+  title: "components/Feedback/Discard Changes Modal",
   component: DiscardChangesModalComponent,
   subcomponents: {
     ModalContent
