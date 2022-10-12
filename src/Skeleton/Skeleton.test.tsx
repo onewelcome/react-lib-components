@@ -90,7 +90,7 @@ describe("ref should work", () => {
       expect(ref.current).toHaveAttribute("data-ref", "testing");
     };
 
-    const container = document.createElement("tbody");
+    const container = document.createElement("div");
     render(<ExampleComponent propagateRef={refCheck} />, { container });
   });
 });
