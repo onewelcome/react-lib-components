@@ -5,7 +5,7 @@ import { Form } from "../../../src/Form/Form";
 import InputDocumentation from "./Input.mdx";
 
 const meta: Meta = {
-  title: "components/Inputs/Input",
+  title: "components/Inputs/Raw/Input",
   component: InputComponent,
   parameters: {
     docs: {

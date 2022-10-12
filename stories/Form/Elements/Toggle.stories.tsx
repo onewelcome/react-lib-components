@@ -5,7 +5,7 @@ import { Props } from "../../../src/Form/Checkbox/Checkbox";
 import ToggleDocumentation from "./Toggle.mdx";
 
 const meta: Meta = {
-  title: "components/Inputs/Toggle",
+  title: "components/Inputs/Raw/Toggle",
   component: ToggleComponent,
   parameters: {
     docs: {

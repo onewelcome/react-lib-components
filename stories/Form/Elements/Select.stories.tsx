@@ -5,7 +5,7 @@ import { Option } from "../../../src/Form/Select/Option";
 import SelectDocumentation from "./Select.mdx";
 
 const meta: Meta = {
-  title: "components/Inputs/Select",
+  title: "components/Inputs/Raw/Select",
   component: SelectComponent,
   parameters: {
     docs: {

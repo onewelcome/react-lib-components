@@ -4,7 +4,7 @@ import { Textarea as TextareaComponent, Props } from "../../../src/Form/Textarea
 import TextareaDocumentation from "./Textarea.mdx";
 
 const meta: Meta = {
-  title: "components/Inputs/TextArea",
+  title: "components/Inputs/Raw/TextArea",
   component: TextareaComponent,
   parameters: {
     docs: {

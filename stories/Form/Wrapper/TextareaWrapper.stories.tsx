@@ -7,7 +7,7 @@ import {
 import TextareaWrapperDocumentation from "./TextareaWrapper.mdx";
 
 const meta: Meta = {
-  title: "components/Wrappers/TextareaWrapper",
+  title: "components/Inputs/TextareaWrapper (Wrapper)",
   component: TextareaWrapperComponent,
   parameters: {
     docs: {
