@@ -1,6 +1,6 @@
 # OneWelcome React Component Library
 
-# VERSION 1.0: AQUAMAN
+<h2 align="center">VERSION 1.0: AQUAMAN</h2>
 
 <p align="center">
  <img src="https://media.tenor.com/nGWukNYUMdUAAAAC/king-aquaman-strong-man.gif" alt="Aquaman" />
