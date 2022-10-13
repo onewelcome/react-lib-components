@@ -8,7 +8,7 @@ import { Step } from "../../src/Wizard/BaseWizardSteps/BaseWizardSteps";
 import WizardDocumentation from "./Wizard.mdx";
 
 const meta: Meta = {
-  title: "Stories/Form/Wizard/Wizard",
+  title: "components/Layout/Wizard/Wizard",
   component: Wizard,
   parameters: {
     docs: {

@@ -4,7 +4,7 @@ import { Pagination as PaginationComponent, Props } from "../../src/Pagination/P
 import PaginationDocumentation from "./Pagination.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Pagination",
+  title: "components/Navigation/Pagination",
   component: PaginationComponent,
   parameters: {
     docs: {

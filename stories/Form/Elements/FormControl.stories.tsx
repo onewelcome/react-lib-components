@@ -14,7 +14,7 @@ import { Fieldset } from "../../../src/Form/Fieldset/Fieldset";
 import FormControlDocumentation from "./FormControl.mdx";
 
 const meta: Meta = {
-  title: "Stories/Form/Elements/FormControl",
+  title: "components/Layout/FormControl",
   component: FormControlComponent,
   parameters: {
     docs: {

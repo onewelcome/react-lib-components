@@ -14,7 +14,7 @@ import { Form } from "../../../src/Form/Form";
 import DiscardChangesModalDocumentation from "./DiscardChangesModal.mdx";
 
 const meta: Meta = {
-  title: "Stories/Notifications/Discard Changes Modal",
+  title: "components/Feedback/Discard Changes Modal",
   component: DiscardChangesModalComponent,
   subcomponents: {
     ModalContent
@@ -27,7 +27,7 @@ const meta: Meta = {
   args: {
     id: "modal",
     headerProps: {
-      title: "Modal title"
+      title: "components/Modal title"
     },
     discardChangedDialogProps: {
       discardChangesButtonLabel: "Discard",

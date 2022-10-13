@@ -4,7 +4,7 @@ import { Props, Tooltip as TooltipComponent } from "../../src/Tooltip/Tooltip";
 import TooltipDocumentation from "./Tooltip.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Tooltip",
+  title: "components/Data Display/Tooltip",
   component: TooltipComponent,
   parameters: {
     docs: {

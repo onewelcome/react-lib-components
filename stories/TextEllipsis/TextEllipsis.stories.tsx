@@ -6,7 +6,7 @@ import { Typography } from "../../src/Typography/Typography";
 import TextEllipsisDocumentation from "./TextEllipsis.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/TextEllipsis",
+  title: "components/Utils/TextEllipsis",
   component: TextEllipsisComponent,
   decorators: [
     Story => (

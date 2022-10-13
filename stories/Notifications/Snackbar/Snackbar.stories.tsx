@@ -9,7 +9,7 @@ import { useSnackbar } from "../../../src/Notifications/Snackbar/useSnackbar";
 import SnackbarDocumentation from "./Snackbar.mdx";
 
 const meta: Meta = {
-  title: "Stories/Notifications/Snackbar",
+  title: "components/Feedback/Snackbar",
   component: SnackbarProvider,
   parameters: {
     docs: {
