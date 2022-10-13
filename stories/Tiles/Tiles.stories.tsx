@@ -5,7 +5,7 @@ import { ContextMenu, ContextMenuItem, Icon, IconButton, Icons, Tile } from "../
 import TilesDocumentation from "./Tiles.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Tiles/Tiles",
+  title: "components/Layout/Tiles/Tiles",
   component: TitlesComponent,
   parameters: {
     docs: {

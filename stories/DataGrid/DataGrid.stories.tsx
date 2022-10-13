@@ -20,7 +20,7 @@ const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
 }));
 
 const meta: Meta = {
-  title: "Stories/UI/DataGrid",
+  title: "components/Data Display/DataGrid",
   component: DataGridComponent,
   parameters: {
     docs: {
@@ -193,7 +193,7 @@ ActionsDataGrid.args = {
     enableColumnsBtn: true,
     enableSearchBtn: true,
     searchBtnProps: {
-      title: "Zoeken",
+      title: "components/Zoeken",
       children: "Zoeken"
     }
   }

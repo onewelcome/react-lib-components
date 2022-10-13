@@ -6,7 +6,7 @@ import { Typography } from "../../../src/Typography/Typography";
 import DialogDocumentation from "./Dialog.mdx";
 
 const meta: Meta = {
-  title: "Stories/Notifications/Dialog",
+  title: "components/Feedback/Dialog",
   component: Dialog,
   parameters: {
     docs: {
@@ -15,7 +15,7 @@ const meta: Meta = {
   },
   args: {
     id: "dialog",
-    title: "Discard changes?",
+    title: "components/Discard changes?",
     alignActions: "left",
     children: (
       <Typography variant="body" spacing={{ margin: 0 }}>
@@ -65,7 +65,7 @@ export const LeftAlignedActionDialog = Template.bind({});
 export const RightAlignedActionDialog = Template.bind({});
 
 RightAlignedActionDialog.args = {
-  title: "Verify email address",
+  title: "components/Verify email address",
   alignActions: "right",
   children: (
     <Fragment>
@@ -91,7 +91,7 @@ RightAlignedActionDialog.args = {
 export const SingleActionDialog = Template.bind({});
 
 SingleActionDialog.args = {
-  title: "Info",
+  title: "components/Info",
   alignActions: "right",
   children: (
     <Typography variant="body" spacing={{ margin: 0 }}>

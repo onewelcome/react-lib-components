@@ -5,7 +5,7 @@ import { Typography } from "../../src/Typography/Typography";
 import SkeletonDocumentation from "./Skeleton.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/Skeleton",
+  title: "components/Feedback/Skeleton",
   component: SkeletonComponent,
   parameters: {
     docs: {

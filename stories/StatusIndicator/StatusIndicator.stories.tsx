@@ -4,11 +4,10 @@ import {
   StatusIndicator as StatusIndicatorComponent,
   Props
 } from "../../src/StatusIndicator/StatusIndicator";
-import { Typography } from "../../src/Typography/Typography";
 import StatusIndicatorDocumentation from "./StatusIndicator.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/StatusIndicator",
+  title: "components/Feedback/StatusIndicator",
   component: StatusIndicatorComponent,
   parameters: {
     docs: {

@@ -5,7 +5,7 @@ import { Icon, Icons } from "../../src/Icon/Icon";
 import IconButtonDocumentation from "./IconButton.mdx";
 
 const meta: Meta = {
-  title: "Stories/UI/IconButton",
+  title: "components/Inputs/IconButton",
   component: IconButtonComponent,
   parameters: {
     docs: {
@@ -43,6 +43,6 @@ IconButton.args = {
   variant: "text",
   iconSize: "m",
   type: "button",
-  title: "Calendar"
+  title: "components/Calendar"
 };
 IconButton.storyName = "IconButton";

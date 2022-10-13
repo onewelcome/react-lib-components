@@ -7,7 +7,7 @@ import {
 import FormHelperTextDocumentation from "./FormHelperText.mdx";
 
 const meta: Meta = {
-  title: "Stories/Form/Elements/FormHelperText",
+  title: "components/Data Display/FormHelperText",
   component: FormHelperTextComponent,
   parameters: {
     docs: {
