@@ -38,7 +38,7 @@ const createDiscardChangesDialog = (params?: (defaultParams: Props) => Props) =>
 };
 
 describe("DiscardChangesDialog should render", () => {
-  it("renders without crashing", () => {
+  it("renders without crashing", async () => {
     const { discardChangesDialog, discardChangesBtn, keepEditingBtn } =
       createDiscardChangesDialog();
 
@@ -46,10 +46,10 @@ describe("DiscardChangesDialog should render", () => {
     expect(discardChangesDialog).toHaveTextContent(defaultParams.contentLabel);
     expect(discardChangesDialog).toHaveTextContent(defaultParams.titleLabel);
 
-    userEvent.click(discardChangesBtn);
+    await userEvent.click(discardChangesBtn);
     expect(defaultParams.onDiscardChanges).toBeCalledTimes(1);
 
-    userEvent.click(keepEditingBtn);
+    await userEvent.click(keepEditingBtn);
     expect(defaultParams.onKeepEditing).toBeCalledTimes(1);
   });
 });

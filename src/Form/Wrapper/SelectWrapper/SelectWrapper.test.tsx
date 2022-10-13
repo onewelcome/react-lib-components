@@ -158,11 +158,11 @@ describe("SelectWrapper & Select have the right attributes", () => {
   it("Fires the onChange event", async () => {
     const { select, findByText } = createSelectWrapper();
 
-    userEvent.click(select as Element);
+    await userEvent.click(select as Element);
 
     const option3 = await findByText("Option 3");
 
-    userEvent.click(option3 as Element);
+    await userEvent.click(option3 as Element);
 
     expect(onChangeHandler).toHaveBeenCalled();
   });

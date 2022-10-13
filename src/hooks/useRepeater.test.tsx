@@ -95,7 +95,7 @@ describe("useRepeater should render", () => {
     expect(inputWrappers.length).toBe(2);
   });
 
-  it("should repeat 3 items and remove the first index", () => {
+  it("should repeat 3 items and remove the first index", async () => {
     const onChangeHandler = jest.fn();
 
     const App = () => {
@@ -130,7 +130,7 @@ describe("useRepeater should render", () => {
 
     const removeButton = renderedItems.container.querySelector("#remove_input_1");
 
-    userEvent.click(removeButton!);
+    await userEvent.click(removeButton!);
 
     expect(renderedItems.container.querySelector(`#${secondInputID}`)).toBeFalsy();
     const inputWrappers = renderedItems.container.querySelectorAll(".wrapper.input-wrapper");

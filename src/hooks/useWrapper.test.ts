@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react";
 import { useWrapper } from "./useWrapper";
 
 describe("it should give the correct results based on no value, no placeholder and default text input", () => {

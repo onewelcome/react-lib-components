@@ -71,15 +71,15 @@ const getActionsButtons = (container: HTMLElement) => {
 };
 
 describe("WizardActions", () => {
-  it("renders without crashing", () => {
+  it("renders without crashing", async () => {
     const { container, dispatch } = renderWizardActions();
     const { cancel, prev, next, save } = getActionsButtons(container);
     (initParams.onNext as jest.MockedFunction<typeof initParams.onNext>).mockReturnValueOnce(true);
 
     expect(cancel).toBeDefined();
-    cancel && userEvent.click(cancel);
+    cancel && (await userEvent.click(cancel));
     expect(next).toBeDefined();
-    next && userEvent.click(next);
+    next && (await userEvent.click(next));
     expect(prev).toBeNull();
     expect(save).toBeNull();
 
@@ -88,18 +88,18 @@ describe("WizardActions", () => {
     expect(dispatch).toBeCalledWith(changeCurrentStepNo(1));
   });
 
-  it("should allow going prev and forward when there are prev step and next step (next step is disabled but next one can be used)", () => {
+  it("should allow going prev and forward when there are prev step and next step (next step is disabled but next one can be used)", async () => {
     const { container, dispatch } = renderWizardActions({ ...initWizardState, currentStepNo: 1 });
     const { cancel, prev, next, save } = getActionsButtons(container);
     (initParams.onNext as jest.MockedFunction<typeof initParams.onNext>).mockReturnValueOnce(true);
 
     expect(prev).toBeDefined();
-    prev && userEvent.click(prev);
+    prev && (await userEvent.click(prev));
     expect(initParams.onPrevious).toBeCalled();
     expect(dispatch).toBeCalledWith(changeCurrentStepNo(0));
 
     expect(next).toBeDefined();
-    next && userEvent.click(next);
+    next && (await userEvent.click(next));
     expect(initParams.onNext).toHaveBeenCalledWith(1);
     expect(dispatch).toBeCalledWith(changeCurrentStepNo(3));
 
@@ -107,7 +107,7 @@ describe("WizardActions", () => {
     expect(save).toBeNull();
   });
 
-  it("should render save button but not next button when current step is the last step", () => {
+  it("should render save button but not next button when current step is the last step", async () => {
     const { container } = renderWizardActions({ ...initWizardState, currentStepNo: 3 });
     const { cancel, prev, next, save } = getActionsButtons(container);
 
@@ -116,11 +116,11 @@ describe("WizardActions", () => {
     expect(next).toBeNull();
     expect(save).toBeDefined();
 
-    save && userEvent.click(save);
+    save && (await userEvent.click(save));
     expect(initParams.onSaveAndClose).toHaveBeenCalledWith(3);
   });
 
-  it("should show save and close when next steps are disabled", () => {
+  it("should show save and close when next steps are disabled", async () => {
     const steps = [
       initWizardState.steps[0],
       { ...initWizardState.steps[1], disabled: true },
@@ -138,11 +138,11 @@ describe("WizardActions", () => {
     expect(next).toBeNull();
     expect(save).toBeDefined();
 
-    save && userEvent.click(save);
+    save && (await userEvent.click(save));
     expect(initParams.onSaveAndClose).toHaveBeenCalledWith(0);
   });
 
-  it("should show save button on middle step when mode is `edit`", () => {
+  it("should show save button on middle step when mode is `edit`", async () => {
     const { container } = renderWizardActions({ ...initWizardState, mode: "edit" });
     const { cancel, prev, next, save } = getActionsButtons(container);
 
@@ -151,16 +151,16 @@ describe("WizardActions", () => {
     expect(next).toBeDefined();
     expect(save).toBeDefined();
 
-    save && userEvent.click(save);
+    save && (await userEvent.click(save));
     expect(initParams.onSaveAndClose).toHaveBeenCalledWith(0);
   });
 
-  it("should not allow going forward when dev returns false on onNext callback", () => {
+  it("should not allow going forward when dev returns false on onNext callback", async () => {
     const { container, dispatch } = renderWizardActions();
     const { next } = getActionsButtons(container);
     (initParams.onNext as jest.MockedFunction<typeof initParams.onNext>).mockReturnValueOnce(false);
 
-    next && userEvent.click(next);
+    next && (await userEvent.click(next));
     expect(initParams.onNext).toHaveBeenCalledWith(0);
     expect(dispatch).not.toBeCalled();
   });

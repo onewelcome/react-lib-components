@@ -1,5 +1,5 @@
 import { useFormSelector } from "./useFormSelector";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 
 describe("we should get the correct return values and describedBy is the same as identifier", () => {
   it("should return correct values", () => {

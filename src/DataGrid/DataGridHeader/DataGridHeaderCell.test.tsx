@@ -88,7 +88,7 @@ it("renders DESC sorting indicator (icon) when sorting is enabled and current so
 });
 
 describe("DataGridHeaderCell should be interactive", () => {
-  it("clicking on cell calls onSort callback", () => {
+  it("clicking on cell calls onSort callback", async () => {
     const onSortHandler = jest.fn();
     const { getByRole } = createDataGridHeaderCell(params => ({
       ...params,
@@ -96,7 +96,7 @@ describe("DataGridHeaderCell should be interactive", () => {
       onSort: onSortHandler
     }));
 
-    userEvent.click(getByRole("button"));
+    await userEvent.click(getByRole("button"));
 
     expect(onSortHandler).toBeCalledWith(defaultParams.name);
   });

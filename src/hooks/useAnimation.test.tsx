@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { useAnimation } from "./useAnimation";
 
 describe("useAnimation", () => {
-  it("should execute", () => {
+  it("should execute", async () => {
     const callback = jest.fn();
 
     const Component = () => {
@@ -34,11 +34,11 @@ describe("useAnimation", () => {
     expect(animatedDiv).not.toHaveClass("animation-started");
     expect(callback).not.toBeCalled();
 
-    userEvent.click(startButton);
+    await userEvent.click(startButton);
     expect(animatedDiv).toHaveClass("animation-started");
     expect(callback).not.toBeCalled();
 
-    fireEvent.animationEnd(animatedDiv);
+    await fireEvent.animationEnd(animatedDiv);
     expect(animatedDiv).toHaveClass("animation-started");
     expect(callback).toBeCalled();
   });
