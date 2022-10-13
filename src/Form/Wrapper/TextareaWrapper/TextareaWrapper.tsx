@@ -65,7 +65,7 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
         disabled={disabled}
         labelProps={{
           id: labelId,
-          className: wrapperClasses.join(" ")
+          className: `${classes["textarea-label"]} ${wrapperClasses.join(" ")}`
         }}
         name={name}
         label={label}
