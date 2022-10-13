@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -15,9 +15,7 @@ We automatically display a search ' Input ' field when you have a `Select` compo
 
 See below an example of a `Select` component. It is controlled by Storybook, and selecting a value will not do anything. However, you can change the value by selecting it in the [Props table](#props).
 
-<Canvas>
-  <Story id="stories-form-elements-select--select" />
-</Canvas>
+<DocsStory id="stories-form-elements-select--select" />
 
 An example of how a `Select` component can be built using state looks as follows:
 

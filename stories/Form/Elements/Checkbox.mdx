@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -14,9 +14,7 @@ The examples below are **not** interactive, since they are **not** linked to any
 
 ## Singular Checkbox
 
-<Canvas>
-  <Story id="stories-form-elements-checkbox--single-checkbox" />
-</Canvas>
+<DocsStory id="stories-form-elements-checkbox--single-checkbox" />
 
 Here is a code example that shows what it would look like if you linked the above `Checkbox` component to a state variable:
 
@@ -42,9 +40,7 @@ As you can see we link the `checked` prop to the `checkboxState` state variable.
 
 For the nested `Checkbox` components, you have to make sure to pass the `label` prop and `indeterminate` prop to the parent checkbox! Otherwise, it throws an error.
 
-<Canvas>
-  <Story id="stories-form-elements-checkbox--nested-checkbox" />
-</Canvas>
+<DocsStory id="stories-form-elements-checkbox--nested-checkbox" />
 
 If you would like to see this component in action [check the CheckboxWrapper component](/story/stories-form-wrapper-checkboxwrapper--nested-checkboxes) where we linked all the `Checkbox` components to state variables.
 
