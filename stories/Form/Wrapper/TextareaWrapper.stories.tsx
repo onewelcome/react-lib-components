@@ -26,26 +26,14 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
-  const [error] = useState(false);
-  const [textareaValue, setTextareaValue] = useState("");
-
-  return (
-    <div>
-      <TextareaWrapperComponent
-        {...args}
-        label="Example textarea"
-        name="Textarea"
-        helperText="Example textarea helpertext"
-        errorMessage="Textarea error message"
-        onChange={e => setTextareaValue(e.target.value)}
-        error={error}
-        value={textareaValue}
-      />
-    </div>
-  );
-};
-
+const Template: Story<Props> = args => <TextareaWrapperComponent {...args} />;
 export const TextareaWrapper = Template.bind({});
 
-TextareaWrapper.args = {};
+TextareaWrapper.args = {
+  error: false,
+  value: "Example value",
+  onChange: () => {},
+  label: "Example textarea",
+  name: "Textarea",
+  helperText: "Example textarea helpertext"
+};
