@@ -9,7 +9,7 @@ import { Option } from "../../../src/Form/Select/Option";
 import SelectWrapperDocumentation from "./SelectWrapper.mdx";
 
 const meta: Meta = {
-  title: "components/Inputs/SelectWrapper (Wrapper)",
+  title: "components/Inputs/Select (Wrapper)",
   component: SelectWrapperComponent,
   parameters: {
     docs: {

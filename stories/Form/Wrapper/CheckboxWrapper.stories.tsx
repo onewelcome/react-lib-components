@@ -9,7 +9,7 @@ import {
 import CheckboxWrapperDocumentation from "./CheckboxWrapper.mdx";
 
 const meta: Meta = {
-  title: "components/Inputs/CheckboxWrapper (Wrapper)",
+  title: "components/Inputs/Checkbox (Wrapper)",
   component: CheckboxWrapper,
   parameters: {
     docs: {

@@ -8,7 +8,7 @@ import { Radio } from "../../../src/Form/Radio/Radio";
 import RadioWrapperDocumentation from "./RadioWrapper.mdx";
 
 const meta: Meta = {
-  title: "components/Inputs/RadioWrapper (Wrapper)",
+  title: "components/Inputs/Radio (Wrapper)",
   component: RadioWrapperComponent,
   parameters: {
     docs: {
