@@ -29,7 +29,7 @@ describe("Dialog", () => {
 
     expect(getByText(initParams.title)).toBeDefined();
     expect(getByText(initParams.children as string)).toBeDefined();
-    const actionsDiv = primaryButton.closest("footer");
+    const actionsDiv = primaryButton.closest("div");
     expect(actionsDiv).toHaveClass("left");
     expect(actionsDiv?.children[0]).toEqual(primaryButton);
     expect(actionsDiv?.children[1]).toEqual(secondaryButton);
@@ -41,7 +41,7 @@ describe("Dialog", () => {
     render(<Dialog {...initParams} alignActions="right" />);
     const [secondaryButton, primaryButton] = getButtons(document.body);
 
-    const actionsDiv = primaryButton.closest("footer");
+    const actionsDiv = primaryButton.closest("div");
     expect(actionsDiv).not.toHaveClass("left");
     expect(actionsDiv?.children[0]).toEqual(secondaryButton);
     expect(actionsDiv?.children[1]).toEqual(primaryButton);
