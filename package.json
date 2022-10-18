@@ -18,7 +18,7 @@
     "build": "dts build",
     "build-storybook": "build-storybook",
     "dev": "npm-run-all -p start test:watch storybook",
-    "lint": "eslint --fix '**/*.{ts,tsx}'",
+    "lint": "eslint '**/*.{ts,tsx}'",
     "prepare": "husky install && dts build",
     "size": "size-limit",
     "start": "dts watch",
