@@ -9,7 +9,7 @@ export interface Props extends ComponentPropsWithRef<any>, BaseModalActionsProps
   align: "left" | "right";
 }
 
-export const DialogActions = React.forwardRef<HTMLElement, Props>(
+export const DialogActions = React.forwardRef<HTMLDivElement, Props>(
   ({ children, align, ...rest }: Props, ref) => {
     return (
       <BaseModalActions
