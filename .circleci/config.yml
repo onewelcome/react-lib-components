@@ -1,5 +1,3 @@
----
-# Circle CI config for react-lib-components
 version: 2.1
 
 orbs:
