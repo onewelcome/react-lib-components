@@ -32,9 +32,9 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module"
   },
-  plugins: ["react", "@typescript-eslint", "jest", "cypress", "react-hooks"],
+  plugins: ["react", "@typescript-eslint", "jest", "cypress", "react-hooks", "license-header"],
   ignorePatterns: ["dist/", "stories/types.d.ts", "setupTests.ts"],
-  rules: {},
+  rules: {"license-header/header": [ "error", "NOTICE" ]},
   overrides: [
     {
       files: ["**/*.ts", "**/*.tsx"],
