@@ -1,8 +1,24 @@
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 import React, { Fragment, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { ContextMenu as ContextMenuComponent, Props } from "../../src/ContextMenu/ContextMenu";
 import { ContextMenuItem } from "../../src/ContextMenu/ContextMenuItem";
-import { action } from "@storybook/addon-actions/dist/esm";
+import { action } from "@storybook/addon-actions";
 import { IconButton } from "../../src/Button/IconButton";
 import { Icon, Icons } from "../../src/Icon/Icon";
 import { Placement } from "../../src/hooks/usePosition";
@@ -10,7 +26,7 @@ import ContextMenuDocumentation from "./ContextMenu.mdx";
 import { Typography } from "../../src/Typography/Typography";
 
 const meta: Meta = {
-  title: "Stories/UI/ContextMenu",
+  title: "components/Navigation/ContextMenu",
   component: ContextMenuComponent,
   parameters: {
     docs: {

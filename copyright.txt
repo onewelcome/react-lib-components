@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,37 +13,3 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
-.error {
-  color: var(--error);
-}
-
-.helper-text {
-  margin-top: 0.25rem;
-  margin-left: 1.75rem;
-}
-
-.error-message {
-  margin-top: 1.25rem;
-  display: flex;
-  align-items: flex-end;
-}
-
-.error-icon {
-  margin-right: 0.5rem;
-  font-size: 1.25rem;
-}
-
-.disabled {
-  input {
-    color: var(--disabled);
-
-    &:disabled {
-      cursor: not-allowed;
-    }
-  }
-
-  label {
-    cursor: not-allowed;
-  }
-}

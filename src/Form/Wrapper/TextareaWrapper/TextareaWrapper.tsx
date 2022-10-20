@@ -1,3 +1,19 @@
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 import React, { ComponentPropsWithRef, useState } from "react";
 import classes from "./TextareaWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
@@ -51,12 +67,12 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
     } = useWrapper(value, placeholder);
     const [hover, setHover] = useState(false);
 
-    const optionalClasses: string[] = [];
+    const wrapperClasses: string[] = [];
 
-    hasFocus && optionalClasses.push(classes["focus"]);
-    hover && optionalClasses.push(classes["hover"]);
-    disabled && optionalClasses.push(classes["disabled"]);
-    error && optionalClasses.push(classes["error"]);
+    hasFocus && wrapperClasses.push(classes["focus"]);
+    hover && wrapperClasses.push(classes["hover"]);
+    disabled && wrapperClasses.push(classes["disabled"]);
+    error && wrapperClasses.push(classes["error"]);
 
     return (
       <Wrapper
@@ -65,7 +81,7 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
         disabled={disabled}
         labelProps={{
           id: labelId,
-          className: `${classes["textarea-label"]} ${optionalClasses.join(" ")}`
+          className: `${classes["textarea-label"]} ${wrapperClasses.join(" ")}`
         }}
         name={name}
         label={label}
@@ -110,7 +126,7 @@ export const TextareaWrapper = React.forwardRef<HTMLDivElement, Props>(
           }}
           className={`${classes["textarea"]} ${error ? classes["error"] : ""}`}
           wrapperProps={{
-            className: `${classes["textarea-wrapper"]}} ${optionalClasses.join(" ")}`
+            className: `${wrapperClasses.join(" ")} ${classes["textarea-wrapper"]}`
           }}
           errorProps={{ className: classes["error-icon"] }}
         />
