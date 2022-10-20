@@ -48,6 +48,7 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "@mdx-js/react": "^2.1.5",
     "@onewelcome/eslint-config-shared-codestyle": "^9.0.3",
     "@size-limit/preset-small-lib": "^8.1.0",
     "@storybook/addon-a11y": "^6.5.12",
@@ -98,8 +99,5 @@
     "size-limit": "^8.1.0",
     "tslib": "^2.4.0",
     "typescript": "^4.8.4"
-  },
-  "dependencies": {
-    "@mdx-js/react": "^2.1.5"
   }
 }
