@@ -37,7 +37,7 @@ describe("Pagination should render", () => {
 });
 
 describe("Pagination events", () => {
-  it("should give us the correct values", async () => {
+  it("should correctly translate user input to pagination component", async () => {
     const onPageChange = jest.fn();
 
     const onPageSizeChange = jest.fn();

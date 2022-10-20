@@ -164,8 +164,8 @@ describe("handlers", () => {
     const parentErrorSnackbar = errorSnackbar.closest(".snackbar")!;
     const parentSuccessSnackbar = successSnackbar.closest(".snackbar")!;
 
-    await fireEvent.animationEnd(parentErrorSnackbar);
-    await fireEvent.animationEnd(parentSuccessSnackbar);
+    fireEvent.animationEnd(parentErrorSnackbar);
+    fireEvent.animationEnd(parentSuccessSnackbar);
 
     waitFor(() => expect(onCloseHandler).toHaveBeenCalledTimes(2));
   });
