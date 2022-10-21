@@ -122,7 +122,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     light: "#FFF",
     grey: "#c3c3c7",
     fontFamily: "'Red Hat Display', sans-serif",
-    fontFamilyCode: "'Red Hat Mono', sans-serif",
+    fontFamilyCode: "'Red Hat Mono', monospace",
     fontSize: "1rem",
     fontSizeH1: "2.5rem",
     fontSizeH2: "1.625rem",
