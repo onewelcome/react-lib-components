@@ -30,10 +30,10 @@
         color: var(--button-fill-text-color);
       }
     }
-    font-weight: bold;
+    font-weight: normal;
   } @else if $variant == "outline" {
     background-color: var(--button-fill-background-color);
-    font-weight: bold;
+    font-weight: normal;
   }
 
   &.primary:not(#{$disabledSelector}) {
