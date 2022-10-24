@@ -61,8 +61,7 @@ Our library is created using Typescript, which means you have awesome autocomple
 
 # Storybook
 
-You have arrived on the Storybook component explorer created by the `SASSy` team within OneWelcome. It will showcase all of the components
-we have created, and you can fully control them using the controls that Storybook provides.
+You have arrived on the Storybook component explorer for the component library. It will showcase all of the components and you can fully control them using the controls that Storybook provides.
 
 You can select any component's Story in the sidebar on the left. There are different categories that provide you with different components.
 Make sure to enable the different navigation components within Storybook:
@@ -71,45 +70,4 @@ Make sure to enable the different navigation components within Storybook:
 - Press `T` to show/hide the toolbar.
 - Press `A` to show/hide the addons (controls/actions/accessibility) (only available in `Canvas` mode).
 
-## Toolbar
-
-The toolbar is used to mainly switch between `Canvas` mode and `Docs` mode. There are also a few other tools you can use.
-[Please find information about these tools here](https://storybook.js.org/docs/react/get-started/browse-stories#toolbar).
-
-### Canvas vs. Docs
-
-Every component has two different views that can be selected in the toolbar. The `Canvas` will enable you to completely control the
-components using the `Controls` tab in the addons. This is for you to play around with the component and see if you can configure it to
-your liking.
-
-The `Docs` are there for you with a complete explanation of how a component works and why you might want to use it. In every `Docs` page
-there is also the `props table` at the very bottom.
-
-## Sidebar
-
-In the sidebar, you'll find all components we have created stories for. Simply select one of the categories and then one of the components
-within. Make sure you have the toolbar and addons active by pressing their corresponding shortcut keys.
-
-## Addons
-
-We have several addons to help showcase our components. You can activate the addons tabs by pressing `A` on your keyboard once you're viewing a story.
-You'll see three different tabs.
-
-### Controls
-
-The controls do exactly what you'd think they do. They control the component you're seeing. You can change the props, and the changes
-will be directly reflected on the `Canvas`. Please be aware that this also includes the `value` prop of an `<Input />` component, for example.
-This means that typing inside of an `<Input />` component directly, while it is controlled by Storybook, won't work. However, we do have, for example, a `<Form />` story, which has `<Input />` components nested inside of it in which you can type values normally. This is because
-in that case, the `<Input />` is not controlled through Storybook.
-
-### Actions
-
-The actions tab will give you information about your interactions with the component in the `Canvas`. For example, if you have the `<Select />` component
-and you physically interact with it (not using the controls) by selecting an option, you will not see the actual value change, but the actions
-tab will display the `onChange` event, which you can inspect. It will show you all the properties available.
-
-### Accessibility
-
-Using the accessibility tab, you can see if the component in the `Canvas` is properly accessible. Sometimes you might see an `Incomplete` status
-here and there. Most of the time, this will be because of `Contrast`, and in some cases, if we display for example, only an `<Input />` component, it will
-give a `Violation` of it not having a `label` associated with it. This can be safely ignored, since there will be a label in a real-world case.
+If you'd like to know more about how to use Storybook, [you can check this webpage](https://storybook.js.org/docs/react/get-started/browse-stories).
