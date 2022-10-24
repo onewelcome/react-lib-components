@@ -134,18 +134,18 @@ describe("Wizard", () => {
     ).mockReturnValue(true);
 
     await findByText(wizardContent, "Step 1");
-    next && userEvent.click(next);
+    next && (await userEvent.click(next));
     await findByText(wizardContent, "Step 2");
-    next && userEvent.click(next);
+    next && (await userEvent.click(next));
     await findByText(wizardContent, "Step 4");
     const { save, prev, cancel } = getActionsButtons(container);
-    save && userEvent.click(save);
+    save && (await userEvent.click(save));
     expect(initWizardActionsProps.onSaveAndClose).toBeCalledWith(3);
-    prev && userEvent.click(prev);
+    prev && (await userEvent.click(prev));
     await findByText(wizardContent, "Step 2");
-    prev && userEvent.click(prev);
+    prev && (await userEvent.click(prev));
     await findByText(wizardContent, "Step 1");
-    cancel && userEvent.click(cancel);
+    cancel && (await userEvent.click(cancel));
     expect(initWizardActionsProps.onCancel).toBeCalledTimes(1);
   });
 
@@ -163,21 +163,21 @@ describe("Wizard", () => {
       >
     ).mockReturnValue(true);
 
-    userEvent.click(stepsButtons[1]);
-    userEvent.click(stepsButtons[2]);
-    userEvent.click(stepsButtons[3]);
+    await userEvent.click(stepsButtons[1]);
+    await userEvent.click(stepsButtons[2]);
+    await userEvent.click(stepsButtons[3]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(0);
     await findByText(wizardContent, "Step 1");
 
-    next && userEvent.click(next);
-    next && userEvent.click(next);
+    next && (await userEvent.click(next));
+    next && (await userEvent.click(next));
     await findByText(wizardContent, "Step 4");
-    userEvent.click(stepsButtons[2]);
+    await userEvent.click(stepsButtons[2]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(0);
-    userEvent.click(stepsButtons[1]);
+    await userEvent.click(stepsButtons[1]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(1);
     await findByText(wizardContent, "Step 2");
-    userEvent.click(stepsButtons[0]);
+    await userEvent.click(stepsButtons[0]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(2);
     await findByText(wizardContent, "Step 1");
   });
@@ -192,21 +192,21 @@ describe("Wizard", () => {
       >
     ).mockReturnValue(true);
 
-    userEvent.click(stepsButtons[1]);
+    await userEvent.click(stepsButtons[1]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(1);
     await findByText(wizardContent, "Step 2");
-    userEvent.click(stepsButtons[2]);
+    await userEvent.click(stepsButtons[2]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(1);
-    userEvent.click(stepsButtons[3]);
+    await userEvent.click(stepsButtons[3]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(2);
     await findByText(wizardContent, "Step 4");
 
-    userEvent.click(stepsButtons[2]);
+    await userEvent.click(stepsButtons[2]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(2);
-    userEvent.click(stepsButtons[1]);
+    await userEvent.click(stepsButtons[1]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(3);
     await findByText(wizardContent, "Step 2");
-    userEvent.click(stepsButtons[0]);
+    await userEvent.click(stepsButtons[0]);
     expect(initWizardStepsProps.onStepClick).toBeCalledTimes(4);
     await findByText(wizardContent, "Step 1");
   });
