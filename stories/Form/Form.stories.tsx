@@ -1,6 +1,22 @@
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Meta, Story } from "@storybook/react";
-import { Form, Props } from "../../src/Form/Form";
+import { Form as FormComponent, Props } from "../../src/Form/Form";
 import { InputWrapper } from "../../src/Form/Wrapper/InputWrapper/InputWrapper";
 import { Fieldset } from "../../src/Form/Fieldset/Fieldset";
 import { CheckboxWrapper } from "../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
@@ -17,8 +33,8 @@ import { Toggle } from "../../src/Form/Toggle/Toggle";
 import FormDocumentation from "./Form.mdx";
 
 const meta: Meta = {
-  title: "Stories/Form/Form",
-  component: Form,
+  title: "Components/layout/Form",
+  component: FormComponent,
   parameters: {
     docs: {
       page: FormDocumentation
@@ -107,7 +123,7 @@ const Template: Story<Props> = args => {
   };
 
   return (
-    <Form
+    <FormComponent
       onSubmit={actionWithPreventDefault("onSubmit event fired!")}
       style={{ backgroundColor: "rgb(246, 248, 248)", padding: "20px" }}
     >
@@ -276,7 +292,7 @@ const Template: Story<Props> = args => {
           </Checkbox>
         </CheckboxWrapper>
       </FormControl>
-      <FormControl grid={2}>
+      <FormControl grid={callBack.value === "yes" ? 2 : 1}>
         <RadioWrapper
           name="callback"
           onChange={e => setCallBack(prevState => ({ ...prevState, value: e.target.value }))}
@@ -307,10 +323,10 @@ const Template: Story<Props> = args => {
       <div style={{ marginTop: "20px", textAlign: "right" }}>
         <Button type="submit">Submit</Button>
       </div>
-    </Form>
+    </FormComponent>
   );
 };
 
-export const FormEl = Template.bind({});
+export const Form = Template.bind({});
 
-FormEl.args = {};
+Form.args = {};

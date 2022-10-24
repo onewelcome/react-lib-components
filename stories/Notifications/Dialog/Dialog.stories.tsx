@@ -1,3 +1,19 @@
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 import React, { Fragment, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { Dialog, Props } from "../../../src/Notifications/Dialog/Dialog";
@@ -6,7 +22,7 @@ import { Typography } from "../../../src/Typography/Typography";
 import DialogDocumentation from "./Dialog.mdx";
 
 const meta: Meta = {
-  title: "Stories/Notifications/Dialog",
+  title: "components/Feedback/Dialog",
   component: Dialog,
   parameters: {
     docs: {
@@ -15,7 +31,7 @@ const meta: Meta = {
   },
   args: {
     id: "dialog",
-    title: "Discard changes?",
+    title: "components/Discard changes?",
     alignActions: "left",
     children: (
       <Typography variant="body" spacing={{ margin: 0 }}>
@@ -65,7 +81,7 @@ export const LeftAlignedActionDialog = Template.bind({});
 export const RightAlignedActionDialog = Template.bind({});
 
 RightAlignedActionDialog.args = {
-  title: "Verify email address",
+  title: "components/Verify email address",
   alignActions: "right",
   children: (
     <Fragment>
@@ -91,7 +107,7 @@ RightAlignedActionDialog.args = {
 export const SingleActionDialog = Template.bind({});
 
 SingleActionDialog.args = {
-  title: "Info",
+  title: "components/Info",
   alignActions: "right",
   children: (
     <Typography variant="body" spacing={{ margin: 0 }}>
