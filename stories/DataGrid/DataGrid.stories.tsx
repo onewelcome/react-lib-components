@@ -1,3 +1,19 @@
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { DataGrid as DataGridComponent, Props } from "../../src/DataGrid/DataGrid";
@@ -9,10 +25,11 @@ import { ContextMenuItem } from "../../src/ContextMenu/ContextMenuItem";
 import { DataGridRow } from "../../src/DataGrid/DataGridBody/DataGridRow";
 import { action } from "@storybook/addon-actions";
 import DataGridDocumentation from "./DataGrid.mdx";
+import { StatusIndicator } from "../../src/StatusIndicator/StatusIndicator";
 
 type DataType = { name: string; created: Date; id: string; type: string; enabled: boolean };
 const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
-  name: "Adyen" + idx,
+  name: `Company ${idx}`,
   created: new Date(new Date().getTime() + 86400000 * idx),
   id: idx + "343454435435435",
   type: "Stock",
@@ -34,7 +51,7 @@ const meta: Meta = {
       { name: "created", headline: "Created" },
       { name: "id", headline: "Identifier" },
       { name: "type", headline: "Type", disableSorting: true },
-      { name: "enabled", headline: "Enabled", disableSorting: true }
+      { name: "enabled", headline: "Status", disableSorting: true }
     ]
   },
   decorators: [
@@ -68,9 +85,9 @@ const Template: Story<Props<DataType>> = args => {
         <DataGridCell>{item.type}</DataGridCell>
         <DataGridCell>
           {item.enabled ? (
-            <span style={{ color: "var(--success)" }}>Yes</span>
+            <StatusIndicator status={"active"}>Active</StatusIndicator>
           ) : (
-            <span style={{ color: "var(--error)" }}>No</span>
+            <StatusIndicator status={"error"}>Delisted</StatusIndicator>
           )}
         </DataGridCell>
         {!args.disableContextMenuColumn && (
