@@ -89,17 +89,17 @@ describe("Checkbox should have proper attributes", () => {
     expect(checkbox).toHaveAttribute("aria-checked", "true");
   });
 
-  it("should call the onChange function", async () => {
+  it("should call the onChange function", () => {
     const onChangeHandler = jest.fn();
     const { checkbox } = createCheckbox(defaultParams => ({
       ...defaultParams,
       onChange: onChangeHandler
     }));
-    await userEvent.click(checkbox);
+    userEvent.click(checkbox);
     expect(onChangeHandler).toHaveBeenCalled();
   });
 
-  it("should be disabled", async () => {
+  it("should be disabled", () => {
     const onChangeHandler = jest.fn();
     const { checkbox } = createCheckbox(defaultParams => ({
       ...defaultParams,
@@ -109,7 +109,7 @@ describe("Checkbox should have proper attributes", () => {
 
     expect(checkbox).toBeDisabled();
 
-    await userEvent.click(checkbox);
+    userEvent.click(checkbox);
 
     expect(onChangeHandler).not.toHaveBeenCalled();
   });
@@ -171,11 +171,11 @@ describe("Checkbox should have proper attributes", () => {
 });
 
 describe("Checkbox should be interactive", () => {
-  it("should call onChange when clicked", async () => {
+  it("should call onChange when clicked", () => {
     const { checkbox } = createCheckbox();
 
     expect(onChangeHandler).not.toBeCalled();
-    await userEvent.click(checkbox);
+    userEvent.click(checkbox);
     expect(onChangeHandler).toBeCalledTimes(1);
   });
 

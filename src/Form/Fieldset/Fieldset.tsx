@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ForwardRefExoticComponent, ReactElement } from "react";
+import React, { ComponentPropsWithRef, ReactNode, ReactElement } from "react";
 import readyclasses from "../../readyclasses.module.scss";
 import classes from "./Fieldset.module.scss";
 import { Typography, Variant } from "../../Typography/Typography";
@@ -73,7 +73,7 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, Props>(
     React will throw an error. However, it might occur that we want a component inside of Fieldset because of aesthetic purposes
     (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
     So instead we supply an array of components that we want to add the disabled and error prop to and check if child.type equals one of these. */
-      const allowedComponents: ForwardRefExoticComponent<any>[] = [
+      const allowedComponents: ReactNode[] = [
         Input,
         Select,
         Radio,
@@ -89,16 +89,8 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, Props>(
         TextareaWrapper
       ];
 
-      const allowedComponentsDisplayNames = allowedComponents.map(
-        component => component.displayName
-      );
-
       return React.Children.map(children, (child: ReactElement) => {
-        if (
-          child.type === "string" &&
-          allowedComponentsDisplayNames.includes(child.type) &&
-          !disablePropagation
-        ) {
+        if (allowedComponents.includes(child.type) && !disablePropagation) {
           return React.cloneElement(child, {
             disabled: child.props.disabled ?? disabled,
             error: child.props.error ?? error

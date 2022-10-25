@@ -42,7 +42,7 @@ const initParams: Props = {
 const getStepButtons = (container: HTMLElement) => getAllByRole(container, "button");
 
 describe("BaseWizardSteps", () => {
-  it("renders without crashing", async () => {
+  it("renders without crashing", () => {
     const { container } = render(<BaseWizardSteps {...initParams} />);
     const buttons = getStepButtons(container);
     expect(initParams.onClick).toHaveBeenCalledTimes(0);
@@ -57,27 +57,27 @@ describe("BaseWizardSteps", () => {
     expect(buttons[3]).not.toHaveAttribute("aria-current");
     expect(getByText(buttons[3], "4")).toBeDefined();
 
-    await userEvent.click(buttons[0]);
+    userEvent.click(buttons[0]);
     expect(initParams.onClick).toHaveBeenCalledTimes(1);
 
-    await userEvent.click(buttons[1]);
-    await userEvent.click(buttons[2]);
-    await userEvent.click(buttons[3]);
+    userEvent.click(buttons[1]);
+    userEvent.click(buttons[2]);
+    userEvent.click(buttons[3]);
     expect(initParams.onClick).toHaveBeenCalledTimes(1);
   });
 
-  it("should allow to click on future and prev steps but not on current and disabled steps when futureStepsClickable is enabled", async () => {
+  it("should allow to click on future and prev steps but not on current and disabled steps when futureStepsClickable is enabled", () => {
     const { container } = render(<BaseWizardSteps {...initParams} futureStepsClickable />);
     const buttons = getStepButtons(container);
     expect(initParams.onClick).toHaveBeenCalledTimes(0);
 
-    await userEvent.click(buttons[3]);
+    userEvent.click(buttons[3]);
     expect(initParams.onClick).toHaveBeenCalledTimes(1);
-    await userEvent.click(buttons[0]);
+    userEvent.click(buttons[0]);
     expect(initParams.onClick).toHaveBeenCalledTimes(2);
 
-    await userEvent.click(buttons[1]);
-    await userEvent.click(buttons[2]);
+    userEvent.click(buttons[1]);
+    userEvent.click(buttons[2]);
     expect(initParams.onClick).toHaveBeenCalledTimes(2);
   });
 

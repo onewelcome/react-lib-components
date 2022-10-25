@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, useEffect, useRef, useState } from "react";
+import React, { ComponentPropsWithRef, Ref, useEffect, useRef, useState } from "react";
 import classes from "./Input.module.scss";
 import readyclasses from "../../readyclasses.module.scss";
 import { Icon, Icons } from "../../Icon/Icon";
@@ -42,7 +42,7 @@ export interface Props extends ComponentPropsWithRef<"input">, FormElement {
   prefix?: string;
 }
 
-export const Input = React.forwardRef<HTMLInputElement, Props>(
+export const Input = React.forwardRef(
   (
     {
       error = false,
@@ -59,7 +59,7 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(
       onBlur,
       ...rest
     }: Props,
-    ref
+    ref: Ref<HTMLInputElement>
   ) => {
     const [focus, setFocus] = useState(false);
     const inputWrapperRef = useRef<HTMLDivElement>(null);

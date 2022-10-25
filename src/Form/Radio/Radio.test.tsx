@@ -113,18 +113,18 @@ describe("ref should work", () => {
 });
 
 describe("Radio should be interactive", () => {
-  it("should call onChange when clicked", async () => {
+  it("should call onChange when clicked", () => {
     const { radio } = createRadio();
 
     expect(onChangeHandeler).not.toBeCalled();
-    await userEvent.click(radio);
+    userEvent.click(radio);
     expect(onChangeHandeler).toBeCalledTimes(1);
   });
 
-  it("should not call onChange when disabled", async () => {
+  it("should not call onChange when disabled", () => {
     const { radio } = createRadio(defaultParams => ({ ...defaultParams, disabled: true }));
 
-    await userEvent.click(radio);
+    userEvent.click(radio);
     expect(onChangeHandeler).not.toBeCalled();
   });
 });

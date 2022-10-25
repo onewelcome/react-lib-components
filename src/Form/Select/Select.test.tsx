@@ -16,10 +16,9 @@
 
 import React, { useEffect, useRef } from "react";
 import { Select as SelectComponent, Props } from "./Select";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { Option } from "./Option";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 const defaultParams: Props = {
   name: "Example select",
@@ -69,7 +68,7 @@ const createSelect = (params?: (defaultParams: Props) => Props) => {
 };
 
 describe("Select should render", () => {
-  it("renders with 5 options and proper attributes", async () => {
+  it("renders with 5 options and proper attributes", () => {
     const { select, button, list, dropdownWrapper } = createSelect(defaultParams => ({
       ...defaultParams,
       children: [
@@ -86,7 +85,7 @@ describe("Select should render", () => {
     expect(dropdownWrapper).toHaveStyle({ "pointer-events": "none" });
 
     if (button) {
-      await userEvent.click(button);
+      userEvent.click(button);
     }
 
     expect(select).toBeDefined();
@@ -149,13 +148,13 @@ describe("ref should work", () => {
 });
 
 describe("Select should render with search", () => {
-  it("shows the search and filtering works", async () => {
+  it("shows the search and filtering works", () => {
     const { select, list, button, getByTestId } = createSelect();
 
     const searchInput = getByTestId("search-input");
 
     if (button) {
-      await userEvent.click(button);
+      userEvent.click(button);
     }
 
     expect(select).toBeTruthy();
@@ -163,7 +162,7 @@ describe("Select should render with search", () => {
     expect(list?.querySelectorAll("li[role='option']").length).toBe(17);
 
     if (searchInput) {
-      await userEvent.type(searchInput, "17");
+      userEvent.type(searchInput, "17");
     }
 
     expect(list?.querySelectorAll("li[role='option']").length).toBe(1);
@@ -179,63 +178,63 @@ describe("Selecting options using keyboard", () => {
       onChange: onChangeHandler
     }));
 
-    await userEvent.click(button);
+    userEvent.click(button);
 
     expect(button).toHaveAttribute("aria-expanded", "true");
 
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{enter}");
+    userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{enter}");
 
     expect(button).toHaveAttribute("aria-expanded", "false");
 
     expect(onChangeHandler).toHaveBeenCalled();
 
-    await userEvent.keyboard("{enter}");
+    userEvent.keyboard("{enter}");
 
     expect(button).toHaveAttribute("aria-expanded", "true");
 
-    await userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{arrowdown}");
 
     expect(select.querySelector('li[data-value="option3"]')).toHaveFocus();
 
-    await userEvent.keyboard("{arrowup}");
-    await userEvent.keyboard("{arrowup}");
-    await userEvent.keyboard("{arrowup}");
-    await userEvent.keyboard("{arrowup}");
+    userEvent.keyboard("{arrowup}");
+    userEvent.keyboard("{arrowup}");
+    userEvent.keyboard("{arrowup}");
+    userEvent.keyboard("{arrowup}");
 
     expect(select.querySelector('li[data-value="option16"]')).toHaveFocus();
-    await userEvent.keyboard("{arrowup}");
+    userEvent.keyboard("{arrowup}");
     expect(select.querySelector('li[data-value="option15"]')).toHaveFocus();
 
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{arrowdown}");
 
     expect(select.querySelector('li[data-value="option1"]')).toHaveFocus();
 
-    await userEvent.keyboard("{escape}");
+    userEvent.keyboard("{escape}");
 
     expect(button).toHaveAttribute("aria-expanded", "false");
   });
 });
 
 describe("Expanded should be false whenever we click the body", () => {
-  it("closes select on body click", async () => {
+  it("closes select on body click", () => {
     const { button } = createSelect();
 
     if (button) {
-      await userEvent.click(button);
+      userEvent.click(button);
     }
 
     expect(button).toHaveAttribute("aria-expanded", "true");
-    await userEvent.click(document.body);
+    userEvent.click(document.body);
     expect(button).toHaveAttribute("aria-expanded", "false");
   });
 });
 
 describe("List expansion", () => {
-  it("should expand upwards", async () => {
+  it("should expand upwards", () => {
     const { select, button, dropdownWrapper } = createSelect();
 
     Object.defineProperty(window, "innerHeight", { value: 500, writable: true });
@@ -253,13 +252,13 @@ describe("List expansion", () => {
     });
 
     if (button) {
-      await userEvent.click(button);
+      userEvent.click(button);
     }
 
     expect(dropdownWrapper).toHaveStyle({ bottom: "0px" });
   });
 
-  it("should expand downwards with a max height set", async () => {
+  it("should expand downwards with a max height set", () => {
     const { select, getByRole, dropdownWrapper } = createSelect();
 
     dropdownWrapper!.getBoundingClientRect = () => ({
@@ -288,9 +287,9 @@ describe("List expansion", () => {
       toJSON: () => jest.fn()
     });
 
-    await userEvent.click(document.body);
+    userEvent.click(document.body);
     const button = getByRole("button");
-    await userEvent.click(button);
+    userEvent.click(button);
 
     expect(dropdownWrapper).toHaveStyle({ maxHeight: "474px" });
     expect(dropdownWrapper).toHaveStyle({ top: "0px" });
@@ -298,27 +297,25 @@ describe("List expansion", () => {
 });
 
 describe("previously selected item", () => {
-  it("should have focus", async () => {
+  it("should have focus", () => {
     const { select, button } = createSelect(defaultParams => ({
       ...defaultParams,
       value: "option4"
     }));
 
-    act(() => {
-      button.focus();
-    });
+    button.focus();
 
     const option2 = select.querySelector('li[data-value="option2"]')!;
 
-    await userEvent.keyboard("{enter}");
+    userEvent.keyboard("{enter}");
     expect(button).toHaveAttribute("aria-expanded", "true");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{enter}");
+    userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{space}");
 
-    await userEvent.click(button);
+    userEvent.click(button);
 
-    expect(document.activeElement).toStrictEqual(option2);
+    expect(document.activeElement).toBe(option2);
   });
 });
 
@@ -328,13 +325,10 @@ describe("search input", () => {
 
     const searchInput = document.querySelector(".select-search")!;
 
-    await userEvent.click(button);
+    userEvent.click(button);
+    (searchInput as HTMLElement).focus();
 
-    act(() => {
-      (searchInput as HTMLElement).focus();
-    });
-
-    await userEvent.keyboard("{arrowup}");
+    userEvent.keyboard("{arrowup}");
     expect(select.querySelector('li[data-value="option17"]')).toHaveFocus();
   });
 
@@ -343,13 +337,10 @@ describe("search input", () => {
 
     const searchInput = document.querySelector(".select-search")!;
 
-    await userEvent.click(button);
+    userEvent.click(button);
+    (searchInput as HTMLElement).focus();
 
-    act(() => {
-      (searchInput as HTMLElement).focus();
-    });
-
-    await userEvent.keyboard("{arrowdown}");
+    userEvent.keyboard("{arrowdown}");
     expect(select.querySelector('li[data-value="option1"]')).toHaveFocus();
   });
 
@@ -358,34 +349,27 @@ describe("search input", () => {
 
     const searchInput = document.querySelector(".select-search")!;
 
-    await userEvent.click(button);
+    userEvent.click(button);
+    (searchInput as HTMLElement).focus();
 
-    act(() => {
-      (searchInput as HTMLElement).focus();
-    });
-
-    await userEvent.keyboard("{enter}");
+    userEvent.keyboard("{enter}");
     expect(select.querySelector('li[data-value="option1"]')).toHaveFocus();
   });
 
   it("expand list with arrowdown", async () => {
     const { button } = createSelect();
-    act(() => {
-      button.focus();
-    });
-    await userEvent.keyboard("{arrowdown}");
+
+    button.focus();
+    userEvent.keyboard("{arrowdown}");
 
     expect(button).toHaveAttribute("aria-expanded", "true");
   });
 
-  it("expand list with enter", async () => {
+  it("expand list with space", async () => {
     const { button } = createSelect();
 
-    act(() => {
-      button.focus();
-    });
-
-    await userEvent.keyboard("{enter}");
+    button.focus();
+    userEvent.keyboard("{space}");
 
     expect(button).toHaveAttribute("aria-expanded", "true");
   });
@@ -395,12 +379,12 @@ describe("search input", () => {
 
     const searchInput = document.querySelector(".select-search")!;
 
-    await userEvent.click(button);
-    await userEvent.tab();
+    userEvent.click(button);
+    userEvent.tab();
 
-    expect(searchInput).toHaveFocus();
+    await waitFor(() => expect(searchInput).toHaveFocus());
 
-    await userEvent.keyboard("{escape}");
+    userEvent.keyboard("{escape}");
 
     expect(button).toHaveAttribute("aria-expanded", "false");
   });
@@ -410,26 +394,26 @@ describe("search input", () => {
 
     const searchInput = document.querySelector(".select-search")!;
 
-    await userEvent.click(button);
-    await userEvent.tab();
+    userEvent.click(button);
+    userEvent.tab();
     expect(searchInput).toHaveFocus();
-    await userEvent.tab();
+    userEvent.tab();
   });
 });
 
 describe("home and end keys work", () => {
-  it("goes to home and end", async () => {
+  it("goes to home and end", () => {
     const { button } = createSelect();
 
-    await userEvent.click(button);
+    userEvent.click(button);
 
     const firstOption = document.querySelector('li[data-value="option1"]');
     const lastOption = document.querySelector('li[data-value="option17"]');
 
-    await userEvent.keyboard("{end}");
+    userEvent.keyboard("{end}");
 
     expect(lastOption).toHaveFocus();
-    await userEvent.keyboard("{home}");
+    userEvent.keyboard("{home}");
 
     expect(firstOption).toHaveFocus();
   });
