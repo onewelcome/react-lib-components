@@ -80,17 +80,17 @@ describe("Tooltip should render", () => {
 });
 
 describe("It opens the tooltip", () => {
-  it("opens", async () => {
+  it("opens", () => {
     const { tooltip, getByText } = createTooltip();
 
     const icon = tooltip.querySelector(".icon")!;
     const tooltipHover = getByText("This is a test message");
-    await userEvent.hover(icon);
+    userEvent.hover(icon);
 
     expect(tooltipHover).toHaveClass("visible");
     expect(tooltipHover).toHaveAttribute("aria-hidden", "false");
 
-    await userEvent.keyboard("{escape}");
+    userEvent.keyboard("{escape}");
 
     expect(tooltipHover).not.toHaveClass("visible");
     expect(tooltipHover).toHaveAttribute("aria-hidden", "true");

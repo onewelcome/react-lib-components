@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { render } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import user from "@testing-library/user-event";
 import { Props, TextEllipsis } from "./TextEllipsis";
 
 const defaultParams: Props = {};
@@ -47,24 +47,24 @@ describe("TextEllipsis should render", () => {
     expect(getAllByText("content")).toHaveLength(2);
   });
 
-  it("does not show popover when full text is visible", async () => {
+  it("does not show popover when full text is visible", () => {
     const { textEllipsis, getByRole } = createTextEllipsis();
 
     expect(getByRole("tooltip", { hidden: true })).toHaveAttribute("data-hidden", "true");
-    await userEvent.hover(textEllipsis);
+    user.hover(textEllipsis);
     expect(getByRole("tooltip", { hidden: true })).toHaveAttribute("data-hidden", "true");
   });
 
-  it("shows popover with full text when base text has ellipsis", async () => {
+  it("shows popover with full text when base text has ellipsis", () => {
     const { textEllipsis, getByRole } = createTextEllipsis();
 
     Object.defineProperty(textEllipsis, "offsetWidth", { configurable: true, value: 1 });
     Object.defineProperty(textEllipsis, "scrollWidth", { configurable: true, value: 2 });
 
     expect(getByRole("tooltip", { hidden: true })).toHaveAttribute("data-hidden", "true");
-    await userEvent.hover(textEllipsis);
+    user.hover(textEllipsis);
     expect(getByRole("tooltip", { hidden: true })).toHaveAttribute("data-hidden", "false");
-    await userEvent.unhover(textEllipsis);
+    user.unhover(textEllipsis);
     expect(getByRole("tooltip", { hidden: true })).toHaveAttribute("data-hidden", "true");
   });
 });

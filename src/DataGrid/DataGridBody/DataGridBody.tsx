@@ -21,7 +21,7 @@ import { DataGridRow } from "./DataGridRow";
 import classes from "./DataGridBody.module.scss";
 import { Typography } from "../../Typography/Typography";
 
-export interface Props<T> extends Omit<ComponentPropsWithRef<"tbody">, "children"> {
+export interface Props<T> extends ComponentPropsWithRef<"tbody"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
   data?: T[];
   headers: HeaderCell[];

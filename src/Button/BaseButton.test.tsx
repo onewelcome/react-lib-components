@@ -56,14 +56,14 @@ describe("On click handler", () => {
       onClick: onClickHandler
     }));
 
-    await userEvent.click(baseButton);
+    userEvent.click(baseButton);
 
     expect(onClickHandler).toBeCalled();
   });
 });
 
 describe("Properties of the button", () => {
-  it("should be disabled, function should not have been called", async () => {
+  it("should be disabled, function should not have been called", () => {
     const onClickHandler = jest.fn();
     const { baseButton } = createBaseButton(defaultParams => ({
       ...defaultParams,
@@ -71,7 +71,7 @@ describe("Properties of the button", () => {
       onClick: onClickHandler
     }));
 
-    await userEvent.click(baseButton);
+    userEvent.click(baseButton);
     expect(onClickHandler).toHaveBeenCalledTimes(0);
   });
 

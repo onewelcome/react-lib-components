@@ -116,7 +116,7 @@ describe("BaseModal", () => {
     expect(backdrop).toHaveAttribute("id", "backdrop");
   });
 
-  it("should handle clicking on backdrop & ESC key", async () => {
+  it("should handle clicking on backdrop & ESC key", () => {
     const { getByRole } = createBaseModal();
 
     const modal = getByRole("dialog");
@@ -124,10 +124,10 @@ describe("BaseModal", () => {
     const backdrop = modal.querySelector(".backdrop")!;
     expect(defaultParams.onClose).toHaveBeenCalledTimes(0);
 
-    await userEvent.click(backdrop);
+    userEvent.click(backdrop);
     expect(defaultParams.onClose).toHaveBeenCalledTimes(1);
 
-    await fireEvent.keyDown(modal, { key: "Escape" });
+    fireEvent.keyDown(modal, { key: "Escape" });
     expect(defaultParams.onClose).toHaveBeenCalledTimes(2);
   });
 });

@@ -57,18 +57,18 @@ describe("DataGridColumnsToggle should render", () => {
 });
 
 describe("DataGridColumnsToggle should be interactive", () => {
-  it("clicking on close calls onClose callback", async () => {
+  it("clicking on close calls onClose callback", () => {
     const { getByRole } = createDataGridColumnsToggle();
 
-    await userEvent.click(getByRole("button"));
+    userEvent.click(getByRole("button"));
 
     expect(defaultParams.onClose).toBeCalledTimes(1);
   });
 
-  it("clicking outside of container (on backdrop layer) calls onClose callback", async () => {
+  it("clicking outside of container (on backdrop layer) calls onClose callback", () => {
     createDataGridColumnsToggle();
 
-    await userEvent.click(document.querySelector(".backdrop")!);
+    userEvent.click(document.querySelector(".backdrop")!);
 
     expect(defaultParams.onClose).toBeCalledTimes(1);
   });
