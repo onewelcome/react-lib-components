@@ -125,7 +125,7 @@ describe("should throw errors since we don't pass props", () => {
 });
 
 describe("contextmenu", () => {
-  it("should render everything correctly", () => {
+  it("should render everything correctly", async () => {
     const { menutrigger, getByTestId } = createTile();
 
     const contextMenu = getByTestId("contextmenu");
@@ -141,14 +141,14 @@ describe("contextmenu", () => {
     expect(menuitem2).toBeTruthy();
     expect(menuitem3).toBeTruthy();
 
-    userEvent.click(menutrigger);
+    await userEvent.click(menutrigger);
     expect(onShow).toHaveBeenCalled();
     expect(popover).toHaveClass("show");
     expect(popover).toHaveStyle({ opacity: "1;" });
 
-    userEvent.click(menuitem1);
-    userEvent.click(menuitem2);
-    userEvent.click(menuitem3);
+    await userEvent.click(menuitem1);
+    await userEvent.click(menuitem2);
+    await userEvent.click(menuitem3);
 
     expect(contextMenuItemOnClick).toHaveBeenCalledTimes(3);
   });

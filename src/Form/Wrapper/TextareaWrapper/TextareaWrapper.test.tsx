@@ -142,7 +142,7 @@ describe("TextareaWrapper & Textarea have the right attributes", () => {
 });
 
 describe("TextarenaWrapper should be interactive", () => {
-  it("Fires the onChange, onFocus & onBlur events", () => {
+  it("Fires the onChange, onFocus & onBlur events", async () => {
     const onFocusHandler = jest.fn();
     const onChangeHandler = jest.fn();
     const onBlurHandler = jest.fn();
@@ -154,18 +154,18 @@ describe("TextarenaWrapper should be interactive", () => {
       onBlur: onBlurHandler
     }));
 
-    userEvent.tab();
+    await userEvent.tab();
     expect(textarea).toHaveFocus();
 
-    userEvent.keyboard("input");
-    userEvent.tab();
+    await userEvent.keyboard("input");
+    await userEvent.tab();
 
     expect(onChangeHandler).toHaveBeenCalledTimes(5);
     expect(onFocusHandler).toHaveBeenCalled();
     expect(onBlurHandler).toHaveBeenCalled();
   });
 
-  it("Fires the onMouseEnter & onMouseLeave events", () => {
+  it("Fires the onMouseEnter & onMouseLeave events", async () => {
     const onMouseEnterHandler = jest.fn();
     const onMouseLeaveHandler = jest.fn();
 
@@ -175,9 +175,9 @@ describe("TextarenaWrapper should be interactive", () => {
       onMouseLeave: onMouseLeaveHandler
     }));
 
-    userEvent.hover(textarea);
+    await userEvent.hover(textarea);
     expect(onMouseEnterHandler).toHaveBeenCalled();
-    userEvent.unhover(textarea);
+    await userEvent.unhover(textarea);
     expect(onMouseLeaveHandler).toHaveBeenCalled();
   });
 });

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { FormEvent } from "react";
 import { Form } from "./Form";
 import { render } from "@testing-library/react";
 import { Button } from "../Button/Button";
@@ -29,10 +29,10 @@ describe("Form should render", () => {
 });
 
 describe("Event should fire", () => {
-  it("should fire the onSubmitHandler function", () => {
+  it("should fire the onSubmitHandler function", async () => {
     const onSubmitHandler = jest.fn();
 
-    onSubmitHandler.mockImplementation(event => {
+    onSubmitHandler.mockImplementation((event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
     });
 
@@ -43,7 +43,7 @@ describe("Event should fire", () => {
     );
 
     const button = getByTestId("submit-button");
-    userEvent.click(button);
+    await userEvent.click(button);
     expect(onSubmitHandler).toHaveBeenCalled();
   });
 });

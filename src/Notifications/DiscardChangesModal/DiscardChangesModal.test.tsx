@@ -73,13 +73,13 @@ describe("DiscardChangesModal should render", () => {
     expect(container).not.toHaveTextContent(defaultParams.discardChangedDialogProps.titleLabel);
   });
 
-  it("clicking on close button without making any changes close the modal", () => {
+  it("clicking on close button without making any changes close the modal", async () => {
     (
       defaultParams.hasUnsavedChanges as jest.MockedFunction<typeof defaultParams.hasUnsavedChanges>
     ).mockReturnValue(false);
     const { closeBtn } = createDiscardChangesModal();
 
-    userEvent.click(closeBtn);
+    await userEvent.click(closeBtn);
     expect(defaultParams.onClose).toBeCalledTimes(1);
   });
 });
@@ -93,7 +93,7 @@ describe("DiscardChangesModal should show DiscardChangesDialog", () => {
     const container = document.body;
     expect(defaultParams.onClose).not.toBeCalled();
 
-    userEvent.click(closeBtn);
+    await userEvent.click(closeBtn);
 
     expect(defaultParams.onClose).not.toBeCalled();
     await findDiscardChangesDialog(container);
@@ -101,7 +101,7 @@ describe("DiscardChangesModal should show DiscardChangesDialog", () => {
     expect(container).toHaveTextContent(defaultParams.discardChangedDialogProps.titleLabel);
     expect(container).toHaveTextContent(defaultParams.discardChangedDialogProps.contentLabel);
 
-    userEvent.click(keepEditingBtn);
+    await userEvent.click(keepEditingBtn);
     expect(defaultParams.onClose).not.toBeCalled();
     await waitFor(() =>
       expect(container).not.toHaveTextContent(defaultParams.discardChangedDialogProps.titleLabel)
@@ -115,13 +115,13 @@ describe("DiscardChangesModal should show DiscardChangesDialog", () => {
     const { closeBtn } = createDiscardChangesModal();
     const container = document.body;
 
-    userEvent.click(closeBtn);
+    await userEvent.click(closeBtn);
 
     await findDiscardChangesDialog(container);
     const [discardBtn] = getDiscardChangesButtons(container);
     expect(container).toHaveTextContent(defaultParams.discardChangedDialogProps.titleLabel);
 
-    userEvent.click(discardBtn);
+    await userEvent.click(discardBtn);
     expect(defaultParams.onClose).toBeCalled();
   });
 });
