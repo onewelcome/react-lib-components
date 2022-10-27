@@ -1,5 +1,5 @@
-# Storybook Addon basestyling
-basestyling
+# Storybook Addon BaseStyling
+Used to configure the entire BaseStyling component wrapped by each component.
 
 ### Development scripts
 

@@ -1,7 +1,7 @@
 {
-  "name": "Basstyling",
+  "name": "basestyling",
   "version": "0.0.0",
-  "description": "basestyling",
+  "description": "Used to configure the entire BaseStyling component wrapped by each component.",
   "keywords": [
     "storybook-addons", "storybook-addons"
   ],
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "https://www.github.com/"
   },
-  "author": "\",
+  "author": "Daniel <daniel.vandervelden@onewelcome.com>",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -79,9 +79,9 @@
     "access": "public"
   },
   "storybook": {
-    "displayName": "basestyling",
+    "displayName": "BaseStyling",
     "supportedFrameworks": [
-      "react", "vue", "angular", "web-components", "ember", "html", "svelte", "preact", "react-native"
+      "react"
     ],
     "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
   }
