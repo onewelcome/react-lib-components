@@ -27,7 +27,7 @@ interface CSSProperties {
   buttonFontSize?: string;
   buttonBorderStyle?: string;
   buttonFillTextColor?: string;
-  buttonFillBackgroundColor?: string;
+  buttonFillHoverBackgroundColor?: string;
   buttonOutlineHoverTextColor?: string;
   inputBorderRadius?: string;
   inputBorderWidth?: string;
@@ -45,8 +45,8 @@ interface CSSProperties {
   dataGridRowBackgroundColor?: string;
   dataGridRowHoverBackgroundColor?: string;
   tabsBackgroundColor?: string;
-  tabBorderWidth?: string;
-  tabBorderStyle?: string;
+  tabActiveBorderHeight?: string;
+  tabActiveBorderColor?: string;
   tablistBorderWidth?: string;
   tablistBorderStyle?: string;
   tablistBorderColor?: string;
@@ -87,27 +87,27 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonBorderWidth: "2px",
     buttonFontSize: "1rem",
     buttonBorderStyle: "solid",
-    buttonFillTextColor: "#fff",
-    buttonFillBackgroundColor: "#fff",
-    buttonOutlineHoverTextColor: "#fff",
+    buttonFillTextColor: "var(--light)",
+    buttonFillHoverBackgroundColor: "var(--light)",
+    buttonOutlineHoverTextColor: "var(--light)",
     inputBorderRadius: "8px",
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "2px",
     inputBorderStyle: "solid",
-    inputBackgroundColor: "#fff",
+    inputBackgroundColor: "var(--light)",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "#f5f8f8",
-    modalHeaderBackgroundColor: "#fff",
-    snackbarTextColor: "#fff",
+    modalHeaderBackgroundColor: "var(--light)",
+    snackbarTextColor: "var(--light)",
     snackbarInfoBackgroundColor: "#003b5e",
     snackbarSuccessBackgroundColor: "#008a28",
     snackbarErrorBackgroundColor: "#d9291c",
     snackbarBorderRadius: "8px",
     dataGridRowBackgroundColor: "transparent",
     dataGridRowHoverBackgroundColor: "#f5e6f0",
-    tabsBackgroundColor: "#FFF",
-    tabBorderWidth: "2px",
-    tabBorderStyle: "solid",
+    tabsBackgroundColor: "var(--light)",
+    tabActiveBorderHeight: "2px",
+    tabActiveBorderColor: "var(--color-primary)",
     tablistBorderWidth: "1px",
     tablistBorderStyle: "solid",
     tablistBorderColor: "#C3C3C7",

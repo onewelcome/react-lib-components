@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
 import { Button, Table, ColorControl } from "@storybook/components";
+import { CSSPropertyToObjectKey } from "../utils/helpers";
 
 export const RequestDataButton = styled(Button)({
   marginTop: "1rem"
@@ -37,7 +38,7 @@ const shouldBeColorPicker = [
   "colorSecondary",
   "colorTertiary",
   "buttonFillTextColor",
-  "buttonFillBackgroundColor",
+  "buttonFillHoverBackgroundColor",
   "buttonOutlineHoverTextColor",
   "inputBackgroundColor",
   "modalShadowColor",
@@ -49,6 +50,7 @@ const shouldBeColorPicker = [
   "snackbarErrorBackgroundColor",
   "dataGridRowBackgroundColor",
   "dataGridRowHoverBackgroundColor",
+  "tabActiveBorderColor",
   "tabsBackgroundColor",
   "tablistBorderColor",
   "tabTextColor",
@@ -63,13 +65,27 @@ const shouldBeColorPicker = [
   "grey"
 ];
 
-/**
- * Checkout https://github.com/storybookjs/storybook/blob/next/code/addons/jest/src/components/Panel.tsx
- * for a real world example
- */
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+}
+
 export const PanelContent: React.FC<PanelContentProps> = ({ properties, propertyChanged }) => {
   const [propertiesState, setPropertiesState] = useState<Record<string, string>>(undefined);
   const [rows, setRows] = useState([]);
+  const debouncedPropertyState = useDebounce(propertiesState, 200);
+
+  useEffect(() => {
+    propertyChanged(propertiesState);
+  }, [debouncedPropertyState]);
 
   useEffect(() => {
     if (properties && !propertiesState) {
@@ -80,6 +96,20 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
   useEffect(() => {
     renderContent();
   }, [propertiesState]);
+
+  /**
+   * It could be that CSS properties refer to other existing CSS properties. In that case we want to parse those colors so the color pickers show the correct color and not var(--color-primary) for example
+   * colorFocus by default refers to var(--color-primary) so we parse that here.
+   */
+  const parseValue = (value: string): string => {
+    if (/var\(--.+\)/.test(value)) {
+      const { key } = CSSPropertyToObjectKey(value);
+
+      return parseValue(propertiesState[key]);
+    }
+
+    return value;
+  };
 
   const handlePropertyChange = (propertyName: string, propertyValue: string) => {
     setPropertiesState((prevState: Record<string, string>) => ({
@@ -101,20 +131,16 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
               {shouldBeColorPicker.includes(property) ? (
                 <ColorControl
                   name={property}
-                  onChange={value => handlePropertyChange(property, value)}
-                  onBlur={e => {
-                    propertyChanged(propertiesState);
+                  onChange={value => {
+                    handlePropertyChange(property, value);
                   }}
-                  value={propertiesState[property]}
+                  value={parseValue(propertiesState[property])}
                 />
               ) : (
                 <PropertyValueInput
                   onChange={e => handlePropertyChange(property, e.target.value)}
-                  onBlur={e => {
-                    propertyChanged(propertiesState);
-                  }}
                   type="text"
-                  value={propertiesState[property]}
+                  value={parseValue(propertiesState[property])}
                 />
               )}
             </td>

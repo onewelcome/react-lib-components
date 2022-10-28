@@ -48,26 +48,43 @@ var PropertyValueInput = _theming.styled.input(_templateObject || (_templateObje
 
 var PropertyValueLabel = _theming.styled.label(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n"])));
 
-var shouldBeColorPicker = ["colorFocus", "colorPrimary", "colorSecondary", "colorTertiary", "buttonFillTextColor", "buttonFillBackgroundColor", "buttonOutlineHoverTextColor", "inputBackgroundColor", "modalShadowColor", "modalBackgroundColor", "modalHeaderBackgroundColor", "snackbarTextColor", "snackbarInfoBackgroundColor", "snackbarSuccessBackgroundColor", "snackbarErrorBackgroundColor", "dataGridRowBackgroundColor", "dataGridRowHoverBackgroundColor", "tabsBackgroundColor", "tablistBorderColor", "tabTextColor", "default", "success", "error", "disabled", "greyedOut", "lightGreyBorder", "warning", "light", "grey"];
-/**
- * Checkout https://github.com/storybookjs/storybook/blob/next/code/addons/jest/src/components/Panel.tsx
- * for a real world example
- */
+var shouldBeColorPicker = ["colorFocus", "colorPrimary", "colorSecondary", "colorTertiary", "buttonFillTextColor", "buttonFillHoverBackgroundColor", "buttonOutlineHoverTextColor", "inputBackgroundColor", "modalShadowColor", "modalBackgroundColor", "modalHeaderBackgroundColor", "snackbarTextColor", "snackbarInfoBackgroundColor", "snackbarSuccessBackgroundColor", "snackbarErrorBackgroundColor", "dataGridRowBackgroundColor", "dataGridRowHoverBackgroundColor", "tabsBackgroundColor", "tablistBorderColor", "tabTextColor", "default", "success", "error", "disabled", "greyedOut", "lightGreyBorder", "warning", "light", "grey"];
+
+function useDebounce(value, delay) {
+  var _useState = (0, _react.useState)(value),
+      _useState2 = _slicedToArray(_useState, 2),
+      debouncedValue = _useState2[0],
+      setDebouncedValue = _useState2[1];
+
+  (0, _react.useEffect)(function () {
+    var handler = setTimeout(function () {
+      setDebouncedValue(value);
+    }, delay);
+    return function () {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+}
 
 var PanelContent = function PanelContent(_ref) {
   var properties = _ref.properties,
       propertyChanged = _ref.propertyChanged;
 
-  var _useState = (0, _react.useState)(undefined),
-      _useState2 = _slicedToArray(_useState, 2),
-      propertiesState = _useState2[0],
-      setPropertiesState = _useState2[1];
-
-  var _useState3 = (0, _react.useState)([]),
+  var _useState3 = (0, _react.useState)(undefined),
       _useState4 = _slicedToArray(_useState3, 2),
-      rows = _useState4[0],
-      setRows = _useState4[1];
+      propertiesState = _useState4[0],
+      setPropertiesState = _useState4[1];
 
+  var _useState5 = (0, _react.useState)([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      rows = _useState6[0],
+      setRows = _useState6[1];
+
+  var debouncedPropertyState = useDebounce(propertiesState, 200);
+  (0, _react.useEffect)(function () {
+    propertyChanged(propertiesState);
+  }, [debouncedPropertyState]);
   (0, _react.useEffect)(function () {
     if (properties && !propertiesState) {
       setPropertiesState(properties);
@@ -92,23 +109,17 @@ var PanelContent = function PanelContent(_ref) {
           key: property
         }, /*#__PURE__*/_react["default"].createElement("td", null, property), /*#__PURE__*/_react["default"].createElement("td", {
           style: {
-            textAlign: "left"
+            textAlign: "right"
           }
         }, /*#__PURE__*/_react["default"].createElement(PropertyValueLabel, null, property), shouldBeColorPicker.includes(property) ? /*#__PURE__*/_react["default"].createElement(_components.ColorControl, {
           name: property,
           onChange: function onChange(value) {
-            return handlePropertyChange(property, value);
-          },
-          onBlur: function onBlur(e) {
-            propertyChanged(propertiesState);
+            handlePropertyChange(property, value);
           },
           value: propertiesState[property]
         }) : /*#__PURE__*/_react["default"].createElement(PropertyValueInput, {
           onChange: function onChange(e) {
             return handlePropertyChange(property, e.target.value);
-          },
-          onBlur: function onBlur(e) {
-            propertyChanged(propertiesState);
           },
           type: "text",
           value: propertiesState[property]

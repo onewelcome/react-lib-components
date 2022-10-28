@@ -32,7 +32,7 @@
     }
     font-weight: bold;
   } @else if $variant == "outline" {
-    background-color: var(--button-fill-background-color);
+    background-color: var(--white);
     font-weight: bold;
   }
 
@@ -53,7 +53,7 @@
     &:hover:not(#{$disabledSelector}),
     &:focus:not(#{$disabledSelector}),
     &:active:not(#{$disabledSelector}) {
-      background-color: var(--button-fill-background-color);
+      background-color: var(--button-fill-hover-background-color);
     }
 
     &#{$disabledSelector} {
@@ -103,7 +103,6 @@
         background-color: transparent;
         position: relative;
         color: $color;
-        border-color: var(--button-fill-background-color);
       } @else if $variant == "fill" {
         position: relative;
         color: $color;

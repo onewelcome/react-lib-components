@@ -23,31 +23,49 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
 import { Button, Table, ColorControl } from "@storybook/components";
+import { CSSPropertyToObjectKey } from "../utils/helpers";
 export var RequestDataButton = styled(Button)({
   marginTop: "1rem"
 });
 var PropertyValueInput = styled.input(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  background-color: #fff;\n  border-radius: 4px;\n  border-color: #eee;\n  border-style: solid;\n  padding: 5px;\n  font-family: monospace;\n"])));
 var PropertyValueLabel = styled.label(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n"])));
-var shouldBeColorPicker = ["colorFocus", "colorPrimary", "colorSecondary", "colorTertiary", "buttonFillTextColor", "buttonFillBackgroundColor", "buttonOutlineHoverTextColor", "inputBackgroundColor", "modalShadowColor", "modalBackgroundColor", "modalHeaderBackgroundColor", "snackbarTextColor", "snackbarInfoBackgroundColor", "snackbarSuccessBackgroundColor", "snackbarErrorBackgroundColor", "dataGridRowBackgroundColor", "dataGridRowHoverBackgroundColor", "tabsBackgroundColor", "tablistBorderColor", "tabTextColor", "default", "success", "error", "disabled", "greyedOut", "lightGreyBorder", "warning", "light", "grey"];
-/**
- * Checkout https://github.com/storybookjs/storybook/blob/next/code/addons/jest/src/components/Panel.tsx
- * for a real world example
- */
+var shouldBeColorPicker = ["colorFocus", "colorPrimary", "colorSecondary", "colorTertiary", "buttonFillTextColor", "buttonFillHoverBackgroundColor", "buttonOutlineHoverTextColor", "inputBackgroundColor", "modalShadowColor", "modalBackgroundColor", "modalHeaderBackgroundColor", "snackbarTextColor", "snackbarInfoBackgroundColor", "snackbarSuccessBackgroundColor", "snackbarErrorBackgroundColor", "dataGridRowBackgroundColor", "dataGridRowHoverBackgroundColor", "tabActiveBorderColor", "tabsBackgroundColor", "tablistBorderColor", "tabTextColor", "default", "success", "error", "disabled", "greyedOut", "lightGreyBorder", "warning", "light", "grey"];
+
+function useDebounce(value, delay) {
+  var _useState = useState(value),
+      _useState2 = _slicedToArray(_useState, 2),
+      debouncedValue = _useState2[0],
+      setDebouncedValue = _useState2[1];
+
+  useEffect(function () {
+    var handler = setTimeout(function () {
+      setDebouncedValue(value);
+    }, delay);
+    return function () {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+}
 
 export var PanelContent = function PanelContent(_ref) {
   var properties = _ref.properties,
       propertyChanged = _ref.propertyChanged;
 
-  var _useState = useState(undefined),
-      _useState2 = _slicedToArray(_useState, 2),
-      propertiesState = _useState2[0],
-      setPropertiesState = _useState2[1];
-
-  var _useState3 = useState([]),
+  var _useState3 = useState(undefined),
       _useState4 = _slicedToArray(_useState3, 2),
-      rows = _useState4[0],
-      setRows = _useState4[1];
+      propertiesState = _useState4[0],
+      setPropertiesState = _useState4[1];
 
+  var _useState5 = useState([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      rows = _useState6[0],
+      setRows = _useState6[1];
+
+  var debouncedPropertyState = useDebounce(propertiesState, 200);
+  useEffect(function () {
+    propertyChanged(propertiesState);
+  }, [debouncedPropertyState]);
   useEffect(function () {
     if (properties && !propertiesState) {
       setPropertiesState(properties);
@@ -56,6 +74,21 @@ export var PanelContent = function PanelContent(_ref) {
   useEffect(function () {
     renderContent();
   }, [propertiesState]);
+  /**
+   * It could be that CSS properties refer to other existing CSS properties. In that case we want to parse those colors so the color pickers show the correct color and not var(--color-primary) for example
+   * colorFocus by default refers to var(--color-primary) so we parse that here.
+   */
+
+  var parseValue = function parseValue(value) {
+    if (/var\(--.+\)/.test(value)) {
+      var _CSSPropertyToObjectK = CSSPropertyToObjectKey(value),
+          key = _CSSPropertyToObjectK.key;
+
+      return parseValue(propertiesState[key]);
+    }
+
+    return value;
+  };
 
   var handlePropertyChange = function handlePropertyChange(propertyName, propertyValue) {
     setPropertiesState(function (prevState) {
@@ -77,21 +110,15 @@ export var PanelContent = function PanelContent(_ref) {
         }, /*#__PURE__*/React.createElement(PropertyValueLabel, null, property), shouldBeColorPicker.includes(property) ? /*#__PURE__*/React.createElement(ColorControl, {
           name: property,
           onChange: function onChange(value) {
-            return handlePropertyChange(property, value);
+            handlePropertyChange(property, value);
           },
-          onBlur: function onBlur(e) {
-            propertyChanged(propertiesState);
-          },
-          value: propertiesState[property]
+          value: parseValue(propertiesState[property])
         }) : /*#__PURE__*/React.createElement(PropertyValueInput, {
           onChange: function onChange(e) {
             return handlePropertyChange(property, e.target.value);
           },
-          onBlur: function onBlur(e) {
-            propertyChanged(propertiesState);
-          },
           type: "text",
-          value: propertiesState[property]
+          value: parseValue(propertiesState[property])
         }))));
       };
 

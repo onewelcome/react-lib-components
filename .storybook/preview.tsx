@@ -16,9 +16,8 @@
 
 import React, { useEffect } from "react";
 import "./base.scss";
-import { BaseStyling } from "../src/_BaseStyling_/BaseStyling.tsx";
+import { BaseStyling } from "../src/_BaseStyling_/BaseStyling";
 import { useState } from "react";
-import { useCallback } from "react";
 
 // https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 export const parameters = {
@@ -26,7 +25,7 @@ export const parameters = {
   actions: { argTypesRegex: "^on.*" }
 };
 
-const Preview = Story => {
+const Preview = story => {
   const [properties, setProperties] = useState({});
 
   useEffect(() => {
@@ -39,17 +38,17 @@ const Preview = Story => {
     return () => {
       window.removeEventListener("updated-styling", parseBaseStylingStorage);
     };
-  });
+  }, []);
 
   const parseBaseStylingStorage = () => {
     const baseStylingSessionStorage = window.sessionStorage.getItem("basestyling");
 
-    if (baseStylingSessionStorage !== "undefined") {
+    if (baseStylingSessionStorage !== "undefined" && baseStylingSessionStorage) {
       setProperties(JSON.parse(baseStylingSessionStorage));
     }
   };
 
-  return <BaseStyling properties={properties}>{Story()}</BaseStyling>;
+  return <BaseStyling properties={properties}>{story()}</BaseStyling>;
 };
 
-export const decorators = [Story => Preview(Story)];
+export const decorators = [story => Preview(story)];

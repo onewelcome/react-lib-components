@@ -1,20 +1,25 @@
 import type { DecoratorFunction } from "@storybook/addons";
 import { useEffect, useGlobals } from "@storybook/addons";
+import { CSSPropertyToObjectKey, ObjectKeyToCSSProperty } from "./utils/helpers";
 
 export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   const [{ baseStyling }, updateGlobals] = useGlobals();
 
-  const htmlElement = context.canvasElement.closest("html");
-
   useEffect(() => {
     setTimeout(() => {
-      const stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
+      const htmlElement = context.canvasElement?.closest("html");
 
-      updateGlobals({
-        baseStyling: stylesObject
-      });
+      if (htmlElement) {
+        const stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
+
+        console.log(stylesObject, "STYLEOBJECT");
+
+        updateGlobals({
+          baseStyling: stylesObject
+        });
+      }
     }, 1);
-  }, []);
+  }, [window.location.search]);
 
   useEffect(() => {
     updateCSSPropertiesOnHTMLElement(baseStyling);
@@ -26,16 +31,10 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
 
     if (propertiesArray.length) {
       propertiesArray.forEach(property => {
-        const matches = property.match(/--(.+):(.+)/);
+        if (property) {
+          const { key, value } = CSSPropertyToObjectKey(property);
 
-        if (matches && matches[1] && matches[2]) {
-          const objectKey = matches[1].replace(/-(.+?)/g, (_v: string, a: string) => {
-            if (a) {
-              return a.toUpperCase();
-            }
-          });
-
-          propertiesObject[objectKey] = matches[2];
+          propertiesObject[key] = value;
         }
       });
     }
@@ -46,9 +45,12 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   const updateCSSPropertiesOnHTMLElement = (stylingObject: Record<string, string>) => {
     let styleString = "";
     for (const property in stylingObject) {
-      const formattedPropertyName = property.replace(/([A-Z])/g, val => `-${val.toLowerCase()}`);
+      const CSSPropertyString = ObjectKeyToCSSProperty({
+        key: property,
+        value: stylingObject[property]
+      });
 
-      styleString += `--${formattedPropertyName}: ${stylingObject[property]};`;
+      styleString += CSSPropertyString;
     }
 
     window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
@@ -57,6 +59,5 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
 
     window.dispatchEvent(updatedStyling);
   };
-
   return StoryFn();
 };

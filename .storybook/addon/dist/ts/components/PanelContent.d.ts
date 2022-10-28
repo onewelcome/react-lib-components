@@ -866,9 +866,5 @@ interface PanelContentProps {
   properties: Record<string, string>;
   propertyChanged: (newPropertyObject: Record<string, string>) => void;
 }
-/**
- * Checkout https://github.com/storybookjs/storybook/blob/next/code/addons/jest/src/components/Panel.tsx
- * for a real world example
- */
 export declare const PanelContent: React.FC<PanelContentProps>;
 export {};

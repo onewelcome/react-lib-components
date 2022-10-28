@@ -159,7 +159,7 @@ export const Tabs = ({
           }}
         />
       </div>
-      <div className={classes["tabpanels"]}>{tabPanels}</div>
+      <div>{tabPanels}</div>
     </div>
   );
 };

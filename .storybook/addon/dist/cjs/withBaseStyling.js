@@ -25,55 +25,57 @@ var withBaseStyling = function withBaseStyling(StoryFn, context) {
       baseStyling = _useGlobals2[0].baseStyling,
       updateGlobals = _useGlobals2[1];
 
-  var htmlElement = context.canvasElement.closest("html");
-  (0, _addons.useEffect)(function () {
-    setTimeout(function () {
-      var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
-      updateGlobals({
-        baseStyling: stylesObject
-      });
-    }, 1);
-  }, []);
-  (0, _addons.useEffect)(function () {
-    updateCSSPropertiesOnHTMLElement(baseStyling);
-  }, [baseStyling]);
+  if (context.canvasElement) {
+    var htmlElement = context.canvasElement.closest("html");
+    (0, _addons.useEffect)(function () {
+      setTimeout(function () {
+        var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
+        updateGlobals({
+          baseStyling: stylesObject
+        });
+      }, 1);
+    }, []);
+    (0, _addons.useEffect)(function () {
+      updateCSSPropertiesOnHTMLElement(baseStyling);
+    }, [baseStyling]);
 
-  var parseStylesToObject = function parseStylesToObject(styleString) {
-    var propertiesArray = styleString.split(";");
-    var propertiesObject = {};
+    var parseStylesToObject = function parseStylesToObject(styleString) {
+      var propertiesArray = styleString.split(";");
+      var propertiesObject = {};
 
-    if (propertiesArray.length) {
-      propertiesArray.forEach(function (property) {
-        var matches = property.match(/--(.+):(.+)/);
+      if (propertiesArray.length) {
+        propertiesArray.forEach(function (property) {
+          var matches = property.match(/--(.+):(.+)/);
 
-        if (matches && matches[1] && matches[2]) {
-          var objectKey = matches[1].replace(/-(.+?)/g, function (_v, a) {
-            if (a) {
-              return a.toUpperCase();
-            }
-          });
-          propertiesObject[objectKey] = matches[2];
-        }
-      });
-    }
+          if (matches && matches[1] && matches[2]) {
+            var objectKey = matches[1].replace(/-(.+?)/g, function (_v, a) {
+              if (a) {
+                return a.toUpperCase();
+              }
+            });
+            propertiesObject[objectKey] = matches[2];
+          }
+        });
+      }
 
-    return propertiesObject;
-  };
+      return propertiesObject;
+    };
 
-  var updateCSSPropertiesOnHTMLElement = function updateCSSPropertiesOnHTMLElement(stylingObject) {
-    var styleString = "";
+    var updateCSSPropertiesOnHTMLElement = function updateCSSPropertiesOnHTMLElement(stylingObject) {
+      var styleString = "";
 
-    for (var property in stylingObject) {
-      var formattedPropertyName = property.replace(/([A-Z])/g, function (val) {
-        return "-".concat(val.toLowerCase());
-      });
-      styleString += "--".concat(formattedPropertyName, ": ").concat(stylingObject[property], ";");
-    }
+      for (var property in stylingObject) {
+        var formattedPropertyName = property.replace(/([A-Z])/g, function (val) {
+          return "-".concat(val.toLowerCase());
+        });
+        styleString += "--".concat(formattedPropertyName, ": ").concat(stylingObject[property], ";");
+      }
 
-    window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
-    var updatedStyling = new Event("updated-styling");
-    window.dispatchEvent(updatedStyling);
-  };
+      window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
+      var updatedStyling = new Event("updated-styling");
+      window.dispatchEvent(updatedStyling);
+    };
+  }
 
   return StoryFn();
 };

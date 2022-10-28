@@ -11,21 +11,28 @@ function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "und
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 import { useEffect, useGlobals } from "@storybook/addons";
+import { CSSPropertyToObjectKey, ObjectKeyToCSSProperty } from "./utils/helpers";
 export var withBaseStyling = function withBaseStyling(StoryFn, context) {
   var _useGlobals = useGlobals(),
       _useGlobals2 = _slicedToArray(_useGlobals, 2),
       baseStyling = _useGlobals2[0].baseStyling,
       updateGlobals = _useGlobals2[1];
 
-  var htmlElement = context.canvasElement.closest("html");
   useEffect(function () {
     setTimeout(function () {
-      var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
-      updateGlobals({
-        baseStyling: stylesObject
-      });
+      var _context$canvasElemen;
+
+      var htmlElement = (_context$canvasElemen = context.canvasElement) === null || _context$canvasElemen === void 0 ? void 0 : _context$canvasElemen.closest("html");
+
+      if (htmlElement) {
+        var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
+        console.log(stylesObject, "STYLEOBJECT");
+        updateGlobals({
+          baseStyling: stylesObject
+        });
+      }
     }, 1);
-  }, []);
+  }, [window.location.search]);
   useEffect(function () {
     updateCSSPropertiesOnHTMLElement(baseStyling);
   }, [baseStyling]);
@@ -36,15 +43,12 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
 
     if (propertiesArray.length) {
       propertiesArray.forEach(function (property) {
-        var matches = property.match(/--(.+):(.+)/);
+        if (property) {
+          var _CSSPropertyToObjectK = CSSPropertyToObjectKey(property),
+              key = _CSSPropertyToObjectK.key,
+              value = _CSSPropertyToObjectK.value;
 
-        if (matches && matches[1] && matches[2]) {
-          var objectKey = matches[1].replace(/-(.+?)/g, function (_v, a) {
-            if (a) {
-              return a.toUpperCase();
-            }
-          });
-          propertiesObject[objectKey] = matches[2];
+          propertiesObject[key] = value;
         }
       });
     }
@@ -56,10 +60,11 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     var styleString = "";
 
     for (var property in stylingObject) {
-      var formattedPropertyName = property.replace(/([A-Z])/g, function (val) {
-        return "-".concat(val.toLowerCase());
+      var CSSPropertyString = ObjectKeyToCSSProperty({
+        key: property,
+        value: stylingObject[property]
       });
-      styleString += "--".concat(formattedPropertyName, ": ").concat(stylingObject[property], ";");
+      styleString += CSSPropertyString;
     }
 
     window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
