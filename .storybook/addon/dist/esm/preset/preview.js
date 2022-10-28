@@ -9,6 +9,7 @@
  * https://storybook.js.org/docs/react/writing-stories/decorators#gatsby-focus-wrapper
  */
 import { withBaseStyling } from "../withBaseStyling";
-
-export const globalTypes = { baseStyling: {} };
-export const decorators = [withBaseStyling];
+export var globalTypes = {
+  baseStyling: {}
+};
+export var decorators = [withBaseStyling];

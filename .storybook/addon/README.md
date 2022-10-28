@@ -1,92 +1,67 @@
-# Storybook Addon BaseStyling
-BaseStyling
+# Storybook BaseStyling addon
 
-### Development scripts
+This addon is written so that end-users can easily change global color variables without having to do into the browser' devtools.
 
-- `yarn start` runs babel in watch mode and starts Storybook
-- `yarn build` build and package your addon code
+## Technical explanation
 
-### Switch from TypeScript to JavaScript
+The addon works by exporting the global decorator `withBaseStyling` inside of `src/preset/preview.ts`. This decorator export will be plugged into the `react-lib-component` Storybook instance by adding it to the `addons` array in  `main.js` file inside of `/.storybook/main.js`.
 
-Don't want to use TypeScript? We offer a handy eject command: `yarn eject-ts`
+The `withBaseStyling` decorator creates a [global variable](https://storybook.js.org/docs/react/essentials/toolbars-and-globals#consuming-globals-from-within-an-addon) called `baseStyling`. On initial render of the `withBaseStyling` decorator, the `html` element with all the `style` variables hasn't loaded yet, so we use a `setTimeout`, which waits `1ms`, to make sure everything is loaded. 
 
-This will convert all code to JS. It is a destructive process, so we recommended running this before you start writing any code.
+After everything is loaded we parse all of the `style` variables that are added to the `html` element. 
 
-## What's included?
+**This means, that this package WILL BREAK when we add anything else to the `style` attribute of the `html` element.**
 
-![Demo](https://user-images.githubusercontent.com/42671/107857205-e7044380-6dfa-11eb-8718-ad02e3ba1a3f.gif)
+Currently there's no other way to easily grab all of the CSS variables **dynamically**. We also cannot import the object from our `BaseStyling` component, because Storybook will complain that you're trying to access something **outside** of this addon. We would have to duplicate all of the properties and keep updating this package whenever we add a new variable. I wanted it to be dynamic, so for now we're parsing the `html` element's `style` attribute within the `Story`'s `iframe`.
 
-The addon code lives in `src`. It demonstrates all core addon related concepts. The three [UI paradigms](https://storybook.js.org/docs/react/addons/addon-types#ui-based-addons)
+After we've parsed all of the CSS properties into an object, we update the `baseStyling` global (which works just as state). This is when the addon `Panel` will get filled. If you go into `addon/src/Panel.tsx`, you'll see we import the same `useGlobals` hook. 
 
-- `src/Tool.js`
-- `src/Panel.js`
-- `src/Tab.js`
+**No, importing it in `PanelContent` does not work, because it's not a direct child that gets rendered inside `manager.ts` perhaps this will change in future versions of Storybook**.
 
-Which, along with the addon itself, are registered in `src/preset/manager.js`.
+We therefor let `PanelContent.tsx` accept two props:
+* All the actual `baseStyling` props
+* An `updateProperties` function
 
-Managing State and interacting with a story:
+Inside of the `PanelContenxt.tsx` file we simply have a React state variable that keeps track of all of our table rows. Whenever a property value changes, we execute the `renderContent` function to update all of our table rows. We only trigger a complete update of our `sessionStorage` variable if an `input` fires the `onBlur` event (for performance' sake).
 
-- `src/withGlobals.js` & `src/Tool.js` demonstrates how to use `useGlobals` to manage global state and modify the contents of a Story.
-- `src/withRoundTrip.js` & `src/Panel.js` demonstrates two-way communication using channels.
-- `src/Tab.js` demonstrates how to use `useParameter` to access the current story's parameters.
+As soon as an `onBlur` event gets fired, we fire the `propertyChanged` function that was passed as a prop to `PanelContent.tsx`. If you go back to `Panel.tsx` you see it actually updates the `baseStyling` global variable.
 
-Your addon might use one or more of these patterns. Feel free to delete unused code. Update `src/preset/manager.js` and `src/preset/preview.js` accordingly.
+Going back to `withBaseStyling.ts` you'll see we have a `useEffect` which listens to any changes made to the `baseStyling` global. If anything changes, we fire the `updateCSSPropertiesOnHTMLElement` function, and pass this `baseStyling` global.
 
-Lastly, configure you addon name in `src/constants.js`.
+We convert the object back to a valid `style` tag value, `JSON.stringify` it, and set it as `sessionStorage`. After that, we fire a custom event called `updated-styling`. The file that actually listens to this event is `/.storybook/preview.js`.
 
-### Metadata
+There's a `Preview` component which has a `properties` state. This state variable gets used to force the inner `Story` to rerender whenever you change anything inside of the `BaseStyling` addon. This is needed, because otherwise the story will always be one step behind in rendering the correct values passed to the `BaseStyling` addon.
 
-Storybook addons are listed in the [catalog](https://storybook.js.org/addons) and distributed via npm. The catalog is populated by querying npm's registry for Storybook-specific metadata in `package.json`. This project has been configured with sample data. Learn more about available options in the [Addon metadata docs](https://storybook.js.org/docs/react/addons/addon-catalog#addon-metadata).
+For example the initial value is `yellow`. If you change the value to `red`, the `sessionStorage` variable will be updated, but the actual story still rendered with the previous `sessionStorage`. So imagine you change the `red` to `blue` now, it'll render with the `red` variable intact. This makes sure the Story and `BaseStyling` addon are synced up properly.
 
-## Release Management
+## Development
 
-### Setup
+Development for this plugin is quite easy. Either use `yarn` or `npm` for the following commands.
 
-This project is configured to use [auto](https://github.com/intuit/auto) for release management. It generates a changelog and pushes it to both GitHub and npm. Therefore, you need to configure access to both:
+### Installation
 
-- [`NPM_TOKEN`](https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-access-tokens) Create a token with both _Read and Publish_ permissions.
-- [`GH_TOKEN`](https://github.com/settings/tokens) Create a token with the `repo` scope.
-
-Then open your `package.json` and edit the following fields:
-
-- `name`
-- `author`
-- `repository`
-
-#### Local
-
-To use `auto` locally create a `.env` file at the root of your project and add your tokens to it:
+Go into the `addon` folder and type:
 
 ```bash
-GH_TOKEN=<value you just got from GitHub>
-NPM_TOKEN=<value you just got from npm>
+npm install
 ```
 
-Lastly, **create labels on GitHub**. You’ll use these labels in the future when making changes to the package.
+### Active development
+
+Go into the `addon` folder and type:
 
 ```bash
-npx auto create-labels
+npm run build:watch
 ```
 
-If you check on GitHub, you’ll now see a set of labels that `auto` would like you to use. Use these to tag future pull requests.
+This will rebuild the entire addon whenever you make changes to any files in the `src` directory. You will have to completely **refresh** our `react-lib-components` storybook page. There is **no** hot reloading.
 
-#### GitHub Actions
+### Build for production
 
-This template comes with GitHub actions already set up to publish your addon anytime someone pushes to your repository.
+Go into the `addon` folder and type:
 
-Go to `Settings > Secrets`, click `New repository secret`, and add your `NPM_TOKEN`.
-
-### Creating a release
-
-To create a release locally you can run the following command, otherwise the GitHub action will make the release for you.
-
-```sh
-yarn release
+```bash
+npm run build
 ```
 
-That will:
-
-- Build and package the addon code
-- Bump the version
-- Push a release to GitHub and npm
-- Push a changelog to GitHub
+The `dist` folder **must** be committed so do not add it to `.gitignore`!

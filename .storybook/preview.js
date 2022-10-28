@@ -14,19 +14,42 @@
  *    limitations under the License.
  */
 
-import { BaseStyling } from '../src/_BaseStyling_/BaseStyling';
-import './base.scss';
+import React, { useEffect } from "react";
+import "./base.scss";
+import { BaseStyling } from "../src/_BaseStyling_/BaseStyling.tsx";
+import { useState } from "react";
+import { useCallback } from "react";
 
 // https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 export const parameters = {
   // https://storybook.js.org/docs/react/essentials/actions#automatically-matching-args
-  actions: { argTypesRegex: '^on.*' },
+  actions: { argTypesRegex: "^on.*" }
 };
 
-export const decorators = [
-  (Story) => (
-    <BaseStyling>
-      <Story />
-    </BaseStyling>
-  ),
-];
+const Preview = Story => {
+  const [properties, setProperties] = useState({});
+
+  useEffect(() => {
+    parseBaseStylingStorage();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("updated-styling", parseBaseStylingStorage);
+
+    return () => {
+      window.removeEventListener("updated-styling", parseBaseStylingStorage);
+    };
+  });
+
+  const parseBaseStylingStorage = () => {
+    const baseStylingSessionStorage = window.sessionStorage.getItem("basestyling");
+
+    if (baseStylingSessionStorage !== "undefined") {
+      setProperties(JSON.parse(baseStylingSessionStorage));
+    }
+  };
+
+  return <BaseStyling properties={properties}>{Story()}</BaseStyling>;
+};
+
+export const decorators = [Story => Preview(Story)];

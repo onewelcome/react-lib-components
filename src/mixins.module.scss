@@ -84,7 +84,7 @@
     color: $color;
   }
 
-  @include focusOutline($color);
+  @include focusOutline(var(--color-focus));
 
   &:hover:not(.disabled),
   &:focus:not(.disabled) {

@@ -3,6 +3,7 @@
 node_modules
 .cache
 dist
+!.storybook/addon/dist
 coverage/
 storybook-static/
 .nvmrc
