@@ -26,11 +26,6 @@
   text-transform: none;
   letter-spacing: 0;
 
-  &.disabled {
-    cursor: not-allowed;
-    color: var(--greyed-out);
-  }
-
   &:focus,
   &:hover,
   &:active {
@@ -60,6 +55,11 @@
     &:focus-visible {
       outline: 0.5px dashed var(--color-primary);
     }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    color: var(--greyed-out);
   }
 }
 
