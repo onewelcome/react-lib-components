@@ -65,10 +65,12 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, Props>(
     ref
   ) => {
     const renderChildren = () => {
-      if (!children) return;
+      if (!children) {
+        return;
+      }
 
-      /* All right, so the issue is that whenever we try to add disabled and error to a component that doesn't accept it, 
-    React will throw an error. However, it might occur that we want a component inside of Fieldset because of aesthetic purposes 
+      /* All right, so the issue is that whenever we try to add disabled and error to a component that doesn't accept it,
+    React will throw an error. However, it might occur that we want a component inside of Fieldset because of aesthetic purposes
     (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
     So instead we supply an array of components that we want to add the disabled and error prop to and check if child.type equals one of these. */
       const allowedComponents: ReactNode[] = [
