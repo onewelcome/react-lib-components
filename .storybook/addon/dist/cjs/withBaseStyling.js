@@ -7,6 +7,8 @@ exports.withBaseStyling = void 0;
 
 var _addons = require("@storybook/addons");
 
+var _helpers = require("./utils/helpers");
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -25,57 +27,59 @@ var withBaseStyling = function withBaseStyling(StoryFn, context) {
       baseStyling = _useGlobals2[0].baseStyling,
       updateGlobals = _useGlobals2[1];
 
-  if (context.canvasElement) {
-    var htmlElement = context.canvasElement.closest("html");
-    (0, _addons.useEffect)(function () {
-      setTimeout(function () {
+  (0, _addons.useEffect)(function () {
+    setTimeout(function () {
+      var _context$canvasElemen;
+
+      var htmlElement = (_context$canvasElemen = context.canvasElement) === null || _context$canvasElemen === void 0 ? void 0 : _context$canvasElemen.closest("html");
+
+      if (htmlElement) {
         var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
+        console.log(stylesObject, "STYLEOBJECT");
         updateGlobals({
           baseStyling: stylesObject
         });
-      }, 1);
-    }, []);
-    (0, _addons.useEffect)(function () {
-      updateCSSPropertiesOnHTMLElement(baseStyling);
-    }, [baseStyling]);
-
-    var parseStylesToObject = function parseStylesToObject(styleString) {
-      var propertiesArray = styleString.split(";");
-      var propertiesObject = {};
-
-      if (propertiesArray.length) {
-        propertiesArray.forEach(function (property) {
-          var matches = property.match(/--(.+):(.+)/);
-
-          if (matches && matches[1] && matches[2]) {
-            var objectKey = matches[1].replace(/-(.+?)/g, function (_v, a) {
-              if (a) {
-                return a.toUpperCase();
-              }
-            });
-            propertiesObject[objectKey] = matches[2];
-          }
-        });
       }
+    }, 1);
+  }, [window.location.search]);
+  (0, _addons.useEffect)(function () {
+    updateCSSPropertiesOnHTMLElement(baseStyling);
+  }, [baseStyling]);
 
-      return propertiesObject;
-    };
+  var parseStylesToObject = function parseStylesToObject(styleString) {
+    var propertiesArray = styleString.split(";");
+    var propertiesObject = {};
 
-    var updateCSSPropertiesOnHTMLElement = function updateCSSPropertiesOnHTMLElement(stylingObject) {
-      var styleString = "";
+    if (propertiesArray.length) {
+      propertiesArray.forEach(function (property) {
+        if (property) {
+          var _CSSPropertyToObjectK = (0, _helpers.CSSPropertyToObjectKey)(property),
+              key = _CSSPropertyToObjectK.key,
+              value = _CSSPropertyToObjectK.value;
 
-      for (var property in stylingObject) {
-        var formattedPropertyName = property.replace(/([A-Z])/g, function (val) {
-          return "-".concat(val.toLowerCase());
-        });
-        styleString += "--".concat(formattedPropertyName, ": ").concat(stylingObject[property], ";");
-      }
+          propertiesObject[key] = value;
+        }
+      });
+    }
 
-      window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
-      var updatedStyling = new Event("updated-styling");
-      window.dispatchEvent(updatedStyling);
-    };
-  }
+    return propertiesObject;
+  };
+
+  var updateCSSPropertiesOnHTMLElement = function updateCSSPropertiesOnHTMLElement(stylingObject) {
+    var styleString = "";
+
+    for (var property in stylingObject) {
+      var CSSPropertyString = (0, _helpers.ObjectKeyToCSSProperty)({
+        key: property,
+        value: stylingObject[property]
+      });
+      styleString += CSSPropertyString;
+    }
+
+    window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
+    var updatedStyling = new Event("updated-styling");
+    window.dispatchEvent(updatedStyling);
+  };
 
   return StoryFn();
 };

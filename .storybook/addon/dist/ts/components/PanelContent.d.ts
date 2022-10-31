@@ -11,6 +11,8 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
       } & {
         children?: React.ReactNode;
       },
+    | "key"
+    | "value"
     | "theme"
     | "isLink"
     | "primary"
@@ -25,7 +27,6 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
     | "children"
     | "href"
     | "form"
-    | "key"
     | "autoFocus"
     | "formAction"
     | "formEncType"
@@ -34,7 +35,6 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
     | "formTarget"
     | "name"
     | "type"
-    | "value"
     | "defaultChecked"
     | "defaultValue"
     | "suppressContentEditableWarning"
@@ -303,6 +303,8 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
         } & {
           children?: React.ReactNode;
         },
+      | "key"
+      | "value"
       | "theme"
       | "isLink"
       | "primary"
@@ -317,7 +319,6 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
       | "children"
       | "href"
       | "form"
-      | "key"
       | "autoFocus"
       | "formAction"
       | "formEncType"
@@ -326,7 +327,6 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
       | "formTarget"
       | "name"
       | "type"
-      | "value"
       | "defaultChecked"
       | "defaultValue"
       | "suppressContentEditableWarning"
@@ -583,6 +583,7 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
     > & {
       ref?: React.Ref<HTMLButtonElement>;
     },
+    | "value"
     | "theme"
     | "isLink"
     | "primary"
@@ -605,7 +606,6 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
     | "formTarget"
     | "name"
     | "type"
-    | "value"
     | "defaultChecked"
     | "defaultValue"
     | "suppressContentEditableWarning"

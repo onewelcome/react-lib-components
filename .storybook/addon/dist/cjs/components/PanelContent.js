@@ -13,6 +13,8 @@ var _theming = require("@storybook/theming");
 
 var _components = require("@storybook/components");
 
+var _helpers = require("../utils/helpers");
+
 var _templateObject, _templateObject2;
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -48,7 +50,7 @@ var PropertyValueInput = _theming.styled.input(_templateObject || (_templateObje
 
 var PropertyValueLabel = _theming.styled.label(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n"])));
 
-var shouldBeColorPicker = ["colorFocus", "colorPrimary", "colorSecondary", "colorTertiary", "buttonFillTextColor", "buttonFillHoverBackgroundColor", "buttonOutlineHoverTextColor", "inputBackgroundColor", "modalShadowColor", "modalBackgroundColor", "modalHeaderBackgroundColor", "snackbarTextColor", "snackbarInfoBackgroundColor", "snackbarSuccessBackgroundColor", "snackbarErrorBackgroundColor", "dataGridRowBackgroundColor", "dataGridRowHoverBackgroundColor", "tabsBackgroundColor", "tablistBorderColor", "tabTextColor", "default", "success", "error", "disabled", "greyedOut", "lightGreyBorder", "warning", "light", "grey"];
+var shouldBeColorPicker = ["colorFocus", "colorPrimary", "colorSecondary", "colorTertiary", "buttonFillTextColor", "buttonFillHoverBackgroundColor", "buttonOutlineHoverTextColor", "inputBackgroundColor", "modalShadowColor", "modalBackgroundColor", "modalHeaderBackgroundColor", "snackbarTextColor", "snackbarInfoBackgroundColor", "snackbarSuccessBackgroundColor", "snackbarErrorBackgroundColor", "dataGridRowBackgroundColor", "dataGridRowHoverBackgroundColor", "tabActiveBorderColor", "tabsBackgroundColor", "tablistBorderColor", "tabTextColor", "default", "success", "error", "disabled", "greyedOut", "lightGreyBorder", "warning", "light", "grey"];
 
 function useDebounce(value, delay) {
   var _useState = (0, _react.useState)(value),
@@ -93,6 +95,21 @@ var PanelContent = function PanelContent(_ref) {
   (0, _react.useEffect)(function () {
     renderContent();
   }, [propertiesState]);
+  /**
+   * It could be that CSS properties refer to other existing CSS properties. In that case we want to parse those colors so the color pickers show the correct color and not var(--color-primary) for example
+   * colorFocus by default refers to var(--color-primary) so we parse that here.
+   */
+
+  var parseValue = function parseValue(value) {
+    if (/var\(--.+\)/.test(value)) {
+      var _CSSPropertyToObjectK = (0, _helpers.CSSPropertyToObjectKey)(value),
+          key = _CSSPropertyToObjectK.key;
+
+      return parseValue(propertiesState[key]);
+    }
+
+    return value;
+  };
 
   var handlePropertyChange = function handlePropertyChange(propertyName, propertyValue) {
     setPropertiesState(function (prevState) {
@@ -109,20 +126,20 @@ var PanelContent = function PanelContent(_ref) {
           key: property
         }, /*#__PURE__*/_react["default"].createElement("td", null, property), /*#__PURE__*/_react["default"].createElement("td", {
           style: {
-            textAlign: "right"
+            textAlign: "left"
           }
         }, /*#__PURE__*/_react["default"].createElement(PropertyValueLabel, null, property), shouldBeColorPicker.includes(property) ? /*#__PURE__*/_react["default"].createElement(_components.ColorControl, {
           name: property,
           onChange: function onChange(value) {
             handlePropertyChange(property, value);
           },
-          value: propertiesState[property]
+          value: parseValue(propertiesState[property])
         }) : /*#__PURE__*/_react["default"].createElement(PropertyValueInput, {
           onChange: function onChange(e) {
             return handlePropertyChange(property, e.target.value);
           },
           type: "text",
-          value: propertiesState[property]
+          value: parseValue(propertiesState[property])
         }))));
       };
 
