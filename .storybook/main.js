@@ -30,5 +30,6 @@ module.exports = {
   core: {
     builder: "webpack5",
     disableTelemetry: true
-  }
+  },
+  staticDirs: ["../public"]
 };
