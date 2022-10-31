@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { ContextMenu, Props } from "./ContextMenu";
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Button } from "../Button/Button";
 import { ContextMenuItem } from "./ContextMenuItem";
 import userEvent from "@testing-library/user-event";
@@ -197,11 +197,11 @@ describe("accessibility controls", () => {
     await userEvent.tab();
     await userEvent.keyboard("{enter}");
 
-    waitFor(() => expect(trigger).toHaveAttribute("aria-expanded", "true"));
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
 
     await userEvent.keyboard("{escape}");
 
-    waitFor(() => expect(trigger).toHaveAttribute("aria-expanded", "false"));
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 
   it("opens correctly with space, home and end buttons work", async () => {
@@ -212,15 +212,15 @@ describe("accessibility controls", () => {
     await userEvent.tab();
     await userEvent.keyboard("{space}");
 
-    waitFor(() => expect(trigger).toHaveAttribute("aria-expanded", "true"));
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
 
     await userEvent.keyboard("{end}");
 
-    waitFor(() => expect(thirdContextMenuItem).toHaveFocus());
+    expect(thirdContextMenuItem).toHaveFocus();
 
     await userEvent.keyboard("{home}");
 
-    waitFor(() => expect(firstContextMenuItem).toHaveFocus());
+    expect(firstContextMenuItem).toHaveFocus();
   });
 
   it("opens correctly with space, navigate with arrow keys, select with enter", async () => {
@@ -236,17 +236,17 @@ describe("accessibility controls", () => {
     await userEvent.tab();
     await userEvent.keyboard("{enter}");
 
-    waitFor(() => expect(trigger).toHaveAttribute("aria-expanded", "true"));
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
 
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
 
-    waitFor(() => expect(thirdContextMenuItem).toHaveFocus());
+    expect(thirdContextMenuItem).toHaveFocus();
 
     await userEvent.keyboard("{enter}");
 
-    waitFor(() => expect(onClick).toHaveBeenCalled());
+    expect(onClick).toHaveBeenCalled();
   });
 
   it("opens correctly with enter, navigate with arrow keys, select with space", async () => {
