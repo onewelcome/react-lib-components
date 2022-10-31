@@ -1,0 +1,75 @@
+import { Meta, Story } from "@storybook/addon-docs";
+
+<Meta
+  title="Getting Started/Introduction"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true }
+    }
+  }}
+/>
+
+# OneWelcome React Component Library
+
+This project provides React components built according to the [UI Component Library design](https://xd.adobe.com/view/1f7161d7-5ade-4e54-bb3d-6e4aa3a1d1a0-4a22/grid/).
+
+Quickly build good looking, responsive and accessible UIs using our components and hooks.
+
+## Get started
+
+In order to install the component library into your React project, simply install it through NPM using:
+
+```bash
+npm install @onewelcome/react-lib-components
+```
+
+It is [publicly available](https://www.npmjs.com/package/@onewelcome/react-lib-components).
+
+## Setup
+
+To have all of the `CSS variables`, that are used throughout all of the components, working correctly, you need to wrap your entire application with our `BaseStyling` component.
+
+```jsx
+import React from "react";
+import { BaseStyling } from "@onewelcome/react-lib-components";
+
+export default function App() {
+  return (
+    <BaseStyling>
+      {...any views you want to render here}
+    </BaseStyling>
+  );
+}
+```
+
+## Fonts
+
+By default the component library will use the `Red Hat Display` font family. [Please read the Typography documentation to understand how to install this font in your React project.](/docs/stories-ui-typography--typography).
+
+## Icons
+
+This component libary offers its own icons and `<Icon />` component. [Please see the Icon component documentation for further information.](/docs/stories-ui-icon--icon)
+
+## Usage
+
+Using our component library is easy. You can import any component (or hook) from `@onewelcome/react-lib-component`. All components' & hooks' names match their respective story name. An example of how you can import a `ContextMenu` component would be:
+
+```jsx
+import { ContextMenu } from "@onewelcome/react-lib-components";
+```
+
+Our library is created using Typescript, which means you have awesome autocomplete on the imports and props that you can pass to the component.
+
+## Storybook
+
+You have arrived on the Storybook component explorer for the component library. It will showcase all of the components and you can fully control them using the controls that Storybook provides.
+
+You can select any component's Story in the sidebar on the left. There are different categories that provide you with different components.
+Make sure to enable the different navigation components within Storybook:
+
+- Press `S` to show/hide the sidebar.
+- Press `T` to show/hide the toolbar.
+- Press `A` to show/hide the addons (controls/actions/accessibility) (only available in `Canvas` mode).
+
+If you'd like to know more about how to use Storybook, [you can check this webpage](https://storybook.js.org/docs/react/get-started/browse-stories).

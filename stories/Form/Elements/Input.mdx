@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -8,6 +8,10 @@ The `Input` component is a default `input` form element that is wrapped by a con
 It also has built-in `error` and `disabled` props that you can set to either `true` or `false`, and it will give appropriate styling based on the chosen values.
 
 # Examples
+
+Down below you will find an `Input` component that you can control by setting Props from the [Props table](#props).
+
+<DocsStory id="components-inputs-raw-input--input" />
 
 A code example with an `Input` component linked to state:
 
@@ -25,12 +29,6 @@ const ExampleComponent = () => {
   );
 };
 ```
-
-Down below you will find an `Input` component that you can control by setting Props from the [Props table](#props).
-
-<Canvas>
-  <Story id="components-inputs-raw-input--input" />
-</Canvas>
 
 # Props
 

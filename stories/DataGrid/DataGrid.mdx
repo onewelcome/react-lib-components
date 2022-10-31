@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 
 <Title />
@@ -48,9 +48,7 @@ The DataGrid header is generated based on provided `headers` props, and the body
 </DataGrid>
 ```
 
-<Canvas>
-  <Story id="components-data-display-datagrid--simple-data-grid" />
-</Canvas>
+<DocsStory id="components-data-display-datagrid--simple-data-grid" />
 
 ## Table header
 
@@ -75,9 +73,7 @@ In the example below, the `Created` & `Identifier` columns are hidden. Sorting i
 />
 ```
 
-<Canvas>
-  <Story id="components-data-display-datagrid--hide-column-data-grid" />
-</Canvas>
+<DocsStory id="components-data-display-datagrid--hide-column-data-grid" />
 
 ### Sorting
 
@@ -123,9 +119,7 @@ The last cell of each row is reserved for item actions that can affect it, which
 </DataGrid>
 ```
 
-<Canvas>
-  <Story id="components-data-display-datagrid--index-data-grid" />
-</Canvas>
+<DocsStory id="components-data-display-datagrid--index-data-grid" />
 
 ### Disabling context menu column
 
@@ -140,9 +134,7 @@ It renders 9 rows with skeleton loading animation in all defined cells.
 <DataGrid isLoading />
 ```
 
-<Canvas>
-  <Story id="components-data-display-datagrid--skeleton-loading-animation-data-grid" />
-</Canvas>
+<DocsStory id="components-data-display-datagrid--skeleton-loading-animation-data-grid" />
 
 ### Showing empty table message
 
@@ -153,9 +145,7 @@ Text will be displayed only if the `data` property is empty, and `isLoading` is 
 <DataGrid emptyLabel="There are no vegetables within the current selection" data={undefined} />
 ```
 
-<Canvas>
-  <Story id="components-data-display-datagrid--empty-data-grid" />
-</Canvas>
+<DocsStory id="components-data-display-datagrid--empty-data-grid" />
 
 # Action section
 
@@ -177,9 +167,7 @@ Each button can be customized by providing props as in the example below.
 />
 ```
 
-<Canvas>
-  <Story id="components-data-display-datagrid--actions-data-grid" />
-</Canvas>
+<DocsStory id="components-data-display-datagrid--actions-data-grid" />
 
 # Pagination
 
@@ -196,15 +184,11 @@ An example can be found below:
 />
 ```
 
-<Canvas>
-  <Story id="components-data-display-datagrid--pagination-data-grid" />
-</Canvas>
+<DocsStory id="components-data-display-datagrid--pagination-data-grid" />
 
 # Full example
 
-<Canvas>
-  <Story id="components-data-display-datagrid--data-grid" />
-</Canvas>
+<DocsStory id="components-data-display-datagrid--data-grid" />
 
 # Props
 
