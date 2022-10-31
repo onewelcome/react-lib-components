@@ -138,17 +138,17 @@ describe("DataGridActions should be interactive", () => {
       headers: [toggleHeader]
     }));
 
-    await userEvent.click(getAllByRole("button")[0]);
+    userEvent.click(getAllByRole("button")[0]);
 
     const toggle = await findByLabelText(toggleHeader.headline);
     expect(toggle).toBeDefined();
     expect(toggle).toBeChecked();
 
-    await userEvent.click(toggle);
+    userEvent.click(toggle);
     expect(defaultParams.onColumnToggled).toBeCalledWith(toggleHeader.name);
   });
 
-  it("clicking on add button runs callback", async () => {
+  it("clicking on add button runs callback", () => {
     const onClick = jest.fn();
     const { getAllByRole } = createDataGridActions(params => ({
       ...params,
@@ -156,12 +156,12 @@ describe("DataGridActions should be interactive", () => {
       addBtnProps: { onClick }
     }));
 
-    await userEvent.click(getAllByRole("button")[0]);
+    userEvent.click(getAllByRole("button")[0]);
 
     expect(onClick).toBeCalledTimes(1);
   });
 
-  it("clicking on search button runs callback", async () => {
+  it("clicking on search button runs callback", () => {
     const onClick = jest.fn();
     const { getAllByRole } = createDataGridActions(params => ({
       ...params,
@@ -169,7 +169,7 @@ describe("DataGridActions should be interactive", () => {
       searchBtnProps: { onClick }
     }));
 
-    await userEvent.click(getAllByRole("button")[0]);
+    userEvent.click(getAllByRole("button")[0]);
 
     expect(onClick).toBeCalledTimes(1);
   });

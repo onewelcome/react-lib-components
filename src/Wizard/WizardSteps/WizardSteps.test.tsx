@@ -73,7 +73,7 @@ const renderWizardSteps = (initReducerState?: WizardStateType) => {
 const getStepButtons = (container: HTMLElement) => getAllByRole(container, "button");
 
 describe("WizardSteps", () => {
-  it("renders without crashing", async () => {
+  it("renders without crashing", () => {
     const { container, dispatch } = renderWizardSteps();
     const buttons = getStepButtons(container);
     (
@@ -81,7 +81,7 @@ describe("WizardSteps", () => {
     ).mockReturnValueOnce(true);
 
     expect(buttons).toHaveLength(4);
-    await userEvent.click(buttons[0]);
+    userEvent.click(buttons[0]);
     expect(initParams.onStepClick).toHaveBeenCalledWith(initWizardState.currentStepNo, 0);
     expect(dispatch).toBeCalledWith(changeCurrentStepNo(0));
     expect(buttons[0].querySelector(".checkmark")).toBeDefined();
@@ -89,36 +89,36 @@ describe("WizardSteps", () => {
     expect(getByText(buttons[2], "3")).toBeDefined();
     expect(getByText(buttons[3], "4")).toBeDefined();
 
-    await userEvent.click(buttons[1]);
-    await userEvent.click(buttons[2]);
-    await userEvent.click(buttons[3]);
+    userEvent.click(buttons[1]);
+    userEvent.click(buttons[2]);
+    userEvent.click(buttons[3]);
     expect(initParams.onStepClick).toHaveBeenCalledTimes(1);
   });
 
-  it("should allow to click on future and prev steps but not on current and disabled steps when mode is set to `edit`", async () => {
+  it("should allow to click on future and prev steps but not on current and disabled steps when mode is set to `edit`", () => {
     const { container, dispatch } = renderWizardSteps({ ...initWizardState, mode: "edit" });
     const buttons = getStepButtons(container);
     (
       initParams.onStepClick as jest.MockedFunction<typeof initParams.onStepClick>
     ).mockReturnValueOnce(true);
 
-    await userEvent.click(buttons[3]);
+    userEvent.click(buttons[3]);
     expect(initParams.onStepClick).toHaveBeenCalledWith(initWizardState.currentStepNo, 3);
     expect(dispatch).toBeCalledWith(changeCurrentStepNo(3));
 
-    await userEvent.click(buttons[1]);
-    await userEvent.click(buttons[2]);
+    userEvent.click(buttons[1]);
+    userEvent.click(buttons[2]);
     expect(initParams.onStepClick).toHaveBeenCalledTimes(1);
   });
 
-  it("should do not change step when `onStepClick` callback returns false", async () => {
+  it("should do not change step when `onStepClick` callback returns false", () => {
     const { container, dispatch } = renderWizardSteps({ ...initWizardState, mode: "edit" });
     const buttons = getStepButtons(container);
     (
       initParams.onStepClick as jest.MockedFunction<typeof initParams.onStepClick>
     ).mockReturnValueOnce(false);
 
-    await userEvent.click(buttons[3]);
+    userEvent.click(buttons[3]);
     expect(initParams.onStepClick).toHaveBeenCalledWith(initWizardState.currentStepNo, 3);
     expect(dispatch).not.toBeCalled();
   });

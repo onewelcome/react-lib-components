@@ -39,7 +39,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <TextareaComponent {...args} autoFocus={true} />;
+const Template: Story<Props> = args => <TextareaComponent {...args} />;
 
 export const Textarea = Template.bind({});
 

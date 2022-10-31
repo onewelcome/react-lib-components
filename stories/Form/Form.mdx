@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -9,8 +9,9 @@ The `Form` component will be used as a wrapper component for all form elements. 
 
 The `Form` component is a wrapper element. That means you can wrap any `FormElement` inside of it. See the code snippet below that showcases how you can use it.
 
-```
-<Form> onSubmit={onSubmitHandler}
+```jsx
+<Form>
+  onSubmit={onSubmitHandler}
   <FormControl>
     <InputWrapper {...args} />
   </FormControl>
@@ -29,6 +30,8 @@ The `Form` component is a wrapper element. That means you can wrap any `FormElem
   </FormControl>
 </Form>
 ```
+
+<DocsStory id="components-layout-form--form" />
 
 # Props
 

@@ -16,9 +16,8 @@
 
 import React, { useEffect, useRef } from "react";
 import { Pagination, Props } from "./Pagination";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 const defaultParams: Props = {
   currentPage: 1,
@@ -72,32 +71,32 @@ describe("Pagination events", () => {
     const pageSizeSelect = pagination.querySelector(".page-size-select")!;
     const currentPageInput = pagination.querySelector("#current-value-input")!;
 
-    await userEvent.click(next);
-    expect(onPageChange).toHaveBeenCalledWith(11);
+    userEvent.click(next);
 
-    await userEvent.click(previous);
-    expect(onPageChange).toHaveBeenCalledWith(9);
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(11));
 
-    await userEvent.click(first);
-    expect(onPageChange).toHaveBeenCalledWith(0);
+    userEvent.click(previous);
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(9));
 
-    await userEvent.click(last);
-    expect(onPageChange).toHaveBeenCalledWith(50);
+    userEvent.click(first);
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(0));
 
-    await userEvent.click(pageSizeSelect.querySelector("button")!);
+    userEvent.click(last);
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(50));
+
+    userEvent.click(pageSizeSelect.querySelector("button")!);
 
     const option25 = pageSizeSelect.querySelector('[data-value="25"]')!;
 
-    await userEvent.click(option25);
-    expect(onPageSizeChange).toHaveBeenCalledWith(25);
+    userEvent.click(option25);
 
-    act(() => {
-      (currentPageInput as HTMLInputElement).focus();
-    });
+    await waitFor(() => expect(onPageSizeChange).toHaveBeenCalledWith(25));
 
-    await userEvent.keyboard("{backspace}{backspace}30{enter}");
+    (currentPageInput as HTMLInputElement).focus();
 
-    expect(onPageChange).toHaveBeenCalledWith(30);
+    userEvent.keyboard("{backspace}{backspace}30{enter}");
+
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(30));
   });
 });
 

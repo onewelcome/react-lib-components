@@ -19,10 +19,10 @@ import {
   render,
   getByTestId,
   getAllByText,
+  waitFor,
   getAllByRole,
   getByText,
-  fireEvent,
-  waitFor
+  fireEvent
 } from "@testing-library/react";
 import { SnackbarProvider, Props } from "./SnackbarProvider";
 import { useSnackbar } from "../useSnackbar";
@@ -183,6 +183,6 @@ describe("handlers", () => {
     fireEvent.animationEnd(parentErrorSnackbar);
     fireEvent.animationEnd(parentSuccessSnackbar);
 
-    waitFor(() => expect(onCloseHandler).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(onCloseHandler).toHaveBeenCalledTimes(2));
   });
 });

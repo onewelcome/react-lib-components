@@ -195,7 +195,7 @@ describe("DataGrid should render", () => {
 });
 
 describe("DataGrid should have interactive table header", () => {
-  it("clicking table headers should call sort callback", async () => {
+  it("clicking table headers should call sort callback", () => {
     const onSort = jest.fn();
     const { getAllByRole } = createDataGrid(params => ({
       ...params,
@@ -204,34 +204,34 @@ describe("DataGrid should have interactive table header", () => {
 
     const [firstNameHeader, lastNameHeader, dateHeader] = getAllByRole("columnheader");
 
-    await userEvent.click(getByRole(firstNameHeader, "button"));
+    userEvent.click(getByRole(firstNameHeader, "button"));
     expect(onSort).toBeCalledWith([{ name: defaultParams.headers[0].name, direction: "ASC" }]);
 
-    await userEvent.click(getByRole(lastNameHeader, "button"));
-    await userEvent.click(getByRole(dateHeader, "button"));
+    userEvent.click(getByRole(lastNameHeader, "button"));
+    userEvent.click(getByRole(dateHeader, "button"));
     expect(onSort).toBeCalledWith([
       { name: defaultParams.headers[2].name, direction: "ASC" },
       { name: defaultParams.headers[1].name, direction: "ASC" },
       { name: defaultParams.headers[0].name, direction: "ASC" }
     ]);
 
-    await userEvent.click(getByRole(firstNameHeader, "button"));
+    userEvent.click(getByRole(firstNameHeader, "button"));
     expect(onSort).toBeCalledWith([
       { name: defaultParams.headers[0].name, direction: "DESC" },
       { name: defaultParams.headers[2].name, direction: "ASC" },
       { name: defaultParams.headers[1].name, direction: "ASC" }
     ]);
 
-    await userEvent.click(getByRole(dateHeader, "button"));
+    userEvent.click(getByRole(dateHeader, "button"));
     expect(onSort).toBeCalledWith([
       { name: defaultParams.headers[2].name, direction: "DESC" },
       { name: defaultParams.headers[0].name, direction: "DESC" },
       { name: defaultParams.headers[1].name, direction: "ASC" }
     ]);
 
-    await userEvent.click(getByRole(dateHeader, "button"));
-    await userEvent.click(getByRole(firstNameHeader, "button"));
-    await userEvent.click(getByRole(lastNameHeader, "button"));
+    userEvent.click(getByRole(dateHeader, "button"));
+    userEvent.click(getByRole(firstNameHeader, "button"));
+    userEvent.click(getByRole(lastNameHeader, "button"));
     expect(onSort).toBeCalledWith([{ name: defaultParams.headers[1].name, direction: "DESC" }]);
     expect(onSort).toBeCalledTimes(8);
   });
@@ -243,11 +243,11 @@ describe("DataGrid should have interactive table header", () => {
     }));
     expect(queries.getAllByRole("columnheader")).toHaveLength(3);
 
-    await userEvent.click(getByRole("button", { name: "Columns" }));
+    userEvent.click(getByRole("button", { name: "Columns" }));
 
     const nameToggle = await findByLabelText(defaultParams.headers[1].headline);
     expect(nameToggle).toBeChecked();
-    await userEvent.click(nameToggle);
+    userEvent.click(nameToggle);
     expect(nameToggle).not.toBeChecked();
     expect(getByRole("button", { name: "Close show columns dialog" })).toBeDefined();
 

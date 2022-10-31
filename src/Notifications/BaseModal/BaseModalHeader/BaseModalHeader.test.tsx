@@ -29,12 +29,12 @@ const initParams: Props = {
 };
 
 describe("BaseModalHeader", () => {
-  it("renders without crashing", async () => {
+  it("renders without crashing", () => {
     const { container } = render(<BaseModalHeader {...initParams} />);
     const closeBtn = getByRole(container, "button");
     expect(initParams.onClose).toBeCalledTimes(0);
 
-    await userEvent.click(closeBtn);
+    userEvent.click(closeBtn);
 
     const dialogContentContainer = container.children[0];
     const titleContainer = getByText(container, initParams.title);

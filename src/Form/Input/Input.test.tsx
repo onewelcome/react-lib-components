@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef, useState, Fragment } from "react";
 import { Input, Props, Type } from "./Input";
-import { act, fireEvent, render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Label } from "../Label/Label";
 
@@ -134,11 +134,9 @@ describe("Should render all different types of inputs", () => {
 
       const input = await findByLabelText(/Test/);
 
-      act(() => {
-        input.focus();
-      });
+      input.focus();
 
-      await userEvent.keyboard(value);
+      userEvent.keyboard(value);
 
       expect(changedValue).toBe(result);
     }
@@ -174,7 +172,7 @@ describe("Should render all different types of inputs", () => {
 });
 
 describe("It should execute the listeners", () => {
-  it("fires event handlers", async () => {
+  it("fires event handlers", () => {
     const onChangeHandler = jest.fn();
     const onKeyUpHandler = jest.fn();
     const onKeyDownHandler = jest.fn();
@@ -187,13 +185,11 @@ describe("It should execute the listeners", () => {
       onChange: onChangeHandler
     }));
 
-    act(() => {
-      input.focus();
-    });
+    input.focus();
 
     expect(input).toHaveFocus();
 
-    await userEvent.keyboard("test");
+    userEvent.keyboard("test");
 
     expect(onKeyUpHandler).toHaveBeenCalled();
     expect(onKeyDownHandler).toHaveBeenCalled();
