@@ -34,9 +34,9 @@ const meta: Meta = {
       }
     },
     pageSize: {
+      options: ["10", "25", "50"],
       control: {
-        type: "radio",
-        options: ["10", "25", "50"]
+        type: "radio"
       }
     }
   }
@@ -55,6 +55,7 @@ export const Pagination = Template.bind({});
 Pagination.args = {
   currentPage: 1,
   pageSize: 10,
+  totalElements: 1000,
   translate: {
     totalItems: "Total items",
     itemsPerPage: "Items per page",

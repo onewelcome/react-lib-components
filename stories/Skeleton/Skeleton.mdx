@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -20,11 +20,9 @@ If the `height` property is not defined, it takes a `height` of the current font
 </Typography>
 ```
 
-<Canvas isColumn={true} columns={1}>
-  <Story id="components-feedback-skeleton--skeleton" />
-  <Story id="components-feedback-skeleton--rectangle-skeleton" />
-  <Story id="components-feedback-skeleton--typography-skeleton" />
-</Canvas>
+<DocsStory id="components-feedback-skeleton--skeleton" />
+<DocsStory id="components-feedback-skeleton--rectangle-skeleton" />
+<DocsStory id="components-feedback-skeleton--typography-skeleton" />
 
 # Props
 

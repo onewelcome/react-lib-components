@@ -1,4 +1,4 @@
-import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -8,10 +8,6 @@ The pagination component makes the content readable by separating it into differ
 It has a few strings of text that can be translated. These are accessible through the `translate` prop; English is the default language. Please see the props table for the object interface. The `itemsPerPageLabel` and `currentPageLabel` are specifically for accessibility. Whenever the user tabs onto the `Select` component for `itemsPerPage` or the `Input` component for the `currentPage`, their respective labels will be read by the screen reader.
 
 # Examples
-
-<Canvas>
-  <Story id="components-navigation-pagination--pagination" />
-</Canvas>
 
 An example component that's using the `Pagination` component is shown below:
 
@@ -44,6 +40,8 @@ const ExampleComponent = () => {
      />
 }
 ```
+
+<DocsStory id="components-navigation-pagination--pagination" />
 
 # Props
 
