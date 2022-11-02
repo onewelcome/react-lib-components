@@ -35,7 +35,6 @@ var withBaseStyling = function withBaseStyling(StoryFn, context) {
 
       if (htmlElement) {
         var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
-        console.log(stylesObject, "STYLEOBJECT");
         updateGlobals({
           baseStyling: stylesObject
         });
@@ -53,9 +52,9 @@ var withBaseStyling = function withBaseStyling(StoryFn, context) {
     if (propertiesArray.length) {
       propertiesArray.forEach(function (property) {
         if (property) {
-          var _CSSPropertyToObjectK = (0, _helpers.CSSPropertyToObjectKey)(property),
-              key = _CSSPropertyToObjectK.key,
-              value = _CSSPropertyToObjectK.value;
+          var _cssPropertyToObjectK = (0, _helpers.cssPropertyToObjectKey)(property),
+              key = _cssPropertyToObjectK.key,
+              value = _cssPropertyToObjectK.value;
 
           propertiesObject[key] = value;
         }
@@ -69,7 +68,7 @@ var withBaseStyling = function withBaseStyling(StoryFn, context) {
     var styleString = "";
 
     for (var property in stylingObject) {
-      var CSSPropertyString = (0, _helpers.ObjectKeyToCSSProperty)({
+      var CSSPropertyString = (0, _helpers.objectKeyToCSSProperty)({
         key: property,
         value: stylingObject[property]
       });

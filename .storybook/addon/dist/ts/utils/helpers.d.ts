@@ -1,8 +1,8 @@
-export declare const CSSPropertyToObjectKey: (CSSProperty: string) => {
+export declare const cssPropertyToObjectKey: (CSSProperty: string) => {
   key: null | string;
   value: null | string;
 };
-export declare const ObjectKeyToCSSProperty: ({
+export declare const objectKeyToCSSProperty: ({
   key,
   value
 }: {

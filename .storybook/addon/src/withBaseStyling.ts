@@ -16,7 +16,7 @@
 
 import type { DecoratorFunction } from "@storybook/addons";
 import { useEffect, useGlobals } from "@storybook/addons";
-import { CSSPropertyToObjectKey, ObjectKeyToCSSProperty } from "./utils/helpers";
+import { cssPropertyToObjectKey, objectKeyToCSSProperty } from "./utils/helpers";
 
 export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   const [{ baseStyling }, updateGlobals] = useGlobals();
@@ -46,7 +46,7 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
     if (propertiesArray.length) {
       propertiesArray.forEach(property => {
         if (property) {
-          const { key, value } = CSSPropertyToObjectKey(property);
+          const { key, value } = cssPropertyToObjectKey(property);
 
           propertiesObject[key] = value;
         }
@@ -59,7 +59,7 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   const updateCSSPropertiesOnHTMLElement = (stylingObject: Record<string, string>) => {
     let styleString = "";
     for (const property in stylingObject) {
-      const CSSPropertyString = ObjectKeyToCSSProperty({
+      const CSSPropertyString = objectKeyToCSSProperty({
         key: property,
         value: stylingObject[property]
       });

@@ -10,8 +10,23 @@ function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "und
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 import { useEffect, useGlobals } from "@storybook/addons";
-import { CSSPropertyToObjectKey, ObjectKeyToCSSProperty } from "./utils/helpers";
+import { cssPropertyToObjectKey, objectKeyToCSSProperty } from "./utils/helpers";
 export var withBaseStyling = function withBaseStyling(StoryFn, context) {
   var _useGlobals = useGlobals(),
       _useGlobals2 = _slicedToArray(_useGlobals, 2),
@@ -26,7 +41,6 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
 
       if (htmlElement) {
         var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
-        console.log(stylesObject, "STYLEOBJECT");
         updateGlobals({
           baseStyling: stylesObject
         });
@@ -44,9 +58,9 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     if (propertiesArray.length) {
       propertiesArray.forEach(function (property) {
         if (property) {
-          var _CSSPropertyToObjectK = CSSPropertyToObjectKey(property),
-              key = _CSSPropertyToObjectK.key,
-              value = _CSSPropertyToObjectK.value;
+          var _cssPropertyToObjectK = cssPropertyToObjectKey(property),
+              key = _cssPropertyToObjectK.key,
+              value = _cssPropertyToObjectK.value;
 
           propertiesObject[key] = value;
         }
@@ -60,7 +74,7 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     var styleString = "";
 
     for (var property in stylingObject) {
-      var CSSPropertyString = ObjectKeyToCSSProperty({
+      var CSSPropertyString = objectKeyToCSSProperty({
         key: property,
         value: stylingObject[property]
       });

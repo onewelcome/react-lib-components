@@ -52,7 +52,7 @@ export const cssPropertyToObjectKey = (CSSProperty: string) => {
   return objectKeyValue;
 };
 
-export const ObjectKeyToCSSProperty = ({ key, value }: { key: string; value: string }) => {
+export const objectKeyToCSSProperty = ({ key, value }: { key: string; value: string }) => {
   const formattedPropertyName = key.replace(/([A-Z])/g, val => `-${val.toLowerCase()}`);
 
   return `--${formattedPropertyName}: ${value}`;

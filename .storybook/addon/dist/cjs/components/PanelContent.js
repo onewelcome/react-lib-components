@@ -102,8 +102,8 @@ var PanelContent = function PanelContent(_ref) {
 
   var parseValue = function parseValue(value) {
     if (/var\(--.+\)/.test(value)) {
-      var _CSSPropertyToObjectK = (0, _helpers.CSSPropertyToObjectKey)(value),
-          key = _CSSPropertyToObjectK.key;
+      var _cssPropertyToObjectK = (0, _helpers.cssPropertyToObjectKey)(value),
+          key = _cssPropertyToObjectK.key;
 
       return parseValue(propertiesState[key]);
     }
@@ -112,7 +112,7 @@ var PanelContent = function PanelContent(_ref) {
   };
 
   var handlePropertyChange = function handlePropertyChange(propertyName, propertyValue) {
-    setPropertiesState(function (prevState) {
+    return setPropertiesState(function (prevState) {
       return _objectSpread(_objectSpread({}, prevState), {}, _defineProperty({}, propertyName, propertyValue));
     });
   };
