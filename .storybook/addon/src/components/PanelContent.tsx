@@ -127,12 +127,11 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
     return value;
   };
 
-  const handlePropertyChange = (propertyName: string, propertyValue: string) => {
+  const handlePropertyChange = (propertyName: string, propertyValue: string) =>
     setPropertiesState((prevState: Record<string, string>) => ({
       ...prevState,
       [propertyName]: propertyValue
     }));
-  };
 
   const renderContent = () => {
     const rows: JSX.Element[] = [];
