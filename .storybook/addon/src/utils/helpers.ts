@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-export const CSSPropertyToObjectKey = (CSSProperty: string) => {
+export const cssPropertyToObjectKey = (CSSProperty: string) => {
   const matchesKeyValue = CSSProperty.match(/--(.+)(?=:):?(.+)?/);
   const matchesKeyOnly = CSSProperty.match(/var\(--(.+)\)/);
   const objectKeyValue: { key: null | string; value: null | string } = {

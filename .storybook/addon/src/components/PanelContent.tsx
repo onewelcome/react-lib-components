@@ -17,7 +17,7 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
 import { Button, Table, ColorControl } from "@storybook/components";
-import { CSSPropertyToObjectKey } from "../utils/helpers";
+import { cssPropertyToObjectKey } from "../utils/helpers";
 
 export const RequestDataButton = styled(Button)({
   marginTop: "1rem"
@@ -119,7 +119,7 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
    */
   const parseValue = (value: string): string => {
     if (/var\(--.+\)/.test(value)) {
-      const { key } = CSSPropertyToObjectKey(value);
+      const { key } = cssPropertyToObjectKey(value);
 
       return parseValue(propertiesState[key]);
     }
