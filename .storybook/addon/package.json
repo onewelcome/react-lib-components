@@ -3,14 +3,15 @@
   "version": "0.0.0",
   "description": "BaseStyling",
   "keywords": [
-    "storybook-addons", "storybook-addons"
+    "storybook-addons",
+    "storybook-addons"
   ],
   "repository": {
     "type": "git",
     "url": "https://www.github.com"
   },
-  "author": "Daniel <daniel.vandervelden@onewelcome.com>",
-  "license": "MIT",
+  "author": "OneWelcome",
+  "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/ts/index.d.ts",

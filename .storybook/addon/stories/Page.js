@@ -1,8 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 
-import { Header } from './Header';
-import './page.css';
+import React from "react";
+import PropTypes from "prop-types";
+
+import { Header } from "./Header";
+import "./page.css";
 
 export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (
   <article>
@@ -11,10 +27,10 @@ export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (
     <section>
       <h2>Pages in Storybook</h2>
       <p>
-        We recommend building UIs with a{' '}
+        We recommend building UIs with a{" "}
         <a href="https://componentdriven.org" target="_blank" rel="noopener noreferrer">
           <strong>component-driven</strong>
-        </a>{' '}
+        </a>{" "}
         process starting with atomic components and ending with pages.
       </p>
       <p>
@@ -33,18 +49,18 @@ export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (
         </li>
       </ul>
       <p>
-        Get a guided tutorial on component-driven development at{' '}
+        Get a guided tutorial on component-driven development at{" "}
         <a href="https://www.learnstorybook.com" target="_blank" rel="noopener noreferrer">
           Learn Storybook
         </a>
-        . Read more in the{' '}
+        . Read more in the{" "}
         <a href="https://storybook.js.org/docs" target="_blank" rel="noopener noreferrer">
           docs
         </a>
         .
       </p>
       <div className="tip-wrapper">
-        <span className="tip">Tip</span> Adjust the width of the canvas with the{' '}
+        <span className="tip">Tip</span> Adjust the width of the canvas with the{" "}
         <svg width="10" height="10" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
           <g fill="none" fillRule="evenodd">
             <path
@@ -63,9 +79,9 @@ Page.propTypes = {
   user: PropTypes.shape({}),
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
-  onCreateAccount: PropTypes.func.isRequired,
+  onCreateAccount: PropTypes.func.isRequired
 };
 
 Page.defaultProps = {
-  user: null,
+  user: null
 };
