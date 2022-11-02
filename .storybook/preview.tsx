@@ -43,7 +43,7 @@ const Preview = story => {
   const parseBaseStylingStorage = () => {
     const baseStylingSessionStorage = window.sessionStorage.getItem("basestyling");
 
-    if (baseStylingSessionStorage !== "undefined" && baseStylingSessionStorage) {
+    if (baseStylingSessionStorage && baseStylingSessionStorage !== "undefined") {
       setProperties(JSON.parse(baseStylingSessionStorage));
     }
   };
