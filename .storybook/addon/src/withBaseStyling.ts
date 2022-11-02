@@ -20,6 +20,7 @@ import { cssPropertyToObjectKey, objectKeyToCSSProperty } from "./utils/helpers"
 
 export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   const [{ baseStyling }, updateGlobals] = useGlobals();
+  const waitForMs = 1; // See README.md technical explanation for why a timeout is necessary.
 
   useEffect(() => {
     setTimeout(() => {
@@ -32,7 +33,7 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
           baseStyling: stylesObject
         });
       }
-    }, 1);
+    }, waitForMs);
   }, [window.location.search]);
 
   useEffect(() => {
