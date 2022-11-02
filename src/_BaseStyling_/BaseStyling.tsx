@@ -14,6 +14,11 @@
  *    limitations under the License.
  */
 
+/**
+ * If you add more CSS variables, and they are a color, make sure to go into /.storybook/addon/src/components/PanelContent.tsx
+ * and make sure to add it to the shouldBeColorPicker array!
+ */
+
 import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from "react";
 
 interface CSSProperties {
