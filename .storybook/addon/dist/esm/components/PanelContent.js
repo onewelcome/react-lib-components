@@ -113,7 +113,6 @@ export var PanelContent = function PanelContent(_ref) {
           value: parseValue(value)
         })));
       });
-      return state;
     }
     return null;
   };
