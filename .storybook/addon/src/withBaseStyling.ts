@@ -37,7 +37,7 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   }, [window.location.search]);
 
   useEffect(() => {
-    updateCSSPropertiesOnHTMLElement(baseStyling);
+    setLocalStorageAndDispatchUpdateStylingEvent(baseStyling);
   }, [baseStyling]);
 
   const parseStylesToObject = (styleString: string) => {
@@ -61,17 +61,7 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
     return propertiesObject;
   };
 
-  const updateCSSPropertiesOnHTMLElement = (stylingObject: Record<string, string>) => {
-    let styleString = "";
-    for (const property in stylingObject) {
-      const CSSPropertyString = objectKeyToCSSProperty({
-        key: property,
-        value: stylingObject[property]
-      });
-
-      styleString += CSSPropertyString;
-    }
-
+  const setLocalStorageAndDispatchUpdateStylingEvent = (stylingObject: Record<string, string>) => {
     window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
 
     const updatedStyling = new Event("updated-styling");

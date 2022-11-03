@@ -32,7 +32,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  *    limitations under the License.
  */
 import { useEffect, useGlobals } from "@storybook/addons";
-import { cssPropertyToObjectKey, objectKeyToCSSProperty } from "./utils/helpers";
+import { cssPropertyToObjectKey } from "./utils/helpers";
 export var withBaseStyling = function withBaseStyling(StoryFn, context) {
   var _useGlobals = useGlobals(),
       _useGlobals2 = _slicedToArray(_useGlobals, 2),
@@ -56,7 +56,7 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     }, waitForMs);
   }, [window.location.search]);
   useEffect(function () {
-    updateCSSPropertiesOnHTMLElement(baseStyling);
+    setLocalStorageAndDispatchUpdateStylingEvent(baseStyling);
   }, [baseStyling]);
 
   var parseStylesToObject = function parseStylesToObject(styleString) {
@@ -71,17 +71,7 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     return propertiesObject;
   };
 
-  var updateCSSPropertiesOnHTMLElement = function updateCSSPropertiesOnHTMLElement(stylingObject) {
-    var styleString = "";
-
-    for (var property in stylingObject) {
-      var CSSPropertyString = objectKeyToCSSProperty({
-        key: property,
-        value: stylingObject[property]
-      });
-      styleString += CSSPropertyString;
-    }
-
+  var setLocalStorageAndDispatchUpdateStylingEvent = function setLocalStorageAndDispatchUpdateStylingEvent(stylingObject) {
     window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
     var updatedStyling = new Event("updated-styling");
     window.dispatchEvent(updatedStyling);

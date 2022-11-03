@@ -50,7 +50,7 @@ var withBaseStyling = function withBaseStyling(StoryFn, context) {
     }, waitForMs);
   }, [window.location.search]);
   (0, _addons.useEffect)(function () {
-    updateCSSPropertiesOnHTMLElement(baseStyling);
+    setLocalStorageAndDispatchUpdateStylingEvent(baseStyling);
   }, [baseStyling]);
 
   var parseStylesToObject = function parseStylesToObject(styleString) {
@@ -65,17 +65,7 @@ var withBaseStyling = function withBaseStyling(StoryFn, context) {
     return propertiesObject;
   };
 
-  var updateCSSPropertiesOnHTMLElement = function updateCSSPropertiesOnHTMLElement(stylingObject) {
-    var styleString = "";
-
-    for (var property in stylingObject) {
-      var CSSPropertyString = (0, _helpers.objectKeyToCSSProperty)({
-        key: property,
-        value: stylingObject[property]
-      });
-      styleString += CSSPropertyString;
-    }
-
+  var setLocalStorageAndDispatchUpdateStylingEvent = function setLocalStorageAndDispatchUpdateStylingEvent(stylingObject) {
     window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
     var updatedStyling = new Event("updated-styling");
     window.dispatchEvent(updatedStyling);
