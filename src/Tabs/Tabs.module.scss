@@ -38,8 +38,8 @@ $focus-width: 5px;
 
 .indicator {
   position: absolute;
-  height: 2px;
-  background-color: var(--color-primary);
+  height: var(--tab-active-border-height);
+  background-color: var(--tab-active-border-color);
   transition-property: left, width;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;

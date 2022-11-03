@@ -40,7 +40,7 @@ $listItemHeight: 2.125rem;
 
   &:not(.expanded) {
     button:focus:not(.error) {
-      border: var(--input-border-width-focus) solid var(--color-primary);
+      border: var(--input-border-width-focus) solid var(--color-focus);
       padding: 0 calc(1.25rem - var(--input-border-width-focus) + var(--input-border-width));
     }
   }

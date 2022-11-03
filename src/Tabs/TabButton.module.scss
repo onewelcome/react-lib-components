@@ -30,6 +30,10 @@
   font-weight: bold;
   color: transparent;
 
+  &:focus-visible {
+    outline-color: var(--color-focus);
+  }
+
   &.focussed:not(:focus-visible) {
     outline: none;
   }

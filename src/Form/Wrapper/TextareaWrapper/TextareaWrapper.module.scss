@@ -50,10 +50,6 @@
     border-color: var(--color-primary);
   }
 
-  &:hover:not(:disabled):not(.error) {
-    border-color: var(--default);
-  }
-
   &:focus:not(:disabled) {
     outline: none;
   }

@@ -32,7 +32,7 @@
     }
     font-weight: bold;
   } @else if $variant == "outline" {
-    background-color: var(--button-fill-background-color);
+    background-color: var(--white);
     font-weight: bold;
   }
 
@@ -53,7 +53,7 @@
     &:hover:not(#{$disabledSelector}),
     &:focus:not(#{$disabledSelector}),
     &:active:not(#{$disabledSelector}) {
-      background-color: var(--button-fill-background-color);
+      background-color: var(--button-fill-hover-background-color);
     }
 
     &#{$disabledSelector} {
@@ -84,7 +84,7 @@
     color: $color;
   }
 
-  @include focusOutline($color);
+  @include focusOutline(var(--color-focus));
 
   &:hover:not(.disabled),
   &:focus:not(.disabled) {
@@ -103,7 +103,6 @@
         background-color: transparent;
         position: relative;
         color: $color;
-        border-color: var(--button-fill-background-color);
       } @else if $variant == "fill" {
         position: relative;
         color: $color;
@@ -189,7 +188,7 @@
   }
 
   .outline.focus:not(.error) {
-    border-color: var(--color-primary);
+    border-color: var(--color-focus);
   }
 }
 

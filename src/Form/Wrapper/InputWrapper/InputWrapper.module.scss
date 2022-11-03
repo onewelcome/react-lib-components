@@ -16,7 +16,7 @@
 
 @import "../../../mixins.module.scss";
 
-@include inputLabelPrimaryColorOnFocus("label.input-label");
+@include inputLabelPrimaryColorOnFocus("label.input-label.focus");
 
 input {
   &.floating-label {

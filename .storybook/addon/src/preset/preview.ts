@@ -14,19 +14,17 @@
  *    limitations under the License.
  */
 
-import { BaseStyling } from "../src/_BaseStyling_/BaseStyling";
-import "./base.scss";
+/**
+ * A decorator is a way to wrap a story in extra “rendering” functionality. Many addons define decorators
+ * in order to augment stories:
+ * - with extra rendering
+ * - gather details about how a story is rendered
+ *
+ * When writing stories, decorators are typically used to wrap stories with extra markup or context mocking.
+ *
+ * https://storybook.js.org/docs/react/writing-stories/decorators#gatsby-focus-wrapper
+ */
+import { withBaseStyling } from "../withBaseStyling";
 
-// https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
-export const parameters = {
-  // https://storybook.js.org/docs/react/essentials/actions#automatically-matching-args
-  actions: { argTypesRegex: "^on.*" }
-};
-
-export const decorators = [
-  Story => (
-    <BaseStyling>
-      <Story />
-    </BaseStyling>
-  )
-];
+export const globalTypes = { baseStyling: {} };
+export const decorators = [withBaseStyling];

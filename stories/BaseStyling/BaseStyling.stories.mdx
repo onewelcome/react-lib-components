@@ -1,0 +1,253 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="components/layout/BaseStyling"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true }
+    }
+  }}
+/>
+
+# BaseStyling
+
+The component library can be customised in a limited fashion. This customisation is done through the use of this `BaseStyling` component, which should be wrapped around your entire application. Using the `properties` prop, you can pass an object
+with any of the properties you find in the [props table down below](#props). All of the colors and values you'll find for each of the properties are their default values. Meaning that if you just wrap your application in the `BaseStyling` component
+without passing anything to the `properties` prop, these are the values you'll work with.
+
+We have created a [Storybook addon](https://storybook.js.org/docs/react/addons/introduction), which adds a `BaseStyling` tab with all of the properties you can customise. These will affect the Story you are currently viewing. For instance, if you [navigate
+to the Button story](/story/components-inputs-button--filled-button), click on the `BaseStyling` tab and play with the `colorPrimary`, you will see the `Button` component in the Story change immediately.
+
+<img
+  src="/basestylingexample.gif"
+  alt="Example of how to use the BaseStyling addon with the Button component"
+/>
+
+Down below you will find all of the CSS properties that are currently supported and an explanation of what they do and which components they affect.
+
+## colorFocus
+
+Will get translated to the CSS variable `--color-focus`. By default, this refers to the same color as `--color-primary`, so if you change the `--color-primary` variable to a different color, this property will automatically change as well.
+
+## colorPrimary
+
+Will get translated to the CSS variable `--color-primary`. This is the main color for the component library and is used everywhere. Every component uses this color in one way or another, so changing this variable to a color of your choice will
+shape the entire look and feel of your application.
+
+## colorSecondary
+
+Will get translated to the CSS variable `--color-secondary`. This is a secondary color which is used only for the [Button component](/story/components-inputs-button--filled-button&args=color:secondary) and the [Link component](/story/components-navigation-link--link&args=color:secondary).
+As you can see, `secondary` is one of the colors that you can select from the `color` prop.
+
+## colorTertiary
+
+Will get translated to the CSS variable `--color-tertiary`. This is a tertiary color which is used only for the [Button component](/story/components-inputs-button--filled-button&args=color:tertiary) and the [Link component](/story/components-navigation-link--link&args=color:tertiary).
+As you can see, `tertiary` is one of the colors that you can select from the `color` prop.
+
+## defaultLineHeight
+
+Will get translated to the CSS variable `--default-line-height`. This is the default line-height for every single component.
+
+## buttonBorderRadius
+
+Will get translated to the CSS variable `--button-border-radius`. This is the `border-radius` for every [Button component](/story/components-inputs-button--filled-button).
+
+## buttonBorderWidth
+
+Will get translated to the CSS variable `--button-border-width`. This is the `border-width` for every [Button component](/story/components-inputs-button--filled-button).
+
+## buttonFontSize
+
+Will get translated to the CSS variable `--button-font-size`. This is the `font-size` for every [Button component](/story/components-inputs-button--filled-button).
+
+## buttonBorderStyle
+
+Will get translated to the CSS variable `--button-border-style`. This is the `border-style` for every [Button component](/story/components-inputs-button--filled-button).
+
+## buttonFillTextColor
+
+Will get translated to the CSS variable `--button-fill-text-color`. This is the `color` for every [Button component](/story/components-inputs-button--filled-button) that has their `variant` prop set to `fill`.
+
+## buttonFillHoverBackgroundColor
+
+Will get translated to the CSS variable `--button-fill-hover-background-color`. This is the `background-color` for every [Button component](/story/components-inputs-button--filled-button) that has their `variant` prop set to `fill`.
+
+## buttonOutlineHoverTextColor
+
+Will get translated to the CSS variable `--button-outline-hover-text-color`. This is the **hover** `color` for every [Button component](/story/components-inputs-button--filled-button) that has their `variant` prop set to `outline`.
+
+## inputBorderRadius
+
+Will get translated to the CSS variable `--input-border-radius`. This is the `border-radius` for every [Input component](/story/components-inputs-input-wrapper--input-wrapper).
+
+## inputBorderWidth
+
+Will get translated to the CSS variable `--input-border-width`. This is the `border-width` for every [Input component](/story/components-inputs-input-wrapper--input-wrapper).
+
+## inputBorderWidthFocus
+
+Will get translated to the CSS variable `--input-border-width-focus`. This is the `border-radius` for every [Input component](/story/components-inputs-input-wrapper--input-wrapper) that is `:focus`ed.
+
+## inputBorderStyle
+
+Will get translated to the CSS variable `--input-border-style`. This is the `border-style` for every [Input component](/story/components-inputs-input-wrapper--input-wrapper).
+
+## inputBackgroundColor
+
+Will get translated to the CSS variable `--input-background-color`. This is the `background-color` for every [Input component](/story/components-inputs-input-wrapper--input-wrapper).
+
+## modalShadowColor
+
+Will get translated to the CSS variable `--modal-shadow-color`. This is the `box-shadow` for every [Modal component](/story/components-utils-modal--modal). NOTE: this is not the backdrop/background color!
+
+## modalBackgroundColor
+
+Will get translated to the CSS variable `--modal-background-color`. This is the `background-color` for every [Modal component](/story/components-utils-modal--modal).
+
+## modalHeaderBackgroundColor
+
+Will get translated to the CSS variable `--modal-header-background-color`. This is the `background-color` for every [Modal component](/story/components-utils-modal--modal).
+
+## snackbarTextColor
+
+Will get translated to the CSS variable `--snackbar-text-color`. This is the `color` for every [Snackbar component](/story/components-feedback-snackbar--snackbar).
+
+## snackbarInfoBackgroundColor
+
+Will get translated to the CSS variable `--snackbar-info-background-color`. This is the `background-color` for every [Snackbar component](/story/components-feedback-snackbar--snackbar) that has been generated using the `enqueueSnackbar()` function.
+
+## snackbarSuccessBackgroundColor
+
+Will get translated to the CSS variable `--snackbar-success-background-color`. This is the `background-color` for every [Snackbar component](/story/components-feedback-snackbar--snackbar) that has been generated using the `enqueueSuccessSnackbar()` function.
+
+## snackbarErrorBackgroundColor
+
+Will get translated to the CSS variable `--snackbar-error-background-color`. This is the `background-color` for every [Snackbar component](/story/components-feedback-snackbar--snackbar) that has been generated using the `enqueueErrorSnackbar()` function.
+
+## snackbarBorderRadius
+
+Will get translated to the CSS variable `--snackbar-border-radius`. This is the `border-radius` for every [Snackbar component](/story/components-feedback-snackbar--snackbar).
+
+## dataGridRowBackgroundColor
+
+Will get translated to the CSS variable `--data-grid-row-background-color`. This is the `background-color` for every `<tr>` element inside of a [DataTable component](/story/components-data-display-datagrid--data-grid)
+
+## dataGridRowHoverBackgroundColor
+
+Will get translated to the CSS variable `--data-grid-row-hover-background-color`. This is the on **hover** `background-color` for every `<tr>` element inside of a [DataTable component](/story/components-data-display-datagrid--data-grid).
+
+## tabsBackgroundColor
+
+Will get translated to the CSS variable `--tabs-background-color`. This is the `background-color` for every [Tabs component](/story/components-navigation-tabs--tabs).
+
+## tabBorderWidth
+
+Will get translated to the CSS variable `--tab-border-width`. This is the `border-width` for every [Tabs component](/story/components-navigation-tabs--tabs).
+
+## tabBorderStyle
+
+Will get translated to the CSS variable `--tab-border-style`. This is the `border-style` for every [Tabs component](/story/components-navigation-tabs--tabs).
+
+## tablistBorderWidth
+
+Will get translated to the CSS variable `--tablist-border-width`. This is the `border-width` of the border underneath the tab buttons in the [Tabs component](/story/components-navigation-tabs--tabs).
+
+## tablistBorderStyle
+
+Will get translated to the CSS variable `--tablist-border-style`. This is the `border-style` of the border underneath the tab buttons in the [Tabs component](/story/components-navigation-tabs--tabs).
+
+## tablistBorderColor
+
+Will get translated to the CSS variable `--tablist-border-color`. This is the `border-color` of the border underneath the tab buttons in the [Tabs component](/story/components-navigation-tabs--tabs).
+
+## tabTextColor
+
+Will get translated to the CSS variable `--tab-text-color`. This is the `color` of the tab buttons in the [Tabs component](/story/components-navigation-tabs--tabs).
+
+## default
+
+Will get translated to the CSS variable `--default`. It is used in the following components:
+
+- It is the default text color displayed for the [Typography component](/story/components-data-display-typography--typography).
+- It is a color for the [Button component](/story/components-inputs-button--filled-button).
+- It's the color of the border when you hover over a [Wrapper component](/story/components-inputs-input-wrapper--input-wrapper&args=value:example) and also the label inside any if a value is filled in and the input is not focused
+- It is the background color of the [Toggle component](/story/components-inputs-toggle--toggle) when it's turned off.
+- It is the background color of the backdrop when a [Modal component](/story/components-utils-modal--modal) is opened.
+- It is the color of the element that appears when you hover over a [Tooltip component](/story/components-data-display-tooltip--tooltip).
+
+## success
+
+Will get translated to the CSS variable `--success`. This is the success color used for the [StatusIndicator component](/story/components-feedback-statusindicator--status-indicator) and the checkmark in the top left of an individual [Tile Component](/story/components-layout-tiles-tiles--tiles).
+
+## error
+
+Will get translated to the CSS variable `--error`. It's used in **all** components inside the `Inputs` category when there's an error and also inside the [StatusIndicator component](/story/components-feedback-statusindicator--status-indicator&args=status:error) when it's set to `Error`.
+
+## disabled
+
+Will get translated to the CSS variable `--disabled`. It's used in **all** components inside the `Inputs` category when they're disabled. For example, it's the `background-color` of an [InputWrapper component](/story/components-inputs-input-wrapper--input-wrapper&args=disabled:true) when they're disabled.
+
+## greyedOut
+
+Will get translated to the CSS variable `--greyed-out`. It is used in the following components:
+
+- It is used in **all** components inside the `inputs` category when they're disabled. For example, it's the `color` of an [InputWrapper component](/story/components-inputs-input-wrapper--input-wrapper&args=disabled:true) when it's disabled.
+- It is used in the [Link component](/story/components-navigation-link--link&args=disabled:true) when it's disabled.
+- It's used as a `color` to display the `Items per page` text in the [Pagination component](/story/components-navigation-pagination--pagination).
+- It's used as the `neutral` color for the [StatusIndicator component](/story/components-feedback-statusindicator--status-indicator&args=status:neutral).
+- It's used as the `color` for the placeholder image in the [Tile component](/story/components-layout-tiles-tiles--tiles) (see the middle two).
+- It's used as the `color` for the icon that you hover over in the [Tooltip component](/story/components-data-display-tooltip--tooltip).
+- It's used as a `color` for [Wizard Steps](/story/components-layout-wizard-wizardsteps--wizard-steps) that have not been completed yet.
+
+## lightGreyBorder
+
+Will get translated to the CSS variable `--light-grey-border`. This is the default `border-color` for **all** of the components inside of the `Inputs` category, and also the `border-color` for all [Tile components](/story/components-layout-tiles-tiles--tiles).
+
+## warning
+
+Will get translated to the CSS variable `--warning`. Used in the [StatusIndicator component](/story/components-feedback-statusindicator--status-indicator&args=status:warning) when `status` is set to `warning`.
+
+## light
+
+Will get translated to the CSS variable `--light`. This color is used in all components where the color `white` is used by default. Whenever darkmode is introduced, you can easily make a dark color scheme.
+
+## grey
+
+Will get translated to the CSS variable `--grey`. This color is currently used as the `bottom-border` color of the [DataGrid header](/story/components-data-display-datagrid--data-grid).
+
+## fontFamily
+
+Will get translated to the CSS variable `--font-family`. This is the default `font-family` for **all** components.
+
+## fontFamilyCode
+
+Will get translated to the CSS variable `--font-family-code`. This is the default `font-family` for the [Typography component](/story/components-data-display-typography--typography&args=variant:code) when the `variant` is set to `code`.
+
+## fontSize
+
+Will get translated to the CSS variable `--font-size`. This is the default `font-size` for all components.
+
+## fontSizeH1
+
+Will get translated to the CSS variable `--font-size-h1`. The default `font-size` for any `h1` heading element.
+
+## fontSizeH2
+
+Will get translated to the CSS variable `--font-size-h2`. The default `font-size` for any `h2` heading element.
+
+## fontSizeH3
+
+Will get translated to the CSS variable `--font-size-h3`. The default `font-size` for any `h3` heading element.
+
+## fontSizeH4
+
+Will get translated to the CSS variable `--font-size-h4`. The default `font-size` for any `h4` heading element.
+
+## fontSizeSub
+
+Will get translated to the CSS variable `--font-size-sub`. The default `font-size` for any `sub` heading element.
+
+## fontSizeCode
+
+Will get translated to the CSS variable `--font-size-code`. The default `font-size` for any `code` heading element.

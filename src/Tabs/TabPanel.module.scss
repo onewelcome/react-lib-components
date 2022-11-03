@@ -17,6 +17,10 @@
 .tabpanel {
   display: none;
 
+  &:focus-visible {
+    outline-color: var(--color-focus);
+  }
+
   &.selected {
     display: block;
   }
