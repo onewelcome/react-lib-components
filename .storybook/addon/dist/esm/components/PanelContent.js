@@ -72,11 +72,6 @@ export var PanelContent = function PanelContent(_ref) {
       propertiesState = _useState4[0],
       setPropertiesState = _useState4[1];
 
-  var _useState5 = useState([]),
-      _useState6 = _slicedToArray(_useState5, 2),
-      rows = _useState6[0],
-      setRows = _useState6[1];
-
   var debouncedPropertyState = useDebounce(propertiesState, 200);
   useEffect(function () {
     propertyChanged(propertiesState);

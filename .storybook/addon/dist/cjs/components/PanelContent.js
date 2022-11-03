@@ -78,11 +78,6 @@ var PanelContent = function PanelContent(_ref) {
       propertiesState = _useState4[0],
       setPropertiesState = _useState4[1];
 
-  var _useState5 = (0, _react.useState)([]),
-      _useState6 = _slicedToArray(_useState5, 2),
-      rows = _useState6[0],
-      setRows = _useState6[1];
-
   var debouncedPropertyState = useDebounce(propertiesState, 200);
   (0, _react.useEffect)(function () {
     propertyChanged(propertiesState);
