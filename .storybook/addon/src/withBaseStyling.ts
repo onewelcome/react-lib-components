@@ -16,7 +16,7 @@
 
 import type { DecoratorFunction } from "@storybook/addons";
 import { useEffect, useGlobals } from "@storybook/addons";
-import { cssPropertyToObjectKey, objectKeyToCSSProperty } from "./utils/helpers";
+import { cssPropertyToObjectKey } from "./utils/helpers";
 
 export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   const [{ baseStyling }, updateGlobals] = useGlobals();
@@ -37,7 +37,7 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   }, [window.location.search]);
 
   useEffect(() => {
-    setLocalStorageAndDispatchUpdateStylingEvent(baseStyling);
+    setSessionStorageAndDispatchUpdateStylingEvent(baseStyling);
   }, [baseStyling]);
 
   const parseStylesToObject = (styleString: string) => {
@@ -61,7 +61,9 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
     return propertiesObject;
   };
 
-  const setLocalStorageAndDispatchUpdateStylingEvent = (stylingObject: Record<string, string>) => {
+  const setSessionStorageAndDispatchUpdateStylingEvent = (
+    stylingObject: Record<string, string>
+  ) => {
     window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
 
     const updatedStyling = new Event("updated-styling");

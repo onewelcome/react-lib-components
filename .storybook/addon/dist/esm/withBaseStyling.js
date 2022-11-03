@@ -45,7 +45,7 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     }, waitForMs);
   }, [window.location.search]);
   useEffect(function () {
-    setLocalStorageAndDispatchUpdateStylingEvent(baseStyling);
+    setSessionStorageAndDispatchUpdateStylingEvent(baseStyling);
   }, [baseStyling]);
   var parseStylesToObject = function parseStylesToObject(styleString) {
     var propertiesArray = styleString.split(";");
@@ -57,7 +57,7 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     }, {});
     return propertiesObject;
   };
-  var setLocalStorageAndDispatchUpdateStylingEvent = function setLocalStorageAndDispatchUpdateStylingEvent(stylingObject) {
+  var setSessionStorageAndDispatchUpdateStylingEvent = function setSessionStorageAndDispatchUpdateStylingEvent(stylingObject) {
     window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
     var updatedStyling = new Event("updated-styling");
     window.dispatchEvent(updatedStyling);

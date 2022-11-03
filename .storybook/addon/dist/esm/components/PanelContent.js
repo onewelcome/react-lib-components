@@ -89,7 +89,7 @@ export var PanelContent = function PanelContent(_ref) {
   };
   var renderContent = function renderContent() {
     if (propertiesState && Object.entries(propertiesState)) {
-      return [].map(function (_ref2) {
+      return Object.entries(propertiesState).map(function (_ref2) {
         var _ref3 = _slicedToArray(_ref2, 2),
           key = _ref3[0],
           value = _ref3[1];
@@ -113,6 +113,7 @@ export var PanelContent = function PanelContent(_ref) {
           value: parseValue(value)
         })));
       });
+      return state;
     }
     return null;
   };

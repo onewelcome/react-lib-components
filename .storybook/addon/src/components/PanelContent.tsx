@@ -134,7 +134,7 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
 
   const renderContent = () => {
     if (propertiesState && Object.entries(propertiesState)) {
-      return [].map(([key, value]) => (
+      return Object.entries(propertiesState).map(([key, value]) => (
         <tr key={key}>
           <td>{key}</td>
           <td style={{ textAlign: "left" }}>
@@ -157,6 +157,8 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
           </td>
         </tr>
       ));
+
+      return state;
     }
 
     return null;
