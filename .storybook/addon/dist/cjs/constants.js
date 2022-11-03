@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.PARAM_KEY = exports.PANEL_ID = exports.ADDON_ID = void 0;
-
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -20,6 +19,7 @@ exports.PARAM_KEY = exports.PANEL_ID = exports.ADDON_ID = void 0;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 var ADDON_ID = "storybook/basestyling";
 exports.ADDON_ID = ADDON_ID;
 var PANEL_ID = "".concat(ADDON_ID, "/basestyling");

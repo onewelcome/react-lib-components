@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -20,10 +19,11 @@ exports["default"] = void 0;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 if (module && module.hot && module.hot.decline) {
   module.hot.decline();
-} // make it work with --isolatedModules
+}
 
-
+// make it work with --isolatedModules
 var _default = {};
 exports["default"] = _default;

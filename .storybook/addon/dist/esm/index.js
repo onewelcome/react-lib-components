@@ -13,9 +13,10 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 if (module && module.hot && module.hot.decline) {
   module.hot.decline();
-} // make it work with --isolatedModules
+}
 
-
+// make it work with --isolatedModules
 export default {};

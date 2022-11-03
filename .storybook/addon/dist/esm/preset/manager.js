@@ -13,10 +13,12 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 import { addons, types } from "@storybook/addons";
 import { ADDON_ID, PANEL_ID } from "../constants";
-import { Panel } from "../Panel"; // Register the addon
+import { Panel } from "../Panel";
 
+// Register the addon
 addons.register(ADDON_ID, function () {
   addons.add(PANEL_ID, {
     type: types.PANEL,

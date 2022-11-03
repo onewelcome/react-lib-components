@@ -1,11 +1,8 @@
 "use strict";
 
 var _addons = require("@storybook/addons");
-
 var _constants = require("../constants");
-
 var _Panel = require("../Panel");
-
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -21,6 +18,7 @@ var _Panel = require("../Panel");
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 // Register the addon
 _addons.addons.register(_constants.ADDON_ID, function () {
   _addons.addons.add(_constants.PANEL_ID, {

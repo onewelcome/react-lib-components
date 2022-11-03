@@ -3,10 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.decorators = exports.globalTypes = void 0;
-
+exports.globalTypes = exports.decorators = void 0;
 var _withBaseStyling = require("../withBaseStyling");
-
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -33,6 +31,7 @@ var _withBaseStyling = require("../withBaseStyling");
  *
  * https://storybook.js.org/docs/react/writing-stories/decorators#gatsby-focus-wrapper
  */
+
 var globalTypes = {
   baseStyling: {}
 };
