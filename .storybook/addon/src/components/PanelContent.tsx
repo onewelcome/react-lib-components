@@ -96,7 +96,6 @@ function useDebounce<T>(value: T, delay: number): T {
 
 export const PanelContent: React.FC<PanelContentProps> = ({ properties, propertyChanged }) => {
   const [propertiesState, setPropertiesState] = useState<Record<string, string>>(undefined);
-  const [rows, setRows] = useState([]);
   const debouncedPropertyState = useDebounce(propertiesState, 200);
 
   useEffect(() => {
@@ -134,37 +133,33 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
     }));
 
   const renderContent = () => {
-    const rows: JSX.Element[] = [];
-
-    if (propertiesState) {
-      for (const property in propertiesState) {
-        rows.push(
-          <tr key={property}>
-            <td>{property}</td>
-            <td style={{ textAlign: "left" }}>
-              <PropertyValueLabel>{property}</PropertyValueLabel>
-              {shouldBeColorPicker.includes(property) ? (
-                <ColorControl
-                  name={property}
-                  onChange={value => {
-                    handlePropertyChange(property, value);
-                  }}
-                  value={parseValue(propertiesState[property])}
-                />
-              ) : (
-                <PropertyValueInput
-                  onChange={e => handlePropertyChange(property, e.target.value)}
-                  type="text"
-                  value={parseValue(propertiesState[property])}
-                />
-              )}
-            </td>
-          </tr>
-        );
-      }
+    if (propertiesState && Object.entries(propertiesState)) {
+      return [].map(([key, value]) => (
+        <tr key={key}>
+          <td>{key}</td>
+          <td style={{ textAlign: "left" }}>
+            <PropertyValueLabel>{key}</PropertyValueLabel>
+            {shouldBeColorPicker.includes(key) ? (
+              <ColorControl
+                name={key}
+                onChange={value => {
+                  handlePropertyChange(key, value);
+                }}
+                value={parseValue(propertiesState[key])}
+              />
+            ) : (
+              <PropertyValueInput
+                onChange={e => handlePropertyChange(key, e.target.value)}
+                type="text"
+                value={parseValue(value)}
+              />
+            )}
+          </td>
+        </tr>
+      ));
     }
 
-    setRows(rows);
+    return null;
   };
 
   return (
@@ -175,7 +170,7 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
           <th>Property value</th>
         </tr>
       </thead>
-      <tbody>{rows}</tbody>
+      <tbody>{renderContent()}</tbody>
     </Table>
   );
 };

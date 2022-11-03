@@ -118,44 +118,42 @@ var PanelContent = function PanelContent(_ref) {
   };
 
   var renderContent = function renderContent() {
-    var rows = [];
+    if (propertiesState && Object.entries(propertiesState)) {
+      return [].map(function (_ref2) {
+        var _ref3 = _slicedToArray(_ref2, 2),
+            key = _ref3[0],
+            value = _ref3[1];
 
-    if (propertiesState) {
-      var _loop = function _loop(property) {
-        rows.push( /*#__PURE__*/_react["default"].createElement("tr", {
-          key: property
-        }, /*#__PURE__*/_react["default"].createElement("td", null, property), /*#__PURE__*/_react["default"].createElement("td", {
+        return /*#__PURE__*/_react["default"].createElement("tr", {
+          key: key
+        }, /*#__PURE__*/_react["default"].createElement("td", null, key), /*#__PURE__*/_react["default"].createElement("td", {
           style: {
             textAlign: "left"
           }
-        }, /*#__PURE__*/_react["default"].createElement(PropertyValueLabel, null, property), shouldBeColorPicker.includes(property) ? /*#__PURE__*/_react["default"].createElement(_components.ColorControl, {
-          name: property,
+        }, /*#__PURE__*/_react["default"].createElement(PropertyValueLabel, null, key), shouldBeColorPicker.includes(key) ? /*#__PURE__*/_react["default"].createElement(_components.ColorControl, {
+          name: key,
           onChange: function onChange(value) {
-            handlePropertyChange(property, value);
+            handlePropertyChange(key, value);
           },
-          value: parseValue(propertiesState[property])
+          value: parseValue(propertiesState[key])
         }) : /*#__PURE__*/_react["default"].createElement(PropertyValueInput, {
           onChange: function onChange(e) {
-            return handlePropertyChange(property, e.target.value);
+            return handlePropertyChange(key, e.target.value);
           },
           type: "text",
-          value: parseValue(propertiesState[property])
-        }))));
-      };
-
-      for (var property in propertiesState) {
-        _loop(property);
-      }
+          value: parseValue(value)
+        })));
+      });
     }
 
-    setRows(rows);
+    return null;
   };
 
   return /*#__PURE__*/_react["default"].createElement(_components.Table, {
     style: {
       width: "100%"
     }
-  }, /*#__PURE__*/_react["default"].createElement("thead", null, /*#__PURE__*/_react["default"].createElement("tr", null, /*#__PURE__*/_react["default"].createElement("th", null, "Property name"), /*#__PURE__*/_react["default"].createElement("th", null, "Property value"))), /*#__PURE__*/_react["default"].createElement("tbody", null, rows));
+  }, /*#__PURE__*/_react["default"].createElement("thead", null, /*#__PURE__*/_react["default"].createElement("tr", null, /*#__PURE__*/_react["default"].createElement("th", null, "Property name"), /*#__PURE__*/_react["default"].createElement("th", null, "Property value"))), /*#__PURE__*/_react["default"].createElement("tbody", null, renderContent()));
 };
 
 exports.PanelContent = PanelContent;

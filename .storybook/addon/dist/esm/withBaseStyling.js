@@ -33,6 +33,8 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
       baseStyling = _useGlobals2[0].baseStyling,
       updateGlobals = _useGlobals2[1];
 
+  var waitForMs = 1; // See README.md technical explanation for why a timeout is necessary.
+
   useEffect(function () {
     setTimeout(function () {
       var _context$canvasElemen;
@@ -45,7 +47,7 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
           baseStyling: stylesObject
         });
       }
-    }, 1);
+    }, waitForMs);
   }, [window.location.search]);
   useEffect(function () {
     updateCSSPropertiesOnHTMLElement(baseStyling);
