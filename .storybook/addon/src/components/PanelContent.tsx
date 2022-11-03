@@ -157,8 +157,6 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
           </td>
         </tr>
       ));
-
-      return state;
     }
 
     return null;
