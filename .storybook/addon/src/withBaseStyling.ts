@@ -42,17 +42,21 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
 
   const parseStylesToObject = (styleString: string) => {
     const propertiesArray = styleString.split(";");
-    const propertiesObject: Record<string, string> = {};
 
-    if (propertiesArray.length) {
-      propertiesArray.forEach(property => {
-        if (property) {
-          const { key, value } = cssPropertyToObjectKey(property);
-
-          propertiesObject[key] = value;
+    const propertiesObject: Record<string, string> = propertiesArray.reduce(
+      (propertiesObj, currentProperty) => {
+        if (currentProperty) {
+          return {
+            ...propertiesObj,
+            [cssPropertyToObjectKey(currentProperty).key]:
+              cssPropertyToObjectKey(currentProperty).value
+          };
         }
-      });
-    }
+
+        return propertiesObj;
+      },
+      {}
+    );
 
     return propertiesObject;
   };
