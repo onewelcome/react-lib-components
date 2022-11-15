@@ -30,6 +30,8 @@ module.exports = {
           })
         : p
     );
+    
+    config.plugins.push(cleanup({ extensions: ["js", "ts"] }));
 
     config.plugins.push(
       styles({
@@ -39,7 +41,6 @@ module.exports = {
       })
     );
 
-    config.plugins.push(cleanup({ extensions: ["js", "ts"] }));
     return config;
   }
 };
