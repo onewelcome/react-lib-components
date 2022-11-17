@@ -29,9 +29,9 @@
     width: 50%;
     border-radius: 0.25rem;
     background-color: var(--color-primary);
-    animation: cubic-bezier(0.23, 0.78, 0.78, 0.23) 1s slideIn infinite;
+    animation: cubic-bezier(0.23, 0.78, 0.78, 0.23) 1s slide-in infinite;
 
-    @keyframes slideIn {
+    @keyframes slide-in {
       0% {
         left: -50%;
       }
