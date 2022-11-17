@@ -31,6 +31,10 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = () => <ProgressBarComponent />;
+const Template: Story<Props> = () => (
+  <div style={{ width: "500px" }}>
+    <ProgressBarComponent />
+  </div>
+);
 
 export const ProgressBar = Template.bind({});

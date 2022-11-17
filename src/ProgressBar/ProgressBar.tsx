@@ -14,17 +14,19 @@
  *    limitations under the License.
  */
 
-import React, { HTMLProps } from "react";
+import React, { ComponentPropsWithRef } from "react";
 import classes from "./ProgressBar.module.scss";
 
-export interface Props extends HTMLProps<HTMLSpanElement> {}
+export interface Props extends Omit<ComponentPropsWithRef<"span">, "children"> {}
 
-export const ProgressBar = ({ className, ...rest }: Props) => {
-  const classNames = [classes["progress-bar"]];
-  className && classNames.push(className);
-  return (
-    <span {...rest} className={classNames.join(" ")}>
-      <span className={classes["bar"]} />
-    </span>
-  );
-};
+export const ProgressBar = React.forwardRef<HTMLSpanElement, Props>(
+  ({ className, ...rest }: Props, ref) => {
+    const classNames = [classes["progress-bar"]];
+    className && classNames.push(className);
+    return (
+      <span {...rest} ref={ref} className={classNames.join(" ")} role="progressbar">
+        <span className={classes["bar"]} />
+      </span>
+    );
+  }
+);
