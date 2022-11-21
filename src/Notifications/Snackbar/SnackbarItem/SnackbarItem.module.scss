@@ -15,6 +15,7 @@
  */
 
 @import "../../../readyclasses.module.scss";
+@import "../../../mixins.module.scss";
 
 .snackbar {
   padding: 1rem 1.25rem;
@@ -22,7 +23,7 @@
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  transition: height 0.2s ease-in-out;
+  @include transition(height, 0.2s, ease-in-out);
   flex-grow: 0;
 
   &.info {
@@ -122,8 +123,7 @@
 
     &:active {
       position: relative;
-      border-color: transparent;
-      border: 0;
+      border: 0 transparent;
       padding: calc(0.625rem + var(--button-border-width))
         calc(1.25rem + var(--button-border-width));
 

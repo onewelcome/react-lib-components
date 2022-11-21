@@ -31,10 +31,18 @@
 
 .slide-in {
   animation: slide-in 0.5s forwards;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 0.1ms;
+  }
 }
 
 .slide-out {
   animation: slide-out 0.5s forwards;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 0.1ms;
+  }
 }
 
 @keyframes slide-in {
