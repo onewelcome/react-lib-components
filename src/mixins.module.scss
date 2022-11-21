@@ -226,8 +226,10 @@
     );
     content: "";
 
-    @media (prefers-reduced-motion: no-preference) {
-      animation: shimmer 2s infinite;
+    animation: shimmer 2s infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation-duration: 0.1ms;
     }
   }
 
