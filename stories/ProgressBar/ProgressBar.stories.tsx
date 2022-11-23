@@ -14,10 +14,11 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { ProgressBar as ProgressBarComponent, Props } from "../../src/ProgressBar/ProgressBar";
 import ProgressBarDocumentation from "./ProgressBar.mdx";
+import { Button } from "../../src/Button/Button";
 
 const meta: Meta = {
   title: "components/Feedback/ProgressBar",
@@ -31,10 +32,24 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = () => (
-  <div style={{ width: "500px" }}>
-    <ProgressBarComponent />
-  </div>
-);
+const Template: Story<Props> = args => {
+  const [isProgressBarVisible, setIsProgressBarVisible] = useState(false);
+  return (
+    <div>
+      <Button onClick={() => setIsProgressBarVisible(!isProgressBarVisible)}>
+        {isProgressBarVisible ? "Hide progress bar" : "Show progress bar"}
+      </Button>
+      {isProgressBarVisible && (
+        <div style={{ width: "500px", marginTop: "32px" }}>
+          <ProgressBarComponent {...args} />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const ProgressBar = Template.bind({});
+
+ProgressBar.args = {
+  placeholderText: "Loading..."
+};

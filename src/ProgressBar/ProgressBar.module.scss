@@ -23,6 +23,10 @@
   background-color: var(--disabled);
   overflow: hidden;
 
+  @media (prefers-reduced-motion) {
+    visibility: hidden;
+  }
+
   .bar {
     position: absolute;
     height: 0.5rem;
@@ -40,5 +44,13 @@
         left: 100%;
       }
     }
+  }
+}
+
+.placeholder {
+  visibility: hidden;
+
+  @media (prefers-reduced-motion) {
+    visibility: visible;
   }
 }

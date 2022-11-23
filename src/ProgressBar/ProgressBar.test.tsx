@@ -2,7 +2,9 @@ import React, { useEffect, useRef } from "react";
 import { ProgressBar, Props } from "./ProgressBar";
 import { render } from "@testing-library/react";
 
-const defaultParams: Props = {};
+const defaultParams: Props = {
+  placeholderText: "Loading"
+};
 
 const createProgressBar = (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;
@@ -26,7 +28,7 @@ describe("ProgressBar should render", () => {
     }));
 
     expect(ProgressBarComponent).toBeDefined();
-    expect(ProgressBarComponent).toHaveClass(`progress-bar test`, { exact: true });
+    expect(ProgressBarComponent).toHaveClass(`test`, { exact: true });
   });
 });
 
