@@ -29,7 +29,7 @@ export const ProgressBar = React.forwardRef<HTMLSpanElement, Props>(
         <span className={classes["progress-bar"]}>
           <span className={classes["bar"]} />
         </span>
-        <Typography className={classes["placeholder"]} variant="body" tag="div">
+        <Typography className={classes["placeholder"]} spacing={{ marginBottom: 0 }} variant="body">
           {placeholderText}
         </Typography>
       </span>

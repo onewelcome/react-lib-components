@@ -24,7 +24,7 @@
   overflow: hidden;
 
   @media (prefers-reduced-motion) {
-    visibility: hidden;
+    display: none;
   }
 
   .bar {
@@ -48,9 +48,9 @@
 }
 
 .placeholder {
-  visibility: hidden;
+  display: none;
 
   @media (prefers-reduced-motion) {
-    visibility: visible;
+    display: unset;
   }
 }

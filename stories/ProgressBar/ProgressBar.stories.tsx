@@ -33,17 +33,9 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => {
-  const [isProgressBarVisible, setIsProgressBarVisible] = useState(false);
   return (
-    <div>
-      <Button onClick={() => setIsProgressBarVisible(!isProgressBarVisible)}>
-        {isProgressBarVisible ? "Hide progress bar" : "Show progress bar"}
-      </Button>
-      {isProgressBarVisible && (
-        <div style={{ width: "500px", marginTop: "32px" }}>
-          <ProgressBarComponent {...args} />
-        </div>
-      )}
+    <div style={{ width: "500px", marginTop: "32px" }}>
+      <ProgressBarComponent {...args} />
     </div>
   );
 };
