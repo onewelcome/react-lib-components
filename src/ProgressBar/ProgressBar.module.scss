@@ -23,7 +23,7 @@
   background-color: var(--disabled);
   overflow: hidden;
 
-  @media (prefers-reduced-motion) {
+  @media (prefers-reduced-motion: reduce) {
     display: none;
   }
 
