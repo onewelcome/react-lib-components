@@ -229,7 +229,7 @@
     animation: shimmer 2s infinite;
 
     @media (prefers-reduced-motion: reduce) {
-      animation-duration: 0.1ms;
+      animation: none;
     }
   }
 
