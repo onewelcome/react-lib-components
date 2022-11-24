@@ -1,0 +1,22 @@
+import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+
+<Title />
+<Subtitle />
+
+The `ProgressBar` component can be used whenever user has to wait for a particular action to finish.
+
+It takes 100% width of its parent by default. Its styles can be adjusted using the `className` prop.
+
+# Examples
+
+```jsx
+<div style={{ width: "500px" }}>
+  <ProgressBar />
+</div>
+```
+
+<DocsStory id="components-feedback-progressbar--progress-bar" />
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
