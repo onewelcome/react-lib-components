@@ -14,58 +14,43 @@
  *    limitations under the License.
  */
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+.progress-bar {
+  position: relative;
+  display: block;
+  height: 0.5rem;
+  width: 100%;
+  border-radius: 0.25rem;
+  background-color: var(--disabled);
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+
+  .bar {
+    position: absolute;
+    height: 0.5rem;
+    width: 50%;
+    border-radius: 0.25rem;
+    background-color: var(--color-primary);
+    animation: cubic-bezier(0.23, 0.78, 0.78, 0.23) 1s slide-in infinite;
+
+    @keyframes slide-in {
+      0% {
+        left: -50%;
+      }
+
+      100% {
+        left: 100%;
+      }
+    }
+  }
 }
 
-.hidden {
+.placeholder {
   display: none;
-}
-
-.slide-in {
-  animation: slide-in 0.5s forwards;
 
   @media (prefers-reduced-motion: reduce) {
-    animation-duration: 0.1ms;
-  }
-}
-
-.slide-out {
-  animation: slide-out 0.5s forwards;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation-duration: 0.1ms;
-  }
-}
-
-@keyframes slide-in {
-  0% {
-    transform: translateY(100vh);
-  }
-  100% {
-    transform: translateY(0%);
-  }
-}
-
-@keyframes slide-out {
-  0% {
-    transform: translateY(0%);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
-
-@mixin focusOutline($color) {
-  &:focus-visible {
-    outline: 1px solid $color;
-    outline-offset: 1px;
+    display: unset;
   }
 }

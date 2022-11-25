@@ -14,6 +14,8 @@
  *    limitations under the License.
  */
 
+@import "../mixins.module.scss";
+
 $focus-width: 5px;
 
 .tabs {
@@ -37,12 +39,13 @@ $focus-width: 5px;
 }
 
 .indicator {
+  $transition-property: left, width;
+
   position: absolute;
   height: var(--tab-active-border-height);
   background-color: var(--tab-active-border-color);
-  transition-property: left, width;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
+
+  @include transition($transition-property, 0.2s, ease-in-out);
 }
 
 .tabdivider {
