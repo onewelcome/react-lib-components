@@ -30,7 +30,7 @@ input {
 
 .input-wrapper {
   [data-icon]:before {
-    transition: 0.2s ease-in-out;
+    @include transition(all, 0.2s, ease-in-out);
     transform: translateY(0px);
     font-size: 1.125rem;
   }

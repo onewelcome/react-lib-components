@@ -29,7 +29,7 @@
   box-sizing: border-box;
   border: 0;
   border-radius: var(--input-border-radius);
-  transition: all 0.2s ease-in-out;
+  @include transition(all, 0.2s, ease-in-out);
   font-family: var(--font-family);
   font-size: var(--font-size);
   color: var(--greyed-out);
