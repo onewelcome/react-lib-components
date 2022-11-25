@@ -137,7 +137,6 @@ export const throttle = (fn: (...args: unknown[]) => unknown, delay: number) => 
   return function () {
     var now = Date.now();
 
-    console.log(now, lastTime);
     if (now - lastTime >= delay) {
       fn();
       lastTime = now;

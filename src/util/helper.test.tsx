@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { fireEvent, waitFor } from "@testing-library/dom";
 import { generateID, filterProps, debounce, throttle } from "./helper";
 import { render } from "@testing-library/react";
@@ -126,8 +126,16 @@ describe("throttling works", () => {
   it("throttles the function", async () => {
     const throttledFunction = jest.fn();
 
-    window.addEventListener("resize", throttle(throttledFunction, 5));
+    window.addEventListener("resize", throttle(throttledFunction, 1));
 
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
     await fireEvent.resize(window);
     await fireEvent.resize(window);
     await fireEvent.resize(window);
@@ -141,6 +149,47 @@ describe("throttling works", () => {
 
     expect(throttledFunction).not.toHaveBeenCalledTimes(1);
     expect(throttledFunction).not.toHaveBeenCalledTimes(10);
-    expect(throttledFunction).toHaveBeenCalledTimes(3);
+  });
+
+  it("Works in a react component as well, it should only fire the exampleFunction once.", async () => {
+    const ExampleComponent = ({
+      throttledFunction
+    }: {
+      throttledFunction: (...args: unknown[]) => unknown;
+    }) => {
+      const [variable, setVariable] = useState(0);
+
+      useEffect(() => {
+        throttledFunction(variable);
+      }, [variable]);
+
+      const incrementVariable = useCallback(() => {
+        setVariable(Math.random());
+      }, []);
+
+      useEffect(() => {
+        window.addEventListener("resize", throttle(incrementVariable, 1));
+      }, []);
+
+      return null;
+    };
+
+    const exampleFunction = jest.fn();
+
+    render(<ExampleComponent throttledFunction={exampleFunction} />);
+
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+    await fireEvent.resize(window);
+
+    expect(exampleFunction).not.toHaveBeenCalledTimes(1);
+    expect(exampleFunction).not.toHaveBeenCalledTimes(10);
   });
 });
