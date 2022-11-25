@@ -115,3 +115,32 @@ export const filterProps = (props: any, regexPattern: RegExp, returnFiltered: bo
       );
   }
 };
+
+export const debounce = (fn: (...args: unknown[]) => unknown, delay: number) => {
+  let timeout: undefined | ReturnType<typeof setTimeout>;
+
+  return function executedFunction(...args: unknown[]) {
+    const later = () => {
+      clearTimeout(timeout);
+      fn(...args);
+    };
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(later, delay);
+  };
+};
+
+export const throttle = (fn: (...args: unknown[]) => unknown, delay: number) => {
+  let lastTime = 0;
+
+  return function () {
+    var now = Date.now();
+
+    console.log(now, lastTime);
+    if (now - lastTime >= delay) {
+      fn();
+      lastTime = now;
+    }
+  };
+};
