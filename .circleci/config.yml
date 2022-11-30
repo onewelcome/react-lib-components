@@ -64,6 +64,20 @@ jobs:
           paths:
             - project/storybook-static
 
+  deploy-storybook-to-github-pages:
+    parameters:
+      executor:
+        description: The executor to use.
+        type: executor
+        default: onegini-build/node-executor
+    executor: << parameters.executor >>
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Run gh-pages deploy
+          command: npm run github-pages:deploy
+
 workflows:
   version: 2
   build-workflow:
@@ -135,3 +149,12 @@ workflows:
           <<: *filter-tags
           requires:
             - publish-library
+
+      - deploy-storybook-to-github-pages:
+          name: deploy-github-pages
+          <<: *dev-context
+#          <<: *filter-tags
+          requires:
+            - build-storybook
+
+

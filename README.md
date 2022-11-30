@@ -1,5 +1,10 @@
 # OneWelcome React Component Library
 
+[![OneWelcome](https://circleci.com/gh/onewelcome/react-lib-components.svg?style=svg)](<https://circleci.com>)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=alert_status&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=vulnerabilities&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=coverage&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
+
 This project provides React components built according to the [UI Component Library design](https://xd.adobe.com/view/1f7161d7-5ade-4e54-bb3d-6e4aa3a1d1a0-4a22/grid/). It uses the [DTS tool](https://weiran-zsd.github.io/dts-cli/) which provides for a consistent setup and configuration.
 
 > Note: the package is publicly available [on npm](https://www.npmjs.com/package/@onewelcome/react-lib-components).

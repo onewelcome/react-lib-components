@@ -30,7 +30,8 @@
     "prettier": "prettier --write --ignore-path .gitignore \"**/*.+(ts|tsx|scss|mdx)\"",
     "storybook": "start-storybook -p 6006",
     "test": "dts test --passWithNoTests",
-    "test:watch": "dts test --passWithNoTests --watch"
+    "test:watch": "dts test --passWithNoTests --watch",
+    "github-pages:deploy": "gh-pages -d storybook-static"
   },
   "jest": {
     "testEnvironment": "jsdom"
