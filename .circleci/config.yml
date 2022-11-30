@@ -76,7 +76,7 @@ jobs:
           at: ~/
       - run:
           name: Set git repository
-          command: git remote set-url origin https://git:${GITHUB_API_TOKEN}@github.com:onewelcome/react-lib-components.git
+          command: git remote set-url origin https://git:${GITHUB_API_TOKEN}@github.com/onewelcome/react-lib-components.git
       - run:
           name: Run gh-pages deploy
           command: npm run github-pages:deploy
