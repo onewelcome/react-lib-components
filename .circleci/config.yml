@@ -65,12 +65,7 @@ jobs:
             - project/storybook-static
 
   deploy-storybook-to-github-pages:
-    parameters:
-      executor:
-        description: The executor to use.
-        type: executor
-        default: onegini-build/node-executor
-    executor: << parameters.executor >>
+    executor: onegini-build/node-executor
     steps:
       - attach_workspace:
           at: ~/
