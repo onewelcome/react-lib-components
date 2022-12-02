@@ -62,7 +62,7 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(
         ref={ref}
         className={`${classes[color]} ${classes[variant]} ${additionalClasses.join(" ")}`}
       >
-        {startIcon && <i>{startIcon}&nbsp;</i>}
+        {startIcon && <i>{startIcon}</i>}
         <span>{children}</span>
         {endIcon && <i>&nbsp;{endIcon}</i>}
       </BaseButton>
