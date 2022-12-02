@@ -34,7 +34,6 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  font-size: 14px;
 
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
@@ -43,6 +42,7 @@
 
 .icon {
   line-height: 0;
+  font-size: 0.875rem;
 }
 
 .icon-image:before {
