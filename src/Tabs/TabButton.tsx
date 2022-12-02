@@ -14,57 +14,34 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, useEffect } from "react";
+import React, { ComponentPropsWithRef, createRef, RefObject, useEffect } from "react";
 import classes from "./TabButton.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"button"> {
   children?: string;
-  selected?: boolean;
-  focussed?: boolean;
-  tabId?: string;
-  tabPanelId?: string;
-  onTabButtonClick?: () => void;
+  tabActive?: boolean;
+  focused?: boolean;
 }
 
 export const TabButton = React.forwardRef<HTMLButtonElement, Props>(
-  (
-    {
-      children,
-      selected = false,
-      focussed = false,
-      tabId,
-      tabPanelId,
-      className,
-      onTabButtonClick,
-      ...rest
-    }: Props,
-    ref
-  ) => {
+  ({ children, tabActive, focused, ...rest }: Props, ref) => {
+    let buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
+
     useEffect(() => {
-      if (focussed && ref) {
-        (ref as React.MutableRefObject<HTMLButtonElement>).current.focus();
+      if (focused && buttonRef.current) {
+        buttonRef.current.focus();
       }
-    }, [focussed]);
-
-    const classNames = [classes["tabbutton"]];
-
-    selected && classNames.push(classes["selected"]);
-    focussed && !selected && classNames.push(classes["focussed"]);
-    className && classNames.push(className);
+    }, [buttonRef.current, focused]);
 
     return (
       <button
         {...rest}
-        aria-selected={selected}
-        key={tabId}
-        className={classNames.join(" ")}
-        ref={ref}
+        className={`${classes["tabbutton"]} ${tabActive ? classes["selected"] : ""} ${
+          rest.className
+        }`}
+        ref={buttonRef}
         role="tab"
-        tabIndex={selected ? 0 : -1}
         type="button"
-        aria-controls={tabPanelId}
-        id={tabId}
-        onClick={onTabButtonClick}
       >
         <span aria-hidden="true">{children}</span>
         {children}
