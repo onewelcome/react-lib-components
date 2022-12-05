@@ -17,6 +17,7 @@
 const replace = require("@rollup/plugin-replace");
 const styles = require("rollup-plugin-styles");
 const cleanup = require("rollup-plugin-cleanup");
+const crypto = require("crypto");
 
 const STATIC_CSP_NONCE = "DsPHCoJqXm4vKCqFrm03y1";
 
@@ -30,13 +31,21 @@ module.exports = {
           })
         : p
     );
-    
+
     config.plugins.push(cleanup({ extensions: ["js", "ts"] }));
 
     config.plugins.push(
       styles({
         mode: ["inject", { attributes: { nonce: STATIC_CSP_NONCE } }],
-        modules: true,
+        modules: {
+          generateScopedName: (name, filename, css) => {
+            const i = css.indexOf(`.${name}`);
+            const lineNumber = css.substr(0, i).split(/[\r\n]/).length;
+            const hash = crypto.randomBytes(20).toString("hex");
+
+            return `_${name}_${hash}_${lineNumber}`;
+          }
+        },
         minimize: { preset: ["default", { discardComments: { removeAll: true } }] }
       })
     );
