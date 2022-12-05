@@ -140,7 +140,7 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         });
       }
 
-      return;
+      return null;
     });
 
     setRenderedTabs(tabs);
