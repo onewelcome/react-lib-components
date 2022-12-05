@@ -147,10 +147,6 @@ describe("Tabs should render", () => {
 
 describe("Tabs should not render other children then tab components", () => {
   it("renders no tabs", () => {
-    const originalConsole = console.warn;
-
-    console.warn = jest.fn();
-
     const queries = render(
       <Tabs data-testid="tabs">
         <div>wrong component 1</div>
@@ -159,13 +155,6 @@ describe("Tabs should not render other children then tab components", () => {
     );
 
     const tabs = queries.getByTestId("tabs");
-
-    expect(console.warn).toHaveBeenCalledWith(
-      "The elements provided as children to the Tabs component are not the <Tab /> component."
-    );
-
-    console.warn = originalConsole;
-
     expect(tabs).toBeDefined();
     expect(tabs).toBeEmptyDOMElement;
   });
