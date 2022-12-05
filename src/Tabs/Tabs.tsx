@@ -144,7 +144,7 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }, [activeTabIndex]);
 
   return (
-    <div {...rest} ref={tabsRef} className={`${classes["tabs"]} ${rest.className}`}>
+    <div {...rest} ref={tabsRef} className={`${classes["tabs"]} ${rest.className ?? ""}`}>
       <div role="tablist" className={classes["tablist"]} onKeyDown={handleKeyDown}>
         {renderedButtons}
         <div className={classes["tabdivider"]} />

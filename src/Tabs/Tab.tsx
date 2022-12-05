@@ -29,7 +29,9 @@ export const Tab = ({ children, tabActive, ...rest }: Props) => {
       {...rest}
       aria-hidden={!tabActive}
       role="tabpanel"
-      className={`${classes["tab"]} ${tabActive ? classes["selected"] : ""} ${rest.className}}`}
+      className={`${classes["tab"]} ${tabActive ? classes["selected"] : ""} ${
+        rest.className ?? ""
+      }`}
     >
       {children}
     </div>

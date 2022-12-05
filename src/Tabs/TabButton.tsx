@@ -37,7 +37,7 @@ export const TabButton = React.forwardRef<HTMLButtonElement, Props>(
       <button
         {...rest}
         className={`${classes["tabbutton"]} ${tabActive ? classes["selected"] : ""} ${
-          rest.className
+          rest.className ?? ""
         }`}
         ref={buttonRef}
         role="tab"
