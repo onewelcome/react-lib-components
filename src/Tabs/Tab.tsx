@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-import React, { HTMLProps, ReactNode } from "react";
+import React, { HTMLProps } from "react";
 import classes from "./Tab.module.scss";
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   title?: string;
-  children?: ReactNode;
+  children?: unknown;
   tabActive?: boolean;
 }
 

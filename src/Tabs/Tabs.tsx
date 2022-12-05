@@ -127,7 +127,10 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   useEffect(() => {
     const tabs = React.Children.map(children, (child, index) => {
-      if (Object.prototype.hasOwnProperty.call(child.type, "displayName")) {
+      if (
+        Object.prototype.hasOwnProperty.call(child.type, "displayName") &&
+        Object.prototype.hasOwnProperty.call(child.props, "title")
+      ) {
         return React.cloneElement(child, {
           key: `tab_${index}`,
           tabIndex: activeTabIndex === index ? 0 : -1,
@@ -136,10 +139,6 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           children: child.props.children
         });
       }
-
-      console.warn(
-        "The elements provided as children to the Tabs component are not the <Tab /> component."
-      );
 
       return;
     });
