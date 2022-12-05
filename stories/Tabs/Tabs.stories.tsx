@@ -38,7 +38,6 @@ const Template: Story<Props> = args => {
     <TabsComponent {...args}>
       <Tab title="First tab">
         <Typography variant="h2">Tabs</Typography>
-        {console.log("FIRST TAB")}
         <ul>
           <li>Tabs are used for third level navigation.</li>
           <li>Tabs can split up large pieces of information or configuration.</li>
@@ -48,7 +47,6 @@ const Template: Story<Props> = args => {
       </Tab>
       <Tab title="Second tab">
         <Typography variant="h2">Title of the second tab</Typography>
-        {console.log("SECOND TAB")}
         <p>
           Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante,
           dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius
@@ -62,7 +60,6 @@ const Template: Story<Props> = args => {
       </Tab>
       <Tab title="Third tab">
         <Typography variant="h2">The third tab</Typography>
-        {console.log("THIRD TAB")}
         <p>
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
           laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
