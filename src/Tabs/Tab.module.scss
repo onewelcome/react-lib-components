@@ -1,4 +1,4 @@
-/*
+/*!
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,26 +14,14 @@
  *    limitations under the License.
  */
 
-import React, { HTMLProps } from "react";
-import classes from "./Tab.module.scss";
+.tab {
+  display: none;
 
-export interface Props extends HTMLProps<HTMLDivElement> {
-  title?: string;
-  children?: unknown;
-  tabActive?: boolean;
+  &:focus-visible {
+    outline-color: var(--color-focus);
+  }
+
+  &.selected {
+    display: block;
+  }
 }
-
-export const Tab = ({ children, tabActive, ...rest }: Props) => {
-  return (
-    <div
-      {...rest}
-      aria-hidden={!tabActive}
-      role="tabpanel"
-      className={`${classes["tab"]} ${tabActive ? classes["selected"] : ""} ${
-        rest.className ?? ""
-      }`}
-    >
-      {children}
-    </div>
-  );
-};

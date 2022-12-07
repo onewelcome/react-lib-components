@@ -45,41 +45,13 @@ describe("Tab should render", () => {
     expect(tabButton).toBeTruthy();
   });
 
-  it("should be selected when prop selected is passed", () => {
+  it("should be focussed when prop focused is passed", () => {
     const { tabButton } = createTabButton(defaultParams => ({
       ...defaultParams,
-      selected: true
+      focused: true
     }));
 
-    expect(tabButton).toHaveAttribute("aria-selected", "true");
-    expect(tabButton).toHaveAttribute("tabIndex", "0");
-  });
-
-  it("should be focussed when prop focussed is passed", () => {
-    const { tabButton } = createTabButton(defaultParams => ({
-      ...defaultParams,
-      focussed: true
-    }));
-
-    expect(tabButton).toHaveClass("focussed");
-  });
-
-  it("should set accessibility attributes when prop tabPanelId is passed", () => {
-    const { tabButton } = createTabButton(defaultParams => ({
-      ...defaultParams,
-      tabPanelId: "fakeId"
-    }));
-
-    expect(tabButton).toHaveAttribute("aria-controls", "fakeId");
-  });
-
-  it("should set id attribute when prop tabId is passed", () => {
-    const { tabButton } = createTabButton(defaultParams => ({
-      ...defaultParams,
-      tabId: "fakeId"
-    }));
-
-    expect(tabButton).toHaveAttribute("id", "fakeId");
+    expect(tabButton).toHaveFocus();
   });
 
   it("should set class when prop className is passed", () => {
