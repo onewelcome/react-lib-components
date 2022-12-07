@@ -45,7 +45,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   onClose?: () => void;
 }
 
-export const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   {
     trigger,
     children,

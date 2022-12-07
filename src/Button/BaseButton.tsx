@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import classes from "./BaseButton.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"button"> {

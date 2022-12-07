@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import classes from "./Icon.module.scss";
 
 export enum Icons {
@@ -93,19 +93,22 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   tag?: Tag;
 }
 
-export const Icon = React.forwardRef<HTMLDivElement, Props>(
-  ({ icon, color, className, style, size, tag = "span", ...rest }: Props, ref) => {
-    const Component = tag;
+const IconComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { icon, color, className, style, size, tag = "span", ...rest }: Props,
+  ref
+) => {
+  const Component = tag;
 
-    return (
-      <Component
-        {...rest}
-        ref={ref}
-        style={{ color: color, ...style, fontSize: size }}
-        data-icon
-        aria-hidden="true"
-        className={`${classes["icon"]} ${classes["icon-" + icon]} ${className ? className : ""}`}
-      />
-    );
-  }
-);
+  return (
+    <Component
+      {...rest}
+      ref={ref}
+      style={{ color: color, ...style, fontSize: size }}
+      data-icon
+      aria-hidden="true"
+      className={`${classes["icon"]} ${classes["icon-" + icon]} ${className ? className : ""}`}
+    />
+  );
+};
+
+export const Icon = React.forwardRef(IconComponent);

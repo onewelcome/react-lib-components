@@ -14,7 +14,12 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, createRef, ReactNode } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  createRef,
+  ReactNode
+} from "react";
 import { Icon, Icons } from "../../Icon/Icon";
 import { KeyValuePair } from "../../interfaces";
 import { FormSelector } from "../form.interfaces";
@@ -31,57 +36,57 @@ export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   identifier?: string;
 }
 
-export const FormSelectorWrapper = React.forwardRef<HTMLDivElement, Props>(
-  (
-    {
-      children,
-      className,
-      nestedChildren,
-      containerProps,
-      helperProps,
-      error,
-      disabled,
-      helperText,
-      errorMessage,
-      parentErrorId,
-      errorId,
-      identifier,
-      ...rest
-    }: Props,
-    ref
-  ) => {
-    const helperRef = helperProps?.ref || createRef();
+const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  {
+    children,
+    className,
+    nestedChildren,
+    containerProps,
+    helperProps,
+    error,
+    disabled,
+    helperText,
+    errorMessage,
+    parentErrorId,
+    errorId,
+    identifier,
+    ...rest
+  }: Props,
+  ref
+) => {
+  const helperRef = helperProps?.ref || createRef();
 
-    return (
-      <div
-        {...rest}
-        ref={ref}
-        className={`${error ? classes["error"] : ""} ${disabled ? classes["disabled"] : ""} ${
-          className ?? ""
-        }`}
-      >
-        <div {...containerProps}>{children}</div>
-        {(helperText || (helperProps && helperProps.children)) &&
-          (!error || parentErrorId || !errorMessage) && (
-            <FormHelperText
-              {...helperProps}
-              ref={helperRef}
-              id={`${identifier}`}
-              className={`${classes["helper-text"]} ${helperProps?.className ?? ""} ${
-                error ? classes["error"] : ""
-              }`}
-            >
-              {(helperProps && helperProps.children) || helperText}
-            </FormHelperText>
-          )}
-        {errorMessage && !parentErrorId && error && (
-          <span className={classes["error-message"]}>
-            <Icon className={classes["error-icon"]} icon={Icons.Error} />
-            <span id={errorId}>{errorMessage}</span>
-          </span>
+  return (
+    <div
+      {...rest}
+      ref={ref}
+      className={`${error ? classes["error"] : ""} ${disabled ? classes["disabled"] : ""} ${
+        className ?? ""
+      }`}
+    >
+      <div {...containerProps}>{children}</div>
+      {(helperText || (helperProps && helperProps.children)) &&
+        (!error || parentErrorId || !errorMessage) && (
+          <FormHelperText
+            {...helperProps}
+            ref={helperRef}
+            id={`${identifier}`}
+            className={`${classes["helper-text"]} ${helperProps?.className ?? ""} ${
+              error ? classes["error"] : ""
+            }`}
+          >
+            {(helperProps && helperProps.children) || helperText}
+          </FormHelperText>
         )}
-        {nestedChildren}
-      </div>
-    );
-  }
-);
+      {errorMessage && !parentErrorId && error && (
+        <span className={classes["error-message"]}>
+          <Icon className={classes["error-icon"]} icon={Icons.Error} />
+          <span id={errorId}>{errorMessage}</span>
+        </span>
+      )}
+      {nestedChildren}
+    </div>
+  );
+};
+
+export const FormSelectorWrapper = React.forwardRef(FormSelectorWrapperComponent);
