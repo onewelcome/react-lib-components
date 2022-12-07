@@ -14,10 +14,9 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { ForwardRefRenderFunction } from "react";
 import { BaseButton, Props as BaseButtonProps } from "./BaseButton";
 import classes from "./Button.module.scss";
-import { ForwardRefRenderFunction } from "react";
 
 export interface Props extends BaseButtonProps {
   startIcon?: React.ReactNode | false;
