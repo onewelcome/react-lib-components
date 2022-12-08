@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import { Typography } from "../Typography/Typography";
 import classes from "./ProgressBar.module.scss";
 
@@ -22,17 +22,20 @@ export interface Props extends Omit<ComponentPropsWithRef<"span">, "children"> {
   placeholderText: string;
 }
 
-export const ProgressBar = React.forwardRef<HTMLSpanElement, Props>(
-  ({ placeholderText, ...rest }: Props, ref) => {
-    return (
-      <span {...rest} ref={ref} role="progressbar">
-        <span className={classes["progress-bar"]}>
-          <span className={classes["bar"]} />
-        </span>
-        <Typography className={classes["placeholder"]} spacing={{ marginBottom: 0 }} variant="body">
-          {placeholderText}
-        </Typography>
+const ProgressBarComponent: ForwardRefRenderFunction<HTMLSpanElement, Props> = (
+  { placeholderText, ...rest }: Props,
+  ref
+) => {
+  return (
+    <span {...rest} ref={ref} role="progressbar">
+      <span className={classes["progress-bar"]}>
+        <span className={classes["bar"]} />
       </span>
-    );
-  }
-);
+      <Typography className={classes["placeholder"]} spacing={{ marginBottom: 0 }} variant="body">
+        {placeholderText}
+      </Typography>
+    </span>
+  );
+};
+
+export const ProgressBar = React.forwardRef(ProgressBarComponent);

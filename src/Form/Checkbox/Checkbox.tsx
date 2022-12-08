@@ -14,7 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ReactElement, ReactNode, useEffect } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  ReactElement,
+  ReactNode,
+  useEffect
+} from "react";
 import { Icon, Icons } from "../../Icon/Icon";
 import { Props as FormHelperTextProps } from "../FormHelperText/FormHelperText";
 import classes from "./Checkbox.module.scss";
@@ -36,141 +42,139 @@ export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Checkbox = React.forwardRef<HTMLInputElement, Props>(
-  (
-    {
-      children,
-      name,
-      helperText,
-      helperProps,
-      indeterminate,
-      parentErrorId,
-      errorMessage,
-      disabled,
-      label,
-      parentHelperId,
-      className,
-      error,
-      checked = false,
-      formSelectorWrapperProps,
-      onChange,
-      ...rest
-    }: Props,
-    ref
-  ) => {
-    const { errorId, identifier, describedBy } = useFormSelector({
-      name,
-      helperText,
-      parentErrorId,
-      errorMessage,
-      error,
-      parentHelperId
-    });
+const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
+  {
+    children,
+    name,
+    helperText,
+    helperProps,
+    indeterminate,
+    parentErrorId,
+    errorMessage,
+    disabled,
+    label,
+    parentHelperId,
+    className,
+    error,
+    checked = false,
+    formSelectorWrapperProps,
+    onChange,
+    ...rest
+  }: Props,
+  ref
+) => {
+  const { errorId, identifier, describedBy } = useFormSelector({
+    name,
+    helperText,
+    parentErrorId,
+    errorMessage,
+    error,
+    parentHelperId
+  });
 
-    useEffect(() => {
-      if (!name) {
-        throw new Error("Please pass a 'name' prop to your <Checkbox> component.");
-      }
+  useEffect(() => {
+    if (!name) {
+      throw new Error("Please pass a 'name' prop to your <Checkbox> component.");
+    }
 
-      if (typeof children === "object" && !isToggle(children) && indeterminate === undefined) {
-        throw new Error(
-          "If you have nested checkboxes you have to manage the indeterminate state by passing a boolean to the `indeterminate` prop."
-        );
-      }
-    }, []);
-
-    const determineLabel = () => {
-      if (label) {
-        return label;
-      } else if (children === undefined) {
-        throw new Error(
-          "Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component."
-        );
-      }
-
-      if (typeof children === "string") {
-        return children;
-      }
-
+    if (typeof children === "object" && !isToggle(children) && indeterminate === undefined) {
       throw new Error(
-        "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox."
+        "If you have nested checkboxes you have to manage the indeterminate state by passing a boolean to the `indeterminate` prop."
       );
-    };
+    }
+  }, []);
 
-    const renderNestedCheckboxes = () => (
-      <ul className={classes["checkbox-list"]}>
-        {React.Children.map(children as ReactElement[], child => {
-          return (
-            <li>
-              <Checkbox
-                {...child.props}
-                parentHelperId={parentHelperId}
-                parentErrorId={parentErrorId}
-                error={error}
-                disabled={child.props.disabled ? child.props.disabled : disabled}
-              >
-                {child.props.children}
-              </Checkbox>
-            </li>
-          );
-        })}
-      </ul>
+  const determineLabel = () => {
+    if (label) {
+      return label;
+    } else if (children === undefined) {
+      throw new Error(
+        "Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component."
+      );
+    }
+
+    if (typeof children === "string") {
+      return children;
+    }
+
+    throw new Error(
+      "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox."
     );
+  };
 
-    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (disabled) {
-        return;
+  const renderNestedCheckboxes = () => (
+    <ul className={classes["checkbox-list"]}>
+      {React.Children.map(children as ReactElement[], child => {
+        return (
+          <li>
+            <Checkbox
+              {...child.props}
+              parentHelperId={parentHelperId}
+              parentErrorId={parentErrorId}
+              error={error}
+              disabled={child.props.disabled ? child.props.disabled : disabled}
+            >
+              {child.props.children}
+            </Checkbox>
+          </li>
+        );
+      })}
+    </ul>
+  );
+
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (disabled) {
+      return;
+    }
+    onChange && onChange(event);
+  };
+
+  const renderToggle = () => React.Children.toArray(children).filter(isToggle);
+
+  const iconClasses = [classes["input"], disabled ? classes["disabled"] : ""];
+
+  /** Default return value is the default checkbox */
+  return (
+    <FormSelectorWrapper
+      {...formSelectorWrapperProps}
+      className={`${classes["checkbox-wrapper"]} ${className ? className : ""}`}
+      containerProps={{ className: classes["checkbox-container"] }}
+      helperText={helperText}
+      helperProps={helperProps}
+      parentErrorId={parentErrorId}
+      errorId={errorId}
+      errorMessage={errorMessage}
+      error={error}
+      disabled={disabled}
+      identifier={identifier}
+      nestedChildren={
+        typeof children === "object" && !isToggle(children) && renderNestedCheckboxes()
       }
-      onChange && onChange(event);
-    };
-
-    const renderToggle = () => React.Children.toArray(children).filter(isToggle);
-
-    const iconClasses = [classes["input"], disabled ? classes["disabled"] : ""];
-
-    /** Default return value is the default checkbox */
-    return (
-      <FormSelectorWrapper
-        {...formSelectorWrapperProps}
-        className={`${classes["checkbox-wrapper"]} ${className ? className : ""}`}
-        containerProps={{ className: classes["checkbox-container"] }}
-        helperText={helperText}
-        helperProps={helperProps}
-        parentErrorId={parentErrorId}
-        errorId={errorId}
-        errorMessage={errorMessage}
-        error={error}
+    >
+      <input
+        {...rest}
+        ref={ref}
         disabled={disabled}
-        identifier={identifier}
-        nestedChildren={
-          typeof children === "object" && !isToggle(children) && renderNestedCheckboxes()
-        }
-      >
-        <input
-          {...rest}
-          ref={ref}
-          disabled={disabled}
-          className={`${classes["native-input"]} ${error ? classes["error"] : ""}`}
-          checked={checked}
-          onChange={onChangeHandler}
-          aria-invalid={error as boolean}
-          aria-checked={indeterminate ? "mixed" : checked}
-          aria-describedby={describedBy}
-          id={`${identifier}-checkbox`}
-          name={name}
-          type="checkbox"
-        />
-        {renderToggle()}
+        className={`${classes["native-input"]} ${error ? classes["error"] : ""}`}
+        checked={checked}
+        onChange={onChangeHandler}
+        aria-invalid={error as boolean}
+        aria-checked={indeterminate ? "mixed" : checked}
+        aria-describedby={describedBy}
+        id={`${identifier}-checkbox`}
+        name={name}
+        type="checkbox"
+      />
+      {renderToggle()}
 
-        {indeterminate && <Icon className={iconClasses.join(" ")} icon={Icons.MinusSquare} />}
-        {checked && !indeterminate && (
-          <Icon className={iconClasses.join(" ")} icon={Icons.CheckmarkSquare} />
-        )}
-        {!checked && !indeterminate && (
-          <Icon className={iconClasses.join(" ")} icon={Icons.Square} />
-        )}
-        <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
-      </FormSelectorWrapper>
-    );
-  }
-);
+      {indeterminate && <Icon className={iconClasses.join(" ")} icon={Icons.MinusSquare} />}
+      {checked && !indeterminate && (
+        <Icon className={iconClasses.join(" ")} icon={Icons.CheckmarkSquare} />
+      )}
+      {!checked && !indeterminate && <Icon className={iconClasses.join(" ")} icon={Icons.Square} />}
+      <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
+    </FormSelectorWrapper>
+  );
+};
+
+export const Checkbox = React.forwardRef(CheckboxComponent);

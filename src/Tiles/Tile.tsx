@@ -17,6 +17,7 @@
 import React, {
   ComponentPropsWithoutRef,
   ComponentPropsWithRef,
+  ForwardRefRenderFunction,
   ReactElement,
   useState
 } from "react";
@@ -40,64 +41,65 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   tileAction?: ReactElement<ContextMenuProps> | ReactElement<IconButtonProps>;
 }
 
-export const Tile = React.forwardRef<HTMLDivElement, Props>(
-  ({ title, imageProps, enabled, className, loading, tileAction, ...rest }: Props, ref) => {
-    const [tileDescriptionID] = useState(generateID(20));
+const TileComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { title, imageProps, enabled, className, loading, tileAction, ...rest }: Props,
+  ref
+) => {
+  const [tileDescriptionID] = useState(generateID(20));
 
-    if (!title) {
-      throw new Error("Please make sure to pass a title prop to your Tile component.");
+  if (!title) {
+    throw new Error("Please make sure to pass a title prop to your Tile component.");
+  }
+
+  const statusMessage = () => {
+    if (enabled) {
+      return "Status: enabled";
     }
 
-    const statusMessage = () => {
-      if (enabled) {
-        return "Status: enabled";
-      }
+    return "Status: disabled";
+  };
 
-      return "Status: disabled";
-    };
+  return (
+    <article
+      {...rest}
+      tabIndex={0}
+      aria-labelledby={tileDescriptionID}
+      ref={ref}
+      className={`${classes["tile"]} ${loading ? classes["loading"] : ""}`}
+    >
+      <header style={{ justifyContent: enabled === undefined ? "flex-end" : "space-between" }}>
+        {enabled === true && (
+          <Icon
+            color="var(--success)"
+            icon={Icons.Checkmark}
+            className={`${classes["icon"]} ${className ?? ""}`}
+          />
+        )}
+        {enabled === false && (
+          <Icon
+            color="var(--greyed-out)"
+            icon={Icons.Forbidden}
+            className={`${classes["icon"]} ${className ?? ""}`}
+          />
+        )}
+        {enabled !== undefined && (
+          <span id={tileDescriptionID} className={readyClasses["sr-only"]}>
+            {`${title}. ${statusMessage()}`}
+          </span>
+        )}
+        {tileAction ?? null}
+      </header>
+      <div className={classes["content"]}>
+        {imageProps && imageProps.src.length > 0 && (
+          <figure className={classes["image"]}>{!loading && <img {...imageProps} alt="" />}</figure>
+        )}
+        {(!imageProps || imageProps.src.length === 0) && (
+          <Icon className={classes["placeholder"]} icon={Icons.Image} />
+        )}
+        <span className={classes["title"]}>{title}</span>
+      </div>
+    </article>
+  );
+};
 
-    return (
-      <article
-        {...rest}
-        tabIndex={0}
-        aria-labelledby={tileDescriptionID}
-        ref={ref}
-        className={`${classes["tile"]} ${loading ? classes["loading"] : ""}`}
-      >
-        <header style={{ justifyContent: enabled === undefined ? "flex-end" : "space-between" }}>
-          {enabled === true && (
-            <Icon
-              color="var(--success)"
-              icon={Icons.Checkmark}
-              className={`${classes["icon"]} ${className ?? ""}`}
-            />
-          )}
-          {enabled === false && (
-            <Icon
-              color="var(--greyed-out)"
-              icon={Icons.Forbidden}
-              className={`${classes["icon"]} ${className ?? ""}`}
-            />
-          )}
-          {enabled !== undefined && (
-            <span id={tileDescriptionID} className={readyClasses["sr-only"]}>
-              {`${title}. ${statusMessage()}`}
-            </span>
-          )}
-          {tileAction ?? null}
-        </header>
-        <div className={classes["content"]}>
-          {imageProps && imageProps.src.length > 0 && (
-            <figure className={classes["image"]}>
-              {!loading && <img {...imageProps} alt="" />}
-            </figure>
-          )}
-          {(!imageProps || imageProps.src.length === 0) && (
-            <Icon className={classes["placeholder"]} icon={Icons.Image} />
-          )}
-          <span className={classes["title"]}>{title}</span>
-        </div>
-      </article>
-    );
-  }
-);
+export const Tile = React.forwardRef(TileComponent);

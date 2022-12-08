@@ -14,17 +14,22 @@
  *    limitations under the License.
  */
 
-import React, { HTMLProps, ReactNode } from "react";
+import React, { ForwardRefRenderFunction, HTMLProps, ReactNode } from "react";
 import classes from "./Form.module.scss";
 
 export interface Props extends HTMLProps<HTMLFormElement> {
   children?: ReactNode;
 }
 
-export const Form = ({ children, className, ...rest }: Props) => {
+const FormComponent: ForwardRefRenderFunction<HTMLFormElement, Props> = (
+  { children, className, ...rest }: Props,
+  ref
+) => {
   return (
-    <form className={`${classes.form} ${className ?? ""}`} {...rest}>
+    <form ref={ref} className={`${classes.form} ${className ?? ""}`} {...rest}>
       {children}
     </form>
   );
 };
+
+export const Form = React.forwardRef(FormComponent);

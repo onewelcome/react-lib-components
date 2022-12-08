@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ReactNode } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactNode } from "react";
 import classes from "./Tiles.module.scss";
 import { Tile } from "./Tile";
 
@@ -23,45 +23,48 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   loading?: boolean;
 }
 
-export const Tiles = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, className, loading = false, ...rest }: Props, ref) => {
-    const renderChildren = () => {
-      if (loading) {
-        return [
-          <Tile
-            key="placeholder1"
-            title="placeholder"
-            imageProps={{ src: "placeholder" }}
-            loading={true}
-          />,
-          <Tile
-            key="placeholder2"
-            title="placeholder"
-            imageProps={{ src: "placeholder" }}
-            loading={true}
-          />,
-          <Tile
-            key="placeholder3"
-            title="placeholder"
-            imageProps={{ src: "placeholder" }}
-            loading={true}
-          />
-        ];
-      }
+const TilesComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { children, className, loading = false, ...rest }: Props,
+  ref
+) => {
+  const renderChildren = () => {
+    if (loading) {
+      return [
+        <Tile
+          key="placeholder1"
+          title="placeholder"
+          imageProps={{ src: "placeholder" }}
+          loading={true}
+        />,
+        <Tile
+          key="placeholder2"
+          title="placeholder"
+          imageProps={{ src: "placeholder" }}
+          loading={true}
+        />,
+        <Tile
+          key="placeholder3"
+          title="placeholder"
+          imageProps={{ src: "placeholder" }}
+          loading={true}
+        />
+      ];
+    }
 
-      return children;
-    };
+    return children;
+  };
 
-    return (
-      <div
-        {...rest}
-        ref={ref}
-        className={`${classes["tiles"]} ${className ?? ""}`}
-        aria-live="polite"
-        aria-busy={loading}
-      >
-        {renderChildren()}
-      </div>
-    );
-  }
-);
+  return (
+    <div
+      {...rest}
+      ref={ref}
+      className={`${classes["tiles"]} ${className ?? ""}`}
+      aria-live="polite"
+      aria-busy={loading}
+    >
+      {renderChildren()}
+    </div>
+  );
+};
+
+export const Tiles = React.forwardRef(TilesComponent);

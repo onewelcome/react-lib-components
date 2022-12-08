@@ -14,7 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, createRef, RefObject, useEffect } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  createRef,
+  RefObject,
+  useEffect
+} from "react";
 import classes from "./TabButton.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"button"> {
@@ -23,29 +29,32 @@ export interface Props extends ComponentPropsWithRef<"button"> {
   focused?: boolean;
 }
 
-export const TabButton = React.forwardRef<HTMLButtonElement, Props>(
-  ({ children, tabActive, focused, ...rest }: Props, ref) => {
-    let buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
+const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+  { children, tabActive, focused, ...rest }: Props,
+  ref
+) => {
+  let buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
 
-    useEffect(() => {
-      if (focused && buttonRef.current) {
-        buttonRef.current.focus();
-      }
-    }, [buttonRef.current, focused]);
+  useEffect(() => {
+    if (focused && buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, [buttonRef.current, focused]);
 
-    return (
-      <button
-        {...rest}
-        className={`${classes["tabbutton"]} ${tabActive ? classes["selected"] : ""} ${
-          rest.className ?? ""
-        }`}
-        ref={buttonRef}
-        role="tab"
-        type="button"
-      >
-        <span aria-hidden="true">{children}</span>
-        {children}
-      </button>
-    );
-  }
-);
+  return (
+    <button
+      {...rest}
+      className={`${classes["tabbutton"]} ${tabActive ? classes["selected"] : ""} ${
+        rest.className ?? ""
+      }`}
+      ref={buttonRef}
+      role="tab"
+      type="button"
+    >
+      <span aria-hidden="true">{children}</span>
+      {children}
+    </button>
+  );
+};
+
+export const TabButton = React.forwardRef(TabButtonComponent);

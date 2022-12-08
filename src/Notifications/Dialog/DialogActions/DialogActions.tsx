@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import {
   BaseModalActions,
   Props as BaseModalActionsProps
@@ -25,16 +25,19 @@ export interface Props extends ComponentPropsWithRef<any>, BaseModalActionsProps
   align: "left" | "right";
 }
 
-export const DialogActions = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, align, ...rest }: Props, ref) => {
-    return (
-      <BaseModalActions
-        {...rest}
-        ref={ref}
-        className={`${classes["actions"]}${align === "left" ? " " + classes["left"] : ""}`}
-      >
-        {children}
-      </BaseModalActions>
-    );
-  }
-);
+const DialogActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { children, align, ...rest }: Props,
+  ref
+) => {
+  return (
+    <BaseModalActions
+      {...rest}
+      ref={ref}
+      className={`${classes["actions"]}${align === "left" ? " " + classes["left"] : ""}`}
+    >
+      {children}
+    </BaseModalActions>
+  );
+};
+
+export const DialogActions = React.forwardRef(DialogActionsComponent);

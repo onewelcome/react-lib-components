@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ReactElement } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import classes from "./FormControl.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
@@ -25,39 +25,40 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   disabled?: boolean;
 }
 
-export const FormControl = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, disabled, error, className, grid, align = "center", ...rest }: Props, ref) => {
-    const renderChildren = () =>
-      React.Children.map(children, child => {
-        if (!child) {
-          return null;
-        }
+const FormControlComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { children, disabled, error, className, grid, align = "center", ...rest }: Props,
+  ref
+) => {
+  const renderChildren = () =>
+    React.Children.map(children, child => {
+      if (!child) {
+        return null;
+      }
 
-        const childElement = React.cloneElement(child, {
-          disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
-          error: child.props.error !== undefined ? child.props.error : error
-        });
-
-        if (grid && grid > 1) {
-          return (
-            <div className={`${classes["col-" + grid]} ${classes.column}`}>{childElement}</div>
-          );
-        }
-
-        return childElement;
+      const childElement = React.cloneElement(child, {
+        disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
+        error: child.props.error !== undefined ? child.props.error : error
       });
 
-    return (
-      <div
-        {...rest}
-        ref={ref}
-        data-formcontrol
-        className={`${classes["form-control"]} ${className ? className : ""} ${
-          grid && grid > 1 ? `${classes.grid} ${classes["grid-" + grid]}` : ""
-        } ${classes[align]}`}
-      >
-        {renderChildren()}
-      </div>
-    );
-  }
-);
+      if (grid && grid > 1) {
+        return <div className={`${classes["col-" + grid]} ${classes.column}`}>{childElement}</div>;
+      }
+
+      return childElement;
+    });
+
+  return (
+    <div
+      {...rest}
+      ref={ref}
+      data-formcontrol
+      className={`${classes["form-control"]} ${className ? className : ""} ${
+        grid && grid > 1 ? `${classes.grid} ${classes["grid-" + grid]}` : ""
+      } ${classes[align]}`}
+    >
+      {renderChildren()}
+    </div>
+  );
+};
+
+export const FormControl = React.forwardRef(FormControlComponent);
