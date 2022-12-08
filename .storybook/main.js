@@ -20,7 +20,16 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-docs",
     "@storybook/addon-essentials",
-    "@storybook/preset-scss",
+    {
+      name: "@storybook/preset-scss",
+      options: {
+        cssLoaderOptions: {
+          modules: {
+            localIdentName: "[name]__[local]--[hash:base64:5]"
+          }
+        }
+      }
+    },
     "@storybook/addon-a11y",
     "./addon/preset.js"
   ],
