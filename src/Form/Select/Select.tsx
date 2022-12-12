@@ -19,6 +19,7 @@ import classes from "./Select.module.scss";
 import React, {
   ComponentPropsWithRef,
   createRef,
+  ForwardRefRenderFunction,
   Fragment,
   ReactElement,
   useEffect,
@@ -53,238 +54,235 @@ export interface Props extends ComponentPropsWithRef<"select">, FormElement {
 /** Amount of items to be rendered before a search input is rendered */
 const renderSearchCondition = 10;
 
-export const Select = React.forwardRef<HTMLSelectElement, Props>(
-  (
-    {
-      children,
-      name,
-      disabled = false,
-      labeledBy,
-      placeholder,
-      describedBy,
-      searchPlaceholder = "Search item",
-      searchInputProps,
-      selectButtonProps,
-      className,
-      error = false,
-      value,
-      clearLabel = "Clear selection",
-      onChange,
-      ...rest
-    }: Props,
-    ref
-  ) => {
-    const [expanded, setExpanded] = useState(false);
-    const [filter, setFilter] = useState("");
-    const [display, setDisplay] = useState("");
-    const containerReference = useRef<HTMLDivElement>(null);
-    const optionListReference = useRef<HTMLDivElement>(null);
-    const [isSearching, setIsSearching] = useState(false);
-    const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
-    const [shouldClick, setShouldClick] =
-      useState(
-        false
-      ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
-    const [childrenCount] = useState(React.Children.count(children));
+const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
+  {
+    children,
+    name,
+    disabled = false,
+    labeledBy,
+    placeholder,
+    describedBy,
+    searchPlaceholder = "Search item",
+    searchInputProps,
+    selectButtonProps,
+    className,
+    error = false,
+    value,
+    clearLabel = "Clear selection",
+    onChange,
+    ...rest
+  }: Props,
+  ref
+) => {
+  const [expanded, setExpanded] = useState(false);
+  const [filter, setFilter] = useState("");
+  const [display, setDisplay] = useState("");
+  const containerReference = useRef<HTMLDivElement>(null);
+  const optionListReference = useRef<HTMLDivElement>(null);
+  const [isSearching, setIsSearching] = useState(false);
+  const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
+  const [shouldClick, setShouldClick] =
+    useState(
+      false
+    ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
+  const [childrenCount] = useState(React.Children.count(children));
 
-    const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
-    const searchInputRef = useRef<HTMLInputElement>(null);
-    const customSelectButtonRef = useRef<HTMLButtonElement>(null);
+  const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const customSelectButtonRef = useRef<HTMLButtonElement>(null);
 
-    const { onArrowNavigation } = useArrowNavigation({
-      expanded,
-      setExpanded,
-      isSearching,
-      setIsSearching,
-      setFocusedSelectItem,
-      childrenCount,
-      customSelectButtonRef,
-      setShouldClick,
-      searchInputRef,
-      renderSearchCondition
+  const { onArrowNavigation } = useArrowNavigation({
+    expanded,
+    setExpanded,
+    isSearching,
+    setIsSearching,
+    setFocusedSelectItem,
+    childrenCount,
+    customSelectButtonRef,
+    setShouldClick,
+    searchInputRef,
+    renderSearchCondition
+  });
+
+  const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
+    useSelectPositionList({ expanded, optionListReference, containerReference });
+
+  const syncDisplayValue = (val: string) => {
+    React.Children.forEach(children, child => {
+      if (child.props.value === val) {
+        setDisplay(child.props.children);
+      }
     });
+  };
 
-    const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
-      useSelectPositionList({ expanded, optionListReference, containerReference });
+  const onOptionChangeHandler = (optionRef: React.RefObject<HTMLLIElement>) => {
+    if (nativeSelect.current && optionRef.current) {
+      nativeSelect.current.value = optionRef.current.getAttribute("data-value")!;
+      nativeSelect.current.dispatchEvent(new Event("change", { bubbles: true }));
+    }
 
-    const syncDisplayValue = (val: string) => {
-      React.Children.forEach(children, child => {
-        if (child.props.value === val) {
-          setDisplay(child.props.children);
-        }
-      });
-    };
+    setExpanded(false);
 
-    const onOptionChangeHandler = (optionRef: React.RefObject<HTMLLIElement>) => {
-      if (nativeSelect.current && optionRef.current) {
-        nativeSelect.current.value = optionRef.current.getAttribute("data-value")!;
-        nativeSelect.current.dispatchEvent(new Event("change", { bubbles: true }));
-      }
+    customSelectButtonRef.current && customSelectButtonRef.current.focus();
+  };
 
-      setExpanded(false);
+  /**
+   * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected and focused at all times and if a filter is active.
+   * The `children` prop can be either a single object (1 child) or an array of multiple children.
+   */
+  const renderOptions = () => {
+    if (isSearching || filter !== "") {
+      const filteredChildren = React.Children.toArray(children).filter(
+        child =>
+          (child as ReactElement).props.children.toLowerCase().match(filter.toLowerCase()) !== null
+      );
 
-      customSelectButtonRef.current && customSelectButtonRef.current.focus();
-    };
+      return _internalRenderChildren(filteredChildren as ReactElement[]);
+    }
 
-    /**
-     * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected and focused at all times and if a filter is active.
-     * The `children` prop can be either a single object (1 child) or an array of multiple children.
-     */
-    const renderOptions = () => {
-      if (isSearching || filter !== "") {
-        const filteredChildren = React.Children.toArray(children).filter(
-          child =>
-            (child as ReactElement).props.children.toLowerCase().match(filter.toLowerCase()) !==
-            null
-        );
+    return _internalRenderChildren(children);
 
-        return _internalRenderChildren(filteredChildren as ReactElement[]);
-      }
-
-      return _internalRenderChildren(children);
-
-      function _internalRenderChildren(internalChildren: ReactElement[]) {
-        return React.Children.map(internalChildren, (child, index) => {
-          return React.cloneElement(child, {
-            onFocusChange: (childIndex: number) => setFocusedSelectItem(childIndex),
-            onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
-              onOptionChangeHandler(optionRef);
-              setShouldClick(false);
-            },
-            isSelected: child.props.value === value,
-            isSearching: isSearching,
-            selectOpened: expanded,
-            childIndex: index,
-            hasFocus: focusedSelectItem === index,
-            shouldClick: shouldClick
-          });
+    function _internalRenderChildren(internalChildren: ReactElement[]) {
+      return React.Children.map(internalChildren, (child, index) => {
+        return React.cloneElement(child, {
+          onFocusChange: (childIndex: number) => setFocusedSelectItem(childIndex),
+          onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
+            onOptionChangeHandler(optionRef);
+            setShouldClick(false);
+          },
+          isSelected: child.props.value === value,
+          isSearching: isSearching,
+          selectOpened: expanded,
+          childIndex: index,
+          hasFocus: focusedSelectItem === index,
+          shouldClick: shouldClick
         });
-      }
-    };
+      });
+    }
+  };
 
-    const renderSearch = () => (
-      <Input
-        {...searchInputProps}
-        autoFocus
-        ref={searchInputRef}
-        onFocus={() => setIsSearching(true)}
-        onBlur={() => setIsSearching(false)}
-        onChange={filterResults}
-        className={classes["select-search"]}
-        wrapperProps={{
-          className: `${classes["select-search-wrapper"]} ${searchInputProps?.wrapperProps?.className}`
-        }}
-        type="text"
-        name="search-option"
-        placeholder={searchPlaceholder}
-      />
-    );
+  const renderSearch = () => (
+    <Input
+      {...searchInputProps}
+      autoFocus
+      ref={searchInputRef}
+      onFocus={() => setIsSearching(true)}
+      onBlur={() => setIsSearching(false)}
+      onChange={filterResults}
+      className={classes["select-search"]}
+      wrapperProps={{
+        className: `${classes["select-search-wrapper"]} ${searchInputProps?.wrapperProps?.className}`
+      }}
+      type="text"
+      name="search-option"
+      placeholder={searchPlaceholder}
+    />
+  );
 
-    const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setFilter(event.currentTarget.value);
-    };
+  const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(event.currentTarget.value);
+  };
 
-    const statusIcon = () => {
-      if (error) {
-        return <Icon className={classes["warning"]} icon={Icons.Warning} />;
-      }
+  const statusIcon = () => {
+    if (error) {
+      return <Icon className={classes["warning"]} icon={Icons.Warning} />;
+    }
 
-      return null;
-    };
+    return null;
+  };
 
-    const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      onChange && onChange(event);
-    };
+  const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    onChange && onChange(event);
+  };
 
-    useEffect(() => {
-      syncDisplayValue(value);
-    }, [value]);
+  useEffect(() => {
+    syncDisplayValue(value);
+  }, [value]);
 
-    useBodyClick(
-      (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
-      () => {
-        setExpanded(false);
-        setListPosition({ top: 0, bottom: "initial" });
-        setOpacity(0);
-      },
-      expanded
-    );
+  useBodyClick(
+    (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
+    () => {
+      setExpanded(false);
+      setListPosition({ top: 0, bottom: "initial" });
+      setOpacity(0);
+    },
+    expanded
+  );
 
-    const additionalClasses = [];
-    expanded && additionalClasses.push(classes.expanded);
-    error && additionalClasses.push(classes.error);
-    disabled && additionalClasses.push(classes.disabled);
-    className && additionalClasses.push(className);
+  const additionalClasses = [];
+  expanded && additionalClasses.push(classes.expanded);
+  error && additionalClasses.push(classes.error);
+  disabled && additionalClasses.push(classes.disabled);
+  className && additionalClasses.push(className);
 
-    /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
-    return (
-      <Fragment>
-        <select
-          {...filterProps(rest, /^data-/, false)}
-          tabIndex={-1}
-          aria-hidden="true"
-          ref={nativeSelect}
+  /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
+  return (
+    <Fragment>
+      <select
+        {...filterProps(rest, /^data-/, false)}
+        tabIndex={-1}
+        aria-hidden="true"
+        ref={nativeSelect}
+        name={name}
+        onChange={nativeOnChangeHandler}
+        className={readyclasses["sr-only"]}
+      >
+        <option value=""></option>
+        {React.Children.map(children, child => (
+          <option value={child.props.value}></option>
+        ))}
+      </select>
+      <div
+        {...filterProps(rest, /^data-/)}
+        ref={containerReference}
+        onKeyDown={onArrowNavigation}
+        className={`custom-select ${classes.select} ${additionalClasses.join(" ")} ${
+          className ?? ""
+        }`}
+      >
+        <button
+          {...selectButtonProps}
+          onClick={() => {
+            setExpanded(!expanded);
+          }}
+          ref={customSelectButtonRef}
+          type="button"
           name={name}
-          onChange={nativeOnChangeHandler}
-          className={readyclasses["sr-only"]}
+          className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
+          disabled={disabled}
+          aria-disabled={disabled}
+          aria-invalid={error}
+          aria-expanded={expanded}
+          aria-haspopup="listbox"
+          aria-labelledby={labeledBy}
+          aria-describedby={describedBy}
         >
-          <option value=""></option>
-          {React.Children.map(children, child => (
-            <option value={child.props.value}></option>
-          ))}
-        </select>
-        <div
-          {...filterProps(rest, /^data-/)}
-          ref={containerReference}
-          onKeyDown={onArrowNavigation}
-          className={`custom-select ${classes.select} ${additionalClasses.join(" ")} ${
-            className ?? ""
-          }`}
-        >
-          <button
-            {...selectButtonProps}
-            onClick={() => {
-              setExpanded(!expanded);
-            }}
-            ref={customSelectButtonRef}
-            type="button"
-            name={name}
-            className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
-            disabled={disabled}
-            aria-disabled={disabled}
-            aria-invalid={error}
-            aria-expanded={expanded}
-            aria-haspopup="listbox"
-            aria-labelledby={labeledBy}
-            aria-describedby={describedBy}
-          >
-            <div data-display className={classes["selected"]}>
-              {!value && placeholder && (
-                <span className={classes["placeholder"]}>{placeholder}</span>
-              )}
-              {value?.length > 0 && <span data-display-inner>{display}</span>}
-            </div>
-            <div className={classes["status"]}>
-              {statusIcon()}
-              <Icon className={classes["triangle-down"]} icon={Icons.TriangleDown} />
-            </div>
-          </button>
-          <div
-            ref={optionListReference}
-            className={`list-wrapper ${classes["list-wrapper"]}`}
-            style={{
-              display: expanded ? "block" : "none",
-              opacity: opacity,
-              maxHeight: optionsListMaxHeight,
-              pointerEvents: expanded ? "auto" : "none",
-              ...listPosition
-            }}
-          >
-            {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()}
-            <ul role="listbox">{renderOptions()}</ul>
+          <div data-display className={classes["selected"]}>
+            {!value && placeholder && <span className={classes["placeholder"]}>{placeholder}</span>}
+            {value?.length > 0 && <span data-display-inner>{display}</span>}
           </div>
+          <div className={classes["status"]}>
+            {statusIcon()}
+            <Icon className={classes["triangle-down"]} icon={Icons.TriangleDown} />
+          </div>
+        </button>
+        <div
+          ref={optionListReference}
+          className={`list-wrapper ${classes["list-wrapper"]}`}
+          style={{
+            display: expanded ? "block" : "none",
+            opacity: opacity,
+            maxHeight: optionsListMaxHeight,
+            pointerEvents: expanded ? "auto" : "none",
+            ...listPosition
+          }}
+        >
+          {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()}
+          <ul role="listbox">{renderOptions()}</ul>
         </div>
-      </Fragment>
-    );
-  }
-);
+      </div>
+    </Fragment>
+  );
+};
+
+export const Select = React.forwardRef(SelectComponent);

@@ -14,7 +14,14 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ReactNode, RefObject, useEffect, useRef } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  ReactNode,
+  RefObject,
+  useEffect,
+  useRef
+} from "react";
 import { Offset, Placement, usePosition } from "../hooks/usePosition";
 import classes from "./Popover.module.scss";
 
@@ -27,42 +34,45 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   transformOrigin?: Placement;
 }
 
-export const Popover = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, className, show, placement, offset, transformOrigin, anchorEl, ...rest }, ref) => {
-    const elToBePositioned = useRef<HTMLDivElement>(null);
+const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { children, className, show, placement, offset, transformOrigin, anchorEl, ...rest },
+  ref
+) => {
+  const elToBePositioned = useRef<HTMLDivElement>(null);
 
-    if (show === undefined) {
-      throw new Error('Please make sure to define the "show" property on your Popover component');
-    }
-
-    const { top, left, right, bottom, calculatePosition } = usePosition({
-      elementToBePositioned: elToBePositioned,
-      relativeElement: anchorEl,
-      offset: offset,
-      placement: placement,
-      transformOrigin: transformOrigin
-    });
-
-    useEffect(() => {
-      window.addEventListener("resize", calculatePosition);
-
-      return () => window.removeEventListener("resize", calculatePosition);
-    }, []);
-
-    useEffect(() => {
-      calculatePosition();
-    }, [show]);
-
-    return (
-      <div ref={ref} {...rest}>
-        <div
-          ref={elToBePositioned}
-          className={`${classes.popover} ${className ?? ""} ${show ? classes.show : ""}`}
-          style={{ top: top, left: left, right: right, bottom: bottom }}
-        >
-          {children}
-        </div>
-      </div>
-    );
+  if (show === undefined) {
+    throw new Error('Please make sure to define the "show" property on your Popover component');
   }
-);
+
+  const { top, left, right, bottom, calculatePosition } = usePosition({
+    elementToBePositioned: elToBePositioned,
+    relativeElement: anchorEl,
+    offset: offset,
+    placement: placement,
+    transformOrigin: transformOrigin
+  });
+
+  useEffect(() => {
+    window.addEventListener("resize", calculatePosition);
+
+    return () => window.removeEventListener("resize", calculatePosition);
+  }, []);
+
+  useEffect(() => {
+    calculatePosition();
+  }, [show]);
+
+  return (
+    <div ref={ref} {...rest}>
+      <div
+        ref={elToBePositioned}
+        className={`${classes.popover} ${className ?? ""} ${show ? classes.show : ""}`}
+        style={{ top: top, left: left, right: right, bottom: bottom }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export const Popover = React.forwardRef(PopoverComponent);

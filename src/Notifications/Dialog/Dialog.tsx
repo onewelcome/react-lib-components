@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, useState } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useState } from "react";
 import { BaseModal } from "../BaseModal/BaseModal";
 import { BaseModalContent } from "../BaseModal/BaseModalContent/BaseModalContent";
 import { DialogActions } from "./DialogActions/DialogActions";
@@ -42,88 +42,88 @@ export interface Action extends Omit<ButtonProps, "variant" | "ref"> {
   onClick: (event?: React.MouseEvent<HTMLButtonElement>) => unknown;
 }
 
-export const Dialog = React.forwardRef<HTMLDivElement, Props>(
-  (
-    {
-      id,
-      open,
-      children,
-      alignActions,
-      onClose,
-      title,
-      primaryAction,
-      secondaryAction,
-      zIndex,
-      disableEscapeKeyDown = true,
-      ...rest
-    }: Props,
-    ref
-  ) => {
-    const [dialogId] = useState(id ?? generateID(20));
-    const { label: primaryLabel, ...restOfPrimaryAction } = primaryAction;
-    const PrimaryButton = (
-      <Button key="primary" {...restOfPrimaryAction}>
-        {primaryLabel}
-      </Button>
-    );
-    const TertiaryButton =
-      secondaryAction &&
-      (function () {
-        const { label: secondaryLabel, ...restOfSecondaryAction } = secondaryAction;
-        return (
-          <Button key="tertiary" variant="text" {...restOfSecondaryAction}>
-            {secondaryLabel}
-          </Button>
-        );
-      })();
+const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  {
+    id,
+    open,
+    children,
+    alignActions,
+    onClose,
+    title,
+    primaryAction,
+    secondaryAction,
+    zIndex,
+    disableEscapeKeyDown = true,
+    ...rest
+  }: Props,
+  ref
+) => {
+  const [dialogId] = useState(id ?? generateID(20));
+  const { label: primaryLabel, ...restOfPrimaryAction } = primaryAction;
+  const PrimaryButton = (
+    <Button key="primary" {...restOfPrimaryAction}>
+      {primaryLabel}
+    </Button>
+  );
+  const TertiaryButton =
+    secondaryAction &&
+    (function () {
+      const { label: secondaryLabel, ...restOfSecondaryAction } = secondaryAction;
+      return (
+        <Button key="tertiary" variant="text" {...restOfSecondaryAction}>
+          {secondaryLabel}
+        </Button>
+      );
+    })();
 
-    const onHiddenInputKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      /** It has to be here because then we will need to check if user doesn't click tab to select action button and want to do another action then primary one? */
-      if (event.key === "Enter") {
-        primaryAction.onClick();
-      }
-    };
+  const onHiddenInputKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    /** It has to be here because then we will need to check if user doesn't click tab to select action button and want to do another action then primary one? */
+    if (event.key === "Enter") {
+      primaryAction.onClick();
+    }
+  };
 
-    return (
-      <BaseModal
-        {...rest}
-        ref={ref}
-        id={dialogId}
-        className={classes["dialog"]}
-        containerProps={{ className: classes["container"] }}
-        open={open}
-        disableBackdrop
-        onClose={onClose}
-        zIndex={zIndex}
-        disableEscapeKeyDown={disableEscapeKeyDown}
+  return (
+    <BaseModal
+      {...rest}
+      ref={ref}
+      id={dialogId}
+      className={classes["dialog"]}
+      containerProps={{ className: classes["container"] }}
+      open={open}
+      disableBackdrop
+      onClose={onClose}
+      zIndex={zIndex}
+      disableEscapeKeyDown={disableEscapeKeyDown}
+    >
+      <DialogTitle id={labelId(dialogId)} title={title} />
+      <BaseModalContent
+        id={descriptionId(dialogId)}
+        className={classes["content"]}
+        disableAutoFocus
       >
-        <DialogTitle id={labelId(dialogId)} title={title} />
-        <BaseModalContent
-          id={descriptionId(dialogId)}
-          className={classes["content"]}
-          disableAutoFocus
-        >
-          {children}
-        </BaseModalContent>
-        <DialogActions align={alignActions}>
-          {alignActions === "left"
-            ? [PrimaryButton, TertiaryButton]
-            : [TertiaryButton, PrimaryButton]}
-        </DialogActions>
-        <input
-          autoFocus
-          aria-hidden={true}
-          style={{
-            position: "absolute",
-            width: 0,
-            height: 0,
-            opacity: 0
-          }}
-          maxLength={0}
-          tabIndex={-1}
-          onKeyPress={onHiddenInputKeyPress}
-        />
-      </BaseModal>
-    );
-  }
-);
+        {children}
+      </BaseModalContent>
+      <DialogActions align={alignActions}>
+        {alignActions === "left"
+          ? [PrimaryButton, TertiaryButton]
+          : [TertiaryButton, PrimaryButton]}
+      </DialogActions>
+      <input
+        autoFocus
+        aria-hidden={true}
+        style={{
+          position: "absolute",
+          width: 0,
+          height: 0,
+          opacity: 0
+        }}
+        maxLength={0}
+        tabIndex={-1}
+        onKeyPress={onHiddenInputKeyPress}
+      />
+    </BaseModal>
+  );
+};
+
+export const Dialog = React.forwardRef(DialogComponent);
