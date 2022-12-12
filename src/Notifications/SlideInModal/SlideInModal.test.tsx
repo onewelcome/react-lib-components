@@ -47,14 +47,10 @@ describe("SlideInModal should render", () => {
   });
 
   it("makes modal content's container visible after opening transition ends", () => {
-    const { slideInModal, rerender } = createSlideInModal();
+    const { slideInModal } = createSlideInModal(params => ({ ...params, open: true }));
 
-    expect(slideInModal).toHaveClass("hidden");
-
-    rerender(<SlideInModal {...defaultParams} open />);
     fireEvent.transitionEnd(slideInModal);
-
-    expect(slideInModal).not.toHaveClass("hidden");
+    expect(slideInModal).toHaveClass("visible");
   });
 });
 

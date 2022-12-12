@@ -74,7 +74,8 @@ describe("BaseModal", () => {
     const { getByRole } = createBaseModal(params => ({
       ...params,
       open: false,
-      forceContainerOpen: true
+      forceContainerOpen: true,
+      containerProps: { "aria-hidden": true }
     }));
 
     const modal = getByRole("dialog", { hidden: true });

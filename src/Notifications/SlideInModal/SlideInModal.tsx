@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { TransitionEventHandler, useState, useRef } from "react";
+import React, { useRef, useEffect, useState, TransitionEventHandler } from "react";
 import { Props as ModalProps, Modal } from "../Modal/Modal";
 import classes from "./SlideInModal.module.scss";
 
@@ -29,17 +29,28 @@ export const SlideInModal = React.forwardRef<HTMLDivElement, ModalProps>(
       }
     };
 
+    useEffect(() => {
+      setTimeout(
+        () =>
+          document
+            .getElementById(id)
+            ?.classList.add(open ? classes["visible"] : classes[classHideOnTransition]),
+        0
+      );
+    }, [open]);
+
     return (
       <Modal
         {...rest}
         id={id}
         open={open}
-        className={`${classes["slide-in-modal"]} ${open ? classes["visible"] : ""} ${
-          !open ? classes[classHideOnTransition] : ""
-        }`}
-        containerProps={{ className: classes["container"] }}
-        backdropProps={{ className: classes["backdrop-slide"] }}
-        forceContainerOpen
+        className={`${classes["slide-in-modal"]}`}
+        containerProps={{
+          className: `${classes["container"]} ${
+            open ? classes["visible"] : classes[classHideOnTransition]
+          }`
+        }}
+        backdropProps={{ id: classes["backdrop"] }}
         onTransitionEnd={onTransitionEnd}
         ref={ref || containerRef}
       >

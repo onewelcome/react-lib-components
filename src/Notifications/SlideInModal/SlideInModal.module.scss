@@ -24,26 +24,26 @@
   @include transition(transform, 0.5s, ease-in-out);
   transform: translate(120%);
 
-  &.hidden {
-    visibility: hidden;
+  #backdrop {
+    background-color: transparent;
+    opacity: 0;
   }
 
   &.visible {
-    visibility: visible;
     transform: translate(0%);
-
-    .backdrop-slide {
-      background-color: transparent;
-    }
   }
 }
 
-.backdrop-slide {
-  background-color: transparent;
+.visible {
+  visibility: visible;
 }
 
-@media only screen and (min-width: 50rem) {
-  .container {
+.hidden {
+  visibility: hidden;
+}
+
+.container {
+  @media only screen and (min-width: 50rem) {
     margin-top: 0;
     width: 50rem;
     height: 100%;
