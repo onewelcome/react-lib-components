@@ -16,7 +16,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: react-lib-components
-  description: React component library
+  description: React component library enabling other teams to create accessible UIs quickly
   tags:
     - typescript
     - react
@@ -32,6 +32,6 @@ metadata:
     github.com/project-slug: onewelcome/react-lib-components
     github.com/team-slug: onewelcome/frontend
 spec:
-  type: other
+  type: library
   lifecycle: unknown
   owner: frontend

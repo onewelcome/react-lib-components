@@ -1,6 +1,6 @@
 # OneWelcome React Component Library
 
-[![OneWelcome](https://circleci.com/gh/onewelcome/react-lib-components.svg?style=svg)](<https://circleci.com>)
+[![CircleCI status](https://circleci.com/gh/onewelcome/react-lib-components.svg?style=svg)](<https://circleci.com>)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=alert_status&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=vulnerabilities&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=coverage&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
