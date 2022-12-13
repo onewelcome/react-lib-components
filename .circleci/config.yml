@@ -70,6 +70,9 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
+          name: Install gh-pages
+          command: npm install -g --silent gh-pages
+      - run:
           name: Set git repository
           command: git remote set-url origin https://git:${GITHUB_API_TOKEN}@github.com/onewelcome/react-lib-components.git
       - run:
