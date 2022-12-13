@@ -154,7 +154,7 @@ workflows:
       - deploy-storybook-to-github-pages:
           name: deploy-github-pages
           <<: *dev-context
-#          <<: *filter-tags
+          <<: *filter-tags
           requires:
             - build-storybook
 
