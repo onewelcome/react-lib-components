@@ -55,6 +55,11 @@ describe("SlideInModal should render", () => {
     fireEvent.transitionEnd(slideInModal);
 
     expect(slideInModal).not.toHaveClass("hide");
+
+    rerender(<SlideInModal {...defaultParams} open={false} />);
+    fireEvent.transitionEnd(slideInModal);
+
+    expect(slideInModal).toHaveClass("hide");
   });
 });
 
