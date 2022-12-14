@@ -30,15 +30,15 @@ const SlideInModalComponent: ForwardRefRenderFunction<HTMLDivElement, ModalProps
   ref
 ) => {
   const [classHideOnTransition, setClassHideOnTransition] = useState<string>("hide");
-  const [wrappedOpen, setWrappedOpen] = useState(false);
+  const [controlledOpen, setControlledOpen] = useState(false);
   const containerRef = useRef(null);
 
   const onTransitionEnd: TransitionEventHandler<HTMLDivElement> = useCallback(
     e => {
       if (e.target === containerRef.current) {
         setClassHideOnTransition(prev => (prev ? "" : "hide"));
-        if (!open && wrappedOpen) {
-          setWrappedOpen(false);
+        if (!open && controlledOpen) {
+          setControlledOpen(false);
         }
       }
     },
@@ -46,20 +46,19 @@ const SlideInModalComponent: ForwardRefRenderFunction<HTMLDivElement, ModalProps
   );
 
   useEffect(() => {
-    open && setWrappedOpen(open);
+    open && setControlledOpen(open);
   }, [open]);
 
   return (
     <Modal
       {...rest}
       id={id}
-      open={wrappedOpen}
+      open={controlledOpen}
       className={`${classes["slide-in-modal"]} ${open ? classes["visible"] : ""} ${
         !open ? classes[classHideOnTransition] : ""
       }`}
       containerProps={{ className: classes["container"] }}
       backdropProps={{ id: classes["backdrop-slide"] }}
-      // forceContainerOpen
       onTransitionEnd={onTransitionEnd}
       ref={ref || containerRef}
     >
