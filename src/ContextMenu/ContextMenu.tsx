@@ -19,6 +19,7 @@ import React, {
   ForwardRefRenderFunction,
   ReactElement,
   ReactNode,
+  useCallback,
   useEffect,
   useRef,
   useState
@@ -190,6 +191,10 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     });
   };
 
+  const onOutOfViewHandler = useCallback(() => {
+    setShowContextMenu(false);
+  }, []);
+
   return (
     <div {...rest} ref={ref} onKeyDown={onArrowNavigation} className={classes["context-menu"]}>
       {renderTrigger()}
@@ -200,6 +205,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           offset={offset}
           anchorEl={anchorEl}
           show={showContextMenu}
+          onAnchorOutOfView={onOutOfViewHandler}
         >
           {decorativeElement && (
             <div className={classes["decorative-element"]}>{decorativeElement}</div>

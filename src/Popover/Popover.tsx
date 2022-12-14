@@ -20,7 +20,8 @@ import React, {
   ReactNode,
   RefObject,
   useEffect,
-  useRef
+  useRef,
+  useCallback
 } from "react";
 import { Offset, Placement, usePosition } from "../hooks/usePosition";
 import classes from "./Popover.module.scss";
@@ -32,10 +33,21 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   placement?: Placement;
   offset?: Offset;
   transformOrigin?: Placement;
+  onAnchorOutOfView?: () => void;
 }
 
 const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, className, show, placement, offset, transformOrigin, anchorEl, ...rest },
+  {
+    children,
+    className,
+    show,
+    placement,
+    offset,
+    transformOrigin,
+    anchorEl,
+    onAnchorOutOfView,
+    ...rest
+  },
   ref
 ) => {
   const elToBePositioned = useRef<HTMLDivElement>(null);
@@ -52,15 +64,38 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     transformOrigin: transformOrigin
   });
 
-  useEffect(() => {
-    window.addEventListener("resize", calculatePosition);
+  const determineIfExecuteCalculatePosition = useCallback(() => {
+    if (show) {
+      calculatePosition();
+    }
+  }, [show]);
 
-    return () => window.removeEventListener("resize", calculatePosition);
-  }, []);
+  useEffect(() => {
+    window.addEventListener("resize", determineIfExecuteCalculatePosition);
+    window.addEventListener("scroll", determineIfExecuteCalculatePosition);
+
+    return () => {
+      window.removeEventListener("resize", determineIfExecuteCalculatePosition);
+      window.removeEventListener("scroll", determineIfExecuteCalculatePosition);
+    };
+  }, [show]);
 
   useEffect(() => {
     calculatePosition();
   }, [show]);
+
+  useEffect(() => {
+    if (
+      show &&
+      (top === 0 ||
+        left === 0 ||
+        right === 0 ||
+        bottom === 0 ||
+        window.innerHeight - (elToBePositioned.current as HTMLElement).offsetHeight === top)
+    ) {
+      onAnchorOutOfView && onAnchorOutOfView();
+    }
+  }, [top, left, right, bottom]);
 
   return (
     <div ref={ref} {...rest}>
