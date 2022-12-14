@@ -52,10 +52,6 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 ) => {
   const elToBePositioned = useRef<HTMLDivElement>(null);
 
-  if (show === undefined) {
-    throw new Error('Please make sure to define the "show" property on your Popover component');
-  }
-
   const { top, left, right, bottom, calculatePosition } = usePosition({
     elementToBePositioned: elToBePositioned,
     relativeElement: anchorEl,

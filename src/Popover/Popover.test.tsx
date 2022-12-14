@@ -93,7 +93,10 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
 
 describe("Popover should render", () => {
   it("renders without crashing and has default left and top attributes", () => {
-    const { popover } = createPopover();
+    const { popover } = createPopover(defaultParams => ({ ...defaultParams, show: true }));
+
+    window.dispatchEvent(new Event("resize"));
+    window.dispatchEvent(new Event("scroll"));
 
     expect(popover).toBeTruthy();
   });
