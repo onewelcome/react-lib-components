@@ -61,6 +61,7 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   });
 
   const determineIfExecuteCalculatePosition = useCallback(() => {
+    console.log(show);
     if (show) {
       calculatePosition();
     }
