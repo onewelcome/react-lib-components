@@ -14,10 +14,10 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, HTMLProps, ReactNode } from "react";
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction, ReactNode } from "react";
 import classes from "./Form.module.scss";
 
-export interface Props extends HTMLProps<HTMLFormElement> {
+export interface Props extends ComponentPropsWithRef<"form"> {
   children?: ReactNode;
 }
 
