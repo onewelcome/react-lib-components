@@ -123,34 +123,6 @@ describe("debounce function", () => {
 });
 
 describe("throttling works", () => {
-  it("throttles the function", async () => {
-    const throttledFunction = jest.fn();
-
-    window.addEventListener("resize", throttle(throttledFunction, 1));
-
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-
-    expect(throttledFunction).not.toHaveBeenCalledTimes(1);
-    expect(throttledFunction).not.toHaveBeenCalledTimes(10);
-  });
-
   it("Works in a react component as well, it should only fire the exampleFunction once.", async () => {
     const ExampleComponent = ({
       throttledFunction
