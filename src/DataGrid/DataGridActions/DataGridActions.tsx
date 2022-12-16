@@ -35,6 +35,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   addBtnProps?: ButtonProps;
   columnsBtnProps?: ButtonProps;
   searchBtnProps?: ButtonProps;
+  searchIconBtnProps?: ButtonProps;
   headers: HeaderCell[];
   onColumnToggled: (colName: ColumnName) => void;
 }
@@ -48,6 +49,7 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
     addBtnProps = {},
     columnsBtnProps = {},
     searchBtnProps = {},
+    searchIconBtnProps = {},
     headers,
     onColumnToggled,
     ...rest
@@ -116,7 +118,7 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
             />
             <IconButton
               title="Search"
-              {...searchBtnProps}
+              {...searchIconBtnProps}
               className={`${classes["mobile"]} ${columnsBtnProps?.className ?? ""}`}
             >
               <Icon icon={Icons.TableSearch} />

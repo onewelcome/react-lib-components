@@ -14,17 +14,17 @@
  *    limitations under the License.
  */
 
-@import "../../mixins.module.scss";
+@use "../../mixins.module.scss";
 
 .slide-in-modal {
   justify-content: flex-end;
 
   visibility: visible;
 
-  @include transition(transform, 0.5s, ease-in-out);
+  @include mixins.transition(transform, 0.5s, ease-in-out);
   transform: translate(120%);
 
-  &.hidden {
+  &.hide {
     visibility: hidden;
   }
 
@@ -32,13 +32,13 @@
     visibility: visible;
     transform: translate(0%);
 
-    .backdrop-slide {
+    #backdrop-slide {
       background-color: transparent;
     }
   }
 }
 
-.backdrop-slide {
+#backdrop-slide {
   background-color: transparent;
 }
 

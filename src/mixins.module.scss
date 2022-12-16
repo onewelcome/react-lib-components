@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@import "./readyclasses.module.scss";
+@use "./readyclasses.module.scss";
 
 @mixin button($variant: "text", $type: "default") {
   $disabledSelector: if($type == "link", ".disabled", ":disabled");
@@ -84,7 +84,7 @@
     color: $color;
   }
 
-  @include focusOutline(var(--color-focus));
+  @include readyclasses.focusOutline(var(--color-focus));
 
   &:hover:not(.disabled),
   &:focus:not(.disabled) {

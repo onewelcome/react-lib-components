@@ -37,6 +37,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
     addBtnProps?: ButtonProps;
     columnsBtnProps?: ButtonProps;
     searchBtnProps?: ButtonProps;
+    searchIconBtnProps?: ButtonProps;
   };
   emptyLabel?: string;
   paginationProps?: PaginationProps;
