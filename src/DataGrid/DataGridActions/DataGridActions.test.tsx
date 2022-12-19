@@ -105,6 +105,7 @@ describe("DataGridActions should render", () => {
     const addBtnProps = { children: "button1", title: "title1" };
     const columnsBtnProps = { children: "button2", title: "title2" };
     const searchBtnProps = { children: "button3", title: "title3" };
+    const searchIconBtnProps = { title: "title4" };
     const { dataGridActions, getAllByRole } = createDataGridActions(params => ({
       ...params,
       enableAddBtn: true,
@@ -112,7 +113,8 @@ describe("DataGridActions should render", () => {
       enableSearchBtn: true,
       addBtnProps,
       columnsBtnProps,
-      searchBtnProps
+      searchBtnProps,
+      searchIconBtnProps
     }));
 
     expect(dataGridActions).toBeDefined();
@@ -125,7 +127,7 @@ describe("DataGridActions should render", () => {
     expect(mobileColumnsBtn).toHaveTextContent(columnsBtnProps.title);
     expect(desktopSearchBtn).toHaveTextContent(searchBtnProps.children);
     expect(desktopSearchBtn).toHaveAttribute("title", searchBtnProps.title);
-    expect(mobileSearchBtn).toHaveTextContent(searchBtnProps.title);
+    expect(mobileSearchBtn).toHaveTextContent(searchIconBtnProps.title);
   });
 });
 

@@ -20,6 +20,7 @@
   $transition-property: transform, opacity;
 
   position: fixed;
+  z-index: 1;
   pointer-events: none;
   background-color: var(--light);
   border-radius: 8px;
