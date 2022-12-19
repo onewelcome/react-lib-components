@@ -39,6 +39,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   placement?: Placement;
   transformOrigin?: Placement;
   offset?: Offset;
+  debounceAmount?: number;
   id: string;
   show?: boolean;
   domRoot?: HTMLElement;
@@ -58,6 +59,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     placement = { horizontal: "right", vertical: "top" },
     offset = { top: 0, bottom: 0, left: 0, right: 0 },
     transformOrigin = { horizontal: "left", vertical: "top" },
+    debounceAmount,
     domRoot = document.body,
     ...rest
   }: Props,
@@ -204,6 +206,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           transformOrigin={transformOrigin}
           offset={offset}
           anchorEl={anchorEl}
+          debounceAmount={debounceAmount}
           show={showContextMenu}
           onAnchorOutOfView={onOutOfViewHandler}
         >

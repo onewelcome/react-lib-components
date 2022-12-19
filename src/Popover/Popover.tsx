@@ -31,6 +31,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   anchorEl?: RefObject<HTMLOrSVGElement>; //eslint-disable-line no-undef
   placement?: Placement;
   offset?: Offset;
+  debounceAmount?: number;
   transformOrigin?: Placement;
   onAnchorOutOfView?: () => void;
 }
@@ -42,6 +43,7 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     show,
     placement,
     offset,
+    debounceAmount,
     transformOrigin,
     anchorEl,
     onAnchorOutOfView,
@@ -56,7 +58,8 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     relativeElement: anchorEl,
     offset: offset,
     placement: placement,
-    transformOrigin: transformOrigin
+    transformOrigin: transformOrigin,
+    debounceAmount: debounceAmount || undefined
   });
 
   useEffect(() => {
