@@ -20,8 +20,7 @@ import React, {
   ReactNode,
   RefObject,
   useEffect,
-  useRef,
-  useCallback
+  useRef
 } from "react";
 import { Offset, Placement, usePosition } from "../hooks/usePosition";
 import classes from "./Popover.module.scss";
@@ -60,19 +59,14 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     transformOrigin: transformOrigin
   });
 
-  const determineIfExecuteCalculatePosition = useCallback(() => {
-    if (show) {
-      calculatePosition();
-    }
-  }, [show]);
-
   useEffect(() => {
-    window.addEventListener("resize", determineIfExecuteCalculatePosition);
-    window.addEventListener("scroll", determineIfExecuteCalculatePosition);
+    if (!show) return;
+    window.addEventListener("resize", calculatePosition);
+    window.addEventListener("scroll", calculatePosition);
 
     return () => {
-      window.removeEventListener("resize", determineIfExecuteCalculatePosition);
-      window.removeEventListener("scroll", determineIfExecuteCalculatePosition);
+      window.removeEventListener("resize", calculatePosition);
+      window.removeEventListener("scroll", calculatePosition);
     };
   }, [show]);
 

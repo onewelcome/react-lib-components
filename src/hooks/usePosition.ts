@@ -89,7 +89,7 @@ const defaultConfigObject: ConfigObject = {
     bottom: 0,
     left: 0
   },
-  debounceAmount: 15
+  debounceAmount: 20
 };
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain*/
