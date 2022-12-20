@@ -176,9 +176,9 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       ref: anchorEl
     });
 
-  const renderChildren = () => {
-    return React.Children.map(children, (child, index) => {
-      return React.cloneElement(child as ReactElement, {
+  const renderChildren = () =>
+    React.Children.map(children, (child, index) =>
+      React.cloneElement(child as ReactElement, {
         onFocusChange: (childIndex: number) => setFocusedContextMenuItem(childIndex),
         onSelectedChange: (childIndex: number) => {
           setSelectedContextMenuItem(childIndex);
@@ -189,9 +189,8 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         isSelected: selectedContextMenuItem === index,
         contextMenuOpened: showContextMenu,
         shouldClick: shouldClick
-      });
-    });
-  };
+      })
+    );
 
   const onOutOfViewHandler = useCallback(() => {
     setShowContextMenu(false);
