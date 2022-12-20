@@ -32,7 +32,7 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
           <li>Test</li>
         </ul>
       ),
-      show: false,
+      show: true,
       placement: { vertical: "top", horizontal: "left" }
     };
     let parameters: Props = defaultParams;
@@ -94,6 +94,9 @@ const createPopover = (params?: (defaultParams: Props) => Props) => {
 describe("Popover should render", () => {
   it("renders without crashing and has default left and top attributes", () => {
     const { popover } = createPopover();
+
+    window.dispatchEvent(new Event("resize"));
+    window.dispatchEvent(new Event("scroll"));
 
     expect(popover).toBeTruthy();
   });

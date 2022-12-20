@@ -19,6 +19,7 @@ import React, {
   ForwardRefRenderFunction,
   ReactElement,
   ReactNode,
+  useCallback,
   useEffect,
   useRef,
   useState
@@ -38,6 +39,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   placement?: Placement;
   transformOrigin?: Placement;
   offset?: Offset;
+  debounceAmount?: number;
   id: string;
   show?: boolean;
   domRoot?: HTMLElement;
@@ -57,6 +59,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     placement = { horizontal: "right", vertical: "top" },
     offset = { top: 0, bottom: 0, left: 0, right: 0 },
     transformOrigin = { horizontal: "left", vertical: "top" },
+    debounceAmount,
     domRoot = document.body,
     ...rest
   }: Props,
@@ -173,9 +176,9 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       ref: anchorEl
     });
 
-  const renderChildren = () => {
-    return React.Children.map(children, (child, index) => {
-      return React.cloneElement(child as ReactElement, {
+  const renderChildren = () =>
+    React.Children.map(children, (child, index) =>
+      React.cloneElement(child as ReactElement, {
         onFocusChange: (childIndex: number) => setFocusedContextMenuItem(childIndex),
         onSelectedChange: (childIndex: number) => {
           setSelectedContextMenuItem(childIndex);
@@ -186,9 +189,12 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         isSelected: selectedContextMenuItem === index,
         contextMenuOpened: showContextMenu,
         shouldClick: shouldClick
-      });
-    });
-  };
+      })
+    );
+
+  const onOutOfViewHandler = useCallback(() => {
+    setShowContextMenu(false);
+  }, []);
 
   return (
     <div {...rest} ref={ref} onKeyDown={onArrowNavigation} className={classes["context-menu"]}>
@@ -199,7 +205,9 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           transformOrigin={transformOrigin}
           offset={offset}
           anchorEl={anchorEl}
+          debounceAmount={debounceAmount}
           show={showContextMenu}
+          onAnchorOutOfView={onOutOfViewHandler}
         >
           {decorativeElement && (
             <div className={classes["decorative-element"]}>{decorativeElement}</div>
