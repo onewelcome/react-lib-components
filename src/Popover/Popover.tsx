@@ -64,6 +64,7 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   useEffect(() => {
     if (!show) return;
+
     window.addEventListener("resize", calculatePosition);
     window.addEventListener("scroll", calculatePosition);
 
@@ -78,14 +79,15 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }, [show]);
 
   useEffect(() => {
-    if (
+    const isAnchorOffscreen =
       show &&
       (top === 0 ||
         left === 0 ||
         right === 0 ||
         bottom === 0 ||
-        window.innerHeight - (elToBePositioned.current as HTMLElement).offsetHeight === top)
-    ) {
+        window.innerHeight - (elToBePositioned.current as HTMLElement).offsetHeight === top);
+
+    if (isAnchorOffscreen) {
       onAnchorOutOfView && onAnchorOutOfView();
     }
   }, [top, left, right, bottom]);
