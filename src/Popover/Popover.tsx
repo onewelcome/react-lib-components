@@ -63,7 +63,9 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   });
 
   useEffect(() => {
-    if (!show) return;
+    if (!show) {
+      return;
+    }
 
     window.addEventListener("resize", calculatePosition);
     window.addEventListener("scroll", calculatePosition);
