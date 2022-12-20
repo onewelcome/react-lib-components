@@ -109,18 +109,21 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }, [activeTabIndex]);
 
   useEffect(() => {
-    const buttons = React.Children.map(children, (child, index) =>
-      React.createElement(TabButton, {
-        key: `tabbutton_${index}`,
-        tabIndex: activeTabIndex === index ? 0 : -1,
-        "aria-selected": activeTabIndex === index,
-        focused: usingKeyboardNavigation && activeTabIndex === index,
-        tabActive: activeTabIndex === index,
-        "aria-controls": `tab_${index}`,
-        onClick: () => setActiveTabIndex(index),
-        children: child.props.title
-      })
-    );
+    const buttons = React.Children.map(children, (child, index) => {
+      if (Object.prototype.hasOwnProperty.call(child.props, "title")) {
+        return React.createElement(TabButton, {
+          key: `${child.props.title.toLowerCase().replace(/\s/, "_")}_button`,
+          tabIndex: activeTabIndex === index ? 0 : -1,
+          "aria-selected": activeTabIndex === index,
+          focused: usingKeyboardNavigation && activeTabIndex === index,
+          tabActive: activeTabIndex === index,
+          "aria-controls": `tab_${index}`,
+          onClick: () => setActiveTabIndex(index),
+          children: child.props.title
+        });
+      }
+      return null;
+    });
 
     setRenderedButtons(buttons);
   }, [activeTabIndex]);
@@ -129,7 +132,7 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     const tabs = React.Children.map(children, (child, index) => {
       if (Object.prototype.hasOwnProperty.call(child.props, "title")) {
         return React.cloneElement(child, {
-          key: `tab_${index}`,
+          key: `${child.props.title.toLowerCase().replace(/\s/, "_")}_tab`,
           tabIndex: activeTabIndex === index ? 0 : -1,
           tabActive: activeTabIndex === index,
           id: `tab_${index}`,

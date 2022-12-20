@@ -18,7 +18,7 @@ import React, { HTMLProps } from "react";
 import classes from "./Tab.module.scss";
 
 export interface Props extends HTMLProps<HTMLDivElement> {
-  title?: string;
+  title: string;
   children?: unknown;
   tabActive?: boolean;
 }
