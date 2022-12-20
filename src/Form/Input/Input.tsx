@@ -47,6 +47,7 @@ export interface Props extends ComponentPropsWithRef<"input">, FormElement {
   type: Type;
   suffix?: string;
   prefix?: string;
+  spellcheck?: boolean;
 }
 
 const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
@@ -63,6 +64,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     disabled,
     onFocus,
     onBlur,
+    spellcheck = false,
     ...rest
   }: Props,
   ref: Ref<HTMLInputElement>
@@ -124,6 +126,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         name={name}
         disabled={disabled}
         className={inputClassNames.join(" ")}
+        spellCheck={spellcheck}
       />
       {suffix && (
         <div ref={suffixRef} data-suffix className={classes["suffix"]}>
