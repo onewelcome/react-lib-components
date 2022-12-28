@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +14,19 @@
  *    limitations under the License.
  */
 
-.tabpanel {
-  display: none;
+import React from "react";
 
-  &:focus-visible {
-    outline-color: var(--color-focus);
-  }
+export const useDebouncedCallback = (callback: Function, delay: number, dependencies?: any[]) => {
+  const timeout = React.useRef<ReturnType<typeof setTimeout>>();
+  const comboDeps = dependencies ? [callback, delay, ...dependencies] : [callback, delay];
 
-  &.selected {
-    display: block;
-  }
-}
+  return React.useCallback((...args) => {
+    if (timeout.current != null) {
+      clearTimeout(timeout.current);
+    }
+
+    timeout.current = setTimeout(() => {
+      callback(...args);
+    }, delay);
+  }, comboDeps);
+};

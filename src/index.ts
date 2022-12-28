@@ -43,7 +43,8 @@ export {
 
 /* Utils */
 export { useRepeater } from "./hooks/useRepeater";
-export { generateID } from "./util/helper";
+export { useDebouncedCallback } from "./hooks/useDebouncedCallback";
+export { generateID, debounce, throttle } from "./util/helper";
 
 /* Notifications */
 export { Modal, Props as ModalProps } from "./Notifications/Modal/Modal";

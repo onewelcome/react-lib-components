@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { Tooltip, Props } from "./Tooltip";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
@@ -39,7 +39,7 @@ const createTooltip = (params?: (defaultParams: Props) => Props) => {
 };
 
 describe("Tooltip should render", () => {
-  it("renders without crashing", () => {
+  it("renders without crashing", async () => {
     const { tooltip, getByText } = createTooltip(defaultParams => ({
       ...defaultParams,
       className: "testing"
@@ -49,7 +49,7 @@ describe("Tooltip should render", () => {
     const label = getByText("Label");
 
     expect(tooltip).toHaveClass("testing");
-    expect(tooltipText).toHaveStyle({ top: "0px", left: "16px" });
+    await waitFor(() => expect(tooltipText).toHaveStyle({ top: "0px", left: "16px" }));
     expect(label).toBeTruthy();
     expect(tooltipText).toBeTruthy();
     expect(tooltip).toBeTruthy();
@@ -65,7 +65,7 @@ describe("Tooltip should render", () => {
     expect(getByText(labelText)).toBeDefined();
   });
 
-  it("should override the default placement and offset values", () => {
+  it("should override the default placement and offset values", async () => {
     const { tooltip, getByText } = createTooltip(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "center" },
@@ -74,7 +74,7 @@ describe("Tooltip should render", () => {
     }));
 
     const tooltipText = getByText("This is a test message");
-    expect(tooltipText).toHaveStyle({ right: "1024px", bottom: "768px" });
+    await waitFor(() => expect(tooltipText).toHaveStyle({ right: "1024px", bottom: "768px" }));
     expect(tooltip).toBeTruthy();
   });
 });

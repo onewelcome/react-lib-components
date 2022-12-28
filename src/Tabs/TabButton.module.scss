@@ -34,10 +34,6 @@
     outline-color: var(--color-focus);
   }
 
-  &.focussed:not(:focus-visible) {
-    outline: none;
-  }
-
   span {
     color: var(--tab-text-color);
     font-weight: normal;

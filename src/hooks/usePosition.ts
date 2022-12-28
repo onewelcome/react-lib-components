@@ -15,6 +15,7 @@
  */
 
 import React, { useState } from "react";
+import { useDebouncedCallback } from "./useDebouncedCallback";
 
 export interface ConfigObject {
   relativeElement: RefElement;
@@ -22,6 +23,7 @@ export interface ConfigObject {
   transformOrigin?: Placement;
   placement?: Placement;
   offset?: Offset;
+  debounceAmount?: number;
 }
 
 export type HorizontalPlacement = "left" | "center" | "centerh" | "right";
@@ -86,7 +88,8 @@ const defaultConfigObject: ConfigObject = {
     right: 0,
     bottom: 0,
     left: 0
-  }
+  },
+  debounceAmount: 20
 };
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain*/
@@ -326,7 +329,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     }));
   };
 
-  const calculatePosition = () => {
+  const calculatePosition = useDebouncedCallback(() => {
     if (!configObject.relativeElement?.current) return;
     const relativeElRect = (configObject.relativeElement!
       .current as HTMLElement)!.getBoundingClientRect();
@@ -352,7 +355,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "horizontal");
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "vertical");
-  };
+  }, configObject.debounceAmount || 20);
 
   return {
     top: position.top,

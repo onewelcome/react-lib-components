@@ -14,7 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, useEffect, useRef, useState } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 import { Input, Type, Props as InputProps } from "../../Input/Input";
 import classes from "./InputWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
@@ -58,113 +64,113 @@ const useLabelOffset = (
   return { labelOffset };
 };
 
-export const InputWrapper = React.forwardRef<HTMLDivElement, Props>(
-  (
-    {
-      type,
-      name,
-      inputProps,
-      helperText,
-      helperProps,
-      value,
-      className,
-      error,
-      onChange,
-      onBlur,
-      onFocus,
-      disabled,
-      ...rest
-    }: Props,
-    ref
-  ) => {
-    const {
-      errorId,
-      floatingLabelActive,
-      setFloatingLabelActive,
-      hasFocus,
-      setHasFocus,
-      helperId,
-      labelId
-    } = useWrapper(value, inputProps?.placeholder, type);
-    const { prefix, suffix } = inputProps || {};
-    const input = useRef<HTMLInputElement>(null);
-    const hasValueOrActiveFloatingLabel = !!value || floatingLabelActive;
-    const { labelOffset } = useLabelOffset(
-      (inputProps && (inputProps.ref as React.RefObject<HTMLInputElement>)) || input,
-      floatingLabelActive,
-      prefix
-    );
+const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  {
+    type,
+    name,
+    inputProps,
+    helperText,
+    helperProps,
+    value,
+    className,
+    error,
+    onChange,
+    onBlur,
+    onFocus,
+    disabled,
+    ...rest
+  }: Props,
+  ref
+) => {
+  const {
+    errorId,
+    floatingLabelActive,
+    setFloatingLabelActive,
+    hasFocus,
+    setHasFocus,
+    helperId,
+    labelId
+  } = useWrapper(value, inputProps?.placeholder, type);
+  const { prefix, suffix } = inputProps || {};
+  const input = useRef<HTMLInputElement>(null);
+  const hasValueOrActiveFloatingLabel = !!value || floatingLabelActive;
+  const { labelOffset } = useLabelOffset(
+    (inputProps && (inputProps.ref as React.RefObject<HTMLInputElement>)) || input,
+    floatingLabelActive,
+    prefix
+  );
 
-    const labelClasses = [classes["input-label"]];
-    hasFocus && labelClasses.push(classes["focus"]);
+  const labelClasses = [classes["input-label"]];
+  hasFocus && labelClasses.push(classes["focus"]);
 
-    const inputWrapperClasses = [];
-    floatingLabelActive && inputWrapperClasses.push(classes["floating-label-active"]);
-    inputProps?.wrapperProps?.className &&
-      inputWrapperClasses.push(inputProps?.wrapperProps?.className);
-    disabled && inputWrapperClasses.push(classes["disabled"]);
+  const inputWrapperClasses = [];
+  floatingLabelActive && inputWrapperClasses.push(classes["floating-label-active"]);
+  inputProps?.wrapperProps?.className &&
+    inputWrapperClasses.push(inputProps?.wrapperProps?.className);
+  disabled && inputWrapperClasses.push(classes["disabled"]);
 
-    return (
-      <Wrapper
-        {...rest}
-        ref={ref}
+  return (
+    <Wrapper
+      {...rest}
+      ref={ref}
+      name={name}
+      className={`${classes["input-wrapper"]} ${className ?? ""}`}
+      labelProps={{
+        id: labelId,
+        className: labelClasses.join(" "),
+        style: { ...labelOffset }
+      }}
+      floatingLabelActive={floatingLabelActive}
+      errorId={errorId}
+      error={error}
+      helperId={helperId}
+      helperText={helperText}
+      helperProps={{
+        ...helperProps,
+        className: `${classes["input-wrapper-helper"]} ${helperProps?.className ?? ""} `
+      }}
+      helperIndent={20}
+      disabled={disabled}
+    >
+      <Input
+        {...inputProps}
+        prefix={hasValueOrActiveFloatingLabel ? prefix : ""}
+        suffix={hasValueOrActiveFloatingLabel ? suffix : ""}
+        wrapperProps={{
+          className: inputWrapperClasses.join(" ")
+        }}
+        ref={(inputProps && inputProps.ref) || input}
+        aria-labelledby={labelId}
+        aria-describedby={error ? errorId : helperId}
+        onChange={onChange}
+        onFocus={e => {
+          onFocus && onFocus(e);
+          setHasFocus(true);
+          setFloatingLabelActive(true);
+        }}
+        onBlur={e => {
+          onBlur && onBlur(e);
+          setHasFocus(false);
+          e.target.value ||
+          e.target.placeholder ||
+          inputProps?.placeholder?.length ||
+          type === "datetime-local" ||
+          type === "time" ||
+          type === "date"
+            ? setFloatingLabelActive(true)
+            : setFloatingLabelActive(false);
+        }}
+        className={`${floatingLabelActive ? classes["floating-label"] : ""} ${
+          inputProps?.className ?? ""
+        }`}
         name={name}
-        className={`${classes["input-wrapper"]} ${className ?? ""}`}
-        labelProps={{
-          id: labelId,
-          className: labelClasses.join(" "),
-          style: { ...labelOffset }
-        }}
-        floatingLabelActive={floatingLabelActive}
-        errorId={errorId}
         error={error}
-        helperId={helperId}
-        helperText={helperText}
-        helperProps={{
-          ...helperProps,
-          className: `${classes["input-wrapper-helper"]} ${helperProps?.className ?? ""} `
-        }}
-        helperIndent={20}
-        disabled={disabled}
-      >
-        <Input
-          {...inputProps}
-          prefix={hasValueOrActiveFloatingLabel ? prefix : ""}
-          suffix={hasValueOrActiveFloatingLabel ? suffix : ""}
-          wrapperProps={{
-            className: inputWrapperClasses.join(" ")
-          }}
-          ref={(inputProps && inputProps.ref) || input}
-          aria-labelledby={labelId}
-          aria-describedby={error ? errorId : helperId}
-          onChange={onChange}
-          onFocus={e => {
-            onFocus && onFocus(e);
-            setHasFocus(true);
-            setFloatingLabelActive(true);
-          }}
-          onBlur={e => {
-            onBlur && onBlur(e);
-            setHasFocus(false);
-            e.target.value ||
-            e.target.placeholder ||
-            inputProps?.placeholder?.length ||
-            type === "datetime-local" ||
-            type === "time" ||
-            type === "date"
-              ? setFloatingLabelActive(true)
-              : setFloatingLabelActive(false);
-          }}
-          className={`${floatingLabelActive ? classes["floating-label"] : ""} ${
-            inputProps?.className ?? ""
-          }`}
-          name={name}
-          error={error}
-          id={name}
-          value={value}
-          type={type}
-        />
-      </Wrapper>
-    );
-  }
-);
+        id={name}
+        value={value}
+        type={type}
+      />
+    </Wrapper>
+  );
+};
+
+export const InputWrapper = React.forwardRef(InputWrapperComponent);

@@ -14,20 +14,26 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { HTMLProps } from "react";
+import classes from "./Tab.module.scss";
 
-export interface Props {
+export interface Props extends HTMLProps<HTMLDivElement> {
   title: string;
-  children?: React.ReactNode;
-  selected?: boolean;
-  focussed?: boolean;
-  buttonRef?: React.RefObject<HTMLButtonElement>;
-  panelRef?: React.RefObject<HTMLDivElement>;
-  onTabButtonClick?: () => void;
+  children?: unknown;
+  tabActive?: boolean;
 }
 
-export const Tab = (args: Props) => {
+export const Tab = ({ children, tabActive, ...rest }: Props) => {
   return (
-    <div {...args}>{`A <Tab /> component should only be used inside the <Tabs /> component.`}</div>
+    <div
+      {...rest}
+      aria-hidden={!tabActive}
+      role="tabpanel"
+      className={`${classes["tab"]} ${tabActive ? classes["selected"] : ""} ${
+        rest.className ?? ""
+      }`}
+    >
+      {children}
+    </div>
   );
 };

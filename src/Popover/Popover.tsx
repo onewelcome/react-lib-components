@@ -14,7 +14,14 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ReactNode, RefObject, useEffect, useRef } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  ReactNode,
+  RefObject,
+  useEffect,
+  useRef
+} from "react";
 import { Offset, Placement, usePosition } from "../hooks/usePosition";
 import classes from "./Popover.module.scss";
 
@@ -24,45 +31,80 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   anchorEl?: RefObject<HTMLOrSVGElement>; //eslint-disable-line no-undef
   placement?: Placement;
   offset?: Offset;
+  debounceAmount?: number;
   transformOrigin?: Placement;
+  onAnchorOutOfView?: () => void;
 }
 
-export const Popover = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, className, show, placement, offset, transformOrigin, anchorEl, ...rest }, ref) => {
-    const elToBePositioned = useRef<HTMLDivElement>(null);
+const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  {
+    children,
+    className,
+    show,
+    placement,
+    offset,
+    debounceAmount,
+    transformOrigin,
+    anchorEl,
+    onAnchorOutOfView,
+    ...rest
+  },
+  ref
+) => {
+  const elToBePositioned = useRef<HTMLDivElement>(null);
 
-    if (show === undefined) {
-      throw new Error('Please make sure to define the "show" property on your Popover component');
+  const { top, left, right, bottom, calculatePosition } = usePosition({
+    elementToBePositioned: elToBePositioned,
+    relativeElement: anchorEl,
+    offset: offset,
+    placement: placement,
+    transformOrigin: transformOrigin,
+    debounceAmount: debounceAmount || undefined
+  });
+
+  useEffect(() => {
+    if (!show) {
+      return;
     }
 
-    const { top, left, right, bottom, calculatePosition } = usePosition({
-      elementToBePositioned: elToBePositioned,
-      relativeElement: anchorEl,
-      offset: offset,
-      placement: placement,
-      transformOrigin: transformOrigin
-    });
+    window.addEventListener("resize", calculatePosition);
+    window.addEventListener("scroll", calculatePosition);
 
-    useEffect(() => {
-      window.addEventListener("resize", calculatePosition);
+    return () => {
+      window.removeEventListener("resize", calculatePosition);
+      window.removeEventListener("scroll", calculatePosition);
+    };
+  }, [show]);
 
-      return () => window.removeEventListener("resize", calculatePosition);
-    }, []);
+  useEffect(() => {
+    calculatePosition();
+  }, [show]);
 
-    useEffect(() => {
-      calculatePosition();
-    }, [show]);
+  useEffect(() => {
+    const isAnchorOffscreen =
+      show &&
+      (top === 0 ||
+        left === 0 ||
+        right === 0 ||
+        bottom === 0 ||
+        window.innerHeight - (elToBePositioned.current as HTMLElement).offsetHeight === top);
 
-    return (
-      <div ref={ref} {...rest}>
-        <div
-          ref={elToBePositioned}
-          className={`${classes.popover} ${className ?? ""} ${show ? classes.show : ""}`}
-          style={{ top: top, left: left, right: right, bottom: bottom }}
-        >
-          {children}
-        </div>
+    if (isAnchorOffscreen) {
+      onAnchorOutOfView && onAnchorOutOfView();
+    }
+  }, [top, left, right, bottom]);
+
+  return (
+    <div ref={ref} {...rest}>
+      <div
+        ref={elToBePositioned}
+        className={`${classes.popover} ${className ?? ""} ${show ? classes.show : ""}`}
+        style={{ top: top, left: left, right: right, bottom: bottom }}
+      >
+        {children}
       </div>
-    );
-  }
-);
+    </div>
+  );
+};
+
+export const Popover = React.forwardRef(PopoverComponent);

@@ -30,7 +30,7 @@ module.exports = {
           })
         : p
     );
-    
+
     config.plugins.push(cleanup({ extensions: ["js", "ts"] }));
 
     config.plugins.push(

@@ -21,7 +21,7 @@
 .textarea-wrapper {
   &:after {
     content: "";
-    transition: all 0.15s ease-in-out;
+    @include transition(all, 0.15s, ease-in-out);
     display: block;
     width: calc(95%);
     height: 1.625rem;

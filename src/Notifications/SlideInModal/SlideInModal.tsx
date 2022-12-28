@@ -14,39 +14,59 @@
  *    limitations under the License.
  */
 
-import React, { TransitionEventHandler, useState, useRef } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  TransitionEventHandler,
+  useState,
+  useRef,
+  useCallback,
+  useEffect
+} from "react";
 import { Props as ModalProps, Modal } from "../Modal/Modal";
 import classes from "./SlideInModal.module.scss";
 
-export const SlideInModal = React.forwardRef<HTMLDivElement, ModalProps>(
-  ({ children, id, open, ...rest }: ModalProps, ref) => {
-    const [classHideOnTransition, setClassHideOnTransition] = useState<string>("hidden");
-    const containerRef = useRef(null);
+const SlideInModalComponent: ForwardRefRenderFunction<HTMLDivElement, ModalProps> = (
+  { children, id, open, ...rest }: ModalProps,
+  ref
+) => {
+  const [classHideOnTransition, setClassHideOnTransition] = useState<string>("hide");
+  const [controlledOpen, setControlledOpen] = useState(false);
+  const containerRef = useRef(null);
 
-    const onTransitionEnd: TransitionEventHandler<HTMLDivElement> = e => {
+  const onTransitionEnd: TransitionEventHandler<HTMLDivElement> = useCallback(
+    e => {
       if (e.target === containerRef.current) {
-        setClassHideOnTransition(prev => (prev ? "" : "hidden"));
+        setClassHideOnTransition(prev => (prev ? "" : "hide"));
+        if (!open && controlledOpen) {
+          setControlledOpen(false);
+        }
       }
-    };
+    },
+    [open]
+  );
 
-    return (
-      <Modal
-        {...rest}
-        id={id}
-        open={open}
-        className={`${classes["slide-in-modal"]} ${open ? classes["visible"] : ""} ${
-          !open ? classes[classHideOnTransition] : ""
-        }`}
-        containerProps={{ className: classes["container"] }}
-        backdropProps={{ className: classes["backdrop-slide"] }}
-        forceContainerOpen
-        onTransitionEnd={onTransitionEnd}
-        ref={ref || containerRef}
-      >
-        {children}
-      </Modal>
-    );
-  }
-);
+  useEffect(() => {
+    open && setControlledOpen(open);
+  }, [open]);
+
+  return (
+    <Modal
+      {...rest}
+      id={id}
+      open={controlledOpen}
+      className={`${classes["slide-in-modal"]} ${open ? classes["visible"] : ""} ${
+        !open ? classes[classHideOnTransition] : ""
+      }`}
+      containerProps={{ className: classes["container"] }}
+      backdropProps={{ id: classes["backdrop-slide"] }}
+      onTransitionEnd={onTransitionEnd}
+      ref={ref || containerRef}
+    >
+      {children}
+    </Modal>
+  );
+};
 
 export { Props } from "../Modal/Modal";
+
+export const SlideInModal = React.forwardRef(SlideInModalComponent);

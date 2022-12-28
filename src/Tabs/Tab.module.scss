@@ -14,25 +14,14 @@
  *    limitations under the License.
  */
 
-@import "../mixins.module.scss";
+.tab {
+  display: none;
 
-.popover {
-  $transition-property: transform, opacity;
+  &:focus-visible {
+    outline-color: var(--color-focus);
+  }
 
-  position: fixed;
-  z-index: 1;
-  pointer-events: none;
-  background-color: var(--light);
-  border-radius: 8px;
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.29);
-  opacity: 0;
-  transform: scale(0.5);
-
-  @include transition($transition-property, 0.2s, ease-in-out);
-
-  &.show {
-    transform: scale(1);
-    pointer-events: auto;
-    opacity: 1;
+  &.selected {
+    display: block;
   }
 }
