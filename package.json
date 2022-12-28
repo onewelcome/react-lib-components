@@ -51,7 +51,7 @@
     }
   ],
   "devDependencies": {
-    "@babel/core": "^7.19.3",
+    "@babel/core": "^7.20.7",
     "@mdx-js/react": "^1.6.22",
     "@onewelcome/eslint-config-shared-codestyle": "^9.0.3",
     "@size-limit/preset-small-lib": "^7.0.8",
