@@ -124,7 +124,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         name={name}
         disabled={disabled}
         className={inputClassNames.join(" ")}
-        spellCheck={spellcheck}
+        spellCheck={rest.spellCheck || false}
       />
       {suffix && (
         <div ref={suffixRef} data-suffix className={classes["suffix"]}>
