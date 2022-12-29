@@ -112,6 +112,18 @@ describe("Should have the appropriate attributes", () => {
     expect(input).toHaveAttribute("disabled");
     expect(input).toHaveClass("classname");
   });
+
+  it("should render an input with spellcheck enabled", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams, spellCheck: true }));
+
+    expect(input).toHaveAttribute("spellcheck", "true");
+  });
+
+  it("should render an input with spellcheck disabled by default", () => {
+    const { input } = createInput(defaultParams => ({ ...defaultParams }));
+
+    expect(input).toHaveAttribute("spellcheck", "false");
+  });
 });
 
 describe("Should render all different types of inputs", () => {
