@@ -47,7 +47,6 @@ export interface Props extends ComponentPropsWithRef<"input">, FormElement {
   type: Type;
   suffix?: string;
   prefix?: string;
-  spellcheck?: boolean;
 }
 
 const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
