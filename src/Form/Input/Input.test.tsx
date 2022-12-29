@@ -114,7 +114,7 @@ describe("Should have the appropriate attributes", () => {
   });
 
   it("should render an input with spellcheck enabled", () => {
-    const { input } = createInput(defaultParams => ({ ...defaultParams, spellcheck: true }));
+    const { input } = createInput(defaultParams => ({ ...defaultParams, spellCheck: true }));
 
     expect(input).toHaveAttribute("spellcheck", "true");
   });
