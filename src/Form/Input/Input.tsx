@@ -63,7 +63,6 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     disabled,
     onFocus,
     onBlur,
-    spellcheck = false,
     ...rest
   }: Props,
   ref: Ref<HTMLInputElement>
