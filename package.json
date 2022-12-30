@@ -52,7 +52,7 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.20.7",
-    "@mdx-js/react": "^1.6.22",
+    "@mdx-js/react": "^2.2.1",
     "@onewelcome/eslint-config-shared-codestyle": "^9.0.3",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@storybook/addon-a11y": "^6.5.15",
