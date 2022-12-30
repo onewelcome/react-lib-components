@@ -16,6 +16,10 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: react-lib-components
+  description: React component library enabling other teams to create accessible UIs quickly
+  tags:
+    - typescript
+    - react
   links:
     - url: https://docs-internal.onegini.com/html/react-lib-components-release/
       title: Storybook - RELEASE
@@ -24,8 +28,10 @@ metadata:
       title: Storybook - SNAPSHOT
       icon: docs
   annotations:
+    sonarqube.org/project-key: onewelcome_react-lib-components
     github.com/project-slug: onewelcome/react-lib-components
+    github.com/team-slug: onewelcome/frontend
 spec:
-  type: other
+  type: library
   lifecycle: unknown
   owner: frontend
