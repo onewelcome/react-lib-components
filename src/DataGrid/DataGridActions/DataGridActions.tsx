@@ -73,7 +73,7 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
             variant="outline"
             {...addBtnProps}
           >
-            {children ? children : "Add item"}
+            {addBtnProps.children ? addBtnProps.children : "Add item"}
           </Button>
         )}
       </div>
@@ -89,7 +89,7 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
               ref={showColumnBtn}
               onClick={() => setShowColsPopover(true)}
             >
-              {children ? children : "Columns"}
+              {columnsBtnProps.children ? columnsBtnProps.children : "Columns"}
             </Button>
             <IconButton
               title="Show/hide columns"
@@ -118,7 +118,7 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
               {...searchBtnProps}
               className={`${classes["desktop"]} ${searchBtnProps?.className ?? ""}`}
             >
-              {children ? children : "Search"}
+              {searchBtnProps.children ? searchBtnProps.children : "Search"}
             </Button>
             <IconButton
               title="Search"
