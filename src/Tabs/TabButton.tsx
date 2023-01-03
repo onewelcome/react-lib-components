@@ -24,13 +24,13 @@ import React, {
 import classes from "./TabButton.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"button"> {
-  children?: string;
   tabActive?: boolean;
   focused?: boolean;
+  title: string;
 }
 
 const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { children, tabActive, focused, ...rest }: Props,
+  { children, tabActive, focused, title, ...rest }: Props,
   ref
 ) => {
   let buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
@@ -51,8 +51,8 @@ const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
       role="tab"
       type="button"
     >
-      <span aria-hidden="true">{children}</span>
-      {children}
+      <span aria-hidden="true">{title}</span>
+      {title}
     </button>
   );
 };

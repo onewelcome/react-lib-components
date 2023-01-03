@@ -18,7 +18,7 @@ import React from "react";
 import { Props, TabButton } from "./TabButton";
 import { render } from "@testing-library/react";
 
-const defaultParams: Props = {};
+const defaultParams: Props = { title: "Title" };
 
 const createTabButton = (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;

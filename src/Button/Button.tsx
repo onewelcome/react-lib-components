@@ -21,7 +21,6 @@ import classes from "./Button.module.scss";
 export interface Props extends BaseButtonProps {
   startIcon?: React.ReactNode | false;
   endIcon?: React.ReactNode | false;
-  children?: React.ReactNode;
   variant?: "text" | "fill" | "outline";
 }
 
