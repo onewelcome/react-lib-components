@@ -73,7 +73,7 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
             variant="outline"
             {...addBtnProps}
           >
-            {addBtnProps.children ? addBtnProps.children : "Add item"}
+            {addBtnProps.children ??  "Add item"}
           </Button>
         )}
       </div>
