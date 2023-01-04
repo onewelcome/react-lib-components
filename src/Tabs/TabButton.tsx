@@ -26,7 +26,6 @@ import classes from "./TabButton.module.scss";
 export interface Props extends ComponentPropsWithRef<"button"> {
   tabActive?: boolean;
   focused?: boolean;
-  title: string;
 }
 
 const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
@@ -51,8 +50,8 @@ const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
       role="tab"
       type="button"
     >
-      <span aria-hidden="true">{title}</span>
-      {title}
+      <span aria-hidden="true">{children}</span>
+      {children}
     </button>
   );
 };

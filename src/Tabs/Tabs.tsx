@@ -120,10 +120,9 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             focused: usingKeyboardNavigation && activeTabIndex === index,
             tabActive: activeTabIndex === index,
             "aria-controls": `tab_${index}`,
-            onClick: () => setActiveTabIndex(index),
-            title: child.props.title
+            onClick: () => setActiveTabIndex(index)
           },
-          children
+          child.props.title
         );
       }
       return null;
