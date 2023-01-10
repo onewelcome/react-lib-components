@@ -87,9 +87,9 @@ After a successful release, the release notes are published on `#releases` slack
 
 Follow these steps to create a release:
 
-- note all changes introduced from the last release
+- note all changes introduced from the last release 
 - create a release on the GitHub repository page:
-  - determine new version (bugfix/minor/major)
+  - determine new version (bugfix/minor/major) 
   - put proper release notes based on previous releases
   - click on the `CREATE RELEASE` button
 - check if the release is published on `https://www.npmjs.com/package/@onewelcome/react-lib-components`
