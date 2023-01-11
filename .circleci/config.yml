@@ -87,6 +87,7 @@ jobs:
           at: ~/
       - sonarcloud/scan:
           sonar_token_variable_name: SONAR_LOGIN
+          cache_version: 2
 
 workflows:
   version: 2
