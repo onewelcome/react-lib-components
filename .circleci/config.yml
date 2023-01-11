@@ -14,7 +14,7 @@
 version: 2.1
 
 orbs:
-  onegini-build: onegini/onegini-build@2
+  onegini-build: onegini/onegini-build@3
 
 .dev-context-and-executor: &dev-context
   context: dev-context
@@ -101,10 +101,11 @@ workflows:
           <<: *require-build
           <<: *filter-branches-tags
 
-      - onegini-build/sonar:
-          name: analyse
-          <<: *dev-context
-          <<: *require-test
+#      https://community.sonarsource.com/t/sonarscanner-fails-with-could-not-find-a-default-branch-to-fall-back-on/80939
+#      - onegini-build/sonar:
+#          name: analyse
+#          <<: *dev-context
+#          <<: *require-test
 
       - build-storybook:
           name: build-storybook
