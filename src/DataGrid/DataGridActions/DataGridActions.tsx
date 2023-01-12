@@ -60,6 +60,9 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   const isHidden = !(enableAddBtn || enableColumnsBtn || enableSearchBtn);
   const [showColsPopover, setShowColsPopover] = useState(false);
   const showColumnBtn = useRef<HTMLButtonElement>(null);
+  const { children: addBtnChildren, ...restAddBtnProps } = addBtnProps;
+  const { children: columnsBtnChildren, ...restColumnsBtnProps } = columnsBtnProps;
+  const { children: searchBtnChildren, ...restSearchBtnProps } = searchBtnProps;
 
   return isHidden ? null : (
     <div {...rest} ref={ref} className={`${classes["actions"]} ${className ?? ""}`}>
@@ -71,9 +74,9 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
             title="Add item"
             type="button"
             variant="outline"
-            {...addBtnProps}
+            {...restAddBtnProps}
           >
-            {addBtnProps.children ??  "Add item"}
+            {addBtnChildren ?? "Add item"}
           </Button>
         )}
       </div>
@@ -84,12 +87,12 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
               startIcon={<Icon icon={Icons.Change} />}
               title="Show/hide columns"
               variant="text"
-              {...columnsBtnProps}
+              {...restColumnsBtnProps}
               className={`${classes["desktop"]} ${columnsBtnProps?.className ?? ""}`}
               ref={showColumnBtn}
               onClick={() => setShowColsPopover(true)}
             >
-              {columnsBtnProps.children ??  "Columns"}
+              {columnsBtnChildren ?? "Columns"}
             </Button>
             <IconButton
               title="Show/hide columns"
@@ -115,10 +118,10 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
               startIcon={<Icon icon={Icons.TableSearch} />}
               title="Search"
               variant="text"
-              {...searchBtnProps}
+              {...restSearchBtnProps}
               className={`${classes["desktop"]} ${searchBtnProps?.className ?? ""}`}
             >
-              {searchBtnProps.children ??  "Search"}
+              {searchBtnChildren ?? "Search"}
             </Button>
             <IconButton
               title="Search"
