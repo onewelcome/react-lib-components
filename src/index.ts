@@ -123,3 +123,4 @@ export { HeaderCell } from "./DataGrid/datagrid.interfaces";
 export { DataGrid, Props as DataGridProps } from "./DataGrid/DataGrid";
 export { DataGridRow, Props as DataGridRowProps } from "./DataGrid/DataGridBody/DataGridRow";
 export { DataGridCell, Props as DataGridCellProps } from "./DataGrid/DataGridBody/DataGridCell";
+export { Banner, Props as BannerProps } from "./Notifications/Banner/Banner";
