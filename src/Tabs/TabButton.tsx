@@ -24,13 +24,12 @@ import React, {
 import classes from "./TabButton.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"button"> {
-  children?: string;
   tabActive?: boolean;
   focused?: boolean;
 }
 
 const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { children, tabActive, focused, ...rest }: Props,
+  { children, tabActive, focused, title, ...rest }: Props,
   ref
 ) => {
   let buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();

@@ -144,14 +144,15 @@ const DataGridInner = <T extends {}>(
             spacing={styleWithSpacing}
           />
           <DataGridBody
-            children={children}
             data={data}
             headers={internalHeaders}
             isLoading={isLoading}
             disableContextMenuColumn={disableContextMenuColumn}
             emptyLabel={emptyLabel}
             spacing={styleWithSpacing}
-          />
+          >
+            {children}
+          </DataGridBody>
         </table>
       </div>
       {paginationProps && !isLoading && (

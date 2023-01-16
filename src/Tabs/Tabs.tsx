@@ -111,16 +111,19 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   useEffect(() => {
     const buttons = React.Children.map(children, (child, index) => {
       if (Object.prototype.hasOwnProperty.call(child.props, "title")) {
-        return React.createElement(TabButton, {
-          key: `${child.props.title.toLowerCase().replace(/\s/, "_")}_button`,
-          tabIndex: activeTabIndex === index ? 0 : -1,
-          "aria-selected": activeTabIndex === index,
-          focused: usingKeyboardNavigation && activeTabIndex === index,
-          tabActive: activeTabIndex === index,
-          "aria-controls": `tab_${index}`,
-          onClick: () => setActiveTabIndex(index),
-          children: child.props.title
-        });
+        return React.createElement(
+          TabButton,
+          {
+            key: `${child.props.title.toLowerCase().replace(/\s/, "_")}_button`,
+            tabIndex: activeTabIndex === index ? 0 : -1,
+            "aria-selected": activeTabIndex === index,
+            focused: usingKeyboardNavigation && activeTabIndex === index,
+            tabActive: activeTabIndex === index,
+            "aria-controls": `tab_${index}`,
+            onClick: () => setActiveTabIndex(index)
+          },
+          child.props.title
+        );
       }
       return null;
     });
