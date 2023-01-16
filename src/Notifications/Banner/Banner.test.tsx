@@ -18,49 +18,67 @@ import React from "react";
 import { Banner, Props } from "./Banner";
 import { render } from "@testing-library/react";
 
-const initialValue: Props = {
-  type: "info",
+const defaultParams: Props = {
   children: "The service will not be available between 02:00 and 03:00.",
-  title: "Maintenance is scheduled for next weekend"
+  title: "Maintenance is scheduled for next weekend",
+  type: "info"
 };
 
-describe("Banner", () => {
-  it("renders ariaProps", () => {
-    const { container } = render(<Banner {...initialValue}>{initialValue.children}</Banner>);
-    const banner = container.querySelector(".banner");
-    const title = container.querySelector(".headline");
-    const content = container.querySelector(".content");
-    const icon = container.querySelector(".icon");
-    expect(banner).toBeDefined();
-    expect(banner).toHaveClass("info");
+const createBanner = (params?: (defaultParams: Props) => Props) => {
+  let parameters: Props = defaultParams;
+  if (params) {
+    parameters = params(defaultParams);
+  }
+  const queries = render(
+    <Banner {...parameters} data-testid="BannerTest">
+      {defaultParams.children}
+    </Banner>
+  );
+  const BannerComponent = queries.getByTestId("BannerTest");
+
+  return {
+    ...queries,
+    BannerComponent
+  };
+};
+
+describe("Banner should render", () => {
+  it("renders without crashing", () => {
+    const { BannerComponent } = createBanner();
+    expect(BannerComponent).toBeDefined();
+    const title = BannerComponent.querySelector(".headline");
+    const content = BannerComponent.querySelector(".content");
+    const icon = BannerComponent.querySelector(".icon");
+    expect(BannerComponent).toHaveClass("info");
     expect(title).toBeDefined();
-    expect(title).toHaveTextContent(initialValue.title);
+    expect(title).toHaveTextContent(defaultParams.title);
     expect(content).toBeDefined();
-    expect(content).toHaveTextContent(initialValue.children);
+    expect(content).toHaveTextContent(defaultParams.children);
     expect(icon).toBeDefined();
   });
 
   it("renders ariaLabel correctly", () => {
     const ariaLabel = "Information regarding your information";
-    const { container } = render(<Banner {...{ ...initialValue, ariaLabel }}>Test</Banner>);
-    const banner = container.querySelector(".banner");
-    expect(banner).toBeDefined();
-    expect(banner).toHaveAttribute("aria-label", ariaLabel);
+    const { BannerComponent } = createBanner(defaultParams => ({ ...defaultParams, ariaLabel }));
+    expect(BannerComponent).toBeDefined();
+    expect(BannerComponent).toHaveAttribute("aria-label", ariaLabel);
   });
 
   it("renders ariaLive correctly", () => {
     const ariaLive = "polite";
-    const { container } = render(<Banner {...{ ...initialValue, ariaLive }}>Test</Banner>);
-    const banner = container.querySelector(".banner");
-    expect(banner).toBeDefined();
-    expect(banner).toHaveAttribute("aria-live", ariaLive);
+    const { BannerComponent } = createBanner(defaultParams => ({ ...defaultParams, ariaLive }));
+    expect(BannerComponent).toBeDefined();
+    expect(BannerComponent).toHaveAttribute("aria-live", ariaLive);
   });
 
   it("renders ariaRole correctly", () => {
-    const ariaRole = "polite";
-    const { container } = render(<Banner {...{ ...initialValue, ariaRole }}>Test</Banner>);
-    const banner = container.querySelector(".banner");
-    expect(banner).toBeDefined();
-    expect(banner).toHaveAttribute("role", ariaRole);
+    const ariaRole = "alert";
+    const { BannerComponent } = createBanner(defaultParams => ({
+      ...defaultParams,
+      type: "error",
+      ariaRole
+    }));
+    expect(BannerComponent).toBeDefined();
+    expect(BannerComponent).toHaveAttribute("role", ariaRole);
   });
 });

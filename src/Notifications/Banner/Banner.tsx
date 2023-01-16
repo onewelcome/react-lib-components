@@ -14,7 +14,12 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
+import React, {
+  AriaAttributes,
+  AriaRole,
+  ComponentPropsWithRef,
+  ForwardRefRenderFunction
+} from "react";
 import { Typography } from "../../Typography/Typography";
 import { Icon, Icons } from "../../Icon/Icon";
 import classes from "./Banner.module.scss";
@@ -22,15 +27,15 @@ import classes from "./Banner.module.scss";
 export type BannerType = "error" | "warning" | "info";
 export interface Props extends ComponentPropsWithRef<"section"> {
   children: string;
-  ariaRole?: string;
-  ariaLive?: "off" | "assertive" | "polite";
-  ariaLabel?: string;
+  ariaRole?: AriaRole;
+  ariaLive?: AriaAttributes["aria-live"];
+  ariaLabel?: AriaAttributes["aria-label"];
   type: BannerType;
   title: string;
 }
 
 const BannerComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { children, ariaLabel, ariaRole, ariaLive, type, title },
+  { children, ariaLabel, ariaRole, ariaLive, type, title, ...rest }: Props,
   ref
 ) => {
   const getIconVariant = (type: BannerType): Icons | null => {
@@ -41,6 +46,8 @@ const BannerComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
         return Icons.Error;
       case "warning":
         return Icons.Warning;
+      default:
+        return null;
     }
   };
 
@@ -48,10 +55,11 @@ const BannerComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
 
   return (
     <section
+      {...rest}
       ref={ref}
-      {...(ariaLive && { "aria-live": ariaLive })}
-      {...(ariaLabel && { "aria-label": ariaLabel })}
-      {...(ariaRole && { role: ariaRole })}
+      aria-live={ariaLive}
+      aria-label={ariaLabel}
+      role={ariaRole}
       className={`${classes["banner"]} ${classes[type]}`}
     >
       {icon && <Icon icon={icon} className={classes["icon"]} />}
