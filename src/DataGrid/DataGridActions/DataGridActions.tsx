@@ -52,6 +52,7 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
     searchIconBtnProps = {},
     headers,
     onColumnToggled,
+    children,
     ...rest
   }: Props,
   ref
@@ -59,6 +60,9 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   const isHidden = !(enableAddBtn || enableColumnsBtn || enableSearchBtn);
   const [showColsPopover, setShowColsPopover] = useState(false);
   const showColumnBtn = useRef<HTMLButtonElement>(null);
+  const { children: addBtnChildren, ...restAddBtnProps } = addBtnProps;
+  const { children: columnsBtnChildren, ...restColumnsBtnProps } = columnsBtnProps;
+  const { children: searchBtnChildren, ...restSearchBtnProps } = searchBtnProps;
 
   return isHidden ? null : (
     <div {...rest} ref={ref} className={`${classes["actions"]} ${className ?? ""}`}>
@@ -70,9 +74,10 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
             title="Add item"
             type="button"
             variant="outline"
-            children="Add item"
-            {...addBtnProps}
-          />
+            {...restAddBtnProps}
+          >
+            {addBtnChildren ?? "Add item"}
+          </Button>
         )}
       </div>
       <div className={classes["right-actions"]}>
@@ -82,12 +87,13 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
               startIcon={<Icon icon={Icons.Change} />}
               title="Show/hide columns"
               variant="text"
-              children="Columns"
-              {...columnsBtnProps}
+              {...restColumnsBtnProps}
               className={`${classes["desktop"]} ${columnsBtnProps?.className ?? ""}`}
               ref={showColumnBtn}
               onClick={() => setShowColsPopover(true)}
-            />
+            >
+              {columnsBtnChildren ?? "Columns"}
+            </Button>
             <IconButton
               title="Show/hide columns"
               {...columnsBtnProps}
@@ -112,10 +118,11 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
               startIcon={<Icon icon={Icons.TableSearch} />}
               title="Search"
               variant="text"
-              children="Search"
-              {...searchBtnProps}
+              {...restSearchBtnProps}
               className={`${classes["desktop"]} ${searchBtnProps?.className ?? ""}`}
-            />
+            >
+              {searchBtnChildren ?? "Search"}
+            </Button>
             <IconButton
               title="Search"
               {...searchIconBtnProps}
