@@ -60,6 +60,8 @@ const shouldBeColorPicker = [
   "modalShadowColor",
   "modalBackgroundColor",
   "modalHeaderBackgroundColor",
+  "skeletonBackgroundColor",
+  "skeletonAnimationColorRgb",
   "snackbarTextColor",
   "snackbarInfoBackgroundColor",
   "snackbarSuccessBackgroundColor",

@@ -26,7 +26,7 @@ import React, {
 } from "react";
 import { Props as ButtonProps } from "../Button/Button";
 import { Props as IconButtonProps } from "../Button/IconButton";
-import { Popover } from "../Popover/Popover";
+import { Popover, Props as PopoverProps } from "../Popover/Popover";
 import { Placement, Offset } from "../hooks/usePosition";
 import classes from "./ContextMenu.module.scss";
 import { useBodyClick } from "../hooks/useBodyClick";
@@ -45,6 +45,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   domRoot?: HTMLElement;
   onShow?: () => void;
   onClose?: () => void;
+  popoverProps?: PopoverProps;
 }
 
 const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -61,6 +62,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     transformOrigin = { horizontal: "left", vertical: "top" },
     debounceAmount,
     domRoot = document.body,
+    popoverProps,
     ...rest
   }: Props,
   ref
@@ -201,6 +203,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       {renderTrigger()}
       {createPortal(
         <Popover
+          {...popoverProps}
           placement={placement}
           transformOrigin={transformOrigin}
           offset={offset}

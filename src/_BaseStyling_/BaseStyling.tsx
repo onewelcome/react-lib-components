@@ -42,6 +42,8 @@ interface CSSProperties {
   modalShadowColor?: string;
   modalBackgroundColor?: string;
   modalHeaderBackgroundColor?: string;
+  skeletonBackgroundColor?: string;
+  skeletonAnimationColorRgb?: string;
   snackbarTextColor?: string;
   snackbarInfoBackgroundColor?: string;
   snackbarSuccessBackgroundColor?: string;
@@ -103,6 +105,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "#f5f8f8",
     modalHeaderBackgroundColor: "var(--light)",
+    skeletonBackgroundColor: "var(--disabled)",
+    skeletonAnimationColorRgb: "255, 255, 255",
     snackbarTextColor: "var(--light)",
     snackbarInfoBackgroundColor: "#003b5e",
     snackbarSuccessBackgroundColor: "#008a28",
