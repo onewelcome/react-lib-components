@@ -74,6 +74,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     value,
     className,
     error,
+    success,
     onChange,
     onBlur,
     onFocus,
@@ -164,6 +165,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           inputProps?.className ?? ""
         }`}
         name={name}
+        success={success}
         error={error}
         id={name}
         value={value}

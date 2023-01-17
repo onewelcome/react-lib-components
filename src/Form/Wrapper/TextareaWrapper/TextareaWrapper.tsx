@@ -40,6 +40,7 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   {
     name,
     error,
+    success,
     value,
     label,
     placeholder,
@@ -102,6 +103,7 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
         name={name}
         id={name}
         value={value}
+        success={success}
         onChange={onChange}
         onFocus={e => {
           onFocus && onFocus(e);
@@ -127,7 +129,6 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
         wrapperProps={{
           className: `${wrapperClasses.join(" ")} ${classes["textarea-wrapper"]}`
         }}
-        errorProps={{ className: classes["error-icon"] }}
       />
     </Wrapper>
   );

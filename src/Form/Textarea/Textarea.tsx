@@ -15,25 +15,22 @@
  */
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useState } from "react";
-import { Icon, Props as IconProps, Icons } from "../../Icon/Icon";
 import classes from "./Textarea.module.scss";
 import { FormElement } from "../form.interfaces";
-
-interface IconPropsPartial extends Omit<Partial<IconProps>, "ref"> {}
+import { useDetermineStatusIcon } from "../../hooks/useDetermineStatusIcon";
 
 export interface Props extends ComponentPropsWithRef<"textarea">, FormElement {
   wrapperProps?: ComponentPropsWithRef<"div">;
-  errorProps?: IconPropsPartial;
 }
 
 const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = (
   {
     error = false,
+    success = false,
     disabled = false,
     className,
     rows = 4,
     wrapperProps,
-    errorProps,
     onFocus,
     onBlur,
     ...rest
@@ -49,6 +46,13 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
   disabled && wrapperClasses.push(classes["disabled"]) && outlineClasses.push(classes["disabled"]);
   error && wrapperClasses.push(classes["error"]) && outlineClasses.push(classes["error"]);
   focus && wrapperClasses.push(classes["focus"]) && outlineClasses.push(classes["focus"]);
+  success && wrapperClasses.push("success");
+
+  const icon = useDetermineStatusIcon(
+    { success, error },
+    [classes["error-icon"]],
+    [classes["success-icon"]]
+  );
 
   return (
     <div {...wrapperProps} className={wrapperClasses.join(" ")}>
@@ -67,13 +71,7 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
           onBlur && onBlur(event);
         }}
       />
-      {error && (
-        <Icon
-          {...errorProps}
-          className={`${classes["warning"]} ${errorProps?.className ?? ""}`}
-          icon={Icons.Error}
-        />
-      )}
+      {icon}
       <span className={outlineClasses.join(" ")}></span>
     </div>
   );

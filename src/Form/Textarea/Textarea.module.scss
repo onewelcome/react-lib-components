@@ -52,10 +52,18 @@
   color: var(--error);
 }
 
-.warning {
-  color: var(--error);
+.error-icon,
+.success-icon {
   position: absolute;
   right: 1.25rem;
   top: 0.75rem;
   font-size: 1.25rem;
+}
+
+.success-icon {
+  color: var(--success);
+}
+
+.error-icon {
+  color: var(--error);
 }

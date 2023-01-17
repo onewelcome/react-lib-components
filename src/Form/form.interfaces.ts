@@ -27,5 +27,6 @@ export interface FormSelector extends FormElement {
 /** Default form elements */
 export interface FormElement {
   error?: boolean;
+  success?: boolean;
   [dataAttribute: DataAttributeKey]: unknown;
 }

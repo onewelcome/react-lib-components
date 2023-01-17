@@ -33,6 +33,7 @@ import { useBodyClick } from "../../hooks/useBodyClick";
 import readyclasses from "../../readyclasses.module.scss";
 import { filterProps } from "../../util/helper";
 import { useArrowNavigation, useSelectPositionList } from "./SelectService";
+import { useDetermineStatusIcon } from "../../hooks/useDetermineStatusIcon";
 
 type PartialInputProps = Partial<InputProps>;
 
@@ -67,6 +68,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     selectButtonProps,
     className,
     error = false,
+    success = false,
     value,
     clearLabel = "Clear selection",
     onChange,
@@ -90,7 +92,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const customSelectButtonRef = useRef<HTMLButtonElement>(null);
-
   const { onArrowNavigation } = useArrowNavigation({
     expanded,
     setExpanded,
@@ -183,13 +184,11 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     setFilter(event.currentTarget.value);
   };
 
-  const statusIcon = () => {
-    if (error) {
-      return <Icon className={classes["warning"]} icon={Icons.Warning} />;
-    }
-
-    return null;
-  };
+  const icon = useDetermineStatusIcon(
+    { success, error },
+    [classes["error-icon"]],
+    [classes["success-icon"]]
+  );
 
   const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange && onChange(event);
@@ -214,6 +213,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   error && additionalClasses.push(classes.error);
   disabled && additionalClasses.push(classes.disabled);
   className && additionalClasses.push(className);
+  success && additionalClasses.push(classes.success);
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
@@ -262,7 +262,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             {value?.length > 0 && <span data-display-inner>{display}</span>}
           </div>
           <div className={classes["status"]}>
-            {statusIcon()}
+            {icon}
             <Icon className={classes["triangle-down"]} icon={Icons.TriangleDown} />
           </div>
         </button>

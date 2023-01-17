@@ -100,21 +100,22 @@
 
 .error input {
   color: var(--error);
-  padding-right: 3.5rem;
+  padding-right: 1.25rem;
 
   &.remove-extra-indent {
     padding-right: 0;
   }
 }
+.success input {
+  padding-right: 1.25rem;
+}
 
-.warning {
-  color: var(--error);
-  position: absolute;
+.error-icon,
+.success-icon {
   height: 100%;
   width: 1.25rem;
-  right: 1.25rem;
-  top: 0;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
+  margin-right: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,6 +124,14 @@
   &:before {
     height: 1.3125rem;
   }
+}
+
+.success-icon {
+  color: var(--success);
+}
+
+.error-icon {
+  color: var(--error);
 }
 
 .input-wrapper [data-prefix],

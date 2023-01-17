@@ -41,17 +41,17 @@
     left: 2px;
     top: 2px;
   }
-}
 
-.textarea {
-  padding-top: 1.625rem;
+  .textarea {
+    padding-top: 1.625rem;
 
-  &:active:not(:disabled) {
-    border-color: var(--color-primary);
-  }
+    &:active:not(:disabled) {
+      border-color: var(--color-primary);
+    }
 
-  &:focus:not(:disabled) {
-    outline: none;
+    &:focus:not(:disabled) {
+      outline: none;
+    }
   }
 }
 
@@ -60,6 +60,7 @@
   margin-left: 1.25rem;
 }
 
-.error-icon {
+.error-icon,
+.success-icon {
   top: 1.75rem;
 }
