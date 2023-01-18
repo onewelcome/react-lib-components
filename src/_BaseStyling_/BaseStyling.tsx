@@ -49,6 +49,7 @@ interface CSSProperties {
   snackbarSuccessBackgroundColor?: string;
   snackbarErrorBackgroundColor?: string;
   snackbarBorderRadius?: string;
+  bannerBorderRadius?: string;
   dataGridRowBackgroundColor?: string;
   dataGridRowHoverBackgroundColor?: string;
   tabsBackgroundColor?: string;
@@ -61,6 +62,7 @@ interface CSSProperties {
   default?: string;
   success?: string;
   error?: string;
+  info?: string;
   disabled?: string;
   greyedOut?: string;
   lightGreyBorder?: string;
@@ -112,6 +114,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     snackbarSuccessBackgroundColor: "#008a28",
     snackbarErrorBackgroundColor: "#d9291c",
     snackbarBorderRadius: "8px",
+    bannerBorderRadius: "8px",
     dataGridRowBackgroundColor: "transparent",
     dataGridRowHoverBackgroundColor: "#f5e6f0",
     tabsBackgroundColor: "var(--light)",
@@ -124,6 +127,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     default: "#0f0f1e",
     success: "#008a28",
     error: "#d9291c",
+    info: "var(--color-secondary)",
     disabled: "#e9e9eb",
     greyedOut: "#6f6f76",
     lightGreyBorder: "#e9e9eb",
