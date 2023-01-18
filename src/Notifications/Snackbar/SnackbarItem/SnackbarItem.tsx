@@ -96,9 +96,10 @@ export const SnackbarItem = ({
         onClose(id);
         actionProp.onClick && actionProp.onClick(e);
       }}
-      children={actionProp.label}
       className={classes["action-button"]}
-    ></button>
+    >
+      {actionProp.label}
+    </button>
   ));
 
   return (

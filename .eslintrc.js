@@ -41,11 +41,11 @@ module.exports = {
       parser: "@typescript-eslint/parser",
       rules: {
         "no-unused-vars": "off", //we have "@typescript-eslint/no-unused-vars"
-        "react/display-name": "off",
-        "react/no-children-prop": "off", //we want to have freedom in that case
+        "react/display-name": "error",
+        "react/no-children-prop": "error",
         "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
-        "no-useless-escape": "warn",
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
+        "no-useless-escape": "error",
         "react/prop-types": "off"
       }
     }

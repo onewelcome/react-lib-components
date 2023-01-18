@@ -174,7 +174,7 @@ export const useSelectPositionList = ({
 
   const calculateOptionListMaxHeight = (position: Position) => {
     // Calculate max height if there's more space below the select
-    const listHeight = optionListReference.current!.getBoundingClientRect().height;
+    const listHeight = optionListReference.current?.getBoundingClientRect().height;
     const transformOrigin = position.top !== "initial" ? "top" : "bottom";
 
     const availableSpace =
@@ -184,7 +184,7 @@ export const useSelectPositionList = ({
           16
         : containerReference.current!.getBoundingClientRect()[transformOrigin] - 16;
 
-    if (availableSpace < listHeight) {
+    if (listHeight && availableSpace < listHeight) {
       setOptionsListMaxHeight(`${availableSpace}px`);
       setOpacity(100);
       return;

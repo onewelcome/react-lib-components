@@ -17,15 +17,13 @@
 import React, {
   ForwardRefRenderFunction,
   ComponentPropsWithRef,
-  ForwardRefExoticComponent,
-  ReactNode
+  ForwardRefExoticComponent
 } from "react";
 import classes from "./Link.module.scss";
 
 export type AnchorType = "external" | "internal" | "download";
 
 export interface Props extends ComponentPropsWithRef<"a"> {
-  children?: ReactNode;
   color?: "primary" | "secondary" | "tertiary";
   display?: "link" | "button";
   buttonVariant?: "outline" | "text" | "fill";
@@ -69,17 +67,20 @@ const LinkComponent: ForwardRefRenderFunction<HTMLAnchorElement, Props> = (
   className && classNames.push(className);
 
   if (component) {
-    return React.createElement(component, {
-      ...rest,
-      ref: ref,
-      to: to,
-      className: classNames.join(" "),
-      "aria-disabled": disabled,
-      style: {
-        ...rest.style
+    return React.createElement(
+      component,
+      {
+        ...rest,
+        ref: ref,
+        to: to,
+        className: classNames.join(" "),
+        "aria-disabled": disabled,
+        style: {
+          ...rest.style
+        }
       },
-      children: children
-    });
+      children
+    );
   }
 
   return (

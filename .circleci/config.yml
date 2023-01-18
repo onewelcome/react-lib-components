@@ -101,11 +101,10 @@ workflows:
           <<: *require-build
           <<: *filter-branches-tags
 
-#      https://community.sonarsource.com/t/sonarscanner-fails-with-could-not-find-a-default-branch-to-fall-back-on/80939
-#      - onegini-build/sonar:
-#          name: analyse
-#          <<: *dev-context
-#          <<: *require-test
+      - onegini-build/sonar:
+          name: analyse
+          <<: *dev-context
+          <<: *require-test
 
       - build-storybook:
           name: build-storybook
