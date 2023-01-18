@@ -1,0 +1,23 @@
+import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+
+<Title />
+<Subtitle />
+
+`Banners` are used to warn or inform the user about existing state of the application without blocking further interaction.
+Banners appear close to where user action is expected as inline block.
+
+Variants:
+
+- Informational: the user does not need to perform an action. For example, upcoming maintenance.
+- Warning: the user must perform an action, but not necessarily at this moment.
+  Another usage is to indicate deprecated configuration or a discouraged setting for a production environment.
+- Error: the user cannot continue.
+  Either the user must take immediate action, or there is something really wrong with the system.
+
+The `Banner` story you see bellow can be controlled using the Props bellow. The Aria props are added for accessibility
+
+<DocsStory id="components-feedback-banner--info-banner" />
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
