@@ -184,11 +184,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     setFilter(event.currentTarget.value);
   };
 
-  const icon = useDetermineStatusIcon(
-    { success, error },
-    [classes["error-icon"]],
-    [classes["success-icon"]]
-  );
+  const icon = useDetermineStatusIcon({ success, error });
 
   const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange && onChange(event);

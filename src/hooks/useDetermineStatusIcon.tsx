@@ -17,27 +17,16 @@
 import { FormElement } from "../Form/form.interfaces";
 import React, { ReactElement, useRef } from "react";
 import { Icon, Icons } from "../Icon/Icon";
-export const useDetermineStatusIcon = (
-  params: FormElement,
-  errorIconClassNames: string[],
-  successIconClassName: string[]
-): ReactElement | null => {
-  const { success, error } = params;
-
+export const useDetermineStatusIcon = (params: Partial<FormElement>): ReactElement | null => {
+  const { error, success } = params || false;
   let icon = null;
   const errorRef = useRef(null);
   const successRef = useRef(null);
 
   if (error) {
-    icon = <Icon ref={errorRef} className={errorIconClassNames.join(" ")} icon={Icons.Error} />;
+    icon = <Icon ref={errorRef} className="error-icon" icon={Icons.Error} />;
   } else if (success) {
-    icon = (
-      <Icon
-        ref={successRef}
-        className={successIconClassName.join(" ")}
-        icon={Icons.CheckmarkCircleBreakout}
-      />
-    );
+    icon = <Icon ref={successRef} className="success-icon" icon={Icons.CheckmarkCircleBreakout} />;
   }
 
   return icon;

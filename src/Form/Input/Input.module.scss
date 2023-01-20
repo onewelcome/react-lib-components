@@ -114,15 +114,17 @@
 .success-icon {
   height: 100%;
   width: 1.25rem;
+  box-sizing: border-box;
+  padding-top: calc(1rem - (1.25rem - 1rem));
   font-size: 1.25rem;
-  margin-right: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
 
   &:before {
-    height: 1.3125rem;
+    height: 1.25rem;
+    width: 1.25rem;
   }
 }
 

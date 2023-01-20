@@ -53,14 +53,14 @@
       outline: none;
     }
   }
+
+  [class*="error-icon"],
+  [class*="success-icon"] {
+    top: 1.75rem;
+  }
 }
 
 .textarea-helper-text {
   margin-top: 0.25rem;
   margin-left: 1.25rem;
-}
-
-.error-icon,
-.success-icon {
-  top: 1.75rem;
 }

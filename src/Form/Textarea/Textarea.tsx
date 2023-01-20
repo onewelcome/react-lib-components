@@ -48,11 +48,7 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
   focus && wrapperClasses.push(classes["focus"]) && outlineClasses.push(classes["focus"]);
   success && wrapperClasses.push("success");
 
-  const icon = useDetermineStatusIcon(
-    { success, error },
-    [classes["error-icon"]],
-    [classes["success-icon"]]
-  );
+  const icon = useDetermineStatusIcon({ success, error });
 
   return (
     <div {...wrapperProps} className={wrapperClasses.join(" ")}>

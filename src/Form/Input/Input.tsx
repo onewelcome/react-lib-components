@@ -96,11 +96,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   focus && wrapperClasses.push(classes["focus"]) && outlineClasses.push(classes["focus"]);
   success && wrapperClasses.push(classes["success"]);
 
-  const icon = useDetermineStatusIcon(
-    { success, error },
-    [classes["error-icon"]],
-    [classes["success-icon"]]
-  );
+  const icon = useDetermineStatusIcon({ success, error });
 
   return (
     <div
