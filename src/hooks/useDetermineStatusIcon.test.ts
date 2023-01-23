@@ -8,16 +8,16 @@ describe("it should return the correct icon", () => {
     });
 
     expect(result.current).toBeDefined();
-    expect(result.current?.props?.className).toContain("success-icon");
+    expect(result.current?.props?.["data-icon-status"]).toEqual("success");
   });
 
-  it("should return an icon of type success", () => {
+  it("should return an icon of type error", () => {
     const { result } = renderHook(useDetermineStatusIcon, {
       initialProps: { success: true, error: true }
     });
 
     expect(result.current).toBeDefined();
-    expect(result.current?.props?.className).toContain("error-icon");
+    expect(result.current?.props?.["data-icon-status"]).toEqual("error");
   });
 
   it("should return null", () => {
