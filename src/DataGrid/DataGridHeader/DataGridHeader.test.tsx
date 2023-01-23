@@ -21,8 +21,8 @@ import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
   headers: [
-    { name: "firstName", headline: "First name" },
-    { name: "lastName", headline: "Last name" }
+    { name: "firstName", headline: "First name", align: "center" },
+    { name: "lastName", headline: "Last name", align: "right" }
   ]
 };
 
@@ -36,7 +36,6 @@ const createDataGridHeader = (params?: (defaultParams: Props) => Props) => {
     container
   });
   const dataGridHeader = queries.getByTestId("dataGridHeader");
-
   return {
     ...queries,
     dataGridHeader
@@ -50,6 +49,12 @@ describe("DataGridHeader should render", () => {
     expect(dataGridHeader).toBeDefined();
     expect(getAllByRole("columnheader")).toHaveLength(2);
     expect(getByRole("cell")).toBeDefined(); //context-menu empty cell
+
+    const headerCells = dataGridHeader.querySelectorAll("th");
+
+    expect(headerCells).toHaveLength(2);
+    expect(headerCells[0]).toHaveStyle({ textAlign: "center" });
+    expect(headerCells[1]).toHaveStyle({ textAlign: "right" });
 
     expect(dataGridHeader.querySelectorAll("[data-icon]")).toHaveLength(0);
   });
