@@ -60,7 +60,6 @@ export var PanelContent = function PanelContent(_ref) {
   var debouncedPropertyState = useDebounce(propertiesState, 200);
   useEffect(function () {
     propertyChanged(propertiesState);
-    console.log(propertiesState);
   }, [debouncedPropertyState]);
   useEffect(function () {
     if (properties && !propertiesState) {
