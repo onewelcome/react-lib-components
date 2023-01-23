@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@import "../mixins.module.scss";
+@use "../mixins.module.scss";
 
 .popover {
   $transition-property: transform, opacity;
@@ -28,7 +28,7 @@
   opacity: 0;
   transform: scale(0.5);
 
-  @include transition($transition-property, 0.2s, ease-in-out);
+  @include mixins.transition($transition-property, 0.2s, ease-in-out);
 
   &.show {
     transform: scale(1);

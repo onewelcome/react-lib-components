@@ -14,8 +14,8 @@
  *    limitations under the License.
  */
 
-@import "../mixins.module.scss";
+@use "../mixins.module.scss";
 
 .button {
-  @include buttonBase();
+  @include mixins.buttonBase();
 }

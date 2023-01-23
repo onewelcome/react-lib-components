@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-@import "../../../mixins.module.scss";
+@use "../../../mixins.module.scss";
 
-@include inputLabelPrimaryColorOnFocus("label.input-label.focus");
+@include mixins.inputLabelPrimaryColorOnFocus("label.input-label.focus");
 
 input {
   &.floating-label {
@@ -30,7 +30,7 @@ input {
 
 .input-wrapper {
   [data-icon]:before {
-    @include transition(all, 0.2s, ease-in-out);
+    @include mixins.transition(all, 0.2s, ease-in-out);
     transform: translateY(0px);
     font-size: 1.125rem;
   }

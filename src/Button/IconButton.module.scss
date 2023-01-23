@@ -14,8 +14,7 @@
  *    limitations under the License.
  */
 
-@import "../readyclasses.module.scss";
-@import "../mixins.module.scss";
+@use "../mixins.module.scss";
 
 .icon-button {
   border: var(--button-border-width) var(--button-border-style) transparent;
@@ -57,14 +56,14 @@
   }
 
   &.fill {
-    @include button("fill", "icon");
+    @include mixins.button("fill", "icon");
   }
 
   &.text {
-    @include button("text", "icon");
+    @include mixins.button("text", "icon");
   }
 
   &.outline {
-    @include button("outline", "icon");
+    @include mixins.button("outline", "icon");
   }
 }

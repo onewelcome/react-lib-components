@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@import "../../mixins.module.scss";
+@use "../../mixins.module.scss";
 
 $borderRadius: 2.5rem;
 
@@ -31,7 +31,7 @@ $borderRadius: 2.5rem;
   background-color: var(--default);
   border-radius: $borderRadius;
   position: relative;
-  @include transition(background-color, 0.2s, ease-in-out);
+  @include mixins.transition(background-color, 0.2s, ease-in-out);
   display: block;
   pointer-events: none;
 
@@ -46,7 +46,7 @@ $borderRadius: 2.5rem;
     top: 50%;
     transform: translateY(-50%) translateX(0);
     left: 0.125rem;
-    @include transition(transform, 0.2s, ease-in-out);
+    @include mixins.transition(transform, 0.2s, ease-in-out);
   }
 
   &.checked {

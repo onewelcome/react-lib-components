@@ -14,14 +14,14 @@
  *    limitations under the License.
  */
 
-@import "../../mixins.module.scss";
+@use "../../mixins.module.scss";
 
 .textarea-wrapper {
   position: relative;
   box-sizing: border-box;
   width: 100%;
 
-  @include outlineStates;
+  @include mixins.outlineStates();
 }
 
 .textarea {
@@ -29,7 +29,7 @@
   box-sizing: border-box;
   border: 0;
   border-radius: var(--input-border-radius);
-  @include transition(all, 0.2s, ease-in-out);
+  @include mixins.transition(all, 0.2s, ease-in-out);
   font-family: var(--font-family);
   font-size: var(--font-size);
   color: var(--greyed-out);
@@ -42,10 +42,10 @@
     cursor: not-allowed;
   }
 
-  @include browserOutlineDisabled;
+  @include mixins.browserOutlineDisabled();
 }
 
-@include outline;
+@include mixins.outline();
 
 .error {
   border-color: var(--error);
