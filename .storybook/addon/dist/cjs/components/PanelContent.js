@@ -54,6 +54,7 @@ var PanelContent = function PanelContent(_ref) {
   var debouncedPropertyState = useDebounce(propertiesState, 200);
   (0, _react.useEffect)(function () {
     propertyChanged(propertiesState);
+    console.log(propertiesState);
   }, [debouncedPropertyState]);
   (0, _react.useEffect)(function () {
     if (properties && !propertiesState) {
