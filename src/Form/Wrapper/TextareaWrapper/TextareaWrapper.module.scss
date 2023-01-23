@@ -54,8 +54,8 @@
     }
   }
 
-  [class*="error-icon"],
-  [class*="success-icon"] {
+  [data-icon-status="success"],
+  [data-icon-status="error"] {
     top: 1.75rem;
   }
 }

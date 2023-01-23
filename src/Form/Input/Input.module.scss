@@ -65,6 +65,32 @@
   }
 
   @include outlineStates;
+
+  [data-icon-status="success"],
+  [data-icon-status="error"] {
+    height: 100%;
+    width: 1.25rem;
+    box-sizing: border-box;
+    padding-top: calc(1rem - (1.25rem - 1rem));
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+    &:before {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+  }
+
+  [data-icon-status="success"] {
+    color: var(--success);
+  }
+
+  [data-icon-status="error"] {
+    color: var(--error);
+  }
 }
 
 .input {
@@ -108,32 +134,6 @@
 }
 .success input {
   padding-right: 1.25rem;
-}
-
-.error-icon,
-.success-icon {
-  height: 100%;
-  width: 1.25rem;
-  box-sizing: border-box;
-  padding-top: calc(1rem - (1.25rem - 1rem));
-  font-size: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-
-  &:before {
-    height: 1.25rem;
-    width: 1.25rem;
-  }
-}
-
-.success-icon {
-  color: var(--success);
-}
-
-.error-icon {
-  color: var(--error);
 }
 
 .input-wrapper [data-prefix],

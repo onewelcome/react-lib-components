@@ -172,12 +172,12 @@ $listItemHeight: 2.125rem;
   display: flex;
   align-items: center;
 
-  .success-icon {
+  [data-icon-status="success"] {
     color: var(--success);
     font-size: 1.25rem;
   }
 
-  .error-icon {
+  [data-icon-status="error"] {
     color: var(--error);
     font-size: 1.25rem;
   }

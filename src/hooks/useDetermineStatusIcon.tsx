@@ -24,9 +24,11 @@ export const useDetermineStatusIcon = (params: Partial<FormElement>): ReactEleme
   const successRef = useRef(null);
 
   if (error) {
-    icon = <Icon ref={errorRef} className="error-icon" icon={Icons.Error} />;
+    icon = <Icon ref={errorRef} data-icon-status="error" icon={Icons.Error} />;
   } else if (success) {
-    icon = <Icon ref={successRef} className="success-icon" icon={Icons.CheckmarkCircleBreakout} />;
+    icon = (
+      <Icon ref={successRef} data-icon-status="success" icon={Icons.CheckmarkCircleBreakout} />
+    );
   }
 
   return icon;
