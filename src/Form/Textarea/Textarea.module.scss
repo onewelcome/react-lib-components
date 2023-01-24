@@ -20,6 +20,22 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
+  [data-icon-status="success"],
+  [data-icon-status="error"] {
+    position: absolute;
+    right: 1.25rem;
+    z-index: 1;
+    top: 0.85rem;
+    font-size: 1.25rem;
+  }
+
+  [data-icon-status="success"] {
+    color: var(--success);
+  }
+
+  [data-icon-status="error"] {
+    color: var(--error);
+  }
 
   @include outlineStates;
 }
@@ -50,12 +66,4 @@
 .error {
   border-color: var(--error);
   color: var(--error);
-}
-
-.warning {
-  color: var(--error);
-  position: absolute;
-  right: 1.25rem;
-  top: 0.75rem;
-  font-size: 1.25rem;
 }

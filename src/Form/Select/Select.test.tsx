@@ -119,6 +119,17 @@ describe("Select should render", () => {
     expect(button).toHaveAttribute("aria-invalid", "true");
     expect(select.querySelector("[data-clear]")).not.toBeInTheDocument();
   });
+
+  it("should have a success icon when success state", () => {
+    const { button } = createSelect(defaultParams => ({
+      ...defaultParams,
+      success: true
+    }));
+
+    const icon = button.querySelector("[class*='icon-checkmark-circle-breakout']");
+    expect(button).toHaveClass("success");
+    expect(icon).toBeDefined();
+  });
 });
 
 describe("ref should work", () => {
