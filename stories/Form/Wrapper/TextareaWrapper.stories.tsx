@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useState } from "react";
+import React from "react";
 import { Meta, Story } from "@storybook/react";
 import {
   TextareaWrapper as TextareaWrapperComponent,
@@ -36,6 +36,9 @@ const meta: Meta = {
     },
     disabled: {
       control: "boolean"
+    },
+    success: {
+      control: "boolean"
     }
   }
 };
@@ -47,6 +50,7 @@ export const TextareaWrapper = Template.bind({});
 
 TextareaWrapper.args = {
   error: false,
+  success: false,
   value: "Example value",
   onChange: () => {},
   label: "Example textarea",

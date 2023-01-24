@@ -234,4 +234,14 @@ describe("It should render prefix and suffix ", () => {
     expect(input.querySelector("icon-warning")).toBeDefined();
     expect(getByText(suffix)).toBeDefined();
   });
+
+  it("success icon should be visible", () => {
+    const { input } = createInput(defaultParams => ({
+      ...defaultParams,
+      success: true
+    }));
+    const icon = input.querySelector(".icon-checkmark-circle-breakout");
+    expect(input.querySelector(".success")).toBeDefined();
+    expect(icon).toBeDefined();
+  });
 });

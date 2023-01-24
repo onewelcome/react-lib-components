@@ -24,8 +24,8 @@ import React, {
 } from "react";
 import classes from "./Input.module.scss";
 import readyclasses from "../../readyclasses.module.scss";
-import { Icon, Icons } from "../../Icon/Icon";
 import { FormElement } from "../form.interfaces";
+import { useDetermineStatusIcon } from "../../hooks/useDetermineStatusIcon";
 
 export const dateTypes = ["date", "time", "datetime-local"] as const;
 
@@ -39,7 +39,7 @@ export type Type =
   | "tel"
   | "url"
   | "hidden"
-  | typeof dateTypes[number];
+  | (typeof dateTypes)[number];
 
 export interface Props extends ComponentPropsWithRef<"input">, FormElement {
   wrapperProps?: ComponentPropsWithRef<"div">;
@@ -52,6 +52,7 @@ export interface Props extends ComponentPropsWithRef<"input">, FormElement {
 const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   {
     error = false,
+    success = false,
     className,
     name,
     style,
@@ -69,7 +70,6 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
 ) => {
   const [focus, setFocus] = useState(false);
   const inputWrapperRef = useRef<HTMLDivElement>(null);
-  const errorIconRef = useRef<HTMLDivElement>(null);
   const suffixRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -84,7 +84,6 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     inputClassNames.push(classes["shrink-width-for-date-icon"]);
   className && inputClassNames.push(className);
 
-  const iconClassNames = [classes["warning"]];
   const wrapperClasses = [classes["input-wrapper"]];
   const outlineClasses = [classes["outline"]];
 
@@ -95,6 +94,9 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   disabled && wrapperClasses.push(classes["disabled"]) && outlineClasses.push(classes["disabled"]);
   error && wrapperClasses.push(classes["error"]) && outlineClasses.push(classes["error"]);
   focus && wrapperClasses.push(classes["focus"]) && outlineClasses.push(classes["focus"]);
+  success && wrapperClasses.push(classes["success"]);
+
+  const icon = useDetermineStatusIcon({ success, error });
 
   return (
     <div
@@ -126,12 +128,12 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         className={inputClassNames.join(" ")}
         spellCheck={rest.spellCheck || false}
       />
+      {icon}
       {suffix && (
         <div ref={suffixRef} data-suffix className={classes["suffix"]}>
           <span>{suffix}</span>
         </div>
       )}
-      {error && <Icon ref={errorIconRef} className={iconClassNames.join(" ")} icon={Icons.Error} />}
       <span className={outlineClasses.join(" ")}></span>
     </div>
   );

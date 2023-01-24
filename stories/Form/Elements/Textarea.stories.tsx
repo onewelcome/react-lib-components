@@ -33,6 +33,9 @@ const meta: Meta = {
     },
     disabled: {
       control: "boolean"
+    },
+    success: {
+      control: "boolean"
     }
   }
 };

@@ -39,7 +39,17 @@ export interface Props
 }
 
 const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, error, value, placeholder, selectProps, helperProps, onChange, ...rest }: Props,
+  {
+    children,
+    error,
+    success,
+    value,
+    placeholder,
+    selectProps,
+    helperProps,
+    onChange,
+    ...rest
+  }: Props,
   ref
 ) => {
   const { errorId, floatingLabelActive, helperId, labelId } = useWrapper(value, placeholder);
@@ -63,6 +73,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         value={value}
         labeledBy={labelId}
         error={error}
+        success={success}
         describedBy={error ? errorId : helperId}
         onChange={onChange}
         placeholder={placeholder}

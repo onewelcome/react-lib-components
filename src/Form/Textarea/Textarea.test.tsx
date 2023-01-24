@@ -116,3 +116,11 @@ describe("Error status", () => {
     expect(textarea.nextElementSibling).toHaveClass("icon-error-circle");
   });
 });
+
+describe("Success status", () => {
+  it("success icon should be visible", () => {
+    const { textarea } = createTextarea({ success: true });
+    const icon = textarea.parentElement?.querySelector(".icon-checkmark-circle-breakout");
+    expect(icon).toBeDefined();
+  });
+});

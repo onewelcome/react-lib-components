@@ -65,6 +65,32 @@
   }
 
   @include mixins.outlineStates;
+
+  [data-icon-status="success"],
+  [data-icon-status="error"] {
+    height: 100%;
+    width: 1.25rem;
+    box-sizing: border-box;
+    padding-top: calc(1rem - (1.25rem - 1rem));
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+    &:before {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+  }
+
+  [data-icon-status="success"] {
+    color: var(--success);
+  }
+
+  [data-icon-status="error"] {
+    color: var(--error);
+  }
 }
 
 .input {
@@ -100,29 +126,14 @@
 
 .error input {
   color: var(--error);
-  padding-right: 3.5rem;
+  padding-right: 1.25rem;
 
   &.remove-extra-indent {
     padding-right: 0;
   }
 }
-
-.warning {
-  color: var(--error);
-  position: absolute;
-  height: 100%;
-  width: 1.25rem;
-  right: 1.25rem;
-  top: 0;
-  font-size: 1.125rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-
-  &:before {
-    height: 1.3125rem;
-  }
+.success input {
+  padding-right: 1.25rem;
 }
 
 .input-wrapper [data-prefix],
