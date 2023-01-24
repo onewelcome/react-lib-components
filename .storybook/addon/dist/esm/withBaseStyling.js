@@ -32,16 +32,22 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     updateGlobals = _useGlobals2[1];
   var waitForMs = 1; // See README.md technical explanation for why a timeout is necessary.
 
-  useEffect(function () {
-    setTimeout(function () {
-      var _context$canvasElemen;
-      var htmlElement = (_context$canvasElemen = context.canvasElement) === null || _context$canvasElemen === void 0 ? void 0 : _context$canvasElemen.closest("html");
-      if (htmlElement) {
-        var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
+  var updateGlobalsFn = function updateGlobalsFn(context) {
+    var _context$canvasElemen;
+    var htmlElement = (_context$canvasElemen = context.canvasElement) === null || _context$canvasElemen === void 0 ? void 0 : _context$canvasElemen.closest("html");
+    if (htmlElement) {
+      var _context$globals;
+      var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
+      if (!((_context$globals = context.globals) !== null && _context$globals !== void 0 && _context$globals.baseStyling)) {
         updateGlobals({
           baseStyling: stylesObject
         });
       }
+    }
+  };
+  useEffect(function () {
+    setTimeout(function () {
+      return updateGlobalsFn(context);
     }, waitForMs);
   }, [window.location.search]);
   useEffect(function () {
@@ -58,6 +64,7 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     return propertiesObject;
   };
   var setSessionStorageAndDispatchUpdateStylingEvent = function setSessionStorageAndDispatchUpdateStylingEvent(stylingObject) {
+    if (!stylingObject) return;
     window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
     var updatedStyling = new Event("updated-styling");
     window.dispatchEvent(updatedStyling);

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import type { DecoratorFunction } from "@storybook/addons";
+import type { DecoratorFunction, StoryContext } from "@storybook/addons";
 import { useEffect, useGlobals } from "@storybook/addons";
 import { cssPropertyToObjectKey } from "./utils/helpers";
 
@@ -22,18 +22,22 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   const [{ baseStyling }, updateGlobals] = useGlobals();
   const waitForMs = 1; // See README.md technical explanation for why a timeout is necessary.
 
-  useEffect(() => {
-    setTimeout(() => {
-      const htmlElement = context.canvasElement?.closest("html");
+  const updateGlobalsFn = (context: StoryContext) => {
+    const htmlElement = context.canvasElement?.closest("html");
 
-      if (htmlElement) {
-        const stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
+    if (htmlElement) {
+      const stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
 
+      if (!context.globals?.baseStyling) {
         updateGlobals({
           baseStyling: stylesObject
         });
       }
-    }, waitForMs);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => updateGlobalsFn(context), waitForMs);
   }, [window.location.search]);
 
   useEffect(() => {
@@ -64,6 +68,7 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   const setSessionStorageAndDispatchUpdateStylingEvent = (
     stylingObject: Record<string, string>
   ) => {
+    if (!stylingObject) return;
     window.sessionStorage.setItem("basestyling", JSON.stringify(stylingObject));
 
     const updatedStyling = new Event("updated-styling");
