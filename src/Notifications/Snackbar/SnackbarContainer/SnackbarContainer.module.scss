@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-@import "../../../mixins.module.scss";
+@use "../../../mixins.module.scss";
 
 .snackbars {
   position: fixed;
@@ -21,7 +21,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  @include transition(height, 0.2s, ease-in-out);
+  @include mixins.transition(height, 0.2s, ease-in-out);
 
   &.bottom {
     bottom: 3.5rem;

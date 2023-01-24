@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@import "../mixins.module.scss";
+@use "../mixins.module.scss";
 
 $focus-width: 5px;
 
@@ -45,7 +45,7 @@ $focus-width: 5px;
   height: var(--tab-active-border-height);
   background-color: var(--tab-active-border-color);
 
-  @include transition($transition-property, 0.2s, ease-in-out);
+  @include mixins.transition($transition-property, 0.2s, ease-in-out);
 }
 
 .tabdivider {

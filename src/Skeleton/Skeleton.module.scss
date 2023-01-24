@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-@import "../mixins.module.scss";
+@use "../mixins.module.scss";
 
 .skeleton {
   display: block;
   height: auto;
-  @include skeletonLoading();
+  @include mixins.skeletonLoading();
 }
 
 .no-height::before {

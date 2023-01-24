@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@import "../mixins.module.scss";
+@use "../mixins.module.scss";
 
 .link {
   font-family: var(--font-family);
@@ -64,19 +64,19 @@
 }
 
 .button {
-  @include buttonBase("link");
+  @include mixins.buttonBase("link");
 
   text-decoration: none;
 
   &.fill {
-    @include button("fill", "link");
+    @include mixins.button("fill", "link");
   }
 
   &.outline {
-    @include button("outline", "link");
+    @include mixins.button("outline", "link");
   }
 
   &.text {
-    @include button("text", "link");
+    @include mixins.button("text", "link");
   }
 }

@@ -14,15 +14,14 @@
  *    limitations under the License.
  */
 
-@import "../../readyclasses.module.scss";
-@import "../../mixins.module.scss";
+@use "../../mixins.module.scss";
 
 $listItemHeight: 2.125rem;
 
 .select {
   position: relative;
   box-sizing: border-box;
-  @include transition(all, 0.2s, ease-in-out);
+  @include mixins.transition(all, 0.2s, ease-in-out);
   border: 0;
   border-radius: var(--input-border-radius);
   background-color: var(--input-background-color);
@@ -65,7 +64,7 @@ $listItemHeight: 2.125rem;
     border-radius: var(--input-border-radius);
     font-size: var(--font-size);
     cursor: pointer;
-    @include transition(all, 0.2s, ease-in-out);
+    @include mixins.transition(all, 0.2s, ease-in-out);
 
     &:focus {
       outline: 0;

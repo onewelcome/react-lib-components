@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@import "../../mixins.module.scss";
+@use "../../mixins.module.scss";
 
 .cell {
   min-height: 3.5rem;
@@ -29,7 +29,7 @@
   }
 
   .loading {
-    @include skeletonLoading();
+    @include mixins.skeletonLoading();
     border-radius: 0.5rem;
     height: 1.25rem;
     margin: 0.625rem 0;

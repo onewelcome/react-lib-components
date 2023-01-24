@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@import "../mixins.module.scss";
+@use "../mixins.module.scss";
 
 .wrapper {
   display: flex;
@@ -24,7 +24,7 @@
 .tooltip-wrapper {
   .icon {
     margin-left: 0.5rem;
-    @include transition(all, 0.2s, ease-in-out);
+    @include mixins.transition(all, 0.2s, ease-in-out);
     color: var(--greyed-out);
 
     &:hover {
@@ -46,7 +46,7 @@
   transform-origin: center left;
   pointer-events: none;
 
-  @include transition($transition-property, 0.2s, ease-in-out);
+  @include mixins.transition($transition-property, 0.2s, ease-in-out);
 
   &.visible {
     opacity: 1;

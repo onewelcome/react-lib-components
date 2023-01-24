@@ -14,19 +14,18 @@
  *    limitations under the License.
  */
 
-@import "../readyclasses.module.scss";
-@import "../mixins.module.scss";
+@use "../mixins.module.scss";
 
 .fill {
-  @include button("fill");
+  @include mixins.button("fill");
 }
 
 .outline {
-  @include button("outline");
+  @include mixins.button("outline");
 }
 
 .text {
-  @include button("text");
+  @include mixins.button("text");
 }
 
 .has-icon {
