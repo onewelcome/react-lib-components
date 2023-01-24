@@ -77,7 +77,9 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
       return null;
     }
 
-    let headerStyle: React.CSSProperties = {};
+    let headerStyle: React.CSSProperties = {
+      textAlign: header.align || "left"
+    };
 
     if (index === 0) {
       headerStyle.paddingLeft = spacing?.paddingLeft;

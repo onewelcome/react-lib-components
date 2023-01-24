@@ -27,4 +27,5 @@ export interface HeaderCell {
   headline: string;
   disableSorting?: boolean;
   hidden?: boolean;
+  align?: "left" | "right" | "center";
 }
