@@ -56,7 +56,7 @@
     "@mdx-js/react": "^1.6.22",
     "@onewelcome/eslint-config-shared-codestyle": "^9.0.3",
     "@size-limit/preset-small-lib": "^8.1.2",
-    "@storybook/addon-a11y": "^6.5.15",
+    "@storybook/addon-a11y": "^6.5.16",
     "@storybook/addon-docs": "^6.5.15",
     "@storybook/addon-essentials": "^6.5.15",
     "@storybook/addon-links": "^6.5.15",
