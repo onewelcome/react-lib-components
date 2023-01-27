@@ -14,8 +14,12 @@
  *    limitations under the License.
  */
 
+import { Props as IconProps } from "./Icon/Icon";
+
 export type DataAttributeKey = `data-${string}`;
 
 export interface KeyValuePair {
   [dataAttribute: DataAttributeKey]: unknown;
 }
+
+export type IconPropsPartial = Omit<Partial<IconProps>, "ref">;

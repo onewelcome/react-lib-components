@@ -45,6 +45,18 @@
   font-size: 0.875rem;
 }
 
+.icon-file-outline:before {
+  content: "\e941";
+  @include fontProperties();
+}
+.icon-file-upload-outline:before {
+  content: "\e942";
+  @include fontProperties();
+}
+.icon-file-download-outline:before {
+  content: "\e943";
+  @include fontProperties();
+}
 .icon-image:before {
   content: "\e900";
   @include fontProperties();
