@@ -84,7 +84,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: npm chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+      - run: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 
 workflows:
   version: 2
