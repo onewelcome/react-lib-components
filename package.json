@@ -80,7 +80,7 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.49.0",
+    "@typescript-eslint/parser": "^5.50.0",
     "babel-loader": "^9.1.2",
     "dts-cli": "^1.6.3",
     "eslint": "^8.33.0",
