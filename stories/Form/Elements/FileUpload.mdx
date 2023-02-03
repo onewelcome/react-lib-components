@@ -1,4 +1,11 @@
-import { Title, Subtitle, Subheading, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import {
+  Title,
+  Subtitle,
+  Subheading,
+  ArgsTable,
+  PRIMARY_STORY,
+  DocsStory
+} from "@storybook/addon-docs";
 
 <Title />
 <Subtitle />
@@ -80,6 +87,14 @@ The properties the component receives are as follows:
 
 `File Upload` can be used as a simple file selector.
 In this case, the component will receive all the state changes and progress of the files uploads from the client applications
+
+# Examples
+
+<DocsStory id="components-inputs-fileupload--file-upload-component" />
+
+# Example that uses server interaction as well:
+
+<DocsStory id="components-inputs-fileupload--file-upload-component-with-server-interaction" />
 
 # Props
 
