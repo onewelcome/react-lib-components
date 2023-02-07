@@ -24,7 +24,7 @@
   border: 0;
   border-radius: var(--input-border-radius);
   background-color: var(--input-background-color);
-  padding: 0 1.25rem;
+  padding: 0 1rem;
   @include mixins.transition(all, 0.2s, ease-in-out);
 
   // General autofill styles
@@ -141,4 +141,10 @@
   @include mixins.transition(all, 0.2s, ease-in-out);
   display: block;
   z-index: 1;
+}
+
+@media only screen and (min-width: 480px) {
+  .input-wrapper {
+    padding: 0 1.25rem;
+  }
 }

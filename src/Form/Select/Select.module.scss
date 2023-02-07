@@ -41,7 +41,7 @@ $listItemHeight: 2.125rem;
   &:not(.expanded) {
     button:focus:not(.error) {
       border: var(--input-border-width-focus) solid var(--color-focus);
-      padding: 0 calc(1.25rem - var(--input-border-width-focus) + var(--input-border-width));
+      padding: 0 calc(1rem - var(--input-border-width-focus) + var(--input-border-width));
     }
   }
 
@@ -56,7 +56,7 @@ $listItemHeight: 2.125rem;
     position: relative;
     width: 100%;
     min-height: calc(4rem - (2 * var(--input-border-width)));
-    padding: 0 1.25rem;
+    padding: 0 1rem;
     background-color: transparent;
     border-color: var(--light-grey-border);
     border-style: var(--input-border-style);
@@ -213,5 +213,17 @@ $listItemHeight: 2.125rem;
 
   > * {
     pointer-events: none;
+  }
+}
+@media only screen and (min-width: 480px) {
+  .select {
+    .custom-select {
+      padding: 0 1.25rem;
+    }
+    &:not(.expanded) {
+      button:focus:not(.error) {
+        padding: 0 calc(1.25rem - var(--input-border-width-focus) + var(--input-border-width));
+      }
+    }
   }
 }
