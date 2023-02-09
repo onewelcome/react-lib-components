@@ -30,6 +30,10 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   error?: string;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
 }
+interface FileItemIcons {
+  fileIcon: Icons;
+  actionIcon?: { type: Icons; action: FILE_ACTION };
+}
 
 export enum FILE_ACTION {
   DELETE = "delete",
@@ -42,49 +46,47 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   { name, status, error, progress, onRequestedFileAction }: Props,
   ref
 ) => {
-  let icons: { fileIcon: Icons; actionIcon?: { type: Icons; action: FILE_ACTION } };
+  const determineIcons = (status?: UploadProgress): FileItemIcons => {
+    switch (status) {
+      case "completed":
+        return {
+          fileIcon: Icons.FileOutline,
+          actionIcon: {
+            type: Icons.Trash,
+            action: FILE_ACTION.DELETE
+          }
+        };
+      case "error":
+        return {
+          fileIcon: Icons.InfoCircle,
+          actionIcon: {
+            type: Icons.Times,
+            action: FILE_ACTION.REMOVE
+          }
+        };
+      case "uploading":
+        return {
+          fileIcon: Icons.FileUpload,
+          actionIcon: {
+            type: Icons.Times,
+            action: FILE_ACTION.ABORT
+          }
+        };
+      case "retry":
+        return {
+          fileIcon: Icons.InfoCircle,
+          actionIcon: {
+            type: Icons.Refresh,
+            action: FILE_ACTION.RETRY
+          }
+        };
+      case "readonly":
+      default:
+        return { fileIcon: Icons.FileOutline };
+    }
+  };
 
-  switch (status) {
-    case "completed":
-      icons = {
-        fileIcon: Icons.FileOutline,
-        actionIcon: {
-          type: Icons.Trash,
-          action: FILE_ACTION.DELETE
-        }
-      };
-      break;
-    case "error":
-      icons = {
-        fileIcon: Icons.InfoCircle,
-        actionIcon: {
-          type: Icons.Times,
-          action: FILE_ACTION.REMOVE
-        }
-      };
-      break;
-    case "uploading":
-      icons = {
-        fileIcon: Icons.FileUpload,
-        actionIcon: {
-          type: Icons.Times,
-          action: FILE_ACTION.ABORT
-        }
-      };
-      break;
-    case "retry":
-      icons = {
-        fileIcon: Icons.InfoCircle,
-        actionIcon: {
-          type: Icons.Refresh,
-          action: FILE_ACTION.RETRY
-        }
-      };
-      break;
-    case "readonly":
-    default:
-      icons = { fileIcon: Icons.FileOutline };
-  }
+  const icons = determineIcons(status);
 
   const getFriendlyNameAndExtension = (name: string) => {
     const index = name.indexOf(".");

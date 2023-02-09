@@ -21,7 +21,7 @@ import {
   filterProps,
   debounce,
   throttle,
-  differenceBy,
+  areArraysDifferent,
   getValueByPath,
   isEqual
 } from "./helper";
@@ -174,7 +174,7 @@ describe("throttling works", () => {
   });
 });
 
-describe("differenceBy works as expected", () => {
+describe("areArraysDifferent works as expected", () => {
   it("should return true for different arrays", () => {
     const arr1 = [
       {
@@ -194,7 +194,7 @@ describe("differenceBy works as expected", () => {
       }
     ];
 
-    const result = differenceBy(arr1, arr2, "name");
+    const result = areArraysDifferent(arr1, arr2, "name");
     expect(result).toBe(true);
   });
 
@@ -211,7 +211,7 @@ describe("differenceBy works as expected", () => {
       }
     ];
 
-    const result = differenceBy(arr1, arr2, "name");
+    const result = areArraysDifferent(arr1, arr2, "name");
     expect(result).toBe(false);
   });
 
@@ -228,7 +228,7 @@ describe("differenceBy works as expected", () => {
       }
     ];
 
-    const result = differenceBy(arr1, arr2, "name");
+    const result = areArraysDifferent(arr1, arr2, "name");
     expect(result).toBe(true);
   });
 });

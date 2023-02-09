@@ -21,7 +21,7 @@ import { Form } from "../../../src";
 import { useArgs } from "@storybook/addons";
 import { useUploadFile } from "../../../src/hooks/useUploadFile";
 import { FILE_ACTION } from "../../../src/Form/FileUpload/FileItem/FileItem";
-import { differenceBy } from "../../../src/util/helper";
+import { areArraysDifferent } from "../../../src/util/helper";
 import FileUploadDocumentation from "./FileUpload.mdx";
 
 const meta: Meta = {
@@ -77,7 +77,7 @@ const Template: Story<Props & { url: string; withCredentials: boolean }> = args 
   });
 
   useEffect(() => {
-    if (differenceBy(args.fileList, updatedFiles, "status")) {
+    if (areArraysDifferent(args.fileList, updatedFiles, "status")) {
       updateArgs({ ...args, fileList: updatedFiles });
     }
   }, [updatedFiles]);

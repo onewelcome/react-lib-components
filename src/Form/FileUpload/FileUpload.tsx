@@ -187,9 +187,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     <div className={classes["file-upload-wrapper"]} {...wrapperProps}>
       <div
         className={dropzoneClassNames.join(" ")}
-        {...(!disabled && { onDragOver: handleOnDragOver })}
-        {...(!disabled && { onDragEnter: handleOnDragLeave })}
-        {...(!disabled && { onDrop: handleOnDrop })}
+        onDragOver={e => !disabled && handleOnDragOver(e)}
+        onDragEnter={e => !disabled && handleOnDragLeave(e)}
+        onDrop={e => !disabled && handleOnDrop(e)}
       >
         <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
           {title}

@@ -152,7 +152,7 @@ export const isEqual = (x: any, y: any): boolean => {
     : x === y;
 };
 
-export const differenceBy = (
+export const areArraysDifferent = (
   arr1: Record<string, any>[],
   arr2: Record<string, any>[],
   key: string

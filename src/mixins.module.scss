@@ -173,7 +173,7 @@
     border-style: $style;
     border-width: $width;
     border-radius: $borderRadius;
-    @if ($backgroundColor) {
+    @if ($backgroundColor != "") {
       background-color: $backgroundColor;
     }
     @include transition(all, 0.2s, ease-in-out);
@@ -265,6 +265,6 @@
   }
 }
 
-@for $i from 1 through 100 {
+@for $i from 1 through 10 {
   @include width-size($i * 5);
 }

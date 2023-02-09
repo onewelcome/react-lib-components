@@ -68,7 +68,7 @@ describe("ProgressBar should change styles depending on props", () => {
     expect(bar).toHaveClass("w-40");
   });
 
-  it("should show a progress when 'completed' prop is provided", () => {
+  it("should show a loading effect when 'completed' prop is not provided", () => {
     const { ProgressBarComponent } = createProgressBar(defaultParams => ({
       ...defaultParams
     }));
