@@ -265,6 +265,6 @@
   }
 }
 
-@for $i from 1 through 10 {
-  @include width-size($i * 5);
+@for $i from 1 through 100 {
+  @include width-size($i + 5);
 }
