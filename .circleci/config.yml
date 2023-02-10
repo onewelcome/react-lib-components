@@ -79,6 +79,13 @@ jobs:
           name: Run deploy
           command: gh-pages -d storybook-static -u "github-actions-bot <support+actions@github.com>"
 
+  chromatic-deployment:
+    executor: onegini-build/node-executor
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+
 workflows:
   version: 2
   build-workflow:
@@ -105,6 +112,12 @@ workflows:
           name: analyse
           <<: *dev-context
           <<: *require-test
+
+      - chromatic-deployment:
+          name: chromatic-deployment
+          <<: *dev-context
+          <<: *require-build
+          <<: *filter-branches-tags
 
       - build-storybook:
           name: build-storybook
@@ -157,5 +170,3 @@ workflows:
           <<: *filter-tags
           requires:
             - build-storybook
-
-
