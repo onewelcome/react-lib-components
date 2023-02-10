@@ -46,7 +46,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@storybook/addon-essentials": "^6.5.8",
     "@storybook/react": "^6.5.8",
-    "auto": "^10.40.0",
+    "auto": "^10.41.0",
     "babel-loader": "^9.1.2",
     "boxen": "^7.0.1",
     "concurrently": "^7.6.0",
