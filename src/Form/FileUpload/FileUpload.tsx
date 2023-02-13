@@ -164,7 +164,10 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const handleOnDragLeave = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setDragActive(false);
+    const target = e.target as HTMLElement;
+    if (target?.classList.contains(classes["file-dropzone"])) {
+      setDragActive(false);
+    }
     onDragLeave && onDragLeave(e);
   };
 
@@ -188,7 +191,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       <div
         className={dropzoneClassNames.join(" ")}
         onDragOver={e => !disabled && handleOnDragOver(e)}
-        onDragEnter={e => !disabled && handleOnDragLeave(e)}
+        onDragLeave={e => !disabled && handleOnDragLeave(e)}
         onDrop={e => !disabled && handleOnDrop(e)}
       >
         <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
