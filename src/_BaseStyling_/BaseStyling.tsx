@@ -34,6 +34,8 @@ interface CSSProperties {
   buttonFillTextColor?: string;
   buttonFillHoverBackgroundColor?: string;
   buttonOutlineHoverTextColor?: string;
+  formElementHorizontalPaddingDesktop?: string;
+  formElementHorizontalPaddingMobile?: string;
   inputBorderRadius?: string;
   inputBorderWidth?: string;
   inputBorderWidthFocus?: string;
@@ -99,6 +101,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonFillTextColor: "var(--light)",
     buttonFillHoverBackgroundColor: "var(--light)",
     buttonOutlineHoverTextColor: "var(--light)",
+    formElementHorizontalPaddingDesktop: "1.25rem",
+    formElementHorizontalPaddingMobile: "1rem",
     inputBorderRadius: "8px",
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "2px",

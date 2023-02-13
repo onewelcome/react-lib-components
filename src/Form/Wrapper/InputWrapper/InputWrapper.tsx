@@ -95,6 +95,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const { prefix, suffix } = inputProps || {};
   const input = useRef<HTMLInputElement>(null);
   const hasValueOrActiveFloatingLabel = !!value || floatingLabelActive;
+  const helperIndent = window.innerWidth > 479 ? 20 : 16;
   const { labelOffset } = useLabelOffset(
     (inputProps && (inputProps.ref as React.RefObject<HTMLInputElement>)) || input,
     floatingLabelActive,
@@ -130,7 +131,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         ...helperProps,
         className: `${classes["input-wrapper-helper"]} ${helperProps?.className ?? ""} `
       }}
-      helperIndent={20}
+      helperIndent={helperIndent}
       disabled={disabled}
     >
       <Input
