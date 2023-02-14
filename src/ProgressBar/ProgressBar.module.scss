@@ -13,6 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+@import "../mixins.module.scss";
 
 .progress-bar {
   position: relative;
@@ -30,18 +31,19 @@
   .bar {
     position: absolute;
     height: 0.5rem;
-    width: 50%;
     border-radius: 0.25rem;
     background-color: var(--color-primary);
-    animation: cubic-bezier(0.23, 0.78, 0.78, 0.23) 1s slide-in infinite;
+    &.loading-state {
+      width: 50%;
+      animation: cubic-bezier(0.23, 0.78, 0.78, 0.23) 1s slide-in infinite;
+      @keyframes slide-in {
+        0% {
+          left: -50%;
+        }
 
-    @keyframes slide-in {
-      0% {
-        left: -50%;
-      }
-
-      100% {
-        left: 100%;
+        100% {
+          left: 100%;
+        }
       }
     }
   }

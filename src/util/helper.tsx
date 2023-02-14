@@ -143,3 +143,36 @@ export const throttle = (fn: (...args: unknown[]) => unknown, delay: number) => 
     }
   };
 };
+
+export const isEqual = (x: any, y: any): boolean => {
+  const typesCoincide = x && y && typeof x === "object" && typeof y === "object";
+  return typesCoincide
+    ? Object.keys(x).length === Object.keys(y).length &&
+        Object.keys(x).every(key => isEqual(x[key], y[key]))
+    : x === y;
+};
+
+export const areArraysDifferent = (
+  arr1: Record<string, any>[],
+  arr2: Record<string, any>[],
+  key: string
+) => {
+  if (arr1.length !== arr2.length) {
+    return true;
+  } else {
+    const firstFilteredArray = arr1.filter(arr1Item =>
+      arr2.some((arr2Item: { [x: string]: any }) => !isEqual(arr1Item[key], arr2Item[key]))
+    );
+    const secondFilteredArray = arr2.filter(arr2Item =>
+      arr1.some((arr1Item: { [x: string]: any }) => !isEqual(arr1Item[key], arr2Item[key]))
+    );
+
+    return !!firstFilteredArray.length || !!secondFilteredArray.length;
+  }
+};
+
+export const getValueByPath = (obj: { [key: string]: any }, path: string): any => {
+  return path.split(".").reduce((res, prop) => {
+    return res[prop];
+  }, obj);
+};

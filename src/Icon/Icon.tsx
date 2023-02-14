@@ -81,7 +81,10 @@ export enum Icons {
   TriangleRight = "triangle-right",
   TriangleUp = "triangle-up",
   Undo = "undo",
-  Warning = "warning"
+  Warning = "warning",
+  FileOutline = "file-outline",
+  FileUpload = "file-upload-outline",
+  FileDownload = "file-download-outline"
 }
 
 type Tag = "span" | "div" | "i";

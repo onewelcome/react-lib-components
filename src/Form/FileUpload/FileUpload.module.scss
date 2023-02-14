@@ -1,0 +1,106 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@import "../../mixins.module.scss";
+
+.file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-dropzone {
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-background-color);
+  padding: 1.25rem;
+  position: relative;
+  @include transition(all, 0.2s, ease-in-out);
+  &.drag-active {
+    @include outline(
+      var(--vivid-violet),
+      var(--drag-border-style),
+      var(--input-border-width),
+      var(--input-border-radius),
+      var(--light-pink)
+    );
+    @include outlineStates;
+  }
+  &.error {
+    span[data-icon-status],
+    .file-upload-title,
+    .file-selector-sub-text {
+      color: var(--error);
+    }
+  }
+  &.success {
+    span[data-icon-status] {
+      color: var(--success);
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background-color: var(--disabled);
+    color: var(--greyed-out);
+  }
+  span[data-icon-status] {
+    font-size: 1.25rem;
+    position: absolute;
+    top: 2.74rem;
+    right: 1.375rem;
+  }
+}
+
+.file-select {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  [class*="file"] {
+    font-size: 1.25rem;
+  }
+  [class*="typography"] {
+    margin-bottom: 0.625rem;
+  }
+}
+
+.upload-input {
+  display: block;
+  width: 100%;
+  border: none;
+  text-transform: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+
+.file-upload-btn {
+  position: relative;
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0;
+  li:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+}

@@ -156,17 +156,26 @@
   }
 }
 
-@mixin outline {
+@mixin outline(
+  $color: var(--light-grey-border),
+  $style: var(--input-border-style),
+  $width: var(--input-border-width),
+  $borderRadius: var(--input-border-radius),
+  $backgroundColor: ""
+) {
   .outline {
     pointer-events: none;
     position: absolute;
     margin: 0;
     padding: 0;
     inset: 0;
-    border-color: var(--light-grey-border);
-    border-style: var(--input-border-style);
-    border-width: var(--input-border-width);
-    border-radius: var(--input-border-radius);
+    border-color: $color;
+    border-style: $style;
+    border-width: $width;
+    border-radius: $borderRadius;
+    @if ($backgroundColor != "") {
+      background-color: $backgroundColor;
+    }
     @include transition(all, 0.2s, ease-in-out);
   }
 }
@@ -248,4 +257,14 @@
   @media (prefers-reduced-motion: reduce) {
     transition-duration: 0.1ms;
   }
+}
+
+@mixin width-size($size) {
+  .w-#{$size} {
+    width: $size * 1%;
+  }
+}
+
+@for $i from 1 through 100 {
+  @include width-size($i + 5);
 }

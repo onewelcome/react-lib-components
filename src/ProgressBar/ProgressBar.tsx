@@ -20,16 +20,21 @@ import classes from "./ProgressBar.module.scss";
 
 export interface Props extends Omit<ComponentPropsWithRef<"span">, "children"> {
   placeholderText: string;
+  completed?: number;
 }
 
 const ProgressBarComponent: ForwardRefRenderFunction<HTMLSpanElement, Props> = (
-  { placeholderText, ...rest }: Props,
+  { placeholderText, completed, ...rest }: Props,
   ref
 ) => {
   return (
     <span {...rest} ref={ref} role="progressbar">
       <span className={classes["progress-bar"]}>
-        <span className={classes["bar"]} />
+        <span
+          className={`${classes["bar"]} ${
+            completed ? classes[`w-${5 * Math.round(completed / 5)}`] : classes["loading-state"]
+          }`}
+        />
       </span>
       <Typography className={classes["placeholder"]} spacing={{ marginBottom: 0 }} variant="body">
         {placeholderText}

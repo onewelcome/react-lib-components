@@ -16,7 +16,15 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { fireEvent, waitFor } from "@testing-library/dom";
-import { generateID, filterProps, debounce, throttle } from "./helper";
+import {
+  generateID,
+  filterProps,
+  debounce,
+  throttle,
+  areArraysDifferent,
+  getValueByPath,
+  isEqual
+} from "./helper";
 import { render } from "@testing-library/react";
 
 /* Generate an ID of 20 characters with a string woven in */
@@ -163,5 +171,152 @@ describe("throttling works", () => {
 
     expect(exampleFunction).not.toHaveBeenCalledTimes(1);
     expect(exampleFunction).not.toHaveBeenCalledTimes(10);
+  });
+});
+
+describe("areArraysDifferent works as expected", () => {
+  it("should return true for different arrays", () => {
+    const arr1 = [
+      {
+        name: "test1"
+      },
+      {
+        name: "test2"
+      }
+    ];
+
+    const arr2 = [
+      {
+        name: "test1"
+      },
+      {
+        name: "test3"
+      }
+    ];
+
+    const result = areArraysDifferent(arr1, arr2, "name");
+    expect(result).toBe(true);
+  });
+
+  it("should return false for arrays with same values", () => {
+    const arr1 = [
+      {
+        name: "test1"
+      }
+    ];
+
+    const arr2 = [
+      {
+        name: "test1"
+      }
+    ];
+
+    const result = areArraysDifferent(arr1, arr2, "name");
+    expect(result).toBe(false);
+  });
+
+  it("should return false for falsy values", () => {
+    const arr1 = [
+      {
+        name: "test1"
+      }
+    ];
+
+    const arr2 = [
+      {
+        label: "test1"
+      }
+    ];
+
+    const result = areArraysDifferent(arr1, arr2, "name");
+    expect(result).toBe(true);
+  });
+});
+
+describe("return correct values from getValueByPath", () => {
+  it("should return the correct value form a multi layered object", () => {
+    const val = "test";
+    const obj = {
+      firstNode: {
+        secondNode: {
+          thirdNode: {
+            val
+          }
+        }
+      }
+    };
+
+    const result = getValueByPath(obj, "firstNode.secondNode.thirdNode.val");
+    expect(result).toBe(val);
+  });
+});
+
+describe("verifies if isEqual returns the correct value", () => {
+  it("should return true for equal values objects", () => {
+    const obj1 = {
+      name1: "test1",
+      name2: {
+        val: "test2"
+      }
+    };
+
+    const obj2 = {
+      name1: "test1",
+      name2: {
+        val: "test2"
+      }
+    };
+
+    const res = isEqual(obj1, obj2);
+    expect(res).toBe(true);
+  });
+
+  it("should return false for unequal values objects", () => {
+    const obj1 = {
+      name1: "test1",
+      name2: {
+        val: "test2"
+      }
+    };
+
+    const obj2 = {
+      name1: "test1"
+    };
+
+    const res = isEqual(obj1, obj2);
+    expect(res).toBe(false);
+  });
+
+  it("should return false for falsy values", () => {
+    const obj1 = {
+      name1: "test1",
+      name2: {
+        val: "test2"
+      }
+    };
+    const obj2 = null;
+
+    const res = isEqual(obj1, obj2);
+    expect(res).toBe(false);
+  });
+
+  it("should return false for different types", () => {
+    const obj1 = [
+      {
+        name1: "test1",
+        name2: {
+          val: "test2"
+        }
+      }
+    ];
+    const obj2 = {
+      name1: "test1",
+      name2: {
+        val: "test2"
+      }
+    };
+
+    const res = isEqual(obj1, obj2);
+    expect(res).toBe(false);
   });
 });

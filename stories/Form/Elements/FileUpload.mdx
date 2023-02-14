@@ -1,0 +1,145 @@
+import {
+  Title,
+  Subtitle,
+  Subheading,
+  ArgsTable,
+  PRIMARY_STORY,
+  DocsStory
+} from "@storybook/addon-docs";
+
+<Title />
+<Subtitle />
+
+The `FileUpload` widget can be used to import data, images, certificates, etc. It depends on the use case whether a single file or multiple files can be uploaded.
+The text and button in differ for a single or multiple files.
+Uploading a new file replaces the existing one if only a single file is allowed.
+Uploading a new file appends it to the existing list if multiple files are allowed for the field.
+When possible, the native upload dialog should restrict the file types that can be uploaded.
+For example, when only images are allowed, the native upload dialog should only allow image files.
+When only a single file is allowed, the native upload dialog should allow one file only.
+Drag and drop uploading is supported. When the user drags a file on the drop area, the background changes.
+Showing a preview of file’s contents is currently out of scope, but may be introduced when needed.
+For example, to show the image that is uploaded.
+
+The properties the component receives are as follows:
+
+<ul>
+  <li>
+    <strong>accept</strong>: It requires a string representing a list of file extensions separated
+    by comma
+  </li>
+  <li>
+    <strong>multiple</strong>: If set to true, it allows the component to select more than one file
+  </li>
+  <li>
+    <strong>dragAndDropText</strong>: Optional property, meant to replace the label on top of the
+    selection button
+  </li>
+  <li>
+    <strong>title</strong>: Required property, meant to add a title to the form field
+  </li>
+  <li>
+    <strong>fileList</strong>: List of files the component will contain as data
+  </li>
+  <li>
+    <strong>onChange</strong>: On change callback will be run when the file selection happens and
+    the value of the input changes
+  </li>
+  <li>
+    <strong>onDragEnter</strong>: Callback fired when a file is dragged and enters the drop zone of
+    the component
+  </li>
+  <li>
+    <strong>onDragLeave</strong>: Callback fired when a file is dragged and leaves the drop zone of
+    the component
+  </li>
+  <li>
+    <strong>onDragOver</strong>: Callback fired when a file is dragged over the drop zone of the
+    component
+  </li>
+  <li>
+    <strong>onDrop</strong>: Callback fired when a file is dropped over the drop zone
+  </li>
+  <li>
+    <strong>error</strong>: Error state of the component, provided by the client form
+  </li>
+  <li>
+    <strong>onRequestedFileAction</strong>: Callback run every time a file item action button is
+    clicked. It will contain info about the file item: name and action requested
+  </li>
+  <li>
+    <strong>exceedingMaxSizeErrorText</strong>: If set, it will override the default error text
+    shown when a file exceeds the mac limit size
+  </li>
+  <li>
+    <strong>maxFileSize</strong>: If given, the file selector will show an error for the files
+    selected or dropped
+  </li>
+  <li>
+    <strong>selectButtonText</strong>: If given, it will override the default 'Select file' text on
+    the selection button
+  </li>
+  <li>
+    <strong>subText</strong>: Subtext to be displayed in case of an error or any other info that
+    affects the entirety of the file selector
+  </li>
+</ul>
+
+`File Upload` can be used as a simple file selector.
+In this case, the component will receive all the state changes and progress of the files uploads from the client applications
+
+# Examples
+
+<DocsStory id="components-inputs-fileupload--file-upload-component" />
+
+# Example that uses server interaction as well:
+
+<DocsStory id="components-inputs-fileupload--file-upload-component-with-server-interaction" />
+
+# Props
+
+<ArgsTable story={PRIMARY_STORY} />
+
+<Subheading>useUploadFile hook</Subheading>A custom hook has been created in order to be used along
+side the `FileUpload` component, in order to perform the upload action with ease The hook will
+perform upload of each file from the fileList data array, provided they do not have a 'status'
+property set up yet
+
+The hook receives the following params:
+
+<ul>
+  <li>
+    <strong>`files`</strong>: list of of selected files for the file upload component
+  </li>
+  <li>
+    <strong>`request`</strong>: an Object of type UploadFileRequestParams, which can contain:
+    <ol>
+      <li>`url`: the api url the http request will be made to</li>
+      <li>`headers`: custom headers to be applied to the request</li>
+      <li>`responseErrorPath`: a path by which to look for the error text of a response</li>
+      <li>`networkErrorText`: in case a network error occurs, override the default error text</li>
+      <li>`withCredentials`: setup with credentials request header</li>
+    </ol>
+  </li>
+  <li>
+    <strong>callbacks</strong>: an object of type: `UseUploadFileCallback` referencing two types of
+    callbacks that can be used to along side the hook actions, on different request moments:
+    <ol>
+      <li>onComplete: Will be called when the request has readyState status of 'DONE'.</li>
+      <li>onProgress: Will be called every time the on xhr progress event is fired</li>
+    </ol>
+  </li>
+</ul>
+
+The hook will return a list of updated files and a list of files for which the call is ongoing.
+Each of the updated file will contain a status value and sometimes an error text
+While performing the HTTP call, the hook will update the ongoing files status property with a value of `uploading`
+It will also update the file to contain metrics of their upload progress.
+
+When the 'DONE' state of the HTTP call will be registered, the files will be updated to a status value corresponding to the network or server values.
+For uploads completed successfully (status codes 200+), the status of a file will become `completed`.
+For network errors, the status will have the value `retry`
+For server errors, starting from status codes 400 and going over 500+, the status will be error;
+
+The hook performs XHR calls and the payload will be of type formData, with two fields: `file`, containing the file data
+and `name`, containing the file name

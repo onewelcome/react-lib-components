@@ -56,3 +56,24 @@ describe("ref should work", () => {
     render(<ExampleComponent propagateRef={refCheck} />, { container });
   });
 });
+
+describe("ProgressBar should change styles depending on props", () => {
+  it("should show a progress when 'completed' prop is provided", () => {
+    const { ProgressBarComponent } = createProgressBar(defaultParams => ({
+      ...defaultParams,
+      completed: 40
+    }));
+
+    const bar = ProgressBarComponent.querySelector(".bar");
+    expect(bar).toHaveClass("w-40");
+  });
+
+  it("should show a loading effect when 'completed' prop is not provided", () => {
+    const { ProgressBarComponent } = createProgressBar(defaultParams => ({
+      ...defaultParams
+    }));
+
+    const bar = ProgressBarComponent.querySelector(".bar");
+    expect(bar).toHaveClass("loading-state");
+  });
+});
