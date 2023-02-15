@@ -30,7 +30,7 @@ import { StatusIndicator } from "../../src/StatusIndicator/StatusIndicator";
 type DataType = { name: string; created: Date; id: string; type: string; enabled: boolean };
 const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({
   name: `Company ${idx}`,
-  created: new Date(new Date().getTime() + 86400000 * idx),
+  created: new Date(new Date(2023, 0, 1).getTime() + 86400000 * idx),
   id: idx + "343454435435435",
   type: "Stock",
   enabled: !!(idx % 2)
@@ -174,7 +174,7 @@ IndexDataGrid.args = {
     <DataGridRow key={item.id}>
       <DataGridCell>{index + 1}</DataGridCell>
       <DataGridCell>{item.name}</DataGridCell>
-      <DataGridCell>{Math.random()}</DataGridCell>
+      <DataGridCell>{`0.${index}`}</DataGridCell>
       <DataGridCell>
         <ContextMenu
           id={`consent_menu_${item.id}`}
