@@ -105,7 +105,7 @@
     "react-router-dom": "^6.8.1",
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-styles": "^4.0.0",
-    "sass": "^1.58.1",
+    "sass": "^1.58.3",
     "size-limit": "^8.1.1",
     "style-loader": "^3.3.1",
     "tslib": "^2.5.0",
