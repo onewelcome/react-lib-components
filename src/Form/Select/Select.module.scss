@@ -220,7 +220,7 @@ $listItemHeight: 2.125rem;
   }
 }
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 30em) {
   .select {
     .custom-select {
       padding: 0 var(--form-element-horizontal-padding-desktop);

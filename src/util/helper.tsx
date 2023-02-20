@@ -143,3 +143,8 @@ export const throttle = (fn: (...args: unknown[]) => unknown, delay: number) => 
     }
   };
 };
+
+/** Source: https://stackoverflow.com/a/42769683/5084110 */
+export const remToPx = (rem: number): number => {
+  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+};

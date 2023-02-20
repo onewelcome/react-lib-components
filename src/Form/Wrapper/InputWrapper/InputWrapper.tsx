@@ -25,6 +25,7 @@ import { Input, Type, Props as InputProps } from "../../Input/Input";
 import classes from "./InputWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { useWrapper } from "../../../hooks/useWrapper";
+import { remToPx } from "../../../util/helper";
 
 interface PartialInputProps extends Partial<InputProps> {}
 
@@ -95,7 +96,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const { prefix, suffix } = inputProps || {};
   const input = useRef<HTMLInputElement>(null);
   const hasValueOrActiveFloatingLabel = !!value || floatingLabelActive;
-  const helperIndent = window.innerWidth > 479 ? 20 : 16;
+  const helperIndent = window.innerWidth > remToPx(30) ? remToPx(1.25) : remToPx(1);
   const { labelOffset } = useLabelOffset(
     (inputProps && (inputProps.ref as React.RefObject<HTMLInputElement>)) || input,
     floatingLabelActive,

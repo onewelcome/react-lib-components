@@ -29,9 +29,8 @@
   top: calc(50% + 0.5rem);
 }
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 30em) {
   .select-helper-text {
-    margin-top: 0.25rem;
     margin-left: var(--form-element-horizontal-padding-desktop);
   }
 }
