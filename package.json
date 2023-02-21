@@ -81,7 +81,7 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
+    "@typescript-eslint/parser": "^5.53.0",
     "babel-loader": "^9.1.2",
     "chromatic": "^6.17.0",
     "dts-cli": "^1.6.3",
