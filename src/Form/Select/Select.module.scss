@@ -14,7 +14,8 @@
  *    limitations under the License.
  */
 
-@use "../../mixins.module.scss";
+@use "src/mixins.module";
+@use "src/variables";
 
 $listItemHeight: 2.125rem;
 
@@ -43,7 +44,7 @@ $listItemHeight: 2.125rem;
       border: var(--input-border-width-focus) solid var(--color-focus);
       padding: 0
         calc(
-          var(--form-element-horizontal-padding-mobile) - var(--input-border-width-focus) +
+          variables.$form-element-horizontal-padding-mobile - var(--input-border-width-focus) +
             var(--input-border-width)
         );
     }
@@ -60,7 +61,7 @@ $listItemHeight: 2.125rem;
     position: relative;
     width: 100%;
     min-height: calc(4rem - (2 * var(--input-border-width)));
-    padding: 0 var(--form-element-horizontal-padding-mobile);
+    padding: 0 variables.$form-element-horizontal-padding-mobile;
     background-color: transparent;
     border-color: var(--light-grey-border);
     border-style: var(--input-border-style);
@@ -223,14 +224,14 @@ $listItemHeight: 2.125rem;
 @media only screen and (min-width: 30em) {
   .select {
     .custom-select {
-      padding: 0 var(--form-element-horizontal-padding-desktop);
+      padding: 0 variables.$form-element-horizontal-padding-desktop;
     }
 
     &:not(.expanded) {
       button:focus:not(.error) {
         padding: 0
           calc(
-            var(--form-element-horizontal-padding-desktop) - var(--input-border-width-focus) +
+            variables.$form-element-horizontal-padding-desktop - var(--input-border-width-focus) +
               var(--input-border-width)
           );
       }
