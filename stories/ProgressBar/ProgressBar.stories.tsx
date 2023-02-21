@@ -14,11 +14,10 @@
  *    limitations under the License.
  */
 
-import React, { useState } from "react";
+import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { ProgressBar as ProgressBarComponent, Props } from "../../src/ProgressBar/ProgressBar";
 import ProgressBarDocumentation from "./ProgressBar.mdx";
-import { Button } from "../../src/Button/Button";
 
 const meta: Meta = {
   title: "components/Feedback/ProgressBar",
