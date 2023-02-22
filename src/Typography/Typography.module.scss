@@ -37,11 +37,11 @@
   }
 
   &h3 {
-    @include fontProperties(var(--font-family), var(--font-size-h3), 400, 1.16666);
+    @include fontProperties(var(--font-family), var(--font-size-h3), 500, 1.16666);
   }
 
   &h4 {
-    @include fontProperties(var(--font-family), var(--font-size-h4), 700, 1.2);
+    @include fontProperties(var(--font-family), var(--font-size-h4), 500, 1.2);
   }
 
   &body {
