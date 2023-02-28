@@ -28,7 +28,7 @@ export const validVariants = [
   "sub-text",
   "code"
 ] as const;
-export type Variant = typeof validVariants[number];
+export type Variant = (typeof validVariants)[number];
 
 type Tags =
   | "h1"

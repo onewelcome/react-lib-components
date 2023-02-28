@@ -330,3 +330,7 @@ const Template: Story<Props> = args => {
 export const Form = Template.bind({});
 
 Form.args = {};
+
+Form.parameters = {
+  chromatic: { viewports: [400, 1200] }
+};

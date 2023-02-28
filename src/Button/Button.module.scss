@@ -33,13 +33,13 @@
   align-items: center;
 
   &.start-icon {
-    padding-left: 1rem;
+    padding-left: 0.75rem;
     padding-right: 1.25rem;
   }
 
   &.end-icon {
     padding-left: 1.25rem;
-    padding-right: 1rem;
+    padding-right: 0.75rem;
   }
 
   i {
@@ -49,5 +49,17 @@
 
     width: 1.5rem;
     margin-right: 0.25rem;
+  }
+}
+
+@media only screen and (min-width: 30em) {
+  .has-icon {
+    &.start-icon {
+      padding-left: 1rem;
+    }
+
+    &.end-icon {
+      padding-right: 1rem;
+    }
   }
 }

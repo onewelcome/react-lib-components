@@ -14,7 +14,8 @@
  *    limitations under the License.
  */
 
-@use "../../mixins.module.scss";
+@use "src/mixins.module";
+@use "src/variables";
 
 .input-wrapper {
   position: relative;
@@ -24,7 +25,7 @@
   border: 0;
   border-radius: var(--input-border-radius);
   background-color: var(--input-background-color);
-  padding: 0 1.25rem;
+  padding: 0 variables.$form-element-horizontal-padding-mobile;
   @include mixins.transition(all, 0.2s, ease-in-out);
 
   // General autofill styles
@@ -140,4 +141,10 @@
   @include mixins.transition(all, 0.2s, ease-in-out);
   display: block;
   z-index: 1;
+}
+
+@media only screen and (min-width: 30em) {
+  .input-wrapper {
+    padding: 0 variables.$form-element-horizontal-padding-desktop;
+  }
 }

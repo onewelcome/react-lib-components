@@ -14,9 +14,11 @@
  *    limitations under the License.
  */
 
+@use "src/variables";
+
 .fieldset {
   border: 0;
-  padding: 1rem 1.25rem;
+  padding: 1rem variables.$form-element-horizontal-padding-mobile;
   border-radius: 0.5rem;
   margin: 0;
 
@@ -41,5 +43,10 @@
     &.error {
       color: var(--error);
     }
+  }
+}
+@media only screen and (min-width: 30em) {
+  .fieldset {
+    padding: 1rem variables.$form-element-horizontal-padding-desktop;
   }
 }

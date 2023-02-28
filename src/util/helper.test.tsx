@@ -17,9 +17,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { fireEvent, waitFor } from "@testing-library/dom";
 import {
-  generateID,
-  filterProps,
   debounce,
+  filterProps,
+  generateID,
+  remToPx,
   throttle,
   areArraysDifferent,
   getValueByPath,
@@ -84,11 +85,11 @@ describe("debounce function", () => {
 
     window.addEventListener("resize", debounce(debouncedFunction, 200));
 
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
 
     await waitFor(() => expect(debouncedFunction).toHaveBeenCalledTimes(1));
   });
@@ -158,16 +159,16 @@ describe("throttling works", () => {
 
     render(<ExampleComponent throttledFunction={exampleFunction} />);
 
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
+    fireEvent.resize(window);
 
     expect(exampleFunction).not.toHaveBeenCalledTimes(1);
     expect(exampleFunction).not.toHaveBeenCalledTimes(10);
@@ -318,5 +319,21 @@ describe("verifies if isEqual returns the correct value", () => {
 
     const res = isEqual(obj1, obj2);
     expect(res).toBe(false);
+  });
+});
+
+describe("pixel to rem function works", () => {
+  document.documentElement.style.setProperty("font-size", "16px");
+
+  it.each([
+    [1, 16],
+    [1.25, 20],
+    [1.5, 24],
+    [1.75, 28],
+    [2, 32]
+  ])("%p rem equals %p px when font-size is 16px", async (rem: number, px: number) => {
+    const result = remToPx(rem);
+
+    expect(result).toBe(px);
   });
 });

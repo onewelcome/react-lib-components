@@ -14,7 +14,8 @@
  *    limitations under the License.
  */
 
-@use "../../../mixins.module.scss";
+@use "src/mixins.module";
+@use "src/variables";
 
 .floating-wrapper {
   position: relative;
@@ -25,7 +26,7 @@
     position: absolute;
     z-index: 2;
     top: 1.3125rem;
-    left: 1.25rem;
+    left: variables.$form-element-horizontal-padding-mobile;
     transform-origin: left top;
     @include mixins.transition(all, 0.2s, ease-in-out);
     pointer-events: none;
@@ -54,5 +55,13 @@
 .required {
   &:after {
     content: " *";
+  }
+}
+
+@media only screen and (min-width: 30em) {
+  .floating-wrapper {
+    .floating-label {
+      left: variables.$form-element-horizontal-padding-desktop;
+    }
   }
 }
