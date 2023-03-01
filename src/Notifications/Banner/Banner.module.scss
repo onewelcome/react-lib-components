@@ -18,7 +18,7 @@
   padding: 1rem 1.25rem;
   background-color: var(--light);
   display: flex;
-  border-width: 1px;
+  border-width: var(--banner-border-width);
   border-style: solid;
   flex-grow: 0;
   border-radius: var(--banner-border-radius);
@@ -54,7 +54,7 @@
   }
 
   &.warning {
-    border-color: var(--error);
+    border-color: var(--warning);
     .icon {
       color: var(--warning);
     }
