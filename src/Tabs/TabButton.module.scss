@@ -27,7 +27,7 @@
   background-color: transparent;
   white-space: nowrap;
   position: relative;
-  font-weight: bold;
+  font-weight: normal;
   color: transparent;
 
   &:focus-visible {
@@ -42,7 +42,7 @@
   }
 
   &.selected {
-    color: var(--tab-text-color);
+    color: var(--color-primary);
 
     span {
       color: transparent;

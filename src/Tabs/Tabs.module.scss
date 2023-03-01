@@ -43,6 +43,7 @@ $focus-width: 5px;
 
   position: absolute;
   height: var(--tab-active-border-height);
+  border-radius: 2px 2px 0 0;
   background-color: var(--tab-active-border-color);
 
   @include mixins.transition($transition-property, 0.2s, ease-in-out);
