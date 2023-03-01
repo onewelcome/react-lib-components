@@ -130,7 +130,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorTertiary: "var(--color-light-blue600)",
     lightPink: "#9E006B1A",
     vividViolet: "#9E006B",
-    defaultLineHeight: "26px",
+    defaultLineHeight: "1.5",
     buttonBorderRadius: "20px",
     buttonBorderWidth: "2px",
     buttonFontSize: "1rem",

@@ -17,6 +17,7 @@
 .pagination-wrapper {
   font-family: var(--font-family);
   font-size: var(--font-size);
+  line-height: var(--default-line-height);
   color: var(--greyed-out);
   display: flex;
   flex-direction: column;

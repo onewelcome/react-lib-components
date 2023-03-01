@@ -45,7 +45,7 @@
 .headline {
   font-family: var(--font-family);
   font-size: var(--font-size);
-  line-height: 1.5;
+  line-height: var(--default-line-height);
   font-weight: 700;
   color: var(--default);
 }
