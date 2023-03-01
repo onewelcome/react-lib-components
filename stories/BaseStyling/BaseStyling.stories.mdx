@@ -24,7 +24,31 @@ to the Button story](/story/components-inputs-button--filled-button), click on t
   alt="Example of how to use the BaseStyling addon with the Button component"
 />
 
-Down below you will find all of the CSS properties that are currently supported and an explanation of what they do and which components they affect.
+Down below, you will find all the CSS properties that are currently supported and an explanation of what they do and which components they affect.
+
+## Brand colours
+
+The following color variables are defined for the default palette. Override their usages, not the color definitions, to match your own design.
+
+| Property            | CSS variable            | Value     |
+| ------------------- | ----------------------- | --------- |
+| `colorPrimary300`   | `--color-primary300`    | `#6871BF` |
+| `colorPrimary500`   | `--color-primary500`    | `#041295` |
+| `colorPrimary600`   | `--color-primary600`    | `#030F77` |
+| `colorPrimary700`   | `--color-primary700`    | `#020B59` |
+| `colorPrimary900`   | `--color-primary900`    | `#01041E` |
+| `colorBlueGrey25`   | `--color-blue-grey25`   | `#F7F7F9` |
+| `colorBlueGrey100`  | `--color-blue-grey100`  | `#DEDEE6` |
+| `colorBlueGrey200`  | `--color-blue-grey200`  | `#BCBECE` |
+| `colorBlueGrey400`  | `--color-blue-grey400`  | `#797D9C` |
+| `colorBlueGrey500`  | `--color-blue-grey500`  | `#5D607E` |
+| `colorBlueGrey700`  | `--color-blue-grey700`  | `#383A4B` |
+| `colorBlueGrey900`  | `--color-blue-grey900`  | `#131319` |
+| `colorGreen500`     | `--color-green500`      | `#178244` |
+| `colorLightBlue500` | `--color-light-blue500` | `#00BCDD` |
+| `colorLightBlue600` | `--color-light-blue600` | `#0096B1` |
+| `colorOrange500`    | `--color-orange500`     | `#E07900` |
+| `colorRed500`       | `--color-red500`        | `#E01E00` |
 
 ## colorFocus
 
@@ -35,15 +59,21 @@ Will get translated to the CSS variable `--color-focus`. By default, this refers
 Will get translated to the CSS variable `--color-primary`. This is the main color for the component library and is used everywhere. Every component uses this color in one way or another, so changing this variable to a color of your choice will
 shape the entire look and feel of your application.
 
+Its default value refers to `--color-primary500`.
+
 ## colorSecondary
 
 Will get translated to the CSS variable `--color-secondary`. This is a secondary color which is used only for the [Button component](/story/components-inputs-button--filled-button&args=color:secondary) and the [Link component](/story/components-navigation-link--link&args=color:secondary).
 As you can see, `secondary` is one of the colors that you can select from the `color` prop.
 
+Its default value refers to `--color-blue-grey700`.
+
 ## colorTertiary
 
 Will get translated to the CSS variable `--color-tertiary`. This is a tertiary color which is used only for the [Button component](/story/components-inputs-button--filled-button&args=color:tertiary) and the [Link component](/story/components-navigation-link--link&args=color:tertiary).
 As you can see, `tertiary` is one of the colors that you can select from the `color` prop.
+
+Its default value refers to `--color-light-blue600`.
 
 ## defaultLineHeight
 

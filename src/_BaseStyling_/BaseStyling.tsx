@@ -28,6 +28,23 @@ interface CSSProperties {
   colorTertiary?: string;
   lightPink?: string;
   vividViolet?: string;
+  colorPrimary300?: string;
+  colorPrimary500?: string;
+  colorPrimary600?: string;
+  colorPrimary700?: string;
+  colorPrimary900?: string;
+  colorBlueGrey100?: string;
+  colorBlueGrey200?: string;
+  colorBlueGrey400?: string;
+  colorBlueGrey25?: string;
+  colorBlueGrey500?: string;
+  colorBlueGrey700?: string;
+  colorBlueGrey900?: string;
+  colorGreen500?: string;
+  colorLightBlue500?: string;
+  colorLightBlue600?: string;
+  colorOrange500?: string;
+  colorRed500?: string;
   defaultLineHeight?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
@@ -90,10 +107,27 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
-    colorFocus: "var(--color-primary)",
-    colorPrimary: "#9e006b",
-    colorSecondary: "#003b5e",
-    colorTertiary: "#ff1e4e",
+    colorPrimary300: "#6871BF",
+    colorPrimary500: "#041295",
+    colorPrimary600: "#030F77",
+    colorPrimary700: "#020B59",
+    colorPrimary900: "#01041E",
+    colorBlueGrey25: "#F7F7F9",
+    colorBlueGrey100: "#DEDEE6",
+    colorBlueGrey200: "#BCBECE",
+    colorBlueGrey400: "#797D9C",
+    colorBlueGrey500: "#5D607E",
+    colorBlueGrey700: "#383A4B",
+    colorBlueGrey900: "#131319",
+    colorGreen500: "#178244",
+    colorLightBlue500: "#00BCDD",
+    colorLightBlue600: "#0096B1",
+    colorOrange500: "#E07900",
+    colorRed500: "#E01E00",
+    colorFocus: "var(--color-primary300)",
+    colorPrimary: "var(--color-primary500)",
+    colorSecondary: "var(--color-blue-grey700)",
+    colorTertiary: "var(--color-light-blue600)",
     lightPink: "#9E006B1A",
     vividViolet: "#9E006B",
     defaultLineHeight: "26px",
