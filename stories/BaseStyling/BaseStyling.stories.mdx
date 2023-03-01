@@ -177,15 +177,19 @@ Will get translated to the CSS variable `--banner-border-width`. This is the `bo
 
 ## dataGridRowBackgroundColor
 
-Will get translated to the CSS variable `--data-grid-row-background-color`. This is the `background-color` for every `<tr>` element inside of a [DataTable component](/story/components-data-display-datagrid--data-grid)
+Will get translated to the CSS variable `--data-grid-row-background-color`. This is the `background-color` for every `<tr>` element inside a [DataTable component](/story/components-data-display-datagrid--data-grid)
 
 ## dataGridRowHoverBackgroundColor
 
-Will get translated to the CSS variable `--data-grid-row-hover-background-color`. This is the on **hover** `background-color` for every `<tr>` element inside of a [DataTable component](/story/components-data-display-datagrid--data-grid).
+Will get translated to the CSS variable `--data-grid-row-hover-background-color`. This is the on **hover** `background-color` for every `<tr>` element inside a [DataTable component](/story/components-data-display-datagrid--data-grid).
+
+Its default value refers to `--color-blue-grey25`.
 
 ## tabsBackgroundColor
 
 Will get translated to the CSS variable `--tabs-background-color`. This is the `background-color` for every [Tabs component](/story/components-navigation-tabs--tabs).
+
+Its default value refers to `--light`.
 
 ## tabBorderWidth
 
@@ -211,6 +215,13 @@ Will get translated to the CSS variable `--tablist-border-color`. This is the `b
 
 Will get translated to the CSS variable `--tab-text-color`. This is the `color` of the tab buttons in the [Tabs component](/story/components-navigation-tabs--tabs).
 
+Its value defaults to `--color-blue-grey900`.
+
+## wizardStepIndicatorFutureColor
+
+Will get translated to the CSS variable `--wizard-step-indicator-future-color`. This is the color of the step indicator, not its label, of a
+future step that is not clickable in the [Wizard step component](/story/components-layout-wizard-wizardsteps--wizard-steps).
+
 ## default
 
 Will get translated to the CSS variable `--default`. It is used in the following components:
@@ -222,17 +233,25 @@ Will get translated to the CSS variable `--default`. It is used in the following
 - It is the background color of the backdrop when a [Modal component](/story/components-utils-modal--modal) is opened.
 - It is the color of the element that appears when you hover over a [Tooltip component](/story/components-data-display-tooltip--tooltip).
 
+Its default value refers to `--color-blue-grey900`.
+
 ## success
 
 Will get translated to the CSS variable `--success`. This is the success color used for the [StatusIndicator component](/story/components-feedback-statusindicator--status-indicator) and the checkmark in the top left of an individual [Tile Component](/story/components-layout-tiles-tiles--tiles).
+
+Its default value refers to `--color-green500`.
 
 ## error
 
 Will get translated to the CSS variable `--error`. It's used in **all** components inside the `Inputs` category when there's an error and also inside the [StatusIndicator component](/story/components-feedback-statusindicator--status-indicator&args=status:error) when it's set to `Error`.
 
+Its default value refers to `--color-red50`.
+
 ## info
 
-Will get translated to the CSS variable `--info`. It's used in [Banner component](/story/components-feedback-banner--info-banner) when it's type prop is set to info
+Will get translated to the CSS variable `--info`. It's used in [Banner component](/story/components-feedback-banner--info-banner) when it's type prop is set to info.
+
+Its default value refers to `--color-primary500`.
 
 ## disabled
 
@@ -252,7 +271,7 @@ Will get translated to the CSS variable `--greyed-out`. It is used in the follow
 
 ## lightGreyBorder
 
-Will get translated to the CSS variable `--light-grey-border`. This is the default `border-color` for **all** of the components inside of the `Inputs` category, and also the `border-color` for all [Tile components](/story/components-layout-tiles-tiles--tiles).
+Will get translated to the CSS variable `--light-grey-border`. This is the default `border-color` for **all** the components inside the `Inputs` category, and also the `border-color` for all [Tile components](/story/components-layout-tiles-tiles--tiles).
 
 ## warning
 
@@ -260,11 +279,11 @@ Will get translated to the CSS variable `--warning`. Used in the [StatusIndicato
 
 ## light
 
-Will get translated to the CSS variable `--light`. This color is used in all components where the color `white` is used by default. Whenever darkmode is introduced, you can easily make a dark color scheme.
+Will get translated to the CSS variable `--light`. This color is used in all components where the color `white` is used by default. Whenever dark-mode is introduced, you can easily make a dark color scheme.
 
 ## grey
 
-Will get translated to the CSS variable `--grey`. This color is currently used as the `bottom-border` color of the [DataGrid header](/story/components-data-display-datagrid--data-grid).
+Will get translated to the CSS variable `--grey`. This color is currently not used.
 
 ## fontFamily
 

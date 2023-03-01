@@ -71,6 +71,7 @@ interface CSSProperties {
   snackbarErrorBackgroundColor?: string;
   snackbarBorderRadius?: string;
   bannerBorderRadius?: string;
+  bannerBorderWidth?: string;
   dataGridRowBackgroundColor?: string;
   dataGridRowHoverBackgroundColor?: string;
   tabsBackgroundColor?: string;
@@ -80,6 +81,7 @@ interface CSSProperties {
   tablistBorderStyle?: string;
   tablistBorderColor?: string;
   tabTextColor?: string;
+  wizardStepIndicatorFutureColor?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -147,33 +149,35 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     dragBackgroundColor: "#1313191A",
     dragBorderStyle: "dashed",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
-    modalBackgroundColor: "#f5f8f8",
+    modalBackgroundColor: "var(--color-blue-grey25)",
     modalHeaderBackgroundColor: "var(--light)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
     snackbarTextColor: "var(--light)",
-    snackbarInfoBackgroundColor: "#003b5e",
-    snackbarSuccessBackgroundColor: "#008a28",
-    snackbarErrorBackgroundColor: "#d9291c",
-    snackbarBorderRadius: "8px",
-    bannerBorderRadius: "8px",
+    snackbarInfoBackgroundColor: "var(--color-primary500)",
+    snackbarSuccessBackgroundColor: "var(--color-green500)",
+    snackbarErrorBackgroundColor: "var(--color-red500)",
+    snackbarBorderRadius: "2px",
+    bannerBorderRadius: "2px",
+    bannerBorderWidth: "0 0 0 4px",
     dataGridRowBackgroundColor: "transparent",
-    dataGridRowHoverBackgroundColor: "#f5e6f0",
+    dataGridRowHoverBackgroundColor: "var(--color-blue-grey25)",
     tabsBackgroundColor: "var(--light)",
-    tabActiveBorderHeight: "2px",
+    tabActiveBorderHeight: "4px",
     tabActiveBorderColor: "var(--color-primary)",
     tablistBorderWidth: "1px",
     tablistBorderStyle: "solid",
-    tablistBorderColor: "#C3C3C7",
-    tabTextColor: "#0f0f1e",
-    default: "#0f0f1e",
-    success: "#008a28",
-    error: "#d9291c",
-    info: "var(--color-secondary)",
-    disabled: "#e9e9eb",
-    greyedOut: "#6f6f76",
-    lightGreyBorder: "#e9e9eb",
-    warning: "#ff6105",
+    tablistBorderColor: "var(--color-blue-grey100)",
+    tabTextColor: "var(--color-blue-grey900)",
+    wizardStepIndicatorFutureColor: "var(--color-blue-grey200)",
+    default: "var(--color-blue-grey900)",
+    success: "var(--color-green500)",
+    error: "var(--color-red500)",
+    info: "var(--color-primary500)",
+    disabled: "var(--color-blue-grey100)",
+    greyedOut: "var(--color-blue-grey500)",
+    lightGreyBorder: "var(--color-blue-grey100)",
+    warning: "var(--color-orange500)",
     light: "#FFF",
     grey: "#c3c3c7",
     fontFamily: "Roboto, sans-serif",
