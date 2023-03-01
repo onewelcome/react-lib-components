@@ -58,6 +58,7 @@ interface CSSProperties {
   inputBorderWidthFocus?: string;
   inputBorderStyle?: string;
   inputBackgroundColor?: string;
+  dragBackgroundColor?: string;
   dragBorderStyle?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
@@ -143,6 +144,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderWidthFocus: "2px",
     inputBorderStyle: "solid",
     inputBackgroundColor: "var(--light)",
+    dragBackgroundColor: "#1313191A",
+    dragBorderStyle: "dashed",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "#f5f8f8",
     modalHeaderBackgroundColor: "var(--light)",
@@ -181,8 +184,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH3: "1.5rem",
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
-    fontSizeCode: "1rem",
-    dragBorderStyle: "dashed"
+    fontSizeCode: "1rem"
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
