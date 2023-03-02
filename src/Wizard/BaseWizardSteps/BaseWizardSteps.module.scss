@@ -46,8 +46,8 @@
   &:disabled {
     .number-wrapper {
       .number {
-        border: 2px solid var(--greyed-out);
-        color: var(--greyed-out);
+        border: 2px solid var(--disabled);
+        color: var(--disabled);
       }
     }
 
@@ -169,17 +169,17 @@
 .number {
   font-family: var(--font-family);
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: normal;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--greyed-out);
+  border: 2px solid var(--wizard-step-indicator-future-color);
   border-radius: 50%;
   min-width: 1.5rem;
   min-height: 1.5rem;
   width: 1.5rem;
   height: 1.5rem;
-  color: var(--greyed-out);
+  color: var(--wizard-step-indicator-future-color);
   line-height: 1.5rem;
   background-color: var(--light);
   box-sizing: content-box;
@@ -199,7 +199,7 @@
   font-size: 0.75rem;
   line-height: 1rem;
   overflow: hidden;
-  color: var(--greyed-out);
+  color: var(--default);
   text-align: center;
 }
 

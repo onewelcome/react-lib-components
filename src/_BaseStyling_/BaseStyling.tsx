@@ -28,6 +28,23 @@ interface CSSProperties {
   colorTertiary?: string;
   lightPink?: string;
   vividViolet?: string;
+  colorPrimary300?: string;
+  colorPrimary500?: string;
+  colorPrimary600?: string;
+  colorPrimary700?: string;
+  colorPrimary900?: string;
+  colorBlueGrey100?: string;
+  colorBlueGrey200?: string;
+  colorBlueGrey400?: string;
+  colorBlueGrey25?: string;
+  colorBlueGrey500?: string;
+  colorBlueGrey700?: string;
+  colorBlueGrey900?: string;
+  colorGreen500?: string;
+  colorLightBlue500?: string;
+  colorLightBlue600?: string;
+  colorOrange500?: string;
+  colorRed500?: string;
   defaultLineHeight?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
@@ -41,6 +58,7 @@ interface CSSProperties {
   inputBorderWidthFocus?: string;
   inputBorderStyle?: string;
   inputBackgroundColor?: string;
+  dragBackgroundColor?: string;
   dragBorderStyle?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
@@ -53,6 +71,7 @@ interface CSSProperties {
   snackbarErrorBackgroundColor?: string;
   snackbarBorderRadius?: string;
   bannerBorderRadius?: string;
+  bannerBorderWidth?: string;
   dataGridRowBackgroundColor?: string;
   dataGridRowHoverBackgroundColor?: string;
   tabsBackgroundColor?: string;
@@ -62,6 +81,7 @@ interface CSSProperties {
   tablistBorderStyle?: string;
   tablistBorderColor?: string;
   tabTextColor?: string;
+  wizardStepIndicatorFutureColor?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -90,53 +110,74 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
-    colorFocus: "var(--color-primary)",
-    colorPrimary: "#9e006b",
-    colorSecondary: "#003b5e",
-    colorTertiary: "#ff1e4e",
+    colorPrimary300: "#6871BF",
+    colorPrimary500: "#041295",
+    colorPrimary600: "#030F77",
+    colorPrimary700: "#020B59",
+    colorPrimary900: "#01041E",
+    colorBlueGrey25: "#F7F7F9",
+    colorBlueGrey100: "#DEDEE6",
+    colorBlueGrey200: "#BCBECE",
+    colorBlueGrey400: "#797D9C",
+    colorBlueGrey500: "#5D607E",
+    colorBlueGrey700: "#383A4B",
+    colorBlueGrey900: "#131319",
+    colorGreen500: "#178244",
+    colorLightBlue500: "#00BCDD",
+    colorLightBlue600: "#0096B1",
+    colorOrange500: "#E07900",
+    colorRed500: "#E01E00",
+    colorFocus: "var(--color-primary300)",
+    colorPrimary: "var(--color-primary500)",
+    colorSecondary: "var(--color-blue-grey700)",
+    colorTertiary: "var(--color-light-blue600)",
     lightPink: "#9E006B1A",
     vividViolet: "#9E006B",
-    defaultLineHeight: "26px",
-    buttonBorderRadius: "20px",
+    defaultLineHeight: "1.5",
+    buttonBorderRadius: "2px",
     buttonBorderWidth: "2px",
     buttonFontSize: "1rem",
     buttonBorderStyle: "solid",
     buttonFillTextColor: "var(--light)",
     buttonFillHoverBackgroundColor: "var(--light)",
     buttonOutlineHoverTextColor: "var(--light)",
-    inputBorderRadius: "8px",
+    inputBorderRadius: "2px",
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "2px",
     inputBorderStyle: "solid",
     inputBackgroundColor: "var(--light)",
+    dragBackgroundColor: "#1313191A",
+    dragBorderStyle: "dashed",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
-    modalBackgroundColor: "#f5f8f8",
+    modalBackgroundColor: "var(--color-blue-grey25)",
     modalHeaderBackgroundColor: "var(--light)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
     snackbarTextColor: "var(--light)",
-    snackbarInfoBackgroundColor: "#003b5e",
-    snackbarSuccessBackgroundColor: "#008a28",
-    snackbarErrorBackgroundColor: "#d9291c",
-    snackbarBorderRadius: "8px",
-    bannerBorderRadius: "8px",
+    snackbarInfoBackgroundColor: "var(--color-primary500)",
+    snackbarSuccessBackgroundColor: "var(--color-green500)",
+    snackbarErrorBackgroundColor: "var(--color-red500)",
+    snackbarBorderRadius: "2px",
+    bannerBorderRadius: "2px",
+    bannerBorderWidth: "0 0 0 4px",
     dataGridRowBackgroundColor: "transparent",
-    dataGridRowHoverBackgroundColor: "#f5e6f0",
+    dataGridRowHoverBackgroundColor: "var(--color-blue-grey25)",
     tabsBackgroundColor: "var(--light)",
-    tabActiveBorderHeight: "2px",
+    tabActiveBorderHeight: "4px",
     tabActiveBorderColor: "var(--color-primary)",
     tablistBorderWidth: "1px",
     tablistBorderStyle: "solid",
-    tablistBorderColor: "#C3C3C7",
-    tabTextColor: "#0f0f1e",
-    default: "#0f0f1e",
-    success: "#008a28",
-    error: "#d9291c",
-    info: "var(--color-secondary)",
-    disabled: "#e9e9eb",
-    greyedOut: "#6f6f76",
-    lightGreyBorder: "#e9e9eb",
-    warning: "#ff6105",
+    tablistBorderColor: "var(--color-blue-grey100)",
+    tabTextColor: "var(--color-blue-grey900)",
+    wizardStepIndicatorFutureColor: "var(--color-blue-grey200)",
+    default: "var(--color-blue-grey900)",
+    success: "var(--color-green500)",
+    error: "var(--color-red500)",
+    info: "var(--color-primary500)",
+    disabled: "var(--color-blue-grey100)",
+    greyedOut: "var(--color-blue-grey500)",
+    lightGreyBorder: "var(--color-blue-grey100)",
+    warning: "var(--color-orange500)",
     light: "#FFF",
     grey: "#c3c3c7",
     fontFamily: "Roboto, sans-serif",
@@ -147,8 +188,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH3: "1.5rem",
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
-    fontSizeCode: "1rem",
-    dragBorderStyle: "dashed"
+    fontSizeCode: "1rem"
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

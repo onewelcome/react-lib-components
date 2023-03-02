@@ -45,11 +45,11 @@
   }
 
   &body {
-    @include fontProperties(var(--font-family), var(--font-size), 400, 1.5);
+    @include fontProperties(var(--font-family), var(--font-size), 400, var(--default-line-height));
   }
 
   &body-bold {
-    @include fontProperties(var(--font-family), var(--font-size), 700, 1.5);
+    @include fontProperties(var(--font-family), var(--font-size), 700, var(--default-line-height));
   }
 
   &sub-text {

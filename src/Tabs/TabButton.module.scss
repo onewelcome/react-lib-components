@@ -18,7 +18,7 @@
   border: 0;
   border-radius: 0;
   font-size: var(--font-size);
-  line-height: 1.5;
+  line-height: var(--default-line-height);
   margin: 0;
   padding: 0.25rem 0 1rem 0;
   min-height: 2.5rem;
@@ -27,7 +27,7 @@
   background-color: transparent;
   white-space: nowrap;
   position: relative;
-  font-weight: bold;
+  font-weight: normal;
   color: transparent;
 
   &:focus-visible {
@@ -42,7 +42,7 @@
   }
 
   &.selected {
-    color: var(--tab-text-color);
+    color: var(--color-primary);
 
     span {
       color: transparent;

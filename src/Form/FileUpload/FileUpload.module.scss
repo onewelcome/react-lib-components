@@ -29,11 +29,11 @@
   @include transition(all, 0.2s, ease-in-out);
   &.drag-active {
     @include outline(
-      var(--vivid-violet),
+      var(--color-primary),
       var(--drag-border-style),
       var(--input-border-width),
       var(--input-border-radius),
-      var(--light-pink)
+      var(--drag-background-color)
     );
     @include outlineStates;
   }
