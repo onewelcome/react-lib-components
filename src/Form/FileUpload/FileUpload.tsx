@@ -203,7 +203,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             {dragAndDropText}
           </Typography>
           <div className={classes["file-upload-btn"]}>
-            <Button type={"button"} variant="outline" disabled={disabled}>
+            <Button variant="outline" disabled={disabled}>
               {selectButtonText}
               <input
                 className={classes["upload-input"]}
