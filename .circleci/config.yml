@@ -76,9 +76,6 @@ jobs:
           name: Install gh-pages
           command: npm install --prefix=$HOME/.local -g --silent gh-pages
       - run:
-          name: Set git repository
-          command: git remote set-url origin https://git:${GITHUB_API_TOKEN}@github.com/onewelcome/react-lib-components.git
-      - run:
           name: Run deploy
           command: gh-pages -d storybook-static -u "github-actions-bot <support+actions@github.com>"
 
