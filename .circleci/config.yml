@@ -19,6 +19,9 @@ orbs:
 .dev-context-and-executor: &dev-context
   context: dev-context
 
+.ucl-context: &ucl-context
+  context: react-lib-components
+
 .require-build: &require-build
   requires:
     - build
@@ -166,7 +169,7 @@ workflows:
 
       - deploy-storybook-to-github-pages:
           name: deploy-github-pages
-          <<: *dev-context
-          <<: *filter-tags
+          <<: *ucl-context
+          <<: *filter-branches-tags
           requires:
             - build-storybook
