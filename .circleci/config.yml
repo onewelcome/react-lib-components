@@ -169,6 +169,6 @@ workflows:
 
       - deploy-storybook-to-github-pages:
           name: deploy-github-pages
-          <<: *filter-branches-tags
+          <<: *filter-tags
           requires:
             - build-storybook
