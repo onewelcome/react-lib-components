@@ -42,6 +42,7 @@ input {
   [data-prefix],
   [data-suffix] {
     transform: translateY(-0.125rem);
+    font-family: var(--font-family);
   }
 
   [data-prefix] + input {
