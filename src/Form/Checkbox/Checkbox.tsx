@@ -100,8 +100,6 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       return children;
     }
 
-    console.log(typeof children, children);
-
     throw new Error(
       "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox."
     );
