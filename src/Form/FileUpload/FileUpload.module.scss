@@ -63,6 +63,11 @@
   }
 }
 
+.file-selector-sub-text {
+  position: absolute;
+  top: calc(100% + 0.2rem);
+}
+
 .file-select {
   display: flex;
   align-items: center;
@@ -99,7 +104,7 @@
 .file-list {
   list-style: none;
   padding: 0;
-  margin: 0.75rem 0;
+  margin: 2rem 0 0.75rem;
   li:not(:last-child) {
     margin-bottom: 0.5rem;
   }

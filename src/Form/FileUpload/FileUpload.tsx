@@ -136,7 +136,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
 
     let err = false;
     if (maxFileSize && file.size && file.size >= maxFileSize) {
-      const mb = (file.size / (1024 * 1024)).toFixed(2);
+      const mb = (maxFileSize / (1024 * 1024)).toFixed(2);
       result.error =
         exceedingMaxSizeErrorText ||
         `The maximum allowed file size is ${mb}MB. Upload a smaller file.`;
