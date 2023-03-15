@@ -39,8 +39,7 @@
   }
   &.error {
     span[data-icon-status],
-    .file-upload-title,
-    .file-selector-sub-text {
+    .file-upload-title {
       color: var(--error);
     }
   }
@@ -64,8 +63,11 @@
 }
 
 .file-selector-sub-text {
-  position: absolute;
-  top: calc(100% + 0.2rem);
+  color: var(--greyed-out);
+  padding: 0 1.25rem;
+  &.error {
+    color: var(--error);
+  }
 }
 
 .file-select {
@@ -104,7 +106,7 @@
 .file-list {
   list-style: none;
   padding: 0;
-  margin: 2rem 0 0.75rem;
+  margin: 0.75rem 0;
   li:not(:last-child) {
     margin-bottom: 0.5rem;
   }
