@@ -137,5 +137,5 @@ FileUploadComponentWithServerInteraction.args = {
   dragAndDropText: "Testing drop text",
   title: "File Upload Title Placeholder",
   fileList: files,
-  url: "https://stark-caverns-56384.herokuapp.com/upload"
+  url: "http://localhost:4000/upload"
 };
