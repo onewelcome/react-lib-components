@@ -93,7 +93,10 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       );
     }
 
-    if (typeof children === "string") {
+    if (
+      typeof children === "string" ||
+      (typeof children === "object" && (children as ReactElement).type === "span")
+    ) {
       return children;
     }
 
