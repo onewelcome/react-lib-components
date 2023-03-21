@@ -101,7 +101,7 @@ describe("it should perform upload", () => {
 
   it("should contain a file with status of error", async () => {
     const response = { code: 404, body: { message: "Error test" } };
-    const mock = setupXhrEnvironment([404, DONE, response]);
+    const mock = setupXhrEnvironment([404, DONE, JSON.stringify(response)]);
     const files3 = [
       {
         name: "test3.txt",
@@ -115,7 +115,7 @@ describe("it should perform upload", () => {
 
   it("should contain a file with status of server error", async () => {
     const response = { code: 500, body: { message: "Error test" } };
-    const mock = setupXhrEnvironment([500, DONE, response]);
+    const mock = setupXhrEnvironment([500, DONE, JSON.stringify(response)]);
     const files6 = [
       {
         name: "test6.txt",

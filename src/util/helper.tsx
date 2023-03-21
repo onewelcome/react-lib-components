@@ -181,3 +181,12 @@ export const getValueByPath = (obj: { [key: string]: any }, path: string): any =
 export const remToPx = (rem: number): number => {
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 };
+
+export const isJsonString = (str: any) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};

@@ -136,7 +136,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
 
     let err = false;
     if (maxFileSize && file.size && file.size >= maxFileSize) {
-      const mb = (file.size / (1024 * 1024)).toFixed(2);
+      const mb = (maxFileSize / (1024 * 1024)).toFixed(2);
       result.error =
         exceedingMaxSizeErrorText ||
         `The maximum allowed file size is ${mb}MB. Upload a smaller file.`;
@@ -188,40 +188,42 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
 
   return (
     <div className={classes["file-upload-wrapper"]} {...wrapperProps}>
-      <div
-        className={dropzoneClassNames.join(" ")}
-        onDragOver={e => !disabled && handleOnDragOver(e)}
-        onDragLeave={e => !disabled && handleOnDragLeave(e)}
-        onDrop={e => !disabled && handleOnDrop(e)}
-      >
-        <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
-          {title}
-        </Typography>
-        <div className={classes["file-select"]}>
-          <Icon className={"drop-file-icon"} icon={Icons.FileUpload} />
-          <Typography variant="body" className={"drag-and-drop-text"}>
-            {dragAndDropText}
+      <div className={classes["dropzone-wrapper"]}>
+        <div
+          className={dropzoneClassNames.join(" ")}
+          onDragOver={e => !disabled && handleOnDragOver(e)}
+          onDragLeave={e => !disabled && handleOnDragLeave(e)}
+          onDrop={e => !disabled && handleOnDrop(e)}
+        >
+          <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
+            {title}
           </Typography>
-          <div className={classes["file-upload-btn"]}>
-            <Button variant="outline" disabled={disabled}>
-              {selectButtonText}
-              <input
-                className={classes["upload-input"]}
-                {...rest}
-                ref={ref}
-                aria-labelledby={labeledBy}
-                type="file"
-                name={name}
-                {...(multiple && { multiple: true })}
-                disabled={disabled}
-                accept={accept}
-                onChange={onInputChange}
-                spellCheck={rest.spellCheck || false}
-              />
-            </Button>
+          <div className={classes["file-select"]}>
+            <Icon className={"drop-file-icon"} icon={Icons.FileUpload} />
+            <Typography variant="body" className={"drag-and-drop-text"}>
+              {dragAndDropText}
+            </Typography>
+            <div className={classes["file-upload-btn"]}>
+              <Button variant="outline" disabled={disabled}>
+                {selectButtonText}
+                <input
+                  className={classes["upload-input"]}
+                  {...rest}
+                  ref={ref}
+                  aria-labelledby={labeledBy}
+                  type="file"
+                  name={name}
+                  {...(multiple && { multiple: true })}
+                  disabled={disabled}
+                  accept={accept}
+                  onChange={onInputChange}
+                  spellCheck={rest.spellCheck || false}
+                />
+              </Button>
+            </div>
+            {!disabled && icon}
+            <span className={classes["outline"]}></span>
           </div>
-          {!disabled && icon}
-          <span className={classes["outline"]}></span>
         </div>
         {subText && (
           <Typography variant={"sub-text"} className={subTextClass.join(" ")}>

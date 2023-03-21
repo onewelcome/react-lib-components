@@ -39,8 +39,7 @@
   }
   &.error {
     span[data-icon-status],
-    .file-upload-title,
-    .file-selector-sub-text {
+    .file-upload-title {
       color: var(--error);
     }
   }
@@ -60,6 +59,14 @@
     position: absolute;
     top: 2.74rem;
     right: 1.375rem;
+  }
+}
+
+.file-selector-sub-text {
+  color: var(--greyed-out);
+  padding: 0 1.25rem;
+  &.error {
+    color: var(--error);
   }
 }
 

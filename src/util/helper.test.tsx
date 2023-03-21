@@ -24,7 +24,8 @@ import {
   throttle,
   areArraysDifferent,
   getValueByPath,
-  isEqual
+  isEqual,
+  isJsonString
 } from "./helper";
 import { render } from "@testing-library/react";
 
@@ -335,5 +336,19 @@ describe("pixel to rem function works", () => {
     const result = remToPx(rem);
 
     expect(result).toBe(px);
+  });
+});
+
+describe("isJsonString should work", () => {
+  it("should return true when parameter is a valid JSON string", () => {
+    const param = JSON.stringify({ test: 1 });
+
+    expect(isJsonString(param)).toEqual(true);
+  });
+
+  it("should return false when parameter is a valid JSON string", () => {
+    const param = { test: 2 };
+
+    expect(isJsonString(param)).toEqual(false);
   });
 });

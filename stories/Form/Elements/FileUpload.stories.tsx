@@ -54,8 +54,8 @@ const meta: Meta = {
     url: {
       control: "text"
     },
-    withCredentials: {
-      control: "boolean"
+    exceedingMaxSizeErrorText: {
+      control: "text"
     }
   }
 };
@@ -64,7 +64,7 @@ export default meta;
 
 const files: FileType[] = [];
 
-const Template: Story<Props & { url: string; withCredentials: boolean }> = args => {
+const Template: Story<Props & { url: string }> = args => {
   const [_, updateArgs] = useArgs();
   const onChange = (e: FileType[]) => {
     setUpdatedFiles(e);
@@ -72,7 +72,7 @@ const Template: Story<Props & { url: string; withCredentials: boolean }> = args 
 
   const { updatedFiles, setUpdatedFiles } = useUploadFile(args.fileList, {
     url: args.url,
-    withCredentials: args.withCredentials,
+    withCredentials: true,
     responseErrorPath: "message"
   });
 
@@ -137,6 +137,5 @@ FileUploadComponentWithServerInteraction.args = {
   dragAndDropText: "Testing drop text",
   title: "File Upload Title Placeholder",
   fileList: files,
-  url: "http://localhost:4000/upload",
-  withCredentials: true
+  url: "http://localhost:4000/upload"
 };

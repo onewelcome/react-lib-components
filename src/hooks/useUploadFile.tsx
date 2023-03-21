@@ -16,7 +16,7 @@
 
 import { FileType } from "../Form/FileUpload/FileUpload";
 import { useEffect, useState } from "react";
-import { getValueByPath } from "../util/helper";
+import { getValueByPath, isJsonString } from "../util/helper";
 
 export interface UploadResponseType {
   fileList: FileType[];
@@ -76,6 +76,7 @@ export const useUploadFile = (
   ) => {
     let fileStatus: FileType["status"] = undefined;
     let error = "";
+    const response = responseText && isJsonString(responseText) && JSON.parse(responseText);
     if (requestStatus >= 200 && requestStatus < 400) {
       fileStatus = "completed";
     } else if (requestStatus === 0) {
@@ -83,13 +84,15 @@ export const useUploadFile = (
       error =
         networkErrorText || "Network error. Check internet connection and retry uploading the file";
     } else if (requestStatus >= 400 && requestStatus < 500) {
-      const response = responseText && JSON.parse(JSON.stringify(responseText));
       fileStatus = "error";
-      error = responseErrorPath ? getValueByPath(response, responseErrorPath) : "Bad request";
+      error =
+        responseErrorPath && response ? getValueByPath(response, responseErrorPath) : "Bad request";
     } else if (requestStatus >= 500) {
-      const response = responseText && JSON.parse(JSON.stringify(responseText));
       fileStatus = "error";
-      error = responseErrorPath ? getValueByPath(response, responseErrorPath) : "Server Error";
+      error =
+        responseErrorPath && response
+          ? getValueByPath(response, responseErrorPath)
+          : "Server Error";
     }
     return { fileStatus, error };
   };
