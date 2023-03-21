@@ -75,6 +75,18 @@ describe("Properties of the button", () => {
     expect(onClickHandler).toHaveBeenCalledTimes(0);
   });
 
+  it("when loading onClick function should not have been called", () => {
+    const onClickHandler = jest.fn();
+    const { baseButton } = createBaseButton(defaultParams => ({
+      ...defaultParams,
+      loading: true,
+      onClick: onClickHandler
+    }));
+
+    userEvent.click(baseButton);
+    expect(onClickHandler).toHaveBeenCalledTimes(0);
+  });
+
   it('should have the class "TESTING"', () => {
     const { baseButton } = createBaseButton(defaultParams => ({
       ...defaultParams,

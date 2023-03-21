@@ -19,3 +19,23 @@
 .button {
   @include mixins.buttonBase();
 }
+
+.loading {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.spinner {
+  fill: var(--greyed-out);
+  animation: spin 1s infinite linear;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

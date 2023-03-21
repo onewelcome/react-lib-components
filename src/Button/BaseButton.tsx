@@ -16,19 +16,21 @@
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import classes from "./BaseButton.module.scss";
+import { Spinner } from "./Spinner";
 
 export interface Props extends ComponentPropsWithRef<"button"> {
   type?: "submit" | "button" | "reset";
   disabled?: boolean;
+  loading?: boolean;
   color?: "primary" | "secondary" | "tertiary" | "default";
 }
 
 const BaseButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { children, type = "button", className, ...rest },
+  { children, type = "button", className, loading, disabled, ...rest },
   ref
 ) => {
   const validTypes = ["submit", "button", "reset"];
-
+  const isDisabled = disabled || loading;
   if (!validTypes.includes(type))
     throw new Error(
       `You have entered an invalid button type. Expected 'submit', 'button' or 'reset' got ${type}`
@@ -37,11 +39,14 @@ const BaseButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = 
   return (
     <button
       {...rest}
+      disabled={isDisabled}
       ref={ref}
       type={type}
-      className={`${classes.button} ${className ? className : ""}`}
+      className={`${classes.button} ${loading ? classes.loading : ""} ${
+        className ? className : ""
+      }`}
     >
-      {children}
+      {loading ? <Spinner className={classes["spinner"]} /> : children}
     </button>
   );
 };
