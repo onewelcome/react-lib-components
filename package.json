@@ -83,7 +83,7 @@
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "babel-loader": "^9.1.2",
-    "chromatic": "^6.17.1",
+    "chromatic": "^6.17.2",
     "dts-cli": "^1.6.3",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",
