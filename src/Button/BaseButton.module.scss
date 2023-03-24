@@ -18,15 +18,19 @@
 
 .button {
   @include mixins.buttonBase();
-}
+  position: relative;
 
-.loading {
-  padding-top: 0;
-  padding-bottom: 0;
+  .content-hidden {
+    visibility: hidden;
+    display: flex;
+  }
 }
 
 .spinner {
-  fill: var(--greyed-out);
+  position: absolute;
+  top: calc(50% - 0.75rem);
+  left: calc(50% - 0.75rem);
+  transform: translate(-50%, -50%);
   animation: spin 1s infinite linear;
 
   @keyframes spin {

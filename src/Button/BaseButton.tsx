@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, Fragment } from "react";
 import classes from "./BaseButton.module.scss";
 import { Spinner } from "./Spinner";
 
@@ -46,7 +46,16 @@ const BaseButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = 
         className ? className : ""
       }`}
     >
-      {loading ? <Spinner className={classes["spinner"]} /> : children}
+      {loading ? (
+        <Fragment>
+          <div aria-hidden="true" className={classes["content-hidden"]}>
+            {children}
+          </div>
+          <Spinner className={classes["spinner"]} />
+        </Fragment>
+      ) : (
+        children
+      )}
     </button>
   );
 };
