@@ -48,9 +48,7 @@ const BaseButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = 
     >
       {loading ? (
         <Fragment>
-          <div aria-hidden="true" className={classes["content-hidden"]}>
-            {children}
-          </div>
+          <div className={classes["content-hidden"]}>{children}</div>
           <Spinner className={classes["spinner"]} />
         </Fragment>
       ) : (
