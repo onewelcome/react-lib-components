@@ -75,7 +75,7 @@ describe("Properties of the button", () => {
     expect(onClickHandler).toHaveBeenCalledTimes(0);
   });
 
-  it("when loading onClick function should not have been called", () => {
+  it("when loading onClick function should not have been called", async () => {
     const onClickHandler = jest.fn();
     const { baseButton } = createBaseButton(defaultParams => ({
       ...defaultParams,
@@ -83,7 +83,7 @@ describe("Properties of the button", () => {
       onClick: onClickHandler
     }));
 
-    userEvent.click(baseButton);
+    await userEvent.click(baseButton);
     expect(onClickHandler).toHaveBeenCalledTimes(0);
   });
 
