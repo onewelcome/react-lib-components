@@ -19,7 +19,7 @@
  * and make sure to add it to the shouldBeColorPicker array!
  */
 
-import React, { Fragment, HTMLAttributes, ReactChild, useEffect, useState } from "react";
+import React, { HTMLAttributes, ReactChild, useEffect, useRef, useState } from "react";
 
 interface CSSProperties {
   colorFocus?: string;
@@ -193,23 +193,31 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
   const [isLoading, setIsLoading] = useState(true);
+  const baseStylingWrapper = useRef(null);
 
   const setCSSProperties = (CSSPropertiesObject: CSSProperties) => {
     for (const [key, value] of Object.entries(CSSPropertiesObject)) {
       const formattedPropertyName = key.replace(/([A-Z])/g, val => `-${val.toLowerCase()}`);
-      document.documentElement.style.setProperty(`--${formattedPropertyName}`, value);
+      (baseStylingWrapper.current! as HTMLElement).style.setProperty(
+        `--${formattedPropertyName}`,
+        value
+      );
     }
   };
 
   useEffect(() => {
-    if (Object.keys(properties).length !== 0) {
+    if (Object.keys(properties).length !== 0 && baseStylingWrapper.current) {
       const mergedState = { ...defaultProperties, ...properties };
       setCSSProperties(mergedState);
-    } else {
+    } else if (baseStylingWrapper.current) {
       setCSSProperties(defaultProperties);
     }
     setIsLoading(false);
-  }, [properties]);
+  }, [properties, baseStylingWrapper.current]);
 
-  return !isLoading ? <Fragment>{children}</Fragment> : null;
+  return (
+    <div className="basestyling-wrapper" ref={baseStylingWrapper}>
+      {!isLoading ? children : null}
+    </div>
+  );
 };
