@@ -44,6 +44,11 @@ orbs:
     branches:
       ignore: /.*/
 
+.filter-no-dependabot: &filter-no-dependabot
+  filters:
+    branches:
+      ignore: /^dependabot\/.*$/
+
 jobs:
   build-storybook:
     description: Build the Storybook of this project
@@ -127,6 +132,7 @@ workflows:
           <<: *dev-context
           <<: *require-build
           <<: *filter-branches-tags
+          <<: *filter-no-dependabot
 
       - onegini-build/deploy-docs:
           name: deploy-storybook-release
