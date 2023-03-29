@@ -61,7 +61,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     placement = defaultPosition.placement,
     offset = defaultPosition.offset,
     transformOrigin = defaultPosition.transformOrigin,
-    domRoot = document.body,
+    domRoot,
     label,
     ...rest
   }: Props,
