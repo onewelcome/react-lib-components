@@ -166,9 +166,7 @@ export const SnackbarProvider = (
       }}
     >
       {children}
-      <div className="SNACKBARRRR" ref={wrappingDivRef}>
-        {snackbarPortal}
-      </div>
+      <div ref={wrappingDivRef}>{snackbarPortal}</div>
     </SnackbarContextProvider>
   );
 };
