@@ -14,8 +14,9 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useEffect } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { useGetDomRoot } from "../../hooks/useGetDomRoot";
 import classes from "./BaseModal.module.scss";
 import { labelId, descriptionId } from "./BaseModalContext";
 
@@ -76,12 +77,14 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     disableBackdrop = false,
     forceContainerOpen = false,
     zIndex,
-    domRoot = document.body,
+    domRoot,
     ...rest
   }: Props,
   ref
 ) => {
   useSetBodyScroll(open);
+  const wrappingDivRef = useRef(null);
+  const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 
   const handleEscKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (!disableEscapeKeyDown && event.key === "Escape") {
@@ -92,50 +95,54 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const handleBackdropClick = () => !disableBackdrop && onClose && onClose();
 
-  return createPortal(
-    <div
-      {...rest}
-      ref={ref}
-      id={id}
-      className={`${classes["modal"]} ${open ? classes["visible"] : ""} ${className}`}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={labelledby || labelId(id)}
-      aria-describedby={describedby || descriptionId(id)}
-      aria-hidden={!open}
-      tabIndex={-1}
-      data-hidden={!open}
-      onKeyDown={handleEscKeyPress}
-      style={{ zIndex }}
-    >
-      <div
-        {...backdropProps}
-        className={`${classes["backdrop"]} ${backdropProps?.className ?? ""}`}
-        onClick={handleBackdropClick}
-      ></div>
-      {forceContainerOpen ? (
+  return (
+    <div ref={wrappingDivRef}>
+      {createPortal(
         <div
-          {...containerProps}
+          {...rest}
+          ref={ref}
+          id={id}
+          className={`${classes["modal"]} ${open ? classes["visible"] : ""} ${className}`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={labelledby || labelId(id)}
+          aria-describedby={describedby || descriptionId(id)}
           aria-hidden={!open}
-          hidden={!open}
-          style={{ zIndex: zIndex && zIndex + 1 }}
-          className={`${classes["container"]} ${containerProps?.className ?? ""}`}
+          tabIndex={-1}
+          data-hidden={!open}
+          onKeyDown={handleEscKeyPress}
+          style={{ zIndex }}
         >
-          {children}
-        </div>
-      ) : (
-        open && (
           <div
-            {...containerProps}
-            style={{ zIndex: zIndex && zIndex + 1 }}
-            className={`${classes["container"]} ${containerProps?.className ?? ""}`}
-          >
-            {children}
-          </div>
-        )
+            {...backdropProps}
+            className={`${classes["backdrop"]} ${backdropProps?.className ?? ""}`}
+            onClick={handleBackdropClick}
+          ></div>
+          {forceContainerOpen ? (
+            <div
+              {...containerProps}
+              aria-hidden={!open}
+              hidden={!open}
+              style={{ zIndex: zIndex && zIndex + 1 }}
+              className={`${classes["container"]} ${containerProps?.className ?? ""}`}
+            >
+              {children}
+            </div>
+          ) : (
+            open && (
+              <div
+                {...containerProps}
+                style={{ zIndex: zIndex && zIndex + 1 }}
+                className={`${classes["container"]} ${containerProps?.className ?? ""}`}
+              >
+                {children}
+              </div>
+            )
+          )}
+        </div>,
+        root
       )}
-    </div>,
-    domRoot
+    </div>
   );
 };
 

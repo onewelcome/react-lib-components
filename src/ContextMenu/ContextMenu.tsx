@@ -16,9 +16,11 @@
 
 import React, {
   ComponentPropsWithRef,
+  createRef,
   ForwardRefRenderFunction,
   ReactElement,
   ReactNode,
+  RefObject,
   useCallback,
   useEffect,
   useRef,
@@ -31,6 +33,7 @@ import { Placement, Offset } from "../hooks/usePosition";
 import classes from "./ContextMenu.module.scss";
 import { useBodyClick } from "../hooks/useBodyClick";
 import { createPortal } from "react-dom";
+import { useGetDomRoot } from "../hooks/useGetDomRoot";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   trigger: ReactElement<ButtonProps> | ReactElement<IconButtonProps>;
@@ -61,13 +64,14 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     offset = { top: 0, bottom: 0, left: 0, right: 0 },
     transformOrigin = { horizontal: "left", vertical: "top" },
     debounceAmount,
-    domRoot = document.body,
+    domRoot,
     popoverProps,
     ...rest
   }: Props,
   ref
 ) => {
   const anchorEl = useRef<HTMLButtonElement>(null);
+  const wrappingDivRef = (ref as RefObject<HTMLDivElement>) || createRef<HTMLDivElement>();
   const [showContextMenu, setShowContextMenu] = useState(show);
   const [hasBeenClosed, setHasBeenClosed] = useState(false);
   const [selectedContextMenuItem, setSelectedContextMenuItem] = useState(-1);
@@ -77,6 +81,8 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       false
     ); /** We need this, because whenever we use the arrow keys to select the contextmenu item, and we focus the currently selected item it fires the "click" listener in ContextMenuItem component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [childrenCount] = useState(React.Children.count(children));
+
+  const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 
   if (!id) {
     throw new Error("You need to provide an ID to the context menu");
@@ -198,8 +204,17 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     setShowContextMenu(false);
   }, []);
 
+  if (!root) {
+    return null;
+  }
+
   return (
-    <div {...rest} ref={ref} onKeyDown={onArrowNavigation} className={classes["context-menu"]}>
+    <div
+      {...rest}
+      ref={wrappingDivRef}
+      onKeyDown={onArrowNavigation}
+      className={classes["context-menu"]}
+    >
       {renderTrigger()}
       {createPortal(
         <Popover
@@ -224,7 +239,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             {renderChildren()}
           </ul>
         </Popover>,
-        domRoot
+        root
       )}
     </div>
   );

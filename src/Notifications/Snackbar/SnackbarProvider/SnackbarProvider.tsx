@@ -14,13 +14,14 @@
  *    limitations under the License.
  */
 
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { SnackbarContextProvider } from "./SnackbarStateProvider";
 import { Actions, SnackbarOptionsProps, Variant } from "../interfaces";
 import { Placement, SnackbarContainer } from "../SnackbarContainer/SnackbarContainer";
 import { generateID } from "../../../util/helper";
 import { SnackbarItem } from "../SnackbarItem/SnackbarItem";
+import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 
 /** Short msg is when only title is provided. Long one when content or/and actions are provided (or type is error). */
 interface Duration {
@@ -55,12 +56,14 @@ export const SnackbarProvider = (
     placement = { vertical: "bottom", horizontal: "center" },
     autoHideDuration = { long: 8000, short: 4000 },
     stackSize = 3,
-    domRoot = document.body,
+    domRoot,
     children,
     className
   }: Props = { closeButtonTitle: "" }
 ) => {
   const [snackbars, setSnackbars] = useState<Item[]>([]);
+  const wrappingDivRef = useRef(null);
+  const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 
   const addSnackbar = (item: Item) => {
     setSnackbars(items => [...items, item]);
@@ -149,7 +152,7 @@ export const SnackbarProvider = (
     <SnackbarContainer placement={placement} className={className}>
       {snackbarList}
     </SnackbarContainer>,
-    domRoot
+    root
   );
 
   return (
@@ -163,7 +166,7 @@ export const SnackbarProvider = (
       }}
     >
       {children}
-      {snackbarPortal}
+      <div ref={wrappingDivRef}>{snackbarPortal}</div>
     </SnackbarContextProvider>
   );
 };
