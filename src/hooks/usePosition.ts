@@ -330,7 +330,8 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
   };
 
   const calculatePosition = useDebouncedCallback(() => {
-    if (!configObject.relativeElement?.current) return;
+    if (!configObject.relativeElement?.current || !configObject.elementToBePositioned?.current)
+      return;
     const relativeElRect = (configObject.relativeElement!
       .current as HTMLElement)!.getBoundingClientRect();
     const elementToBePositionedDimensions: Dimensions = {

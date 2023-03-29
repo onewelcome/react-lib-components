@@ -16,9 +16,11 @@
 
 import React, {
   ComponentPropsWithRef,
+  createRef,
   ForwardRefRenderFunction,
   ReactElement,
   ReactNode,
+  RefObject,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -29,6 +31,7 @@ import classes from "./Tooltip.module.scss";
 import { generateID } from "../util/helper";
 import { Offset, Placement, usePosition } from "../hooks/usePosition";
 import { createPortal } from "react-dom";
+import { useGetDomRoot } from "../hooks/useGetDomRoot";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   label: string | ReactNode;
@@ -66,6 +69,9 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 ) => {
   const [identifier] = useState(generateID());
   const [visible, setVisible] = useState(false);
+
+  const wrappingDivRef = (ref as RefObject<HTMLDivElement>) || createRef<HTMLDivElement>();
+  const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 
   const relativeElement = useRef<HTMLDivElement>(null);
   const elementToBePositioned = useRef<HTMLDivElement>(null);
@@ -123,7 +129,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   };
 
   return (
-    <div {...rest} ref={ref} className={`${classes.wrapper} ${className ?? ""}`}>
+    <div {...rest} ref={wrappingDivRef} className={`${classes.wrapper} ${className ?? ""}`}>
       {renderChildren()}
       <div className={`${classes["tooltip-wrapper"]}`}>
         <Icon
@@ -150,7 +156,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           >
             {children}
           </div>,
-          domRoot
+          root
         )}
       </div>
     </div>
