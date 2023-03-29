@@ -18,4 +18,28 @@
 
 .button {
   @include mixins.buttonBase();
+  position: relative;
+
+  .content-hidden {
+    visibility: hidden;
+    display: flex;
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: calc(50% - 0.75rem);
+  left: calc(50% - 0.75rem);
+  transform: translate(-50%, -50%);
+  animation: spin 1s infinite linear;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 }

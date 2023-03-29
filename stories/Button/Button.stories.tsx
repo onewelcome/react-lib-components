@@ -105,3 +105,9 @@ export const DisabledButton = Template.bind({});
 DisabledButton.args = {
   disabled: true
 };
+
+export const LoadingButton = Template.bind({});
+
+LoadingButton.args = {
+  loading: true
+};
