@@ -126,13 +126,13 @@ workflows:
           <<: *dev-context
           <<: *require-build
           <<: *filter-branches-tags
+          <<: *filter-no-dependabot
 
       - build-storybook:
           name: build-storybook
           <<: *dev-context
           <<: *require-build
           <<: *filter-branches-tags
-          <<: *filter-no-dependabot
 
       - onegini-build/deploy-docs:
           name: deploy-storybook-release
