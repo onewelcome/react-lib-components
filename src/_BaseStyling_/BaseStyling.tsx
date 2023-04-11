@@ -190,7 +190,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem"
   };
-
+  // test commit
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
   const [isLoading, setIsLoading] = useState(true);
   const baseStylingWrapper = useRef(null);
