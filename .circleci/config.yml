@@ -92,7 +92,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --skip 'dependabot/**'
+      - run: npm run chromatic  --skip 'dependabot/**' --project-token=${CHROMATIC_PROJECT_TOKEN}
 
 workflows:
   version: 2
