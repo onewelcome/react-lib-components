@@ -47,7 +47,7 @@ orbs:
 .filter-no-dependabot: &filter-no-dependabot
   filters:
     branches:
-      ignore: /^dependabot\/.*$/
+      ignore: /dependabot\/.*/
 
 jobs:
   build-storybook:
@@ -92,7 +92,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --skip 'dependabot/**'
+      - run: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 
 workflows:
   version: 2
@@ -125,8 +125,8 @@ workflows:
           name: chromatic-deployment
           <<: *dev-context
           <<: *require-build
-          <<: *filter-branches-tags
           <<: *filter-no-dependabot
+          <<: *filter-branches-tags
 
       - build-storybook:
           name: build-storybook
