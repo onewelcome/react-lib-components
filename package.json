@@ -75,7 +75,7 @@
     "@tsconfig/create-react-app": "^1.0.3",
     "@tsconfig/recommended": "^1.0.2",
     "@types/color-convert": "^2.0.0",
-    "@types/mdx": "^2.0.3",
+    "@types/mdx": "^2.0.4",
     "@types/react": "^17.0.52",
     "@types/react-dom": "^17.0.18",
     "@types/react-router": "^5.1.20",
