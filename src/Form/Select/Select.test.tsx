@@ -19,6 +19,7 @@ import { Select as SelectComponent, Props } from "./Select";
 import { render, waitFor } from "@testing-library/react";
 import { Option } from "./Option";
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 
 const defaultParams: Props = {
   name: "Example select",
@@ -245,7 +246,7 @@ describe("Expanded should be false whenever we click the body", () => {
 });
 
 describe("List expansion", () => {
-  it("should expand upwards", () => {
+  it("should expand upwards", async () => {
     const { select, button, dropdownWrapper } = createSelect();
 
     Object.defineProperty(window, "innerHeight", { value: 500, writable: true });
@@ -263,13 +264,15 @@ describe("List expansion", () => {
     });
 
     if (button) {
-      userEvent.click(button);
+      await act(async () => {
+        userEvent.click(button);
+      });
     }
 
     expect(dropdownWrapper).toHaveStyle({ bottom: "0px" });
   });
 
-  it("should expand downwards with a max height set", () => {
+  it("should expand downwards with a max height set", async () => {
     const { select, getByRole, dropdownWrapper } = createSelect();
 
     dropdownWrapper!.getBoundingClientRect = () => ({
@@ -298,9 +301,14 @@ describe("List expansion", () => {
       toJSON: () => jest.fn()
     });
 
-    userEvent.click(document.body);
+    await act(async () => {
+      userEvent.click(document.body);
+    });
+
     const button = getByRole("button");
-    userEvent.click(button);
+    await act(async () => {
+      userEvent.click(button);
+    });
 
     expect(dropdownWrapper).toHaveStyle({ maxHeight: "474px" });
     expect(dropdownWrapper).toHaveStyle({ top: "0px" });
@@ -308,23 +316,38 @@ describe("List expansion", () => {
 });
 
 describe("previously selected item", () => {
-  it("should have focus", () => {
+  it("should have focus", async () => {
     const { select, button } = createSelect(defaultParams => ({
       ...defaultParams,
       value: "option4"
     }));
 
-    button.focus();
+    await act(async () => {
+      button.focus();
+    });
 
     const option2 = select.querySelector('li[data-value="option2"]')!;
 
-    userEvent.keyboard("{enter}");
-    expect(button).toHaveAttribute("aria-expanded", "true");
-    userEvent.keyboard("{arrowdown}");
-    userEvent.keyboard("{arrowdown}");
-    userEvent.keyboard("{space}");
+    await act(async () => {
+      userEvent.keyboard("{enter}");
+    });
 
-    userEvent.click(button);
+    expect(button).toHaveAttribute("aria-expanded", "true");
+    await act(async () => {
+      userEvent.keyboard("{arrowdown}");
+    });
+
+    await act(async () => {
+      userEvent.keyboard("{arrowdown}");
+    });
+
+    await act(async () => {
+      userEvent.keyboard("{space}");
+    });
+
+    await act(async () => {
+      userEvent.click(button);
+    });
 
     expect(document.activeElement).toBe(option2);
   });
