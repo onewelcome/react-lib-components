@@ -28,6 +28,7 @@ import {
   isJsonString
 } from "./helper";
 import { render } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 
 /* Generate an ID of 20 characters with a string woven in */
 
@@ -86,11 +87,13 @@ describe("debounce function", () => {
 
     window.addEventListener("resize", debounce(debouncedFunction, 200));
 
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
+    act(() => {
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+    });
 
     await waitFor(() => expect(debouncedFunction).toHaveBeenCalledTimes(1));
   });
@@ -108,7 +111,9 @@ describe("debounce function", () => {
       }, [variable]);
 
       const incrementVariable = () => {
-        setVariable(Math.random());
+        act(() => {
+          setVariable(Math.random());
+        });
       };
 
       useEffect(() => {
@@ -122,11 +127,13 @@ describe("debounce function", () => {
 
     render(<ExampleComponent debouncedFunction={exampleFunction} />);
 
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
-    await fireEvent.resize(window);
+    act(() => {
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+    });
 
     expect(exampleFunction).toHaveBeenCalledTimes(1);
   });
@@ -146,7 +153,9 @@ describe("throttling works", () => {
       }, [variable]);
 
       const incrementVariable = useCallback(() => {
-        setVariable(Math.random());
+        act(() => {
+          setVariable(Math.random());
+        });
       }, []);
 
       useEffect(() => {
@@ -160,16 +169,18 @@ describe("throttling works", () => {
 
     render(<ExampleComponent throttledFunction={exampleFunction} />);
 
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
-    fireEvent.resize(window);
+    act(() => {
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+      fireEvent.resize(window);
+    });
 
     expect(exampleFunction).not.toHaveBeenCalledTimes(1);
     expect(exampleFunction).not.toHaveBeenCalledTimes(10);

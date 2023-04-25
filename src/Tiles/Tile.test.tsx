@@ -22,6 +22,7 @@ import { ContextMenu } from "../ContextMenu/ContextMenu";
 import { IconButton } from "../Button/IconButton";
 import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 
 const onShow = jest.fn();
 const onClose = jest.fn();
@@ -141,14 +142,19 @@ describe("contextmenu", () => {
     expect(menuitem2).toBeTruthy();
     expect(menuitem3).toBeTruthy();
 
-    userEvent.click(menutrigger);
+    act(() => {
+      userEvent.click(menutrigger);
+    });
+
     expect(onShow).toHaveBeenCalled();
     expect(popover).toHaveClass("show");
     expect(popover).toHaveStyle({ opacity: "1;" });
 
-    userEvent.click(menuitem1);
-    userEvent.click(menuitem2);
-    userEvent.click(menuitem3);
+    act(() => {
+      userEvent.click(menuitem1);
+      userEvent.click(menuitem2);
+      userEvent.click(menuitem3);
+    });
 
     expect(contextMenuItemOnClick).toHaveBeenCalledTimes(3);
   });

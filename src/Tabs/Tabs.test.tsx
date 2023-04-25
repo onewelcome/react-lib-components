@@ -109,7 +109,7 @@ describe("Tabs should render", () => {
     expect(tabpanel1).toHaveClass("selected");
     expect(tabpanel3).not.toHaveClass("selected");
 
-    await userEvent.click(tab3);
+    await act(() => userEvent.click(tab3));
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
 

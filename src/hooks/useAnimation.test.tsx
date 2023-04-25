@@ -18,6 +18,7 @@ import React, { Fragment } from "react";
 import { render, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useAnimation } from "./useAnimation";
+import { act } from "react-dom/test-utils";
 
 describe("useAnimation", () => {
   it("should execute", () => {
@@ -49,12 +50,17 @@ describe("useAnimation", () => {
 
     expect(animatedDiv).not.toHaveClass("animation-started");
     expect(callback).not.toBeCalled();
+    act(() => {
+      userEvent.click(startButton);
+    });
 
-    userEvent.click(startButton);
     expect(animatedDiv).toHaveClass("animation-started");
     expect(callback).not.toBeCalled();
 
-    fireEvent.animationEnd(animatedDiv);
+    act(() => {
+      fireEvent.animationEnd(animatedDiv);
+    });
+
     expect(animatedDiv).toHaveClass("animation-started");
     expect(callback).toBeCalled();
   });
