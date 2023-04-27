@@ -22,6 +22,7 @@
 import React, { HTMLAttributes, ReactChild, useEffect, useRef, useState } from "react";
 
 interface CSSProperties {
+  colorBlack10?: string;
   colorFocus?: string;
   colorPrimary?: string;
   colorSecondary?: string;
@@ -59,6 +60,7 @@ interface CSSProperties {
   inputBorderWidthFocus?: string;
   inputBorderStyle?: string;
   inputBackgroundColor?: string;
+  dragBackgroundColor?: string;
   dragBorderStyle?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
@@ -109,6 +111,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
+    colorBlack10: "#0000001a",
     colorPrimary300: "#6871BF",
     colorPrimary500: "#041295",
     colorPrimary600: "#030F77",
@@ -146,6 +149,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderWidthFocus: "2px",
     inputBorderStyle: "solid",
     inputBackgroundColor: "var(--light)",
+    dragBackgroundColor: "var(--color-blue-grey25-transparent)",
     dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--color-blue-grey25)",

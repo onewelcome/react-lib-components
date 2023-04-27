@@ -26,6 +26,10 @@
     font-size: 1.25rem;
   }
 
+  .progress-bar {
+    background-color: var(--color-black10);
+  }
+
   span[class*="bar--"] {
     border-radius: var(--input-border-radius);
     height: 1rem;
