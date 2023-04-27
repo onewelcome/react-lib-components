@@ -26,8 +26,6 @@ interface CSSProperties {
   colorPrimary?: string;
   colorSecondary?: string;
   colorTertiary?: string;
-  lightPink?: string;
-  vividViolet?: string;
   colorPrimary300?: string;
   colorPrimary500?: string;
   colorPrimary600?: string;
@@ -46,6 +44,7 @@ interface CSSProperties {
   colorLightBlue600?: string;
   colorOrange500?: string;
   colorRed500?: string;
+  colorWhite?: string;
   defaultLineHeight?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
@@ -59,7 +58,6 @@ interface CSSProperties {
   inputBorderWidthFocus?: string;
   inputBorderStyle?: string;
   inputBackgroundColor?: string;
-  dragBackgroundColor?: string;
   dragBorderStyle?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
@@ -92,7 +90,6 @@ interface CSSProperties {
   lightGreyBorder?: string;
   warning?: string;
   light?: string;
-  grey?: string;
   fontFamily?: string;
   fontFamilyCode?: string;
   fontSize?: string;
@@ -129,12 +126,11 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorLightBlue600: "#0096B1",
     colorOrange500: "#E07900",
     colorRed500: "#E01E00",
+    colorWhite: "#FFFFFF",
     colorFocus: "var(--color-primary300)",
     colorPrimary: "var(--color-primary500)",
     colorSecondary: "var(--color-blue-grey700)",
     colorTertiary: "var(--color-light-blue600)",
-    lightPink: "#9E006B1A",
-    vividViolet: "#9E006B",
     defaultLineHeight: "1.5",
     buttonBorderRadius: "2px",
     buttonBorderWidth: "2px",
@@ -148,7 +144,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderWidthFocus: "2px",
     inputBorderStyle: "solid",
     inputBackgroundColor: "var(--light)",
-    dragBackgroundColor: "#1313191A",
     dragBorderStyle: "dashed",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--color-blue-grey25)",
@@ -180,8 +175,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     greyedOut: "var(--color-blue-grey500)",
     lightGreyBorder: "var(--color-blue-grey100)",
     warning: "var(--color-orange500)",
-    light: "#FFF",
-    grey: "#c3c3c7",
+    light: "var(--color-white)",
     fontFamily: "Roboto, sans-serif",
     fontFamilyCode: "'Roboto Mono', monospace",
     fontSize: "1rem",
