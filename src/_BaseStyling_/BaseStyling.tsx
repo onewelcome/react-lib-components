@@ -144,7 +144,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderWidthFocus: "2px",
     inputBorderStyle: "solid",
     inputBackgroundColor: "var(--light)",
-    dragBorderStyle: "dashed",
+    dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--color-blue-grey25)",
     modalHeaderBackgroundColor: "var(--light)",
