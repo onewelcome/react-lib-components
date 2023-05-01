@@ -19,7 +19,6 @@
 
 .floating-wrapper {
   position: relative;
-
   .floating-label {
     font-family: var(--font-family);
     font-size: 1rem;
@@ -47,6 +46,18 @@
   }
 }
 
+.form-input-label {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  pointer-events: none;
+  line-height: 1.43rem;
+  color: var(--color-blue-grey900);
+
+  &.disabled {
+    color: var(--greyed-out);
+  }
+}
+
 .wrapper + fieldset,
 .wrapper + .wrapper {
   margin-top: 1rem;
@@ -55,6 +66,7 @@
 .required {
   &:after {
     content: " *";
+    color: var(--error);
   }
 }
 

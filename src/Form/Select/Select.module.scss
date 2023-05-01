@@ -60,7 +60,7 @@ $listItemHeight: 2.125rem;
   .custom-select {
     position: relative;
     width: 100%;
-    min-height: calc(4rem - (2 * var(--input-border-width)));
+    min-height: calc(2.86rem - (2 * var(--input-border-width)));
     padding: 0 variables.$form-element-horizontal-padding-mobile;
     background-color: transparent;
     border-color: var(--light-grey-border);

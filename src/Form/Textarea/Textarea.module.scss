@@ -15,6 +15,7 @@
  */
 
 @use "../../mixins.module.scss";
+@use "src/variables";
 
 .textarea-wrapper {
   position: relative;
@@ -41,7 +42,7 @@
 }
 
 .textarea {
-  padding: 0.75rem 3.75rem 0.75rem 1.25rem;
+  padding: variables.$form-element-horizontal-padding-mobile 0.856rem;
   box-sizing: border-box;
   border: 0;
   border-radius: var(--input-border-radius);

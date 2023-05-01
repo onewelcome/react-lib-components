@@ -128,17 +128,6 @@ describe("TextareaWrapper & Textarea have the right attributes", () => {
     expect(errorMessage).toBeTruthy();
     expect(textarea).toHaveAttribute("aria-describedby", errorMessage.id);
   });
-
-  it("has floating label active when it has a placeholder", async () => {
-    const { findByText } = createTextareaWrapper(defaultParams => ({
-      ...defaultParams,
-      placeholder: "placeholder"
-    }));
-
-    const label = await findByText("textarea_label");
-
-    expect(label).toHaveClass("floating-label-active");
-  });
 });
 
 describe("TextarenaWrapper should be interactive", () => {

@@ -22,7 +22,7 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
   const [helperId] = useState(generateID(20));
   const [errorId] = useState(generateID(20));
   const [labelId] = useState(generateID(20));
-  const [floatingLabelActive, setFloatingLabelActive] = useState(false);
+  const [isInputActive, setIsInputActive] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
 
   useEffect(() => {
@@ -33,13 +33,13 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
       type === "time" ||
       type === "date"
     ) {
-      setFloatingLabelActive(true);
+      setIsInputActive(true);
     }
   }, []);
 
   useEffect(() => {
     if ((value?.length && value.length > 0) || hasFocus) {
-      setFloatingLabelActive(true);
+      setIsInputActive(true);
     } else if (
       !placeholder &&
       !hasFocus &&
@@ -47,7 +47,7 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
       type !== "time" &&
       type !== "date"
     ) {
-      setFloatingLabelActive(false);
+      setIsInputActive(false);
     }
   }, [value, placeholder, type, hasFocus]);
 
@@ -55,8 +55,7 @@ export const useWrapper = (value?: string, placeholder?: string, type?: InputTyp
     helperId,
     errorId,
     labelId,
-    floatingLabelActive,
-    setFloatingLabelActive,
+    isInputActive,
     hasFocus,
     setHasFocus
   };
