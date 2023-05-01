@@ -99,7 +99,6 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
         onFocus={e => {
           onFocus && onFocus(e);
           setHasFocus(true);
-          // setFloatingLabelActive(true);
         }}
         onBlur={e => {
           onBlur && onBlur(e);
