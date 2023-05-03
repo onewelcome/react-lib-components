@@ -33,7 +33,7 @@ module.exports = {
     sourceType: "module"
   },
   plugins: ["react", "@typescript-eslint", "jest", "cypress", "react-hooks", "license-header"],
-  ignorePatterns: ["dist/", "stories/types.d.ts", "setupTests.ts", "vite.config.ts"],
+  ignorePatterns: ["dist/", "stories/types.d.ts", "setupTests.ts", "webpack.config.ts"],
   rules: { "license-header/header": ["error", "copyright.txt"] },
   overrides: [
     {

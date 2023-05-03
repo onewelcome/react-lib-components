@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react";
 import { useDebouncedCallback } from "./useDebouncedCallback";
 
 const BASE_DELAY = 300;
@@ -61,7 +61,8 @@ describe("Testing the useDebouncedCallback hook", () => {
     const callback2 = jest.fn();
 
     const { result, rerender } = renderHook(
-      ({ callback, delay }) => useDebouncedCallback(callback, delay),
+      ({ callback, delay }: { callback: () => unknown; delay: number }) =>
+        useDebouncedCallback(callback, delay),
       { initialProps: { callback: callback1, delay } }
     );
 
@@ -82,7 +83,8 @@ describe("Testing the useDebouncedCallback hook", () => {
     const callback = jest.fn();
 
     const { result, rerender } = renderHook(
-      ({ callback, delay }) => useDebouncedCallback(callback, delay),
+      ({ callback, delay }: { callback: () => unknown; delay: number }) =>
+        useDebouncedCallback(callback, delay),
       { initialProps: { callback, delay: delay1 } }
     );
 
@@ -101,7 +103,15 @@ describe("Testing the useDebouncedCallback hook", () => {
     const callback = jest.fn();
 
     const { result, rerender } = renderHook(
-      ({ callback, delay, dependencies }) => useDebouncedCallback(callback, delay, dependencies),
+      ({
+        callback,
+        delay,
+        dependencies
+      }: {
+        callback: () => unknown;
+        delay: number;
+        dependencies: any[];
+      }) => useDebouncedCallback(callback, delay, dependencies),
       { initialProps: { callback, delay, dependencies: ["a"] } }
     );
 

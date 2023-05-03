@@ -14,35 +14,50 @@
  *    limitations under the License.
  */
 
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   stories: ["../stories/intro.stories.mdx", "../stories/**/*.stories.@(ts|tsx|js|jsx|mdx)"],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-docs",
-    "@storybook/addon-essentials",
-    {
-      name: "@storybook/preset-scss",
+  addons: ["@storybook/addon-links", "@storybook/addon-docs", "@storybook/addon-essentials", "@storybook/addon-a11y", "./addon/preset.js"],
+  webpackFinal: async (config, {
+    configType
+  }) => {
+    config.module.rules.push({
+      test: /\.(ts|tsx)$/,
+      loader: require.resolve("babel-loader"),
       options: {
-        cssLoaderOptions: {
+        presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"]
+      }
+    });
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: ["style-loader", {
+        loader: "css-loader",
+        options: {
+          importLoaders: 1,
           modules: {
-            localIdentName: "[name]__[local]--[hash:base64:5]"
+            localIdentName: "[name]__[local]__[hash:base64:5]"
           }
         }
-      }
-    },
-    "@storybook/addon-a11y",
-    "./addon/preset.js"
-  ],
+      }, "sass-loader"],
+      include: path.resolve(__dirname, "../")
+    });
+    config.plugins.push(new MiniCssExtractPlugin({
+      filename: "[name].css"
+    }));
+    config.resolve.extensions.push(".ts", ".tsx");
+    return config;
+  },
   typescript: {
     check: true // type-check stories during Storybook build
   },
 
   staticDirs: ["../public"],
-  framework: {
-    name: "@storybook/react-vite",
-    options: {}
-  },
   docs: {
     autodocs: true
+  },
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {}
   }
 };
