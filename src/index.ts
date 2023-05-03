@@ -15,48 +15,48 @@
  */
 
 /* Components */
-export { BaseStyling } from "./_BaseStyling_/BaseStyling";
-export { Button } from "./Button/Button";
-export type { Props as ButtonProps } from "./Button/Button";
-export { Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
-export type { Props as BreadcrumbsProps } from "./Breadcrumbs/Breadcrumbs";
-export { ContextMenu } from "./ContextMenu/ContextMenu";
-export type { Props as ContextMenuProps } from "./ContextMenu/ContextMenu";
-export { ContextMenuItem } from "./ContextMenu/ContextMenuItem";
-export type { Props as ContextMenuItemProps } from "./ContextMenu/ContextMenuItem";
-export { Link } from "./Link/Link";
-export type { Props as LinkProps, AnchorType } from "./Link/Link";
-export { Icon, Icons } from "./Icon/Icon";
-export type { Props as IconProps } from "./Icon/Icon";
-export { IconButton } from "./Button/IconButton";
-export type { Props as IconButtonProps } from "./Button/IconButton";
-export { Tab } from "./Tabs/Tab";
-export type { Props as TabProps } from "./Tabs/Tab";
-export { Tabs } from "./Tabs/Tabs";
-export type { Props as TabsProps } from "./Tabs/Tabs";
-export { TextEllipsis } from "./TextEllipsis/TextEllipsis";
-export type { Props as TextEllipsisProps } from "./TextEllipsis/TextEllipsis";
-export { Tile } from "./Tiles/Tile";
-export type { Props as TileProps } from "./Tiles/Tile";
-export { Tiles } from "./Tiles/Tiles";
-export type { Props as TilesProps } from "./Tiles/Tiles";
-export { Tooltip } from "./Tooltip/Tooltip";
-export type { Props as TooltipProps } from "./Tooltip/Tooltip";
-export { Typography } from "./Typography/Typography";
-export type { Props as TypographyProps, Variant } from "./Typography/Typography";
-export { ProgressBar } from "./ProgressBar/ProgressBar";
-export type { Props as ProgressBarProps } from "./ProgressBar/ProgressBar";
-export { Skeleton } from "./Skeleton/Skeleton";
-export type { Props as SkeletonProps } from "./Skeleton/Skeleton";
-export { StatusIndicator } from "./StatusIndicator/StatusIndicator";
-export type { Props as StatusIndicatorProps } from "./StatusIndicator/StatusIndicator";
-export { Pagination } from "./Pagination/Pagination";
+export { BaseStyling } from "./components/_BaseStyling_/BaseStyling";
+export { Button } from "./components/Button/Button";
+export type { Props as ButtonProps } from "./components/Button/Button";
+export { Breadcrumbs } from "./components/Breadcrumbs/Breadcrumbs";
+export type { Props as BreadcrumbsProps } from "./components/Breadcrumbs/Breadcrumbs";
+export { ContextMenu } from "./components/ContextMenu/ContextMenu";
+export type { Props as ContextMenuProps } from "./components/ContextMenu/ContextMenu";
+export { ContextMenuItem } from "./components/ContextMenu/ContextMenuItem";
+export type { Props as ContextMenuItemProps } from "./components/ContextMenu/ContextMenuItem";
+export { Link } from "./components/Link/Link";
+export type { Props as LinkProps, AnchorType } from "./components/Link/Link";
+export { Icon, Icons } from "./components/Icon/Icon";
+export type { Props as IconProps } from "./components/Icon/Icon";
+export { IconButton } from "./components/Button/IconButton";
+export type { Props as IconButtonProps } from "./components/Button/IconButton";
+export { Tab } from "./components/Tabs/Tab";
+export type { Props as TabProps } from "./components/Tabs/Tab";
+export { Tabs } from "./components/Tabs/Tabs";
+export type { Props as TabsProps } from "./components/Tabs/Tabs";
+export { TextEllipsis } from "./components/TextEllipsis/TextEllipsis";
+export type { Props as TextEllipsisProps } from "./components/TextEllipsis/TextEllipsis";
+export { Tile } from "./components/Tiles/Tile";
+export type { Props as TileProps } from "./components/Tiles/Tile";
+export { Tiles } from "./components/Tiles/Tiles";
+export type { Props as TilesProps } from "./components/Tiles/Tiles";
+export { Tooltip } from "./components/Tooltip/Tooltip";
+export type { Props as TooltipProps } from "./components/Tooltip/Tooltip";
+export { Typography } from "./components/Typography/Typography";
+export type { Props as TypographyProps, Variant } from "./components/Typography/Typography";
+export { ProgressBar } from "./components/ProgressBar/ProgressBar";
+export type { Props as ProgressBarProps } from "./components/ProgressBar/ProgressBar";
+export { Skeleton } from "./components/Skeleton/Skeleton";
+export type { Props as SkeletonProps } from "./components/Skeleton/Skeleton";
+export { StatusIndicator } from "./components/StatusIndicator/StatusIndicator";
+export type { Props as StatusIndicatorProps } from "./components/StatusIndicator/StatusIndicator";
+export { Pagination } from "./components/Pagination/Pagination";
 export type {
   Props as PaginationProps,
   PageChangeLabels,
   PaginationTranslations,
   PageSize
-} from "./Pagination/Pagination";
+} from "./components/Pagination/Pagination";
 
 /* Utils */
 export { useRepeater } from "./hooks/useRepeater";
@@ -64,82 +64,85 @@ export { useDebouncedCallback } from "./hooks/useDebouncedCallback";
 export { generateID, debounce, throttle } from "./util/helper";
 
 /* Notifications */
-export { Modal } from "./Notifications/Modal/Modal";
-export type { Props as ModalProps } from "./Notifications/Modal/Modal";
-export { useSnackbar } from "./Notifications/Snackbar/useSnackbar";
-export { Dialog } from "./Notifications/Dialog/Dialog";
-export type { Props as DialogProps, Action as DialogAction } from "./Notifications/Dialog/Dialog";
-export { DiscardChangesModal } from "./Notifications/DiscardChangesModal/DiscardChangesModal";
-export type { Props as DiscardChangesModalProps } from "./Notifications/DiscardChangesModal/DiscardChangesModal";
-export { ModalActions } from "./Notifications/Modal/ModalActions/ModalActions";
-export type { Props as ModalActionsProps } from "./Notifications/Modal/ModalActions/ModalActions";
-export { ModalContent } from "./Notifications/Modal/ModalContent/ModalContent";
-export type { Props as ModalContentProps } from "./Notifications/Modal/ModalContent/ModalContent";
-export { ModalHeader } from "./Notifications/Modal/ModalHeader/ModalHeader";
-export type { Props as ModalHeaderProps } from "./Notifications/Modal/ModalHeader/ModalHeader";
-export { SlideInModal } from "./Notifications/SlideInModal/SlideInModal";
-export type { Props as SlideInModalProps } from "./Notifications/SlideInModal/SlideInModal";
-export { SnackbarProvider } from "./Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
-export type { Props as SnackbarProviderProps } from "./Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
+export { Modal } from "./components/Notifications/Modal/Modal";
+export type { Props as ModalProps } from "./components/Notifications/Modal/Modal";
+export { useSnackbar } from "./components/Notifications/Snackbar/useSnackbar";
+export { Dialog } from "./components/Notifications/Dialog/Dialog";
+export type {
+  Props as DialogProps,
+  Action as DialogAction
+} from "./components/Notifications/Dialog/Dialog";
+export { DiscardChangesModal } from "./components/Notifications/DiscardChangesModal/DiscardChangesModal";
+export type { Props as DiscardChangesModalProps } from "./components/Notifications/DiscardChangesModal/DiscardChangesModal";
+export { ModalActions } from "./components/Notifications/Modal/ModalActions/ModalActions";
+export type { Props as ModalActionsProps } from "./components/Notifications/Modal/ModalActions/ModalActions";
+export { ModalContent } from "./components/Notifications/Modal/ModalContent/ModalContent";
+export type { Props as ModalContentProps } from "./components/Notifications/Modal/ModalContent/ModalContent";
+export { ModalHeader } from "./components/Notifications/Modal/ModalHeader/ModalHeader";
+export type { Props as ModalHeaderProps } from "./components/Notifications/Modal/ModalHeader/ModalHeader";
+export { SlideInModal } from "./components/Notifications/SlideInModal/SlideInModal";
+export type { Props as SlideInModalProps } from "./components/Notifications/SlideInModal/SlideInModal";
+export { SnackbarProvider } from "./components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
+export type { Props as SnackbarProviderProps } from "./components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
 
 /** Form components */
-export { Checkbox } from "./Form/Checkbox/Checkbox";
-export type { Props as CheckboxProps } from "./Form/Checkbox/Checkbox";
-export { Fieldset } from "./Form/Fieldset/Fieldset";
-export type { Props as FieldsetProps } from "./Form/Fieldset/Fieldset";
-export { Form } from "./Form/Form";
-export type { Props as FormProps } from "./Form/Form";
-export { FormControl } from "./Form/FormControl/FormControl";
-export type { Props as FormControlProps } from "./Form/FormControl/FormControl";
-export { FormGroup } from "./Form/FormGroup/FormGroup";
-export type { Props as FormGroupProps } from "./Form/FormGroup/FormGroup";
-export { FormHelperText } from "./Form/FormHelperText/FormHelperText";
-export type { Props as FormHelperTextProps } from "./Form/FormHelperText/FormHelperText";
-export { Input } from "./Form/Input/Input";
-export type { Props as InputProps, Type as InputType } from "./Form/Input/Input";
-export { InputWrapper } from "./Form/Wrapper/InputWrapper/InputWrapper";
-export type { Props as InputWrapperProps } from "./Form/Wrapper/InputWrapper/InputWrapper";
-export { Label } from "./Form/Label/Label";
-export type { Props as LabelProps } from "./Form/Label/Label";
-export { Option } from "./Form/Select/Option";
-export type { Props as OptionProps } from "./Form/Select/Option";
-export { Radio } from "./Form/Radio/Radio";
-export type { Props as RadioProps } from "./Form/Radio/Radio";
-export { RadioWrapper } from "./Form/Wrapper/RadioWrapper/RadioWrapper";
-export type { Props as RadioWrapperProps } from "./Form/Wrapper/RadioWrapper/RadioWrapper";
-export { Select } from "./Form/Select/Select";
-export type { Props as SelectProps } from "./Form/Select/Select";
-export { Textarea } from "./Form/Textarea/Textarea";
-export type { Props as TextareaProps } from "./Form/Textarea/Textarea";
-export { Toggle } from "./Form/Toggle/Toggle";
-export type { Props as ToggleProps } from "./Form/Toggle/Toggle";
-export { CheckboxWrapper } from "./Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
-export type { Props as CheckboxWrapperProps } from "./Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
-export { TextareaWrapper } from "./Form/Wrapper/TextareaWrapper/TextareaWrapper";
-export type { Props as TextareaWrapperProps } from "./Form/Wrapper/TextareaWrapper/TextareaWrapper";
-export { SelectWrapper } from "./Form/Wrapper/SelectWrapper/SelectWrapper";
-export type { Props as SelectWrapperProps } from "./Form/Wrapper/SelectWrapper/SelectWrapper";
+export { Checkbox } from "./components/Form/Checkbox/Checkbox";
+export type { Props as CheckboxProps } from "./components/Form/Checkbox/Checkbox";
+export { Fieldset } from "./components/Form/Fieldset/Fieldset";
+export type { Props as FieldsetProps } from "./components/Form/Fieldset/Fieldset";
+export { Form } from "./components/Form/Form";
+export type { Props as FormProps } from "./components/Form/Form";
+export { FormControl } from "./components/Form/FormControl/FormControl";
+export type { Props as FormControlProps } from "./components/Form/FormControl/FormControl";
+export { FormGroup } from "./components/Form/FormGroup/FormGroup";
+export type { Props as FormGroupProps } from "./components/Form/FormGroup/FormGroup";
+export { FormHelperText } from "./components/Form/FormHelperText/FormHelperText";
+export type { Props as FormHelperTextProps } from "./components/Form/FormHelperText/FormHelperText";
+export { Input } from "./components/Form/Input/Input";
+export type { Props as InputProps, Type as InputType } from "./components/Form/Input/Input";
+export { InputWrapper } from "./components/Form/Wrapper/InputWrapper/InputWrapper";
+export type { Props as InputWrapperProps } from "./components/Form/Wrapper/InputWrapper/InputWrapper";
+export { Label } from "./components/Form/Label/Label";
+export type { Props as LabelProps } from "./components/Form/Label/Label";
+export { Option } from "./components/Form/Select/Option";
+export type { Props as OptionProps } from "./components/Form/Select/Option";
+export { Radio } from "./components/Form/Radio/Radio";
+export type { Props as RadioProps } from "./components/Form/Radio/Radio";
+export { RadioWrapper } from "./components/Form/Wrapper/RadioWrapper/RadioWrapper";
+export type { Props as RadioWrapperProps } from "./components/Form/Wrapper/RadioWrapper/RadioWrapper";
+export { Select } from "./components/Form/Select/Select";
+export type { Props as SelectProps } from "./components/Form/Select/Select";
+export { Textarea } from "./components/Form/Textarea/Textarea";
+export type { Props as TextareaProps } from "./components/Form/Textarea/Textarea";
+export { Toggle } from "./components/Form/Toggle/Toggle";
+export type { Props as ToggleProps } from "./components/Form/Toggle/Toggle";
+export { CheckboxWrapper } from "./components/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
+export type { Props as CheckboxWrapperProps } from "./components/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
+export { TextareaWrapper } from "./components/Form/Wrapper/TextareaWrapper/TextareaWrapper";
+export type { Props as TextareaWrapperProps } from "./components/Form/Wrapper/TextareaWrapper/TextareaWrapper";
+export { SelectWrapper } from "./components/Form/Wrapper/SelectWrapper/SelectWrapper";
+export type { Props as SelectWrapperProps } from "./components/Form/Wrapper/SelectWrapper/SelectWrapper";
 
 /** Wizard */
-export { Wizard } from "./Wizard/Wizard";
-export type { Props as WizardProps } from "./Wizard/Wizard";
-export { WizardActions } from "./Wizard/WizardActions/WizardActions";
-export type { Props as WizardActionsProps } from "./Wizard/WizardActions/WizardActions";
-export { WizardSteps } from "./Wizard/WizardSteps/WizardSteps";
-export type { Props as WizardStepsProps } from "./Wizard/WizardSteps/WizardSteps";
-export { BaseWizardSteps } from "./Wizard/BaseWizardSteps/BaseWizardSteps";
+export { Wizard } from "./components/Wizard/Wizard";
+export type { Props as WizardProps } from "./components/Wizard/Wizard";
+export { WizardActions } from "./components/Wizard/WizardActions/WizardActions";
+export type { Props as WizardActionsProps } from "./components/Wizard/WizardActions/WizardActions";
+export { WizardSteps } from "./components/Wizard/WizardSteps/WizardSteps";
+export type { Props as WizardStepsProps } from "./components/Wizard/WizardSteps/WizardSteps";
+export { BaseWizardSteps } from "./components/Wizard/BaseWizardSteps/BaseWizardSteps";
 export type {
   Props as BaseWizardStepsProps,
   Step as WizardStep
-} from "./Wizard/BaseWizardSteps/BaseWizardSteps";
+} from "./components/Wizard/BaseWizardSteps/BaseWizardSteps";
 
 /** DataGrid */
-export type { HeaderCell } from "./DataGrid/datagrid.interfaces";
-export { DataGrid } from "./DataGrid/DataGrid";
-export type { Props as DataGridProps } from "./DataGrid/DataGrid";
-export { DataGridRow } from "./DataGrid/DataGridBody/DataGridRow";
-export type { Props as DataGridRowProps } from "./DataGrid/DataGridBody/DataGridRow";
-export { DataGridCell } from "./DataGrid/DataGridBody/DataGridCell";
-export type { Props as DataGridCellProps } from "./DataGrid/DataGridBody/DataGridCell";
-export { Banner } from "./Notifications/Banner/Banner";
-export type { Props as BannerProps } from "./Notifications/Banner/Banner";
+export type { HeaderCell } from "./components/DataGrid/datagrid.interfaces";
+export { DataGrid } from "./components/DataGrid/DataGrid";
+export type { Props as DataGridProps } from "./components/DataGrid/DataGrid";
+export { DataGridRow } from "./components/DataGrid/DataGridBody/DataGridRow";
+export type { Props as DataGridRowProps } from "./components/DataGrid/DataGridBody/DataGridRow";
+export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell";
+export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell";
+export { Banner } from "./components/Notifications/Banner/Banner";
+export type { Props as BannerProps } from "./components/Notifications/Banner/Banner";

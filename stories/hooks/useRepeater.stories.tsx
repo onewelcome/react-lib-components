@@ -16,11 +16,11 @@
 
 import React, { useEffect, useState } from "react";
 import { Meta, Story } from "@storybook/react";
-import { InputWrapper } from "../../src/Form/Wrapper/InputWrapper/InputWrapper";
+import { InputWrapper } from "../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import { useRepeater } from "../../src/hooks/useRepeater";
-import { Button } from "../../src/Button/Button";
-import { IconButton } from "../../src/Button/IconButton";
-import { Icon, Icons } from "../../src/Icon/Icon";
+import { Button } from "../../src/components/Button/Button";
+import { IconButton } from "../../src/components/Button/IconButton";
+import { Icon, Icons } from "../../src/components/Icon/Icon";
 import RepeaterDocumentation from "./useRepeater.mdx";
 import { generateID } from "../../src/util/helper";
 

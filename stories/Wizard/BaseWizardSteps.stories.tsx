@@ -16,7 +16,10 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { BaseWizardSteps, Props } from "../../src/Wizard/BaseWizardSteps/BaseWizardSteps";
+import {
+  BaseWizardSteps,
+  Props
+} from "../../src/components/Wizard/BaseWizardSteps/BaseWizardSteps";
 import WizardDocumentation from "./Wizard.mdx";
 
 const onClick = (stepNo: number) => {

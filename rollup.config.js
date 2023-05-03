@@ -14,43 +14,71 @@
  *    limitations under the License.
  */
 
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
-import postcss from "rollup-plugin-postcss";
+import postCssUrl from "postcss-url";
+import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
 import json from "@rollup/plugin-json";
 
-const postcssOptions = () => ({
-  extensions: [".scss", ".css"],
-  use: ["sass"],
-  modules: true
-});
+const STATIC_CSP_NONCE = "DsPHCoJqXm4vKCqFrm03y1";
 
 export default {
   input: "src/index.ts",
   output: [
     {
-      file: "dist/react-lib-components.cjs.js",
-      format: "cjs",
-      sourcemap: true,
-      exports: "named"
-    },
-    {
-      file: "dist/react-lib-components.esm.js",
+      dir: "dist",
       format: "esm",
+      preserveModules: true,
+      preserveModulesRoot: "src",
       sourcemap: true,
       exports: "named"
     }
   ],
   plugins: [
-    peerDepsExternal(),
-    postcss(postcssOptions()),
+    styles({
+      mode: ["inject", { attributes: { nonce: STATIC_CSP_NONCE } }],
+      modules: true,
+      minimize: { preset: ["default", { discardComments: { removeAll: true } }] },
+      plugins: [
+        postCssUrl({
+          url: "inline",
+          encodeType: "base64",
+          maxSize: Infinity
+        })
+      ]
+    }),
     typescript(),
     commonjs(),
     resolve({ extensions: [".js", ".ts", ".tsx"] }),
     terser(),
-    json()
-  ]
+    json(),
+    {
+      name: "Replace node_modules with dependency",
+
+      generateBundle: (options, bundle) => {
+        Object.entries(bundle).forEach(entry => {
+          // Replace the node_modules/inject-css reference with the inject-css package dependency.
+          if (entry[0].match(/.*(.scss.js)$/)) {
+            bundle[entry[0]].code = entry[1].code.replace(
+              /(\.\.\/|\.\/){1,5}node_modules\/rollup-plugin-styles\/dist\/runtime\/inject-css.js/,
+              "rollup-plugin-styles/dist/runtime/inject-css"
+            );
+            return;
+          }
+
+          if (entry[0].match(/.*(.js)$/)) {
+            // Replace the node_modules/tslib reference with the tslib package dependency.
+            bundle[entry[0]].code = entry[1].code.replace(
+              /(\.\.\/|\.\/){1,5}node_modules\/tslib\/tslib.es6.js/,
+              "tslib"
+            );
+            return;
+          }
+        });
+      }
+    }
+  ],
+  external: ["react", "react-dom"]
 };

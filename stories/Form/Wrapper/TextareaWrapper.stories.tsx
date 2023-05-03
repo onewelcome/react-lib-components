@@ -19,7 +19,7 @@ import { Meta, Story } from "@storybook/react";
 import {
   TextareaWrapper as TextareaWrapperComponent,
   Props
-} from "../../../src/Form/Wrapper/TextareaWrapper/TextareaWrapper";
+} from "../../../src/components/Form/Wrapper/TextareaWrapper/TextareaWrapper";
 import TextareaWrapperDocumentation from "./TextareaWrapper.mdx";
 
 const meta: Meta = {

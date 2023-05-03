@@ -16,7 +16,10 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Pagination as PaginationComponent, Props } from "../../src/Pagination/Pagination";
+import {
+  Pagination as PaginationComponent,
+  Props
+} from "../../src/components/Pagination/Pagination";
 import PaginationDocumentation from "./Pagination.mdx";
 
 const meta: Meta = {

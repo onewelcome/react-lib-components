@@ -16,8 +16,8 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Skeleton as SkeletonComponent, Props } from "../../src/Skeleton/Skeleton";
-import { Typography } from "../../src/Typography/Typography";
+import { Skeleton as SkeletonComponent, Props } from "../../src/components/Skeleton/Skeleton";
+import { Typography } from "../../src/components/Typography/Typography";
 import SkeletonDocumentation from "./Skeleton.mdx";
 
 const meta: Meta = {

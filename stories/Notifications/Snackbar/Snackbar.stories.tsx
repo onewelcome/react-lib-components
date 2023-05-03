@@ -19,9 +19,9 @@ import { Meta, Story } from "@storybook/react";
 import {
   SnackbarProvider,
   Props
-} from "../../../src/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
-import { Button } from "../../../src/Button/Button";
-import { useSnackbar } from "../../../src/Notifications/Snackbar/useSnackbar";
+} from "../../../src/components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
+import { Button } from "../../../src/components/Button/Button";
+import { useSnackbar } from "../../../src/components/Notifications/Snackbar/useSnackbar";
 import SnackbarDocumentation from "./Snackbar.mdx";
 
 const meta: Meta = {

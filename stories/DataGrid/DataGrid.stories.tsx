@@ -16,16 +16,16 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { DataGrid as DataGridComponent, Props } from "../../src/DataGrid/DataGrid";
-import { DataGridCell } from "../../src/DataGrid/DataGridBody/DataGridCell";
-import { ContextMenu } from "../../src/ContextMenu/ContextMenu";
-import { IconButton } from "../../src/Button/IconButton";
-import { Icon, Icons } from "../../src/Icon/Icon";
-import { ContextMenuItem } from "../../src/ContextMenu/ContextMenuItem";
-import { DataGridRow } from "../../src/DataGrid/DataGridBody/DataGridRow";
+import { DataGrid as DataGridComponent, Props } from "../../src/components/DataGrid/DataGrid";
+import { DataGridCell } from "../../src/components/DataGrid/DataGridBody/DataGridCell";
+import { ContextMenu } from "../../src/components/ContextMenu/ContextMenu";
+import { IconButton } from "../../src/components/Button/IconButton";
+import { Icon, Icons } from "../../src/components/Icon/Icon";
+import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
+import { DataGridRow } from "../../src/components/DataGrid/DataGridBody/DataGridRow";
 import { action } from "@storybook/addon-actions";
 import DataGridDocumentation from "./DataGrid.mdx";
-import { StatusIndicator } from "../../src/StatusIndicator/StatusIndicator";
+import { StatusIndicator } from "../../src/components/StatusIndicator/StatusIndicator";
 
 type DataType = { name: string; created: Date; id: string; type: string; enabled: boolean };
 const data: DataType[] = Array.from(Array(10)).map((_, idx) => ({

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { FileType } from "../Form/FileUpload/FileUpload";
+import { FileType } from "../components/Form/FileUpload/FileUpload";
 import { useEffect, useState } from "react";
 import { getValueByPath, isJsonString } from "../util/helper";
 

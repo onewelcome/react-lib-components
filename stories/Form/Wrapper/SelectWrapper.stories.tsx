@@ -19,8 +19,8 @@ import { Meta, Story } from "@storybook/react";
 import {
   SelectWrapper as SelectWrapperComponent,
   Props
-} from "../../../src/Form/Wrapper/SelectWrapper/SelectWrapper";
-import { Option } from "../../../src/Form/Select/Option";
+} from "../../../src/components/Form/Wrapper/SelectWrapper/SelectWrapper";
+import { Option } from "../../../src/components/Form/Select/Option";
 
 import SelectWrapperDocumentation from "./SelectWrapper.mdx";
 

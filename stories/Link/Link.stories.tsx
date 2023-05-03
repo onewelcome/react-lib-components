@@ -16,7 +16,7 @@
 
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { Link as LinkComponent, Props } from "../../src/Link/Link";
+import { Link as LinkComponent, Props } from "../../src/components/Link/Link";
 import LinkDocumentation from "./Link.mdx";
 
 const meta: Meta = {

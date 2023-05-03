@@ -16,9 +16,9 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Tabs as TabsComponent, Props } from "../../src/Tabs/Tabs";
-import { Typography } from "../../src/Typography/Typography";
-import { Tab } from "../../src/Tabs/Tab";
+import { Tabs as TabsComponent, Props } from "../../src/components/Tabs/Tabs";
+import { Typography } from "../../src/components/Typography/Typography";
+import { Tab } from "../../src/components/Tabs/Tab";
 import TabsDocumentation from "./Tabs.mdx";
 
 const meta: Meta = {

@@ -15,7 +15,7 @@
  */
 
 import { Meta, Story } from "@storybook/react";
-import { Banner, Props } from "../../../src/Notifications/Banner/Banner";
+import { Banner, Props } from "../../../src/components/Notifications/Banner/Banner";
 import React from "react";
 import BannerDocumentation from "./Banner.mdx";
 

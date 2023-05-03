@@ -16,7 +16,7 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { FileItem, Props } from "../../../src/Form/FileUpload/FileItem/FileItem";
+import { FileItem, Props } from "../../../src/components/Form/FileUpload/FileItem/FileItem";
 import FileItemDocumentation from "./FileItem.mdx";
 
 const meta: Meta = {

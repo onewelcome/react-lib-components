@@ -19,7 +19,7 @@ import { Meta, Story } from "@storybook/react";
 import {
   StatusIndicator as StatusIndicatorComponent,
   Props
-} from "../../src/StatusIndicator/StatusIndicator";
+} from "../../src/components/StatusIndicator/StatusIndicator";
 import StatusIndicatorDocumentation from "./StatusIndicator.mdx";
 
 const meta: Meta = {

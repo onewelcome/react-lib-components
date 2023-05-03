@@ -19,7 +19,7 @@ import { Meta, Story } from "@storybook/react";
 import {
   InputWrapper as InputWrapperComponent,
   Props
-} from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
+} from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import InputWrapperDocumentation from "./InputWrapper.mdx";
 
 const meta: Meta = {

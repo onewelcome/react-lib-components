@@ -16,8 +16,11 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { TextEllipsis as TextEllipsisComponent, Props } from "../../src/TextEllipsis/TextEllipsis";
-import { Typography } from "../../src/Typography/Typography";
+import {
+  TextEllipsis as TextEllipsisComponent,
+  Props
+} from "../../src/components/TextEllipsis/TextEllipsis";
+import { Typography } from "../../src/components/Typography/Typography";
 
 import TextEllipsisDocumentation from "./TextEllipsis.mdx";
 

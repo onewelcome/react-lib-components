@@ -16,8 +16,8 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Toggle as ToggleComponent } from "../../..//src/Form/Toggle/Toggle";
-import { Props } from "../../../src/Form/Checkbox/Checkbox";
+import { Toggle as ToggleComponent } from "../../../src/components/Form/Toggle/Toggle";
+import { Props } from "../../../src/components/Form/Checkbox/Checkbox";
 import ToggleDocumentation from "./Toggle.mdx";
 
 const meta: Meta = {

@@ -16,8 +16,12 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { dateTypes, Input as InputComponent, Props } from "../../../src/Form/Input/Input";
-import { Form } from "../../../src/Form/Form";
+import {
+  dateTypes,
+  Input as InputComponent,
+  Props
+} from "../../../src/components/Form/Input/Input";
+import { Form } from "../../../src/components/Form/Form";
 import InputDocumentation from "./Input.mdx";
 
 const meta: Meta = {

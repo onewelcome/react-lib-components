@@ -16,19 +16,19 @@
 
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Meta, Story } from "@storybook/react";
-import { Form as FormComponent, Props } from "../../src/Form/Form";
-import { InputWrapper } from "../../src/Form/Wrapper/InputWrapper/InputWrapper";
-import { Fieldset } from "../../src/Form/Fieldset/Fieldset";
-import { CheckboxWrapper } from "../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
-import { Checkbox } from "../../src/Form/Checkbox/Checkbox";
-import { FormControl } from "../../src/Form/FormControl/FormControl";
-import { Button } from "../../src/Button/Button";
+import { Form as FormComponent, Props } from "../../src/components/Form/Form";
+import { InputWrapper } from "../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
+import { Fieldset } from "../../src/components/Form/Fieldset/Fieldset";
+import { CheckboxWrapper } from "../../src/components/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
+import { Checkbox } from "../../src/components/Form/Checkbox/Checkbox";
+import { FormControl } from "../../src/components/Form/FormControl/FormControl";
+import { Button } from "../../src/components/Button/Button";
 import { action } from "@storybook/addon-actions";
-import { RadioWrapper } from "../../src/Form/Wrapper/RadioWrapper/RadioWrapper";
-import { Radio } from "../../src/Form/Radio/Radio";
-import { SelectWrapper } from "../../src/Form/Wrapper/SelectWrapper/SelectWrapper";
-import { Option } from "../../src/Form/Select/Option";
-import { Toggle } from "../../src/Form/Toggle/Toggle";
+import { RadioWrapper } from "../../src/components/Form/Wrapper/RadioWrapper/RadioWrapper";
+import { Radio } from "../../src/components/Form/Radio/Radio";
+import { SelectWrapper } from "../../src/components/Form/Wrapper/SelectWrapper/SelectWrapper";
+import { Option } from "../../src/components/Form/Select/Option";
+import { Toggle } from "../../src/components/Form/Toggle/Toggle";
 
 import FormDocumentation from "./Form.mdx";
 

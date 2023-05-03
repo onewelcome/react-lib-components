@@ -16,7 +16,10 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { ProgressBar as ProgressBarComponent, Props } from "../../src/ProgressBar/ProgressBar";
+import {
+  ProgressBar as ProgressBarComponent,
+  Props
+} from "../../src/components/ProgressBar/ProgressBar";
 import ProgressBarDocumentation from "./ProgressBar.mdx";
 
 const meta: Meta = {

@@ -19,7 +19,7 @@ import { Meta, Story } from "@storybook/react";
 import {
   FormHelperText as FormHelperTextComponent,
   Props
-} from "../../../src/Form/FormHelperText/FormHelperText";
+} from "../../../src/components/Form/FormHelperText/FormHelperText";
 import FormHelperTextDocumentation from "./FormHelperText.mdx";
 
 const meta: Meta = {

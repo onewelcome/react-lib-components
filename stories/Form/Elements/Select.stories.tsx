@@ -16,8 +16,8 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Select as SelectComponent, Props } from "../../../src/Form/Select/Select";
-import { Option } from "../../../src/Form/Select/Option";
+import { Select as SelectComponent, Props } from "../../../src/components/Form/Select/Select";
+import { Option } from "../../../src/components/Form/Select/Option";
 import SelectDocumentation from "./Select.mdx";
 
 const meta: Meta = {

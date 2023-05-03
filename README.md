@@ -59,7 +59,7 @@ Please see the [CONTRIBUTING.md](https://github.com/onewelcome/react-lib-compone
 
 ### Adding new icons
 
-See [adding icons to font manual](font/README.md)
+See [adding icons to font manual](src/font/README.md)
 
 ## Code quality
 

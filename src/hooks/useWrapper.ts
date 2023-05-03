@@ -16,7 +16,7 @@
 
 import { useEffect, useState } from "react";
 import { generateID } from "../util/helper";
-import { Type as InputTypes } from "../Form/Input/Input";
+import { Type as InputTypes } from "../components/Form/Input/Input";
 
 export const useWrapper = (value?: string, placeholder?: string, type?: InputTypes) => {
   const [helperId] = useState(generateID(20));

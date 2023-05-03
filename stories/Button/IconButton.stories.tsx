@@ -16,8 +16,8 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { IconButton as IconButtonComponent, Props } from "../../src/Button/IconButton";
-import { Icon, Icons } from "../../src/Icon/Icon";
+import { IconButton as IconButtonComponent, Props } from "../../src/components/Button/IconButton";
+import { Icon, Icons } from "../../src/components/Icon/Icon";
 import IconButtonDocumentation from "./IconButton.mdx";
 
 const meta: Meta = {

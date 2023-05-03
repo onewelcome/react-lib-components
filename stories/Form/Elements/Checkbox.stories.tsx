@@ -16,9 +16,9 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Checkbox, Props as CheckboxProps } from "../../../src/Form/Checkbox/Checkbox";
+import { Checkbox, Props as CheckboxProps } from "../../../src/components/Form/Checkbox/Checkbox";
 import CheckboxDocumentation from "./Checkbox.mdx";
-import { Link } from "../../../src/Link/Link";
+import { Link } from "../../../src/components/Link/Link";
 
 const meta: Meta = {
   title: "components/Inputs/Raw/Checkbox",
