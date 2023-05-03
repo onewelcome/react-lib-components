@@ -56,7 +56,7 @@ export default {
     json(),
     {
       name: "Replace node_modules with dependency",
-
+      // https://github.com/egoist/rollup-plugin-postcss/issues/381#issuecomment-862359662
       generateBundle: (options, bundle) => {
         Object.entries(bundle).forEach(entry => {
           // Replace the node_modules/inject-css reference with the inject-css package dependency.
