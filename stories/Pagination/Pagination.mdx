@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as PaginationStories from "./Pagination.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -41,8 +42,10 @@ const ExampleComponent = () => {
 }
 ```
 
-<DocsStory id="components-navigation-pagination--pagination" />
+<Canvas>
+  <Story of={PaginationStories.Pagination} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

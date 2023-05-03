@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as TextEllipsisStories from "./TextEllipsis.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -9,8 +10,10 @@ It accepts `children` which should contain a string, and a `popoverClassName` pr
 
 # Examples
 
-<DocsStory id="components-utils-textellipsis--text-ellipsis" />
+<Canvas>
+  <Story of={TextEllipsisStories.TextEllipsis} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

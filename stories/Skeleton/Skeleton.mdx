@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as SkeletonStories from "./Skeleton.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -20,10 +21,16 @@ If the `height` property is not defined, it takes a `height` of the current font
 </Typography>
 ```
 
-<DocsStory id="components-feedback-skeleton--skeleton" />
-<DocsStory id="components-feedback-skeleton--rectangle-skeleton" />
-<DocsStory id="components-feedback-skeleton--typography-skeleton" />
+<Canvas>
+  <Story of={SkeletonStories.Skeleton} />
+</Canvas>
+<Canvas>
+  <Story of={SkeletonStories.RectangleSkeleton} />
+</Canvas>
+<Canvas>
+  <Story of={SkeletonStories.TypographySkeleton} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

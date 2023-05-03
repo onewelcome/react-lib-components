@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as TextareaStories from "./Textarea.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -28,8 +29,10 @@ const ExampleComponent = () => {
 
 Below you'll find an example of the `Textarea` component. You can toggle states and props through the [Props table](#props) at the bottom.
 
-<DocsStory id="components-inputs-raw-textarea--textarea" />
+<Canvas>
+  <Story of={TextareaStories.Textarea} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

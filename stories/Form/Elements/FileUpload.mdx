@@ -1,11 +1,13 @@
 import {
+  Canvas,
   Title,
   Subtitle,
   Subheading,
-  ArgsTable,
+  ArgTypes,
   PRIMARY_STORY,
-  DocsStory
-} from "@storybook/addon-docs";
+  Story
+} from "@storybook/blocks";
+import * as FileUploadStories from "./FileUpload.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -90,15 +92,19 @@ In this case, the component will receive all the state changes and progress of t
 
 # Examples
 
-<DocsStory id="components-inputs-fileupload--file-upload-component" />
+<Canvas>
+  <Story of={FileUploadStories.FileUploadComponent} />
+</Canvas>
 
 # Example that uses server interaction as well:
 
-<DocsStory id="components-inputs-fileupload--file-upload-component-with-server-interaction" />
+<Canvas>
+  <Story of={FileUploadStories.FileUploadComponentWithServerInteraction} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />
 
 <Subheading>useUploadFile hook</Subheading>A custom hook has been created in order to be used along
 side the `FileUpload` component, in order to perform the upload action with ease The hook will

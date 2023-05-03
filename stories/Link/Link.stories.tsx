@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Link as LinkComponent, Props } from "../../src/Link/Link";
 import LinkDocumentation from "./Link.mdx";
 
@@ -41,6 +41,6 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <LinkComponent {...args}>content</LinkComponent>;
+const Template: StoryFn<Props> = args => <LinkComponent {...args}>content</LinkComponent>;
 
 export const Link = Template.bind({});

@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as IconButtonStories from "./IconButton.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -16,8 +17,10 @@ in order to display a `ContextMenu`.
 </IconButton>
 ```
 
-<DocsStory id="components-inputs-iconbutton--icon-button" />
+<Canvas>
+  <Story of={IconButtonStories.IconButton} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

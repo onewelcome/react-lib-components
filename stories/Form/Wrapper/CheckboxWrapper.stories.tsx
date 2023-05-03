@@ -174,17 +174,17 @@ const NestedTemplate: Story<CheckboxWrapperProps> = args => {
   };
 
   const onLaptopCheckHandler = () => {
-    console.log("Laptop Checked");
+    console.warn("Laptop Checked");
     setCheckedLaptop(!checkedLaptop);
   };
 
   const onTVCheckHandler = () => {
-    console.log("TV Checked");
+    console.warn("TV Checked");
     setCheckedTV(!checkedTV);
   };
 
   const onMicrophoneCheckHandler = () => {
-    console.log("Microphone Checked");
+    console.warn("Microphone Checked");
     setCheckedMicrophone(!checkedMicrophone);
   };
 

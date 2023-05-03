@@ -67,6 +67,6 @@ const SlideInModalComponent: ForwardRefRenderFunction<HTMLDivElement, ModalProps
   );
 };
 
-export { Props } from "../Modal/Modal";
+export type { Props } from "../Modal/Modal";
 
 export const SlideInModal = React.forwardRef(SlideInModalComponent);

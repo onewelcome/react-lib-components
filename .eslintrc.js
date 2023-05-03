@@ -33,8 +33,8 @@ module.exports = {
     sourceType: "module"
   },
   plugins: ["react", "@typescript-eslint", "jest", "cypress", "react-hooks", "license-header"],
-  ignorePatterns: ["dist/", "stories/types.d.ts", "setupTests.ts"],
-  rules: {"license-header/header": [ "error", "copyright.txt" ]},
+  ignorePatterns: ["dist/", "stories/types.d.ts", "setupTests.ts", "vite.config.ts"],
+  rules: { "license-header/header": ["error", "copyright.txt"] },
   overrides: [
     {
       files: ["**/*.ts", "**/*.tsx"],
@@ -46,6 +46,7 @@ module.exports = {
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
         "no-useless-escape": "error",
+        "no-console": ["error", { allow: ["warn", "error"] }],
         "react/prop-types": "off"
       }
     }

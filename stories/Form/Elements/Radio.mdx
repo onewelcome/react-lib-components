@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as RadioStories from "./Radio.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -56,8 +57,10 @@ const ExampleComponent = () => {
 };
 ```
 
-<DocsStory id="components-inputs-raw-radio--radio" />
+<Canvas>
+  <Story of={RadioStories.Radio} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

@@ -177,12 +177,19 @@ export const useSelectPositionList = ({
     const listHeight = optionListReference.current?.getBoundingClientRect().height;
     const transformOrigin = position.top !== "initial" ? "top" : "bottom";
 
+    if (!containerReference.current) {
+      console.error(
+        "The containerReference is empty for some reason in the SelectService.ts for the Select component in react-lib-components. We are trying to calculate the option list max height on expand"
+      );
+      return;
+    }
+
     const availableSpace =
       transformOrigin === "top"
         ? window.innerHeight -
-          containerReference.current!.getBoundingClientRect()[transformOrigin] -
+          containerReference.current.getBoundingClientRect()[transformOrigin] -
           16
-        : containerReference.current!.getBoundingClientRect()[transformOrigin] - 16;
+        : containerReference.current.getBoundingClientRect()[transformOrigin] - 16;
 
     if (listHeight && availableSpace < listHeight) {
       setOptionsListMaxHeight(`${availableSpace}px`);

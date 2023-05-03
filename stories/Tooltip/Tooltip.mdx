@@ -1,5 +1,6 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
 import { Icon, Icons } from "../../src/Icon/Icon.tsx";
+import * as TooltipStories from "./Tooltip.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -11,8 +12,10 @@ You can define a `label` prop which displays text, followed by an <Icon icon={Ic
 
 # Examples
 
-<DocsStory id="components-data-display-tooltip--tooltip" />
+<Canvas>
+  <Story of={TooltipStories.Tooltip} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

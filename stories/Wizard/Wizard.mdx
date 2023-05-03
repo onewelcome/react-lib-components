@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as WizardStories from "./Wizard.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -7,7 +8,7 @@ The `Wizard` component is used to give the user some indication of how far they 
 
 To configure the `Wizard` correctly, there are a few different components you will use.
 
-## <Wizard />
+## &lt;Wizard />
 
 This is the main wrapping component you will use to configure your `Wizard`. It has the following props:
 
@@ -128,12 +129,16 @@ A function will be executed when the user clicks the Save & Close button. Gets t
 
 Normal Wizard:
 
-<DocsStory id="components-layout-wizard-wizard--basic-wizard" />
+<Canvas>
+  <Story of={WizardStories.BasicWizard} />
+</Canvas>
 
 Wizard within a modal:
 
-<DocsStory id="components-layout-wizard-wizard--wizard-in-modal" />
+<Canvas>
+  <Story of={WizardStories.WizardInModal} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

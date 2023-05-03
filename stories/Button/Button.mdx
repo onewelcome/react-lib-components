@@ -1,5 +1,6 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
 import { Button } from "../../src/Button/Button.tsx";
+import * as ButtonStories from "./Button.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -30,11 +31,13 @@ In the below code snippet you'll see how you can create the buttons displayed do
 </Button>
 ```
 
-<DocsStory id="components-inputs-button--filled-button" />
-<DocsStory id="components-inputs-button--outline-button" />
-<DocsStory id="components-inputs-button--text-button" />
-<DocsStory id="components-inputs-button--start-icon-button" />
+<Canvas>
+  <Story of={ButtonStories.FilledButton} />
+  <Story of={ButtonStories.OutlineButton} />
+  <Story of={ButtonStories.TextButton} />
+  <Story of={ButtonStories.StartIconButton} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

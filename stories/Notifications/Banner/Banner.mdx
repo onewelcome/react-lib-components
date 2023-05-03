@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as BannerStories from "./Banner.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -14,10 +15,10 @@ Variants:
 - Error: the user cannot continue.
   Either the user must take immediate action, or there is something really wrong with the system.
 
-The `Banner` story you see bellow can be controlled using the Props bellow. The Aria props are added for accessibility
-
-<DocsStory id="components-feedback-banner--info-banner" />
+<Canvas>
+  <Story of={BannerStories.InfoBanner} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

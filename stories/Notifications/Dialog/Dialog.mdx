@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as DialogStories from "./Dialog.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -41,7 +42,9 @@ In the below code snippet, you'll see how you can show dialog with buttons align
 </Dialog>
 ```
 
-<DocsStory id="components-feedback-dialog--right-aligned-action-dialog" />
+<Canvas>
+  <Story of={DialogStories.RightAlignedActionDialog} />
+</Canvas>
 
 ## Destructive operation
 
@@ -64,7 +67,9 @@ In the below code snippet, you'll see how you can show dialog with buttons align
 </Dialog>
 ```
 
-<DocsStory id="components-feedback-dialog--left-aligned-action-dialog" />
+<Canvas>
+  <Story of={DialogStories.LeftAlignedActionDialog} />
+</Canvas>
 
 ## Single action
 
@@ -84,7 +89,9 @@ In the below code snippet, you'll see how you can show dialog with on one button
 </Dialog>
 ```
 
-<DocsStory id="components-feedback-dialog--single-action-dialog" />
+<Canvas>
+  <Story of={DialogStories.SingleActionDialog} />
+</Canvas>
 
 ## Nesting dialogs
 
@@ -133,8 +140,10 @@ return (
 );
 ```
 
-<DocsStory id="components-feedback-dialog--nested-dialogs" />
+<Canvas>
+  <Story of={DialogStories.NestedDialogs} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

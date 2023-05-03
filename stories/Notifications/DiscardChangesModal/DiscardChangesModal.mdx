@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as DiscardChangesModalStories from "./DiscardChangesModal.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -81,8 +82,10 @@ return (
 As you can see, action buttons are rendered outside of the `Form` component.
 For the accessibility and handling of form submission/resetting `form` attribute has to refer to the `Form` component id.
 
-<DocsStory id="components-feedback-discard-changes-modal--discard-changes-modal" />
+<Canvas>
+  <Story of={DiscardChangesModalStories.DiscardChangesModal} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

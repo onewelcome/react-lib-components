@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as RadioWrapperStories from "./RadioWrapper.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -49,8 +50,10 @@ const ExampleComponent = () => {
 
 The story below is controlled by Storybook. You can configure it using the [Props table](#props).
 
-<DocsStory id="components-inputs-radio-wrapper--radio-wrapper" />
+<Canvas>
+  <Story of={RadioWrapperStories.RadioWrapper} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

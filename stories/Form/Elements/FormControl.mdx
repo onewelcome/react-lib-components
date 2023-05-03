@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as FormControlStories from "./FormControl.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -11,8 +12,10 @@ We also give you the option to vertically `align` the components you put inside 
 
 The `FormControl` story you see below can be controlled using the Props table at the bottom. You can select the grid you want and how to vertically align all elements.
 
-<DocsStory id="components-layout-formcontrol--form-control" />
+<Canvas>
+  <Story of={FormControlStories.FormControl} id="components-layout-formcontrol--form-control" />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

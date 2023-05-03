@@ -14,7 +14,5 @@
  *    limitations under the License.
  */
 
-export {
-  BaseModalHeader as ModalHeader,
-  Props
-} from "../../BaseModal/BaseModalHeader/BaseModalHeader";
+export { BaseModalHeader as ModalHeader } from "../../BaseModal/BaseModalHeader/BaseModalHeader";
+export type { Props } from "../../BaseModal/BaseModalHeader/BaseModalHeader";

@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as ModalStories from "./Modal.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -47,8 +48,10 @@ In the below code snippet, you'll see how you can create a `Modal` with simple f
 </Modal>
 ```
 
-<DocsStory id="components-utils-modal--modal" />
+<Canvas>
+  <Story of={ModalStories.Modal} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

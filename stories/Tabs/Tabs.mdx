@@ -1,5 +1,6 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
 import { Tabs } from "../../src/Tabs/Tabs.tsx";
+import * as TabsStories from "./Tabs.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -19,8 +20,10 @@ In the below code snippet, you'll see how you can create the tabs component.
 </Tabs>
 ```
 
-<DocsStory id="components-navigation-tabs--tabs" />
+<Canvas>
+  <Story of={TabsStories.Tabs} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

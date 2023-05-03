@@ -75,8 +75,8 @@ const Template: Story = () => {
   const [tags] = useState([]);
 
   const onChangeHandler = state => {
-    console.log(state);
-    console.log("executing on change handler");
+    console.warn(state);
+    console.warn("executing on change handler");
   };
 
   const { repeatedComponents, repeat, remove } = useRepeater<RepeatedComponentProps>({
@@ -86,7 +86,7 @@ const Template: Story = () => {
   useEffect(() => {}, [repeatedComponents]);
 
   useEffect(() => {
-    console.log(tags);
+    console.warn(tags);
   }, [tags]);
 
   return (

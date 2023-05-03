@@ -36,9 +36,13 @@ module.exports = {
   typescript: {
     check: true // type-check stories during Storybook build
   },
-  core: {
-    builder: "webpack5",
-    disableTelemetry: true
+
+  staticDirs: ["../public"],
+  framework: {
+    name: "@storybook/react-vite",
+    options: {}
   },
-  staticDirs: ["../public"]
+  docs: {
+    autodocs: true
+  }
 };

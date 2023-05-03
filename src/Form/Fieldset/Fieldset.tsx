@@ -14,12 +14,7 @@
  *    limitations under the License.
  */
 
-import React, {
-  ForwardRefRenderFunction,
-  ComponentPropsWithRef,
-  ReactNode,
-  ReactElement
-} from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import readyclasses from "../../readyclasses.module.scss";
 import classes from "./Fieldset.module.scss";
 import { Typography, Variant } from "../../Typography/Typography";
@@ -77,7 +72,7 @@ const FieldsetComponent: ForwardRefRenderFunction<HTMLFieldSetElement, Props> = 
     React will throw an error. However, it might occur that we want a component inside of Fieldset because of aesthetic purposes
     (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
     So instead we supply an array of components that we want to add the disabled and error prop to and check if child.type equals one of these. */
-    const allowedComponents: ReactNode[] = [
+    const allowedComponents: React.ComponentPropsWithRef<any>[] = [
       Input,
       Select,
       Radio,

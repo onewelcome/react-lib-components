@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as FieldsetStories from "./Fieldset.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -29,7 +30,9 @@ If, for some reason, you want to handle all of the `error` and `disabled` props 
 
 Below you will find an example `Fieldset` component:
 
-<DocsStory id="components-layout-fieldset--fieldset" />
+<Canvas>
+  <Story of={FieldsetStories.Fieldset} id="components-layout-fieldset--fieldset" />
+</Canvas>
 
 And here's how that would look like in your code:
 
@@ -84,4 +87,4 @@ const ExampleComponent = () => {
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

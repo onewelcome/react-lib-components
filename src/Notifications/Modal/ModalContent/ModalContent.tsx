@@ -14,7 +14,5 @@
  *    limitations under the License.
  */
 
-export {
-  BaseModalContent as ModalContent,
-  Props
-} from "../../BaseModal/BaseModalContent/BaseModalContent";
+export { BaseModalContent as ModalContent } from "../../BaseModal/BaseModalContent/BaseModalContent";
+export type { Props } from "../../BaseModal/BaseModalContent/BaseModalContent";
