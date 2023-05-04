@@ -30,14 +30,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
-import { Button, Table, ColorControl } from "@storybook/components";
+import { Table, ColorControl } from "@storybook/components";
 import { cssPropertyToObjectKey } from "../utils/helpers";
-export var RequestDataButton = styled(Button)({
-  marginTop: "1rem"
-});
 var PropertyValueInput = styled.input(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  background-color: #fff;\n  border-radius: 4px;\n  border-color: #eee;\n  border-style: solid;\n  padding: 5px;\n  font-family: monospace;\n"])));
 var PropertyValueLabel = styled.label(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n"])));
-var shouldBeColorPicker = ["colorFocus", "colorPrimary", "colorSecondary", "colorTertiary", "buttonFillTextColor", "buttonFillHoverBackgroundColor", "buttonOutlineHoverTextColor", "inputBackgroundColor", "modalShadowColor", "modalBackgroundColor", "modalHeaderBackgroundColor", "skeletonBackgroundColor", "skeletonAnimationColorRgb", "snackbarTextColor", "snackbarInfoBackgroundColor", "snackbarSuccessBackgroundColor", "snackbarErrorBackgroundColor", "dataGridRowBackgroundColor", "dataGridRowHoverBackgroundColor", "tabActiveBorderColor", "tabsBackgroundColor", "tablistBorderColor", "tabTextColor", "default", "success", "error", "disabled", "greyedOut", "lightGreyBorder", "warning", "light", "grey"];
 function useDebounce(value, delay) {
   var _useState = useState(value),
     _useState2 = _slicedToArray(_useState, 2),
@@ -85,6 +81,21 @@ export var PanelContent = function PanelContent(_ref) {
     }
     return value;
   };
+  var startsWithColorPrefix = function startsWithColorPrefix(value) {
+    var prefixes = ["#", "rgb", "hsla"];
+    return prefixes.some(function (prefix) {
+      return value.startsWith(prefix);
+    });
+  };
+  var isColor = function isColor(value) {
+    if (startsWithColorPrefix(value)) {
+      return true;
+    }
+    if (/var\(--.+\)/.test(value)) {
+      return cssPropertyToObjectKey(value) !== null;
+    }
+    return false;
+  };
   var handlePropertyChange = function handlePropertyChange(propertyName, propertyValue) {
     return setPropertiesState(function (prevState) {
       return _objectSpread(_objectSpread({}, prevState), {}, _defineProperty({}, propertyName, propertyValue));
@@ -102,7 +113,7 @@ export var PanelContent = function PanelContent(_ref) {
           style: {
             textAlign: "left"
           }
-        }, /*#__PURE__*/React.createElement(PropertyValueLabel, null, key), shouldBeColorPicker.includes(key) ? /*#__PURE__*/React.createElement(ColorControl, {
+        }, /*#__PURE__*/React.createElement(PropertyValueLabel, null, key), isColor(value) ? /*#__PURE__*/React.createElement(ColorControl, {
           name: key,
           onChange: function onChange(value) {
             handlePropertyChange(key, value);

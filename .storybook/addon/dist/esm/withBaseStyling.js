@@ -37,7 +37,7 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
 
   var updateGlobalsFn = function updateGlobalsFn(context) {
     var _context$canvasElemen;
-    var htmlElement = (_context$canvasElemen = context.canvasElement) === null || _context$canvasElemen === void 0 ? void 0 : _context$canvasElemen.closest("html");
+    var htmlElement = (_context$canvasElemen = context.canvasElement) === null || _context$canvasElemen === void 0 ? void 0 : _context$canvasElemen.getElementsByClassName("basestyling-wrapper")[0];
     if (htmlElement) {
       var _context$globals;
       var stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));

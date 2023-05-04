@@ -26,8 +26,6 @@ interface CSSProperties {
   colorPrimary?: string;
   colorSecondary?: string;
   colorTertiary?: string;
-  lightPink?: string;
-  vividViolet?: string;
   colorPrimary300?: string;
   colorPrimary500?: string;
   colorPrimary600?: string;
@@ -37,6 +35,7 @@ interface CSSProperties {
   colorBlueGrey200?: string;
   colorBlueGrey400?: string;
   colorBlueGrey25?: string;
+  colorBlueGrey25Transparent?: string;
   colorBlueGrey50?: string;
   colorBlueGrey500?: string;
   colorBlueGrey700?: string;
@@ -52,6 +51,7 @@ interface CSSProperties {
   colorOrange600?: string;
   colorOrange700?: string;
   colorRed500?: string;
+  colorWhite?: string;
   colorRed600?: string;
   colorRed700?: string;
   colorBlack100?: string;
@@ -123,7 +123,6 @@ interface CSSProperties {
   lightGreyBorder?: string;
   warning?: string;
   light?: string;
-  grey?: string;
   fontFamily?: string;
   fontFamilyCode?: string;
   fontSize?: string;
@@ -142,12 +141,14 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
+    colorBlack10: "#0000001a",
     colorPrimary300: "#6871BF",
     colorPrimary500: "#041295",
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
     colorBlueGrey25: "#F7F7F9",
+    colorBlueGrey25Transparent: "#F7F7F980",
     colorBlueGrey50: "#EEEFF3",
     colorBlueGrey100: "#DEDEE6",
     colorBlueGrey200: "#BCBECE",
@@ -168,15 +169,13 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorRed600: "#B31800",
     colorRed700: "#861200",
     colorBlack100: "rgba(0, 0, 0, 1)",
-    colorBlack10: "rgba(0, 0, 0, 0.1)",
     colorBlack20: "rgba(0, 0, 0, 0.2)",
     colorShadowBlue: "#7078C3",
+    colorWhite: "#FFFFFF",
     colorFocus: "var(--color-primary300)",
     colorPrimary: "var(--color-primary500)",
     colorSecondary: "var(--color-green500)",
     colorTertiary: "var(--color-light-blue600)",
-    lightPink: "#9E006B1A",
-    vividViolet: "#9E006B",
     defaultLineHeight: "1.5",
     buttonBorderRadius: "2px",
     buttonBorderWidth: "2px",
@@ -209,8 +208,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderWidthFocus: "2px",
     inputBorderStyle: "solid",
     inputBackgroundColor: "var(--light)",
-    dragBackgroundColor: "#1313191A",
-    dragBorderStyle: "dashed",
+    dragBackgroundColor: "var(--color-blue-grey25-transparent)",
+    dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--color-blue-grey25)",
     modalHeaderBackgroundColor: "var(--light)",
@@ -241,8 +240,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     greyedOut: "var(--color-blue-grey400)",
     lightGreyBorder: "var(--color-blue-grey100)",
     warning: "var(--color-orange500)",
-    light: "#FFF",
-    grey: "#c3c3c7",
+    light: "var(--color-white)",
     fontFamily: "Roboto, sans-serif",
     fontFamilyCode: "'Roboto Mono', monospace",
     fontSize: "1rem",

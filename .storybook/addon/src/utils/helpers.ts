@@ -31,14 +31,11 @@ export const cssPropertyToObjectKey = (CSSProperty: string) => {
   };
 
   if (!matchesKeyValue && matchesKeyOnly && matchesKeyOnly[1]) {
-    const objectKey = generateObjectKey(matchesKeyOnly[1]);
-    objectKeyValue.key = objectKey;
+    objectKeyValue.key = generateObjectKey(matchesKeyOnly[1]);
   }
 
   if (matchesKeyValue && matchesKeyValue[1]) {
-    const objectKey = generateObjectKey(matchesKeyValue[1]);
-
-    objectKeyValue.key = objectKey;
+    objectKeyValue.key = generateObjectKey(matchesKeyValue[1]);
   }
 
   if (matchesKeyValue && matchesKeyValue[2]) {

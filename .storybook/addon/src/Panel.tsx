@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { AddonPanel } from "@storybook/components";
 import { PanelContent } from "./components/PanelContent";
 import { useGlobals } from "@storybook/api";
