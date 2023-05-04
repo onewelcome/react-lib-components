@@ -33,7 +33,7 @@
       var(--drag-border-style),
       var(--input-border-width),
       var(--input-border-radius),
-      var(--color-blue-grey25-transparent)
+      var(--drag-background-color)
     );
     @include outlineStates;
   }

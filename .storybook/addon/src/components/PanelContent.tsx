@@ -79,8 +79,7 @@ const shouldBeColorPicker = [
   "greyedOut",
   "lightGreyBorder",
   "warning",
-  "light",
-  "grey"
+  "light"
 ];
 
 function useDebounce<T>(value: T, delay: number): T {
