@@ -92,8 +92,8 @@ describe("Different variants of the button", () => {
     expect(button.classList.contains("secondary")).toBe(true);
   });
 
-  it('should have a class of "tertiary"', () => {
-    const { button } = createButton(defaultParams => ({ ...defaultParams, color: "tertiary" }));
+  it('should have a class of "warning"', () => {
+    const { button } = createButton(defaultParams => ({ ...defaultParams, color: "warning" }));
     expect(button.classList.contains("tertiary")).toBe(true);
   });
 
