@@ -16,12 +16,8 @@
 
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
-import { Button, Table, ColorControl } from "@storybook/components";
+import { Table, ColorControl } from "@storybook/components";
 import { cssPropertyToObjectKey } from "../utils/helpers";
-
-export const RequestDataButton = styled(Button)({
-  marginTop: "1rem"
-});
 
 const PropertyValueInput = styled.input`
   background-color: #fff;
@@ -47,40 +43,6 @@ interface PanelContentProps {
   properties: Record<string, string>;
   propertyChanged: (newPropertyObject: Record<string, string>) => void;
 }
-
-const shouldBeColorPicker = [
-  "colorFocus",
-  "colorPrimary",
-  "colorSecondary",
-  "colorTertiary",
-  "buttonFillTextColor",
-  "buttonFillHoverBackgroundColor",
-  "buttonOutlineHoverTextColor",
-  "inputBackgroundColor",
-  "modalShadowColor",
-  "modalBackgroundColor",
-  "modalHeaderBackgroundColor",
-  "skeletonBackgroundColor",
-  "skeletonAnimationColorRgb",
-  "snackbarTextColor",
-  "snackbarInfoBackgroundColor",
-  "snackbarSuccessBackgroundColor",
-  "snackbarErrorBackgroundColor",
-  "dataGridRowBackgroundColor",
-  "dataGridRowHoverBackgroundColor",
-  "tabActiveBorderColor",
-  "tabsBackgroundColor",
-  "tablistBorderColor",
-  "tabTextColor",
-  "default",
-  "success",
-  "error",
-  "disabled",
-  "greyedOut",
-  "lightGreyBorder",
-  "warning",
-  "light"
-];
 
 function useDebounce<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
@@ -127,6 +89,24 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
     return value;
   };
 
+  const startsWithColorPrefix = (value: string) => {
+    const prefixes = ["#", "rgb", "hsla"];
+
+    return prefixes.some(prefix => value.startsWith(prefix));
+  };
+
+  const isColor = (value: string): boolean => {
+    if (startsWithColorPrefix(value)) {
+      return true;
+    }
+
+    if (/var\(--.+\)/.test(value)) {
+      return cssPropertyToObjectKey(value) !== null;
+    }
+
+    return false;
+  };
+
   const handlePropertyChange = (propertyName: string, propertyValue: string) =>
     setPropertiesState((prevState: Record<string, string>) => ({
       ...prevState,
@@ -140,7 +120,7 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
           <td>{key}</td>
           <td style={{ textAlign: "left" }}>
             <PropertyValueLabel>{key}</PropertyValueLabel>
-            {shouldBeColorPicker.includes(key) ? (
+            {isColor(value) ? (
               <ColorControl
                 name={key}
                 onChange={value => {

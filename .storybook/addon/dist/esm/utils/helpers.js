@@ -29,12 +29,10 @@ export var cssPropertyToObjectKey = function cssPropertyToObjectKey(CSSProperty)
     });
   };
   if (!matchesKeyValue && matchesKeyOnly && matchesKeyOnly[1]) {
-    var objectKey = generateObjectKey(matchesKeyOnly[1]);
-    objectKeyValue.key = objectKey;
+    objectKeyValue.key = generateObjectKey(matchesKeyOnly[1]);
   }
   if (matchesKeyValue && matchesKeyValue[1]) {
-    var _objectKey = generateObjectKey(matchesKeyValue[1]);
-    objectKeyValue.key = _objectKey;
+    objectKeyValue.key = generateObjectKey(matchesKeyValue[1]);
   }
   if (matchesKeyValue && matchesKeyValue[2]) {
     objectKeyValue.value = matchesKeyValue[2];
