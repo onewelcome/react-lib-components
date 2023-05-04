@@ -93,7 +93,7 @@ describe("Different variants of the button", () => {
       ...defaultParams,
       color: "warning"
     }));
-    expect(iconButton.classList.contains("tertiary")).toBe(true);
+    expect(iconButton.classList.contains("warning")).toBe(true);
   });
 
   it('should have a class of "fill"', () => {
