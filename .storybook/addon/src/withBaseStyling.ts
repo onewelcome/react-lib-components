@@ -23,7 +23,7 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   const waitForMs = 1; // See README.md technical explanation for why a timeout is necessary.
 
   const updateGlobalsFn = (context: StoryContext) => {
-    const htmlElement = context.canvasElement?.closest("html");
+    const htmlElement = context.canvasElement?.getElementsByClassName("basestyling-wrapper")[0];
 
     if (htmlElement) {
       const stylesObject = parseStylesToObject(htmlElement.getAttribute("style"));
