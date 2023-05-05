@@ -9,6 +9,8 @@ storybook-static/
 .nvmrc
 .vscode/
 
+test-report.xml
+
 # Intellij project files
 *.iml
 *.ipr
