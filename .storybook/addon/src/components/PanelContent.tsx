@@ -16,7 +16,8 @@
 
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
-import { Button, Table, ColorControl } from "@storybook/components";
+import { Button, Table } from "@storybook/components";
+import { ColorControl } from "@storybook/blocks";
 import { cssPropertyToObjectKey } from "../utils/helpers";
 
 export const RequestDataButton = styled(Button)({
@@ -47,41 +48,6 @@ interface PanelContentProps {
   properties: Record<string, string>;
   propertyChanged: (newPropertyObject: Record<string, string>) => void;
 }
-
-const shouldBeColorPicker = [
-  "colorFocus",
-  "colorPrimary",
-  "colorSecondary",
-  "colorTertiary",
-  "buttonFillTextColor",
-  "buttonFillHoverBackgroundColor",
-  "buttonOutlineHoverTextColor",
-  "inputBackgroundColor",
-  "modalShadowColor",
-  "modalBackgroundColor",
-  "modalHeaderBackgroundColor",
-  "skeletonBackgroundColor",
-  "skeletonAnimationColorRgb",
-  "snackbarTextColor",
-  "snackbarInfoBackgroundColor",
-  "snackbarSuccessBackgroundColor",
-  "snackbarErrorBackgroundColor",
-  "dataGridRowBackgroundColor",
-  "dataGridRowHoverBackgroundColor",
-  "tabActiveBorderColor",
-  "tabsBackgroundColor",
-  "tablistBorderColor",
-  "tabTextColor",
-  "default",
-  "success",
-  "error",
-  "disabled",
-  "greyedOut",
-  "lightGreyBorder",
-  "warning",
-  "light",
-  "grey"
-];
 
 function useDebounce<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
@@ -136,29 +102,37 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
 
   const renderContent = () => {
     if (propertiesState && Object.entries(propertiesState)) {
-      return Object.entries(propertiesState).map(([key, value]) => (
-        <tr key={key}>
-          <td>{key}</td>
-          <td style={{ textAlign: "left" }}>
-            <PropertyValueLabel>{key}</PropertyValueLabel>
-            {shouldBeColorPicker.includes(key) ? (
-              <ColorControl
-                name={key}
-                onChange={value => {
-                  handlePropertyChange(key, value);
-                }}
-                value={parseValue(propertiesState[key])}
-              />
-            ) : (
-              <PropertyValueInput
-                onChange={e => handlePropertyChange(key, e.target.value)}
-                type="text"
-                value={parseValue(value)}
-              />
-            )}
-          </td>
-        </tr>
-      ));
+      return Object.entries(propertiesState).map(([key, value]) => {
+        const parsedValue = parseValue(value);
+        const rgbaRegex = new RegExp(
+          /^(rgba?\()?((1?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*){2}(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])(,\s*(0?\.\d+|1(\.0+)?))?\)?$/
+        );
+        const isTransparent = parsedValue === "transparent";
+        const isHexColor = parsedValue.startsWith("#");
+        return (
+          <tr key={key}>
+            <td>{key}</td>
+            <td style={{ textAlign: "left" }}>
+              <PropertyValueLabel>{key}</PropertyValueLabel>
+              {isHexColor || isTransparent || rgbaRegex.test(parsedValue) ? (
+                <ColorControl
+                  name={key}
+                  onChange={value => {
+                    handlePropertyChange(key, value);
+                  }}
+                  value={parsedValue}
+                />
+              ) : (
+                <PropertyValueInput
+                  onChange={e => handlePropertyChange(key, e.target.value)}
+                  type="text"
+                  value={parsedValue}
+                />
+              )}
+            </td>
+          </tr>
+        );
+      });
     }
 
     return null;

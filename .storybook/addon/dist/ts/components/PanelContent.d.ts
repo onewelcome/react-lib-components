@@ -8,8 +8,6 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
         keyof import("@storybook/components").ButtonProps
       > & {
         theme?: import("@storybook/theming").Theme;
-      } & {
-        children?: React.ReactNode;
       },
     | "key"
     | "value"
@@ -26,8 +24,8 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
     | "containsIcon"
     | "children"
     | "href"
-    | "form"
     | "autoFocus"
+    | "form"
     | "formAction"
     | "formEncType"
     | "formMethod"
@@ -197,6 +195,8 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
     | "onProgressCapture"
     | "onRateChange"
     | "onRateChangeCapture"
+    | "onResize"
+    | "onResizeCapture"
     | "onSeeked"
     | "onSeekedCapture"
     | "onSeeking"
@@ -301,8 +301,6 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
           keyof import("@storybook/components").ButtonProps
         > & {
           theme?: import("@storybook/theming").Theme;
-        } & {
-          children?: React.ReactNode;
         },
       | "key"
       | "value"
@@ -319,8 +317,8 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
       | "containsIcon"
       | "children"
       | "href"
-      | "form"
       | "autoFocus"
+      | "form"
       | "formAction"
       | "formEncType"
       | "formMethod"
@@ -490,6 +488,8 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
       | "onProgressCapture"
       | "onRateChange"
       | "onRateChangeCapture"
+      | "onResize"
+      | "onResizeCapture"
       | "onSeeked"
       | "onSeekedCapture"
       | "onSeeking"
@@ -599,8 +599,8 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
     | "containsIcon"
     | "children"
     | "href"
-    | "form"
     | "autoFocus"
+    | "form"
     | "formAction"
     | "formEncType"
     | "formMethod"
@@ -770,6 +770,8 @@ export declare const RequestDataButton: import("@storybook/theming").StyledCompo
     | "onProgressCapture"
     | "onRateChange"
     | "onRateChangeCapture"
+    | "onResize"
+    | "onResizeCapture"
     | "onSeeked"
     | "onSeekedCapture"
     | "onSeeking"
