@@ -20,7 +20,7 @@ import classes from "./DataGrid.module.scss";
 import { DataGridHeader } from "./DataGridHeader/DataGridHeader";
 import { DataGridActions } from "./DataGridActions/DataGridActions";
 import { DataGridBody } from "./DataGridBody/DataGridBody";
-import { ColumnName, HeaderCell, OnSortFunction, Sort } from "./datagrid.interfaces";
+import { HeaderCell, OnSortFunction, Sort } from "./datagrid.interfaces";
 import { Pagination, Props as PaginationProps } from "../Pagination/Pagination";
 import { Spacing, useSpacing } from "../../hooks/useSpacing";
 
@@ -78,7 +78,7 @@ const DataGridInner = <T extends {}>(
 
   useEffect(() => setInternalHeaders(headers), [headers]);
 
-  const onColumnToggled = (colName: ColumnName) => {
+  const onColumnToggled = (colName: string) => {
     setInternalHeaders(
       internalHeaders.map(item =>
         item.name !== colName ? item : { ...item, hidden: !item.hidden }

@@ -24,7 +24,7 @@ import React, {
 import { Button, Props as ButtonProps } from "../../Button/Button";
 import { IconButton } from "../../Button/IconButton";
 import { Icon, Icons } from "../../Icon/Icon";
-import { HeaderCell, ColumnName } from "../datagrid.interfaces";
+import { HeaderCell } from "../datagrid.interfaces";
 import classes from "./DataGridActions.module.scss";
 import { DataGridColumnsToggle } from "./DataGridColumnsToggle";
 
@@ -37,7 +37,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   searchBtnProps?: ButtonProps;
   searchIconBtnProps?: ButtonProps;
   headers: HeaderCell[];
-  onColumnToggled: (colName: ColumnName) => void;
+  onColumnToggled: (colName: string) => void;
 }
 
 const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (

@@ -105,7 +105,7 @@ interface CSSProperties {
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactElement | string | number;
+  children?: ReactElement[] | ReactElement | string[] | string | number[] | number;
   properties?: CSSProperties;
 }
 

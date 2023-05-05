@@ -21,7 +21,7 @@ import { Icon, Icons } from "../../Icon/Icon";
 import { Popover, Props as PopoverProps } from "../../Popover/Popover";
 import { Typography } from "../../Typography/Typography";
 import { generateID } from "../../../util/helper";
-import { ColumnName, HeaderCell } from "../datagrid.interfaces";
+import { HeaderCell } from "../datagrid.interfaces";
 import classes from "./DataGridColumnsToggle.module.scss";
 import { createPortal } from "react-dom";
 
@@ -31,7 +31,7 @@ export interface Props extends PopoverProps {
   titleLabel?: string;
   closeButtonTitle?: string;
   onClose: () => void;
-  onToggleClicked: (colName: ColumnName) => void;
+  onToggleClicked: (colName: string) => void;
   domRoot?: HTMLElement;
 }
 

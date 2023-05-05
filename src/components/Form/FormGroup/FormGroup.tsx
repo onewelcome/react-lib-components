@@ -22,7 +22,7 @@ import { FormHelperText, Props as HelperProps } from "../FormHelperText/FormHelp
 import { Icon, Icons } from "../../Icon/Icon";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
-  children: ReactElement[] | string[] | number[];
+  children: ReactElement[] | ReactElement | string[] | string | number[] | number;
   error?: boolean;
   errorMessageIcon?: Icons;
   errorMessageIconPosition?: "before" | "after";
