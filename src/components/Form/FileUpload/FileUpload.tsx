@@ -115,7 +115,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       });
     return savedFiles;
   };
-  const onInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     e.stopPropagation();
     let files = getFileList(e.target.files);
@@ -173,7 +173,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onDragLeave?.(e);
   };
 
-  const handleOnDrop = async (e: DragEvent<HTMLDivElement>) => {
+  const handleOnDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (e?.dataTransfer?.files && e.dataTransfer.files.length) {
