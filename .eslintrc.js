@@ -40,6 +40,7 @@ module.exports = {
       files: ["**/*.ts", "**/*.tsx"],
       parser: "@typescript-eslint/parser",
       rules: {
+        "react-hooks/rules-of-hooks": "error",
         "no-unused-vars": "off", //we have "@typescript-eslint/no-unused-vars"
         "react/display-name": "error",
         "react/no-children-prop": "error",

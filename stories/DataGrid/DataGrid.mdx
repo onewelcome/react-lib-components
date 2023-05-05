@@ -50,7 +50,7 @@ The DataGrid header is generated based on provided `headers` props, and the body
 ```
 
 <Canvas>
-  <Story />
+  <Story of={DataGridStories.DefaultDataGrid} />
 </Canvas>
 
 ## Table header
@@ -124,10 +124,6 @@ The last cell of each row is reserved for item actions that can affect it, which
 </DataGrid>
 ```
 
-<Canvas>
-  <Story of={DataGridStories.IndexDataGrid} />
-</Canvas>
-
 ### Disabling context menu column
 
 To disable context menu column set the `disableContextMenuColumn` property to `true`.
@@ -142,7 +138,7 @@ It renders 9 rows with skeleton loading animation in all defined cells.
 ```
 
 <Canvas>
-  <Story of={DataGridStories.SkeletonLoadingAnimationDataGrid} />
+  <Story of={DataGridStories.DataGridIsLoading} />
 </Canvas>
 
 ### Showing empty table message
@@ -178,10 +174,6 @@ Each button can be customized by providing props as in the example below.
 />
 ```
 
-<Canvas>
-  <Story of={DataGridStories.ActionsDataGrid} />
-</Canvas>
-
 # Pagination
 
 Pagination in `DataGrid` component is rendered based on the provided `paginationProps`. For more information read the <LinkTo kind="components-data-display-pagination--pagination">Pagination documentation</LinkTo>.
@@ -197,14 +189,10 @@ An example can be found below:
 />
 ```
 
-<Canvas>
-  <Story of={DataGridStories.PaginationDataGrid} />
-</Canvas>
-
 # Full example
 
 <Canvas>
-  <Story of={DataGridStories.DataGrid} />
+  <Story of={DataGridStories.DefaultDataGrid} />
 </Canvas>
 
 # Props
