@@ -183,7 +183,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         return;
       }
       const validatedFiles = getFileList(e.dataTransfer.files);
-      onDrop && onDrop(validatedFiles);
+      onDrop?.(validatedFiles);
     }
     setDragActive(false);
   };

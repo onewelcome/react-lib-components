@@ -76,7 +76,7 @@ export const useArrowNavigation = ({
         case "Tab":
           setIsSearching(false);
           setExpanded(false);
-          customSelectButtonRef.current && customSelectButtonRef.current.focus();
+          customSelectButtonRef.current?.focus();
       }
     } else {
       switch (event.code) {
@@ -102,7 +102,7 @@ export const useArrowNavigation = ({
 
           setShouldClick(true);
           setExpanded(false);
-          customSelectButtonRef.current && customSelectButtonRef.current.focus();
+          customSelectButtonRef.current?.focus();
           return;
         case "Tab":
           if (childrenCount >= renderSearchCondition && expanded) {
@@ -116,7 +116,7 @@ export const useArrowNavigation = ({
         case "Escape":
           if (expanded) {
             setExpanded(false);
-            customSelectButtonRef.current && customSelectButtonRef.current.focus();
+            customSelectButtonRef.current?.focus();
           }
           return;
         case "End":

@@ -124,7 +124,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
 
     setExpanded(false);
 
-    customSelectButtonRef.current && customSelectButtonRef.current.focus();
+    customSelectButtonRef.current?.focus();
   };
 
   /**

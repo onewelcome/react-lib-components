@@ -142,7 +142,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         wrapperProps={{
           className: inputWrapperClasses.join(" ")
         }}
-        ref={(inputProps && inputProps.ref) || input}
+        ref={inputProps?.ref || input}
         aria-labelledby={labelId}
         aria-describedby={error ? errorId : helperId}
         onChange={onChange}
