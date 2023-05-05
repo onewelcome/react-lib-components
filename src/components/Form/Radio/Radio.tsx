@@ -74,7 +74,7 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       value: { value: value }
     });
 
-    onChange && onChange(clonedEvent);
+    onChange?.(clonedEvent);
   };
 
   /** Default return value is the default radio */

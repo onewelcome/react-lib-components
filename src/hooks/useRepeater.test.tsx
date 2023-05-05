@@ -35,7 +35,7 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
   });
 
   useEffect(() => {
-    onChange && onChange(inputState);
+    onChange?.(inputState);
   }, [inputState]);
 
   return (

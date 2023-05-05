@@ -119,7 +119,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     e.preventDefault();
     e.stopPropagation();
     let files = getFileList(e.target.files);
-    files.length && verifyExtensionValidity(files[files.length - 1]) && onChange && onChange(files);
+    files.length && verifyExtensionValidity(files[files.length - 1]) && onChange?.(files);
   };
 
   const verifyExtensionValidity = (file: FileType) => {
@@ -150,7 +150,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   useEffect(() => {
     if (fileList.length) {
       const validatedFiles = fileList.map(file => validateUpload(file));
-      onChange && onChange(validatedFiles);
+      onChange?.(validatedFiles);
     }
   }, []);
 
@@ -160,7 +160,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     if (!dragActive) {
       setDragActive(true);
     }
-    onDragOver && onDragOver(e);
+    onDragOver?.(e);
   };
 
   const handleOnDragLeave = (e: DragEvent<HTMLDivElement>) => {
@@ -170,7 +170,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     if (target?.classList.contains(classes["file-dropzone"])) {
       setDragActive(false);
     }
-    onDragLeave && onDragLeave(e);
+    onDragLeave?.(e);
   };
 
   const handleOnDrop = async (e: DragEvent<HTMLDivElement>) => {

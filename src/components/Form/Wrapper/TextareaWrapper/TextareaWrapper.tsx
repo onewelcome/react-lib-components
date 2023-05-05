@@ -106,23 +106,23 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
         success={success}
         onChange={onChange}
         onFocus={e => {
-          onFocus && onFocus(e);
+          onFocus?.(e);
           setHasFocus(true);
           setFloatingLabelActive(true);
         }}
         onBlur={e => {
-          onBlur && onBlur(e);
+          onBlur?.(e);
           setHasFocus(false);
           e.target.value || e.target.placeholder || textareaProps?.placeholder?.length
             ? setFloatingLabelActive(true)
             : setFloatingLabelActive(false);
         }}
         onMouseEnter={e => {
-          onMouseEnter && onMouseEnter(e);
+          onMouseEnter?.(e);
           setHover(true);
         }}
         onMouseLeave={e => {
-          onMouseLeave && onMouseLeave(e);
+          onMouseLeave?.(e);
           setHover(false);
         }}
         className={`${classes["textarea"]} ${error ? classes["error"] : ""}`}

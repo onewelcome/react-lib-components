@@ -89,7 +89,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const handleEscKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (!disableEscapeKeyDown && event.key === "Escape") {
       event.stopPropagation();
-      onClose && onClose();
+      onClose?.();
     }
   };
 

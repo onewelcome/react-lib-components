@@ -15,7 +15,7 @@
  */
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useEffect, useState } from "react";
-import { ColumnName, Direction, HeaderCell, OnSortFunction, Sort } from "../datagrid.interfaces";
+import { Direction, HeaderCell, OnSortFunction, Sort } from "../datagrid.interfaces";
 import { DataGridHeaderCell } from "./DataGridHeaderCell";
 import classes from "./DataGridHeader.module.scss";
 
@@ -57,7 +57,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
    * The sortList contains sorting columns objects. The order of those objects determinates priorities of sorting.
    * Last modified sorting column has the highest priority.
    */
-  const updateSortList = (name: ColumnName): Sort => {
+  const updateSortList = (name: string): Sort => {
     const current = sortList.find(item => item.name === name);
     const restSortList = enableMultiSorting ? sortList.filter(item => item.name !== name) : [];
     const newSortDirection = calculateNextSortState(current?.direction);
@@ -66,9 +66,9 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
       : restSortList;
   };
 
-  const wrapOnSort = (name: ColumnName) => {
+  const wrapOnSort = (name: string) => {
     const newSort = updateSortList(name);
-    onSort && onSort(newSort);
+    onSort?.(newSort);
     setSortList(newSort);
   };
 

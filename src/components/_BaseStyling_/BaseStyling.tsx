@@ -19,7 +19,7 @@
  * and make sure to add it to the shouldBeColorPicker array!
  */
 
-import React, { HTMLAttributes, ReactChild, useEffect, useRef, useState } from "react";
+import React, { HTMLAttributes, ReactElement, useEffect, useRef, useState } from "react";
 
 interface CSSProperties {
   colorBlack10?: string;
@@ -105,7 +105,7 @@ interface CSSProperties {
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactChild;
+  children?: ReactElement | string | number;
   properties?: CSSProperties;
 }
 

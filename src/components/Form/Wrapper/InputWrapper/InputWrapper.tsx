@@ -147,12 +147,12 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         aria-describedby={error ? errorId : helperId}
         onChange={onChange}
         onFocus={e => {
-          onFocus && onFocus(e);
+          onFocus?.(e);
           setHasFocus(true);
           setFloatingLabelActive(true);
         }}
         onBlur={e => {
-          onBlur && onBlur(e);
+          onBlur?.(e);
           setHasFocus(false);
           e.target.value ||
           e.target.placeholder ||

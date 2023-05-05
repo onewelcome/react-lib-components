@@ -16,13 +16,13 @@
 
 /** The empty className property on FormHelperText is on purpose! We want to basically "filter" out the className from helperProps because we're adding this to the surrounding div. This makes it so also the errormessage receives this styling. */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactChild } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import classes from "./FormGroup.module.scss";
 import { FormHelperText, Props as HelperProps } from "../FormHelperText/FormHelperText";
 import { Icon, Icons } from "../../Icon/Icon";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
-  children: ReactChild[] | ReactChild;
+  children: ReactElement[] | string[] | number[];
   error?: boolean;
   errorMessageIcon?: Icons;
   errorMessageIconPosition?: "before" | "after";
@@ -69,7 +69,7 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         >
           {((helperText && !error) || (helperText && error && !errorMessage)) && (
             <FormHelperText {...helperProps} className={""} id={helperId}>
-              {(helperProps && helperProps.children) || helperText}
+              {helperProps?.children || helperText}
             </FormHelperText>
           )}
           {error && errorMessage && (

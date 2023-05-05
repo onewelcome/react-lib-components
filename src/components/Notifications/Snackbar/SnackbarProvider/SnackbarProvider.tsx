@@ -141,7 +141,7 @@ export const SnackbarProvider = (
         key={item.id}
         onClose={() => {
           onItemClosed(item.id);
-          item.onClose && item.onClose();
+          item.onClose?.();
         }}
         closeButtonTitle={closeButtonTitle}
       />

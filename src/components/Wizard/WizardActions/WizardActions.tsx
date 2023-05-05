@@ -85,7 +85,7 @@ export const WizardActions = ({
   };
 
   const onPreviousWrapper = () => {
-    onPrevious && onPrevious();
+    onPrevious?.();
     changeStepNo("backward");
   };
 

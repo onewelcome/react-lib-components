@@ -105,7 +105,7 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }, [tabsRef.current, activeTabIndex, renderedButtons]);
 
   useEffect(() => {
-    onTabChange && onTabChange(activeTabIndex);
+    onTabChange?.(activeTabIndex);
   }, [activeTabIndex]);
 
   useEffect(() => {

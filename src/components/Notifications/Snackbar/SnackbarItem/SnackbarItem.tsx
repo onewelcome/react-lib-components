@@ -94,7 +94,7 @@ export const SnackbarItem = ({
       {...actionProp}
       onClick={e => {
         onClose(id);
-        actionProp.onClick && actionProp.onClick(e);
+        actionProp.onClick?.(e);
       }}
       className={classes["action-button"]}
     >

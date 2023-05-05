@@ -75,7 +75,7 @@ const ContextMenuItemComponent: ForwardRefRenderFunction<HTMLButtonElement, Prop
         data-focus={hasFocus}
         tabIndex={-1}
         onClick={event => {
-          onClick && onClick(event);
+          onClick?.(event);
           onSelectedChange && childIndex && onSelectedChange(childIndex);
         }}
       >

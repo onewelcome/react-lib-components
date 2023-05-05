@@ -16,15 +16,15 @@
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, Fragment } from "react";
 import { Icon, Icons } from "../../Icon/Icon";
-import { ColumnName, Direction } from "../datagrid.interfaces";
+import { Direction } from "../datagrid.interfaces";
 import classes from "./DataGridHeaderCell.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"th"> {
   headline: string;
-  name: ColumnName;
+  name: string;
   disableSorting?: boolean;
   activeSortDirection?: Direction;
-  onSort?: (name: ColumnName) => void;
+  onSort?: (name: string) => void;
 }
 
 const ariaSortMapping = {
@@ -37,7 +37,7 @@ const DataGridHeaderCellComponent: ForwardRefRenderFunction<HTMLTableCellElement
   ref
 ) => {
   const onCellClick = () => {
-    onSort && onSort(name);
+    onSort?.(name);
   };
 
   const sortingIndicator = () => {

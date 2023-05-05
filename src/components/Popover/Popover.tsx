@@ -90,7 +90,7 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         window.innerHeight - (elToBePositioned.current as HTMLElement).offsetHeight === top);
 
     if (isAnchorOffscreen) {
-      onAnchorOutOfView && onAnchorOutOfView();
+      onAnchorOutOfView?.();
     }
   }, [top, left, right, bottom]);
 

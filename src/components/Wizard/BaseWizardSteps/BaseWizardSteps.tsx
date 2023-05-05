@@ -68,7 +68,7 @@ const BaseWizardStepsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
           stepState === "current"
         }
         aria-current={stepState === "current" ? "step" : undefined}
-        onClick={() => onClick && onClick(index)}
+        onClick={() => onClick?.(index)}
         className={`${classes["wizard-element"]} ${classes[stepState]} ${clickableClassName} ${disabledStyleClassName}`}
       >
         <div className={classes["number-wrapper"]}>

@@ -164,9 +164,9 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   useEffect(() => {
     if (showContextMenu === true) {
-      onShow && onShow();
+      onClose?.();
     } else {
-      onClose && onClose();
+      onClose?.();
       !hasBeenClosed && setHasBeenClosed(true);
       setFocusedContextMenuItem(-1);
       hasBeenClosed && anchorEl.current && anchorEl.current.focus();

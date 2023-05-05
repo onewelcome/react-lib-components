@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactChild } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import { Typography } from "../../Typography/Typography";
 import classes from "./DataGridCell.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"td"> {
-  children?: ReactChild;
+  children?: ReactElement | string | number;
   isLoading?: boolean;
   spacing?: React.CSSProperties;
   cellIndex?: number;

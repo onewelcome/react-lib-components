@@ -14,12 +14,7 @@
  *    limitations under the License.
  */
 
-import React, {
-  ForwardRefRenderFunction,
-  ComponentPropsWithRef,
-  ReactChild,
-  ReactElement
-} from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import classes from "./SelectWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { Select, Props as SelectProps } from "../../Select/Select";
@@ -30,7 +25,7 @@ interface PartialSelectProps extends Partial<SelectProps> {}
 export interface Props
   extends Omit<ComponentPropsWithRef<"div">, "onChange">,
     Omit<WrapperProps, "onChange" | "error"> {
-  children: ReactChild | ReactChild[];
+  children: ReactElement[] | string[] | number[];
   placeholder?: string;
   value: string;
   error?: boolean;
