@@ -23,7 +23,7 @@ export const useGetDomRoot = (
   const [root, setRoot] = useState<HTMLElement>(document.body);
 
   useEffect(() => {
-    if (relativeElement && relativeElement.current && !passedDomRoot) {
+    if (relativeElement?.current && !passedDomRoot) {
       const closestBaseStylingWrapper = relativeElement.current.closest(".basestyling-wrapper");
 
       if (closestBaseStylingWrapper) {
