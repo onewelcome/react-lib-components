@@ -107,7 +107,7 @@ export const useArrowNavigation = ({
         case "Tab":
           if (childrenCount >= renderSearchCondition && expanded) {
             setIsSearching(true);
-            searchInputRef.current && searchInputRef.current.focus();
+            searchInputRef.current?.focus();
             return;
           }
           setExpanded(false);
