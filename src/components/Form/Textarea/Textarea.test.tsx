@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { Textarea, Props } from "./Textarea";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const createTextarea = (params?: Props) => {
@@ -78,14 +78,12 @@ describe("Textarea properties", () => {
   it("has autofocus", () => {
     const { textarea } = createTextarea({ autoFocus: true });
 
-    setTimeout(() => {
-      expect(textarea).toHaveAttribute("autofocus");
-    }, 0);
+    waitFor(() => expect(textarea).toHaveAttribute("autofocus"));
   });
 });
 
 describe("Textarea listeners", () => {
-  it("executes the functions", () => {
+  it("executes the functions", async () => {
     const onChangeHandler = jest.fn();
     const onKeyUpHandler = jest.fn();
     const onKeyDownHandler = jest.fn();
@@ -100,7 +98,7 @@ describe("Textarea listeners", () => {
 
     expect(textarea).toHaveFocus();
 
-    userEvent.keyboard("test");
+    await userEvent.keyboard("test");
 
     expect(onKeyUpHandler).toHaveBeenCalled();
     expect(onKeyDownHandler).toHaveBeenCalled();

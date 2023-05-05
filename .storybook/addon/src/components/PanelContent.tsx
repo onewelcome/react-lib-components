@@ -16,13 +16,9 @@
 
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
-import { Button, Table } from "@storybook/components";
+import { Table } from "@storybook/components";
 import { ColorControl } from "@storybook/blocks";
 import { cssPropertyToObjectKey } from "../utils/helpers";
-
-export const RequestDataButton = styled(Button)({
-  marginTop: "1rem"
-});
 
 const PropertyValueInput = styled.input`
   background-color: #fff;
@@ -92,6 +88,24 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
     }
 
     return value;
+  };
+
+  const startsWithColorPrefix = (value: string) => {
+    const prefixes = ["#", "rgb", "hsla"];
+
+    return prefixes.some(prefix => value.startsWith(prefix));
+  };
+
+  const isColor = (value: string): boolean => {
+    if (startsWithColorPrefix(value)) {
+      return true;
+    }
+
+    if (/var\(--.+\)/.test(value)) {
+      return cssPropertyToObjectKey(value) !== null;
+    }
+
+    return false;
   };
 
   const handlePropertyChange = (propertyName: string, propertyValue: string) =>

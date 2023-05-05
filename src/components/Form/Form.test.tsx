@@ -29,7 +29,7 @@ describe("Form should render", () => {
 });
 
 describe("Event should fire", () => {
-  it("should fire the onSubmitHandler function", () => {
+  it("should fire the onSubmitHandler function", async () => {
     const onSubmitHandler = jest.fn();
 
     onSubmitHandler.mockImplementation(event => {
@@ -43,7 +43,7 @@ describe("Event should fire", () => {
     );
 
     const button = getByTestId("submit-button");
-    userEvent.click(button);
+    await userEvent.click(button);
     expect(onSubmitHandler).toHaveBeenCalled();
   });
 });

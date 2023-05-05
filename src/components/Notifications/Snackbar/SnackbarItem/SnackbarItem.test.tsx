@@ -40,11 +40,11 @@ describe("SnackbarItem", () => {
     expect(getByRole(container, "button")).toBeDefined();
   });
 
-  it("clicking close button call callback function", () => {
+  it("clicking close button call callback function", async () => {
     const { container } = render(<SnackbarItem {...initParams} duration={10000000} />);
 
     expect(initParams.onClose).not.toBeCalled();
-    userEvent.click(getByRole(container, "button"));
+    await userEvent.click(getByRole(container, "button"));
     waitFor(() => {
       expect(initParams.onClose).toBeCalledTimes(1);
       expect(initParams.onClose).toHaveBeenCalledWith(initParams.id);

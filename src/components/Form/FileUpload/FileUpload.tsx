@@ -157,7 +157,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const handleOnDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setDragActive(true);
+    if (!dragActive) {
+      setDragActive(true);
+    }
     onDragOver && onDragOver(e);
   };
 

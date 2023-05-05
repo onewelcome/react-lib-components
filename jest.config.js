@@ -18,9 +18,15 @@
  * Identity obj proxy is needed for jest to be able to properly import scss files.
  */
 module.exports = {
-  setupFilesAfterEnv: ['./setupTests.ts'],
+  preset: "ts-jest",
+  setupFilesAfterEnv: ["./setupTests.ts"],
   moduleNameMapper: {
-    '^.+\\.(css|scss)$': 'identity-obj-proxy',
+    "^.+\\.(css|scss)$": "identity-obj-proxy"
   },
+  modulePathIgnorePatterns: ["/cypress", ".yalc"],
+  testResultsProcessor: "jest-sonar-reporter",
   resetMocks: true,
+  testEnvironment: "jest-environment-jsdom",
+  transform: { "^.+\\.ts?$": "ts-jest", "^.+\\.(js|jsx)$": "babel-jest" },
+  moduleDirectories: ["node_modules"]
 };

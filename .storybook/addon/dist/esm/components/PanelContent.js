@@ -30,12 +30,9 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
-import { Button, Table } from "@storybook/components";
+import { Table } from "@storybook/components";
 import { ColorControl } from "@storybook/blocks";
 import { cssPropertyToObjectKey } from "../utils/helpers";
-export var RequestDataButton = styled(Button)({
-  marginTop: "1rem"
-});
 var PropertyValueInput = styled.input(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  background-color: #fff;\n  border-radius: 4px;\n  border-color: #eee;\n  border-style: solid;\n  padding: 5px;\n  font-family: monospace;\n"])));
 var PropertyValueLabel = styled.label(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n"])));
 function useDebounce(value, delay) {
@@ -84,6 +81,21 @@ export var PanelContent = function PanelContent(_ref) {
       return parseValue(propertiesState[key]);
     }
     return value;
+  };
+  var startsWithColorPrefix = function startsWithColorPrefix(value) {
+    var prefixes = ["#", "rgb", "hsla"];
+    return prefixes.some(function (prefix) {
+      return value.startsWith(prefix);
+    });
+  };
+  var isColor = function isColor(value) {
+    if (startsWithColorPrefix(value)) {
+      return true;
+    }
+    if (/var\(--.+\)/.test(value)) {
+      return cssPropertyToObjectKey(value) !== null;
+    }
+    return false;
   };
   var handlePropertyChange = function handlePropertyChange(propertyName, propertyValue) {
     return setPropertiesState(function (prevState) {

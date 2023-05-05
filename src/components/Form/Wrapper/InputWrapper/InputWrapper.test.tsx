@@ -139,7 +139,7 @@ describe("ref should work", () => {
 });
 
 describe("InputWrapper should be interactive", () => {
-  it("executes the eventlisteners", () => {
+  it("executes the eventlisteners", async () => {
     const onFocusHandler = jest.fn();
     const onChangeHandler = jest.fn();
     const onBlurHandler = jest.fn();
@@ -157,14 +157,14 @@ describe("InputWrapper should be interactive", () => {
 
     const input = getByTestId("input");
 
-    userEvent.tab();
-    userEvent.keyboard("test");
+    await userEvent.tab();
+    await userEvent.keyboard("test");
 
     expect(input).toHaveFocus();
     expect(onChangeHandler).toHaveBeenCalled();
     expect(onFocusHandler).toHaveBeenCalled();
 
-    userEvent.tab();
+    await userEvent.tab();
 
     expect(onBlurHandler).toHaveBeenCalled();
   });
@@ -179,7 +179,7 @@ describe("InputWrapper should support prefix and suffix", () => {
     expect(container.querySelector("[data-suffix]")).toHaveTextContent(suffix);
   };
 
-  it("renders prefix and sufix when input has focus", () => {
+  it("renders prefix and sufix when input has focus", async () => {
     const { container, getByTestId } = createInputWrapper(defaultParams => ({
       ...defaultParams,
       value: "",
@@ -191,12 +191,12 @@ describe("InputWrapper should support prefix and suffix", () => {
     expect(container.querySelector("[data-prefix]")).toBeNull();
     expect(container.querySelector("[data-suffix]")).toBeNull();
 
-    userEvent.tab();
+    await userEvent.tab();
     expect(input).toHaveFocus();
     hasPrefixAndSuffixDefined(container);
   });
 
-  it("renders prefix and sufix when input has value", () => {
+  it("renders prefix and sufix when input has value", async () => {
     const { container, getByTestId } = createInputWrapper(defaultParams => ({
       ...defaultParams,
       inputProps: { "data-testid": "input", prefix, suffix }
@@ -206,11 +206,11 @@ describe("InputWrapper should support prefix and suffix", () => {
 
     hasPrefixAndSuffixDefined(container);
 
-    userEvent.tab();
+    await userEvent.tab();
     expect(input).toHaveFocus();
     hasPrefixAndSuffixDefined(container);
 
-    userEvent.tab();
+    await userEvent.tab();
     expect(input).not.toHaveFocus();
     hasPrefixAndSuffixDefined(container);
   });

@@ -109,7 +109,7 @@ describe("Tabs should render", () => {
     expect(tabpanel1).toHaveClass("selected");
     expect(tabpanel3).not.toHaveClass("selected");
 
-    await act(() => userEvent.click(tab3));
+    await userEvent.click(tab3);
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
 
@@ -139,7 +139,7 @@ describe("Tabs should render", () => {
 
     let tab3 = tabButtons[2] as HTMLButtonElement;
 
-    await userEvent.click(tab3);
+    await await userEvent.click(tab3);
 
     expect(onTabChangeHandler).toHaveBeenCalled();
   });
@@ -191,8 +191,8 @@ describe("Tabs should comply with accessibility rules", () => {
     expect(tabpanel1).toHaveClass("selected");
     expect(tabpanel3).not.toHaveClass("selected");
 
-    await userEvent.keyboard("[ArrowLeft]");
-    await userEvent.keyboard("[Space]");
+    await await userEvent.keyboard("[ArrowLeft]");
+    await await userEvent.keyboard("[Space]");
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
     tab1 = tabButtons[0] as HTMLButtonElement;
@@ -207,8 +207,8 @@ describe("Tabs should comply with accessibility rules", () => {
     expect(tabpanel3).toHaveClass("selected");
     expect(tabpanel1).not.toHaveClass("selected");
 
-    await userEvent.keyboard("[ArrowRight]");
-    await userEvent.keyboard("[Enter]");
+    await await userEvent.keyboard("[ArrowRight]");
+    await await userEvent.keyboard("[Enter]");
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
     tab1 = tabButtons[0] as HTMLButtonElement;
@@ -223,7 +223,7 @@ describe("Tabs should comply with accessibility rules", () => {
     expect(tabpanel1).toHaveClass("selected");
     expect(tabpanel3).not.toHaveClass("selected");
 
-    await userEvent.keyboard("[End]");
+    await await userEvent.keyboard("[End]");
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
     tab1 = tabButtons[0] as HTMLButtonElement;
@@ -233,7 +233,7 @@ describe("Tabs should comply with accessibility rules", () => {
     expect(tab3).toHaveFocus();
     expect(tab1).not.toHaveFocus();
 
-    await userEvent.keyboard("[Home]");
+    await await userEvent.keyboard("[Home]");
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
     tab1 = tabButtons[0] as HTMLButtonElement;
@@ -244,7 +244,7 @@ describe("Tabs should comply with accessibility rules", () => {
     expect(tab3).not.toHaveFocus();
 
     // should have no effect
-    await userEvent.keyboard("a");
+    await await userEvent.keyboard("a");
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
     tab1 = tabButtons[0] as HTMLButtonElement;
@@ -254,7 +254,7 @@ describe("Tabs should comply with accessibility rules", () => {
     expect(tab1).toHaveClass("selected");
     expect(tab3).not.toHaveFocus();
 
-    await userEvent.keyboard("[ArrowRight]");
+    await await userEvent.keyboard("[ArrowRight]");
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
     tab1 = tabButtons[0] as HTMLButtonElement;
@@ -265,7 +265,7 @@ describe("Tabs should comply with accessibility rules", () => {
     expect(tab1).not.toHaveFocus();
     expect(tab3).not.toHaveFocus();
 
-    await userEvent.keyboard("[ArrowLeft]");
+    await await userEvent.keyboard("[ArrowLeft]");
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
     tab1 = tabButtons[0] as HTMLButtonElement;
@@ -275,7 +275,7 @@ describe("Tabs should comply with accessibility rules", () => {
     expect(tab1).toHaveClass("selected");
     expect(tab3).not.toHaveFocus();
 
-    await userEvent.keyboard("[ArrowLeft]");
+    await await userEvent.keyboard("[ArrowLeft]");
 
     tabButtons = tablist.querySelectorAll(".tabbutton");
     tab1 = tabButtons[0] as HTMLButtonElement;

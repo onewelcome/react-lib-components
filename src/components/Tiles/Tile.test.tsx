@@ -22,7 +22,6 @@ import { ContextMenu } from "../ContextMenu/ContextMenu";
 import { IconButton } from "../Button/IconButton";
 import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 const onShow = jest.fn();
 const onClose = jest.fn();
@@ -126,7 +125,7 @@ describe("should throw errors since we don't pass props", () => {
 });
 
 describe("contextmenu", () => {
-  it("should render everything correctly", () => {
+  it("should render everything correctly", async () => {
     const { menutrigger, getByTestId } = createTile();
 
     const contextMenu = getByTestId("contextmenu");
@@ -142,19 +141,15 @@ describe("contextmenu", () => {
     expect(menuitem2).toBeTruthy();
     expect(menuitem3).toBeTruthy();
 
-    act(() => {
-      userEvent.click(menutrigger);
-    });
+    await userEvent.click(menutrigger);
 
     expect(onShow).toHaveBeenCalled();
     expect(popover).toHaveClass("show");
     expect(popover).toHaveStyle({ opacity: "1;" });
 
-    act(() => {
-      userEvent.click(menuitem1);
-      userEvent.click(menuitem2);
-      userEvent.click(menuitem3);
-    });
+    await userEvent.click(menuitem1);
+    await userEvent.click(menuitem2);
+    await userEvent.click(menuitem3);
 
     expect(contextMenuItemOnClick).toHaveBeenCalledTimes(3);
   });

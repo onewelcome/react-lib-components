@@ -4,7 +4,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.RequestDataButton = exports.PanelContent = void 0;
+exports.PanelContent = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _theming = require("@storybook/theming");
 var _components = require("@storybook/components");
@@ -25,10 +25,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-var RequestDataButton = (0, _theming.styled)(_components.Button)({
-  marginTop: "1rem"
-});
-exports.RequestDataButton = RequestDataButton;
 var PropertyValueInput = _theming.styled.input(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  background-color: #fff;\n  border-radius: 4px;\n  border-color: #eee;\n  border-style: solid;\n  padding: 5px;\n  font-family: monospace;\n"])));
 var PropertyValueLabel = _theming.styled.label(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n"])));
 function useDebounce(value, delay) {
@@ -77,6 +73,21 @@ var PanelContent = function PanelContent(_ref) {
       return parseValue(propertiesState[key]);
     }
     return value;
+  };
+  var startsWithColorPrefix = function startsWithColorPrefix(value) {
+    var prefixes = ["#", "rgb", "hsla"];
+    return prefixes.some(function (prefix) {
+      return value.startsWith(prefix);
+    });
+  };
+  var isColor = function isColor(value) {
+    if (startsWithColorPrefix(value)) {
+      return true;
+    }
+    if (/var\(--.+\)/.test(value)) {
+      return (0, _helpers.cssPropertyToObjectKey)(value) !== null;
+    }
+    return false;
   };
   var handlePropertyChange = function handlePropertyChange(propertyName, propertyValue) {
     return setPropertiesState(function (prevState) {

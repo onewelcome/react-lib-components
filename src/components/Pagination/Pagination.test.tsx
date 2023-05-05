@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { Pagination, Props } from "./Pagination";
-import { render, waitFor } from "@testing-library/react";
+import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
@@ -71,30 +71,32 @@ describe("Pagination events", () => {
     const pageSizeSelect = pagination.querySelector(".page-size-select")!;
     const currentPageInput = pagination.querySelector("#current-value-input")!;
 
-    userEvent.click(next);
+    await userEvent.click(next);
 
     await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(11));
 
-    userEvent.click(previous);
+    await userEvent.click(previous);
     await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(9));
 
-    userEvent.click(first);
+    await userEvent.click(first);
     await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(0));
 
-    userEvent.click(last);
+    await userEvent.click(last);
     await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(50));
 
-    userEvent.click(pageSizeSelect.querySelector("button")!);
+    await userEvent.click(pageSizeSelect.querySelector("button")!);
 
     const option25 = pageSizeSelect.querySelector('[data-value="25"]')!;
 
-    userEvent.click(option25);
+    await userEvent.click(option25);
 
     await waitFor(() => expect(onPageSizeChange).toHaveBeenCalledWith(25));
 
-    (currentPageInput as HTMLInputElement).focus();
+    await act(() => {
+      (currentPageInput as HTMLInputElement).focus();
+    });
 
-    userEvent.keyboard("{backspace}{backspace}30{enter}");
+    await userEvent.keyboard("{backspace}{backspace}30{enter}");
 
     await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(30));
   });

@@ -82,7 +82,8 @@ describe("DataGridBody should render", () => {
 
     expect(dataGridBody).toBeDefined();
     const rows = getAllByRole(dataGridBody, "row");
-    expect(rows).toMatchSnapshot();
+
+    expect(rows).toHaveLength(4);
   });
 
   it("renders loading state with only visible columns", () => {

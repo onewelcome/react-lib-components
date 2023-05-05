@@ -89,7 +89,7 @@ describe("component should change display the correct style and elements accordi
 });
 
 describe("component should transmit the correct message upwards when a file action icon is clicked", () => {
-  it("should call retry action", () => {
+  it("should call retry action", async () => {
     const onRequestedFileAction = jest.fn();
     const { actionIcon } = createFileItem(defaultParams => ({
       ...defaultParams,
@@ -97,7 +97,7 @@ describe("component should transmit the correct message upwards when a file acti
       onRequestedFileAction
     }));
 
-    user.click(actionIcon as Element);
+    await user.click(actionIcon as Element);
     expect(onRequestedFileAction).toHaveBeenNthCalledWith(1, FILE_ACTION.RETRY, defaultParams.name);
   });
 });

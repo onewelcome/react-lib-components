@@ -67,15 +67,15 @@ describe("ContextMenu should render", () => {
     expect(contextmenu).toBeTruthy();
   });
 
-  it("executed onShow function", () => {
+  it("executed onShow function", async () => {
     const { trigger } = createContextMenu();
 
-    userEvent.click(trigger);
+    await userEvent.click(trigger);
 
     expect(onShow).toHaveBeenCalled();
   });
 
-  it("executed onShow function", () => {
+  it("executed onShow function", async () => {
     const { getByTestId } = createContextMenu(defaultParams => ({
       ...defaultParams,
       show: true
@@ -83,7 +83,7 @@ describe("ContextMenu should render", () => {
 
     const button = getByTestId("contextmenuitem");
 
-    userEvent.click(button);
+    await userEvent.click(button);
 
     expect(onClick).toHaveBeenCalled();
   });
@@ -163,67 +163,67 @@ describe("ref should work", () => {
 });
 
 describe("accessibility controls", () => {
-  it("opening works correctly with arrow key down, then navigation should work with arrow keys", () => {
+  it("opening works correctly with arrow key down, then navigation should work with arrow keys", async () => {
     const { getByTestId, trigger } = createContextMenu();
     const firstContextMenuItem = getByTestId("contextmenuitem");
     const secondContextMenuItem = getByTestId("contextmenuitem2");
     const thirdContextMenuItem = getByTestId("contextmenuitem3");
 
-    userEvent.tab();
-    userEvent.keyboard("{arrowdown}");
-    userEvent.keyboard("{arrowdown}");
+    await userEvent.tab();
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
     expect(trigger).toHaveAttribute("aria-expanded", "true");
     expect(firstContextMenuItem).toHaveFocus();
 
-    userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
     expect(secondContextMenuItem).toHaveFocus();
 
-    userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
     expect(thirdContextMenuItem).toHaveFocus();
 
-    userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
     expect(firstContextMenuItem).toHaveFocus();
 
-    userEvent.keyboard("{arrowup}");
+    await userEvent.keyboard("{arrowup}");
     expect(thirdContextMenuItem).toHaveFocus();
 
-    userEvent.keyboard("{arrowup}");
+    await userEvent.keyboard("{arrowup}");
     expect(secondContextMenuItem).toHaveFocus();
   });
 
   it("opens correctly with enter key, closing works with escape key.", async () => {
     const { trigger } = createContextMenu();
 
-    userEvent.tab();
-    userEvent.keyboard("{enter}");
+    await userEvent.tab();
+    await userEvent.keyboard("{enter}");
 
     expect(trigger).toHaveAttribute("aria-expanded", "true");
 
-    userEvent.keyboard("{escape}");
+    await userEvent.keyboard("{escape}");
 
     expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 
-  it("opens correctly with space, home and end buttons work", () => {
+  it("opens correctly with space, home and end buttons work", async () => {
     const { trigger, getByTestId } = createContextMenu();
     const firstContextMenuItem = getByTestId("contextmenuitem");
     const thirdContextMenuItem = getByTestId("contextmenuitem3");
 
-    userEvent.tab();
-    userEvent.keyboard("{space}");
+    await userEvent.tab();
+    await userEvent.keyboard("{enter}");
 
     expect(trigger).toHaveAttribute("aria-expanded", "true");
 
-    userEvent.keyboard("{end}");
+    await userEvent.keyboard("{end}");
 
     expect(thirdContextMenuItem).toHaveFocus();
 
-    userEvent.keyboard("{home}");
+    await userEvent.keyboard("{home}");
 
     expect(firstContextMenuItem).toHaveFocus();
   });
 
-  it("opens correctly with space, navigate with arrow keys, select with enter", () => {
+  it("opens correctly with space, navigate with arrow keys, select with enter", async () => {
     onClick.mockImplementation(e => {
       expect(e.target.getAttribute("data-testid")).toBe("contextmenuitem3");
     });
@@ -233,23 +233,23 @@ describe("accessibility controls", () => {
     }));
     const thirdContextMenuItem = getByTestId("contextmenuitem3");
 
-    userEvent.tab();
-    userEvent.keyboard("{space}");
+    await userEvent.tab();
+    await userEvent.keyboard("{enter}");
 
     expect(trigger).toHaveAttribute("aria-expanded", "true");
 
-    userEvent.keyboard("{arrowdown}");
-    userEvent.keyboard("{arrowdown}");
-    userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
 
     expect(thirdContextMenuItem).toHaveFocus();
 
-    userEvent.keyboard("{enter}");
+    await userEvent.keyboard("{enter}");
 
     expect(onClick).toHaveBeenCalled();
   });
 
-  it("opens correctly with enter, navigate with arrow keys, select with space", () => {
+  it("opens correctly with enter, navigate with arrow keys, select with space", async () => {
     onClick.mockImplementation(e => {
       expect(e.target.getAttribute("data-testid")).toBe("contextmenuitem3");
     });
@@ -259,27 +259,27 @@ describe("accessibility controls", () => {
     }));
     const thirdContextMenuItem = getByTestId("contextmenuitem3");
 
-    userEvent.tab();
-    userEvent.keyboard("{enter}");
+    await userEvent.tab();
+    await userEvent.keyboard("{enter}");
 
     expect(trigger).toHaveAttribute("aria-expanded", "true");
 
-    userEvent.keyboard("{arrowdown}");
-    userEvent.keyboard("{arrowdown}");
-    userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
 
     expect(thirdContextMenuItem).toHaveFocus();
 
-    userEvent.keyboard("{space}");
+    await userEvent.keyboard("{enter}");
 
     expect(onClick).toHaveBeenCalled();
 
-    userEvent.keyboard("{space}");
+    await userEvent.keyboard("{enter}");
 
     expect(thirdContextMenuItem).toHaveFocus();
   });
 
-  it("opens correctly with enter, navigate with arrow keys skipping the decorative element", () => {
+  it("opens correctly with enter, navigate with arrow keys skipping the decorative element", async () => {
     onClick.mockImplementation(e => {
       expect(e.target.getAttribute("data-testid")).toBe("contextmenuitem3");
     });
@@ -290,24 +290,24 @@ describe("accessibility controls", () => {
     }));
     const thirdContextMenuItem = getByTestId("contextmenuitem3");
 
-    userEvent.tab();
-    userEvent.keyboard("{enter}");
+    await userEvent.tab();
+    await userEvent.keyboard("{enter}");
 
     expect(getByText("test")).toBeInTheDocument();
 
     expect(trigger).toHaveAttribute("aria-expanded", "true");
 
-    userEvent.keyboard("{arrowdown}");
-    userEvent.keyboard("{arrowdown}");
-    userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
 
     expect(thirdContextMenuItem).toHaveFocus();
 
-    userEvent.keyboard("{space}");
+    await userEvent.keyboard("{enter}");
 
     expect(onClick).toHaveBeenCalled();
 
-    userEvent.keyboard("{space}");
+    await userEvent.keyboard("{enter}");
 
     expect(thirdContextMenuItem).toHaveFocus();
   });

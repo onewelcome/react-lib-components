@@ -73,7 +73,7 @@ describe("Dialog", () => {
     expect(buttons[0]).toHaveClass("fill");
   });
 
-  it("should handle clicking on buttons and ENTER press", () => {
+  it("should handle clicking on buttons and ENTER press", async () => {
     render(<Dialog {...initParams} />);
     const [primaryButton, secondaryButton] = getButtons(document.body);
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(0);
@@ -81,12 +81,12 @@ describe("Dialog", () => {
     expect(initParams.onClose).toHaveBeenCalledTimes(0);
 
     const autoSummissionInput = document.body.querySelector("input") as HTMLElement;
-    userEvent.type(autoSummissionInput, "{enter}");
+    await userEvent.type(autoSummissionInput, "{enter}");
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(1);
 
-    userEvent.click(primaryButton);
+    await userEvent.click(primaryButton);
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(2);
-    userEvent.click(secondaryButton);
+    await userEvent.click(secondaryButton);
     expect(initParams.secondaryAction?.onClick).toHaveBeenCalledTimes(1);
   });
 });

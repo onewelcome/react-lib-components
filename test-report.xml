@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Pagination/Pagination.test.tsx">
+    <testCase name="Pagination should render renders without crashing" duration="32"/>
+    <testCase name="Pagination events should correctly translate user input to pagination component" duration="133"/>
+    <testCase name="different current pages and their effect on what renders is on the first page and does not render previous and first" duration="6"/>
+    <testCase name="different current pages and their effect on what renders is on the second page and does not render first" duration="4"/>
+    <testCase name="different current pages and their effect on what renders is on the second to last page and does not render last" duration="4"/>
+    <testCase name="different current pages and their effect on what renders is on the last page and does not render next &amp; last" duration="5"/>
+    <testCase name="omitted attributes still renders correctly still renders next if totalItems prop isn&apos;t given and we&apos;re on the first page" duration="3"/>
+    <testCase name="omitted attributes still renders correctly still renders next if totalItems prop isn&apos;t given and we&apos;re on the first page" duration="3"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="5"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/ContextMenu/ContextMenu.test.tsx">
+    <testCase name="ContextMenu should render renders without crashing" duration="24"/>
+    <testCase name="ContextMenu should render executed onShow function" duration="35"/>
+    <testCase name="ContextMenu should render executed onShow function" duration="20"/>
+    <testCase name="ContextMenu should render passes custom class to ContextMenuItem" duration="9"/>
+    <testCase name="ContextMenu should render renders the decorative element" duration="4"/>
+    <testCase name="ContextMenu should render should throw an error" duration="22"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+    <testCase name="accessibility controls opening works correctly with arrow key down, then navigation should work with arrow keys" duration="39"/>
+    <testCase name="accessibility controls opens correctly with enter key, closing works with escape key." duration="21"/>
+    <testCase name="accessibility controls opens correctly with space, home and end buttons work" duration="28"/>
+    <testCase name="accessibility controls opens correctly with space, navigate with arrow keys, select with enter" duration="33"/>
+    <testCase name="accessibility controls opens correctly with enter, navigate with arrow keys, select with space" duration="34"/>
+    <testCase name="accessibility controls opens correctly with enter, navigate with arrow keys skipping the decorative element" duration="39"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Select/Select.test.tsx">
+    <testCase name="Select should render renders with 5 options and proper attributes" duration="61"/>
+    <testCase name="Select should render should be disabled" duration="15"/>
+    <testCase name="Select should render should have an error" duration="9"/>
+    <testCase name="Select should render should have a success icon when success state" duration="9"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="6"/>
+    <testCase name="Select should render with search shows the search and filtering works" duration="43"/>
+    <testCase name="Selecting options using keyboard should focus through list items and select on enterpress" duration="103"/>
+    <testCase name="Expanded should be false whenever we click the body closes select on body click" duration="28"/>
+    <testCase name="List expansion should expand upwards" duration="19"/>
+    <testCase name="List expansion should expand downwards with a max height set" duration="34"/>
+    <testCase name="previously selected item should have focus" duration="56"/>
+    <testCase name="search input listens to different keyboard inputs" duration="27"/>
+    <testCase name="search input move focus with arrowdown" duration="24"/>
+    <testCase name="search input select with enter" duration="26"/>
+    <testCase name="search input expand list with arrowdown" duration="13"/>
+    <testCase name="search input expand list with space" duration="17"/>
+    <testCase name="search input closes on escape" duration="28"/>
+    <testCase name="search input closes on tab" duration="47"/>
+    <testCase name="home and end keys work goes to home and end" duration="24"/>
+    <testCase name="search input props work adds a classname" duration="7"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/DataGrid/DataGridBody/DataGridBody.test.tsx">
+    <testCase name="DataGridBody should render renders without crashing" duration="38"/>
+    <testCase name="DataGridBody should render renders loading state with only visible columns" duration="15"/>
+    <testCase name="DataGridBody should render renders empty state" duration="11"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="12"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Input/Input.test.tsx">
+    <testCase name="Input should render renders without crashing and has a name and type" duration="11"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+    <testCase name="Should have the appropriate attributes is disabled and has a class" duration="1"/>
+    <testCase name="Should have the appropriate attributes should render an input with spellcheck enabled" duration="1"/>
+    <testCase name="Should have the appropriate attributes should render an input with spellcheck disabled by default" duration="1"/>
+    <testCase name="Should render all different types of inputs renders a &quot;text&quot; input with &quot;testing&quot; as a value" duration="30"/>
+    <testCase name="Should render all different types of inputs renders a &quot;email&quot; input with &quot;testing@testing.com&quot; as a value" duration="49"/>
+    <testCase name="Should render all different types of inputs renders a &quot;tel&quot; input with &quot;06123456789&quot; as a value" duration="28"/>
+    <testCase name="Should render all different types of inputs renders a &quot;number&quot; input with &quot;1234567890&quot; as a value" duration="27"/>
+    <testCase name="Should render all different types of inputs renders a &quot;search&quot; input with &quot;example&quot; as a value" duration="19"/>
+    <testCase name="Should render all different types of inputs renders a &quot;time&quot; input with &quot;1234&quot; as a value" duration="14"/>
+    <testCase name="Should render all different types of inputs renders a &quot;url&quot; input with &quot;https://www.onewelcome.com&quot; as a value" duration="54"/>
+    <testCase name="Should render all different types of inputs should render a password input" duration="1"/>
+    <testCase name="Should render all different types of inputs should render a datetime input" duration="2"/>
+    <testCase name="Should render all different types of inputs should be hidden" duration="0"/>
+    <testCase name="It should execute the listeners fires event handlers" duration="12"/>
+    <testCase name="It should render prefix and suffix  renders prefix and suffix" duration="2"/>
+    <testCase name="It should render prefix and suffix  error icon should be visible with suffix" duration="2"/>
+    <testCase name="It should render prefix and suffix  success icon should be visible" duration="0"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Wizard/Wizard.test.tsx">
+    <testCase name="Wizard renders without crashing" duration="61"/>
+    <testCase name="Wizard should be able to click over whole wizard via action buttons" duration="110"/>
+    <testCase name="Wizard should not be able to click over whole wizard via steps buttons in add mode" duration="97"/>
+    <testCase name="Wizard should be able to click over whole wizard via steps buttons in edit mode" duration="75"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/DataGrid/DataGrid.test.tsx">
+    <testCase name="DataGrid should render renders without crashing" duration="80"/>
+    <testCase name="DataGrid should render renders actions buttons" duration="21"/>
+    <testCase name="DataGrid should render renders table with initialized sorting indicators" duration="13"/>
+    <testCase name="DataGrid should render renders table without context menu" duration="23"/>
+    <testCase name="DataGrid should render renders loading state with skeleton loading animation on data cells and empty row on content menu cells" duration="52"/>
+    <testCase name="DataGrid should render renders empty state" duration="12"/>
+    <testCase name="DataGrid should render renders pagination" duration="85"/>
+    <testCase name="DataGrid should have interactive table header clicking table headers should call sort callback" duration="154"/>
+    <testCase name="DataGrid should have interactive table header clicking on show/hide columns popover should show/hide columns" duration="131"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="8"/>
+    <testCase name="spacing should work correctly gives the proper paddings to the right elements" duration="14"/>
+    <testCase name="spacing should work correctly gives the proper paddings to the right elements" duration="13"/>
+    <testCase name="spacing should work correctly gives the proper paddings to the right elements" duration="16"/>
+    <testCase name="spacing should work correctly gives the proper paddings to the right elements" duration="15"/>
+    <testCase name="spacing should work correctly gives the proper paddings to the right elements, also with contextmenu disabled" duration="16"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/usePosition.test.tsx">
+    <testCase name="returns proper values for default transformOrigin returns the correct values for left top placement" duration="66"/>
+    <testCase name="returns proper values for default transformOrigin returns the correct values for left bottom placement" duration="35"/>
+    <testCase name="returns proper values for default transformOrigin returns the correct values for left center placement" duration="33"/>
+    <testCase name="returns proper values for default transformOrigin returns the correct values for center top placement" duration="33"/>
+    <testCase name="returns proper values for default transformOrigin returns the correct values for center center placement" duration="33"/>
+    <testCase name="returns proper values for default transformOrigin returns the correct values for center bottom placement" duration="32"/>
+    <testCase name="returns proper values for default transformOrigin returns the correct values for right top placement" duration="31"/>
+    <testCase name="returns proper values for default transformOrigin returns the correct values for right center placement" duration="32"/>
+    <testCase name="returns proper values for default transformOrigin returns the correct values for right bottom placement" duration="33"/>
+    <testCase name="it returns proper values for centered transformOrigin returns the correct values for left top placement" duration="32"/>
+    <testCase name="it returns proper values for centered transformOrigin returns the correct values for left bottom placement" duration="31"/>
+    <testCase name="it returns proper values for centered transformOrigin returns the correct values for left center placement" duration="32"/>
+    <testCase name="it returns proper values for centered transformOrigin returns the correct values for center top placement" duration="29"/>
+    <testCase name="it returns proper values for centered transformOrigin returns the correct values for center center placement" duration="30"/>
+    <testCase name="it returns proper values for centered transformOrigin returns the correct values for center bottom placement" duration="30"/>
+    <testCase name="it returns proper values for centered transformOrigin returns the correct values for right top placement" duration="31"/>
+    <testCase name="it returns proper values for centered transformOrigin returns the correct values for right center placement" duration="30"/>
+    <testCase name="it returns proper values for centered transformOrigin returns the correct values for right bottom placement" duration="30"/>
+    <testCase name="it returns proper values for right top transformOrigin returns the correct values for left top placement" duration="29"/>
+    <testCase name="it returns proper values for right top transformOrigin returns the correct values for left bottom placement" duration="31"/>
+    <testCase name="it returns proper values for right top transformOrigin returns the correct values for left center placement" duration="30"/>
+    <testCase name="it returns proper values for right top transformOrigin returns the correct values for center top placement" duration="30"/>
+    <testCase name="it returns proper values for right top transformOrigin returns the correct values for center center placement" duration="31"/>
+    <testCase name="it returns proper values for right top transformOrigin returns the correct values for center bottom placement" duration="29"/>
+    <testCase name="it returns proper values for right top transformOrigin returns the correct values for right top placement" duration="31"/>
+    <testCase name="it returns proper values for right top transformOrigin returns the correct values for right center placement" duration="29"/>
+    <testCase name="it returns proper values for right top transformOrigin returns the correct values for right bottom placement" duration="30"/>
+    <testCase name="it returns proper values for left bottom transformOrigin returns the correct values for left top placement" duration="28"/>
+    <testCase name="it returns proper values for left bottom transformOrigin returns the correct values for left bottom placement" duration="31"/>
+    <testCase name="it returns proper values for left bottom transformOrigin returns the correct values for left center placement" duration="30"/>
+    <testCase name="it returns proper values for left bottom transformOrigin returns the correct values for center top placement" duration="28"/>
+    <testCase name="it returns proper values for left bottom transformOrigin returns the correct values for center center placement" duration="30"/>
+    <testCase name="it returns proper values for left bottom transformOrigin returns the correct values for center bottom placement" duration="29"/>
+    <testCase name="it returns proper values for left bottom transformOrigin returns the correct values for right top placement" duration="31"/>
+    <testCase name="it returns proper values for left bottom transformOrigin returns the correct values for right center placement" duration="30"/>
+    <testCase name="it returns proper values for left bottom transformOrigin returns the correct values for right bottom placement" duration="28"/>
+    <testCase name="setting offsets work in different direction has proper top offset" duration="34"/>
+    <testCase name="setting offsets work in different direction has proper right offset" duration="34"/>
+    <testCase name="setting offsets work in different direction has proper bottom offset" duration="30"/>
+    <testCase name="setting offsets work in different direction has proper left offset" duration="30"/>
+    <testCase name="setting offsets work in different direction can handle multiple values" duration="29"/>
+    <testCase name="setting offsets work in different direction works with transformOrigin from bottom right as well" duration="31"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/DataGrid/DataGridHeader/DataGridHeader.test.tsx">
+    <testCase name="DataGridHeader should render renders without crashing" duration="22"/>
+    <testCase name="DataGridHeader should render renders without hidden cell" duration="7"/>
+    <testCase name="DataGridHeader should render renders without contenxt-menu empty cell" duration="6"/>
+    <testCase name="DataGridHeader should render renders headers cells without sorting indicators even when initialSort is provided" duration="2"/>
+    <testCase name="DataGridHeader should render renders headers cells with sorting indicators" duration="3"/>
+    <testCase name="DataGridHeader should render renders headers cells with sorting indicators when initialSort provided with direction ASC" duration="5"/>
+    <testCase name="DataGridHeader should render renders headers cells with sorting indicators when initialSort provided with direction DESC" duration="5"/>
+    <testCase name="DataGridHeader should be interactive clicking on cell call onSort callback" duration="22"/>
+    <testCase name="DataGridHeader should be interactive clicking on multiple cells call onSort callback with one column selected when single-sorting is enabled" duration="71"/>
+    <testCase name="DataGridHeader should be interactive clicking on multiple cells call onSort callback with multiple columns selected when multi-sorting is enabled" duration="71"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Wizard/WizardActions/WizardActions.test.tsx">
+    <testCase name="WizardActions renders without crashing" duration="47"/>
+    <testCase name="WizardActions should allow going prev and forward when there are prev step and next step (next step is disabled but next one can be used)" duration="35"/>
+    <testCase name="WizardActions should render save button but not next button when current step is the last step" duration="27"/>
+    <testCase name="WizardActions should show save and close when next steps are disabled" duration="20"/>
+    <testCase name="WizardActions should show save button on middle step when mode is `edit`" duration="30"/>
+    <testCase name="WizardActions should not allow going forward when dev returns false on onNext callback" duration="21"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/DiscardChangesModal/DiscardChangesModal.test.tsx">
+    <testCase name="DiscardChangesModal should render renders without crashing" duration="36"/>
+    <testCase name="DiscardChangesModal should render clicking on close button without making any changes close the modal" duration="27"/>
+    <testCase name="DiscardChangesModal should show DiscardChangesDialog showing DiscardChangesDialog and clicking on `keep editing` button" duration="50"/>
+    <testCase name="DiscardChangesModal should show DiscardChangesDialog showing DiscardChangesDialog and clicking on `discard` button" duration="36"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/util/helper.test.tsx">
+    <testCase name="generateID should correctly generate IDs in the correct way generates an ID of length 20 with a string woven in" duration="0"/>
+    <testCase name="generateID should correctly generate IDs in the correct way genereates an ID without a string woven in" duration="1"/>
+    <testCase name="filterprops should return the correct object gives back the props we told it to filter" duration="0"/>
+    <testCase name="filterprops should return the correct object gives back the propsObject without the props we told it to filter" duration="0"/>
+    <testCase name="debounce function debounced the resizing of the window, it will only execute 1 time" duration="207"/>
+    <testCase name="debounce function Works in a react component as well, it should only fire the exampleFunction once." duration="7"/>
+    <testCase name="throttling works Works in a react component as well, it should only fire the exampleFunction once." duration="2"/>
+    <testCase name="areArraysDifferent works as expected should return true for different arrays" duration="0"/>
+    <testCase name="areArraysDifferent works as expected should return false for arrays with same values" duration="0"/>
+    <testCase name="areArraysDifferent works as expected should return false for falsy values" duration="0"/>
+    <testCase name="return correct values from getValueByPath should return the correct value form a multi layered object" duration="0"/>
+    <testCase name="verifies if isEqual returns the correct value should return true for equal values objects" duration="0"/>
+    <testCase name="verifies if isEqual returns the correct value should return false for unequal values objects" duration="1"/>
+    <testCase name="verifies if isEqual returns the correct value should return false for falsy values" duration="0"/>
+    <testCase name="verifies if isEqual returns the correct value should return false for different types" duration="0"/>
+    <testCase name="pixel to rem function works 1 rem equals 16 px when font-size is 16px" duration="3"/>
+    <testCase name="pixel to rem function works 1.25 rem equals 20 px when font-size is 16px" duration="0"/>
+    <testCase name="pixel to rem function works 1.5 rem equals 24 px when font-size is 16px" duration="0"/>
+    <testCase name="pixel to rem function works 1.75 rem equals 28 px when font-size is 16px" duration="0"/>
+    <testCase name="pixel to rem function works 2 rem equals 32 px when font-size is 16px" duration="1"/>
+    <testCase name="isJsonString should work should return true when parameter is a valid JSON string" duration="0"/>
+    <testCase name="isJsonString should work should return false when parameter is a valid JSON string" duration="0"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/DataGrid/DataGridActions/DataGridActions.test.tsx">
+    <testCase name="DataGridActions should render renders without crashing" duration="7"/>
+    <testCase name="DataGridActions should render renders all buttons" duration="18"/>
+    <testCase name="DataGridActions should render renders only add button" duration="6"/>
+    <testCase name="DataGridActions should render renders only columns button" duration="6"/>
+    <testCase name="DataGridActions should render renders only search button" duration="5"/>
+    <testCase name="DataGridActions should render renders buttons with overwritten props" duration="10"/>
+    <testCase name="DataGridActions should be interactive clicking on columns button opens show/hide columns popover" duration="43"/>
+    <testCase name="DataGridActions should be interactive clicking on add button runs callback" duration="13"/>
+    <testCase name="DataGridActions should be interactive clicking on search button runs callback" duration="14"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider.test.tsx">
+    <testCase name="SnackbarProvider renders without crashing" duration="13"/>
+    <testCase name="SnackbarProvider should stack 3 snackbars at one time" duration="59"/>
+    <testCase name="SnackbarProvider should render 3 variants of snackbars" duration="73"/>
+    <testCase name="handlers should fire onClose" duration="9"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Wrapper/TextareaWrapper/TextareaWrapper.test.tsx">
+    <testCase name="TextareaWrapper should render renders without crashing" duration="13"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="4"/>
+    <testCase name="TextareaWrapper &amp; Textarea have the right attributes textarea has aria values" duration="8"/>
+    <testCase name="TextareaWrapper &amp; Textarea have the right attributes TextareaWrapper has the right helpertext" duration="2"/>
+    <testCase name="TextareaWrapper &amp; Textarea have the right attributes TextareaWrapper has the right errormessage" duration="5"/>
+    <testCase name="TextareaWrapper &amp; Textarea have the right attributes has floating label active when it has a placeholder" duration="5"/>
+    <testCase name="TextarenaWrapper should be interactive Fires the onChange, onFocus &amp; onBlur events" duration="38"/>
+    <testCase name="TextarenaWrapper should be interactive Fires the onMouseEnter &amp; onMouseLeave events" duration="22"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Wrapper/SelectWrapper/SelectWrapper.test.tsx">
+    <testCase name="SelectWrapper should render renders without crashing" duration="18"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="5"/>
+    <testCase name="SelectWrapper &amp; Select have the right attributes select has aria values" duration="9"/>
+    <testCase name="SelectWrapper &amp; Select have the right attributes SelectWrapper has the right helpertext" duration="5"/>
+    <testCase name="SelectWrapper &amp; Select have the right attributes Passes the proper helperProps class" duration="4"/>
+    <testCase name="SelectWrapper &amp; Select have the right attributes Passes the proper selectProps class" duration="3"/>
+    <testCase name="SelectWrapper &amp; Select have the right attributes SelectWrapper has the right errormessage" duration="5"/>
+    <testCase name="SelectWrapper &amp; Select have the right attributes Fires the onChange event" duration="39"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Tiles/Tile.test.tsx">
+    <testCase name="Tile should render renders without crashing and enabled" duration="18"/>
+    <testCase name="Tile should render renders disabled" duration="5"/>
+    <testCase name="Tile should render renders no status" duration="4"/>
+    <testCase name="should throw errors since we don&apos;t pass props throws because of missing id" duration="22"/>
+    <testCase name="contextmenu should render everything correctly" duration="62"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/DiscardChangesModal/DiscardChangesDialog/DiscardChangesDialog.test.tsx">
+    <testCase name="DiscardChangesDialog should render renders without crashing" duration="51"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Tooltip/Tooltip.test.tsx">
+    <testCase name="Tooltip should render renders without crashing" duration="35"/>
+    <testCase name="Tooltip should render renders with label as ReactElement" duration="3"/>
+    <testCase name="Tooltip should render should override the default placement and offset values" duration="25"/>
+    <testCase name="It opens the tooltip opens" duration="21"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Checkbox/Checkbox.test.tsx">
+    <testCase name="Checkbox should render renders without crashing" duration="12"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="4"/>
+    <testCase name="Checkbox should have proper attributes should be unchecked" duration="2"/>
+    <testCase name="Checkbox should have proper attributes should be checked" duration="3"/>
+    <testCase name="Checkbox should have proper attributes should call the onChange function" duration="19"/>
+    <testCase name="Checkbox should have proper attributes should be disabled" duration="13"/>
+    <testCase name="Checkbox should have proper attributes nested checkbox should be disabled" duration="2"/>
+    <testCase name="Checkbox should have proper attributes should have helpertext rendered" duration="2"/>
+    <testCase name="Checkbox should have proper attributes should have the error state enabled" duration="2"/>
+    <testCase name="Checkbox should have proper attributes should have a correctly linked label element" duration="2"/>
+    <testCase name="Checkbox should be interactive should call onChange when clicked" duration="13"/>
+    <testCase name="Checkbox should be interactive should not call onChange when disabled" duration="10"/>
+    <testCase name="toggle version should turn into a toggle" duration="2"/>
+    <testCase name="missing attributes gets us errors throws an error for missing label prop" duration="19"/>
+    <testCase name="missing attributes gets us errors throws an error for indeterminate prop" duration="2"/>
+    <testCase name="missing attributes gets us errors throws an error for incorrect children prop" duration="1"/>
+    <testCase name="missing attributes gets us errors throws an error for missing name prop" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/FileUpload/FileUpload.test.tsx">
+    <testCase name="component should render renders without crashing" duration="3"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+    <testCase name="File upload properties is disabled" duration="3"/>
+    <testCase name="File upload properties shows success" duration="4"/>
+    <testCase name="File upload properties shows error" duration="2"/>
+    <testCase name="File upload properties has multiple attribute setup on the input" duration="2"/>
+    <testCase name="File upload properties has the correct drag and drop label" duration="1"/>
+    <testCase name="File upload properties has the correct button label" duration="2"/>
+    <testCase name="File Upload should display items based on file list should display the file list with each status" duration="2"/>
+    <testCase name="file drag and drop properties should call all the drag and drop callback provided" duration="13"/>
+    <testCase name="upload action shows accepts only files that follow the type rules" duration="30"/>
+    <testCase name="upload action doesn&apos;t upload a file two times" duration="21"/>
+    <testCase name="upload action doesn&apos;t allows files to be dropped according to the accepted file types" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Wrapper/InputWrapper/InputWrapper.test.tsx">
+    <testCase name="InputWrapper should render renders without crashing" duration="17"/>
+    <testCase name="InputWrapper should render has helpertext" duration="4"/>
+    <testCase name="InputWrapper should render is described by the helpertext" duration="3"/>
+    <testCase name="InputWrapper should render disabled input" duration="6"/>
+    <testCase name="InputWrapper should render consume wrapper props classname" duration="3"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+    <testCase name="InputWrapper should be interactive executes the eventlisteners" duration="36"/>
+    <testCase name="InputWrapper should support prefix and suffix renders prefix and sufix when input has focus" duration="18"/>
+    <testCase name="InputWrapper should support prefix and suffix renders prefix and sufix when input has value" duration="21"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Textarea/Textarea.test.tsx">
+    <testCase name="Textarea should render renders without crashing" duration="18"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+    <testCase name="Textarea properties is disabled" duration="4"/>
+    <testCase name="Textarea properties has 20 columns" duration="4"/>
+    <testCase name="Textarea properties has autofocus" duration="8"/>
+    <testCase name="Textarea listeners executes the functions" duration="19"/>
+    <testCase name="Error status has error class, and an icon" duration="4"/>
+    <testCase name="Success status success icon should be visible" duration="6"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Tabs/Tabs.test.tsx">
+    <testCase name="Tabs should render renders without crashing" duration="18"/>
+    <testCase name="Tabs should render renders with properties passed" duration="4"/>
+    <testCase name="Tabs should render switches to tab and tabpanel when selected property is changed" duration="4"/>
+    <testCase name="Tabs should render switches to tab and tabpanel when tab is clicked" duration="19"/>
+    <testCase name="Tabs should render triggers the onTabChange when switching tabs" duration="13"/>
+    <testCase name="Tabs should not render other children then tab components renders no tabs" duration="1"/>
+    <testCase name="Tabs should comply with accessibility rules traverse through tabs with keyboard" duration="59"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/FileUpload/FileItem/FileItem.test.tsx">
+    <testCase name="component should render renders without crashing" duration="9"/>
+    <testCase name="component should change display the correct style and elements according to the status should show the correct details for completed" duration="2"/>
+    <testCase name="component should change display the correct style and elements according to the status should show the correct details for uploading" duration="2"/>
+    <testCase name="component should change display the correct style and elements according to the status should show the correct details for readonly" duration="2"/>
+    <testCase name="component should change display the correct style and elements according to the status should show the correct details for error" duration="2"/>
+    <testCase name="component should change display the correct style and elements according to the status should show the correct details for retry" duration="2"/>
+    <testCase name="component should transmit the correct message upwards when a file action icon is clicked should call retry action" duration="16"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Wizard/BaseWizardSteps/BaseWizardSteps.test.tsx">
+    <testCase name="BaseWizardSteps renders without crashing" duration="55"/>
+    <testCase name="BaseWizardSteps should allow to click on future and prev steps but not on current and disabled steps when futureStepsClickable is enabled" duration="40"/>
+    <testCase name="BaseWizardSteps should not render checkmark or number when prev steps is disabled" duration="8"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/DataGrid/DataGridHeader/DataGridHeaderCell.test.tsx">
+    <testCase name="DataGridHeaderCell should render renders without crashing" duration="13"/>
+    <testCase name="DataGridHeaderCell should render renders without sorting indicators (icons)" duration="2"/>
+    <testCase name="DataGridHeaderCell should render renders DESC and ASC sorting indicators (icons) when sorting is enabled and current sorting is not defined" duration="2"/>
+    <testCase name="DataGridHeaderCell should render renders ASC sorting indicator (icon) when sorting is enabled and current sorting is ASC" duration="2"/>
+    <testCase name="renders DESC sorting indicator (icon) when sorting is enabled and current sorting is DESC" duration="2"/>
+    <testCase name="DataGridHeaderCell should be interactive clicking on cell calls onSort callback" duration="18"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Wizard/WizardSteps/WizardSteps.test.tsx">
+    <testCase name="WizardSteps renders without crashing" duration="58"/>
+    <testCase name="WizardSteps should allow to click on future and prev steps but not on current and disabled steps when mode is set to `edit`" duration="32"/>
+    <testCase name="WizardSteps should do not change step when `onStepClick` callback returns false" duration="16"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/TextEllipsis/TextEllipsis.test.tsx">
+    <testCase name="TextEllipsis should render renders without crashing" duration="10"/>
+    <testCase name="TextEllipsis should render does not show popover when full text is visible" duration="13"/>
+    <testCase name="TextEllipsis should render shows popover with full text when base text has ellipsis" duration="16"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Wrapper/RadioWrapper/RadioWrapper.test.tsx">
+    <testCase name="RadioWrapper should render renders without crashing" duration="18"/>
+    <testCase name="RadioWrapper should render has option 1 properly linked with aria-describedby to its helpertext" duration="9"/>
+    <testCase name="RadioWrapper should render has all option&apos;s aria-describedby linked with the error message ID" duration="5"/>
+    <testCase name="RadioWrapper selection has option 2 selected, the rest is unselected" duration="4"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/Dialog/Dialog.test.tsx">
+    <testCase name="Dialog renders without crashing" duration="25"/>
+    <testCase name="Dialog renders action aligned to right" duration="7"/>
+    <testCase name="Dialog renders only one button" duration="6"/>
+    <testCase name="Dialog should handle clicking on buttons and ENTER press" duration="43"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Button/BaseButton.test.tsx">
+    <testCase name="BaseButton should render renders without crashing" duration="8"/>
+    <testCase name="On click handler executes the onclick handler" duration="15"/>
+    <testCase name="Properties of the button should be disabled, function should not have been called" duration="11"/>
+    <testCase name="Properties of the button when loading onClick function should not have been called" duration="12"/>
+    <testCase name="Properties of the button should have the class &quot;TESTING&quot;" duration="2"/>
+    <testCase name="Properties of the button should have a &quot;name&quot; property with the value &quot;button&quot;" duration="2"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Fieldset/Fieldset.test.tsx">
+    <testCase name="Fieldset should render renders without crashing" duration="13"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="4"/>
+    <testCase name="Fieldset should get proper attributes and classes has no padding class" duration="2"/>
+    <testCase name="Fieldset should get proper attributes and classes has no background styling" duration="2"/>
+    <testCase name="Fieldset should get proper attributes and classes has a correct legend and title &lt;span&gt; element" duration="4"/>
+    <testCase name="Fieldset should get proper attributes and classes renders its children correctly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useBodyClick.test.tsx">
+    <testCase name="function should be executed should execute" duration="37"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/Snackbar/SnackbarItem/SnackbarItem.test.tsx">
+    <testCase name="SnackbarItem renders without crashing" duration="15"/>
+    <testCase name="SnackbarItem clicking close button call callback function" duration="24"/>
+    <testCase name="SnackbarItem call close callback after provided duration" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useRepeater.test.tsx">
+    <testCase name="useRepeater should render renders without crashing and repeats 1 item" duration="15"/>
+    <testCase name="useRepeater should render should repeat 2 items" duration="4"/>
+    <testCase name="useRepeater should render should repeat 3 items and remove the first index" duration="26"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Radio/Radio.test.tsx">
+    <testCase name="Radio should render renders without crashing and has proper attributes/values" duration="12"/>
+    <testCase name="Radio should render it is checked" duration="3"/>
+    <testCase name="Radio should render it is disabled" duration="2"/>
+    <testCase name="Radio should render has the correct describedby value when theres no error" duration="5"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+    <testCase name="Radio should be interactive should call onChange when clicked" duration="17"/>
+    <testCase name="Radio should be interactive should not call onChange when disabled" duration="12"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.test.tsx">
+    <testCase name="BaseModalHeader renders without crashing" duration="29"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/BaseModal/BaseModal.test.tsx">
+    <testCase name="BaseModal renders without crashing" duration="19"/>
+    <testCase name="BaseModal should render closed modal without content" duration="2"/>
+    <testCase name="BaseModal should render closed modal with content when forceContainerOpen is provided" duration="2"/>
+    <testCase name="BaseModal propagates containerProps to container element" duration="2"/>
+    <testCase name="BaseModal propagates backdropProps to backdrop element" duration="3"/>
+    <testCase name="BaseModal should handle clicking on backdrop &amp; ESC key" duration="17"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/DataGrid/DataGridActions/DataGridColumnsToggle.test.tsx">
+    <testCase name="DataGridColumnsToggle should render renders without crashing" duration="21"/>
+    <testCase name="DataGridColumnsToggle should be interactive clicking on close calls onClose callback" duration="23"/>
+    <testCase name="DataGridColumnsToggle should be interactive clicking outside of container (on backdrop layer) calls onClose callback" duration="14"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Skeleton/Skeleton.test.tsx">
+    <testCase name="Skeleton should render renders without crashing" duration="9"/>
+    <testCase name="Skeleton should render renders with properties passed" duration="1"/>
+    <testCase name="Skeleton should render renders text variant with width and height" duration="3"/>
+    <testCase name="Skeleton should render renders rectangle variant" duration="2"/>
+    <testCase name="Skeleton should render renders circular variant" duration="1"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Select/Option.test.tsx">
+    <testCase name="Option should render renders without crashing" duration="9"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Wrapper/CheckboxWrapper/CheckboxWrapper.test.tsx">
+    <testCase name="checkboxwrapper should render renders without crashing" duration="18"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+    <testCase name="CheckboxWrapper should have an error should have an error and the children checkboxes should have aria-describedby of the error message of the group." duration="5"/>
+    <testCase name="Parent checkbox attributes is indeterminate, label is set" duration="8"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Form.test.tsx">
+    <testCase name="Form should render renders without crashing" duration="3"/>
+    <testCase name="Event should fire should fire the onSubmitHandler function" duration="20"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/Snackbar/SnackbarContainer/SnackbarContainer.test.tsx">
+    <testCase name="SnackbarContainer should render renders without crashing" duration="13"/>
+    <testCase name="SnackbarContainer should render renders with zIndex" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Tiles/Tiles.test.tsx">
+    <testCase name="Tiles should render renders without crashing" duration="25"/>
+    <testCase name="loading state should be handled properly is loading" duration="2"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="5"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/FormSelectorWrapper/FormSelectorWrapper.test.tsx">
+    <testCase name="FormSelectorWrapper should render renders without crashing" duration="8"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Link/Link.test.tsx">
+    <testCase name="Link should render renders without crashing" duration="8"/>
+    <testCase name="Link should render is an external link with the right attributes" duration="1"/>
+    <testCase name="Link should render is an internal link with the right attributes" duration="5"/>
+    <testCase name="Link should render is a download link with the right attributes" duration="1"/>
+    <testCase name="Link should render should set the correct target" duration="1"/>
+    <testCase name="Link should render should accept this React Router Link prop and render as such" duration="4"/>
+    <testCase name="Link should render should be disabled" duration="3"/>
+    <testCase name="Link should render should have a className added" duration="2"/>
+    <testCase name="Link should render should render as a filled button " duration="1"/>
+    <testCase name="Link should render should render as a text button " duration="2"/>
+    <testCase name="Link should render should render as an outline button " duration="1"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="1"/>
+    <testCase name="colors should be color primary" duration="1"/>
+    <testCase name="colors should be color secondary" duration="1"/>
+    <testCase name="colors should be color tertiary" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useDebouncedCallback.test.ts">
+    <testCase name="Testing the useDebouncedCallback hook should run callback after specified delay" duration="1011"/>
+    <testCase name="Testing the useDebouncedCallback hook should pass args through to callback function" duration="503"/>
+    <testCase name="Testing the useDebouncedCallback hook should cancel pending call if fn is called again" duration="654"/>
+    <testCase name="Testing the useDebouncedCallback hook should cancel pending call if callback changes" duration="655"/>
+    <testCase name="Testing the useDebouncedCallback hook should cancel pending call if delay changes" duration="954"/>
+    <testCase name="Testing the useDebouncedCallback hook should cancel pending call if dependencies change" duration="654"/>
+    <testCase name="Testing the useDebouncedCallback hook should support async callbacks" duration="502"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useAnimation.test.tsx">
+    <testCase name="useAnimation should execute" duration="27"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Popover/Popover.test.tsx">
+    <testCase name="Popover should render renders without crashing and has default left and top attributes" duration="15"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Button/Button.test.tsx">
+    <testCase name="Button should render renders without crashing" duration="8"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+    <testCase name="Button should render renders without crashing" duration="1"/>
+    <testCase name="Different variants of the button should have a class of &quot;primary&quot;" duration="2"/>
+    <testCase name="Different variants of the button should have a class of &quot;secondary&quot;" duration="2"/>
+    <testCase name="Different variants of the button should have a class of &quot;tertiary&quot;" duration="5"/>
+    <testCase name="Different variants of the button should have a class of &quot;fill&quot;" duration="1"/>
+    <testCase name="Different variants of the button should have a class of &quot;outline&quot;" duration="2"/>
+    <testCase name="Different variants of the button should have a class of &quot;text&quot;" duration="2"/>
+    <testCase name="Button contains an icon Contains an icon at the start" duration="2"/>
+    <testCase name="Button contains an icon Contains an icon at the end" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/StatusIndicator/StatusIndicator.test.tsx">
+    <testCase name="StatusIndicator should render renders without crashing" duration="9"/>
+    <testCase name="StatusIndicator should render passes through custom typography props" duration="3"/>
+    <testCase name="StatusIndicator should render passes through custom props" duration="1"/>
+    <testCase name="StatusIndicator should render should set &quot;active&quot; class on status badge" duration="1"/>
+    <testCase name="StatusIndicator should render should set &quot;error&quot; class on status badge" duration="2"/>
+    <testCase name="StatusIndicator should render should set &quot;neutral&quot; class on status badge" duration="1"/>
+    <testCase name="StatusIndicator should render should pass &quot;warning&quot; class to status badge" duration="1"/>
+    <testCase name="StatusIndicator should render should pass custom class to status badge" duration="1"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/FormHelperText/FormHelperText.test.tsx">
+    <testCase name="FormHelperText should render renders without crashing" duration="13"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+    <testCase name="Attributes contains the error class" duration="13"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Typography/Typography.test.tsx">
+    <testCase name="Typography should render renders without crashing" duration="9"/>
+    <testCase name="Should give the correct default tags and corresponding classnames renders an h1" duration="2"/>
+    <testCase name="Should give the correct default tags and corresponding classnames renders an h2" duration="5"/>
+    <testCase name="Should give the correct default tags and corresponding classnames renders an h3" duration="0"/>
+    <testCase name="Should give the correct default tags and corresponding classnames renders an h4" duration="1"/>
+    <testCase name="Should give the correct default tags and corresponding classnames renders a p" duration="1"/>
+    <testCase name="Should give the correct default tags and corresponding classnames renders a p" duration="2"/>
+    <testCase name="Should give the correct default tags and corresponding classnames renders a span" duration="1"/>
+    <testCase name="Should give the correct default tags and corresponding classnames renders a code" duration="1"/>
+    <testCase name="Should override tagname has to be a DIV element" duration="1"/>
+    <testCase name="Should override styling renders h1 with overwritten margin properties" duration="3"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Button/IconButton.test.tsx">
+    <testCase name="IconButton should render renders without crashing" duration="9"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+    <testCase name="Different variants of the button should have a class of &quot;primary&quot;" duration="6"/>
+    <testCase name="Different variants of the button should have a class of &quot;secondary&quot;" duration="1"/>
+    <testCase name="Different variants of the button should have a class of &quot;tertiary&quot;" duration="1"/>
+    <testCase name="Different variants of the button should have a class of &quot;fill&quot;" duration="1"/>
+    <testCase name="Different variants of the button should have a class of &quot;outline&quot;" duration="1"/>
+    <testCase name="Different variants of the button should have a class of &quot;text&quot;" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.test.tsx">
+    <testCase name="BaseModalActions renders without crashing" duration="7"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Wrapper/Wrapper/Wrapper.test.tsx">
+    <testCase name="Wrapper should render renders without crashing" duration="10"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/SlideInModal/SlideInModal.test.tsx">
+    <testCase name="SlideInModal should render renders without crashing" duration="10"/>
+    <testCase name="SlideInModal should render makes modal content&apos;s container visible after opening transition ends" duration="8"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useUploadFile.test.ts">
+    <testCase name="it should perform upload should register the correct progress" duration="11"/>
+    <testCase name="it should perform upload should contain a file with status of retry" duration="4"/>
+    <testCase name="it should perform upload should contain a file with status of error" duration="4"/>
+    <testCase name="it should perform upload should contain a file with status of server error" duration="3"/>
+    <testCase name="it should perform upload should contain a file with status of success" duration="3"/>
+    <testCase name="should return data according to the parameters should call custom callbacks" duration="5"/>
+    <testCase name="should return data according to the parameters should add the correct error message" duration="4"/>
+    <testCase name="useFileUpload hook should not fire when url and array of files is not present should return an empty array if url is empty" duration="1"/>
+    <testCase name="useFileUpload hook should not fire when url and array of files is not present should return an empty array if url is empty" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Tabs/TabButton.test.tsx">
+    <testCase name="Tab should render renders without crashing" duration="10"/>
+    <testCase name="Tab should render should be focussed when prop focused is passed" duration="2"/>
+    <testCase name="Tab should render should set class when prop className is passed" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/DataGrid/DataGridBody/DataGridRow.test.tsx">
+    <testCase name="DataGridRow should render renders without crashing" duration="19"/>
+    <testCase name="DataGridRow should render renders with additional class" duration="3"/>
+    <testCase name="DataGridRow should render renders loading state" duration="1"/>
+    <testCase name="DataGridRow should render renders only visible columns" duration="5"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useDetermineStatusIcon.test.ts">
+    <testCase name="it should return the correct icon should return an icon of type success" duration="7"/>
+    <testCase name="it should return the correct icon should return an icon of type error" duration="1"/>
+    <testCase name="it should return the correct icon should return null" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/FormControl/FormControl.test.tsx">
+    <testCase name="FormControl should render renders without crashing" duration="12"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+    <testCase name="FormControl attributes should be working correctly has the right classes and attributes" duration="2"/>
+    <testCase name="FormControl children should render properly renders children" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/DataGrid/DataGridBody/DataGridCell.test.tsx">
+    <testCase name="DataGridCell should render renders without crashing" duration="12"/>
+    <testCase name="DataGridCell should render renders with additional class" duration="2"/>
+    <testCase name="DataGridCell should render renders loading state" duration="2"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useScroll.test.tsx">
+    <testCase name="function should be executed should execute" duration="9"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/Dialog/DialogActions/DialogActions.test.tsx">
+    <testCase name="DialogActions renders without crashing" duration="9"/>
+    <testCase name="DialogActions should align items to left" duration="1"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useFormSelector.test.ts">
+    <testCase name="we should get the correct return values and describedBy is the same as identifier should return correct values" duration="7"/>
+    <testCase name="describedBy should be the parenterrorid should be linked correctly" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/ProgressBar/ProgressBar.test.tsx">
+    <testCase name="ProgressBar should render renders without crashing" duration="10"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+    <testCase name="ProgressBar should change styles depending on props should show a progress when &apos;completed&apos; prop is provided" duration="2"/>
+    <testCase name="ProgressBar should change styles depending on props should show a loading effect when &apos;completed&apos; prop is not provided" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/Dialog/DialogTitle/DialogTitle.test.tsx">
+    <testCase name="DialogTitle renders without crashing" duration="11"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Tabs/Tab.test.tsx">
+    <testCase name="Tab should render renders without crashing" duration="8"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Icon/Icon.test.tsx">
+    <testCase name="Icon renders without crashing" duration="10"/>
+    <testCase name="Icon should render icon with within div tag" duration="1"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/_BaseStyling_/BaseStyling.test.tsx">
+    <testCase name="BaseStyling should render renders without crashing" duration="17"/>
+    <testCase name="Should override default color overrides primary color" duration="5"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/FormGroup/FormGroup.test.tsx">
+    <testCase name="FormSelectorGroup should render renders without crashing" duration="9"/>
+    <testCase name="FormSelectorGroup should render has the correct values and attributes" duration="2"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+    <testCase name="Correct error state has the correct state" duration="2"/>
+    <testCase name="no helpertext, but errorMessage is defined doesn&apos;t show the div with &apos;default-helper&apos; class when there&apos;s no error and no helpertext defined" duration="1"/>
+    <testCase name="no helpertext, but errorMessage is defined does show the div with &apos;default-helper&apos; class when there&apos;s an error and no helpertext defined" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/Banner/Banner.test.tsx">
+    <testCase name="Banner should render renders without crashing" duration="10"/>
+    <testCase name="Banner should render renders ariaLabel correctly" duration="2"/>
+    <testCase name="Banner should render renders ariaLive correctly" duration="2"/>
+    <testCase name="Banner should render renders ariaRole correctly" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Label/Label.test.tsx">
+    <testCase name="Label should render renders without crashing" duration="8"/>
+    <testCase name="Label should render adds htmlFor attribute" duration="7"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Form/Toggle/Toggle.test.tsx">
+    <testCase name="Toggle should render renders without crashing" duration="12"/>
+    <testCase name="Toggle attributes should be checked" duration="4"/>
+    <testCase name="ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="3"/>
+    <testCase name="helperProps should be properly propagated down renders an anchor tag as helper" duration="3"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useWrapper.test.ts">
+    <testCase name="it should give the correct results based on no value, no placeholder and default text input should execute correctly" duration="8"/>
+    <testCase name="it should have floating label active because of the value should have active floating label state" duration="2"/>
+    <testCase name="it should have floating label active because of the value should have floating label active because input type is datetime-local" duration="1"/>
+    <testCase name="it should have floating label active because of the value should have floating label active because of placeholder" duration="1"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Breadcrumbs/Breadcrumbs.test.tsx">
+    <testCase name="Breadcrumbs should render renders without crashing" duration="11"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/hooks/useSpacing.test.ts">
+    <testCase name="useSpacing should set propert padding and margin css properties should set padding and margin for 4 values definition" duration="1"/>
+    <testCase name="useSpacing should set propert padding and margin css properties should set padding and margin for 3 values definition" duration="1"/>
+    <testCase name="useSpacing should set propert padding and margin css properties should set padding and margin for 2 values definition" duration="0"/>
+    <testCase name="useSpacing should set propert padding and margin css properties should set padding and margin for 1 value definition" duration="0"/>
+    <testCase name="useSpacing should set propert padding and margin css properties should set paddingLeft, paddingRight, paddingTop, paddingBottom, marginLeft, marginRight, marginTop, marginBottom css values when all provided" duration="4"/>
+    <testCase name="useSpacing should add/repalce properties in passed style object should add properties to style object" duration="0"/>
+    <testCase name="useSpacing should add/repalce properties in passed style object should add and replace properties to style object" duration="0"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/Modal/Modal.test.tsx">
+    <testCase name="Modal renders without crashing" duration="5"/>
+  </file>
+  <file path="/Users/daniel/workspace/onewelcome/react-lib-components/src/components/Notifications/BaseModal/BaseModalContent/BaseModalContent.test.tsx">
+    <testCase name="BaseModalContent renders without crashing" duration="10"/>
+    <testCase name="BaseModalContent ref should work should give back the proper data prop, this also checks if the component propagates ...rest properly" duration="2"/>
+    <testCase name="BaseModalContent should renders not focused div" duration="1"/>
+  </file>
+</testExecutions>

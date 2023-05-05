@@ -22,12 +22,11 @@
 import React, { HTMLAttributes, ReactChild, useEffect, useRef, useState } from "react";
 
 interface CSSProperties {
+  colorBlack10?: string;
   colorFocus?: string;
   colorPrimary?: string;
   colorSecondary?: string;
   colorTertiary?: string;
-  lightPink?: string;
-  vividViolet?: string;
   colorPrimary300?: string;
   colorPrimary500?: string;
   colorPrimary600?: string;
@@ -37,6 +36,7 @@ interface CSSProperties {
   colorBlueGrey200?: string;
   colorBlueGrey400?: string;
   colorBlueGrey25?: string;
+  colorBlueGrey25Transparent?: string;
   colorBlueGrey50?: string;
   colorBlueGrey500?: string;
   colorBlueGrey700?: string;
@@ -46,6 +46,7 @@ interface CSSProperties {
   colorLightBlue600?: string;
   colorOrange500?: string;
   colorRed500?: string;
+  colorWhite?: string;
   defaultLineHeight?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
@@ -92,7 +93,6 @@ interface CSSProperties {
   lightGreyBorder?: string;
   warning?: string;
   light?: string;
-  grey?: string;
   fontFamily?: string;
   fontFamilyCode?: string;
   fontSize?: string;
@@ -111,12 +111,14 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
+    colorBlack10: "#0000001a",
     colorPrimary300: "#6871BF",
     colorPrimary500: "#041295",
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
     colorBlueGrey25: "#F7F7F9",
+    colorBlueGrey25Transparent: "#F7F7F980",
     colorBlueGrey50: "#EEEFF3",
     colorBlueGrey100: "#DEDEE6",
     colorBlueGrey200: "#BCBECE",
@@ -129,12 +131,11 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorLightBlue600: "#0096B1",
     colorOrange500: "#E07900",
     colorRed500: "#E01E00",
+    colorWhite: "#FFFFFF",
     colorFocus: "var(--color-primary300)",
     colorPrimary: "var(--color-primary500)",
     colorSecondary: "var(--color-blue-grey700)",
     colorTertiary: "var(--color-light-blue600)",
-    lightPink: "rgba(158,0,107, .1)",
-    vividViolet: "#9E006B",
     defaultLineHeight: "1.5",
     buttonBorderRadius: "2px",
     buttonBorderWidth: "2px",
@@ -148,8 +149,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderWidthFocus: "2px",
     inputBorderStyle: "solid",
     inputBackgroundColor: "var(--light)",
-    dragBackgroundColor: "rgba(19, 19, 25, .1)",
-    dragBorderStyle: "dashed",
+    dragBackgroundColor: "var(--color-blue-grey25-transparent)",
+    dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--color-blue-grey25)",
     modalHeaderBackgroundColor: "var(--light)",
@@ -180,8 +181,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     greyedOut: "var(--color-blue-grey500)",
     lightGreyBorder: "var(--color-blue-grey100)",
     warning: "var(--color-orange500)",
-    light: "#FFF",
-    grey: "#c3c3c7",
+    light: "var(--color-white)",
     fontFamily: "Roboto, sans-serif",
     fontFamilyCode: "'Roboto Mono', monospace",
     fontSize: "1rem",
