@@ -129,7 +129,7 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     if (disabled) {
       return;
     }
-    onChange && onChange(event);
+    onChange?.(event);
   };
 
   const renderToggle = () => React.Children.toArray(children).filter(isToggle);

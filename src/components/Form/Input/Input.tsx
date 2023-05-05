@@ -115,11 +115,11 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         ref={ref}
         onFocus={event => {
           setFocus(true);
-          onFocus && onFocus(event);
+          onFocus?.(event);
         }}
         onBlur={event => {
           setFocus(false);
-          onBlur && onBlur(event);
+          onBlur?.(event);
         }}
         aria-labelledby={labeledBy}
         type={type}
