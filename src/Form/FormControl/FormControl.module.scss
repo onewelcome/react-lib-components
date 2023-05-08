@@ -15,6 +15,7 @@
  */
 
 .form-control {
+  font-size: var(--form-control-font-size);
   + .form-control {
     margin-top: 1rem;
   }

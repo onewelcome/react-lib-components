@@ -52,14 +52,9 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }: Props,
   ref
 ) => {
-  const { errorId, isInputActive, hasFocus, setHasFocus, helperId, labelId } = useWrapper(
-    value,
-    inputProps?.placeholder,
-    type
-  );
+  const { errorId, hasFocus, setHasFocus, helperId, labelId } = useWrapper();
   const { prefix, suffix } = inputProps || {};
   const input = useRef<HTMLInputElement>(null);
-  const hasValueOrActiveFloatingLabel = !!value || isInputActive;
   const labelClasses = [classes["input-label"]];
   hasFocus && labelClasses.push(classes["focus"]);
 
@@ -90,8 +85,8 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     >
       <Input
         {...inputProps}
-        prefix={hasValueOrActiveFloatingLabel ? prefix : ""}
-        suffix={hasValueOrActiveFloatingLabel ? suffix : ""}
+        prefix={prefix}
+        suffix={suffix}
         wrapperProps={{
           className: inputWrapperClasses.join(" ")
         }}
