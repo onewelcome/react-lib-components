@@ -42,13 +42,13 @@
 }
 
 .textarea {
-  padding: variables.$form-element-horizontal-padding-mobile 0.856rem;
+  padding: variables.$form-element-horizontal-padding-mobile 0.856em;
   box-sizing: border-box;
   border: 0;
   border-radius: var(--input-border-radius);
   @include mixins.transition(all, 0.2s, ease-in-out);
   font-family: var(--font-family);
-  font-size: var(--font-size);
+  font-size: var(--form-control-font-size);
   color: var(--greyed-out);
   width: 100%;
   vertical-align: top;
