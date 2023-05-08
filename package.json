@@ -4,9 +4,9 @@
   "version": "0.0.0-dev",
   "license": "Apache-2.0",
   "author": "OneWelcome B.V.",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/cjs/src/index.cjs.js",
+  "module": "dist/esm/src/index.js",
+  "typings": "dist/cjs/index.d.ts",
   "files": [
     "dist",
     "src"
@@ -55,9 +55,7 @@
     "@mdx-js/react": "^2.3.0",
     "@onewelcome/eslint-config-shared-codestyle": "^9.0.3",
     "@rollup/plugin-commonjs": "^24.1.0",
-    "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
-    "@rollup/plugin-typescript": "^11.1.0",
     "@size-limit/preset-small-lib": "^8.2.4",
     "@storybook/addon-a11y": "^7.0.7",
     "@storybook/addon-docs": "^7.0.7",
@@ -112,7 +110,10 @@
     "react-router": "^6.11.0",
     "react-router-dom": "^6.11.0",
     "remark-gfm": "^3.0.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.62.1",
     "sass-loader": "^13.2.2",
     "size-limit": "^8.2.4",
@@ -120,9 +121,5 @@
     "style-loader": "^3.3.2",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
-  },
-  "dependencies": {
-    "rollup-plugin-styles": "^4.0.0",
-    "tslib": "^2.5.0"
   }
 }

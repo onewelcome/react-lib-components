@@ -14,31 +14,39 @@
  *    limitations under the License.
  */
 
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import typescript from "@rollup/plugin-typescript";
-import postCssUrl from "postcss-url";
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import typescript from "rollup-plugin-typescript2";
 import styles from "rollup-plugin-styles";
+import postCssUrl from "postcss-url";
 import { terser } from "rollup-plugin-terser";
-import json from "@rollup/plugin-json";
-
-const STATIC_CSP_NONCE = "DsPHCoJqXm4vKCqFrm03y1";
+import commonjs from "@rollup/plugin-commonjs";
+import nodeResolve from "@rollup/plugin-node-resolve";
 
 export default {
   input: "src/index.ts",
   output: [
     {
-      dir: "dist",
+      dir: "dist/esm",
       format: "esm",
-      preserveModules: true,
-      preserveModulesRoot: "src",
       sourcemap: true,
+      preserveModules: true,
+      preserveModulesRoot: "src/components",
+      exports: "named"
+    },
+    {
+      dir: "dist/cjs",
+      format: "cjs",
+      sourcemap: true,
+      preserveModules: true,
+      preserveModulesRoot: "src/components",
+      entryFileNames: "[name].cjs.js",
       exports: "named"
     }
   ],
   plugins: [
+    peerDepsExternal(),
     styles({
-      mode: ["inject", { attributes: { nonce: STATIC_CSP_NONCE } }],
+      mode: ["inject"],
       modules: true,
       minimize: { preset: ["default", { discardComments: { removeAll: true } }] },
       plugins: [
@@ -49,36 +57,28 @@ export default {
         })
       ]
     }),
-    typescript(),
-    commonjs(),
-    resolve({ extensions: [".js", ".ts", ".tsx"] }),
-    terser(),
-    json(),
     {
       name: "Replace node_modules with dependency",
       // https://github.com/egoist/rollup-plugin-postcss/issues/381#issuecomment-862359662
       generateBundle: (options, bundle) => {
         Object.entries(bundle).forEach(entry => {
-          // Replace the node_modules/inject-css reference with the inject-css package dependency.
+          // Replace the node_modules/style-inject reference with the style-inject package dependency.
           if (entry[0].match(/.*(.scss.js)$/)) {
             bundle[entry[0]].code = entry[1].code.replace(
-              /(\.\.\/|\.\/){1,5}node_modules\/rollup-plugin-styles\/dist\/runtime\/inject-css.js/,
-              "rollup-plugin-styles/dist/runtime/inject-css"
-            );
-            return;
-          }
-
-          if (entry[0].match(/.*(.js)$/)) {
-            // Replace the node_modules/tslib reference with the tslib package dependency.
-            bundle[entry[0]].code = entry[1].code.replace(
-              /(\.\.\/|\.\/){1,5}node_modules\/tslib\/tslib.es6.js/,
-              "tslib"
+              /import\s?(\w+)?\s?from\s?["'](\.\.\/|\.\/){1,5}node_modules\/rollup-plugin-styles\/dist\/runtime\/inject-css.js["'];?/,
+              'var containers=[],styleTags=[];const $1 = function(e,t){if(e&&"undefined"!=typeof document){var n,s=!0===t.prepend?"prepend":"append",r=!0===t.singleTag,a="string"==typeof t.container?document.querySelector(t.container):document.getElementsByTagName("head")[0];if(r){var i=containers.indexOf(a);-1===i&&(i=containers.push(a)-1,styleTags[i]={}),n=styleTags[i]&&styleTags[i][s]?styleTags[i][s]:styleTags[i][s]=c()}else n=c();65279===e.charCodeAt(0)&&(e=e.substring(1)),n.styleSheet?n.styleSheet.cssText+=e:n.appendChild(document.createTextNode(e))}function c(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),t.attributes)for(var n=Object.keys(t.attributes),r=0;r<n.length;r++)e.setAttribute(n[r],t.attributes[n[r]]);var i="prepend"===s?"afterbegin":"beforeend";return a.insertAdjacentElement(i,e),e}};'
             );
             return;
           }
         });
       }
-    }
+    },
+    nodeResolve(),
+    commonjs(),
+    typescript({
+      tsconfig: "./tsconfig.json"
+    }),
+    terser()
   ],
   external: ["react", "react-dom"]
 };
