@@ -82,14 +82,11 @@ export var PanelContent = function PanelContent(_ref) {
     }
     return value;
   };
-  var startsWithColorPrefix = function startsWithColorPrefix(value) {
-    var prefixes = ["#", "rgb", "hsla"];
-    return prefixes.some(function (prefix) {
-      return value.startsWith(prefix);
-    });
-  };
   var isColor = function isColor(value) {
-    if (startsWithColorPrefix(value)) {
+    var rgbaRegex = new RegExp(/^(rgba?\()?((1?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*){2}(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])(,\s*(0?\.\d+|1(\.0+)?))?\)?$/);
+    var isTransparent = value === "transparent";
+    var isHexColor = value.startsWith("#");
+    if (rgbaRegex.test(value) || isTransparent || isHexColor) {
       return true;
     }
     if (/var\(--.+\)/.test(value)) {
@@ -109,16 +106,14 @@ export var PanelContent = function PanelContent(_ref) {
           key = _ref3[0],
           value = _ref3[1];
         var parsedValue = parseValue(value);
-        var rgbaRegex = new RegExp(/^(rgba?\()?((1?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*){2}(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])(,\s*(0?\.\d+|1(\.0+)?))?\)?$/);
-        var isTransparent = parsedValue === "transparent";
-        var isHexColor = parsedValue.startsWith("#");
+        var valueIsColor = isColor(parsedValue);
         return /*#__PURE__*/React.createElement("tr", {
           key: key
         }, /*#__PURE__*/React.createElement("td", null, key), /*#__PURE__*/React.createElement("td", {
           style: {
             textAlign: "left"
           }
-        }, /*#__PURE__*/React.createElement(PropertyValueLabel, null, key), isHexColor || isTransparent || rgbaRegex.test(parsedValue) ? /*#__PURE__*/React.createElement(ColorControl, {
+        }, /*#__PURE__*/React.createElement(PropertyValueLabel, null, key), valueIsColor ? /*#__PURE__*/React.createElement(ColorControl, {
           name: key,
           onChange: function onChange(value) {
             handlePropertyChange(key, value);

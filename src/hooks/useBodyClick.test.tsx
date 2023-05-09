@@ -46,8 +46,8 @@ describe("function should be executed", () => {
     const button1 = getByTestId("button1");
     const button2 = getByTestId("button2");
 
-    await await userEvent.click(button1);
-    await await userEvent.click(button2);
+    await userEvent.click(button1);
+    await userEvent.click(button2);
 
     expect(clickHandler).toHaveBeenCalledTimes(2);
     expect(validateFunction).toHaveBeenCalledTimes(2);

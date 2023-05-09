@@ -83,7 +83,7 @@ describe("Properties of the button", () => {
       onClick: onClickHandler
     }));
 
-    await await userEvent.click(baseButton);
+    await userEvent.click(baseButton);
     expect(onClickHandler).toHaveBeenCalledTimes(0);
   });
 

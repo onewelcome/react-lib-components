@@ -24,6 +24,7 @@ import { IconButton } from "../../src/components/Button/IconButton";
 import { Icon, Icons } from "../../src/components/Icon/Icon";
 import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
 import DataGridDocumentation from "./DataGrid.mdx";
+import { action } from "@storybook/addon-actions";
 
 export default {
   title: "DataGrid",
@@ -115,13 +116,13 @@ DefaultDataGrid.args = {
     { name: "name", direction: "ASC" },
     { name: "created", direction: "DESC" }
   ],
-  onSort: sort => console.warn(`Sort callback: ${sort}`),
+  onSort: sort => action(`Sort callback: ${sort}`),
   actions: {
     enableAddBtn: true,
     enableColumnsBtn: true,
     enableSearchBtn: true,
-    addBtnProps: { onClick: () => console.warn("add btn clicked") },
-    searchBtnProps: { onClick: () => console.warn("search btn clicked") }
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
   },
   disableContextMenuColumn: false,
   paginationProps: {
@@ -161,13 +162,13 @@ HideColumnDataGrid.args = {
     { name: "name", direction: "ASC" },
     { name: "created", direction: "DESC" }
   ],
-  onSort: sort => console.warn(`Sort callback: ${sort}`),
+  onSort: sort => action(`Sort callback: ${sort}`),
   actions: {
     enableAddBtn: true,
     enableColumnsBtn: true,
     enableSearchBtn: true,
-    addBtnProps: { onClick: () => console.warn("add btn clicked") },
-    searchBtnProps: { onClick: () => console.warn("search btn clicked") }
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
   },
   disableContextMenuColumn: false,
   paginationProps: {
@@ -208,13 +209,13 @@ DataGridIsLoading.args = {
     { name: "name", direction: "ASC" },
     { name: "created", direction: "DESC" }
   ],
-  onSort: sort => console.warn(`Sort callback: ${sort}`),
+  onSort: sort => action(`Sort callback: ${sort}`),
   actions: {
     enableAddBtn: true,
     enableColumnsBtn: true,
     enableSearchBtn: true,
-    addBtnProps: { onClick: () => console.warn("add btn clicked") },
-    searchBtnProps: { onClick: () => console.warn("search btn clicked") }
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
   },
   disableContextMenuColumn: false,
   paginationProps: {

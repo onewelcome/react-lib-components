@@ -121,10 +121,10 @@ describe("SnackbarProvider", () => {
   it("should stack 3 snackbars at one time", async () => {
     const { showSuccessSnackbarBtn } = renderSnackbarProvider();
 
-    await await userEvent.click(showSuccessSnackbarBtn);
-    await await userEvent.click(showSuccessSnackbarBtn);
-    await await userEvent.click(showSuccessSnackbarBtn);
-    await await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
 
     expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
   });
@@ -133,9 +133,9 @@ describe("SnackbarProvider", () => {
     const { showSuccessSnackbarBtn, showErrorSnackbarBtn, showInfoSnackbarBtn } =
       renderSnackbarProvider();
 
-    await await userEvent.click(showSuccessSnackbarBtn);
-    await await userEvent.click(showErrorSnackbarBtn);
-    await await userEvent.click(showInfoSnackbarBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showErrorSnackbarBtn);
+    await userEvent.click(showInfoSnackbarBtn);
 
     expect(getByText(document.body, new RegExp(successProps.title))).toBeDefined();
     expect(getByText(document.body, new RegExp(errorProps.title))).toBeDefined();
@@ -144,8 +144,8 @@ describe("SnackbarProvider", () => {
     const infoSnackbarActions = getAllByRole(document.body, "button", { name: /Contact/i });
     expect(infoSnackbarActions).toHaveLength(2);
 
-    await await userEvent.click(infoSnackbarActions[0]);
-    await await userEvent.click(infoSnackbarActions[1]);
+    await userEvent.click(infoSnackbarActions[0]);
+    await userEvent.click(infoSnackbarActions[1]);
 
     expect(infoProps.options.actions[0].onClick).toBeCalledTimes(1);
   });

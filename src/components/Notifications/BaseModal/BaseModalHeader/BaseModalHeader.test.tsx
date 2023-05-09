@@ -34,7 +34,7 @@ describe("BaseModalHeader", () => {
     const closeBtn = getByRole(container, "button");
     expect(initParams.onClose).toBeCalledTimes(0);
 
-    await await userEvent.click(closeBtn);
+    await userEvent.click(closeBtn);
 
     const dialogContentContainer = container.children[0];
     const titleContainer = getByText(container, initParams.title);

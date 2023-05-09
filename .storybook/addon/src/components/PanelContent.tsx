@@ -90,14 +90,14 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
     return value;
   };
 
-  const startsWithColorPrefix = (value: string) => {
-    const prefixes = ["#", "rgb", "hsla"];
-
-    return prefixes.some(prefix => value.startsWith(prefix));
-  };
-
   const isColor = (value: string): boolean => {
-    if (startsWithColorPrefix(value)) {
+    const rgbaRegex = new RegExp(
+      /^(rgba?\()?((1?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*){2}(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])(,\s*(0?\.\d+|1(\.0+)?))?\)?$/
+    );
+    const isTransparent = value === "transparent";
+    const isHexColor = value.startsWith("#");
+
+    if (rgbaRegex.test(value) || isTransparent || isHexColor) {
       return true;
     }
 
@@ -118,17 +118,15 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
     if (propertiesState && Object.entries(propertiesState)) {
       return Object.entries(propertiesState).map(([key, value]) => {
         const parsedValue = parseValue(value);
-        const rgbaRegex = new RegExp(
-          /^(rgba?\()?((1?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*){2}(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])(,\s*(0?\.\d+|1(\.0+)?))?\)?$/
-        );
-        const isTransparent = parsedValue === "transparent";
-        const isHexColor = parsedValue.startsWith("#");
+
+        const valueIsColor = isColor(parsedValue);
+
         return (
           <tr key={key}>
             <td>{key}</td>
             <td style={{ textAlign: "left" }}>
               <PropertyValueLabel>{key}</PropertyValueLabel>
-              {isHexColor || isTransparent || rgbaRegex.test(parsedValue) ? (
+              {valueIsColor ? (
                 <ColorControl
                   name={key}
                   onChange={value => {

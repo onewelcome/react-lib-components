@@ -25,7 +25,7 @@ interface PartialSelectProps extends Partial<SelectProps> {}
 export interface Props
   extends Omit<ComponentPropsWithRef<"div">, "onChange">,
     Omit<WrapperProps, "onChange" | "error"> {
-  children: ReactElement[] | string[] | number[];
+  children: ReactElement[] | ReactElement | number[];
   placeholder?: string;
   value: string;
   error?: boolean;

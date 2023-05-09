@@ -50,7 +50,7 @@ describe("useAnimation", () => {
 
     expect(animatedDiv).not.toHaveClass("animation-started");
     expect(callback).not.toBeCalled();
-    await await userEvent.click(startButton);
+    await userEvent.click(startButton);
 
     expect(animatedDiv).toHaveClass("animation-started");
     expect(callback).not.toBeCalled();

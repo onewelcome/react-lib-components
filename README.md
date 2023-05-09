@@ -5,8 +5,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=vulnerabilities&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=coverage&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
 
-This project provides React components built according to the OneWelcome design. It uses the [DTS tool](https://weiran-zsd.github.io/dts-cli/) for a consistent setup and configuration.
-
+This project provides React components built according to the OneWelcome design.
 We recommend visiting our [Storybook page](https://onewelcome.github.io/react-lib-components) to see the components in action.
 
 > Note: the package is publicly available [on npm](https://www.npmjs.com/package/@onewelcome/react-lib-components).
@@ -71,7 +70,7 @@ Calculates the real cost of your library using [size-limit](https://github.com/a
 
 ### Rollup
 
-[DTS](https://weiran-zsd.github.io/dts-cli/) uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
+We use [Rollup](https://rollupjs.org) as a bundler and generate multiple rollup configs for various module formats and build settings. We output both `CommonJS` and `Ecmascript Modules` format. Treeshaking is supported and will work if your application is setup correctly and is built for production.
 
 ### TypeScript
 

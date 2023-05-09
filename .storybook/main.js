@@ -26,7 +26,7 @@ module.exports = {
     "./addon/preset.js"
   ],
   webpackFinal: async (config, { configType }) => {
-    config.devtool = configType === "PRODUCTION" ? false : true;
+    config.devtool = configType === "PRODUCTION" ? false : "eval-source-map";
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
       loader: require.resolve("babel-loader"),
