@@ -88,12 +88,12 @@ describe("Different variants of the button", () => {
     expect(iconButton.classList.contains("secondary")).toBe(true);
   });
 
-  it('should have a class of "tertiary"', () => {
+  it('should have a class of "warning"', () => {
     const { iconButton } = createIconButton(defaultParams => ({
       ...defaultParams,
-      color: "tertiary"
+      color: "warning"
     }));
-    expect(iconButton.classList.contains("tertiary")).toBe(true);
+    expect(iconButton.classList.contains("warning")).toBe(true);
   });
 
   it('should have a class of "fill"', () => {
