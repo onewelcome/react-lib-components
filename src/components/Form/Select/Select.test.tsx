@@ -399,7 +399,7 @@ describe("search input", () => {
       button.focus();
     });
 
-    await userEvent.keyboard("{enter}");
+    await userEvent.keyboard("[space]");
 
     await waitFor(() => expect(button).toHaveAttribute("aria-expanded", "true"));
   });

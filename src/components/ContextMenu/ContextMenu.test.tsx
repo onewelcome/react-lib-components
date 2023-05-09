@@ -210,7 +210,7 @@ describe("accessibility controls", () => {
     const thirdContextMenuItem = getByTestId("contextmenuitem3");
 
     await userEvent.tab();
-    await userEvent.keyboard("{enter}");
+    await userEvent.keyboard("[space]");
 
     expect(trigger).toHaveAttribute("aria-expanded", "true");
 
@@ -234,7 +234,7 @@ describe("accessibility controls", () => {
     const thirdContextMenuItem = getByTestId("contextmenuitem3");
 
     await userEvent.tab();
-    await userEvent.keyboard("{enter}");
+    await userEvent.keyboard("[space]");
 
     expect(trigger).toHaveAttribute("aria-expanded", "true");
 
@@ -244,7 +244,7 @@ describe("accessibility controls", () => {
 
     expect(thirdContextMenuItem).toHaveFocus();
 
-    await userEvent.keyboard("{enter}");
+    await userEvent.keyboard("[space]");
 
     expect(onClick).toHaveBeenCalled();
   });
