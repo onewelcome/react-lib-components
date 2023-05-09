@@ -100,7 +100,7 @@ workflows:
     jobs:
       - onegini-build/npm-build:
           name: build
-          dependency_install_command: npm ci --ignore-script
+          dependency_install_command: npm ci
           <<: *dev-context
           <<: *filter-branches-tags
 
