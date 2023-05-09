@@ -31,6 +31,7 @@ export default {
       sourcemap: true,
       preserveModules: true,
       preserveModulesRoot: "src/components",
+      entryFileNames: "[name].esm.js",
       exports: "named"
     },
     {
