@@ -1,0 +1,258 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataGridBody should render renders without crashing 1`] = `
+[
+  <tr
+    class="row"
+  >
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        Paweł
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        Napieracz
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        12.12.1990
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        <div
+          class="context-menu"
+        >
+          <button
+            aria-controls="consent_menu_Paweł-menu"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="button  icon-button text default button-m"
+            id="consent_menu_Paweł"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="icon icon-ellipsis-alt "
+              data-icon="true"
+            />
+            <span
+              class="sr-only"
+            >
+              Actions for Paweł
+            </span>
+          </button>
+        </div>
+      </span>
+    </td>
+  </tr>,
+  <tr
+    class="row"
+  >
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        Michał
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        Górski
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        12.12.1994
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        <div
+          class="context-menu"
+        >
+          <button
+            aria-controls="consent_menu_Michał-menu"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="button  icon-button text default button-m"
+            id="consent_menu_Michał"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="icon icon-ellipsis-alt "
+              data-icon="true"
+            />
+            <span
+              class="sr-only"
+            >
+              Actions for Michał
+            </span>
+          </button>
+        </div>
+      </span>
+    </td>
+  </tr>,
+  <tr
+    class="row"
+  >
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        Daniel
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        Velden
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        12.12.199x
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        <div
+          class="context-menu"
+        >
+          <button
+            aria-controls="consent_menu_Daniel-menu"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="button  icon-button text default button-m"
+            id="consent_menu_Daniel"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="icon icon-ellipsis-alt "
+              data-icon="true"
+            />
+            <span
+              class="sr-only"
+            >
+              Actions for Daniel
+            </span>
+          </button>
+        </div>
+      </span>
+    </td>
+  </tr>,
+  <tr
+    class="row"
+  >
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        Jasha
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        Joachimsthal
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        12.12.198x
+      </span>
+    </td>
+    <td
+      class="cell "
+    >
+      <span
+        class="typography_style_body "
+      >
+        <div
+          class="context-menu"
+        >
+          <button
+            aria-controls="consent_menu_Jasha-menu"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="button  icon-button text default button-m"
+            id="consent_menu_Jasha"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="icon icon-ellipsis-alt "
+              data-icon="true"
+            />
+            <span
+              class="sr-only"
+            >
+              Actions for Jasha
+            </span>
+          </button>
+        </div>
+      </span>
+    </td>
+  </tr>,
+]
+`;
