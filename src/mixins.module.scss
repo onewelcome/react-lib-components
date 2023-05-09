@@ -23,111 +23,142 @@
     border-color: transparent;
     background-color: transparent;
   } @else if $variant == "fill" {
-    @if $type == "default" {
-      color: var(--button-fill-text-color);
-    } @else if $type == "icon" or $type == "link" {
-      &:not(#{$disabledSelector}) {
-        color: var(--button-fill-text-color);
-      }
-    }
     font-weight: 500;
+    &:not(#{$disabledSelector}) {
+      color: var(--button-fill-text-color);
+      @include buttonStyles(
+        var(--button-primary-default-color),
+        var(--button-primary-hover-color),
+        var(--button-primary-focused-color),
+        var(--button-primary-pressed-color),
+        "primary-fill",
+        $type
+      );
+    }
   } @else if $variant == "outline" {
     background-color: var(--white);
     font-weight: 500;
   }
 
-  &.primary:not(#{$disabledSelector}) {
-    @include buttonStyles(var(--color-primary), $variant, $type);
-  }
-  &.secondary:not(#{$disabledSelector}) {
-    @include buttonStyles(var(--color-secondary), $variant, $type);
-  }
-  &.tertiary:not(#{$disabledSelector}) {
-    @include buttonStyles(var(--color-tertiary), $variant, $type);
-  }
-  &.default:not(#{$disabledSelector}) {
-    @include buttonStyles(var(--default), $variant, $type);
-  }
-
-  @if $variant == "fill" {
-    &:hover:not(#{$disabledSelector}),
-    &:focus:not(#{$disabledSelector}),
-    &:active:not(#{$disabledSelector}) {
-      background-color: var(--button-fill-hover-background-color);
+  @if $variant != "fill" {
+    &.primary:not(#{$disabledSelector}) {
+      @include buttonStyles(
+        var(--button-primary-default-color),
+        var(--button-primary-hover-color),
+        var(--button-primary-focused-color),
+        var(--button-primary-pressed-color),
+        $variant,
+        $type
+      );
     }
-
-    &#{$disabledSelector} {
-      background-color: var(--disabled);
-      border-color: var(--disabled);
+    &.secondary:not(#{$disabledSelector}) {
+      @include buttonStyles(
+        var(--button-secondary-default-color),
+        var(--button-secondary-hover-color),
+        var(--button-secondary-focused-color),
+        var(--button-secondary-pressed-color),
+        $variant,
+        $type
+      );
     }
-  } @else if $variant == "outline" {
-    &:hover:not(#{$disabledSelector}),
-    &:focus:not(#{$disabledSelector}) {
-      color: var(--button-outline-hover-text-color);
+    &.warning:not(#{$disabledSelector}) {
+      @include buttonStyles(
+        var(--button-warning-default-color),
+        var(--button-warning-hover-color),
+        var(--button-warning-focused-color),
+        var(--button-warning-pressed-color),
+        $variant,
+        $type
+      );
     }
-
-    &#{$disabledSelector} {
-      border-color: var(--greyed-out);
-      background-color: transparent;
+    &.default:not(#{$disabledSelector}) {
+      @include buttonStyles(
+        var(--button-default-color),
+        var(--button-default-hover-color),
+        var(--button-default-focused-color),
+        var(--button-default-pressed-color),
+        $variant,
+        $type
+      );
+    }
+    &.danger:not(#{$disabledSelector}) {
+      @include buttonStyles(
+        var(--button-danger-default-color),
+        var(--button-danger-hover-color),
+        var(--button-danger-focused-color),
+        var(--button-danger-pressed-color),
+        $variant,
+        $type
+      );
     }
   }
 }
 
-@mixin buttonStyles($color, $variant: "text", $type: "default") {
+@mixin buttonStyles(
+  $defaultColor: "transparent",
+  $hoverColor: "transparent",
+  $focusedColor: "transparent",
+  $pressedColor: "transparent",
+  $variant: "text",
+  $type: "default"
+) {
   @if $variant == "text" {
-    color: $color;
-  } @else if $variant == "fill" {
-    border-color: $color;
-    background-color: $color;
+    color: $defaultColor;
   } @else if $variant == "outline" {
-    border-color: $color;
-    color: $color;
+    border-color: $defaultColor;
+    color: $defaultColor;
+  } @else if $variant == "primary-fill" {
+    background-color: $defaultColor;
+    border-color: $defaultColor;
   }
 
-  @include readyclasses.focusOutline(var(--color-focus));
+  &:hover:not(.disabled) {
+    @if $variant == "primary-fill" {
+      background-color: $hoverColor;
+    } @else {
+      color: $hoverColor;
+    }
 
-  &:hover:not(.disabled),
-  &:focus:not(.disabled) {
-    @if $variant == "text" {
-      border-color: $color;
-    } @else if $variant == "fill" {
-      color: $color;
-    } @else if $variant == "outline" {
-      background-color: $color;
+    @if $variant == "text" or $variant == "outline" {
+      background-color: var(--color-black10);
+    }
+
+    @if $variant == "outline" or $variant == "fill" {
+      border-color: $hoverColor;
     }
   }
 
-  @if $variant == "text" or $variant == "fill" {
-    &:active:not(.disabled) {
-      @if $variant == "text" {
-        background-color: transparent;
-        position: relative;
-        color: $color;
-      } @else if $variant == "fill" {
-        position: relative;
-        color: $color;
-      }
+  &:focus:not(.disabled),
+  &:focus-visible:not(.disabled) {
+    @if $variant == "primary-fill" {
+      background-color: $focusedColor;
+    } @else {
+      color: $focusedColor;
+    }
 
-      &:after {
-        content: "";
-        position: absolute;
-        @if $variant == "fill" {
-          top: calc(-1 * var(--button-border-width));
-        } @else {
-          top: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-        }
-        @if $type == "default" or $type == "link" {
-          left: 0;
-          width: 100%;
-        } @else if $type == "icon" {
-          left: calc(-1 * var(--button-border-width) + (var(--button-border-width) / 2));
-          width: calc(100% + var(--button-border-width));
-        }
-        height: calc(100% + var(--button-border-width));
-        background-color: $color;
-        border-radius: var(--button-border-radius);
-        filter: opacity(0.1);
-      }
+    @if $variant == "outline" or $variant == "fill" {
+      border-color: $focusedColor;
+    }
+
+    position: relative;
+    outline: 2px solid var(--color-shadow-blue);
+    outline-offset: 1px;
+  }
+
+  &:active:not(.disabled),
+  &:visited:not(.disabled) {
+    @if $variant == "primary-fill" {
+      background-color: $pressedColor;
+    } @else {
+      color: $pressedColor;
+    }
+
+    @if $variant == "outline" or $variant == "fill" {
+      border-color: $pressedColor;
+    }
+
+    @if $variant == "text" or $variant == "outline" {
+      background-color: var(--color-black20);
     }
   }
 }
@@ -142,7 +173,7 @@
   font-size: var(--button-font-size);
   line-height: var(--button-font-size);
   margin: 0;
-  padding: 0.5rem 1.25rem;
+  padding: 0.75rem 1rem;
   min-height: 2.5rem;
   cursor: pointer;
 

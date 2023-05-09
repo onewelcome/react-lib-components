@@ -22,7 +22,6 @@
 import React, { HTMLAttributes, ReactChild, useEffect, useRef, useState } from "react";
 
 interface CSSProperties {
-  colorBlack10?: string;
   colorFocus?: string;
   colorPrimary?: string;
   colorSecondary?: string;
@@ -40,21 +39,52 @@ interface CSSProperties {
   colorBlueGrey50?: string;
   colorBlueGrey500?: string;
   colorBlueGrey700?: string;
+  colorBlueGrey800?: string;
   colorBlueGrey900?: string;
   colorGreen500?: string;
+  colorGreen600?: string;
+  colorGreen700?: string;
   colorLightBlue500?: string;
   colorLightBlue600?: string;
+  colorShadowBlue?: string;
   colorOrange500?: string;
+  colorOrange600?: string;
+  colorOrange700?: string;
   colorRed500?: string;
   colorWhite?: string;
+  colorRed600?: string;
+  colorRed700?: string;
+  colorBlack100?: string;
+  colorBlack10?: string;
+  colorBlack20?: string;
   defaultLineHeight?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
   buttonFontSize?: string;
   buttonBorderStyle?: string;
+  buttonPrimaryDefaultColor?: string;
+  buttonPrimaryPressedColor?: string;
   buttonFillTextColor?: string;
-  buttonFillHoverBackgroundColor?: string;
+  buttonPrimaryHoverColor?: string;
+  buttonPrimaryFocusedColor?: string;
   buttonOutlineHoverTextColor?: string;
+  buttonSecondaryDefaultColor?: string;
+  buttonSecondaryHoverColor?: string;
+  buttonSecondaryFocusedColor?: string;
+  buttonSecondaryPressedColor?: string;
+  buttonWarningDefaultColor?: string;
+  buttonWarningHoverColor?: string;
+  buttonWarningFocusedColor?: string;
+  buttonWarningPressedColor?: string;
+  buttonDangerDefaultColor?: string;
+  buttonDangerHoverColor?: string;
+  buttonDangerFocusedColor?: string;
+  buttonDangerPressedColor?: string;
+  buttonDefaultColor?: string;
+  buttonDefaultHoverColor?: string;
+  buttonDefaultFocusedColor?: string;
+  buttonDefaultPressedColor?: string;
+  buttonOutlineActiveTextColor?: string;
   inputBorderRadius?: string;
   inputBorderWidth?: string;
   inputBorderWidthFocus?: string;
@@ -125,16 +155,26 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorBlueGrey400: "#797D9C",
     colorBlueGrey500: "#5D607E",
     colorBlueGrey700: "#383A4B",
+    colorBlueGrey800: "#252733",
     colorBlueGrey900: "#131319",
     colorGreen500: "#178244",
+    colorGreen600: "#126836",
+    colorGreen700: "#0E4E29",
     colorLightBlue500: "#00BCDD",
     colorLightBlue600: "#0096B1",
     colorOrange500: "#E07900",
+    colorOrange600: "#B36100",
+    colorOrange700: "#864900",
     colorRed500: "#E01E00",
+    colorRed600: "#B31800",
+    colorRed700: "#861200",
+    colorBlack100: "rgba(0, 0, 0, 1)",
+    colorBlack20: "rgba(0, 0, 0, 0.2)",
+    colorShadowBlue: "#7078C3",
     colorWhite: "#FFFFFF",
     colorFocus: "var(--color-primary300)",
     colorPrimary: "var(--color-primary500)",
-    colorSecondary: "var(--color-blue-grey700)",
+    colorSecondary: "var(--color-green500)",
     colorTertiary: "var(--color-light-blue600)",
     defaultLineHeight: "1.5",
     buttonBorderRadius: "2px",
@@ -142,8 +182,27 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonFontSize: "1rem",
     buttonBorderStyle: "solid",
     buttonFillTextColor: "var(--light)",
-    buttonFillHoverBackgroundColor: "var(--light)",
-    buttonOutlineHoverTextColor: "var(--light)",
+    buttonPrimaryDefaultColor: "var(--color-primary500)",
+    buttonPrimaryHoverColor: "var(--color-primary600)",
+    buttonPrimaryFocusedColor: "var(--color-primary500)",
+    buttonPrimaryPressedColor: "var(--color-primary700)",
+    buttonSecondaryDefaultColor: "var(--color-green500)",
+    buttonSecondaryHoverColor: "var(--color-green600)",
+    buttonSecondaryFocusedColor: "var(--color-green500)",
+    buttonSecondaryPressedColor: "var(--color-green700)",
+    buttonWarningDefaultColor: "var(--color-orange500)",
+    buttonWarningHoverColor: "var(--color-orange600)",
+    buttonWarningFocusedColor: "var(--color-orange500)",
+    buttonWarningPressedColor: "var(--color-orange700)",
+    buttonDangerDefaultColor: "var(--color-red500)",
+    buttonDangerHoverColor: "var(--color-red600)",
+    buttonDangerFocusedColor: "var(--color-red500)",
+    buttonDangerPressedColor: "var(--color-red700)",
+    buttonDefaultColor: "var(--color-blue-grey700)",
+    buttonDefaultHoverColor: "var(--color-blue-grey800)",
+    buttonDefaultFocusedColor: "var(--color-blue-grey700)",
+    buttonDefaultPressedColor: "var(--color-blue-grey800)",
+    buttonOutlineHoverTextColor: "var(--color-primary600)",
     inputBorderRadius: "2px",
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "2px",
@@ -178,7 +237,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     error: "var(--color-red500)",
     info: "var(--color-primary500)",
     disabled: "var(--color-blue-grey100)",
-    greyedOut: "var(--color-blue-grey500)",
+    greyedOut: "var(--color-blue-grey400)",
     lightGreyBorder: "var(--color-blue-grey100)",
     warning: "var(--color-orange500)",
     light: "var(--color-white)",
