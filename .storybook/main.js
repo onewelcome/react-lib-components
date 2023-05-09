@@ -26,6 +26,7 @@ module.exports = {
     "./addon/preset.js"
   ],
   webpackFinal: async (config, { configType }) => {
+    console.log(configType);
     config.devtool = configType === "PRODUCTION" ? false : "eval-source-map";
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
