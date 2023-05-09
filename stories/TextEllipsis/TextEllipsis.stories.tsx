@@ -24,32 +24,36 @@ import { Typography } from "../../src/components/Typography/Typography";
 
 import TextEllipsisDocumentation from "./TextEllipsis.mdx";
 
-const meta: Meta = {
-  title: "components/Utils/TextEllipsis",
+export default {
+  title: "TextEllipsis",
   component: TextEllipsisComponent,
-  decorators: [
-    Story => (
-      <div style={{ width: "200px" }}>
-        <Story />
-      </div>
-    )
-  ],
   parameters: {
     docs: {
       page: TextEllipsisDocumentation
     }
   },
-  args: {
-    children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  argTypes: {
+    children: {
+      control: "text"
+    },
+    popoverClassName: {
+      control: "text"
+    },
+    className: {
+      control: "text"
+    }
   }
-};
+} as Meta;
 
-export default meta;
-
-const Template: Story<Props> = args => (
-  <Typography variant="body" tag="div">
-    <TextEllipsisComponent {...args} />
-  </Typography>
+const Template = args => (
+  <div style={{ width: 200 }}>
+    <Typography variant="body" tag="div">
+      <TextEllipsisComponent {...args} />
+    </Typography>
+  </div>
 );
 
 export const TextEllipsis = Template.bind({});
+TextEllipsis.args = {
+  children: "This is a long text that will trigger the ellipsis and show a popover."
+};
