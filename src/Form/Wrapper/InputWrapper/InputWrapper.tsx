@@ -14,18 +14,11 @@
  *    limitations under the License.
  */
 
-import React, {
-  ForwardRefRenderFunction,
-  ComponentPropsWithRef,
-  useEffect,
-  useRef,
-  useState
-} from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useRef } from "react";
 import { Input, Type, Props as InputProps } from "../../Input/Input";
 import classes from "./InputWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { useWrapper } from "../../../hooks/useWrapper";
-import { remToPx } from "../../../util/helper";
 
 interface PartialInputProps extends Partial<InputProps> {}
 
@@ -39,31 +32,6 @@ export interface Props extends ComponentPropsWithRef<"div">, WrapperProps {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
-
-const useLabelOffset = (
-  input: React.RefObject<HTMLInputElement>,
-  floatingLabelActive: boolean,
-  prefix?: string
-) => {
-  const [labelOffset, setLabelOffset] = useState({});
-
-  const resetLabelOffset = () => setLabelOffset({ left: undefined });
-
-  useEffect(() => {
-    if (input.current && prefix) {
-      if (floatingLabelActive) {
-        resetLabelOffset();
-      } else {
-        const spacingBetweenPrefixAndInput = 4;
-        const prefixDifference =
-          getComputedStyle(input.current).paddingLeft + spacingBetweenPrefixAndInput;
-        setLabelOffset({ left: `${prefixDifference}px` });
-      }
-    }
-  }, [input.current, prefix, floatingLabelActive]);
-
-  return { labelOffset };
-};
 
 const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   {
@@ -84,30 +52,13 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }: Props,
   ref
 ) => {
-  const {
-    errorId,
-    floatingLabelActive,
-    setFloatingLabelActive,
-    hasFocus,
-    setHasFocus,
-    helperId,
-    labelId
-  } = useWrapper(value, inputProps?.placeholder, type);
+  const { errorId, hasFocus, setHasFocus, helperId, labelId } = useWrapper();
   const { prefix, suffix } = inputProps || {};
   const input = useRef<HTMLInputElement>(null);
-  const hasValueOrActiveFloatingLabel = !!value || floatingLabelActive;
-  const helperIndent = window.innerWidth >= remToPx(30) ? remToPx(1.25) : remToPx(1);
-  const { labelOffset } = useLabelOffset(
-    (inputProps && (inputProps.ref as React.RefObject<HTMLInputElement>)) || input,
-    floatingLabelActive,
-    prefix
-  );
-
   const labelClasses = [classes["input-label"]];
   hasFocus && labelClasses.push(classes["focus"]);
 
   const inputWrapperClasses = [];
-  floatingLabelActive && inputWrapperClasses.push(classes["floating-label-active"]);
   inputProps?.wrapperProps?.className &&
     inputWrapperClasses.push(inputProps?.wrapperProps?.className);
   disabled && inputWrapperClasses.push(classes["disabled"]);
@@ -120,10 +71,8 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       className={`${classes["input-wrapper"]} ${className ?? ""}`}
       labelProps={{
         id: labelId,
-        className: labelClasses.join(" "),
-        style: { ...labelOffset }
+        className: labelClasses.join(" ")
       }}
-      floatingLabelActive={floatingLabelActive}
       errorId={errorId}
       error={error}
       helperId={helperId}
@@ -132,13 +81,12 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         ...helperProps,
         className: `${classes["input-wrapper-helper"]} ${helperProps?.className ?? ""} `
       }}
-      helperIndent={helperIndent}
       disabled={disabled}
     >
       <Input
         {...inputProps}
-        prefix={hasValueOrActiveFloatingLabel ? prefix : ""}
-        suffix={hasValueOrActiveFloatingLabel ? suffix : ""}
+        prefix={prefix}
+        suffix={suffix}
         wrapperProps={{
           className: inputWrapperClasses.join(" ")
         }}
@@ -149,23 +97,13 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         onFocus={e => {
           onFocus && onFocus(e);
           setHasFocus(true);
-          setFloatingLabelActive(true);
         }}
         onBlur={e => {
           onBlur && onBlur(e);
           setHasFocus(false);
-          e.target.value ||
-          e.target.placeholder ||
-          inputProps?.placeholder?.length ||
-          type === "datetime-local" ||
-          type === "time" ||
-          type === "date"
-            ? setFloatingLabelActive(true)
-            : setFloatingLabelActive(false);
         }}
-        className={`${floatingLabelActive ? classes["floating-label"] : ""} ${
-          inputProps?.className ?? ""
-        }`}
+        className={`
+         ${inputProps?.className ?? ""}`}
         name={name}
         success={success}
         error={error}

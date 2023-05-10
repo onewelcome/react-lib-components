@@ -28,7 +28,6 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   errorMessageIconPosition?: "before" | "after";
   errorMessage?: string;
   errorId?: string;
-  helperIndent?: number;
   helperText?: string;
   helperId?: string;
   helperProps?: HelperProps;
@@ -47,7 +46,6 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     helperText,
     helperId,
     helperProps,
-    helperIndent,
     ...rest
   }: Props,
   ref
@@ -62,7 +60,6 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
       {(helperText || (errorMessage && error)) && (
         <div
-          style={{ marginLeft: `${helperIndent}px` }}
           className={`${classes["default-helper"]} ${
             helperProps?.className ? helperProps.className : ""
           }`}

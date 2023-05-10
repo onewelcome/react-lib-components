@@ -23,16 +23,9 @@
 }
 
 .select-helper-text {
-  margin-top: 0.25rem;
-  margin-left: variables.$form-element-horizontal-padding-mobile;
+  margin-top: 0.15rem;
 }
 
 .floating-label-active [data-display] {
   top: calc(50% + 0.5rem);
-}
-
-@media only screen and (min-width: 30em) {
-  .select-helper-text {
-    margin-left: variables.$form-element-horizontal-padding-desktop;
-  }
 }

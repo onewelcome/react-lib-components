@@ -23,8 +23,6 @@ import { FormElement } from "../../form.interfaces";
 
 export interface Props extends ComponentPropsWithRef<"div">, FormGroupProps {
   children: ReactElement | ReactElement[];
-  floatingLabelActive?: boolean;
-  floatingLabel?: boolean;
   helperIndent?: number;
   label?: string;
   labelProps?: LabelProps;
@@ -56,8 +54,6 @@ const WrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     errorMessageIconPosition,
     helperText,
     helperId,
-    floatingLabel = true,
-    floatingLabelActive,
     required,
     helperProps,
     helperIndent,
@@ -77,10 +73,8 @@ const WrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       })
     );
 
-  const labelClasses = [];
+  const labelClasses = [classes["form-input-label"]];
 
-  floatingLabel && labelClasses.push(classes["floating-label"]);
-  floatingLabel && floatingLabelActive && labelClasses.push(classes["floating-label-active"]);
   labelProps?.className && labelClasses.push(labelProps.className);
   required && labelClasses.push(classes["required"]);
   error && labelClasses.push(classes["error"]);
@@ -97,13 +91,8 @@ const WrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         helperText={helperText}
         helperId={helperId}
         helperProps={helperProps}
-        helperIndent={helperIndent}
       >
-        <div
-          className={`${floatingLabel ? classes["floating-wrapper"] : ""} ${
-            innerClassName ? innerClassName : ""
-          }`}
-        >
+        <div className={` ${innerClassName ? innerClassName : ""}`}>
           {label && (
             <Label
               {...labelProps}

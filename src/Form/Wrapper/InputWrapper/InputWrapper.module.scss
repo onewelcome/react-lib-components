@@ -25,7 +25,7 @@ input {
 }
 
 .input-wrapper-helper {
-  margin-top: 0.25rem;
+  margin-top: 0.14rem;
 }
 
 .input-wrapper {
@@ -41,8 +41,7 @@ input {
 
   [data-prefix],
   [data-suffix] {
-    transform: translateY(-0.125rem);
-    font-family: var(--font-family);
+    font-size: var(--form-control-font-size);
   }
 
   [data-prefix] + input {

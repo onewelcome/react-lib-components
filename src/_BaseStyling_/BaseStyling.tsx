@@ -132,6 +132,7 @@ interface CSSProperties {
   fontSizeH4?: string;
   fontSizeSub?: string;
   fontSizeCode?: string;
+  formControlFontSize?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -249,7 +250,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH3: "1.5rem",
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
-    fontSizeCode: "1rem"
+    fontSizeCode: "1rem",
+    formControlFontSize: "14px"
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

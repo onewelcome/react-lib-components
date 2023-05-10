@@ -56,15 +56,7 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   }: Props,
   ref
 ) => {
-  const {
-    errorId,
-    floatingLabelActive,
-    setFloatingLabelActive,
-    hasFocus,
-    setHasFocus,
-    helperId,
-    labelId
-  } = useWrapper(value, placeholder);
+  const { errorId, hasFocus, setHasFocus, helperId, labelId } = useWrapper();
   const [hover, setHover] = useState(false);
 
   const wrapperClasses: string[] = [];
@@ -91,7 +83,6 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
         className: classes["textarea-helper-text"]
       }}
       error={error}
-      floatingLabelActive={floatingLabelActive}
       errorId={errorId}
     >
       <Textarea
@@ -108,14 +99,10 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
         onFocus={e => {
           onFocus && onFocus(e);
           setHasFocus(true);
-          setFloatingLabelActive(true);
         }}
         onBlur={e => {
           onBlur && onBlur(e);
           setHasFocus(false);
-          e.target.value || e.target.placeholder || textareaProps?.placeholder?.length
-            ? setFloatingLabelActive(true)
-            : setFloatingLabelActive(false);
         }}
         onMouseEnter={e => {
           onMouseEnter && onMouseEnter(e);
