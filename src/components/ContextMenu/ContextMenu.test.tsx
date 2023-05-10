@@ -244,7 +244,7 @@ describe("accessibility controls", () => {
 
     expect(thirdContextMenuItem).toHaveFocus();
 
-    await userEvent.keyboard("[space]");
+    await userEvent.keyboard("{enter}");
 
     expect(onClick).toHaveBeenCalled();
   });
@@ -270,11 +270,11 @@ describe("accessibility controls", () => {
 
     expect(thirdContextMenuItem).toHaveFocus();
 
-    await userEvent.keyboard("{enter}");
+    await userEvent.keyboard("[space]");
 
     expect(onClick).toHaveBeenCalled();
 
-    await userEvent.keyboard("{enter}");
+    await userEvent.keyboard("[space]");
 
     expect(thirdContextMenuItem).toHaveFocus();
   });
@@ -303,11 +303,11 @@ describe("accessibility controls", () => {
 
     expect(thirdContextMenuItem).toHaveFocus();
 
-    await userEvent.keyboard("{enter}");
+    await userEvent.keyboard("[space]");
 
     expect(onClick).toHaveBeenCalled();
 
-    await userEvent.keyboard("{enter}");
+    await userEvent.keyboard("[space]");
 
     expect(thirdContextMenuItem).toHaveFocus();
   });
