@@ -25,7 +25,7 @@ import { Typography } from "../../src/components/Typography/Typography";
 import TextEllipsisDocumentation from "./TextEllipsis.mdx";
 
 export default {
-  title: "TextEllipsis",
+  title: "components/TextEllipsis",
   component: TextEllipsisComponent,
   parameters: {
     docs: {
