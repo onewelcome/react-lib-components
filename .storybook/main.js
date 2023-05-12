@@ -34,6 +34,11 @@ module.exports = {
         presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"]
       }
     });
+    if (configType === "PRODUCTION") {
+      config.optimization.minimizer = config.optimization.minimizer.filter(plugin => {
+        return plugin.constructor.name !== "TerserPlugin";
+      });
+    }
     config.module.rules.push({
       test: /\.scss$/,
       use: [
