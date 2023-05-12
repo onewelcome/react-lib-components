@@ -30,8 +30,8 @@
   "scripts": {
     "analyze": "size-limit --why",
     "build": "rm -rf dist && rollup -c",
-    "build-storybook": "node --max_old_space_size=4096 ./node_modules/.bin/storybook build",
-    "chromatic": "chromatic --exit-zero-on-changes",
+    "build-storybook": "storybook build",
+    "chromatic": "node --max_old_space_size=4096 ./node_modules/.bin/chromatic --exit-zero-on-changes",
     "dev": "npm-run-all -p start test:watch storybook",
     "lint": "eslint '**/*.{ts,tsx}'",
     "prepare": "husky install && rollup -c",
