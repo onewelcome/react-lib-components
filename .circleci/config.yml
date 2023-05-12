@@ -129,10 +129,10 @@ workflows:
       - chromatic-deployment:
           name: chromatic-deployment
           <<: *dev-context
-          <<: *require-build
           <<: *filter-no-dependabot
           <<: *filter-branches-tags
           requires:
+            - build
             - approve-chromatic
 
       - build-storybook:
