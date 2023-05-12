@@ -27,7 +27,7 @@ import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
 
 export default {
-  title: "components/DataGrid",
+  title: "components/Data Display/DataGrid",
   component: DataGridComponent,
   parameters: {
     docs: {
