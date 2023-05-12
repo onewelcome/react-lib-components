@@ -51,39 +51,43 @@ const Template = args => {
   };
 
   return (
-    <DataGridComponent {...args}>
-      {({
-        item
-      }: {
-        item: { name: string; id: string; created: Date; type: string; enabled: boolean };
-      }) => (
-        <DataGridRow key={item.id}>
-          <DataGridCell>{item.name}</DataGridCell>
-          <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
-          <DataGridCell>{item.id}</DataGridCell>
-          <DataGridCell>{item.type}</DataGridCell>
-          <DataGridCell>{item.enabled ? "Active" : "Delisted"}</DataGridCell>
-          {!args.disableContextMenuColumn && (
-            <DataGridCell>
-              <ContextMenu
-                id={`consent_menu_${item.id}`}
-                placement={{ vertical: "bottom", horizontal: "right" }}
-                transformOrigin={{ vertical: "top", horizontal: "right" }}
-                trigger={
-                  <IconButton title={`Actions for ${item.name}`} color="default">
-                    <Icon icon={Icons.EllipsisAlt} />
-                  </IconButton>
-                }
-              >
-                <ContextMenuItem>Item 1</ContextMenuItem>
-                <ContextMenuItem>Item 2</ContextMenuItem>
-                <ContextMenuItem>Item 3</ContextMenuItem>
-              </ContextMenu>
-            </DataGridCell>
+    <div style={{ padding: "1rem", backgroundColor: "rgb(245, 248, 248)" }}>
+      <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
+        <DataGridComponent {...args}>
+          {({
+            item
+          }: {
+            item: { name: string; id: string; created: Date; type: string; enabled: boolean };
+          }) => (
+            <DataGridRow key={item.id}>
+              <DataGridCell>{item.name}</DataGridCell>
+              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
+              <DataGridCell>{item.id}</DataGridCell>
+              <DataGridCell>{item.type}</DataGridCell>
+              <DataGridCell>{item.enabled ? "Active" : "Delisted"}</DataGridCell>
+              {!args.disableContextMenuColumn && (
+                <DataGridCell>
+                  <ContextMenu
+                    id={`consent_menu_${item.id}`}
+                    placement={{ vertical: "bottom", horizontal: "right" }}
+                    transformOrigin={{ vertical: "top", horizontal: "right" }}
+                    trigger={
+                      <IconButton title={`Actions for ${item.name}`} color="default">
+                        <Icon icon={Icons.EllipsisAlt} />
+                      </IconButton>
+                    }
+                  >
+                    <ContextMenuItem>Item 1</ContextMenuItem>
+                    <ContextMenuItem>Item 2</ContextMenuItem>
+                    <ContextMenuItem>Item 3</ContextMenuItem>
+                  </ContextMenu>
+                </DataGridCell>
+              )}
+            </DataGridRow>
           )}
-        </DataGridRow>
-      )}
-    </DataGridComponent>
+        </DataGridComponent>
+      </div>
+    </div>
   );
 };
 
@@ -163,18 +167,7 @@ HideColumnDataGrid.args = {
     { name: "created", direction: "DESC" }
   ],
   onSort: sort => action(`Sort callback: ${sort}`),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: { onClick: () => action("add btn clicked") },
-    searchBtnProps: { onClick: () => action("search btn clicked") }
-  },
   disableContextMenuColumn: false,
-  paginationProps: {
-    totalElements: 2,
-    currentPage: 1
-  },
   isLoading: false,
   enableMultiSorting: true
 };
