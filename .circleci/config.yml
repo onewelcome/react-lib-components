@@ -134,7 +134,6 @@ workflows:
           <<: *filter-no-dependabot
           <<: *filter-branches-tags
           requires:
-            - build
             - approve-chromatic
 
       - build-storybook:
