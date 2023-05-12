@@ -22,7 +22,7 @@ import { Input } from "../../Input/Input";
 describe("Wrapper should render", () => {
   it("renders without crashing", () => {
     const { container } = render(
-      <Wrapper floatingLabelActive={true} label="label" name="name" helperId="helperID">
+      <Wrapper label="label" name="name" helperId="helperID">
         <Input onChange={jest.fn()} name="test" type="text" value="test" />
       </Wrapper>
     );

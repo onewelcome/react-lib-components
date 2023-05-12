@@ -47,6 +47,19 @@
   }
 }
 
+.form-input-label {
+  font-family: var(--font-family);
+  font-size: var(--form-control-font-size);
+  line-height: 1.43rem;
+  color: var(--color-blue-grey900);
+  margin-bottom: 0.25rem;
+  display: inline-block;
+
+  &.disabled {
+    color: var(--greyed-out);
+  }
+}
+
 .wrapper + fieldset,
 .wrapper + .wrapper {
   margin-top: 1rem;
@@ -55,6 +68,7 @@
 .required {
   &:after {
     content: " *";
+    color: var(--error);
   }
 }
 

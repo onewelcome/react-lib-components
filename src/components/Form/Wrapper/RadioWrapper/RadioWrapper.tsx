@@ -48,7 +48,7 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }: Props,
   ref
 ) => {
-  const { errorId, helperId } = useWrapper(value);
+  const { errorId, helperId } = useWrapper();
 
   useEffect(() => {
     if (fieldsetProps.legend === undefined) {
@@ -89,7 +89,6 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         error={error}
         errorId={errorId}
         errorMessageIcon={Icons.Error}
-        floatingLabel={false}
       >
         {renderChildren()}
       </Wrapper>

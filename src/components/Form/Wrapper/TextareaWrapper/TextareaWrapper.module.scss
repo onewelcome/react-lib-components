@@ -24,7 +24,6 @@
     @include mixins.transition(all, 0.15s, ease-in-out);
     display: block;
     width: calc(95%);
-    height: 1.625rem;
     background-color: var(--light);
     position: absolute;
     z-index: 0;
@@ -43,8 +42,6 @@
   }
 
   .textarea {
-    padding-top: 1.625rem;
-
     &:active:not(:disabled) {
       border-color: var(--color-primary);
     }
@@ -53,14 +50,8 @@
       outline: none;
     }
   }
-
-  [data-icon-status="success"],
-  [data-icon-status="error"] {
-    top: 1.75rem;
-  }
 }
 
 .textarea-helper-text {
-  margin-top: 0.25rem;
-  margin-left: 1.25rem;
+  margin-top: 0.14rem;
 }

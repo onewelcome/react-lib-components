@@ -179,20 +179,13 @@ describe("InputWrapper should support prefix and suffix", () => {
     expect(container.querySelector("[data-suffix]")).toHaveTextContent(suffix);
   };
 
-  it("renders prefix and sufix when input has focus", async () => {
-    const { container, getByTestId } = createInputWrapper(defaultParams => ({
+  it("renders prefix and sufix", () => {
+    const { container } = createInputWrapper(defaultParams => ({
       ...defaultParams,
       value: "",
       inputProps: { "data-testid": "input", prefix, suffix }
     }));
 
-    const input = getByTestId("input");
-
-    expect(container.querySelector("[data-prefix]")).toBeNull();
-    expect(container.querySelector("[data-suffix]")).toBeNull();
-
-    await userEvent.tab();
-    expect(input).toHaveFocus();
     hasPrefixAndSuffixDefined(container);
   });
 

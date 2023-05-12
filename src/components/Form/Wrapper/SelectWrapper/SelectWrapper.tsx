@@ -47,13 +47,12 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
   }: Props,
   ref
 ) => {
-  const { errorId, floatingLabelActive, helperId, labelId } = useWrapper(value, placeholder);
+  const { errorId, helperId, labelId } = useWrapper();
 
   return (
     <Wrapper
       {...rest}
       ref={ref}
-      floatingLabelActive={floatingLabelActive}
       errorId={errorId}
       helperId={helperId}
       labelProps={{ id: labelId, className: classes["select-label"] }}
@@ -72,9 +71,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         describedBy={error ? errorId : helperId}
         onChange={onChange}
         placeholder={placeholder}
-        className={`${floatingLabelActive ? classes["floating-label-active"] : ""} ${
-          selectProps?.className ?? ""
-        }`}
+        className={`${selectProps?.className ?? ""}`}
       >
         {children as ReactElement[]}
       </Select>

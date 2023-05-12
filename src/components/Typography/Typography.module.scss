@@ -53,7 +53,7 @@
   }
 
   &sub-text {
-    @include fontProperties(var(--font-family), var(--font-size-sub), 400, 1.333);
+    @include fontProperties(var(--font-family), var(--font-size-sub), 400, 1rem);
   }
 
   &code {
