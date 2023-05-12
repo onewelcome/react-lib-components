@@ -121,12 +121,19 @@ workflows:
           <<: *dev-context
           <<: *require-test
 
+      - approve-chromatic:
+          name: approve-chromatic
+          type: approval
+          <<: *filter-no-dependabot
+
       - chromatic-deployment:
           name: chromatic-deployment
           <<: *dev-context
           <<: *require-build
           <<: *filter-no-dependabot
           <<: *filter-branches-tags
+          requires:
+            - approve-chromatic
 
       - build-storybook:
           name: build-storybook
