@@ -31,7 +31,7 @@
     "analyze": "size-limit --why",
     "build": "rm -rf dist && rollup -c",
     "build-storybook": "storybook build",
-    "chromatic": "node --max_old_space_size=4096 ./node_modules/.bin/chromatic --exit-zero-on-changes",
+    "chromatic": "chromatic --exit-zero-on-changes",
     "dev": "npm-run-all -p start test:watch storybook",
     "lint": "eslint '**/*.{ts,tsx}'",
     "prepare": "husky install && rollup -c",
@@ -119,6 +119,7 @@
     "sass-loader": "^13.2.2",
     "size-limit": "^8.2.4",
     "storybook": "^7.0.7",
+    "storybook-addon-turbo-build": "^2.0.1",
     "style-loader": "^3.3.2",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
