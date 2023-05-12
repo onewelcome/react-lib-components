@@ -23,7 +23,6 @@ module.exports = {
     "@storybook/addon-docs",
     "@storybook/addon-essentials",
     "@storybook/addon-a11y",
-    "storybook-addon-turbo-build",
     "./addon/preset.js"
   ],
   webpackFinal: async (config, { configType }) => {
