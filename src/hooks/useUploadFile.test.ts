@@ -1,7 +1,7 @@
 import { useUploadFile } from "./useUploadFile";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { waitFor } from "@testing-library/react";
-import { FileType } from "../Form/FileUpload/FileUpload";
+import { FileType } from "../components/Form/FileUpload/FileUpload";
 
 const DONE = 4;
 

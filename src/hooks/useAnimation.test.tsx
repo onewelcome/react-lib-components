@@ -21,7 +21,7 @@ import { useAnimation } from "./useAnimation";
 import { act } from "react-dom/test-utils";
 
 describe("useAnimation", () => {
-  it("should execute", () => {
+  it("should execute", async () => {
     const callback = jest.fn();
 
     const Component = () => {
@@ -50,9 +50,7 @@ describe("useAnimation", () => {
 
     expect(animatedDiv).not.toHaveClass("animation-started");
     expect(callback).not.toBeCalled();
-    act(() => {
-      userEvent.click(startButton);
-    });
+    await userEvent.click(startButton);
 
     expect(animatedDiv).toHaveClass("animation-started");
     expect(callback).not.toBeCalled();

@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as TilesStories from "./Tiles.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -12,8 +13,10 @@ For documentation regarding individual `Tile` components, [see this page](?path=
 
 # Examples
 
-<DocsStory id="components-layout-tiles-tiles--tiles" />
+<Canvas>
+  <Story of={TilesStories.Tiles} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

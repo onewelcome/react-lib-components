@@ -16,7 +16,7 @@
 
 import React, { useEffect } from "react";
 import "./base.scss";
-import { BaseStyling } from "../src/_BaseStyling_/BaseStyling";
+import { BaseStyling } from "../src/components/_BaseStyling_/BaseStyling";
 import { useState } from "react";
 
 // https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters

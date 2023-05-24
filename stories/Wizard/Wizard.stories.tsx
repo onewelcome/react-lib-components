@@ -15,13 +15,18 @@
  */
 
 import React, { Fragment, useState } from "react";
-import { Meta, Story } from "@storybook/react";
-import { Wizard, Props } from "../../src/Wizard/Wizard";
-import { WizardSteps } from "../../src/Wizard/WizardSteps/WizardSteps";
-import { WizardActions } from "../../src/Wizard/WizardActions/WizardActions";
-import { Button, Modal, ModalHeader, ModalActions, ModalContent } from "../../src/";
-import { Step } from "../../src/Wizard/BaseWizardSteps/BaseWizardSteps";
+import { Meta } from "@storybook/react";
+import { Wizard, Props } from "../../src/components/Wizard/Wizard";
+import { WizardSteps } from "../../src/components/Wizard/WizardSteps/WizardSteps";
+import { WizardActions } from "../../src/components/Wizard/WizardActions/WizardActions";
+import { Button } from "../../src/components/Button/Button";
+
+import { Step } from "../../src/components/Wizard/BaseWizardSteps/BaseWizardSteps";
 import WizardDocumentation from "./Wizard.mdx";
+import { Modal } from "../../src/components/Notifications/Modal/Modal";
+import { ModalContent } from "../../src/components/Notifications/Modal/ModalContent/ModalContent";
+import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
+import { ModalHeader } from "../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
 
 const meta: Meta = {
   title: "components/Layout/Wizard/Wizard",
@@ -61,7 +66,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template = args => {
   const [step, setStep] = useState(args.initialStepNo);
 
   const onNext = (stepNo: number) => {
@@ -104,7 +109,7 @@ const Template: Story<Props> = args => {
 
 export const BasicWizard = Template.bind({});
 
-const WizardModalTemplate: Story<void> = () => {
+const WizardModalTemplate = () => {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [checkboxChecked, setCheckboxChecked] = useState(false);

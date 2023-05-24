@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as SnackbarStories from "./Snackbar.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -114,8 +115,10 @@ const AppContent = () => {
 };
 ```
 
-<DocsStory id="components-feedback-snackbar--snackbar" />
+<Canvas>
+  <Story of={SnackbarStories.Snackbar} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

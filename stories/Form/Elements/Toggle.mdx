@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as ToggleStories from "./Toggle.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -23,8 +24,10 @@ const ExampleComponent = () => {
 
 Below you can find an exampe of the `Toggle` component. It can be controlled through the [Props table](#props) at the bottom.
 
-<DocsStory id="components-inputs-toggle--toggle" />
+<Canvas>
+  <Story of={ToggleStories.Toggle} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

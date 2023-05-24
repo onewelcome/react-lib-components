@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as FormHelperTextStories from "./FormHelperText.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -17,8 +18,10 @@ The `FormHelperText` component is not complicated, it only accepts `children` an
 <FormHelperText error={false}>content</FormHelperText>
 ```
 
-<DocsStory id="components-data-display-formhelpertext--form-helper-text" />
+<Canvas>
+  <Story of={FormHelperTextStories.FormHelperText} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

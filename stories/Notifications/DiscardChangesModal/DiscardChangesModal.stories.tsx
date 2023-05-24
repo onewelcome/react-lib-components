@@ -19,14 +19,14 @@ import { Meta, Story } from "@storybook/react";
 import {
   DiscardChangesModal as DiscardChangesModalComponent,
   Props
-} from "../../../src/Notifications/DiscardChangesModal/DiscardChangesModal";
-import { ModalActions } from "../../../src/Notifications/Modal/ModalActions/ModalActions";
-import { ModalContent } from "../../../src/Notifications/Modal/ModalContent/ModalContent";
-import { Button } from "../../../src/Button/Button";
-import { Typography } from "../../../src/Typography/Typography";
-import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
-import { FormControl } from "../../../src/Form/FormControl/FormControl";
-import { Form } from "../../../src/Form/Form";
+} from "../../../src/components/Notifications/DiscardChangesModal/DiscardChangesModal";
+import { ModalActions } from "../../../src/components/Notifications/Modal/ModalActions/ModalActions";
+import { ModalContent } from "../../../src/components/Notifications/Modal/ModalContent/ModalContent";
+import { Button } from "../../../src/components/Button/Button";
+import { Typography } from "../../../src/components/Typography/Typography";
+import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
+import { FormControl } from "../../../src/components/Form/FormControl/FormControl";
+import { Form } from "../../../src/components/Form/Form";
 import DiscardChangesModalDocumentation from "./DiscardChangesModal.mdx";
 
 const meta: Meta = {

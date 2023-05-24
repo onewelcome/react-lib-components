@@ -16,8 +16,8 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Radio as RadioComponent, Props } from "../../../src/Form/Radio/Radio";
-import { Fieldset } from "../../../src/Form/Fieldset/Fieldset";
+import { Radio as RadioComponent, Props } from "../../../src/components/Form/Radio/Radio";
+import { Fieldset } from "../../../src/components/Form/Fieldset/Fieldset";
 import RadioDocumentation from "./Radio.mdx";
 
 const meta: Meta = {

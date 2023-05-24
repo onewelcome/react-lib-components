@@ -14,31 +14,66 @@
  *    limitations under the License.
  */
 
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   stories: ["../stories/intro.stories.mdx", "../stories/**/*.stories.@(ts|tsx|js|jsx|mdx)"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-docs",
     "@storybook/addon-essentials",
-    {
-      name: "@storybook/preset-scss",
-      options: {
-        cssLoaderOptions: {
-          modules: {
-            localIdentName: "[name]__[local]--[hash:base64:5]"
-          }
-        }
-      }
-    },
     "@storybook/addon-a11y",
     "./addon/preset.js"
   ],
+  webpackFinal: async (config, { configType }) => {
+    config.devtool = configType === "PRODUCTION" ? false : "eval-source-map";
+    config.module.rules.push({
+      test: /\.(ts|tsx)$/,
+      loader: require.resolve("babel-loader"),
+      options: {
+        presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"]
+      }
+    });
+    if (configType === "PRODUCTION") {
+      config.optimization.minimizer = config.optimization.minimizer.filter(plugin => {
+        return plugin.constructor.name !== "TerserPlugin";
+      });
+    }
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: [
+        "style-loader",
+        {
+          loader: "css-loader",
+          options: {
+            importLoaders: 1,
+            modules: {
+              localIdentName: "[name]__[local]--[hash:base64:5]"
+            }
+          }
+        },
+        "sass-loader"
+      ],
+      include: path.resolve(__dirname, "../")
+    });
+    config.plugins.push(
+      new MiniCssExtractPlugin({
+        filename: "[name].css"
+      })
+    );
+    config.resolve.extensions.push(".ts", ".tsx");
+    return config;
+  },
   typescript: {
     check: true // type-check stories during Storybook build
   },
-  core: {
-    builder: "webpack5",
-    disableTelemetry: true
+
+  staticDirs: ["../public"],
+  docs: {
+    autodocs: true
   },
-  staticDirs: ["../public"]
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {}
+  }
 };

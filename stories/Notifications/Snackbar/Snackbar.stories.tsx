@@ -19,9 +19,9 @@ import { Meta, Story } from "@storybook/react";
 import {
   SnackbarProvider,
   Props
-} from "../../../src/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
-import { Button } from "../../../src/Button/Button";
-import { useSnackbar } from "../../../src/Notifications/Snackbar/useSnackbar";
+} from "../../../src/components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
+import { Button } from "../../../src/components/Button/Button";
+import { useSnackbar } from "../../../src/components/Notifications/Snackbar/useSnackbar";
 import SnackbarDocumentation from "./Snackbar.mdx";
 
 const meta: Meta = {
@@ -44,7 +44,7 @@ const AppContent = () => {
       <Button
         onClick={() =>
           enqueueSuccessSnackbar("Main message of the snackbar", undefined, {
-            onClose: () => console.log("onClose handler")
+            onClose: () => console.warn("onClose handler")
           })
         }
       >
@@ -55,7 +55,7 @@ const AppContent = () => {
       <Button
         onClick={() =>
           enqueueErrorSnackbar("Social account unlink failed", undefined, {
-            onClose: () => console.log("onClose handler")
+            onClose: () => console.warn("onClose handler")
           })
         }
       >
@@ -66,7 +66,7 @@ const AppContent = () => {
       <Button
         onClick={() =>
           enqueueSnackbar("Copy of your data is requested", undefined, {
-            onClose: () => console.log("onClose handler")
+            onClose: () => console.warn("onClose handler")
           })
         }
       >

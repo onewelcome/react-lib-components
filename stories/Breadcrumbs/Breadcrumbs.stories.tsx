@@ -16,8 +16,11 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Breadcrumbs as BreadcrumbsComponent, Props } from "../../src/Breadcrumbs/Breadcrumbs";
-import { Link } from "../../src/Link/Link";
+import {
+  Breadcrumbs as BreadcrumbsComponent,
+  Props
+} from "../../src/components/Breadcrumbs/Breadcrumbs";
+import { Link } from "../../src/components/Link/Link";
 import { BrowserRouter, Link as RouterLink } from "react-router-dom";
 import BreadcrumbsDocumentation from "./Breadcrumbs.mdx";
 

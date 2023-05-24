@@ -16,11 +16,11 @@
 
 import React, { useEffect } from "react";
 import { Meta, Story } from "@storybook/react";
-import { FileType, FileUpload, Props } from "../../../src/Form/FileUpload/FileUpload";
+import { FileType, FileUpload, Props } from "../../../src/components/Form/FileUpload/FileUpload";
 import { Form } from "../../../src";
 import { useArgs } from "@storybook/addons";
 import { useUploadFile } from "../../../src/hooks/useUploadFile";
-import { FILE_ACTION } from "../../../src/Form/FileUpload/FileItem/FileItem";
+import { FILE_ACTION } from "../../../src/components/Form/FileUpload/FileItem/FileItem";
 import { areArraysDifferent } from "../../../src/util/helper";
 import FileUploadDocumentation from "./FileUpload.mdx";
 
@@ -83,7 +83,7 @@ const Template: Story<Props & { url: string }> = args => {
   }, [updatedFiles]);
 
   const updateFileList = (action: FILE_ACTION, name: FileType["name"]) => {
-    let fileList = [];
+    let fileList: any[] = [];
     switch (action) {
       case FILE_ACTION.RETRY:
         fileList = updatedFiles.map(file => {

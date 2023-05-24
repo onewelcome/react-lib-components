@@ -19,8 +19,8 @@ import { Meta, Story } from "@storybook/react";
 import {
   RadioWrapper as RadioWrapperComponent,
   Props
-} from "../../..//src/Form/Wrapper/RadioWrapper/RadioWrapper";
-import { Radio } from "../../../src/Form/Radio/Radio";
+} from "../../../src/components/Form/Wrapper/RadioWrapper/RadioWrapper";
+import { Radio } from "../../../src/components/Form/Radio/Radio";
 import RadioWrapperDocumentation from "./RadioWrapper.mdx";
 
 const meta: Meta = {

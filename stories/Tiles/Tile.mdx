@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as TileStories from "./Tile.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -27,8 +28,10 @@ This prop will be inherited from the `Tiles` wrapper component. But if you use `
 
 # Examples
 
-<DocsStory id="components-layout-tiles-tile--tile" />
+<Canvas>
+  <Story of={TileStories.Tile} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

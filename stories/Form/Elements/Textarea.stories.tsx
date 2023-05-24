@@ -16,7 +16,10 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Textarea as TextareaComponent, Props } from "../../../src/Form/Textarea/Textarea";
+import {
+  Textarea as TextareaComponent,
+  Props
+} from "../../../src/components/Form/Textarea/Textarea";
 import TextareaDocumentation from "./Textarea.mdx";
 
 const meta: Meta = {

@@ -22,7 +22,7 @@ import userEvent from "@testing-library/user-event";
 interface ConfigObjectWithoutRefs
   extends Omit<ConfigObject, "relativeElement" | "elementToBePositioned"> {}
 
-const createUsePositionComponent = (
+const createUsePositionComponent = async (
   params?: (defaultParams: ConfigObjectWithoutRefs) => ConfigObjectWithoutRefs
 ) => {
   const Component = () => {
@@ -94,20 +94,20 @@ const createUsePositionComponent = (
   Object.defineProperty(document.body, "innerWidth", { configurable: true, value: 1000 });
   /** Make it stop pls */
 
-  userEvent.click(button);
+  await userEvent.click(button);
 
   return { ...queries, button, popover };
 };
 
 describe("returns proper values for default transformOrigin", () => {
   it("returns the correct values for left top placement", async () => {
-    const { popover } = createUsePositionComponent();
+    const { popover } = await createUsePositionComponent();
 
     await waitFor(() => expect(popover).toHaveStyle({ top: "250px", left: "250px" }));
   });
 
   it("returns the correct values for left bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "left", vertical: "bottom" }
     }));
@@ -116,7 +116,7 @@ describe("returns proper values for default transformOrigin", () => {
   });
 
   it("returns the correct values for left center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "left", vertical: "center" }
     }));
@@ -125,7 +125,7 @@ describe("returns proper values for default transformOrigin", () => {
   });
 
   it("returns the correct values for center top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "top" }
     }));
@@ -134,7 +134,7 @@ describe("returns proper values for default transformOrigin", () => {
   });
 
   it("returns the correct values for center center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "center" }
     }));
@@ -143,7 +143,7 @@ describe("returns proper values for default transformOrigin", () => {
   });
 
   it("returns the correct values for center bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "bottom" }
     }));
@@ -152,7 +152,7 @@ describe("returns proper values for default transformOrigin", () => {
   });
 
   it("returns the correct values for right top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "top" }
     }));
@@ -161,7 +161,7 @@ describe("returns proper values for default transformOrigin", () => {
   });
 
   it("returns the correct values for right center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "center" }
     }));
@@ -170,7 +170,7 @@ describe("returns proper values for default transformOrigin", () => {
   });
 
   it("returns the correct values for right bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "bottom" }
     }));
@@ -181,7 +181,7 @@ describe("returns proper values for default transformOrigin", () => {
 
 describe("it returns proper values for centered transformOrigin", () => {
   it("returns the correct values for left top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       transformOrigin: { horizontal: "center", vertical: "center" }
     }));
@@ -190,7 +190,7 @@ describe("it returns proper values for centered transformOrigin", () => {
   });
 
   it("returns the correct values for left bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "left", vertical: "bottom" },
       transformOrigin: { horizontal: "center", vertical: "center" }
@@ -200,7 +200,7 @@ describe("it returns proper values for centered transformOrigin", () => {
   });
 
   it("returns the correct values for left center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "left", vertical: "center" },
       transformOrigin: { horizontal: "center", vertical: "center" }
@@ -210,7 +210,7 @@ describe("it returns proper values for centered transformOrigin", () => {
   });
 
   it("returns the correct values for center top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "top" },
       transformOrigin: { horizontal: "center", vertical: "center" }
@@ -220,7 +220,7 @@ describe("it returns proper values for centered transformOrigin", () => {
   });
 
   it("returns the correct values for center center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "center" },
       transformOrigin: { horizontal: "center", vertical: "center" }
@@ -230,7 +230,7 @@ describe("it returns proper values for centered transformOrigin", () => {
   });
 
   it("returns the correct values for center bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "bottom" },
       transformOrigin: { horizontal: "center", vertical: "center" }
@@ -240,7 +240,7 @@ describe("it returns proper values for centered transformOrigin", () => {
   });
 
   it("returns the correct values for right top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "top" },
       transformOrigin: { horizontal: "center", vertical: "center" }
@@ -250,7 +250,7 @@ describe("it returns proper values for centered transformOrigin", () => {
   });
 
   it("returns the correct values for right center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "center" },
       transformOrigin: { horizontal: "center", vertical: "center" }
@@ -260,7 +260,7 @@ describe("it returns proper values for centered transformOrigin", () => {
   });
 
   it("returns the correct values for right bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "bottom" },
       transformOrigin: { horizontal: "center", vertical: "center" }
@@ -272,7 +272,7 @@ describe("it returns proper values for centered transformOrigin", () => {
 
 describe("it returns proper values for right top transformOrigin", () => {
   it("returns the correct values for left top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       transformOrigin: { horizontal: "right", vertical: "top" }
     }));
@@ -281,7 +281,7 @@ describe("it returns proper values for right top transformOrigin", () => {
   });
 
   it("returns the correct values for left bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "left", vertical: "bottom" },
       transformOrigin: { horizontal: "right", vertical: "top" }
@@ -291,7 +291,7 @@ describe("it returns proper values for right top transformOrigin", () => {
   });
 
   it("returns the correct values for left center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "left", vertical: "center" },
       transformOrigin: { horizontal: "right", vertical: "top" }
@@ -301,7 +301,7 @@ describe("it returns proper values for right top transformOrigin", () => {
   });
 
   it("returns the correct values for center top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "top" },
       transformOrigin: { horizontal: "right", vertical: "top" }
@@ -311,7 +311,7 @@ describe("it returns proper values for right top transformOrigin", () => {
   });
 
   it("returns the correct values for center center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "center" },
       transformOrigin: { horizontal: "right", vertical: "top" }
@@ -321,7 +321,7 @@ describe("it returns proper values for right top transformOrigin", () => {
   });
 
   it("returns the correct values for center bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "bottom" },
       transformOrigin: { horizontal: "right", vertical: "top" }
@@ -331,7 +331,7 @@ describe("it returns proper values for right top transformOrigin", () => {
   });
 
   it("returns the correct values for right top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "top" },
       transformOrigin: { horizontal: "right", vertical: "top" }
@@ -341,7 +341,7 @@ describe("it returns proper values for right top transformOrigin", () => {
   });
 
   it("returns the correct values for right center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "center" },
       transformOrigin: { horizontal: "right", vertical: "top" }
@@ -351,7 +351,7 @@ describe("it returns proper values for right top transformOrigin", () => {
   });
 
   it("returns the correct values for right bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "bottom" },
       transformOrigin: { horizontal: "right", vertical: "top" }
@@ -363,7 +363,7 @@ describe("it returns proper values for right top transformOrigin", () => {
 
 describe("it returns proper values for left bottom transformOrigin", () => {
   it("returns the correct values for left top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       transformOrigin: { horizontal: "left", vertical: "bottom" }
     }));
@@ -372,7 +372,7 @@ describe("it returns proper values for left bottom transformOrigin", () => {
   });
 
   it("returns the correct values for left bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "left", vertical: "bottom" },
       transformOrigin: { horizontal: "left", vertical: "bottom" }
@@ -382,7 +382,7 @@ describe("it returns proper values for left bottom transformOrigin", () => {
   });
 
   it("returns the correct values for left center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "left", vertical: "center" },
       transformOrigin: { horizontal: "left", vertical: "bottom" }
@@ -392,7 +392,7 @@ describe("it returns proper values for left bottom transformOrigin", () => {
   });
 
   it("returns the correct values for center top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "top" },
       transformOrigin: { horizontal: "left", vertical: "bottom" }
@@ -402,7 +402,7 @@ describe("it returns proper values for left bottom transformOrigin", () => {
   });
 
   it("returns the correct values for center center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "center" },
       transformOrigin: { horizontal: "left", vertical: "bottom" }
@@ -412,7 +412,7 @@ describe("it returns proper values for left bottom transformOrigin", () => {
   });
 
   it("returns the correct values for center bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "center", vertical: "bottom" },
       transformOrigin: { horizontal: "left", vertical: "bottom" }
@@ -422,7 +422,7 @@ describe("it returns proper values for left bottom transformOrigin", () => {
   });
 
   it("returns the correct values for right top placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "top" },
       transformOrigin: { horizontal: "left", vertical: "bottom" }
@@ -432,7 +432,7 @@ describe("it returns proper values for left bottom transformOrigin", () => {
   });
 
   it("returns the correct values for right center placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "center" },
       transformOrigin: { horizontal: "left", vertical: "bottom" }
@@ -442,7 +442,7 @@ describe("it returns proper values for left bottom transformOrigin", () => {
   });
 
   it("returns the correct values for right bottom placement", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       placement: { horizontal: "right", vertical: "bottom" },
       transformOrigin: { horizontal: "left", vertical: "bottom" }
@@ -454,7 +454,7 @@ describe("it returns proper values for left bottom transformOrigin", () => {
 
 describe("setting offsets work in different direction", () => {
   it("has proper top offset", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       offset: { top: 50, right: 0, bottom: 0, left: 0 }
     }));
@@ -463,7 +463,7 @@ describe("setting offsets work in different direction", () => {
   });
 
   it("has proper right offset", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       offset: { top: 0, right: 50, bottom: 0, left: 0 }
     }));
@@ -472,7 +472,7 @@ describe("setting offsets work in different direction", () => {
   });
 
   it("has proper bottom offset", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       offset: { top: 0, right: 0, bottom: 50, left: 0 }
     }));
@@ -481,7 +481,7 @@ describe("setting offsets work in different direction", () => {
   });
 
   it("has proper left offset", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       offset: { top: 0, right: 0, bottom: 0, left: 50 }
     }));
@@ -490,7 +490,7 @@ describe("setting offsets work in different direction", () => {
   });
 
   it("can handle multiple values", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       offset: { top: 50, right: 25, bottom: 25, left: 50 }
     }));
@@ -499,7 +499,7 @@ describe("setting offsets work in different direction", () => {
   });
 
   it("works with transformOrigin from bottom right as well", async () => {
-    const { popover } = createUsePositionComponent(defaultParams => ({
+    const { popover } = await createUsePositionComponent(defaultParams => ({
       ...defaultParams,
       transformOrigin: { horizontal: "right", vertical: "bottom" },
       offset: { top: 50, right: 25, bottom: 25, left: 50 }

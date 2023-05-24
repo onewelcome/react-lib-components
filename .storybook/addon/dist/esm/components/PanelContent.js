@@ -9,7 +9,7 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 /*
@@ -30,7 +30,8 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
-import { Table, ColorControl } from "@storybook/components";
+import { Table } from "@storybook/components";
+import { ColorControl } from "@storybook/blocks";
 import { cssPropertyToObjectKey } from "../utils/helpers";
 var PropertyValueInput = styled.input(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  background-color: #fff;\n  border-radius: 4px;\n  border-color: #eee;\n  border-style: solid;\n  padding: 5px;\n  font-family: monospace;\n"])));
 var PropertyValueLabel = styled.label(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n"])));
@@ -81,14 +82,11 @@ export var PanelContent = function PanelContent(_ref) {
     }
     return value;
   };
-  var startsWithColorPrefix = function startsWithColorPrefix(value) {
-    var prefixes = ["#", "rgb", "hsla"];
-    return prefixes.some(function (prefix) {
-      return value.startsWith(prefix);
-    });
-  };
   var isColor = function isColor(value) {
-    if (startsWithColorPrefix(value)) {
+    var rgbaRegex = new RegExp(/^(rgba?\()?((1?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*){2}(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])(,\s*(0?\.\d+|1(\.0+)?))?\)?$/);
+    var isTransparent = value === "transparent";
+    var isHexColor = value.startsWith("#");
+    if (rgbaRegex.test(value) || isTransparent || isHexColor) {
       return true;
     }
     if (/var\(--.+\)/.test(value)) {
@@ -107,24 +105,26 @@ export var PanelContent = function PanelContent(_ref) {
         var _ref3 = _slicedToArray(_ref2, 2),
           key = _ref3[0],
           value = _ref3[1];
+        var parsedValue = parseValue(value);
+        var valueIsColor = isColor(parsedValue);
         return /*#__PURE__*/React.createElement("tr", {
           key: key
         }, /*#__PURE__*/React.createElement("td", null, key), /*#__PURE__*/React.createElement("td", {
           style: {
             textAlign: "left"
           }
-        }, /*#__PURE__*/React.createElement(PropertyValueLabel, null, key), isColor(value) ? /*#__PURE__*/React.createElement(ColorControl, {
+        }, /*#__PURE__*/React.createElement(PropertyValueLabel, null, key), valueIsColor ? /*#__PURE__*/React.createElement(ColorControl, {
           name: key,
           onChange: function onChange(value) {
             handlePropertyChange(key, value);
           },
-          value: parseValue(propertiesState[key])
+          value: parsedValue
         }) : /*#__PURE__*/React.createElement(PropertyValueInput, {
           onChange: function onChange(e) {
             return handlePropertyChange(key, e.target.value);
           },
           type: "text",
-          value: parseValue(value)
+          value: parsedValue
         })));
       });
     }

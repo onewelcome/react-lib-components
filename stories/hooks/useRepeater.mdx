@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as useRepeaterStories from "./useRepeater.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -31,7 +32,9 @@ As mentioned before the `repeatedComponents` variable is an array which contains
 
 # Examples
 
-<DocsStory id="hooks-userepeater--repeater" />
+<Canvas>
+  <Story of={useRepeaterStories.Repeater} />
+</Canvas>
 
 Example `ComponentToRepeat`:
 

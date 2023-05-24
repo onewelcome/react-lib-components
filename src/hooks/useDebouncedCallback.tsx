@@ -20,7 +20,7 @@ export const useDebouncedCallback = (callback: Function, delay: number, dependen
   const timeout = React.useRef<ReturnType<typeof setTimeout>>();
   const comboDeps = dependencies ? [callback, delay, ...dependencies] : [callback, delay];
 
-  return React.useCallback((...args) => {
+  return React.useCallback((...args: any[]) => {
     if (timeout.current != null) {
       clearTimeout(timeout.current);
     }

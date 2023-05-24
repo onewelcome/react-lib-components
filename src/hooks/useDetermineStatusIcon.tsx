@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-import { FormElement } from "../Form/form.interfaces";
+import { FormElement } from "../components/Form/form.interfaces";
 import React, { ReactElement, useRef } from "react";
-import { Icon, Icons } from "../Icon/Icon";
+import { Icon, Icons } from "../components/Icon/Icon";
 export const useDetermineStatusIcon = (params: Partial<FormElement>): ReactElement | null => {
   const { error, success } = params || false;
   let icon = null;

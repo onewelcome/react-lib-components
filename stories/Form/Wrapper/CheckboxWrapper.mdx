@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as CheckboxWrapperStories from "./CheckboxWrapper.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -109,7 +110,9 @@ const ExampleComponent = () => {
 };
 ```
 
-<DocsStory id="components-inputs-checkbox-wrapper--checkboxes" />
+<Canvas>
+  <Story of={CheckboxWrapperStories.Checkboxes} />
+</Canvas>
 
 [Nested checkboxes](/story/stories-form-wrapper-checkboxwrapper--nested-checkboxes):
 
@@ -193,8 +196,10 @@ const ExampleForm = () => {
 }
 ```
 
-<DocsStory id="components-inputs-checkbox-wrapper--nested-checkboxes" />
+<Canvas>
+  <Story of={CheckboxWrapperStories.NestedCheckboxes} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

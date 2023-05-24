@@ -16,14 +16,17 @@
 
 import React, { useState } from "react";
 import { Meta, Story } from "@storybook/react";
-import { Fieldset as FieldsetComponent, Props } from "../../../src/Form/Fieldset/Fieldset";
-import { FormControl } from "../../../src/Form/FormControl/FormControl";
-import { Option } from "../../../src/Form/Select/Option";
-import { Form } from "../../../src/Form/Form";
-import { SelectWrapper } from "../../../src/Form/Wrapper/SelectWrapper/SelectWrapper";
+import {
+  Fieldset as FieldsetComponent,
+  Props
+} from "../../../src/components/Form/Fieldset/Fieldset";
+import { FormControl } from "../../../src/components/Form/FormControl/FormControl";
+import { Option } from "../../../src/components/Form/Select/Option";
+import { Form } from "../../../src/components/Form/Form";
+import { SelectWrapper } from "../../../src/components/Form/Wrapper/SelectWrapper/SelectWrapper";
 import FieldsetDocumentation from "./Fieldset.mdx";
-import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
-import { Button } from "../../../src/Button/Button";
+import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
+import { Button } from "../../../src/components/Button/Button";
 
 const meta: Meta = {
   title: "components/Layout/Fieldset",

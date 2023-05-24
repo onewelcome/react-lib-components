@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as InputStories from "./Input.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -11,7 +12,9 @@ It also has built-in `error` and `disabled` props that you can set to either `tr
 
 Down below you will find an `Input` component that you can control by setting Props from the [Props table](#props).
 
-<DocsStory id="components-inputs-raw-input--input" />
+<Canvas>
+  <Story of={InputStories.Input} />
+</Canvas>
 
 A code example with an `Input` component linked to state:
 
@@ -32,4 +35,4 @@ const ExampleComponent = () => {
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

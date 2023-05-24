@@ -16,14 +16,17 @@
 
 import React, { Fragment, useState } from "react";
 import { Meta, Story } from "@storybook/react";
-import { ContextMenu as ContextMenuComponent, Props } from "../../src/ContextMenu/ContextMenu";
-import { ContextMenuItem } from "../../src/ContextMenu/ContextMenuItem";
+import {
+  ContextMenu as ContextMenuComponent,
+  Props
+} from "../../src/components/ContextMenu/ContextMenu";
+import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
 import { action } from "@storybook/addon-actions";
-import { IconButton } from "../../src/Button/IconButton";
-import { Icon, Icons } from "../../src/Icon/Icon";
+import { IconButton } from "../../src/components/Button/IconButton";
+import { Icon, Icons } from "../../src/components/Icon/Icon";
 import { Placement } from "../../src/hooks/usePosition";
 import ContextMenuDocumentation from "./ContextMenu.mdx";
-import { Typography } from "../../src/Typography/Typography";
+import { Typography } from "../../src/components/Typography/Typography";
 
 const meta: Meta = {
   title: "components/Navigation/ContextMenu",

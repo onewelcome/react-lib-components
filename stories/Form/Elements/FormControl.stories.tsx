@@ -19,14 +19,14 @@ import { Meta, Story } from "@storybook/react";
 import {
   FormControl as FormControlComponent,
   Props
-} from "../../../src/Form/FormControl/FormControl";
-import { Form } from "../../../src/Form/Form";
-import { RadioWrapper } from "../../../src/Form/Wrapper/RadioWrapper/RadioWrapper";
-import { Checkbox } from "../../../src/Form/Checkbox/Checkbox";
-import { CheckboxWrapper } from "../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
-import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
-import { Radio } from "../../../src/Form/Radio/Radio";
-import { Fieldset } from "../../../src/Form/Fieldset/Fieldset";
+} from "../../../src/components/Form/FormControl/FormControl";
+import { Form } from "../../../src/components/Form/Form";
+import { RadioWrapper } from "../../../src/components/Form/Wrapper/RadioWrapper/RadioWrapper";
+import { Checkbox } from "../../../src/components/Form/Checkbox/Checkbox";
+import { CheckboxWrapper } from "../../../src/components/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
+import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
+import { Radio } from "../../../src/components/Form/Radio/Radio";
+import { Fieldset } from "../../../src/components/Form/Fieldset/Fieldset";
 import FormControlDocumentation from "./FormControl.mdx";
 
 const meta: Meta = {

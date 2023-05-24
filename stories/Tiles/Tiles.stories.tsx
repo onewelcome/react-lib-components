@@ -16,7 +16,7 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Props, Tiles as TitlesComponent } from "../../src/Tiles/Tiles";
+import { Props, Tiles as TitlesComponent } from "../../src/components/Tiles/Tiles";
 import { ContextMenu, ContextMenuItem, Icon, IconButton, Icons, Tile } from "../../src";
 import TilesDocumentation from "./Tiles.mdx";
 

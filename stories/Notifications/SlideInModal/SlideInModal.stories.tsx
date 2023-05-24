@@ -19,12 +19,12 @@ import { Meta, Story } from "@storybook/react";
 import {
   SlideInModal as SlideInModalComponent,
   Props
-} from "../../../src/Notifications/SlideInModal/SlideInModal";
+} from "../../../src/components/Notifications/SlideInModal/SlideInModal";
 import SlideInModalDocumentation from "./SlideInModal.mdx";
-import { Button } from "../../../src/Button/Button";
-import { ModalHeader } from "../../../src/Notifications/Modal/ModalHeader/ModalHeader";
-import { ModalContent } from "../../../src/Notifications/Modal/ModalContent/ModalContent";
-import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
+import { Button } from "../../../src/components/Button/Button";
+import { ModalHeader } from "../../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
+import { ModalContent } from "../../../src/components/Notifications/Modal/ModalContent/ModalContent";
+import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 
 const meta: Meta = {
   title: "components/Utils/SlideInModal",

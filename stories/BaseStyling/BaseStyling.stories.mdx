@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/addon-docs";
+import { Meta } from "@storybook/blocks";
 
 <Meta
   title="components/layout/BaseStyling"
@@ -13,7 +13,7 @@ import { Meta } from "@storybook/addon-docs";
 # BaseStyling
 
 The component library can be customised in a limited fashion. This customisation is done through the use of this `BaseStyling` component, which should be wrapped around your entire application. Using the `properties` prop, you can pass an object
-with any of the properties you find in the [props table down below](#props). All of the colors and values you'll find for each of the properties are their default values. Meaning that if you just wrap your application in the `BaseStyling` component
+with any of the properties described down below. All of the colors and values you'll find for each of the properties are their default values. Meaning that if you just wrap your application in the `BaseStyling` component
 without passing anything to the `properties` prop, these are the values you'll work with.
 
 We have created a [Storybook addon](https://storybook.js.org/docs/react/addons/introduction), which adds a `BaseStyling` tab with all of the properties you can customise. These will affect the Story you are currently viewing. For instance, if you [navigate
@@ -30,29 +30,113 @@ Down below, you will find all the CSS properties that are currently supported an
 
 The following color variables are defined for the default palette. Override their usages, not the color definitions, to match your own design.
 
-| Property                     | CSS variable                      | Value       |
-| ---------------------------- | --------------------------------- | ----------- |
-| `colorPrimary300`            | `--color-primary300`              | `#6871BF`   |
-| `colorPrimary500`            | `--color-primary500`              | `#041295`   |
-| `colorPrimary600`            | `--color-primary600`              | `#030F77`   |
-| `colorPrimary700`            | `--color-primary700`              | `#020B59`   |
-| `colorPrimary900`            | `--color-primary900`              | `#01041E`   |
-| `colorBlueGrey25`            | `--color-blue-grey25`             | `#F7F7F9`   |
-| `colorBlueGrey25Transparent` | `--color-blue-grey25-transparent` | `#F7F7F980` |
-| `colorBlueGrey100`           | `--color-blue-grey100`            | `#DEDEE6`   |
-| `colorBlueGrey200`           | `--color-blue-grey200`            | `#BCBECE`   |
-| `colorBlueGrey400`           | `--color-blue-grey400`            | `#797D9C`   |
-| `colorBlueGrey500`           | `--color-blue-grey500`            | `#5D607E`   |
-| `colorBlueGrey700`           | `--color-blue-grey700`            | `#383A4B`   |
-| `colorBlueGrey900`           | `--color-blue-grey900`            | `#131319`   |
-| `colorGreen500`              | `--color-green500`                | `#178244`   |
-| `colorLightBlue500`          | `--color-light-blue500`           | `#00BCDD`   |
-| `colorLightBlue600`          | `--color-light-blue600`           | `#0096B1`   |
-| `colorOrange500`             | `--color-orange500`               | `#E07900`   |
-| `colorRed500`                | `--color-red500`                  | `#E01E00`   |
-| `colorBlack10`               | `--color-black10`                 | `#0000001a` |
-| `colorWhite`                 | `--color-white`                   | `#FFFFFF`   |
-
+<table>
+  <tr>
+    <td>Property</td>
+    <td>CSS variable</td>
+    <td>Value</td>
+  </tr>
+  <tr>
+    <td>`colorPrimary300`</td>
+    <td>`--color-primary300`</td>
+    <td>`#6871BF`</td>
+  </tr>
+  <tr>
+    <td>`colorPrimary500`</td>
+    <td>`--color-primary500`</td>
+    <td>`#041295`</td>
+  </tr>
+  <tr>
+    <td>`colorPrimary600`</td>
+    <td>`--color-primary600`</td>
+    <td>`#030F77`</td>
+  </tr>
+  <tr>
+    <td>`colorPrimary700`</td>
+    <td>`--color-primary700`</td>
+    <td>`#020B59`</td>
+  </tr>
+  <tr>
+    <td>`colorPrimary900`</td>
+    <td>`--color-primary900`</td>
+    <td>`#01041E`</td>
+  </tr>
+  <tr>
+    <td>`colorBlueGrey25`</td>
+    <td>`--color-blue-grey25`</td>
+    <td>`#F7F7F9`</td>
+  </tr>
+  <tr>
+    <td>`colorBlueGrey25Transparent`</td>
+    <td>`--color-blue-grey25-transparent`</td>
+    <td>`#F7F7F980`</td>
+  </tr>
+  <tr>
+    <td>`colorBlueGrey100`</td>
+    <td>`--color-blue-grey100`</td>
+    <td>`#DEDEE6`</td>
+  </tr>
+  <tr>
+    <td>`colorBlueGrey200`</td>
+    <td>`--color-blue-grey200`</td>
+    <td>`#BCBECE`</td>
+  </tr>
+  <tr>
+    <td>`colorBlueGrey400`</td>
+    <td>`--color-blue-grey400`</td>
+    <td>`#797D9C`</td>
+  </tr>
+  <tr>
+    <td>`colorBlueGrey500`</td>
+    <td>`--color-blue-grey500`</td>
+    <td>`#5D607E`</td>
+  </tr>
+  <tr>
+    <td>`colorBlueGrey700`</td>
+    <td>`--color-blue-grey700`</td>
+    <td>`#383A4B`</td>
+  </tr>
+  <tr>
+    <td>`colorBlueGrey900`</td>
+    <td>`--color-blue-grey900`</td>
+    <td>`#131319`</td>
+  </tr>
+  <tr>
+    <td>`colorGreen500`</td>
+    <td>`--color-green500`</td>
+    <td>`#178244`</td>
+  </tr>
+  <tr>
+    <td>`colorLightBlue500`</td>
+    <td>`--color-light-blue500`</td>
+    <td>`#00BCDD`</td>
+  </tr>
+  <tr>
+    <td>`colorLightBlue600`</td>
+    <td>`--color-light-blue600`</td>
+    <td>`#0096B1`</td>
+  </tr>
+  <tr>
+    <td>`colorOrange500`</td>
+    <td>`--color-orange500`</td>
+    <td>`#E07900`</td>
+  </tr>
+  <tr>
+    <td>`colorRed500`</td>
+    <td>`--color-red500`</td>
+    <td>`#E01E00`</td>
+  </tr>
+  <tr>
+    <td>`colorBlack10`</td>
+    <td>`--color-black10`</td>
+    <td>`#0000001a`</td>
+  </tr>
+  <tr>
+    <td>`colorWhite`</td>
+    <td>`--color-white`</td>
+    <td>`#FFFFFF`</td>
+  </tr>
+</table>
 ## colorFocus
 
 Will get translated to the CSS variable `--color-focus`. By default, this refers to the same color as `--color-primary`, so if you change the `--color-primary` variable to a different color, this property will automatically change as well.
@@ -172,19 +256,19 @@ Will get translated to the CSS variable `--snackbar-border-radius`. This is the 
 
 ## bannerBorderRadius
 
-Will get translated to the CSS variable `--banner-border-radius`. This is the `border-radius` from every [Banner component](/story/components-feedback-banner--banner).
+Will get translated to the CSS variable `--banner-border-radius`. This is the `border-radius` from every [Banner component](/story/components-feedback-banner--warning-banner).
 
 ## bannerBorderWidth
 
-Will get translated to the CSS variable `--banner-border-width`. This is the `border-width` from every [Banner component](/story/components-feedback-banner--banner).
+Will get translated to the CSS variable `--banner-border-width`. This is the `border-width` from every [Banner component](/story/components-feedback-banner--warning-banner).
 
 ## dataGridRowBackgroundColor
 
-Will get translated to the CSS variable `--data-grid-row-background-color`. This is the `background-color` for every `<tr>` element inside a [DataTable component](/story/components-data-display-datagrid--data-grid)
+Will get translated to the CSS variable `--data-grid-row-background-color`. This is the `background-color` for every `<tr>` element inside a [DataTable component](/story/components-data-display-datagrid--default-data-grid)
 
 ## dataGridRowHoverBackgroundColor
 
-Will get translated to the CSS variable `--data-grid-row-hover-background-color`. This is the on **hover** `background-color` for every `<tr>` element inside a [DataTable component](/story/components-data-display-datagrid--data-grid).
+Will get translated to the CSS variable `--data-grid-row-hover-background-color`. This is the on **hover** `background-color` for every `<tr>` element inside a [DataTable component](/story/components-data-display-datagrid--default-data-grid).
 
 Its default value refers to `--color-blue-grey25`.
 

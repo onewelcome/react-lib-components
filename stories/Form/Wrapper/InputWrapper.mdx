@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as InputWrapperStories from "./InputWrapper.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -42,8 +43,10 @@ const ExampleComponent = () => {
 };
 ```
 
-<DocsStory id="components-inputs-input-wrapper--input-wrapper" />
+<Canvas>
+  <Story of={InputWrapperStories.InputWrapper} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

@@ -16,9 +16,9 @@
 
 import React, { Fragment, useState } from "react";
 import { Meta, Story } from "@storybook/react";
-import { Dialog, Props } from "../../../src/Notifications/Dialog/Dialog";
-import { Button } from "../../../src/Button/Button";
-import { Typography } from "../../../src/Typography/Typography";
+import { Dialog, Props } from "../../../src/components/Notifications/Dialog/Dialog";
+import { Button } from "../../../src/components/Button/Button";
+import { Typography } from "../../../src/components/Typography/Typography";
 import DialogDocumentation from "./Dialog.mdx";
 
 const meta: Meta = {

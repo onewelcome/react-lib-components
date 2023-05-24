@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as SlideInModalStories from "./SlideInModal.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -7,8 +8,10 @@ SlideInModal is an extension of the basic `Modal` component. The only difference
 
 # Examples
 
-<DocsStory id="components-utils-slideinmodal--slide-in-modal" />
+<Canvas>
+  <Story of={SlideInModalStories.SlideInModal} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

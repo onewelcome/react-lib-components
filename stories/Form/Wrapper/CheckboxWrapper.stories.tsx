@@ -17,11 +17,11 @@
 import { Meta, Story } from "@storybook/react";
 import React from "react";
 import { useEffect, useState } from "react";
-import { Checkbox } from "../../../src/Form/Checkbox/Checkbox";
+import { Checkbox } from "../../../src/components/Form/Checkbox/Checkbox";
 import {
   CheckboxWrapper,
   Props as CheckboxWrapperProps
-} from "../../../src/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
+} from "../../../src/components/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
 import CheckboxWrapperDocumentation from "./CheckboxWrapper.mdx";
 
 const meta: Meta = {
@@ -174,17 +174,17 @@ const NestedTemplate: Story<CheckboxWrapperProps> = args => {
   };
 
   const onLaptopCheckHandler = () => {
-    console.log("Laptop Checked");
+    console.warn("Laptop Checked");
     setCheckedLaptop(!checkedLaptop);
   };
 
   const onTVCheckHandler = () => {
-    console.log("TV Checked");
+    console.warn("TV Checked");
     setCheckedTV(!checkedTV);
   };
 
   const onMicrophoneCheckHandler = () => {
-    console.log("Microphone Checked");
+    console.warn("Microphone Checked");
     setCheckedMicrophone(!checkedMicrophone);
   };
 

@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as FormStories from "./Form.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -31,8 +32,10 @@ The `Form` component is a wrapper element. That means you can wrap any `FormElem
 </Form>
 ```
 
-<DocsStory id="components-layout-form--form" />
+<Canvas>
+  <Story of={FormStories.Form} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

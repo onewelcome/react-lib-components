@@ -16,11 +16,11 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Tile as TileComponent, Props } from "../../src/Tiles/Tile";
-import { Icon, Icons } from "../../src/Icon/Icon";
-import { ContextMenu } from "../../src/ContextMenu/ContextMenu";
-import { IconButton } from "../../src/Button/IconButton";
-import { ContextMenuItem } from "../../src/ContextMenu/ContextMenuItem";
+import { Tile as TileComponent, Props } from "../../src/components/Tiles/Tile";
+import { Icon, Icons } from "../../src/components/Icon/Icon";
+import { ContextMenu } from "../../src/components/ContextMenu/ContextMenu";
+import { IconButton } from "../../src/components/Button/IconButton";
+import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
 import TileDocumentation from "./Tile.mdx";
 
 const meta: Meta = {

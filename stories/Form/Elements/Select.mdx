@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as SelectStories from "./Select.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -41,8 +42,10 @@ The `onChange` method: if we click an `Option` we receive the `event` object as 
 
 See below an example of a `Select` component. It is controlled by Storybook, and selecting a value will not do anything. However, you can change the value by selecting it in the [Props table](#props).
 
-<DocsStory id="components-inputs-raw-select--select" />
+<Canvas>
+  <Story of={SelectStories.Select} />
+</Canvas>
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

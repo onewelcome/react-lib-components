@@ -16,15 +16,15 @@
 
 import React, { Fragment, useState } from "react";
 import { Meta, Story } from "@storybook/react";
-import { Modal as ModalComponent, Props } from "../../../src/Notifications/Modal/Modal";
-import { ModalActions } from "../../../src/Notifications/Modal/ModalActions/ModalActions";
-import { ModalContent } from "../../../src/Notifications/Modal/ModalContent/ModalContent";
-import { ModalHeader } from "../../../src/Notifications/Modal/ModalHeader/ModalHeader";
-import { Button } from "../../../src/Button/Button";
-import { Typography } from "../../../src/Typography/Typography";
+import { Modal as ModalComponent, Props } from "../../../src/components/Notifications/Modal/Modal";
+import { ModalActions } from "../../../src/components/Notifications/Modal/ModalActions/ModalActions";
+import { ModalContent } from "../../../src/components/Notifications/Modal/ModalContent/ModalContent";
+import { ModalHeader } from "../../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
+import { Button } from "../../../src/components/Button/Button";
+import { Typography } from "../../../src/components/Typography/Typography";
 import ModalDocumentation from "./Modal.mdx";
-import { FormControl } from "../../../src/Form/FormControl/FormControl";
-import { InputWrapper } from "../../../src/Form/Wrapper/InputWrapper/InputWrapper";
+import { FormControl } from "../../../src/components/Form/FormControl/FormControl";
+import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 
 const meta: Meta = {
   title: "components/Utils/Modal",

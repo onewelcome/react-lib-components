@@ -17,7 +17,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useRepeater } from "./useRepeater";
 import { render } from "@testing-library/react";
-import { InputWrapper } from "../Form/Wrapper/InputWrapper/InputWrapper";
+import { InputWrapper } from "../components/Form/Wrapper/InputWrapper/InputWrapper";
 import { generateID } from "../util/helper";
 import userEvent from "@testing-library/user-event";
 
@@ -35,7 +35,7 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
   });
 
   useEffect(() => {
-    onChange && onChange(inputState);
+    onChange?.(inputState);
   }, [inputState]);
 
   return (
@@ -47,8 +47,8 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
       error={inputState.error}
       value={inputState.value}
       label="Label for this inputfield"
-      onChange={event => {
-        setInputState(prevState => ({ ...prevState, value: event.target.value }));
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputState(prevState => ({ ...prevState, value: event.target?.value }));
       }}
     />
   );
@@ -111,7 +111,7 @@ describe("useRepeater should render", () => {
     expect(inputWrappers.length).toBe(2);
   });
 
-  it("should repeat 3 items and remove the first index", () => {
+  it("should repeat 3 items and remove the first index", async () => {
     const onChangeHandler = jest.fn();
 
     const App = () => {
@@ -146,7 +146,7 @@ describe("useRepeater should render", () => {
 
     const removeButton = renderedItems.container.querySelector("#remove_input_1");
 
-    userEvent.click(removeButton!);
+    await userEvent.click(removeButton!);
 
     expect(renderedItems.container.querySelector(`#${secondInputID}`)).toBeFalsy();
     const inputWrappers = renderedItems.container.querySelectorAll(".wrapper.input-wrapper");

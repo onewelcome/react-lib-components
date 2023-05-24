@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { FileType } from "../Form/FileUpload/FileUpload";
+import { FileType } from "../components/Form/FileUpload/FileUpload";
 import { useEffect, useState } from "react";
 import { getValueByPath, isJsonString } from "../util/helper";
 
@@ -67,7 +67,7 @@ export const useUploadFile = (
     const progress = (e.loaded / e.total) * 100;
     const updatedData = getUpdatedList(fileName, "uploading", progress);
     setUpdatedFiles(updatedData);
-    onProgress && onProgress(fileName, progress);
+    onProgress?.(fileName, progress);
   };
 
   const getFileStatus = (
@@ -105,7 +105,7 @@ export const useUploadFile = (
       setUpdatedFiles(updatedList);
       const response = { fileList: updatedList, status };
       setUploadingFiles(prevState => prevState.filter(selected => selected.name === fileName));
-      onComplete && onComplete(response);
+      onComplete?.(response);
     }
   };
 

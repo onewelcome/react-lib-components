@@ -16,7 +16,7 @@
 
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { Icon as IconComponent, Props, Icons } from "../../src/Icon/Icon";
+import { Icon as IconComponent, Props, Icons } from "../../src/components/Icon/Icon";
 import IconDocumentation from "./Icon.mdx";
 
 const meta: Meta = {

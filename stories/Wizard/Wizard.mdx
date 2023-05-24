@@ -1,4 +1,5 @@
-import { DocsStory, Title, Subtitle, ArgsTable, PRIMARY_STORY } from "@storybook/addon-docs";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as WizardStories from "./Wizard.stories.tsx";
 
 <Title />
 <Subtitle />
@@ -7,7 +8,7 @@ The `Wizard` component is used to give the user some indication of how far they 
 
 To configure the `Wizard` correctly, there are a few different components you will use.
 
-## <Wizard />
+## &lt;Wizard />
 
 This is the main wrapping component you will use to configure your `Wizard`. It has the following props:
 
@@ -124,16 +125,6 @@ A function will be executed when the user clicks on the Previous button. Use thi
 
 A function will be executed when the user clicks the Save & Close button. Gets the current step number as an argument.
 
-# Examples
-
-Normal Wizard:
-
-<DocsStory id="components-layout-wizard-wizard--basic-wizard" />
-
-Wizard within a modal:
-
-<DocsStory id="components-layout-wizard-wizard--wizard-in-modal" />
-
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

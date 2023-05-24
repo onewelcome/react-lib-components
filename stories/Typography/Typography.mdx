@@ -1,5 +1,5 @@
-import { ArgsTable, PRIMARY_STORY, Subtitle, Title } from "@storybook/addon-docs";
-import { Typography } from "../../src/Typography/Typography.tsx";
+import { ArgTypes, PRIMARY_STORY, Subtitle, Title } from "@storybook/blocks";
+import { Typography } from "../../src/components/Typography/Typography.tsx";
 
 <Title />
 <Subtitle />
@@ -11,8 +11,16 @@ The typography component helps present text content. It has styling defined for 
 Typography was designed to support any font you like. This can be changed by the configuration provided to the `BaseStyling` component. By default `Roboto` font is set.
 `Roboto` is not automatically loaded. You are responsible for including font in your application.
 
-| NOTE: `code block` is the only exception that uses the font `Roboto Mono`. You only have to include it in your application if you use it. |
-| ----------------------------------------------------------------------------------------------------------------------------------------- |
+<table>
+  <thead>
+    <tr>
+      <th>
+        NOTE: `code block` is the only exception that uses the font `Roboto Mono`. You only have to
+        include it in your application if you use it.
+      </th>
+    </tr>
+  </thead>
+</table>
 
 ## Google fonts
 
@@ -38,18 +46,58 @@ npm i @fontsource/roboto @fontsource/roboto-mono
 
 `<BaseStyling/>` supports overwriting default properties. For Typography, these properties can be set:
 
-| Property name  | Default value             | Description                                                              |
-| -------------- | ------------------------- | ------------------------------------------------------------------------ |
-| fontFamily     | Roboto, sans-serif        | Base font family used for all Typography's variants beside `code`        |
-| fontFamilyCode | 'Roboto Mono', sans-serif | Font family used for `code` Typography variant                           |
-| fontSize       | 1rem                      | Base font size used in Typography as well in other elements like buttons |
-| fontSizeH1     | 2.5rem                    | Font size of Heading1 variant                                            |
-| fontSizeH2     | 1.625rem                  | Font size of Heading2 variant                                            |
-| fontSizeH3     | 1.5rem                    | Font size of Heading3 variant                                            |
-| fontSizeH4     | 1.25rem                   | Font size of Heading4 variant                                            |
-| fontSizeSub    | 0.75rem                   | Font size of Sub text variant                                            |
-| fontSizeCode   | 1rem                      | Font size of Code variant                                                |
-
+<table>
+  <tr>
+    <td>Property name</td>
+    <td>Default value</td>
+    <td>Description</td>
+  </tr>
+  <tr>
+    <td>fontFamily</td>
+    <td>Roboto, sans-serif</td>
+    <td>Base font family used for all Typography's variants beside `code`</td>
+  </tr>
+  <tr>
+    <td>fontFamilyCode</td>
+    <td>'Roboto Mono', sans-serif</td>
+    <td>Font family used for `code` Typography variant</td>
+  </tr>
+  <tr>
+    <td>fontSize</td>
+    <td>1rem</td>
+    <td>Base font size used in Typography as well in other elements like buttons</td>
+  </tr>
+  <tr>
+    <td>fontSizeH1</td>
+    <td>2.5rem</td>
+    <td>Font size of Heading1 variant</td>
+  </tr>
+  <tr>
+    <td>fontSizeH2</td>
+    <td>1.625rem</td>
+    <td>Font size of Heading2 variant</td>
+  </tr>
+  <tr>
+    <td>fontSizeH3</td>
+    <td>1.5rem</td>
+    <td>Font size of Heading3 variant</td>
+  </tr>
+  <tr>
+    <td>fontSizeH4</td>
+    <td>1.25rem</td>
+    <td>Font size of Heading4 variant</td>
+  </tr>
+  <tr>
+    <td>fontSizeSub</td>
+    <td>0.75rem</td>
+    <td>Font size of Sub text variant</td>
+  </tr>
+  <tr>
+    <td>fontSizeCode</td>
+    <td>1rem</td>
+    <td>Font size of Code variant</td>
+  </tr>
+</table>
 ## Using spacing
 
 By default all `Typography` elements have a `margin-bottom` property set to `1rem`. This can be changed by setting `spacing` property.
@@ -76,4 +124,4 @@ You can see all the variants below:
 
 # Props
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes story={PRIMARY_STORY} />

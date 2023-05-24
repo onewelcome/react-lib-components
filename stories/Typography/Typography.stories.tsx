@@ -20,7 +20,7 @@ import {
   Props,
   Typography as TypographyComponent,
   validVariants
-} from "../../src/Typography/Typography";
+} from "../../src/components/Typography/Typography";
 import TypographyDocumentation from "./Typography.mdx";
 
 const meta: Meta = {

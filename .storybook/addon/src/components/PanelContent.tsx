@@ -16,7 +16,8 @@
 
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
-import { Table, ColorControl } from "@storybook/components";
+import { Table } from "@storybook/components";
+import { ColorControl } from "@storybook/blocks";
 import { cssPropertyToObjectKey } from "../utils/helpers";
 
 const PropertyValueInput = styled.input`
@@ -89,14 +90,14 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
     return value;
   };
 
-  const startsWithColorPrefix = (value: string) => {
-    const prefixes = ["#", "rgb", "hsla"];
-
-    return prefixes.some(prefix => value.startsWith(prefix));
-  };
-
   const isColor = (value: string): boolean => {
-    if (startsWithColorPrefix(value)) {
+    const rgbaRegex = new RegExp(
+      /^(rgba?\()?((1?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*){2}(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])(,\s*(0?\.\d+|1(\.0+)?))?\)?$/
+    );
+    const isTransparent = value === "transparent";
+    const isHexColor = value.startsWith("#");
+
+    if (rgbaRegex.test(value) || isTransparent || isHexColor) {
       return true;
     }
 
@@ -115,29 +116,35 @@ export const PanelContent: React.FC<PanelContentProps> = ({ properties, property
 
   const renderContent = () => {
     if (propertiesState && Object.entries(propertiesState)) {
-      return Object.entries(propertiesState).map(([key, value]) => (
-        <tr key={key}>
-          <td>{key}</td>
-          <td style={{ textAlign: "left" }}>
-            <PropertyValueLabel>{key}</PropertyValueLabel>
-            {isColor(value) ? (
-              <ColorControl
-                name={key}
-                onChange={value => {
-                  handlePropertyChange(key, value);
-                }}
-                value={parseValue(propertiesState[key])}
-              />
-            ) : (
-              <PropertyValueInput
-                onChange={e => handlePropertyChange(key, e.target.value)}
-                type="text"
-                value={parseValue(value)}
-              />
-            )}
-          </td>
-        </tr>
-      ));
+      return Object.entries(propertiesState).map(([key, value]) => {
+        const parsedValue = parseValue(value);
+
+        const valueIsColor = isColor(parsedValue);
+
+        return (
+          <tr key={key}>
+            <td>{key}</td>
+            <td style={{ textAlign: "left" }}>
+              <PropertyValueLabel>{key}</PropertyValueLabel>
+              {valueIsColor ? (
+                <ColorControl
+                  name={key}
+                  onChange={value => {
+                    handlePropertyChange(key, value);
+                  }}
+                  value={parsedValue}
+                />
+              ) : (
+                <PropertyValueInput
+                  onChange={e => handlePropertyChange(key, e.target.value)}
+                  type="text"
+                  value={parsedValue}
+                />
+              )}
+            </td>
+          </tr>
+        );
+      });
     }
 
     return null;
