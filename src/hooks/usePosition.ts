@@ -356,7 +356,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "horizontal");
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "vertical");
-  }, configObject.debounceAmount || 20);
+  }, configObject.debounceAmount ?? 20);
 
   return {
     top: position.top,

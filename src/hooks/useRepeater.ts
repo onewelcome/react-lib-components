@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, JSX } from "react";
 import { generateID } from "../util/helper";
 
 interface Arguments {
