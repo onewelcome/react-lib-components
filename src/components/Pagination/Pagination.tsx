@@ -67,7 +67,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   /** We use an internal state variable, because we don't want to fire onCurrentPageChange whenever onChange fires on the input. Rather, only when the Enter key is pressed. */
-  const [internalCurrentPage, setInternalCurrentPage] = useState(currentPage?.toString() || "1");
+  const [internalCurrentPage, setInternalCurrentPage] = useState(currentPage?.toString() ?? "1");
   const calculateAmountOfPages = () => {
     if (!totalElements) return 1;
 

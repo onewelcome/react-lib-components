@@ -47,7 +47,7 @@ const BaseModalContentComponent: ForwardRefRenderFunction<HTMLDivElement, Props>
   return (
     <div
       {...rest}
-      ref={ref || contentRef}
+      ref={ref ?? contentRef}
       id={id}
       className={`${classes["content"]} ${className}`}
       tabIndex={-1}
