@@ -57,7 +57,7 @@ const DataGridActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   }: Props,
   ref
 ) => {
-  const isHidden = !(enableAddBtn || enableColumnsBtn || enableSearchBtn);
+  const isHidden = !(enableAddBtn ?? enableColumnsBtn ?? enableSearchBtn);
   const [showColsPopover, setShowColsPopover] = useState(false);
   const showColumnBtn = useRef<HTMLButtonElement>(null);
   const { children: addBtnChildren, ...restAddBtnProps } = addBtnProps;

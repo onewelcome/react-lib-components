@@ -35,7 +35,7 @@ const StatusIndicatorComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
         className={`${classes["status-badge"]} ${classes[status]} ${badgeProps?.className ?? ""}`}
       />
       <Typography {...typographyProps} spacing={{ margin: "0" }} variant="body" tag="div">
-        {typographyProps?.children || children}
+        {typographyProps?.children ?? children}
       </Typography>
     </div>
   );

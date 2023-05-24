@@ -42,7 +42,7 @@ export const useUploadFile = (
 ) => {
   const { url, headers, withCredentials, networkErrorText, responseErrorPath } = request;
 
-  const { onComplete, onProgress } = callbacks || {};
+  const { onComplete, onProgress } = callbacks ?? {};
 
   const [uploadingFiles, setUploadingFiles] = useState<FileType[]>([]);
   const [updatedFiles, setUpdatedFiles] = useState<FileType[]>([...files]);
@@ -82,7 +82,7 @@ export const useUploadFile = (
     } else if (requestStatus === 0) {
       fileStatus = "retry";
       error =
-        networkErrorText || "Network error. Check internet connection and retry uploading the file";
+        networkErrorText ?? "Network error. Check internet connection and retry uploading the file";
     } else if (requestStatus >= 400 && requestStatus < 500) {
       fileStatus = "error";
       error =
@@ -113,7 +113,7 @@ export const useUploadFile = (
     const xhr = new XMLHttpRequest();
     xhr.upload.addEventListener("progress", e => recordProgress(e, file.name));
     xhr.addEventListener("readystatechange", () => handleOnComplete(xhr, file.name));
-    headers && headers.forEach((value, key) => xhr.setRequestHeader(key, value));
+    headers?.forEach((value, key) => xhr.setRequestHeader(key, value));
     withCredentials && (xhr.withCredentials = true);
     xhr.open("POST", url, true);
     const formData = new FormData();

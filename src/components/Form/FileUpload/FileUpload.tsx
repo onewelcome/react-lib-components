@@ -138,7 +138,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     if (maxFileSize && file.size && file.size >= maxFileSize) {
       const mb = (maxFileSize / (1024 * 1024)).toFixed(2);
       result.error =
-        exceedingMaxSizeErrorText ||
+        exceedingMaxSizeErrorText ??
         `The maximum allowed file size is ${mb}MB. Upload a smaller file.`;
       result.status = "error";
       err = true;
@@ -219,7 +219,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                   disabled={disabled}
                   accept={accept}
                   onChange={onInputChange}
-                  spellCheck={rest.spellCheck || false}
+                  spellCheck={rest.spellCheck ?? false}
                 />
               </Button>
             </div>
