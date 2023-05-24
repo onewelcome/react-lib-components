@@ -50,7 +50,7 @@
 .form-input-label {
   font-family: var(--font-family);
   font-size: var(--form-control-font-size);
-  line-height: 1.43rem;
+  line-height: var(--default-line-height);
   color: var(--color-blue-grey900);
   margin-bottom: 0.25rem;
   display: inline-block;

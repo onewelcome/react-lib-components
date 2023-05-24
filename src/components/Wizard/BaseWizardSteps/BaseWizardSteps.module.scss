@@ -180,7 +180,7 @@
   width: 1.5rem;
   height: 1.5rem;
   color: var(--wizard-step-indicator-future-color);
-  line-height: 1.5rem;
+  line-height: var(--default-line-height);
   background-color: var(--light);
   box-sizing: content-box;
 }
