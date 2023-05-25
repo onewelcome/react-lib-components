@@ -116,7 +116,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.62.1",
-    "sass-loader": "^13.2.2",
+    "sass-loader": "^13.3.0",
     "size-limit": "^8.2.4",
     "storybook": "^7.0.12",
     "style-loader": "^3.3.3",
