@@ -14,7 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, Fragment, useState } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  Fragment,
+  useState,
+  useEffect
+} from "react";
 import classes from "./Pagination.module.scss";
 import readyclasses from "../../readyclasses.module.scss";
 import { IconButton } from "../Button/IconButton";
@@ -77,6 +83,11 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
     return Math.ceil(totalElements / pageSize);
   };
+
+  // Create a function that updates the internalCurrentPage to the currentPage prop whenever it changes using useEffect.
+  useEffect(() => {
+    setInternalCurrentPage(currentPage?.toString() ?? "1");
+  }, [currentPage]);
 
   const onEnterListener = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {

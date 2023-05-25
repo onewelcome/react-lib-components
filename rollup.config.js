@@ -64,9 +64,9 @@ export default {
       generateBundle: (options, bundle) => {
         Object.entries(bundle).forEach(entry => {
           // Replace the node_modules/style-inject reference with the style-inject package dependency.
-          if (entry[0].match(/.*(.scss.js)$/)) {
+          if (entry[0].match(/.*(.scss.js)$/) || entry[0].match(/.*(module.esm.js)$/)) {
             bundle[entry[0]].code = entry[1].code.replace(
-              /import\s?(\w+)?\s?from\s?["'](\.\.\/|\.\/){1,5}node_modules\/rollup-plugin-styles\/dist\/runtime\/inject-css.js["'];?/,
+              /import\s?(\w+)?\s?from\s?["'](\.\.\/|\.\/){1,5}node_modules\/rollup-plugin-styles\/dist\/runtime\/inject-css.(esm).?js["'];?/,
               'var containers=[],styleTags=[];const $1 = function(e,t){if(e&&"undefined"!=typeof document){var n,s=!0===t.prepend?"prepend":"append",r=!0===t.singleTag,a="string"==typeof t.container?document.querySelector(t.container):document.getElementsByTagName("head")[0];if(r){var i=containers.indexOf(a);-1===i&&(i=containers.push(a)-1,styleTags[i]={}),n=styleTags[i]&&styleTags[i][s]?styleTags[i][s]:styleTags[i][s]=c()}else n=c();65279===e.charCodeAt(0)&&(e=e.substring(1)),n.styleSheet?n.styleSheet.cssText+=e:n.appendChild(document.createTextNode(e))}function c(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),t.attributes)for(var n=Object.keys(t.attributes),r=0;r<n.length;r++)e.setAttribute(n[r],t.attributes[n[r]]);var i="prepend"===s?"afterbegin":"beforeend";return a.insertAdjacentElement(i,e),e}};'
             );
             return;
