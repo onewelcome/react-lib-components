@@ -19,6 +19,7 @@
 .cell {
   min-height: 3.5rem;
   padding: 0.5rem 0.625rem;
+  transition: all 0.15s ease-in-out;
 
   &:first-child {
     padding-left: 1rem;
@@ -33,6 +34,10 @@
     border-radius: 0.5rem;
     height: 1.25rem;
     margin: 0.625rem 0;
+  }
+
+  &:hover:not(.loading) {
+    background-color: var(--data-grid-cell-hover-background-color);
   }
 }
 

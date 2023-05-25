@@ -16,8 +16,4 @@
 
 .row {
   background-color: var(--data-grid-row-background-color);
-
-  &:not(.loading):hover {
-    background-color: var(--data-grid-row-hover-background-color);
-  }
 }

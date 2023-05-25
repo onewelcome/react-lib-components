@@ -105,7 +105,7 @@ interface CSSProperties {
   bannerBorderRadius?: string;
   bannerBorderWidth?: string;
   dataGridRowBackgroundColor?: string;
-  dataGridRowHoverBackgroundColor?: string;
+  dataGridCellHoverBackgroundColor?: string;
   tabsBackgroundColor?: string;
   tabActiveBorderHeight?: string;
   tabActiveBorderColor?: string;
@@ -224,7 +224,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     bannerBorderRadius: "2px",
     bannerBorderWidth: "0 0 0 4px",
     dataGridRowBackgroundColor: "transparent",
-    dataGridRowHoverBackgroundColor: "var(--color-blue-grey25)",
+    dataGridCellHoverBackgroundColor: "var(--color-blue-grey25)",
     tabsBackgroundColor: "var(--light)",
     tabActiveBorderHeight: "4px",
     tabActiveBorderColor: "var(--color-primary)",
