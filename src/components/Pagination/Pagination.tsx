@@ -84,7 +84,6 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     return Math.ceil(totalElements / pageSize);
   };
 
-  // Create a function that updates the internalCurrentPage to the currentPage prop whenever it changes using useEffect.
   useEffect(() => {
     setInternalCurrentPage(currentPage?.toString() ?? "1");
   }, [currentPage]);
