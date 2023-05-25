@@ -21,7 +21,7 @@
   height: 0.5rem;
   width: 100%;
   border-radius: 0.25rem;
-  background-color: var(--disabled);
+  background-color: var(--progress-bar-background-color);
   overflow: hidden;
 
   @media (prefers-reduced-motion: reduce) {

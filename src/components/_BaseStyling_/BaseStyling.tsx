@@ -94,6 +94,7 @@ interface CSSProperties {
   dragBorderStyle?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
+  modalBackdropColor?: string;
   modalHeaderBackgroundColor?: string;
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
@@ -106,6 +107,7 @@ interface CSSProperties {
   bannerBorderWidth?: string;
   dataGridRowBackgroundColor?: string;
   dataGridRowHoverBackgroundColor?: string;
+  progressBarBackgroundColor?: string;
   tabsBackgroundColor?: string;
   tabActiveBorderHeight?: string;
   tabActiveBorderColor?: string;
@@ -113,6 +115,8 @@ interface CSSProperties {
   tablistBorderStyle?: string;
   tablistBorderColor?: string;
   tabTextColor?: string;
+  toggleBackgroundColor?: string;
+  tooltipBackgroundColor?: string;
   wizardStepIndicatorFutureColor?: string;
   default?: string;
   success?: string;
@@ -213,6 +217,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--color-blue-grey25)",
+    modalBackdropColor: "var(--default)",
     modalHeaderBackgroundColor: "var(--light)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
@@ -225,6 +230,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     bannerBorderWidth: "0 0 0 4px",
     dataGridRowBackgroundColor: "transparent",
     dataGridRowHoverBackgroundColor: "var(--color-blue-grey25)",
+    progressBarBackgroundColor: "var(--disabled)",
     tabsBackgroundColor: "var(--light)",
     tabActiveBorderHeight: "4px",
     tabActiveBorderColor: "var(--color-primary)",
@@ -232,6 +238,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     tablistBorderStyle: "solid",
     tablistBorderColor: "var(--color-blue-grey100)",
     tabTextColor: "var(--color-blue-grey900)",
+    toggleBackgroundColor: "var(--default)",
+    tooltipBackgroundColor: "var(--default)",
     wizardStepIndicatorFutureColor: "var(--color-blue-grey200)",
     default: "var(--color-blue-grey900)",
     success: "var(--color-green500)",
