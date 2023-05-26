@@ -504,6 +504,10 @@ var PaginationComponent = function PaginationComponent(_ref, ref) {
     }
     return Math.ceil(totalElements / pageSize);
   };
+  (0,react.useEffect)(function () {
+    var _currentPage$toString2;
+    setInternalCurrentPage((_currentPage$toString2 = currentPage === null || currentPage === void 0 ? void 0 : currentPage.toString()) !== null && _currentPage$toString2 !== void 0 ? _currentPage$toString2 : "1");
+  }, [currentPage]);
   var onEnterListener = function onEnterListener(event) {
     if (event.code === "Enter") {
       onPageChange(Number(internalCurrentPage));
