@@ -142,14 +142,14 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
-    colorBlack10: "#0000001a",
+    colorBlack10: "rgba(0 ,0 ,0, .1)",
     colorPrimary300: "#6871BF",
     colorPrimary500: "#041295",
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
     colorBlueGrey25: "#F7F7F9",
-    colorBlueGrey25Transparent: "#F7F7F980",
+    colorBlueGrey25Transparent: "rgba(247, 247, 249, .8)",
     colorBlueGrey50: "#EEEFF3",
     colorBlueGrey100: "#DEDEE6",
     colorBlueGrey200: "#BCBECE",
@@ -169,7 +169,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorRed500: "#E01E00",
     colorRed600: "#B31800",
     colorRed700: "#861200",
-    colorBlack100: "rgba(0, 0, 0, 1)",
+    colorBlack100: "#000000",
     colorBlack20: "rgba(0, 0, 0, 0.2)",
     colorShadowBlue: "#7078C3",
     colorWhite: "#FFFFFF",
