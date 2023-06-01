@@ -14,12 +14,7 @@
  *    limitations under the License.
  */
 
-import React, {
-  ForwardRefRenderFunction,
-  ReactNode,
-  ComponentPropsWithRef,
-  ReactElement
-} from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import classes from "./FormControl.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
