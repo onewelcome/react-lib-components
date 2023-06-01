@@ -31,7 +31,9 @@ import {
 } from "../FormSelectorWrapper/FormSelectorWrapper";
 import { FormSelector } from "../form.interfaces";
 
-const isToggle = (children: ReactNode) => (children as ReactElement)?.props?.["data-toggle"];
+const isAllChildrenCheckboxes = (childrenArray: ReactNode[]) =>
+  childrenArray.every((child: any) => child.type === Checkbox);
+const isToggle = (children: ReactNode) => !!(children as ReactElement)?.props?.["data-toggle"];
 
 export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
   children: ReactNode;
@@ -87,22 +89,25 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const determineLabel = () => {
     if (label) {
       return label;
-    } else if (children === undefined) {
+    } else if (children === undefined || children === null) {
       throw new Error(
         "Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component."
       );
-    }
-
-    if (
-      typeof children === "string" ||
-      (typeof children === "object" && (children as ReactElement).type === "span")
+    } else if (
+      (typeof label === "undefined" && isToggle(children)) ||
+      isAllChildrenCheckboxes(React.Children.toArray(children))
+    ) {
+      throw new Error(
+        "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox. " +
+          "You can also pass an empty string, if no label provided"
+      );
+    } else if (
+      !isToggle(children) &&
+      (typeof children === "string" ||
+        (typeof children === "object" && (children as ReactElement).type === "span"))
     ) {
       return children;
     }
-
-    throw new Error(
-      "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox."
-    );
   };
 
   const renderNestedCheckboxes = () => (

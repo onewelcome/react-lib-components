@@ -215,7 +215,8 @@ describe("missing attributes gets us errors", () => {
     }
 
     const expected =
-      "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox.";
+      "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox. " +
+      "You can also pass an empty string, if no label provided";
 
     expect(actual).toEqual(expected);
 
