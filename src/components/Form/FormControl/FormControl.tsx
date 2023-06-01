@@ -18,7 +18,7 @@ import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } 
 import classes from "./FormControl.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
-  children?: ReactElement | ReactElement[];
+  children?: ReactElement | ReactElement[] | null;
   grid?: 1 | 2 | 3;
   align?: "top" | "start" | "middle" | "center" | "bottom" | "end" | "stretch";
   error?: boolean;
