@@ -28,7 +28,7 @@ $borderRadius: 2.5rem;
   width: 2rem;
   min-width: 2rem;
   height: 1.25rem;
-  background-color: var(--default);
+  background-color: var(--toggle-background-color);
   border-radius: $borderRadius;
   position: relative;
   @include mixins.transition(background-color, 0.2s, ease-in-out);

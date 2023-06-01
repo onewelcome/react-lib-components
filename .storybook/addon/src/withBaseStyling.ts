@@ -45,6 +45,7 @@ export const withBaseStyling: DecoratorFunction = (StoryFn, context) => {
   }, [baseStyling]);
 
   const parseStylesToObject = (styleString: string) => {
+    styleString = styleString.replace(/\s/g, "");
     const propertiesArray = styleString.split(";");
 
     const propertiesObject: Record<string, string> = propertiesArray.reduce(
