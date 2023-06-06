@@ -44,6 +44,11 @@ orbs:
     branches:
       ignore: /.*/
 
+.branch-based-job: &branch-based-job
+  filters:
+    branches:
+      ignore: master
+
 .filter-no-dependabot: &filter-no-dependabot
   filters:
     branches:
@@ -125,6 +130,7 @@ workflows:
           name: approve-chromatic
           type: approval
           <<: *filter-no-dependabot
+          <<: *branch-based-job
           requires:
             - build
 
@@ -133,6 +139,7 @@ workflows:
           <<: *dev-context
           <<: *filter-no-dependabot
           <<: *filter-branches-tags
+          <<: *branch-based-job
           requires:
             - approve-chromatic
 
