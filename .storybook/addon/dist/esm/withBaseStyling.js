@@ -57,6 +57,7 @@ export var withBaseStyling = function withBaseStyling(StoryFn, context) {
     setSessionStorageAndDispatchUpdateStylingEvent(baseStyling);
   }, [baseStyling]);
   var parseStylesToObject = function parseStylesToObject(styleString) {
+    styleString = styleString.replace(/\s/g, "");
     var propertiesArray = styleString.split(";");
     var propertiesObject = propertiesArray.reduce(function (propertiesObj, currentProperty) {
       if (currentProperty) {

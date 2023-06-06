@@ -37,7 +37,7 @@
   $transition-property: opacity, transform;
 
   position: fixed;
-  background-color: var(--default);
+  background-color: var(--tooltip-background-color);
   padding: 0.1875rem 0.5rem;
   color: var(--light);
   max-width: 330px;

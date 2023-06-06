@@ -94,6 +94,7 @@ interface CSSProperties {
   dragBorderStyle?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
+  modalBackdropColor?: string;
   modalHeaderBackgroundColor?: string;
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
@@ -106,6 +107,7 @@ interface CSSProperties {
   bannerBorderWidth?: string;
   dataGridRowBackgroundColor?: string;
   dataGridRowHoverBackgroundColor?: string;
+  progressBarBackgroundColor?: string;
   tabsBackgroundColor?: string;
   tabActiveBorderHeight?: string;
   tabActiveBorderColor?: string;
@@ -113,6 +115,8 @@ interface CSSProperties {
   tablistBorderStyle?: string;
   tablistBorderColor?: string;
   tabTextColor?: string;
+  toggleBackgroundColor?: string;
+  tooltipBackgroundColor?: string;
   wizardStepIndicatorFutureColor?: string;
   default?: string;
   success?: string;
@@ -142,14 +146,14 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
-    colorBlack10: "#0000001a",
+    colorBlack10: "rgba(0 ,0 ,0, .1)",
     colorPrimary300: "#6871BF",
     colorPrimary500: "#041295",
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
     colorBlueGrey25: "#F7F7F9",
-    colorBlueGrey25Transparent: "#F7F7F980",
+    colorBlueGrey25Transparent: "rgba(247, 247, 249, .8)",
     colorBlueGrey50: "#EEEFF3",
     colorBlueGrey100: "#DEDEE6",
     colorBlueGrey200: "#BCBECE",
@@ -169,7 +173,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorRed500: "#E01E00",
     colorRed600: "#B31800",
     colorRed700: "#861200",
-    colorBlack100: "rgba(0, 0, 0, 1)",
+    colorBlack100: "#000000",
     colorBlack20: "rgba(0, 0, 0, 0.2)",
     colorShadowBlue: "#7078C3",
     colorWhite: "#FFFFFF",
@@ -213,6 +217,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--color-blue-grey25)",
+    modalBackdropColor: "var(--default)",
     modalHeaderBackgroundColor: "var(--light)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
@@ -225,6 +230,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     bannerBorderWidth: "0 0 0 4px",
     dataGridRowBackgroundColor: "transparent",
     dataGridRowHoverBackgroundColor: "var(--color-blue-grey25)",
+    progressBarBackgroundColor: "var(--disabled)",
     tabsBackgroundColor: "var(--light)",
     tabActiveBorderHeight: "4px",
     tabActiveBorderColor: "var(--color-primary)",
@@ -232,6 +238,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     tablistBorderStyle: "solid",
     tablistBorderColor: "var(--color-blue-grey100)",
     tabTextColor: "var(--color-blue-grey900)",
+    toggleBackgroundColor: "var(--default)",
+    tooltipBackgroundColor: "var(--default)",
     wizardStepIndicatorFutureColor: "var(--color-blue-grey200)",
     default: "var(--color-blue-grey900)",
     success: "var(--color-green500)",
