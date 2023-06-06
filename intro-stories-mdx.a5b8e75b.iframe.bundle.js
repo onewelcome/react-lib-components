@@ -214,7 +214,7 @@ function MDXContent(props = {}) {
         }), " component."]
       }), "\n", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
         children: ["Read more information in the docs of the ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.a, {
-          href: "/docs/components-layout-basestyling--page",
+          href: "/docs/components-layout-basestyling--docs",
           children: "BaseStyling component"
         }), "."]
       }), "\n", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.pre, {
