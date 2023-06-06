@@ -20,20 +20,17 @@ import { render } from "@testing-library/react";
 import { Checkbox } from "../Checkbox/Checkbox";
 
 const defaultParams: Props = {
-  children: "label",
-  name: "example toggle"
+  children: "Helper text",
+  name: "example toggle",
+  label: "Label"
 };
 
-const createToggle = (params?: (defaultParams: Props) => Props, toggleChildren?: string) => {
+const createToggle = (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;
   if (params) {
     parameters = params(defaultParams);
   }
-  const queries = render(
-    <Toggle {...parameters} data-testid="toggle">
-      {toggleChildren}
-    </Toggle>
-  );
+  const queries = render(<Toggle {...parameters} data-testid="toggle"></Toggle>);
   const toggle = queries.getByTestId("toggle");
 
   return {
@@ -44,37 +41,15 @@ const createToggle = (params?: (defaultParams: Props) => Props, toggleChildren?:
 
 describe("Toggle should render", () => {
   it("renders without crashing", () => {
-    const { toggle } = createToggle(undefined, "test");
+    const { toggle } = createToggle(undefined);
 
     expect(toggle).toBeDefined();
-  });
-
-  it("should not duplicate toggle when no children are provided to checkbox", () => {
-    const err = console.error;
-    console.error = jest.fn();
-
-    let actual;
-    try {
-      createToggle(undefined, undefined);
-    } catch (e: any) {
-      actual = e.message;
-    }
-    const expected =
-      "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox. " +
-      "You can also pass an empty string, if no label provided";
-
-    expect(actual).toEqual(expected);
-
-    console.error = err;
   });
 });
 
 describe("Toggle attributes", () => {
   it("should be checked", () => {
-    const { toggle } = createToggle(
-      defaultParams => ({ ...defaultParams, checked: true }),
-      "test label"
-    );
+    const { toggle } = createToggle(defaultParams => ({ ...defaultParams, checked: true }));
 
     expect(toggle).toHaveAttribute("aria-checked", "true");
   });
@@ -112,13 +87,10 @@ describe("ref should work", () => {
 
 describe("helperProps should be properly propagated down", () => {
   it("renders an anchor tag as helper", () => {
-    const { getByTestId } = createToggle(
-      defaultParams => ({
-        ...defaultParams,
-        helperProps: { children: <a data-testid="helpertextanchor">test</a> }
-      }),
-      "test label"
-    );
+    const { getByTestId } = createToggle(defaultParams => ({
+      ...defaultParams,
+      helperProps: { children: <a data-testid="helpertextanchor">test</a> }
+    }));
 
     const helperTextAnchor = getByTestId("helpertextanchor");
 

@@ -63,11 +63,12 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <ToggleComponent {...args}>Toggle label</ToggleComponent>;
+const Template: Story<Props> = args => <ToggleComponent {...args} />;
 
 export const Toggle = Template.bind({});
 
 Toggle.args = {
   name: "Example toggle",
+  label: "Toggle label",
   helperProps: { children: <a href="https://www.google.com">Test</a> }
 };

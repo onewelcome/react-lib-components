@@ -159,7 +159,7 @@ describe("Checkbox should have proper attributes", () => {
   it("should have a correctly linked label element", () => {
     const { checkbox, container } = createCheckbox(defaultParams => ({
       ...defaultParams,
-      children: "Label"
+      label: "Label"
     }));
 
     const id = checkbox.getAttribute("id");
@@ -207,7 +207,6 @@ describe("missing attributes gets us errors", () => {
       // @ts-ignore: mandatory props (test for non-typescript react projects)
       createCheckbox(defaultParams => ({
         ...defaultParams,
-        name: "testing",
         children: <Checkbox name="test">Test</Checkbox>
       }));
     } catch (e: any) {
@@ -215,8 +214,7 @@ describe("missing attributes gets us errors", () => {
     }
 
     const expected =
-      "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox. " +
-      "You can also pass an empty string, if no label provided";
+      "If you have nested checkboxes you have to manage the indeterminate state by passing a boolean to the `indeterminate` prop.";
 
     expect(actual).toEqual(expected);
 
@@ -265,8 +263,7 @@ describe("missing attributes gets us errors", () => {
       actual = e.message;
     }
 
-    const expected =
-      "Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component.";
+    const expected = "Please pass a 'name' prop to your <Checkbox> component.";
 
     expect(actual).toEqual(expected);
 

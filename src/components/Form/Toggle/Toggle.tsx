@@ -21,11 +21,11 @@ import classes from "./Toggle.module.scss";
 export interface Props
   extends ComponentPropsWithRef<"input">,
     Omit<CheckboxProps, "indeterminate" | "errorMessage" | "error" | "children" | "label"> {
-  children?: string;
+  label?: string | React.ReactElement;
 }
 
 const ToggleComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
-  { children, checked, disabled, helperProps, className, ...rest }: Props,
+  { children, checked, disabled, helperProps, className, label, ...rest }: Props,
   ref
 ) => {
   const classNames = [classes["toggle-wrapper"]];
@@ -39,10 +39,10 @@ const ToggleComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         className={classes["checkbox"]}
         helperProps={{ className: classes["toggle-helper"], ...helperProps }}
         disabled={disabled}
-        label={children}
+        label={label}
       >
         <span
-          data-toggle
+          data-toggle="true"
           aria-hidden="true"
           className={`${classes["toggle"]} ${checked ? classes["checked"] : ""} ${
             disabled ? classes["disabled"] : ""

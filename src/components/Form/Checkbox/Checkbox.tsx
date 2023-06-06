@@ -31,13 +31,13 @@ import {
 } from "../FormSelectorWrapper/FormSelectorWrapper";
 import { FormSelector } from "../form.interfaces";
 
-const isAllChildrenCheckboxes = (childrenArray: ReactNode[]) =>
-  childrenArray.every((child: any) => child.type === Checkbox);
+// const isAllChildrenCheckboxes = (childrenArray: ReactNode[]) =>
+//   childrenArray.every((child: any) => child.type === Checkbox);
 const isToggle = (children: ReactNode) => !!(children as ReactElement)?.props?.["data-toggle"];
 
 export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
   children: ReactNode;
-  label?: string;
+  label?: string | React.ReactElement;
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
@@ -87,25 +87,11 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   }, []);
 
   const determineLabel = () => {
+    // this should be temporary, for backwards compatibility;
+    // once the components implementing checkboxes in microfrontends are updated, only label should be returned
     if (label) {
       return label;
-    } else if (children === undefined || children === null) {
-      throw new Error(
-        "Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component."
-      );
-    } else if (
-      (typeof label === "undefined" && isToggle(children)) ||
-      isAllChildrenCheckboxes(React.Children.toArray(children))
-    ) {
-      throw new Error(
-        "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox. " +
-          "You can also pass an empty string, if no label provided"
-      );
-    } else if (
-      !isToggle(children) &&
-      (typeof children === "string" ||
-        (typeof children === "object" && (children as ReactElement).type === "span"))
-    ) {
+    } else if (typeof children === "string") {
       return children;
     }
   };
