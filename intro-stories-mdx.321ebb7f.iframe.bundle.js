@@ -179,10 +179,10 @@ function MDXContent(props = {}) {
         children: "OneWelcome React Component Library"
       }), "\n", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
         children: ["This project provides React components built according to the ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.a, {
-          href: "https://xd.adobe.com/view/1f7161d7-5ade-4e54-bb3d-6e4aa3a1d1a0-4a22/grid/",
+          href: "https://quantum.thalesdigital.io/",
           target: "_blank",
           rel: "nofollow noopener noreferrer",
-          children: "OneWelcome design"
+          children: "Quantum design"
         }), "."]
       }), "\n", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.p, {
         children: "Quickly build good-looking, responsive and accessible UIs using our components and hooks."
