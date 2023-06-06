@@ -31,8 +31,6 @@ import {
 } from "../FormSelectorWrapper/FormSelectorWrapper";
 import { FormSelector } from "../form.interfaces";
 
-// const isAllChildrenCheckboxes = (childrenArray: ReactNode[]) =>
-//   childrenArray.every((child: any) => child.type === Checkbox);
 const isToggle = (children: ReactNode) => !!(children as ReactElement)?.props?.["data-toggle"];
 
 export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
