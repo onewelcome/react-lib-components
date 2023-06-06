@@ -91,6 +91,8 @@ describe("DataGridActions should render", () => {
   it("renders only search button", () => {
     const { dataGridActions, getAllByRole } = createDataGridActions(params => ({
       ...params,
+      enableAddBtn: false,
+      enableColumnsBtn: false,
       enableSearchBtn: true
     }));
 
