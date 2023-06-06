@@ -14,18 +14,19 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactNode } from "react";
 import { Checkbox, Props as CheckboxProps } from "../Checkbox/Checkbox";
 import classes from "./Toggle.module.scss";
 
 export interface Props
   extends ComponentPropsWithRef<"input">,
     Omit<CheckboxProps, "indeterminate" | "errorMessage" | "error" | "children" | "label"> {
+  children?: ReactNode;
   label?: string | React.ReactElement;
 }
 
 const ToggleComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
-  { children, checked, disabled, helperProps, className, label, ...rest }: Props,
+  { checked, disabled, helperProps, className, label, ...rest }: Props,
   ref
 ) => {
   const classNames = [classes["toggle-wrapper"]];
