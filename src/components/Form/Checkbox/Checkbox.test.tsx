@@ -168,6 +168,19 @@ describe("Checkbox should have proper attributes", () => {
     expect(label).toBeTruthy();
     expect(label).toHaveTextContent("Label");
   });
+
+  it("should have a react element as label", () => {
+    const { checkbox, container } = createCheckbox(defaultParams => ({
+      ...defaultParams,
+      label: <span>Label element</span>
+    }));
+
+    const id = checkbox.getAttribute("id");
+    const label = container.querySelector(`label[for=${id}]`);
+
+    expect(label).toBeTruthy();
+    expect(label).toHaveTextContent("Label element");
+  });
 });
 
 describe("Checkbox should be interactive", () => {
