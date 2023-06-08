@@ -43,6 +43,7 @@ export enum Icons {
   Equal = "equal",
   Error = "error-circle",
   Eye = "eye",
+  EyeBlocked = "eye-blocked",
   Filter = "filter",
   FilterAlt = "filter-alt",
   FilterAltArrow = "filter-alt-arrow",
