@@ -227,6 +227,22 @@ describe("It should render prefix and suffix ", () => {
     expect(getByText(suffix)).toBeDefined();
   });
 
+  it("renders prefix and suffix when they are elements", () => {
+    const prefix = <span data-testid="prefix">http://</span>;
+    const suffix = <span data-testid="suffix">.com</span>;
+    const { getByTestId } = createInput(defaultParams => ({
+      ...defaultParams,
+      prefix,
+      suffix
+    }));
+
+    const prefixElement = getByTestId("prefix");
+    const suffixElement = getByTestId("suffix");
+
+    expect(prefixElement).toBeInTheDocument();
+    expect(suffixElement).toBeInTheDocument();
+  });
+
   it("error icon should be visible with suffix", () => {
     const suffix = ".com";
     const { input, getByText } = createInput(defaultParams => ({
