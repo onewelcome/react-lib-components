@@ -48,6 +48,7 @@ exports[`DataGridBody should render renders without crashing 1`] = `
             class="button  icon-button text default button-m"
             id="consent_menu_Paweł"
             tabindex="0"
+            title="Actions for Paweł"
             type="button"
           >
             <span
@@ -111,6 +112,7 @@ exports[`DataGridBody should render renders without crashing 1`] = `
             class="button  icon-button text default button-m"
             id="consent_menu_Michał"
             tabindex="0"
+            title="Actions for Michał"
             type="button"
           >
             <span
@@ -174,6 +176,7 @@ exports[`DataGridBody should render renders without crashing 1`] = `
             class="button  icon-button text default button-m"
             id="consent_menu_Daniel"
             tabindex="0"
+            title="Actions for Daniel"
             type="button"
           >
             <span
@@ -237,6 +240,7 @@ exports[`DataGridBody should render renders without crashing 1`] = `
             class="button  icon-button text default button-m"
             id="consent_menu_Jasha"
             tabindex="0"
+            title="Actions for Jasha"
             type="button"
           >
             <span

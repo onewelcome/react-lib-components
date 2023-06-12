@@ -21,6 +21,8 @@ import {
   Props
 } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import InputWrapperDocumentation from "./InputWrapper.mdx";
+import { Icon } from "../../Icon/Icon.stories";
+import { Icons } from "../../../src";
 
 const meta: Meta = {
   title: "components/Inputs/Input (Wrapper)",
@@ -92,6 +94,25 @@ InputWrapper.args = {
   inputProps: {
     prefix: "https://",
     suffix: "",
+    className: "input-classname",
+    wrapperProps: { className: "wrapper-classname" }
+  }
+};
+
+export const InputWrapperWithIconSuffix = Template.bind({});
+
+InputWrapperWithIconSuffix.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  onChange: () => {},
+  errorMessage: "This is an error message",
+  error: false,
+  value: "",
+  inputProps: {
+    prefix: "https://",
+    suffix: <Icon icon={Icons.Bell} />,
     className: "input-classname",
     wrapperProps: { className: "wrapper-classname" }
   }

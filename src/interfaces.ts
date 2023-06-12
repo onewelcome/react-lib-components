@@ -14,8 +14,16 @@
  *    limitations under the License.
  */
 
+import React from "react";
+
 export type DataAttributeKey = `data-${string}`;
 
 export interface KeyValuePair {
   [dataAttribute: DataAttributeKey]: unknown;
 }
+
+export type MergeElementProps<T extends React.ElementType, P> = Omit<
+  React.ComponentPropsWithRef<T>,
+  keyof P
+> &
+  P;
