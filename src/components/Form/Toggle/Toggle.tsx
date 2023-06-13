@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactNode } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import { Checkbox, Props as CheckboxProps } from "../Checkbox/Checkbox";
 import classes from "./Toggle.module.scss";
 
