@@ -132,6 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "InputWrapper": function() { return /* binding */ InputWrapper_stories_InputWrapper; },
+  "InputWrapperWithIconSuffix": function() { return /* binding */ InputWrapperWithIconSuffix; },
   "__namedExportsOrder": function() { return /* binding */ __namedExportsOrder; },
   "default": function() { return /* binding */ InputWrapper_stories; }
 });
@@ -243,8 +244,342 @@ function MDXContent(props = {}) {
 }
 /* harmony default export */ var Wrapper_InputWrapper = (MDXContent);
 
+// EXTERNAL MODULE: ./stories/Icon/Icon.stories.tsx + 2 modules
+var Icon_stories = __webpack_require__("./stories/Icon/Icon.stories.tsx");
+// EXTERNAL MODULE: ./src/components/Icon/Icon.tsx + 1 modules
+var Icon = __webpack_require__("./src/components/Icon/Icon.tsx");
 ;// CONCATENATED MODULE: ./stories/Form/Wrapper/InputWrapper.stories.tsx
-var _InputWrapper$paramet, _InputWrapper$paramet2, _InputWrapper$paramet3;
+var _InputWrapper$paramet, _InputWrapper$paramet2, _InputWrapper$paramet3, _InputWrapperWithIcon, _InputWrapperWithIcon2, _InputWrapperWithIcon3;
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
+}
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+  return target;
+}
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey(arg) {
+  var key = _toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+
+
+
+var meta = {
+  title: "components/Inputs/Input (Wrapper)",
+  component: InputWrapper/* InputWrapper */.S,
+  parameters: {
+    docs: {
+      page: Wrapper_InputWrapper
+    }
+  },
+  argTypes: {
+    onChange: {
+      action: "onChange event fired",
+      control: false
+    },
+    onBlur: {
+      action: "onBlur event fired"
+    },
+    onFocus: {
+      action: "onFocus event fired"
+    },
+    type: {
+      options: ["text", "email", "file", "number", "password", "search", "tel", "time", "url", "datetime-local", "date"],
+      control: {
+        type: "select"
+      }
+    },
+    required: {
+      control: "boolean"
+    },
+    disabled: {
+      control: "boolean"
+    }
+  }
+};
+/* harmony default export */ var InputWrapper_stories = (meta);
+var Template = function Template(args) {
+  return /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, args);
+};
+var InputWrapper_stories_InputWrapper = Template.bind({});
+InputWrapper_stories_InputWrapper.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  onChange: function onChange() {},
+  errorMessage: "This is an error message",
+  error: false,
+  value: "",
+  inputProps: {
+    prefix: "https://",
+    suffix: "",
+    className: "input-classname",
+    wrapperProps: {
+      className: "wrapper-classname"
+    }
+  }
+};
+var InputWrapperWithIconSuffix = Template.bind({});
+InputWrapperWithIconSuffix.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  onChange: function onChange() {},
+  errorMessage: "This is an error message",
+  error: false,
+  value: "",
+  inputProps: {
+    prefix: "https://",
+    suffix: /*#__PURE__*/react.createElement(Icon_stories.Icon, {
+      icon: Icon/* Icons.Bell */.P.Bell
+    }),
+    className: "input-classname",
+    wrapperProps: {
+      className: "wrapper-classname"
+    }
+  }
+};
+InputWrapper_stories_InputWrapper.parameters = _objectSpread(_objectSpread({}, InputWrapper_stories_InputWrapper.parameters), {}, {
+  docs: _objectSpread(_objectSpread({}, (_InputWrapper$paramet = InputWrapper_stories_InputWrapper.parameters) === null || _InputWrapper$paramet === void 0 ? void 0 : _InputWrapper$paramet.docs), {}, {
+    source: _objectSpread({
+      originalSource: "args => {\n  return <InputWrapperComponent {...args} />;\n}"
+    }, (_InputWrapper$paramet2 = InputWrapper_stories_InputWrapper.parameters) === null || _InputWrapper$paramet2 === void 0 ? void 0 : (_InputWrapper$paramet3 = _InputWrapper$paramet2.docs) === null || _InputWrapper$paramet3 === void 0 ? void 0 : _InputWrapper$paramet3.source)
+  })
+});
+InputWrapperWithIconSuffix.parameters = _objectSpread(_objectSpread({}, InputWrapperWithIconSuffix.parameters), {}, {
+  docs: _objectSpread(_objectSpread({}, (_InputWrapperWithIcon = InputWrapperWithIconSuffix.parameters) === null || _InputWrapperWithIcon === void 0 ? void 0 : _InputWrapperWithIcon.docs), {}, {
+    source: _objectSpread({
+      originalSource: "args => {\n  return <InputWrapperComponent {...args} />;\n}"
+    }, (_InputWrapperWithIcon2 = InputWrapperWithIconSuffix.parameters) === null || _InputWrapperWithIcon2 === void 0 ? void 0 : (_InputWrapperWithIcon3 = _InputWrapperWithIcon2.docs) === null || _InputWrapperWithIcon3 === void 0 ? void 0 : _InputWrapperWithIcon3.source)
+  })
+});
+var __namedExportsOrder = ["InputWrapper", "InputWrapperWithIconSuffix"];
+
+/***/ }),
+
+/***/ "./stories/Icon/Icon.stories.tsx":
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Icon": function() { return /* binding */ Icon_stories_Icon; },
+  "__namedExportsOrder": function() { return /* binding */ __namedExportsOrder; },
+  "default": function() { return /* binding */ Icon_stories; }
+});
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__("./node_modules/react/index.js");
+// EXTERNAL MODULE: ./src/components/Icon/Icon.tsx + 1 modules
+var Icon = __webpack_require__("./src/components/Icon/Icon.tsx");
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__("./node_modules/react/jsx-runtime.js");
+// EXTERNAL MODULE: ./node_modules/@mdx-js/react/lib/index.js
+var lib = __webpack_require__("./node_modules/@mdx-js/react/lib/index.js");
+// EXTERNAL MODULE: ./node_modules/@storybook/blocks/dist/index.mjs + 12 modules
+var dist = __webpack_require__("./node_modules/@storybook/blocks/dist/index.mjs");
+;// CONCATENATED MODULE: ./stories/Icon/IconGrid.tsx
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+var IconGrid = function IconGrid(_ref) {
+  var children = _ref.children;
+  var copyIconHandler = function copyIconHandler(icon) {
+    var toCopy = "<Icon icon={Icons.".concat(icon, "} />");
+    navigator.clipboard.writeText(toCopy);
+  };
+  return /*#__PURE__*/react.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      flexWrap: "wrap"
+    }
+  }, Object.keys(Icon/* Icons */.P).map(function (icon, index) {
+    return /*#__PURE__*/react.createElement("article", {
+      key: index,
+      style: {
+        flexBasis: "20%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: "20px"
+      }
+    }, /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
+      icon: Icon/* Icons */.P[icon]
+    }), /*#__PURE__*/react.createElement("button", {
+      onClick: copyIconHandler.bind(null, icon),
+      title: "Click here to copy React Component",
+      style: {
+        padding: "5px",
+        cursor: "copy",
+        marginTop: "5px"
+      }
+    }, /*#__PURE__*/react.createElement("pre", {
+      style: {
+        margin: "0"
+      }
+    }, /*#__PURE__*/react.createElement("code", null, Icon/* Icons */.P[icon]))));
+  }));
+};
+try {
+    // @ts-ignore
+    IconGrid.displayName = "IconGrid";
+    // @ts-ignore
+    IconGrid.__docgenInfo = { "description": "", "displayName": "IconGrid", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["stories/Icon/IconGrid.tsx#IconGrid"] = { docgenInfo: IconGrid.__docgenInfo, name: "IconGrid", path: "stories/Icon/IconGrid.tsx#IconGrid" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+;// CONCATENATED MODULE: ./stories/Icon/Icon.mdx
+
+
+
+/*@jsxRuntime automatic @jsxImportSource react*/
+
+
+
+
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = Object.assign({}, (0,lib/* useMDXComponents */.ah)(), props.components);
+  return MDXLayout ? (0,jsx_runtime.jsx)(MDXLayout, Object.assign({}, props, {
+    children: (0,jsx_runtime.jsx)(_createMdxContent, {})
+  })) : _createMdxContent();
+  function _createMdxContent() {
+    const _components = Object.assign({
+      p: "p",
+      code: "code",
+      pre: "pre",
+      h1: "h1"
+    }, (0,lib/* useMDXComponents */.ah)(), props.components);
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+      children: [(0,jsx_runtime.jsx)(dist/* Title */.Dx, {}), "\n", (0,jsx_runtime.jsx)(dist/* Subtitle */.QE, {}), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+        children: ["The Icon component is used in order to display all of the icons from the OneWelcome design. If you miss a specific icon please contact the ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "SASSy"
+        }), " team. The way the ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "<Icon />"
+        }), " component works is by providing a prop called ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "icon"
+        }), ", which accepts the icon's name. We have created an ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "enum"
+        }), " within the ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "<Icon />"
+        }), " component that you can import in your React Component to get autocompletion. Consider the following import example:"]
+      }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
+        children: (0,jsx_runtime.jsx)(_components.code, {
+          children: "import { Icon, Icons } from '@onewelcome/react-lib-components';\n\n<Icon icon={Icons.Bell} />\n"
+        })
+      }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+        children: ["It will give you autocompletion and show you what ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "icons"
+        }), " are available."]
+      }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
+        id: "examples",
+        children: "Examples"
+      }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+        children: ["Please see the grid below. You can click on any of the buttons below the icon to copy it. Then simply paste it into your project! Make sure to have imported both ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "Icon"
+        }), " and ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "Icons"
+        }), "."]
+      }), "\n", (0,jsx_runtime.jsx)("br", {}), "\n", (0,jsx_runtime.jsx)(IconGrid, {}), "\n", (0,jsx_runtime.jsx)(_components.h1, {
+        id: "props",
+        children: "Props"
+      }), "\n", (0,jsx_runtime.jsx)(dist/* ArgTypes */.Ed, {
+        story: dist/* PRIMARY_STORY */.Uh
+      })]
+    });
+  }
+}
+/* harmony default export */ var Icon_Icon = (MDXContent);
+
+;// CONCATENATED MODULE: ./stories/Icon/Icon.stories.tsx
+var _Icon$parameters, _Icon$parameters2, _Icon$parameters2$doc;
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -323,69 +658,37 @@ function _toPrimitive(input, hint) {
 
 
 var meta = {
-  title: "components/Inputs/Input (Wrapper)",
-  component: InputWrapper/* InputWrapper */.S,
-  parameters: {
-    docs: {
-      page: Wrapper_InputWrapper
+  title: "components/Data Display/Icon",
+  component: Icon/* Icon */.J,
+  argTypes: {
+    color: {
+      control: "color",
+      description: "Needs to be a valid `Hex`, `rgb()` or `hsl()` color."
     }
   },
-  argTypes: {
-    onChange: {
-      action: "onChange event fired",
-      control: false
-    },
-    onBlur: {
-      action: "onBlur event fired"
-    },
-    onFocus: {
-      action: "onFocus event fired"
-    },
-    type: {
-      options: ["text", "email", "file", "number", "password", "search", "tel", "time", "url", "datetime-local", "date"],
-      control: {
-        type: "select"
-      }
-    },
-    required: {
-      control: "boolean"
-    },
-    disabled: {
-      control: "boolean"
+  parameters: {
+    docs: {
+      page: Icon_Icon
     }
   }
 };
-/* harmony default export */ var InputWrapper_stories = (meta);
+/* harmony default export */ var Icon_stories = (meta);
 var Template = function Template(args) {
-  return /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, args);
+  return /*#__PURE__*/react.createElement(Icon/* Icon */.J, args);
 };
-var InputWrapper_stories_InputWrapper = Template.bind({});
-InputWrapper_stories_InputWrapper.args = {
-  label: "Example label",
-  type: "text",
-  name: "Example name",
-  helperText: "This is helpertext",
-  onChange: function onChange() {},
-  errorMessage: "This is an error message",
-  error: false,
-  value: "",
-  inputProps: {
-    prefix: "https://",
-    suffix: "",
-    className: "input-classname",
-    wrapperProps: {
-      className: "wrapper-classname"
-    }
-  }
+var Icon_stories_Icon = Template.bind({});
+Icon_stories_Icon.args = {
+  icon: Icon/* Icons.Calendar */.P.Calendar,
+  size: "6rem"
 };
-InputWrapper_stories_InputWrapper.parameters = _objectSpread(_objectSpread({}, InputWrapper_stories_InputWrapper.parameters), {}, {
-  docs: _objectSpread(_objectSpread({}, (_InputWrapper$paramet = InputWrapper_stories_InputWrapper.parameters) === null || _InputWrapper$paramet === void 0 ? void 0 : _InputWrapper$paramet.docs), {}, {
+Icon_stories_Icon.parameters = _objectSpread(_objectSpread({}, Icon_stories_Icon.parameters), {}, {
+  docs: _objectSpread(_objectSpread({}, (_Icon$parameters = Icon_stories_Icon.parameters) === null || _Icon$parameters === void 0 ? void 0 : _Icon$parameters.docs), {}, {
     source: _objectSpread({
-      originalSource: "args => {\n  return <InputWrapperComponent {...args} />;\n}"
-    }, (_InputWrapper$paramet2 = InputWrapper_stories_InputWrapper.parameters) === null || _InputWrapper$paramet2 === void 0 ? void 0 : (_InputWrapper$paramet3 = _InputWrapper$paramet2.docs) === null || _InputWrapper$paramet3 === void 0 ? void 0 : _InputWrapper$paramet3.source)
+      originalSource: "args => <IconComponent {...args} />"
+    }, (_Icon$parameters2 = Icon_stories_Icon.parameters) === null || _Icon$parameters2 === void 0 ? void 0 : (_Icon$parameters2$doc = _Icon$parameters2.docs) === null || _Icon$parameters2$doc === void 0 ? void 0 : _Icon$parameters2$doc.source)
   })
 });
-var __namedExportsOrder = ["InputWrapper"];
+var __namedExportsOrder = ["Icon"];
 
 /***/ }),
 

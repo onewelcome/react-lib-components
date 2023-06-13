@@ -267,6 +267,9 @@ var InputComponent = function InputComponent(_ref, ref) {
     }
   }, []);
   var inputClassNames = [Input_Input_module.input];
+  var renderElement = function renderElement(el) {
+    return typeof el === "string" ? /*#__PURE__*/react.createElement("span", null, el) : el;
+  };
   dateTypes.includes(type) && inputClassNames.push(Input_Input_module["shrink-width-for-date-icon"]);
   className && inputClassNames.push(className);
   var wrapperClasses = [Input_Input_module["input-wrapper"]];
@@ -291,7 +294,7 @@ var InputComponent = function InputComponent(_ref, ref) {
   }), prefix && /*#__PURE__*/react.createElement("div", {
     "data-prefix": true,
     className: Input_Input_module.prefix
-  }, /*#__PURE__*/react.createElement("span", null, prefix)), /*#__PURE__*/react.createElement("input", _extends({}, rest, {
+  }, renderElement(prefix)), /*#__PURE__*/react.createElement("input", _extends({}, rest, {
     ref: ref,
     onFocus: function onFocus(event) {
       setFocus(true);
@@ -311,7 +314,7 @@ var InputComponent = function InputComponent(_ref, ref) {
     ref: suffixRef,
     "data-suffix": true,
     className: Input_Input_module.suffix
-  }, /*#__PURE__*/react.createElement("span", null, suffix)), /*#__PURE__*/react.createElement("span", {
+  }, renderElement(suffix)), /*#__PURE__*/react.createElement("span", {
     className: outlineClasses.join(" ")
   }));
 };
@@ -320,7 +323,7 @@ try {
     // @ts-ignore
     Input.displayName = "Input";
     // @ts-ignore
-    Input.__docgenInfo = { "description": "", "displayName": "Input", "props": { "prefix": { "defaultValue": null, "description": "", "name": "prefix", "required": false, "type": { "name": "string" } }, "error": { "defaultValue": { value: "false" }, "description": "", "name": "error", "required": false, "type": { "name": "boolean" } }, "type": { "defaultValue": null, "description": "", "name": "type", "required": true, "type": { "name": "enum", "value": [{ "value": "\"number\"" }, { "value": "\"time\"" }, { "value": "\"text\"" }, { "value": "\"hidden\"" }, { "value": "\"search\"" }, { "value": "\"tel\"" }, { "value": "\"url\"" }, { "value": "\"email\"" }, { "value": "\"date\"" }, { "value": "\"file\"" }, { "value": "\"password\"" }, { "value": "\"datetime-local\"" }] } }, "success": { "defaultValue": { value: "false" }, "description": "", "name": "success", "required": false, "type": { "name": "boolean" } }, "wrapperProps": { "defaultValue": null, "description": "", "name": "wrapperProps", "required": false, "type": { "name": "(Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ref?: ((instance: HTMLDivElement | null) => void) | ... 2 more ...; })" } }, "labeledBy": { "defaultValue": null, "description": "", "name": "labeledBy", "required": false, "type": { "name": "string" } }, "suffix": { "defaultValue": null, "description": "", "name": "suffix", "required": false, "type": { "name": "string" } } } };
+    Input.__docgenInfo = { "description": "", "displayName": "Input", "props": { "prefix": { "defaultValue": null, "description": "", "name": "prefix", "required": false, "type": { "name": "ReactNode" } }, "error": { "defaultValue": { value: "false" }, "description": "", "name": "error", "required": false, "type": { "name": "boolean" } }, "type": { "defaultValue": null, "description": "", "name": "type", "required": true, "type": { "name": "enum", "value": [{ "value": "\"number\"" }, { "value": "\"time\"" }, { "value": "\"text\"" }, { "value": "\"hidden\"" }, { "value": "\"search\"" }, { "value": "\"tel\"" }, { "value": "\"url\"" }, { "value": "\"email\"" }, { "value": "\"date\"" }, { "value": "\"file\"" }, { "value": "\"password\"" }, { "value": "\"datetime-local\"" }] } }, "success": { "defaultValue": { value: "false" }, "description": "", "name": "success", "required": false, "type": { "name": "boolean" } }, "wrapperProps": { "defaultValue": null, "description": "", "name": "wrapperProps", "required": false, "type": { "name": "(Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ref?: ((instance: HTMLDivElement | null) => void) | ... 2 more ...; })" } }, "labeledBy": { "defaultValue": null, "description": "", "name": "labeledBy", "required": false, "type": { "name": "string" } }, "suffix": { "defaultValue": null, "description": "", "name": "suffix", "required": false, "type": { "name": "ReactNode" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore

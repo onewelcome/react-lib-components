@@ -150,6 +150,7 @@ var IconButtonComponent = function IconButtonComponent(_ref, ref) {
   }
   return /*#__PURE__*/react.createElement(BaseButton/* BaseButton */.Y, _extends({}, rest, {
     ref: ref,
+    title: title,
     className: iconButtonClasses.join(" ")
   }), /*#__PURE__*/react.createElement(react.Fragment, null, children, /*#__PURE__*/react.createElement("span", {
     className: readyclasses_module/* default.sr-only */.Z["sr-only"]
