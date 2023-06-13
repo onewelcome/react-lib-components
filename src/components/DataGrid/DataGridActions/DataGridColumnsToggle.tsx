@@ -59,7 +59,7 @@ const DataGridColumnsToggleComponent: ForwardRefRenderFunction<HTMLDivElement, P
       checked={!item.hidden}
       onChange={() => onToggleClicked(item.name)}
       label={item.headline}
-    ></Toggle>
+    />
   ));
 
   const handleBackdropClick = () => onClose();

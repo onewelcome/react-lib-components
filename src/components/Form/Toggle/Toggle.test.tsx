@@ -41,7 +41,7 @@ const createToggle = (params?: (defaultParams: Props) => Props) => {
 
 describe("Toggle should render", () => {
   it("renders without crashing", () => {
-    const { toggle } = createToggle(undefined);
+    const { toggle } = createToggle();
 
     expect(toggle).toBeDefined();
   });

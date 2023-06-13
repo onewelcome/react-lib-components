@@ -20,8 +20,7 @@ import classes from "./Toggle.module.scss";
 
 export interface Props
   extends ComponentPropsWithRef<"input">,
-    Omit<CheckboxProps, "indeterminate" | "errorMessage" | "error" | "children" | "label"> {
-  children?: ReactNode;
+    Omit<CheckboxProps, "indeterminate" | "errorMessage" | "error" | "label"> {
   label?: string | React.ReactElement;
 }
 
