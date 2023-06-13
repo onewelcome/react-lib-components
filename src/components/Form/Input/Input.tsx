@@ -20,12 +20,14 @@ import React, {
   Ref,
   useEffect,
   useRef,
-  useState
+  useState,
+  ReactNode
 } from "react";
 import classes from "./Input.module.scss";
 import readyclasses from "../../../readyclasses.module.scss";
 import { FormElement } from "../form.interfaces";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
+import { MergeElementProps } from "../../../interfaces";
 
 export const dateTypes = ["date", "time", "datetime-local"] as const;
 
@@ -41,13 +43,16 @@ export type Type =
   | "hidden"
   | (typeof dateTypes)[number];
 
-export interface Props extends ComponentPropsWithRef<"input">, FormElement {
-  wrapperProps?: ComponentPropsWithRef<"div">;
-  labeledBy?: string;
-  type: Type;
-  suffix?: string;
-  prefix?: string;
-}
+export type Props = MergeElementProps<
+  "input",
+  FormElement & {
+    wrapperProps?: ComponentPropsWithRef<"div">;
+    labeledBy?: string;
+    type: Type;
+    suffix?: ReactNode;
+    prefix?: ReactNode;
+  }
+>;
 
 const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   {
@@ -80,6 +85,10 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
 
   const inputClassNames = [classes["input"]];
 
+  const renderElement = (el: ReactNode) => {
+    return typeof el === "string" ? <span>{el}</span> : el;
+  };
+
   (dateTypes as ReadonlyArray<string>).includes(type) &&
     inputClassNames.push(classes["shrink-width-for-date-icon"]);
   className && inputClassNames.push(className);
@@ -107,7 +116,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     >
       {prefix && (
         <div data-prefix className={classes["prefix"]}>
-          <span>{prefix}</span>
+          {renderElement(prefix)}
         </div>
       )}
       <input
@@ -131,9 +140,10 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       {icon}
       {suffix && (
         <div ref={suffixRef} data-suffix className={classes["suffix"]}>
-          <span>{suffix}</span>
+          {renderElement(suffix)}
         </div>
       )}
+
       <span className={outlineClasses.join(" ")}></span>
     </div>
   );
