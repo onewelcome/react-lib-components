@@ -17,10 +17,12 @@
 import React, { useRef, useEffect } from "react";
 import { Toggle, Props } from "./Toggle";
 import { render } from "@testing-library/react";
+import { Checkbox } from "../Checkbox/Checkbox";
 
 const defaultParams: Props = {
-  children: "label",
-  name: "example toggle"
+  children: "Helper text",
+  name: "example toggle",
+  label: "Label"
 };
 
 const createToggle = (params?: (defaultParams: Props) => Props) => {
@@ -28,11 +30,7 @@ const createToggle = (params?: (defaultParams: Props) => Props) => {
   if (params) {
     parameters = params(defaultParams);
   }
-  const queries = render(
-    <Toggle {...parameters} data-testid="toggle">
-      toggle content
-    </Toggle>
-  );
+  const queries = render(<Toggle {...parameters} data-testid="toggle"></Toggle>);
   const toggle = queries.getByTestId("toggle");
 
   return {
@@ -72,7 +70,11 @@ describe("ref should work", () => {
         }
       }, [ref]);
 
-      return <Toggle {...defaultParams} data-ref="testing" ref={ref} />;
+      return (
+        <Toggle {...defaultParams} data-ref="testing" ref={ref}>
+          test label
+        </Toggle>
+      );
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {

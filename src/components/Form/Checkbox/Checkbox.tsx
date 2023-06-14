@@ -31,11 +31,10 @@ import {
 } from "../FormSelectorWrapper/FormSelectorWrapper";
 import { FormSelector } from "../form.interfaces";
 
-const isToggle = (children: ReactNode) => (children as ReactElement)?.props?.["data-toggle"];
+const isToggle = (children: ReactNode) => !!(children as ReactElement)?.props?.["data-toggle"];
 
 export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
-  children: ReactNode;
-  label?: string;
+  label?: string | React.ReactElement;
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
@@ -85,24 +84,13 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   }, []);
 
   const determineLabel = () => {
+    // this should be temporary, for backwards compatibility;
+    // once the components implementing checkboxes in microfrontends are updated, only label should be returned
     if (label) {
       return label;
-    } else if (children === undefined) {
-      throw new Error(
-        "Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component."
-      );
-    }
-
-    if (
-      typeof children === "string" ||
-      (typeof children === "object" && (children as ReactElement).type === "span")
-    ) {
+    } else if (typeof children === "string") {
       return children;
     }
-
-    throw new Error(
-      "If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox."
-    );
   };
 
   const renderNestedCheckboxes = () => (

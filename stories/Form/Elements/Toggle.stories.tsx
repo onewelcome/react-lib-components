@@ -54,17 +54,21 @@ const meta: Meta = {
     },
     disabled: {
       control: "boolean"
+    },
+    className: {
+      control: "text"
     }
   }
 };
 
 export default meta;
 
-const Template: Story<Props> = args => <ToggleComponent {...args}>Example toggle</ToggleComponent>;
+const Template: Story<Props> = args => <ToggleComponent {...args} />;
 
 export const Toggle = Template.bind({});
 
 Toggle.args = {
   name: "Example toggle",
+  label: "Toggle label",
   helperProps: { children: <a href="https://www.google.com">Test</a> }
 };

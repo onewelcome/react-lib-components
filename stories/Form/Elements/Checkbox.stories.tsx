@@ -54,6 +54,9 @@ const meta: Meta = {
     },
     disabled: {
       control: "boolean"
+    },
+    label: {
+      control: "text"
     }
   }
 };

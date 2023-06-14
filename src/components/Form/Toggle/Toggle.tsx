@@ -20,33 +20,37 @@ import classes from "./Toggle.module.scss";
 
 export interface Props
   extends ComponentPropsWithRef<"input">,
-    Omit<CheckboxProps, "indeterminate" | "errorMessage" | "error" | "children" | "label"> {
-  children: string;
+    Omit<CheckboxProps, "indeterminate" | "errorMessage" | "error" | "label"> {
+  label?: string | React.ReactElement;
 }
 
 const ToggleComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
-  { children, checked, disabled, helperProps, ...rest }: Props,
+  { checked, disabled, helperProps, className, label, ...rest }: Props,
   ref
-) => (
-  <div className={classes["toggle-wrapper"]}>
-    <Checkbox
-      {...rest}
-      ref={ref}
-      checked={checked}
-      className={classes["checkbox"]}
-      helperProps={{ className: classes["toggle-helper"], ...helperProps }}
-      disabled={disabled}
-      label={children}
-    >
-      <span
-        data-toggle
-        aria-hidden="true"
-        className={`${classes["toggle"]} ${checked ? classes["checked"] : ""} ${
-          disabled ? classes["disabled"] : ""
-        } `}
-      ></span>
-    </Checkbox>
-  </div>
-);
+) => {
+  const classNames = [classes["toggle-wrapper"]];
+  className && classNames.push(className);
+  return (
+    <div className={classNames.join(" ")}>
+      <Checkbox
+        {...rest}
+        ref={ref}
+        checked={checked}
+        className={classes["checkbox"]}
+        helperProps={{ className: classes["toggle-helper"], ...helperProps }}
+        disabled={disabled}
+        label={label}
+      >
+        <span
+          data-toggle="true"
+          aria-hidden="true"
+          className={`${classes["toggle"]} ${checked ? classes["checked"] : ""} ${
+            disabled ? classes["disabled"] : ""
+          } `}
+        ></span>
+      </Checkbox>
+    </div>
+  );
+};
 
 export const Toggle = React.forwardRef(ToggleComponent);
