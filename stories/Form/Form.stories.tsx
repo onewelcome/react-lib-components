@@ -176,11 +176,10 @@ const Template: Story<Props> = args => {
             onChange={() =>
               setSubscribe(prevState => ({ ...prevState, checked: !prevState.checked }))
             }
+            label={"Subscribe to our newsletter!"}
             name="Newsletter"
             checked={subscribe.checked}
-          >
-            Subscribe to our newsletter!
-          </Toggle>
+          ></Toggle>
         </Fieldset>
       </FormControl>
       <FormControl>
