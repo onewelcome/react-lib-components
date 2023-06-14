@@ -322,16 +322,20 @@ var meta = {
     },
     disabled: {
       control: "boolean"
+    },
+    className: {
+      control: "text"
     }
   }
 };
 /* harmony default export */ var Toggle_stories = (meta);
 var Template = function Template(args) {
-  return /*#__PURE__*/react.createElement(Toggle/* Toggle */.Z, args, "Example toggle");
+  return /*#__PURE__*/react.createElement(Toggle/* Toggle */.Z, args);
 };
 var Toggle_stories_Toggle = Template.bind({});
 Toggle_stories_Toggle.args = {
   name: "Example toggle",
+  label: "Toggle label",
   helperProps: {
     children: /*#__PURE__*/react.createElement("a", {
       href: "https://www.google.com"
@@ -341,7 +345,7 @@ Toggle_stories_Toggle.args = {
 Toggle_stories_Toggle.parameters = _objectSpread(_objectSpread({}, Toggle_stories_Toggle.parameters), {}, {
   docs: _objectSpread(_objectSpread({}, (_Toggle$parameters = Toggle_stories_Toggle.parameters) === null || _Toggle$parameters === void 0 ? void 0 : _Toggle$parameters.docs), {}, {
     source: _objectSpread({
-      originalSource: "args => <ToggleComponent {...args}>Example toggle</ToggleComponent>"
+      originalSource: "args => <ToggleComponent {...args} />"
     }, (_Toggle$parameters2 = Toggle_stories_Toggle.parameters) === null || _Toggle$parameters2 === void 0 ? void 0 : (_Toggle$parameters2$d = _Toggle$parameters2.docs) === null || _Toggle$parameters2$d === void 0 ? void 0 : _Toggle$parameters2$d.source)
   })
 });
@@ -572,7 +576,7 @@ function _typeof(obj) {
     return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
   }, _typeof(obj);
 }
-var _excluded = ["children", "checked", "disabled", "helperProps"];
+var _excluded = ["checked", "disabled", "helperProps", "className", "label"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -683,13 +687,16 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 
 var ToggleComponent = function ToggleComponent(_ref, ref) {
-  var children = _ref.children,
-    checked = _ref.checked,
+  var checked = _ref.checked,
     disabled = _ref.disabled,
     helperProps = _ref.helperProps,
+    className = _ref.className,
+    label = _ref.label,
     rest = _objectWithoutProperties(_ref, _excluded);
+  var classNames = [Toggle_Toggle_module["toggle-wrapper"]];
+  className && classNames.push(className);
   return /*#__PURE__*/react.createElement("div", {
-    className: Toggle_Toggle_module["toggle-wrapper"]
+    className: classNames.join(" ")
   }, /*#__PURE__*/react.createElement(Checkbox/* Checkbox */.X, _extends({}, rest, {
     ref: ref,
     checked: checked,
@@ -698,9 +705,9 @@ var ToggleComponent = function ToggleComponent(_ref, ref) {
       className: Toggle_Toggle_module["toggle-helper"]
     }, helperProps),
     disabled: disabled,
-    label: children
+    label: label
   }), /*#__PURE__*/react.createElement("span", {
-    "data-toggle": true,
+    "data-toggle": "true",
     "aria-hidden": "true",
     className: "".concat(Toggle_Toggle_module.toggle, " ").concat(checked ? Toggle_Toggle_module.checked : "", " ").concat(disabled ? Toggle_Toggle_module.disabled : "", " ")
   })));
@@ -710,7 +717,7 @@ try {
     // @ts-ignore
     Toggle.displayName = "Toggle";
     // @ts-ignore
-    Toggle.__docgenInfo = { "description": "", "displayName": "Toggle", "props": { "helperText": { "defaultValue": null, "description": "", "name": "helperText", "required": false, "type": { "name": "string" } }, "helperProps": { "defaultValue": null, "description": "", "name": "helperProps", "required": false, "type": { "name": "Props" } }, "success": { "defaultValue": null, "description": "", "name": "success", "required": false, "type": { "name": "boolean" } }, "formSelectorWrapperProps": { "defaultValue": null, "description": "", "name": "formSelectorWrapperProps", "required": false, "type": { "name": "Props" } }, "parentHelperId": { "defaultValue": null, "description": "", "name": "parentHelperId", "required": false, "type": { "name": "string" } }, "parentErrorId": { "defaultValue": null, "description": "", "name": "parentErrorId", "required": false, "type": { "name": "string" } } } };
+    Toggle.__docgenInfo = { "description": "", "displayName": "Toggle", "props": { "label": { "defaultValue": null, "description": "", "name": "label", "required": false, "type": { "name": "string | ReactElement<any, string | JSXElementConstructor<any>>" } }, "helperText": { "defaultValue": null, "description": "", "name": "helperText", "required": false, "type": { "name": "string" } }, "helperProps": { "defaultValue": null, "description": "", "name": "helperProps", "required": false, "type": { "name": "Props" } }, "success": { "defaultValue": null, "description": "", "name": "success", "required": false, "type": { "name": "boolean" } }, "formSelectorWrapperProps": { "defaultValue": null, "description": "", "name": "formSelectorWrapperProps", "required": false, "type": { "name": "Props" } }, "parentHelperId": { "defaultValue": null, "description": "", "name": "parentHelperId", "required": false, "type": { "name": "string" } }, "parentErrorId": { "defaultValue": null, "description": "", "name": "parentErrorId", "required": false, "type": { "name": "string" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore

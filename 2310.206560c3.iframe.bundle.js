@@ -142,7 +142,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 var isToggle = function isToggle(children) {
   var _props;
-  return children === null || children === void 0 ? void 0 : (_props = children.props) === null || _props === void 0 ? void 0 : _props["data-toggle"];
+  return !!(children !== null && children !== void 0 && (_props = children.props) !== null && _props !== void 0 && _props["data-toggle"]);
 };
 var CheckboxComponent = function CheckboxComponent(_ref, ref) {
   var children = _ref.children,
@@ -182,15 +182,13 @@ var CheckboxComponent = function CheckboxComponent(_ref, ref) {
     }
   }, []);
   var determineLabel = function determineLabel() {
+    // this should be temporary, for backwards compatibility;
+    // once the components implementing checkboxes in microfrontends are updated, only label should be returned
     if (label) {
       return label;
-    } else if (children === undefined) {
-      throw new Error("Please make sure to pass either a string or more Checkbox components as a child of your Checkbox component.");
-    }
-    if (typeof children === "string" || _typeof(children) === "object" && children.type === "span") {
+    } else if (typeof children === "string") {
       return children;
     }
-    throw new Error("If you pass Checkboxes as a child component (to create nested checkbox tree) you need to pass a label to the parent checkbox.");
   };
   var renderNestedCheckboxes = function renderNestedCheckboxes() {
     return /*#__PURE__*/react.createElement("ul", {
@@ -260,7 +258,7 @@ try {
     // @ts-ignore
     Checkbox.displayName = "Checkbox";
     // @ts-ignore
-    Checkbox.__docgenInfo = { "description": "", "displayName": "Checkbox", "props": { "label": { "defaultValue": null, "description": "", "name": "label", "required": false, "type": { "name": "string" } }, "onChange": { "defaultValue": null, "description": "", "name": "onChange", "required": false, "type": { "name": "((event: ChangeEvent<HTMLInputElement>) => void)" } }, "error": { "defaultValue": null, "description": "", "name": "error", "required": false, "type": { "name": "boolean" } }, "errorMessage": { "defaultValue": null, "description": "", "name": "errorMessage", "required": false, "type": { "name": "string" } }, "helperText": { "defaultValue": null, "description": "", "name": "helperText", "required": false, "type": { "name": "string" } }, "helperProps": { "defaultValue": null, "description": "", "name": "helperProps", "required": false, "type": { "name": "Props" } }, "success": { "defaultValue": null, "description": "", "name": "success", "required": false, "type": { "name": "boolean" } }, "indeterminate": { "defaultValue": null, "description": "", "name": "indeterminate", "required": false, "type": { "name": "boolean" } }, "formSelectorWrapperProps": { "defaultValue": null, "description": "", "name": "formSelectorWrapperProps", "required": false, "type": { "name": "Props" } }, "parentHelperId": { "defaultValue": null, "description": "", "name": "parentHelperId", "required": false, "type": { "name": "string" } }, "parentErrorId": { "defaultValue": null, "description": "", "name": "parentErrorId", "required": false, "type": { "name": "string" } } } };
+    Checkbox.__docgenInfo = { "description": "", "displayName": "Checkbox", "props": { "label": { "defaultValue": null, "description": "", "name": "label", "required": false, "type": { "name": "string | ReactElement<any, string | JSXElementConstructor<any>>" } }, "onChange": { "defaultValue": null, "description": "", "name": "onChange", "required": false, "type": { "name": "((event: ChangeEvent<HTMLInputElement>) => void)" } }, "error": { "defaultValue": null, "description": "", "name": "error", "required": false, "type": { "name": "boolean" } }, "errorMessage": { "defaultValue": null, "description": "", "name": "errorMessage", "required": false, "type": { "name": "string" } }, "helperText": { "defaultValue": null, "description": "", "name": "helperText", "required": false, "type": { "name": "string" } }, "helperProps": { "defaultValue": null, "description": "", "name": "helperProps", "required": false, "type": { "name": "Props" } }, "success": { "defaultValue": null, "description": "", "name": "success", "required": false, "type": { "name": "boolean" } }, "indeterminate": { "defaultValue": null, "description": "", "name": "indeterminate", "required": false, "type": { "name": "boolean" } }, "formSelectorWrapperProps": { "defaultValue": null, "description": "", "name": "formSelectorWrapperProps", "required": false, "type": { "name": "Props" } }, "parentHelperId": { "defaultValue": null, "description": "", "name": "parentHelperId", "required": false, "type": { "name": "string" } }, "parentErrorId": { "defaultValue": null, "description": "", "name": "parentErrorId", "required": false, "type": { "name": "string" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore

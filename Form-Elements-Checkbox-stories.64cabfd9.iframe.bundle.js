@@ -429,6 +429,9 @@ var meta = {
     },
     disabled: {
       control: "boolean"
+    },
+    label: {
+      control: "text"
     }
   }
 };
