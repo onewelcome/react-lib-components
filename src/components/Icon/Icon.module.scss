@@ -16,10 +16,10 @@
 
 @font-face {
   font-family: "icomoon";
-  src: url("../../font/icomoon.eot?9c63pa");
-  src: url("../../font/icomoon.eot?9c63pa#iefix") format("embedded-opentype"),
-    url("../../font/icomoon.ttf?9c63pa") format("truetype"),
-    url("../../font/icomoon.woff?9c63pa") format("woff");
+  src: url("../../font/icomoon.eot?ywvhmn");
+  src: url("../../font/icomoon.eot?ywvhmn#iefix") format("embedded-opentype"),
+    url("../../font/icomoon.ttf?ywvhmn") format("truetype"),
+    url("../../font/icomoon.woff?ywvhmn") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -310,5 +310,10 @@
 }
 .icon-table-search:before {
   content: "\e93f";
+  @include fontProperties();
+}
+
+.icon-eye-blocked:before {
+  content: "\e9d1";
   @include fontProperties();
 }

@@ -42,10 +42,10 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
   }: Props,
   ref
 ) => {
-  const [sortList, setSortList] = useState(initialSort || []);
+  const [sortList, setSortList] = useState(initialSort ?? []);
 
   useEffect(() => {
-    setSortList(initialSort || []);
+    setSortList(initialSort ?? []);
   }, [initialSort]);
 
   const calculateNextSortState = (direction?: Direction) => {
@@ -78,7 +78,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
     }
 
     let headerStyle: React.CSSProperties = {
-      textAlign: header.align || "left"
+      textAlign: header.align ?? "left"
     };
 
     if (index === 0) {
@@ -94,7 +94,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
         key={header.name}
         name={header.name}
         headline={header.headline}
-        disableSorting={header.disableSorting || !onSort}
+        disableSorting={header.disableSorting ?? !onSort}
         onSort={wrapOnSort}
         activeSortDirection={sort?.direction}
         style={headerStyle}

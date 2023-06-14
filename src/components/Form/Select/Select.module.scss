@@ -116,7 +116,7 @@ $listItemHeight: 2.125rem;
       font-size: var(--font-size);
       margin: 0;
       position: relative;
-      line-height: 1;
+      line-height: var(--default-line-height);
       cursor: pointer;
 
       &:after {

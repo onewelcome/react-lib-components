@@ -60,7 +60,7 @@ const SlideInModalComponent: ForwardRefRenderFunction<HTMLDivElement, ModalProps
       containerProps={{ className: classes["container"] }}
       backdropProps={{ id: classes["backdrop-slide"] }}
       onTransitionEnd={onTransitionEnd}
-      ref={ref || containerRef}
+      ref={ref ?? containerRef}
     >
       {children}
     </Modal>

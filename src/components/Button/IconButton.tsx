@@ -47,7 +47,7 @@ export const IconButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Pr
   }
 
   return (
-    <BaseButton {...rest} ref={ref} className={iconButtonClasses.join(" ")}>
+    <BaseButton {...rest} ref={ref} title={title} className={iconButtonClasses.join(" ")}>
       <Fragment>
         {children}
         <span className={readyclasses["sr-only"]}>{title}</span>

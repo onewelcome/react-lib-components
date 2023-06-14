@@ -14,7 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, Fragment, useState } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  Fragment,
+  useState,
+  useEffect
+} from "react";
 import classes from "./Pagination.module.scss";
 import readyclasses from "../../readyclasses.module.scss";
 import { IconButton } from "../Button/IconButton";
@@ -67,7 +73,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   /** We use an internal state variable, because we don't want to fire onCurrentPageChange whenever onChange fires on the input. Rather, only when the Enter key is pressed. */
-  const [internalCurrentPage, setInternalCurrentPage] = useState(currentPage?.toString() || "1");
+  const [internalCurrentPage, setInternalCurrentPage] = useState(currentPage?.toString() ?? "1");
   const calculateAmountOfPages = () => {
     if (!totalElements) return 1;
 
@@ -77,6 +83,10 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
     return Math.ceil(totalElements / pageSize);
   };
+
+  useEffect(() => {
+    setInternalCurrentPage(currentPage?.toString() ?? "1");
+  }, [currentPage]);
 
   const onEnterListener = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {

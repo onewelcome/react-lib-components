@@ -54,7 +54,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
   }: Props,
   ref
 ) => {
-  const helperRef = helperProps?.ref || createRef();
+  const helperRef = helperProps?.ref ?? createRef();
 
   return (
     <div

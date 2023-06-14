@@ -60,7 +60,7 @@ const TextEllipsisComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={`${classes["text-ellipsis"]} ${className ?? ""}`}
-      ref={ref || textContainer}
+      ref={ref ?? textContainer}
     >
       {children}
       <Popover

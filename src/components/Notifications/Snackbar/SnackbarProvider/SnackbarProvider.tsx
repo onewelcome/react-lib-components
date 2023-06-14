@@ -83,7 +83,7 @@ export const SnackbarProvider = (
 
   const getDuration = (variant: Variant, actions?: Actions, content?: string) => {
     const hasError = variant === "error";
-    const hasContentOrActions = content || actions;
+    const hasContentOrActions = content ?? actions;
     if (hasError || hasContentOrActions) {
       return autoHideDuration.long;
     }

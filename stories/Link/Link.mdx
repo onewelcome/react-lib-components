@@ -6,6 +6,39 @@ import * as LinkStories from "./Link.stories.tsx";
 
 The `Link` component is used to display a link to both internal and external resources. Its target can be specified using the `to` prop. Styling of `Link` can be adjusted if needed - one can set its color using the `color` prop, or change its appearance altogether by setting the `display` prop to `"button"`.
 
+## Usage
+
+```jsx
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from './Link';
+
+// Normal Link
+<Link to="https://example.com">External Link</Link>
+
+// React Router Link
+<Link to="/internal/page" component={RouterLink}>Internal Page</Link>
+```
+
+In the above examples, the first usage shows a regular hyperlink. The second usage demonstrates how to pass a RouterLink component (from react-router-dom) as a prop to our custom Link component, making it work as a React Router Link.
+
+This example assumes you're wrapping your application with BrowserRouter or MemoryRouter from react-router-dom at a higher level in your app. If not, make sure to wrap these components with either BrowserRouter or MemoryRouter:
+
+```jsx
+import { BrowserRouter as Router } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { Link } from "./Link";
+
+// In your App component or any component that is a common parent of these Links
+<Router>
+  <Link to="https://example.com">External Link</Link>
+  <Link to="/internal/page" component={RouterLink}>
+    Internal Page
+  </Link>
+</Router>;
+```
+
+By doing this you ensure that the Link component has access to the Router context and works as expected when clicked on.
+
 # Examples
 
 <Canvas>

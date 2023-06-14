@@ -59,7 +59,7 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     offset: offset,
     placement: placement,
     transformOrigin: transformOrigin,
-    debounceAmount: debounceAmount || undefined
+    debounceAmount: debounceAmount ?? undefined
   });
 
   useEffect(() => {

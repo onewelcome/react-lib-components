@@ -48,7 +48,7 @@ $marginTop: 3.125rem;
     visibility: visible;
 
     .backdrop {
-      background-color: var(--default);
+      background-color: var(--modal-backdrop-color);
       opacity: 0.75;
     }
   }
