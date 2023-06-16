@@ -22,10 +22,17 @@ import { Spacing } from "../../hooks/useSpacing";
 const renderTypography = (
   typoVariant: Props["variant"],
   wrapper?: Props["tag"],
-  spacing?: Spacing
+  spacing?: Spacing,
+  align?: Props["align"]
 ) => {
   const queries = render(
-    <Typography variant={typoVariant} tag={wrapper} spacing={spacing} data-testid="component">
+    <Typography
+      variant={typoVariant}
+      tag={wrapper}
+      spacing={spacing}
+      align={align}
+      data-testid="component"
+    >
       Test
     </Typography>
   );
@@ -126,6 +133,20 @@ describe("Should override styling", () => {
     const { typography } = renderTypography("h1", undefined, { margin: 4, marginBottom: 8 });
 
     expect(typography.style).toHaveProperty("margin", "1rem 1rem 2rem 1rem");
+  });
+});
+
+describe("Should override align", () => {
+  it("renders h1 with overwritten align properties", () => {
+    const { typography } = renderTypography("h1", undefined, undefined, "center");
+
+    expect(typography.style).toHaveProperty("textAlign", "center");
+  });
+
+  it("renders h1 with overwritten align properties", () => {
+    const { typography } = renderTypography("h1", undefined, undefined, "right");
+
+    expect(typography.style).toHaveProperty("textAlign", "right");
   });
 });
 
