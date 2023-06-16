@@ -120,7 +120,7 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         }}
         maxLength={0}
         tabIndex={-1}
-        onKeyPress={onHiddenInputKeyPress}
+        onKeyDown={onHiddenInputKeyPress}
       />
     </BaseModal>
   );
