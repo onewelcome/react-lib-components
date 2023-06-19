@@ -54,10 +54,11 @@ export interface Props extends ComponentPropsWithRef<any> {
   variant: Variant;
   tag?: Tags;
   spacing?: Spacing;
+  align?: "left" | "center" | "right";
 }
 
 const TypographyComponent: ForwardRefRenderFunction<any, Props> = (
-  { children, variant, tag, style, spacing, className = "", ...rest }: Props,
+  { children, variant, tag, style, spacing, align, className = "", ...rest }: Props,
   ref
 ) => {
   if (!validVariants.includes(variant)) {
@@ -98,7 +99,7 @@ const TypographyComponent: ForwardRefRenderFunction<any, Props> = (
     <TagName
       {...rest}
       ref={ref}
-      style={styleWithSpacing}
+      style={{ ...styleWithSpacing, textAlign: align }}
       className={`${classes["typography_style_" + variant]} ${className}`}
     >
       {children}
