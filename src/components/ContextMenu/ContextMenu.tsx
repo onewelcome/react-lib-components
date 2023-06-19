@@ -169,7 +169,12 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       onClose?.();
       !hasBeenClosed && setHasBeenClosed(true);
       setFocusedContextMenuItem(-1);
-      hasBeenClosed && anchorEl.current && anchorEl.current.focus();
+      // If the user clicks on the trigger button, we want to focus it again after the context menu has been closed,
+      // but only if the option doesn't open another window (such as a modal),
+      // otherwise pressing enter wouldn't fire the primary action of the modal.
+      if (document.activeElement?.closest(`.${wrappingDivRef.current?.className}`)) {
+        hasBeenClosed && anchorEl.current && anchorEl.current.focus();
+      }
     }
   }, [showContextMenu]);
 

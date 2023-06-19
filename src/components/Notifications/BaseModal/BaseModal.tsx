@@ -83,7 +83,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   useSetBodyScroll(open);
-  const wrappingDivRef = useRef(null);
+  const wrappingDivRef = useRef<HTMLDivElement>(null);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 
   const handleEscKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -92,6 +92,12 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       onClose?.();
     }
   };
+
+  useEffect(() => {
+    if (open) {
+      wrappingDivRef.current?.focus();
+    }
+  }, [open]);
 
   const handleBackdropClick = () => !disableBackdrop && onClose && onClose();
 
