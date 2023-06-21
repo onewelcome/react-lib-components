@@ -1,5 +1,3 @@
-const enqueueErrorSnackbarMock = jest.fn();
-
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -16,18 +14,14 @@ const enqueueErrorSnackbarMock = jest.fn();
  *    limitations under the License.
  */
 
-import React, { useEffect } from "react";
-import { render, renderHook, waitFor } from "@testing-library/react";
+import React, { useEffect, useState } from "react";
+import { getByTestId, render, renderHook, waitFor } from "@testing-library/react";
 import { NotificationProvider, useNotificationContext } from "./NotificationContext";
 import { Translations } from "./notification.interfaces";
 import { act } from "react-dom/test-utils";
-
-jest.mock("../Snackbar/useSnackbar", () => ({
-  useSnackbar: () => ({
-    enqueueErrorSnackbar: enqueueErrorSnackbarMock,
-    enqueueSuccessSnackbar: jest.fn()
-  })
-}));
+import { SnackbarProvider } from "../Snackbar/SnackbarProvider/SnackbarProvider";
+import userEvent from "@testing-library/user-event";
+import * as useSnackbarModule from "../Snackbar/useSnackbar";
 
 jest.mock("../../../util/helper", () => ({
   generateID: () => "test-id",
@@ -122,6 +116,14 @@ describe("Notification", () => {
 
   describe("Translations", () => {
     it("Translates the status 400, 401 and 403 translations", async () => {
+      const enqueueErrorSnackbarMock = jest.fn();
+
+      jest.spyOn(useSnackbarModule, "useSnackbar").mockImplementation(() => ({
+        enqueueErrorSnackbar: enqueueErrorSnackbarMock,
+        enqueueSuccessSnackbar: jest.fn(),
+        enqueueSnackbar: jest.fn()
+      }));
+
       const providedTranslations = {
         general: { error: "TestError" },
         messages: {
@@ -200,6 +202,14 @@ describe("Notification", () => {
     });
 
     it("Translates the status 404, 500 and 502 translations", async () => {
+      const enqueueErrorSnackbarMock = jest.fn();
+
+      jest.spyOn(useSnackbarModule, "useSnackbar").mockImplementation(() => ({
+        enqueueErrorSnackbar: enqueueErrorSnackbarMock,
+        enqueueSuccessSnackbar: jest.fn(),
+        enqueueSnackbar: jest.fn()
+      }));
+
       const providedTranslations = {
         general: { error: "TestError" },
         messages: {
@@ -278,6 +288,14 @@ describe("Notification", () => {
     });
 
     it("Translates the status 503, 504 and general if the code isn't recognized", async () => {
+      const enqueueErrorSnackbarMock = jest.fn();
+
+      jest.spyOn(useSnackbarModule, "useSnackbar").mockImplementation(() => ({
+        enqueueErrorSnackbar: enqueueErrorSnackbarMock,
+        enqueueSuccessSnackbar: jest.fn(),
+        enqueueSnackbar: jest.fn()
+      }));
+
       const providedTranslations = {
         general: { error: "TestError" },
         messages: {
@@ -355,5 +373,75 @@ describe("Notification", () => {
         });
       });
     });
+  });
+});
+
+const renderSnackbarProvider = () => {
+  const AppComponent = () => {
+    const { addNotification } = useNotificationContext();
+    const [index, setIndex] = useState(0);
+    return (
+      <div>
+        content
+        <button
+          data-testid="show-success"
+          onClick={() => {
+            addNotification({
+              status: 200,
+              type: "success",
+              title: "Test Success",
+              message: "Test successful request"
+            });
+            setIndex(index + 1);
+          }}
+        >
+          Success
+        </button>
+        <button
+          data-testid="show-error"
+          onClick={() => {
+            addNotification({
+              status: 400,
+              type: "error",
+              title: "TestError",
+              message: "Test bad request"
+            });
+            setIndex(index + 1);
+          }}
+        >
+          Error
+        </button>
+      </div>
+    );
+  };
+
+  const queries = render(
+    <SnackbarProvider closeButtonTitle="close">
+      <NotificationProvider>
+        <AppComponent />
+      </NotificationProvider>
+    </SnackbarProvider>
+  );
+
+  const showSuccessSnackbarBtn = getByTestId(queries.container, "show-success");
+  const showErrorSnackbarBtn = getByTestId(queries.container, "show-error");
+
+  return {
+    ...queries,
+    showSuccessSnackbarBtn,
+    showErrorSnackbarBtn
+  };
+};
+
+describe("Actually shows the snackbars showing up", () => {
+  it("Shows the snackbars", async () => {
+    const { showSuccessSnackbarBtn, showErrorSnackbarBtn, getByText, debug } =
+      renderSnackbarProvider();
+
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showErrorSnackbarBtn);
+
+    await waitFor(() => expect(getByText("Test Success")).toBeInTheDocument());
+    await waitFor(() => expect(getByText("Test bad request")).toBeInTheDocument());
   });
 });
