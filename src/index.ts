@@ -80,6 +80,16 @@ export { ModalContent } from "./components/Notifications/Modal/ModalContent/Moda
 export type { Props as ModalContentProps } from "./components/Notifications/Modal/ModalContent/ModalContent";
 export { ModalHeader } from "./components/Notifications/Modal/ModalHeader/ModalHeader";
 export type { Props as ModalHeaderProps } from "./components/Notifications/Modal/ModalHeader/ModalHeader";
+export {
+  NotificationProvider,
+  useNotificationContext
+} from "./components/Notifications/NotificationProvider/NotificationContext";
+export type { Props as NotificationProviderProps } from "./components/Notifications/NotificationProvider/NotificationContext";
+export type {
+  AddNotification,
+  RemoveNotification,
+  Translations
+} from "./components/Notifications/NotificationProvider/notification.interfaces";
 export { SlideInModal } from "./components/Notifications/SlideInModal/SlideInModal";
 export type { Props as SlideInModalProps } from "./components/Notifications/SlideInModal/SlideInModal";
 export { SnackbarProvider } from "./components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";

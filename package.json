@@ -55,6 +55,7 @@
     "@babel/preset-typescript": "^7.21.5",
     "@mdx-js/react": "^2.3.0",
     "@onewelcome/eslint-config-shared-codestyle": "^9.0.3",
+    "@onewelcome/storybook-addon-basestyling": "^0.0.1",
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@size-limit/preset-small-lib": "^8.2.4",
@@ -122,8 +123,5 @@
     "style-loader": "^3.3.3",
     "ts-jest": "^29.1.0",
     "typescript": "^5.1.3"
-  },
-  "dependencies": {
-    "@onewelcome/storybook-addon-basestyling": "^0.0.1"
   }
 }
