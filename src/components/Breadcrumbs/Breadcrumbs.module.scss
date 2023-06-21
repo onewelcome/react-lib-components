@@ -16,15 +16,39 @@
 
 .breadcrumbs {
   .last {
-    color: var(--color-primary);
+    color: var(--color-primary900);
+    font-weight: 700;
     margin: 0;
   }
 
   .icon {
     color: var(--color-primary);
-    font-size: 0.75rem;
+    font-size: 0.625rem;
     line-height: var(--default-line-height);
-    margin-left: 0.375rem;
-    margin-right: 0.375rem;
+    margin: 0 0.84rem;
+  }
+
+  .breadcrumb-link {
+    text-decoration: none;
+    &:hover,
+    &.visited {
+      [data-underline] {
+        text-decoration: underline;
+      }
+    }
+    &:focus,
+    &:focus-visible {
+      outline: 2px solid var(--color-shadow-blue);
+      outline-offset: 1px;
+    }
+
+    &:visited {
+      color: var(--color-primary700);
+    }
+
+    &:active {
+      color: var(--color-primary900);
+      font-weight: 700;
+    }
   }
 }

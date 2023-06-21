@@ -17,13 +17,17 @@
 import React, {
   ForwardRefRenderFunction,
   ComponentPropsWithRef,
-  ForwardRefExoticComponent
+  ForwardRefExoticComponent,
+  ReactElement,
+  Fragment
 } from "react";
 import classes from "./Link.module.scss";
+import { IconProps, Icon } from "../../index";
 
 export type AnchorType = "external" | "internal" | "download";
 
 export interface Props extends ComponentPropsWithRef<"a"> {
+  prefixIcon?: ReactElement<IconProps, typeof Icon>;
   color?: "primary" | "secondary" | "tertiary";
   display?: "link" | "button";
   buttonVariant?: "outline" | "text" | "fill";
@@ -38,6 +42,7 @@ const LinkComponent: ForwardRefRenderFunction<HTMLAnchorElement, Props> = (
     children,
     className,
     disabled = false,
+    prefixIcon = undefined,
     to,
     color = "primary",
     type = "internal",
@@ -97,7 +102,8 @@ const LinkComponent: ForwardRefRenderFunction<HTMLAnchorElement, Props> = (
         ...rest.style
       }}
     >
-      {children}
+      {prefixIcon}
+      <span data-underline="true">{children}</span>
     </a>
   );
 };
