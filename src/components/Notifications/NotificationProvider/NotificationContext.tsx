@@ -97,12 +97,12 @@ export const NotificationHandler = ({
       if (
         notification.status &&
         notification.handled &&
-        (notification.status === 401 || notification.status === 403)
+        (notification.status === 401 ?? notification.status === 403)
       ) {
         dispatchFn({ type: "remove", payload: { id: notification.id } });
       } else if (notification.status && !notification.handled && notification.type === "error") {
         enqueueErrorSnackbar(
-          notification.title || mergedTranslations.general.error,
+          notification.title ?? mergedTranslations.general.error,
           determineNotificationMessage(notification as Notification<ErrorNotification>),
           {
             onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
@@ -111,7 +111,7 @@ export const NotificationHandler = ({
         dispatchFn({ type: "handled", payload: { id: notification.id, handled: true } });
       } else if (notification.title && !notification.handled && notification.type === "success") {
         enqueueSuccessSnackbar(
-          notification.title || mergedTranslations.general.success,
+          notification.title ?? mergedTranslations.general.success,
           notification.message,
           {
             onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })

@@ -25,7 +25,8 @@ import {
   areArraysDifferent,
   getValueByPath,
   isEqual,
-  isJsonString
+  isJsonString,
+  deepMerge
 } from "./helper";
 import { render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
@@ -361,5 +362,42 @@ describe("isJsonString should work", () => {
     const param = { test: 2 };
 
     expect(isJsonString(param)).toEqual(false);
+  });
+});
+
+describe("deepMerge function", () => {
+  it("should return the first object if the second one is falsy", () => {
+    const obj1 = { a: 1 };
+    const obj2 = false;
+
+    expect(deepMerge(obj1, obj2)).toEqual({ a: 1 });
+  });
+
+  it("should return a merged object with no nested object", () => {
+    const obj1 = { a: 1, b: 2 };
+    const obj2 = { b: 3, c: 4 };
+
+    expect(deepMerge(obj1, obj2)).toEqual({ a: 1, b: 3, c: 4 });
+  });
+
+  it("should return a merged object with nested object", () => {
+    const obj1 = { a: 1, b: { x: 1, y: 2 } };
+    const obj2 = { b: { y: 3, z: 4 }, c: 4 };
+
+    expect(deepMerge(obj1, obj2)).toEqual({ a: 1, b: { x: 1, y: 3, z: 4 }, c: 4 });
+  });
+
+  it("should replace non-object values in the first object with values in the second object", () => {
+    const obj1 = { a: 1, b: 2 };
+    const obj2 = { b: { y: 3, z: 4 }, c: 4 };
+
+    expect(deepMerge(obj1, obj2)).toEqual({ a: 1, b: { y: 3, z: 4 }, c: 4 });
+  });
+
+  it("should not merge array values but replace them", () => {
+    const obj1 = { a: 1, b: [1, 2] };
+    const obj2 = { b: [3, 4], c: 4 };
+
+    expect(deepMerge(obj1, obj2)).toEqual({ a: 1, b: [3, 4], c: 4 });
   });
 });
