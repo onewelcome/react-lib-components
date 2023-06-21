@@ -97,7 +97,7 @@ export const NotificationHandler = ({
       if (
         notification.status &&
         notification.handled &&
-        (notification.status === 401 ?? notification.status === 403)
+        (notification.status === 401 || notification.status === 403)
       ) {
         dispatchFn({ type: "remove", payload: { id: notification.id } });
       } else if (notification.status && !notification.handled && notification.type === "error") {
