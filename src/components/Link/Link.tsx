@@ -18,8 +18,7 @@ import React, {
   ForwardRefRenderFunction,
   ComponentPropsWithRef,
   ForwardRefExoticComponent,
-  ReactElement,
-  Fragment
+  ReactElement
 } from "react";
 import classes from "./Link.module.scss";
 import { IconProps, Icon } from "../../index";
