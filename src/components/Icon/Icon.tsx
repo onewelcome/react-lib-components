@@ -54,6 +54,7 @@ export enum Icons {
   Gearwheel = "gearwheel",
   Grid = "grid",
   Hamburger = "hamburger",
+  HomeFilled = "home-filled",
   Heart = "heart",
   Image = "image",
   InfoBell = "info-bell",

@@ -43,7 +43,7 @@ export const Breadcrumbs = Template.bind({});
 Breadcrumbs.args = {
   ariaLabel: "breadcrumbs",
   children: [
-    <Link key="1" to="#">
+    <Link to="#" key="1">
       Home
     </Link>,
     <Link key="2" to="#invoice">

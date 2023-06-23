@@ -51,6 +51,12 @@ describe("Breadcrumbs should render", () => {
 
     expect(breadcrumbs).toBeDefined();
     expect(breadcrumbs.firstChild).not.toHaveAttribute("aria-current");
+    if (breadcrumbs.firstChild) {
+      const homeIcon = (breadcrumbs.firstChild as HTMLElement).querySelector(
+        "[class*='icon-home-filled']"
+      );
+      expect(homeIcon).toBeInTheDocument();
+    }
     expect((breadcrumbs.firstChild as HTMLElement).tagName).toEqual("A");
     expect(breadcrumbs.lastChild).toHaveAttribute("aria-current", "page");
     expect((breadcrumbs.lastChild as HTMLElement).tagName).toEqual("SPAN");

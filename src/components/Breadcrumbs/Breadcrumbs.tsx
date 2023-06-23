@@ -38,6 +38,16 @@ const BreadcrumbsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 ) => {
   const items = React.Children.map(children, (child, index) => {
     const isLastElement = Array.isArray(children) ? index === children.length - 1 : true;
+    const isFirstElement = Array.isArray(children) && index === 0;
+    let item = React.cloneElement(child, {
+      className: classes["breadcrumb-link"],
+      ...(isFirstElement
+        ? {
+            prefixIcon: <Icon icon={Icons.HomeFilled} style={{ marginRight: "0.35rem" }} />
+          }
+        : {})
+    } as LinkProps);
+
     if (isLastElement) {
       return (
         <Typography
@@ -53,7 +63,7 @@ const BreadcrumbsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     } else {
       return (
         <Fragment key={child.key}>
-          {React.cloneElement(child)}
+          {item}
           <Icon icon={Icons.ChevronRight} className={classes["icon"]} />
         </Fragment>
       );

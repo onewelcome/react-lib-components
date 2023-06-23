@@ -16,10 +16,10 @@
 
 @font-face {
   font-family: "icomoon";
-  src: url("../../font/icomoon.eot?ywvhmn");
-  src: url("../../font/icomoon.eot?ywvhmn#iefix") format("embedded-opentype"),
-    url("../../font/icomoon.ttf?ywvhmn") format("truetype"),
-    url("../../font/icomoon.woff?ywvhmn") format("woff");
+  src: url("../../font/icomoon.eot?5b3j0w");
+  src: url("../../font/icomoon.eot?5b3j0w#iefix") format("embedded-opentype"),
+    url("../../font/icomoon.ttf?5b3j0w") format("truetype"),
+    url("../../font/icomoon.woff?5b3j0w") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -315,5 +315,10 @@
 
 .icon-eye-blocked:before {
   content: "\e9d1";
+  @include fontProperties();
+}
+
+.icon-home-filled:before {
+  content: "\e940";
   @include fontProperties();
 }

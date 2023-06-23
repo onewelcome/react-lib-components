@@ -142,7 +142,8 @@
 
     position: relative;
     outline: 2px solid var(--color-shadow-blue);
-    outline-offset: 1px;
+    outline-offset: 2px;
+    border-radius: 1px;
   }
 
   &:active:not(.disabled),
