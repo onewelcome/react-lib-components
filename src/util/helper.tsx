@@ -192,3 +192,28 @@ export const isJsonString = (str: any) => {
   }
   return true;
 };
+
+type ObjectType = { [key: string]: any };
+
+export const deepMerge = <T extends {}>(obj1: ObjectType, obj2: ObjectType | false): T => {
+  if (!obj2) return obj1 as T;
+
+  let result: ObjectType = { ...obj1 };
+
+  for (let key in obj2) {
+    if (Object.prototype.hasOwnProperty.call(obj2, key)) {
+      if (
+        typeof obj2[key] === "object" &&
+        obj2[key] !== null &&
+        Object.prototype.hasOwnProperty.call(obj1, key) &&
+        !Array.isArray(obj2[key])
+      ) {
+        result[key] = deepMerge(obj1[key], obj2[key]);
+      } else {
+        result[key] = obj2[key];
+      }
+    }
+  }
+
+  return result as T;
+};

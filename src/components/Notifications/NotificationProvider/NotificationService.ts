@@ -14,24 +14,20 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import { Translations } from "./notification.interfaces";
 
-export type DataAttributeKey = `data-${string}`;
-
-export interface KeyValuePair {
-  [dataAttribute: DataAttributeKey]: unknown;
-}
-
-export type MergeElementProps<T extends React.ElementType, P> = Omit<
-  React.ComponentPropsWithRef<T>,
-  keyof P
-> &
-  P;
-
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? DeepPartial<U>[]
-    : T[P] extends ReadonlyArray<infer U>
-    ? ReadonlyArray<DeepPartial<U>>
-    : DeepPartial<T[P]>;
+export const defaultTranslations: Translations = {
+  general: {
+    error: "Error",
+    success: "Success"
+  },
+  messages: {
+    general: "Something went wrong. Please try again later.",
+    badRequest: "Bad request",
+    unauthorized: "You are not authorized to perform this action.",
+    forbidden: "You are not allowed to perform this action.",
+    notFound: "The requested resource could not be found.",
+    timeout: "The request timed out.",
+    unavailable: "The server is currently unavailable. Please try again later."
+  }
 };
