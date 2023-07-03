@@ -21,7 +21,6 @@ import React, {
   ReactElement,
   ReactNode,
   RefObject,
-  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -39,9 +38,6 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   label: string | ReactNode;
   title?: string;
   children: string;
-  placement?: Placement;
-  offset?: Offset;
-  transformOrigin?: Placement;
   domRoot?: HTMLElement;
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";
@@ -122,9 +118,6 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     title,
     children,
     className,
-    placement,
-    offset,
-    transformOrigin,
     domRoot,
     label,
     location = "right",
@@ -202,7 +195,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     );
   };
 
-  const tooltipClasses = `${classes["tooltip"]} ${classes[location]} ${classes[color]} ${
+  const tooltipClasses = `${classes["tooltip"]} ${classes[color]} ${
     visible ? classes["visible"] : ""
   } ${classes[determinedLocation.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase()]}`;
 

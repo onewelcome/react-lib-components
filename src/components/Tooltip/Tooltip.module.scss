@@ -16,65 +16,128 @@
 
 @use "../../mixins.module.scss";
 
+@mixin triangle($color: #000, $size: 8px, $direction, $position: "center") {
+  $directions: top, bottom, left, right;
+  @if not index($directions, $direction) {
+    @error "Invalid value `#{$direction}` for `$direction`. Must be one of: `top`, `bottom`, `left`, `right`.";
+  }
+
+  $positions: center, start, end;
+  @if not index($positions, $position) {
+    @error "Invalid value `#{$position}` for `$position`. Must be one of: `center`, `start`, `end`.";
+  }
+
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: calc($size / 2);
+  border-color: transparent;
+  border-#{$direction}-color: $color;
+  position: absolute;
+
+  @if $direction == "top" or $direction == "bottom" {
+    @if $position == "end" {
+      left: 16px;
+      right: initial;
+    } @else if $position == "start" {
+      right: 12px;
+      left: initial;
+    } @else {
+      // position == "center"
+      left: 50%;
+      right: initial;
+      transform: translateX(-50%);
+    }
+  } @else {
+    // direction == "left" or direction == "right"
+    @if $position == "end" {
+      top: 14px;
+      bottom: initial;
+    } @else if $position == "start" {
+      bottom: 15px;
+      top: initial;
+    } @else {
+      // position == "center"
+      top: 50%;
+      bottom: initial;
+      transform: translateY(-50%);
+    }
+  }
+
+  @if $direction == "top" {
+    top: 100%;
+    border-bottom-width: 0;
+  } @else if $direction == "bottom" {
+    bottom: 100%;
+    border-top-width: 0;
+  } @else if $direction == "left" {
+    left: 100%;
+    border-right-width: 0;
+  } @else if $direction == "right" {
+    right: 100%;
+    border-left-width: 0;
+  }
+}
+
 @mixin triangleProperties($color) {
   &.top {
     &:after {
-      @include mixins.triangle($color, 8px, "top", "center");
+      @include triangle($color, 8px, "top", "center");
     }
   }
   &.top-start {
     &:after {
-      @include mixins.triangle($color, 8px, "top", "start");
+      @include triangle($color, 8px, "top", "start");
     }
   }
   &.top-end {
     &:after {
-      @include mixins.triangle($color, 8px, "top", "end");
+      @include triangle($color, 8px, "top", "end");
     }
   }
   &.bottom {
     &:after {
-      @include mixins.triangle($color, 8px, "bottom", "center");
+      @include triangle($color, 8px, "bottom", "center");
     }
   }
   &.bottom-start {
     &:after {
-      @include mixins.triangle($color, 8px, "bottom", "start");
+      @include triangle($color, 8px, "bottom", "start");
     }
   }
   &.bottom-end {
     &:after {
-      @include mixins.triangle($color, 8px, "bottom", "end");
+      @include triangle($color, 8px, "bottom", "end");
     }
   }
   &.left {
     &:after {
-      @include mixins.triangle($color, 8px, "left", "center");
+      @include triangle($color, 8px, "left", "center");
     }
   }
   &.left-start {
     &:after {
-      @include mixins.triangle($color, 8px, "left", "start");
+      @include triangle($color, 8px, "left", "start");
     }
   }
   &.left-end {
     &:after {
-      @include mixins.triangle($color, 8px, "left", "end");
+      @include triangle($color, 8px, "left", "end");
     }
   }
   &.right {
     &:after {
-      @include mixins.triangle($color, 8px, "right", "center");
+      @include triangle($color, 8px, "right", "center");
     }
   }
   &.right-start {
     &:after {
-      @include mixins.triangle($color, 8px, "right", "start");
+      @include triangle($color, 8px, "right", "start");
     }
   }
   &.right-end {
     &:after {
-      @include mixins.triangle($color, 8px, "right", "end");
+      @include triangle($color, 8px, "right", "end");
     }
   }
 }

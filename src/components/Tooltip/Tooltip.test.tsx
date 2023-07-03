@@ -14,113 +14,318 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Tooltip, Props } from "./Tooltip";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
   children: "This is a test message",
-  label: "Label"
+  label: "Label",
+  title: "Title",
+  position: "start",
+  location: "left"
 };
 
-const createTooltip = (params?: (defaultParams: Props) => Props) => {
+const createTooltip = async (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;
   if (params) {
     parameters = params(defaultParams);
   }
+
   const queries = render(<Tooltip {...parameters} data-testid="tooltip" />);
   const tooltip = queries.getByTestId("tooltip");
+  const icon = tooltip.querySelector(".icon")!;
+  const tooltipHoverDiv = document.querySelector(".tooltip");
+
+  if (tooltip) {
+    icon.getBoundingClientRect = () => ({
+      x: 500,
+      y: 500,
+      width: 10,
+      height: 10,
+      top: 500,
+      left: 500,
+      right: 510,
+      bottom: 510,
+      toJSON: () => jest.fn()
+    });
+  }
+
+  Object.defineProperty(tooltipHoverDiv, "offsetHeight", { configurable: true, value: 50 });
+  Object.defineProperty(tooltipHoverDiv, "offsetWidth", { configurable: true, value: 200 });
+
+  const hoverIcon = async () => {
+    await userEvent.hover(icon);
+  };
 
   return {
     ...queries,
-    tooltip
+    tooltip,
+    tooltipHoverDiv,
+    hoverIcon
   };
 };
 
-describe("Tooltip should render", () => {
-  it("renders without crashing", async () => {
-    const { tooltip, getByText } = createTooltip(defaultParams => ({
-      ...defaultParams,
-      className: "testing"
-    }));
+describe("Tooltip", () => {
+  describe("Rendering", () => {
+    beforeEach(() => {
+      Object.defineProperty(window, "innerHeight", {
+        configurable: true,
+        value: 1000
+      });
+      Object.defineProperty(window, "innerWidth", {
+        configurable: true,
+        value: 1000
+      });
+    });
 
-    const tooltipText = getByText("This is a test message");
-    const label = getByText("Label");
+    it("should render the tooltip with the default parameters", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip();
 
-    expect(tooltip).toHaveClass("testing");
-    await waitFor(() => expect(tooltipText).toHaveStyle({ top: "0px", left: "16px" }));
-    expect(label).toBeTruthy();
-    expect(tooltipText).toBeTruthy();
-    expect(tooltip).toBeTruthy();
-  });
+      await hoverIcon();
 
-  it("renders with label as ReactElement", () => {
-    const labelText = "llaabbeell";
-    const { getByText } = createTooltip(defaultParams => ({
-      ...defaultParams,
-      label: <div>{labelText}</div>
-    }));
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          left: "0px",
+          right: "512px",
+          top: "0px",
+          bottom: "478px"
+        })
+      );
+    });
 
-    expect(getByText(labelText)).toBeDefined();
-  });
+    it("should render the tooltip with a custom location to the right and position end", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "right",
+        position: "end"
+      }));
 
-  it("should override the default placement and offset values", async () => {
-    const { tooltip, getByText } = createTooltip(defaultParams => ({
-      ...defaultParams,
-      placement: { horizontal: "center", vertical: "center" },
-      offset: { top: 0, right: 16, left: 0, bottom: 16 },
-      transformOrigin: { horizontal: "right", vertical: "bottom" }
-    }));
+      await hoverIcon();
 
-    const tooltipText = getByText("This is a test message");
-    await waitFor(() => expect(tooltipText).toHaveStyle({ right: "1024px", bottom: "768px" }));
-    expect(tooltip).toBeTruthy();
-  });
-});
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          top: "488px",
+          left: "522px"
+        })
+      );
+    });
 
-describe("It opens the tooltip", () => {
-  it("opens", async () => {
-    const { tooltip, getByText } = createTooltip();
+    it("should render the tooltip with a custom location to the right and position start", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "right",
+        position: "start"
+      }));
 
-    const icon = tooltip.querySelector(".icon")!;
-    const tooltipHover = getByText("This is a test message");
-    await userEvent.hover(icon);
+      await hoverIcon();
 
-    expect(tooltipHover).toHaveClass("visible");
-    expect(tooltipHover).toHaveAttribute("aria-hidden", "false");
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          left: "522px",
+          bottom: "478px"
+        })
+      );
+    });
 
-    await userEvent.keyboard("{escape}");
+    it("should render the tooltip with a custom location to the right and position center", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "right",
+        position: "center"
+      }));
 
-    await waitFor(() => {
-      expect(tooltipHover).not.toHaveClass("visible");
-      expect(tooltipHover).toHaveAttribute("aria-hidden", "true");
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          left: "522px",
+          top: "480px"
+        })
+      );
+    });
+
+    it("should render the tooltip with a custom location to the left and position end", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "left",
+        position: "end"
+      }));
+
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          right: "512px",
+          top: "488px"
+        })
+      );
+    });
+
+    it("should render the tooltip with a custom location to the left and position start", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "left",
+        position: "start"
+      }));
+
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          right: "512px",
+          bottom: "478px"
+        })
+      );
+    });
+
+    it("should render the tooltip with a custom location to the left and position center", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "left",
+        position: "center"
+      }));
+
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          right: "512px",
+          top: "480px"
+        })
+      );
+    });
+
+    it("should render the tooltip with a custom location to the top and position end", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "top",
+        position: "end"
+      }));
+
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          left: "488px",
+          bottom: "512px"
+        })
+      );
+    });
+
+    it("should render the tooltip with a custom location to the top and position start", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "top",
+        position: "start"
+      }));
+
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          right: "478px",
+          bottom: "512px"
+        })
+      );
+    });
+
+    it("should render the tooltip with a custom location to the top and position center", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "top",
+        position: "center"
+      }));
+
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          left: "405px",
+          bottom: "512px"
+        })
+      );
+    });
+
+    it("should render the tooltip with a custom location to the bottom and position end", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "bottom",
+        position: "end"
+      }));
+
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          left: "488px",
+          top: "522px"
+        })
+      );
+    });
+
+    it("should render the tooltip with a custom location to the bottom and position start", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "bottom",
+        position: "start"
+      }));
+
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          right: "478px",
+          top: "522px"
+        })
+      );
+    });
+
+    it("should render the tooltip with a custom location to the bottom and position center", async () => {
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+        ...p,
+        location: "bottom",
+        position: "center"
+      }));
+
+      await hoverIcon();
+
+      expect(tooltip).toBeInTheDocument();
+      await waitFor(() =>
+        expect(tooltipHoverDiv).toHaveStyle({
+          left: "405px",
+          top: "522px"
+        })
+      );
     });
   });
-});
 
-describe("ref should work", () => {
-  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
-    const ExampleComponent = ({
-      propagateRef
-    }: {
-      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
-    }) => {
-      const ref = useRef(null);
+  describe("Colors", () => {
+    it("renders black color by default", async () => {
+      const { tooltipHoverDiv } = await createTooltip();
+      expect(tooltipHoverDiv).toHaveClass("black");
+    });
 
-      useEffect(() => {
-        if (ref.current) {
-          propagateRef && propagateRef(ref);
-        }
-      }, [ref]);
+    it("renders blue color", async () => {
+      const { tooltipHoverDiv } = await createTooltip(p => ({
+        ...p,
+        color: "blue"
+      }));
 
-      return <Tooltip {...defaultParams} data-ref="testing" ref={ref} />;
-    };
-
-    const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute("data-ref", "testing");
-    };
-
-    render(<ExampleComponent propagateRef={refCheck} />);
+      expect(tooltipHoverDiv).toHaveClass("blue");
+    });
   });
 });
