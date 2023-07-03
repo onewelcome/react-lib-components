@@ -50,7 +50,6 @@ Tooltip.args = {
   title: "Tooltip title.",
   children: "Write the tooltip content here.",
   label: "Example label",
-  placement: { horizontal: "right", vertical: "center" },
-  offset: { left: 16, right: 0, bottom: 0, top: 0 },
-  transformOrigin: { horizontal: "left", vertical: "center" }
+  location: "right",
+  position: "center"
 };

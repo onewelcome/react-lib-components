@@ -328,4 +328,39 @@ describe("Tooltip", () => {
       expect(tooltipHoverDiv).toHaveClass("blue");
     });
   });
+
+  describe("Label", () => {
+    it("can also be an element", async () => {
+      const { tooltip } = await createTooltip(p => ({ ...p, label: <span>Label</span> }));
+
+      expect(tooltip).toBeInTheDocument();
+
+      const label = tooltip.querySelector(".label");
+      expect(label).toBeInTheDocument();
+      expect(label).toHaveTextContent("Label");
+      expect((label as HTMLElement).tagName.toLowerCase()).toBe("span");
+    });
+  });
+
+  it("Triggers visibility of the tooltip on focus and blur using keyboard", async () => {
+    const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip();
+
+    if (!tooltipHoverDiv) {
+      throw new Error("Tooltip hover div not found");
+    }
+
+    const label = tooltip.querySelector(".label");
+
+    expect(label).toBeInTheDocument();
+
+    await userEvent.tab();
+
+    (label as HTMLElement).focus();
+
+    expect(tooltipHoverDiv).toHaveClass("visible");
+
+    await userEvent.tab();
+
+    expect(tooltipHoverDiv).not.toHaveClass("visible");
+  });
 });
