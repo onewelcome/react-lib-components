@@ -29,6 +29,17 @@ const meta: Meta = {
   }
 };
 
+/** In order to show off the positioning for the tooltip we need to center everything in the middle of the screen. */
+const root = document.querySelector("html");
+if (root) {
+  root.style.height = "100%";
+  root.style.width = "100%";
+  root.style.display = "flex";
+  root.style.justifyContent = "center";
+  root.style.alignItems = "center";
+  root.style.overflow = "hidden";
+}
+
 export default meta;
 
 const Template: Story<Props> = args => <TooltipComponent {...args} />;
@@ -36,7 +47,8 @@ const Template: Story<Props> = args => <TooltipComponent {...args} />;
 export const Tooltip = Template.bind({});
 
 Tooltip.args = {
-  children: "This is an example tooltip message.",
+  title: "Tooltip title.",
+  children: "Write the tooltip content here.",
   label: "Example label",
   placement: { horizontal: "right", vertical: "center" },
   offset: { left: 16, right: 0, bottom: 0, top: 0 },
