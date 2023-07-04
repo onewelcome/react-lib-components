@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { Dialog, Props } from "../../../src/components/Notifications/Dialog/Dialog";
 import { Button } from "../../../src/components/Button/Button";
@@ -55,7 +55,15 @@ declare global {
 }
 
 const Template: Story<Props> = args => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  useEffect(() => {
+    if (window.location.search.includes("story")) {
+      setOpen(true);
+    }
+  }, []);
+
   window.setDialogOpen = setOpen;
   return (
     <Fragment>
