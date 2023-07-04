@@ -17,12 +17,13 @@
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import {
   BaseModalActions,
-  Props as BaseModalActionsProps
+  Props as BaseModalActionsProps,
+  CancelAction
 } from "../../BaseModal/BaseModalActions/BaseModalActions";
 import classes from "./DialogActions.module.scss";
 
 export interface Props extends ComponentPropsWithRef<any>, BaseModalActionsProps {
-  cancelAction?: { label?: string };
+  cancelAction?: CancelAction;
 }
 
 const DialogActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -32,7 +33,7 @@ const DialogActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
   return (
     <BaseModalActions
       {...rest}
-      cancelAction={{ label: cancelAction?.label }}
+      cancelAction={{ label: cancelAction?.label, disable: cancelAction?.disable }}
       onClose={onClose}
       ref={ref}
       className={classes["actions"]}

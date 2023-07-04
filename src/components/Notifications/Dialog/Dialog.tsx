@@ -23,6 +23,7 @@ import { DialogTitle } from "./DialogTitle/DialogTitle";
 import { Button, Props as ButtonProps } from "../../Button/Button";
 import { labelId, descriptionId } from "../BaseModal/BaseModalContext";
 import { generateID } from "../../../util/helper";
+import { CancelAction } from "../BaseModal/BaseModalActions/BaseModalActions";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   id?: string;
@@ -32,7 +33,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   title: string;
   primaryAction: Action;
   secondaryAction?: Action;
-  cancelAction?: Omit<Action, "onClick">;
+  cancelAction?: CancelAction;
   zIndex?: number;
   disableEscapeKeyDown?: boolean;
 }

@@ -21,11 +21,22 @@ import { Button } from "../../../Button/Button";
 export interface Props extends ComponentPropsWithRef<"div"> {
   children?: React.ReactNode;
   onClose: () => void;
-  cancelAction?: { label?: string };
+  cancelAction?: CancelAction;
+}
+
+export interface CancelAction {
+  label?: string;
+  disable?: boolean;
 }
 
 const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, onClose, cancelAction, className = "", ...rest }: Props,
+  {
+    children,
+    onClose,
+    cancelAction = { label: undefined, disable: false },
+    className = "",
+    ...rest
+  }: Props,
   ref
 ) => {
   const CancelButton = (
@@ -36,7 +47,7 @@ const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props>
 
   return (
     <div {...rest} ref={ref} className={`${classes["actions"]} ${className}`}>
-      <div>{CancelButton}</div>
+      {!cancelAction.disable && <div>{CancelButton}</div>}
       <div>{children}</div>
     </div>
   );

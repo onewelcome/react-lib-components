@@ -15,15 +15,16 @@
  */
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
-import { Action, Dialog } from "../../Dialog/Dialog";
+import { Dialog } from "../../Dialog/Dialog";
 import { Typography } from "../../../Typography/Typography";
 import { DataAttributeKey } from "../../../../interfaces";
+import { CancelAction } from "../../BaseModal/BaseModalActions/BaseModalActions";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   open: boolean;
   discardChangesButtonLabel: string;
   keepEditingButtonLabel: string;
-  cancelAction?: Omit<Action, "onClick">;
+  cancelAction?: CancelAction;
   contentLabel: string;
   titleLabel: string;
   [dataAttribute: DataAttributeKey]: any;
