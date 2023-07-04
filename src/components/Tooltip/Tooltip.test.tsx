@@ -81,17 +81,19 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with the default parameters", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip();
+      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(defaultParams => ({
+        ...defaultParams,
+        location: undefined,
+        position: undefined
+      }));
 
       await hoverIcon();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
         expect(tooltipHoverDiv).toHaveStyle({
-          left: "0px",
-          right: "512px",
-          top: "0px",
-          bottom: "478px"
+          left: "522px",
+          top: "480px"
         })
       );
     });
@@ -343,7 +345,7 @@ describe("Tooltip", () => {
   });
 
   it("Triggers visibility of the tooltip on focus and blur using keyboard", async () => {
-    const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip();
+    const { tooltip, tooltipHoverDiv } = await createTooltip();
 
     if (!tooltipHoverDiv) {
       throw new Error("Tooltip hover div not found");
@@ -360,6 +362,28 @@ describe("Tooltip", () => {
     expect(tooltipHoverDiv).toHaveClass("visible");
 
     await userEvent.tab();
+
+    expect(tooltipHoverDiv).not.toHaveClass("visible");
+  });
+
+  it("Sets visible to false on escape", async () => {
+    const { tooltip, tooltipHoverDiv } = await createTooltip();
+
+    if (!tooltipHoverDiv) {
+      throw new Error("Tooltip hover div not found");
+    }
+
+    const label = tooltip.querySelector(".label");
+
+    expect(label).toBeInTheDocument();
+
+    await userEvent.tab();
+
+    (label as HTMLElement).focus();
+
+    expect(tooltipHoverDiv).toHaveClass("visible");
+
+    await userEvent.keyboard("{Escape}");
 
     expect(tooltipHoverDiv).not.toHaveClass("visible");
   });
