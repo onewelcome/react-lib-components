@@ -28,11 +28,11 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   id?: string;
   open: boolean;
   children: React.ReactNode;
-  alignActions: "left" | "right";
   onClose: () => void;
   title: string;
   primaryAction: Action;
   secondaryAction?: Action;
+  cancelAction?: Omit<Action, "onClick">;
   zIndex?: number;
   disableEscapeKeyDown?: boolean;
 }
@@ -47,11 +47,11 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     id,
     open,
     children,
-    alignActions,
     onClose,
     title,
     primaryAction,
     secondaryAction,
+    cancelAction,
     zIndex,
     disableEscapeKeyDown = true,
     ...rest
@@ -65,12 +65,13 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       {primaryLabel}
     </Button>
   );
-  const TertiaryButton =
+
+  const SecondaryButton =
     secondaryAction &&
     (function () {
       const { label: secondaryLabel, ...restOfSecondaryAction } = secondaryAction;
       return (
-        <Button key="tertiary" variant="text" {...restOfSecondaryAction}>
+        <Button key="tertiary" variant="outline" {...restOfSecondaryAction}>
           {secondaryLabel}
         </Button>
       );
@@ -104,10 +105,8 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       >
         {children}
       </BaseModalContent>
-      <DialogActions align={alignActions}>
-        {alignActions === "left"
-          ? [PrimaryButton, TertiaryButton]
-          : [TertiaryButton, PrimaryButton]}
+      <DialogActions onClose={onClose} cancelAction={cancelAction}>
+        {[SecondaryButton, PrimaryButton]}
       </DialogActions>
       <input
         autoFocus

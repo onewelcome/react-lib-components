@@ -22,18 +22,20 @@ import {
 import classes from "./DialogActions.module.scss";
 
 export interface Props extends ComponentPropsWithRef<any>, BaseModalActionsProps {
-  align: "left" | "right";
+  cancelAction?: { label?: string };
 }
 
 const DialogActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, align, ...rest }: Props,
+  { children, cancelAction, onClose, ...rest }: Props,
   ref
 ) => {
   return (
     <BaseModalActions
       {...rest}
+      cancelAction={{ label: cancelAction?.label }}
+      onClose={onClose}
       ref={ref}
-      className={`${classes["actions"]}${align === "left" ? " " + classes["left"] : ""}`}
+      className={classes["actions"]}
     >
       {children}
     </BaseModalActions>

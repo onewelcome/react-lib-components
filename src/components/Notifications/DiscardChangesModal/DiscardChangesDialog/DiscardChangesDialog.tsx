@@ -15,7 +15,7 @@
  */
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
-import { Dialog } from "../../Dialog/Dialog";
+import { Action, Dialog } from "../../Dialog/Dialog";
 import { Typography } from "../../../Typography/Typography";
 import { DataAttributeKey } from "../../../../interfaces";
 
@@ -23,6 +23,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   open: boolean;
   discardChangesButtonLabel: string;
   keepEditingButtonLabel: string;
+  cancelAction?: Omit<Action, "onClick">;
   contentLabel: string;
   titleLabel: string;
   [dataAttribute: DataAttributeKey]: any;
@@ -39,6 +40,7 @@ const DiscardChangesDialogComponent: ForwardRefRenderFunction<HTMLDivElement, Pr
     keepEditingButtonLabel,
     contentLabel,
     titleLabel,
+    cancelAction,
     ...rest
   }: Props,
   ref
@@ -48,9 +50,11 @@ const DiscardChangesDialogComponent: ForwardRefRenderFunction<HTMLDivElement, Pr
       {...rest}
       ref={ref}
       open={open}
-      alignActions="left"
       title={titleLabel}
-      onClose={onKeepEditing}
+      onClose={() => {
+        onKeepEditing();
+      }}
+      cancelAction={cancelAction}
       primaryAction={{
         label: discardChangesButtonLabel,
         onClick: onDiscardChanges

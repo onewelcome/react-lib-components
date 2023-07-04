@@ -17,9 +17,9 @@
 .actions {
   margin: 1.875rem 1.25rem 1.875rem 1.25rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 
-  & > * {
+  & > * + * {
     margin-left: 2rem;
   }
 }

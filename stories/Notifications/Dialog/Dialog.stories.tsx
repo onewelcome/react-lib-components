@@ -32,7 +32,6 @@ const meta: Meta = {
   args: {
     id: "dialog",
     title: "components/Discard changes?",
-    alignActions: "left",
     children: (
       <Typography variant="body" spacing={{ margin: 0 }}>
         This cannot be undone and you will lose your changes.
@@ -56,7 +55,7 @@ declare global {
 }
 
 const Template: Story<Props> = args => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   window.setDialogOpen = setOpen;
   return (
     <Fragment>
@@ -65,7 +64,6 @@ const Template: Story<Props> = args => {
         id={args.id}
         open={open}
         onClose={() => setOpen(false)}
-        alignActions={args.alignActions}
         title={args.title}
         primaryAction={args.primaryAction}
         secondaryAction={args.secondaryAction}
@@ -76,13 +74,10 @@ const Template: Story<Props> = args => {
   );
 };
 
-export const LeftAlignedActionDialog = Template.bind({});
+export const ActionDialog = Template.bind({});
 
-export const RightAlignedActionDialog = Template.bind({});
-
-RightAlignedActionDialog.args = {
+ActionDialog.args = {
   title: "components/Verify email address",
-  alignActions: "right",
   children: (
     <Fragment>
       <Typography variant="body">
@@ -98,17 +93,13 @@ RightAlignedActionDialog.args = {
     label: "Send email",
     onClick: () => window.setDialogOpen(false)
   },
-  secondaryAction: {
-    label: "Cancel",
-    onClick: () => window.setDialogOpen(false)
-  }
+  secondaryAction: undefined
 };
 
 export const SingleActionDialog = Template.bind({});
 
 SingleActionDialog.args = {
   title: "components/Info",
-  alignActions: "right",
   children: (
     <Typography variant="body" spacing={{ margin: 0 }}>
       You can&apos;t remove your account.
@@ -130,7 +121,6 @@ export const NestedDialogs = () => {
       <Dialog
         id="dialog11"
         open={open}
-        alignActions="right"
         title="Dialog 1"
         onClose={() => setOpen(false)}
         primaryAction={{
@@ -151,7 +141,6 @@ export const NestedDialogs = () => {
         id="dialog12"
         open={open2}
         onClose={() => setOpen2(false)}
-        alignActions="left"
         title="Dialog 2"
         primaryAction={{
           label: "Close",

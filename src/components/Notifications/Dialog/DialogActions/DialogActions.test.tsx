@@ -20,7 +20,8 @@ import { render } from "@testing-library/react";
 
 const initParams: Props = {
   align: "right",
-  children: "Content"
+  children: "Content",
+  onClose: jest.fn()
 };
 
 describe("DialogActions", () => {
@@ -30,13 +31,6 @@ describe("DialogActions", () => {
     const dialogActionsContainer = container.children[0];
     expect(dialogActionsContainer).toHaveClass("actions");
     expect(dialogActionsContainer).toHaveTextContent(initParams.children as string);
-  });
-
-  it("should align items to left", () => {
-    const { container } = render(<DialogActions {...initParams} align="left" />);
-
-    const dialogActionsContainer = container.children[0];
-    expect(dialogActionsContainer).toHaveClass("actions", "left");
   });
 });
 

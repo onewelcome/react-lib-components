@@ -23,7 +23,9 @@ describe("BaseModalActions", () => {
     const children = "Content";
     const classNames = ["class1", "class2"];
     const { container } = render(
-      <BaseModalActions className={classNames.join(" ")}>{children}</BaseModalActions>
+      <BaseModalActions onClose={jest.fn()} className={classNames.join(" ")}>
+        {children}
+      </BaseModalActions>
     );
 
     const dialogActionsContainer = container.children[0];
@@ -46,7 +48,7 @@ describe("ref should work", () => {
         }
       }, [ref]);
 
-      return <BaseModalActions data-ref="testing" ref={ref} />;
+      return <BaseModalActions onClose={jest.fn()} data-ref="testing" ref={ref} />;
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {

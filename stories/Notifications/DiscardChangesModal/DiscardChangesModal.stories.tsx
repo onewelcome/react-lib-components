@@ -121,7 +121,7 @@ const Template: Story<Props> = args => {
             </FormControl>
           </Form>
         </ModalContent>
-        <ModalActions>
+        <ModalActions onClose={onClose}>
           <Button variant="text" onClick={onClose}>
             Cancel
           </Button>

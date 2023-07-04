@@ -16,18 +16,28 @@
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import classes from "./BaseModalActions.module.scss";
+import { Button } from "../../../Button/Button";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   children?: React.ReactNode;
+  onClose: () => void;
+  cancelAction?: { label?: string };
 }
 
 const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, className = "", ...rest }: Props,
+  { children, onClose, cancelAction, className = "", ...rest }: Props,
   ref
 ) => {
+  const CancelButton = (
+    <Button key="cancel" variant="text" onClick={onClose}>
+      {cancelAction?.label || "Cancel"}
+    </Button>
+  );
+
   return (
     <div {...rest} ref={ref} className={`${classes["actions"]} ${className}`}>
-      {children}
+      <div>{CancelButton}</div>
+      <div>{children}</div>
     </div>
   );
 };
