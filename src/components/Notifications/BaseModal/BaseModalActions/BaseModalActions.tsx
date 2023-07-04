@@ -41,7 +41,7 @@ const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props>
 ) => {
   const CancelButton = (
     <Button key="cancel" variant="text" onClick={onClose}>
-      {cancelAction?.label || "Cancel"}
+      {cancelAction?.label ?? "Cancel"}
     </Button>
   );
 
