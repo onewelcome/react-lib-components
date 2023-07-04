@@ -42,6 +42,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";
   position?: "start" | "center" | "end";
+  initiallyVisible?: boolean;
 }
 
 interface DefaultPosition {
@@ -123,12 +124,13 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     location = "right",
     position = "center",
     color = "black",
+    initiallyVisible = false,
     ...rest
   }: Props,
   ref
 ) => {
   const [identifier] = useState(generateID());
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(initiallyVisible);
   const wrappingDivRef = (ref as RefObject<HTMLDivElement>) || createRef<HTMLDivElement>();
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 

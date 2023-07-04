@@ -18,6 +18,7 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { Props, Tooltip as TooltipComponent } from "../../src/components/Tooltip/Tooltip";
 import TooltipDocumentation from "./Tooltip.mdx";
+import classes from "../../src/components/Tooltip/Tooltip.module.scss";
 
 const meta: Meta = {
   title: "components/Data Display/Tooltip",
@@ -51,5 +52,6 @@ Tooltip.args = {
   children: "Write the tooltip content here.",
   label: "Example label",
   location: "right",
-  position: "center"
+  position: "center",
+  initiallyVisible: true
 };
