@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import { Typography } from "../../../Typography/Typography";
 import classes from "./DialogTitle.module.scss";
 import { Icon, Icons } from "../../../Icon/Icon";
@@ -22,7 +22,7 @@ import { Icon, Icons } from "../../../Icon/Icon";
 export interface Props extends ComponentPropsWithRef<"div"> {
   id: string;
   title: string;
-  titleIcon?: React.ReactNode | boolean;
+  titleIcon?: React.ReactNode;
   caption?: string;
 }
 

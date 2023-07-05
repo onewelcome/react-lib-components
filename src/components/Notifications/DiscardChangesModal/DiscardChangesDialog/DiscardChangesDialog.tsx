@@ -52,9 +52,7 @@ const DiscardChangesDialogComponent: ForwardRefRenderFunction<HTMLDivElement, Pr
       ref={ref}
       open={open}
       title={titleLabel}
-      onClose={() => {
-        onKeepEditing();
-      }}
+      onClose={onKeepEditing}
       cancelAction={cancelAction}
       primaryAction={{
         label: discardChangesButtonLabel,

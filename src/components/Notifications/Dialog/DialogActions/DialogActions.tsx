@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useEffect } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import {
   BaseModalActions,
   Props as BaseModalActionsProps,

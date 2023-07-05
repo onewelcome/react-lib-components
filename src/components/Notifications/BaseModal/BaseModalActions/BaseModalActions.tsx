@@ -14,16 +14,9 @@
  *    limitations under the License.
  */
 
-import React, {
-  ForwardRefRenderFunction,
-  ComponentPropsWithRef,
-  useEffect,
-  useRef,
-  useState
-} from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useRef } from "react";
 import classes from "./BaseModalActions.module.scss";
 import { Button } from "../../../Button/Button";
-import { useDebouncedCallback } from "../../../../hooks/useDebouncedCallback";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   children?: React.ReactNode;
