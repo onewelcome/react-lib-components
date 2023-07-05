@@ -14,24 +14,45 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import { Typography } from "../../../Typography/Typography";
 import classes from "./DialogTitle.module.scss";
+import { Icon, Icons } from "../../../Icon/Icon";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   id: string;
   title: string;
+  titleIcon?: React.ReactNode | boolean;
+  caption?: string;
 }
 
 const DialogTitleComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { id, title, ...rest }: Props,
+  { id, title, titleIcon, caption, ...rest }: Props,
   ref
 ) => {
   return (
     <div {...rest} ref={ref} className={classes["header"]}>
-      <Typography id={id} className={classes["title"]} tag="h1" variant="h4">
-        {title}
-      </Typography>
+      {titleIcon && (
+        <div className={classes["title-icon"]}>
+          {typeof titleIcon === "boolean" ? <Icon icon={Icons.InfoCircle} /> : titleIcon}
+        </div>
+      )}
+      <div className={classes["title-wrapper"]}>
+        <Typography
+          id={id}
+          className={classes["title"]}
+          spacing={{ marginLeft: 2 }}
+          tag="h1"
+          variant="h4"
+        >
+          {title}
+        </Typography>
+        {caption && (
+          <Typography className={classes["caption"]} spacing={{ marginLeft: 2 }} variant="sub-text">
+            {caption}
+          </Typography>
+        )}
+      </div>
     </div>
   );
 };

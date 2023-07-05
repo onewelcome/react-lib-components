@@ -16,8 +16,19 @@
 
 .header {
   margin: 1.5rem 1.25rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
 }
 
 .title {
   margin: 0;
+  line-height: 1;
+
+  &-icon > [data-icon] {
+    font-size: 1.25rem;
+  }
+}
+
+.caption {
+  color: var(--color-blue-grey500);
 }

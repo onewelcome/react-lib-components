@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { Modal as ModalComponent, Props } from "../../../src/components/Notifications/Modal/Modal";
 import { ModalActions } from "../../../src/components/Notifications/Modal/ModalActions/ModalActions";
@@ -66,6 +66,13 @@ export default meta;
 const Template: Story<Props> = args => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("initial value");
+
+  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  useEffect(() => {
+    if (window.location.search.includes("story")) {
+      setOpen(true);
+    }
+  }, []);
 
   const id = args.id;
   const onClose = () => setOpen(false);
@@ -142,9 +149,9 @@ const Template: Story<Props> = args => {
             </FormControl>
           </form>
         </ModalContent>
-        <ModalActions className={args["actions.className"]}>
-          <Button variant="text" onClick={onClose}>
-            Cancel
+        <ModalActions onClose={onClose} className={args["actions.className"]}>
+          <Button variant="outline" onClick={onClose}>
+            Example
           </Button>
           <Button form="modalForm" type="submit">
             Save

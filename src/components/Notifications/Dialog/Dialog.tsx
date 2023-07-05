@@ -36,6 +36,8 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   cancelAction?: CancelAction;
   zIndex?: number;
   disableEscapeKeyDown?: boolean;
+  titleIcon?: React.ReactNode;
+  caption?: string;
 }
 
 export interface Action extends Omit<ButtonProps, "variant" | "ref"> {
@@ -55,6 +57,8 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     cancelAction,
     zIndex,
     disableEscapeKeyDown = true,
+    titleIcon,
+    caption,
     ...rest
   }: Props,
   ref
@@ -98,7 +102,7 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       zIndex={zIndex}
       disableEscapeKeyDown={disableEscapeKeyDown}
     >
-      <DialogTitle id={labelId(dialogId)} title={title} />
+      <DialogTitle titleIcon={titleIcon} caption={caption} id={labelId(dialogId)} title={title} />
       <BaseModalContent
         id={descriptionId(dialogId)}
         className={classes["content"]}

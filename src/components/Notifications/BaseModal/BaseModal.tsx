@@ -128,6 +128,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             <div
               {...containerProps}
               aria-hidden={!open}
+              data-element="dialog"
               hidden={!open}
               style={{ zIndex: zIndex && zIndex + 1 }}
               className={`${classes["container"]} ${containerProps?.className ?? ""}`}
@@ -138,6 +139,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             open && (
               <div
                 {...containerProps}
+                data-element="dialog"
                 style={{ zIndex: zIndex && zIndex + 1 }}
                 className={`${classes["container"]} ${containerProps?.className ?? ""}`}
               >

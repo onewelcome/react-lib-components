@@ -34,9 +34,17 @@ const BaseModalHeaderComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   return (
     <div {...rest} ref={ref} className={classes["header"]}>
       <div className={classes["headline"]}>
-        <Typography id={id} className={classes["title"]} tag="h1" variant="h4">
-          {title}
-        </Typography>
+        <div className={classes["title-wrapper"]}>
+          <Typography
+            id={id}
+            className={classes["title"]}
+            tag="h1"
+            spacing={{ marginBottom: 0 }}
+            variant="h4"
+          >
+            {title}
+          </Typography>
+        </div>
         <IconButton onClick={onClose} className={classes["closeBtn"]} title="close modal">
           <Icon icon={Icons.Times} />
         </IconButton>

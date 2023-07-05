@@ -31,7 +31,7 @@ const meta: Meta = {
   },
   args: {
     id: "dialog",
-    title: "components/Discard changes?",
+    title: "Discard changes?",
     children: (
       <Typography variant="body" spacing={{ margin: 0 }}>
         This cannot be undone and you will lose your changes.
@@ -44,7 +44,9 @@ const meta: Meta = {
     secondaryAction: {
       label: "Keep editing",
       onClick: () => window.setDialogOpen(false)
-    }
+    },
+    titleIcon: true,
+    caption: "This is a caption"
   }
 };
 
@@ -75,6 +77,8 @@ const Template: Story<Props> = args => {
         title={args.title}
         primaryAction={args.primaryAction}
         secondaryAction={args.secondaryAction}
+        titleIcon={args.titleIcon}
+        caption={args.caption}
       >
         {args.children}
       </Dialog>
@@ -85,7 +89,7 @@ const Template: Story<Props> = args => {
 export const ActionDialog = Template.bind({});
 
 ActionDialog.args = {
-  title: "components/Verify email address",
+  title: "Verify email address",
   children: (
     <Fragment>
       <Typography variant="body">
@@ -107,7 +111,7 @@ ActionDialog.args = {
 export const SingleActionDialog = Template.bind({});
 
 SingleActionDialog.args = {
-  title: "components/Info",
+  title: "Info",
   children: (
     <Typography variant="body" spacing={{ margin: 0 }}>
       You can&apos;t remove your account.
@@ -123,6 +127,14 @@ SingleActionDialog.args = {
 export const NestedDialogs = () => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+
+  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  useEffect(() => {
+    if (window.location.search.includes("story")) {
+      setOpen(true);
+    }
+  }, []);
+
   return (
     <Fragment>
       <Button onClick={() => setOpen(true)}>Open dialog</Button>
@@ -154,6 +166,7 @@ export const NestedDialogs = () => {
           label: "Close",
           onClick: () => setOpen2(false)
         }}
+        cancelAction={{ disable: true }}
       >
         <Typography variant="body" spacing={{ margin: 0 }}>
           Short dialog content.

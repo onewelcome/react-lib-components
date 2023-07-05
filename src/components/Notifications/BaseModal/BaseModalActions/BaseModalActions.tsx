@@ -14,9 +14,16 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 import classes from "./BaseModalActions.module.scss";
 import { Button } from "../../../Button/Button";
+import { useDebouncedCallback } from "../../../../hooks/useDebouncedCallback";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   children?: React.ReactNode;
@@ -39,16 +46,26 @@ const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props>
   }: Props,
   ref
 ) => {
+  const innerRef = (React.createRef() as React.RefObject<HTMLDivElement>) || ref;
+  const cancelButtonRef = useRef<HTMLDivElement>(null);
+  const primaryActionsRef = useRef<HTMLDivElement>(null);
+
   const CancelButton = (
-    <Button key="cancel" variant="text" onClick={onClose}>
+    <Button key="cancel" variant="text" color="default" onClick={onClose}>
       {cancelAction?.label ?? "Cancel"}
     </Button>
   );
 
   return (
-    <div {...rest} ref={ref} className={`${classes["actions"]} ${className}`}>
-      {!cancelAction.disable && <div>{CancelButton}</div>}
-      <div>{children}</div>
+    <div {...rest} ref={innerRef} className={`${classes["actions"]} ${className}`}>
+      {!cancelAction.disable && (
+        <div className={classes["cancel-action"]} ref={cancelButtonRef}>
+          {CancelButton}
+        </div>
+      )}
+      <div ref={primaryActionsRef} className={classes["primary-actions"]}>
+        {children}
+      </div>
     </div>
   );
 };
