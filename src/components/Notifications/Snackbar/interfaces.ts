@@ -22,6 +22,7 @@ export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string
 
 export interface SnackbarOptionsProps {
   actions?: Actions;
+  className?: string;
   variant?: Variant;
   duration?: number;
   onClose?: () => void;

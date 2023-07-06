@@ -31,6 +31,7 @@ export interface Props {
   title?: string;
   duration: number;
   variant: Variant;
+  className?: string;
   onClose: (key: string) => void;
   closeButtonTitle: string;
   content?: string;
@@ -56,6 +57,7 @@ export const SnackbarItem = ({
   duration,
   variant,
   content,
+  className,
   actions = [],
   onClose,
   closeButtonTitle
@@ -111,7 +113,8 @@ export const SnackbarItem = ({
     classes["snackbar"],
     classes[variant],
     animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"],
-    title && classes["has-title"]
+    title && classes["has-title"],
+    className ?? ""
   ].join(" ");
 
   return (

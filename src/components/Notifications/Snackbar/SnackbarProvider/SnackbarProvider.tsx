@@ -43,6 +43,7 @@ export interface Item {
   id: string;
   title?: string;
   duration: number;
+  className?: string;
   height: number;
   variant: Variant;
   content?: string;
@@ -105,6 +106,7 @@ export const SnackbarProvider = (
       title,
       content,
       variant,
+      className: options.className,
       actions,
       duration,
       height: 0,
@@ -147,6 +149,7 @@ export const SnackbarProvider = (
       <SnackbarItem
         {...item}
         key={item.id}
+        className={item.className}
         onClose={() => {
           onItemClosed(item.id);
           item.onClose?.();
