@@ -21,6 +21,7 @@ export const useSnackbar = () => {
   const ctx = useContext(SnackbarContext);
 
   return {
+    enqueueWarningSnackbar: ctx.enqueueWarningSnackbar,
     enqueueErrorSnackbar: ctx.enqueueErrorSnackbar,
     enqueueSuccessSnackbar: ctx.enqueueSuccessSnackbar,
     enqueueSnackbar: ctx.enqueueSnackbar

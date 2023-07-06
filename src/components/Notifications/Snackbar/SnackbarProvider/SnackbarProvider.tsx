@@ -41,7 +41,7 @@ export interface Props {
 
 export interface Item {
   id: string;
-  title: string;
+  title?: string;
   duration: number;
   height: number;
   variant: Variant;
@@ -91,7 +91,7 @@ export const SnackbarProvider = (
   };
 
   const enqueueSnackbar = (
-    title: string,
+    title?: string,
     content?: string,
     options: SnackbarOptionsProps = {}
   ): void => {
@@ -115,7 +115,7 @@ export const SnackbarProvider = (
   };
 
   const enqueueSuccessSnackbar = (
-    title: string,
+    title?: string,
     content?: string,
     options?: SnackbarOptionsProps
   ): void => {
@@ -123,11 +123,19 @@ export const SnackbarProvider = (
   };
 
   const enqueueErrorSnackbar = (
-    title: string,
+    title?: string,
     content?: string,
     options?: SnackbarOptionsProps
   ): void => {
     enqueueSnackbar(title, content, { ...options, variant: "error" });
+  };
+
+  const enqueueWarningSnackbar = (
+    title?: string,
+    content?: string,
+    options?: SnackbarOptionsProps
+  ): void => {
+    enqueueSnackbar(title, content, { ...options, variant: "warning" });
   };
 
   const onItemClosed = (id: string) => {
@@ -161,6 +169,7 @@ export const SnackbarProvider = (
         enqueueSnackbar,
         enqueueSuccessSnackbar,
         enqueueErrorSnackbar,
+        enqueueWarningSnackbar,
         setSnackbarHeight,
         snackbars
       }}

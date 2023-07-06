@@ -16,7 +16,7 @@
 
 import { ButtonHTMLAttributes } from "react";
 
-export type Variant = "info" | "success" | "error";
+export type Variant = "info" | "success" | "error" | "warning";
 
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
 
