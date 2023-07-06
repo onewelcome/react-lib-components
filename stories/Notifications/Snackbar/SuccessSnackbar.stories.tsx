@@ -33,7 +33,7 @@ const meta: Meta = {
     docs: {
       page: SuccessSnackbarDocumentation
     },
-    chromatic: { delay: 1000 }
+    chromatic: { delay: 5000 }
   }
 };
 

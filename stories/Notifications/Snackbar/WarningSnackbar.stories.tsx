@@ -32,7 +32,8 @@ const meta: Meta = {
   parameters: {
     docs: {
       page: WarningSnackbarDocumentation
-    }
+    },
+    chromatic: { delay: 5000 }
   }
 };
 
