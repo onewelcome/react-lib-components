@@ -45,9 +45,9 @@ const AppContent = () => {
   useEffect(() => {
     enqueueSnackbar(
       "This is a title",
-      "Phasellus eleifend cursus vehicula. Pellentesque ut sem in elit pulvinar luctus. Praesent ac urna risus. Maecenas porttitor in metus eu tincidunt. Nulla facilisi. Ut faucibus posuere convallis. Etiam eget dui massa. Aliquam eget luctus dolor.",
+      "Phasellus eleifend cursus vehicula. Pellentesque ut sem in elit pulvinar luctus.",
       {
-        actions: [{ label: "Contact support", onClick: () => alert("Clicked support") }],
+        actions: [{ label: "Action", onClick: () => alert("Clicked support") }],
         onClose: () => console.warn("onClose handler"),
         duration: 200000,
         className: classes["remove-animation"]

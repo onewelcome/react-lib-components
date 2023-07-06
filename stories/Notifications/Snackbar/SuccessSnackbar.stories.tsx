@@ -43,8 +43,8 @@ const AppContent = () => {
   const { enqueueSuccessSnackbar } = useSnackbar();
 
   useEffect(() => {
-    enqueueSuccessSnackbar(undefined, "Main message of the snackbar", {
-      actions: [{ label: "Contact support", onClick: () => alert("Clicked support") }],
+    enqueueSuccessSnackbar(undefined, "Alert message.", {
+      actions: [{ label: "Action", onClick: () => alert("Clicked support") }],
       onClose: () => console.warn("onClose handler"),
       duration: 200000,
       className: classes["remove-animation"]

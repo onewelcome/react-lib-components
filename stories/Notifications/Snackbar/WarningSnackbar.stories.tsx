@@ -43,8 +43,8 @@ const AppContent = () => {
   const { enqueueWarningSnackbar } = useSnackbar();
 
   useEffect(() => {
-    enqueueWarningSnackbar(undefined, "Main message of the snackbar", {
-      actions: [{ label: "Contact support", onClick: () => alert("Clicked support") }],
+    enqueueWarningSnackbar(undefined, "Alert message", {
+      actions: [{ label: "Action", onClick: () => alert("Clicked support") }],
       onClose: () => console.warn("onClose handler"),
       duration: 200000,
       className: classes["remove-animation"]
