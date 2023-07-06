@@ -30,7 +30,9 @@ const initParams: Props = {
 
 describe("SnackbarItem", () => {
   it("renders without crashing", () => {
-    const { container } = render(<SnackbarItem {...initParams} />);
+    const { container, debug } = render(<SnackbarItem {...initParams} />);
+
+    debug();
 
     expect(container).toHaveTextContent(initParams.title!);
     const contentDiv = container.querySelector(".content");

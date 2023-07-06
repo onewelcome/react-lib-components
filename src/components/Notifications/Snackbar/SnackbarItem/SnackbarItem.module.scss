@@ -91,9 +91,12 @@
     display: block;
   }
 
+  .content-wrapper {
+    flex-grow: 1;
+  }
+
   .content {
     color: var(--snackbar-text-color);
-    flex-grow: 1;
     font-size: 0.875rem;
     margin-bottom: 0;
     line-height: var(--default-line-height);

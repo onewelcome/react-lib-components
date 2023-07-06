@@ -123,13 +123,13 @@ export const SnackbarItem = ({
       onMouseLeave={onMouseLeave}
     >
       <Icon icon={getVariantIcon()} className={classes["icon"]} />
-      <div className={classes["content"]}>
+      <div className={classes["content-wrapper"]}>
         {title && (
           <Typography className={classes["title"]} variant="body-bold" tag="span">
             {title}
           </Typography>
         )}
-        {!!content && (
+        {content && (
           <Typography className={classes["content"]} variant="body">
             {content}
           </Typography>
