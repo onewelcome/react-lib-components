@@ -16,7 +16,7 @@
 
 @use "../../mixins.module.scss";
 
-@mixin triangle($color: #000, $size: 8px, $direction, $position: "center") {
+@mixin triangle($color: #000, $size: 0.5rem, $direction, $position: "center") {
   $directions: top, bottom, left, right;
   @if not index($directions, $direction) {
     @error "Invalid value `#{$direction}` for `$direction`. Must be one of: `top`, `bottom`, `left`, `right`.";
@@ -37,10 +37,10 @@
 
   @if $direction == "top" or $direction == "bottom" {
     @if $position == "end" {
-      left: 16px;
+      left: 1rem;
       right: initial;
     } @else if $position == "start" {
-      right: 12px;
+      right: 0.75rem;
       left: initial;
     } @else {
       // position == "center"
@@ -51,10 +51,10 @@
   } @else {
     // direction == "left" or direction == "right"
     @if $position == "end" {
-      top: 14px;
+      top: 0.875rem;
       bottom: initial;
     } @else if $position == "start" {
-      bottom: 15px;
+      bottom: 0.9375rem;
       top: initial;
     } @else {
       // position == "center"
@@ -82,62 +82,62 @@
 @mixin triangleProperties($color) {
   &.top {
     &:after {
-      @include triangle($color, 8px, "top", "center");
+      @include triangle($color, 0.5rem, "top", "center");
     }
   }
   &.top-start {
     &:after {
-      @include triangle($color, 8px, "top", "start");
+      @include triangle($color, 0.5rem, "top", "start");
     }
   }
   &.top-end {
     &:after {
-      @include triangle($color, 8px, "top", "end");
+      @include triangle($color, 0.5rem, "top", "end");
     }
   }
   &.bottom {
     &:after {
-      @include triangle($color, 8px, "bottom", "center");
+      @include triangle($color, 0.5rem, "bottom", "center");
     }
   }
   &.bottom-start {
     &:after {
-      @include triangle($color, 8px, "bottom", "start");
+      @include triangle($color, 0.5rem, "bottom", "start");
     }
   }
   &.bottom-end {
     &:after {
-      @include triangle($color, 8px, "bottom", "end");
+      @include triangle($color, 0.5rem, "bottom", "end");
     }
   }
   &.left {
     &:after {
-      @include triangle($color, 8px, "left", "center");
+      @include triangle($color, 0.5rem, "left", "center");
     }
   }
   &.left-start {
     &:after {
-      @include triangle($color, 8px, "left", "start");
+      @include triangle($color, 0.5rem, "left", "start");
     }
   }
   &.left-end {
     &:after {
-      @include triangle($color, 8px, "left", "end");
+      @include triangle($color, 0.5rem, "left", "end");
     }
   }
   &.right {
     &:after {
-      @include triangle($color, 8px, "right", "center");
+      @include triangle($color, 0.5rem, "right", "center");
     }
   }
   &.right-start {
     &:after {
-      @include triangle($color, 8px, "right", "start");
+      @include triangle($color, 0.5rem, "right", "start");
     }
   }
   &.right-end {
     &:after {
-      @include triangle($color, 8px, "right", "end");
+      @include triangle($color, 0.5rem, "right", "end");
     }
   }
 }
@@ -165,7 +165,7 @@
   position: fixed;
   font-size: 0.75rem;
   line-height: 1rem;
-  border-radius: 2px;
+  border-radius: 0.125rem;
   padding: 0.75rem;
   color: var(--light);
   max-width: 330px;
