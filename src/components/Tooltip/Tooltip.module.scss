@@ -168,12 +168,12 @@
   border-radius: 0.125rem;
   padding: 0.75rem;
   color: var(--light);
-  max-width: 330px;
+  max-width: 20.625rem;
   opacity: 0;
   transform: scale(0);
   transform-origin: center center;
   pointer-events: none;
-  box-shadow: 0px 1px 5px 0px rgba(1, 5, 50, 0.3);
+  box-shadow: 0 0.0625rem 0.3125rem 0 rgba(1, 5, 50, 0.3);
 
   @include mixins.transition($transition-property, 0.2s, ease-in-out);
 
@@ -201,7 +201,7 @@
 
 .label {
   &:focus-visible {
-    outline: 0.5px dashed var(--color-primary);
+    outline: 0.0313rem dashed var(--color-primary);
   }
 }
 
