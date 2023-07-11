@@ -438,8 +438,7 @@ const renderSnackbarProvider = () => {
 
 describe("Actually shows the snackbars showing up", () => {
   it("Shows the snackbars", async () => {
-    const { showSuccessSnackbarBtn, showErrorSnackbarBtn, getByText, debug } =
-      renderSnackbarProvider();
+    const { showSuccessSnackbarBtn, showErrorSnackbarBtn, getByText } = renderSnackbarProvider();
 
     await userEvent.click(showSuccessSnackbarBtn);
     await userEvent.click(showErrorSnackbarBtn);

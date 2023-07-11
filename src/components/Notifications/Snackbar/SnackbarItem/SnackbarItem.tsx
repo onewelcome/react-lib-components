@@ -113,7 +113,7 @@ export const SnackbarItem = ({
     classes["snackbar"],
     classes[variant],
     animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"],
-    title && classes["has-title"],
+    title ? classes["has-title"] : "",
     className ?? ""
   ].join(" ");
 
