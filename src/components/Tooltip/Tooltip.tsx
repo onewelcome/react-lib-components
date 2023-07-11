@@ -51,7 +51,10 @@ interface DefaultPosition {
   transformOrigin: Placement;
 }
 
-const locations: Record<string, DefaultPosition> = {
+type Location = "left" | "right" | "top" | "bottom";
+type Position = "start" | "end";
+type LocationPosition = `${Location}${Capitalize<Position>}` | `${Location}`;
+const locations: Record<LocationPosition, DefaultPosition> = {
   left: {
     placement: { horizontal: "left", vertical: "center" },
     offset: { left: 0, right: 12, top: 0, bottom: 0 },
@@ -142,7 +145,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       return location;
     }
 
-    return `${location}${position.charAt(0).toUpperCase() + position.slice(1)}`;
+    return `${location}${position.charAt(0).toUpperCase() + position.slice(1)}` as LocationPosition;
   }, [location, position]);
 
   const { top, bottom, right, left, calculatePosition } = usePosition({
