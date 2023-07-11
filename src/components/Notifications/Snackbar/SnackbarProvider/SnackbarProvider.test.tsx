@@ -55,6 +55,14 @@ const infoProps = {
   }
 };
 
+const warningProps = {
+  title: "warning title",
+  options: {
+    duration: 10,
+    onClose: jest.fn()
+  }
+};
+
 const renderSnackbarProvider = (props?: Partial<Props>) => {
   const AppComponent = () => {
     const {
@@ -94,7 +102,13 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         >
           Info
         </button>
-        <button data-testid="show-warning" onClick={() => enqueueWarningSnackbar("warning")}>
+        <button
+          data-testid="show-warning"
+          onClick={() => {
+            enqueueWarningSnackbar(warningProps.title + index, undefined, warningProps.options);
+            setIndex(index + 1);
+          }}
+        >
           Warning
         </button>
       </div>
@@ -136,7 +150,10 @@ describe("SnackbarProvider", () => {
     await userEvent.click(showSuccessSnackbarBtn);
     await userEvent.click(showSuccessSnackbarBtn);
 
-    expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
+    await waitFor(() => {
+      expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(2);
+      expect(getAllByText(document.body, new RegExp(warningProps.title))).toHaveLength(1);
+    });
   });
 
   it("should render 3 variants of snackbars", async () => {
