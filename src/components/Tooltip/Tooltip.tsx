@@ -23,6 +23,7 @@ import React, {
   RefObject,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState
 } from "react";
@@ -35,11 +36,13 @@ import { useGetDomRoot } from "../../hooks/useGetDomRoot";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   label: string | ReactNode;
+  title?: string;
   children: string;
-  placement?: Placement;
-  offset?: Offset;
-  transformOrigin?: Placement;
   domRoot?: HTMLElement;
+  location?: "left" | "right" | "top" | "bottom";
+  color?: "black" | "blue";
+  position?: "start" | "center" | "end";
+  initiallyVisible?: boolean;
 }
 
 interface DefaultPosition {
@@ -48,40 +51,109 @@ interface DefaultPosition {
   transformOrigin: Placement;
 }
 
-const defaultPosition: DefaultPosition = {
-  placement: { horizontal: "right", vertical: "center" },
-  offset: { left: 16, right: 0, top: 0, bottom: 0 },
-  transformOrigin: { horizontal: "left", vertical: "center" }
+type Location = "left" | "right" | "top" | "bottom";
+type Position = "start" | "end";
+type LocationPosition = `${Location}${Capitalize<Position>}` | `${Location}`;
+const locations: Record<LocationPosition, DefaultPosition> = {
+  left: {
+    placement: { horizontal: "left", vertical: "center" },
+    offset: { left: 0, right: 12, top: 0, bottom: 0 },
+    transformOrigin: { horizontal: "right", vertical: "center" }
+  },
+  leftEnd: {
+    placement: { horizontal: "left", vertical: "top" },
+    offset: { left: 0, right: 12, top: -12, bottom: 0 },
+    transformOrigin: { horizontal: "right", vertical: "top" }
+  },
+  leftStart: {
+    placement: { horizontal: "left", vertical: "bottom" },
+    offset: { left: 0, right: 12, top: 0, bottom: -12 },
+    transformOrigin: { horizontal: "right", vertical: "bottom" }
+  },
+  right: {
+    placement: { horizontal: "right", vertical: "center" },
+    offset: { left: 12, right: 0, top: 0, bottom: 0 },
+    transformOrigin: { horizontal: "left", vertical: "center" }
+  },
+  rightEnd: {
+    placement: { horizontal: "right", vertical: "top" },
+    offset: { left: 12, right: 0, top: -12, bottom: 0 },
+    transformOrigin: { horizontal: "left", vertical: "top" }
+  },
+  rightStart: {
+    placement: { horizontal: "right", vertical: "bottom" },
+    offset: { left: 12, right: 0, top: 0, bottom: -12 },
+    transformOrigin: { horizontal: "left", vertical: "bottom" }
+  },
+  top: {
+    placement: { horizontal: "center", vertical: "top" },
+    offset: { left: 0, right: 0, top: 0, bottom: 12 },
+    transformOrigin: { horizontal: "center", vertical: "bottom" }
+  },
+  topEnd: {
+    placement: { horizontal: "left", vertical: "top" },
+    offset: { left: -12, right: 0, top: 0, bottom: 12 },
+    transformOrigin: { horizontal: "left", vertical: "bottom" }
+  },
+  topStart: {
+    placement: { horizontal: "right", vertical: "top" },
+    offset: { left: 0, right: -12, top: 0, bottom: 12 },
+    transformOrigin: { horizontal: "right", vertical: "bottom" }
+  },
+  bottom: {
+    placement: { horizontal: "center", vertical: "bottom" },
+    offset: { left: 0, right: 0, top: 12, bottom: 0 },
+    transformOrigin: { horizontal: "center", vertical: "top" }
+  },
+  bottomEnd: {
+    placement: { horizontal: "left", vertical: "bottom" },
+    offset: { left: -12, right: 0, top: 12, bottom: 0 },
+    transformOrigin: { horizontal: "left", vertical: "top" }
+  },
+  bottomStart: {
+    placement: { horizontal: "right", vertical: "bottom" },
+    offset: { left: 0, right: -12, top: 12, bottom: 0 },
+    transformOrigin: { horizontal: "right", vertical: "top" }
+  }
 };
 
 const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   {
+    title,
     children,
     className,
-    placement = defaultPosition.placement,
-    offset = defaultPosition.offset,
-    transformOrigin = defaultPosition.transformOrigin,
     domRoot,
     label,
+    location = "right",
+    position = "center",
+    color = "black",
+    initiallyVisible = false,
     ...rest
   }: Props,
   ref
 ) => {
   const [identifier] = useState(generateID());
-  const [visible, setVisible] = useState(false);
-
+  const [visible, setVisible] = useState(initiallyVisible);
   const wrappingDivRef = (ref as RefObject<HTMLDivElement>) || createRef<HTMLDivElement>();
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 
   const relativeElement = useRef<HTMLDivElement>(null);
   const elementToBePositioned = useRef<HTMLDivElement>(null);
 
+  const determinedLocation = useMemo(() => {
+    if (position === "center") {
+      return location;
+    }
+
+    return `${location}${position.charAt(0).toUpperCase() + position.slice(1)}` as LocationPosition;
+  }, [location, position]);
+
   const { top, bottom, right, left, calculatePosition } = usePosition({
     relativeElement: relativeElement,
     elementToBePositioned: elementToBePositioned,
-    placement: placement,
-    offset: offset,
-    transformOrigin: transformOrigin
+    placement: locations[determinedLocation].placement,
+    offset: locations[determinedLocation].offset,
+    transformOrigin: locations[determinedLocation].transformOrigin
   });
 
   useEffect(() => {
@@ -128,6 +200,10 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     );
   };
 
+  const tooltipClasses = `${classes["tooltip"]} ${classes[color]} ${
+    visible ? classes["visible"] : ""
+  } ${classes[determinedLocation.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase()]}`;
+
   return (
     <div {...rest} ref={wrappingDivRef} className={`${classes.wrapper} ${className ?? ""}`}>
       {renderChildren()}
@@ -152,8 +228,9 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             }}
             aria-hidden={!visible}
             id={identifier}
-            className={`${classes.tooltip} ${visible ? classes.visible : ""}`}
+            className={tooltipClasses}
           >
+            {title && <span className={classes["tooltip-title"]}>{title}</span>}
             {children}
           </div>,
           root
