@@ -41,6 +41,7 @@ interface CSSProperties {
   colorBlueGrey700?: string;
   colorBlueGrey800?: string;
   colorBlueGrey900?: string;
+  colorGreen100?: string;
   colorGreen500?: string;
   colorGreen600?: string;
   colorGreen700?: string;
@@ -162,6 +163,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorBlueGrey700: "#383A4B",
     colorBlueGrey800: "#252733",
     colorBlueGrey900: "#131319",
+    colorGreen100: "#D1E6DA",
     colorGreen500: "#178244",
     colorGreen600: "#126836",
     colorGreen700: "#0E4E29",

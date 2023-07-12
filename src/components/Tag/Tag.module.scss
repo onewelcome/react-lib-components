@@ -1,0 +1,22 @@
+$tagFontSize: 0.75rem;
+
+.tag {
+  font-size: $tagFontSize;
+  padding: 0.3rem 0.7rem;
+  border-radius: 3.125rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &.tag-enabled {
+    background-color: var(--color-green100);
+  }
+
+  &.tag-disabled {
+    background-color: var(--color-blue-grey100);
+  }
+
+  .label {
+    line-height: $tagFontSize;
+  }
+}
