@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { Dialog, Props } from "../../../src/components/Notifications/Dialog/Dialog";
 import { Button } from "../../../src/components/Button/Button";
@@ -31,8 +31,7 @@ const meta: Meta = {
   },
   args: {
     id: "dialog",
-    title: "components/Discard changes?",
-    alignActions: "left",
+    title: "Discard changes?",
     children: (
       <Typography variant="body" spacing={{ margin: 0 }}>
         This cannot be undone and you will lose your changes.
@@ -45,7 +44,9 @@ const meta: Meta = {
     secondaryAction: {
       label: "Keep editing",
       onClick: () => window.setDialogOpen(false)
-    }
+    },
+    titleIcon: true,
+    caption: "This is a caption"
   }
 };
 
@@ -57,6 +58,14 @@ declare global {
 
 const Template: Story<Props> = args => {
   const [open, setOpen] = useState(false);
+
+  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  useEffect(() => {
+    if (window.location.search.includes("story")) {
+      setOpen(true);
+    }
+  }, []);
+
   window.setDialogOpen = setOpen;
   return (
     <Fragment>
@@ -65,10 +74,11 @@ const Template: Story<Props> = args => {
         id={args.id}
         open={open}
         onClose={() => setOpen(false)}
-        alignActions={args.alignActions}
         title={args.title}
         primaryAction={args.primaryAction}
         secondaryAction={args.secondaryAction}
+        titleIcon={args.titleIcon}
+        caption={args.caption}
       >
         {args.children}
       </Dialog>
@@ -76,13 +86,10 @@ const Template: Story<Props> = args => {
   );
 };
 
-export const LeftAlignedActionDialog = Template.bind({});
+export const ActionDialog = Template.bind({});
 
-export const RightAlignedActionDialog = Template.bind({});
-
-RightAlignedActionDialog.args = {
-  title: "components/Verify email address",
-  alignActions: "right",
+ActionDialog.args = {
+  title: "Verify email address",
   children: (
     <Fragment>
       <Typography variant="body">
@@ -98,17 +105,13 @@ RightAlignedActionDialog.args = {
     label: "Send email",
     onClick: () => window.setDialogOpen(false)
   },
-  secondaryAction: {
-    label: "Cancel",
-    onClick: () => window.setDialogOpen(false)
-  }
+  secondaryAction: undefined
 };
 
 export const SingleActionDialog = Template.bind({});
 
 SingleActionDialog.args = {
-  title: "components/Info",
-  alignActions: "right",
+  title: "Info",
   children: (
     <Typography variant="body" spacing={{ margin: 0 }}>
       You can&apos;t remove your account.
@@ -124,13 +127,20 @@ SingleActionDialog.args = {
 export const NestedDialogs = () => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+
+  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  useEffect(() => {
+    if (window.location.search.includes("story")) {
+      setOpen(true);
+    }
+  }, []);
+
   return (
     <Fragment>
       <Button onClick={() => setOpen(true)}>Open dialog</Button>
       <Dialog
         id="dialog11"
         open={open}
-        alignActions="right"
         title="Dialog 1"
         onClose={() => setOpen(false)}
         primaryAction={{
@@ -151,12 +161,12 @@ export const NestedDialogs = () => {
         id="dialog12"
         open={open2}
         onClose={() => setOpen2(false)}
-        alignActions="left"
         title="Dialog 2"
         primaryAction={{
           label: "Close",
           onClick: () => setOpen2(false)
         }}
+        cancelAction={{ disable: true }}
       >
         <Typography variant="body" spacing={{ margin: 0 }}>
           Short dialog content.

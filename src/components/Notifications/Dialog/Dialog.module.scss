@@ -20,8 +20,8 @@
 
 @media only screen and (min-width: 50em) {
   .container {
-    width: auto;
-    max-width: 440px;
+    max-width: min-content;
+    min-width: 314px;
     margin-top: 0;
     max-height: 90%;
   }

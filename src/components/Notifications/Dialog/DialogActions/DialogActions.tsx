@@ -17,23 +17,26 @@
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import {
   BaseModalActions,
-  Props as BaseModalActionsProps
+  Props as BaseModalActionsProps,
+  CancelAction
 } from "../../BaseModal/BaseModalActions/BaseModalActions";
 import classes from "./DialogActions.module.scss";
 
 export interface Props extends ComponentPropsWithRef<any>, BaseModalActionsProps {
-  align: "left" | "right";
+  cancelAction?: CancelAction;
 }
 
 const DialogActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, align, ...rest }: Props,
+  { children, cancelAction, onClose, ...rest }: Props,
   ref
 ) => {
   return (
     <BaseModalActions
       {...rest}
+      cancelAction={{ label: cancelAction?.label, disable: cancelAction?.disable }}
+      onClose={onClose}
       ref={ref}
-      className={`${classes["actions"]}${align === "left" ? " " + classes["left"] : ""}`}
+      className={classes["actions"]}
     >
       {children}
     </BaseModalActions>

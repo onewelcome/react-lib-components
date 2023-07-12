@@ -23,12 +23,43 @@ describe("BaseModalActions", () => {
     const children = "Content";
     const classNames = ["class1", "class2"];
     const { container } = render(
-      <BaseModalActions className={classNames.join(" ")}>{children}</BaseModalActions>
+      <BaseModalActions onClose={jest.fn()} className={classNames.join(" ")}>
+        {children}
+      </BaseModalActions>
     );
 
     const dialogActionsContainer = container.children[0];
     expect(dialogActionsContainer).toHaveClass("actions", classNames[0], classNames[1]);
     expect(dialogActionsContainer).toHaveTextContent(children);
+  });
+
+  it("Should render the default cancel action if we don't pass it", () => {
+    const { container } = render(<BaseModalActions onClose={jest.fn()} />);
+    const dialogActionsContainer = container.children[0];
+    expect(dialogActionsContainer).toHaveClass("actions");
+    expect(dialogActionsContainer).toHaveTextContent("Cancel");
+  });
+
+  it("should render a cancel action with a custom label", () => {
+    const cancelAction = { label: "Close", disable: false };
+    const { container } = render(
+      <BaseModalActions onClose={jest.fn()} cancelAction={cancelAction} />
+    );
+
+    const dialogActionsContainer = container.children[0];
+    expect(dialogActionsContainer).toHaveClass("actions");
+    expect(dialogActionsContainer).toHaveTextContent(cancelAction.label);
+  });
+
+  it("Shouldn't render a label because of disabled cancel action", () => {
+    const cancelAction = { label: "Close", disable: true };
+    const { container } = render(
+      <BaseModalActions onClose={jest.fn()} cancelAction={cancelAction} />
+    );
+
+    const dialogActionsContainer = container.children[0];
+    expect(dialogActionsContainer).toHaveClass("actions");
+    expect(dialogActionsContainer).not.toHaveTextContent(cancelAction.label);
   });
 });
 describe("ref should work", () => {
@@ -46,7 +77,7 @@ describe("ref should work", () => {
         }
       }, [ref]);
 
-      return <BaseModalActions data-ref="testing" ref={ref} />;
+      return <BaseModalActions onClose={jest.fn()} data-ref="testing" ref={ref} />;
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {

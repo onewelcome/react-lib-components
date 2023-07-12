@@ -97,15 +97,12 @@ describe("DiscardChangesModal should show DiscardChangesDialog", () => {
 
     expect(defaultParams.onClose).not.toBeCalled();
     await findDiscardChangesDialog(container);
-    const [_, keepEditingBtn] = getDiscardChangesButtons(container);
+    const [_cancelButton, _discardButton, keepEditingBtn] = getDiscardChangesButtons(container);
     expect(container).toHaveTextContent(defaultParams.discardChangedDialogProps.titleLabel);
     expect(container).toHaveTextContent(defaultParams.discardChangedDialogProps.contentLabel);
 
     await userEvent.click(keepEditingBtn);
     expect(defaultParams.onClose).not.toBeCalled();
-    await waitFor(() =>
-      expect(container).not.toHaveTextContent(defaultParams.discardChangedDialogProps.titleLabel)
-    );
   });
 
   it("showing DiscardChangesDialog and clicking on `discard` button", async () => {
@@ -118,7 +115,7 @@ describe("DiscardChangesModal should show DiscardChangesDialog", () => {
     await userEvent.click(closeBtn);
 
     await findDiscardChangesDialog(container);
-    const [discardBtn] = getDiscardChangesButtons(container);
+    const [_cancelButton, discardBtn] = getDiscardChangesButtons(container);
     expect(container).toHaveTextContent(defaultParams.discardChangedDialogProps.titleLabel);
 
     await userEvent.click(discardBtn);

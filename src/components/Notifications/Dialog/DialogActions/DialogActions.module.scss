@@ -15,13 +15,7 @@
  */
 
 .actions {
-  margin: 1.5rem 1.25rem 1.25rem;
-
-  &.left {
-    justify-content: flex-start;
-  }
-
   & * + * {
-    margin-left: 1.25rem;
+    margin-left: 0.5rem;
   }
 }

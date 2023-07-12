@@ -23,11 +23,14 @@ const initParams: Props = {
   id: "modal",
   open: true,
   onClose: jest.fn(),
-  alignActions: "left",
   title: "Example dialog",
   primaryAction: {
     label: "Save",
     onClick: jest.fn()
+  },
+  cancelAction: {
+    label: "Cancel",
+    disable: false
   },
   secondaryAction: {
     label: "Cancel",
@@ -40,42 +43,29 @@ const getButtons = (container: HTMLElement) => getAllByRole(container, "button")
 
 describe("Dialog", () => {
   it("renders without crashing", () => {
-    const { getByText } = render(<Dialog {...initParams} />);
-    const [primaryButton, secondaryButton] = getButtons(document.body);
+    const { getByText, debug } = render(<Dialog {...initParams} />);
+    const [_cancelButton, secondaryButton, primaryButton] = getButtons(document.body);
 
     expect(getByText(initParams.title)).toBeDefined();
     expect(getByText(initParams.children as string)).toBeDefined();
     const actionsDiv = primaryButton.closest("div");
-    expect(actionsDiv).toHaveClass("left");
-    expect(actionsDiv?.children[0]).toEqual(primaryButton);
-    expect(actionsDiv?.children[1]).toEqual(secondaryButton);
-    expect(primaryButton).toHaveClass("fill");
-    expect(secondaryButton).toHaveClass("text");
-  });
-
-  it("renders action aligned to right", () => {
-    render(<Dialog {...initParams} alignActions="right" />);
-    const [secondaryButton, primaryButton] = getButtons(document.body);
-
-    const actionsDiv = primaryButton.closest("div");
-    expect(actionsDiv).not.toHaveClass("left");
-    expect(actionsDiv?.children[0]).toEqual(secondaryButton);
     expect(actionsDiv?.children[1]).toEqual(primaryButton);
+    expect(actionsDiv?.children[0]).toEqual(secondaryButton);
     expect(primaryButton).toHaveClass("fill");
-    expect(secondaryButton).toHaveClass("text");
+    expect(secondaryButton).toHaveClass("outline");
   });
 
   it("renders only one button", () => {
     render(<Dialog {...initParams} secondaryAction={undefined} />);
     const buttons = getButtons(document.body);
 
-    expect(buttons).toHaveLength(1);
-    expect(buttons[0]).toHaveClass("fill");
+    expect(buttons).toHaveLength(2);
+    expect(buttons[1]).toHaveClass("fill");
   });
 
   it("should handle clicking on buttons and ENTER press", async () => {
     render(<Dialog {...initParams} />);
-    const [primaryButton, secondaryButton] = getButtons(document.body);
+    const [_cancelButton, secondaryButton, primaryButton] = getButtons(document.body);
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(0);
     expect(initParams.secondaryAction?.onClick).toHaveBeenCalledTimes(0);
     expect(initParams.onClose).toHaveBeenCalledTimes(0);
@@ -110,7 +100,6 @@ describe("ref should work", () => {
         <Dialog
           children="test"
           open={false}
-          alignActions={"left"}
           onClose={jest.fn()}
           primaryAction={{ label: "test", onClick: jest.fn() }}
           title="test"

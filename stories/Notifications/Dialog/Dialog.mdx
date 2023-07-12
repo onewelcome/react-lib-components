@@ -43,32 +43,7 @@ In the below code snippet, you'll see how you can show dialog with buttons align
 ```
 
 <Canvas>
-  <Story of={DialogStories.RightAlignedActionDialog} />
-</Canvas>
-
-## Destructive operation
-
-In case of a destructive operation, the buttons align to the left instead of the right. This is to let users deliberately perform this destructive action.
-
-In the below code snippet, you'll see how you can show dialog with buttons align to left.
-
-```jsx
-<Dialog
-  open={open}
-  onClose={onClose}
-  alignActions="left"
-  title="Discard changes?"
-  primaryAction={label: 'Discard', onClick: onDiscard}
-  secondaryAction={label: 'Keep editing', onClick: onKeepEditing}
->
-  <Typography variant="body" spacing={{ margin: 0 }}>
-    This cannot be undone and you will lose your changes.
-  </Typography>
-</Dialog>
-```
-
-<Canvas>
-  <Story of={DialogStories.LeftAlignedActionDialog} />
+  <Story of={DialogStories.ActionDialog} />
 </Canvas>
 
 ## Single action

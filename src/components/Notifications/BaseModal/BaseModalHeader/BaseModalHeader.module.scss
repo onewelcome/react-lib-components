@@ -16,8 +16,7 @@
 
 .header {
   min-width: 80px;
-  padding: 1rem 1.25rem;
-  background-color: var(--modal-header-background-color);
+  padding: 1.25rem 1.5rem 0;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
@@ -25,6 +24,7 @@
 .headline {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .title {

@@ -23,18 +23,21 @@ import { DialogTitle } from "./DialogTitle/DialogTitle";
 import { Button, Props as ButtonProps } from "../../Button/Button";
 import { labelId, descriptionId } from "../BaseModal/BaseModalContext";
 import { generateID } from "../../../util/helper";
+import { CancelAction } from "../BaseModal/BaseModalActions/BaseModalActions";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   id?: string;
   open: boolean;
   children: React.ReactNode;
-  alignActions: "left" | "right";
   onClose: () => void;
   title: string;
   primaryAction: Action;
   secondaryAction?: Action;
+  cancelAction?: CancelAction;
   zIndex?: number;
   disableEscapeKeyDown?: boolean;
+  titleIcon?: React.ReactNode;
+  caption?: string;
 }
 
 export interface Action extends Omit<ButtonProps, "variant" | "ref"> {
@@ -47,13 +50,15 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     id,
     open,
     children,
-    alignActions,
     onClose,
     title,
     primaryAction,
     secondaryAction,
+    cancelAction,
     zIndex,
     disableEscapeKeyDown = true,
+    titleIcon,
+    caption,
     ...rest
   }: Props,
   ref
@@ -65,12 +70,13 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       {primaryLabel}
     </Button>
   );
-  const TertiaryButton =
+
+  const SecondaryButton =
     secondaryAction &&
     (function () {
       const { label: secondaryLabel, ...restOfSecondaryAction } = secondaryAction;
       return (
-        <Button key="tertiary" variant="text" {...restOfSecondaryAction}>
+        <Button key="tertiary" variant="outline" {...restOfSecondaryAction}>
           {secondaryLabel}
         </Button>
       );
@@ -96,7 +102,7 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       zIndex={zIndex}
       disableEscapeKeyDown={disableEscapeKeyDown}
     >
-      <DialogTitle id={labelId(dialogId)} title={title} />
+      <DialogTitle titleIcon={titleIcon} caption={caption} id={labelId(dialogId)} title={title} />
       <BaseModalContent
         id={descriptionId(dialogId)}
         className={classes["content"]}
@@ -104,10 +110,8 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       >
         {children}
       </BaseModalContent>
-      <DialogActions align={alignActions}>
-        {alignActions === "left"
-          ? [PrimaryButton, TertiaryButton]
-          : [TertiaryButton, PrimaryButton]}
+      <DialogActions onClose={onClose} cancelAction={cancelAction}>
+        {[SecondaryButton, PrimaryButton]}
       </DialogActions>
       <input
         autoFocus

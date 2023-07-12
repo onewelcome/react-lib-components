@@ -15,8 +15,11 @@
  */
 
 .content {
-  padding: 1.5rem 1.25rem 0;
+  padding: 1.25rem 1.5rem 0;
   overflow-y: auto;
   flex: 1;
   outline: none;
+  color: var(--color-blue-grey500);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
