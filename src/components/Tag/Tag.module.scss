@@ -18,5 +18,7 @@ $tagFontSize: 0.75rem;
 
   .label {
     line-height: $tagFontSize;
+    font-size: inherit;
+    color: inherit;
   }
 }

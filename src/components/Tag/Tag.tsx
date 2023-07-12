@@ -17,6 +17,7 @@
 import React, { ForwardRefRenderFunction, HTMLAttributes, forwardRef } from "react";
 import { Icon, Icons } from "../Icon/Icon";
 import classes from "./Tag.module.scss";
+import { Typography } from "../Typography/Typography";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   variant?: "enabled" | "disabled";
@@ -58,7 +59,9 @@ const TagComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       {...rest}
     >
       {determineIcon()}
-      <span className={classes["label"]}>{children}</span>
+      <Typography spacing={{ marginBottom: 0 }} variant="body" className={classes["label"]}>
+        {children}
+      </Typography>
     </div>
   );
 };
