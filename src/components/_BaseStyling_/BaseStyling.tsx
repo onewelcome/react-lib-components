@@ -95,7 +95,6 @@ interface CSSProperties {
   modalShadowColor?: string;
   modalBackgroundColor?: string;
   modalBackdropColor?: string;
-  modalHeaderBackgroundColor?: string;
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
   snackbarTextColor?: string;
@@ -216,9 +215,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     dragBackgroundColor: "var(--color-blue-grey25-transparent)",
     dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
-    modalBackgroundColor: "var(--color-blue-grey25)",
+    modalBackgroundColor: "var(--light)",
     modalBackdropColor: "var(--default)",
-    modalHeaderBackgroundColor: "var(--light)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
     snackbarTextColor: "var(--light)",

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import {
   DiscardChangesModal as DiscardChangesModalComponent,
@@ -43,7 +43,7 @@ const meta: Meta = {
   args: {
     id: "modal",
     headerProps: {
-      title: "components/Modal title"
+      title: "Modal title"
     },
     discardChangedDialogProps: {
       discardChangesButtonLabel: "Discard",
@@ -72,6 +72,13 @@ const Template: Story<Props> = args => {
 
   const hasUnsavedChanges = () => JSON.stringify(initialFormState) !== JSON.stringify(formState);
 
+  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  useEffect(() => {
+    if (window.location.search.includes("story")) {
+      setOpen(true);
+    }
+  }, []);
+
   const onClose = () => {
     setOpen(false);
     setFormState(initialFormState);
@@ -95,14 +102,11 @@ const Template: Story<Props> = args => {
               onClose();
             }}
           >
-            <Typography
-              variant="body"
-              spacing={{ paddingLeft: 5, paddingRight: 5, marginBottom: 5 }}
-            >
+            <span style={{ display: "block", marginBottom: "1.25rem" }}>
               Changing the input value and closing modal should show
               &apos;DiscardChangesDialog&apos;. Clicking on &apos;Cancel&apos; button should close
               modal without showing &apos;DiscardChangesDialog&apos;.
-            </Typography>
+            </span>
             <FormControl>
               <InputWrapper
                 helperText="Helper text for this field. Description should be short and not repeat the label"
