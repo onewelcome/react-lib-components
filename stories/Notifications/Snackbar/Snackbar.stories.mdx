@@ -1,8 +1,17 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
-import * as SnackbarStories from "./Snackbar.stories.tsx";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY, Meta } from "@storybook/blocks";
+import * as SuccessSnackbar from "./SuccessSnackbar.stories.tsx";
 
-<Title />
-<Subtitle />
+<Meta
+  title="components/Feedback/Snackbar/Snackbar"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true }
+    }
+  }}
+/>
+
+# Snackbar component
 
 The `Snackbar` components and hook are there for you to make it easy to notify a user. You have the option of displaying an error, success or information `snackbar`. In order to use all of these different `Snackbar`s, you'll have to wrap your entire application
 in the `SnackbarProvider` component. This will enable to `Snackbar` component to be portaled and displayed in the top levels of the DOM.
@@ -114,10 +123,6 @@ const AppContent = () => {
   );
 };
 ```
-
-<Canvas>
-  <Story of={SnackbarStories.Snackbar} />
-</Canvas>
 
 # Props
 

@@ -28,9 +28,10 @@ const textColor = "var(--snackbar-text-color)";
 
 export interface Props {
   id: string;
-  title: string;
+  title?: string;
   duration: number;
   variant: Variant;
+  className?: string;
   onClose: (key: string) => void;
   closeButtonTitle: string;
   content?: string;
@@ -56,6 +57,7 @@ export const SnackbarItem = ({
   duration,
   variant,
   content,
+  className,
   actions = [],
   onClose,
   closeButtonTitle
@@ -85,6 +87,11 @@ export const SnackbarItem = ({
     if (variant === "error") {
       return Icons.Error;
     }
+
+    if (variant === "warning") {
+      return Icons.Warning;
+    }
+
     return variant === "success" ? Icons.CheckmarkCircleBreakout : Icons.InfoCircle;
   };
 
@@ -102,37 +109,43 @@ export const SnackbarItem = ({
     </button>
   ));
 
+  const snackbarClasses = [
+    classes["snackbar"],
+    classes[variant],
+    animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"],
+    title ? classes["has-title"] : "",
+    className ?? ""
+  ].join(" ");
+
   return (
     <div
       ref={ref}
       aria-live="polite"
-      className={`${classes["snackbar"]} ${classes[variant]} ${
-        animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"]
-      }`}
+      className={snackbarClasses}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       <Icon icon={getVariantIcon()} className={classes["icon"]} />
-      <div className={classes["container"]}>
-        <div className={classes["headline"]}>
-          <Typography className={classes["title"]} variant="h4" tag="span">
+      <div className={classes["content-wrapper"]}>
+        {title && (
+          <Typography className={classes["title"]} variant="body-bold" tag="span">
             {title}
           </Typography>
-          <IconButton
-            id={classes["close-btn"]}
-            onClick={() => startAnimation()}
-            title={closeButtonTitle}
-          >
-            <Icon icon={Icons.Times} color={textColor} />
-          </IconButton>
-        </div>
-        {!!content && (
+        )}
+        {content && (
           <Typography className={classes["content"]} variant="body">
             {content}
           </Typography>
         )}
-        {actionButtons.length > 0 && <div className={classes["actions"]}>{actionButtons}</div>}
       </div>
+      {actionButtons.length > 0 && <div className={classes["actions"]}>{actionButtons}</div>}
+      <IconButton
+        id={classes["close-btn"]}
+        onClick={() => startAnimation()}
+        title={closeButtonTitle}
+      >
+        <Icon icon={Icons.Times} color={textColor} />
+      </IconButton>
     </div>
   );
 };

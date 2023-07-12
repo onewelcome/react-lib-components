@@ -16,12 +16,13 @@
 
 import { ButtonHTMLAttributes } from "react";
 
-export type Variant = "info" | "success" | "error";
+export type Variant = "info" | "success" | "error" | "warning";
 
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
 
 export interface SnackbarOptionsProps {
   actions?: Actions;
+  className?: string;
   variant?: Variant;
   duration?: number;
   onClose?: () => void;

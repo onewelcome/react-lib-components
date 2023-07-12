@@ -55,8 +55,8 @@ interface CSSProperties {
   colorRed600?: string;
   colorRed700?: string;
   colorBlack100?: string;
-  colorBlack10?: string;
   colorBlack20?: string;
+  colorBlack10?: string;
   defaultLineHeight?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
@@ -102,6 +102,7 @@ interface CSSProperties {
   snackbarInfoBackgroundColor?: string;
   snackbarSuccessBackgroundColor?: string;
   snackbarErrorBackgroundColor?: string;
+  snackbarWarningBackgroundColor?: string;
   snackbarBorderRadius?: string;
   bannerBorderRadius?: string;
   bannerBorderWidth?: string;
@@ -146,7 +147,6 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
-    colorBlack10: "rgba(0 ,0 ,0, .1)",
     colorPrimary300: "#6871BF",
     colorPrimary500: "#041295",
     colorPrimary600: "#030F77",
@@ -175,6 +175,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorRed700: "#861200",
     colorBlack100: "#000000",
     colorBlack20: "rgba(0, 0, 0, 0.2)",
+    colorBlack10: "rgba(0, 0, 0, 0.1)",
     colorShadowBlue: "#7078C3",
     colorWhite: "#FFFFFF",
     colorFocus: "var(--color-primary300)",
@@ -225,6 +226,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     snackbarInfoBackgroundColor: "var(--color-primary500)",
     snackbarSuccessBackgroundColor: "var(--color-green500)",
     snackbarErrorBackgroundColor: "var(--color-red500)",
+    snackbarWarningBackgroundColor: "var(--color-orange500)",
     snackbarBorderRadius: "2px",
     bannerBorderRadius: "2px",
     bannerBorderWidth: "0 0 0 4px",

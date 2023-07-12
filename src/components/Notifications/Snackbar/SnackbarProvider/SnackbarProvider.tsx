@@ -41,8 +41,9 @@ export interface Props {
 
 export interface Item {
   id: string;
-  title: string;
+  title?: string;
   duration: number;
+  className?: string;
   height: number;
   variant: Variant;
   content?: string;
@@ -91,7 +92,7 @@ export const SnackbarProvider = (
   };
 
   const enqueueSnackbar = (
-    title: string,
+    title?: string,
     content?: string,
     options: SnackbarOptionsProps = {}
   ): void => {
@@ -105,6 +106,7 @@ export const SnackbarProvider = (
       title,
       content,
       variant,
+      className: options.className,
       actions,
       duration,
       height: 0,
@@ -115,7 +117,7 @@ export const SnackbarProvider = (
   };
 
   const enqueueSuccessSnackbar = (
-    title: string,
+    title?: string,
     content?: string,
     options?: SnackbarOptionsProps
   ): void => {
@@ -123,11 +125,19 @@ export const SnackbarProvider = (
   };
 
   const enqueueErrorSnackbar = (
-    title: string,
+    title?: string,
     content?: string,
     options?: SnackbarOptionsProps
   ): void => {
     enqueueSnackbar(title, content, { ...options, variant: "error" });
+  };
+
+  const enqueueWarningSnackbar = (
+    title?: string,
+    content?: string,
+    options?: SnackbarOptionsProps
+  ): void => {
+    enqueueSnackbar(title, content, { ...options, variant: "warning" });
   };
 
   const onItemClosed = (id: string) => {
@@ -139,6 +149,7 @@ export const SnackbarProvider = (
       <SnackbarItem
         {...item}
         key={item.id}
+        className={item.className}
         onClose={() => {
           onItemClosed(item.id);
           item.onClose?.();
@@ -161,6 +172,7 @@ export const SnackbarProvider = (
         enqueueSnackbar,
         enqueueSuccessSnackbar,
         enqueueErrorSnackbar,
+        enqueueWarningSnackbar,
         setSnackbarHeight,
         snackbars
       }}

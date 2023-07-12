@@ -119,6 +119,7 @@ describe("Notification", () => {
       const enqueueErrorSnackbarMock = jest.fn();
 
       jest.spyOn(useSnackbarModule, "useSnackbar").mockImplementation(() => ({
+        enqueueWarningSnackbar: jest.fn(),
         enqueueErrorSnackbar: enqueueErrorSnackbarMock,
         enqueueSuccessSnackbar: jest.fn(),
         enqueueSnackbar: jest.fn()
@@ -205,6 +206,7 @@ describe("Notification", () => {
       const enqueueErrorSnackbarMock = jest.fn();
 
       jest.spyOn(useSnackbarModule, "useSnackbar").mockImplementation(() => ({
+        enqueueWarningSnackbar: jest.fn(),
         enqueueErrorSnackbar: enqueueErrorSnackbarMock,
         enqueueSuccessSnackbar: jest.fn(),
         enqueueSnackbar: jest.fn()
@@ -291,6 +293,7 @@ describe("Notification", () => {
       const enqueueErrorSnackbarMock = jest.fn();
 
       jest.spyOn(useSnackbarModule, "useSnackbar").mockImplementation(() => ({
+        enqueueWarningSnackbar: jest.fn(),
         enqueueErrorSnackbar: enqueueErrorSnackbarMock,
         enqueueSuccessSnackbar: jest.fn(),
         enqueueSnackbar: jest.fn()
@@ -435,8 +438,7 @@ const renderSnackbarProvider = () => {
 
 describe("Actually shows the snackbars showing up", () => {
   it("Shows the snackbars", async () => {
-    const { showSuccessSnackbarBtn, showErrorSnackbarBtn, getByText, debug } =
-      renderSnackbarProvider();
+    const { showSuccessSnackbarBtn, showErrorSnackbarBtn, getByText } = renderSnackbarProvider();
 
     await userEvent.click(showSuccessSnackbarBtn);
     await userEvent.click(showErrorSnackbarBtn);

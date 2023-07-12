@@ -55,9 +55,22 @@ const infoProps = {
   }
 };
 
+const warningProps = {
+  title: "warning title",
+  options: {
+    duration: 10,
+    onClose: jest.fn()
+  }
+};
+
 const renderSnackbarProvider = (props?: Partial<Props>) => {
   const AppComponent = () => {
-    const { enqueueSuccessSnackbar, enqueueErrorSnackbar, enqueueSnackbar } = useSnackbar();
+    const {
+      enqueueSuccessSnackbar,
+      enqueueErrorSnackbar,
+      enqueueSnackbar,
+      enqueueWarningSnackbar
+    } = useSnackbar();
     const [index, setIndex] = useState(0);
     return (
       <div>
@@ -89,6 +102,15 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         >
           Info
         </button>
+        <button
+          data-testid="show-warning"
+          onClick={() => {
+            enqueueWarningSnackbar(warningProps.title + index, undefined, warningProps.options);
+            setIndex(index + 1);
+          }}
+        >
+          Warning
+        </button>
       </div>
     );
   };
@@ -102,12 +124,14 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
   const showSuccessSnackbarBtn = getByTestId(queries.container, "show-success");
   const showErrorSnackbarBtn = getByTestId(queries.container, "show-error");
   const showInfoSnackbarBtn = getByTestId(queries.container, "show-info");
+  const showWarningSnackbarBtn = getByTestId(queries.container, "show-warning");
 
   return {
     ...queries,
     showSuccessSnackbarBtn,
     showErrorSnackbarBtn,
-    showInfoSnackbarBtn
+    showInfoSnackbarBtn,
+    showWarningSnackbarBtn
   };
 };
 
@@ -119,14 +143,17 @@ describe("SnackbarProvider", () => {
   });
 
   it("should stack 3 snackbars at one time", async () => {
-    const { showSuccessSnackbarBtn } = renderSnackbarProvider();
+    const { showSuccessSnackbarBtn, showWarningSnackbarBtn } = renderSnackbarProvider();
 
     await userEvent.click(showSuccessSnackbarBtn);
-    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showWarningSnackbarBtn);
     await userEvent.click(showSuccessSnackbarBtn);
     await userEvent.click(showSuccessSnackbarBtn);
 
-    expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(3);
+    await waitFor(() => {
+      expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(2);
+      expect(getAllByText(document.body, new RegExp(warningProps.title))).toHaveLength(1);
+    });
   });
 
   it("should render 3 variants of snackbars", async () => {
