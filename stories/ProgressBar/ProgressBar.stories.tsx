@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import {
   ProgressBar as ProgressBarComponent,
@@ -35,15 +35,36 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => {
+  const [percentage, setPercentage] = useState(0);
+
+  useEffect(() => {
+    // Delay for the first render for Chromatic to capture the initial state.
+    const initialDelay = setTimeout(() => {
+      if (percentage < 100) {
+        const timer = setInterval(() => {
+          setPercentage(prevPercentage => prevPercentage + 1);
+        }, Math.floor(Math.random() * (2000 - 100 + 1) + 100));
+
+        return () => clearInterval(timer);
+      }
+    }, 2000); // 2 seconds delay
+
+    return () => clearTimeout(initialDelay);
+  }, [percentage]);
+
   return (
-    <div style={{ width: "500px", marginTop: "32px" }}>
-      <ProgressBarComponent {...args} />
-    </div>
+    <Fragment>
+      <div style={{ width: "100%", maxWidth: "500px" }}>
+        <ProgressBarComponent caption="One moment please..." percentage={percentage} {...args} />
+      </div>
+      {percentage === 100 && <div style={{ marginTop: "3rem" }}>Finished loading!</div>}
+    </Fragment>
   );
 };
 
 export const ProgressBar = Template.bind({});
 
 ProgressBar.args = {
-  placeholderText: "Loading..."
+  placeholderText: "Loading...",
+  label: "Loading..."
 };

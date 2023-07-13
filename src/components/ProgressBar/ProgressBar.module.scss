@@ -15,6 +15,23 @@
  */
 @import "../../mixins.module.scss";
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label,
+.percentage {
+  font-weight: 500;
+}
+
+.caption {
+  color: var(--color-blue-grey500);
+  line-height: var(--default-line-height);
+  margin-top: 0.25rem;
+  display: block;
+}
+
 .progress-bar {
   position: relative;
   display: block;
@@ -32,7 +49,7 @@
     position: absolute;
     height: 0.5rem;
     border-radius: 0.25rem;
-    background-color: var(--color-primary);
+    background-color: var(--color-blue-grey500);
     &.loading-state {
       width: 50%;
       animation: cubic-bezier(0.23, 0.78, 0.78, 0.23) 1s slide-in infinite;
