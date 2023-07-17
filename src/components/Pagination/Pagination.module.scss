@@ -21,6 +21,11 @@
   color: var(--greyed-out);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+
+  .left {
+    display: flex;
+  }
 
   label {
     margin-bottom: 0;
@@ -40,11 +45,8 @@
     align-items: center;
     justify-content: center;
 
-    span > span {
-      font-weight: 700;
-      font-family: var(--font-family);
-      font-size: var(--font-size);
-      margin-left: 0.25rem;
+    span {
+      color: var(--color-blue-grey500);
     }
   }
 
@@ -73,16 +75,26 @@
   .per-page {
     display: none;
     align-items: center;
+
+    label {
+      font-weight: 500;
+      color: var(--color-blue-grey900);
+    }
   }
 
   .page {
     display: flex;
     align-items: center;
     flex-basis: min-content;
+
+    &-total {
+      white-space: nowrap;
+      font-weight: 500;
+      color: var(--color-blue-grey900);
+    }
   }
 
   .page-size-select {
-    border-color: var(--light);
     margin: 0 0.25rem;
 
     button {

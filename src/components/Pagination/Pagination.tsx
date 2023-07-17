@@ -41,9 +41,9 @@ export type PaginationTranslations = {
 export type PageChangeLabels = "next" | "previous" | "first" | "last";
 
 enum DefaultTranslations {
-  totalItems = "Total items",
+  totalItems = "items in total",
   itemsPerPage = "Items per page",
-  currentPage = "Page %1 of %2",
+  currentPage = "of %1 pages",
   itemsPerPageLabel = "Select how many items per page you want to see.",
   currentPageLabel = "What page you are currently on."
 }
@@ -94,16 +94,49 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     }
   };
 
-  const renderCurrentPageTranslation = () => {
-    const amountOfPages = calculateAmountOfPages();
+  const onPageSizeChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const pageSizeNumber = Number(event.target.value) as PageSize;
+    onPageSizeChange(pageSizeNumber);
+  };
 
-    if (amountOfPages) {
-      const splitCurrentPageTranslation = translate.currentPage.split(" ");
+  const onPageChangeHandler = (pageToGoTo: number) => {
+    onPageChange(pageToGoTo);
+  };
 
-      return splitCurrentPageTranslation.map(string => {
-        if (string.includes("%1")) {
-          return (
-            <Fragment key={string}>
+  return (
+    <div
+      {...rest}
+      ref={ref}
+      className={`${classes["pagination-wrapper"]} ${className ? className : ""}`}
+    >
+      <div className={classes["left"]}>
+        {pageSize && (
+          <div className={classes["per-page"]}>
+            <Label id="page-size-select-label">{translate.itemsPerPage}</Label>
+            <Select
+              labeledBy="page-size-select-label"
+              className={`${classes["form-element"]} ${classes["page-size-select"]}`}
+              value={pageSize.toString()}
+              onChange={onPageSizeChangeHandler}
+            >
+              <Option value="10">10</Option>
+              <Option value="25">25</Option>
+              <Option value="50">50</Option>
+            </Select>
+          </div>
+        )}
+        {totalElements && (
+          <div className={classes["total"]}>
+            <span tabIndex={0}>
+              {totalElements}&nbsp;{translate.totalItems}
+            </span>
+          </div>
+        )}
+      </div>
+      <div className={classes["pagination"]}>
+        <Fragment>
+          {totalElements && !!calculateAmountOfPages() && (
+            <div className={classes["page"]}>
               <Label
                 id="current-value-input-label"
                 htmlFor="current-value-input"
@@ -130,95 +163,39 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 value={internalCurrentPage}
                 className={`${classes["form-element"]} ${classes["current-page-input"]}`}
               />
-            </Fragment>
-          );
-        }
-
-        if (string.includes("%2")) {
-          return (
-            <div key={string}>
-              <strong>{string.replace("%2", amountOfPages.toString())}</strong>&nbsp;
+              <span className={classes["page-total"]}>
+                {translate.currentPage.replace("%1", (totalElements / pageSize).toString())}
+              </span>
             </div>
-          );
-        }
-
-        return <div key={string}>{string}&nbsp;</div>;
-      });
-    }
-
-    return null;
-  };
-
-  const onPageSizeChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const pageSizeNumber = Number(event.target.value) as PageSize;
-    onPageSizeChange(pageSizeNumber);
-  };
-
-  const onPageChangeHandler = (pageToGoTo: number) => {
-    onPageChange(pageToGoTo);
-  };
-
-  return (
-    <div
-      {...rest}
-      ref={ref}
-      className={`${classes["pagination-wrapper"]} ${className ? className : ""}`}
-    >
-      {totalElements && (
-        <div className={classes["total"]}>
-          <span tabIndex={0}>
-            {translate.totalItems}: <span>{totalElements}</span>
-          </span>
-        </div>
-      )}
-      <div className={classes["pagination"]}>
-        {pageSize && (
-          <div className={classes["per-page"]}>
-            <Label id="page-size-select-label">{translate.itemsPerPage}</Label>
-            <Select
-              labeledBy="page-size-select-label"
-              className={`${classes["form-element"]} ${classes["page-size-select"]}`}
-              value={pageSize.toString()}
-              onChange={onPageSizeChangeHandler}
-            >
-              <Option value="10">10</Option>
-              <Option value="25">25</Option>
-              <Option value="50">50</Option>
-            </Select>
-          </div>
-        )}
-        <Fragment>
-          {!!((currentPage && currentPage > 2) || (currentPage && currentPage > 1)) && (
+          )}
+          {!!currentPage && (
             <div className={classes["previous"]}>
-              {currentPage > 2 && (
+              {
                 <IconButton
+                  disabled={!(currentPage > 2)}
                   title="first"
                   onClick={() => onPageChangeHandler(0)}
                   data-paginate="first"
                 >
                   <Icon icon={Icons.NavigationFirst} />
                 </IconButton>
-              )}
-              {currentPage > 1 && (
+              }
+              {
                 <IconButton
+                  disabled={!(currentPage > 1)}
                   title="previous"
                   onClick={() => onPageChangeHandler(currentPage - 1)}
                   data-paginate="previous"
                 >
                   <Icon icon={Icons.ChevronLeft} />
                 </IconButton>
-              )}
+              }
             </div>
           )}
-          {totalElements && !!calculateAmountOfPages() && (
-            <div className={classes["page"]}>{renderCurrentPageTranslation()}</div>
-          )}
           <div className={classes["next"]}>
-            {!!(
-              (currentPage !== undefined && currentPage < calculateAmountOfPages()!) ||
-              (currentPage !== undefined && !totalElements)
-            ) && (
+            {!!(currentPage !== undefined || (currentPage !== undefined && !totalElements)) && (
               <IconButton
+                disabled={!(currentPage < calculateAmountOfPages()!)}
                 title="next"
                 onClick={() => onPageChangeHandler(currentPage + 1)}
                 data-paginate="next"
@@ -226,8 +203,9 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 <Icon icon={Icons.ChevronRight} />
               </IconButton>
             )}
-            {!!(currentPage && totalElements && currentPage < calculateAmountOfPages()! - 1) && (
+            {!!(currentPage && totalElements) && (
               <IconButton
+                disabled={!(currentPage < calculateAmountOfPages()! - 1)}
                 title="last"
                 onClick={() => onPageChangeHandler(totalElements / pageSize)}
                 data-paginate="last"

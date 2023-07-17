@@ -48,7 +48,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => (
-  <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+  <div style={{ margin: "0 auto" }}>
     <PaginationComponent {...args} />
   </div>
 );
@@ -60,10 +60,10 @@ Pagination.args = {
   pageSize: 10,
   totalElements: 1000,
   translate: {
-    totalItems: "Total items",
+    totalItems: "items in total",
     itemsPerPage: "Items per page",
     itemsPerPageLabel: "Select how many items per page you want to see.",
-    currentPage: "Page %1 of %2",
+    currentPage: "of %1 pages",
     currentPageLabel: "What page you are currently on."
   }
 };
