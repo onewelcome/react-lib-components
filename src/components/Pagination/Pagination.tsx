@@ -140,7 +140,10 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 ))}
               </Select>
               <span className={classes["page-total"]}>
-                {translate.currentPage.replace("%1", (totalElements / pageSize).toString())}
+                {translate.currentPage.replace(
+                  "%1",
+                  Math.ceil(totalElements / pageSize).toString()
+                )}
               </span>
             </div>
           )}
@@ -183,7 +186,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               <IconButton
                 disabled={currentPage >= calculateAmountOfPages()! - 1}
                 title="last"
-                onClick={() => onPageChangeHandler(totalElements / pageSize)}
+                onClick={() => onPageChangeHandler(Math.ceil(totalElements / pageSize))}
                 data-paginate="last"
               >
                 <Icon icon={Icons.NavigationLast} />
