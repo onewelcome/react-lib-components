@@ -85,11 +85,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   };
 
   return (
-    <div
-      {...rest}
-      ref={ref}
-      className={`${classes["pagination-wrapper"]} ${className ? className : ""}`}
-    >
+    <div {...rest} ref={ref} className={`${classes["pagination-wrapper"]} ${className ?? ""}`}>
       <div className={classes["left"]}>
         {pageSize && (
           <div className={classes["per-page"]}>
@@ -152,7 +148,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             <div className={classes["previous"]}>
               {
                 <IconButton
-                  disabled={!(currentPage > 2)}
+                  disabled={currentPage <= 2}
                   title="first"
                   onClick={() => onPageChangeHandler(0)}
                   data-paginate="first"
@@ -162,7 +158,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               }
               {
                 <IconButton
-                  disabled={!(currentPage > 1)}
+                  disabled={currentPage <= 1}
                   title="previous"
                   onClick={() => onPageChangeHandler(currentPage - 1)}
                   data-paginate="previous"
@@ -175,7 +171,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           <div className={classes["next"]}>
             {!!(currentPage !== undefined || (currentPage !== undefined && !totalElements)) && (
               <IconButton
-                disabled={!(currentPage < calculateAmountOfPages()!)}
+                disabled={currentPage >= calculateAmountOfPages()!}
                 title="next"
                 onClick={() => onPageChangeHandler(currentPage + 1)}
                 data-paginate="next"
@@ -185,7 +181,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             )}
             {!!(currentPage && totalElements) && (
               <IconButton
-                disabled={!(currentPage < calculateAmountOfPages()! - 1)}
+                disabled={currentPage >= calculateAmountOfPages()! - 1}
                 title="last"
                 onClick={() => onPageChangeHandler(totalElements / pageSize)}
                 data-paginate="last"

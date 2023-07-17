@@ -96,9 +96,7 @@ describe("Pagination events", () => {
 
 describe("different current pages and their effect on what renders", () => {
   it("is on the first page and does not render previous and first", () => {
-    const { pagination, debug } = createPagination();
-
-    debug(undefined, 99999);
+    const { pagination } = createPagination();
 
     expect(pagination.querySelector('[data-paginate="next"]')).toBeTruthy();
     expect(pagination.querySelector('[data-paginate="previous"]')).toHaveAttribute("disabled");
