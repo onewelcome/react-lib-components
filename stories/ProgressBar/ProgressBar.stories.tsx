@@ -39,17 +39,24 @@ const Template: Story<Props> = args => {
 
   useEffect(() => {
     // Delay for the first render for Chromatic to capture the initial state.
-    const initialDelay = setTimeout(() => {
-      if (percentage < 100) {
+    if (percentage === 0) {
+      const initialDelay = setTimeout(() => {
         const timer = setInterval(() => {
-          setPercentage(prevPercentage => prevPercentage + 1);
+          setPercentage(prevPercentage => {
+            if (prevPercentage < 100) {
+              return prevPercentage + 1;
+            } else {
+              clearInterval(timer); // Stop the timer when we reach 100
+              return prevPercentage;
+            }
+          });
         }, Math.floor(Math.random() * (2000 - 100 + 1) + 100));
 
         return () => clearInterval(timer);
-      }
-    }, 2000); // 2 seconds delay
+      }, 2000);
 
-    return () => clearTimeout(initialDelay);
+      return () => clearTimeout(initialDelay);
+    }
   }, [percentage]);
 
   return (

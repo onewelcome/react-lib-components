@@ -15,6 +15,8 @@
  */
 @import "../../mixins.module.scss";
 
+$speed: 1.5s;
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -35,7 +37,7 @@
 .progress-bar {
   position: relative;
   display: block;
-  height: 0.5rem;
+  height: 0.25rem;
   width: 100%;
   border-radius: 0.25rem;
   background-color: var(--progress-bar-background-color);
@@ -49,20 +51,34 @@
     position: absolute;
     height: 0.5rem;
     border-radius: 0.25rem;
-    background-color: var(--color-blue-grey500);
+    background-color: var(--color-primary500);
     &.loading-state {
-      width: 50%;
-      animation: cubic-bezier(0.23, 0.78, 0.78, 0.23) 1s slide-in infinite;
-      @keyframes slide-in {
-        0% {
-          left: -50%;
-        }
-
-        100% {
-          left: 100%;
-        }
-      }
+      width: 33.3%;
+      animation: linear $speed slide-in infinite;
     }
+  }
+
+  .bar2 {
+    position: absolute;
+    left: -30%;
+    height: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--color-primary500);
+    &.loading-state {
+      width: 33.3%;
+      animation: linear $speed slide-in infinite;
+      animation-delay: calc($speed / 2);
+    }
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    left: -50%;
+  }
+
+  100% {
+    left: 150%;
   }
 }
 

@@ -71,6 +71,11 @@ const ProgressBarComponent: ForwardRefRenderFunction<HTMLSpanElement, Props> = (
             completed ? classes[`w-${5 * Math.round(completed / 5)}`] : classes["loading-state"]
           }`}
         />
+        <span
+          className={`${classes["bar2"]} ${
+            completed ? classes[`w-${5 * Math.round(completed / 5)}`] : classes["loading-state"]
+          }`}
+        />
       </span>
       {caption && (
         <Typography className={classes["caption"]} spacing={{ marginBottom: 2 }} variant="sub-text">
