@@ -19,12 +19,13 @@ import React, {
   ComponentPropsWithRef,
   createRef,
   RefObject,
-  useEffect
+  useEffect,
+  ReactNode
 } from "react";
 import classes from "./Select.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"li"> {
-  children: string;
+  children: ReactNode;
   value: string;
   disabled?: boolean;
   isSelected?: boolean;

@@ -14,18 +14,11 @@
  *    limitations under the License.
  */
 
-import React, {
-  ForwardRefRenderFunction,
-  ComponentPropsWithRef,
-  Fragment,
-  useState,
-  useEffect
-} from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, Fragment } from "react";
 import classes from "./Pagination.module.scss";
 import readyclasses from "../../readyclasses.module.scss";
 import { IconButton } from "../Button/IconButton";
 import { Icons, Icon } from "../Icon/Icon";
-import { Input } from "../Form/Input/Input";
 import { Select } from "../Form/Select/Select";
 import { Option } from "../Form/Select/Option";
 import { Label } from "../Form/Label/Label";
@@ -51,7 +44,7 @@ enum DefaultTranslations {
 export type PageSize = 10 | 25 | 50;
 
 export interface Props extends Omit<ComponentPropsWithRef<"div">, "translate"> {
-  currentPage?: number;
+  currentPage: number;
   totalElements?: number;
   pageSize?: PageSize;
   translate?: PaginationTranslations;
@@ -72,8 +65,6 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }: Props,
   ref
 ) => {
-  /** We use an internal state variable, because we don't want to fire onCurrentPageChange whenever onChange fires on the input. Rather, only when the Enter key is pressed. */
-  const [internalCurrentPage, setInternalCurrentPage] = useState(currentPage?.toString() ?? "1");
   const calculateAmountOfPages = () => {
     if (!totalElements) return 1;
 
@@ -82,16 +73,6 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     }
 
     return Math.ceil(totalElements / pageSize);
-  };
-
-  useEffect(() => {
-    setInternalCurrentPage(currentPage?.toString() ?? "1");
-  }, [currentPage]);
-
-  const onEnterListener = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.code === "Enter") {
-      onPageChange(Number(internalCurrentPage));
-    }
   };
 
   const onPageSizeChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -140,29 +121,28 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               <Label
                 id="current-value-input-label"
                 htmlFor="current-value-input"
-                className={`${readyclasses["sr-only"]} ${classes["current-value-input-label"]}`}
+                className={`${readyclasses["sr-only"]} ${classes["current-value-select-label"]}`}
               >
                 {translate.currentPageLabel}
               </Label>
-              <Input
+              <Select
                 aria-labelledby="current-value-input-label"
                 key="input"
                 id="current-value-input"
-                type="text"
                 size={currentPage?.toString().length}
-                max={calculateAmountOfPages()}
-                wrapperProps={{ className: classes["current-value-input"] }}
-                onKeyUp={onEnterListener}
-                onBlur={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  onPageChange(Number(event.target.value))
-                }
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setInternalCurrentPage(e.target.value)
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  onPageChangeHandler(Number(e.target.value))
                 }
                 name="current-value-input"
-                value={internalCurrentPage}
-                className={`${classes["form-element"]} ${classes["current-page-input"]}`}
-              />
+                value={currentPage.toString()}
+                className={`${classes["form-element"]} ${classes["current-page-select"]}`}
+              >
+                {Array.from(Array(calculateAmountOfPages()!).keys()).map(page => (
+                  <Option key={page} value={(page + 1).toString()}>
+                    {(page + 1).toString()}
+                  </Option>
+                ))}
+              </Select>
               <span className={classes["page-total"]}>
                 {translate.currentPage.replace("%1", (totalElements / pageSize).toString())}
               </span>
