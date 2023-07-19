@@ -3,7 +3,6 @@ import { ProgressBar, Props } from "./ProgressBar";
 import { render } from "@testing-library/react";
 
 const defaultParams: Props = {
-  placeholderText: "Loading",
   label: "Loading...",
   percentage: 0,
   accessibilityTitle: "Progress bar",

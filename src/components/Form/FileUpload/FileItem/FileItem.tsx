@@ -126,11 +126,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         </Typography>
       )}
       {status === "uploading" ? (
-        <ProgressBar
-          className={classes["progress-bar"]}
-          placeholderText={""}
-          completed={progress}
-        />
+        <ProgressBar className={classes["progress-bar"]} completed={progress} />
       ) : (
         ""
       )}
