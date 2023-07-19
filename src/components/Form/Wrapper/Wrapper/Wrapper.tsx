@@ -83,6 +83,7 @@ const WrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   return (
     <div {...rest} ref={ref} className={`${classes.wrapper} ${className ?? ""}`}>
       <FormGroup
+        disabled={disabled}
         error={error}
         errorMessage={errorMessage}
         errorId={errorId}

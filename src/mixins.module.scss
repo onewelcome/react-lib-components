@@ -189,7 +189,7 @@
 }
 
 @mixin outline(
-  $color: var(--light-grey-border),
+  $color: var(--light-border-color),
   $style: var(--input-border-style),
   $width: var(--input-border-width),
   $borderRadius: var(--input-border-radius),
@@ -215,10 +215,12 @@
 @mixin outlineStates {
   &:hover .outline {
     border-color: var(--default);
+    background-color: var(--input-hover-background-color);
   }
 
   .outline.disabled {
-    border-color: var(--light);
+    border-color: var(--disabled);
+    background-color: var(--input-disabled-background-color);
   }
 
   .outline.error {
@@ -237,12 +239,6 @@
 @mixin browserOutlineDisabled {
   &:focus:not(:disabled) {
     outline: none;
-  }
-}
-
-@mixin inputLabelPrimaryColorOnFocus($labelSelector) {
-  #{$labelSelector}.focus {
-    color: var(--color-primary);
   }
 }
 

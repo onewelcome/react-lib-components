@@ -71,15 +71,19 @@
     height: 100%;
     width: 1.25rem;
     box-sizing: border-box;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
 
     &:before {
+      font-size: 1.125rem;
       height: 1.25rem;
       width: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
@@ -93,8 +97,9 @@
 }
 
 .input {
+  padding: 0;
   height: 40px;
-  color: var(--greyed-out);
+  color: var(--color-blue-grey900);
   font-size: var(--form-control-font-size);
   font-family: var(--font-family);
   box-sizing: border-box;
@@ -110,6 +115,7 @@
 
   &:disabled {
     cursor: not-allowed;
+    color: var(--greyed-out);
   }
 
   &.shrink-width-for-date-icon {
@@ -122,7 +128,6 @@
 @include mixins.outline;
 
 .error input {
-  color: var(--error);
   padding-right: 1.25rem;
 
   &.remove-extra-indent {

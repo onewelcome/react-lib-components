@@ -89,7 +89,11 @@ interface CSSProperties {
   inputBorderWidth?: string;
   inputBorderWidthFocus?: string;
   inputBorderStyle?: string;
+  inputBorderColor?: string;
   inputBackgroundColor?: string;
+  inputHelperTextColor?: string;
+  inputHoverBackgroundColor?: string;
+  inputDisabledBackgroundColor?: string;
   dragBackgroundColor?: string;
   dragBorderStyle?: string;
   modalShadowColor?: string;
@@ -210,9 +214,13 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonOutlineHoverTextColor: "var(--color-primary600)",
     inputBorderRadius: "2px",
     inputBorderWidth: "1px",
-    inputBorderWidthFocus: "2px",
+    inputBorderWidthFocus: "1px",
     inputBorderStyle: "solid",
+    inputBorderColor: "var(--color-blue-grey500)",
     inputBackgroundColor: "var(--light)",
+    inputHelperTextColor: "var(--color-blue-grey500)",
+    inputHoverBackgroundColor: "var(--color-blue-grey25)",
+    inputDisabledBackgroundColor: "var(--input-hover-background-color)",
     dragBackgroundColor: "var(--color-blue-grey25-transparent)",
     dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",

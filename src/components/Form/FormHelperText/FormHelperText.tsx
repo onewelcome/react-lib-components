@@ -21,20 +21,20 @@ import { FormElement } from "../form.interfaces";
 
 export interface Props extends ComponentPropsWithRef<"div">, FormElement {
   children?: ReactNode;
+  disabled?: boolean;
 }
 
 const FormHelperTextComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, error, className, ...rest }: Props,
+  { children, error, disabled, className, ...rest }: Props,
   ref
 ) => {
+  const classNames = [classes["form-helper-text"]];
+  error && classNames.push(classes["error"]);
+  disabled && classNames.push(classes["disabled"]);
+  className && classNames.push(className);
+
   return (
-    <Typography
-      {...rest}
-      ref={ref}
-      variant="sub-text"
-      tag="div"
-      className={`${classes["form-helper-text"]} ${error ? classes.error : ""} ${className ?? ""}`}
-    >
+    <Typography {...rest} ref={ref} variant="sub-text" tag="div" className={classNames.join(" ")}>
       {children}
     </Typography>
   );

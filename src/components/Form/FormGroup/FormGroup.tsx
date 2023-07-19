@@ -46,16 +46,15 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     helperText,
     helperId,
     helperProps,
+    disabled,
     ...rest
   }: Props,
   ref
 ) => {
+  const disableHelperText = helperProps?.disabled !== undefined ? helperProps?.disabled : disabled;
+
   return (
-    <div
-      {...rest}
-      ref={ref}
-      className={`${classes["form-group"]} ${error ? classes.error : ""} ${className ?? ""}`}
-    >
+    <div {...rest} ref={ref} className={`${classes["form-group"]} ${className ?? ""}`}>
       {children}
 
       {(helperText || (errorMessage && error)) && (
@@ -65,13 +64,18 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           }`}
         >
           {((helperText && !error) || (helperText && error && !errorMessage)) && (
-            <FormHelperText {...helperProps} className={""} id={helperId}>
+            <FormHelperText
+              {...helperProps}
+              className={""}
+              id={helperId}
+              disabled={disableHelperText}
+            >
               {helperProps?.children || helperText}
             </FormHelperText>
           )}
           {error && errorMessage && (
             <span className={classes["error-message"]}>
-              <span className={classes.message} id={errorId}>
+              <span id={errorId}>
                 {errorMessageIcon && errorMessageIconPosition === "before" && (
                   <Icon
                     className={`${classes["error-icon"]} ${classes["error-icon-before"]}`}

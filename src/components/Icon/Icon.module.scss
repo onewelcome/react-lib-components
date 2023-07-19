@@ -16,10 +16,10 @@
 
 @font-face {
   font-family: "icomoon";
-  src: url("../../font/icomoon.eot?5b3j0w");
-  src: url("../../font/icomoon.eot?5b3j0w#iefix") format("embedded-opentype"),
-    url("../../font/icomoon.ttf?5b3j0w") format("truetype"),
-    url("../../font/icomoon.woff?5b3j0w") format("woff");
+  src: url("../../font/icomoon.eot?66dkqw");
+  src: url("../../font/icomoon.eot?66dkqw#iefix") format("embedded-opentype"),
+    url("../../font/icomoon.ttf?66dkqw") format("truetype"),
+    url("../../font/icomoon.woff?66dkqw") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -44,6 +44,10 @@
   font-size: 0.875rem;
 }
 
+.icon-home-filled:before {
+  content: "\e940";
+  @include fontProperties();
+}
 .icon-file-outline:before {
   content: "\e941";
   @include fontProperties();
@@ -300,7 +304,7 @@
   content: "\e93c";
   @include fontProperties();
 }
-.icon-error-circle:before {
+.icon-error-circle-alt:before {
   content: "\e93d";
   @include fontProperties();
 }
@@ -312,13 +316,11 @@
   content: "\e93f";
   @include fontProperties();
 }
-
-.icon-eye-blocked:before {
-  content: "\e9d1";
+.icon-error-circle:before {
+  content: "\e944";
   @include fontProperties();
 }
-
-.icon-home-filled:before {
-  content: "\e940";
+.icon-eye-blocked:before {
+  content: "\e9d1";
   @include fontProperties();
 }

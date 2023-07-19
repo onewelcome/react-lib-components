@@ -14,11 +14,15 @@
  *    limitations under the License.
  */
 
-.form-helper-text {
+div.form-helper-text {
   margin: 0;
+  color: var(--input-helper-text-color);
+}
+
+div.disabled {
   color: var(--greyed-out);
 }
 
-.error {
+div.error {
   color: var(--error);
 }

@@ -42,6 +42,7 @@ export enum Icons {
   EllipsisAlt = "ellipsis-alt",
   Equal = "equal",
   Error = "error-circle",
+  ErrorAlt = "error-circle-alt",
   Eye = "eye",
   EyeBlocked = "eye-blocked",
   Filter = "filter",

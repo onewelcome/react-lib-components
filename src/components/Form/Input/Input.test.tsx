@@ -260,7 +260,7 @@ describe("It should render prefix and suffix ", () => {
       ...defaultParams,
       success: true
     }));
-    const icon = input.querySelector(".icon-checkmark-circle-breakout");
+    const icon = input.querySelector(".icon-checkmark-circle-alt");
     expect(input.querySelector(".success")).toBeDefined();
     expect(icon).toBeDefined();
   });
