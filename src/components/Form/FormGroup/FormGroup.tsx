@@ -75,7 +75,7 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           )}
           {error && errorMessage && (
             <span className={classes["error-message"]}>
-              <span id={errorId}>
+              <span id={errorId} className={classes.message}>
                 {errorMessageIcon && errorMessageIconPosition === "before" && (
                   <Icon
                     className={`${classes["error-icon"]} ${classes["error-icon-before"]}`}
