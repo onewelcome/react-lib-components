@@ -72,6 +72,12 @@ const Template: Story<Props> = args => {
 export const ProgressBar = Template.bind({});
 
 ProgressBar.args = {
-  placeholderText: "Loading...",
   label: "Loading..."
+};
+
+export const ProgressBarWithoutPercentage = Template.bind({});
+
+ProgressBarWithoutPercentage.args = {
+  label: "Loading...",
+  percentage: undefined
 };

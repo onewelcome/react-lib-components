@@ -23,20 +23,11 @@ export interface Props extends Omit<ComponentPropsWithRef<"span">, "children"> {
   caption?: string;
   completed?: number;
   percentage?: number;
-  placeholderText: string;
   accessibilityTitle?: string;
 }
 
 const ProgressBarComponent: ForwardRefRenderFunction<HTMLSpanElement, Props> = (
-  {
-    label,
-    caption,
-    completed,
-    placeholderText,
-    percentage,
-    accessibilityTitle = "Progress bar",
-    ...rest
-  }: Props,
+  { label, caption, completed, percentage, accessibilityTitle = "Progress bar", ...rest }: Props,
   ref
 ) => {
   return (
@@ -82,7 +73,6 @@ const ProgressBarComponent: ForwardRefRenderFunction<HTMLSpanElement, Props> = (
           {caption}
         </Typography>
       )}
-      <span className={classes["placeholder"]}>{placeholderText}</span>
     </span>
   );
 };
