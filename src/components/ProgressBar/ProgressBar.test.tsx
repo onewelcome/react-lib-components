@@ -3,7 +3,10 @@ import { ProgressBar, Props } from "./ProgressBar";
 import { render } from "@testing-library/react";
 
 const defaultParams: Props = {
-  placeholderText: "Loading"
+  label: "Loading...",
+  percentage: 0,
+  accessibilityTitle: "Progress bar",
+  caption: "One moment please..."
 };
 
 const createProgressBar = (params?: (defaultParams: Props) => Props) => {
@@ -22,13 +25,22 @@ const createProgressBar = (params?: (defaultParams: Props) => Props) => {
 
 describe("ProgressBar should render", () => {
   it("renders without crashing", () => {
-    const { ProgressBarComponent } = createProgressBar(defaultParams => ({
+    const { ProgressBarComponent, getByText } = createProgressBar(defaultParams => ({
       ...defaultParams,
       className: "test"
     }));
 
     expect(ProgressBarComponent).toBeDefined();
     expect(ProgressBarComponent).toHaveClass(`test`, { exact: true });
+    expect(ProgressBarComponent).toHaveAttribute("role", "progressbar");
+    expect(ProgressBarComponent).toHaveAttribute("aria-valuemin", "0");
+    expect(ProgressBarComponent).toHaveAttribute("aria-valuemax", "100");
+    expect(ProgressBarComponent).toHaveAttribute("aria-valuenow", "0");
+    expect(ProgressBarComponent).toHaveAttribute("title", "Progress bar");
+    expect(getByText("Loading...")).toBeDefined();
+    expect(getByText("Loading...")).toHaveClass("label");
+    expect(getByText("One moment please...")).toBeDefined();
+    expect(getByText("One moment please...")).toHaveClass("caption");
   });
 });
 

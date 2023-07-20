@@ -19,26 +19,60 @@ import { Typography } from "../Typography/Typography";
 import classes from "./ProgressBar.module.scss";
 
 export interface Props extends Omit<ComponentPropsWithRef<"span">, "children"> {
-  placeholderText: string;
+  label?: string;
+  caption?: string;
   completed?: number;
+  percentage?: number;
+  accessibilityTitle?: string;
 }
 
 const ProgressBarComponent: ForwardRefRenderFunction<HTMLSpanElement, Props> = (
-  { placeholderText, completed, ...rest }: Props,
+  { label, caption, completed, percentage, accessibilityTitle = "Progress bar", ...rest }: Props,
   ref
 ) => {
   return (
-    <span {...rest} ref={ref} role="progressbar">
+    <span
+      {...rest}
+      ref={ref}
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={percentage}
+      title={accessibilityTitle}
+    >
+      <div className={classes["header"]}>
+        {label && (
+          <Typography className={classes["label"]} spacing={{ marginBottom: 2 }} variant="body">
+            {label}
+          </Typography>
+        )}
+        {percentage !== undefined && (
+          <Typography
+            className={classes["percentage"]}
+            spacing={{ marginBottom: 2 }}
+            variant="body"
+          >
+            {percentage}%
+          </Typography>
+        )}
+      </div>
       <span className={classes["progress-bar"]}>
         <span
           className={`${classes["bar"]} ${
             completed ? classes[`w-${5 * Math.round(completed / 5)}`] : classes["loading-state"]
           }`}
         />
+        <span
+          className={`${classes["bar2"]} ${
+            completed ? classes[`w-${5 * Math.round(completed / 5)}`] : classes["loading-state"]
+          }`}
+        />
       </span>
-      <Typography className={classes["placeholder"]} spacing={{ marginBottom: 0 }} variant="body">
-        {placeholderText}
-      </Typography>
+      {caption && (
+        <Typography className={classes["caption"]} spacing={{ marginBottom: 2 }} variant="sub-text">
+          {caption}
+        </Typography>
+      )}
     </span>
   );
 };
