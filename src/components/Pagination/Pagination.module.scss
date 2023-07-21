@@ -62,10 +62,6 @@
       display: flex;
       align-items: center;
 
-      button {
-        margin: 0.25rem;
-      }
-
       button span:before {
         font-size: 0.75rem;
       }
@@ -91,6 +87,7 @@
     display: flex;
     align-items: center;
     flex-basis: min-content;
+    padding-right: 1rem;
 
     &-total {
       display: inline-block;
@@ -98,6 +95,11 @@
       white-space: nowrap;
       font-weight: 500;
       color: var(--color-blue-grey900);
+    }
+
+    + .previous {
+      padding-left: 0.9375rem;
+      border-left: 1px solid var(--color-blue-grey100);
     }
   }
 
@@ -145,13 +147,6 @@
     .pagination {
       margin-top: 0;
       justify-content: flex-end;
-
-      .previous,
-      .next {
-        button {
-          margin: 0 0.5rem;
-        }
-      }
     }
   }
 }
