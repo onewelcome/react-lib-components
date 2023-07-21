@@ -91,14 +91,6 @@ describe("Pagination events", () => {
     await userEvent.click(option25);
 
     await waitFor(() => expect(onPageSizeChange).toHaveBeenCalledWith(25));
-
-    await act(() => {
-      (currentPageInput as HTMLInputElement).focus();
-    });
-
-    await userEvent.keyboard("{backspace}{backspace}30{enter}");
-
-    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(30));
   });
 });
 
@@ -106,20 +98,17 @@ describe("different current pages and their effect on what renders", () => {
   it("is on the first page and does not render previous and first", () => {
     const { pagination } = createPagination();
 
-    expect(pagination.querySelector(".next")).toBeTruthy();
-    expect(pagination.querySelector(".previous")).toBeFalsy();
+    expect(pagination.querySelector('[data-paginate="next"]')).toBeTruthy();
+    expect(pagination.querySelector('[data-paginate="previous"]')).toHaveAttribute("disabled");
   });
 
-  it("is on the second page and does not render first", () => {
+  it("is on the second page and does not render first", async () => {
     const { pagination } = createPagination(defaultParams => ({
       ...defaultParams,
       currentPage: 2
     }));
 
-    expect(pagination.querySelector('[data-paginate="first"]')).toBeFalsy();
-    expect((pagination.querySelector(".current-value-input input") as HTMLInputElement).value).toBe(
-      "2"
-    );
+    expect(pagination.querySelector('[data-paginate="first"]')).toHaveAttribute("disabled");
   });
 
   it("is on the second to last page and does not render last", () => {
@@ -128,7 +117,7 @@ describe("different current pages and their effect on what renders", () => {
       currentPage: 499
     }));
 
-    expect(pagination.querySelector('[data-paginate="last"]')).toBeFalsy();
+    expect(pagination.querySelector('[data-paginate="last"]')).toHaveAttribute("disabled");
   });
 
   it("is on the last page and does not render next & last", () => {
@@ -137,8 +126,8 @@ describe("different current pages and their effect on what renders", () => {
       currentPage: 500
     }));
 
-    expect(pagination.querySelector('[data-paginate="last"]')).toBeFalsy();
-    expect(pagination.querySelector('[data-paginate="next"]')).toBeFalsy();
+    expect(pagination.querySelector('[data-paginate="last"]')).toHaveAttribute("disabled");
+    expect(pagination.querySelector('[data-paginate="next"]')).toHaveAttribute("disabled");
   });
 });
 
@@ -150,8 +139,8 @@ describe("omitted attributes still renders correctly", () => {
     }));
 
     expect(pagination.querySelector(".page")).toBeFalsy();
-    expect(pagination.querySelector(".next")).toBeTruthy();
-    expect(pagination.querySelector(".previous")).toBeFalsy();
+    expect(pagination.querySelector('[data-paginate="next"]')).toBeTruthy();
+    expect(pagination.querySelector('[data-paginate="previous"]')).toHaveAttribute("disabled");
   });
 
   it("still renders next if totalItems prop isn't given and we're on the first page", () => {
@@ -162,8 +151,8 @@ describe("omitted attributes still renders correctly", () => {
     }));
 
     expect(pagination.querySelector(".page")).toBeFalsy();
-    expect(pagination.querySelector(".next")).toBeTruthy();
-    expect(pagination.querySelector(".previous")).toBeTruthy();
+    expect(pagination.querySelector('[data-paginate="next"]')).toBeTruthy();
+    expect(pagination.querySelector('[data-paginate="previous"]')).toBeTruthy();
   });
 });
 
