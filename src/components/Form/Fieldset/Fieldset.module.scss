@@ -47,6 +47,6 @@
 }
 @media only screen and (min-width: 30em) {
   .fieldset {
-    padding: 1rem variables.$form-element-horizontal-padding-desktop;
+    padding: variables.$form-element-horizontal-padding-desktop;
   }
 }
