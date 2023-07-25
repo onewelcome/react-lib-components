@@ -238,7 +238,7 @@ const WizardModalTemplate = () => {
               )}
             </form>
           </ModalContent>
-          <ModalActions>
+          <ModalActions onClose={onClose}>
             <WizardActions
               cancelButtonLabel="Cancel"
               previousButtonLabel="Previous"

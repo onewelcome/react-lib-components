@@ -125,6 +125,88 @@ A function will be executed when the user clicks on the Previous button. Use thi
 
 A function will be executed when the user clicks the Save & Close button. Gets the current step number as an argument.
 
+## Examples
+
+<Canvas>
+  <Story of={WizardStories.BasicWizard} />
+</Canvas>
+
+## Implementing this with the proper event functions
+
+```tsx
+import React from 'react';
+
+import { Wizard, WizardSteps, WizardActions } from '@onewelcome/react-lib-components';
+import { StepOne } from './StepOne';
+import { StepTwo } from './StepTwo';
+import { StepThree } from './StepThree';
+
+interface Props {
+  onCloseModal: () => void;
+}
+
+export const StepForm = ({ onCloseModal }: Props) => {
+  const [activeStep, setActiveStep] = useState(1);
+
+  const onStepChangeHandler = (stepNumber: number) {
+    setActiveStep(stepNumber);
+  }
+
+  const onNextStepHandler = () => {
+    setActiveStep(activeStep + 1);
+  }
+
+  const onPreviousStepHandler = () => {
+    setActiveStep(activeStep - 1);
+  }
+
+  const onSubmitHandler = () => {
+    // Do something with the data
+
+    onCloseModal();
+  }
+
+  return {
+    <Wizard
+      initialStepNo{1}
+      mode="add"
+      onStepChange={onStepChangeHandler}
+      steps={[
+        { label: "Step 1" },
+        { label: "Step 2" },
+        { label: "Step 3" }
+      ]}>
+
+      <header>
+        <WizardSteps />
+      </header>
+
+      <main>
+        <Form>
+          {activeStep === 1 && <StepOne />}
+          {activeStep === 2 && <StepTwo />}
+          {activeStep === 3 && <StepThree />}
+        </Form>
+      </main>
+
+      <footer>
+        <WizardActions
+          cancelButtonLabel="Cancel"
+          nextButtonLabel="Next"
+          onCancel={onCloseModal}
+          onNext={onNextStepHandler}
+          onPrevious={onPreviousStepHandler}
+          onSaveAndClose={onSubmitHandler}
+          previousButtonLabel="Previous"
+          saveAndCloseButtonLabel="Save & close"
+        />
+      </footer>
+
+    </Wizard>
+  }
+}
+```
+
 # Props
 
 <ArgTypes story={PRIMARY_STORY} />
