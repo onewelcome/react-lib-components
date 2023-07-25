@@ -26,9 +26,7 @@ export const useDetermineStatusIcon = (params: Partial<FormElement>): ReactEleme
   if (error) {
     icon = <Icon ref={errorRef} data-icon-status="error" icon={Icons.Error} />;
   } else if (success) {
-    icon = (
-      <Icon ref={successRef} data-icon-status="success" icon={Icons.CheckmarkCircleBreakout} />
-    );
+    icon = <Icon ref={successRef} data-icon-status="success" icon={Icons.CheckmarkCircleAlt} />;
   }
 
   return icon;

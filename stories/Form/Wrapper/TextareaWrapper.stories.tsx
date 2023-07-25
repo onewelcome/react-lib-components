@@ -55,5 +55,6 @@ TextareaWrapper.args = {
   onChange: () => {},
   label: "Example textarea",
   name: "Textarea",
-  helperText: "Example textarea helpertext"
+  helperText: "Example textarea helpertext",
+  errorMessage: "This is an error message"
 };

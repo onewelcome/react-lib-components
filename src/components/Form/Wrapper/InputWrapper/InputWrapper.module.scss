@@ -16,8 +16,6 @@
 
 @use "../../../../mixins.module.scss";
 
-@include mixins.inputLabelPrimaryColorOnFocus("label.input-label.focus");
-
 input {
   &.floating-label {
     padding-top: 1rem;
@@ -33,6 +31,9 @@ input {
     @include mixins.transition(all, 0.2s, ease-in-out);
     transform: translateY(0px);
     font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .floating-label-active [data-icon]:before {
@@ -59,6 +60,7 @@ input {
   .disabled {
     background-color: var(--disabled);
     cursor: not-allowed;
+    color: var(--greyed-out);
   }
 }
 

@@ -18,11 +18,8 @@
   position: relative;
 }
 
-.error {
-  color: var(--error);
-}
-
 .error-message {
+  color: var(--error);
   display: flex;
   align-items: flex-end;
 }
@@ -42,4 +39,5 @@
 
 .default-helper {
   font-size: 0.75rem;
+  line-height: 1.33333333;
 }

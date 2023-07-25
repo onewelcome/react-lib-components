@@ -28,6 +28,15 @@
     z-index: 1;
     top: 0.85rem;
     font-size: 1.25rem;
+
+    &:before {
+      font-size: 1.125rem;
+      height: 1.25rem;
+      width: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   [data-icon-status="success"] {
@@ -42,21 +51,27 @@
 }
 
 .textarea {
-  padding: variables.$form-element-horizontal-padding-mobile 0.856em;
+  padding: variables.$form-element-vertical-padding-mobile
+    variables.$form-element-horizontal-padding-mobile;
   box-sizing: border-box;
   border: 0;
   border-radius: var(--input-border-radius);
   @include mixins.transition(all, 0.2s, ease-in-out);
   font-family: var(--font-family);
   font-size: var(--form-control-font-size);
-  color: var(--greyed-out);
-  width: 100%;
+  color: var(--color-blue-grey900);
   vertical-align: top;
   resize: vertical;
+  position: relative;
+  background-color: transparent;
+  z-index: 1;
+  /* making space for outline in text area when scroll bar is visible: width smaller and margin top & bottom to have space for border */
+  width: calc(100% - var(--input-border-width));
+  margin: var(--input-border-width) 0;
 
   &:disabled {
-    background-color: var(--disabled);
     cursor: not-allowed;
+    color: var(--greyed-out);
   }
 
   @include mixins.browserOutlineDisabled();
@@ -66,5 +81,4 @@
 
 .error {
   border-color: var(--error);
-  color: var(--error);
 }

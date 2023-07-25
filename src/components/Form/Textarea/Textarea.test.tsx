@@ -118,7 +118,7 @@ describe("Error status", () => {
 describe("Success status", () => {
   it("success icon should be visible", () => {
     const { textarea } = createTextarea({ success: true });
-    const icon = textarea.parentElement?.querySelector(".icon-checkmark-circle-breakout");
+    const icon = textarea.parentElement?.querySelector(".icon-checkmark-circle-alt");
     expect(icon).toBeDefined();
   });
 });

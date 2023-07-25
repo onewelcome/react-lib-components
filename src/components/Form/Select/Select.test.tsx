@@ -126,7 +126,7 @@ describe("Select should render", () => {
       success: true
     }));
 
-    const icon = button.querySelector("[class*='icon-checkmark-circle-breakout']");
+    const icon = button.querySelector("[class*='icon-checkmark-circle-alt']");
     expect(button).toHaveClass("success");
     expect(icon).toBeDefined();
   });

@@ -16,8 +16,6 @@
 
 @use "../../../../mixins.module.scss";
 
-@include mixins.inputLabelPrimaryColorOnFocus("label.textarea-label");
-
 .textarea-wrapper {
   &:after {
     content: "";

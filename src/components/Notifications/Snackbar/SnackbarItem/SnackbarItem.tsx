@@ -92,7 +92,7 @@ export const SnackbarItem = ({
       return Icons.Warning;
     }
 
-    return variant === "success" ? Icons.CheckmarkCircleBreakout : Icons.InfoCircle;
+    return variant === "success" ? Icons.CheckmarkCircleAlt : Icons.InfoCircle;
   };
 
   const actionButtons = actions.map((actionProp, index) => (
