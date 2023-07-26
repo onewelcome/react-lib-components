@@ -22,6 +22,7 @@ import { ContextMenu } from "../ContextMenu/ContextMenu";
 import { IconButton } from "../Button/IconButton";
 import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
 import userEvent from "@testing-library/user-event";
+import { waitFor } from "@storybook/testing-library";
 
 const onShow = jest.fn();
 const onClose = jest.fn();
@@ -144,7 +145,7 @@ describe("contextmenu", () => {
     await userEvent.click(menutrigger);
 
     expect(onShow).toHaveBeenCalled();
-    expect(popover).toHaveClass("show");
+    await waitFor(() => expect(popover).toHaveClass("show"));
     expect(popover).toHaveStyle({ opacity: "1;" });
 
     await userEvent.click(menuitem1);

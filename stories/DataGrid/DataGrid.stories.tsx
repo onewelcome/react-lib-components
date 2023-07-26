@@ -25,6 +25,8 @@ import { Icon, Icons } from "../../src/components/Icon/Icon";
 import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 export default {
   title: "components/Data Display/DataGrid",
@@ -92,6 +94,27 @@ const Template = args => {
 };
 
 export const DefaultDataGrid = Template.bind({});
+
+DefaultDataGrid.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.queryByText("Columns")?.closest("button")).toBeInTheDocument());
+
+  const columnsButton = await canvas.queryByText("Columns")?.closest("button");
+
+  await userEvent.click(columnsButton!);
+
+  const showColumnsDialog = canvas.queryByRole("dialog");
+  const innerDiv = showColumnsDialog?.querySelector("div");
+
+  expect(showColumnsDialog).toBeInTheDocument();
+  await waitFor(() => expect(innerDiv).toHaveStyle({ "pointer-events": "auto" }));
+
+  const nameToggle = await canvas.getByLabelText("Name");
+
+  await userEvent.click(nameToggle);
+};
+
 DefaultDataGrid.args = {
   data: [
     {

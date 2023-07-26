@@ -23,6 +23,7 @@ module.exports = {
     "@storybook/addon-docs",
     "@storybook/addon-essentials",
     "@storybook/addon-a11y",
+    "@storybook/addon-interactions",
     "@onewelcome/storybook-addon-basestyling"
   ],
   webpackFinal: async (config, { configType }) => {

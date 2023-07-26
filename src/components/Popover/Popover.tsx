@@ -95,20 +95,23 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   useEffect(() => {
     const anchor = anchorEl?.current as HTMLElement;
-    const anchorTop = anchor.getBoundingClientRect().top;
-    const anchorBottom = anchor.getBoundingClientRect().bottom;
 
-    const isAnchorOffscreen =
-      showPopover &&
-      (Number(top) < 0 ||
-        Number(left) < 0 ||
-        Number(right) < 0 ||
-        Number(bottom) < 0 ||
-        anchorTop < 0 ||
-        anchorBottom > window.innerHeight);
+    if (anchor) {
+      const anchorTop = anchor.getBoundingClientRect().top;
+      const anchorBottom = anchor.getBoundingClientRect().bottom;
 
-    if (isAnchorOffscreen) {
-      onAnchorOutOfView?.();
+      const isAnchorOffscreen =
+        showPopover &&
+        (Number(top) < 0 ||
+          Number(left) < 0 ||
+          Number(right) < 0 ||
+          Number(bottom) < 0 ||
+          anchorTop < 0 ||
+          anchorBottom > window.innerHeight);
+
+      if (isAnchorOffscreen) {
+        onAnchorOutOfView?.();
+      }
     }
   }, [top, left, right, bottom]);
 
