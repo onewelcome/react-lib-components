@@ -248,7 +248,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     tablistBorderStyle: "solid",
     tablistBorderColor: "var(--color-blue-grey100)",
     tabTextColor: "var(--color-blue-grey900)",
-    toggleBackgroundColor: "var(--default)",
+    toggleBackgroundColor: "var(--color-blue-grey100)",
     tooltipBackgroundColor: "var(--default)",
     wizardStepIndicatorFutureColor: "var(--color-blue-grey200)",
     default: "var(--color-blue-grey900)",
