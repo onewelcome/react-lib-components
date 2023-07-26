@@ -258,8 +258,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             {value?.length > 0 && <span data-display-inner>{display}</span>}
           </div>
           <div className={classes["status"]}>
-            {icon}
-            <Icon className={classes["triangle-down"]} icon={Icons.TriangleDown} />
+            {icon || <Icon className={classes["triangle-down"]} icon={Icons.ChevronDown} />}
           </div>
         </button>
         <div

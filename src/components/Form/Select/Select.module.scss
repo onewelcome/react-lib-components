@@ -54,16 +54,17 @@ $listItemHeight: 2.125rem;
     button:not(:focus) {
       border-color: var(--default);
       border-width: var(--input-border-width);
+      background-color: var(--color-blue-grey25);
     }
   }
 
   .custom-select {
     position: relative;
     width: 100%;
-    min-height: calc(2.86rem - (2 * var(--input-border-width)));
+    min-height: calc(2.625rem - (2 * var(--input-border-width)));
     padding: 0 variables.$form-element-horizontal-padding-mobile;
     background-color: transparent;
-    border-color: var(--light-grey-border);
+    border-color: var(--color-blue-grey500);
     border-style: var(--input-border-style);
     border-width: var(--input-border-width);
     border-radius: var(--input-border-radius);
@@ -82,6 +83,10 @@ $listItemHeight: 2.125rem;
 
     &.error:focus {
       border-width: var(--input-border-width-focus);
+    }
+
+    &.disabled {
+      border-color: var(--color-blue-grey100);
     }
   }
 
@@ -171,7 +176,7 @@ $listItemHeight: 2.125rem;
 .status {
   position: absolute;
   top: 50%;
-  right: 1.625rem;
+  right: 0.8125rem;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
@@ -214,7 +219,7 @@ $listItemHeight: 2.125rem;
 .disabled {
   cursor: not-allowed;
   color: var(--greyed-out);
-  background-color: var(--disabled);
+  background-color: var(--color-blue-grey25);
 
   > * {
     pointer-events: none;
