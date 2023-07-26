@@ -10,6 +10,6 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": false
   },
-  "include": ["src"],
+  "include": ["src", "stories/utils"],
   "exclude": ["node_modules", "dist", "example"]
 }

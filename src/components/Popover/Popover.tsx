@@ -20,7 +20,8 @@ import React, {
   ReactNode,
   RefObject,
   useEffect,
-  useRef
+  useRef,
+  useState
 } from "react";
 import { Offset, Placement, usePosition } from "../../hooks/usePosition";
 import classes from "./Popover.module.scss";
@@ -51,9 +52,9 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   },
   ref
 ) => {
+  const [showPopover, setShowPopover] = useState(false);
   const elToBePositioned = useRef<HTMLDivElement>(null);
-
-  const { top, left, right, bottom, calculatePosition } = usePosition({
+  const { top, left, right, bottom, calculatePosition, initialCalculationDone } = usePosition({
     elementToBePositioned: elToBePositioned,
     relativeElement: anchorEl,
     offset: offset,
@@ -63,7 +64,19 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   });
 
   useEffect(() => {
-    if (!show) {
+    if (initialCalculationDone) {
+      setShowPopover(!!show);
+    }
+  }, [initialCalculationDone]);
+
+  useEffect(() => {
+    if (initialCalculationDone) {
+      setShowPopover(!!show);
+    }
+  }, [show]);
+
+  useEffect(() => {
+    if (!showPopover) {
       return;
     }
 
@@ -74,20 +87,25 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       window.removeEventListener("resize", calculatePosition);
       window.removeEventListener("scroll", calculatePosition);
     };
-  }, [show]);
+  }, [showPopover]);
 
   useEffect(() => {
     calculatePosition();
-  }, [show]);
+  }, [showPopover]);
 
   useEffect(() => {
+    const anchor = anchorEl?.current as HTMLElement;
+    const anchorTop = anchor.getBoundingClientRect().top;
+    const anchorBottom = anchor.getBoundingClientRect().bottom;
+
     const isAnchorOffscreen =
-      show &&
-      (top === 0 ||
-        left === 0 ||
-        right === 0 ||
-        bottom === 0 ||
-        window.innerHeight - (elToBePositioned.current as HTMLElement).offsetHeight === top);
+      showPopover &&
+      (Number(top) < 0 ||
+        Number(left) < 0 ||
+        Number(right) < 0 ||
+        Number(bottom) < 0 ||
+        anchorTop < 0 ||
+        anchorBottom > window.innerHeight);
 
     if (isAnchorOffscreen) {
       onAnchorOutOfView?.();
@@ -98,7 +116,7 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     <div ref={ref} {...rest}>
       <div
         ref={elToBePositioned}
-        className={`${classes.popover} ${className ?? ""} ${show ? classes.show : ""}`}
+        className={`${classes.popover} ${className ?? ""} ${showPopover ? classes.show : ""}`}
         style={{ top: top, left: left, right: right, bottom: bottom }}
       >
         {children}

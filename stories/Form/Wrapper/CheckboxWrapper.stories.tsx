@@ -71,8 +71,8 @@ export default meta;
 const CheckboxesTemplate: Story<CheckboxWrapperProps> = args => {
   const [checkboxStates, setCheckboxStates] = useState({
     option1: false,
-    option2: false,
-    option3: false,
+    option2: true,
+    option3: true,
     option4: false,
     option5: false
   });
@@ -147,9 +147,9 @@ Checkboxes.args = {
 };
 
 const NestedTemplate: Story<CheckboxWrapperProps> = args => {
-  const [indeterminate, setIndeterminate] = useState(false);
+  const [indeterminate, setIndeterminate] = useState(true);
   const [electronics, setElectronics] = useState(false);
-  const [checkedLaptop, setCheckedLaptop] = useState(false);
+  const [checkedLaptop, setCheckedLaptop] = useState(true);
   const [checkedTV, setCheckedTV] = useState(false);
   const [checkedMicrophone, setCheckedMicrophone] = useState(false);
 

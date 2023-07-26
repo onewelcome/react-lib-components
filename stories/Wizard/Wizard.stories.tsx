@@ -110,7 +110,7 @@ const Template = args => {
 export const BasicWizard = Template.bind({});
 
 const WizardModalTemplate = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [step, setStep] = useState(0);
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const [exampleInput, setExampleInput] = useState("");
@@ -238,7 +238,7 @@ const WizardModalTemplate = () => {
               )}
             </form>
           </ModalContent>
-          <ModalActions>
+          <ModalActions onClose={onClose}>
             <WizardActions
               cancelButtonLabel="Cancel"
               previousButtonLabel="Previous"

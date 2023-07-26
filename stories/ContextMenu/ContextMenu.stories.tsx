@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import {
   ContextMenu as ContextMenuComponent,
@@ -27,6 +27,7 @@ import { Icon, Icons } from "../../src/components/Icon/Icon";
 import { Placement } from "../../src/hooks/usePosition";
 import ContextMenuDocumentation from "./ContextMenu.mdx";
 import { Typography } from "../../src/components/Typography/Typography";
+import { centerStory, isStory } from "../utils/helpers";
 
 const meta: Meta = {
   title: "components/Navigation/ContextMenu",
@@ -63,11 +64,21 @@ const Template: Story<Props> = args => {
     vertical: "top",
     horizontal: "left"
   });
+  const [show, setShow] = useState(false);
+
+  centerStory();
+
+  useEffect(() => {
+    if (isStory()) {
+      setShow(true);
+    }
+  }, []);
 
   return (
     <Fragment>
       <ContextMenuComponent
         {...args}
+        show={show}
         placement={{ vertical: placement.vertical, horizontal: placement.horizontal }}
         transformOrigin={transformOrigin}
       ></ContextMenuComponent>

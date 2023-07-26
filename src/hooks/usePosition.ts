@@ -95,6 +95,7 @@ const defaultConfigObject: ConfigObject = {
 /* eslint-disable @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain*/
 export const usePosition = (providedConfigObject: ConfigObject = defaultConfigObject) => {
   const configObject = { ...defaultConfigObject, ...providedConfigObject };
+  const [initialCalculationDone, setInitialCalculationDone] = useState(false);
 
   if (configObject.transformOrigin === undefined) {
     configObject.transformOrigin = defaultConfigObject.transformOrigin;
@@ -356,6 +357,10 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "horizontal");
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "vertical");
+
+    if (!initialCalculationDone) {
+      setInitialCalculationDone(true);
+    }
   }, configObject.debounceAmount ?? 20);
 
   return {
@@ -363,6 +368,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     bottom: position.bottom,
     left: position.left,
     right: position.right,
-    calculatePosition
+    calculatePosition,
+    initialCalculationDone
   };
 };
