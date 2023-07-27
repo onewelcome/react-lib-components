@@ -45,10 +45,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <TextareaWrapperComponent {...args} />;
-export const TextareaWrapper = Template.bind({});
-
-TextareaWrapper.args = {
+const defaultArgs: Props = {
   error: false,
   success: false,
   value: "Example value",
@@ -57,4 +54,39 @@ TextareaWrapper.args = {
   name: "Textarea",
   helperText: "Example textarea helpertext",
   errorMessage: "This is an error message"
+};
+
+const Template: Story<Props> = args => <TextareaWrapperComponent {...args} />;
+export const TextareaWrapper = Template.bind({});
+
+TextareaWrapper.args = {
+  ...defaultArgs
+};
+
+export const TextareaWrapperError = Template.bind({});
+
+TextareaWrapperError.args = {
+  ...defaultArgs,
+  error: true
+};
+
+export const TextareaWrapperSuccess = Template.bind({});
+
+TextareaWrapperSuccess.args = {
+  ...defaultArgs,
+  success: true
+};
+
+export const TextareaWrapperDisabled = Template.bind({});
+
+TextareaWrapperDisabled.args = {
+  ...defaultArgs,
+  disabled: true
+};
+
+export const TextareaWrapperRequired = Template.bind({});
+
+TextareaWrapperRequired.args = {
+  ...defaultArgs,
+  required: true
 };

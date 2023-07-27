@@ -80,3 +80,18 @@ RadioWrapper.args = {
   name: "my-group",
   onChange: () => {}
 };
+
+export const RadioWrapperError = Template.bind({});
+
+RadioWrapperError.args = {
+  ...RadioWrapper.args,
+  error: true
+};
+
+export const RadioWrapperDisabled = Template.bind({});
+
+RadioWrapperDisabled.args = {
+  ...RadioWrapper.args,
+  value: "",
+  disabled: true
+};

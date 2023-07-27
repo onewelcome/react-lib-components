@@ -23,6 +23,8 @@ import {
 import { Option } from "../../../src/components/Form/Select/Option";
 
 import SelectWrapperDocumentation from "./SelectWrapper.mdx";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "components/Inputs/Select (Wrapper)",
@@ -34,7 +36,6 @@ const meta: Meta = {
   },
   argTypes: {
     value: {
-      options: ["option1", "option2", "option3", "option4"],
       control: {
         type: "select"
       }
@@ -45,11 +46,22 @@ const meta: Meta = {
   }
 };
 
+const defaultArgs: Omit<Props, "children"> = {
+  label: "Example select wrapper",
+  name: "Example select",
+  helperText: "Example helper text",
+  error: false,
+  errorMessage: "This is an error message",
+  success: false,
+  value: "option1"
+};
+
 export default meta;
 
 const Template: Story<Props> = args => {
+  const [selected, setSelected] = useState("option1");
   return (
-    <SelectWrapperComponent {...args}>
+    <SelectWrapperComponent {...args} value={selected} onChange={e => setSelected(e.target.value)}>
       <Option value="option1">Option 1</Option>
       <Option value="option2">Option 2</Option>
       <Option value="option3">Option 3</Option>
@@ -60,11 +72,68 @@ const Template: Story<Props> = args => {
 
 export const SelectWrapper = Template.bind({});
 
+SelectWrapper.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
+
+  const select = await canvas.getByRole("button", { expanded: false });
+
+  await userEvent.click(select);
+
+  const option2 = await canvas.getByRole("option", { name: "Option 2" });
+
+  await userEvent.click(option2);
+
+  await waitFor(() => expect(select).toHaveTextContent("Option 2"));
+
+  await userEvent.click(select);
+
+  const option3 = await canvas.getByRole("option", { name: "Option 3" });
+
+  await userEvent.click(option3);
+
+  await waitFor(() => expect(select).toHaveTextContent("Option 3"));
+
+  await userEvent.click(select);
+
+  const option4 = await canvas.getByRole("option", { name: "Option 4" });
+
+  await userEvent.click(option4);
+
+  await waitFor(() => expect(select).toHaveTextContent("Option 4"));
+
+  await userEvent.click(select);
+};
+
 SelectWrapper.args = {
-  label: "Example select wrapper",
-  name: "Example select",
-  helperText: "Example helper text",
-  error: false,
-  errorMessage: "This is an error message",
+  ...defaultArgs
+};
+
+export const SelectWrapperError = Template.bind({});
+
+SelectWrapperError.args = {
+  ...defaultArgs,
+  error: true
+};
+
+export const SelectWrapperSuccess = Template.bind({});
+
+SelectWrapperSuccess.args = {
+  ...defaultArgs,
+  success: true
+};
+
+export const SelectWrapperDisabled = Template.bind({});
+
+SelectWrapperDisabled.args = {
+  ...defaultArgs,
+  disabled: true
+};
+
+export const SelectWrapperRequired = Template.bind({});
+
+SelectWrapperRequired.args = {
+  ...defaultArgs,
   required: true
 };

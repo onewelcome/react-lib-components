@@ -23,6 +23,8 @@ import { IconButton } from "../../src/components/Button/IconButton";
 import { Icon, Icons } from "../../src/components/Icon/Icon";
 import RepeaterDocumentation from "./useRepeater.mdx";
 import { generateID } from "../../src/util/helper";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "Hooks/useRepeater",
@@ -97,7 +99,7 @@ const Template: Story = () => {
             {React.cloneElement(component, { identifier: generateID() })}
           </div>
           {index !== 0 && (
-            <div style={{ marginTop: "10px", marginLeft: "8px" }}>
+            <div style={{ marginTop: "25px", marginLeft: "8px" }}>
               <IconButton title="Remove repeated component" onClick={() => remove(component)}>
                 <Icon icon={Icons.Trash} />
               </IconButton>
@@ -111,5 +113,18 @@ const Template: Story = () => {
 };
 
 export const Repeater = Template.bind({});
+
+Repeater.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const addTagButton = await canvas.findByText("Add tag!");
+
+  await userEvent.click(addTagButton);
+  await userEvent.click(addTagButton);
+
+  const input = await canvas.findAllByLabelText("Enter tag name");
+
+  expect(input).toHaveLength(3);
+};
 
 Repeater.args = {};

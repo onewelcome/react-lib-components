@@ -222,6 +222,22 @@ const NestedTemplate: Story<CheckboxWrapperProps> = args => {
   );
 };
 
+export const CheckboxesError = CheckboxesTemplate.bind({});
+
+CheckboxesError.args = {
+  name: "Example checkboxes",
+  fieldsetProps: {
+    legend: "Example fieldset legend",
+    legendStyle: "h1",
+    hideLegend: false,
+    background: "#FFF",
+    noPadding: false,
+    noBackground: false
+  },
+  error: true,
+  errorMessage: "Please check all the boxes"
+};
+
 export const NestedCheckboxes = NestedTemplate.bind({});
 
 NestedCheckboxes.args = {

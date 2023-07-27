@@ -99,6 +99,63 @@ InputWrapper.args = {
   }
 };
 
+export const InputWrapperWithError = Template.bind({});
+
+InputWrapperWithError.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  onChange: () => {},
+  errorMessage: "This is an error message",
+  error: true,
+  value: "example value",
+  inputProps: {
+    prefix: "https://",
+    suffix: "",
+    className: "input-classname",
+    wrapperProps: { className: "wrapper-classname" }
+  }
+};
+
+export const InputWrapperWithSuccess = Template.bind({});
+
+InputWrapperWithSuccess.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  onChange: () => {},
+  errorMessage: "This is an error message",
+  error: false,
+  success: true,
+  value: "example value",
+  inputProps: {
+    prefix: "https://",
+    suffix: "",
+    className: "input-classname",
+    wrapperProps: { className: "wrapper-classname" }
+  }
+};
+
+export const InputWrapperWithIconPrefix = Template.bind({});
+InputWrapperWithIconPrefix.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  onChange: () => {},
+  errorMessage: "This is an error message",
+  error: false,
+  value: "example value",
+  inputProps: {
+    prefix: <Icon icon={Icons.Bell} />,
+    suffix: "",
+    className: "input-classname",
+    wrapperProps: { className: "wrapper-classname" }
+  }
+};
+
 export const InputWrapperWithIconSuffix = Template.bind({});
 
 InputWrapperWithIconSuffix.args = {
@@ -109,11 +166,44 @@ InputWrapperWithIconSuffix.args = {
   onChange: () => {},
   errorMessage: "This is an error message",
   error: false,
-  value: "",
+  value: "example value",
   inputProps: {
     prefix: "https://",
     suffix: <Icon icon={Icons.Bell} />,
     className: "input-classname",
     wrapperProps: { className: "wrapper-classname" }
   }
+};
+
+export const InputWrapperWithIconPrefixAndSuffix = Template.bind({});
+
+InputWrapperWithIconPrefixAndSuffix.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  onChange: () => {},
+  errorMessage: "This is an error message",
+  error: false,
+  value: "example value",
+  inputProps: {
+    prefix: <Icon icon={Icons.Bell} />,
+    suffix: <Icon icon={Icons.Bell} />,
+    className: "input-classname",
+    wrapperProps: { className: "wrapper-classname" }
+  }
+};
+
+export const InputWrapperRequired = Template.bind({});
+
+InputWrapperRequired.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  onChange: () => {},
+  errorMessage: "This is an error message",
+  error: false,
+  value: "example value",
+  required: true
 };

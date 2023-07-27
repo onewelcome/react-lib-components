@@ -20,6 +20,8 @@ import { Dialog, Props } from "../../../src/components/Notifications/Dialog/Dial
 import { Button } from "../../../src/components/Button/Button";
 import { Typography } from "../../../src/components/Typography/Typography";
 import DialogDocumentation from "./Dialog.mdx";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "components/Feedback/Dialog",
@@ -124,11 +126,11 @@ SingleActionDialog.args = {
   secondaryAction: undefined
 };
 
-export const NestedDialogs = () => {
+const NestedDialogsTemplate: Story<Props> = () => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
 
-  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  /** When we're on the story page, we want the dialog to start in the "open" state. However, when we're on the "docs" page, we don't. */
   useEffect(() => {
     if (window.location.search.includes("story")) {
       setOpen(true);
@@ -174,4 +176,18 @@ export const NestedDialogs = () => {
       </Dialog>
     </Fragment>
   );
+};
+
+export const NestedDialogs = NestedDialogsTemplate.bind({});
+
+NestedDialogs.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.queryByText("Dialog 1")).not.toBeNull());
+
+  const openAnotherDialogButton = await canvas.findByText("Open another dialog");
+
+  await userEvent.click(openAnotherDialogButton);
+
+  await waitFor(() => expect(canvas.queryByText("Dialog 2")).not.toBeNull());
 };

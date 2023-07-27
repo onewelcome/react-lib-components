@@ -14,11 +14,13 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { Toggle as ToggleComponent } from "../../../src/components/Form/Toggle/Toggle";
 import { Props } from "../../../src/components/Form/Checkbox/Checkbox";
 import ToggleDocumentation from "./Toggle.mdx";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "components/Inputs/Toggle",
@@ -63,12 +65,40 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <ToggleComponent {...args} />;
+const Template: Story<Props> = args => {
+  const [checked, setChecked] = useState(false);
+
+  return <ToggleComponent {...args} checked={checked} onChange={() => setChecked(!checked)} />;
+};
 
 export const Toggle = Template.bind({});
+
+Toggle.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("checkbox")).not.toBeChecked());
+
+  const toggle = await canvas.getByRole("checkbox");
+  const label = await canvas.getByText("Toggle label");
+
+  expect(toggle).not.toBeChecked();
+  await userEvent.click(label);
+  await waitFor(() => expect(toggle).toBeChecked());
+  await userEvent.click(label);
+  await waitFor(() => expect(toggle).not.toBeChecked());
+};
 
 Toggle.args = {
   name: "Example toggle",
   label: "Toggle label",
+  helperProps: { children: <a href="https://www.google.com">Test</a> }
+};
+
+export const ToggleDisabled = Template.bind({});
+
+ToggleDisabled.args = {
+  name: "Example toggle",
+  label: "Toggle label",
+  disabled: true,
   helperProps: { children: <a href="https://www.google.com">Test</a> }
 };

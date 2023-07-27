@@ -45,3 +45,17 @@ Icon.args = {
   icon: Icons.Calendar,
   size: "6rem"
 };
+
+export const IconColor = Template.bind({});
+
+IconColor.args = {
+  icon: Icons.Calendar,
+  size: "6rem",
+  color: "#ff0000"
+};
+
+export const IconSize = Template.bind({});
+IconSize.args = {
+  icon: Icons.Calendar,
+  size: "3rem"
+};

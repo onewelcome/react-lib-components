@@ -23,11 +23,12 @@ import {
 import { ModalActions } from "../../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { ModalContent } from "../../../src/components/Notifications/Modal/ModalContent/ModalContent";
 import { Button } from "../../../src/components/Button/Button";
-import { Typography } from "../../../src/components/Typography/Typography";
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import { FormControl } from "../../../src/components/Form/FormControl/FormControl";
 import { Form } from "../../../src/components/Form/Form";
 import DiscardChangesModalDocumentation from "./DiscardChangesModal.mdx";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "components/Feedback/Discard Changes Modal",
@@ -136,3 +137,19 @@ const Template: Story<Props> = args => {
 };
 
 export const DiscardChangesModal = Template.bind({});
+
+DiscardChangesModal.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => {
+    expect(canvas.getByLabelText("Name")).toHaveValue("Name");
+  });
+
+  const input = canvas.getByLabelText("Name");
+
+  await userEvent.type(input, "New name");
+
+  const closeButton = canvas.getByText("close modal").closest("button");
+
+  await userEvent.click(closeButton!);
+};

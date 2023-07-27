@@ -43,3 +43,21 @@ export const FormHelperText = Template.bind({});
 FormHelperText.args = {
   error: false
 };
+
+export const FormHelperTextError = Template.bind({});
+
+FormHelperTextError.args = {
+  error: true
+};
+
+export const FormHelperTextSuccess = Template.bind({});
+
+FormHelperTextSuccess.args = {
+  success: true
+};
+
+export const FormHelperTextDisabled = Template.bind({});
+
+FormHelperTextDisabled.args = {
+  disabled: true
+};

@@ -48,3 +48,49 @@ export const Typography = Template.bind({});
 Typography.args = {
   variant: "h1"
 };
+
+export const TypographyH2 = Template.bind({});
+
+TypographyH2.args = {
+  variant: "h2"
+};
+
+TypographyH2.storyName = "Typography H2";
+
+export const TypographyH3 = Template.bind({});
+TypographyH3.args = {
+  variant: "h3"
+};
+
+TypographyH3.storyName = "Typography H3";
+
+export const TypographyH4 = Template.bind({});
+TypographyH4.args = {
+  variant: "h4"
+};
+
+TypographyH4.storyName = "Typography H4";
+
+export const TypographyBody = Template.bind({});
+
+TypographyBody.args = {
+  variant: "body"
+};
+
+export const TypographyBodyBold = Template.bind({});
+
+TypographyBodyBold.args = {
+  variant: "body-bold"
+};
+
+export const TypographySubText = Template.bind({});
+
+TypographySubText.args = {
+  variant: "sub-text"
+};
+
+export const TypographyCode = Template.bind({});
+
+TypographyCode.args = {
+  variant: "code"
+};

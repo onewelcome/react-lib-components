@@ -25,6 +25,8 @@ import { Button } from "../../../src/components/Button/Button";
 import { ModalHeader } from "../../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
 import { ModalContent } from "../../../src/components/Notifications/Modal/ModalContent/ModalContent";
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "components/Utils/SlideInModal",
@@ -64,3 +66,15 @@ const Template: Story<Props> = args => {
 };
 
 export const SlideInModal = Template.bind({});
+
+SlideInModal.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.queryByText("Open modal")).not.toBeNull());
+
+  await userEvent.click(canvas.getByText("Open modal"));
+
+  expect(canvas.getByText("Modal header")).not.toBeNull();
+  expect(canvas.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
+  expect(canvas.getByRole("dialog")).toHaveAttribute("aria-hidden", "false");
+};
