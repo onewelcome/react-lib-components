@@ -10,6 +10,59 @@ In order to place the tooltip according to how you would like, you can use the `
 
 You can define a `label` prop which displays text, followed by an <Icon icon={Icons.InfoCircle} /> icon. The contents in between the `<Tooltip></Tooltip>` tags becomes the content of the popup that appears when you hover over the icon.
 
+## Tooltip properties
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>label</td>
+      <td>string</td>
+      <td>no</td>
+      <td></td>
+      <td>
+        The text that will be displayed next to the &lt;Icon icon=\{Icons.InfoCircle} /> icon.
+      </td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>string</td>
+      <td>no</td>
+      <td></td>
+      <td>The title that will be displayed in the tooltip popup.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>no</td>
+      <td></td>
+      <td>The content that will be displayed in the tooltip popup.</td>
+    </tr>
+    <tr>
+      <td>location</td>
+      <td>string</td>
+      <td>no</td>
+      <td>top</td>
+      <td>The location of the tooltip popup. Can be one of `top`, `bottom`, `left`, or `right`.</td>
+    </tr>
+    <tr>
+      <td>position</td>
+      <td>string</td>
+      <td>no</td>
+      <td>center</td>
+      <td>The position of the tooltip popup. Can be one of `start`, `center`, or `end`.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Examples
 
 ```tsx
