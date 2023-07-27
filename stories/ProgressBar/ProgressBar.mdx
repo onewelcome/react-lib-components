@@ -6,14 +6,116 @@ import * as ProgressBarStories from "./ProgressBar.stories.tsx";
 
 The `ProgressBar` component can be used whenever user has to wait for a particular action to finish.
 
-It takes 100% width of its parent by default. Its styles can be adjusted using the `className` prop.
+It takes 100% width of its parent by default. It has a few different properties that can be used to customize its appearance. These are `caption`, `label`, `completed` (number that changes width of the progress bar), `percentage` (shows it on top right of progressbar) & `accessibilityTitle`.
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>caption</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>Text that is shown below the progress bar.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>label</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>Text that is shown above the progress bar.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>completed</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>0</code>
+      </td>
+      <td>Number that changes width of the progress bar.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>percentage</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Shows percentage on top right of progress bar.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>accessibilityTitle</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>Text that is read by screen readers.</td>
+    </tr>
+  </tbody>
+</table>
 
 # Examples
 
 ```jsx
-<div style={{ width: "500px" }}>
-  <ProgressBar />
-</div>
+import React from "react";
+
+import { ProgressBar } from "@onewelcome/react-lib-components";
+
+const Example = () => {
+  const [percentage, setPercentage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPercentage(percentage => {
+        if (percentage === 100) {
+          clearInterval(interval);
+          return percentage;
+        }
+
+        return percentage + 1;
+      });
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <ProgressBar
+      caption="Caption"
+      label="Label"
+      completed={percentage}
+      percentage
+      accessibilityTitle="Accessibility title"
+    />
+  );
+};
 ```
 
 <Canvas>

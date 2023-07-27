@@ -52,6 +52,7 @@ $speed: 1.5s;
     height: 0.5rem;
     border-radius: 0.25rem;
     background-color: var(--color-primary500);
+    transition: width 0.2s ease-in-out;
     &.loading-state {
       width: 33.3%;
       animation: linear $speed slide-in infinite;
