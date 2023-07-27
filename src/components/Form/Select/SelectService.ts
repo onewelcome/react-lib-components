@@ -62,6 +62,8 @@ export const useArrowNavigation = ({
     }
 
     if (isSearching) {
+      // eslint-disable-next-line no-console
+      console.log("isSearching true");
       switch (event.code) {
         case "ArrowDown":
         case "Enter":
@@ -79,6 +81,8 @@ export const useArrowNavigation = ({
           customSelectButtonRef.current?.focus();
       }
     } else {
+      // eslint-disable-next-line no-console
+      console.log("isSearching false");
       switch (event.code) {
         case "ArrowDown":
           if (!expanded) {
@@ -159,11 +163,11 @@ export const useSelectPositionList = ({
       window.innerHeight - containerReference.current.getBoundingClientRect().top;
 
     // Set position as if there's more space on the bottom
-    let position: Position = { top: 0, bottom: "initial" };
+    let position: Position = { top: 44, bottom: "initial" };
 
     // Set the position of the select
     if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
-      position = { top: "initial", bottom: 0 };
+      position = { top: "initial", bottom: 44 };
     }
 
     setListPosition(position);

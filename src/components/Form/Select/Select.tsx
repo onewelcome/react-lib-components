@@ -146,8 +146,12 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     function _internalRenderChildren(internalChildren: ReactElement[]) {
       return React.Children.map(internalChildren, (child, index) => {
         return React.cloneElement(child, {
-          onFocusChange: (childIndex: number) => setFocusedSelectItem(childIndex),
+          onFocusChange: (childIndex: number) => {
+            setFocusedSelectItem(childIndex);
+          },
           onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
+            // eslint-disable-next-line no-console
+            console.log("onOptionSelect");
             onOptionChangeHandler(optionRef);
             setShouldClick(false);
           },
@@ -161,6 +165,9 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
       });
     }
   };
+
+  const shouldRenderSearch =
+    expanded && Array.isArray(children) && children.length > renderSearchCondition;
 
   const renderSearch = () => (
     <Input
@@ -236,6 +243,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           className ?? ""
         }`}
       >
+        {shouldRenderSearch && renderSearch()}
         <button
           {...selectButtonProps}
           onClick={() => {
@@ -245,6 +253,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           type="button"
           name={name}
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
+          style={{ display: shouldRenderSearch ? "none" : "initial" }}
           disabled={disabled}
           aria-disabled={disabled}
           aria-invalid={error}
@@ -261,6 +270,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             {icon || <Icon className={classes["triangle-down"]} icon={Icons.ChevronDown} />}
           </div>
         </button>
+
         <div
           ref={optionListReference}
           className={`list-wrapper ${classes["list-wrapper"]}`}
@@ -272,7 +282,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             ...listPosition
           }}
         >
-          {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()}
+          {/* {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()} */}
           <ul role="listbox">{renderOptions()}</ul>
         </div>
       </div>
