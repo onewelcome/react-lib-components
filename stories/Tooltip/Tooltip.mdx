@@ -5,16 +5,23 @@ import * as TooltipStories from "./Tooltip.stories.tsx";
 <Title />
 <Subtitle />
 
-The `Tooltip` component is used to give the end user information related to an element on the page. For instance, it might be used to give information about an input field in a form. It uses the [usePosition hook](/docs/hooks-useposition--page) under the hood
-and therefor also accepts the `placement`, `transformOrigin` and `offset` props.
+The `Tooltip` component is used to give the end user information related to an element on the page. For instance, it might be used to give information about an input field in a form. It uses the [usePosition hook](/docs/hooks-useposition--page) under the hood.
+In order to place the tooltip according to how you would like, you can use the `location` and `position` props. The `location` prop defines **where** the tooltip should be placed. The `position` prop defines **how** the tooltip should be placed. For instance, if you set `location="top"` and `position="center"`, the tooltip will be placed above the element, and centered horizontally. If you set `location="top"` and `position="left"`, the tooltip will be placed above the element, and aligned to the left of the element. The `location` prop can be one of `top`, `bottom`, `left`, or `right`. The `position` prop can be one of `start`, `center`, or `end`. The `start` position is the top or left side of the element, depending on the `location` prop. The `end` position is the bottom or right side of the element, depending on the `location` prop. The `center` position is the center of the element.
 
 You can define a `label` prop which displays text, followed by an <Icon icon={Icons.InfoCircle} /> icon. The contents in between the `<Tooltip></Tooltip>` tags becomes the content of the popup that appears when you hover over the icon.
 
 # Examples
 
-<Canvas>
-  <Story of={TooltipStories.Tooltip} />
-</Canvas>
+```tsx
+import React from "react";
+import Tooltip from "@onewelcome/react-lib-components";
+
+const Example = () => (
+  <Tooltip title="Example tooltip" label="This is a tooltip" location="top" position="center">
+    This is the content that will be displayed when you hover over the icon.
+  </Tooltip>
+);
+```
 
 # Props
 
