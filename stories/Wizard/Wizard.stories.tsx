@@ -16,7 +16,7 @@
 
 import React, { Fragment, useState } from "react";
 import { Meta } from "@storybook/react";
-import { Wizard, Props } from "../../src/components/Wizard/Wizard";
+import { Wizard } from "../../src/components/Wizard/Wizard";
 import { WizardSteps } from "../../src/components/Wizard/WizardSteps/WizardSteps";
 import {
   WizardActions,

@@ -73,57 +73,35 @@ Whenever the user clicks on one of the steps, this function will fire with the s
 
 ## `<WizardActions />`
 
-Wizard actions allow you to render different buttons based on what step the user is on. The following buttons will be rendered:
-
-- Cancel (always available)
-- Previous (available if there's a previous step to go to)
-- Next (available if there's a next step to go to)
-- Save & Close (available on the last step)
-
-The `WizardActions` component will accept the following props:
+The Wizard `actions` prop allows you to determine some button properties that are handled by the Wizard. The following buttons will be rendered:
 
 ```tsx
-cancelButtonLabel: string;
-previousButtonLabel: string;
-nextButtonLabel: string;
-saveAndCloseButtonLabel: string;
-onCancel: () => void;
-onNext: (currentStepNo: number) => boolean;
-onPrevious?: () => void;
-onSaveAndClose: (currentStepNo: number) => void;
+actions: {
+  cancel: {
+    label: string;
+    onClick: () => void;
+    hide: boolean;
+    cancelbuttonProps: ButtonProps;
+  },
+  previous: {
+    label: string;
+    onClick: () => void;
+    previousButtonProps: ButtonProps;
+  },
+  next: {
+    label: string;
+    onClick: () => void;
+    nextButtonProps: ButtonProps;
+  },
+  saveAndClose: {
+    label: string;
+    onClick: () => void;
+    saveAndCloseButtonProps: ButtonProps;
+  }
+}
 ```
 
-### `cancelButtonLabel`
-
-The label for the Cancel button.
-
-### `previousButtonLabel`
-
-The label for the Previous button.
-
-### `nextButtonLabel`
-
-The label for the Next button.
-
-### `saveAndCloseButtonLabel`
-
-The label for the Save & Close button.
-
-### `onCancel`
-
-A function will be executed as soon as the user clicks the Cancel button. You can use this to, for example, close the modal that the `Wizard` is in.
-
-### `onNext`
-
-A function will be executed when the user clicks on the Next button. Use this to update the active step state you've created to go to the next step.
-
-### `onPrevious`
-
-A function will be executed when the user clicks on the Previous button. Use this to update the active step state you've created to go to the previous step.
-
-### `onSaveAndClose`
-
-A function will be executed when the user clicks the Save & Close button. Gets the current step number as an argument.
+Because of the possibility of the Wizard component being rendered in a model (see [Wizard in Modal story](/story/components-layout-wizard-wizard--wizard-in-modal)) it might be that you want to hide the cancel button and use the one in the modal to handle the cancel action.
 
 ## Examples
 
@@ -191,14 +169,24 @@ export const StepForm = ({ onCloseModal }: Props) => {
 
       <footer>
         <WizardActions
-          cancelButtonLabel="Cancel"
-          nextButtonLabel="Next"
-          onCancel={onCloseModal}
-          onNext={onNextStepHandler}
-          onPrevious={onPreviousStepHandler}
-          onSaveAndClose={onSubmitHandler}
-          previousButtonLabel="Previous"
-          saveAndCloseButtonLabel="Save & close"
+          actions={{
+            cancel: {
+              label: "Cancel",
+              onClick: onCloseModal,
+            },
+            previous: {
+              label: "Previous",
+              onClick: onPreviousStepHandler
+            },
+            next: {
+              label: "Next",
+              onClick: onNextStepHandler
+            },
+            saveAndClose: {
+              label: "Save and close",
+              onClick: onSubmitHandler
+            }
+          }}
         />
       </footer>
 
