@@ -22,108 +22,6 @@ $borderRadius: 2.5rem;
   display: flex;
   align-items: center;
   position: relative;
-
-  label {
-    white-space: nowrap;
-  }
-
-  &--left {
-    > div > div {
-      flex-direction: row-reverse;
-      position: relative;
-
-      input {
-        left: initial;
-        right: 0;
-      }
-
-      label {
-        margin-left: 0;
-        margin-right: 0.5rem;
-      }
-
-      + div {
-        margin-left: 0;
-      }
-    }
-  }
-
-  &--hide-label {
-    > div > div {
-      label {
-        display: none;
-      }
-
-      + div {
-        margin-left: 0;
-      }
-    }
-  }
-
-  &--wrap {
-    label {
-      white-space: wrap;
-    }
-  }
-
-  &--neutral {
-    input:checked + span {
-      background-color: var(--color-blue-grey500);
-    }
-
-    input + span {
-      &:after {
-        color: var(--color-blue-grey500);
-      }
-    }
-  }
-
-  &--between {
-    width: 100%;
-
-    > div {
-      width: 100%;
-
-      > div {
-        justify-content: space-between;
-      }
-    }
-
-    &.toggle-wrapper--right {
-      > div > div {
-        + div {
-          margin-left: 0;
-          text-align: right;
-        }
-      }
-    }
-  }
-
-  &--disabled {
-    input + span {
-      background-color: var(--color-blue-grey50);
-
-      &:before {
-        background-color: var(--color-blue-grey200);
-      }
-
-      &:after {
-        color: var(--color-blue-grey50);
-      }
-    }
-
-    input:checked + span {
-      background-color: var(--color-blue-grey200);
-
-      &:before {
-        background-color: var(--color-blue-grey50);
-      }
-
-      &:after {
-        color: var(--color-blue-grey200);
-      }
-    }
-  }
 }
 
 .toggle {
@@ -151,32 +49,15 @@ $borderRadius: 2.5rem;
     @include mixins.transition(transform, 0.2s, ease-in-out);
   }
 
-  &:after {
-    content: "\e927";
-    font-family: "icomoon";
-    position: absolute;
-    font-size: 7px;
-    top: 47%;
-    left: 0.4rem;
-    transform: translateY(-50%) translateX(0);
-    color: var(--color-primary);
-    @include mixins.transition(transform, 0.2s, ease-in-out);
-  }
-
   &.checked {
     background-color: var(--color-primary);
-
     &:before {
       transform: translateY(-50%) translateX(calc(100% - 0.25rem));
-    }
-
-    &:after {
-      transform: translateY(-50%) translateX(calc(170%));
-      content: "\e938";
     }
   }
 
   &.disabled {
+    background-color: var(--disabled);
     cursor: not-allowed;
   }
 }
@@ -200,8 +81,6 @@ $borderRadius: 2.5rem;
   input:focus-visible {
     + * {
       border-radius: $borderRadius;
-      outline-offset: 2px;
-      outline-width: 2px;
     }
   }
 }

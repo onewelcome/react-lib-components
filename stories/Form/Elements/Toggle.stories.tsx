@@ -63,11 +63,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => (
-  <div style={{ width: "200px" }}>
-    <ToggleComponent {...args} />
-  </div>
-);
+const Template: Story<Props> = args => <ToggleComponent {...args} />;
 
 export const Toggle = Template.bind({});
 
@@ -75,43 +71,4 @@ Toggle.args = {
   name: "Example toggle",
   label: "Toggle label",
   helperProps: { children: <a href="https://www.google.com">Test</a> }
-};
-
-export const ToggleLabelLeft = Template.bind({});
-
-ToggleLabelLeft.args = {
-  ...Toggle.args,
-  labelPosition: "left"
-};
-
-export const ToggleLabelHidden = Template.bind({});
-ToggleLabelHidden.args = {
-  ...Toggle.args,
-  hideLabel: true
-};
-
-export const ToggleLabelOverflow = Template.bind({});
-ToggleLabelOverflow.args = {
-  ...Toggle.args,
-  label: "This is a very long label that will overflow the toggle.",
-  labelOverflow: "wrap"
-};
-
-export const ToggleVersionNeutral = Template.bind({});
-ToggleVersionNeutral.args = {
-  ...Toggle.args,
-  version: "neutral",
-  checked: true
-};
-
-export const ToggleSpacingBetween = Template.bind({});
-ToggleSpacingBetween.args = {
-  ...Toggle.args,
-  spacing: "between"
-};
-
-export const ToggleDisabled = Template.bind({});
-ToggleDisabled.args = {
-  ...Toggle.args,
-  disabled: true
 };
