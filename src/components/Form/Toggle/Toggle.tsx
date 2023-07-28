@@ -22,14 +22,38 @@ export interface Props
   extends ComponentPropsWithRef<"input">,
     Omit<CheckboxProps, "indeterminate" | "errorMessage" | "error" | "label"> {
   label?: string | React.ReactElement;
+  labelPosition?: "left" | "right";
+  hideLabel?: boolean;
+  labelOverflow?: "wrap" | "nowrap";
+  version?: "emphasis" | "neutral";
+  spacing?: "packed" | "between";
 }
 
 const ToggleComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
-  { checked, disabled, helperProps, className, label, ...rest }: Props,
+  {
+    checked,
+    disabled,
+    helperProps,
+    className,
+    label,
+    labelPosition = "right",
+    hideLabel = false,
+    labelOverflow = "nowrap",
+    version = "emphasis",
+    spacing = "packed",
+    ...rest
+  }: Props,
   ref
 ) => {
   const classNames = [classes["toggle-wrapper"]];
   className && classNames.push(className);
+  classNames.push(classes[`toggle-wrapper--${labelPosition}`]);
+  hideLabel && classNames.push(classes["toggle-wrapper--hide-label"]);
+  classNames.push(classes[`toggle-wrapper--${labelOverflow}`]);
+  classNames.push(classes[`toggle-wrapper--${version}`]);
+  classNames.push(classes[`toggle-wrapper--${spacing}`]);
+  disabled && classNames.push(classes["toggle-wrapper--disabled"]);
+
   return (
     <div className={classNames.join(" ")}>
       <Checkbox
