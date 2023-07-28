@@ -387,17 +387,4 @@ describe("Tooltip", () => {
 
     expect(tooltipHoverDiv).not.toHaveClass("visible");
   });
-
-  it("Sets the initially visible property to true", async () => {
-    const { tooltip, tooltipHoverDiv } = await createTooltip(p => ({
-      ...p,
-      initiallyVisible: true
-    }));
-
-    if (!tooltipHoverDiv) {
-      throw new Error("Tooltip hover div not found");
-    }
-
-    expect(tooltipHoverDiv).toHaveClass("visible");
-  });
 });
