@@ -174,7 +174,7 @@ const ExampleComponent = () => {
   const [checked, setChecked] = useState(false);
 
   return (
-    <Toggle onChange={setChecked(!checked)} checked={checked} helperText="Example helper text">
+    <Toggle name="test" onChange={() => setChecked(!checked)} checked={checked} helperText="Example helper text">
       Example toggle
     </Toggle>;
   )

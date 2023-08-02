@@ -155,7 +155,7 @@ $borderRadius: 2.5rem;
     content: "\e927";
     font-family: "icomoon";
     position: absolute;
-    font-size: 7px;
+    font-size: 0.4375rem;
     top: 47%;
     left: 0.4rem;
     transform: translateY(-50%) translateX(0);
@@ -200,8 +200,8 @@ $borderRadius: 2.5rem;
   input:focus-visible {
     + * {
       border-radius: $borderRadius;
-      outline-offset: 2px;
-      outline-width: 2px;
+      outline-offset: 0.125rem;
+      outline-width: 0.125rem;
     }
   }
 }

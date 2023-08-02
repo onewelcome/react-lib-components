@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { Toggle as ToggleComponent } from "../../../src/components/Form/Toggle/Toggle";
 import { Props } from "../../../src/components/Form/Checkbox/Checkbox";
@@ -63,11 +63,15 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => (
-  <div style={{ width: "200px" }}>
-    <ToggleComponent {...args} />
-  </div>
-);
+const Template: Story<Props> = args => {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <div style={{ width: "200px" }}>
+      <ToggleComponent onChange={() => setChecked(!checked)} checked={checked} {...args} />
+    </div>
+  );
+};
 
 export const Toggle = Template.bind({});
 
