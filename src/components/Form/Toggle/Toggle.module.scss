@@ -24,6 +24,7 @@ $borderRadius: 2.5rem;
   position: relative;
 
   label {
+    margin-top: 0.0625rem;
     white-space: nowrap;
   }
 
@@ -62,7 +63,7 @@ $borderRadius: 2.5rem;
 
   &--wrap {
     label {
-      white-space: wrap;
+      white-space: normal;
     }
   }
 
@@ -188,6 +189,10 @@ $borderRadius: 2.5rem;
 .checkbox {
   z-index: 10;
   position: static;
+  & > div {
+    display: flex;
+    align-items: flex-start;
+  }
 
   input {
     width: 2rem;
