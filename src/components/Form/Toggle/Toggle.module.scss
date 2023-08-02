@@ -189,7 +189,7 @@ $borderRadius: 2.5rem;
 .checkbox {
   z-index: 10;
   position: static;
-  & > div {
+  & > div:first-child {
     display: flex;
     align-items: flex-start;
   }
