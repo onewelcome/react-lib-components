@@ -15,8 +15,8 @@
  */
 
 export type Position = {
-  top: number | "initial";
-  bottom: number | "initial";
+  top: number | `${number}rem` | "initial";
+  bottom: number | `${number}rem` | "initial";
 };
 
 export interface UseArrowNavigationParams {

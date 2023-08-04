@@ -29,8 +29,8 @@ $listItemHeight: 2.125rem;
   font-size: var(--form-control-font-size);
 
   [data-display] {
-    color: var(--greyed-out);
-    font-family: var(--form-control-font-size);
+    color: var(--color-default);
+    font-family: var(--font-family);
   }
 
   &.expanded {
@@ -43,10 +43,7 @@ $listItemHeight: 2.125rem;
     button:focus:not(.error) {
       border: var(--input-border-width-focus) solid var(--color-focus);
       padding: 0
-        calc(
-          variables.$form-element-horizontal-padding-mobile - var(--input-border-width-focus) +
-            var(--input-border-width)
-        );
+        calc(variables.$form-element-horizontal-padding-mobile - var(--input-border-width-focus));
     }
   }
 
@@ -62,7 +59,7 @@ $listItemHeight: 2.125rem;
     position: relative;
     width: 100%;
     min-height: calc(2.625rem - (2 * var(--input-border-width)));
-    padding: 0 variables.$form-element-horizontal-padding-mobile;
+    padding: 0 calc(variables.$form-element-horizontal-padding-mobile - var(--input-border-width));
     background-color: transparent;
     border-color: var(--color-blue-grey500);
     border-style: var(--input-border-style);
@@ -86,7 +83,7 @@ $listItemHeight: 2.125rem;
     }
 
     &.disabled {
-      border-color: var(--color-blue-grey100);
+      border-color: var(--color-disabled);
     }
   }
 
@@ -123,8 +120,8 @@ $listItemHeight: 2.125rem;
     max-height: calc($listItemHeight * 10);
 
     li {
-      padding: 0.5rem 1rem;
-      font-size: var(--font-size);
+      padding: 0.5rem 0.75rem;
+      font-size: var(--form-control-font-size);
       margin: 0;
       position: relative;
       line-height: var(--default-line-height);
@@ -142,12 +139,17 @@ $listItemHeight: 2.125rem;
       }
 
       &:focus {
-        outline: 1px solid var(--color-primary);
-        outline-offset: -1px;
+        outline: 2px solid var(--color-primary300);
+        outline-offset: -2px;
       }
 
-      &:hover:after {
+      &:hover:after,
+      &:active:after {
         background-color: var(--color-primary);
+      }
+
+      &:active:after {
+        opacity: 0.1;
       }
 
       &.disabled {
@@ -165,11 +167,12 @@ $listItemHeight: 2.125rem;
     position: absolute;
     top: 0;
     left: 0;
-    background-color: var(--color-primary);
-    width: 100%;
     height: 100%;
-    opacity: 0.1;
+    border-top-right-radius: 0.125rem;
+    border-bottom-right-radius: 0.125rem;
+    border-left: 0.25rem solid var(--color-primary);
   }
+  color: var(--color-primary);
 }
 
 .selected {
@@ -197,7 +200,7 @@ $listItemHeight: 2.125rem;
     font-size: 1.25rem;
   }
 
-  .triangle-down {
+  .chevron-icon {
     color: var(--default);
     font-size: 0.625rem;
   }
@@ -211,11 +214,8 @@ $listItemHeight: 2.125rem;
   color: var(--greyed-out);
 }
 
-.select-search-wrapper + ul {
-  border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
-}
-
 .select-search {
+  position: relative;
   width: 100%;
   box-sizing: border-box;
   border-bottom-left-radius: 0;
@@ -235,16 +235,14 @@ $listItemHeight: 2.125rem;
 @media only screen and (min-width: 30em) {
   .select {
     .custom-select {
-      padding: 0 variables.$form-element-horizontal-padding-desktop;
+      padding: 0
+        calc(variables.$form-element-horizontal-padding-desktop - var(--input-border-width));
     }
 
     &:not(.expanded) {
       button:focus:not(.error) {
         padding: 0
-          calc(
-            variables.$form-element-horizontal-padding-desktop - var(--input-border-width-focus) +
-              var(--input-border-width)
-          );
+          calc(variables.$form-element-horizontal-padding-desktop - var(--input-border-width-focus));
       }
     }
   }

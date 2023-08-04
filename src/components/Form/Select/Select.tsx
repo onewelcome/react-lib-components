@@ -172,20 +172,30 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const renderSearch = () => (
     <Input
       {...searchInputProps}
-      autoFocus
       ref={searchInputRef}
       onFocus={() => setIsSearching(true)}
       onBlur={() => setIsSearching(false)}
       onChange={filterResults}
       className={classes["select-search"]}
       wrapperProps={{
-        className: `${classes["select-search-wrapper"]} ${searchInputProps?.wrapperProps?.className}`
+        className: searchInputProps?.wrapperProps?.className
+      }}
+      style={{
+        display: expanded ? "block" : "none"
       }}
       type="text"
       name="search-option"
       placeholder={searchPlaceholder}
     />
   );
+
+  const renderChevronIcon = () => {
+    return expanded ? (
+      <Icon className={classes["chevron-icon"]} icon={Icons.ChevronUp} />
+    ) : (
+      <Icon className={classes["chevron-icon"]} icon={Icons.ChevronDown} />
+    );
+  };
 
   const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(event.currentTarget.value);
@@ -243,7 +253,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           className ?? ""
         }`}
       >
-        {shouldRenderSearch && renderSearch()}
+        {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()}
         <button
           {...selectButtonProps}
           onClick={() => {
@@ -266,9 +276,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             {!value && placeholder && <span className={classes["placeholder"]}>{placeholder}</span>}
             {value?.length > 0 && <span data-display-inner>{display}</span>}
           </div>
-          <div className={classes["status"]}>
-            {icon || <Icon className={classes["triangle-down"]} icon={Icons.ChevronDown} />}
-          </div>
+          <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </button>
 
         <div
@@ -282,7 +290,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             ...listPosition
           }}
         >
-          {/* {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()} */}
           <ul role="listbox">{renderOptions()}</ul>
         </div>
       </div>

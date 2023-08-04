@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import {
   SelectWrapper as SelectWrapperComponent,
@@ -64,8 +64,6 @@ const Template: Story<Props> = args => {
       <Option value="option7">Option 7</Option>
       <Option value="option8">Option 8</Option>
       <Option value="option9">Option 9</Option>
-      <Option value="option10">Option 10</Option>
-      <Option value="option11">Option 11</Option>
     </SelectWrapperComponent>
   );
 };

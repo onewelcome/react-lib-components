@@ -60,10 +60,7 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
   let innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
 
   useEffect(() => {
-    // console.log("on click option", isSelected, innerOptionRef.current, shouldClick);
     if (isSelected && innerOptionRef.current && shouldClick) {
-      // eslint-disable-next-line no-console
-      console.log("clicked");
       innerOptionRef.current.click();
     }
   }, [isSelected, shouldClick]);
@@ -75,12 +72,7 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
     }
   }, [hasFocus, innerOptionRef, selectOpened, isSearching]);
 
-  const onSelectHandler = () => {
-    // eslint-disable-next-line no-console
-    console.log("here");
-
-    if (onOptionSelect) onOptionSelect(innerOptionRef);
-  };
+  const onSelectHandler = () => onOptionSelect?.(innerOptionRef);
 
   return (
     <li
