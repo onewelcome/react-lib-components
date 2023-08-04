@@ -266,7 +266,7 @@ describe("List expansion", () => {
       await userEvent.click(button);
     }
 
-    expect(dropdownWrapper).toHaveStyle({ bottom: "44px" });
+    expect(dropdownWrapper).toHaveStyle({ bottom: "2.75rem" });
   });
 
   it("should expand downwards with a max height set", async () => {
@@ -304,7 +304,7 @@ describe("List expansion", () => {
     await userEvent.click(button);
 
     expect(dropdownWrapper).toHaveStyle({ maxHeight: "474px" });
-    expect(dropdownWrapper).toHaveStyle({ top: "44px" });
+    expect(dropdownWrapper).toHaveStyle({ top: "2.75rem" });
   });
 });
 

@@ -92,13 +92,9 @@ $listItemHeight: 2.125rem;
     border-style: var(--input-border-style);
     border-width: var(--input-border-width);
     border-radius: var(--input-border-radius);
-    // box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
     box-shadow: 0px 4px 5px 0px #01053233;
-
     box-shadow: 0px 3px 14px 0px #0105321f;
-
     box-shadow: 0px 8px 10px 0px #01053224;
-
     position: absolute;
     z-index: 11;
     top: 44px;
@@ -139,8 +135,8 @@ $listItemHeight: 2.125rem;
       }
 
       &:focus {
-        outline: 2px solid var(--color-primary300);
-        outline-offset: -2px;
+        outline: var(--input-border-width-focus) solid var(--color-primary300);
+        outline-offset: -var(--input-border-width-focus);
       }
 
       &:hover:after,
