@@ -42,14 +42,24 @@ const initWizardState: WizardStateType = {
 };
 
 const initParams: Props = {
-  cancelButtonLabel: "Cancel",
-  previousButtonLabel: "Previous",
-  nextButtonLabel: "Next",
-  saveAndCloseButtonLabel: "Save & Close",
-  onCancel: jest.fn(),
-  onNext: jest.fn(),
-  onPrevious: jest.fn(),
-  onSaveAndClose: jest.fn()
+  actions: {
+    cancel: {
+      label: "Cancel",
+      onClick: jest.fn()
+    },
+    next: {
+      label: "Next",
+      onClick: jest.fn()
+    },
+    previous: {
+      label: "Previous",
+      onClick: jest.fn()
+    },
+    saveAndClose: {
+      label: "Save and close",
+      onClick: jest.fn()
+    }
+  }
 };
 
 const renderWizardActions = (initReducerState?: WizardStateType, props?: Props) => {
@@ -79,10 +89,10 @@ const renderWizardActions = (initReducerState?: WizardStateType, props?: Props) 
 };
 
 const getActionsButtons = (container: HTMLElement) => {
-  const cancel = queryByRole(container, "button", { name: initParams.cancelButtonLabel });
-  const next = queryByRole(container, "button", { name: initParams.nextButtonLabel });
-  const prev = queryByRole(container, "button", { name: initParams.previousButtonLabel });
-  const save = queryByRole(container, "button", { name: initParams.saveAndCloseButtonLabel });
+  const cancel = queryByRole(container, "button", { name: initParams.actions.cancel.label });
+  const next = queryByRole(container, "button", { name: initParams.actions.next.label });
+  const prev = queryByRole(container, "button", { name: initParams.actions.previous.label });
+  const save = queryByRole(container, "button", { name: initParams.actions.saveAndClose.label });
   return { cancel, next, prev, save };
 };
 
@@ -90,7 +100,9 @@ describe("WizardActions", () => {
   it("renders without crashing", async () => {
     const { container, dispatch } = renderWizardActions();
     const { cancel, prev, next, save } = getActionsButtons(container);
-    (initParams.onNext as jest.MockedFunction<typeof initParams.onNext>).mockReturnValueOnce(true);
+    (
+      initParams.actions.next.onClick as jest.MockedFunction<typeof initParams.actions.next.onClick>
+    ).mockReturnValueOnce(true);
 
     expect(cancel).toBeDefined();
     cancel && (await userEvent.click(cancel));
@@ -99,24 +111,26 @@ describe("WizardActions", () => {
     expect(prev).toBeNull();
     expect(save).toBeNull();
 
-    expect(initParams.onCancel).toBeCalledTimes(1);
-    expect(initParams.onNext).toHaveBeenCalledWith(0);
+    expect(initParams.actions.cancel.onClick).toBeCalledTimes(1);
+    expect(initParams.actions.next.onClick).toHaveBeenCalledWith(0);
     expect(dispatch).toBeCalledWith(changeCurrentStepNo(1));
   });
 
   it("should allow going prev and forward when there are prev step and next step (next step is disabled but next one can be used)", async () => {
     const { container, dispatch } = renderWizardActions({ ...initWizardState, currentStepNo: 1 });
     const { cancel, prev, next, save } = getActionsButtons(container);
-    (initParams.onNext as jest.MockedFunction<typeof initParams.onNext>).mockReturnValueOnce(true);
+    (
+      initParams.actions.next.onClick as jest.MockedFunction<typeof initParams.actions.next.onClick>
+    ).mockReturnValueOnce(true);
 
     expect(prev).toBeDefined();
     prev && (await userEvent.click(prev));
-    expect(initParams.onPrevious).toBeCalled();
+    expect(initParams.actions.previous.onClick).toBeCalled();
     expect(dispatch).toBeCalledWith(changeCurrentStepNo(0));
 
     expect(next).toBeDefined();
     next && (await userEvent.click(next));
-    expect(initParams.onNext).toHaveBeenCalledWith(1);
+    expect(initParams.actions.next.onClick).toHaveBeenCalledWith(1);
     expect(dispatch).toBeCalledWith(changeCurrentStepNo(3));
 
     expect(cancel).toBeDefined();
@@ -133,7 +147,7 @@ describe("WizardActions", () => {
     expect(save).toBeDefined();
 
     save && (await userEvent.click(save));
-    expect(initParams.onSaveAndClose).toHaveBeenCalledWith(3);
+    expect(initParams.actions.saveAndClose.onClick).toHaveBeenCalledWith(3);
   });
 
   it("should show save and close when next steps are disabled", async () => {
@@ -155,7 +169,7 @@ describe("WizardActions", () => {
     expect(save).toBeDefined();
 
     save && (await userEvent.click(save));
-    expect(initParams.onSaveAndClose).toHaveBeenCalledWith(0);
+    expect(initParams.actions.saveAndClose.onClick).toHaveBeenCalledWith(0);
   });
 
   it("should show save button on middle step when mode is `edit`", async () => {
@@ -168,16 +182,18 @@ describe("WizardActions", () => {
     expect(save).toBeDefined();
 
     save && (await userEvent.click(save));
-    expect(initParams.onSaveAndClose).toHaveBeenCalledWith(0);
+    expect(initParams.actions.saveAndClose.onClick).toHaveBeenCalledWith(0);
   });
 
   it("should not allow going forward when dev returns false on onNext callback", async () => {
     const { container, dispatch } = renderWizardActions();
     const { next } = getActionsButtons(container);
-    (initParams.onNext as jest.MockedFunction<typeof initParams.onNext>).mockReturnValueOnce(false);
+    (
+      initParams.actions.next.onClick as jest.MockedFunction<typeof initParams.actions.next.onClick>
+    ).mockReturnValueOnce(false);
 
     next && (await userEvent.click(next));
-    expect(initParams.onNext).toHaveBeenCalledWith(0);
+    expect(initParams.actions.next.onClick).toHaveBeenCalledWith(0);
     expect(dispatch).not.toBeCalled();
   });
 });

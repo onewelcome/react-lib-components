@@ -15,21 +15,36 @@
  */
 
 import React, { Fragment, useContext, useMemo } from "react";
-import { Button } from "../../Button/Button";
+import { Button, Props as ButtonProps } from "../../Button/Button";
 import { Step } from "../BaseWizardSteps/BaseWizardSteps";
 import { WizardMode } from "../Wizard";
 import { WizardStateContext } from "../WizardStateProvider";
 import { changeCurrentStepNo } from "../wizardStateReducer";
 
 export interface Props extends React.HTMLProps<HTMLDivElement> {
-  cancelButtonLabel: string;
-  previousButtonLabel: string;
-  nextButtonLabel: string;
-  saveAndCloseButtonLabel: string;
-  onCancel: () => void;
-  onNext: (currentStepNo: number) => boolean;
-  onPrevious?: () => void;
-  onSaveAndClose: (currentStepNo: number) => void;
+  actions: {
+    cancel: {
+      label?: string;
+      hide?: boolean;
+      onClick?: () => void;
+      cancelButtonProps?: ButtonProps;
+    };
+    previous: {
+      label: string;
+      onClick: () => void;
+      previousButtonProps?: ButtonProps;
+    };
+    next: {
+      label: string;
+      onClick: (currentStepNo: number) => boolean;
+      nextButtonProps?: ButtonProps;
+    };
+    saveAndClose: {
+      label: string;
+      onClick: (currentStepNo: number) => void;
+      saveAndCloseButtonProps?: ButtonProps;
+    };
+  };
 }
 
 const calculateNextStepNo = (steps: Step[], currentStepNo: number) => () =>
@@ -52,16 +67,7 @@ const useNextStepNo = (mode: WizardMode, currentStepNo: number, steps: Step[]) =
 const usePreviousStepNo = (mode: WizardMode, currentStepNo: number, steps: Step[]) =>
   useMemo(calculatePrevStepNo(steps, currentStepNo), [mode, currentStepNo, steps]);
 
-export const WizardActions = ({
-  onCancel,
-  onNext,
-  onPrevious,
-  onSaveAndClose,
-  cancelButtonLabel,
-  previousButtonLabel,
-  nextButtonLabel,
-  saveAndCloseButtonLabel
-}: Props) => {
+export const WizardActions = ({ actions }: Props) => {
   const {
     state: { mode, steps, currentStepNo },
     dispatch
@@ -81,35 +87,41 @@ export const WizardActions = ({
   };
 
   const onNextWrapper = () => {
-    onNext(currentStepNo) && changeStepNo("forward");
+    actions.next.onClick(currentStepNo) && changeStepNo("forward");
   };
 
   const onPreviousWrapper = () => {
-    onPrevious?.();
+    actions.previous.onClick?.();
     changeStepNo("backward");
   };
 
   const onSaveAndCloseWrapper = () => {
-    onSaveAndClose(currentStepNo);
+    actions.saveAndClose.onClick(currentStepNo);
   };
 
   return (
     <Fragment>
-      <Button variant="text" onClick={onCancel}>
-        {cancelButtonLabel}
-      </Button>
+      {!actions.cancel.hide && (
+        <Button
+          variant="text"
+          onClick={actions.cancel.onClick}
+          {...actions.cancel.cancelButtonProps}
+        >
+          {actions.cancel.label}
+        </Button>
+      )}
       {hasPreviousStep && (
         <Button variant="outline" onClick={onPreviousWrapper}>
-          {previousButtonLabel}
+          {actions.previous.label}
         </Button>
       )}
       {hasNextStep && (
         <Button variant={mode === "edit" ? "outline" : "fill"} onClick={onNextWrapper}>
-          {nextButtonLabel}
+          {actions.next.label}
         </Button>
       )}
       {isLastStepOrEditMode && (
-        <Button onClick={onSaveAndCloseWrapper}>{saveAndCloseButtonLabel}</Button>
+        <Button onClick={onSaveAndCloseWrapper}>{actions.saveAndClose.label}</Button>
       )}
     </Fragment>
   );

@@ -16,9 +16,12 @@
 
 import React, { Fragment, useState } from "react";
 import { Meta } from "@storybook/react";
-import { Wizard, Props } from "../../src/components/Wizard/Wizard";
+import { Wizard } from "../../src/components/Wizard/Wizard";
 import { WizardSteps } from "../../src/components/Wizard/WizardSteps/WizardSteps";
-import { WizardActions } from "../../src/components/Wizard/WizardActions/WizardActions";
+import {
+  WizardActions,
+  Props as WizardActionsProps
+} from "../../src/components/Wizard/WizardActions/WizardActions";
 import { Button } from "../../src/components/Button/Button";
 
 import { Step } from "../../src/components/Wizard/BaseWizardSteps/BaseWizardSteps";
@@ -64,25 +67,42 @@ const meta: Meta = {
   }
 };
 
+const onNext = (stepNo: number) => {
+  if (stepNo === 3) {
+    return window.confirm("Does the validation passed?");
+  }
+  return true;
+};
+
+const onSaveAndClose = (stepNo: number) => {
+  alert("Save clicked");
+};
+
+const wizardActionsProps: WizardActionsProps = {
+  actions: {
+    cancel: {
+      label: "Cancel",
+      onClick: () => alert("Cancel clicked")
+    },
+    previous: {
+      label: "Previous",
+      onClick: () => true
+    },
+    next: {
+      label: "Next",
+      onClick: onNext
+    },
+    saveAndClose: {
+      label: "Save & close",
+      onClick: onSaveAndClose
+    }
+  }
+};
+
 export default meta;
 
 const Template = args => {
   const [step, setStep] = useState(args.initialStepNo);
-
-  const onNext = (stepNo: number) => {
-    if (stepNo === 3) {
-      return window.confirm("Does the validation passed?");
-    }
-    return true;
-  };
-
-  const onCancel = () => {
-    alert("Cancel clicked");
-  };
-
-  const onSaveAndClose = (stepNo: number) => {
-    alert("Save clicked");
-  };
 
   return (
     <Wizard {...args} onStepChange={(stepNo: number) => setStep(stepNo)}>
@@ -93,15 +113,7 @@ const Template = args => {
         <p>Step {step! + 1} content.</p>
       </div>
       <div>
-        <WizardActions
-          cancelButtonLabel="Cancel"
-          previousButtonLabel="Previous"
-          nextButtonLabel="Next"
-          saveAndCloseButtonLabel="Save & close"
-          onNext={onNext}
-          onCancel={onCancel}
-          onSaveAndClose={onSaveAndClose}
-        />
+        <WizardActions {...wizardActionsProps} />
       </div>
     </Wizard>
   );
@@ -132,22 +144,6 @@ const WizardModalTemplate = () => {
     const newSteps = [...steps];
     newSteps[1] = { ...newSteps[1], disabled: !checkboxChecked };
     setSteps(newSteps);
-  };
-
-  const onNext = (stepNo: number) => {
-    if (stepNo === 1) {
-      if (exampleInput.length === 0) {
-        setExampleInputError(true);
-        return false;
-      }
-      setExampleInputError(false);
-    }
-    return true;
-  };
-
-  const onSaveAndClose = (stepNo: number) => {
-    alert("Wizard saved!");
-    onClose();
   };
 
   const onClose = () => setOpen(false);
@@ -239,15 +235,7 @@ const WizardModalTemplate = () => {
             </form>
           </ModalContent>
           <ModalActions onClose={onClose}>
-            <WizardActions
-              cancelButtonLabel="Cancel"
-              previousButtonLabel="Previous"
-              nextButtonLabel="Next"
-              saveAndCloseButtonLabel="Save & close"
-              onNext={onNext}
-              onCancel={onClose}
-              onSaveAndClose={onSaveAndClose}
-            />
+            <WizardActions actions={{ ...wizardActionsProps.actions, cancel: { hide: true } }} />
           </ModalActions>
         </Wizard>
       </Modal>
