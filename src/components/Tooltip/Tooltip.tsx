@@ -35,7 +35,7 @@ import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../hooks/useGetDomRoot";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
-  label: string | ReactNode;
+  label: ReactNode;
   title?: string;
   children: string;
   domRoot?: HTMLElement;

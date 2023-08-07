@@ -17,6 +17,7 @@ It takes 100% width of its parent by default. It has a few different properties 
       <th>Type</th>
       <th>Default</th>
       <th>Description</th>
+      <th>Required</th>
     </tr>
   </thead>
   <tbody>
@@ -31,6 +32,7 @@ It takes 100% width of its parent by default. It has a few different properties 
         <code>undefined</code>
       </td>
       <td>Text that is shown below the progress bar.</td>
+      <td>no</td>
     </tr>
     <tr>
       <td>
@@ -43,6 +45,7 @@ It takes 100% width of its parent by default. It has a few different properties 
         <code>undefined</code>
       </td>
       <td>Text that is shown above the progress bar.</td>
+      <td>no</td>
     </tr>
     <tr>
       <td>
@@ -52,25 +55,27 @@ It takes 100% width of its parent by default. It has a few different properties 
         <code>number</code>
       </td>
       <td>
-        <code>0</code>
+        <code>undefined</code>
       </td>
       <td>
         Number that changes width of the progress bar, you can set this the same as the `percentage`
         value to slowly let the bar fill. Or leave it empty, then it will simply show a loading
         state.
       </td>
+      <td>no</td>
     </tr>
     <tr>
       <td>
         <code>percentage</code>
       </td>
       <td>
-        <code>boolean</code>
+        <code>number</code>
       </td>
       <td>
-        <code>false</code>
+        <code>undefined</code>
       </td>
       <td>Shows percentage on top right of progress bar.</td>
+      <td>no</td>
     </tr>
     <tr>
       <td>
@@ -83,6 +88,7 @@ It takes 100% width of its parent by default. It has a few different properties 
         <code>undefined</code>
       </td>
       <td>Text that is read by screen readers.</td>
+      <td>no</td>
     </tr>
   </tbody>
 </table>
