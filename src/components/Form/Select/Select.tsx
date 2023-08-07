@@ -49,6 +49,7 @@ export interface Props extends ComponentPropsWithRef<"select">, FormElement {
   className?: string;
   value: string;
   clearLabel?: string;
+  noResultsLabel?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
 }
 
@@ -71,6 +72,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     success = false,
     value,
     clearLabel = "Clear selection",
+    noResultsLabel = "No results found",
     onChange,
     ...rest
   }: Props,
@@ -87,6 +89,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     useState(
       false
     ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
+  const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
   const [childrenCount] = useState(React.Children.count(children));
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
@@ -99,7 +102,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     setIsSearching,
     setFocusedSelectItem,
     childrenCount,
-    customSelectButtonRef,
     setShouldClick,
     searchInputRef,
     renderSearchCondition
@@ -123,8 +125,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     }
 
     setExpanded(false);
-
-    customSelectButtonRef.current?.focus();
   };
 
   /**
@@ -138,6 +138,12 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           (child as ReactElement).props.children.toLowerCase().match(filter.toLowerCase()) !== null
       );
 
+      const internalChildren = _internalRenderChildren(filteredChildren as ReactElement[]);
+
+      if (internalChildren.length === 0) {
+        return <li className={classes["no-results"]}>{noResultsLabel}</li>;
+      }
+
       return _internalRenderChildren(filteredChildren as ReactElement[]);
     }
 
@@ -150,8 +156,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             setFocusedSelectItem(childIndex);
           },
           onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
-            // eslint-disable-next-line no-console
-            console.log("onOptionSelect");
             onOptionChangeHandler(optionRef);
             setShouldClick(false);
           },
@@ -206,6 +210,18 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange?.(event);
   };
+
+  useEffect(() => {
+    if (expanded) {
+      setFocusedSelectItem(0);
+      setShouldFocusButtonAfterClose(true);
+    }
+
+    if (!expanded && customSelectButtonRef.current && shouldFocusButtonAfterClose) {
+      customSelectButtonRef.current.focus();
+      setShouldFocusButtonAfterClose(false);
+    }
+  }, [expanded, customSelectButtonRef.current, shouldFocusButtonAfterClose]);
 
   useEffect(() => {
     syncDisplayValue(value);

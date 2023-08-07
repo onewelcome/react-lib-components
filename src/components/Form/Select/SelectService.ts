@@ -28,7 +28,6 @@ export const useArrowNavigation = ({
   setIsSearching,
   setFocusedSelectItem,
   childrenCount,
-  customSelectButtonRef,
   setShouldClick,
   searchInputRef,
   renderSearchCondition
@@ -45,7 +44,14 @@ export const useArrowNavigation = ({
       "Home"
     ];
 
-    const codesToPreventDefaultWhenSearching = ["ArrowDown", "ArrowUp", "Enter", "Escape"];
+    const codesToPreventDefaultWhenSearching = [
+      "ArrowDown",
+      "ArrowUp",
+      "Enter",
+      "Escape",
+      "MetaLeft",
+      "MetaRight"
+    ];
 
     /** If the select is expanded, we also want to control the Tab key */
     if (expanded) {
@@ -53,7 +59,7 @@ export const useArrowNavigation = ({
     }
 
     /** We will handle the way certain key strokes affect the Select, unless we're searching */
-    if (codesToPreventDefault.includes(event.code) && !isSearching) {
+    if (codesToPreventDefault.includes(event.code) && !event.metaKey && !isSearching) {
       event.preventDefault();
     }
 
@@ -76,13 +82,13 @@ export const useArrowNavigation = ({
         case "Tab":
           setIsSearching(false);
           setExpanded(false);
-          customSelectButtonRef.current?.focus();
       }
     } else {
       switch (event.code) {
         case "ArrowDown":
           if (!expanded) {
             setExpanded(true);
+            setFocusedSelectItem(0);
             return;
           }
           setFocusedSelectItem(prevState => {
@@ -90,6 +96,12 @@ export const useArrowNavigation = ({
           });
           return;
         case "ArrowUp":
+          if (!expanded) {
+            setExpanded(true);
+            setFocusedSelectItem(childrenCount - 1);
+            return;
+          }
+
           setFocusedSelectItem(prevState => {
             return prevState - 1 < 0 ? childrenCount - 1 : prevState - 1;
           });
@@ -97,12 +109,17 @@ export const useArrowNavigation = ({
         case "Space":
           if (!expanded) {
             setExpanded(true);
+            setFocusedSelectItem(0);
             return;
           }
 
           setShouldClick(true);
           setExpanded(false);
-          customSelectButtonRef.current?.focus();
+
+          return;
+        case "Enter":
+          setFocusedSelectItem(0);
+
           return;
         case "Tab":
           if (childrenCount >= renderSearchCondition && expanded) {
@@ -116,7 +133,6 @@ export const useArrowNavigation = ({
         case "Escape":
           if (expanded) {
             setExpanded(false);
-            customSelectButtonRef.current?.focus();
           }
           return;
         case "End":
@@ -124,6 +140,18 @@ export const useArrowNavigation = ({
           return;
         case "Home":
           setFocusedSelectItem(0);
+          return;
+        case "ArrowLeft":
+          if (event.metaKey && expanded) {
+            event.preventDefault();
+            setFocusedSelectItem(0);
+          }
+          return;
+        case "ArrowRight":
+          if (event.metaKey && expanded) {
+            event.preventDefault();
+            setFocusedSelectItem(childrenCount - 1);
+          }
           return;
       }
     }
