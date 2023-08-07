@@ -58,15 +58,10 @@ const ProgressBarComponent: ForwardRefRenderFunction<HTMLSpanElement, Props> = (
       </div>
       <span className={classes["progress-bar"]}>
         <span
-          className={`${classes["bar"]} ${
-            completed ? classes[`w-${5 * Math.round(completed / 5)}`] : classes["loading-state"]
-          }`}
+          className={`${classes["bar"]} ${completed ? "" : classes["loading-state"]}`}
+          style={{ width: `${completed}%` }}
         />
-        <span
-          className={`${classes["bar2"]} ${
-            completed ? classes[`w-${5 * Math.round(completed / 5)}`] : classes["loading-state"]
-          }`}
-        />
+        <span className={`${classes["bar2"]} ${completed ? "" : classes["loading-state"]}`} />
       </span>
       {caption && (
         <Typography className={classes["caption"]} spacing={{ marginBottom: 2 }} variant="sub-text">

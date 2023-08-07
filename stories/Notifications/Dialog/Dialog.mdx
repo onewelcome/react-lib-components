@@ -11,6 +11,89 @@ Dialogs appear as a modal on top of the existing content.
 When the user presses enter without tabbing through the interface, the primary button is triggered, even when it is a destructive action.
 There is no X (close) button, no event handler for the escape key and the dialog stays open when you click outside the dialog.
 
+The dialog has different properties that can be used to customize the dialog.
+
+## Dialog properties
+
+<table>
+  <thead>
+    <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>open</td>
+        <td>boolean</td>
+        <td>Whether the dialog is open or not.</td>
+        <td>yes</td>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>string</td>
+        <td>The title of the dialog.</td>
+        <td>yes</td>
+    </tr>
+    <tr>
+        <td>titleIcon</td>
+        <td>string or &lt;Icon /> component</td>
+        <td>The icon to show in the title.</td>
+        <td>no</td>
+    </tr>
+    <tr>
+        <td>caption</td>
+        <td>string</td>
+        <td>The caption of the dialog.</td>
+        <td>no</td>
+    </tr>
+    <tr>
+        <td>primaryAction</td>
+        <td>\{ label: string; onClick: () => void; disabled?: boolean }</td>
+        <td>The primary action of the dialog.</td>
+        <td>yes</td>
+    </tr>
+    <tr>
+        <td>secondaryAction</td>
+        <td>\{ label: string; onClick: () => void; disabled?: boolean }</td>
+        <td>The secondary action of the dialog.</td>
+        <td>no</td>
+    </tr>
+    <tr>
+        <td>onClose</td>
+        <td>() => void</td>
+        <td>The function that is called when the dialog is closed.</td>
+        <td>yes</td>
+    </tr>
+    <tr>
+        <td>children</td>
+        <td>ReactNode</td>
+        <td>The content of the dialog.</td>
+        <td>yes</td>
+    </tr>
+    <tr>
+      <td>disableEscapeKeyDown</td>
+      <td>boolean</td>
+      <td>Whether the dialog should close when the escape key is pressed.</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>zIndex</td>
+      <td>number</td>
+      <td>The z-index of the dialog.</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>cancelAction</td>
+      <td>\{ label: string; onClick: () => void; disabled?: boolean }</td>
+      <td>The cancel action of the dialog.</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+</table>
+
 # Examples
 
 The use of dialogues is very broad. See example usage below.
@@ -19,13 +102,14 @@ _Note: triggering primary button on pressing enter doesn't work in documentation
 
 ## Action dialog
 
-In the below code snippet, you'll see how you can show dialog with buttons align to right.
+In the below code snippet, you'll see how you can show dialog.
 
 ```jsx
 <Dialog
   open={open}
   onClose={onClose}
-  alignActions="right"
+  titleIcon={true}
+  caption="Example dialog"
   title="Verify email address"
   primaryAction={label: 'Send email', onClick: onSendEmail}
   secondaryAction={label: 'Cancel', onClick: onCancel}
@@ -53,8 +137,9 @@ In the below code snippet, you'll see how you can show dialog with on one button
 ```jsx
 <Dialog
   open={open}
+  titleIcon={<Icon icon={Icons.Bell} />}
+  caption="Example dialog"
   onClose={onClose}
-  alignActions="right"
   title="Info"
   primaryAction={label: 'Ok', onClick}
 >
@@ -80,8 +165,9 @@ return (
     <Button onClick={() => setOpen(true)}>Open dialog</Button>
     <Dialog
       open={open}
-      alignActions="right"
       title="Dialog 1"
+      titleIcon={<Icon icon={Icons.Bell} />}
+      caption="Example dialog"
       onClose={() => setOpen(false)}
       primaryAction={{
         label: "Open another dialog",
@@ -100,8 +186,9 @@ return (
     <Dialog
       open={open2}
       onClose={() => setOpen2(false)}
-      alignActions="left"
       title="Dialog 2"
+      titleIcon={<Icon icon={Icons.Bell} />}
+      caption="Example dialog"
       primaryAction={{
         label: "Close",
         onClick: () => setOpen2(false)

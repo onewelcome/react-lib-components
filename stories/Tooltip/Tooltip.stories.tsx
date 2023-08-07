@@ -18,7 +18,6 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { Props, Tooltip as TooltipComponent } from "../../src/components/Tooltip/Tooltip";
 import TooltipDocumentation from "./Tooltip.mdx";
-import classes from "../../src/components/Tooltip/Tooltip.module.scss";
 
 const meta: Meta = {
   title: "components/Data Display/Tooltip",
@@ -29,17 +28,6 @@ const meta: Meta = {
     }
   }
 };
-
-/** In order to show off the positioning for the tooltip we need to center everything in the middle of the screen. */
-const root = document.querySelector("html");
-if (root) {
-  root.style.height = "100%";
-  root.style.width = "100%";
-  root.style.display = "flex";
-  root.style.justifyContent = "center";
-  root.style.alignItems = "center";
-  root.style.overflow = "hidden";
-}
 
 export default meta;
 
@@ -52,6 +40,5 @@ Tooltip.args = {
   children: "Write the tooltip content here.",
   label: "Example label",
   location: "right",
-  position: "center",
-  initiallyVisible: true
+  position: "center"
 };

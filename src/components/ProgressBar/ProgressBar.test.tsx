@@ -77,7 +77,7 @@ describe("ProgressBar should change styles depending on props", () => {
     }));
 
     const bar = ProgressBarComponent.querySelector(".bar");
-    expect(bar).toHaveClass("w-40");
+    expect(bar).toHaveStyle("width: 40%");
   });
 
   it("should show a loading effect when 'completed' prop is not provided", () => {
