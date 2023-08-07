@@ -207,17 +207,18 @@ describe("Selecting options using keyboard", () => {
 
     await userEvent.keyboard("{arrowdown}");
 
-    expect(select.querySelector('li[data-value="option3"]')).toHaveFocus();
+    expect(select.querySelector('li[data-value="option2"]')).toHaveFocus();
 
     await userEvent.keyboard("{arrowup}");
     await userEvent.keyboard("{arrowup}");
     await userEvent.keyboard("{arrowup}");
     await userEvent.keyboard("{arrowup}");
 
-    expect(select.querySelector('li[data-value="option16"]')).toHaveFocus();
-    await userEvent.keyboard("{arrowup}");
     expect(select.querySelector('li[data-value="option15"]')).toHaveFocus();
+    await userEvent.keyboard("{arrowup}");
+    expect(select.querySelector('li[data-value="option14"]')).toHaveFocus();
 
+    await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
@@ -319,7 +320,7 @@ describe("previously selected item", () => {
       button.focus();
     });
 
-    const option2 = select.querySelector('li[data-value="option2"]')!;
+    const option1 = select.querySelector('li[data-value="option1"]')!;
 
     await userEvent.keyboard("{enter}");
 
@@ -330,7 +331,7 @@ describe("previously selected item", () => {
 
     await userEvent.click(button);
 
-    expect(document.activeElement).toStrictEqual(option2);
+    expect(document.activeElement).toStrictEqual(option1);
   });
 });
 
