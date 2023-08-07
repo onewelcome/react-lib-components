@@ -150,14 +150,11 @@ export const NestedDialogs = () => {
           label: "Open another dialog",
           onClick: () => setOpen2(true)
         }}
-        secondaryAction={{
-          label: "Close",
-          onClick: () => setOpen(false)
-        }}
       >
         <Typography variant="body" spacing={{ margin: 0 }}>
-          Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long
-          dialog content.
+          Addressing the inquiry concerning the length of text within a dialogue is indeed a
+          multifaceted endeavor. It is an intricate subject that demands careful consideration and
+          comprehensive analysis to provide a thorough and meaningful response.
         </Typography>
       </Dialog>
       <Dialog
