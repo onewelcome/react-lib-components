@@ -393,6 +393,18 @@ describe("search input", () => {
     expect(button).toHaveAttribute("aria-expanded", "true");
   });
 
+  it("expand list with arrowup", async () => {
+    const { button } = createSelect();
+
+    await act(() => {
+      button.focus();
+    });
+
+    await userEvent.keyboard("{arrowup}");
+
+    expect(button).toHaveAttribute("aria-expanded", "true");
+  });
+
   it("expand list with space", async () => {
     const { button } = createSelect();
 
@@ -462,5 +474,37 @@ describe("search input props work", () => {
     }));
 
     expect(document.querySelector(".test-wrapper-classname")).toBeInTheDocument();
+  });
+});
+
+describe("meta arrow left and right", () => {
+  it("goes to the last item in the list when pressing meta right", async () => {
+    const { button } = createSelect();
+
+    await act(() => {
+      button.focus();
+    });
+
+    await userEvent.keyboard("{enter}");
+
+    expect(button).toHaveAttribute("aria-expanded", "true");
+
+    await userEvent.keyboard("{Meta>}{arrowright}");
+
+    await waitFor(() => expect(document.querySelector('li[data-value="option17"]')).toHaveFocus());
+  });
+
+  it("goes to the first item in the list when pressing meta left", async () => {
+    const { button } = createSelect();
+
+    await userEvent.click(button);
+
+    await userEvent.keyboard("{Meta>}{arrowright}");
+
+    await waitFor(() => expect(document.querySelector('li[data-value="option17"]')).toHaveFocus());
+
+    await userEvent.keyboard("{Meta>}{arrowleft}");
+
+    expect(document.querySelector('li[data-value="option1"]')).toHaveFocus();
   });
 });

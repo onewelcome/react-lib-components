@@ -118,6 +118,7 @@ export const useArrowNavigation = ({
 
           return;
         case "Enter":
+        case "Home":
           setFocusedSelectItem(0);
 
           return;
@@ -137,9 +138,6 @@ export const useArrowNavigation = ({
           return;
         case "End":
           setFocusedSelectItem(childrenCount - 1);
-          return;
-        case "Home":
-          setFocusedSelectItem(0);
           return;
         case "ArrowLeft":
           if (event.metaKey && expanded) {
