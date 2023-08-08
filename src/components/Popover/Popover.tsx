@@ -67,13 +67,7 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     if (initialCalculationDone) {
       setShowPopover(!!show);
     }
-  }, [initialCalculationDone]);
-
-  useEffect(() => {
-    if (initialCalculationDone) {
-      setShowPopover(!!show);
-    }
-  }, [show]);
+  }, [show, initialCalculationDone]);
 
   useEffect(() => {
     if (!showPopover) {
