@@ -50,7 +50,6 @@ export const IconColor = Template.bind({});
 
 IconColor.args = {
   icon: Icons.Calendar,
-  size: "6rem",
   color: "#ff0000"
 };
 

@@ -109,7 +109,7 @@ InputWrapperWithError.args = {
   onChange: () => {},
   errorMessage: "This is an error message",
   error: true,
-  value: "example value",
+  value: "www.example.com",
   inputProps: {
     prefix: "https://",
     suffix: "",
@@ -129,7 +129,7 @@ InputWrapperWithSuccess.args = {
   errorMessage: "This is an error message",
   error: false,
   success: true,
-  value: "example value",
+  value: "www.example.com",
   inputProps: {
     prefix: "https://",
     suffix: "",
@@ -166,7 +166,7 @@ InputWrapperWithIconSuffix.args = {
   onChange: () => {},
   errorMessage: "This is an error message",
   error: false,
-  value: "example value",
+  value: "www.example.com",
   inputProps: {
     prefix: "https://",
     suffix: <Icon icon={Icons.Bell} />,

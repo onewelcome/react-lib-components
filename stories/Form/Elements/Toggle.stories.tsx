@@ -71,9 +71,9 @@ const Template: Story<Props> = args => {
   return <ToggleComponent {...args} checked={checked} onChange={() => setChecked(!checked)} />;
 };
 
-export const Toggle = Template.bind({});
+export const UncheckedToggle = Template.bind({});
 
-Toggle.play = async ({ canvasElement }) => {
+UncheckedToggle.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.getByRole("checkbox")).not.toBeChecked());
@@ -88,7 +88,7 @@ Toggle.play = async ({ canvasElement }) => {
   await waitFor(() => expect(toggle).not.toBeChecked());
 };
 
-Toggle.args = {
+UncheckedToggle.args = {
   name: "Example toggle",
   label: "Toggle label",
   helperProps: { children: <a href="https://www.google.com">Test</a> }
@@ -101,4 +101,24 @@ ToggleDisabled.args = {
   label: "Toggle label",
   disabled: true,
   helperProps: { children: <a href="https://www.google.com">Test</a> }
+};
+
+export const CheckedToggle = Template.bind({});
+
+CheckedToggle.args = {
+  name: "Example toggle",
+  label: "Toggle label",
+  helperProps: { children: <a href="https://www.google.com">Test</a> }
+};
+
+CheckedToggle.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("checkbox")).not.toBeChecked());
+
+  const toggle = await canvas.getByRole("checkbox");
+  const label = await canvas.getByText("Toggle label");
+
+  await userEvent.click(label);
+  expect(toggle).toBeChecked();
 };

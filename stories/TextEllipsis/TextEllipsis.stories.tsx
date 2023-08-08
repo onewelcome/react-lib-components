@@ -45,7 +45,7 @@ export default {
 
 const Template = args => (
   <div style={{ width: 200 }}>
-    <Typography variant="body" tag="div">
+    <Typography style={{ paddingBottom: "2rem" }} variant="body" tag="div">
       <TextEllipsisComponent {...args} />
     </Typography>
   </div>
