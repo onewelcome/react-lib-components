@@ -95,7 +95,54 @@ const Template = args => {
 
 export const DefaultDataGrid = Template.bind({});
 
-DefaultDataGrid.play = async ({ canvasElement }) => {
+DefaultDataGrid.args = {
+  data: [
+    {
+      name: "Company 1",
+      created: new Date(2023, 0, 1),
+      id: "1",
+      type: "Stock",
+      enabled: true
+    },
+    {
+      name: "Company 2",
+      created: new Date(2023, 0, 2),
+      id: "2",
+      type: "Stock",
+      enabled: false
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "created", headline: "Created" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "enabled", headline: "Status", disableSorting: true }
+  ],
+  initialSort: [
+    { name: "name", direction: "ASC" },
+    { name: "created", direction: "DESC" }
+  ],
+  onSort: sort => action(`Sort callback: ${sort}`),
+  actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
+  },
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 2,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+export const DataGridWithColumnsPopup = Template.bind({});
+
+DataGridWithColumnsPopup.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.queryByText("Columns")?.closest("button")).toBeInTheDocument());
@@ -115,7 +162,7 @@ DefaultDataGrid.play = async ({ canvasElement }) => {
   await userEvent.click(nameToggle);
 };
 
-DefaultDataGrid.args = {
+DataGridWithColumnsPopup.args = {
   data: [
     {
       name: "Company 1",
