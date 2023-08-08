@@ -35,14 +35,13 @@ import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../hooks/useGetDomRoot";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
-  label: string | ReactNode;
+  label: ReactNode;
   title?: string;
   children: string;
   domRoot?: HTMLElement;
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";
   position?: "start" | "center" | "end";
-  initiallyVisible?: boolean;
 }
 
 interface DefaultPosition {
@@ -127,13 +126,12 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     location = "right",
     position = "center",
     color = "black",
-    initiallyVisible = false,
     ...rest
   }: Props,
   ref
 ) => {
   const [identifier] = useState(generateID());
-  const [visible, setVisible] = useState(initiallyVisible);
+  const [visible, setVisible] = useState(false);
   const wrappingDivRef = (ref as RefObject<HTMLDivElement>) || createRef<HTMLDivElement>();
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 

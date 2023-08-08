@@ -62,7 +62,12 @@ const Template: Story<Props> = args => {
   return (
     <Fragment>
       <div style={{ width: "100%", maxWidth: "500px" }}>
-        <ProgressBarComponent caption="One moment please..." percentage={percentage} {...args} />
+        <ProgressBarComponent
+          caption="One moment please..."
+          completed={percentage}
+          percentage={percentage}
+          {...args}
+        />
       </div>
       {percentage === 100 && <div style={{ marginTop: "3rem" }}>Finished loading!</div>}
     </Fragment>
@@ -79,5 +84,6 @@ export const ProgressBarWithoutPercentage = Template.bind({});
 
 ProgressBarWithoutPercentage.args = {
   label: "Loading...",
-  percentage: undefined
+  percentage: undefined,
+  completed: undefined
 };

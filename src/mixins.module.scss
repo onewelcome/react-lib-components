@@ -286,13 +286,3 @@
     transition-duration: 0.1ms;
   }
 }
-
-@mixin width-size($size) {
-  .w-#{$size} {
-    width: $size * 1%;
-  }
-}
-
-@for $i from 1 through 100 {
-  @include width-size($i + 5);
-}

@@ -22,6 +22,7 @@ import { Typography } from "../../../src/components/Typography/Typography";
 import DialogDocumentation from "./Dialog.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { Icon, Icons } from "../../../src/components/Icon/Icon";
 
 const meta: Meta = {
   title: "components/Feedback/Dialog",
@@ -144,19 +145,18 @@ const NestedDialogsTemplate: Story<Props> = () => {
         id="dialog11"
         open={open}
         title="Dialog 1"
+        titleIcon={<Icon icon={Icons.Bell} />}
+        caption="This is a caption"
         onClose={() => setOpen(false)}
         primaryAction={{
           label: "Open another dialog",
           onClick: () => setOpen2(true)
         }}
-        secondaryAction={{
-          label: "Close",
-          onClick: () => setOpen(false)
-        }}
       >
         <Typography variant="body" spacing={{ margin: 0 }}>
-          Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long
-          dialog content.
+          Addressing the inquiry concerning the length of text within a dialogue is indeed a
+          multifaceted endeavor. It is an intricate subject that demands careful consideration and
+          comprehensive analysis to provide a thorough and meaningful response.
         </Typography>
       </Dialog>
       <Dialog
@@ -164,6 +164,8 @@ const NestedDialogsTemplate: Story<Props> = () => {
         open={open2}
         onClose={() => setOpen2(false)}
         title="Dialog 2"
+        titleIcon={true}
+        caption="This is a caption"
         primaryAction={{
           label: "Close",
           onClick: () => setOpen2(false)

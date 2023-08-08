@@ -24,7 +24,7 @@ import {
   queryByRole,
   findByText
 } from "@testing-library/react";
-import { WizardActions } from "./WizardActions/WizardActions";
+import { WizardActions, Props as WizardActionProps } from "./WizardActions/WizardActions";
 import { WizardSteps } from "./WizardSteps/WizardSteps";
 import userEvent from "@testing-library/user-event";
 
@@ -54,14 +54,25 @@ const initWizardStepsProps = {
   onStepClick: jest.fn()
 };
 
-const initWizardActionsProps = {
-  onNext: jest.fn(),
-  onCancel: jest.fn(),
-  onSaveAndClose: jest.fn(),
-  cancelButtonLabel: "Cancel",
-  previousButtonLabel: "Previous",
-  nextButtonLabel: "Next",
-  saveAndCloseButtonLabel: "Save & close"
+const initWizardActionsProps: WizardActionProps = {
+  actions: {
+    cancel: {
+      label: "Cancel",
+      onClick: jest.fn()
+    },
+    next: {
+      label: "Next",
+      onClick: jest.fn()
+    },
+    previous: {
+      label: "Previous",
+      onClick: jest.fn()
+    },
+    saveAndClose: {
+      label: "Save and close",
+      onClick: jest.fn()
+    }
+  }
 };
 
 const renderWizard = (wizardProps?: initWizardPropsType) => {
@@ -92,16 +103,16 @@ const getStepButtons = (container: HTMLElement) =>
 const getActionsButtons = (container: HTMLElement) => {
   const actionsContainer = getByTestId(container, "wizard-actions");
   const cancel = queryByRole(actionsContainer, "button", {
-    name: initWizardActionsProps.cancelButtonLabel
+    name: initWizardActionsProps.actions.cancel.label
   });
   const next = queryByRole(actionsContainer, "button", {
-    name: initWizardActionsProps.nextButtonLabel
+    name: initWizardActionsProps.actions.next.label
   });
   const prev = queryByRole(actionsContainer, "button", {
-    name: initWizardActionsProps.previousButtonLabel
+    name: initWizardActionsProps.actions.previous.label
   });
   const save = queryByRole(actionsContainer, "button", {
-    name: initWizardActionsProps.saveAndCloseButtonLabel
+    name: initWizardActionsProps.actions.saveAndClose.label
   });
   return { cancel, next, prev, save };
 };
@@ -130,7 +141,9 @@ describe("Wizard", () => {
     const { next } = getActionsButtons(container);
     const wizardContent = getWizardContent(container);
     (
-      initWizardActionsProps.onNext as jest.MockedFunction<typeof initWizardActionsProps.onNext>
+      initWizardActionsProps.actions.next.onClick as jest.MockedFunction<
+        typeof initWizardActionsProps.actions.next.onClick
+      >
     ).mockReturnValue(true);
 
     await findByText(wizardContent, "Step 1");
@@ -140,13 +153,13 @@ describe("Wizard", () => {
     await findByText(wizardContent, "Step 4");
     const { save, prev, cancel } = getActionsButtons(container);
     save && (await userEvent.click(save));
-    expect(initWizardActionsProps.onSaveAndClose).toBeCalledWith(3);
+    expect(initWizardActionsProps.actions.saveAndClose.onClick).toBeCalledWith(3);
     prev && (await userEvent.click(prev));
     await findByText(wizardContent, "Step 2");
     prev && (await userEvent.click(prev));
     await findByText(wizardContent, "Step 1");
     cancel && (await userEvent.click(cancel));
-    expect(initWizardActionsProps.onCancel).toBeCalledTimes(1);
+    expect(initWizardActionsProps.actions.cancel.onClick).toBeCalledTimes(1);
   });
 
   it("should not be able to click over whole wizard via steps buttons in add mode", async () => {
@@ -155,7 +168,9 @@ describe("Wizard", () => {
     const stepsButtons = getStepButtons(container);
     const wizardContent = getWizardContent(container);
     (
-      initWizardActionsProps.onNext as jest.MockedFunction<typeof initWizardActionsProps.onNext>
+      initWizardActionsProps.actions.next.onClick as jest.MockedFunction<
+        typeof initWizardActionsProps.actions.next.onClick
+      >
     ).mockReturnValue(true);
     (
       initWizardStepsProps.onStepClick as jest.MockedFunction<

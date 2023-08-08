@@ -17,3 +17,7 @@
 body {
   font-family: Roboto, sans-serif;
 }
+
+div[scale="1"] {
+  transform: unset; // Storybook has recently added stying that breaks fixed elements. Inside of the <Canvas> element there's a div with [scale="1"] that uses the `transform` property. This breaks fixed elements because they get a new relative parent. This is a workaround.
+}
