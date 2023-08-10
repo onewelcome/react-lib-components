@@ -15,8 +15,8 @@
  */
 
 export type Position = {
-  top: 0 | "initial";
-  bottom: 0 | "initial";
+  top: number | `${number}rem` | "initial";
+  bottom: number | `${number}rem` | "initial";
 };
 
 export interface UseArrowNavigationParams {
@@ -26,8 +26,8 @@ export interface UseArrowNavigationParams {
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
   setFocusedSelectItem: React.Dispatch<React.SetStateAction<number>>;
   childrenCount: number;
-  customSelectButtonRef: React.RefObject<HTMLButtonElement>;
   setShouldClick: React.Dispatch<React.SetStateAction<boolean>>;
+  onOptionChangeHandler: (optionElement: HTMLElement | null) => void;
   searchInputRef: React.RefObject<HTMLInputElement>;
   renderSearchCondition: number;
 }

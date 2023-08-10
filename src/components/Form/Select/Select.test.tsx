@@ -207,17 +207,18 @@ describe("Selecting options using keyboard", () => {
 
     await userEvent.keyboard("{arrowdown}");
 
-    expect(select.querySelector('li[data-value="option3"]')).toHaveFocus();
+    expect(select.querySelector('li[data-value="option2"]')).toHaveFocus();
 
     await userEvent.keyboard("{arrowup}");
     await userEvent.keyboard("{arrowup}");
     await userEvent.keyboard("{arrowup}");
     await userEvent.keyboard("{arrowup}");
 
-    expect(select.querySelector('li[data-value="option16"]')).toHaveFocus();
-    await userEvent.keyboard("{arrowup}");
     expect(select.querySelector('li[data-value="option15"]')).toHaveFocus();
+    await userEvent.keyboard("{arrowup}");
+    expect(select.querySelector('li[data-value="option14"]')).toHaveFocus();
 
+    await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
@@ -266,7 +267,7 @@ describe("List expansion", () => {
       await userEvent.click(button);
     }
 
-    expect(dropdownWrapper).toHaveStyle({ bottom: "0px" });
+    expect(dropdownWrapper).toHaveStyle({ bottom: "2.75rem" });
   });
 
   it("should expand downwards with a max height set", async () => {
@@ -304,7 +305,7 @@ describe("List expansion", () => {
     await userEvent.click(button);
 
     expect(dropdownWrapper).toHaveStyle({ maxHeight: "474px" });
-    expect(dropdownWrapper).toHaveStyle({ top: "0px" });
+    expect(dropdownWrapper).toHaveStyle({ top: "2.75rem" });
   });
 });
 
@@ -319,7 +320,7 @@ describe("previously selected item", () => {
       button.focus();
     });
 
-    const option2 = select.querySelector('li[data-value="option2"]')!;
+    const option1 = select.querySelector('li[data-value="option1"]')!;
 
     await userEvent.keyboard("{enter}");
 
@@ -330,7 +331,7 @@ describe("previously selected item", () => {
 
     await userEvent.click(button);
 
-    expect(document.activeElement).toStrictEqual(option2);
+    expect(document.activeElement).toStrictEqual(option1);
   });
 });
 
@@ -388,6 +389,18 @@ describe("search input", () => {
     });
 
     await userEvent.keyboard("{arrowdown}");
+
+    expect(button).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("expand list with arrowup", async () => {
+    const { button } = createSelect();
+
+    await act(() => {
+      button.focus();
+    });
+
+    await userEvent.keyboard("{arrowup}");
 
     expect(button).toHaveAttribute("aria-expanded", "true");
   });
@@ -461,5 +474,37 @@ describe("search input props work", () => {
     }));
 
     expect(document.querySelector(".test-wrapper-classname")).toBeInTheDocument();
+  });
+});
+
+describe("meta arrow left and right", () => {
+  it("goes to the last item in the list when pressing meta right", async () => {
+    const { button } = createSelect();
+
+    await act(() => {
+      button.focus();
+    });
+
+    await userEvent.keyboard("{enter}");
+
+    expect(button).toHaveAttribute("aria-expanded", "true");
+
+    await userEvent.keyboard("{Meta>}{arrowright}");
+
+    await waitFor(() => expect(document.querySelector('li[data-value="option17"]')).toHaveFocus());
+  });
+
+  it("goes to the first item in the list when pressing meta left", async () => {
+    const { button } = createSelect();
+
+    await userEvent.click(button);
+
+    await userEvent.keyboard("{Meta>}{arrowright}");
+
+    await waitFor(() => expect(document.querySelector('li[data-value="option17"]')).toHaveFocus());
+
+    await userEvent.keyboard("{Meta>}{arrowleft}");
+
+    expect(document.querySelector('li[data-value="option1"]')).toHaveFocus();
   });
 });

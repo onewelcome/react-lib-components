@@ -49,6 +49,7 @@ export interface Props extends ComponentPropsWithRef<"select">, FormElement {
   className?: string;
   value: string;
   clearLabel?: string;
+  noResultsLabel?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
 }
 
@@ -71,6 +72,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     success = false,
     value,
     clearLabel = "Clear selection",
+    noResultsLabel = "No results found",
     onChange,
     ...rest
   }: Props,
@@ -87,10 +89,21 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     useState(
       false
     ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
+  const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
   const [childrenCount] = useState(React.Children.count(children));
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
+    if (nativeSelect.current && optionElement) {
+      nativeSelect.current.value = optionElement.getAttribute("data-value")!;
+      nativeSelect.current.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    setExpanded(false);
+  };
+
   const customSelectButtonRef = useRef<HTMLButtonElement>(null);
   const { onArrowNavigation } = useArrowNavigation({
     expanded,
@@ -98,8 +111,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     isSearching,
     setIsSearching,
     setFocusedSelectItem,
+    onOptionChangeHandler,
     childrenCount,
-    customSelectButtonRef,
     setShouldClick,
     searchInputRef,
     renderSearchCondition
@@ -116,17 +129,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     });
   };
 
-  const onOptionChangeHandler = (optionRef: React.RefObject<HTMLLIElement>) => {
-    if (nativeSelect.current && optionRef.current) {
-      nativeSelect.current.value = optionRef.current.getAttribute("data-value")!;
-      nativeSelect.current.dispatchEvent(new Event("change", { bubbles: true }));
-    }
-
-    setExpanded(false);
-
-    customSelectButtonRef.current?.focus();
-  };
-
   /**
    * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected and focused at all times and if a filter is active.
    * The `children` prop can be either a single object (1 child) or an array of multiple children.
@@ -138,6 +140,12 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           (child as ReactElement).props.children.toLowerCase().match(filter.toLowerCase()) !== null
       );
 
+      const internalChildren = _internalRenderChildren(filteredChildren as ReactElement[]);
+
+      if (internalChildren.length === 0) {
+        return <li className={classes["no-results"]}>{noResultsLabel}</li>;
+      }
+
       return _internalRenderChildren(filteredChildren as ReactElement[]);
     }
 
@@ -146,9 +154,11 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     function _internalRenderChildren(internalChildren: ReactElement[]) {
       return React.Children.map(internalChildren, (child, index) => {
         return React.cloneElement(child, {
-          onFocusChange: (childIndex: number) => setFocusedSelectItem(childIndex),
+          onFocusChange: (childIndex: number) => {
+            setFocusedSelectItem(childIndex);
+          },
           onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
-            onOptionChangeHandler(optionRef);
+            onOptionChangeHandler(optionRef.current);
             setShouldClick(false);
           },
           isSelected: child.props.value === value,
@@ -162,23 +172,36 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     }
   };
 
+  const shouldRenderSearch =
+    expanded && Array.isArray(children) && children.length > renderSearchCondition;
+
   const renderSearch = () => (
     <Input
       {...searchInputProps}
-      autoFocus
       ref={searchInputRef}
       onFocus={() => setIsSearching(true)}
       onBlur={() => setIsSearching(false)}
       onChange={filterResults}
       className={classes["select-search"]}
       wrapperProps={{
-        className: `${classes["select-search-wrapper"]} ${searchInputProps?.wrapperProps?.className}`
+        className: searchInputProps?.wrapperProps?.className
+      }}
+      style={{
+        display: expanded ? "block" : "none"
       }}
       type="text"
       name="search-option"
       placeholder={searchPlaceholder}
     />
   );
+
+  const renderChevronIcon = () => {
+    return expanded ? (
+      <Icon className={classes["chevron-icon"]} icon={Icons.ChevronUp} />
+    ) : (
+      <Icon className={classes["chevron-icon"]} icon={Icons.ChevronDown} />
+    );
+  };
 
   const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(event.currentTarget.value);
@@ -189,6 +212,18 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange?.(event);
   };
+
+  useEffect(() => {
+    if (expanded) {
+      setFocusedSelectItem(0);
+      setShouldFocusButtonAfterClose(true);
+    }
+
+    if (!expanded && customSelectButtonRef.current && shouldFocusButtonAfterClose) {
+      customSelectButtonRef.current.focus();
+      setShouldFocusButtonAfterClose(false);
+    }
+  }, [expanded, customSelectButtonRef.current, shouldFocusButtonAfterClose]);
 
   useEffect(() => {
     syncDisplayValue(value);
@@ -236,6 +271,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           className ?? ""
         }`}
       >
+        {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()}
         <button
           {...selectButtonProps}
           onClick={() => {
@@ -245,6 +281,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           type="button"
           name={name}
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
+          style={{ display: shouldRenderSearch ? "none" : "initial" }}
           disabled={disabled}
           aria-disabled={disabled}
           aria-invalid={error}
@@ -257,11 +294,9 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             {!value && placeholder && <span className={classes["placeholder"]}>{placeholder}</span>}
             {value?.length > 0 && <span data-display-inner>{display}</span>}
           </div>
-          <div className={classes["status"]}>
-            {icon}
-            <Icon className={classes["triangle-down"]} icon={Icons.TriangleDown} />
-          </div>
+          <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </button>
+
         <div
           ref={optionListReference}
           className={`list-wrapper ${classes["list-wrapper"]}`}
@@ -273,7 +308,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             ...listPosition
           }}
         >
-          {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()}
           <ul role="listbox">{renderOptions()}</ul>
         </div>
       </div>

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import {
   SelectWrapper as SelectWrapperComponent,
@@ -48,12 +48,22 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => {
+  const [pickedOption, setPickedOption] = useState<string>("option1");
   return (
-    <SelectWrapperComponent {...args}>
+    <SelectWrapperComponent
+      {...args}
+      onChange={e => setPickedOption(e.target.value)}
+      value={pickedOption}
+    >
       <Option value="option1">Option 1</Option>
       <Option value="option2">Option 2</Option>
       <Option value="option3">Option 3</Option>
       <Option value="option4">Option 4</Option>
+      <Option value="option5">Option 5</Option>
+      <Option value="option6">Option 6</Option>
+      <Option value="option7">Option 7</Option>
+      <Option value="option8">Option 8</Option>
+      <Option value="option9">Option 9</Option>
     </SelectWrapperComponent>
   );
 };

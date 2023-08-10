@@ -72,9 +72,7 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
     }
   }, [hasFocus, innerOptionRef, selectOpened, isSearching]);
 
-  const onSelectHandler = () => {
-    if (onOptionSelect) onOptionSelect(innerOptionRef);
-  };
+  const onSelectHandler = () => onOptionSelect?.(innerOptionRef);
 
   return (
     <li
