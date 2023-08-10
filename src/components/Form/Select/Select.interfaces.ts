@@ -27,6 +27,7 @@ export interface UseArrowNavigationParams {
   setFocusedSelectItem: React.Dispatch<React.SetStateAction<number>>;
   childrenCount: number;
   setShouldClick: React.Dispatch<React.SetStateAction<boolean>>;
+  onOptionChangeHandler: (optionElement: HTMLElement | null) => void;
   searchInputRef: React.RefObject<HTMLInputElement>;
   renderSearchCondition: number;
 }

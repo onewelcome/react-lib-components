@@ -27,6 +27,7 @@ export const useArrowNavigation = ({
   isSearching,
   setIsSearching,
   setFocusedSelectItem,
+  onOptionChangeHandler,
   childrenCount,
   setShouldClick,
   searchInputRef,
@@ -113,6 +114,7 @@ export const useArrowNavigation = ({
             return;
           }
 
+          onOptionChangeHandler(event.target as HTMLElement);
           setShouldClick(true);
           setExpanded(false);
 

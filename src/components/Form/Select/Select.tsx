@@ -94,6 +94,16 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
+    if (nativeSelect.current && optionElement) {
+      nativeSelect.current.value = optionElement.getAttribute("data-value")!;
+      nativeSelect.current.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    setExpanded(false);
+  };
+
   const customSelectButtonRef = useRef<HTMLButtonElement>(null);
   const { onArrowNavigation } = useArrowNavigation({
     expanded,
@@ -101,6 +111,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     isSearching,
     setIsSearching,
     setFocusedSelectItem,
+    onOptionChangeHandler,
     childrenCount,
     setShouldClick,
     searchInputRef,
@@ -116,15 +127,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
         setDisplay(child.props.children);
       }
     });
-  };
-
-  const onOptionChangeHandler = (optionRef: React.RefObject<HTMLLIElement>) => {
-    if (nativeSelect.current && optionRef.current) {
-      nativeSelect.current.value = optionRef.current.getAttribute("data-value")!;
-      nativeSelect.current.dispatchEvent(new Event("change", { bubbles: true }));
-    }
-
-    setExpanded(false);
   };
 
   /**
@@ -156,7 +158,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             setFocusedSelectItem(childIndex);
           },
           onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
-            onOptionChangeHandler(optionRef);
+            onOptionChangeHandler(optionRef.current);
             setShouldClick(false);
           },
           isSelected: child.props.value === value,
