@@ -15,7 +15,7 @@
  */
 
 import React, { useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, Story, StoryFn } from "@storybook/react";
 import { Toggle as ToggleComponent } from "../../../src/components/Form/Toggle/Toggle";
 import { Props } from "../../../src/components/Form/Checkbox/Checkbox";
 import ToggleDocumentation from "./Toggle.mdx";
@@ -63,7 +63,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [checked, setChecked] = useState(false);
 
   return (
