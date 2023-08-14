@@ -125,6 +125,8 @@ Repeater.play = async ({ canvasElement }) => {
   const input = await canvas.findAllByLabelText("Enter tag name");
 
   expect(input).toHaveLength(3);
+
+  await userEvent.tab();
 };
 
 Repeater.args = {};

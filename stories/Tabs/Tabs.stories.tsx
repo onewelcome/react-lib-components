@@ -83,7 +83,9 @@ const Template: Story<Props> = args => {
 
 export const Tabs = Template.bind({});
 
-Tabs.play = async ({ canvasElement }) => {
+export const TabsWithFocusRing = Template.bind({});
+
+TabsWithFocusRing.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => canvas.getByRole("tab", { name: "First tab" }));

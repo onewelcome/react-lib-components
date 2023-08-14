@@ -15,7 +15,7 @@
  */
 
 import React, { useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, Story, StoryFn } from "@storybook/react";
 import { Toggle as ToggleComponent } from "../../../src/components/Form/Toggle/Toggle";
 import { Props } from "../../../src/components/Form/Checkbox/Checkbox";
 import ToggleDocumentation from "./Toggle.mdx";
@@ -65,10 +65,14 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [checked, setChecked] = useState(false);
 
-  return <ToggleComponent {...args} checked={checked} onChange={() => setChecked(!checked)} />;
+  return (
+    <div style={{ width: "200px" }}>
+      <ToggleComponent onChange={() => setChecked(!checked)} checked={checked} {...args} />
+    </div>
+  );
 };
 
 export const UncheckedToggle = Template.bind({});
@@ -121,4 +125,37 @@ CheckedToggle.play = async ({ canvasElement }) => {
 
   await userEvent.click(label);
   expect(toggle).toBeChecked();
+};
+
+export const ToggleLabelLeft = Template.bind({});
+
+ToggleLabelLeft.args = {
+  ...UncheckedToggle.args,
+  labelPosition: "left"
+};
+
+export const ToggleLabelHidden = Template.bind({});
+ToggleLabelHidden.args = {
+  ...UncheckedToggle.args,
+  hideLabel: true
+};
+
+export const ToggleLabelOverflow = Template.bind({});
+ToggleLabelOverflow.args = {
+  ...UncheckedToggle.args,
+  label: "This is a very long label that will overflow the toggle.",
+  labelOverflow: "wrap"
+};
+
+export const ToggleVersionNeutral = Template.bind({});
+ToggleVersionNeutral.args = {
+  ...UncheckedToggle.args,
+  version: "neutral",
+  checked: true
+};
+
+export const ToggleSpacingBetween = Template.bind({});
+ToggleSpacingBetween.args = {
+  ...UncheckedToggle.args,
+  spacing: "between"
 };
