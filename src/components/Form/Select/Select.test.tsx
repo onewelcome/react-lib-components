@@ -229,6 +229,60 @@ describe("Selecting options using keyboard", () => {
 
     expect(button).toHaveAttribute("aria-expanded", "false");
   });
+
+  it("should focus through list items and select on spacebar press", async () => {
+    const onChangeHandler = jest.fn();
+    const { select, button } = createSelect(defaultParams => ({
+      ...defaultParams,
+      onChange: onChangeHandler
+    }));
+
+    await act(() => {
+      button.focus();
+    });
+
+    expect(button).toHaveFocus();
+
+    await userEvent.keyboard("[Space]");
+
+    expect(button).toHaveAttribute("aria-expanded", "true");
+
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("[Space]");
+
+    await waitFor(() => expect(button).toHaveAttribute("aria-expanded", "false"));
+
+    expect(onChangeHandler).toHaveBeenCalled();
+
+    await userEvent.keyboard("[Space]");
+
+    expect(button).toHaveAttribute("aria-expanded", "true");
+
+    await userEvent.keyboard("{arrowdown}");
+
+    expect(select.querySelector('li[data-value="option2"]')).toHaveFocus();
+
+    await userEvent.keyboard("{arrowup}");
+    await userEvent.keyboard("{arrowup}");
+    await userEvent.keyboard("{arrowup}");
+    await userEvent.keyboard("{arrowup}");
+
+    expect(select.querySelector('li[data-value="option15"]')).toHaveFocus();
+    await userEvent.keyboard("{arrowup}");
+    expect(select.querySelector('li[data-value="option14"]')).toHaveFocus();
+
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowdown}");
+
+    expect(select.querySelector('li[data-value="option1"]')).toHaveFocus();
+
+    await userEvent.keyboard("{escape}");
+
+    expect(button).toHaveAttribute("aria-expanded", "false");
+  });
 });
 
 describe("Expanded should be false whenever we click the body", () => {
