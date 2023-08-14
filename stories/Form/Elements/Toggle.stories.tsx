@@ -69,7 +69,7 @@ const Template: StoryFn<Props> = args => {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div style={{ width: "200px" }}>
+    <div style={{ width: "200px", padding: "1rem" }}>
       <ToggleComponent onChange={() => setChecked(!checked)} checked={checked} {...args} />
     </div>
   );
