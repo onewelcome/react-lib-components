@@ -41,16 +41,19 @@ const Template: Story<Props> = args => {
     // Delay for the first render for Chromatic to capture the initial state.
     if (percentage === 0) {
       const initialDelay = setTimeout(() => {
-        const timer = setInterval(() => {
-          setPercentage(prevPercentage => {
-            if (prevPercentage < 100) {
-              return prevPercentage + 1;
-            } else {
-              clearInterval(timer); // Stop the timer when we reach 100
-              return prevPercentage;
-            }
-          });
-        }, Math.floor(Math.random() * (2000 - 100 + 1) + 100));
+        const timer = setInterval(
+          () => {
+            setPercentage(prevPercentage => {
+              if (prevPercentage < 100) {
+                return prevPercentage + 1;
+              } else {
+                clearInterval(timer); // Stop the timer when we reach 100
+                return prevPercentage;
+              }
+            });
+          },
+          Math.floor(Math.random() * (2000 - 100 + 1) + 100)
+        );
 
         return () => clearInterval(timer);
       }, 2000);
