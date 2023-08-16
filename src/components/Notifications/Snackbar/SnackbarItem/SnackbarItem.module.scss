@@ -129,7 +129,10 @@
     margin: 0;
     padding: 0.625rem 1.25rem;
     cursor: pointer;
-    transition: color, background-color, border-color 0.2s ease-in-out;
+    transition:
+      color,
+      background-color,
+      border-color 0.2s ease-in-out;
     font-family: var(--font-family);
     color: var(--snackbar-text-color);
     background-color: transparent;

@@ -18,6 +18,7 @@ import React, { useEffect } from "react";
 import "./base.scss";
 import { BaseStyling } from "../src/components/_BaseStyling_/BaseStyling";
 import { useState } from "react";
+import { resetStory } from "../stories/utils/helpers";
 
 // https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 export const parameters = {
@@ -39,6 +40,11 @@ const Preview = story => {
       window.removeEventListener("updated-styling", parseBaseStylingStorage);
     };
   }, []);
+
+  const root = document.querySelector("html");
+  if (root) {
+    resetStory();
+  }
 
   const parseBaseStylingStorage = () => {
     const baseStylingSessionStorage = window.sessionStorage.getItem("basestyling");

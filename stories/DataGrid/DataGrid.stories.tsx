@@ -25,6 +25,8 @@ import { Icon, Icons } from "../../src/components/Icon/Icon";
 import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 export default {
   title: "components/Data Display/DataGrid",
@@ -92,7 +94,75 @@ const Template = args => {
 };
 
 export const DefaultDataGrid = Template.bind({});
+
 DefaultDataGrid.args = {
+  data: [
+    {
+      name: "Company 1",
+      created: new Date(2023, 0, 1),
+      id: "1",
+      type: "Stock",
+      enabled: true
+    },
+    {
+      name: "Company 2",
+      created: new Date(2023, 0, 2),
+      id: "2",
+      type: "Stock",
+      enabled: false
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "created", headline: "Created" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "enabled", headline: "Status", disableSorting: true }
+  ],
+  initialSort: [
+    { name: "name", direction: "ASC" },
+    { name: "created", direction: "DESC" }
+  ],
+  onSort: sort => action(`Sort callback: ${sort}`),
+  actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
+  },
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 2,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+export const DataGridWithColumnsPopup = Template.bind({});
+
+DataGridWithColumnsPopup.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.queryByText("Columns")?.closest("button")).toBeInTheDocument());
+
+  const columnsButton = await canvas.queryByText("Columns")?.closest("button");
+
+  await userEvent.click(columnsButton!);
+
+  const showColumnsDialog = canvas.queryByRole("dialog");
+  const innerDiv = showColumnsDialog?.querySelector("div");
+
+  expect(showColumnsDialog).toBeInTheDocument();
+  await waitFor(() => expect(innerDiv).toHaveStyle({ "pointer-events": "auto" }));
+
+  const nameToggle = await canvas.getByLabelText("Name");
+
+  await userEvent.click(nameToggle);
+};
+
+DataGridWithColumnsPopup.args = {
   data: [
     {
       name: "Company 1",

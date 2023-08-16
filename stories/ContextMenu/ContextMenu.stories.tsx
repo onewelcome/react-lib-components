@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import {
   ContextMenu as ContextMenuComponent,
@@ -27,6 +27,9 @@ import { Icon, Icons } from "../../src/components/Icon/Icon";
 import { Placement } from "../../src/hooks/usePosition";
 import ContextMenuDocumentation from "./ContextMenu.mdx";
 import { Typography } from "../../src/components/Typography/Typography";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
+import { centerStory } from "../utils/helpers";
 
 const meta: Meta = {
   title: "components/Navigation/ContextMenu",
@@ -63,6 +66,8 @@ const Template: Story<Props> = args => {
     vertical: "top",
     horizontal: "left"
   });
+
+  centerStory();
 
   return (
     <Fragment>
@@ -292,6 +297,18 @@ const Template: Story<Props> = args => {
 
 export const ContextMenu = Template.bind({});
 
+ContextMenu.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() =>
+    expect(canvas.getByRole("button", { name: "click me for contextmenu" })).toBeInTheDocument()
+  );
+
+  userEvent.click(canvas.getByRole("button", { name: "click me for contextmenu" }));
+
+  await waitFor(() => expect(canvas.getAllByRole("menuitem")).toHaveLength(3));
+};
+
 ContextMenu.args = {
   id: "example-contextmenu",
   trigger: (
@@ -314,6 +331,19 @@ ContextMenu.args = {
 ContextMenu.storyName = "ContextMenu";
 
 export const ContextMenuWithDecorativeElement = Template.bind({});
+
+ContextMenuWithDecorativeElement.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() =>
+    expect(canvas.getByRole("button", { name: "click me for contextmenu" })).toBeInTheDocument()
+  );
+
+  userEvent.click(canvas.getByRole("button", { name: "click me for contextmenu" }));
+
+  await waitFor(() => expect(canvas.getAllByRole("menuitem")).toHaveLength(1));
+  expect(canvas.getByText("Decorative element")).toBeInTheDocument();
+};
 
 ContextMenuWithDecorativeElement.args = {
   id: "example-contextmenu",

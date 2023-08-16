@@ -18,6 +18,9 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { Props, Tooltip as TooltipComponent } from "../../src/components/Tooltip/Tooltip";
 import TooltipDocumentation from "./Tooltip.mdx";
+import { centerStory } from "../utils/helpers";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "components/Data Display/Tooltip",
@@ -31,9 +34,26 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <TooltipComponent {...args} />;
+const Template: Story<Props> = args => {
+  centerStory();
+  return <TooltipComponent {...args} />;
+};
 
 export const Tooltip = Template.bind({});
+
+Tooltip.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.queryByText("Example label")).not.toBeNull());
+
+  const infoIcon = (await canvas.findByText("Example label"))
+    .closest("div")
+    ?.querySelector("[data-icon]");
+
+  expect(infoIcon).not.toBeNull();
+
+  await userEvent.hover(infoIcon!);
+};
 
 Tooltip.args = {
   title: "Tooltip title.",

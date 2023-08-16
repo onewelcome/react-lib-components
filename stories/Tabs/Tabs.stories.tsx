@@ -20,6 +20,8 @@ import { Tabs as TabsComponent, Props } from "../../src/components/Tabs/Tabs";
 import { Typography } from "../../src/components/Typography/Typography";
 import { Tab } from "../../src/components/Tabs/Tab";
 import TabsDocumentation from "./Tabs.mdx";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "components/Navigation/Tabs",
@@ -80,5 +82,35 @@ const Template: Story<Props> = args => {
 };
 
 export const Tabs = Template.bind({});
+
+export const TabsWithFocusRing = Template.bind({});
+
+TabsWithFocusRing.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => canvas.getByRole("tab", { name: "First tab" }));
+
+  const tab1 = await canvas.getByRole("tab", { name: "First tab" });
+  const tab2 = await canvas.getByRole("tab", { name: "Second tab" });
+  const tab3 = await canvas.getByRole("tab", { name: "Third tab" });
+
+  expect(tab1).toHaveAttribute("aria-selected", "true");
+
+  await userEvent.click(tab2);
+
+  expect(tab1).toHaveAttribute("aria-selected", "false");
+
+  expect(tab2).toHaveAttribute("aria-selected", "true");
+
+  await userEvent.click(tab3);
+
+  expect(tab2).toHaveAttribute("aria-selected", "false");
+
+  expect(tab3).toHaveAttribute("aria-selected", "true");
+
+  await userEvent.click(tab1);
+
+  expect(tab3).toHaveAttribute("aria-selected", "false");
+};
 
 Tabs.args = {};

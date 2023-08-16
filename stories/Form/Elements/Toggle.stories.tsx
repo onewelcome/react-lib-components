@@ -19,6 +19,8 @@ import { Meta, Story, StoryFn } from "@storybook/react";
 import { Toggle as ToggleComponent } from "../../../src/components/Form/Toggle/Toggle";
 import { Props } from "../../../src/components/Form/Checkbox/Checkbox";
 import ToggleDocumentation from "./Toggle.mdx";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "components/Inputs/Toggle",
@@ -67,55 +69,93 @@ const Template: StoryFn<Props> = args => {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div style={{ width: "200px" }}>
+    <div style={{ width: "200px", padding: "1rem" }}>
       <ToggleComponent onChange={() => setChecked(!checked)} checked={checked} {...args} />
     </div>
   );
 };
 
-export const Toggle = Template.bind({});
+export const UncheckedToggle = Template.bind({});
 
-Toggle.args = {
+UncheckedToggle.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("checkbox")).not.toBeChecked());
+
+  const toggle = await canvas.getByRole("checkbox");
+  const label = await canvas.getByText("Toggle label");
+
+  expect(toggle).not.toBeChecked();
+  await userEvent.click(label);
+  await waitFor(() => expect(toggle).toBeChecked());
+  await userEvent.click(label);
+  await waitFor(() => expect(toggle).not.toBeChecked());
+};
+
+UncheckedToggle.args = {
   name: "Example toggle",
   label: "Toggle label",
   helperProps: { children: <a href="https://www.google.com">Test</a> }
 };
 
+export const ToggleDisabled = Template.bind({});
+
+ToggleDisabled.args = {
+  name: "Example toggle",
+  label: "Toggle label",
+  disabled: true,
+  helperProps: { children: <a href="https://www.google.com">Test</a> }
+};
+
+export const CheckedToggle = Template.bind({});
+
+CheckedToggle.args = {
+  name: "Example toggle",
+  label: "Toggle label",
+  helperProps: { children: <a href="https://www.google.com">Test</a> }
+};
+
+CheckedToggle.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("checkbox")).not.toBeChecked());
+
+  const toggle = await canvas.getByRole("checkbox");
+  const label = await canvas.getByText("Toggle label");
+
+  await userEvent.click(label);
+  expect(toggle).toBeChecked();
+};
+
 export const ToggleLabelLeft = Template.bind({});
 
 ToggleLabelLeft.args = {
-  ...Toggle.args,
+  ...UncheckedToggle.args,
   labelPosition: "left"
 };
 
 export const ToggleLabelHidden = Template.bind({});
 ToggleLabelHidden.args = {
-  ...Toggle.args,
+  ...UncheckedToggle.args,
   hideLabel: true
 };
 
 export const ToggleLabelOverflow = Template.bind({});
 ToggleLabelOverflow.args = {
-  ...Toggle.args,
+  ...UncheckedToggle.args,
   label: "This is a very long label that will overflow the toggle.",
   labelOverflow: "wrap"
 };
 
 export const ToggleVersionNeutral = Template.bind({});
 ToggleVersionNeutral.args = {
-  ...Toggle.args,
+  ...UncheckedToggle.args,
   version: "neutral",
   checked: true
 };
 
 export const ToggleSpacingBetween = Template.bind({});
 ToggleSpacingBetween.args = {
-  ...Toggle.args,
+  ...UncheckedToggle.args,
   spacing: "between"
-};
-
-export const ToggleDisabled = Template.bind({});
-ToggleDisabled.args = {
-  ...Toggle.args,
-  disabled: true
 };

@@ -15,14 +15,12 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import {
-  TextEllipsis as TextEllipsisComponent,
-  Props
-} from "../../src/components/TextEllipsis/TextEllipsis";
+import { Meta } from "@storybook/react";
+import { TextEllipsis as TextEllipsisComponent } from "../../src/components/TextEllipsis/TextEllipsis";
 import { Typography } from "../../src/components/Typography/Typography";
-
 import TextEllipsisDocumentation from "./TextEllipsis.mdx";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 export default {
   title: "components/Utils/TextEllipsis",
@@ -47,13 +45,34 @@ export default {
 
 const Template = args => (
   <div style={{ width: 200 }}>
-    <Typography variant="body" tag="div">
+    <Typography style={{ paddingBottom: "2rem" }} variant="body" tag="div">
       <TextEllipsisComponent {...args} />
     </Typography>
   </div>
 );
 
 export const TextEllipsis = Template.bind({});
+
+TextEllipsis.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() =>
+    expect(
+      canvas.findAllByText("This is a long text that will trigger the ellipsis and show a popover.")
+    ).not.toBeNull()
+  );
+
+  const strings = await canvas.findAllByText(
+    "This is a long text that will trigger the ellipsis and show a popover."
+  );
+
+  const elementToHover = strings[0];
+
+  await userEvent.hover(elementToHover!);
+
+  expect(strings[1]).not.toHaveAttribute("aria-hidden", "true");
+};
+
 TextEllipsis.args = {
   children: "This is a long text that will trigger the ellipsis and show a popover."
 };
