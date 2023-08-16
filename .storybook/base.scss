@@ -16,6 +16,7 @@
 
 body {
   font-family: Roboto, sans-serif;
+  overflow: initial !important; // Modal break scrolling behaviour, so we need to override it for Storybook
 }
 
 div[scale="1"] {
