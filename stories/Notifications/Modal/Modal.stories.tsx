@@ -97,7 +97,7 @@ const Template: Story<Props> = args => {
               onClose();
             }}
           >
-            <Typography variant="body" spacing={{ margin: 0, padding: "0 5 5" }}>
+            <Typography variant="body" spacing={{ margin: 0, paddingBottom: 5 }}>
               This modal shows various options of form controls. It is not meant to be a realistic
               example of any of our forms.
               <br /> Clicking Save, Cancel or Close may bring you to a different screen than you

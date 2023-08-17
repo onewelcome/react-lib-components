@@ -41,7 +41,7 @@ const DialogTitleComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         <Typography
           id={id}
           className={classes["title"]}
-          spacing={{ marginLeft: 2 }}
+          spacing={titleIcon && { marginLeft: 2 }}
           tag="h1"
           variant="h4"
         >

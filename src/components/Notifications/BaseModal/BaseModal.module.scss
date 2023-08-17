@@ -66,8 +66,7 @@ $marginTop: 3.125rem;
 
 @media only screen and (min-width: 50em) {
   .container {
-    min-width: 480px;
-    width: min-content;
+    width: 50rem;
     height: auto;
     max-height: calc(90% - $marginTop);
     border-radius: 2px;
