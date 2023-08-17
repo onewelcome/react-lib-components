@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import {
   ContextMenu as ContextMenuComponent,
@@ -29,7 +29,7 @@ import ContextMenuDocumentation from "./ContextMenu.mdx";
 import { Typography } from "../../src/components/Typography/Typography";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { centerStory } from "../utils/helpers";
+import { useStoryCentring } from "../utils/useStoryCentring";
 
 const meta: Meta = {
   title: "components/Navigation/ContextMenu",
@@ -66,8 +66,7 @@ const Template: Story<Props> = args => {
     vertical: "top",
     horizontal: "left"
   });
-
-  centerStory();
+  useStoryCentring();
 
   return (
     <Fragment>

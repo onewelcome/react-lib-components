@@ -18,9 +18,9 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { Props, Tooltip as TooltipComponent } from "../../src/components/Tooltip/Tooltip";
 import TooltipDocumentation from "./Tooltip.mdx";
-import { centerStory } from "../utils/helpers";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { useStoryCentring } from "../utils/useStoryCentring";
 
 const meta: Meta = {
   title: "components/Data Display/Tooltip",
@@ -35,7 +35,8 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => {
-  centerStory();
+  useStoryCentring();
+
   return <TooltipComponent {...args} />;
 };
 
