@@ -6,7 +6,7 @@
   "author": "OneWelcome B.V.",
   "main": "dist/cjs/src/index.cjs.js",
   "module": "dist/esm/src/index.esm.js",
-  "typings": "dist/cjs/index.d.ts",
+  "typings": "dist/cjs/src/index.d.ts",
   "files": [
     "dist",
     "src"
