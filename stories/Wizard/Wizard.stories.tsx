@@ -30,6 +30,8 @@ import { Modal } from "../../src/components/Notifications/Modal/Modal";
 import { ModalContent } from "../../src/components/Notifications/Modal/ModalContent/ModalContent";
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { ModalHeader } from "../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
+import { Checkbox } from "../../src/components/Form/Checkbox/Checkbox";
+import { InputWrapper, Typography } from "../../src";
 
 const meta: Meta = {
   title: "components/Layout/Wizard/Wizard",
@@ -126,7 +128,7 @@ const WizardModalTemplate = () => {
   const [step, setStep] = useState(0);
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const [exampleInput, setExampleInput] = useState("");
-  const [exampleInputError, setExampleInputError] = useState(false);
+  const [exampleInput2, setExampleInput2] = useState("");
   const [steps, setSteps] = useState([
     {
       label: "Step 1"
@@ -158,79 +160,46 @@ const WizardModalTemplate = () => {
           </ModalHeader>
           <ModalContent id={`${modalId}-description`}>
             <form id="modalForm">
-              <p style={{ margin: 0, paddingInline: 20 }}>
+              <Typography variant="body">
                 This modal shows various options of form controls. It is not meant to be a realistic
                 example of any of our forms.
                 <br /> Clicking Save, Cancel or Close may bring you to a different screen than you
                 came from.
-              </p>
+              </Typography>
               {step === 0 && (
                 <Fragment>
-                  <input
+                  <Checkbox
                     id="checkbox"
+                    name="checkbox"
                     type="checkbox"
-                    style={{
-                      paddingBlock: 10,
-                      marginTop: 20
-                    }}
                     checked={checkboxChecked}
                     onChange={onCheckboxChange}
-                  ></input>
-                  <label htmlFor="checkbox">
+                  >
                     Checking this checkbox affects the activity of step 2
-                  </label>
+                  </Checkbox>
                 </Fragment>
               )}
               {step === 1 && (
-                <Fragment>
-                  <input
-                    style={{
-                      paddingBlock: 10,
-                      marginTop: 20,
-                      width: "100%",
-                      boxSizing: "border-box"
-                    }}
-                    value={exampleInput}
-                    onChange={event => setExampleInput(event.target.value)}
-                  ></input>
-                  <p
-                    style={{
-                      margin: 0,
-                      paddingTop: 5,
-                      paddingInline: 20,
-                      fontSize: 11
-                    }}
-                  >
-                    {exampleInputError ? (
-                      <span style={{ color: "var(--error)" }}>This field is required</span>
-                    ) : (
-                      "Helper text for this text field. Description should be short and not repeat the label."
-                    )}
-                  </p>
-                </Fragment>
+                <InputWrapper
+                  label="Some input"
+                  helperText="Helper text for this text field. Description should be short and not repeat the
+            label."
+                  name="first-name"
+                  value={exampleInput}
+                  onChange={event => setExampleInput(event.target.value)}
+                  type="text"
+                />
               )}
               {step === 2 && (
-                <Fragment>
-                  <input
-                    style={{
-                      paddingBlock: 10,
-                      marginTop: 20,
-                      width: "100%",
-                      boxSizing: "border-box"
-                    }}
-                  ></input>
-                  <p
-                    style={{
-                      margin: 0,
-                      paddingTop: 5,
-                      paddingInline: 20,
-                      fontSize: 11
-                    }}
-                  >
-                    Helper text for this text field. Description should be short and not repeat the
-                    label.
-                  </p>
-                </Fragment>
+                <InputWrapper
+                  label="Some 2 input"
+                  helperText="Helper text for this text field. Description should be short and not repeat the
+            label."
+                  name="first-name"
+                  value={exampleInput2}
+                  onChange={event => setExampleInput2(event.target.value)}
+                  type="text"
+                />
               )}
             </form>
           </ModalContent>
