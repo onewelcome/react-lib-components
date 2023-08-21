@@ -83,7 +83,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const [display, setDisplay] = useState("");
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
-  const [isSearching, setIsSearching] = useState(false);
+  const [isSearching, setIsSearching] = useState(true);
   const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
   const [shouldClick, setShouldClick] =
     useState(
