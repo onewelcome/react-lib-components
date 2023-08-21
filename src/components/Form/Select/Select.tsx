@@ -81,9 +81,9 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const [expanded, setExpanded] = useState(false);
   const [filter, setFilter] = useState("");
   const [display, setDisplay] = useState("");
-  const containerReference = useRef<HTMLDivElement>(null);
+  const containerReference1 = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
-  const [isSearching, setIsSearching] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
   const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
   const [shouldClick, setShouldClick] =
     useState(
@@ -119,7 +119,11 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
-    useSelectPositionList({ expanded, optionListReference, containerReference });
+    useSelectPositionList({
+      expanded,
+      optionListReference,
+      containerReference: containerReference1
+    });
 
   const syncDisplayValue = (val: string) => {
     React.Children.forEach(children, child => {
@@ -265,7 +269,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
       </select>
       <div
         {...filterProps(rest, /^data-/)}
-        ref={containerReference}
+        ref={containerReference1}
         onKeyDown={onArrowNavigation}
         className={`custom-select ${classes.select} ${additionalClasses.join(" ")} ${
           className ?? ""
