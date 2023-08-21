@@ -66,6 +66,9 @@ export default meta;
 const Template: Story<Props> = args => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("initial value");
+  const [value2, setValue2] = useState("initial value");
+  const [value3, setValue3] = useState("initial value");
+  const [value4, setValue4] = useState("initial value");
 
   /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
   useEffect(() => {
@@ -119,10 +122,10 @@ const Template: Story<Props> = args => {
                 helperText="Helper text for this field. Description should be short and not repeat the label"
                 name="input2"
                 type="text"
-                value={value}
+                value={value2}
                 error={false}
                 label="Name"
-                onChange={e => setValue(e.target.value)}
+                onChange={e => setValue2(e.target.value)}
               />
             </FormControl>
             <FormControl>
@@ -130,10 +133,10 @@ const Template: Story<Props> = args => {
                 helperText="Helper text for this field. Description should be short and not repeat the label"
                 name="input3"
                 type="text"
-                value={value}
+                value={value3}
                 error={false}
                 label="Name"
-                onChange={e => setValue(e.target.value)}
+                onChange={e => setValue3(e.target.value)}
               />
             </FormControl>
             <FormControl>
@@ -141,10 +144,10 @@ const Template: Story<Props> = args => {
                 helperText="Helper text for this field. Description should be short and not repeat the label"
                 name="input4"
                 type="text"
-                value={value}
+                value={value4}
                 error={false}
                 label="Name"
-                onChange={e => setValue(e.target.value)}
+                onChange={e => setValue4(e.target.value)}
               />
             </FormControl>
           </form>
