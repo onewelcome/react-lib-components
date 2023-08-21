@@ -232,89 +232,93 @@ function _createMdxContent(props) {
         children: "<BaseStyling/>"
       }), " supports overwriting default properties. For Typography, these properties can be set:"]
     }), "\n", (0,jsx_runtime.jsxs)("table", {
-      children: [(0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "Property name"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Default value"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Description"
-        })]
-      }), (0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "fontFamily"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Roboto, sans-serif"
-        }), (0,jsx_runtime.jsxs)("td", {
-          children: ["Base font family used for all Typography's variants beside ", (0,jsx_runtime.jsx)(_components.code, {
-            children: "code"
+      children: [(0,jsx_runtime.jsx)("thead", {
+        children: (0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "Property name"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Default value"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Description"
           })]
-        })]
-      }), (0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "fontFamilyCode"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "'Roboto Mono', sans-serif"
-        }), (0,jsx_runtime.jsxs)("td", {
-          children: ["Font family used for ", (0,jsx_runtime.jsx)(_components.code, {
-            children: "code"
-          }), " Typography variant"]
-        })]
-      }), (0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "fontSize"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "1rem"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Base font size used in Typography as well in other elements like buttons"
-        })]
-      }), (0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "fontSizeH1"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "2.5rem"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Font size of Heading1 variant"
-        })]
-      }), (0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "fontSizeH2"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "1.625rem"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Font size of Heading2 variant"
-        })]
-      }), (0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "fontSizeH3"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "1.5rem"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Font size of Heading3 variant"
-        })]
-      }), (0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "fontSizeH4"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "1.25rem"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Font size of Heading4 variant"
-        })]
-      }), (0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "fontSizeSub"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "0.75rem"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Font size of Sub text variant"
-        })]
-      }), (0,jsx_runtime.jsxs)("tr", {
-        children: [(0,jsx_runtime.jsx)("td", {
-          children: "fontSizeCode"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "1rem"
-        }), (0,jsx_runtime.jsx)("td", {
-          children: "Font size of Code variant"
+        })
+      }), (0,jsx_runtime.jsxs)("tbody", {
+        children: [(0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "fontFamily"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Roboto, sans-serif"
+          }), (0,jsx_runtime.jsxs)("td", {
+            children: ["Base font family used for all Typography's variants beside ", (0,jsx_runtime.jsx)(_components.code, {
+              children: "code"
+            })]
+          })]
+        }), (0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "fontFamilyCode"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "'Roboto Mono', sans-serif"
+          }), (0,jsx_runtime.jsxs)("td", {
+            children: ["Font family used for ", (0,jsx_runtime.jsx)(_components.code, {
+              children: "code"
+            }), " Typography variant"]
+          })]
+        }), (0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "fontSize"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "1rem"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Base font size used in Typography as well in other elements like buttons"
+          })]
+        }), (0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "fontSizeH1"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "2.5rem"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Font size of Heading1 variant"
+          })]
+        }), (0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "fontSizeH2"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "1.625rem"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Font size of Heading2 variant"
+          })]
+        }), (0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "fontSizeH3"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "1.5rem"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Font size of Heading3 variant"
+          })]
+        }), (0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "fontSizeH4"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "1.25rem"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Font size of Heading4 variant"
+          })]
+        }), (0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "fontSizeSub"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "0.75rem"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Font size of Sub text variant"
+          })]
+        }), (0,jsx_runtime.jsxs)("tr", {
+          children: [(0,jsx_runtime.jsx)("td", {
+            children: "fontSizeCode"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "1rem"
+          }), (0,jsx_runtime.jsx)("td", {
+            children: "Font size of Code variant"
+          })]
         })]
       })]
     }), "\n", (0,jsx_runtime.jsx)(_components.h2, {

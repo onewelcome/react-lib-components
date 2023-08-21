@@ -779,12 +779,12 @@ function MDXContent(props = {}) {
 }
 /* harmony default export */ var Tooltip_Tooltip = (MDXContent);
 
-// EXTERNAL MODULE: ./stories/utils/helpers.ts
-var helpers = __webpack_require__("./stories/utils/helpers.ts");
 // EXTERNAL MODULE: ./node_modules/@storybook/testing-library/dist/index.mjs + 89 modules
 var testing_library_dist = __webpack_require__("./node_modules/@storybook/testing-library/dist/index.mjs");
 // EXTERNAL MODULE: ./node_modules/@storybook/jest/dist/esm/index.js + 1 modules
 var esm = __webpack_require__("./node_modules/@storybook/jest/dist/esm/index.js");
+// EXTERNAL MODULE: ./stories/utils/useStoryCentring.ts
+var useStoryCentring = __webpack_require__("./stories/utils/useStoryCentring.ts");
 ;// CONCATENATED MODULE: ./stories/Tooltip/Tooltip.stories.tsx
 function Tooltip_stories_typeof(obj) {
   "@babel/helpers - typeof";
@@ -1207,7 +1207,7 @@ var meta = {
 };
 /* harmony default export */ var Tooltip_stories = (meta);
 var Template = function Template(args) {
-  (0,helpers/* centerStory */.Nr)();
+  (0,useStoryCentring/* useStoryCentring */.g)();
   return /*#__PURE__*/react.createElement(Tooltip, args);
 };
 var Tooltip_stories_Tooltip = Template.bind({});
@@ -1270,7 +1270,7 @@ Tooltip_stories_Tooltip.args = {
 Tooltip_stories_Tooltip.parameters = Tooltip_stories_objectSpread(Tooltip_stories_objectSpread({}, Tooltip_stories_Tooltip.parameters), {}, {
   docs: Tooltip_stories_objectSpread(Tooltip_stories_objectSpread({}, (_Tooltip$parameters = Tooltip_stories_Tooltip.parameters) === null || _Tooltip$parameters === void 0 ? void 0 : _Tooltip$parameters.docs), {}, {
     source: Tooltip_stories_objectSpread({
-      originalSource: "args => {\n  centerStory();\n  return <TooltipComponent {...args} />;\n}"
+      originalSource: "args => {\n  useStoryCentring();\n  return <TooltipComponent {...args} />;\n}"
     }, (_Tooltip$parameters2 = Tooltip_stories_Tooltip.parameters) === null || _Tooltip$parameters2 === void 0 || (_Tooltip$parameters2 = _Tooltip$parameters2.docs) === null || _Tooltip$parameters2 === void 0 ? void 0 : _Tooltip$parameters2.source)
   })
 });
@@ -2044,6 +2044,69 @@ try {
         STORYBOOK_REACT_CLASSES["src/util/helper.tsx#isJsonString"] = { docgenInfo: isJsonString.__docgenInfo, name: "isJsonString", path: "src/util/helper.tsx#isJsonString" };
 }
 catch (__react_docgen_typescript_loader_error) { }
+
+/***/ }),
+
+/***/ "./stories/utils/useStoryCentring.ts":
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   g: function() { return /* binding */ useStoryCentring; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+var useStoryCentring = function useStoryCentring() {
+  var isStory = function isStory() {
+    return window.location.search.includes("viewMode=story");
+  };
+  var centerStory = function centerStory() {
+    /** In order to show off the positioning for the tooltip we need to center everything in the middle of the screen. */
+    var root = document.querySelector("html");
+    if (root && isStory()) {
+      root.style.height = "100%";
+      root.style.width = "100%";
+      root.style.display = "flex";
+      root.style.justifyContent = "center";
+      root.style.alignItems = "center";
+      root.style.overflow = "hidden";
+    }
+  };
+  var resetStory = function resetStory() {
+    /** We want to reset story positioning when we are unmounting story */
+    var root = document.querySelector("html");
+    if (root) {
+      root.style.height = "";
+      root.style.width = "";
+      root.style.display = "";
+      root.style.justifyContent = "";
+      root.style.alignItems = "";
+      root.style.overflow = "";
+    }
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    centerStory();
+    return function () {
+      resetStory();
+    };
+  }, []);
+};
 
 /***/ }),
 

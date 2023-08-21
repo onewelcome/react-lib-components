@@ -396,6 +396,18 @@ var Template = function Template(args) {
     _useState4 = _slicedToArray(_useState3, 2),
     value = _useState4[0],
     setValue = _useState4[1];
+  var _useState5 = (0,react.useState)("initial value"),
+    _useState6 = _slicedToArray(_useState5, 2),
+    value2 = _useState6[0],
+    setValue2 = _useState6[1];
+  var _useState7 = (0,react.useState)("initial value"),
+    _useState8 = _slicedToArray(_useState7, 2),
+    value3 = _useState8[0],
+    setValue3 = _useState8[1];
+  var _useState9 = (0,react.useState)("initial value"),
+    _useState10 = _slicedToArray(_useState9, 2),
+    value4 = _useState10[0],
+    setValue4 = _useState10[1];
 
   /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
   (0,react.useEffect)(function () {
@@ -436,7 +448,7 @@ var Template = function Template(args) {
     variant: "body",
     spacing: {
       margin: 0,
-      padding: "0 5 5"
+      paddingBottom: 5
     }
   }, "This modal shows various options of form controls. It is not meant to be a realistic example of any of our forms.", /*#__PURE__*/react.createElement("br", null), " Clicking Save, Cancel or Close may bring you to a different screen than you came from."), /*#__PURE__*/react.createElement(FormControl/* FormControl */.N, null, /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
     helperText: "Helper text for this field. Description should be short and not repeat the label",
@@ -452,31 +464,31 @@ var Template = function Template(args) {
     helperText: "Helper text for this field. Description should be short and not repeat the label",
     name: "input2",
     type: "text",
-    value: value,
+    value: value2,
     error: false,
     label: "Name",
     onChange: function onChange(e) {
-      return setValue(e.target.value);
+      return setValue2(e.target.value);
     }
   })), /*#__PURE__*/react.createElement(FormControl/* FormControl */.N, null, /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
     helperText: "Helper text for this field. Description should be short and not repeat the label",
     name: "input3",
     type: "text",
-    value: value,
+    value: value3,
     error: false,
     label: "Name",
     onChange: function onChange(e) {
-      return setValue(e.target.value);
+      return setValue3(e.target.value);
     }
   })), /*#__PURE__*/react.createElement(FormControl/* FormControl */.N, null, /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
     helperText: "Helper text for this field. Description should be short and not repeat the label",
     name: "input4",
     type: "text",
-    value: value,
+    value: value4,
     error: false,
     label: "Name",
     onChange: function onChange(e) {
-      return setValue(e.target.value);
+      return setValue4(e.target.value);
     }
   })))), /*#__PURE__*/react.createElement(BaseModalActions/* BaseModalActions */.u, {
     onClose: onClose,
@@ -493,7 +505,7 @@ var Modal_stories_Modal = Template.bind({});
 Modal_stories_Modal.parameters = _objectSpread(_objectSpread({}, Modal_stories_Modal.parameters), {}, {
   docs: _objectSpread(_objectSpread({}, (_Modal$parameters = Modal_stories_Modal.parameters) === null || _Modal$parameters === void 0 ? void 0 : _Modal$parameters.docs), {}, {
     source: _objectSpread({
-      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n  const [value, setValue] = useState(\"initial value\");\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  const id = args.id;\n  const onClose = () => setOpen(false);\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <ModalComponent id={id} open={open} onClose={onClose} zIndex={args.zIndex} disableBackdrop={args.disableBackdrop} disableEscapeKeyDown={args.disableEscapeKeyDown}>\n        <ModalHeader id={`${id}-label`} title={args[\"header.title\"]} onClose={onClose} />\n        <ModalContent id={`${id}-description`} disableAutoFocus={args[\"content.disableAutoFocus\"]}>\n          <form id=\"modalForm\" onSubmit={e => {\n          e.preventDefault();\n          alert(\"form submitted\");\n          onClose();\n        }}>\n            <Typography variant=\"body\" spacing={{\n            margin: 0,\n            padding: \"0 5 5\"\n          }}>\n              This modal shows various options of form controls. It is not meant to be a realistic\n              example of any of our forms.\n              <br /> Clicking Save, Cancel or Close may bring you to a different screen than you\n              came from.\n            </Typography>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input1\" type=\"text\" value={value} error={false} label=\"Name\" onChange={e => setValue(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input2\" type=\"text\" value={value} error={false} label=\"Name\" onChange={e => setValue(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input3\" type=\"text\" value={value} error={false} label=\"Name\" onChange={e => setValue(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input4\" type=\"text\" value={value} error={false} label=\"Name\" onChange={e => setValue(e.target.value)} />\n            </FormControl>\n          </form>\n        </ModalContent>\n        <ModalActions onClose={onClose} className={args[\"actions.className\"]}>\n          <Button variant=\"outline\" onClick={onClose}>\n            Example\n          </Button>\n          <Button form=\"modalForm\" type=\"submit\">\n            Save\n          </Button>\n        </ModalActions>\n      </ModalComponent>\n    </Fragment>;\n}"
+      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n  const [value, setValue] = useState(\"initial value\");\n  const [value2, setValue2] = useState(\"initial value\");\n  const [value3, setValue3] = useState(\"initial value\");\n  const [value4, setValue4] = useState(\"initial value\");\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  const id = args.id;\n  const onClose = () => setOpen(false);\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <ModalComponent id={id} open={open} onClose={onClose} zIndex={args.zIndex} disableBackdrop={args.disableBackdrop} disableEscapeKeyDown={args.disableEscapeKeyDown}>\n        <ModalHeader id={`${id}-label`} title={args[\"header.title\"]} onClose={onClose} />\n        <ModalContent id={`${id}-description`} disableAutoFocus={args[\"content.disableAutoFocus\"]}>\n          <form id=\"modalForm\" onSubmit={e => {\n          e.preventDefault();\n          alert(\"form submitted\");\n          onClose();\n        }}>\n            <Typography variant=\"body\" spacing={{\n            margin: 0,\n            paddingBottom: 5\n          }}>\n              This modal shows various options of form controls. It is not meant to be a realistic\n              example of any of our forms.\n              <br /> Clicking Save, Cancel or Close may bring you to a different screen than you\n              came from.\n            </Typography>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input1\" type=\"text\" value={value} error={false} label=\"Name\" onChange={e => setValue(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input2\" type=\"text\" value={value2} error={false} label=\"Name\" onChange={e => setValue2(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input3\" type=\"text\" value={value3} error={false} label=\"Name\" onChange={e => setValue3(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input4\" type=\"text\" value={value4} error={false} label=\"Name\" onChange={e => setValue4(e.target.value)} />\n            </FormControl>\n          </form>\n        </ModalContent>\n        <ModalActions onClose={onClose} className={args[\"actions.className\"]}>\n          <Button variant=\"outline\" onClick={onClose}>\n            Example\n          </Button>\n          <Button form=\"modalForm\" type=\"submit\">\n            Save\n          </Button>\n        </ModalActions>\n      </ModalComponent>\n    </Fragment>;\n}"
     }, (_Modal$parameters2 = Modal_stories_Modal.parameters) === null || _Modal$parameters2 === void 0 || (_Modal$parameters2 = _Modal$parameters2.docs) === null || _Modal$parameters2 === void 0 ? void 0 : _Modal$parameters2.source)
   })
 });
@@ -882,7 +894,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.BaseModalHeader-module__header--UVtiQ{min-width:80px;padding:1.25rem 1.5rem 0;border-top-left-radius:8px;border-top-right-radius:8px}.BaseModalHeader-module__headline--q6eEZ{display:flex;align-items:center;justify-content:space-between}.BaseModalHeader-module__title--FjtRT{flex:1;margin:0 0 0 1.25rem}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.BaseModalHeader-module__header--UVtiQ{min-width:80px;padding:1.25rem 1.5rem 0;border-top-left-radius:8px;border-top-right-radius:8px}.BaseModalHeader-module__headline--q6eEZ{display:flex;align-items:center;justify-content:space-between}.BaseModalHeader-module__title--FjtRT{flex:1;margin:0}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"header": "BaseModalHeader-module__header--UVtiQ",

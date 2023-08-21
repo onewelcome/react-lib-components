@@ -363,8 +363,6 @@ try {
         STORYBOOK_REACT_CLASSES["src/components/_BaseStyling_/BaseStyling.tsx#BaseStyling"] = { docgenInfo: BaseStyling.__docgenInfo, name: "BaseStyling", path: "src/components/_BaseStyling_/BaseStyling.tsx#BaseStyling" };
 }
 catch (__react_docgen_typescript_loader_error) { }
-// EXTERNAL MODULE: ./stories/utils/helpers.ts
-var helpers = __webpack_require__("./stories/utils/helpers.ts");
 ;// CONCATENATED MODULE: ./.storybook/preview.tsx
 function preview_slicedToArray(arr, i) {
   return preview_arrayWithHoles(arr) || preview_iterableToArrayLimit(arr, i) || preview_unsupportedIterableToArray(arr, i) || preview_nonIterableRest();
@@ -436,7 +434,6 @@ function preview_arrayWithHoles(arr) {
 
 
 
-
 // https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 var parameters = {
   // https://storybook.js.org/docs/react/essentials/actions#automatically-matching-args
@@ -458,10 +455,6 @@ var Preview = function Preview(story) {
       window.removeEventListener("updated-styling", parseBaseStylingStorage);
     };
   }, []);
-  var root = document.querySelector("html");
-  if (root) {
-    (0,helpers/* resetStory */.tG)();
-  }
   var parseBaseStylingStorage = function parseBaseStylingStorage() {
     var baseStylingSessionStorage = window.sessionStorage.getItem("basestyling");
     if (baseStylingSessionStorage && baseStylingSessionStorage !== "undefined") {
@@ -476,60 +469,6 @@ var decorators = [function (story) {
   return Preview(story);
 }];
 var __namedExportsOrder = ["parameters", "decorators"];
-
-/***/ }),
-
-/***/ "./stories/utils/helpers.ts":
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Nr: function() { return /* binding */ centerStory; },
-/* harmony export */   tG: function() { return /* binding */ resetStory; }
-/* harmony export */ });
-/* unused harmony export isStory */
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-var isStory = function isStory() {
-  return window.location.search.includes("viewMode=story");
-};
-var centerStory = function centerStory() {
-  /** In order to show off the positioning for the tooltip we need to center everything in the middle of the screen. */
-  var root = document.querySelector("html");
-  if (root && isStory()) {
-    root.style.height = "100%";
-    root.style.width = "100%";
-    root.style.display = "flex";
-    root.style.justifyContent = "center";
-    root.style.alignItems = "center";
-    root.style.overflow = "hidden";
-  }
-};
-var resetStory = function resetStory() {
-  var root = document.querySelector("html");
-  if (root && isStory()) {
-    root.style.height = "";
-    root.style.width = "";
-    root.style.display = "";
-    root.style.justifyContent = "";
-    root.style.alignItems = "";
-    root.style.overflow = "";
-  }
-};
 
 /***/ }),
 
@@ -597,14 +536,14 @@ var map = {
 		"./stories/Button/IconButton.stories.tsx",
 		2888,
 		4540,
-		8446,
+		6246,
 		7519
 	],
 	"./Button/IconButton.stories.tsx": [
 		"./stories/Button/IconButton.stories.tsx",
 		2888,
 		4540,
-		8446,
+		6246,
 		7519
 	],
 	"./ContextMenu/ContextMenu.stories": [
@@ -613,7 +552,7 @@ var map = {
 		2085,
 		5737,
 		4540,
-		8446,
+		6246,
 		9264,
 		898,
 		9239
@@ -624,7 +563,7 @@ var map = {
 		2085,
 		5737,
 		4540,
-		8446,
+		6246,
 		9264,
 		898,
 		9239
@@ -636,8 +575,8 @@ var map = {
 		5737,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		5507,
 		9685,
 		2310,
@@ -653,8 +592,8 @@ var map = {
 		5737,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		5507,
 		9685,
 		2310,
@@ -686,13 +625,13 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		5507,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		9373
 	],
@@ -701,13 +640,13 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		5507,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		9373
 	],
@@ -746,12 +685,12 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		6264
 	],
@@ -760,12 +699,12 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		6264
 	],
@@ -785,14 +724,14 @@ var map = {
 		"./stories/Form/Elements/Input.stories.tsx",
 		2888,
 		4540,
-		4783,
+		2807,
 		1531
 	],
 	"./Form/Elements/Input.stories.tsx": [
 		"./stories/Form/Elements/Input.stories.tsx",
 		2888,
 		4540,
-		4783,
+		2807,
 		1531
 	],
 	"./Form/Elements/Radio.stories": [
@@ -800,12 +739,12 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		5044
 	],
@@ -814,12 +753,12 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		5044
 	],
@@ -827,7 +766,7 @@ var map = {
 		"./stories/Form/Elements/Select.stories.tsx",
 		2888,
 		4540,
-		4783,
+		2807,
 		9685,
 		1057
 	],
@@ -835,7 +774,7 @@ var map = {
 		"./stories/Form/Elements/Select.stories.tsx",
 		2888,
 		4540,
-		4783,
+		2807,
 		9685,
 		1057
 	],
@@ -876,13 +815,13 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		5507,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		5189
 	],
@@ -891,13 +830,13 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		5507,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		5189
 	],
@@ -906,12 +845,12 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		3969
 	],
@@ -920,12 +859,12 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		3969
 	],
@@ -934,7 +873,7 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		928
 	],
@@ -943,7 +882,7 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		928
 	],
@@ -952,12 +891,12 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		2770
 	],
@@ -966,12 +905,12 @@ var map = {
 		2888,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		2310,
 		6254,
-		5997,
+		1376,
 		8068,
 		2770
 	],
@@ -982,7 +921,7 @@ var map = {
 		5737,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		1092
@@ -994,7 +933,7 @@ var map = {
 		5737,
 		4540,
 		3317,
-		4783,
+		2807,
 		9718,
 		9685,
 		1092
@@ -1005,7 +944,7 @@ var map = {
 		4540,
 		3317,
 		9718,
-		5997,
+		1376,
 		7512
 	],
 	"./Form/Wrapper/TextareaWrapper.stories.tsx": [
@@ -1014,7 +953,7 @@ var map = {
 		4540,
 		3317,
 		9718,
-		5997,
+		1376,
 		7512
 	],
 	"./Icon/Icon.stories": [
@@ -1082,8 +1021,8 @@ var map = {
 		5737,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		9718,
 		5507,
 		6254,
@@ -1098,8 +1037,8 @@ var map = {
 		5737,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		9718,
 		5507,
 		6254,
@@ -1112,8 +1051,8 @@ var map = {
 		2888,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		9718,
 		5507,
 		6254,
@@ -1125,8 +1064,8 @@ var map = {
 		2888,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		9718,
 		5507,
 		6254,
@@ -1145,8 +1084,8 @@ var map = {
 		5737,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		9718,
 		5507,
 		1734,
@@ -1159,8 +1098,8 @@ var map = {
 		5737,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		9718,
 		5507,
 		1734,
@@ -1169,29 +1108,29 @@ var map = {
 	"./Notifications/Snackbar/DefaultSnackbar.stories": [
 		"./stories/Notifications/Snackbar/DefaultSnackbar.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		3418
 	],
 	"./Notifications/Snackbar/DefaultSnackbar.stories.tsx": [
 		"./stories/Notifications/Snackbar/DefaultSnackbar.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		3418
 	],
 	"./Notifications/Snackbar/ErrorSnackbar.stories": [
 		"./stories/Notifications/Snackbar/ErrorSnackbar.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		9482
 	],
 	"./Notifications/Snackbar/ErrorSnackbar.stories.tsx": [
 		"./stories/Notifications/Snackbar/ErrorSnackbar.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		9482
 	],
 	"./Notifications/Snackbar/Snackbar.stories.mdx": [
@@ -1202,51 +1141,51 @@ var map = {
 	"./Notifications/Snackbar/SnackbarWithTitle.stories": [
 		"./stories/Notifications/Snackbar/SnackbarWithTitle.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		9623
 	],
 	"./Notifications/Snackbar/SnackbarWithTitle.stories.tsx": [
 		"./stories/Notifications/Snackbar/SnackbarWithTitle.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		9623
 	],
 	"./Notifications/Snackbar/SuccessSnackbar.stories": [
 		"./stories/Notifications/Snackbar/SuccessSnackbar.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		684
 	],
 	"./Notifications/Snackbar/SuccessSnackbar.stories.tsx": [
 		"./stories/Notifications/Snackbar/SuccessSnackbar.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		684
 	],
 	"./Notifications/Snackbar/WarningSnackbar.stories": [
 		"./stories/Notifications/Snackbar/WarningSnackbar.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		9532
 	],
 	"./Notifications/Snackbar/WarningSnackbar.stories.tsx": [
 		"./stories/Notifications/Snackbar/WarningSnackbar.stories.tsx",
 		4540,
-		8446,
-		6324,
+		6246,
+		186,
 		9532
 	],
 	"./Pagination/Pagination.stories": [
 		"./stories/Pagination/Pagination.stories.tsx",
 		2888,
 		4540,
-		8446,
-		4783,
+		2807,
+		6246,
 		9685,
 		1034,
 		4066
@@ -1255,8 +1194,8 @@ var map = {
 		"./stories/Pagination/Pagination.stories.tsx",
 		2888,
 		4540,
-		8446,
-		4783,
+		2807,
+		6246,
 		9685,
 		1034,
 		4066
@@ -1339,40 +1278,40 @@ var map = {
 		"./stories/Tiles/Tile.stories.tsx",
 		2888,
 		4540,
-		8446,
+		6246,
 		9264,
 		898,
-		8969,
+		5054,
 		1095
 	],
 	"./Tiles/Tile.stories.tsx": [
 		"./stories/Tiles/Tile.stories.tsx",
 		2888,
 		4540,
-		8446,
+		6246,
 		9264,
 		898,
-		8969,
+		5054,
 		1095
 	],
 	"./Tiles/Tiles.stories": [
 		"./stories/Tiles/Tiles.stories.tsx",
 		2888,
 		4540,
-		8446,
+		6246,
 		9264,
 		898,
-		8969,
+		5054,
 		2342
 	],
 	"./Tiles/Tiles.stories.tsx": [
 		"./stories/Tiles/Tiles.stories.tsx",
 		2888,
 		4540,
-		8446,
+		6246,
 		9264,
 		898,
-		8969,
+		5054,
 		2342
 	],
 	"./Tooltip/Tooltip.stories": [
@@ -1405,8 +1344,12 @@ var map = {
 		"./stories/Wizard/Wizard.stories.tsx",
 		2888,
 		4540,
-		8446,
+		3317,
+		2807,
+		6246,
+		9718,
 		5507,
+		2310,
 		1734,
 		2360
 	],
@@ -1414,8 +1357,12 @@ var map = {
 		"./stories/Wizard/Wizard.stories.tsx",
 		2888,
 		4540,
-		8446,
+		3317,
+		2807,
+		6246,
+		9718,
 		5507,
+		2310,
 		1734,
 		2360
 	],
@@ -1436,8 +1383,8 @@ var map = {
 		5737,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		9718,
 		5507,
 		9100
@@ -1449,8 +1396,8 @@ var map = {
 		5737,
 		4540,
 		3317,
-		8446,
-		4783,
+		2807,
+		6246,
 		9718,
 		5507,
 		9100

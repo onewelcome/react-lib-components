@@ -475,7 +475,7 @@ var DialogTitleComponent = function DialogTitleComponent(_ref, ref) {
   }, /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
     id: id,
     className: DialogTitle_DialogTitle_module["title"],
-    spacing: {
+    spacing: titleIcon && {
       marginLeft: 2
     },
     tag: "h1",
@@ -753,7 +753,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.Dialog-module__dialog--faaWB{align-items:center}@media only screen and (min-width: 50em){.Dialog-module__container--ZuvaX{max-width:min-content;min-width:314px;margin-top:0;max-height:90%}}.Dialog-module__content--hPfM_{padding-top:0}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.Dialog-module__dialog--faaWB{align-items:center}@media only screen and (min-width: 50em){.Dialog-module__container--ZuvaX{width:30rem;margin-top:0;max-height:90%}}.Dialog-module__content--hPfM_{padding-top:0}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"dialog": "Dialog-module__dialog--faaWB",
@@ -801,7 +801,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.DialogTitle-module__header--Y1sRh{margin:1.5rem 1.25rem 1.25rem;display:flex;align-items:flex-start}.DialogTitle-module__title--suZdL{margin:0;line-height:1}.DialogTitle-module__title-icon--Ugp4w>[data-icon]{font-size:1.25rem}.DialogTitle-module__caption--GuyA1{color:var(--color-blue-grey500)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.DialogTitle-module__header--Y1sRh{margin:1rem 1.5rem;display:flex;align-items:flex-start}.DialogTitle-module__title--suZdL{margin:0;line-height:1}.DialogTitle-module__title-icon--Ugp4w>[data-icon]{font-size:1.25rem}.DialogTitle-module__caption--GuyA1{color:var(--color-blue-grey500)}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"header": "DialogTitle-module__header--Y1sRh",

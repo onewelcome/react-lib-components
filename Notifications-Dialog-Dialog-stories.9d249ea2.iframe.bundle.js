@@ -10,6 +10,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   ActionDialog: function() { return /* binding */ ActionDialog; },
+  DialogWithoutIcon: function() { return /* binding */ DialogWithoutIcon; },
   NestedDialogs: function() { return /* binding */ NestedDialogs; },
   SingleActionDialog: function() { return /* binding */ SingleActionDialog; },
   __namedExportsOrder: function() { return /* binding */ __namedExportsOrder; },
@@ -267,7 +268,7 @@ function _typeof(obj) {
     return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
   }, _typeof(obj);
 }
-var _ActionDialog$paramet, _ActionDialog$paramet2, _SingleActionDialog$p, _SingleActionDialog$p2, _NestedDialogs$parame, _NestedDialogs$parame2;
+var _ActionDialog$paramet, _ActionDialog$paramet2, _SingleActionDialog$p, _SingleActionDialog$p2, _NestedDialogs$parame, _NestedDialogs$parame2, _DialogWithoutIcon$pa, _DialogWithoutIcon$pa2;
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -749,7 +750,10 @@ var meta = {
       }
     },
     titleIcon: true,
-    caption: "This is a caption"
+    caption: "This is a caption",
+    cancelAction: {
+      disable: false
+    }
   }
 };
 /* harmony default export */ var Dialog_stories = (meta);
@@ -780,7 +784,8 @@ var Template = function Template(args) {
     primaryAction: args.primaryAction,
     secondaryAction: args.secondaryAction,
     titleIcon: args.titleIcon,
-    caption: args.caption
+    caption: args.caption,
+    cancelAction: args.cancelAction
   }, args.children));
 };
 var ActionDialog = Template.bind({});
@@ -921,17 +926,39 @@ NestedDialogs.play = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }();
+var DialogWithoutIcon = Template.bind({});
+DialogWithoutIcon.args = {
+  title: "Info",
+  children: /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
+    variant: "body",
+    spacing: {
+      margin: 0
+    }
+  }, "You can't remove your account."),
+  primaryAction: {
+    label: "Ok",
+    onClick: function onClick() {
+      return window.setDialogOpen(false);
+    }
+  },
+  secondaryAction: undefined,
+  titleIcon: undefined,
+  caption: undefined,
+  cancelAction: {
+    disable: true
+  }
+};
 ActionDialog.parameters = _objectSpread(_objectSpread({}, ActionDialog.parameters), {}, {
   docs: _objectSpread(_objectSpread({}, (_ActionDialog$paramet = ActionDialog.parameters) === null || _ActionDialog$paramet === void 0 ? void 0 : _ActionDialog$paramet.docs), {}, {
     source: _objectSpread({
-      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={() => setOpen(false)} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}"
+      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={() => setOpen(false)} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption} cancelAction={args.cancelAction}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}"
     }, (_ActionDialog$paramet2 = ActionDialog.parameters) === null || _ActionDialog$paramet2 === void 0 || (_ActionDialog$paramet2 = _ActionDialog$paramet2.docs) === null || _ActionDialog$paramet2 === void 0 ? void 0 : _ActionDialog$paramet2.source)
   })
 });
 SingleActionDialog.parameters = _objectSpread(_objectSpread({}, SingleActionDialog.parameters), {}, {
   docs: _objectSpread(_objectSpread({}, (_SingleActionDialog$p = SingleActionDialog.parameters) === null || _SingleActionDialog$p === void 0 ? void 0 : _SingleActionDialog$p.docs), {}, {
     source: _objectSpread({
-      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={() => setOpen(false)} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}"
+      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={() => setOpen(false)} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption} cancelAction={args.cancelAction}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}"
     }, (_SingleActionDialog$p2 = SingleActionDialog.parameters) === null || _SingleActionDialog$p2 === void 0 || (_SingleActionDialog$p2 = _SingleActionDialog$p2.docs) === null || _SingleActionDialog$p2 === void 0 ? void 0 : _SingleActionDialog$p2.source)
   })
 });
@@ -942,7 +969,14 @@ NestedDialogs.parameters = _objectSpread(_objectSpread({}, NestedDialogs.paramet
     }, (_NestedDialogs$parame2 = NestedDialogs.parameters) === null || _NestedDialogs$parame2 === void 0 || (_NestedDialogs$parame2 = _NestedDialogs$parame2.docs) === null || _NestedDialogs$parame2 === void 0 ? void 0 : _NestedDialogs$parame2.source)
   })
 });
-var __namedExportsOrder = ["ActionDialog", "SingleActionDialog", "NestedDialogs"];
+DialogWithoutIcon.parameters = _objectSpread(_objectSpread({}, DialogWithoutIcon.parameters), {}, {
+  docs: _objectSpread(_objectSpread({}, (_DialogWithoutIcon$pa = DialogWithoutIcon.parameters) === null || _DialogWithoutIcon$pa === void 0 ? void 0 : _DialogWithoutIcon$pa.docs), {}, {
+    source: _objectSpread({
+      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={() => setOpen(false)} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption} cancelAction={args.cancelAction}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}"
+    }, (_DialogWithoutIcon$pa2 = DialogWithoutIcon.parameters) === null || _DialogWithoutIcon$pa2 === void 0 || (_DialogWithoutIcon$pa2 = _DialogWithoutIcon$pa2.docs) === null || _DialogWithoutIcon$pa2 === void 0 ? void 0 : _DialogWithoutIcon$pa2.source)
+  })
+});
+var __namedExportsOrder = ["ActionDialog", "SingleActionDialog", "NestedDialogs", "DialogWithoutIcon"];
 
 /***/ }),
 

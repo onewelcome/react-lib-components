@@ -1018,6 +1018,12 @@ var BaseModalContent = __webpack_require__("./src/components/Notifications/BaseM
 var BaseModalActions = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx");
 // EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.tsx + 1 modules
 var BaseModalHeader = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.tsx");
+// EXTERNAL MODULE: ./src/components/Form/Checkbox/Checkbox.tsx + 1 modules
+var Checkbox = __webpack_require__("./src/components/Form/Checkbox/Checkbox.tsx");
+// EXTERNAL MODULE: ./src/components/Typography/Typography.tsx + 1 modules
+var Typography = __webpack_require__("./src/components/Typography/Typography.tsx");
+// EXTERNAL MODULE: ./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx + 1 modules
+var InputWrapper = __webpack_require__("./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx");
 ;// CONCATENATED MODULE: ./stories/Wizard/Wizard.stories.tsx
 function Wizard_stories_typeof(obj) {
   "@babel/helpers - typeof";
@@ -1179,6 +1185,8 @@ function Wizard_stories_arrayWithHoles(arr) {
 
 
 
+
+
 var meta = {
   title: "components/Layout/Wizard/Wizard",
   component: Wizard,
@@ -1274,10 +1282,10 @@ var WizardModalTemplate = function WizardModalTemplate() {
     _useState10 = Wizard_stories_slicedToArray(_useState9, 2),
     exampleInput = _useState10[0],
     setExampleInput = _useState10[1];
-  var _useState11 = (0,react.useState)(false),
+  var _useState11 = (0,react.useState)(""),
     _useState12 = Wizard_stories_slicedToArray(_useState11, 2),
-    exampleInputError = _useState12[0],
-    setExampleInputError = _useState12[1];
+    exampleInput2 = _useState12[0],
+    setExampleInput2 = _useState12[1];
   var _useState13 = (0,react.useState)([{
       label: "Step 1"
     }, {
@@ -1329,59 +1337,33 @@ var WizardModalTemplate = function WizardModalTemplate() {
     id: "".concat(modalId, "-description")
   }, /*#__PURE__*/react.createElement("form", {
     id: "modalForm"
-  }, /*#__PURE__*/react.createElement("p", {
-    style: {
-      margin: 0,
-      paddingInline: 20
-    }
-  }, "This modal shows various options of form controls. It is not meant to be a realistic example of any of our forms.", /*#__PURE__*/react.createElement("br", null), " Clicking Save, Cancel or Close may bring you to a different screen than you came from."), step === 0 && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("input", {
+  }, /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
+    variant: "body"
+  }, "This modal shows various options of form controls. It is not meant to be a realistic example of any of our forms.", /*#__PURE__*/react.createElement("br", null), " Clicking Save, Cancel or Close may bring you to a different screen than you came from."), step === 0 && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Checkbox/* Checkbox */.X, {
     id: "checkbox",
+    name: "checkbox",
     type: "checkbox",
-    style: {
-      paddingBlock: 10,
-      marginTop: 20
-    },
     checked: checkboxChecked,
     onChange: onCheckboxChange
-  }), /*#__PURE__*/react.createElement("label", {
-    htmlFor: "checkbox"
-  }, "Checking this checkbox affects the activity of step 2")), step === 1 && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("input", {
-    style: {
-      paddingBlock: 10,
-      marginTop: 20,
-      width: "100%",
-      boxSizing: "border-box"
-    },
+  }, "Checking this checkbox affects the activity of step 2")), step === 1 && /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
+    label: "Some input",
+    helperText: "Helper text for this text field. Description should be short and not repeat the label.",
+    name: "first-name",
     value: exampleInput,
     onChange: function onChange(event) {
       return setExampleInput(event.target.value);
-    }
-  }), /*#__PURE__*/react.createElement("p", {
-    style: {
-      margin: 0,
-      paddingTop: 5,
-      paddingInline: 20,
-      fontSize: 11
-    }
-  }, exampleInputError ? /*#__PURE__*/react.createElement("span", {
-    style: {
-      color: "var(--error)"
-    }
-  }, "This field is required") : "Helper text for this text field. Description should be short and not repeat the label.")), step === 2 && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("input", {
-    style: {
-      paddingBlock: 10,
-      marginTop: 20,
-      width: "100%",
-      boxSizing: "border-box"
-    }
-  }), /*#__PURE__*/react.createElement("p", {
-    style: {
-      margin: 0,
-      paddingTop: 5,
-      paddingInline: 20,
-      fontSize: 11
-    }
-  }, "Helper text for this text field. Description should be short and not repeat the label.")))), /*#__PURE__*/react.createElement(BaseModalActions/* BaseModalActions */.u, {
+    },
+    type: "text"
+  }), step === 2 && /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
+    label: "Some 2 input",
+    helperText: "Helper text for this text field. Description should be short and not repeat the label.",
+    name: "first-name",
+    value: exampleInput2,
+    onChange: function onChange(event) {
+      return setExampleInput2(event.target.value);
+    },
+    type: "text"
+  }))), /*#__PURE__*/react.createElement(BaseModalActions/* BaseModalActions */.u, {
     onClose: onClose
   }, /*#__PURE__*/react.createElement(WizardActions, {
     actions: Wizard_stories_objectSpread(Wizard_stories_objectSpread({}, wizardActionsProps.actions), {}, {
@@ -1407,7 +1389,7 @@ BasicWizard.parameters = Wizard_stories_objectSpread(Wizard_stories_objectSpread
 WizardInModal.parameters = Wizard_stories_objectSpread(Wizard_stories_objectSpread({}, WizardInModal.parameters), {}, {
   docs: Wizard_stories_objectSpread(Wizard_stories_objectSpread({}, (_WizardInModal$parame = WizardInModal.parameters) === null || _WizardInModal$parame === void 0 ? void 0 : _WizardInModal$parame.docs), {}, {
     source: Wizard_stories_objectSpread({
-      originalSource: "() => {\n  const [open, setOpen] = useState(true);\n  const [step, setStep] = useState(0);\n  const [checkboxChecked, setCheckboxChecked] = useState(false);\n  const [exampleInput, setExampleInput] = useState(\"\");\n  const [exampleInputError, setExampleInputError] = useState(false);\n  const [steps, setSteps] = useState(([{\n    label: \"Step 1\"\n  }, {\n    label: \"Step 2\"\n  }, {\n    label: \"Step 3\"\n  }] as Step[]));\n  const onCheckboxChange = () => {\n    setCheckboxChecked(!checkboxChecked);\n    const newSteps = [...steps];\n    newSteps[1] = {\n      ...newSteps[1],\n      disabled: !checkboxChecked\n    };\n    setSteps(newSteps);\n  };\n  const onClose = () => setOpen(false);\n  const modalId = \"modal-with-wizard\";\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <Modal id={modalId} open={open} onClose={onClose}>\n        <Wizard steps={steps} mode=\"add\" onStepChange={(stepNo: number) => setStep(stepNo)}>\n          <ModalHeader id={`${modalId}-label`} title=\"Example modal with wizard\" onClose={onClose}>\n            <WizardSteps style={{\n            paddingBottom: 0\n          }} onStepClick={() => true} />\n          </ModalHeader>\n          <ModalContent id={`${modalId}-description`}>\n            <form id=\"modalForm\">\n              <p style={{\n              margin: 0,\n              paddingInline: 20\n            }}>\n                This modal shows various options of form controls. It is not meant to be a realistic\n                example of any of our forms.\n                <br /> Clicking Save, Cancel or Close may bring you to a different screen than you\n                came from.\n              </p>\n              {step === 0 && <Fragment>\n                  <input id=\"checkbox\" type=\"checkbox\" style={{\n                paddingBlock: 10,\n                marginTop: 20\n              }} checked={checkboxChecked} onChange={onCheckboxChange}></input>\n                  <label htmlFor=\"checkbox\">\n                    Checking this checkbox affects the activity of step 2\n                  </label>\n                </Fragment>}\n              {step === 1 && <Fragment>\n                  <input style={{\n                paddingBlock: 10,\n                marginTop: 20,\n                width: \"100%\",\n                boxSizing: \"border-box\"\n              }} value={exampleInput} onChange={event => setExampleInput(event.target.value)}></input>\n                  <p style={{\n                margin: 0,\n                paddingTop: 5,\n                paddingInline: 20,\n                fontSize: 11\n              }}>\n                    {exampleInputError ? <span style={{\n                  color: \"var(--error)\"\n                }}>This field is required</span> : \"Helper text for this text field. Description should be short and not repeat the label.\"}\n                  </p>\n                </Fragment>}\n              {step === 2 && <Fragment>\n                  <input style={{\n                paddingBlock: 10,\n                marginTop: 20,\n                width: \"100%\",\n                boxSizing: \"border-box\"\n              }}></input>\n                  <p style={{\n                margin: 0,\n                paddingTop: 5,\n                paddingInline: 20,\n                fontSize: 11\n              }}>\n                    Helper text for this text field. Description should be short and not repeat the\n                    label.\n                  </p>\n                </Fragment>}\n            </form>\n          </ModalContent>\n          <ModalActions onClose={onClose}>\n            <WizardActions actions={{\n            ...wizardActionsProps.actions,\n            cancel: {\n              hide: true\n            }\n          }} />\n          </ModalActions>\n        </Wizard>\n      </Modal>\n    </Fragment>;\n}"
+      originalSource: "() => {\n  const [open, setOpen] = useState(true);\n  const [step, setStep] = useState(0);\n  const [checkboxChecked, setCheckboxChecked] = useState(false);\n  const [exampleInput, setExampleInput] = useState(\"\");\n  const [exampleInput2, setExampleInput2] = useState(\"\");\n  const [steps, setSteps] = useState(([{\n    label: \"Step 1\"\n  }, {\n    label: \"Step 2\"\n  }, {\n    label: \"Step 3\"\n  }] as Step[]));\n  const onCheckboxChange = () => {\n    setCheckboxChecked(!checkboxChecked);\n    const newSteps = [...steps];\n    newSteps[1] = {\n      ...newSteps[1],\n      disabled: !checkboxChecked\n    };\n    setSteps(newSteps);\n  };\n  const onClose = () => setOpen(false);\n  const modalId = \"modal-with-wizard\";\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <Modal id={modalId} open={open} onClose={onClose}>\n        <Wizard steps={steps} mode=\"add\" onStepChange={(stepNo: number) => setStep(stepNo)}>\n          <ModalHeader id={`${modalId}-label`} title=\"Example modal with wizard\" onClose={onClose}>\n            <WizardSteps style={{\n            paddingBottom: 0\n          }} onStepClick={() => true} />\n          </ModalHeader>\n          <ModalContent id={`${modalId}-description`}>\n            <form id=\"modalForm\">\n              <Typography variant=\"body\">\n                This modal shows various options of form controls. It is not meant to be a realistic\n                example of any of our forms.\n                <br /> Clicking Save, Cancel or Close may bring you to a different screen than you\n                came from.\n              </Typography>\n              {step === 0 && <Fragment>\n                  <Checkbox id=\"checkbox\" name=\"checkbox\" type=\"checkbox\" checked={checkboxChecked} onChange={onCheckboxChange}>\n                    Checking this checkbox affects the activity of step 2\n                  </Checkbox>\n                </Fragment>}\n              {step === 1 && <InputWrapper label=\"Some input\" helperText=\"Helper text for this text field. Description should be short and not repeat the\n            label.\" name=\"first-name\" value={exampleInput} onChange={event => setExampleInput(event.target.value)} type=\"text\" />}\n              {step === 2 && <InputWrapper label=\"Some 2 input\" helperText=\"Helper text for this text field. Description should be short and not repeat the\n            label.\" name=\"first-name\" value={exampleInput2} onChange={event => setExampleInput2(event.target.value)} type=\"text\" />}\n            </form>\n          </ModalContent>\n          <ModalActions onClose={onClose}>\n            <WizardActions actions={{\n            ...wizardActionsProps.actions,\n            cancel: {\n              hide: true\n            }\n          }} />\n          </ModalActions>\n        </Wizard>\n      </Modal>\n    </Fragment>;\n}"
     }, (_WizardInModal$parame2 = WizardInModal.parameters) === null || _WizardInModal$parame2 === void 0 || (_WizardInModal$parame2 = _WizardInModal$parame2.docs) === null || _WizardInModal$parame2 === void 0 ? void 0 : _WizardInModal$parame2.source)
   })
 });
@@ -1421,6 +1403,283 @@ try {
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
         STORYBOOK_REACT_CLASSES["stories/Wizard/Wizard.stories.tsx#BasicWizard"] = { docgenInfo: BasicWizard.__docgenInfo, name: "BasicWizard", path: "stories/Wizard/Wizard.stories.tsx#BasicWizard" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+
+/***/ }),
+
+/***/ "./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx":
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  S: function() { return /* binding */ InputWrapper; }
+});
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__("./node_modules/react/index.js");
+// EXTERNAL MODULE: ./src/components/Form/Input/Input.tsx + 1 modules
+var Input = __webpack_require__("./src/components/Form/Input/Input.tsx");
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__("./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__("./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__("./node_modules/style-loader/dist/runtime/insertBySelector.js");
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__("./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__("./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__("./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/Wrapper/InputWrapper/InputWrapper.module.scss
+var InputWrapper_module = __webpack_require__("./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/Wrapper/InputWrapper/InputWrapper.module.scss");
+;// CONCATENATED MODULE: ./src/components/Form/Wrapper/InputWrapper/InputWrapper.module.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      options.insert = insertBySelector_default().bind(null, "head");
+    
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
+
+var update = injectStylesIntoStyleTag_default()(InputWrapper_module/* default */.Z, options);
+
+
+
+
+       /* harmony default export */ var InputWrapper_InputWrapper_module = (InputWrapper_module/* default */.Z && InputWrapper_module/* default */.Z.locals ? InputWrapper_module/* default */.Z.locals : undefined);
+
+// EXTERNAL MODULE: ./src/components/Form/Wrapper/Wrapper/Wrapper.tsx + 3 modules
+var Wrapper = __webpack_require__("./src/components/Form/Wrapper/Wrapper/Wrapper.tsx");
+// EXTERNAL MODULE: ./src/hooks/useWrapper.ts
+var useWrapper = __webpack_require__("./src/hooks/useWrapper.ts");
+;// CONCATENATED MODULE: ./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
+}
+var _excluded = ["type", "name", "inputProps", "helperText", "helperProps", "value", "className", "error", "success", "onChange", "onBlur", "onFocus", "disabled"];
+function _extends() {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
+}
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+  return target;
+}
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey(arg) {
+  var key = _toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+
+
+
+var InputWrapperComponent = function InputWrapperComponent(_ref, ref) {
+  var _inputProps$wrapperPr, _inputProps$wrapperPr2, _helperProps$classNam, _inputProps$className;
+  var type = _ref.type,
+    name = _ref.name,
+    inputProps = _ref.inputProps,
+    helperText = _ref.helperText,
+    helperProps = _ref.helperProps,
+    value = _ref.value,
+    className = _ref.className,
+    error = _ref.error,
+    success = _ref.success,
+    onChange = _ref.onChange,
+    _onBlur = _ref.onBlur,
+    _onFocus = _ref.onFocus,
+    disabled = _ref.disabled,
+    rest = _objectWithoutProperties(_ref, _excluded);
+  var _useWrapper = (0,useWrapper/* useWrapper */.s)(),
+    errorId = _useWrapper.errorId,
+    hasFocus = _useWrapper.hasFocus,
+    setHasFocus = _useWrapper.setHasFocus,
+    helperId = _useWrapper.helperId,
+    labelId = _useWrapper.labelId;
+  var _ref2 = inputProps !== null && inputProps !== void 0 ? inputProps : {},
+    prefix = _ref2.prefix,
+    suffix = _ref2.suffix;
+  var input = (0,react.useRef)(null);
+  var labelClasses = [InputWrapper_InputWrapper_module["input-label"]];
+  hasFocus && labelClasses.push(InputWrapper_InputWrapper_module["focus"]);
+  var inputWrapperClasses = [];
+  (inputProps === null || inputProps === void 0 || (_inputProps$wrapperPr = inputProps.wrapperProps) === null || _inputProps$wrapperPr === void 0 ? void 0 : _inputProps$wrapperPr.className) && inputWrapperClasses.push(inputProps === null || inputProps === void 0 || (_inputProps$wrapperPr2 = inputProps.wrapperProps) === null || _inputProps$wrapperPr2 === void 0 ? void 0 : _inputProps$wrapperPr2.className);
+  disabled && inputWrapperClasses.push(InputWrapper_InputWrapper_module["disabled"]);
+  return /*#__PURE__*/react.createElement(Wrapper/* Wrapper */.i, _extends({}, rest, {
+    ref: ref,
+    name: name,
+    className: "".concat(InputWrapper_InputWrapper_module["input-wrapper"], " ").concat(className !== null && className !== void 0 ? className : ""),
+    labelProps: {
+      id: labelId,
+      className: labelClasses.join(" ")
+    },
+    errorId: errorId,
+    error: error,
+    helperId: helperId,
+    helperText: helperText,
+    helperProps: _objectSpread(_objectSpread({}, helperProps), {}, {
+      className: "".concat(InputWrapper_InputWrapper_module["input-wrapper-helper"], " ").concat((_helperProps$classNam = helperProps === null || helperProps === void 0 ? void 0 : helperProps.className) !== null && _helperProps$classNam !== void 0 ? _helperProps$classNam : "", " ")
+    }),
+    disabled: disabled
+  }), /*#__PURE__*/react.createElement(Input/* Input */.I, _extends({}, inputProps, {
+    prefix: prefix,
+    suffix: suffix,
+    wrapperProps: {
+      className: inputWrapperClasses.join(" ")
+    },
+    ref: (inputProps === null || inputProps === void 0 ? void 0 : inputProps.ref) || input,
+    "aria-labelledby": labelId,
+    "aria-describedby": error ? errorId : helperId,
+    onChange: onChange,
+    onFocus: function onFocus(e) {
+      _onFocus === null || _onFocus === void 0 ? void 0 : _onFocus(e);
+      setHasFocus(true);
+    },
+    onBlur: function onBlur(e) {
+      _onBlur === null || _onBlur === void 0 ? void 0 : _onBlur(e);
+      setHasFocus(false);
+    },
+    className: "\n         ".concat((_inputProps$className = inputProps === null || inputProps === void 0 ? void 0 : inputProps.className) !== null && _inputProps$className !== void 0 ? _inputProps$className : ""),
+    name: name,
+    success: success,
+    error: error,
+    id: name,
+    value: value,
+    type: type
+  })));
+};
+var InputWrapper = /*#__PURE__*/react.forwardRef(InputWrapperComponent);
+try {
+    // @ts-ignore
+    InputWrapper.displayName = "InputWrapper";
+    // @ts-ignore
+    InputWrapper.__docgenInfo = { "description": "", "displayName": "InputWrapper", "props": { "name": { "defaultValue": null, "description": "", "name": "name", "required": true, "type": { "name": "string" } }, "label": { "defaultValue": null, "description": "", "name": "label", "required": true, "type": { "name": "string" } }, "onFocus": { "defaultValue": null, "description": "", "name": "onFocus", "required": false, "type": { "name": "((event: FocusEvent<HTMLInputElement, Element>) => void)" } }, "onBlur": { "defaultValue": null, "description": "", "name": "onBlur", "required": false, "type": { "name": "((event: FocusEvent<HTMLInputElement, Element>) => void)" } }, "onChange": { "defaultValue": null, "description": "", "name": "onChange", "required": false, "type": { "name": "((event: ChangeEvent<HTMLInputElement>) => void)" } }, "disabled": { "defaultValue": null, "description": "", "name": "disabled", "required": false, "type": { "name": "boolean" } }, "error": { "defaultValue": null, "description": "", "name": "error", "required": false, "type": { "name": "boolean" } }, "type": { "defaultValue": null, "description": "", "name": "type", "required": true, "type": { "name": "enum", "value": [{ "value": "\"number\"" }, { "value": "\"search\"" }, { "value": "\"time\"" }, { "value": "\"text\"" }, { "value": "\"hidden\"" }, { "value": "\"tel\"" }, { "value": "\"url\"" }, { "value": "\"email\"" }, { "value": "\"date\"" }, { "value": "\"file\"" }, { "value": "\"password\"" }, { "value": "\"datetime-local\"" }] } }, "errorMessage": { "defaultValue": null, "description": "", "name": "errorMessage", "required": false, "type": { "name": "string" } }, "helperText": { "defaultValue": null, "description": "", "name": "helperText", "required": false, "type": { "name": "string" } }, "helperProps": { "defaultValue": null, "description": "", "name": "helperProps", "required": false, "type": { "name": "Props" } }, "required": { "defaultValue": null, "description": "", "name": "required", "required": false, "type": { "name": "boolean" } }, "success": { "defaultValue": null, "description": "", "name": "success", "required": false, "type": { "name": "boolean" } }, "value": { "defaultValue": null, "description": "", "name": "value", "required": true, "type": { "name": "string" } }, "inputProps": { "defaultValue": null, "description": "", "name": "inputProps", "required": false, "type": { "name": "PartialInputProps" } } } };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx#InputWrapper"] = { docgenInfo: InputWrapper.__docgenInfo, name: "InputWrapper", path: "src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx#InputWrapper" };
 }
 catch (__react_docgen_typescript_loader_error) { }
 
@@ -1771,400 +2030,33 @@ catch (__react_docgen_typescript_loader_error) { }
 
 /***/ }),
 
-/***/ "./src/components/Typography/Typography.tsx":
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/Wrapper/InputWrapper/InputWrapper.module.scss":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
 
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  Z: function() { return /* binding */ Typography; },
-  p: function() { return /* binding */ validVariants; }
-});
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__("./node_modules/react/index.js");
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__("./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
-var styleDomAPI = __webpack_require__("./node_modules/style-loader/dist/runtime/styleDomAPI.js");
-var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
-var insertBySelector = __webpack_require__("./node_modules/style-loader/dist/runtime/insertBySelector.js");
-var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-var setAttributesWithoutAttributes = __webpack_require__("./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
-var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
-var insertStyleElement = __webpack_require__("./node_modules/style-loader/dist/runtime/insertStyleElement.js");
-var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
-var styleTagTransform = __webpack_require__("./node_modules/style-loader/dist/runtime/styleTagTransform.js");
-var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Typography/Typography.module.scss
-var Typography_module = __webpack_require__("./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Typography/Typography.module.scss");
-;// CONCATENATED MODULE: ./src/components/Typography/Typography.module.scss
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (styleTagTransform_default());
-options.setAttributes = (setAttributesWithoutAttributes_default());
-
-      options.insert = insertBySelector_default().bind(null, "head");
-    
-options.domAPI = (styleDomAPI_default());
-options.insertStyleElement = (insertStyleElement_default());
-
-var update = injectStylesIntoStyleTag_default()(Typography_module/* default */.Z, options);
-
-
-
-
-       /* harmony default export */ var Typography_Typography_module = (Typography_module/* default */.Z && Typography_module/* default */.Z.locals ? Typography_module/* default */.Z.locals : undefined);
-
-// EXTERNAL MODULE: ./src/hooks/useSpacing.ts
-var useSpacing = __webpack_require__("./src/hooks/useSpacing.ts");
-;// CONCATENATED MODULE: ./src/components/Typography/Typography.tsx
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, _typeof(obj);
-}
-var _excluded = ["children", "variant", "tag", "style", "spacing", "align", "className"];
-function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
-}
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    enumerableOnly && (symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    })), keys.push.apply(keys, symbols);
-  }
-  return keys;
-}
-function _objectSpread(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = null != arguments[i] ? arguments[i] : {};
-    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-    });
-  }
-  return target;
-}
-function _defineProperty(obj, key, value) {
-  key = _toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
-}
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return (hint === "string" ? String : Number)(input);
-}
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-  var key, i;
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-  return target;
-}
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-
-
-
-var validVariants = ["h1", "h2", "h3", "h4", "body", "body-bold", "sub-text", "code"];
-var TypographyComponent = function TypographyComponent(_ref, ref) {
-  var children = _ref.children,
-    variant = _ref.variant,
-    tag = _ref.tag,
-    style = _ref.style,
-    spacing = _ref.spacing,
-    align = _ref.align,
-    _ref$className = _ref.className,
-    className = _ref$className === void 0 ? "" : _ref$className,
-    rest = _objectWithoutProperties(_ref, _excluded);
-  if (!validVariants.includes(variant)) {
-    throw new Error("You entered an invalid variant. You can choose from: ".concat(validVariants, ", you entered: ").concat(variant));
-  }
-  var styleWithSpacing = (0,useSpacing/* useSpacing */.N)(spacing, style);
-  if (!tag) {
-    switch (variant) {
-      case "h1":
-      case "h2":
-      case "h3":
-      case "h4":
-      case "code":
-        tag = variant;
-        break;
-      case "body":
-        tag = "p";
-        break;
-      case "body-bold":
-        tag = "p";
-        break;
-      case "sub-text":
-        tag = "span";
-        break;
-      default:
-        tag = "div";
-        break;
-    }
-  }
-  var TagName = tag;
-  return /*#__PURE__*/react.createElement(TagName, _extends({}, rest, {
-    ref: ref,
-    style: _objectSpread(_objectSpread({}, styleWithSpacing), {}, {
-      textAlign: align
-    }),
-    className: "".concat(Typography_Typography_module["typography_style_" + variant], " ").concat(className)
-  }), children);
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.InputWrapper-module__sr-only--_BGLV{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.InputWrapper-module__hidden--j7j0R{display:none}.InputWrapper-module__slide-in--PMOZy{animation:InputWrapper-module__slide-in--PMOZy .5s forwards}@media(prefers-reduced-motion: reduce){.InputWrapper-module__slide-in--PMOZy{animation-duration:.1ms}}.InputWrapper-module__slide-out--ghrlP{animation:InputWrapper-module__slide-out--ghrlP .5s forwards}@media(prefers-reduced-motion: reduce){.InputWrapper-module__slide-out--ghrlP{animation-duration:.1ms}}@keyframes InputWrapper-module__slide-in--PMOZy{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes InputWrapper-module__slide-out--ghrlP{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}input.InputWrapper-module__floating-label--aGgwG{padding-top:1rem}.InputWrapper-module__input-wrapper-helper--GKzdc{margin-top:.14rem}.InputWrapper-module__input-wrapper--x9INE [data-icon]:before{transition-property:all;transition-duration:.2s;transition-timing-function:ease-in-out;transform:translateY(0px);font-size:1.125rem;display:flex;align-items:center;justify-content:center}@media(prefers-reduced-motion: reduce){.InputWrapper-module__input-wrapper--x9INE [data-icon]:before{transition-duration:.1ms}}.InputWrapper-module__input-wrapper--x9INE .InputWrapper-module__floating-label-active--GU6su [data-icon]:before{transform:translateY(5px)}.InputWrapper-module__input-wrapper--x9INE [data-prefix],.InputWrapper-module__input-wrapper--x9INE [data-suffix]{font-size:var(--form-control-font-size)}.InputWrapper-module__input-wrapper--x9INE [data-prefix]+input{padding-left:.5rem}.InputWrapper-module__input-wrapper--x9INE [data-suffix]{padding-left:1.25rem}.InputWrapper-module__input-wrapper--x9INE input+[data-suffix]{padding-left:.5rem}.InputWrapper-module__input-wrapper--x9INE .InputWrapper-module__disabled--TE5Ui{background-color:var(--disabled);cursor:not-allowed;color:var(--greyed-out)}.InputWrapper-module__floating-label-active--GU6su [data-prefix],.InputWrapper-module__floating-label-active--GU6su [data-suffix]{padding-top:1rem;transform:translateY(0)}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {
+	"sr-only": "InputWrapper-module__sr-only--_BGLV",
+	"hidden": "InputWrapper-module__hidden--j7j0R",
+	"slide-in": "InputWrapper-module__slide-in--PMOZy",
+	"slide-out": "InputWrapper-module__slide-out--ghrlP",
+	"floating-label": "InputWrapper-module__floating-label--aGgwG",
+	"input-wrapper-helper": "InputWrapper-module__input-wrapper-helper--GKzdc",
+	"input-wrapper": "InputWrapper-module__input-wrapper--x9INE",
+	"floating-label-active": "InputWrapper-module__floating-label-active--GU6su",
+	"disabled": "InputWrapper-module__disabled--TE5Ui"
 };
-var Typography = /*#__PURE__*/react.forwardRef(TypographyComponent);
-try {
-    // @ts-ignore
-    Typography.displayName = "Typography";
-    // @ts-ignore
-    Typography.__docgenInfo = { "description": "", "displayName": "Typography", "props": {} };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/components/Typography/Typography.tsx#Typography"] = { docgenInfo: Typography.__docgenInfo, name: "Typography", path: "src/components/Typography/Typography.tsx#Typography" };
-}
-catch (__react_docgen_typescript_loader_error) { }
+/* harmony default export */ __webpack_exports__.Z = (___CSS_LOADER_EXPORT___);
 
-/***/ }),
-
-/***/ "./src/hooks/useSpacing.ts":
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   N: function() { return /* binding */ useSpacing; }
-/* harmony export */ });
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, _typeof(obj);
-}
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    enumerableOnly && (symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    })), keys.push.apply(keys, symbols);
-  }
-  return keys;
-}
-function _objectSpread(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = null != arguments[i] ? arguments[i] : {};
-    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-    });
-  }
-  return target;
-}
-function _defineProperty(obj, key, value) {
-  key = _toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
-}
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return (hint === "string" ? String : Number)(input);
-}
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
-}
-function _iterableToArrayLimit(arr, i) {
-  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
-  if (null != _i) {
-    var _s,
-      _e,
-      _x,
-      _r,
-      _arr = [],
-      _n = !0,
-      _d = !1;
-    try {
-      if (_x = (_i = _i.call(arr)).next, 0 === i) {
-        if (Object(_i) !== _i) return;
-        _n = !1;
-      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
-    } catch (err) {
-      _d = !0, _e = err;
-    } finally {
-      try {
-        if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return;
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-    return _arr;
-  }
-}
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-var defaultFactor = 0.25;
-var defaultUnit = "rem";
-var spacingNumberRegex = /(\d+\.?\d*)+/g;
-var useSpacing = function useSpacing(spacingProps, style) {
-  if (spacingProps) {
-    return Object.entries(spacingProps).reduce(function (prev, _ref) {
-      var _ref2 = _slicedToArray(_ref, 2),
-        spacing = _ref2[0],
-        multiplier = _ref2[1];
-      var matches = String(multiplier).matchAll(spacingNumberRegex);
-      var cssSpacingValue = Array.from(matches).map(function (_ref3) {
-        var _ref4 = _slicedToArray(_ref3, 1),
-          multiplierValue = _ref4[0];
-        return "".concat(Number(multiplierValue) * defaultFactor).concat(defaultUnit);
-      }).join(" ");
-      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, spacing, cssSpacingValue));
-    }, style !== null && style !== void 0 ? style : {});
-  }
-  return style;
-};
 
 /***/ }),
 
@@ -2204,41 +2096,12 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.BaseModalHeader-module__header--UVtiQ{min-width:80px;padding:1.25rem 1.5rem 0;border-top-left-radius:8px;border-top-right-radius:8px}.BaseModalHeader-module__headline--q6eEZ{display:flex;align-items:center;justify-content:space-between}.BaseModalHeader-module__title--FjtRT{flex:1;margin:0 0 0 1.25rem}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.BaseModalHeader-module__header--UVtiQ{min-width:80px;padding:1.25rem 1.5rem 0;border-top-left-radius:8px;border-top-right-radius:8px}.BaseModalHeader-module__headline--q6eEZ{display:flex;align-items:center;justify-content:space-between}.BaseModalHeader-module__title--FjtRT{flex:1;margin:0}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"header": "BaseModalHeader-module__header--UVtiQ",
 	"headline": "BaseModalHeader-module__headline--q6eEZ",
 	"title": "BaseModalHeader-module__title--FjtRT"
-};
-/* harmony default export */ __webpack_exports__.Z = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Typography/Typography.module.scss":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.Typography-module__typography_style_h1--QRbCJ{font-family:var(--font-family);font-size:var(--font-size-h1);font-style:normal;font-variant:normal;line-height:1.2;font-weight:700;text-transform:none;letter-spacing:0;color:var(--default);margin:0 0 1rem 0}.Typography-module__typography_style_h2--gst_1{font-family:var(--font-family);font-size:var(--font-size-h2);font-style:normal;font-variant:normal;line-height:1.42857;font-weight:700;text-transform:none;letter-spacing:0;color:var(--default);margin:0 0 1rem 0}.Typography-module__typography_style_h3--OMuiN{font-family:var(--font-family);font-size:var(--font-size-h3);font-style:normal;font-variant:normal;line-height:1.16666;font-weight:500;text-transform:none;letter-spacing:0;color:var(--default);margin:0 0 1rem 0}.Typography-module__typography_style_h4--AK8ry{font-family:var(--font-family);font-size:var(--font-size-h4);font-style:normal;font-variant:normal;line-height:1.2;font-weight:500;text-transform:none;letter-spacing:0;color:var(--default);margin:0 0 1rem 0}.Typography-module__typography_style_body--RZ14O{font-family:var(--font-family);font-size:var(--font-size);font-style:normal;font-variant:normal;line-height:var(--default-line-height);font-weight:400;text-transform:none;letter-spacing:0;color:var(--default);margin:0 0 1rem 0}.Typography-module__typography_style_body-bold--yrfzC{font-family:var(--font-family);font-size:var(--font-size);font-style:normal;font-variant:normal;line-height:var(--default-line-height);font-weight:700;text-transform:none;letter-spacing:0;color:var(--default);margin:0 0 1rem 0}.Typography-module__typography_style_sub-text--J284m{font-family:var(--font-family);font-size:var(--font-size-sub);font-style:normal;font-variant:normal;line-height:1rem;font-weight:400;text-transform:none;letter-spacing:0;color:var(--default);margin:0 0 1rem 0}.Typography-module__typography_style_code--aL5hm{font-family:var(--font-family-code);font-size:var(--font-size-code);font-style:normal;font-variant:normal;line-height:1.5;font-weight:400;text-transform:none;letter-spacing:0;color:var(--default);margin:0 0 1rem 0}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {
-	"typography_style_h1": "Typography-module__typography_style_h1--QRbCJ",
-	"typography_style_h2": "Typography-module__typography_style_h2--gst_1",
-	"typography_style_h3": "Typography-module__typography_style_h3--OMuiN",
-	"typography_style_h4": "Typography-module__typography_style_h4--AK8ry",
-	"typography_style_body": "Typography-module__typography_style_body--RZ14O",
-	"typography_style_body-bold": "Typography-module__typography_style_body-bold--yrfzC",
-	"typography_style_sub-text": "Typography-module__typography_style_sub-text--J284m",
-	"typography_style_code": "Typography-module__typography_style_code--aL5hm"
 };
 /* harmony default export */ __webpack_exports__.Z = (___CSS_LOADER_EXPORT___);
 
