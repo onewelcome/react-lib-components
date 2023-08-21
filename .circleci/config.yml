@@ -44,15 +44,10 @@ orbs:
     branches:
       ignore: /.*/
 
-.branch-based-job: &branch-based-job
+.filter-no-dependabot-and-no-master: &filter-no-dependabot-and-no-master
   filters:
     branches:
-      ignore: master
-
-.filter-no-dependabot: &filter-no-dependabot
-  filters:
-    branches:
-      ignore: /dependabot\/.*/
+      ignore: /dependabot\/.*|master/
 
 jobs:
   build-storybook:
@@ -129,17 +124,15 @@ workflows:
       - approve-chromatic:
           name: approve-chromatic
           type: approval
-          <<: *filter-no-dependabot
-          <<: *branch-based-job
+          <<: *filter-no-dependabot-and-no-master
           requires:
             - build
 
       - chromatic-deployment:
           name: chromatic-deployment
           <<: *dev-context
-          <<: *filter-no-dependabot
+          <<: *filter-no-dependabot-and-no-master
           <<: *filter-branches-tags
-          <<: *branch-based-job
           requires:
             - approve-chromatic
 
