@@ -59,17 +59,15 @@ $marginTop: 3.125rem;
   background-color: var(--modal-background-color);
   z-index: $zIndex + 1;
   width: calc(100% - 2rem);
-
+  height: auto;
+  max-height: calc(90% - $marginTop);
   display: flex;
   flex-direction: column;
 }
 
 @media only screen and (min-width: 50em) {
   .container {
-    min-width: 480px;
-    width: min-content;
-    height: auto;
-    max-height: calc(90% - $marginTop);
+    width: 50rem;
     border-radius: 2px;
     box-shadow: 0 30px 50px var(--modal-shadow-color);
   }

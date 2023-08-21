@@ -49,7 +49,8 @@ const meta: Meta = {
       onClick: () => window.setDialogOpen(false)
     },
     titleIcon: true,
-    caption: "This is a caption"
+    caption: "This is a caption",
+    cancelAction: { disable: false }
   }
 };
 
@@ -82,6 +83,7 @@ const Template: Story<Props> = args => {
         secondaryAction={args.secondaryAction}
         titleIcon={args.titleIcon}
         caption={args.caption}
+        cancelAction={args.cancelAction}
       >
         {args.children}
       </Dialog>
@@ -192,4 +194,23 @@ NestedDialogs.play = async ({ canvasElement }) => {
   await userEvent.click(openAnotherDialogButton);
 
   await waitFor(() => expect(canvas.queryByText("Dialog 2")).not.toBeNull());
+};
+
+export const DialogWithoutIcon = Template.bind({});
+
+DialogWithoutIcon.args = {
+  title: "Info",
+  children: (
+    <Typography variant="body" spacing={{ margin: 0 }}>
+      You can&apos;t remove your account.
+    </Typography>
+  ),
+  primaryAction: {
+    label: "Ok",
+    onClick: () => window.setDialogOpen(false)
+  },
+  secondaryAction: undefined,
+  titleIcon: undefined,
+  caption: undefined,
+  cancelAction: { disable: true }
 };
