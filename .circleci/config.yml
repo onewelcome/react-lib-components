@@ -14,7 +14,7 @@
 version: 2.1
 
 orbs:
-  onegini-build: onegini/onegini-build@dev:98f829fba21ee792744b1e0ffd416a762dcc005e
+  onegini-build: onegini/onegini-build@dev:832cea5e4205474e9225388cfdfe0c615089aa84
 
 .dev-context-and-executor: &dev-context
   context: dev-context
