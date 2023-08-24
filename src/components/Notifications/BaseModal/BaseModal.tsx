@@ -25,9 +25,6 @@ import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 import classes from "./BaseModal.module.scss";
 import { labelId, descriptionId } from "./BaseModalContext";
-import { BaseModalActions } from "./BaseModalActions/BaseModalActions";
-import { BaseModalContent } from "./BaseModalContent/BaseModalContent";
-import { BaseModalHeader } from "./BaseModalHeader/BaseModalHeader";
 
 const SCROLL_PROPERTY_NAME = "overflow";
 const SCROLL_PROPERTY_VALUE = "hidden";
