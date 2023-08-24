@@ -36,7 +36,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   cancelAction?: CancelAction;
   zIndex?: number;
   disableEscapeKeyDown?: boolean;
-  titleIcon?: React.ReactNode;
+  titleIcon?: React.ReactNode | boolean;
   caption?: string;
 }
 

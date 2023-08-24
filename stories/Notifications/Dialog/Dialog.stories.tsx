@@ -48,9 +48,9 @@ const meta: Meta = {
       label: "Keep editing",
       onClick: () => window.setDialogOpen(false)
     },
-    titleIcon: true,
+    titleIcon: <Icon icon={Icons.Bell} />,
     caption: "This is a caption",
-    cancelAction: { disable: false }
+    cancelAction: { label: "Cancel" }
   }
 };
 
@@ -126,7 +126,8 @@ SingleActionDialog.args = {
     label: "Ok",
     onClick: () => window.setDialogOpen(false)
   },
-  secondaryAction: undefined
+  secondaryAction: undefined,
+  cancelAction: undefined
 };
 
 const NestedDialogsTemplate: Story<Props> = () => {
@@ -154,6 +155,7 @@ const NestedDialogsTemplate: Story<Props> = () => {
           label: "Open another dialog",
           onClick: () => setOpen2(true)
         }}
+        cancelAction={{ label: "Cancel" }}
       >
         <Typography variant="body" spacing={{ margin: 0 }}>
           Addressing the inquiry concerning the length of text within a dialogue is indeed a
@@ -166,13 +168,12 @@ const NestedDialogsTemplate: Story<Props> = () => {
         open={open2}
         onClose={() => setOpen2(false)}
         title="Dialog 2"
-        titleIcon={true}
+        titleIcon={<Icon icon={Icons.Bell} />}
         caption="This is a caption"
         primaryAction={{
           label: "Close",
           onClick: () => setOpen2(false)
         }}
-        cancelAction={{ disable: true }}
       >
         <Typography variant="body" spacing={{ margin: 0 }}>
           Short dialog content.
@@ -212,5 +213,5 @@ DialogWithoutIcon.args = {
   secondaryAction: undefined,
   titleIcon: undefined,
   caption: undefined,
-  cancelAction: { disable: true }
+  cancelAction: { label: "Cancel" }
 };

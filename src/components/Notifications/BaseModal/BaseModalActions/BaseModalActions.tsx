@@ -16,49 +16,49 @@
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useRef } from "react";
 import classes from "./BaseModalActions.module.scss";
-import { Button } from "../../../Button/Button";
+import { Button, Props as ButtonProps } from "../../../Button/Button";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   children?: React.ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
   cancelAction?: CancelAction;
+  cancelActionsClassName?: string;
 }
 
 export interface CancelAction {
-  label?: string;
-  disable?: boolean;
+  label: string;
+  cancelButtonProps?: ButtonProps;
 }
 
 const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  {
-    children,
-    onClose,
-    cancelAction = { label: undefined, disable: false },
-    className = "",
-    ...rest
-  }: Props,
+  { children, cancelAction, cancelActionsClassName = "", onClose, className = "", ...rest }: Props,
   ref
 ) => {
   const innerRef = (React.createRef() as React.RefObject<HTMLDivElement>) || ref;
   const cancelButtonRef = useRef<HTMLDivElement>(null);
   const primaryActionsRef = useRef<HTMLDivElement>(null);
 
-  const CancelButton = (
-    <Button key="cancel" variant="text" color="default" onClick={onClose}>
-      {cancelAction?.label ?? "Cancel"}
+  const cancelButton = (
+    <Button variant="text" color="default" {...cancelAction?.cancelButtonProps} onClick={onClose}>
+      {cancelAction?.label}
     </Button>
   );
 
   return (
     <div {...rest} ref={innerRef} className={`${classes["actions"]} ${className}`}>
-      {!cancelAction.disable && (
-        <div className={classes["cancel-action"]} ref={cancelButtonRef}>
-          {CancelButton}
+      {cancelAction && (
+        <div
+          className={`${classes["cancel-action"]} ${cancelActionsClassName}`}
+          ref={cancelButtonRef}
+        >
+          {cancelButton}
         </div>
       )}
-      <div ref={primaryActionsRef} className={classes["primary-actions"]}>
-        {children}
-      </div>
+      {children && (
+        <div ref={primaryActionsRef} className={classes["primary-actions"]}>
+          {children}
+        </div>
+      )}
     </div>
   );
 };

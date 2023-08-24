@@ -23,12 +23,6 @@ import { changeCurrentStepNo } from "../wizardStateReducer";
 
 export interface Props extends React.HTMLProps<HTMLDivElement> {
   actions: {
-    cancel: {
-      label?: string;
-      hide?: boolean;
-      onClick?: () => void;
-      cancelButtonProps?: ButtonProps;
-    };
     previous: {
       label: string;
       onClick: () => void;
@@ -101,15 +95,6 @@ export const WizardActions = ({ actions }: Props) => {
 
   return (
     <Fragment>
-      {!actions.cancel.hide && (
-        <Button
-          variant="text"
-          onClick={actions.cancel.onClick}
-          {...actions.cancel.cancelButtonProps}
-        >
-          {actions.cancel.label}
-        </Button>
-      )}
       {hasPreviousStep && (
         <Button variant="outline" onClick={onPreviousWrapper}>
           {actions.previous.label}

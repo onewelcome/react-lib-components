@@ -90,7 +90,7 @@ const Template: Story<Props> = args => {
         disableBackdrop={args.disableBackdrop}
         disableEscapeKeyDown={args.disableEscapeKeyDown}
       >
-        <ModalHeader id={`${id}-label`} title={args["header.title"]} onClose={onClose} />
+        <ModalHeader id={`${id}-label`} title={args["header.title"]} />
         <ModalContent id={`${id}-description`} disableAutoFocus={args["content.disableAutoFocus"]}>
           <form
             id="modalForm"
@@ -152,7 +152,7 @@ const Template: Story<Props> = args => {
             </FormControl>
           </form>
         </ModalContent>
-        <ModalActions onClose={onClose} className={args["actions.className"]}>
+        <ModalActions className={args["actions.className"]} cancelAction={{ label: "Cancel" }}>
           <Button variant="outline" onClick={onClose}>
             Example
           </Button>

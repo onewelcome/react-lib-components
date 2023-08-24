@@ -12,13 +12,25 @@ Modals are used to present interactive or larger content - like the modal with t
 
 Modals appear as a modal on top of the existing content.
 
+## Cancel button configuration
+
+Enhance your modal with a left-aligned cancel button by simply applying the `cancelAction` property, complete with a required `label` field.
+
+Customization is possible by adding extra properties to the `cancelAction` configuration, allowing adjustments to the button's visual style.
+
+The Modal's `onClose` method is attached to cancel button's `onClick` event.
+
+Unlike the `<Dialog />` component, where the `cancelButton` remains visible even on mobile resolutions,
+in the `<Modal />` component, the `cancelButton` **is hidden on smaller screens to preserve readability**.
+Modal closure can be accomplished by pressing the `Esc` key or by clicking outside the modal.
+
 # Examples
 
 In the below code snippet, you'll see how you can create a `Modal` with simple form.
 
 ```jsx
 <Modal id="modal" open={open} onClose={onClose}>
-  <ModalHeader id="modal-label" title="Modal title" onClose={onClose} />
+  <ModalHeader id="modal-label" title="Modal title" />
   <ModalContent id="modal-description">
     <form id="modalForm">
       <Typography variant="body" spacing={{ margin: 0, padding: "0 5 5" }}>
@@ -37,9 +49,9 @@ In the below code snippet, you'll see how you can create a `Modal` with simple f
       </FormControl>
     </form>
   </ModalContent>
-  <ModalActions>
+  <ModalActions cancelAction={{ label: "Cancel" }}>
     <Button variant="text" onClick={onClose}>
-      Cancel
+      Example
     </Button>
     <Button form="modalForm" type="submit">
       Save

@@ -56,10 +56,6 @@ const initWizardStepsProps = {
 
 const initWizardActionsProps: WizardActionProps = {
   actions: {
-    cancel: {
-      label: "Cancel",
-      onClick: jest.fn()
-    },
     next: {
       label: "Next",
       onClick: jest.fn()
@@ -102,9 +98,6 @@ const getStepButtons = (container: HTMLElement) =>
 
 const getActionsButtons = (container: HTMLElement) => {
   const actionsContainer = getByTestId(container, "wizard-actions");
-  const cancel = queryByRole(actionsContainer, "button", {
-    name: initWizardActionsProps.actions.cancel.label
-  });
   const next = queryByRole(actionsContainer, "button", {
     name: initWizardActionsProps.actions.next.label
   });
@@ -114,13 +107,13 @@ const getActionsButtons = (container: HTMLElement) => {
   const save = queryByRole(actionsContainer, "button", {
     name: initWizardActionsProps.actions.saveAndClose.label
   });
-  return { cancel, next, prev, save };
+  return { next, prev, save };
 };
 
 describe("Wizard", () => {
   it("renders without crashing", () => {
     const { container } = renderWizard();
-    const { cancel, prev, next, save } = getActionsButtons(container);
+    const { prev, next, save } = getActionsButtons(container);
     const stepButtons = getStepButtons(container);
     const wizardContent = getWizardContent(container);
 
@@ -130,7 +123,6 @@ describe("Wizard", () => {
     expect(getByText(stepButtons[2], "3")).toBeDefined();
     expect(getByText(stepButtons[3], "4")).toBeDefined();
     expect(wizardContent).toHaveTextContent("Step 1");
-    expect(cancel).toBeDefined();
     expect(next).toBeDefined();
     expect(prev).toBeNull();
     expect(save).toBeNull();
@@ -151,15 +143,13 @@ describe("Wizard", () => {
     await findByText(wizardContent, "Step 2");
     next && (await userEvent.click(next));
     await findByText(wizardContent, "Step 4");
-    const { save, prev, cancel } = getActionsButtons(container);
+    const { save, prev } = getActionsButtons(container);
     save && (await userEvent.click(save));
     expect(initWizardActionsProps.actions.saveAndClose.onClick).toBeCalledWith(3);
     prev && (await userEvent.click(prev));
     await findByText(wizardContent, "Step 2");
     prev && (await userEvent.click(prev));
     await findByText(wizardContent, "Step 1");
-    cancel && (await userEvent.click(cancel));
-    expect(initWizardActionsProps.actions.cancel.onClick).toBeCalledTimes(1);
   });
 
   it("should not be able to click over whole wizard via steps buttons in add mode", async () => {

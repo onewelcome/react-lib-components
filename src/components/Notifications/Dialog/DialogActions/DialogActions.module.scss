@@ -18,4 +18,18 @@
   & * + * {
     margin-left: 0.5rem;
   }
+
+  @media screen and (max-width: 640px) {
+    .cancel-action {
+      display: block;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-left: 0;
+      margin-bottom: 0.5rem;
+
+      > * {
+        width: 100%;
+      }
+    }
+  }
 }

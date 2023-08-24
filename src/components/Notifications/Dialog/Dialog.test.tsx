@@ -29,8 +29,7 @@ const initParams: Props = {
     onClick: jest.fn()
   },
   cancelAction: {
-    label: "Cancel",
-    disable: false
+    label: "Cancel"
   },
   secondaryAction: {
     label: "Cancel",
