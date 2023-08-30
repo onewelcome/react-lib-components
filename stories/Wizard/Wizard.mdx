@@ -77,12 +77,6 @@ The Wizard `actions` prop allows you to determine some button properties that ar
 
 ```tsx
 actions: {
-  cancel: {
-    label: string;
-    onClick: () => void;
-    hide: boolean;
-    cancelbuttonProps: ButtonProps;
-  },
   previous: {
     label: string;
     onClick: () => void;
@@ -101,7 +95,24 @@ actions: {
 }
 ```
 
-Because of the possibility of the Wizard component being rendered in a model (see [Wizard in Modal story](/story/components-layout-wizard-wizard--wizard-in-modal)) it might be that you want to hide the cancel button and use the one in the modal to handle the cancel action.
+### Wizard in the `<Modal />`
+
+There is a possibility to Put a wizard into modal. See [Wizard in Modal story](/story/components-layout-wizard-wizard--wizard-in-modal).
+Please keep beneath components structure.
+
+```tsx
+<Wizard>
+  <Modal>
+    <ModalHeader>
+      <WizardSteps />
+    </ModalHeader>
+    <ModalContent></ModalContent>
+    <ModalActions>
+      <WizardActions />
+    </ModalActions>
+  </Modal>
+</Wizard>
+```
 
 ## Examples
 
@@ -170,10 +181,6 @@ export const StepForm = ({ onCloseModal }: Props) => {
       <footer>
         <WizardActions
           actions={{
-            cancel: {
-              label: "Cancel",
-              onClick: onCloseModal,
-            },
             previous: {
               label: "Previous",
               onClick: onPreviousStepHandler

@@ -76,16 +76,12 @@ const onNext = (stepNo: number) => {
   return true;
 };
 
-const onSaveAndClose = (stepNo: number) => {
+const onSaveAndClose = () => {
   alert("Save clicked");
 };
 
 const wizardActionsProps: WizardActionsProps = {
   actions: {
-    cancel: {
-      label: "Cancel",
-      onClick: () => alert("Cancel clicked")
-    },
     previous: {
       label: "Previous",
       onClick: () => true
@@ -153,9 +149,9 @@ const WizardModalTemplate = () => {
   return (
     <Fragment>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Modal id={modalId} open={open} onClose={onClose}>
-        <Wizard steps={steps} mode="add" onStepChange={(stepNo: number) => setStep(stepNo)}>
-          <ModalHeader id={`${modalId}-label`} title="Example modal with wizard" onClose={onClose}>
+      <Wizard steps={steps} mode="add" onStepChange={(stepNo: number) => setStep(stepNo)}>
+        <Modal id={modalId} open={open} onClose={onClose}>
+          <ModalHeader id={`${modalId}-label`} title="Example modal with wizard">
             <WizardSteps style={{ paddingBottom: 0 }} onStepClick={() => true} />
           </ModalHeader>
           <ModalContent id={`${modalId}-description`}>
@@ -203,11 +199,11 @@ const WizardModalTemplate = () => {
               )}
             </form>
           </ModalContent>
-          <ModalActions onClose={onClose}>
-            <WizardActions actions={{ ...wizardActionsProps.actions, cancel: { hide: true } }} />
+          <ModalActions cancelAction={{ label: "Cancel" }}>
+            <WizardActions actions={{ ...wizardActionsProps.actions }} />
           </ModalActions>
-        </Wizard>
-      </Modal>
+        </Modal>
+      </Wizard>
     </Fragment>
   );
 };

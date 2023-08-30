@@ -33,7 +33,8 @@ const DialogActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
   return (
     <BaseModalActions
       {...rest}
-      cancelAction={{ label: cancelAction?.label, disable: cancelAction?.disable }}
+      cancelAction={cancelAction}
+      cancelActionsClassName={classes["cancel-action"]}
       onClose={onClose}
       ref={ref}
       className={classes["actions"]}

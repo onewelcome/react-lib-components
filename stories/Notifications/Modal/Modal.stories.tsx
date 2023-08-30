@@ -79,6 +79,7 @@ const Template: Story<Props> = args => {
 
   const id = args.id;
   const onClose = () => setOpen(false);
+  const onExampleClick = () => alert("Example button clicked");
   return (
     <Fragment>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
@@ -90,7 +91,7 @@ const Template: Story<Props> = args => {
         disableBackdrop={args.disableBackdrop}
         disableEscapeKeyDown={args.disableEscapeKeyDown}
       >
-        <ModalHeader id={`${id}-label`} title={args["header.title"]} onClose={onClose} />
+        <ModalHeader id={`${id}-label`} title={args["header.title"]} />
         <ModalContent id={`${id}-description`} disableAutoFocus={args["content.disableAutoFocus"]}>
           <form
             id="modalForm"
@@ -152,8 +153,8 @@ const Template: Story<Props> = args => {
             </FormControl>
           </form>
         </ModalContent>
-        <ModalActions onClose={onClose} className={args["actions.className"]}>
-          <Button variant="outline" onClick={onClose}>
+        <ModalActions className={args["actions.className"]} cancelAction={{ label: "Cancel" }}>
+          <Button variant="outline" onClick={onExampleClick}>
             Example
           </Button>
           <Button form="modalForm" type="submit">

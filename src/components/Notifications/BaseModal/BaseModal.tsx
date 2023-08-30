@@ -14,7 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useEffect, useRef } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  useEffect,
+  useRef,
+  ReactElement
+} from "react";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 import classes from "./BaseModal.module.scss";
@@ -101,6 +107,16 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const handleBackdropClick = () => !disableBackdrop && onClose && onClose();
 
+  const renderChildren = () =>
+    React.Children.map(children, child => {
+      if (React.isValidElement(child)) {
+        return React.cloneElement(child as ReactElement, {
+          onClose: child.props.onClose ?? onClose
+        });
+      }
+      return child;
+    });
+
   return (
     <div ref={wrappingDivRef}>
       {createPortal(
@@ -133,7 +149,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               style={{ zIndex: zIndex && zIndex + 1 }}
               className={`${classes["container"]} ${containerProps?.className ?? ""}`}
             >
-              {children}
+              {renderChildren()}
             </div>
           ) : (
             open && (
@@ -143,7 +159,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 style={{ zIndex: zIndex && zIndex + 1 }}
                 className={`${classes["container"]} ${containerProps?.className ?? ""}`}
               >
-                {children}
+                {renderChildren()}
               </div>
             )
           )}
