@@ -79,6 +79,7 @@ const Template: Story<Props> = args => {
 
   const id = args.id;
   const onClose = () => setOpen(false);
+  const onExampleClick = () => alert("Example button clicked");
   return (
     <Fragment>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
@@ -153,7 +154,7 @@ const Template: Story<Props> = args => {
           </form>
         </ModalContent>
         <ModalActions className={args["actions.className"]} cancelAction={{ label: "Cancel" }}>
-          <Button variant="outline" onClick={onClose}>
+          <Button variant="outline" onClick={onExampleClick}>
             Example
           </Button>
           <Button form="modalForm" type="submit">
