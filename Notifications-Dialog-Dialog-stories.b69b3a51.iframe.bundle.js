@@ -44,10 +44,11 @@ function _createMdxContent(props) {
   const _components = Object.assign({
     p: "p",
     h2: "h2",
+    code: "code",
+    strong: "strong",
     h1: "h1",
     em: "em",
-    pre: "pre",
-    code: "code"
+    pre: "pre"
   }, (0,lib/* useMDXComponents */.ah)(), props.components);
   return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
     children: [(0,jsx_runtime.jsx)(dist/* Title */.Dx, {}), "\n", (0,jsx_runtime.jsx)(dist/* Subtitle */.QE, {}), "\n", (0,jsx_runtime.jsx)(_components.p, {
@@ -97,9 +98,11 @@ function _createMdxContent(props) {
           children: [(0,jsx_runtime.jsx)("td", {
             children: "titleIcon"
           }), (0,jsx_runtime.jsx)("td", {
-            children: "string or <Icon /> component"
-          }), (0,jsx_runtime.jsx)("td", {
-            children: "The icon to show in the title."
+            children: "boolean, or string or <Icon /> component"
+          }), (0,jsx_runtime.jsxs)("td", {
+            children: ["The icon to show in the title. If it's true the default icon (", (0,jsx_runtime.jsx)(_components.code, {
+              children: "info-circle"
+            }), ") is rendered"]
           }), (0,jsx_runtime.jsx)("td", {
             children: "no"
           })]
@@ -177,7 +180,7 @@ function _createMdxContent(props) {
           children: [(0,jsx_runtime.jsx)("td", {
             children: "cancelAction"
           }), (0,jsx_runtime.jsx)("td", {
-            children: "{ label: string; onClick: () => void; disabled?: boolean }"
+            children: "{ label: string; cancelButtonProps: ButtonProps }"
           }), (0,jsx_runtime.jsx)("td", {
             children: "The cancel action of the dialog."
           }), (0,jsx_runtime.jsx)("td", {
@@ -185,6 +188,33 @@ function _createMdxContent(props) {
           })]
         })]
       })]
+    }), "\n", (0,jsx_runtime.jsx)(_components.h2, {
+      id: "cancel-button-configuration",
+      children: "Cancel button configuration"
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Enhance your modal with a left-aligned cancel button by simply applying the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "cancelAction"
+      }), " property, complete with a required ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "label"
+      }), " field."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Customization is possible by adding extra properties to the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "cancelAction"
+      }), " configuration, allowing adjustments to the button's visual style."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["The Dialog's ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "onClose"
+      }), " method is attached to cancel button's ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "onClick"
+      }), " event."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Unlike the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "<Modal />"
+      }), " component, where the cancelButton is hidden on smaller screens to preserve readability,\nin the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "<Dialog />"
+      }), " component, ", (0,jsx_runtime.jsx)(_components.strong, {
+        children: "it remains visible even on mobile resolutions"
+      }), "."]
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "examples",
       children: "Examples"
@@ -202,7 +232,7 @@ function _createMdxContent(props) {
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-jsx",
-        children: "<Dialog\n  open={open}\n  onClose={onClose}\n  titleIcon={true}\n  caption=\"Example dialog\"\n  title=\"Verify email address\"\n  primaryAction={label: 'Send email', onClick: onSendEmail}\n  secondaryAction={label: 'Cancel', onClick: onCancel}\n>\n  <Fragment>\n    <Typography variant=\"body\">\n      You want to verify the email address <b>dana.george@mydomain.com</b>.\n    </Typography>\n    <Typography variant=\"body\" spacing={{ margin: 0 }}>\n      <b>Dana George</b> will receive an email with a verification link and must click the link to\n      complete the verification.\n    </Typography>\n  </Fragment>\n</Dialog>\n"
+        children: "<Dialog\n  open={open}\n  onClose={onClose}\n  titleIcon={true}\n  caption=\"Example dialog\"\n  title=\"Verify email address\"\n  primaryAction={label: 'Send email', onClick: onSendEmail}\n  cancelAction={label: 'Cancel'}\n>\n  <Fragment>\n    <Typography variant=\"body\">\n      You want to verify the email address <b>dana.george@mydomain.com</b>.\n    </Typography>\n    <Typography variant=\"body\" spacing={{ margin: 0 }}>\n      <b>Dana George</b> will receive an email with a verification link and must click the link to\n      complete the verification.\n    </Typography>\n  </Fragment>\n</Dialog>\n"
       })
     }), "\n", (0,jsx_runtime.jsx)(dist/* Canvas */.Xz, {
       children: (0,jsx_runtime.jsx)(dist/* Story */.oG, {
@@ -230,7 +260,7 @@ function _createMdxContent(props) {
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-jsx",
-        children: "const [open, setOpen] = useState(false);\nconst [open2, setOpen2] = useState(false);\nreturn (\n  <Fragment>\n    <Button onClick={() => setOpen(true)}>Open dialog</Button>\n    <Dialog\n      open={open}\n      title=\"Dialog 1\"\n      titleIcon={<Icon icon={Icons.Bell} />}\n      caption=\"Example dialog\"\n      onClose={() => setOpen(false)}\n      primaryAction={{\n        label: \"Open another dialog\",\n        onClick: () => setOpen2(true)\n      }}\n      secondaryAction={{\n        label: \"Close\",\n        onClick: () => setOpen(false)\n      }}\n    >\n      <Typography variant=\"body\" spacing={{ margin: 0 }}>\n        Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long\n        dialog content.\n      </Typography>\n    </Dialog>\n    <Dialog\n      open={open2}\n      onClose={() => setOpen2(false)}\n      title=\"Dialog 2\"\n      titleIcon={<Icon icon={Icons.Bell} />}\n      caption=\"Example dialog\"\n      primaryAction={{\n        label: \"Close\",\n        onClick: () => setOpen2(false)\n      }}\n    >\n      <Typography variant=\"body\" spacing={{ margin: 0 }}>\n        Short dialog content.\n      </Typography>\n    </Dialog>\n  </Fragment>\n);\n"
+        children: "const [open, setOpen] = useState(false);\nconst [open2, setOpen2] = useState(false);\nreturn (\n  <Fragment>\n    <Button onClick={() => setOpen(true)}>Open dialog</Button>\n    <Dialog\n      open={open}\n      title=\"Dialog 1\"\n      titleIcon={<Icon icon={Icons.Bell} />}\n      caption=\"Example dialog\"\n      onClose={() => setOpen(false)}\n      primaryAction={{\n        label: \"Open another dialog\",\n        onClick: () => setOpen2(true)\n      }}\n      cancelAction={{ label: \"Cancel\" }}\n    >\n      <Typography variant=\"body\" spacing={{ margin: 0 }}>\n        Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long\n        dialog content.\n      </Typography>\n    </Dialog>\n    <Dialog\n      open={open2}\n      onClose={() => setOpen2(false)}\n      title=\"Dialog 2\"\n      titleIcon={true}\n      caption=\"Example dialog\"\n      primaryAction={{\n        label: \"Close\",\n        onClick: () => setOpen2(false)\n      }}\n    >\n      <Typography variant=\"body\" spacing={{ margin: 0 }}>\n        Short dialog content.\n      </Typography>\n    </Dialog>\n  </Fragment>\n);\n"
       })
     }), "\n", (0,jsx_runtime.jsx)(dist/* Canvas */.Xz, {
       children: (0,jsx_runtime.jsx)(dist/* Story */.oG, {
@@ -749,10 +779,12 @@ var meta = {
         return window.setDialogOpen(false);
       }
     },
-    titleIcon: true,
+    titleIcon: /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
+      icon: Icon/* Icons */.P.Bell
+    }),
     caption: "This is a caption",
     cancelAction: {
-      disable: false
+      label: "Cancel"
     }
   }
 };
@@ -822,7 +854,8 @@ SingleActionDialog.args = {
       return window.setDialogOpen(false);
     }
   },
-  secondaryAction: undefined
+  secondaryAction: undefined,
+  cancelAction: undefined
 };
 var NestedDialogsTemplate = function NestedDialogsTemplate() {
   var _useState3 = (0,react.useState)(false),
@@ -860,6 +893,9 @@ var NestedDialogsTemplate = function NestedDialogsTemplate() {
       onClick: function onClick() {
         return setOpen2(true);
       }
+    },
+    cancelAction: {
+      label: "Cancel"
     }
   }, /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
     variant: "body",
@@ -873,16 +909,15 @@ var NestedDialogsTemplate = function NestedDialogsTemplate() {
       return setOpen2(false);
     },
     title: "Dialog 2",
-    titleIcon: true,
+    titleIcon: /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
+      icon: Icon/* Icons */.P.Bell
+    }),
     caption: "This is a caption",
     primaryAction: {
       label: "Close",
       onClick: function onClick() {
         return setOpen2(false);
       }
-    },
-    cancelAction: {
-      disable: true
     }
   }, /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
     variant: "body",
@@ -945,7 +980,7 @@ DialogWithoutIcon.args = {
   titleIcon: undefined,
   caption: undefined,
   cancelAction: {
-    disable: true
+    label: "Cancel"
   }
 };
 ActionDialog.parameters = _objectSpread(_objectSpread({}, ActionDialog.parameters), {}, {
@@ -965,7 +1000,7 @@ SingleActionDialog.parameters = _objectSpread(_objectSpread({}, SingleActionDial
 NestedDialogs.parameters = _objectSpread(_objectSpread({}, NestedDialogs.parameters), {}, {
   docs: _objectSpread(_objectSpread({}, (_NestedDialogs$parame = NestedDialogs.parameters) === null || _NestedDialogs$parame === void 0 ? void 0 : _NestedDialogs$parame.docs), {}, {
     source: _objectSpread({
-      originalSource: "() => {\n  const [open, setOpen] = useState(false);\n  const [open2, setOpen2] = useState(false);\n\n  /** When we're on the story page, we want the dialog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id=\"dialog11\" open={open} title=\"Dialog 1\" titleIcon={<Icon icon={Icons.Bell} />} caption=\"This is a caption\" onClose={() => setOpen(false)} primaryAction={{\n      label: \"Open another dialog\",\n      onClick: () => setOpen2(true)\n    }}>\n        <Typography variant=\"body\" spacing={{\n        margin: 0\n      }}>\n          Addressing the inquiry concerning the length of text within a dialogue is indeed a\n          multifaceted endeavor. It is an intricate subject that demands careful consideration and\n          comprehensive analysis to provide a thorough and meaningful response.\n        </Typography>\n      </Dialog>\n      <Dialog id=\"dialog12\" open={open2} onClose={() => setOpen2(false)} title=\"Dialog 2\" titleIcon={true} caption=\"This is a caption\" primaryAction={{\n      label: \"Close\",\n      onClick: () => setOpen2(false)\n    }} cancelAction={{\n      disable: true\n    }}>\n        <Typography variant=\"body\" spacing={{\n        margin: 0\n      }}>\n          Short dialog content.\n        </Typography>\n      </Dialog>\n    </Fragment>;\n}"
+      originalSource: "() => {\n  const [open, setOpen] = useState(false);\n  const [open2, setOpen2] = useState(false);\n\n  /** When we're on the story page, we want the dialog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id=\"dialog11\" open={open} title=\"Dialog 1\" titleIcon={<Icon icon={Icons.Bell} />} caption=\"This is a caption\" onClose={() => setOpen(false)} primaryAction={{\n      label: \"Open another dialog\",\n      onClick: () => setOpen2(true)\n    }} cancelAction={{\n      label: \"Cancel\"\n    }}>\n        <Typography variant=\"body\" spacing={{\n        margin: 0\n      }}>\n          Addressing the inquiry concerning the length of text within a dialogue is indeed a\n          multifaceted endeavor. It is an intricate subject that demands careful consideration and\n          comprehensive analysis to provide a thorough and meaningful response.\n        </Typography>\n      </Dialog>\n      <Dialog id=\"dialog12\" open={open2} onClose={() => setOpen2(false)} title=\"Dialog 2\" titleIcon={<Icon icon={Icons.Bell} />} caption=\"This is a caption\" primaryAction={{\n      label: \"Close\",\n      onClick: () => setOpen2(false)\n    }}>\n        <Typography variant=\"body\" spacing={{\n        margin: 0\n      }}>\n          Short dialog content.\n        </Typography>\n      </Dialog>\n    </Fragment>;\n}"
     }, (_NestedDialogs$parame2 = NestedDialogs.parameters) === null || _NestedDialogs$parame2 === void 0 || (_NestedDialogs$parame2 = _NestedDialogs$parame2.docs) === null || _NestedDialogs$parame2 === void 0 ? void 0 : _NestedDialogs$parame2.source)
   })
 });

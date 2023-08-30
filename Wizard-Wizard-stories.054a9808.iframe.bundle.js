@@ -685,20 +685,6 @@ catch (__react_docgen_typescript_loader_error) { }
 // EXTERNAL MODULE: ./src/components/Button/Button.tsx + 1 modules
 var Button = __webpack_require__("./src/components/Button/Button.tsx");
 ;// CONCATENATED MODULE: ./src/components/Wizard/WizardActions/WizardActions.tsx
-function WizardActions_extends() {
-  WizardActions_extends = Object.assign ? Object.assign.bind() : function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return WizardActions_extends.apply(this, arguments);
-}
 function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || WizardActions_unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
@@ -800,10 +786,7 @@ var WizardActions = function WizardActions(_ref) {
   var onSaveAndCloseWrapper = function onSaveAndCloseWrapper() {
     actions.saveAndClose.onClick(currentStepNo);
   };
-  return /*#__PURE__*/react.createElement(react.Fragment, null, !actions.cancel.hide && /*#__PURE__*/react.createElement(Button/* Button */.z, WizardActions_extends({
-    variant: "text",
-    onClick: actions.cancel.onClick
-  }, actions.cancel.cancelButtonProps), actions.cancel.label), hasPreviousStep && /*#__PURE__*/react.createElement(Button/* Button */.z, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, hasPreviousStep && /*#__PURE__*/react.createElement(Button/* Button */.z, {
     variant: "outline",
     onClick: onPreviousWrapper
   }, actions.previous.label), hasNextStep && /*#__PURE__*/react.createElement(Button/* Button */.z, {
@@ -817,7 +800,7 @@ try {
     // @ts-ignore
     WizardActions.displayName = "WizardActions";
     // @ts-ignore
-    WizardActions.__docgenInfo = { "description": "", "displayName": "WizardActions", "props": { "actions": { "defaultValue": null, "description": "", "name": "actions", "required": true, "type": { "name": "{ cancel: { label?: string | undefined; hide?: boolean | undefined; onClick?: (() => void) | undefined; cancelButtonProps?: Props | undefined; }; previous: { label: string; onClick: () => void; previousButtonProps?: Props | undefined; }; next: { ...; }; saveAndClose: { ...; }; }" } } } };
+    WizardActions.__docgenInfo = { "description": "", "displayName": "WizardActions", "props": { "actions": { "defaultValue": null, "description": "", "name": "actions", "required": true, "type": { "name": "{ previous: { label: string; onClick: () => void; previousButtonProps?: Props | undefined; }; next: { label: string; onClick: (currentStepNo: number) => boolean; nextButtonProps?: Props | undefined; }; saveAndClose: { ...; }; }" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -972,13 +955,23 @@ function _createMdxContent(props) {
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-tsx",
-        children: "actions: {\n  cancel: {\n    label: string;\n    onClick: () => void;\n    hide: boolean;\n    cancelbuttonProps: ButtonProps;\n  },\n  previous: {\n    label: string;\n    onClick: () => void;\n    previousButtonProps: ButtonProps;\n  },\n  next: {\n    label: string;\n    onClick: () => void;\n    nextButtonProps: ButtonProps;\n  },\n  saveAndClose: {\n    label: string;\n    onClick: () => void;\n    saveAndCloseButtonProps: ButtonProps;\n  }\n}\n"
+        children: "actions: {\n  previous: {\n    label: string;\n    onClick: () => void;\n    previousButtonProps: ButtonProps;\n  },\n  next: {\n    label: string;\n    onClick: () => void;\n    nextButtonProps: ButtonProps;\n  },\n  saveAndClose: {\n    label: string;\n    onClick: () => void;\n    saveAndCloseButtonProps: ButtonProps;\n  }\n}\n"
       })
+    }), "\n", (0,jsx_runtime.jsxs)(_components.h3, {
+      id: "wizard-in-the-modal-",
+      children: ["Wizard in the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "<Modal />"
+      })]
     }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
-      children: ["Because of the possibility of the Wizard component being rendered in a model (see ", (0,jsx_runtime.jsx)(_components.a, {
+      children: ["There is a possibility to Put a wizard into modal. See ", (0,jsx_runtime.jsx)(_components.a, {
         href: "/story/components-layout-wizard-wizard--wizard-in-modal",
         children: "Wizard in Modal story"
-      }), ") it might be that you want to hide the cancel button and use the one in the modal to handle the cancel action."]
+      }), ".\nPlease keep beneath components structure."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        className: "language-tsx",
+        children: "<Wizard>\n  <Modal>\n    <ModalHeader>\n      <WizardSteps />\n    </ModalHeader>\n    <ModalContent></ModalContent>\n    <ModalActions>\n      <WizardActions />\n    </ModalActions>\n  </Modal>\n</Wizard>\n"
+      })
     }), "\n", (0,jsx_runtime.jsx)(_components.h2, {
       id: "examples",
       children: "Examples"
@@ -992,7 +985,7 @@ function _createMdxContent(props) {
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-tsx",
-        children: "import React from 'react';\n\nimport { Wizard, WizardSteps, WizardActions } from '@onewelcome/react-lib-components';\nimport { StepOne } from './StepOne';\nimport { StepTwo } from './StepTwo';\nimport { StepThree } from './StepThree';\n\ninterface Props {\n  onCloseModal: () => void;\n}\n\nexport const StepForm = ({ onCloseModal }: Props) => {\n  const [activeStep, setActiveStep] = useState(1);\n\n  const onStepChangeHandler = (stepNumber: number) {\n    setActiveStep(stepNumber);\n  }\n\n  const onNextStepHandler = () => {\n    setActiveStep(activeStep + 1);\n  }\n\n  const onPreviousStepHandler = () => {\n    setActiveStep(activeStep - 1);\n  }\n\n  const onSubmitHandler = () => {\n    // Do something with the data\n\n    onCloseModal();\n  }\n\n  return {\n    <Wizard\n      initialStepNo{1}\n      mode=\"add\"\n      onStepChange={onStepChangeHandler}\n      steps={[\n        { label: \"Step 1\" },\n        { label: \"Step 2\" },\n        { label: \"Step 3\" }\n      ]}>\n\n      <header>\n        <WizardSteps />\n      </header>\n\n      <main>\n        <Form>\n          {activeStep === 1 && <StepOne />}\n          {activeStep === 2 && <StepTwo />}\n          {activeStep === 3 && <StepThree />}\n        </Form>\n      </main>\n\n      <footer>\n        <WizardActions\n          actions={{\n            cancel: {\n              label: \"Cancel\",\n              onClick: onCloseModal,\n            },\n            previous: {\n              label: \"Previous\",\n              onClick: onPreviousStepHandler\n            },\n            next: {\n              label: \"Next\",\n              onClick: onNextStepHandler\n            },\n            saveAndClose: {\n              label: \"Save and close\",\n              onClick: onSubmitHandler\n            }\n          }}\n        />\n      </footer>\n\n    </Wizard>\n  }\n}\n"
+        children: "import React from 'react';\n\nimport { Wizard, WizardSteps, WizardActions } from '@onewelcome/react-lib-components';\nimport { StepOne } from './StepOne';\nimport { StepTwo } from './StepTwo';\nimport { StepThree } from './StepThree';\n\ninterface Props {\n  onCloseModal: () => void;\n}\n\nexport const StepForm = ({ onCloseModal }: Props) => {\n  const [activeStep, setActiveStep] = useState(1);\n\n  const onStepChangeHandler = (stepNumber: number) {\n    setActiveStep(stepNumber);\n  }\n\n  const onNextStepHandler = () => {\n    setActiveStep(activeStep + 1);\n  }\n\n  const onPreviousStepHandler = () => {\n    setActiveStep(activeStep - 1);\n  }\n\n  const onSubmitHandler = () => {\n    // Do something with the data\n\n    onCloseModal();\n  }\n\n  return {\n    <Wizard\n      initialStepNo{1}\n      mode=\"add\"\n      onStepChange={onStepChangeHandler}\n      steps={[\n        { label: \"Step 1\" },\n        { label: \"Step 2\" },\n        { label: \"Step 3\" }\n      ]}>\n\n      <header>\n        <WizardSteps />\n      </header>\n\n      <main>\n        <Form>\n          {activeStep === 1 && <StepOne />}\n          {activeStep === 2 && <StepTwo />}\n          {activeStep === 3 && <StepThree />}\n        </Form>\n      </main>\n\n      <footer>\n        <WizardActions\n          actions={{\n            previous: {\n              label: \"Previous\",\n              onClick: onPreviousStepHandler\n            },\n            next: {\n              label: \"Next\",\n              onClick: onNextStepHandler\n            },\n            saveAndClose: {\n              label: \"Save and close\",\n              onClick: onSubmitHandler\n            }\n          }}\n        />\n      </footer>\n\n    </Wizard>\n  }\n}\n"
       })
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "props",
@@ -1221,17 +1214,11 @@ var onNext = function onNext(stepNo) {
   }
   return true;
 };
-var onSaveAndClose = function onSaveAndClose(stepNo) {
+var onSaveAndClose = function onSaveAndClose() {
   alert("Save clicked");
 };
 var wizardActionsProps = {
   actions: {
-    cancel: {
-      label: "Cancel",
-      onClick: function onClick() {
-        return alert("Cancel clicked");
-      }
-    },
     previous: {
       label: "Previous",
       onClick: function onClick() {
@@ -1312,20 +1299,19 @@ var WizardModalTemplate = function WizardModalTemplate() {
     onClick: function onClick() {
       return setOpen(true);
     }
-  }, "Open modal"), /*#__PURE__*/react.createElement(BaseModal/* BaseModal */.I, {
-    id: modalId,
-    open: open,
-    onClose: onClose
-  }, /*#__PURE__*/react.createElement(Wizard, {
+  }, "Open modal"), /*#__PURE__*/react.createElement(Wizard, {
     steps: steps,
     mode: "add",
     onStepChange: function onStepChange(stepNo) {
       return setStep(stepNo);
     }
+  }, /*#__PURE__*/react.createElement(BaseModal/* BaseModal */.I, {
+    id: modalId,
+    open: open,
+    onClose: onClose
   }, /*#__PURE__*/react.createElement(BaseModalHeader/* BaseModalHeader */.o, {
     id: "".concat(modalId, "-label"),
-    title: "Example modal with wizard",
-    onClose: onClose
+    title: "Example modal with wizard"
   }, /*#__PURE__*/react.createElement(WizardSteps, {
     style: {
       paddingBottom: 0
@@ -1364,13 +1350,11 @@ var WizardModalTemplate = function WizardModalTemplate() {
     },
     type: "text"
   }))), /*#__PURE__*/react.createElement(BaseModalActions/* BaseModalActions */.u, {
-    onClose: onClose
+    cancelAction: {
+      label: "Cancel"
+    }
   }, /*#__PURE__*/react.createElement(WizardActions, {
-    actions: Wizard_stories_objectSpread(Wizard_stories_objectSpread({}, wizardActionsProps.actions), {}, {
-      cancel: {
-        hide: true
-      }
-    })
+    actions: Wizard_stories_objectSpread({}, wizardActionsProps.actions)
   })))));
 };
 var WizardInModal = WizardModalTemplate.bind({});
@@ -1389,7 +1373,7 @@ BasicWizard.parameters = Wizard_stories_objectSpread(Wizard_stories_objectSpread
 WizardInModal.parameters = Wizard_stories_objectSpread(Wizard_stories_objectSpread({}, WizardInModal.parameters), {}, {
   docs: Wizard_stories_objectSpread(Wizard_stories_objectSpread({}, (_WizardInModal$parame = WizardInModal.parameters) === null || _WizardInModal$parame === void 0 ? void 0 : _WizardInModal$parame.docs), {}, {
     source: Wizard_stories_objectSpread({
-      originalSource: "() => {\n  const [open, setOpen] = useState(true);\n  const [step, setStep] = useState(0);\n  const [checkboxChecked, setCheckboxChecked] = useState(false);\n  const [exampleInput, setExampleInput] = useState(\"\");\n  const [exampleInput2, setExampleInput2] = useState(\"\");\n  const [steps, setSteps] = useState(([{\n    label: \"Step 1\"\n  }, {\n    label: \"Step 2\"\n  }, {\n    label: \"Step 3\"\n  }] as Step[]));\n  const onCheckboxChange = () => {\n    setCheckboxChecked(!checkboxChecked);\n    const newSteps = [...steps];\n    newSteps[1] = {\n      ...newSteps[1],\n      disabled: !checkboxChecked\n    };\n    setSteps(newSteps);\n  };\n  const onClose = () => setOpen(false);\n  const modalId = \"modal-with-wizard\";\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <Modal id={modalId} open={open} onClose={onClose}>\n        <Wizard steps={steps} mode=\"add\" onStepChange={(stepNo: number) => setStep(stepNo)}>\n          <ModalHeader id={`${modalId}-label`} title=\"Example modal with wizard\" onClose={onClose}>\n            <WizardSteps style={{\n            paddingBottom: 0\n          }} onStepClick={() => true} />\n          </ModalHeader>\n          <ModalContent id={`${modalId}-description`}>\n            <form id=\"modalForm\">\n              <Typography variant=\"body\">\n                This modal shows various options of form controls. It is not meant to be a realistic\n                example of any of our forms.\n                <br /> Clicking Save, Cancel or Close may bring you to a different screen than you\n                came from.\n              </Typography>\n              {step === 0 && <Fragment>\n                  <Checkbox id=\"checkbox\" name=\"checkbox\" type=\"checkbox\" checked={checkboxChecked} onChange={onCheckboxChange}>\n                    Checking this checkbox affects the activity of step 2\n                  </Checkbox>\n                </Fragment>}\n              {step === 1 && <InputWrapper label=\"Some input\" helperText=\"Helper text for this text field. Description should be short and not repeat the\n            label.\" name=\"first-name\" value={exampleInput} onChange={event => setExampleInput(event.target.value)} type=\"text\" />}\n              {step === 2 && <InputWrapper label=\"Some 2 input\" helperText=\"Helper text for this text field. Description should be short and not repeat the\n            label.\" name=\"first-name\" value={exampleInput2} onChange={event => setExampleInput2(event.target.value)} type=\"text\" />}\n            </form>\n          </ModalContent>\n          <ModalActions onClose={onClose}>\n            <WizardActions actions={{\n            ...wizardActionsProps.actions,\n            cancel: {\n              hide: true\n            }\n          }} />\n          </ModalActions>\n        </Wizard>\n      </Modal>\n    </Fragment>;\n}"
+      originalSource: "() => {\n  const [open, setOpen] = useState(true);\n  const [step, setStep] = useState(0);\n  const [checkboxChecked, setCheckboxChecked] = useState(false);\n  const [exampleInput, setExampleInput] = useState(\"\");\n  const [exampleInput2, setExampleInput2] = useState(\"\");\n  const [steps, setSteps] = useState(([{\n    label: \"Step 1\"\n  }, {\n    label: \"Step 2\"\n  }, {\n    label: \"Step 3\"\n  }] as Step[]));\n  const onCheckboxChange = () => {\n    setCheckboxChecked(!checkboxChecked);\n    const newSteps = [...steps];\n    newSteps[1] = {\n      ...newSteps[1],\n      disabled: !checkboxChecked\n    };\n    setSteps(newSteps);\n  };\n  const onClose = () => setOpen(false);\n  const modalId = \"modal-with-wizard\";\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <Wizard steps={steps} mode=\"add\" onStepChange={(stepNo: number) => setStep(stepNo)}>\n        <Modal id={modalId} open={open} onClose={onClose}>\n          <ModalHeader id={`${modalId}-label`} title=\"Example modal with wizard\">\n            <WizardSteps style={{\n            paddingBottom: 0\n          }} onStepClick={() => true} />\n          </ModalHeader>\n          <ModalContent id={`${modalId}-description`}>\n            <form id=\"modalForm\">\n              <Typography variant=\"body\">\n                This modal shows various options of form controls. It is not meant to be a realistic\n                example of any of our forms.\n                <br /> Clicking Save, Cancel or Close may bring you to a different screen than you\n                came from.\n              </Typography>\n              {step === 0 && <Fragment>\n                  <Checkbox id=\"checkbox\" name=\"checkbox\" type=\"checkbox\" checked={checkboxChecked} onChange={onCheckboxChange}>\n                    Checking this checkbox affects the activity of step 2\n                  </Checkbox>\n                </Fragment>}\n              {step === 1 && <InputWrapper label=\"Some input\" helperText=\"Helper text for this text field. Description should be short and not repeat the\n            label.\" name=\"first-name\" value={exampleInput} onChange={event => setExampleInput(event.target.value)} type=\"text\" />}\n              {step === 2 && <InputWrapper label=\"Some 2 input\" helperText=\"Helper text for this text field. Description should be short and not repeat the\n            label.\" name=\"first-name\" value={exampleInput2} onChange={event => setExampleInput2(event.target.value)} type=\"text\" />}\n            </form>\n          </ModalContent>\n          <ModalActions cancelAction={{\n          label: \"Cancel\"\n        }}>\n            <WizardActions actions={{\n            ...wizardActionsProps.actions\n          }} />\n          </ModalActions>\n        </Modal>\n      </Wizard>\n    </Fragment>;\n}"
     }, (_WizardInModal$parame2 = WizardInModal.parameters) === null || _WizardInModal$parame2 === void 0 || (_WizardInModal$parame2 = _WizardInModal$parame2.docs) === null || _WizardInModal$parame2 === void 0 ? void 0 : _WizardInModal$parame2.source)
   })
 });
@@ -1748,7 +1732,7 @@ var update = injectStylesIntoStyleTag_default()(BaseModalActions_module/* defaul
 // EXTERNAL MODULE: ./src/components/Button/Button.tsx + 1 modules
 var Button = __webpack_require__("./src/components/Button/Button.tsx");
 ;// CONCATENATED MODULE: ./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx
-var _excluded = ["children", "onClose", "cancelAction", "className"];
+var _excluded = ["children", "cancelAction", "cancelActionsClassName", "onClose", "className"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -1810,33 +1794,30 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 
 var BaseModalActionsComponent = function BaseModalActionsComponent(_ref, ref) {
-  var _cancelAction$label;
   var children = _ref.children,
+    cancelAction = _ref.cancelAction,
+    _ref$cancelActionsCla = _ref.cancelActionsClassName,
+    cancelActionsClassName = _ref$cancelActionsCla === void 0 ? "" : _ref$cancelActionsCla,
     onClose = _ref.onClose,
-    _ref$cancelAction = _ref.cancelAction,
-    cancelAction = _ref$cancelAction === void 0 ? {
-      label: undefined,
-      disable: false
-    } : _ref$cancelAction,
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? "" : _ref$className,
     rest = _objectWithoutProperties(_ref, _excluded);
   var innerRef = /*#__PURE__*/ /*#__PURE__*/react.createRef() || ref;
   var cancelButtonRef = (0,react.useRef)(null);
   var primaryActionsRef = (0,react.useRef)(null);
-  var CancelButton = /*#__PURE__*/react.createElement(Button/* Button */.z, {
-    key: "cancel",
+  var cancelButton = /*#__PURE__*/react.createElement(Button/* Button */.z, _extends({
     variant: "text",
-    color: "default",
+    color: "default"
+  }, cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.cancelButtonProps, {
     onClick: onClose
-  }, (_cancelAction$label = cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.label) !== null && _cancelAction$label !== void 0 ? _cancelAction$label : "Cancel");
+  }), cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.label);
   return /*#__PURE__*/react.createElement("div", _extends({}, rest, {
     ref: innerRef,
     className: "".concat(BaseModalActions_BaseModalActions_module["actions"], " ").concat(className)
-  }), !cancelAction.disable && /*#__PURE__*/react.createElement("div", {
-    className: BaseModalActions_BaseModalActions_module["cancel-action"],
+  }), cancelAction && /*#__PURE__*/react.createElement("div", {
+    className: "".concat(BaseModalActions_BaseModalActions_module["cancel-action"], " ").concat(cancelActionsClassName),
     ref: cancelButtonRef
-  }, CancelButton), /*#__PURE__*/react.createElement("div", {
+  }, cancelButton), children && /*#__PURE__*/react.createElement("div", {
     ref: primaryActionsRef,
     className: BaseModalActions_BaseModalActions_module["primary-actions"]
   }, children));
@@ -1846,7 +1827,7 @@ try {
     // @ts-ignore
     BaseModalActions.displayName = "BaseModalActions";
     // @ts-ignore
-    BaseModalActions.__docgenInfo = { "description": "", "displayName": "BaseModalActions", "props": { "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": true, "type": { "name": "() => void" } }, "cancelAction": { "defaultValue": { value: "{ label: undefined, disable: false }" }, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } } } };
+    BaseModalActions.__docgenInfo = { "description": "", "displayName": "BaseModalActions", "props": { "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": false, "type": { "name": "(() => void)" } }, "cancelAction": { "defaultValue": null, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } }, "cancelActionsClassName": { "defaultValue": { value: "" }, "description": "", "name": "cancelActionsClassName", "required": false, "type": { "name": "string" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore

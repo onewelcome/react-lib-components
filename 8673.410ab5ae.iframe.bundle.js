@@ -64,7 +64,7 @@ var update = injectStylesIntoStyleTag_default()(BaseModalActions_module/* defaul
 // EXTERNAL MODULE: ./src/components/Button/Button.tsx + 1 modules
 var Button = __webpack_require__("./src/components/Button/Button.tsx");
 ;// CONCATENATED MODULE: ./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx
-var _excluded = ["children", "onClose", "cancelAction", "className"];
+var _excluded = ["children", "cancelAction", "cancelActionsClassName", "onClose", "className"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -126,33 +126,30 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 
 var BaseModalActionsComponent = function BaseModalActionsComponent(_ref, ref) {
-  var _cancelAction$label;
   var children = _ref.children,
+    cancelAction = _ref.cancelAction,
+    _ref$cancelActionsCla = _ref.cancelActionsClassName,
+    cancelActionsClassName = _ref$cancelActionsCla === void 0 ? "" : _ref$cancelActionsCla,
     onClose = _ref.onClose,
-    _ref$cancelAction = _ref.cancelAction,
-    cancelAction = _ref$cancelAction === void 0 ? {
-      label: undefined,
-      disable: false
-    } : _ref$cancelAction,
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? "" : _ref$className,
     rest = _objectWithoutProperties(_ref, _excluded);
   var innerRef = /*#__PURE__*/ /*#__PURE__*/react.createRef() || ref;
   var cancelButtonRef = (0,react.useRef)(null);
   var primaryActionsRef = (0,react.useRef)(null);
-  var CancelButton = /*#__PURE__*/react.createElement(Button/* Button */.z, {
-    key: "cancel",
+  var cancelButton = /*#__PURE__*/react.createElement(Button/* Button */.z, _extends({
     variant: "text",
-    color: "default",
+    color: "default"
+  }, cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.cancelButtonProps, {
     onClick: onClose
-  }, (_cancelAction$label = cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.label) !== null && _cancelAction$label !== void 0 ? _cancelAction$label : "Cancel");
+  }), cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.label);
   return /*#__PURE__*/react.createElement("div", _extends({}, rest, {
     ref: innerRef,
     className: "".concat(BaseModalActions_BaseModalActions_module["actions"], " ").concat(className)
-  }), !cancelAction.disable && /*#__PURE__*/react.createElement("div", {
-    className: BaseModalActions_BaseModalActions_module["cancel-action"],
+  }), cancelAction && /*#__PURE__*/react.createElement("div", {
+    className: "".concat(BaseModalActions_BaseModalActions_module["cancel-action"], " ").concat(cancelActionsClassName),
     ref: cancelButtonRef
-  }, CancelButton), /*#__PURE__*/react.createElement("div", {
+  }, cancelButton), children && /*#__PURE__*/react.createElement("div", {
     ref: primaryActionsRef,
     className: BaseModalActions_BaseModalActions_module["primary-actions"]
   }, children));
@@ -162,7 +159,7 @@ try {
     // @ts-ignore
     BaseModalActions.displayName = "BaseModalActions";
     // @ts-ignore
-    BaseModalActions.__docgenInfo = { "description": "", "displayName": "BaseModalActions", "props": { "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": true, "type": { "name": "() => void" } }, "cancelAction": { "defaultValue": { value: "{ label: undefined, disable: false }" }, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } } } };
+    BaseModalActions.__docgenInfo = { "description": "", "displayName": "BaseModalActions", "props": { "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": false, "type": { "name": "(() => void)" } }, "cancelAction": { "defaultValue": null, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } }, "cancelActionsClassName": { "defaultValue": { value: "" }, "description": "", "name": "cancelActionsClassName", "required": false, "type": { "name": "string" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -307,10 +304,8 @@ var DialogActionsComponent = function DialogActionsComponent(_ref, ref) {
     onClose = _ref.onClose,
     rest = _objectWithoutProperties(_ref, _excluded);
   return /*#__PURE__*/react.createElement(BaseModalActions/* BaseModalActions */.u, _extends({}, rest, {
-    cancelAction: {
-      label: cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.label,
-      disable: cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.disable
-    },
+    cancelAction: cancelAction,
+    cancelActionsClassName: DialogActions_DialogActions_module["cancel-action"],
     onClose: onClose,
     ref: ref,
     className: DialogActions_DialogActions_module["actions"]
@@ -778,10 +773,11 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.DialogActions-module__actions--AtqlN *+*{margin-left:.5rem}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.DialogActions-module__actions--AtqlN *+*{margin-left:.5rem}@media screen and (max-width: 640px){.DialogActions-module__actions--AtqlN .DialogActions-module__cancel-action--grFOt{display:block;flex-direction:column;align-items:flex-end;margin-left:0;margin-bottom:.5rem}.DialogActions-module__actions--AtqlN .DialogActions-module__cancel-action--grFOt>*{width:100%}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
-	"actions": "DialogActions-module__actions--AtqlN"
+	"actions": "DialogActions-module__actions--AtqlN",
+	"cancel-action": "DialogActions-module__cancel-action--grFOt"
 };
 /* harmony default export */ __webpack_exports__.Z = (___CSS_LOADER_EXPORT___);
 

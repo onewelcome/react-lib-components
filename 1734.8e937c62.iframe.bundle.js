@@ -193,6 +193,17 @@ var BaseModalComponent = function BaseModalComponent(_ref, ref) {
   var handleBackdropClick = function handleBackdropClick() {
     return !disableBackdrop && onClose && onClose();
   };
+  var renderChildren = function renderChildren() {
+    return react.Children.map(children, function (child) {
+      if ( /*#__PURE__*/react.isValidElement(child)) {
+        var _child$props$onClose;
+        return /*#__PURE__*/react.cloneElement(child, {
+          onClose: (_child$props$onClose = child.props.onClose) !== null && _child$props$onClose !== void 0 ? _child$props$onClose : onClose
+        });
+      }
+      return child;
+    });
+  };
   return /*#__PURE__*/react.createElement("div", {
     ref: wrappingDivRef
   }, /*#__PURE__*/(0,react_dom.createPortal)( /*#__PURE__*/react.createElement("div", _extends({}, rest, {
@@ -221,13 +232,13 @@ var BaseModalComponent = function BaseModalComponent(_ref, ref) {
       zIndex: zIndex && zIndex + 1
     },
     className: "".concat(BaseModal_BaseModal_module["container"], " ").concat((_containerProps$class = containerProps === null || containerProps === void 0 ? void 0 : containerProps.className) !== null && _containerProps$class !== void 0 ? _containerProps$class : "")
-  }), children) : open && /*#__PURE__*/react.createElement("div", _extends({}, containerProps, {
+  }), renderChildren()) : open && /*#__PURE__*/react.createElement("div", _extends({}, containerProps, {
     "data-element": "dialog",
     style: {
       zIndex: zIndex && zIndex + 1
     },
     className: "".concat(BaseModal_BaseModal_module["container"], " ").concat((_containerProps$class2 = containerProps === null || containerProps === void 0 ? void 0 : containerProps.className) !== null && _containerProps$class2 !== void 0 ? _containerProps$class2 : "")
-  }), children)), root));
+  }), renderChildren())), root));
 };
 var BaseModal = /*#__PURE__*/react.forwardRef(BaseModalComponent);
 try {

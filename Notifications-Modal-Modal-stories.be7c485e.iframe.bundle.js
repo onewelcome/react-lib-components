@@ -170,8 +170,10 @@ function _createMdxContent(props) {
     p: "p",
     ul: "ul",
     li: "li",
-    h1: "h1",
+    h2: "h2",
     code: "code",
+    strong: "strong",
+    h1: "h1",
     pre: "pre"
   }, (0,lib/* useMDXComponents */.ah)(), props.components);
   return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
@@ -187,6 +189,39 @@ function _createMdxContent(props) {
       }), "\n"]
     }), "\n", (0,jsx_runtime.jsx)(_components.p, {
       children: "Modals appear as a modal on top of the existing content."
+    }), "\n", (0,jsx_runtime.jsx)(_components.h2, {
+      id: "cancel-button-configuration",
+      children: "Cancel button configuration"
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Enhance your modal with a left-aligned cancel button by simply applying the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "cancelAction"
+      }), " property, complete with a required ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "label"
+      }), " field."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Customization is possible by adding extra properties to the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "cancelAction"
+      }), " configuration, allowing adjustments to the button's visual style."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["The Modal's ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "onClose"
+      }), " method is attached to cancel button's ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "onClick"
+      }), " event."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Unlike the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "<Dialog />"
+      }), " component, where the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "cancelButton"
+      }), " remains visible even on mobile resolutions,\nin the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "<Modal />"
+      }), " component, the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "cancelButton"
+      }), " ", (0,jsx_runtime.jsx)(_components.strong, {
+        children: "is hidden on smaller screens to preserve readability"
+      }), ".\nModal closure can be accomplished by pressing the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Esc"
+      }), " key or by clicking outside the modal."]
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "examples",
       children: "Examples"
@@ -197,7 +232,7 @@ function _createMdxContent(props) {
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-jsx",
-        children: "<Modal id=\"modal\" open={open} onClose={onClose}>\n  <ModalHeader id=\"modal-label\" title=\"Modal title\" onClose={onClose} />\n  <ModalContent id=\"modal-description\">\n    <form id=\"modalForm\">\n      <Typography variant=\"body\" spacing={{ margin: 0, padding: \"0 5 5\" }}>\n        This is simple modal.\n      </Typography>\n      <FormControl>\n        <InputWrapper\n          helperText=\"Helper text for this field. Description should be short and not repeat the label\"\n          name=\"input1\"\n          type=\"text\"\n          value={value}\n          error={false}\n          label=\"Name\"\n          onChange={e => setValue(e.target.value)}\n        />\n      </FormControl>\n    </form>\n  </ModalContent>\n  <ModalActions>\n    <Button variant=\"text\" onClick={onClose}>\n      Cancel\n    </Button>\n    <Button form=\"modalForm\" type=\"submit\">\n      Save\n    </Button>\n  </ModalActions>\n</Modal>\n"
+        children: "<Modal id=\"modal\" open={open} onClose={onClose}>\n  <ModalHeader id=\"modal-label\" title=\"Modal title\" />\n  <ModalContent id=\"modal-description\">\n    <form id=\"modalForm\">\n      <Typography variant=\"body\" spacing={{ margin: 0, padding: \"0 5 5\" }}>\n        This is simple modal.\n      </Typography>\n      <FormControl>\n        <InputWrapper\n          helperText=\"Helper text for this field. Description should be short and not repeat the label\"\n          name=\"input1\"\n          type=\"text\"\n          value={value}\n          error={false}\n          label=\"Name\"\n          onChange={e => setValue(e.target.value)}\n        />\n      </FormControl>\n    </form>\n  </ModalContent>\n  <ModalActions cancelAction={{ label: \"Cancel\" }}>\n    <Button variant=\"text\" onClick={onExampleClick}>\n      Example\n    </Button>\n    <Button form=\"modalForm\" type=\"submit\">\n      Save\n    </Button>\n  </ModalActions>\n</Modal>\n"
       })
     }), "\n", (0,jsx_runtime.jsx)(dist/* Canvas */.Xz, {
       children: (0,jsx_runtime.jsx)(dist/* Story */.oG, {
@@ -419,6 +454,9 @@ var Template = function Template(args) {
   var onClose = function onClose() {
     return setOpen(false);
   };
+  var onExampleClick = function onExampleClick() {
+    return alert("Example button clicked");
+  };
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Button/* Button */.z, {
     onClick: function onClick() {
       return setOpen(true);
@@ -432,8 +470,7 @@ var Template = function Template(args) {
     disableEscapeKeyDown: args.disableEscapeKeyDown
   }, /*#__PURE__*/react.createElement(BaseModalHeader/* BaseModalHeader */.o, {
     id: "".concat(id, "-label"),
-    title: args["header.title"],
-    onClose: onClose
+    title: args["header.title"]
   }), /*#__PURE__*/react.createElement(BaseModalContent/* BaseModalContent */.v, {
     id: "".concat(id, "-description"),
     disableAutoFocus: args["content.disableAutoFocus"]
@@ -491,11 +528,13 @@ var Template = function Template(args) {
       return setValue4(e.target.value);
     }
   })))), /*#__PURE__*/react.createElement(BaseModalActions/* BaseModalActions */.u, {
-    onClose: onClose,
-    className: args["actions.className"]
+    className: args["actions.className"],
+    cancelAction: {
+      label: "Cancel"
+    }
   }, /*#__PURE__*/react.createElement(Button/* Button */.z, {
     variant: "outline",
-    onClick: onClose
+    onClick: onExampleClick
   }, "Example"), /*#__PURE__*/react.createElement(Button/* Button */.z, {
     form: "modalForm",
     type: "submit"
@@ -505,7 +544,7 @@ var Modal_stories_Modal = Template.bind({});
 Modal_stories_Modal.parameters = _objectSpread(_objectSpread({}, Modal_stories_Modal.parameters), {}, {
   docs: _objectSpread(_objectSpread({}, (_Modal$parameters = Modal_stories_Modal.parameters) === null || _Modal$parameters === void 0 ? void 0 : _Modal$parameters.docs), {}, {
     source: _objectSpread({
-      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n  const [value, setValue] = useState(\"initial value\");\n  const [value2, setValue2] = useState(\"initial value\");\n  const [value3, setValue3] = useState(\"initial value\");\n  const [value4, setValue4] = useState(\"initial value\");\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  const id = args.id;\n  const onClose = () => setOpen(false);\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <ModalComponent id={id} open={open} onClose={onClose} zIndex={args.zIndex} disableBackdrop={args.disableBackdrop} disableEscapeKeyDown={args.disableEscapeKeyDown}>\n        <ModalHeader id={`${id}-label`} title={args[\"header.title\"]} onClose={onClose} />\n        <ModalContent id={`${id}-description`} disableAutoFocus={args[\"content.disableAutoFocus\"]}>\n          <form id=\"modalForm\" onSubmit={e => {\n          e.preventDefault();\n          alert(\"form submitted\");\n          onClose();\n        }}>\n            <Typography variant=\"body\" spacing={{\n            margin: 0,\n            paddingBottom: 5\n          }}>\n              This modal shows various options of form controls. It is not meant to be a realistic\n              example of any of our forms.\n              <br /> Clicking Save, Cancel or Close may bring you to a different screen than you\n              came from.\n            </Typography>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input1\" type=\"text\" value={value} error={false} label=\"Name\" onChange={e => setValue(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input2\" type=\"text\" value={value2} error={false} label=\"Name\" onChange={e => setValue2(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input3\" type=\"text\" value={value3} error={false} label=\"Name\" onChange={e => setValue3(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input4\" type=\"text\" value={value4} error={false} label=\"Name\" onChange={e => setValue4(e.target.value)} />\n            </FormControl>\n          </form>\n        </ModalContent>\n        <ModalActions onClose={onClose} className={args[\"actions.className\"]}>\n          <Button variant=\"outline\" onClick={onClose}>\n            Example\n          </Button>\n          <Button form=\"modalForm\" type=\"submit\">\n            Save\n          </Button>\n        </ModalActions>\n      </ModalComponent>\n    </Fragment>;\n}"
+      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n  const [value, setValue] = useState(\"initial value\");\n  const [value2, setValue2] = useState(\"initial value\");\n  const [value3, setValue3] = useState(\"initial value\");\n  const [value4, setValue4] = useState(\"initial value\");\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  const id = args.id;\n  const onClose = () => setOpen(false);\n  const onExampleClick = () => alert(\"Example button clicked\");\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <ModalComponent id={id} open={open} onClose={onClose} zIndex={args.zIndex} disableBackdrop={args.disableBackdrop} disableEscapeKeyDown={args.disableEscapeKeyDown}>\n        <ModalHeader id={`${id}-label`} title={args[\"header.title\"]} />\n        <ModalContent id={`${id}-description`} disableAutoFocus={args[\"content.disableAutoFocus\"]}>\n          <form id=\"modalForm\" onSubmit={e => {\n          e.preventDefault();\n          alert(\"form submitted\");\n          onClose();\n        }}>\n            <Typography variant=\"body\" spacing={{\n            margin: 0,\n            paddingBottom: 5\n          }}>\n              This modal shows various options of form controls. It is not meant to be a realistic\n              example of any of our forms.\n              <br /> Clicking Save, Cancel or Close may bring you to a different screen than you\n              came from.\n            </Typography>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input1\" type=\"text\" value={value} error={false} label=\"Name\" onChange={e => setValue(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input2\" type=\"text\" value={value2} error={false} label=\"Name\" onChange={e => setValue2(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input3\" type=\"text\" value={value3} error={false} label=\"Name\" onChange={e => setValue3(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input4\" type=\"text\" value={value4} error={false} label=\"Name\" onChange={e => setValue4(e.target.value)} />\n            </FormControl>\n          </form>\n        </ModalContent>\n        <ModalActions className={args[\"actions.className\"]} cancelAction={{\n        label: \"Cancel\"\n      }}>\n          <Button variant=\"outline\" onClick={onExampleClick}>\n            Example\n          </Button>\n          <Button form=\"modalForm\" type=\"submit\">\n            Save\n          </Button>\n        </ModalActions>\n      </ModalComponent>\n    </Fragment>;\n}"
     }, (_Modal$parameters2 = Modal_stories_Modal.parameters) === null || _Modal$parameters2 === void 0 || (_Modal$parameters2 = _Modal$parameters2.docs) === null || _Modal$parameters2 === void 0 ? void 0 : _Modal$parameters2.source)
   })
 });
@@ -576,7 +615,7 @@ var update = injectStylesIntoStyleTag_default()(BaseModalActions_module/* defaul
 // EXTERNAL MODULE: ./src/components/Button/Button.tsx + 1 modules
 var Button = __webpack_require__("./src/components/Button/Button.tsx");
 ;// CONCATENATED MODULE: ./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx
-var _excluded = ["children", "onClose", "cancelAction", "className"];
+var _excluded = ["children", "cancelAction", "cancelActionsClassName", "onClose", "className"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -638,33 +677,30 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 
 var BaseModalActionsComponent = function BaseModalActionsComponent(_ref, ref) {
-  var _cancelAction$label;
   var children = _ref.children,
+    cancelAction = _ref.cancelAction,
+    _ref$cancelActionsCla = _ref.cancelActionsClassName,
+    cancelActionsClassName = _ref$cancelActionsCla === void 0 ? "" : _ref$cancelActionsCla,
     onClose = _ref.onClose,
-    _ref$cancelAction = _ref.cancelAction,
-    cancelAction = _ref$cancelAction === void 0 ? {
-      label: undefined,
-      disable: false
-    } : _ref$cancelAction,
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? "" : _ref$className,
     rest = _objectWithoutProperties(_ref, _excluded);
   var innerRef = /*#__PURE__*/ /*#__PURE__*/react.createRef() || ref;
   var cancelButtonRef = (0,react.useRef)(null);
   var primaryActionsRef = (0,react.useRef)(null);
-  var CancelButton = /*#__PURE__*/react.createElement(Button/* Button */.z, {
-    key: "cancel",
+  var cancelButton = /*#__PURE__*/react.createElement(Button/* Button */.z, _extends({
     variant: "text",
-    color: "default",
+    color: "default"
+  }, cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.cancelButtonProps, {
     onClick: onClose
-  }, (_cancelAction$label = cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.label) !== null && _cancelAction$label !== void 0 ? _cancelAction$label : "Cancel");
+  }), cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.label);
   return /*#__PURE__*/react.createElement("div", _extends({}, rest, {
     ref: innerRef,
     className: "".concat(BaseModalActions_BaseModalActions_module["actions"], " ").concat(className)
-  }), !cancelAction.disable && /*#__PURE__*/react.createElement("div", {
-    className: BaseModalActions_BaseModalActions_module["cancel-action"],
+  }), cancelAction && /*#__PURE__*/react.createElement("div", {
+    className: "".concat(BaseModalActions_BaseModalActions_module["cancel-action"], " ").concat(cancelActionsClassName),
     ref: cancelButtonRef
-  }, CancelButton), /*#__PURE__*/react.createElement("div", {
+  }, cancelButton), children && /*#__PURE__*/react.createElement("div", {
     ref: primaryActionsRef,
     className: BaseModalActions_BaseModalActions_module["primary-actions"]
   }, children));
@@ -674,7 +710,7 @@ try {
     // @ts-ignore
     BaseModalActions.displayName = "BaseModalActions";
     // @ts-ignore
-    BaseModalActions.__docgenInfo = { "description": "", "displayName": "BaseModalActions", "props": { "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": true, "type": { "name": "() => void" } }, "cancelAction": { "defaultValue": { value: "{ label: undefined, disable: false }" }, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } } } };
+    BaseModalActions.__docgenInfo = { "description": "", "displayName": "BaseModalActions", "props": { "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": false, "type": { "name": "(() => void)" } }, "cancelAction": { "defaultValue": null, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } }, "cancelActionsClassName": { "defaultValue": { value: "" }, "description": "", "name": "cancelActionsClassName", "required": false, "type": { "name": "string" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
