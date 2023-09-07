@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent, Props } from "../../src/components/DataGrid/DataGrid";
 import { DataGridRow } from "../../src/components/DataGrid/DataGridBody/DataGridRow";
@@ -27,6 +27,7 @@ import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { PageSize } from "../../src/components/Pagination/Pagination";
 
 export default {
   title: "components/Data Display/DataGrid",
@@ -51,11 +52,25 @@ const Template = args => {
       </DataGridRow>
     );
   };
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const data = args.data;
+  const paginationProps = args.paginationProps;
+  paginationProps.pageSize = pageSize;
+  paginationProps.currentPage = currentPage;
+  paginationProps.onPageSizeChange = (pageSize: PageSize) => {
+    setPageSize(pageSize);
+    setCurrentPage(1);
+  };
+  paginationProps.onPageChange = (pageNo: number) => {
+    setCurrentPage(pageNo);
+  };
 
   return (
     <div style={{ padding: "1rem", backgroundColor: "rgb(245, 248, 248)" }}>
       <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
-        <DataGridComponent {...args}>
+        <DataGridComponent {...args} data={data} paginationProps={paginationProps}>
           {({
             item
           }: {
@@ -110,7 +125,16 @@ DefaultDataGrid.args = {
       id: "2",
       type: "Stock",
       enabled: false
-    }
+    },
+    ...Array(100)
+      .fill(0)
+      .map((_value, index) => ({
+        name: "Company gen" + index,
+        created: new Date(2023, 0, 2),
+        id: "gen" + index,
+        type: "Stock",
+        enabled: false
+      }))
   ],
   headers: [
     { name: "name", headline: "Name" },
@@ -133,7 +157,7 @@ DefaultDataGrid.args = {
   },
   disableContextMenuColumn: false,
   paginationProps: {
-    totalElements: 2,
+    totalElements: 102,
     currentPage: 1
   },
   isLoading: false,

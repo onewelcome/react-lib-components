@@ -74,6 +74,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
     return Math.ceil(totalElements / pageSize);
   };
+  const pagesAmount = calculateAmountOfPages();
 
   const onPageSizeChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const pageSizeNumber = Number(event.target.value) as PageSize;
@@ -112,7 +113,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       </div>
       <div className={classes["pagination"]}>
         <Fragment>
-          {totalElements && !!calculateAmountOfPages() && (
+          {totalElements && !!pagesAmount && (
             <div className={classes["page"]}>
               <Label
                 id="current-value-input-label"
@@ -125,15 +126,16 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 aria-labelledby="current-value-input-label"
                 key="input"
                 id="current-value-input"
-                size={currentPage?.toString().length}
+                size={currentPage.toString().length}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   onPageChangeHandler(Number(e.target.value))
                 }
                 name="current-value-input"
                 value={currentPage.toString()}
                 className={`${classes["form-element"]} ${classes["current-page-select"]}`}
+                searchInputProps={{ wrapperProps: { className: classes["search-input-wrapper"] } }}
               >
-                {Array.from(Array(calculateAmountOfPages()!).keys()).map(page => (
+                {Array.from(Array(pagesAmount!).keys()).map(page => (
                   <Option key={page} value={(page + 1).toString()}>
                     {(page + 1).toString()}
                   </Option>
@@ -151,9 +153,9 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             <div className={classes["previous"]}>
               {
                 <IconButton
-                  disabled={currentPage <= 2}
+                  disabled={currentPage <= 1}
                   title="first"
-                  onClick={() => onPageChangeHandler(0)}
+                  onClick={() => onPageChangeHandler(1)}
                   data-paginate="first"
                 >
                   <Icon icon={Icons.NavigationFirst} />
@@ -174,7 +176,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           <div className={classes["next"]}>
             {!!(currentPage !== undefined || (currentPage !== undefined && !totalElements)) && (
               <IconButton
-                disabled={currentPage >= calculateAmountOfPages()!}
+                disabled={currentPage >= pagesAmount}
                 title="next"
                 onClick={() => onPageChangeHandler(currentPage + 1)}
                 data-paginate="next"
@@ -184,7 +186,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             )}
             {!!(currentPage && totalElements) && (
               <IconButton
-                disabled={currentPage >= calculateAmountOfPages()! - 1}
+                disabled={currentPage >= pagesAmount}
                 title="last"
                 onClick={() => onPageChangeHandler(Math.ceil(totalElements / pageSize))}
                 data-paginate="last"

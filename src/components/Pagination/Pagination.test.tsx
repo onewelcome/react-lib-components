@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { Pagination, Props } from "./Pagination";
-import { act, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
@@ -60,8 +60,8 @@ describe("Pagination events", () => {
     const { pagination } = createPagination(defaultParams => ({
       ...defaultParams,
       currentPage: 10,
-      onPageChange: onPageChange,
-      onPageSizeChange: onPageSizeChange
+      onPageChange,
+      onPageSizeChange
     }));
 
     const next = pagination.querySelector('[data-paginate="next"]')!;
@@ -79,7 +79,7 @@ describe("Pagination events", () => {
     await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(9));
 
     await userEvent.click(first);
-    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(0));
+    await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(1));
 
     await userEvent.click(last);
     await waitFor(() => expect(onPageChange).toHaveBeenCalledWith(50));
@@ -102,28 +102,28 @@ describe("different current pages and their effect on what renders", () => {
     expect(pagination.querySelector('[data-paginate="previous"]')).toHaveAttribute("disabled");
   });
 
-  it("is on the second page and does not render first", async () => {
+  it("is on the second page and does render first", async () => {
     const { pagination } = createPagination(defaultParams => ({
       ...defaultParams,
       currentPage: 2
     }));
 
-    expect(pagination.querySelector('[data-paginate="first"]')).toHaveAttribute("disabled");
+    expect(pagination.querySelector('[data-paginate="first"]')).not.toHaveAttribute("disabled");
   });
 
-  it("is on the second to last page and does not render last", () => {
+  it("is on the second to last page and does render last", () => {
     const { pagination } = createPagination(defaultParams => ({
       ...defaultParams,
-      currentPage: 499
+      currentPage: 49
     }));
 
-    expect(pagination.querySelector('[data-paginate="last"]')).toHaveAttribute("disabled");
+    expect(pagination.querySelector('[data-paginate="last"]')).not.toHaveAttribute("disabled");
   });
 
   it("is on the last page and does not render next & last", () => {
     const { pagination } = createPagination(defaultParams => ({
       ...defaultParams,
-      currentPage: 500
+      currentPage: 50
     }));
 
     expect(pagination.querySelector('[data-paginate="last"]')).toHaveAttribute("disabled");
