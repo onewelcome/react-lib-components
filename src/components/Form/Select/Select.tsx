@@ -44,7 +44,7 @@ export interface Props extends ComponentPropsWithRef<"select">, FormElement {
   describedBy?: string;
   placeholder?: string;
   searchPlaceholder?: string;
-  searchInputProps?: PartialInputProps;
+  searchInputProps?: PartialInputProps & { reset?: boolean };
   selectButtonProps?: ComponentPropsWithRef<"button">;
   className?: string;
   value: string;
@@ -90,7 +90,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
       false
     ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
-  const [childrenCount] = useState(React.Children.count(children));
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -112,7 +111,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     setIsSearching,
     setFocusedSelectItem,
     onOptionChangeHandler,
-    childrenCount,
+    childrenCount: React.Children.count(children),
     setShouldClick,
     searchInputRef,
     renderSearchCondition
@@ -238,6 +237,16 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     },
     expanded
   );
+
+  const resetSearchState = () => {
+    setFilter("");
+    setIsSearching(false);
+    setFocusedSelectItem(-1);
+  };
+
+  useEffect(() => {
+    searchInputProps?.reset && resetSearchState();
+  }, [searchInputProps?.reset]);
 
   const additionalClasses = [];
   expanded && additionalClasses.push(classes.expanded);

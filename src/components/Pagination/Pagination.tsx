@@ -14,7 +14,14 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, Fragment } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  Fragment,
+  useRef,
+  useState,
+  useEffect
+} from "react";
 import classes from "./Pagination.module.scss";
 import readyclasses from "../../readyclasses.module.scss";
 import { IconButton } from "../Button/IconButton";
@@ -75,15 +82,21 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     return Math.ceil(totalElements / pageSize);
   };
   const pagesAmount = calculateAmountOfPages();
+  const [resetPageNoSelect, setResetPageNoSelect] = useState(false);
 
   const onPageSizeChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const pageSizeNumber = Number(event.target.value) as PageSize;
+    setResetPageNoSelect(true);
     onPageSizeChange(pageSizeNumber);
   };
 
   const onPageChangeHandler = (pageToGoTo: number) => {
     onPageChange(pageToGoTo);
   };
+
+  useEffect(() => {
+    resetPageNoSelect && setResetPageNoSelect(false);
+  }, [resetPageNoSelect]);
 
   return (
     <div {...rest} ref={ref} className={`${classes["pagination-wrapper"]} ${className ?? ""}`}>
@@ -123,7 +136,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 {translate.currentPageLabel}
               </Label>
               <Select
-                aria-labelledby="current-value-input-label"
+                labeledBy="current-value-input-label"
                 key="input"
                 id="current-value-input"
                 size={currentPage.toString().length}
@@ -133,9 +146,12 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 name="current-value-input"
                 value={currentPage.toString()}
                 className={`${classes["form-element"]} ${classes["current-page-select"]}`}
-                searchInputProps={{ wrapperProps: { className: classes["search-input-wrapper"] } }}
+                searchInputProps={{
+                  wrapperProps: { className: classes["search-input-wrapper"] },
+                  reset: resetPageNoSelect
+                }}
               >
-                {Array.from(Array(pagesAmount!).keys()).map(page => (
+                {Array.from(Array(pagesAmount).keys()).map(page => (
                   <Option key={page} value={(page + 1).toString()}>
                     {(page + 1).toString()}
                   </Option>
