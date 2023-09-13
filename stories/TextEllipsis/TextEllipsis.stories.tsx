@@ -21,6 +21,7 @@ import { Typography } from "../../src/components/Typography/Typography";
 import TextEllipsisDocumentation from "./TextEllipsis.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { conditionalPlay } from "../../.storybook/conditionalPlay";
 
 export default {
   title: "components/Utils/TextEllipsis",
@@ -53,7 +54,7 @@ const Template = args => (
 
 export const TextEllipsis = Template.bind({});
 
-TextEllipsis.play = async ({ canvasElement }) => {
+TextEllipsis.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() =>
@@ -71,7 +72,7 @@ TextEllipsis.play = async ({ canvasElement }) => {
   await userEvent.hover(elementToHover!);
 
   expect(strings[1]).not.toHaveAttribute("aria-hidden", "true");
-};
+});
 
 TextEllipsis.args = {
   children: "This is a long text that will trigger the ellipsis and show a popover."

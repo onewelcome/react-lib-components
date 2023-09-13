@@ -25,6 +25,7 @@ import RepeaterDocumentation from "./useRepeater.mdx";
 import { generateID } from "../../src/util/helper";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { conditionalPlay } from "../../.storybook/conditionalPlay";
 
 const meta: Meta = {
   title: "Hooks/useRepeater",
@@ -114,7 +115,7 @@ const Template: Story = () => {
 
 export const Repeater = Template.bind({});
 
-Repeater.play = async ({ canvasElement }) => {
+Repeater.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   const addTagButton = await canvas.findByText("Add tag!");
@@ -127,6 +128,6 @@ Repeater.play = async ({ canvasElement }) => {
   expect(input).toHaveLength(3);
 
   await userEvent.tab();
-};
+});
 
 Repeater.args = {};
