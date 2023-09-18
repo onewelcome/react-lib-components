@@ -34,6 +34,8 @@ export { Tab } from "./components/Tabs/Tab";
 export type { Props as TabProps } from "./components/Tabs/Tab";
 export { Tabs } from "./components/Tabs/Tabs";
 export type { Props as TabsProps } from "./components/Tabs/Tabs";
+export { Tag } from "./components/Tag/Tag";
+export type { Props as TagProps } from "./components/Tag/Tag";
 export { TextEllipsis } from "./components/TextEllipsis/TextEllipsis";
 export type { Props as TextEllipsisProps } from "./components/TextEllipsis/TextEllipsis";
 export { Tile } from "./components/Tiles/Tile";
