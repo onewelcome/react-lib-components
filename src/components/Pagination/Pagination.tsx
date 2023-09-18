@@ -147,7 +147,8 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 className={`${classes["form-element"]} ${classes["current-page-select"]}`}
                 searchInputProps={{
                   wrapperProps: { className: classes["search-input-wrapper"] },
-                  reset: resetPageNoSelect
+                  reset: resetPageNoSelect,
+                  autoComplete: "off"
                 }}
               >
                 {Array.from(Array(pagesAmount).keys()).map(page => (
