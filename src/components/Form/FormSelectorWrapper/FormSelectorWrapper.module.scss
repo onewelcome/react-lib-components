@@ -14,8 +14,11 @@
  *    limitations under the License.
  */
 
-.error {
-  color: var(--error);
+.error input + span {
+  outline: var(--error) solid 1px;
+  outline-offset: -1px;
+  border-radius: 2px;
+  overflow: hidden;
 }
 
 .helper-text {

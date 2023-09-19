@@ -146,7 +146,9 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         {...rest}
         ref={ref}
         disabled={disabled}
-        className={`${classes["native-input"]} ${error ? classes["error"] : ""}`}
+        className={`${classes["native-input"]} ${error ? classes["error"] : ""} ${
+          disabled ? classes["disabled"] : ""
+        }`}
         checked={checked}
         onChange={onChangeHandler}
         aria-invalid={error as boolean}
@@ -158,11 +160,21 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       />
       {renderToggle()}
 
-      {indeterminate && <Icon className={iconClasses.join(" ")} icon={Icons.MinusSquare} />}
-      {checked && !indeterminate && (
-        <Icon className={iconClasses.join(" ")} icon={Icons.CheckmarkSquare} />
+      {indeterminate && (
+        <Icon
+          className={`${iconClasses.join(" ")} ${classes["indeterminate"]}`}
+          icon={Icons.MinusSquare}
+        />
       )}
-      {!checked && !indeterminate && <Icon className={iconClasses.join(" ")} icon={Icons.Square} />}
+      {checked && !indeterminate && (
+        <Icon
+          className={`${iconClasses.join(" ")} ${classes["checkmark"]}`}
+          icon={Icons.CheckmarkSquare}
+        />
+      )}
+      {!checked && !indeterminate && (
+        <Icon className={`${iconClasses.join(" ")} ${classes["square"]}`} icon={Icons.Square} />
+      )}
       <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
     </FormSelectorWrapper>
   );

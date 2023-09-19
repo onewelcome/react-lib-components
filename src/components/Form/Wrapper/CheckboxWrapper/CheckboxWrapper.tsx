@@ -80,4 +80,7 @@ const CheckboxWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   );
 };
 
+/**
+ * @deprecated
+ */
 export const CheckboxWrapper = React.forwardRef(CheckboxWrapperComponent);

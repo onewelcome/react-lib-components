@@ -54,7 +54,7 @@
   width: 1.25rem;
   height: 1.25rem;
 
-  &:checked + * {
+  &:checked:not(.disabled) + * {
     color: var(--color-primary);
   }
 
@@ -66,6 +66,10 @@
     }
   }
 
+  &:active:not(.disabled) + span {
+    background-color: var(--disabled);
+  }
+
   &.error:focus-visible {
     + * {
       outline-color: var(--color-error);
@@ -75,9 +79,49 @@
 
 .input {
   font-size: 1.25rem;
-  pointer-events: none;
+  z-index: 1;
+}
+
+.square {
+  &:hover {
+    background-color: var(--color-blue-grey50);
+  }
+
+  &:active {
+    background-color: var(--disabled);
+  }
 }
 
 .disabled {
-  color: var(--disabled);
+  & + span {
+    color: var(--color-blue-grey100);
+  }
+
+  & + span + label {
+    color: var(--color-blue-grey400);
+  }
+
+  & + span.checkmark,
+  & + span.indeterminate {
+    color: var(--color-blue-grey100);
+    background-color: var(--color-blue-grey400);
+    border-radius: 2px;
+    outline: 1px var(--color-blue-grey100) solid;
+    outline-offset: -1px;
+  }
+}
+
+.checkmark,
+.indeterminate {
+  &:hover {
+    color: var(--color-primary600);
+  }
+
+  &:active {
+    color: var(--color-primary700);
+  }
+}
+
+.indeterminate {
+  color: var(--color-primary);
 }
