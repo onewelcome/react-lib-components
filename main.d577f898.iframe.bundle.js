@@ -582,7 +582,7 @@ var map = {
 		2310,
 		9264,
 		898,
-		1034,
+		9781,
 		3123
 	],
 	"./DataGrid/DataGrid.stories.tsx": [
@@ -599,7 +599,7 @@ var map = {
 		2310,
 		9264,
 		898,
-		1034,
+		9781,
 		3123
 	],
 	"./Form/Elements/Checkbox.stories": [
@@ -1183,21 +1183,25 @@ var map = {
 	"./Pagination/Pagination.stories": [
 		"./stories/Pagination/Pagination.stories.tsx",
 		2888,
+		2085,
+		5737,
 		4540,
 		2807,
 		6246,
 		9685,
-		1034,
+		9781,
 		4066
 	],
 	"./Pagination/Pagination.stories.tsx": [
 		"./stories/Pagination/Pagination.stories.tsx",
 		2888,
+		2085,
+		5737,
 		4540,
 		2807,
 		6246,
 		9685,
-		1034,
+		9781,
 		4066
 	],
 	"./ProgressBar/ProgressBar.stories": [

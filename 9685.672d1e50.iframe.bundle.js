@@ -514,9 +514,6 @@ var SelectComponent = function SelectComponent(_ref, ref) {
     _useState14 = Select_slicedToArray(_useState13, 2),
     shouldFocusButtonAfterClose = _useState14[0],
     setShouldFocusButtonAfterClose = _useState14[1];
-  var _useState15 = (0,react.useState)(react.Children.count(children)),
-    _useState16 = Select_slicedToArray(_useState15, 1),
-    childrenCount = _useState16[0];
   var nativeSelect = ref || /*#__PURE__*/(0,react.createRef)();
   var searchInputRef = (0,react.useRef)(null);
   var onOptionChangeHandler = function onOptionChangeHandler(optionElement) {
@@ -536,7 +533,7 @@ var SelectComponent = function SelectComponent(_ref, ref) {
       setIsSearching: setIsSearching,
       setFocusedSelectItem: setFocusedSelectItem,
       onOptionChangeHandler: onOptionChangeHandler,
-      childrenCount: childrenCount,
+      childrenCount: react.Children.count(children),
       setShouldClick: setShouldClick,
       searchInputRef: searchInputRef,
       renderSearchCondition: renderSearchCondition
@@ -664,6 +661,14 @@ var SelectComponent = function SelectComponent(_ref, ref) {
     });
     setOpacity(0);
   }, expanded);
+  var resetSearchState = function resetSearchState() {
+    setFilter("");
+    setIsSearching(false);
+    setFocusedSelectItem(-1);
+  };
+  (0,react.useEffect)(function () {
+    (searchInputProps === null || searchInputProps === void 0 ? void 0 : searchInputProps.reset) && resetSearchState();
+  }, [searchInputProps === null || searchInputProps === void 0 ? void 0 : searchInputProps.reset]);
   var additionalClasses = [];
   expanded && additionalClasses.push(Select_module/* default */.Z.expanded);
   error && additionalClasses.push(Select_module/* default */.Z.error);
@@ -734,7 +739,7 @@ try {
     // @ts-ignore
     Select.displayName = "Select";
     // @ts-ignore
-    Select.__docgenInfo = { "description": "", "displayName": "Select", "props": { "name": { "defaultValue": null, "description": "", "name": "name", "required": false, "type": { "name": "string" } }, "className": { "defaultValue": null, "description": "", "name": "className", "required": false, "type": { "name": "string" } }, "placeholder": { "defaultValue": null, "description": "", "name": "placeholder", "required": false, "type": { "name": "string" } }, "onChange": { "defaultValue": null, "description": "", "name": "onChange", "required": false, "type": { "name": "((event: ChangeEvent<HTMLSelectElement>, child?: ReactElement<any, string | JSXElementConstructor<any>>) => void)" } }, "error": { "defaultValue": { value: "false" }, "description": "", "name": "error", "required": false, "type": { "name": "boolean" } }, "success": { "defaultValue": { value: "false" }, "description": "", "name": "success", "required": false, "type": { "name": "boolean" } }, "value": { "defaultValue": null, "description": "", "name": "value", "required": true, "type": { "name": "string" } }, "labeledBy": { "defaultValue": null, "description": "", "name": "labeledBy", "required": false, "type": { "name": "string" } }, "describedBy": { "defaultValue": null, "description": "", "name": "describedBy", "required": false, "type": { "name": "string" } }, "searchPlaceholder": { "defaultValue": { value: "Search item" }, "description": "", "name": "searchPlaceholder", "required": false, "type": { "name": "string" } }, "searchInputProps": { "defaultValue": null, "description": "", "name": "searchInputProps", "required": false, "type": { "name": "Partial<Props>" } }, "selectButtonProps": { "defaultValue": null, "description": "", "name": "selectButtonProps", "required": false, "type": { "name": "(Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\"> & { ...; })" } }, "clearLabel": { "defaultValue": { value: "Clear selection" }, "description": "", "name": "clearLabel", "required": false, "type": { "name": "string" } }, "noResultsLabel": { "defaultValue": { value: "No results found" }, "description": "", "name": "noResultsLabel", "required": false, "type": { "name": "string" } } } };
+    Select.__docgenInfo = { "description": "", "displayName": "Select", "props": { "name": { "defaultValue": null, "description": "", "name": "name", "required": false, "type": { "name": "string" } }, "className": { "defaultValue": null, "description": "", "name": "className", "required": false, "type": { "name": "string" } }, "placeholder": { "defaultValue": null, "description": "", "name": "placeholder", "required": false, "type": { "name": "string" } }, "onChange": { "defaultValue": null, "description": "", "name": "onChange", "required": false, "type": { "name": "((event: ChangeEvent<HTMLSelectElement>, child?: ReactElement<any, string | JSXElementConstructor<any>>) => void)" } }, "error": { "defaultValue": { value: "false" }, "description": "", "name": "error", "required": false, "type": { "name": "boolean" } }, "success": { "defaultValue": { value: "false" }, "description": "", "name": "success", "required": false, "type": { "name": "boolean" } }, "value": { "defaultValue": null, "description": "", "name": "value", "required": true, "type": { "name": "string" } }, "labeledBy": { "defaultValue": null, "description": "", "name": "labeledBy", "required": false, "type": { "name": "string" } }, "describedBy": { "defaultValue": null, "description": "", "name": "describedBy", "required": false, "type": { "name": "string" } }, "searchPlaceholder": { "defaultValue": { value: "Search item" }, "description": "", "name": "searchPlaceholder", "required": false, "type": { "name": "string" } }, "searchInputProps": { "defaultValue": null, "description": "", "name": "searchInputProps", "required": false, "type": { "name": "(Partial<Props> & { reset?: boolean; })" } }, "selectButtonProps": { "defaultValue": null, "description": "", "name": "selectButtonProps", "required": false, "type": { "name": "(Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\"> & { ...; })" } }, "clearLabel": { "defaultValue": { value: "Clear selection" }, "description": "", "name": "clearLabel", "required": false, "type": { "name": "string" } }, "noResultsLabel": { "defaultValue": { value: "No results found" }, "description": "", "name": "noResultsLabel", "required": false, "type": { "name": "string" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore

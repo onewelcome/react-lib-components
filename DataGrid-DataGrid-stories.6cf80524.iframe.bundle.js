@@ -1,9 +1,9 @@
+"use strict";
 (self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[3123],{
 
 /***/ "./node_modules/@storybook/addon-actions/dist/index.mjs":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
@@ -32,7 +32,6 @@ var actions=(...args)=>{let options=config,names=args;names.length===1&&Array.is
 /***/ "./stories/DataGrid/DataGrid.stories.tsx":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -2516,13 +2515,6 @@ function _asyncToGenerator(fn) {
   }
 });
 var Template = function Template(args) {
-  var row = function row(_ref) {
-    var item = _ref.item;
-    if (!item) return;
-    return /*#__PURE__*/react.createElement(DataGridRow, {
-      key: item.id
-    }, /*#__PURE__*/react.createElement(DataGridCell, null, item.name), /*#__PURE__*/react.createElement(DataGridCell, null, item.created.toLocaleDateString()), /*#__PURE__*/react.createElement(DataGridCell, null, item.id), /*#__PURE__*/react.createElement(DataGridCell, null, item.type), /*#__PURE__*/react.createElement(DataGridCell, null, item.enabled ? "Active" : "Delisted"));
-  };
   return /*#__PURE__*/react.createElement("div", {
     style: {
       padding: "1rem",
@@ -2533,8 +2525,8 @@ var Template = function Template(args) {
       borderRadius: ".5rem",
       backgroundColor: "#FFF"
     }
-  }, /*#__PURE__*/react.createElement(DataGrid, args, function (_ref2) {
-    var item = _ref2.item;
+  }, /*#__PURE__*/react.createElement(DataGrid, args, function (_ref) {
+    var item = _ref.item;
     return /*#__PURE__*/react.createElement(DataGridRow, {
       key: item.id
     }, /*#__PURE__*/react.createElement(DataGridCell, null, item.name), /*#__PURE__*/react.createElement(DataGridCell, null, item.created.toLocaleDateString()), /*#__PURE__*/react.createElement(DataGridCell, null, item.id), /*#__PURE__*/react.createElement(DataGridCell, null, item.type), /*#__PURE__*/react.createElement(DataGridCell, null, item.enabled ? "Active" : "Delisted"), !args.disableContextMenuColumn && /*#__PURE__*/react.createElement(DataGridCell, null, /*#__PURE__*/react.createElement(ContextMenu/* ContextMenu */.x, {
@@ -2624,13 +2616,13 @@ DefaultDataGrid.args = {
 };
 var DataGridWithColumnsPopup = Template.bind({});
 DataGridWithColumnsPopup.play = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref3) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref2) {
     var _canvas$queryByText2;
     var canvasElement, canvas, columnsButton, showColumnsDialog, innerDiv, nameToggle;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          canvasElement = _ref3.canvasElement;
+          canvasElement = _ref2.canvasElement;
           canvas = (0,testing_library_dist/* within */.uh)(canvasElement);
           _context.next = 4;
           return (0,testing_library_dist/* waitFor */.X_)(function () {
@@ -2668,7 +2660,7 @@ DataGridWithColumnsPopup.play = /*#__PURE__*/function () {
     }, _callee);
   }));
   return function (_x) {
-    return _ref4.apply(this, arguments);
+    return _ref3.apply(this, arguments);
   };
 }();
 DataGridWithColumnsPopup.args = {
@@ -2877,35 +2869,35 @@ EmptyDataGrid.args = {
 DefaultDataGrid.parameters = DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, DefaultDataGrid.parameters), {}, {
   docs: DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, (_DefaultDataGrid$para = DefaultDataGrid.parameters) === null || _DefaultDataGrid$para === void 0 ? void 0 : _DefaultDataGrid$para.docs), {}, {
     source: DataGrid_stories_objectSpread({
-      originalSource: "args => {\n  const row = ({\n    item\n  }) => {\n    if (!item) return;\n    return <DataGridRow key={item.id}>\n        <DataGridCell>{item.name}</DataGridCell>\n        <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n        <DataGridCell>{item.id}</DataGridCell>\n        <DataGridCell>{item.type}</DataGridCell>\n        <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n      </DataGridRow>;\n  };\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
+      originalSource: "args => {\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
     }, (_DefaultDataGrid$para2 = DefaultDataGrid.parameters) === null || _DefaultDataGrid$para2 === void 0 || (_DefaultDataGrid$para2 = _DefaultDataGrid$para2.docs) === null || _DefaultDataGrid$para2 === void 0 ? void 0 : _DefaultDataGrid$para2.source)
   })
 });
 DataGridWithColumnsPopup.parameters = DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, DataGridWithColumnsPopup.parameters), {}, {
   docs: DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, (_DataGridWithColumnsP = DataGridWithColumnsPopup.parameters) === null || _DataGridWithColumnsP === void 0 ? void 0 : _DataGridWithColumnsP.docs), {}, {
     source: DataGrid_stories_objectSpread({
-      originalSource: "args => {\n  const row = ({\n    item\n  }) => {\n    if (!item) return;\n    return <DataGridRow key={item.id}>\n        <DataGridCell>{item.name}</DataGridCell>\n        <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n        <DataGridCell>{item.id}</DataGridCell>\n        <DataGridCell>{item.type}</DataGridCell>\n        <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n      </DataGridRow>;\n  };\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
+      originalSource: "args => {\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
     }, (_DataGridWithColumnsP2 = DataGridWithColumnsPopup.parameters) === null || _DataGridWithColumnsP2 === void 0 || (_DataGridWithColumnsP2 = _DataGridWithColumnsP2.docs) === null || _DataGridWithColumnsP2 === void 0 ? void 0 : _DataGridWithColumnsP2.source)
   })
 });
 HideColumnDataGrid.parameters = DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, HideColumnDataGrid.parameters), {}, {
   docs: DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, (_HideColumnDataGrid$p = HideColumnDataGrid.parameters) === null || _HideColumnDataGrid$p === void 0 ? void 0 : _HideColumnDataGrid$p.docs), {}, {
     source: DataGrid_stories_objectSpread({
-      originalSource: "args => {\n  const row = ({\n    item\n  }) => {\n    if (!item) return;\n    return <DataGridRow key={item.id}>\n        <DataGridCell>{item.name}</DataGridCell>\n        <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n        <DataGridCell>{item.id}</DataGridCell>\n        <DataGridCell>{item.type}</DataGridCell>\n        <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n      </DataGridRow>;\n  };\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
+      originalSource: "args => {\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
     }, (_HideColumnDataGrid$p2 = HideColumnDataGrid.parameters) === null || _HideColumnDataGrid$p2 === void 0 || (_HideColumnDataGrid$p2 = _HideColumnDataGrid$p2.docs) === null || _HideColumnDataGrid$p2 === void 0 ? void 0 : _HideColumnDataGrid$p2.source)
   })
 });
 DataGridIsLoading.parameters = DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, DataGridIsLoading.parameters), {}, {
   docs: DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, (_DataGridIsLoading$pa = DataGridIsLoading.parameters) === null || _DataGridIsLoading$pa === void 0 ? void 0 : _DataGridIsLoading$pa.docs), {}, {
     source: DataGrid_stories_objectSpread({
-      originalSource: "args => {\n  const row = ({\n    item\n  }) => {\n    if (!item) return;\n    return <DataGridRow key={item.id}>\n        <DataGridCell>{item.name}</DataGridCell>\n        <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n        <DataGridCell>{item.id}</DataGridCell>\n        <DataGridCell>{item.type}</DataGridCell>\n        <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n      </DataGridRow>;\n  };\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
+      originalSource: "args => {\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
     }, (_DataGridIsLoading$pa2 = DataGridIsLoading.parameters) === null || _DataGridIsLoading$pa2 === void 0 || (_DataGridIsLoading$pa2 = _DataGridIsLoading$pa2.docs) === null || _DataGridIsLoading$pa2 === void 0 ? void 0 : _DataGridIsLoading$pa2.source)
   })
 });
 EmptyDataGrid.parameters = DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, EmptyDataGrid.parameters), {}, {
   docs: DataGrid_stories_objectSpread(DataGrid_stories_objectSpread({}, (_EmptyDataGrid$parame = EmptyDataGrid.parameters) === null || _EmptyDataGrid$parame === void 0 ? void 0 : _EmptyDataGrid$parame.docs), {}, {
     source: DataGrid_stories_objectSpread({
-      originalSource: "args => {\n  const row = ({\n    item\n  }) => {\n    if (!item) return;\n    return <DataGridRow key={item.id}>\n        <DataGridCell>{item.name}</DataGridCell>\n        <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n        <DataGridCell>{item.id}</DataGridCell>\n        <DataGridCell>{item.type}</DataGridCell>\n        <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n      </DataGridRow>;\n  };\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
+      originalSource: "args => {\n  return <div style={{\n    padding: \"1rem\",\n    backgroundColor: \"rgb(245, 248, 248)\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args}>\n          {({\n          item\n        }: {\n          item: {\n            name: string;\n            id: string;\n            created: Date;\n            type: string;\n            enabled: boolean;\n          };\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n              {!args.disableContextMenuColumn && <DataGridCell>\n                  <ContextMenu id={`consent_menu_${item.id}`} placement={{\n              vertical: \"bottom\",\n              horizontal: \"right\"\n            }} transformOrigin={{\n              vertical: \"top\",\n              horizontal: \"right\"\n            }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                        <Icon icon={Icons.EllipsisAlt} />\n                      </IconButton>}>\n                    <ContextMenuItem>Item 1</ContextMenuItem>\n                    <ContextMenuItem>Item 2</ContextMenuItem>\n                    <ContextMenuItem>Item 3</ContextMenuItem>\n                  </ContextMenu>\n                </DataGridCell>}\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}"
     }, (_EmptyDataGrid$parame2 = EmptyDataGrid.parameters) === null || _EmptyDataGrid$parame2 === void 0 || (_EmptyDataGrid$parame2 = _EmptyDataGrid$parame2.docs) === null || _EmptyDataGrid$parame2 === void 0 ? void 0 : _EmptyDataGrid$parame2.source)
   })
 });
@@ -2971,7 +2963,6 @@ catch (__react_docgen_typescript_loader_error) { }
 /***/ "./src/components/Form/Toggle/Toggle.tsx":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
@@ -3211,7 +3202,6 @@ catch (__react_docgen_typescript_loader_error) { }
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGrid.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -3237,7 +3227,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGridActions/DataGridActions.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -3264,7 +3253,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGridActions/DataGridColumnsToggle.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -3292,7 +3280,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGridBody/DataGridBody.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -3315,7 +3302,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGridBody/DataGridCell.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -3344,7 +3330,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGridBody/DataGridRow.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -3368,7 +3353,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGridHeader/DataGridHeader.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -3393,7 +3377,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGridHeader/DataGridHeaderCell.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -3421,7 +3404,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/Toggle/Toggle.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -3454,13 +3436,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 };
 /* harmony default export */ __webpack_exports__.Z = (___CSS_LOADER_EXPORT___);
 
-
-/***/ }),
-
-/***/ "?4f7e":
-/***/ (function() {
-
-/* (ignored) */
 
 /***/ })
 

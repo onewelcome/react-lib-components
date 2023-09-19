@@ -1,9 +1,9 @@
-"use strict";
-(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[1034],{
+(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[9781],{
 
 /***/ "./src/components/Form/Label/Label.tsx":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
@@ -154,6 +154,7 @@ catch (__react_docgen_typescript_loader_error) { }
 /***/ "./src/components/Form/Select/Option.tsx":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   W: function() { return /* binding */ Option; }
 /* harmony export */ });
@@ -284,6 +285,7 @@ catch (__react_docgen_typescript_loader_error) { }
 /***/ "./src/components/Pagination/Pagination.tsx":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
@@ -369,6 +371,55 @@ function _extends() {
   };
   return _extends.apply(this, arguments);
 }
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+function _iterableToArrayLimit(arr, i) {
+  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
+  if (null != _i) {
+    var _s,
+      _e,
+      _x,
+      _r,
+      _arr = [],
+      _n = !0,
+      _d = !1;
+    try {
+      if (_x = (_i = _i.call(arr)).next, 0 === i) {
+        if (Object(_i) !== _i) return;
+        _n = !1;
+      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
+    } catch (err) {
+      _d = !0, _e = err;
+    } finally {
+      try {
+        if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return;
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+    return _arr;
+  }
+}
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
 function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
   var target = _objectWithoutPropertiesLoose(source, excluded);
@@ -446,13 +497,22 @@ var PaginationComponent = function PaginationComponent(_ref, ref) {
     }
     return Math.ceil(totalElements / pageSize);
   };
+  var pagesAmount = calculateAmountOfPages();
+  var _useState = (0,react.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    resetPageNoSelect = _useState2[0],
+    setResetPageNoSelect = _useState2[1];
   var onPageSizeChangeHandler = function onPageSizeChangeHandler(event) {
     var pageSizeNumber = Number(event.target.value);
+    setResetPageNoSelect(true);
     onPageSizeChange(pageSizeNumber);
   };
   var onPageChangeHandler = function onPageChangeHandler(pageToGoTo) {
     onPageChange(pageToGoTo);
   };
+  (0,react.useEffect)(function () {
+    resetPageNoSelect && setResetPageNoSelect(false);
+  }, [resetPageNoSelect]);
   return /*#__PURE__*/react.createElement("div", _extends({}, rest, {
     ref: ref,
     className: "".concat(Pagination_Pagination_module["pagination-wrapper"], " ").concat(className !== null && className !== void 0 ? className : "")
@@ -479,24 +539,31 @@ var PaginationComponent = function PaginationComponent(_ref, ref) {
     tabIndex: 0
   }, totalElements, "\xA0", translate.totalItems))), /*#__PURE__*/react.createElement("div", {
     className: Pagination_Pagination_module["pagination"]
-  }, /*#__PURE__*/react.createElement(react.Fragment, null, totalElements && !!calculateAmountOfPages() && /*#__PURE__*/react.createElement("div", {
+  }, /*#__PURE__*/react.createElement(react.Fragment, null, totalElements && !!pagesAmount && /*#__PURE__*/react.createElement("div", {
     className: Pagination_Pagination_module["page"]
   }, /*#__PURE__*/react.createElement(Label/* Label */._, {
     id: "current-value-input-label",
     htmlFor: "current-value-input",
     className: "".concat(readyclasses_module/* default */.Z["sr-only"], " ").concat(Pagination_Pagination_module["current-value-select-label"])
   }, translate.currentPageLabel), /*#__PURE__*/react.createElement(Select/* Select */.P, {
-    "aria-labelledby": "current-value-input-label",
+    labeledBy: "current-value-input-label",
     key: "input",
     id: "current-value-input",
-    size: currentPage === null || currentPage === void 0 ? void 0 : currentPage.toString().length,
+    size: currentPage.toString().length,
     onChange: function onChange(e) {
       return onPageChangeHandler(Number(e.target.value));
     },
     name: "current-value-input",
     value: currentPage.toString(),
-    className: "".concat(Pagination_Pagination_module["form-element"], " ").concat(Pagination_Pagination_module["current-page-select"])
-  }, Array.from(Array(calculateAmountOfPages()).keys()).map(function (page) {
+    className: "".concat(Pagination_Pagination_module["form-element"], " ").concat(Pagination_Pagination_module["current-page-select"]),
+    searchInputProps: {
+      wrapperProps: {
+        className: Pagination_Pagination_module["search-input-wrapper"]
+      },
+      reset: resetPageNoSelect,
+      autoComplete: "off"
+    }
+  }, Array.from(Array(pagesAmount).keys()).map(function (page) {
     return /*#__PURE__*/react.createElement(Option/* Option */.W, {
       key: page,
       value: (page + 1).toString()
@@ -506,10 +573,10 @@ var PaginationComponent = function PaginationComponent(_ref, ref) {
   }, translate.currentPage.replace("%1", Math.ceil(totalElements / pageSize).toString()))), !!currentPage && /*#__PURE__*/react.createElement("div", {
     className: Pagination_Pagination_module["previous"]
   }, /*#__PURE__*/react.createElement(IconButton/* IconButton */.h, {
-    disabled: currentPage <= 2,
+    disabled: currentPage <= 1,
     title: "first",
     onClick: function onClick() {
-      return onPageChangeHandler(0);
+      return onPageChangeHandler(1);
     },
     "data-paginate": "first"
   }, /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
@@ -526,7 +593,7 @@ var PaginationComponent = function PaginationComponent(_ref, ref) {
   }))), /*#__PURE__*/react.createElement("div", {
     className: Pagination_Pagination_module["next"]
   }, !!(currentPage !== undefined || currentPage !== undefined && !totalElements) && /*#__PURE__*/react.createElement(IconButton/* IconButton */.h, {
-    disabled: currentPage >= calculateAmountOfPages(),
+    disabled: currentPage >= pagesAmount,
     title: "next",
     onClick: function onClick() {
       return onPageChangeHandler(currentPage + 1);
@@ -535,7 +602,7 @@ var PaginationComponent = function PaginationComponent(_ref, ref) {
   }, /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
     icon: Icon/* Icons */.P.ChevronRight
   })), !!(currentPage && totalElements) && /*#__PURE__*/react.createElement(IconButton/* IconButton */.h, {
-    disabled: currentPage >= calculateAmountOfPages() - 1,
+    disabled: currentPage >= pagesAmount,
     title: "last",
     onClick: function onClick() {
       return onPageChangeHandler(Math.ceil(totalElements / pageSize));
@@ -563,6 +630,7 @@ catch (__react_docgen_typescript_loader_error) { }
 /***/ "./src/util/helper.tsx":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   L6: function() { return /* binding */ filterProps; },
 /* harmony export */   MU: function() { return /* binding */ getValueByPath; },
@@ -845,6 +913,7 @@ catch (__react_docgen_typescript_loader_error) { }
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/Label/Label.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -867,6 +936,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Pagination/Pagination.module.scss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
@@ -876,12 +946,13 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.Pagination-module__pagination-wrapper--rXCDG{font-family:var(--font-family);font-size:var(--font-size);line-height:var(--default-line-height);color:var(--greyed-out);display:flex;flex-direction:column;justify-content:space-between}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__left--TsLD0{display:flex}.Pagination-module__pagination-wrapper--rXCDG label{margin-bottom:0}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__form-element--cfBoM{height:2.5rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__form-element--cfBoM button{min-height:2.5rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__total--jFLJ_{flex:1 0 auto;display:flex;align-items:center;justify-content:center}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__total--jFLJ_ span{color:var(--color-blue-grey500)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6{flex:1 0 auto;display:flex;align-items:center;justify-content:center;margin-top:1rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6 .Pagination-module__previous--DsV1r,.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6 .Pagination-module__next--sD4Yg{display:flex;align-items:center}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6 .Pagination-module__previous--DsV1r button span:before,.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6 .Pagination-module__next--sD4Yg button span:before{font-size:.75rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__per-page--KEN2C{display:none;align-items:center}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__per-page--KEN2C label{font-weight:500;color:var(--color-blue-grey900)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__per-page--KEN2C+.Pagination-module__total--jFLJ_{padding-left:.9375rem;border-left:1px solid var(--color-blue-grey100)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page--G5Zd_{display:flex;align-items:center;flex-basis:min-content;padding-right:1rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-total--WTVfR{display:inline-block;margin-left:.5rem;white-space:nowrap;font-weight:500;color:var(--color-blue-grey900)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page--G5Zd_+.Pagination-module__previous--DsV1r{padding-left:.9375rem;border-left:1px solid var(--color-blue-grey100)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-size-select--NOhp2{margin:0 .25rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-size-select--NOhp2 button{min-width:3.75rem;padding:0}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-size-select--NOhp2 button div[data-display]{left:.5rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-size-select--NOhp2 button div:not([data-display]){right:.5rem}.Pagination-module__current-page-select--hbMG6 button{min-width:3.75rem;padding:0}.Pagination-module__current-page-select--hbMG6 button div[data-display]{left:.5rem}.Pagination-module__current-page-select--hbMG6 button div:not([data-display]){right:.5rem}@media screen and (min-width: 30em){.Pagination-module__pagination-wrapper--rXCDG{flex-direction:row}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__total--jFLJ_{justify-content:flex-start}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6{margin-top:0;justify-content:flex-end}}@media screen and (min-width: 48em){.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__per-page--KEN2C{display:flex;margin-right:1rem}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.Pagination-module__pagination-wrapper--rXCDG{font-family:var(--font-family);font-size:var(--font-size);line-height:var(--default-line-height);color:var(--greyed-out);display:flex;flex-direction:column;justify-content:space-between}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__left--TsLD0{display:flex}.Pagination-module__pagination-wrapper--rXCDG label{margin-bottom:0}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__form-element--cfBoM{height:2.5rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__form-element--cfBoM .Pagination-module__search-input-wrapper--jwTaM{width:2.75rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__form-element--cfBoM button{min-height:2.5rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__total--jFLJ_{flex:1 0 auto;display:flex;align-items:center;justify-content:center}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__total--jFLJ_ span{color:var(--color-blue-grey500)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6{flex:1 0 auto;display:flex;align-items:center;justify-content:center;margin-top:1rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6 .Pagination-module__previous--DsV1r,.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6 .Pagination-module__next--sD4Yg{display:flex;align-items:center}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6 .Pagination-module__previous--DsV1r button span:before,.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6 .Pagination-module__next--sD4Yg button span:before{font-size:.75rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__per-page--KEN2C{display:none;align-items:center}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__per-page--KEN2C label{font-weight:500;color:var(--color-blue-grey900)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__per-page--KEN2C+.Pagination-module__total--jFLJ_{padding-left:.9375rem;border-left:1px solid var(--color-blue-grey100)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page--G5Zd_{display:flex;align-items:center;flex-basis:min-content;padding-right:1rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-total--WTVfR{display:inline-block;margin-left:.5rem;white-space:nowrap;font-weight:500;color:var(--color-blue-grey900)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page--G5Zd_+.Pagination-module__previous--DsV1r{padding-left:.9375rem;border-left:1px solid var(--color-blue-grey100)}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-size-select--NOhp2{margin:0 .25rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-size-select--NOhp2 button{min-width:3.75rem;padding:0}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-size-select--NOhp2 button div[data-display]{left:.5rem}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__page-size-select--NOhp2 button div:not([data-display]){right:.5rem}.Pagination-module__current-page-select--hbMG6 button{min-width:3.75rem;padding:0}.Pagination-module__current-page-select--hbMG6 button div[data-display]{left:.5rem}.Pagination-module__current-page-select--hbMG6 button div:not([data-display]){right:.5rem}@media screen and (min-width: 30em){.Pagination-module__pagination-wrapper--rXCDG{flex-direction:row}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__total--jFLJ_{justify-content:flex-start}.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__pagination--D8WW6{margin-top:0;justify-content:flex-end}}@media screen and (min-width: 48em){.Pagination-module__pagination-wrapper--rXCDG .Pagination-module__per-page--KEN2C{display:flex;margin-right:1rem}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"pagination-wrapper": "Pagination-module__pagination-wrapper--rXCDG",
 	"left": "Pagination-module__left--TsLD0",
 	"form-element": "Pagination-module__form-element--cfBoM",
+	"search-input-wrapper": "Pagination-module__search-input-wrapper--jwTaM",
 	"total": "Pagination-module__total--jFLJ_",
 	"pagination": "Pagination-module__pagination--D8WW6",
 	"previous": "Pagination-module__previous--DsV1r",
@@ -894,6 +965,13 @@ ___CSS_LOADER_EXPORT___.locals = {
 };
 /* harmony default export */ __webpack_exports__.Z = (___CSS_LOADER_EXPORT___);
 
+
+/***/ }),
+
+/***/ "?4f7e":
+/***/ (function() {
+
+/* (ignored) */
 
 /***/ })
 
