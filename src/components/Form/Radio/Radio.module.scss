@@ -82,15 +82,19 @@
     color: var(--color-primary);
   }
 
+  &:checked + *.disabled {
+    color: var(--disabled);
+  }
+
   &:disabled {
     cursor: not-allowed;
   }
 
   &:focus-visible {
     + * {
-      border-radius: 2px;
-      outline: 1px solid var(--color-focus);
-      outline-offset: 1px;
+      border-radius: 100%;
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
     }
   }
 
@@ -99,15 +103,29 @@
       outline-color: var(--color-error);
     }
   }
+
+  &.error + * {
+    border-radius: 100%;
+  }
 }
 
 .input {
   font-size: 1.25rem;
-  pointer-events: none;
   width: 1.25rem;
   height: 1.25rem;
+  z-index: 1;
+  border-radius: 100%;
 
-  /** The & behind disabled means parent selector (so in reality this means .disabled .input) */
+  &:hover {
+    color: var(--color-primary600);
+  }
+
+  &:active {
+    color: var(--color-primary700);
+    background-color: var(--color-blue-grey100);
+    border-radius: 100%;
+  }
+
   .disabled & {
     color: var(--disabled);
   }

@@ -312,6 +312,9 @@
 }
 .icon-radio:before {
   content: "\e93c";
+  display: block;
+  width: 20px;
+  height: 20px;
   @include fontProperties();
 }
 .icon-error-circle-alt:before {
@@ -320,6 +323,9 @@
 }
 .icon-circle:before {
   content: "\e93e";
+  display: block;
+  width: 20px;
+  height: 20px;
   @include fontProperties();
 }
 .icon-table-search:before {
