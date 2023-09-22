@@ -30,7 +30,10 @@ const meta: Meta = {
       page: TabsDocumentation
     }
   },
-  component: TabsComponent
+  component: TabsComponent,
+  args: {
+    fluid: false
+  }
 };
 
 export default meta;

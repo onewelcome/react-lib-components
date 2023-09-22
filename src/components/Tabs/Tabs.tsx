@@ -29,13 +29,25 @@ import { TabButton } from "./TabButton";
 import classes from "./Tabs.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
-  children: React.ReactElement<TabProps> | React.ReactElement<TabProps>[];
+  children: ReactElement<TabProps>[];
   selected?: number;
   onTabChange?: (index: number) => void;
+  fluid?: boolean;
+  align?: "left" | "center" | "right";
+  tabListClassName?: string;
 }
 
 const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, selected = 0, onTabChange, ...rest }: Props,
+  {
+    children,
+    selected = 0,
+    onTabChange,
+    className,
+    fluid,
+    tabListClassName,
+    align,
+    ...rest
+  }: Props,
   ref
 ) => {
   const [renderedButtons, setRenderedButtons] = useState<ReactElement[]>([]);
@@ -120,7 +132,9 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             focused: usingKeyboardNavigation && activeTabIndex === index,
             tabActive: activeTabIndex === index,
             "aria-controls": `tab_${index}`,
-            onClick: () => setActiveTabIndex(index)
+            onClick: () => setActiveTabIndex(index),
+            disabled: child.props.disabled,
+            fluid: fluid
           },
           child.props.title
         );
@@ -128,10 +142,6 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       return null;
     });
 
-    setRenderedButtons(buttons);
-  }, [activeTabIndex]);
-
-  useEffect(() => {
     const tabs = React.Children.map(children, (child, index) => {
       if (Object.prototype.hasOwnProperty.call(child.props, "title")) {
         return React.cloneElement(child, {
@@ -147,13 +157,17 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     });
 
     setRenderedTabs(tabs);
-  }, [activeTabIndex]);
+    setRenderedButtons(buttons);
+  }, [activeTabIndex, fluid, align]);
+
+  const tabListClasses = [classes["tablist"]];
+  align && tabListClasses.push(classes[align]);
+  tabListClassName && tabListClasses.push(tabListClassName);
 
   return (
-    <div {...rest} ref={tabsRef} className={`${classes["tabs"]} ${rest.className ?? ""}`}>
-      <div role="tablist" className={classes["tablist"]} onKeyDown={handleKeyDown}>
+    <div {...rest} ref={tabsRef} className={`${classes["tabs"]} ${className ?? ""}`}>
+      <div role="tablist" className={tabListClasses.join(" ")} onKeyDown={handleKeyDown}>
         {renderedButtons}
-        <div className={classes["tabdivider"]} />
         <div
           className={classes["indicator"]}
           ref={indicatorRef}

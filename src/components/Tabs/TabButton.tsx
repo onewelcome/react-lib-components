@@ -26,10 +26,11 @@ import classes from "./TabButton.module.scss";
 export interface Props extends ComponentPropsWithRef<"button"> {
   tabActive?: boolean;
   focused?: boolean;
+  fluid?: boolean;
 }
 
 const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { children, tabActive, focused, title, ...rest }: Props,
+  { children, tabActive, focused, title, fluid, className, ...rest }: Props,
   ref
 ) => {
   let buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
@@ -40,17 +41,19 @@ const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
     }
   }, [buttonRef.current, focused]);
 
+  const tabButtonClasses = [classes["tabbutton"]];
+  tabActive && tabButtonClasses.push(classes["selected"]);
+  fluid && tabButtonClasses.push(classes["fluid"]);
+  className && tabButtonClasses.push(className);
+
   return (
     <button
       {...rest}
-      className={`${classes["tabbutton"]} ${tabActive ? classes["selected"] : ""} ${
-        rest.className ?? ""
-      }`}
+      className={tabButtonClasses.join(" ")}
       ref={buttonRef}
       role="tab"
       type="button"
     >
-      <span aria-hidden="true">{children}</span>
       {children}
     </button>
   );
