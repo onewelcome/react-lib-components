@@ -84,10 +84,8 @@
 
   &:checked + *.disabled {
     color: var(--disabled);
-  }
-
-  &:disabled {
     cursor: not-allowed;
+    pointer-events: none;
   }
 
   &:focus-visible {
@@ -95,12 +93,6 @@
       border-radius: 100%;
       outline: 2px solid var(--color-focus);
       outline-offset: 2px;
-    }
-  }
-
-  &.error:focus-visible {
-    + * {
-      outline-color: var(--color-error);
     }
   }
 
@@ -118,6 +110,7 @@
 
   &:hover {
     color: var(--color-primary600);
+    background-color: var(--color-blue-grey50);
   }
 
   &:active {
@@ -133,4 +126,5 @@
 
 .disabled {
   color: var(--disabled);
+  pointer-events: none;
 }

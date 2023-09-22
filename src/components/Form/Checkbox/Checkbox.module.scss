@@ -93,8 +93,11 @@
 }
 
 .disabled {
+  cursor: not-allowed;
+
   & + span {
     color: var(--color-blue-grey100);
+    pointer-events: none;
   }
 
   & + span + label {

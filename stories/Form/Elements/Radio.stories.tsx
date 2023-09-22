@@ -15,9 +15,9 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { Radio as RadioComponent, Props } from "../../../src/components/Form/Radio/Radio";
-import { Fieldset } from "../../../src/components/Form/Fieldset/Fieldset";
+import { Meta, StoryFn } from "@storybook/react";
+import { Props, Radio as RadioComponent } from "../../../src/components/Form/Radio/Radio";
+import { Fieldset } from "../../../src";
 import RadioDocumentation from "./Radio.mdx";
 
 const meta: Meta = {
@@ -57,7 +57,7 @@ const meta: Meta = {
 };
 
 export default meta;
-const Template: Story<Props> = args => (
+const Template: StoryFn<Props> = args => (
   <Fieldset legend="Radio button group" legendStyle={"body-bold"}>
     <RadioComponent
       {...args}
@@ -73,3 +73,34 @@ const Template: Story<Props> = args => (
 export const Radio = Template.bind({});
 
 Radio.args = {};
+
+export const RadioStates = Template.bind({});
+
+const radioStates = [
+  { checked: false, error: false, disabled: false },
+  { checked: true, error: false, disabled: false },
+  { checked: true, error: true, disabled: false },
+  { checked: true, error: false, disabled: true },
+  { checked: false, error: false, disabled: true }
+];
+
+RadioStates.decorators = [
+  () => {
+    return (
+      <>
+        {radioStates.map((states, index) => (
+          <RadioComponent
+            key={index}
+            helperText="Example helper text"
+            value="example-radio"
+            checked={states.checked}
+            disabled={states.disabled}
+            error={states.error}
+          >
+            Label
+          </RadioComponent>
+        ))}
+      </>
+    );
+  }
+];
