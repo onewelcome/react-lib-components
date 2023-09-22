@@ -87,6 +87,7 @@ interface CSSProperties {
   buttonDefaultFocusedColor?: string;
   buttonDefaultPressedColor?: string;
   buttonOutlineActiveTextColor?: string;
+  defaultBorderRadius?: string;
   inputBorderRadius?: string;
   inputBorderWidth?: string;
   inputBorderWidthFocus?: string;
@@ -192,6 +193,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorSecondary: "var(--color-green500)",
     colorTertiary: "var(--color-light-blue600)",
     defaultLineHeight: "1.5",
+    defaultBorderRadius: "0.25rem",
     focusBorderRadius: "0.125rem",
     buttonBorderRadius: "var(--default-border-radius)",
     buttonBorderWidth: "2px",
