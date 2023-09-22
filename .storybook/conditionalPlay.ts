@@ -19,7 +19,9 @@ import isChromatic from "chromatic/isChromatic";
 export const conditionalPlay = (
   playFunction: ({ canvasElement }: { canvasElement: any }) => Promise<void>
 ) => {
-  if (isChromatic) {
+  const isDevMode = process.env.NODE_ENV === "development";
+
+  if (isChromatic || isDevMode) {
     return playFunction;
   }
 };
