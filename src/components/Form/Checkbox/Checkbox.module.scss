@@ -84,11 +84,11 @@
 
 .square {
   &:hover {
-    background-color: var(--color-blue-grey50);
+    background-color: var(--checkbox-unchecked-hover-color);
   }
 
   &:active {
-    background-color: var(--disabled);
+    background-color: var(--checkbox-unchecked-pressed-color);
   }
 }
 
@@ -96,32 +96,32 @@
   cursor: not-allowed;
 
   & + span {
-    color: var(--color-blue-grey100);
+    color: var(--disabled);
     pointer-events: none;
   }
 
   & + span + label {
-    color: var(--color-blue-grey400);
+    color: var(--greyedOut);
   }
 
   & + span.checkmark,
   & + span.indeterminate {
-    color: var(--color-blue-grey100);
-    background-color: var(--color-blue-grey400);
+    color: var(--disabled);
+    background-color: var(--greyedOut);
     border-radius: 2px;
-    outline: 1px var(--color-blue-grey100) solid;
+    outline: 1px var(--disabled) solid;
     outline-offset: -1px;
   }
 }
 
-.checkmark,
-.indeterminate {
+.checkmark:not(.disabled),
+.indeterminate:not(.disabled) {
   &:hover {
-    color: var(--color-primary600);
+    color: var(--checkbox-checked-hover-color);
   }
 
   &:active {
-    color: var(--color-primary700);
+    color: var(--checkbox-checked-pressed-color);
   }
 }
 

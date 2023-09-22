@@ -111,13 +111,17 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
 
       {checked && (
         <Icon
-          className={`${classes["input"]} ${disabled ? classes["disabled"] : ""}`}
+          className={`${classes["input"]} ${classes["radio"]} ${
+            disabled ? classes["disabled"] : ""
+          }`}
           icon={Icons.Radio}
         />
       )}
       {!checked && (
         <Icon
-          className={`${classes["input"]} ${disabled ? classes["disabled"] : ""}`}
+          className={`${classes["input"]} ${classes["circle"]} ${
+            disabled ? classes["disabled"] : ""
+          }`}
           icon={Icons.Circle}
         />
       )}

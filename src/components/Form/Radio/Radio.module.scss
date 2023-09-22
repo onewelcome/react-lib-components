@@ -108,19 +108,34 @@
   z-index: 1;
   border-radius: 100%;
 
-  &:hover {
-    color: var(--color-primary600);
-    background-color: var(--color-blue-grey50);
-  }
-
   &:active {
-    color: var(--color-primary700);
-    background-color: var(--color-blue-grey100);
     border-radius: 100%;
   }
 
   .disabled & {
     color: var(--disabled);
+  }
+}
+
+.input.circle {
+  &:hover {
+    background-color: var(--radio-hover-background-color);
+  }
+
+  &:active {
+    background-color: var(--radio-pressed-background-color);
+  }
+}
+
+.input.radio {
+  &:hover {
+    background-color: var(--radio-hover-background-color);
+    color: var(--radio-hover-color);
+  }
+
+  &:active {
+    color: var(--radio-pressed-color);
+    background-color: var(--radio-pressed-background-color);
   }
 }
 

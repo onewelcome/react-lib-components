@@ -85,6 +85,25 @@ SingleCheckbox.args = {
   name: "Checkbox"
 };
 
+export const NestedCheckbox = Template.bind({});
+
+NestedCheckbox.args = {
+  indeterminate: false,
+  label: "Electronics",
+  name: "electronics",
+  children: [
+    <Checkbox name="laptop" key="1">
+      Option 1
+    </Checkbox>,
+    <Checkbox name="tv" key="2">
+      Option 2
+    </Checkbox>,
+    <Checkbox name="microphones" key="3">
+      Option 3
+    </Checkbox>
+  ]
+};
+
 export const CheckboxStates = Template.bind({});
 
 const checkboxStates = [
@@ -121,22 +140,3 @@ CheckboxStates.decorators = [
     );
   }
 ];
-
-export const NestedCheckbox = Template.bind({});
-
-NestedCheckbox.args = {
-  indeterminate: false,
-  label: "Electronics",
-  name: "electronics",
-  children: [
-    <Checkbox name="laptop" key="1">
-      Option 1
-    </Checkbox>,
-    <Checkbox name="tv" key="2">
-      Option 2
-    </Checkbox>,
-    <Checkbox name="microphones" key="3">
-      Option 3
-    </Checkbox>
-  ]
-};
