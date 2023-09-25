@@ -35,6 +35,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   fluid?: boolean;
   align?: "left" | "center" | "right";
   tabListClassName?: string;
+  iconsPosition?: "left" | "right" | "top" | "bottom";
 }
 
 const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -46,6 +47,7 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     fluid,
     tabListClassName,
     align,
+    iconsPosition = "left",
     ...rest
   }: Props,
   ref
@@ -134,7 +136,9 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             "aria-controls": `tab_${index}`,
             onClick: () => setActiveTabIndex(index),
             disabled: child.props.disabled,
-            fluid: fluid
+            fluid: fluid,
+            iconPosition: iconsPosition,
+            icon: child.props.icon
           },
           child.props.title
         );
@@ -158,7 +162,7 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
     setRenderedTabs(tabs);
     setRenderedButtons(buttons);
-  }, [activeTabIndex, fluid, align]);
+  }, [activeTabIndex, fluid, align, iconsPosition]);
 
   const tabListClasses = [classes["tablist"]];
   align && tabListClasses.push(classes[align]);

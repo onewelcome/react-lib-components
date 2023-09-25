@@ -21,6 +21,7 @@ export interface Props extends Omit<HTMLProps<HTMLDivElement>, "children"> {
   title: string;
   children?: any;
   tabActive?: boolean;
+  icon?: React.ReactNode;
 }
 
 export const Tab = ({ children, tabActive, ...rest }: Props) => {

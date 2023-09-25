@@ -53,4 +53,31 @@
   &.fluid {
     flex: 1;
   }
+
+  &.has-icon {
+    gap: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+
+    i {
+      display: flex;
+    }
+
+    span[data-icon] {
+      font-size: 1.25rem;
+    }
+
+    &.top-icon,
+    &.bottom-icon {
+      flex-direction: column;
+    }
+
+    &.left-icon i {
+      order: -1;
+    }
+
+    &.top-icon i {
+      order: -1;
+    }
+  }
 }

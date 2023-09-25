@@ -27,10 +27,12 @@ export interface Props extends ComponentPropsWithRef<"button"> {
   tabActive?: boolean;
   focused?: boolean;
   fluid?: boolean;
+  icon?: React.ReactNode;
+  iconPosition?: "left" | "right" | "top" | "bottom";
 }
 
 const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { children, tabActive, focused, title, fluid, className, ...rest }: Props,
+  { children, tabActive, focused, title, fluid, icon, iconPosition, className, ...rest }: Props,
   ref
 ) => {
   let buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
@@ -45,6 +47,7 @@ const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
   tabActive && tabButtonClasses.push(classes["selected"]);
   fluid && tabButtonClasses.push(classes["fluid"]);
   className && tabButtonClasses.push(className);
+  icon && tabButtonClasses.push(classes["has-icon"], classes[`${iconPosition}-icon`]);
 
   return (
     <button
@@ -55,6 +58,7 @@ const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
       type="button"
     >
       {children}
+      {icon && <i>{icon}</i>}
     </button>
   );
 };
