@@ -106,7 +106,8 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         top:
           selectedButton.offsetTop +
           selectedButton.offsetHeight -
-          indicatorRef.current!.offsetHeight,
+          indicatorRef.current!.offsetHeight -
+          parseInt(getComputedStyle(selectedButton).borderBottomWidth),
         width: selectedButton.offsetWidth
       });
     }
