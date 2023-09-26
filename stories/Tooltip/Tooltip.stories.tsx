@@ -21,6 +21,7 @@ import TooltipDocumentation from "./Tooltip.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { useStoryCentring } from "../utils/useStoryCentring";
+import { conditionalPlay } from "../../.storybook/conditionalPlay";
 
 const meta: Meta = {
   title: "components/Data Display/Tooltip",
@@ -42,7 +43,7 @@ const Template: Story<Props> = args => {
 
 export const Tooltip = Template.bind({});
 
-Tooltip.play = async ({ canvasElement }) => {
+Tooltip.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.queryByText("Example label")).not.toBeNull());
@@ -54,7 +55,7 @@ Tooltip.play = async ({ canvasElement }) => {
   expect(infoIcon).not.toBeNull();
 
   await userEvent.hover(infoIcon!);
-};
+});
 
 Tooltip.args = {
   title: "Tooltip title.",

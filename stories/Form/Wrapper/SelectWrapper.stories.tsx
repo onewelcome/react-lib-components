@@ -21,10 +21,10 @@ import {
   Props
 } from "../../../src/components/Form/Wrapper/SelectWrapper/SelectWrapper";
 import { Option } from "../../../src/components/Form/Select/Option";
-
 import SelectWrapperDocumentation from "./SelectWrapper.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {
   title: "components/Inputs/Select (Wrapper)",
@@ -81,7 +81,7 @@ const Template: Story<Props> = args => {
 
 export const SelectWrapper = Template.bind({});
 
-SelectWrapper.play = async ({ canvasElement }) => {
+SelectWrapper.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
@@ -113,7 +113,7 @@ SelectWrapper.play = async ({ canvasElement }) => {
   await waitFor(() => expect(select).toHaveTextContent("Option 4"));
 
   await userEvent.click(select);
-};
+});
 
 SelectWrapper.args = {
   ...defaultArgs
