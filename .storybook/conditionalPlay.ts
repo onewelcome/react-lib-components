@@ -21,7 +21,7 @@ export const conditionalPlay = (
 ) => {
   const isDevMode = process.env.NODE_ENV === "development";
 
-  if (isChromatic || isDevMode) {
+  if (isChromatic() || isDevMode) {
     return playFunction;
   }
 };
