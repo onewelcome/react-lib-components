@@ -15,7 +15,7 @@
  */
 
 import React, { Fragment, useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   DiscardChangesModal as DiscardChangesModalComponent,
   Props
@@ -27,8 +27,9 @@ import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/
 import { FormControl } from "../../../src/components/Form/FormControl/FormControl";
 import { Form } from "../../../src/components/Form/Form";
 import DiscardChangesModalDocumentation from "./DiscardChangesModal.mdx";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {
   title: "components/Feedback/Discard Changes Modal",
@@ -65,7 +66,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [open, setOpen] = useState(false);
   const initialFormState = { name: "Name" };
   const [formState, setFormState] = useState(initialFormState);
@@ -73,7 +74,7 @@ const Template: Story<Props> = args => {
 
   const hasUnsavedChanges = () => JSON.stringify(initialFormState) !== JSON.stringify(formState);
 
-  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  /** When we're on the story page, we want the dialog to start in the "open" state. However, when we're on the "docs" page, we don't. */
   useEffect(() => {
     if (window.location.search.includes("story")) {
       setOpen(true);
@@ -138,7 +139,7 @@ const Template: Story<Props> = args => {
 
 export const DiscardChangesModal = Template.bind({});
 
-DiscardChangesModal.play = async ({ canvasElement }) => {
+DiscardChangesModal.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => {
@@ -152,4 +153,4 @@ DiscardChangesModal.play = async ({ canvasElement }) => {
   const closeButton = canvas.getByText("close modal").closest("button");
 
   await userEvent.click(closeButton!);
-};
+});

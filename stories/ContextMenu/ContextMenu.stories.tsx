@@ -30,6 +30,7 @@ import { Typography } from "../../src/components/Typography/Typography";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { useStoryCentring } from "../utils/useStoryCentring";
+import { conditionalPlay } from "../../.storybook/conditionalPlay";
 
 const meta: Meta = {
   title: "components/Navigation/ContextMenu",
@@ -296,7 +297,7 @@ const Template: Story<Props> = args => {
 
 export const ContextMenu = Template.bind({});
 
-ContextMenu.play = async ({ canvasElement }) => {
+ContextMenu.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() =>
@@ -306,7 +307,7 @@ ContextMenu.play = async ({ canvasElement }) => {
   userEvent.click(canvas.getByRole("button", { name: "click me for contextmenu" }));
 
   await waitFor(() => expect(canvas.getAllByRole("menuitem")).toHaveLength(3));
-};
+});
 
 ContextMenu.args = {
   id: "example-contextmenu",
@@ -331,7 +332,7 @@ ContextMenu.storyName = "ContextMenu";
 
 export const ContextMenuWithDecorativeElement = Template.bind({});
 
-ContextMenuWithDecorativeElement.play = async ({ canvasElement }) => {
+ContextMenuWithDecorativeElement.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() =>
@@ -342,7 +343,7 @@ ContextMenuWithDecorativeElement.play = async ({ canvasElement }) => {
 
   await waitFor(() => expect(canvas.getAllByRole("menuitem")).toHaveLength(1));
   expect(canvas.getByText("Decorative element")).toBeInTheDocument();
-};
+});
 
 ContextMenuWithDecorativeElement.args = {
   id: "example-contextmenu",
@@ -362,4 +363,5 @@ ContextMenuWithDecorativeElement.args = {
     </ContextMenuItem>
   ]
 };
+
 ContextMenuWithDecorativeElement.storyName = "ContextMenu with decorative element";

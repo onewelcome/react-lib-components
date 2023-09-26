@@ -66,7 +66,7 @@ module.exports = {
     return config;
   },
   typescript: {
-    check: true // type-check stories during Storybook build
+    check: true
   },
 
   staticDirs: ["../public"],

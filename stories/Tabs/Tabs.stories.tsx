@@ -22,6 +22,7 @@ import { Tab } from "../../src/components/Tabs/Tab";
 import TabsDocumentation from "./Tabs.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { conditionalPlay } from "../../.storybook/conditionalPlay";
 import { Icon, Icons } from "../../src/components/Icon/Icon";
 
 const meta: Meta = {
@@ -89,7 +90,7 @@ export const Tabs = Template.bind({});
 
 export const TabsWithFocusRing = Template.bind({});
 
-TabsWithFocusRing.play = async ({ canvasElement }) => {
+TabsWithFocusRing.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => canvas.getByRole("tab", { name: "First tab" }));
@@ -115,7 +116,7 @@ TabsWithFocusRing.play = async ({ canvasElement }) => {
   await userEvent.click(tab1);
 
   expect(tab3).toHaveAttribute("aria-selected", "false");
-};
+});
 
 Tabs.args = {};
 
