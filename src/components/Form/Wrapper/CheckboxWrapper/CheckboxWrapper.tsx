@@ -26,7 +26,7 @@ import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { Icons } from "../../../Icon/Icon";
 import { Fieldset, Props as FieldsetProps } from "../../../Form/Fieldset/Fieldset";
 
-export interface Props extends ComponentPropsWithRef<"div">, WrapperProps {
+export interface Props extends ComponentPropsWithRef<"div">, Omit<WrapperProps, "success"> {
   children: ReactElement[] | ReactElement;
   fieldsetProps: FieldsetProps;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;

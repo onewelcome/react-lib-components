@@ -31,6 +31,7 @@ export interface Props
   error?: boolean;
   selectProps?: PartialSelectProps;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  success: boolean;
 }
 
 const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (

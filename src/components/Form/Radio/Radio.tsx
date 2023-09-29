@@ -25,7 +25,7 @@ import {
   Props as FormSelectorWrapperProps
 } from "../FormSelectorWrapper/FormSelectorWrapper";
 
-export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
+export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector, "success"> {
   children: string;
   value: string;
   formSelectorWrapperProps?: FormSelectorWrapperProps;

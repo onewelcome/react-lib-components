@@ -104,6 +104,29 @@ NestedCheckbox.args = {
   ]
 };
 
+export const CheckboxLabelOverflow = Template.bind({});
+
+CheckboxLabelOverflow.decorators = [
+  () => {
+    return (
+      <>
+        <div style={{ width: "200px" }}>
+          <Checkbox
+            errorMessage={"Oh no!"}
+            name="checkbox"
+            helperProps={{
+              children: "It is always nice to see a good old helper text!"
+            }}
+          >
+            It seems to be a good idea to test the label and how it wraps if there is not enough
+            space for it. What do you think?
+          </Checkbox>
+        </div>
+      </>
+    );
+  }
+];
+
 export const CheckboxStates = Template.bind({});
 
 const checkboxStates = [
@@ -127,6 +150,7 @@ CheckboxStates.decorators = [
             disabled={states.disabled}
             checked={states.checked}
             error={states.error}
+            errorMessage={"Oh no!"}
             indeterminate={states.indeterminate}
             name="checkbox"
             helperProps={{

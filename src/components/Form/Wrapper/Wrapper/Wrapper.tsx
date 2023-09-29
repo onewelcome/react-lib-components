@@ -33,7 +33,7 @@ export interface Props extends ComponentPropsWithRef<"div">, FormGroupProps {
 }
 
 /** For components that extend this component we create an interface (InputWrapper, SelectWrapper, etc.) */
-export interface WrapperProps extends FormElement {
+export interface WrapperProps extends Omit<FormElement, "success"> {
   errorMessage?: string;
   helperText?: string;
   helperProps?: HelperProps;

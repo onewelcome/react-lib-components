@@ -33,7 +33,7 @@ import { FormSelector } from "../form.interfaces";
 
 const isToggle = (children: ReactNode) => !!(children as ReactElement)?.props?.["data-toggle"];
 
-export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
+export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector, "success"> {
   label?: string | React.ReactElement;
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;

@@ -142,6 +142,7 @@ interface CSSProperties {
   light?: string;
   fontFamily?: string;
   fontFamilyCode?: string;
+  fontSizeFormLabel?: string;
   fontSize?: string;
   fontSizeH1?: string;
   fontSizeH2?: string;
@@ -278,6 +279,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     light: "var(--color-white)",
     fontFamily: "Roboto, sans-serif",
     fontFamilyCode: "'Roboto Mono', monospace",
+    fontSizeFormLabel: "0.875rem",
     fontSize: "1rem",
     fontSizeH1: "2.5rem",
     fontSizeH2: "1.625rem",

@@ -50,6 +50,7 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
         setInputState(prevState => ({ ...prevState, value: event.target?.value }));
       }}
+      success={false}
     />
   );
 };

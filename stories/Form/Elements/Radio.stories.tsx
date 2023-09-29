@@ -74,10 +74,30 @@ export const Radio = Template.bind({});
 
 Radio.args = {};
 
+export const RadioLabelOverflow = Template.bind({});
+
+RadioLabelOverflow.decorators = [
+  () => {
+    return (
+      <div style={{ width: "200px" }}>
+        <RadioComponent
+          helperText="Example helper text"
+          value="example-radio"
+          errorMessage={"Oh crap!"}
+        >
+          It seems to be a good idea to test the label and how it wraps if there is not enough space
+          for it. What do you think?
+        </RadioComponent>
+      </div>
+    );
+  }
+];
+
 export const RadioStates = Template.bind({});
 
 const radioStates = [
   { checked: false, error: false, disabled: false },
+  { checked: false, error: true, disabled: false },
   { checked: true, error: false, disabled: false },
   { checked: true, error: true, disabled: false },
   { checked: true, error: false, disabled: true },
@@ -96,6 +116,7 @@ RadioStates.decorators = [
             checked={states.checked}
             disabled={states.disabled}
             error={states.error}
+            errorMessage={"Oh crap!"}
           >
             Label
           </RadioComponent>
