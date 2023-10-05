@@ -59,6 +59,7 @@ interface CSSProperties {
   colorBlack20?: string;
   colorBlack10?: string;
   defaultLineHeight?: string;
+  focusBorderRadius?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
   buttonFontSize?: string;
@@ -86,6 +87,7 @@ interface CSSProperties {
   buttonDefaultFocusedColor?: string;
   buttonDefaultPressedColor?: string;
   buttonOutlineActiveTextColor?: string;
+  defaultBorderRadius?: string;
   inputBorderRadius?: string;
   inputBorderWidth?: string;
   inputBorderWidthFocus?: string;
@@ -116,10 +118,13 @@ interface CSSProperties {
   tabsBackgroundColor?: string;
   tabActiveBorderHeight?: string;
   tabActiveBorderColor?: string;
+  tabActiveTextColor?: string;
   tablistBorderWidth?: string;
   tablistBorderStyle?: string;
   tablistBorderColor?: string;
   tabTextColor?: string;
+  tabHoverColor?: string;
+  tabPressedColor?: string;
   toggleBackgroundColor?: string;
   tooltipBackgroundColor?: string;
   wizardStepIndicatorFutureColor?: string;
@@ -188,7 +193,9 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorSecondary: "var(--color-green500)",
     colorTertiary: "var(--color-light-blue600)",
     defaultLineHeight: "1.5",
-    buttonBorderRadius: "2px",
+    defaultBorderRadius: "0.25rem",
+    focusBorderRadius: "0.125rem",
+    buttonBorderRadius: "var(--default-border-radius)",
     buttonBorderWidth: "2px",
     buttonFontSize: "1rem",
     buttonBorderStyle: "solid",
@@ -242,12 +249,15 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     dataGridRowHoverBackgroundColor: "var(--color-blue-grey25)",
     progressBarBackgroundColor: "var(--disabled)",
     tabsBackgroundColor: "var(--light)",
-    tabActiveBorderHeight: "4px",
+    tabActiveBorderHeight: "0.25rem",
     tabActiveBorderColor: "var(--color-primary)",
-    tablistBorderWidth: "1px",
+    tabActiveTextColor: "var(--color-primary)",
+    tablistBorderWidth: "0.0625rem",
     tablistBorderStyle: "solid",
     tablistBorderColor: "var(--color-blue-grey100)",
     tabTextColor: "var(--color-blue-grey900)",
+    tabHoverColor: "var(--color-blue-grey25)",
+    tabPressedColor: "var(--color-blue-grey100)",
     toggleBackgroundColor: "var(--color-blue-grey100)",
     tooltipBackgroundColor: "var(--default)",
     wizardStepIndicatorFutureColor: "var(--color-blue-grey200)",

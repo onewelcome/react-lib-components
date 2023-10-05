@@ -23,6 +23,7 @@ import TabsDocumentation from "./Tabs.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
+import { Icon, Icons } from "../../src/components/Icon/Icon";
 
 const meta: Meta = {
   title: "components/Navigation/Tabs",
@@ -31,7 +32,10 @@ const meta: Meta = {
       page: TabsDocumentation
     }
   },
-  component: TabsComponent
+  component: TabsComponent,
+  args: {
+    fluid: false
+  }
 };
 
 export default meta;
@@ -39,7 +43,7 @@ export default meta;
 const Template: Story<Props> = args => {
   return (
     <TabsComponent {...args}>
-      <Tab title="First tab">
+      <Tab title="First tab" {...(args as any).tabs?.[0]}>
         <Typography variant="h2">Tabs</Typography>
         <ul>
           <li>Tabs are used for third level navigation.</li>
@@ -48,7 +52,7 @@ const Template: Story<Props> = args => {
           <li>When the user needs guidance for a process, use a wizard, not tabs.</li>
         </ul>
       </Tab>
-      <Tab title="Second tab">
+      <Tab title="Second tab" {...(args as any).tabs?.[1]}>
         <Typography variant="h2">Title of the second tab</Typography>
         <p>
           Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante,
@@ -61,7 +65,7 @@ const Template: Story<Props> = args => {
           semper libero, sit amet adipiscing sem neque sed ipsum.
         </p>
       </Tab>
-      <Tab title="Third tab">
+      <Tab title="Third tab" {...(args as any).tabs?.[2]}>
         <Typography variant="h2">The third tab</Typography>
         <p>
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
@@ -115,3 +119,20 @@ TabsWithFocusRing.play = conditionalPlay(async ({ canvasElement }) => {
 });
 
 Tabs.args = {};
+
+export const TabsWithIcons = Template.bind({});
+
+TabsWithIcons.args = {
+  iconsPosition: "left",
+  tabs: [
+    {
+      icon: <Icon icon={Icons.HomeFilled} />
+    },
+    {
+      icon: <Icon icon={Icons.Calendar} />
+    },
+    {
+      icon: <Icon icon={Icons.Heart} />
+    }
+  ]
+};
