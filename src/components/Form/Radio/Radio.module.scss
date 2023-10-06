@@ -96,16 +96,6 @@
     border-radius: 100%;
   }
 
-  &.error + .circle {
-    color: transparent;
-  }
-
-  &.error + .radio::before {
-    outline: var(--color-white) 2px solid;
-    outline-offset: -2px;
-    border-radius: 100%;
-  }
-
   &.error:hover + .radio::before {
     outline-color: var(--radio-hover-background-color);
   }
