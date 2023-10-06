@@ -14,27 +14,14 @@
  *    limitations under the License.
  */
 
-import React, { HTMLProps } from "react";
-import classes from "./Tab.module.scss";
+import isChromatic from "chromatic/isChromatic";
 
-export interface Props extends Omit<HTMLProps<HTMLDivElement>, "children"> {
-  title: string;
-  children?: any;
-  tabActive?: boolean;
-  icon?: React.ReactNode;
-}
+export const conditionalPlay = (
+  playFunction: ({ canvasElement }: { canvasElement: any }) => Promise<void>
+) => {
+  const isDevMode = process.env.NODE_ENV === "development";
 
-export const Tab = ({ children, tabActive, ...rest }: Props) => {
-  return (
-    <div
-      {...rest}
-      aria-hidden={!tabActive}
-      role="tabpanel"
-      className={`${classes["tab"]} ${tabActive ? classes["selected"] : ""} ${
-        rest.className ?? ""
-      }`}
-    >
-      {children}
-    </div>
-  );
+  if (isChromatic() || isDevMode) {
+    return playFunction;
+  }
 };

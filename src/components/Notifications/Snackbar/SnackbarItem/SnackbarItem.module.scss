@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-@use "../../../../readyclasses.module.scss";
 @use "../../../../mixins.module.scss";
 
 .snackbar {
@@ -143,7 +142,7 @@
       cursor: not-allowed;
     }
 
-    @include readyclasses.focusOutline(var(--snackbar-text-color));
+    @include mixins.focusVisibleOutline();
 
     &:not(:disabled):hover,
     &:not(:disabled):focus {

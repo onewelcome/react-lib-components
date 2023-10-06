@@ -14,7 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, Fragment } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  Fragment,
+  useState,
+  useEffect
+} from "react";
 import classes from "./Pagination.module.scss";
 import readyclasses from "../../readyclasses.module.scss";
 import { IconButton } from "../Button/IconButton";
@@ -74,15 +80,22 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
     return Math.ceil(totalElements / pageSize);
   };
+  const pagesAmount = calculateAmountOfPages();
+  const [resetPageNoSelect, setResetPageNoSelect] = useState(false);
 
   const onPageSizeChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const pageSizeNumber = Number(event.target.value) as PageSize;
+    setResetPageNoSelect(true);
     onPageSizeChange(pageSizeNumber);
   };
 
   const onPageChangeHandler = (pageToGoTo: number) => {
     onPageChange(pageToGoTo);
   };
+
+  useEffect(() => {
+    resetPageNoSelect && setResetPageNoSelect(false);
+  }, [resetPageNoSelect]);
 
   return (
     <div {...rest} ref={ref} className={`${classes["pagination-wrapper"]} ${className ?? ""}`}>
@@ -112,7 +125,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       </div>
       <div className={classes["pagination"]}>
         <Fragment>
-          {totalElements && !!calculateAmountOfPages() && (
+          {totalElements && !!pagesAmount && (
             <div className={classes["page"]}>
               <Label
                 id="current-value-input-label"
@@ -122,18 +135,23 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 {translate.currentPageLabel}
               </Label>
               <Select
-                aria-labelledby="current-value-input-label"
+                labeledBy="current-value-input-label"
                 key="input"
                 id="current-value-input"
-                size={currentPage?.toString().length}
+                size={currentPage.toString().length}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   onPageChangeHandler(Number(e.target.value))
                 }
                 name="current-value-input"
                 value={currentPage.toString()}
                 className={`${classes["form-element"]} ${classes["current-page-select"]}`}
+                searchInputProps={{
+                  wrapperProps: { className: classes["search-input-wrapper"] },
+                  reset: resetPageNoSelect,
+                  autoComplete: "off"
+                }}
               >
-                {Array.from(Array(calculateAmountOfPages()!).keys()).map(page => (
+                {Array.from(Array(pagesAmount).keys()).map(page => (
                   <Option key={page} value={(page + 1).toString()}>
                     {(page + 1).toString()}
                   </Option>
@@ -151,9 +169,9 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             <div className={classes["previous"]}>
               {
                 <IconButton
-                  disabled={currentPage <= 2}
+                  disabled={currentPage <= 1}
                   title="first"
-                  onClick={() => onPageChangeHandler(0)}
+                  onClick={() => onPageChangeHandler(1)}
                   data-paginate="first"
                 >
                   <Icon icon={Icons.NavigationFirst} />
@@ -174,7 +192,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           <div className={classes["next"]}>
             {!!(currentPage !== undefined || (currentPage !== undefined && !totalElements)) && (
               <IconButton
-                disabled={currentPage >= calculateAmountOfPages()!}
+                disabled={currentPage >= pagesAmount}
                 title="next"
                 onClick={() => onPageChangeHandler(currentPage + 1)}
                 data-paginate="next"
@@ -184,7 +202,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             )}
             {!!(currentPage && totalElements) && (
               <IconButton
-                disabled={currentPage >= calculateAmountOfPages()! - 1}
+                disabled={currentPage >= pagesAmount}
                 title="last"
                 onClick={() => onPageChangeHandler(Math.ceil(totalElements / pageSize))}
                 data-paginate="last"

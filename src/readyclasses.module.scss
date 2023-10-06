@@ -62,10 +62,3 @@
     transform: translateY(100vh);
   }
 }
-
-@mixin focusOutline($color) {
-  &:focus-visible {
-    outline: 1px solid $color;
-    outline-offset: 1px;
-  }
-}

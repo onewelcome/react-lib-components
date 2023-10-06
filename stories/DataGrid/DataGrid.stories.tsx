@@ -27,6 +27,7 @@ import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { conditionalPlay } from "../../.storybook/conditionalPlay";
 
 export default {
   title: "components/Data Display/DataGrid",
@@ -39,19 +40,6 @@ export default {
 } as Meta;
 
 const Template = args => {
-  const row = ({ item }) => {
-    if (!item) return;
-    return (
-      <DataGridRow key={item.id}>
-        <DataGridCell>{item.name}</DataGridCell>
-        <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
-        <DataGridCell>{item.id}</DataGridCell>
-        <DataGridCell>{item.type}</DataGridCell>
-        <DataGridCell>{item.enabled ? "Active" : "Delisted"}</DataGridCell>
-      </DataGridRow>
-    );
-  };
-
   return (
     <div style={{ padding: "1rem", backgroundColor: "rgb(245, 248, 248)" }}>
       <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
@@ -142,7 +130,7 @@ DefaultDataGrid.args = {
 
 export const DataGridWithColumnsPopup = Template.bind({});
 
-DataGridWithColumnsPopup.play = async ({ canvasElement }) => {
+DataGridWithColumnsPopup.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.queryByText("Columns")?.closest("button")).toBeInTheDocument());
@@ -160,7 +148,7 @@ DataGridWithColumnsPopup.play = async ({ canvasElement }) => {
   const nameToggle = await canvas.getByLabelText("Name");
 
   await userEvent.click(nameToggle);
-};
+});
 
 DataGridWithColumnsPopup.args = {
   data: [

@@ -23,6 +23,7 @@ import DialogDocumentation from "./Dialog.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { Icon, Icons } from "../../../src/components/Icon/Icon";
+import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {
   title: "components/Feedback/Dialog",
@@ -185,7 +186,7 @@ const NestedDialogsTemplate: Story<Props> = () => {
 
 export const NestedDialogs = NestedDialogsTemplate.bind({});
 
-NestedDialogs.play = async ({ canvasElement }) => {
+NestedDialogs.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.queryByText("Dialog 1")).not.toBeNull());
@@ -195,7 +196,7 @@ NestedDialogs.play = async ({ canvasElement }) => {
   await userEvent.click(openAnotherDialogButton);
 
   await waitFor(() => expect(canvas.queryByText("Dialog 2")).not.toBeNull());
-};
+});
 
 export const DialogWithoutIcon = Template.bind({});
 

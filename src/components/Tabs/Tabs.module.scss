@@ -31,31 +31,28 @@ $focus-width: 5px;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 2rem;
   position: relative;
   margin: -$focus-width;
   padding: $focus-width;
   z-index: 0;
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
 }
 
 .indicator {
   $transition-property: left, width;
 
   position: absolute;
-  height: var(--tab-active-border-height);
-  border-radius: 2px 2px 0 0;
+  height: calc(var(--tab-active-border-height) - var(--tablist-border-width));
+  border-radius: 0.125rem 0.125rem 0 0;
   background-color: var(--tab-active-border-color);
+  z-index: 2;
 
   @include mixins.transition($transition-property, 0.2s, ease-in-out);
-}
-
-.tabdivider {
-  border-bottom-style: var(--tablist-border-style);
-  border-bottom-width: var(--tablist-border-width);
-  border-bottom-color: var(--tablist-border-color);
-  width: calc(100% - ($focus-width * 2));
-  position: absolute;
-  bottom: $focus-width;
-  left: $focus-width;
-  z-index: -1;
 }

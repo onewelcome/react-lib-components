@@ -21,6 +21,7 @@ import { Props } from "../../../src/components/Form/Checkbox/Checkbox";
 import ToggleDocumentation from "./Toggle.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {
   title: "components/Inputs/Toggle",
@@ -77,7 +78,7 @@ const Template: StoryFn<Props> = args => {
 
 export const UncheckedToggle = Template.bind({});
 
-UncheckedToggle.play = async ({ canvasElement }) => {
+UncheckedToggle.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.getByRole("checkbox")).not.toBeChecked());
@@ -90,7 +91,7 @@ UncheckedToggle.play = async ({ canvasElement }) => {
   await waitFor(() => expect(toggle).toBeChecked());
   await userEvent.click(label);
   await waitFor(() => expect(toggle).not.toBeChecked());
-};
+});
 
 UncheckedToggle.args = {
   name: "Example toggle",
@@ -115,7 +116,7 @@ CheckedToggle.args = {
   helperProps: { children: <a href="https://www.google.com">Test</a> }
 };
 
-CheckedToggle.play = async ({ canvasElement }) => {
+CheckedToggle.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.getByRole("checkbox")).not.toBeChecked());
@@ -125,7 +126,7 @@ CheckedToggle.play = async ({ canvasElement }) => {
 
   await userEvent.click(label);
   expect(toggle).toBeChecked();
-};
+});
 
 export const ToggleLabelLeft = Template.bind({});
 
