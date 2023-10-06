@@ -68,6 +68,12 @@
   height: 1.75rem;
   z-index: 2;
 
+  & + span[data-icon="true"]:before {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
   &:checked + * {
     color: var(--color-primary);
   }
@@ -107,6 +113,24 @@
   &.error:active + .radio::before {
     outline-color: var(--radio-pressed-background-color);
   }
+
+  &:hover + .input.circle:not(.disabled) {
+    background-color: var(--radio-hover-background-color);
+  }
+
+  &:active + .input.circle:not(.disabled) {
+    background-color: var(--radio-pressed-background-color);
+  }
+
+  &:hover + .input.radio:not(.disabled) {
+    background-color: var(--radio-hover-background-color);
+    color: var(--radio-hover-color);
+  }
+
+  &:active + .input.radio:not(.disabled) {
+    color: var(--radio-pressed-color);
+    background-color: var(--radio-pressed-background-color);
+  }
 }
 
 .input {
@@ -125,31 +149,7 @@
   }
 }
 
-.native-input:hover + .input.circle:not(.disabled) {
-  background-color: var(--radio-hover-background-color);
-}
-
-.native-input:active + .input.circle:not(.disabled) {
-  background-color: var(--radio-pressed-background-color);
-}
-
-.native-input:hover + .input.radio:not(.disabled) {
-  background-color: var(--radio-hover-background-color);
-  color: var(--radio-hover-color);
-}
-
-.native-input:active + .input.radio:not(.disabled) {
-  color: var(--radio-pressed-color);
-  background-color: var(--radio-pressed-background-color);
-}
-
 .disabled {
   color: var(--disabled);
   pointer-events: none;
-}
-
-span[data-icon="true"]:before {
-  display: block;
-  width: 20px;
-  height: 20px;
 }
