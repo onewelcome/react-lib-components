@@ -99,18 +99,24 @@
     pointer-events: none;
   }
 
-  & + span + label {
-    color: var(--greyedOut);
+  & + label {
+    color: var(--greyed-out);
   }
 
-  & + span.checkmark,
-  & + span.indeterminate {
+  & + .checkmark,
+  & + .indeterminate {
     color: var(--disabled);
-    background-color: var(--greyedOut);
+    background-color: var(--greyed-out);
     border-radius: 2px;
     outline: 1px var(--disabled) solid;
     outline-offset: -1px;
   }
+}
+
+span[data-icon="true"]:before {
+  display: block;
+  width: 20px;
+  height: 20px;
 }
 
 .native-input:hover + .checkmark:not(.disabled),

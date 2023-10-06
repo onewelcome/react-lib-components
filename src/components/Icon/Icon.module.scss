@@ -291,30 +291,18 @@
 }
 .icon-checkmark-square:before {
   content: "\e939";
-  display: block;
-  width: 20px;
-  height: 20px;
   @include fontProperties();
 }
 .icon-square:before {
   content: "\e93a";
-  display: block;
-  width: 20px;
-  height: 20px;
   @include fontProperties();
 }
 .icon-minus-square:before {
   content: "\e93b";
-  display: block;
-  width: 20px;
-  height: 20px;
   @include fontProperties();
 }
 .icon-radio:before {
   content: "\e93c";
-  display: block;
-  width: 20px;
-  height: 20px;
   @include fontProperties();
 }
 .icon-error-circle-alt:before {
@@ -323,9 +311,6 @@
 }
 .icon-circle:before {
   content: "\e93e";
-  display: block;
-  width: 20px;
-  height: 20px;
   @include fontProperties();
 }
 .icon-table-search:before {

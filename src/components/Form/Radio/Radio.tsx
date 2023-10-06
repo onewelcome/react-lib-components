@@ -77,7 +77,14 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onChange?.(clonedEvent);
   };
 
-  /** Default return value is the default radio */
+  const nativeInputClasses = [classes["native-input"]];
+  const checkedRadioClasses = [classes["input"], classes["radio"]];
+  const uncheckedRadioClasses = [classes["input"], classes["circle"]];
+  error && nativeInputClasses.push(classes["error"]);
+  disabled &&
+    checkedRadioClasses.push(classes["disabled"]) &&
+    uncheckedRadioClasses.push(classes["disabled"]);
+
   return (
     <FormSelectorWrapper
       {...formSelectorWrapperProps}
@@ -97,7 +104,7 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         ref={ref}
         disabled={disabled}
         tabIndex={0}
-        className={`${classes["native-input"]} ${error ? classes["error"] : ""}`}
+        className={nativeInputClasses.join(" ")}
         onChange={onChangeHandler}
         checked={checked}
         aria-invalid={!!error}
@@ -109,22 +116,8 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         type="radio"
       />
 
-      {checked && (
-        <Icon
-          className={`${classes["input"]} ${classes["radio"]} ${
-            disabled ? classes["disabled"] : ""
-          }`}
-          icon={Icons.Radio}
-        />
-      )}
-      {!checked && (
-        <Icon
-          className={`${classes["input"]} ${classes["circle"]} ${
-            disabled ? classes["disabled"] : ""
-          }`}
-          icon={Icons.Circle}
-        />
-      )}
+      {checked && <Icon className={checkedRadioClasses.join(" ")} icon={Icons.Radio} />}
+      {!checked && <Icon className={uncheckedRadioClasses.join(" ")} icon={Icons.Circle} />}
 
       <label onClick={onChangeHandler} htmlFor={`${identifier}-radio`}>
         {children}

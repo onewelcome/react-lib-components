@@ -147,3 +147,9 @@
   color: var(--disabled);
   pointer-events: none;
 }
+
+span[data-icon="true"]:before {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
