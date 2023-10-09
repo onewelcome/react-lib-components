@@ -15,12 +15,16 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Checkbox, Props as CheckboxProps } from "../../../src/components/Form/Checkbox/Checkbox";
 import CheckboxDocumentation from "./Checkbox.mdx";
-import { Link } from "../../../src/components/Link/Link";
+import { Link } from "../../../src";
 
 const meta: Meta = {
+  /* fixme: currently it's impossible to add conditional exclusions: https://github.com/storybookjs/storybook/issues/18233
+   * when it's available we should include states only for chromatic
+   * excludeStories: /.*CheckboxStates$/,
+   * */
   title: "components/Inputs/Raw/Checkbox",
   component: Checkbox,
   parameters: {
@@ -63,8 +67,8 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<CheckboxProps> = args => {
-  return <Checkbox {...args} />;
+const Template: StoryFn<CheckboxProps> = args => {
+  return <Checkbox name={"name"} {...args} />;
 };
 
 export const SingleCheckbox = Template.bind({});
@@ -99,3 +103,64 @@ NestedCheckbox.args = {
     </Checkbox>
   ]
 };
+
+export const CheckboxLabelOverflow = Template.bind({});
+
+CheckboxLabelOverflow.decorators = [
+  () => {
+    return (
+      <>
+        <div style={{ width: "200px" }}>
+          <Checkbox
+            errorMessage={"Oh no!"}
+            name="checkbox"
+            helperProps={{
+              children: "It is always nice to see a good old helper text!"
+            }}
+          >
+            It seems to be a good idea to test the label and how it wraps if there is not enough
+            space for it. What do you think?
+          </Checkbox>
+        </div>
+      </>
+    );
+  }
+];
+
+export const CheckboxStates = Template.bind({});
+
+const checkboxStates = [
+  { checked: false, error: false, disabled: false, indeterminate: false },
+  { checked: false, error: false, disabled: true, indeterminate: false },
+  { checked: true, error: false, disabled: false, indeterminate: false },
+  { checked: true, error: true, disabled: false, indeterminate: false },
+  { checked: true, error: false, disabled: true, indeterminate: false },
+  { checked: false, error: false, disabled: true, indeterminate: true },
+  { checked: false, error: true, disabled: false, indeterminate: true },
+  { checked: false, error: false, disabled: false, indeterminate: true }
+];
+
+CheckboxStates.decorators = [
+  () => {
+    return (
+      <>
+        {checkboxStates.map((states, index) => (
+          <Checkbox
+            key={index}
+            disabled={states.disabled}
+            checked={states.checked}
+            error={states.error}
+            errorMessage={"Oh no!"}
+            indeterminate={states.indeterminate}
+            name="checkbox"
+            helperProps={{
+              children: "It is always nice to see a good old helper text!"
+            }}
+          >
+            Label
+          </Checkbox>
+        ))}
+      </>
+    );
+  }
+];

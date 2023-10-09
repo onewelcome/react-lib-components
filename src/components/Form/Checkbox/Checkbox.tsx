@@ -33,7 +33,7 @@ import { FormSelector } from "../form.interfaces";
 
 const isToggle = (children: ReactNode) => !!(children as ReactElement)?.props?.["data-toggle"];
 
-export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
+export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector, "success"> {
   label?: string | React.ReactElement;
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;
@@ -122,13 +122,17 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
 
   const renderToggle = () => React.Children.toArray(children).filter(isToggle);
 
-  const iconClasses = [classes["input"], disabled ? classes["disabled"] : ""];
+  const iconClasses = [classes["input"]];
+  const nativeInputClasses = [classes["native-input"]];
+  const wrapperClasses = [classes["checkbox-wrapper"]];
+  error && nativeInputClasses.push(classes["error"]);
+  disabled && nativeInputClasses.push(classes["disabled"]) && iconClasses.push(classes["disabled"]);
+  className && wrapperClasses.push(className);
 
-  /** Default return value is the default checkbox */
   return (
     <FormSelectorWrapper
       {...formSelectorWrapperProps}
-      className={`${classes["checkbox-wrapper"]} ${className ? className : ""}`}
+      className={wrapperClasses.join(" ")}
       containerProps={{ className: classes["checkbox-container"] }}
       helperText={helperText}
       helperProps={helperProps}
@@ -146,7 +150,7 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         {...rest}
         ref={ref}
         disabled={disabled}
-        className={`${classes["native-input"]} ${error ? classes["error"] : ""}`}
+        className={nativeInputClasses.join(" ")}
         checked={checked}
         onChange={onChangeHandler}
         aria-invalid={error as boolean}
@@ -158,11 +162,21 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       />
       {renderToggle()}
 
-      {indeterminate && <Icon className={iconClasses.join(" ")} icon={Icons.MinusSquare} />}
-      {checked && !indeterminate && (
-        <Icon className={iconClasses.join(" ")} icon={Icons.CheckmarkSquare} />
+      {indeterminate && (
+        <Icon
+          className={`${iconClasses.join(" ")} ${classes["indeterminate"]}`}
+          icon={Icons.MinusSquare}
+        />
       )}
-      {!checked && !indeterminate && <Icon className={iconClasses.join(" ")} icon={Icons.Square} />}
+      {checked && !indeterminate && (
+        <Icon
+          className={`${iconClasses.join(" ")} ${classes["checkmark"]}`}
+          icon={Icons.CheckmarkSquare}
+        />
+      )}
+      {!checked && !indeterminate && (
+        <Icon className={`${iconClasses.join(" ")} ${classes["square"]}`} icon={Icons.Square} />
+      )}
       <label htmlFor={`${identifier}-checkbox`}>{determineLabel()}</label>
     </FormSelectorWrapper>
   );

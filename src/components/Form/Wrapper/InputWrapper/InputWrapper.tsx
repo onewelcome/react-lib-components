@@ -31,6 +31,7 @@ export interface Props extends ComponentPropsWithRef<"div">, WrapperProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  success: boolean;
 }
 
 const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (

@@ -18,7 +18,7 @@
   position: relative;
 
   + .radio-wrapper {
-    margin-top: 1.25rem;
+    margin-top: 0.75rem;
   }
 }
 
@@ -34,7 +34,6 @@
 .error-message {
   margin-top: 1.25rem;
   display: flex;
-  align-items: bottom;
 }
 
 .error-icon {
@@ -44,28 +43,18 @@
 
 .radio-container {
   display: flex;
-  align-items: center;
 
   label {
     display: inline-block;
     margin-left: 0.5rem;
     user-select: none;
-    font-size: var(--font-size);
+    font-size: var(--font-size-form-label);
     font-family: var(--font-family);
+    margin-top: 0.15rem;
 
     .disabled & {
       cursor: not-allowed;
     }
-  }
-}
-
-.radio-list {
-  padding: 0;
-  margin: 1.25rem 0 0 1.75rem;
-  list-style: none;
-
-  li + li {
-    margin-top: 1.75rem;
   }
 }
 
@@ -77,37 +66,74 @@
   margin: 0;
   width: 1.75rem;
   height: 1.75rem;
+  z-index: 2;
+
+  & + span[data-icon="true"]:before {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
 
   &:checked + * {
     color: var(--color-primary);
   }
 
-  &:disabled {
+  &:checked + *.disabled {
+    color: var(--disabled);
     cursor: not-allowed;
+    pointer-events: none;
   }
 
   &:focus-visible {
     + * {
-      border-radius: 2px;
-      outline: 1px solid var(--color-focus);
-      outline-offset: 1px;
+      border-radius: 100%;
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
     }
   }
 
-  &.error:focus-visible {
-    + * {
-      outline-color: var(--color-error);
-    }
+  &.error + * {
+    border-radius: 100%;
+  }
+
+  &.error:hover + .radio::before {
+    outline-color: var(--radio-hover-background-color);
+  }
+
+  &.error:active + .radio::before {
+    outline-color: var(--radio-pressed-background-color);
+  }
+
+  &:hover + .input.circle:not(.disabled) {
+    background-color: var(--radio-hover-background-color);
+  }
+
+  &:active + .input.circle:not(.disabled) {
+    background-color: var(--radio-pressed-background-color);
+  }
+
+  &:hover + .input.radio:not(.disabled) {
+    background-color: var(--radio-hover-background-color);
+    color: var(--radio-hover-color);
+  }
+
+  &:active + .input.radio:not(.disabled) {
+    color: var(--radio-pressed-color);
+    background-color: var(--radio-pressed-background-color);
   }
 }
 
 .input {
   font-size: 1.25rem;
-  pointer-events: none;
   width: 1.25rem;
   height: 1.25rem;
+  z-index: 1;
+  border-radius: 100%;
 
-  /** The & behind disabled means parent selector (so in reality this means .disabled .input) */
+  &:active {
+    border-radius: 100%;
+  }
+
   .disabled & {
     color: var(--disabled);
   }
@@ -115,4 +141,5 @@
 
 .disabled {
   color: var(--disabled);
+  pointer-events: none;
 }

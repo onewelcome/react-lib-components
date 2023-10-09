@@ -23,6 +23,7 @@ import userEvent from "@testing-library/user-event";
 const onChangeHandler = jest.fn();
 
 const defaultParams: Props = {
+  success: false,
   children: [
     <Option key="1" value="option1">
       Option 1

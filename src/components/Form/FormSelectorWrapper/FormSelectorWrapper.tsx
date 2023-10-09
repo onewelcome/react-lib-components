@@ -20,7 +20,6 @@ import React, {
   createRef,
   ReactNode
 } from "react";
-import { Icon, Icons } from "../../Icon/Icon";
 import { KeyValuePair } from "../../../interfaces";
 import { FormSelector } from "../form.interfaces";
 import { FormHelperText, Props as FormHelperTextProps } from "../FormHelperText/FormHelperText";
@@ -65,7 +64,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
       }`}
     >
       <div {...containerProps}>{children}</div>
-      {(helperText || helperProps?.children) && (!error || parentErrorId || !errorMessage) && (
+      {(helperText || helperProps?.children) && (
         <FormHelperText
           {...helperProps}
           ref={helperRef}
@@ -74,14 +73,14 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
             error ? classes["error"] : ""
           }`}
         >
-          {helperProps?.children || helperText}
+          {error ? (
+            <span className={classes["error-message"]} id={errorId}>
+              {errorMessage}
+            </span>
+          ) : (
+            helperProps?.children || helperText
+          )}
         </FormHelperText>
-      )}
-      {errorMessage && !parentErrorId && error && (
-        <span className={classes["error-message"]}>
-          <Icon className={classes["error-icon"]} icon={Icons.Error} />
-          <span id={errorId}>{errorMessage}</span>
-        </span>
       )}
       {nestedChildren}
     </div>

@@ -87,6 +87,14 @@ interface CSSProperties {
   buttonDefaultFocusedColor?: string;
   buttonDefaultPressedColor?: string;
   buttonOutlineActiveTextColor?: string;
+  checkboxUncheckedHoverColor?: string;
+  checkboxUncheckedPressedColor?: string;
+  checkboxCheckedHoverColor?: string;
+  checkboxCheckedPressedColor?: string;
+  radioHoverBackgroundColor?: string;
+  radioPressedBackgroundColor?: string;
+  radioHoverColor?: string;
+  radioPressedColor?: string;
   defaultBorderRadius?: string;
   inputBorderRadius?: string;
   inputBorderWidth?: string;
@@ -139,6 +147,7 @@ interface CSSProperties {
   light?: string;
   fontFamily?: string;
   fontFamilyCode?: string;
+  fontSizeFormLabel?: string;
   fontSize?: string;
   fontSizeH1?: string;
   fontSizeH2?: string;
@@ -221,6 +230,14 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonDefaultFocusedColor: "var(--color-blue-grey700)",
     buttonDefaultPressedColor: "var(--color-blue-grey800)",
     buttonOutlineHoverTextColor: "var(--color-primary600)",
+    checkboxUncheckedHoverColor: "var(--color-blue-grey50)",
+    checkboxUncheckedPressedColor: "var(--color-blue-grey100)",
+    checkboxCheckedHoverColor: "var(--color-primary600)",
+    checkboxCheckedPressedColor: "var(--color-primary700)",
+    radioHoverBackgroundColor: "var(--color-blue-grey50)",
+    radioPressedBackgroundColor: "var(--color-blue-grey100)",
+    radioHoverColor: "var(--color-primary600)",
+    radioPressedColor: "var(--color-primary700)",
     inputBorderRadius: "2px",
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "1px",
@@ -272,6 +289,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     light: "var(--color-white)",
     fontFamily: "Roboto, sans-serif",
     fontFamilyCode: "'Roboto Mono', monospace",
+    fontSizeFormLabel: "0.875rem",
     fontSize: "1rem",
     fontSizeH1: "2.5rem",
     fontSizeH2: "1.625rem",

@@ -67,7 +67,7 @@ export const RadioWrapper = Template.bind({});
 
 RadioWrapper.args = {
   error: false,
-  errorMessage: "Errormessage",
+  errorMessage: "Serious error message!",
   fieldsetProps: {
     legend: "Radio buttons",
     hideLegend: false,

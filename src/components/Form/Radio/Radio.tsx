@@ -25,7 +25,7 @@ import {
   Props as FormSelectorWrapperProps
 } from "../FormSelectorWrapper/FormSelectorWrapper";
 
-export interface Props extends ComponentPropsWithRef<"input">, FormSelector {
+export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector, "success"> {
   children: string;
   value: string;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
@@ -77,7 +77,14 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onChange?.(clonedEvent);
   };
 
-  /** Default return value is the default radio */
+  const nativeInputClasses = [classes["native-input"]];
+  const checkedRadioClasses = [classes["input"], classes["radio"]];
+  const uncheckedRadioClasses = [classes["input"], classes["circle"]];
+  error && nativeInputClasses.push(classes["error"]);
+  disabled &&
+    checkedRadioClasses.push(classes["disabled"]) &&
+    uncheckedRadioClasses.push(classes["disabled"]);
+
   return (
     <FormSelectorWrapper
       {...formSelectorWrapperProps}
@@ -97,10 +104,10 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         ref={ref}
         disabled={disabled}
         tabIndex={0}
-        className={`${classes["native-input"]} ${error ? classes["error"] : ""}`}
+        className={nativeInputClasses.join(" ")}
         onChange={onChangeHandler}
         checked={checked}
-        aria-invalid={error ? true : false}
+        aria-invalid={!!error}
         aria-checked={checked}
         aria-describedby={describedBy}
         name={name}
@@ -109,18 +116,8 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         type="radio"
       />
 
-      {checked && (
-        <Icon
-          className={`${classes["input"]} ${disabled ? classes["disabled"] : ""}`}
-          icon={Icons.Radio}
-        />
-      )}
-      {!checked && (
-        <Icon
-          className={`${classes["input"]} ${disabled ? classes["disabled"] : ""}`}
-          icon={Icons.Circle}
-        />
-      )}
+      {checked && <Icon className={checkedRadioClasses.join(" ")} icon={Icons.Radio} />}
+      {!checked && <Icon className={uncheckedRadioClasses.join(" ")} icon={Icons.Circle} />}
 
       <label onClick={onChangeHandler} htmlFor={`${identifier}-radio`}>
         {children}

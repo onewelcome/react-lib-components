@@ -20,6 +20,7 @@ import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
+  success: false,
   label: "Example label",
   type: "text",
   name: "Example input",

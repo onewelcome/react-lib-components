@@ -13,35 +13,36 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+@use "../../../mixins.module.scss";
 
 .checkbox-wrapper {
   position: relative;
 
   + .checkbox-wrapper {
-    margin-top: 1.25rem;
+    margin-top: 0.75rem;
   }
 }
 
 .checkbox-container {
   display: flex;
-  align-items: center;
 
   label {
     display: inline-block;
     margin-left: 0.5rem;
     user-select: none;
-    font-size: var(--font-size);
+    font-size: var(--font-size-form-label);
     font-family: var(--font-family);
+    margin-top: 0.1rem;
   }
 }
 
 .checkbox-list {
   padding: 0;
-  margin: 1.25rem 0 0 1.75rem;
+  margin: 1rem 0 0 1.75rem;
   list-style: none;
 
   li + li {
-    margin-top: 1.25rem;
+    margin-top: 0.75rem;
   }
 }
 
@@ -53,17 +54,22 @@
   margin: 0;
   width: 1.25rem;
   height: 1.25rem;
+  z-index: 2;
 
-  &:checked + * {
+  &:checked:not(.disabled) + * {
     color: var(--color-primary);
   }
 
   &:focus-visible {
     + * {
       border-radius: 2px;
-      outline: 1px solid var(--color-focus);
-      outline-offset: 1px;
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
     }
+  }
+
+  &:active:not(.disabled) + span {
+    background-color: var(--disabled);
   }
 
   &.error:focus-visible {
@@ -71,13 +77,59 @@
       outline-color: var(--color-error);
     }
   }
+
+  & + span[data-icon="true"]:before {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover + .square:not(.disabled) {
+    background-color: var(--checkbox-unchecked-hover-color);
+  }
+
+  &:active + .square:not(.disabled) {
+    background-color: var(--checkbox-unchecked-pressed-color);
+  }
+
+  &:hover + .checkmark:not(.disabled),
+  &:active + .indeterminate:not(.disabled) {
+    color: var(--checkbox-checked-hover-color);
+  }
+
+  &:active + .checkmark:not(.disabled),
+  &:active + .indeterminate:not(.disabled) {
+    color: var(--checkbox-checked-pressed-color);
+  }
 }
 
 .input {
   font-size: 1.25rem;
-  pointer-events: none;
+  z-index: 1;
 }
 
 .disabled {
-  color: var(--disabled);
+  cursor: not-allowed;
+
+  & + span {
+    color: var(--disabled);
+    pointer-events: none;
+  }
+
+  & + label {
+    color: var(--greyed-out);
+  }
+
+  & + .checkmark,
+  & + .indeterminate {
+    color: var(--disabled);
+    background-color: var(--greyed-out);
+    border-radius: 2px;
+    outline: 1px var(--disabled) solid;
+    outline-offset: -1px;
+  }
+}
+
+.indeterminate {
+  color: var(--color-primary);
 }
