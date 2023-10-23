@@ -22,13 +22,13 @@
 
 .menu {
   white-space: nowrap;
-  margin: 1rem 0;
+  margin: 0.25rem 0;
   list-style: none;
   padding: 0;
-  min-width: 200px;
+  min-width: 10rem;
 
   &.no-margin-top {
-    margin: 0 0 1rem;
+    margin: 0 0 0.25rem;
   }
 
   button {
@@ -37,5 +37,5 @@
 }
 
 .decorative-element {
-  margin-top: 1rem;
+  margin-top: 0.5rem; //fixme: check with Clement
 }

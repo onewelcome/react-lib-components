@@ -287,7 +287,11 @@
   }
 }
 
-@mixin focusVisibleOutline($color: var(--color-focus), $outlineWidth: 2px, $outlineOffset: 2px) {
+@mixin focusVisibleOutline(
+  $color: var(--color-focus),
+  $outlineWidth: 0.125rem,
+  $outlineOffset: 0.125rem
+) {
   &:focus-visible {
     outline: $outlineWidth solid $color;
     outline-offset: $outlineOffset;

@@ -18,21 +18,23 @@ import React, {
   ComponentPropsWithRef,
   createRef,
   ForwardRefRenderFunction,
+  ReactNode,
   RefObject,
   useEffect
 } from "react";
 import classes from "./ContextMenuItem.module.scss";
 
 export interface Props extends Omit<ComponentPropsWithRef<"button">, "onClick"> {
-  children?: string;
+  children?: ReactNode;
   hasFocus?: boolean;
   isSelected?: boolean;
+  showActiveState?: boolean;
   childIndex?: number;
   shouldClick?: boolean;
   contextMenuOpened?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onFocusChange?: (childIndex: number) => void;
-  onSelectedChange?: (childIndex: number) => void;
+  onSelectedChange?: (event: React.MouseEvent<HTMLButtonElement>, childIndex: number) => void;
 }
 
 const ContextMenuItemComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
@@ -43,6 +45,7 @@ const ContextMenuItemComponent: ForwardRefRenderFunction<HTMLButtonElement, Prop
     onSelectedChange,
     hasFocus,
     isSelected,
+    showActiveState,
     childIndex,
     contextMenuOpened,
     shouldClick,
@@ -70,13 +73,14 @@ const ContextMenuItemComponent: ForwardRefRenderFunction<HTMLButtonElement, Prop
     <li role="none" className={`${classes["context-menu-item"]} ${className ?? ""}`}>
       <button
         role="menuitem"
+        className={showActiveState ? classes["active"] : undefined}
         {...rest}
         ref={innerButtonRef}
         data-focus={hasFocus}
         tabIndex={-1}
         onClick={event => {
           onClick?.(event);
-          onSelectedChange && childIndex && onSelectedChange(childIndex);
+          childIndex !== undefined && onSelectedChange?.(event, childIndex);
         }}
       >
         {children}
