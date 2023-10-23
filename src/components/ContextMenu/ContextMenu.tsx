@@ -168,7 +168,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         hasFocus: focusedContextMenuItem === index,
         isSelected: selectedContextMenuItem === index,
         showActiveState:
-          (child as ReactElement<ContextMenuItemProps>)?.props.showActiveState ??
+          child?.props.showActiveState ??
           (value !== undefined && selectedContextMenuItem === index),
         contextMenuOpened: showContextMenu,
         shouldClick: shouldClick
