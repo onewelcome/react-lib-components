@@ -31,6 +31,21 @@
     padding: 0.62rem 0.75rem;
     box-sizing: border-box;
 
+    &:focus-visible {
+      outline: none;
+
+      &::after {
+        @include mixins.focusVisibleOutline($outlineOffset: 0, $selectors: null);
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 101;
+      }
+    }
+
     &:hover {
       background-color: var(--context-menu-hover-color);
     }
@@ -38,8 +53,6 @@
     &:active {
       background-color: var(--context-menu-pressed-color);
     }
-
-    @include mixins.focusVisibleOutline($outlineOffset: 0);
 
     &.active {
       &::before {

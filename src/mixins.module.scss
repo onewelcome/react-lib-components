@@ -290,9 +290,16 @@
 @mixin focusVisibleOutline(
   $color: var(--color-focus),
   $outlineWidth: 0.125rem,
-  $outlineOffset: 0.125rem
+  $outlineOffset: 0.125rem,
+  $selectors: "&:focus-visible"
 ) {
-  &:focus-visible {
+  @if $selectors {
+    #{$selectors} {
+      outline: $outlineWidth solid $color;
+      outline-offset: $outlineOffset;
+      border-radius: var(--focus-border-radius);
+    }
+  } @else {
     outline: $outlineWidth solid $color;
     outline-offset: $outlineOffset;
     border-radius: var(--focus-border-radius);

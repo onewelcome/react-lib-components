@@ -27,7 +27,7 @@ import { Icon, Icons } from "../../src/components/Icon/Icon";
 import { Offset, Placement, horizontal, vertical } from "../../src/hooks/usePosition";
 import ContextMenuDocumentation from "./ContextMenu.mdx";
 import { Typography } from "../../src/components/Typography/Typography";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { within, userEvent, waitFor, getByRole, getAllByRole } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { useStoryCentring } from "../utils/useStoryCentring";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
@@ -537,9 +537,9 @@ ContextMenuStates.decorators = [
           Check second element by `showActiveState` prop on that element
         </Tooltip>
         <ContextMenuComponent
-          id="context-menu-states_hover"
+          id="context-menu-states_hover-active"
           trigger={
-            <IconButton color="default" title="click me for contextmenu">
+            <IconButton color="default" title="click me for contextmenu hover">
               <Icon icon={Icons.EllipsisAlt} />
             </IconButton>
           }
@@ -548,71 +548,91 @@ ContextMenuStates.decorators = [
           <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
             Example item 1
           </ContextMenuItem>
-          <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")} showActiveState>
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 2 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_focus-active"
+          >
             Example item 2
           </ContextMenuItem>
-          <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")}>
+          <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")} showActiveState>
             Example item 3
           </ContextMenuItem>
-        </ContextMenuComponent>
-        <ContextMenuComponent
-          id="context-menu-states_hover_active"
-          trigger={
-            <IconButton color="default" title="click me for contextmenu">
-              <Icon icon={Icons.EllipsisAlt} />
-            </IconButton>
-          }
-          show={true}
-        >
-          <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
-            Example item 1
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 4 onClick event")}
+            id="context-menu-states-btn_focus"
+          >
+            Example item 4
           </ContextMenuItem>
-          <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")} showActiveState>
-            Example item 2
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 5 onClick event")}
+            id="context-menu-states-btn_hover"
+          >
+            Example item 5
           </ContextMenuItem>
-          <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")}>
-            Example item 3
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 6 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_hover-active"
+          >
+            Example item 6
           </ContextMenuItem>
-        </ContextMenuComponent>
-        <ContextMenuComponent
-          id="context-menu-states_pressed"
-          trigger={
-            <IconButton color="default" title="click me for contextmenu">
-              <Icon icon={Icons.EllipsisAlt} />
-            </IconButton>
-          }
-          show={true}
-        >
-          <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
-            Example item 1
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 7 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_hover-active-focus"
+          >
+            Example item 7
           </ContextMenuItem>
-          <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")} showActiveState>
-            Example item 2
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 8 onClick event")}
+            id="context-menu-states-btn_pressed"
+          >
+            Example item 8
           </ContextMenuItem>
-          <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")}>
-            Example item 3
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 9 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_pressed-active"
+          >
+            Example item 9
           </ContextMenuItem>
-        </ContextMenuComponent>
-        <ContextMenuComponent
-          id="context-menu-states_pressed_active"
-          trigger={
-            <IconButton color="default" title="click me for contextmenu">
-              <Icon icon={Icons.EllipsisAlt} />
-            </IconButton>
-          }
-          show={true}
-        >
-          <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
-            Example item 1
-          </ContextMenuItem>
-          <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")} showActiveState>
-            Example item 2
-          </ContextMenuItem>
-          <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")}>
-            Example item 3
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 10 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_pressed-active-focus"
+          >
+            Example item 10
           </ContextMenuItem>
         </ContextMenuComponent>
       </div>
     );
   }
 ];
+
+ContextMenuStates.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getAllByRole("menuitem").length).toBeGreaterThanOrEqual(1));
+});
+
+ContextMenuStates.parameters = {
+  pseudo: {
+    hover: [
+      "#context-menu-states-btn_hover",
+      "#context-menu-states-btn_hover-active",
+      "#context-menu-states-btn_hover-active-focus"
+    ],
+    focusVisible: [
+      "#context-menu-states-btn_hover-active-focus",
+      "#context-menu-states-btn_pressed-active-focus",
+      "#context-menu-states-btn_focus-active"
+    ],
+    active: [
+      "#context-menu-states-btn_pressed",
+      "#context-menu-states-btn_pressed-active",
+      "#context-menu-states-btn_pressed-active-focus",
+      "#context-menu-states-btn_focus-active"
+    ]
+  }
+};
