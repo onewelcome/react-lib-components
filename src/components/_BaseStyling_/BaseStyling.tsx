@@ -207,7 +207,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorTertiary: "var(--color-light-blue600)",
     defaultPressedColor: "var(--color-blue-grey100)",
     defaultHoverColor: "var(--color-blue-grey25)",
-    defaultLineHeight: "1.42857",
+    defaultLineHeight: "1.5", //FIXME: UCL-395
     defaultBorderRadius: "0.25rem",
     focusBorderRadius: "0.125rem",
     buttonBorderRadius: "var(--default-border-radius)",
@@ -297,15 +297,15 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     light: "var(--color-white)",
     fontFamily: "Roboto, sans-serif",
     fontFamilyCode: "'Roboto Mono', monospace",
-    fontSizeFormLabel: "0.875rem",
-    fontSize: "1rem",
+    fontSizeFormLabel: "0.875rem", //FIXME: UCL-395
+    fontSize: "1rem", //FIXME: UCL-395
     fontSizeH1: "2.5rem",
     fontSizeH2: "1.625rem",
     fontSizeH3: "1.5rem",
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
-    formControlFontSize: "14px" //FIXME: @TODO: that has to be fixed!
+    formControlFontSize: "0.875rem" //FIXME: UCL-395
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

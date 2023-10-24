@@ -76,7 +76,7 @@ const Template: Story<Props> = args => {
 
   //Only with combination with `value` to show controlled component behaviour
   const [storyValue, setStoryValue] = useState(args.value);
-  const onChange = () => {};
+  const onChange = (_e: unknown, value: number) => setStoryValue(value);
 
   return (
     <Fragment>
@@ -626,6 +626,7 @@ ContextMenuStates.parameters = {
     focusVisible: [
       "#context-menu-states-btn_hover-active-focus",
       "#context-menu-states-btn_pressed-active-focus",
+      "#context-menu-states-btn_focus",
       "#context-menu-states-btn_focus-active"
     ],
     active: [

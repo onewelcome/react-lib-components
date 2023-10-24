@@ -24,7 +24,7 @@
     border: 0;
     font-family: var(--font-family);
     font-size: var(--font-size-form-label);
-    line-height: var(--default-line-height);
+    line-height: 1.25rem; //FIXME: UCL-395
     cursor: pointer;
     width: 100%;
     height: 100%;
