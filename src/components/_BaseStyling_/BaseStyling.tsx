@@ -31,8 +31,13 @@ interface CSSProperties {
   colorPrimary600?: string;
   colorPrimary700?: string;
   colorPrimary900?: string;
+  colorBlue100?: string;
+  colorBlue500?: string;
+  colorBlue600?: string;
+  colorBlue700?: string;
   colorBlueGrey100?: string;
   colorBlueGrey200?: string;
+  colorBlueGrey300?: string;
   colorBlueGrey400?: string;
   colorBlueGrey25?: string;
   colorBlueGrey25Transparent?: string;
@@ -42,6 +47,7 @@ interface CSSProperties {
   colorBlueGrey800?: string;
   colorBlueGrey900?: string;
   colorGreen100?: string;
+  colorGreen200?: string;
   colorGreen500?: string;
   colorGreen600?: string;
   colorGreen700?: string;
@@ -51,10 +57,11 @@ interface CSSProperties {
   colorOrange500?: string;
   colorOrange600?: string;
   colorOrange700?: string;
+  colorRed200?: string;
   colorRed500?: string;
-  colorWhite?: string;
   colorRed600?: string;
   colorRed700?: string;
+  colorWhite?: string;
   colorBlack100?: string;
   colorBlack20?: string;
   colorBlack10?: string;
@@ -170,17 +177,23 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
+    colorBlue100: "#CDD0EA",
+    colorBlue500: "#041295",
+    colorBlue600: "#030F77",
+    colorBlue700: "#020B59",
     colorBlueGrey25: "#F7F7F9",
     colorBlueGrey25Transparent: "rgba(247, 247, 249, .8)",
     colorBlueGrey50: "#EEEFF3",
     colorBlueGrey100: "#DEDEE6",
     colorBlueGrey200: "#BCBECE",
+    colorBlueGrey300: "#9A9DB5",
     colorBlueGrey400: "#797D9C",
     colorBlueGrey500: "#5D607E",
     colorBlueGrey700: "#383A4B",
     colorBlueGrey800: "#252733",
     colorBlueGrey900: "#131319",
     colorGreen100: "#D1E6DA",
+    colorGreen200: "#A2CDB4",
     colorGreen500: "#178244",
     colorGreen600: "#126836",
     colorGreen700: "#0E4E29",
@@ -189,6 +202,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorOrange500: "#E07900",
     colorOrange600: "#B36100",
     colorOrange700: "#864900",
+    colorRed200: "#F3A599",
     colorRed500: "#E01E00",
     colorRed600: "#B31800",
     colorRed700: "#861200",

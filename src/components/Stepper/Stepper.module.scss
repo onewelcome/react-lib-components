@@ -1,0 +1,13 @@
+.stepper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.vertical {
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: auto;
+  }
+}

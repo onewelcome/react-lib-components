@@ -1,0 +1,264 @@
+@use "../../mixins.module.scss";
+
+.step-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+  @include mixins.focusVisibleOutline($outlineOffset: 0px);
+
+  .step-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:last-child {
+    flex-grow: 0;
+    flex-basis: fit-content;
+  }
+
+  &:not(:last-child)::after {
+    content: "";
+    margin: 0 0.5rem;
+    width: 100%;
+    border-bottom: 2px solid var(--color-blue-grey300);
+  }
+
+  &.vertical {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    &:last-child {
+      flex-grow: 0;
+      flex-basis: fit-content;
+    }
+
+    &:not(:last-child)::after {
+      content: "";
+      border-bottom: none;
+      margin: 0.5rem 0 0.5rem 1.6875rem;
+      border-left: 2px solid var(--color-blue-grey300);
+      height: 100%;
+    }
+  }
+
+  &:hover {
+    & .step-content .step {
+      border: 2px solid var(--color-blue-grey300);
+      color: var(--color-blue-grey300);
+    }
+  }
+
+  &:active {
+    & .step-content .step {
+      border: 2px solid var(--color-blue-grey400);
+      color: var(--color-blue-grey400);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    & .step-content .step {
+      border: 2px solid var(--color-blue-grey100);
+      color: var(--color-blue-grey100);
+    }
+
+    & .step-content .label {
+      color: var(--color-blue-grey400);
+
+      & .caption {
+        color: var(--color-blue-grey400);
+      }
+    }
+    &:not(:last-child)::after {
+      border-left: 2px solid var(--color-blue-grey100);
+    }
+  }
+
+  &.current {
+    & .step-content .label {
+      font-weight: 700;
+
+      & .caption {
+        font-weight: 400;
+      }
+    }
+
+    & .step-content .step {
+      background-color: var(--color-blue500);
+      border-color: var(--color-blue500);
+      color: var(--color-white);
+    }
+
+    &:not(:last-child)::after {
+      border-color: var(--color-blue-grey300);
+    }
+
+    &:hover {
+      & .step-content .step {
+        border-color: var(--color-blue600);
+        background-color: var(--color-blue600);
+      }
+    }
+
+    &:active {
+      & .step-content .step {
+        border-color: var(--color-blue700);
+        background-color: var(--color-blue700);
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      & .step-content .step {
+        border-color: var(--color-blue100);
+        background-color: var(--color-blue100);
+      }
+
+      & .step-content .label {
+        color: var(--color-blue-grey400);
+
+        & .caption {
+          color: var(--color-blue-grey400);
+        }
+      }
+      &:not(:last-child)::after {
+        border-color: var(--color-blue-grey100);
+      }
+    }
+  }
+
+  &.done {
+    & .step-content .step {
+      background-color: var(--color-green500);
+      border-color: var(--color-green500);
+      color: var(--color-white);
+    }
+
+    &:not(:last-child)::after {
+      border-color: var(--color-blue-grey700);
+    }
+
+    &:hover {
+      & .step-content .step {
+        border-color: var(--color-green600);
+        background-color: var(--color-green600);
+      }
+    }
+
+    &:active {
+      & .step-content .step {
+        border-color: var(--color-green700);
+        background-color: var(--color-green700);
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      & .step-content .step {
+        border-color: var(--color-green200);
+        background-color: var(--color-green200);
+      }
+
+      & .step-content .label {
+        color: var(--color-blue-grey400);
+
+        & .caption {
+          color: var(--color-blue-grey400);
+        }
+      }
+      &:not(:last-child)::after {
+        border-color: var(--color-blue-grey100);
+      }
+    }
+  }
+
+  &.error {
+    & .step-content .step {
+      background-color: var(--color-red500);
+      border-color: var(--color-red500);
+      color: var(--color-white);
+    }
+
+    & .step-content .label .caption {
+      color: var(--color-red500);
+    }
+
+    &:not(:last-child)::after {
+      border-color: var(--color-blue-grey300);
+    }
+
+    &:hover {
+      & .step-content .step {
+        border-color: var(--color-red600);
+        background-color: var(--color-red600);
+      }
+    }
+
+    &:active {
+      & .step-content .step {
+        border-color: var(--color-red700);
+        background-color: var(--color-red700);
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      & .step-content .step {
+        border-color: var(--color-red200);
+        background-color: var(--color-red200);
+      }
+
+      & .step-content .label {
+        color: var(--color-blue-grey400);
+
+        & .caption {
+          color: var(--color-red200);
+        }
+      }
+      &:not(:last-child)::after {
+        border-color: var(--color-blue-grey100);
+      }
+    }
+  }
+}
+
+.step {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 2px solid var(--color-blue-grey200);
+  color: var(--color-blue-grey200);
+  border-radius: 50%;
+  font-size: 0.875rem;
+  font-family: var(--font-family);
+  font-weight: 700;
+}
+
+.label {
+  flex-shrink: 0;
+  position: relative;
+  margin-left: 0.5rem;
+  color: var(--color-blue-grey900);
+}
+
+.caption {
+  position: absolute;
+  top: 1.25rem;
+  left: 0;
+  color: var(--color-blue-grey500);
+  font-size: 0.75rem;
+}
