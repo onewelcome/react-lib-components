@@ -60,14 +60,14 @@ const createContextMenu = (params?: (defaultParams: Props) => Props) => {
   };
 };
 
-describe("ContextMenu should render", () => {
-  it("renders without crashing", () => {
+describe("<ContextMenu />", () => {
+  it("should render without crashing", () => {
     const { contextmenu } = createContextMenu();
 
     expect(contextmenu).toBeTruthy();
   });
 
-  it("executed onShow function", async () => {
+  it("should execute onShow function", async () => {
     const { trigger } = createContextMenu();
 
     await userEvent.click(trigger);
@@ -75,7 +75,7 @@ describe("ContextMenu should render", () => {
     expect(onShow).toHaveBeenCalled();
   });
 
-  it("executed onShow function", async () => {
+  it("should execute onClick function on ContextMenuItem", async () => {
     const { getByTestId } = createContextMenu(defaultParams => ({
       ...defaultParams,
       show: true
@@ -88,7 +88,52 @@ describe("ContextMenu should render", () => {
     expect(onClick).toHaveBeenCalled();
   });
 
-  it("passes custom class to ContextMenuItem", () => {
+  it("should set active state based on value prop", async () => {
+    const onChange = jest.fn();
+    const { getByTestId } = createContextMenu(defaultParams => ({
+      ...defaultParams,
+      show: true,
+      value: 1,
+      onChange
+    }));
+
+    const button = getByTestId("contextmenuitem");
+    const button1 = getByTestId("contextmenuitem2");
+    const button2 = getByTestId("contextmenuitem3");
+
+    expect(button).not.toHaveClass("active");
+    expect(button1).toHaveClass("active");
+    expect(button2).not.toHaveClass("active");
+
+    await userEvent.click(button);
+
+    expect(onChange).toHaveBeenCalled();
+  });
+
+  it("should set active state based on value prop", async () => {
+    const onChange = jest.fn();
+    const { getByTestId } = createContextMenu(defaultParams => ({
+      ...defaultParams,
+      show: true,
+      children: [
+        <ContextMenuItem onClick={onClick} data-testid="contextmenuitem" key="1" showActiveState>
+          Example item 1
+        </ContextMenuItem>,
+        <ContextMenuItem onClick={onClick} data-testid="contextmenuitem2" key="2">
+          Example item 2
+        </ContextMenuItem>
+      ],
+      onChange
+    }));
+
+    const button = getByTestId("contextmenuitem");
+    const button1 = getByTestId("contextmenuitem2");
+
+    expect(button).toHaveClass("active");
+    expect(button1).not.toHaveClass("active");
+  });
+
+  it("should pass custom class to ContextMenuItem", () => {
     const { getByRole } = createContextMenu(defaultParams => ({
       ...defaultParams,
       show: true,
@@ -104,7 +149,7 @@ describe("ContextMenu should render", () => {
     expect(child.parentElement).toHaveClass("custom");
   });
 
-  it("renders the decorative element", () => {
+  it("should render the decorative element", () => {
     const { getByText } = createContextMenu(defaultParams => ({
       ...defaultParams,
       show: true,
