@@ -42,6 +42,11 @@ const meta: Meta = {
         label: "Step 4",
         status: "error",
         caption: "Caption"
+      },
+      {
+        label: "Step 4",
+        status: "error",
+        caption: "Caption"
       }
     ]
   }

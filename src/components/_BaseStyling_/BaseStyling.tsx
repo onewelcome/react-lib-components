@@ -125,6 +125,7 @@ interface CSSProperties {
   snackbarErrorBackgroundColor?: string;
   snackbarWarningBackgroundColor?: string;
   snackbarBorderRadius?: string;
+  stepperWaitingColor?: string;
   bannerBorderRadius?: string;
   bannerBorderWidth?: string;
   dataGridRowBackgroundColor?: string;
