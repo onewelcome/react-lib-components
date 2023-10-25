@@ -14,13 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef } from "react";
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
 import { Icon, Icons } from "../Icon/Icon";
 import classes from "./Step.module.scss";
 
 export type StepStatus = "waiting" | "current" | "done" | "error";
 
-export interface Props extends ComponentPropsWithRef<"div"> {
+export interface Props extends ComponentPropsWithRef<"button"> {
   status: StepStatus;
   label: string;
   caption?: string;
@@ -42,18 +42,23 @@ const getStepContent = (index: number, status: StepStatus) => {
   }
 };
 
-export const Step = ({ label, caption, status, index, direction, disabled }: Props) => {
+export const StepComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+  { label, caption, status, index, direction, disabled, ...rest }: Props,
+  ref
+) => {
   const additionalClasses = [];
 
+  status === "waiting" && additionalClasses.push(classes["waiting"]);
   status === "current" && additionalClasses.push(classes["current"]);
   status === "done" && additionalClasses.push(classes["done"]);
   status === "error" && additionalClasses.push(classes["error"]);
   direction === "vertical" && additionalClasses.push(classes["vertical"]);
   return (
     <button
-      // eslint-disable-next-line no-console
-      onClick={() => console.log("test")}
+      {...rest}
+      ref={ref}
       disabled={disabled}
+      aria-current={status === "current" ? "step" : undefined}
       className={`${classes["step-wrapper"]} ${additionalClasses.join(" ")}`}
     >
       <div className={classes["step-content"]}>
@@ -66,3 +71,5 @@ export const Step = ({ label, caption, status, index, direction, disabled }: Pro
     </button>
   );
 };
+
+export const Step = React.forwardRef(StepComponent);

@@ -23,9 +23,10 @@ export type Props = {
   direction: "horizontal" | "vertical";
 };
 
-export const Stepper = ({ steps, direction = "horizontal" }: Props) => {
+export const Stepper = ({ steps, direction = "horizontal", ...rest }: Props) => {
   return (
     <div
+      {...rest}
       className={`${classes["stepper"]} ${
         direction === "horizontal" ? classes["horizontal"] : classes["vertical"]
       }`}
