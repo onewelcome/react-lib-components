@@ -24,9 +24,9 @@ export interface Props extends ComponentPropsWithRef<"button"> {
   status: StepStatus;
   label: string;
   caption?: string;
-  index: number;
+  index?: number;
   disabled?: boolean;
-  direction: "horizontal" | "vertical";
+  direction?: "horizontal" | "vertical";
 }
 
 const getStepContent = (index: number, status: StepStatus) => {
@@ -62,7 +62,7 @@ export const StepComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> =
       className={`${classes["step-wrapper"]} ${additionalClasses.join(" ")}`}
     >
       <div className={classes["step-content"]}>
-        <div className={classes["step"]}>{getStepContent(index, status)}</div>
+        <div className={classes["step"]}>{getStepContent(index ? index : 0, status)}</div>
         <span className={classes["label"]}>
           {label}
           <span className={classes["caption"]}>{caption}</span>

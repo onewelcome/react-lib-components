@@ -1,0 +1,43 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as StepperStories from "./Stepper.stories.tsx";
+
+<Title />
+<Subtitle />
+
+The `Stepper` component is used to keep user informed about their progress in a multi-step process. It indicates what step they are on, what has been accomplished, what hasn't and where mistakes were made.
+
+It has the following props:
+
+```tsx
+steps: StepProps[];
+direction: "horizontal" | "vertical";
+```
+
+### `steps`
+
+This prop allows user to specify the array of `Steps`:
+
+```tsx
+status: StepStatus;
+label: string;
+caption?: string;
+index?: number;
+disabled?: boolean;
+direction?: "horizontal" | "vertical";
+```
+
+Each step must have a `label`, the `caption` is optional. User can specify the state of each step using the `status` prop. This interface extends the `ComponentPropsWithRef<"button">` interface which means that user can specify every `button` prop (such as `onClick`, `onBlur` etc.).
+
+### `direction`
+
+The stepper can be used both veritcally and horizontally. The default value of this props is `horizontal`
+
+## Examples
+
+<Canvas>
+  <Story of={StepperStories.BaseStepper} />
+</Canvas>
+
+## Props
+
+<ArgTypes story={PRIMARY_STORY} />

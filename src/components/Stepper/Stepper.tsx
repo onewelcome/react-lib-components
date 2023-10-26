@@ -14,14 +14,14 @@
  *    limitations under the License.
  */
 
-import React from "react";
-import { Step, StepStatus } from "./Step";
+import React, { ComponentPropsWithRef } from "react";
+import { Step, StepStatus, Props as StepProps } from "./Step";
 import classes from "./Stepper.module.scss";
 
-export type Props = {
-  steps: { label: string; caption?: string; status: StepStatus }[];
+export interface Props extends ComponentPropsWithRef<"div"> {
+  steps: StepProps[];
   direction: "horizontal" | "vertical";
-};
+}
 
 export const Stepper = ({ steps, direction = "horizontal", ...rest }: Props) => {
   return (
@@ -33,10 +33,10 @@ export const Stepper = ({ steps, direction = "horizontal", ...rest }: Props) => 
     >
       {steps.map((step, index) => (
         <Step
+          {...step}
           key={step.label.toLowerCase().replace(/\s/, "-")}
           index={index}
           direction={direction}
-          {...step}
         />
       ))}
     </div>

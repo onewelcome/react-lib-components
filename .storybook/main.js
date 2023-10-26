@@ -24,7 +24,8 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-a11y",
     "@storybook/addon-interactions",
-    "@onewelcome/storybook-addon-basestyling"
+    "@onewelcome/storybook-addon-basestyling",
+    "storybook-addon-pseudo-states"
   ],
   webpackFinal: async (config, { configType }) => {
     config.devtool = configType === "PRODUCTION" ? false : "eval-source-map";
