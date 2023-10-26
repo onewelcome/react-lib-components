@@ -18,44 +18,44 @@
 
 @mixin stepState($status: "waiting") {
   & .step-content .step {
-    color: var(--color-white);
+    color: var(--stepper-default-text-color);
 
     @if $status == "current" {
-      background-color: var(--color-blue500);
-      border-color: var(--color-blue500);
+      background-color: var(--stepper-current-color);
+      border-color: var(--stepper-current-color);
     } @else if $status == "done" {
-      background-color: var(--color-green500);
-      border-color: var(--color-green500);
+      background-color: var(--stepper-done-color);
+      border-color: var(--stepper-done-color);
     } @else if $status == "error" {
-      background-color: var(--color-red500);
-      border-color: var(--color-red500);
+      background-color: var(--stepper-error-color);
+      border-color: var(--stepper-error-color);
     } @else if $status == "waiting" {
-      color: var(--color-blue-grey200);
+      color: var(--stepper-waiting-color);
     }
   }
 
   &:not(:last-child)::after {
     @if $status == "current" or $status == "error" {
-      border-color: var(--color-blue-grey300);
+      border-color: var(--stepper-line-color);
     } @else if $status == "done" {
-      border-color: var(--color-blue-grey700);
+      border-color: var(--stepper-line-bold-color);
     }
   }
 
   &:hover {
     & .step-content .step {
       @if $status == "current" {
-        border-color: var(--color-blue600);
-        background-color: var(--color-blue600);
+        border-color: var(--stepper-current-hover-color);
+        background-color: var(--stepper-current-hover-color);
       } @else if $status == "done" {
-        border-color: var(--color-green600);
-        background-color: var(--color-green600);
+        border-color: var(--stepper-done-hover-color);
+        background-color: var(--stepper-done-hover-color);
       } @else if $status == "error" {
-        border-color: var(--color-red600);
-        background-color: var(--color-red600);
+        border-color: var(--stepper-error-hover-color);
+        background-color: var(--stepper-error-hover-color);
       } @else if $status == "waiting" {
-        border: 2px solid var(--color-blue-grey300);
-        color: var(--color-blue-grey300);
+        border: 2px solid var(--stepper-waiting-hover-color);
+        color: var(--stepper-waiting-hover-color);
       }
     }
   }
@@ -63,17 +63,17 @@
   &:active {
     & .step-content .step {
       @if $status == "current" {
-        border-color: var(--color-blue700);
-        background-color: var(--color-blue700);
+        border-color: var(--stepper-current-active-color);
+        background-color: var(--stepper-current-active-color);
       } @else if $status == "done" {
-        border-color: var(--color-green700);
-        background-color: var(--color-green700);
+        border-color: var(--stepper-done-active-color);
+        background-color: var(--stepper-done-active-color);
       } @else if $status == "error" {
-        border-color: var(--color-red700);
-        background-color: var(--color-red700);
+        border-color: var(--stepper-error-active-color);
+        background-color: var(--stepper-error-active-color);
       } @else if $status == "waiting" {
-        border: 2px solid var(--color-blue-grey400);
-        color: var(--color-blue-grey400);
+        border: 2px solid var(--stepper-waiting-active-color);
+        color: var(--stepper-waiting-active-color);
       }
     }
   }
@@ -83,36 +83,36 @@
 
     & .step-content .step {
       @if $status == "current" {
-        border-color: var(--color-blue100);
-        background-color: var(--color-blue100);
+        border-color: var(--stepper-current-disabled-color);
+        background-color: var(--stepper-current-disabled-color);
       } @else if $status == "done" {
-        border-color: var(--color-green200);
-        background-color: var(--color-green200);
+        border-color: var(--stepper-done-disabled-color);
+        background-color: var(--stepper-done-disabled-color);
       } @else if $status == "error" {
-        border-color: var(--color-red200);
-        background-color: var(--color-red200);
+        border-color: var(--stepper-error-disabled-color);
+        background-color: var(--stepper-error-disabled-color);
       } @else if $status == "waiting" {
-        border: 2px solid var(--color-blue-grey100);
-        color: var(--color-blue-grey100);
+        border: 2px solid var(--stepper-waiting-disabled-color);
+        color: var(--stepper-waiting-disabled-color);
       }
     }
 
     & .step-content .label {
-      color: var(--color-blue-grey400);
+      color: var(--stepper-label-disabled-color);
 
       & .caption {
-        color: var(--color-blue-grey400);
+        color: var(--stepper-caption-disabled-color);
 
         @if $status == "error" {
-          color: var(--color-red200);
+          color: var(--stepper-caption-error-disabled-color);
         }
       }
     }
     &:not(:last-child)::after {
-      border-color: var(--color-blue-grey100);
+      border-color: var(--stepper-line-disabled-color);
 
       @if $status == "done" {
-        border-color: var(--color-blue-grey300);
+        border-color: var(--stepper-line-bold-disabled-color);
       }
     }
   }
@@ -147,7 +147,7 @@
     content: "";
     margin: 0 0.5rem;
     width: 100%;
-    border-bottom: 2px solid var(--color-blue-grey300);
+    border-bottom: 2px solid var(--stepper-line-color);
   }
 
   &.vertical {
@@ -164,7 +164,7 @@
       content: "";
       border-bottom: none;
       margin: 0.5rem 0 0.5rem 1.6875rem;
-      border-left: 2px solid var(--color-blue-grey300);
+      border-left: 2px solid var(--stepper-line-color);
       height: 100%;
     }
   }
@@ -192,7 +192,7 @@
     @include stepState($status: "error");
 
     & .step-content .label .caption {
-      color: var(--color-red500);
+      color: var(--stepper-caption-error-color);
     }
   }
 }
@@ -205,9 +205,9 @@
   align-items: center;
   width: 1.75rem;
   height: 1.75rem;
-  border: 2px solid var(--color-blue-grey200);
+  border: 2px solid var(--stepper-waiting-color);
   border-radius: 50%;
-  font-size: 0.875rem;
+  font-size: var(--font-size-form-label);
   font-family: var(--font-family);
   font-weight: 700;
 }
@@ -216,13 +216,13 @@
   flex-shrink: 0;
   position: relative;
   margin-left: 0.5rem;
-  color: var(--color-blue-grey900);
+  color: var(--stepper-label-color);
 }
 
 .caption {
   position: absolute;
   top: 1.25rem;
   left: 0;
-  color: var(--color-blue-grey500);
+  color: var(--stepper-caption-color);
   font-size: 0.75rem;
 }
