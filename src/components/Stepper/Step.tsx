@@ -47,6 +47,7 @@ export const StepComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> =
   ref
 ) => {
   const additionalClasses = [];
+  const stepIndex = index ? index : 0;
 
   status === "waiting" && additionalClasses.push(classes["waiting"]);
   status === "current" && additionalClasses.push(classes["current"]);
@@ -62,7 +63,7 @@ export const StepComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> =
       className={`${classes["step-wrapper"]} ${additionalClasses.join(" ")}`}
     >
       <div className={classes["step-content"]}>
-        <div className={classes["step"]}>{getStepContent(index ? index : 0, status)}</div>
+        <div className={classes["step"]}>{getStepContent(stepIndex, status)}</div>
         <span className={classes["label"]}>
           {label}
           <span className={classes["caption"]}>{caption}</span>

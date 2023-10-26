@@ -15,7 +15,7 @@
  */
 
 import React, { ComponentPropsWithRef } from "react";
-import { Step, StepStatus, Props as StepProps } from "./Step";
+import { Step, Props as StepProps } from "./Step";
 import classes from "./Stepper.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
