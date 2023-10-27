@@ -64,7 +64,9 @@
     }
 
     span[data-icon] {
+      display: inline-block;
       font-size: 1.25rem;
+      width: 1.25rem;
     }
 
     &.top-icon,
