@@ -110,7 +110,7 @@ describe("<ContextMenu />", () => {
     expect(onChange).toHaveBeenCalled();
   });
 
-  it("should set active state based on value prop", async () => {
+  it("should set active state based on showActiveState ContextMenuItem prop", async () => {
     const onChange = jest.fn();
     const { getByTestId } = createContextMenu(defaultParams => ({
       ...defaultParams,
@@ -122,8 +122,7 @@ describe("<ContextMenu />", () => {
         <ContextMenuItem onClick={onClick} data-testid="contextmenuitem2" key="2">
           Example item 2
         </ContextMenuItem>
-      ],
-      onChange
+      ]
     }));
 
     const button = getByTestId("contextmenuitem");

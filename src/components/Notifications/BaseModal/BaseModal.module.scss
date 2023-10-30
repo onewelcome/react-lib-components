@@ -15,13 +15,13 @@
  */
 
 @use "../../../mixins.module.scss";
+@use "../../../variables.scss";
 
-$zIndex: 10;
 $marginTop: 3.125rem;
 
 .modal {
   position: fixed;
-  z-index: $zIndex;
+  z-index: variables.$modal-z-index;
   top: 0;
   left: 0;
   height: 100vh;
@@ -57,7 +57,7 @@ $marginTop: 3.125rem;
 .container {
   margin-top: $marginTop;
   background-color: var(--modal-background-color);
-  z-index: $zIndex + 1;
+  z-index: variables.$modal-z-index + 1;
   width: calc(100% - 2rem);
   height: auto;
   max-height: calc(90% - $marginTop);

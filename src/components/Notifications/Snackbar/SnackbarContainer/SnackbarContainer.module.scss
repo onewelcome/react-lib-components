@@ -14,10 +14,11 @@
  *    limitations under the License.
  */
 @use "../../../../mixins.module.scss";
+@use "../../../../variables.scss";
 
 .snackbars {
   position: fixed;
-  z-index: 20;
+  z-index: variables.$snackbar-z-index;
   width: 100%;
   display: flex;
   flex-direction: column;

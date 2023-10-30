@@ -43,7 +43,7 @@ export const useArrowNavigation = ({
       setFocusedContextMenuItem(selectedContextMenuItem);
     }
 
-    const codesToPrevenDefault = [
+    const codesToPreventDefault = [
       "ArrowDown",
       "ArrowUp",
       "ArrowLeft",
@@ -55,7 +55,7 @@ export const useArrowNavigation = ({
       "Home"
     ];
 
-    if (codesToPrevenDefault.includes(event.code)) {
+    if (codesToPreventDefault.includes(event.code)) {
       event.preventDefault();
     }
 
