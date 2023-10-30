@@ -107,7 +107,6 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         className={nativeInputClasses.join(" ")}
         onChange={onChangeHandler}
         checked={checked}
-        aria-invalid={!!error}
         aria-checked={checked}
         aria-describedby={describedBy}
         name={name}
