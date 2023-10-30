@@ -24,15 +24,20 @@ import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuIte
 import { action } from "@storybook/addon-actions";
 import { IconButton } from "../../src/components/Button/IconButton";
 import { Icon, Icons } from "../../src/components/Icon/Icon";
-import { Placement } from "../../src/hooks/usePosition";
+import { Offset, Placement, horizontal, vertical } from "../../src/hooks/usePosition";
 import ContextMenuDocumentation from "./ContextMenu.mdx";
 import { Typography } from "../../src/components/Typography/Typography";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { within, userEvent, waitFor, getByRole, getAllByRole } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { useStoryCentring } from "../utils/useStoryCentring";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
+import { Tooltip } from "../../src/components/Tooltip/Tooltip";
 
 const meta: Meta = {
+  /* fixme: currently it's impossible to add conditional exclusions: https://github.com/storybookjs/storybook/issues/18233
+   * when it's available we should include states only for chromatic
+   * excludeStories: /.*ContextMenuStates$/,
+   * */
   title: "components/Navigation/ContextMenu",
   component: ContextMenuComponent,
   parameters: {
@@ -69,12 +74,18 @@ const Template: Story<Props> = args => {
   });
   useStoryCentring();
 
+  //Only with combination with `value` to show controlled component behaviour
+  const [storyValue, setStoryValue] = useState(args.value);
+  const onChange = (_e: unknown, value: number) => setStoryValue(value);
+
   return (
     <Fragment>
       <ContextMenuComponent
         {...args}
         placement={{ vertical: placement.vertical, horizontal: placement.horizontal }}
         transformOrigin={transformOrigin}
+        onChange={storyValue !== undefined ? onChange : undefined}
+        value={storyValue}
       ></ContextMenuComponent>
       <div id="controls" style={{ marginTop: "20px", textAlign: "left" }}>
         <div
@@ -348,7 +359,7 @@ ContextMenuWithDecorativeElement.play = conditionalPlay(async ({ canvasElement }
 ContextMenuWithDecorativeElement.args = {
   id: "example-contextmenu",
   decorativeElement: (
-    <Typography variant="body-bold" spacing={{ marginLeft: 5, marginBottom: 0 }}>
+    <Typography variant="body-bold" spacing={{ marginLeft: 3, marginBottom: 0 }}>
       Decorative element
     </Typography>
   ),
@@ -365,3 +376,264 @@ ContextMenuWithDecorativeElement.args = {
 };
 
 ContextMenuWithDecorativeElement.storyName = "ContextMenu with decorative element";
+
+export const ControlledContextMenu = Template.bind({});
+
+ControlledContextMenu.args = {
+  ...ContextMenu.args,
+  value: 0
+};
+
+ControlledContextMenu.storyName = "ContextMenu with active state";
+
+export const ContextMenuStates = Template.bind({});
+
+const contextMenuStates: {
+  placement?: Placement;
+  transformOrigin?: Placement;
+  offset?: Offset;
+  emptySpace?: boolean;
+}[] = [
+  {},
+  {
+    placement: { horizontal: "right", vertical: "top" },
+    transformOrigin: { horizontal: "left", vertical: "top" }
+  },
+  { emptySpace: true },
+  {
+    placement: { horizontal: "left", vertical: "top" },
+    transformOrigin: { horizontal: "right", vertical: "top" }
+  },
+  {
+    placement: { horizontal: "left", vertical: "top" },
+    transformOrigin: { horizontal: "left", vertical: "top" }
+  },
+  {
+    placement: { horizontal: "right", vertical: "bottom" },
+    transformOrigin: { horizontal: "left", vertical: "top" }
+  },
+  {
+    placement: { horizontal: "right", vertical: "center" },
+    transformOrigin: { horizontal: "left", vertical: "top" }
+  },
+  {
+    placement: { horizontal: "left", vertical: "bottom" },
+    transformOrigin: { horizontal: "left", vertical: "top" }
+  },
+  { emptySpace: true },
+  {
+    placement: { horizontal: "left", vertical: "bottom" },
+    transformOrigin: { horizontal: "right", vertical: "top" }
+  },
+  {
+    placement: { horizontal: "right", vertical: "bottom" },
+    transformOrigin: { horizontal: "right", vertical: "top" }
+  },
+  {
+    offset: { top: 10, left: 10, right: 0, bottom: 0 }
+  },
+  {
+    offset: { top: 10, left: 10, right: 10, bottom: 10 }
+  },
+  {
+    offset: { top: 0, left: 0, right: 10, bottom: 10 }
+  }
+];
+
+ContextMenuStates.decorators = [
+  /* We need to place all context menu components on single page as the inside logic doesn't let 
+     the context menu be invisible, so the position is fixed and that mean those will overlaps
+   */
+  () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "start",
+          gap: 180,
+          flexWrap: "wrap"
+        }}
+      >
+        {contextMenuStates.map((state, index) =>
+          state.emptySpace ? (
+            <div key={index}></div>
+          ) : (
+            <ContextMenuComponent
+              key={index}
+              id={`context-menu-states_${index}`}
+              trigger={
+                <IconButton color="default" title="click me for contextmenu">
+                  <Icon icon={Icons.EllipsisAlt} />
+                </IconButton>
+              }
+              {...state}
+              show={true}
+            >
+              <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
+                Example item 1
+              </ContextMenuItem>
+              <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")}>
+                Example item 2
+              </ContextMenuItem>
+              <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")}>
+                Example item 3
+              </ContextMenuItem>
+            </ContextMenuComponent>
+          )
+        )}
+        <Tooltip
+          label={
+            <ContextMenuComponent
+              id="context-menu-states_first_selected"
+              trigger={
+                <IconButton color="default" title="click me for contextmenu">
+                  <Icon icon={Icons.EllipsisAlt} />
+                </IconButton>
+              }
+              value={0}
+              show={true}
+            >
+              <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
+                Example item 1
+              </ContextMenuItem>
+              <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")}>
+                Example item 2
+              </ContextMenuItem>
+              <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")}>
+                Example item 3
+              </ContextMenuItem>
+            </ContextMenuComponent>
+          }
+          location="top"
+          position="center"
+        >
+          Check first element by `value` prop
+        </Tooltip>
+        <Tooltip
+          label={
+            <ContextMenuComponent
+              id="context-menu-states_second_selected"
+              trigger={
+                <IconButton color="default" title="click me for contextmenu">
+                  <Icon icon={Icons.EllipsisAlt} />
+                </IconButton>
+              }
+              show={true}
+            >
+              <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
+                Example item 1
+              </ContextMenuItem>
+              <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")} showActiveState>
+                Example item 2
+              </ContextMenuItem>
+              <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")}>
+                Example item 3
+              </ContextMenuItem>
+            </ContextMenuComponent>
+          }
+          location="top"
+          position="center"
+        >
+          Check second element by `showActiveState` prop on that element
+        </Tooltip>
+        <ContextMenuComponent
+          id="context-menu-states_hover-active"
+          trigger={
+            <IconButton color="default" title="click me for contextmenu hover">
+              <Icon icon={Icons.EllipsisAlt} />
+            </IconButton>
+          }
+          show={true}
+        >
+          <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
+            Example item 1
+          </ContextMenuItem>
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 2 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_focus-active"
+          >
+            Example item 2
+          </ContextMenuItem>
+          <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")} showActiveState>
+            Example item 3
+          </ContextMenuItem>
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 4 onClick event")}
+            id="context-menu-states-btn_focus"
+          >
+            Example item 4
+          </ContextMenuItem>
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 5 onClick event")}
+            id="context-menu-states-btn_hover"
+          >
+            Example item 5
+          </ContextMenuItem>
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 6 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_hover-active"
+          >
+            Example item 6
+          </ContextMenuItem>
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 7 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_hover-active-focus"
+          >
+            Example item 7
+          </ContextMenuItem>
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 8 onClick event")}
+            id="context-menu-states-btn_pressed"
+          >
+            Example item 8
+          </ContextMenuItem>
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 9 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_pressed-active"
+          >
+            Example item 9
+          </ContextMenuItem>
+          <ContextMenuItem
+            onClick={action("ContextMenuItem 10 onClick event")}
+            showActiveState
+            id="context-menu-states-btn_pressed-active-focus"
+          >
+            Example item 10
+          </ContextMenuItem>
+        </ContextMenuComponent>
+      </div>
+    );
+  }
+];
+
+ContextMenuStates.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getAllByRole("menuitem").length).toBeGreaterThanOrEqual(1));
+});
+
+ContextMenuStates.parameters = {
+  pseudo: {
+    hover: [
+      "#context-menu-states-btn_hover",
+      "#context-menu-states-btn_hover-active",
+      "#context-menu-states-btn_hover-active-focus"
+    ],
+    focusVisible: [
+      "#context-menu-states-btn_hover-active-focus",
+      "#context-menu-states-btn_pressed-active-focus",
+      "#context-menu-states-btn_focus",
+      "#context-menu-states-btn_focus-active"
+    ],
+    active: [
+      "#context-menu-states-btn_pressed",
+      "#context-menu-states-btn_pressed-active",
+      "#context-menu-states-btn_pressed-active-focus",
+      "#context-menu-states-btn_focus-active"
+    ]
+  }
+};

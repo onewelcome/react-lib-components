@@ -15,16 +15,20 @@
  */
 
 @use "../../mixins.module.scss";
+@use "../../variables.scss";
 
 .popover {
   $transition-property: transform, opacity;
 
   position: fixed;
-  z-index: 100;
+  z-index: variables.$popover-z-index;
   pointer-events: none;
   background-color: var(--light);
-  border-radius: 8px;
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.29);
+  border-radius: 0.125rem;
+  box-shadow:
+    0px 4px 5px 0px rgba(1, 5, 50, 0.2),
+    0px 3px 14px 0px rgba(1, 5, 50, 0.12),
+    0px 8px 10px 0px rgba(1, 5, 50, 0.14);
   opacity: 0;
   transform: scale(0.5);
 
