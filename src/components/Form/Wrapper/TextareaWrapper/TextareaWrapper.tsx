@@ -34,7 +34,7 @@ export interface Props
   onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   onMouseEnter?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
-  success: boolean;
+  success?: boolean;
 }
 
 const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
