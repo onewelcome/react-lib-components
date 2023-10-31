@@ -31,6 +31,75 @@ jest.mock("../../../util/helper", () => ({
   })
 }));
 
+const renderSnackbarProvider = () => {
+  const AppComponent = () => {
+    const { addNotification } = useNotificationContext();
+    const [index, setIndex] = useState(0);
+    return (
+      <div>
+        content
+        <button
+          data-testid="show-success"
+          onClick={() => {
+            addNotification({
+              status: 200,
+              type: "success",
+              title: "Test Success",
+              message: "Test successful request"
+            });
+            setIndex(index + 1);
+          }}
+        >
+          Success
+        </button>
+        <button
+          data-testid="show-error"
+          onClick={() => {
+            addNotification({
+              status: 400,
+              type: "error",
+              title: "TestError",
+              message: "Test bad request"
+            });
+            setIndex(index + 1);
+          }}
+        >
+          Error
+        </button>
+      </div>
+    );
+  };
+
+  const queries = render(
+    <SnackbarProvider closeButtonTitle="close">
+      <NotificationProvider>
+        <AppComponent />
+      </NotificationProvider>
+    </SnackbarProvider>
+  );
+
+  const showSuccessSnackbarBtn = getByTestId(queries.container, "show-success");
+  const showErrorSnackbarBtn = getByTestId(queries.container, "show-error");
+
+  return {
+    ...queries,
+    showSuccessSnackbarBtn,
+    showErrorSnackbarBtn
+  };
+};
+
+describe("Actually shows the snackbars showing up", () => {
+  it("Shows the snackbars", async () => {
+    const { showSuccessSnackbarBtn, showErrorSnackbarBtn, getByText } = renderSnackbarProvider();
+
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showErrorSnackbarBtn);
+
+    await waitFor(() => expect(getByText("Test Success")).toBeInTheDocument());
+    await waitFor(() => expect(getByText("Test bad request")).toBeInTheDocument());
+  });
+});
+
 describe("Notification", () => {
   describe("useNotificationContext", () => {
     it("returns the correct context", () => {
@@ -376,74 +445,5 @@ describe("Notification", () => {
         });
       });
     });
-  });
-});
-
-const renderSnackbarProvider = () => {
-  const AppComponent = () => {
-    const { addNotification } = useNotificationContext();
-    const [index, setIndex] = useState(0);
-    return (
-      <div>
-        content
-        <button
-          data-testid="show-success"
-          onClick={() => {
-            addNotification({
-              status: 200,
-              type: "success",
-              title: "Test Success",
-              message: "Test successful request"
-            });
-            setIndex(index + 1);
-          }}
-        >
-          Success
-        </button>
-        <button
-          data-testid="show-error"
-          onClick={() => {
-            addNotification({
-              status: 400,
-              type: "error",
-              title: "TestError",
-              message: "Test bad request"
-            });
-            setIndex(index + 1);
-          }}
-        >
-          Error
-        </button>
-      </div>
-    );
-  };
-
-  const queries = render(
-    <SnackbarProvider closeButtonTitle="close">
-      <NotificationProvider>
-        <AppComponent />
-      </NotificationProvider>
-    </SnackbarProvider>
-  );
-
-  const showSuccessSnackbarBtn = getByTestId(queries.container, "show-success");
-  const showErrorSnackbarBtn = getByTestId(queries.container, "show-error");
-
-  return {
-    ...queries,
-    showSuccessSnackbarBtn,
-    showErrorSnackbarBtn
-  };
-};
-
-describe("Actually shows the snackbars showing up", () => {
-  it("Shows the snackbars", async () => {
-    const { showSuccessSnackbarBtn, showErrorSnackbarBtn, getByText } = renderSnackbarProvider();
-
-    await userEvent.click(showSuccessSnackbarBtn);
-    await userEvent.click(showErrorSnackbarBtn);
-
-    await waitFor(() => expect(getByText("Test Success")).toBeInTheDocument());
-    await waitFor(() => expect(getByText("Test bad request")).toBeInTheDocument());
   });
 });
