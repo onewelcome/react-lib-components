@@ -21,14 +21,14 @@ const createStepper = (params?: (defaultParams: Props) => Props) => {
   };
 };
 
-describe("Stepper should render", () => {
-  it("renders without crashing", () => {
+describe("<Stepper/> should render", () => {
+  it("should render without crashing", () => {
     const { StepperComponent } = createStepper();
 
     expect(StepperComponent).toBeDefined();
   });
 
-  it("renders given steps", () => {
+  it("should render given steps", () => {
     const { StepperComponent, getAllByText } = createStepper(params => ({
       ...params,
       steps: [
@@ -61,7 +61,7 @@ describe("Stepper should render", () => {
     expect(getAllByText(/Caption/i)).toHaveLength(4);
   });
 
-  it("renders the horizontal stepper", () => {
+  it("should render the horizontal stepper", () => {
     const { StepperComponent, getAllByText } = createStepper(params => ({
       ...params,
       direction: "horizontal"
@@ -71,7 +71,7 @@ describe("Stepper should render", () => {
     expect(StepperComponent.classList.contains("horizontal")).toBe(true);
   });
 
-  it("renders the vertical stepper", () => {
+  it("should render the vertical stepper", () => {
     const { StepperComponent } = createStepper(params => ({
       ...params,
       direction: "vertical"

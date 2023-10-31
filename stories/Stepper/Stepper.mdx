@@ -34,6 +34,45 @@ The stepper can be used both veritcally and horizontally. The default value of t
 
 ## Examples
 
+```tsx
+import React from "react";
+import { Stepper, StepperProps } from "@onewelcome/react-lib-components";
+
+const stepperProps: StepperProps = {
+  direction: "vertical",
+  steps: [
+    {
+      id: "hover",
+      label: "Step 1",
+      status: "waiting",
+      caption: "Caption"
+    },
+    {
+      id: "active",
+      label: "Step 2",
+      status: "waiting",
+      caption: "Caption"
+    },
+    {
+      id: "focus",
+      label: "Step 3",
+      status: "waiting",
+      caption: "Caption"
+    },
+    {
+      id: "disabled",
+      label: "Step 4",
+      status: "waiting",
+      caption: "Caption"
+    }
+  ]
+};
+
+export const StepperComponent = () => {
+  return <Stepper {...stepperProps} />;
+};
+```
+
 <Canvas>
   <Story of={StepperStories.BaseStepper} />
 </Canvas>

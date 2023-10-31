@@ -26,15 +26,12 @@ interface CSSProperties {
   colorPrimary?: string;
   colorSecondary?: string;
   colorTertiary?: string;
+  colorPrimary100?: string;
   colorPrimary300?: string;
   colorPrimary500?: string;
   colorPrimary600?: string;
   colorPrimary700?: string;
   colorPrimary900?: string;
-  colorBlue100?: string;
-  colorBlue500?: string;
-  colorBlue600?: string;
-  colorBlue700?: string;
   colorBlueGrey100?: string;
   colorBlueGrey200?: string;
   colorBlueGrey300?: string;
@@ -199,15 +196,12 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
+    colorPrimary100: "#CDD0EA",
     colorPrimary300: "#6871BF",
     colorPrimary500: "#041295",
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
-    colorBlue100: "#CDD0EA",
-    colorBlue500: "#041295",
-    colorBlue600: "#030F77",
-    colorBlue700: "#020B59",
     colorBlueGrey25: "#F7F7F9",
     colorBlueGrey25Transparent: "rgba(247, 247, 249, .8)",
     colorBlueGrey50: "#EEEFF3",
@@ -305,10 +299,10 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     stepperWaitingHoverColor: "var(--color-blue-grey300)",
     stepperWaitingActiveColor: "var(--color-blue-grey400)",
     stepperWaitingDisabledColor: "var(--color-blue-grey100)",
-    stepperCurrentColor: "var(--color-blue500)",
-    stepperCurrentHoverColor: "var(--color-blue600)",
-    stepperCurrentActiveColor: "var(--color-blue700)",
-    stepperCurrentDisabledColor: "var(--color-blue100)",
+    stepperCurrentColor: "var(--color-primary500)",
+    stepperCurrentHoverColor: "var(--color-primary600)",
+    stepperCurrentActiveColor: "var(--color-primary700)",
+    stepperCurrentDisabledColor: "var(--color-primary100)",
     stepperDoneColor: "var(--color-green500)",
     stepperDoneHoverColor: "var(--color-green600)",
     stepperDoneActiveColor: "var(--color-green700)",

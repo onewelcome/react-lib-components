@@ -101,19 +101,19 @@
       color: var(--stepper-label-disabled-color);
 
       & .caption {
-        color: var(--stepper-caption-disabled-color);
-
-        @if $status == "error" {
-          color: var(--stepper-caption-error-disabled-color);
-        }
+        color: if(
+          $status == "error",
+          var(--stepper-caption-error-disabled-color),
+          var(--stepper-caption-disabled-color)
+        );
       }
     }
     &:not(:last-child)::after {
-      border-color: var(--stepper-line-disabled-color);
-
-      @if $status == "done" {
-        border-color: var(--stepper-line-bold-disabled-color);
-      }
+      border-color: if(
+        $status == "done",
+        var(--stepper-line-bold-disabled-color),
+        var(--stepper-line-disabled-color)
+      );
     }
   }
 }

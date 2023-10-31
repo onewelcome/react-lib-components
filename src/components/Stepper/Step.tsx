@@ -46,14 +46,10 @@ export const StepComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> =
   { label, caption, status, index, direction, disabled, ...rest }: Props,
   ref
 ) => {
-  const additionalClasses = [];
-  const stepIndex = index ? index : 0;
-
-  status === "waiting" && additionalClasses.push(classes["waiting"]);
-  status === "current" && additionalClasses.push(classes["current"]);
-  status === "done" && additionalClasses.push(classes["done"]);
-  status === "error" && additionalClasses.push(classes["error"]);
+  const stepIndex = index ?? 0;
+  const additionalClasses = [classes[status]];
   direction === "vertical" && additionalClasses.push(classes["vertical"]);
+
   return (
     <button
       {...rest}

@@ -72,226 +72,148 @@ const Template: StoryFn<Props> = props => (
 
 export const BaseStepper = Template.bind({});
 
-export const StepperWaitingStates = Template.bind({});
+export const StepperStates = Template.bind({});
 
 const waitingStateProps: Props = {
   direction: "vertical",
   steps: [
     {
       id: "hover",
-      label: "Step 1",
+      label: "Step waiting 1",
       status: "waiting",
       caption: "Caption"
     },
     {
       id: "active",
-      label: "Step 2",
+      label: "Step waiting 2",
       status: "waiting",
       caption: "Caption"
     },
     {
       id: "focus",
-      label: "Step 3",
+      label: "Step waiting 3",
       status: "waiting",
       caption: "Caption"
     },
     {
       id: "disabled",
-      label: "Step 4",
+      label: "Step waiting 4",
       status: "waiting",
       caption: "Caption"
     }
   ]
 };
-
-StepperWaitingStates.decorators = [
-  () => {
-    return (
-      <div style={{ height: "50vh" }}>
-        <Stepper {...waitingStateProps} />
-      </div>
-    );
-  }
-];
-
-StepperWaitingStates.play = conditionalPlay(async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-
-  await waitFor(() => expect(canvas.getByText("Step 1")).toBeDefined());
-});
-
-StepperWaitingStates.parameters = {
-  pseudo: {
-    hover: "#hover",
-    active: "#active",
-    disabled: "#disabled",
-    focusVisible: "#focus"
-  }
-};
-
-export const StepperCurrentStates = Template.bind({});
 
 const currentStateProps: Props = {
   direction: "vertical",
   steps: [
     {
       id: "hover",
-      label: "Step 1",
+      label: "Step current 1",
       status: "current",
       caption: "Caption"
     },
     {
       id: "active",
-      label: "Step 2",
+      label: "Step current 2",
       status: "current",
       caption: "Caption"
     },
     {
       id: "focus",
-      label: "Step 2",
+      label: "Step current 3",
       status: "current",
       caption: "Caption"
     },
     {
       id: "disabled",
-      label: "Step 3",
+      label: "Step current 4",
       status: "current",
       caption: "Caption"
     }
   ]
 };
-
-StepperCurrentStates.decorators = [
-  () => {
-    return (
-      <div style={{ height: "50vh" }}>
-        <Stepper {...currentStateProps} />
-      </div>
-    );
-  }
-];
-
-StepperCurrentStates.play = conditionalPlay(async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-
-  await waitFor(() => expect(canvas.getByText("Step 1")).toBeDefined());
-});
-
-StepperCurrentStates.parameters = {
-  pseudo: {
-    hover: "#hover",
-    active: "#active",
-    disabled: "#disabled",
-    focusVisible: "#focus"
-  }
-};
-
-export const StepperDoneStates = Template.bind({});
 
 const doneStateProps: Props = {
   direction: "vertical",
   steps: [
     {
       id: "hover",
-      label: "Step 1",
+      label: "Step done 1",
       status: "done",
       caption: "Caption"
     },
     {
       id: "active",
-      label: "Step 2",
+      label: "Step done 2",
       status: "done",
       caption: "Caption"
     },
     {
       id: "focus",
-      label: "Step 3",
+      label: "Step done 3",
       status: "done",
       caption: "Caption"
     },
     {
       id: "disabled",
-      label: "Step 4",
+      label: "Step done 4",
       status: "done",
       caption: "Caption"
     }
   ]
 };
-
-StepperDoneStates.decorators = [
-  () => {
-    return (
-      <div style={{ height: "50vh" }}>
-        <Stepper {...doneStateProps} />
-      </div>
-    );
-  }
-];
-
-StepperDoneStates.play = conditionalPlay(async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-
-  await waitFor(() => expect(canvas.getByText("Step 1")).toBeDefined());
-});
-
-StepperDoneStates.parameters = {
-  pseudo: {
-    hover: "#hover",
-    active: "#active",
-    disabled: "#disabled",
-    focusVisible: "#focus"
-  }
-};
-
-export const StepperErrorStates = Template.bind({});
 
 const errorStateProps: Props = {
   direction: "vertical",
   steps: [
     {
       id: "hover",
-      label: "Step 1",
+      label: "Step error 1",
       status: "error",
       caption: "Caption"
     },
     {
       id: "active",
-      label: "Step 2",
+      label: "Step error 2",
       status: "error",
       caption: "Caption"
     },
     {
       id: "focus",
-      label: "Step 3",
+      label: "Step error 3",
       status: "error",
       caption: "Caption"
     },
     {
       id: "disabled",
-      label: "Step 4",
+      label: "Step error 4",
       status: "error",
       caption: "Caption"
     }
   ]
 };
 
-StepperErrorStates.decorators = [
+StepperStates.decorators = [
   () => {
     return (
-      <div style={{ height: "50vh" }}>
+      <div style={{ height: "50vh", display: "flex", gap: "1.5rem" }}>
+        <Stepper {...waitingStateProps} />
+        <Stepper {...currentStateProps} />
+        <Stepper {...doneStateProps} />
         <Stepper {...errorStateProps} />
       </div>
     );
   }
 ];
 
-StepperErrorStates.play = conditionalPlay(async ({ canvasElement }) => {
+StepperStates.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  await waitFor(() => expect(canvas.getByText("Step 1")).toBeDefined());
+  await waitFor(() => expect(canvas.getByText("Step current 1")).toBeDefined());
 });
 
-StepperErrorStates.parameters = {
+StepperStates.parameters = {
   pseudo: {
     hover: "#hover",
     active: "#active",
