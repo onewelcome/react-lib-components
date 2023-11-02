@@ -33,15 +33,6 @@ export default {
       preserveModulesRoot: "src/components",
       entryFileNames: "[name].esm.js",
       exports: "named"
-    },
-    {
-      dir: "dist/cjs",
-      format: "cjs",
-      sourcemap: true,
-      preserveModules: true,
-      preserveModulesRoot: "src/components",
-      entryFileNames: "[name].cjs.js",
-      exports: "named"
     }
   ],
   plugins: [

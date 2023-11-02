@@ -26,8 +26,22 @@ export interface ConfigObject {
   debounceAmount?: number;
 }
 
-export type HorizontalPlacement = "left" | "center" | "centerh" | "right";
-export type VerticalPlacement = "top" | "center" | "centerv" | "bottom";
+export enum horizontal {
+  LEFT = "left",
+  CENTER = "center",
+  CENTER_H = "centerh",
+  RIGHT = "right"
+}
+
+export enum vertical {
+  TOP = "top",
+  CENTER = "center",
+  CENTER_V = "centerv",
+  BOTTOM = "bottom"
+}
+
+export type HorizontalPlacement = `${horizontal}`;
+export type VerticalPlacement = `${vertical}`;
 
 type Axis = "vertical" | "horizontal";
 type RefElement = React.RefObject<HTMLOrSVGElement> | undefined;

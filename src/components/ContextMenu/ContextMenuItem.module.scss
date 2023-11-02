@@ -14,6 +14,9 @@
  *    limitations under the License.
  */
 
+@use "../../mixins.module.scss";
+@use "../../variables.scss";
+
 .context-menu-item {
   position: relative;
 
@@ -21,28 +24,50 @@
     background-color: transparent;
     border: 0;
     font-family: var(--font-family);
-    font-size: var(--font-size);
-    line-height: var(--default-line-height);
+    font-size: var(--font-size-form-label);
+    line-height: 1.25rem; //FIXME: UCL-395
     cursor: pointer;
     width: 100%;
     height: 100%;
-    padding: 0.5rem 1.25rem;
+    padding: 0.62rem 0.75rem;
     box-sizing: border-box;
-  }
 
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: transparent;
-    width: 100%;
-    height: 100%;
-    opacity: 0.1;
-    pointer-events: none;
-  }
+    &:focus-visible {
+      outline: none;
 
-  &:hover:after {
-    background-color: var(--color-primary);
+      &::after {
+        @include mixins.focusVisibleOutline($outlineOffset: 0, $selectors: null);
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: calc(variables.$popover-z-index + 1);
+      }
+    }
+
+    &:hover {
+      background-color: var(--context-menu-hover-color);
+    }
+
+    &:active {
+      background-color: var(--context-menu-pressed-color);
+    }
+
+    &.active {
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        border-top-right-radius: 0.125rem;
+        border-bottom-right-radius: 0.125rem;
+        border-left: 0.25rem solid var(--color-primary);
+      }
+
+      color: var(--color-primary);
+    }
   }
 }

@@ -62,6 +62,8 @@ interface CSSProperties {
   colorBlack100?: string;
   colorBlack20?: string;
   colorBlack10?: string;
+  defaultPressedColor?: string;
+  defaultHoverColor?: string;
   defaultLineHeight?: string;
   focusBorderRadius?: string;
   buttonBorderRadius?: string;
@@ -167,6 +169,8 @@ interface CSSProperties {
   toggleBackgroundColor?: string;
   tooltipBackgroundColor?: string;
   wizardStepIndicatorFutureColor?: string;
+  contextMenuHoverColor?: string;
+  contextMenuPressedColor?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -236,7 +240,9 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorPrimary: "var(--color-primary500)",
     colorSecondary: "var(--color-green500)",
     colorTertiary: "var(--color-light-blue600)",
-    defaultLineHeight: "1.5",
+    defaultPressedColor: "var(--color-blue-grey100)",
+    defaultHoverColor: "var(--color-blue-grey25)",
+    defaultLineHeight: "1.5", //FIXME: UCL-395
     defaultBorderRadius: "0.25rem",
     focusBorderRadius: "0.125rem",
     buttonBorderRadius: "var(--default-border-radius)",
@@ -266,11 +272,11 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonDefaultPressedColor: "var(--color-blue-grey800)",
     buttonOutlineHoverTextColor: "var(--color-primary600)",
     checkboxUncheckedHoverColor: "var(--color-blue-grey50)",
-    checkboxUncheckedPressedColor: "var(--color-blue-grey100)",
+    checkboxUncheckedPressedColor: "var(--default-pressed-color)",
     checkboxCheckedHoverColor: "var(--color-primary600)",
     checkboxCheckedPressedColor: "var(--color-primary700)",
     radioHoverBackgroundColor: "var(--color-blue-grey50)",
-    radioPressedBackgroundColor: "var(--color-blue-grey100)",
+    radioPressedBackgroundColor: "var(--default-pressed-color)",
     radioHoverColor: "var(--color-primary600)",
     radioPressedColor: "var(--color-primary700)",
     inputBorderRadius: "2px",
@@ -280,7 +286,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderColor: "var(--color-blue-grey500)",
     inputBackgroundColor: "var(--light)",
     inputHelperTextColor: "var(--color-blue-grey500)",
-    inputHoverBackgroundColor: "var(--color-blue-grey25)",
+    inputHoverBackgroundColor: "var(--default-hover-color)",
     inputDisabledBackgroundColor: "var(--input-hover-background-color)",
     dragBackgroundColor: "var(--color-blue-grey25-transparent)",
     dragBorderStyle: "solid",
@@ -325,7 +331,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     bannerBorderRadius: "2px",
     bannerBorderWidth: "0 0 0 4px",
     dataGridRowBackgroundColor: "transparent",
-    dataGridRowHoverBackgroundColor: "var(--color-blue-grey25)",
+    dataGridRowHoverBackgroundColor: "var(--default-hover-color)",
     progressBarBackgroundColor: "var(--disabled)",
     tabsBackgroundColor: "var(--light)",
     tabActiveBorderHeight: "0.25rem",
@@ -335,11 +341,13 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     tablistBorderStyle: "solid",
     tablistBorderColor: "var(--color-blue-grey100)",
     tabTextColor: "var(--color-blue-grey900)",
-    tabHoverColor: "var(--color-blue-grey25)",
-    tabPressedColor: "var(--color-blue-grey100)",
+    tabHoverColor: "var(--default-hover-color)",
+    tabPressedColor: "var(--default-pressed-color)",
     toggleBackgroundColor: "var(--color-blue-grey100)",
     tooltipBackgroundColor: "var(--default)",
     wizardStepIndicatorFutureColor: "var(--color-blue-grey200)",
+    contextMenuHoverColor: "var(--default-hover-color)",
+    contextMenuPressedColor: "var(--default-pressed-color)",
     default: "var(--color-blue-grey900)",
     success: "var(--color-green500)",
     error: "var(--color-red500)",
@@ -351,15 +359,15 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     light: "var(--color-white)",
     fontFamily: "Roboto, sans-serif",
     fontFamilyCode: "'Roboto Mono', monospace",
-    fontSizeFormLabel: "0.875rem",
-    fontSize: "1rem",
+    fontSizeFormLabel: "0.875rem", //FIXME: UCL-395
+    fontSize: "1rem", //FIXME: UCL-395
     fontSizeH1: "2.5rem",
     fontSizeH2: "1.625rem",
     fontSizeH3: "1.5rem",
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
-    formControlFontSize: "14px"
+    formControlFontSize: "0.875rem" //FIXME: UCL-395
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

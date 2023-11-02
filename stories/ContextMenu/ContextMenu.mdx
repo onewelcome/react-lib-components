@@ -35,13 +35,13 @@ The following code example will showcase how the [ContextMenu story](/story/comp
   placement={{ vertical: "bottom", horizontal: "left" }}
   transformOrigin={{ vertical: "top", horizontal: "left" }}
 >
-  <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")} key="1">
+  <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
     Example item 1
   </ContextMenuItem>
-  <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")} key="2">
+  <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")}>
     Example item 2
   </ContextMenuItem>
-  <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")} key="3">
+  <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")}>
     Example item 3
   </ContextMenuItem>
 </ContextMenu>
@@ -51,7 +51,7 @@ The following code example will showcase how the [ContextMenu story](/story/comp
   <Story of={ContextMenuStories.ContextMenuWithDecorativeElement} />
 </Canvas>
 
-The following code example shows how one can [add a decorative element to ContextMenu](story/components-navigation-contextmenu--context-menu-with-decorative-element).
+The following code example shows how one can [add a decorative element to ContextMenu](/story/components-navigation-contextmenu--context-menu-with-decorative-element).
 
 ```jsx
 <ContextMenu
@@ -69,8 +69,40 @@ The following code example shows how one can [add a decorative element to Contex
   placement={{ vertical: "bottom", horizontal: "left" }}
   transformOrigin={{ vertical: "top", horizontal: "left" }}
 >
-  <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")} key="1">
+  <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
     Example item 1
+  </ContextMenuItem>
+</ContextMenu>
+```
+
+<Canvas>
+  <Story of={ContextMenuStories.ControlledContextMenu} />
+</Canvas>
+
+The following code example shows how one can [control ContextMenu's active state by value](/story/components-navigation-contextmenu--context-menu-with-decorative-element).
+
+```jsx
+const [itemNo, setItemNo] = useState(-1);
+const onChange = (_e: unknown, itemNo: number) => setItemNo(itemNo);
+
+<ContextMenu
+  id="example-contextmenu-with-active-ribbon"
+  value={itemNo}
+  onChange={onChange}
+  trigger={
+    <IconButton color="default" title="click me for contextmenu">
+      <Icon icon={Icons.EllipsisAlt} />
+    </IconButton>
+  }
+>
+  <ContextMenuItem onClick={action("ContextMenuItem 1 onClick event")}>
+    Example item 1
+  </ContextMenuItem>
+  <ContextMenuItem onClick={action("ContextMenuItem 2 onClick event")}>
+    Example item 2
+  </ContextMenuItem>
+  <ContextMenuItem onClick={action("ContextMenuItem 3 onClick event")}>
+    Example item 3
   </ContextMenuItem>
 </ContextMenu>
 ```

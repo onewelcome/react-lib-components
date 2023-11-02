@@ -287,8 +287,19 @@
   }
 }
 
-@mixin focusVisibleOutline($color: var(--color-focus), $outlineWidth: 2px, $outlineOffset: 2px) {
-  &:focus-visible {
+@mixin focusVisibleOutline(
+  $color: var(--color-focus),
+  $outlineWidth: 0.125rem,
+  $outlineOffset: 0.125rem,
+  $selectors: "&:focus-visible"
+) {
+  @if $selectors {
+    #{$selectors} {
+      outline: $outlineWidth solid $color;
+      outline-offset: $outlineOffset;
+      border-radius: var(--focus-border-radius);
+    }
+  } @else {
     outline: $outlineWidth solid $color;
     outline-offset: $outlineOffset;
     border-radius: var(--focus-border-radius);
