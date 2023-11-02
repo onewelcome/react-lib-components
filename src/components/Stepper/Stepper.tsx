@@ -37,6 +37,7 @@ export const Stepper = ({ steps, direction = "horizontal", ...rest }: Props) => 
           key={step.label.toLowerCase().replace(/\s/, "-")}
           index={index}
           direction={direction}
+          lastStep={index + 1 === steps.length}
         />
       ))}
     </div>

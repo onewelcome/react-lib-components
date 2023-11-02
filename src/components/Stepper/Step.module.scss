@@ -146,7 +146,7 @@
   &:not(:last-child)::after {
     content: "";
     margin: 0 0.5rem;
-    width: 100%;
+    flex-grow: 1;
     border-bottom: 2px solid var(--stepper-line-color);
   }
 
@@ -166,6 +166,7 @@
       margin: 0.5rem 0 0.5rem 1.6875rem;
       border-left: 2px solid var(--stepper-line-color);
       height: 100%;
+      width: 100%;
     }
   }
 

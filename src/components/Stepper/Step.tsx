@@ -14,7 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
+import React, {
+  ComponentPropsWithRef,
+  ForwardRefRenderFunction,
+  useLayoutEffect,
+  useRef,
+  useState
+} from "react";
 import { Icon, Icons } from "../Icon/Icon";
 import classes from "./Step.module.scss";
 
@@ -25,6 +31,7 @@ export interface Props extends ComponentPropsWithRef<"button"> {
   label: string;
   caption?: string;
   index?: number;
+  lastStep?: boolean;
   disabled?: boolean;
   direction?: "horizontal" | "vertical";
 }
@@ -43,12 +50,34 @@ const getStepContent = (index: number, status: StepStatus) => {
 };
 
 export const StepComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { label, caption, status, index, direction, disabled, ...rest }: Props,
+  { label, caption, status, index, direction, disabled, lastStep, ...rest }: Props,
   ref
 ) => {
   const stepIndex = index ?? 0;
   const additionalClasses = [classes[status]];
+  const [stepContentHeight, setStepContentHeight] = useState<number>(28);
+  const [stepContentWidth, setStepContentWidth] = useState<number>(28);
   direction === "vertical" && additionalClasses.push(classes["vertical"]);
+
+  const captionRef = useRef<HTMLSpanElement>(null);
+  const labelRef = useRef<HTMLSpanElement>(null);
+  const stepContentRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (captionRef.current && stepContentRef.current && labelRef.current && lastStep) {
+      if (direction == "vertical") {
+        const capionHeight = captionRef.current?.getBoundingClientRect().height;
+        const stepContentHeight = stepContentRef.current?.getBoundingClientRect().height;
+        setStepContentHeight(capionHeight + stepContentHeight);
+      }
+
+      if (direction == "horizontal") {
+        const captionWidth = captionRef.current?.getBoundingClientRect().width;
+        const labelWidth = labelRef.current?.getBoundingClientRect().width;
+        setStepContentWidth(captionWidth > labelWidth ? captionWidth + 36 : labelWidth + 36);
+      }
+    }
+  }, []);
 
   return (
     <button
@@ -58,12 +87,23 @@ export const StepComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> =
       aria-current={status === "current" ? "step" : undefined}
       className={`${classes["step-wrapper"]} ${additionalClasses.join(" ")}`}
     >
-      <div className={classes["step-content"]}>
-        <div className={classes["step"]}>{getStepContent(stepIndex, status)}</div>
-        <span className={classes["label"]}>
-          {label}
-          <span className={classes["caption"]}>{caption}</span>
-        </span>
+      <div
+        style={{
+          height: lastStep && direction == "vertical" ? `${stepContentHeight}px` : "auto",
+          width: lastStep && direction == "horizontal" ? `${stepContentWidth}px` : "auto"
+        }}
+      >
+        <div ref={stepContentRef} className={classes["step-content"]}>
+          <div aria-hidden className={classes["step"]}>
+            {getStepContent(stepIndex, status)}
+          </div>
+          <span ref={labelRef} className={classes["label"]}>
+            {label}
+            <span ref={captionRef} className={classes["caption"]}>
+              {caption}
+            </span>
+          </span>
+        </div>
       </div>
     </button>
   );
