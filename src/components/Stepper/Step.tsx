@@ -66,14 +66,14 @@ export const StepComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> =
   useLayoutEffect(() => {
     if (captionRef.current && stepContentRef.current && labelRef.current && lastStep) {
       if (direction == "vertical") {
-        const capionHeight = captionRef.current?.getBoundingClientRect().height;
-        const stepContentHeight = stepContentRef.current?.getBoundingClientRect().height;
+        const capionHeight = captionRef.current.getBoundingClientRect().height;
+        const stepContentHeight = stepContentRef.current.getBoundingClientRect().height;
         setStepContentHeight(capionHeight + stepContentHeight);
       }
 
       if (direction == "horizontal") {
-        const captionWidth = captionRef.current?.getBoundingClientRect().width;
-        const labelWidth = labelRef.current?.getBoundingClientRect().width;
+        const captionWidth = captionRef.current.getBoundingClientRect().width;
+        const labelWidth = labelRef.current.getBoundingClientRect().width;
         setStepContentWidth(captionWidth > labelWidth ? captionWidth + 36 : labelWidth + 36);
       }
     }
