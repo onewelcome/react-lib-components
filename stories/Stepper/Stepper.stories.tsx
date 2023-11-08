@@ -197,11 +197,19 @@ const errorStateProps: Props = {
 StepperStates.decorators = [
   () => {
     return (
-      <div style={{ height: "50vh", display: "flex", gap: "1.5rem" }}>
-        <Stepper {...waitingStateProps} />
-        <Stepper {...currentStateProps} />
-        <Stepper {...doneStateProps} />
-        <Stepper {...errorStateProps} />
+      <div>
+        <div style={{ height: "40vh", display: "flex", gap: "1.5rem", marginBottom: "1rem" }}>
+          <Stepper {...waitingStateProps} />
+          <Stepper {...currentStateProps} />
+          <Stepper {...doneStateProps} />
+          <Stepper {...errorStateProps} />
+        </div>
+        <div style={{ height: "40vh", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <Stepper {...waitingStateProps} direction="horizontal" />
+          <Stepper {...currentStateProps} direction="horizontal" />
+          <Stepper {...doneStateProps} direction="horizontal" />
+          <Stepper {...errorStateProps} direction="horizontal" />
+        </div>
       </div>
     );
   }
