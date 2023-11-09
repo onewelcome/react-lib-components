@@ -218,7 +218,7 @@ StepperStates.decorators = [
 StepperStates.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  await waitFor(() => expect(canvas.getByText("Step current 1")).toBeDefined());
+  await waitFor(() => expect(canvas.getAllByText("Step current 1")).toHaveLength(2));
 });
 
 StepperStates.parameters = {
