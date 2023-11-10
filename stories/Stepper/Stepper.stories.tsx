@@ -204,6 +204,8 @@ StepperStates.decorators = [
           <Stepper {...doneStateProps} />
           <Stepper {...errorStateProps} />
         </div>
+        <br />
+        <br />
         <div style={{ height: "40vh", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           <Stepper {...waitingStateProps} direction="horizontal" />
           <Stepper {...currentStateProps} direction="horizontal" />
