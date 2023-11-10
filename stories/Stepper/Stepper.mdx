@@ -42,26 +42,27 @@ const stepperProps: StepperProps = {
   direction: "vertical",
   steps: [
     {
-      id: "hover",
       label: "Step 1",
       status: "waiting",
       caption: "Caption"
     },
     {
-      id: "active",
       label: "Step 2",
-      status: "waiting",
+      status: "current",
       caption: "Caption"
     },
     {
-      id: "focus",
       label: "Step 3",
-      status: "waiting",
+      status: "done",
       caption: "Caption"
     },
     {
-      id: "disabled",
       label: "Step 4",
+      status: "error",
+      caption: "Caption"
+    },
+    {
+      label: "Step 5",
       status: "waiting",
       caption: "Caption"
     }

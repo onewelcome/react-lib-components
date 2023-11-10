@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment } from "react";
+import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Stepper, Props } from "../../src/components/Stepper/Stepper";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
