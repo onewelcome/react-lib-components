@@ -1,0 +1,231 @@
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "../../mixins.module.scss";
+
+@mixin stepState($status: "waiting") {
+  & .step-content .step {
+    color: var(--stepper-default-text-color);
+
+    @if $status == "current" {
+      background-color: var(--stepper-current-color);
+      border-color: var(--stepper-current-color);
+    } @else if $status == "done" {
+      background-color: var(--stepper-done-color);
+      border-color: var(--stepper-done-color);
+    } @else if $status == "error" {
+      background-color: var(--stepper-error-color);
+      border-color: var(--stepper-error-color);
+    } @else if $status == "waiting" {
+      color: var(--stepper-waiting-color);
+    }
+  }
+
+  &:not(:last-child)::after {
+    @if $status == "current" or $status == "error" {
+      border-color: var(--stepper-line-color);
+    } @else if $status == "done" {
+      border-color: var(--stepper-line-bold-color);
+    }
+  }
+
+  &:hover {
+    & .step-content .step {
+      @if $status == "current" {
+        border-color: var(--stepper-current-hover-color);
+        background-color: var(--stepper-current-hover-color);
+      } @else if $status == "done" {
+        border-color: var(--stepper-done-hover-color);
+        background-color: var(--stepper-done-hover-color);
+      } @else if $status == "error" {
+        border-color: var(--stepper-error-hover-color);
+        background-color: var(--stepper-error-hover-color);
+      } @else if $status == "waiting" {
+        border: 2px solid var(--stepper-waiting-hover-color);
+        color: var(--stepper-waiting-hover-color);
+      }
+    }
+  }
+
+  &:active {
+    & .step-content .step {
+      @if $status == "current" {
+        border-color: var(--stepper-current-active-color);
+        background-color: var(--stepper-current-active-color);
+      } @else if $status == "done" {
+        border-color: var(--stepper-done-active-color);
+        background-color: var(--stepper-done-active-color);
+      } @else if $status == "error" {
+        border-color: var(--stepper-error-active-color);
+        background-color: var(--stepper-error-active-color);
+      } @else if $status == "waiting" {
+        border: 2px solid var(--stepper-waiting-active-color);
+        color: var(--stepper-waiting-active-color);
+      }
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+
+    & .step-content .step {
+      @if $status == "current" {
+        border-color: var(--stepper-current-disabled-color);
+        background-color: var(--stepper-current-disabled-color);
+      } @else if $status == "done" {
+        border-color: var(--stepper-done-disabled-color);
+        background-color: var(--stepper-done-disabled-color);
+      } @else if $status == "error" {
+        border-color: var(--stepper-error-disabled-color);
+        background-color: var(--stepper-error-disabled-color);
+      } @else if $status == "waiting" {
+        border: 2px solid var(--stepper-waiting-disabled-color);
+        color: var(--stepper-waiting-disabled-color);
+      }
+    }
+
+    & .step-content .label {
+      color: var(--stepper-label-disabled-color);
+
+      & .caption {
+        color: if(
+          $status == "error",
+          var(--stepper-caption-error-disabled-color),
+          var(--stepper-caption-disabled-color)
+        );
+      }
+    }
+    &:not(:last-child)::after {
+      border-color: if(
+        $status == "done",
+        var(--stepper-line-bold-disabled-color),
+        var(--stepper-line-disabled-color)
+      );
+    }
+  }
+}
+
+.step-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+  @include mixins.focusVisibleOutline($outlineOffset: 0px);
+
+  .step-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:last-child {
+    flex-grow: 0;
+    flex-basis: fit-content;
+  }
+
+  &:not(:last-child)::after {
+    content: "";
+    margin: 0 0.5rem;
+    flex-grow: 1;
+    min-width: 0.5rem;
+    border-bottom: 2px solid var(--stepper-line-color);
+  }
+
+  &.vertical {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    &:last-child {
+      flex-grow: 0;
+      flex-basis: fit-content;
+    }
+
+    &:not(:last-child)::after {
+      content: "";
+      border-bottom: none;
+      margin: 0.5rem 0 0.5rem 1.6875rem;
+      border-left: 2px solid var(--stepper-line-color);
+      min-height: 0.5rem;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &.waiting {
+    @include stepState($status: "waiting");
+  }
+
+  &.current {
+    @include stepState($status: "current");
+
+    & .step-content .label {
+      font-weight: 700;
+      & .caption {
+        font-weight: 400;
+      }
+    }
+  }
+
+  &.done {
+    @include stepState($status: "done");
+  }
+
+  &.error {
+    @include stepState($status: "error");
+
+    & .step-content .label .caption {
+      color: var(--stepper-caption-error-color);
+    }
+  }
+}
+
+.step {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 2px solid var(--stepper-waiting-color);
+  border-radius: 50%;
+  font-size: var(--font-size-form-label);
+  font-family: var(--font-family);
+  font-weight: 700;
+}
+
+.label {
+  flex-shrink: 0;
+  position: relative;
+  margin-left: 0.5rem;
+  color: var(--stepper-label-color);
+}
+
+.caption {
+  position: absolute;
+  top: 1.25rem;
+  left: 0;
+  color: var(--stepper-caption-color);
+  font-size: 0.75rem;
+}

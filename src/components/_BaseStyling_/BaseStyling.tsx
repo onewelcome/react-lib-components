@@ -26,6 +26,7 @@ interface CSSProperties {
   colorPrimary?: string;
   colorSecondary?: string;
   colorTertiary?: string;
+  colorPrimary100?: string;
   colorPrimary300?: string;
   colorPrimary500?: string;
   colorPrimary600?: string;
@@ -33,6 +34,7 @@ interface CSSProperties {
   colorPrimary900?: string;
   colorBlueGrey100?: string;
   colorBlueGrey200?: string;
+  colorBlueGrey300?: string;
   colorBlueGrey400?: string;
   colorBlueGrey25?: string;
   colorBlueGrey25Transparent?: string;
@@ -42,6 +44,7 @@ interface CSSProperties {
   colorBlueGrey800?: string;
   colorBlueGrey900?: string;
   colorGreen100?: string;
+  colorGreen200?: string;
   colorGreen500?: string;
   colorGreen600?: string;
   colorGreen700?: string;
@@ -51,10 +54,11 @@ interface CSSProperties {
   colorOrange500?: string;
   colorOrange600?: string;
   colorOrange700?: string;
+  colorRed200?: string;
   colorRed500?: string;
-  colorWhite?: string;
   colorRed600?: string;
   colorRed700?: string;
+  colorWhite?: string;
   colorBlack100?: string;
   colorBlack20?: string;
   colorBlack10?: string;
@@ -120,6 +124,33 @@ interface CSSProperties {
   snackbarErrorBackgroundColor?: string;
   snackbarWarningBackgroundColor?: string;
   snackbarBorderRadius?: string;
+  stepperWaitingColor?: string;
+  stepperWaitingHoverColor?: string;
+  stepperWaitingActiveColor?: string;
+  stepperWaitingDisabledColor?: string;
+  stepperCurrentColor?: string;
+  stepperCurrentHoverColor?: string;
+  stepperCurrentActiveColor?: string;
+  stepperCurrentDisabledColor?: string;
+  stepperDoneColor?: string;
+  stepperDoneHoverColor?: string;
+  stepperDoneActiveColor?: string;
+  stepperDoneDisabledColor?: string;
+  stepperErrorColor?: string;
+  stepperErrorHoverColor?: string;
+  stepperErrorActiveColor?: string;
+  stepperErrorDisabledColor?: string;
+  stepperDefaultTextColor?: string;
+  stepperLineColor?: string;
+  stepperLineBoldColor?: string;
+  stepperLineDisabledColor?: string;
+  stepperLineBoldDisabledColor?: string;
+  stepperLabelColor?: string;
+  stepperCaptionColor?: string;
+  stepperCaptionErrorColor?: string;
+  stepperLabelDisabledColor?: string;
+  stepperCaptionDisabledColor?: string;
+  stepperCaptionErrorDisabledColor?: string;
   bannerBorderRadius?: string;
   bannerBorderWidth?: string;
   dataGridRowBackgroundColor?: string;
@@ -169,6 +200,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BaseStyling = ({ children, properties = {} }: Props) => {
   const defaultProperties: CSSProperties = {
+    colorPrimary100: "#CDD0EA",
     colorPrimary300: "#6871BF",
     colorPrimary500: "#041295",
     colorPrimary600: "#030F77",
@@ -179,12 +211,14 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorBlueGrey50: "#EEEFF3",
     colorBlueGrey100: "#DEDEE6",
     colorBlueGrey200: "#BCBECE",
+    colorBlueGrey300: "#9A9DB5",
     colorBlueGrey400: "#797D9C",
     colorBlueGrey500: "#5D607E",
     colorBlueGrey700: "#383A4B",
     colorBlueGrey800: "#252733",
     colorBlueGrey900: "#131319",
     colorGreen100: "#D1E6DA",
+    colorGreen200: "#A2CDB4",
     colorGreen500: "#178244",
     colorGreen600: "#126836",
     colorGreen700: "#0E4E29",
@@ -193,6 +227,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorOrange500: "#E07900",
     colorOrange600: "#B36100",
     colorOrange700: "#864900",
+    colorRed200: "#F3A599",
     colorRed500: "#E01E00",
     colorRed600: "#B31800",
     colorRed700: "#861200",
@@ -266,6 +301,33 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     snackbarErrorBackgroundColor: "var(--color-red500)",
     snackbarWarningBackgroundColor: "var(--color-orange500)",
     snackbarBorderRadius: "2px",
+    stepperWaitingColor: "var(--color-blue-grey200)",
+    stepperWaitingHoverColor: "var(--color-blue-grey300)",
+    stepperWaitingActiveColor: "var(--color-blue-grey400)",
+    stepperWaitingDisabledColor: "var(--color-blue-grey100)",
+    stepperCurrentColor: "var(--color-primary500)",
+    stepperCurrentHoverColor: "var(--color-primary600)",
+    stepperCurrentActiveColor: "var(--color-primary700)",
+    stepperCurrentDisabledColor: "var(--color-primary100)",
+    stepperDoneColor: "var(--color-green500)",
+    stepperDoneHoverColor: "var(--color-green600)",
+    stepperDoneActiveColor: "var(--color-green700)",
+    stepperDoneDisabledColor: "var(--color-green200)",
+    stepperErrorColor: "var(--color-red500)",
+    stepperErrorHoverColor: "var(--color-red600)",
+    stepperErrorActiveColor: "var(--color-red700)",
+    stepperErrorDisabledColor: "var(--color-red200)",
+    stepperDefaultTextColor: "var(--color-white)",
+    stepperLineColor: "var(--color-blue-grey300)",
+    stepperLineBoldColor: "var(--color-blue-grey700)",
+    stepperLineDisabledColor: "var(--color-blue-grey100)",
+    stepperLineBoldDisabledColor: "var(--color-blue-grey300)",
+    stepperLabelColor: "var(--color-blue-grey900)",
+    stepperCaptionColor: "var(--color-blue-grey500)",
+    stepperCaptionErrorColor: "var(--color-red500)",
+    stepperLabelDisabledColor: "var(--color-blue-grey400)",
+    stepperCaptionDisabledColor: "var(--color-blue-grey400)",
+    stepperCaptionErrorDisabledColor: "var(--color-red200)",
     bannerBorderRadius: "2px",
     bannerBorderWidth: "0 0 0 4px",
     dataGridRowBackgroundColor: "transparent",

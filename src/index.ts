@@ -52,6 +52,8 @@ export { Skeleton } from "./components/Skeleton/Skeleton";
 export type { Props as SkeletonProps } from "./components/Skeleton/Skeleton";
 export { StatusIndicator } from "./components/StatusIndicator/StatusIndicator";
 export type { Props as StatusIndicatorProps } from "./components/StatusIndicator/StatusIndicator";
+export { Stepper } from "./components/Stepper/Stepper";
+export type { Props as StepperProps } from "./components/Stepper/Stepper";
 export { Pagination } from "./components/Pagination/Pagination";
 export type {
   Props as PaginationProps,
