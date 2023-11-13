@@ -19,7 +19,6 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Button, Props } from "../../src/components/Button/Button";
 import { ButtonProps, Icon, Icons } from "../../src";
 import ButtonsDocumentation from "./Button.mdx";
-import { StepperStates } from "../Stepper/Stepper.stories";
 
 const meta: Meta = {
   title: "components/Inputs/Button",
@@ -58,6 +57,13 @@ const Template: StoryFn<Props> = args => {
       This is a button
     </Button>
   );
+};
+
+export const SingleButton = Template.bind({});
+
+SingleButton.args = {
+  color: "primary",
+  variant: "fill"
 };
 
 export const ButtonStates = Template.bind({});
@@ -178,10 +184,9 @@ ButtonStates.decorators = [
     return (
       <>
         {buttonStates.map((states, index) => (
-          <>
+          <div style={{ marginBottom: "10px" }} key={index}>
             <Button
               id={states.event}
-              key={index}
               disabled={states.disabled}
               color={states.color}
               variant={states.variant}
@@ -190,12 +195,11 @@ ButtonStates.decorators = [
               startIcon={states.startIcon ? <Icon icon={Icons.Calendar} /> : false}
               loading={states.loading}
             >
-              {`${states.color} ${states.variant} ${states.disabled ? "disabled" : ""} ${
+              {`${states.variant} ${states.disabled ? "disabled" : ""} ${
                 states.event !== undefined ? states.event : ""
               }`}
             </Button>
-            <p></p>
-          </>
+          </div>
         ))}
       </>
     );
