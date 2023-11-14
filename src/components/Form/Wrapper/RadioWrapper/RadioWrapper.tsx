@@ -72,7 +72,7 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     );
 
   return (
-    <Fieldset {...fieldsetProps} error={error} disabled={disabled}>
+    <Fieldset {...fieldsetProps} disabled={disabled}>
       <Wrapper
         {...rest}
         ref={ref}

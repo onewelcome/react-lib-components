@@ -57,7 +57,7 @@ const CheckboxWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
     );
 
   return (
-    <Fieldset {...fieldsetProps} error={error} required={rest.required}>
+    <Fieldset {...fieldsetProps} required={rest.required}>
       <Wrapper
         {...rest}
         ref={ref}

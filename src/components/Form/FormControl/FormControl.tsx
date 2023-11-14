@@ -21,12 +21,11 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   children?: ReactElement | ReactElement[] | null;
   grid?: 1 | 2 | 3;
   align?: "top" | "start" | "middle" | "center" | "bottom" | "end" | "stretch";
-  error?: boolean;
   disabled?: boolean;
 }
 
 const FormControlComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, disabled, error, className, grid, align = "center", ...rest }: Props,
+  { children, disabled, className, grid, align = "center", ...rest }: Props,
   ref
 ) => {
   const renderChildren = () =>
@@ -36,8 +35,7 @@ const FormControlComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       }
 
       const childElement = React.cloneElement(child, {
-        disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
-        error: child.props.error !== undefined ? child.props.error : error
+        disabled: child.props.disabled !== undefined ? child.props.disabled : disabled
       });
 
       if (grid && grid > 1) {

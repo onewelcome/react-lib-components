@@ -41,7 +41,6 @@ export interface Props extends ComponentPropsWithRef<"fieldset"> {
   noPadding?: boolean;
   noBackground?: boolean;
   required?: boolean;
-  error?: boolean;
   disablePropagation?: boolean;
 }
 
@@ -57,7 +56,6 @@ const FieldsetComponent: ForwardRefRenderFunction<HTMLFieldSetElement, Props> = 
     noPadding = false,
     disabled = false,
     required = false,
-    error = false,
     disablePropagation = false,
     ...rest
   }: Props,
@@ -68,10 +66,10 @@ const FieldsetComponent: ForwardRefRenderFunction<HTMLFieldSetElement, Props> = 
       return;
     }
 
-    /* All right, so the issue is that whenever we try to add disabled and error to a component that doesn't accept it,
-    React will throw an error. However, it might occur that we want a component inside of Fieldset because of aesthetic purposes
-    (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
-    So instead we supply an array of components that we want to add the disabled and error prop to and check if child.type equals one of these. */
+    /* All right, so the issue is that whenever we try to add disabled to a component that doesn't accept it,
+        React will throw an error. However, it might occur that we want a component inside Fieldset because of aesthetic purposes
+        (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
+        So instead we supply an array of components that we want to add the disabled prop to and check if child.type equals one of these. */
     const allowedComponents: React.ComponentPropsWithRef<any>[] = [
       Input,
       Select,
@@ -91,8 +89,7 @@ const FieldsetComponent: ForwardRefRenderFunction<HTMLFieldSetElement, Props> = 
     return React.Children.map(children, (child: ReactElement) => {
       if (allowedComponents.includes(child.type) && !disablePropagation) {
         return React.cloneElement(child, {
-          disabled: child.props.disabled ?? disabled,
-          error: child.props.error ?? error
+          disabled: child.props.disabled ?? disabled
         });
       }
 
@@ -114,9 +111,7 @@ const FieldsetComponent: ForwardRefRenderFunction<HTMLFieldSetElement, Props> = 
           variant={legendStyle}
           tag="span"
           aria-hidden="true"
-          className={`${classes["legend"]} ${required ? classes["required"] : ""} ${
-            error ? classes["error"] : ""
-          }`}
+          className={`${classes["legend"]} ${required ? classes["required"] : ""}`}
         >
           {legend}
         </Typography>
