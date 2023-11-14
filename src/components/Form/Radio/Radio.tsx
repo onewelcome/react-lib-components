@@ -61,7 +61,9 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     parentHelperId
   });
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement> | React.MouseEvent) => {
+  const onChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement> | React.MouseEvent | React.KeyboardEvent
+  ) => {
     if (disabled) {
       return;
     }
@@ -118,7 +120,7 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       {checked && <Icon className={checkedRadioClasses.join(" ")} icon={Icons.Radio} />}
       {!checked && <Icon className={uncheckedRadioClasses.join(" ")} icon={Icons.Circle} />}
 
-      <label onClick={onChangeHandler} htmlFor={`${identifier}-radio`}>
+      <label onClick={onChangeHandler} onKeyDown={onChangeHandler} htmlFor={`${identifier}-radio`}>
         {children}
       </label>
     </FormSelectorWrapper>
