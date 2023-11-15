@@ -96,7 +96,11 @@ function _getPrototypeOf(o) {
 }
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/isNativeFunction.js
 function _isNativeFunction(fn) {
-  return Function.toString.call(fn).indexOf("[native code]") !== -1;
+  try {
+    return Function.toString.call(fn).indexOf("[native code]") !== -1;
+  } catch (e) {
+    return typeof fn === "function";
+  }
 }
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/isNativeReflectConstruct.js
 function _isNativeReflectConstruct() {
@@ -9543,6 +9547,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // Render.
     if (!options.skipRendering) {
       buildHtml.render(tocElement, nestedHeadings)
+    } else {
+      // No need to attach listeners if skipRendering is true, this was causing errors.
+      return this
     }
 
     // Update Sidebar and bind listeners.

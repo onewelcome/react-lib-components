@@ -165,14 +165,14 @@ __webpack_require__.d(__webpack_exports__, {
   rU: function() { return /* binding */ Link; }
 });
 
-// UNUSED EXPORTS: AbortedDeferredError, Await, Form, HashRouter, MemoryRouter, NavLink, Navigate, NavigationType, Outlet, Route, Router, RouterProvider, Routes, ScrollRestoration, UNSAFE_DataRouterContext, UNSAFE_DataRouterStateContext, UNSAFE_LocationContext, UNSAFE_NavigationContext, UNSAFE_RouteContext, UNSAFE_ViewTransitionContext, UNSAFE_useRouteId, UNSAFE_useScrollRestoration, createBrowserRouter, createHashRouter, createMemoryRouter, createPath, createRoutesFromChildren, createRoutesFromElements, createSearchParams, defer, generatePath, isRouteErrorResponse, json, matchPath, matchRoutes, parsePath, redirect, redirectDocument, renderMatches, resolvePath, unstable_HistoryRouter, unstable_useBlocker, unstable_usePrompt, unstable_useViewTransitionState, useActionData, useAsyncError, useAsyncValue, useBeforeUnload, useFetcher, useFetchers, useFormAction, useHref, useInRouterContext, useLinkClickHandler, useLoaderData, useLocation, useMatch, useMatches, useNavigate, useNavigation, useNavigationType, useOutlet, useOutletContext, useParams, useResolvedPath, useRevalidator, useRouteError, useRouteLoaderData, useRoutes, useSearchParams, useSubmit
+// UNUSED EXPORTS: AbortedDeferredError, Await, Form, HashRouter, MemoryRouter, NavLink, Navigate, NavigationType, Outlet, Route, Router, RouterProvider, Routes, ScrollRestoration, UNSAFE_DataRouterContext, UNSAFE_DataRouterStateContext, UNSAFE_FetchersContext, UNSAFE_LocationContext, UNSAFE_NavigationContext, UNSAFE_RouteContext, UNSAFE_ViewTransitionContext, UNSAFE_useRouteId, UNSAFE_useScrollRestoration, createBrowserRouter, createHashRouter, createMemoryRouter, createPath, createRoutesFromChildren, createRoutesFromElements, createSearchParams, defer, generatePath, isRouteErrorResponse, json, matchPath, matchRoutes, parsePath, redirect, redirectDocument, renderMatches, resolvePath, unstable_HistoryRouter, unstable_useBlocker, unstable_usePrompt, unstable_useViewTransitionState, useActionData, useAsyncError, useAsyncValue, useBeforeUnload, useFetcher, useFetchers, useFormAction, useHref, useInRouterContext, useLinkClickHandler, useLoaderData, useLocation, useMatch, useMatches, useNavigate, useNavigation, useNavigationType, useOutlet, useOutletContext, useParams, useResolvedPath, useRevalidator, useRouteError, useRouteLoaderData, useRoutes, useSearchParams, useSubmit
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__("./node_modules/react/index.js");
 var react_namespaceObject = /*#__PURE__*/__webpack_require__.t(react, 2);
 ;// CONCATENATED MODULE: ./node_modules/@remix-run/router/dist/router.js
 /**
- * @remix-run/router v1.10.0
+ * @remix-run/router v1.11.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -941,20 +941,29 @@ function router_matchPath(pattern, pathname) {
       end: true
     };
   }
-  let [matcher, paramNames] = compilePath(pattern.path, pattern.caseSensitive, pattern.end);
+  let [matcher, compiledParams] = compilePath(pattern.path, pattern.caseSensitive, pattern.end);
   let match = pathname.match(matcher);
   if (!match) return null;
   let matchedPathname = match[0];
   let pathnameBase = matchedPathname.replace(/(.)\/+$/, "$1");
   let captureGroups = match.slice(1);
-  let params = paramNames.reduce((memo, paramName, index) => {
+  let params = compiledParams.reduce((memo, _ref, index) => {
+    let {
+      paramName,
+      isOptional
+    } = _ref;
     // We need to compute the pathnameBase here using the raw splat value
     // instead of using params["*"] later because it will be decoded then
     if (paramName === "*") {
       let splatValue = captureGroups[index] || "";
       pathnameBase = matchedPathname.slice(0, matchedPathname.length - splatValue.length).replace(/(.)\/+$/, "$1");
     }
-    memo[paramName] = safelyDecodeURIComponent(captureGroups[index] || "", paramName);
+    const value = captureGroups[index];
+    if (isOptional && !value) {
+      memo[paramName] = undefined;
+    } else {
+      memo[paramName] = safelyDecodeURIComponent(value || "", paramName);
+    }
     return memo;
   }, {});
   return {
@@ -972,16 +981,21 @@ function compilePath(path, caseSensitive, end) {
     end = true;
   }
   warning(path === "*" || !path.endsWith("*") || path.endsWith("/*"), "Route path \"" + path + "\" will be treated as if it were " + ("\"" + path.replace(/\*$/, "/*") + "\" because the `*` character must ") + "always follow a `/` in the pattern. To get rid of this warning, " + ("please change the route path to \"" + path.replace(/\*$/, "/*") + "\"."));
-  let paramNames = [];
+  let params = [];
   let regexpSource = "^" + path.replace(/\/*\*?$/, "") // Ignore trailing / and /*, we'll handle it below
   .replace(/^\/*/, "/") // Make sure it has a leading /
-  .replace(/[\\.*+^$?{}|()[\]]/g, "\\$&") // Escape special regex chars
-  .replace(/\/:(\w+)/g, (_, paramName) => {
-    paramNames.push(paramName);
-    return "/([^\\/]+)";
+  .replace(/[\\.*+^${}|()[\]]/g, "\\$&") // Escape special regex chars
+  .replace(/\/:(\w+)(\?)?/g, (_, paramName, isOptional) => {
+    params.push({
+      paramName,
+      isOptional: isOptional != null
+    });
+    return isOptional ? "/?([^\\/]+)?" : "/([^\\/]+)";
   });
   if (path.endsWith("*")) {
-    paramNames.push("*");
+    params.push({
+      paramName: "*"
+    });
     regexpSource += path === "*" || path === "/*" ? "(.*)$" // Already matched the initial /, just match the rest
     : "(?:\\/(.+)|\\/*)$"; // Don't include the / in params["*"]
   } else if (end) {
@@ -998,7 +1012,7 @@ function compilePath(path, caseSensitive, end) {
     regexpSource += "(?:(?=\\/|$))";
   } else ;
   let matcher = new RegExp(regexpSource, caseSensitive ? undefined : "i");
-  return [matcher, paramNames];
+  return [matcher, params];
 }
 function safelyDecodeURI(value) {
   try {
@@ -1211,8 +1225,8 @@ class DeferredData {
     let onAbort = () => reject(new AbortedDeferredError("Deferred data aborted"));
     this.unlistenAbortSignal = () => this.controller.signal.removeEventListener("abort", onAbort);
     this.controller.signal.addEventListener("abort", onAbort);
-    this.data = Object.entries(data).reduce((acc, _ref) => {
-      let [key, value] = _ref;
+    this.data = Object.entries(data).reduce((acc, _ref2) => {
+      let [key, value] = _ref2;
       return Object.assign(acc, {
         [key]: this.trackPromise(key, value)
       });
@@ -1309,8 +1323,8 @@ class DeferredData {
   }
   get unwrappedData() {
     invariant(this.data !== null && this.done, "Can only unwrap data on initialized and settled deferreds");
-    return Object.entries(this.data).reduce((acc, _ref2) => {
-      let [key, value] = _ref2;
+    return Object.entries(this.data).reduce((acc, _ref3) => {
+      let [key, value] = _ref3;
       return Object.assign(acc, {
         [key]: unwrapTrackedPromise(value)
       });
@@ -1421,7 +1435,7 @@ const IDLE_NAVIGATION = {
   json: undefined,
   text: undefined
 };
-const IDLE_FETCHER = {
+const router_IDLE_FETCHER = {
   state: "idle",
   data: undefined,
   formMethod: undefined,
@@ -1474,6 +1488,7 @@ function router_createRouter(init) {
   let basename = init.basename || "/";
   // Config driven behavior flags
   let future = _extends({
+    v7_fetcherPersist: false,
     v7_normalizeFormMethod: false,
     v7_prependBasename: false
   }, init.future);
@@ -1576,6 +1591,11 @@ function router_createRouter(init) {
   let fetchRedirectIds = new Set();
   // Most recent href/match for fetcher.load calls for fetchers
   let fetchLoadMatches = new Map();
+  // Ref-count mounted fetchers so we know when it's ok to clean them up
+  let activeFetchers = new Map();
+  // Fetchers that have requested a delete when using v7_fetcherPersist,
+  // they'll be officially removed after they return to idle
+  let deletedFetchers = new Set();
   // Store DeferredData instances for active route matches.  When a
   // route loader returns defer() we stick one in here.  Then, when a nested
   // promise resolves we update loaderData.  If a new navigation starts we
@@ -1680,9 +1700,33 @@ function router_createRouter(init) {
   // Update our state and notify the calling context of the change
   function updateState(newState, viewTransitionOpts) {
     state = _extends({}, state, newState);
+    // Prep fetcher cleanup so we can tell the UI which fetcher data entries
+    // can be removed
+    let completedFetchers = [];
+    let deletedFetchersKeys = [];
+    if (future.v7_fetcherPersist) {
+      state.fetchers.forEach((fetcher, key) => {
+        if (fetcher.state === "idle") {
+          if (deletedFetchers.has(key)) {
+            // Unmounted from the UI and can be totally removed
+            deletedFetchersKeys.push(key);
+          } else {
+            // Returned to idle but still mounted in the UI, so semi-remains for
+            // revalidations and such
+            completedFetchers.push(key);
+          }
+        }
+      });
+    }
     subscribers.forEach(subscriber => subscriber(state, {
+      deletedFetchers: deletedFetchersKeys,
       unstable_viewTransitionOpts: viewTransitionOpts
     }));
+    // Remove idle fetchers from state since we only care about in-flight fetchers.
+    if (future.v7_fetcherPersist) {
+      completedFetchers.forEach(key => state.fetchers.delete(key));
+      deletedFetchersKeys.forEach(key => deleteFetcher(key));
+    }
   }
   // Complete a navigation returning the state.navigation back to the IDLE_NAVIGATION
   // and setting state.[historyAction/location/matches] to the new route.
@@ -2200,7 +2244,15 @@ function router_createRouter(init) {
     } : {});
   }
   function getFetcher(key) {
-    return state.fetchers.get(key) || IDLE_FETCHER;
+    if (future.v7_fetcherPersist) {
+      activeFetchers.set(key, (activeFetchers.get(key) || 0) + 1);
+      // If this fetcher was previously marked for deletion, unmark it since we
+      // have a new instance
+      if (deletedFetchers.has(key)) {
+        deletedFetchers.delete(key);
+      }
+    }
+    return state.fetchers.get(key) || router_IDLE_FETCHER;
   }
   // Trigger a fetcher load/submit for the given fetcher key
   function fetch(key, routeId, href, opts) {
@@ -2268,11 +2320,18 @@ function router_createRouter(init) {
     let originatingLoadId = incrementingLoadId;
     let actionResult = await callLoaderOrAction("action", fetchRequest, match, requestMatches, manifest, mapRouteProperties, basename);
     if (fetchRequest.signal.aborted) {
-      // We can delete this so long as we weren't aborted by ou our own fetcher
+      // We can delete this so long as we weren't aborted by our own fetcher
       // re-submit which would have put _new_ controller is in fetchControllers
       if (fetchControllers.get(key) === abortController) {
         fetchControllers.delete(key);
       }
+      return;
+    }
+    if (deletedFetchers.has(key)) {
+      state.fetchers.set(key, getDoneFetcher(undefined));
+      updateState({
+        fetchers: new Map(state.fetchers)
+      });
       return;
     }
     if (isRedirectResult(actionResult)) {
@@ -2379,7 +2438,7 @@ function router_createRouter(init) {
       let doneFetcher = getDoneFetcher(actionResult.data);
       state.fetchers.set(key, doneFetcher);
     }
-    let didAbortFetchLoads = abortStaleFetchLoads(loadId);
+    abortStaleFetchLoads(loadId);
     // If we are currently in a navigation loading state and this fetcher is
     // more recent than the navigation, we want the newer data so abort the
     // navigation and complete it with the fetcher data
@@ -2396,12 +2455,11 @@ function router_createRouter(init) {
       // otherwise just update with the fetcher data, preserving any existing
       // loaderData for loaders that did not need to reload.  We have to
       // manually merge here since we aren't going through completeNavigation
-      updateState(_extends({
+      updateState({
         errors,
-        loaderData: mergeLoaderData(state.loaderData, loaderData, matches, errors)
-      }, didAbortFetchLoads || revalidatingFetchers.length > 0 ? {
+        loaderData: mergeLoaderData(state.loaderData, loaderData, matches, errors),
         fetchers: new Map(state.fetchers)
-      } : {}));
+      });
       isRevalidationRequired = false;
     }
   }
@@ -2435,6 +2493,13 @@ function router_createRouter(init) {
     if (fetchRequest.signal.aborted) {
       return;
     }
+    if (deletedFetchers.has(key)) {
+      state.fetchers.set(key, getDoneFetcher(undefined));
+      updateState({
+        fetchers: new Map(state.fetchers)
+      });
+      return;
+    }
     // If the loader threw a redirect Response, start a new REPLACE navigation
     if (isRedirectResult(result)) {
       if (pendingNavigationLoadId > originatingLoadId) {
@@ -2454,17 +2519,7 @@ function router_createRouter(init) {
     }
     // Process any non-redirect errors thrown
     if (isErrorResult(result)) {
-      let boundaryMatch = findNearestBoundary(state.matches, routeId);
-      state.fetchers.delete(key);
-      // TODO: In remix, this would reset to IDLE_NAVIGATION if it was a catch -
-      // do we need to behave any differently with our non-redirect errors?
-      // What if it was a non-redirect Response?
-      updateState({
-        fetchers: new Map(state.fetchers),
-        errors: {
-          [boundaryMatch.route.id]: result.error
-        }
-      });
+      setFetcherError(key, routeId, result.error);
       return;
     }
     invariant(!isDeferredResult(result), "Unhandled fetcher deferred data");
@@ -2629,7 +2684,24 @@ function router_createRouter(init) {
     fetchLoadMatches.delete(key);
     fetchReloadIds.delete(key);
     fetchRedirectIds.delete(key);
+    deletedFetchers.delete(key);
     state.fetchers.delete(key);
+  }
+  function deleteFetcherAndUpdateState(key) {
+    if (future.v7_fetcherPersist) {
+      let count = (activeFetchers.get(key) || 0) - 1;
+      if (count <= 0) {
+        activeFetchers.delete(key);
+        deletedFetchers.add(key);
+      } else {
+        activeFetchers.set(key, count);
+      }
+    } else {
+      deleteFetcher(key);
+    }
+    updateState({
+      fetchers: new Map(state.fetchers)
+    });
   }
   function abortFetcher(key) {
     let controller = fetchControllers.get(key);
@@ -2819,7 +2891,7 @@ function router_createRouter(init) {
     createHref: to => init.history.createHref(to),
     encodeLocation: to => init.history.encodeLocation(to),
     getFetcher,
-    deleteFetcher,
+    deleteFetcher: deleteFetcherAndUpdateState,
     dispose,
     getBlocker,
     deleteBlocker,
@@ -4304,7 +4376,7 @@ function persistAppliedTransitions(_window, transitions) {
 
 ;// CONCATENATED MODULE: ./node_modules/react-router/dist/index.js
 /**
- * React Router v6.17.0
+ * React Router v6.18.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -5590,7 +5662,7 @@ function createMemoryRouter(routes, opts) {
 
 ;// CONCATENATED MODULE: ./node_modules/react-router-dom/dist/index.js
 /**
- * React Router DOM v6.17.0
+ * React Router DOM v6.18.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -5799,7 +5871,7 @@ function getFormSubmissionInfo(target, basename) {
 
 const _excluded = ["onClick", "relative", "reloadDocument", "replace", "state", "target", "to", "preventScrollReset", "unstable_viewTransition"],
   _excluded2 = (/* unused pure expression or super */ null && (["aria-current", "caseSensitive", "className", "end", "style", "to", "unstable_viewTransition", "children"])),
-  _excluded3 = (/* unused pure expression or super */ null && (["reloadDocument", "replace", "state", "method", "action", "onSubmit", "submit", "relative", "preventScrollReset", "unstable_viewTransition"]));
+  _excluded3 = (/* unused pure expression or super */ null && (["fetcherKey", "navigate", "reloadDocument", "replace", "state", "method", "action", "onSubmit", "relative", "preventScrollReset", "unstable_viewTransition"]));
 function createBrowserRouter(routes, opts) {
   return createRouter({
     basename: opts == null ? void 0 : opts.basename,
@@ -5883,6 +5955,8 @@ const ViewTransitionContext = /*#__PURE__*/react.createContext({
   isTransitioning: false
 });
 if (false) {}
+const FetchersContext = /*#__PURE__*/react.createContext(new Map());
+if (false) {}
 //#endregion
 ////////////////////////////////////////////////////////////////////////////////
 //#region Components
@@ -5953,6 +6027,7 @@ function dist_RouterProvider(_ref) {
   let [renderDfd, setRenderDfd] = React.useState();
   let [transition, setTransition] = React.useState();
   let [interruption, setInterruption] = React.useState();
+  let fetcherData = React.useRef(new Map());
   let {
     v7_startTransition
   } = future || {};
@@ -5965,8 +6040,15 @@ function dist_RouterProvider(_ref) {
   }, [v7_startTransition]);
   let setState = React.useCallback((newState, _ref2) => {
     let {
+      deletedFetchers,
       unstable_viewTransitionOpts: viewTransitionOpts
     } = _ref2;
+    deletedFetchers.forEach(key => fetcherData.current.delete(key));
+    newState.fetchers.forEach((fetcher, key) => {
+      if (fetcher.data !== undefined) {
+        fetcherData.current.set(key, fetcher.data);
+      }
+    });
     if (!viewTransitionOpts || router.window == null || typeof router.window.document.startViewTransition !== "function") {
       // Mid-navigation state update, or startViewTransition isn't available
       optInStartTransition(() => setStateImpl(newState));
@@ -5989,7 +6071,7 @@ function dist_RouterProvider(_ref) {
         nextLocation: viewTransitionOpts.nextLocation
       });
     }
-  }, [optInStartTransition, transition, renderDfd, router.window]);
+  }, [router.window, transition, renderDfd, fetcherData, optInStartTransition]);
   // Need to use a layout effect here so we are subscribed early enough to
   // pick up on any render-driven redirects/navigations (useEffect/<Navigate>)
   React.useLayoutEffect(() => router.subscribe(setState), [router, setState]);
@@ -6075,6 +6157,8 @@ function dist_RouterProvider(_ref) {
     value: dataRouterContext
   }, /*#__PURE__*/React.createElement(UNSAFE_DataRouterStateContext.Provider, {
     value: state
+  }, /*#__PURE__*/React.createElement(FetchersContext.Provider, {
+    value: fetcherData.current
   }, /*#__PURE__*/React.createElement(ViewTransitionContext.Provider, {
     value: vtContext
   }, /*#__PURE__*/React.createElement(Router, {
@@ -6085,7 +6169,7 @@ function dist_RouterProvider(_ref) {
   }, state.initialized ? /*#__PURE__*/React.createElement(dist_DataRoutes, {
     routes: router.routes,
     state: state
-  }) : fallbackElement)))), null);
+  }) : fallbackElement))))), null);
 }
 function dist_DataRoutes(_ref3) {
   let {
@@ -6348,32 +6432,26 @@ if (false) {}
  * requests, allowing components to add nicer UX to the page as the form is
  * submitted and returns with data.
  */
-const Form = /*#__PURE__*/(/* unused pure expression or super */ null && (React.forwardRef((props, ref) => {
-  let submit = useSubmit();
-  return /*#__PURE__*/React.createElement(FormImpl, react_router_dom_dist_extends({}, props, {
-    submit: submit,
-    ref: ref
-  }));
-})));
-if (false) {}
-const FormImpl = /*#__PURE__*/(/* unused pure expression or super */ null && (React.forwardRef((_ref9, forwardedRef) => {
+const Form = /*#__PURE__*/(/* unused pure expression or super */ null && (React.forwardRef((_ref9, forwardedRef) => {
   let {
+      fetcherKey,
+      navigate,
       reloadDocument,
       replace,
       state,
       method = defaultMethod,
       action,
       onSubmit,
-      submit,
       relative,
       preventScrollReset,
       unstable_viewTransition
     } = _ref9,
     props = _objectWithoutPropertiesLoose(_ref9, _excluded3);
-  let formMethod = method.toLowerCase() === "get" ? "get" : "post";
+  let submit = useSubmit();
   let formAction = useFormAction(action, {
     relative
   });
+  let formMethod = method.toLowerCase() === "get" ? "get" : "post";
   let submitHandler = event => {
     onSubmit && onSubmit(event);
     if (event.defaultPrevented) return;
@@ -6381,7 +6459,9 @@ const FormImpl = /*#__PURE__*/(/* unused pure expression or super */ null && (Re
     let submitter = event.nativeEvent.submitter;
     let submitMethod = (submitter == null ? void 0 : submitter.getAttribute("formmethod")) || method;
     submit(submitter || event.currentTarget, {
+      fetcherKey,
       method: submitMethod,
+      navigate,
       replace,
       state,
       relative,
@@ -6427,9 +6507,11 @@ var dist_DataRouterHook;
 })(dist_DataRouterHook || (dist_DataRouterHook = {}));
 var dist_DataRouterStateHook;
 (function (DataRouterStateHook) {
+  DataRouterStateHook["UseFetcher"] = "useFetcher";
   DataRouterStateHook["UseFetchers"] = "useFetchers";
   DataRouterStateHook["UseScrollRestoration"] = "useScrollRestoration";
 })(dist_DataRouterStateHook || (dist_DataRouterStateHook = {}));
+// Internal hooks
 function dist_getDataRouterConsoleError(hookName) {
   return hookName + " must be used within a data router.  See https://reactrouter.com/routers/picking-a-router.";
 }
@@ -6443,6 +6525,7 @@ function dist_useDataRouterState(hookName) {
   !state ?  false ? 0 : UNSAFE_invariant(false) : void 0;
   return state;
 }
+// External hooks
 /**
  * Handles the click behavior for router `<Link>` components. This is useful if
  * you need to create custom `<Link>` components with the same click behavior we
@@ -6505,6 +6588,8 @@ function validateClientSideSubmission() {
     throw new Error("You are calling submit during the server render. " + "Try calling submit within a `useEffect` or callback instead.");
   }
 }
+let fetcherId = 0;
+let getUniqueFetcherId = () => "__" + String(++fetcherId) + "__";
 /**
  * Returns a function that may be used to programmatically submit a form (or
  * some arbitrary data) to the server.
@@ -6529,50 +6614,29 @@ function useSubmit() {
       formData,
       body
     } = getFormSubmissionInfo(target, basename);
-    router.navigate(options.action || action, {
-      preventScrollReset: options.preventScrollReset,
-      formData,
-      body,
-      formMethod: options.method || method,
-      formEncType: options.encType || encType,
-      replace: options.replace,
-      state: options.state,
-      fromRouteId: currentRouteId,
-      unstable_viewTransition: options.unstable_viewTransition
-    });
-  }, [router, basename, currentRouteId]);
-}
-/**
- * Returns the implementation for fetcher.submit
- */
-function useSubmitFetcher(fetcherKey, fetcherRouteId) {
-  let {
-    router
-  } = dist_useDataRouterContext(dist_DataRouterHook.UseSubmitFetcher);
-  let {
-    basename
-  } = React.useContext(UNSAFE_NavigationContext);
-  return React.useCallback(function (target, options) {
-    if (options === void 0) {
-      options = {};
+    if (options.navigate === false) {
+      let key = options.fetcherKey || getUniqueFetcherId();
+      router.fetch(key, currentRouteId, options.action || action, {
+        preventScrollReset: options.preventScrollReset,
+        formData,
+        body,
+        formMethod: options.method || method,
+        formEncType: options.encType || encType
+      });
+    } else {
+      router.navigate(options.action || action, {
+        preventScrollReset: options.preventScrollReset,
+        formData,
+        body,
+        formMethod: options.method || method,
+        formEncType: options.encType || encType,
+        replace: options.replace,
+        state: options.state,
+        fromRouteId: currentRouteId,
+        unstable_viewTransition: options.unstable_viewTransition
+      });
     }
-    validateClientSideSubmission();
-    let {
-      action,
-      method,
-      encType,
-      formData,
-      body
-    } = getFormSubmissionInfo(target, basename);
-    !(fetcherRouteId != null) ?  false ? 0 : UNSAFE_invariant(false) : void 0;
-    router.fetch(fetcherKey, fetcherRouteId, options.action || action, {
-      preventScrollReset: options.preventScrollReset,
-      formData,
-      body,
-      formMethod: options.method || method,
-      formEncType: options.encType || encType
-    });
-  }, [router, basename, fetcherKey, fetcherRouteId]);
+  }, [router, basename, currentRouteId]);
 }
 // v7: Eventually we should deprecate this entirely in favor of using the
 // router method directly?
@@ -6622,61 +6686,74 @@ function useFormAction(action, _temp2) {
   }
   return createPath(path);
 }
-function createFetcherForm(fetcherKey, routeId) {
-  let FetcherForm = /*#__PURE__*/React.forwardRef((props, ref) => {
-    let submit = useSubmitFetcher(fetcherKey, routeId);
-    return /*#__PURE__*/React.createElement(FormImpl, react_router_dom_dist_extends({}, props, {
-      ref: ref,
-      submit: submit
-    }));
-  });
-  if (false) {}
-  return FetcherForm;
-}
-let fetcherId = 0;
 // TODO: (v7) Change the useFetcher generic default from `any` to `unknown`
 /**
  * Interacts with route loaders and actions without causing a navigation. Great
  * for any interaction that stays on the same page.
  */
-function useFetcher() {
+function useFetcher(_temp3) {
   var _route$matches;
+  let {
+    key
+  } = _temp3 === void 0 ? {} : _temp3;
   let {
     router
   } = dist_useDataRouterContext(dist_DataRouterHook.UseFetcher);
+  let state = dist_useDataRouterState(dist_DataRouterStateHook.UseFetcher);
+  let fetcherData = React.useContext(FetchersContext);
   let route = React.useContext(UNSAFE_RouteContext);
-  !route ?  false ? 0 : UNSAFE_invariant(false) : void 0;
   let routeId = (_route$matches = route.matches[route.matches.length - 1]) == null ? void 0 : _route$matches.route.id;
+  !fetcherData ?  false ? 0 : UNSAFE_invariant(false) : void 0;
+  !route ?  false ? 0 : UNSAFE_invariant(false) : void 0;
   !(routeId != null) ?  false ? 0 : UNSAFE_invariant(false) : void 0;
-  let [fetcherKey] = React.useState(() => String(++fetcherId));
-  let [Form] = React.useState(() => {
-    !routeId ?  false ? 0 : UNSAFE_invariant(false) : void 0;
-    return createFetcherForm(fetcherKey, routeId);
-  });
-  let [load] = React.useState(() => href => {
-    !router ?  false ? 0 : UNSAFE_invariant(false) : void 0;
-    !routeId ?  false ? 0 : UNSAFE_invariant(false) : void 0;
-    router.fetch(fetcherKey, routeId, href);
-  });
-  let submit = useSubmitFetcher(fetcherKey, routeId);
-  let fetcher = router.getFetcher(fetcherKey);
-  let fetcherWithComponents = React.useMemo(() => react_router_dom_dist_extends({
-    Form,
-    submit,
-    load
-  }, fetcher), [fetcher, Form, submit, load]);
+  // Fetcher key handling
+  let [fetcherKey, setFetcherKey] = React.useState(key || "");
+  if (!fetcherKey) {
+    setFetcherKey(getUniqueFetcherId());
+  }
+  // Registration/cleanup
   React.useEffect(() => {
-    // Is this busted when the React team gets real weird and calls effects
-    // twice on mount?  We really just need to garbage collect here when this
-    // fetcher is no longer around.
+    router.getFetcher(fetcherKey);
     return () => {
-      if (!router) {
-        console.warn("No router available to clean up from useFetcher()");
-        return;
-      }
+      // Tell the router we've unmounted - if v7_fetcherPersist is enabled this
+      // will not delete immediately but instead queue up a delete after the
+      // fetcher returns to an `idle` state
       router.deleteFetcher(fetcherKey);
     };
   }, [router, fetcherKey]);
+  // Fetcher additions
+  let load = React.useCallback(href => {
+    !routeId ?  false ? 0 : UNSAFE_invariant(false) : void 0;
+    router.fetch(fetcherKey, routeId, href);
+  }, [fetcherKey, routeId, router]);
+  let submitImpl = useSubmit();
+  let submit = React.useCallback((target, opts) => {
+    submitImpl(target, react_router_dom_dist_extends({}, opts, {
+      navigate: false,
+      fetcherKey
+    }));
+  }, [fetcherKey, submitImpl]);
+  let FetcherForm = React.useMemo(() => {
+    let FetcherForm = /*#__PURE__*/React.forwardRef((props, ref) => {
+      return /*#__PURE__*/React.createElement(Form, react_router_dom_dist_extends({}, props, {
+        navigate: false,
+        fetcherKey: fetcherKey,
+        ref: ref
+      }));
+    });
+    if (false) {}
+    return FetcherForm;
+  }, [fetcherKey]);
+  // Exposed FetcherWithComponents
+  let fetcher = state.fetchers.get(fetcherKey) || IDLE_FETCHER;
+  let data = fetcherData.get(fetcherKey);
+  let fetcherWithComponents = React.useMemo(() => react_router_dom_dist_extends({
+    Form: FetcherForm,
+    submit,
+    load
+  }, fetcher, {
+    data
+  }), [FetcherForm, submit, load, fetcher, data]);
   return fetcherWithComponents;
 }
 /**
@@ -6685,18 +6762,23 @@ function useFetcher() {
  */
 function useFetchers() {
   let state = dist_useDataRouterState(dist_DataRouterStateHook.UseFetchers);
-  return [...state.fetchers.values()];
+  return Array.from(state.fetchers.entries()).map(_ref11 => {
+    let [key, fetcher] = _ref11;
+    return react_router_dom_dist_extends({}, fetcher, {
+      key
+    });
+  });
 }
 const SCROLL_RESTORATION_STORAGE_KEY = "react-router-scroll-positions";
 let savedScrollPositions = {};
 /**
  * When rendered inside a RouterProvider, will restore scroll positions on navigations
  */
-function useScrollRestoration(_temp3) {
+function useScrollRestoration(_temp4) {
   let {
     getKey,
     storageKey
-  } = _temp3 === void 0 ? {} : _temp3;
+  } = _temp4 === void 0 ? {} : _temp4;
   let {
     router
   } = dist_useDataRouterContext(dist_DataRouterHook.UseScrollRestoration);
@@ -6834,11 +6916,11 @@ function usePageHide(callback, options) {
  * very incorrectly in some cases) across browsers if user click addition
  * back/forward navigations while the confirm is open.  Use at your own risk.
  */
-function usePrompt(_ref11) {
+function usePrompt(_ref12) {
   let {
     when,
     message
-  } = _ref11;
+  } = _ref12;
   let blocker = unstable_useBlocker(when);
   React.useEffect(() => {
     if (blocker.state === "blocked") {
