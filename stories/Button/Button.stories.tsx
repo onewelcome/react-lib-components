@@ -15,9 +15,9 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Button, Props } from "../../src/components/Button/Button";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
+import { ButtonProps, Icon, Icons } from "../../src";
 import ButtonsDocumentation from "./Button.mdx";
 
 const meta: Meta = {
@@ -46,7 +46,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   return (
     <Button
       {...args}
@@ -59,55 +59,157 @@ const Template: Story<Props> = args => {
   );
 };
 
-export const FilledButton = Template.bind({});
+export const SingleButton = Template.bind({});
 
-FilledButton.args = {
+SingleButton.args = {
   color: "primary",
-  variant: "fill",
-  type: "button"
+  variant: "fill"
 };
 
-export const OutlineButton = Template.bind({});
+export const ButtonStates = Template.bind({});
 
-OutlineButton.args = {
-  color: "primary",
-  variant: "outline",
-  type: "button"
-};
+const buttonStates: Array<
+  Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
+    endIcon?: boolean;
+    startIcon?: boolean;
+    event?: "hover" | "active" | "focus";
+    type?: "button";
+  }
+> = [
+  {
+    color: "primary",
+    variant: "fill"
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    event: "hover"
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    event: "active"
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    event: "focus"
+  },
+  {
+    color: "primary",
+    variant: "outline",
+    event: "hover"
+  },
+  {
+    color: "primary",
+    variant: "outline",
+    event: "active"
+  },
+  {
+    color: "primary",
+    variant: "outline",
+    event: "focus"
+  },
+  {
+    color: "primary",
+    variant: "outline"
+  },
+  {
+    color: "primary",
+    variant: "text"
+  },
+  {
+    color: "primary",
+    variant: "text",
+    event: "hover"
+  },
+  {
+    color: "primary",
+    variant: "text",
+    event: "active"
+  },
+  {
+    color: "primary",
+    variant: "text",
+    event: "focus"
+  },
+  {
+    color: "primary",
+    variant: "text",
+    disabled: true
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    disabled: true
+  },
+  {
+    color: "primary",
+    variant: "outline",
+    disabled: true,
+    loading: true
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    loading: true,
+    disabled: false
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    disabled: true,
+    loading: true
+  },
+  {
+    color: "primary",
+    variant: "outline",
+    loading: true,
+    disabled: false
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    startIcon: true
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    endIcon: true
+  }
+];
 
-export const TextButton = Template.bind({});
+ButtonStates.decorators = [
+  () => {
+    return (
+      <>
+        {buttonStates.map((states, index) => (
+          <div style={{ marginBottom: "10px" }} key={index}>
+            <Button
+              id={states.event}
+              disabled={states.disabled}
+              color={states.color}
+              variant={states.variant}
+              type={states.type}
+              endIcon={states.endIcon ? <Icon icon={Icons.Calendar} /> : false}
+              startIcon={states.startIcon ? <Icon icon={Icons.Calendar} /> : false}
+              loading={states.loading}
+            >
+              {`${states.variant} ${states.disabled ? "disabled" : ""} ${
+                states.event !== undefined ? states.event : ""
+              }`}
+            </Button>
+          </div>
+        ))}
+      </>
+    );
+  }
+];
 
-TextButton.args = {
-  color: "primary",
-  variant: "text",
-  type: "button"
-};
-
-export const StartIconButton = Template.bind({});
-export const EndIconButton = Template.bind({});
-
-StartIconButton.args = {
-  startIcon: Icons.Calendar,
-  color: "primary",
-  variant: "fill",
-  type: "button"
-};
-
-EndIconButton.args = {
-  endIcon: Icons.Calendar,
-  color: "primary",
-  variant: "fill",
-  type: "button"
-};
-
-export const DisabledButton = Template.bind({});
-
-DisabledButton.args = {
-  disabled: true
-};
-
-export const LoadingButton = Template.bind({});
-
-LoadingButton.args = {
-  loading: true
+ButtonStates.parameters = {
+  pseudo: {
+    hover: "#hover",
+    active: "#active",
+    focusVisible: "#focus"
+  }
 };
