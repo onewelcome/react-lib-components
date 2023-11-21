@@ -6,7 +6,7 @@ import * as FieldsetStories from "./Fieldset.stories.tsx";
 
 The `Fieldset` component is created to improve accessibility and give you an easier time with creating sections between parts of the form. The `title` prop will create a `legend` HTMLElement for you, which is hidden and used for screenreader purposes only. A `Typography` component that you can control through the `titleVariant` prop is rendered instead. You can also optionally hide the title by providing `true` to the `hideTitle` prop.
 
-By default, the `Fieldset` component will propagate its `error` and `disabled` prop to any Form component nested inside of it. This includes the following components:
+By default, the `Fieldset` component will propagate its `disabled` prop to any Form component nested inside of it. This includes the following components:
 
 - Checkbox
 - CheckboxWrapper
@@ -24,7 +24,7 @@ By default, the `Fieldset` component will propagate its `error` and `disabled` p
 - TextareaWrapper
 - Toggle
 
-If, for some reason, you want to handle all of the `error` and `disabled` props yourself, you can set the `disablePropagation` prop of the `Fieldset` component to `true`. This will disable this behavior.
+If, for some reason, you want to handle all `disabled` props yourself, you can set the `disablePropagation` prop of the `Fieldset` component to `true`. This will disable this behavior.
 
 # Examples
 
