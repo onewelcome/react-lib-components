@@ -64,6 +64,7 @@ export type {
 
 /* Utils */
 export { useRepeater } from "./hooks/useRepeater";
+export { usePosition, Placement } from "./hooks/usePosition";
 export { useDebouncedCallback } from "./hooks/useDebouncedCallback";
 export { generateID, debounce, throttle } from "./util/helper";
 

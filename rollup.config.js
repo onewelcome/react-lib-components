@@ -14,63 +14,108 @@
  *    limitations under the License.
  */
 
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import typescript from "rollup-plugin-typescript2";
-import styles from "rollup-plugin-styles";
-import postCssUrl from "postcss-url";
-import { terser } from "rollup-plugin-terser";
+import typescript from "@rollup/plugin-typescript";
+import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import nodeResolve from "@rollup/plugin-node-resolve";
+import postcss from "rollup-plugin-postcss";
+import { terser } from "rollup-plugin-terser";
+import path from "path";
 
-export default {
-  input: "src/index.ts",
-  output: [
-    {
-      dir: "dist/esm",
-      format: "esm",
-      sourcemap: true,
-      preserveModules: true,
-      preserveModulesRoot: "src/components",
-      entryFileNames: "[name].esm.js",
-      exports: "named"
-    }
-  ],
+const packageJson = require("./package.json");
+
+const baseConfig = {
   plugins: [
-    peerDepsExternal(),
-    styles({
-      mode: ["inject"],
+    resolve(),
+    commonjs(),
+    postcss({
       modules: true,
-      minimize: { preset: ["default", { discardComments: { removeAll: true } }] },
-      plugins: [
-        postCssUrl({
-          url: "inline",
-          encodeType: "base64",
-          maxSize: Infinity
-        })
-      ]
+      inject: true,
+      minimize: true,
+      sourceMap: true
     }),
     {
       name: "Replace node_modules with dependency",
-      // https://github.com/egoist/rollup-plugin-postcss/issues/381#issuecomment-862359662
       generateBundle: (options, bundle) => {
-        Object.entries(bundle).forEach(entry => {
-          // Replace the node_modules/style-inject reference with the style-inject package dependency.
-          if (entry[0].match(/.*(.scss.js)$/) || entry[0].match(/.*(module.esm.js)$/)) {
-            bundle[entry[0]].code = entry[1].code.replace(
-              /import\s?(\w+)?\s?from\s?["'](\.\.\/|\.\/){1,5}node_modules\/rollup-plugin-styles\/dist\/runtime\/inject-css.(esm).?js["'];?/,
-              'var containers=[],styleTags=[];const $1 = function(e,t){if(e&&"undefined"!=typeof document){var n,s=!0===t.prepend?"prepend":"append",r=!0===t.singleTag,a="string"==typeof t.container?document.querySelector(t.container):document.getElementsByTagName("head")[0];if(r){var i=containers.indexOf(a);-1===i&&(i=containers.push(a)-1,styleTags[i]={}),n=styleTags[i]&&styleTags[i][s]?styleTags[i][s]:styleTags[i][s]=c()}else n=c();65279===e.charCodeAt(0)&&(e=e.substring(1)),n.styleSheet?n.styleSheet.cssText+=e:n.appendChild(document.createTextNode(e))}function c(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),t.attributes)for(var n=Object.keys(t.attributes),r=0;r<n.length;r++)e.setAttribute(n[r],t.attributes[n[r]]);var i="prepend"===s?"afterbegin":"beforeend";return a.insertAdjacentElement(i,e),e}};'
+        Object.entries(bundle).forEach(([fileName, file]) => {
+          // Target specific files (e.g., .scss.js or module.esm.js)
+          if (fileName.match(/.*(.module.esm.js)$/)) {
+            // Replace style-inject import with a custom resolution or code snippet
+            const relativePath = path.relative(
+              path.dirname(path.resolve("dist", fileName)),
+              path.resolve("lib/style-inject.js")
             );
-            return;
+            file.code = file.code.replace(
+              /import\s?(\w+)?\s?from\s?["'](\.\.\/|\.\/){1,5}node_modules\/style-inject\/dist\/style-inject.es.(esm).?js["'];?/,
+              `import $1 from "${relativePath}";`
+            );
+          } else if (fileName.match(/.*(.module.cjs.js)$/)) {
+            // Replace tslib import with a custom resolution or code snippet
+            const relativePath = path.relative(
+              path.dirname(path.resolve("dist", fileName)),
+              path.resolve("lib/style-inject.js")
+            );
+            file.code = file.code.replace(
+              /require\(["'](\.\.\/|\.\/){1,5}node_modules\/style-inject\/dist\/style-inject.es.(cjs).?js["']\);?/,
+              `require("${relativePath}");`
+            );
           }
         });
       }
     },
-    nodeResolve(),
-    commonjs(),
-    typescript({
-      tsconfig: "./tsconfig.json"
-    }),
-    terser()
+    terser({
+      mangle: true,
+      compress: {
+        defaults: false
+      },
+      output: {
+        comments: false
+      }
+    })
   ],
-  external: ["react", "react-dom"]
+  external: Object.keys(packageJson.peerDependencies || {})
 };
+
+const libsConfig = {
+  input: {
+    "style-inject": require.resolve("style-inject")
+  },
+  output: {
+    dir: "dist/lib",
+    format: "cjs",
+    sourcemap: true,
+    exports: "named"
+  },
+  plugins: [resolve(), commonjs()]
+};
+
+const esmConfig = {
+  ...baseConfig,
+  input: "src/index.ts",
+  output: {
+    dir: "dist/esm",
+    format: "esm",
+    sourcemap: true,
+    preserveModules: true,
+    preserveModulesRoot: "src/components",
+    entryFileNames: "[name].esm.js",
+    exports: "named"
+  },
+  plugins: [...baseConfig.plugins, typescript({ tsconfig: "./tsconfig.esm.json" })]
+};
+
+const cjsConfig = {
+  ...baseConfig,
+  input: "src/index.ts",
+  output: {
+    dir: "dist/cjs",
+    format: "cjs",
+    sourcemap: true,
+    preserveModules: true,
+    preserveModulesRoot: "src/components",
+    entryFileNames: "[name].cjs.js",
+    exports: "named"
+  },
+  plugins: [...baseConfig.plugins, typescript({ tsconfig: "./tsconfig.cjs.json" })]
+};
+
+export default [esmConfig, cjsConfig, libsConfig];
