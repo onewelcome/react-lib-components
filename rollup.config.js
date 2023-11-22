@@ -18,6 +18,7 @@ import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import postcss from "rollup-plugin-postcss";
+import postcssUrl from "postcss-url";
 import { terser } from "rollup-plugin-terser";
 import path from "path";
 
@@ -31,7 +32,14 @@ const baseConfig = {
       modules: true,
       inject: true,
       minimize: true,
-      sourceMap: true
+      sourceMap: true,
+      plugins: [
+        postcssUrl({
+          url: "inline",
+          encodeType: "base64",
+          maxSize: Infinity
+        })
+      ]
     }),
     {
       name: "Replace node_modules with dependency",
