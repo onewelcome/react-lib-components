@@ -101,7 +101,7 @@ function _typeof(o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
   }, _typeof(o);
 }
-var _excluded = ["children", "className", "legend", "legendStyle", "hideLegend", "noBackground", "background", "noPadding", "disabled", "required", "error", "disablePropagation"];
+var _excluded = ["children", "className", "legend", "legendStyle", "hideLegend", "noBackground", "background", "noPadding", "disabled", "required", "disablePropagation"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -242,8 +242,6 @@ var FieldsetComponent = function FieldsetComponent(_ref, ref) {
     disabled = _ref$disabled === void 0 ? false : _ref$disabled,
     _ref$required = _ref.required,
     required = _ref$required === void 0 ? false : _ref$required,
-    _ref$error = _ref.error,
-    error = _ref$error === void 0 ? false : _ref$error,
     _ref$disablePropagati = _ref.disablePropagation,
     disablePropagation = _ref$disablePropagati === void 0 ? false : _ref$disablePropagati,
     rest = _objectWithoutProperties(_ref, _excluded);
@@ -252,17 +250,16 @@ var FieldsetComponent = function FieldsetComponent(_ref, ref) {
       return;
     }
 
-    /* All right, so the issue is that whenever we try to add disabled and error to a component that doesn't accept it,
-    React will throw an error. However, it might occur that we want a component inside of Fieldset because of aesthetic purposes
-    (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
-    So instead we supply an array of components that we want to add the disabled and error prop to and check if child.type equals one of these. */
+    /* All right, so the issue is that whenever we try to add disabled prop to a component that doesn't accept it,
+        React will throw an error. However, it might occur that we want a component inside Fieldset because of aesthetic purposes
+        (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
+        So instead we supply an array of components that we want to add the disabled prop to and check if child.type equals one of these. */
     var allowedComponents = [Input/* Input */.I, Select/* Select */.P, Radio/* Radio */.Y, Checkbox/* Checkbox */.X, Textarea/* Textarea */.g, Toggle/* Toggle */.Z, Label/* Label */._, FormControl/* FormControl */.N, FormSelectorWrapper/* FormSelectorWrapper */.y, FormHelperText/* FormHelperText */.Q, InputWrapper/* InputWrapper */.S, SelectWrapper/* SelectWrapper */.b, TextareaWrapper/* TextareaWrapper */.o];
     return react.Children.map(children, function (child) {
       if (allowedComponents.includes(child.type) && !disablePropagation) {
-        var _child$props$disabled, _child$props$error;
+        var _child$props$disabled;
         return /*#__PURE__*/react.cloneElement(child, {
-          disabled: (_child$props$disabled = child.props.disabled) !== null && _child$props$disabled !== void 0 ? _child$props$disabled : disabled,
-          error: (_child$props$error = child.props.error) !== null && _child$props$error !== void 0 ? _child$props$error : error
+          disabled: (_child$props$disabled = child.props.disabled) !== null && _child$props$disabled !== void 0 ? _child$props$disabled : disabled
         });
       }
       return child;
@@ -281,7 +278,7 @@ var FieldsetComponent = function FieldsetComponent(_ref, ref) {
     variant: legendStyle,
     tag: "span",
     "aria-hidden": "true",
-    className: "".concat(Fieldset_Fieldset_module["legend"], " ").concat(required ? Fieldset_Fieldset_module["required"] : "", " ").concat(error ? Fieldset_Fieldset_module["error"] : "")
+    className: "".concat(Fieldset_Fieldset_module["legend"], " ").concat(required ? Fieldset_Fieldset_module["required"] : "")
   }, legend), renderChildren());
 };
 var Fieldset = /*#__PURE__*/react.forwardRef(FieldsetComponent);
@@ -289,7 +286,7 @@ try {
     // @ts-ignore
     Fieldset.displayName = "Fieldset";
     // @ts-ignore
-    Fieldset.__docgenInfo = { "description": "", "displayName": "Fieldset", "props": { "legend": { "defaultValue": null, "description": "", "name": "legend", "required": true, "type": { "name": "string" } }, "error": { "defaultValue": { value: "false" }, "description": "", "name": "error", "required": false, "type": { "name": "boolean" } }, "required": { "defaultValue": { value: "false" }, "description": "", "name": "required", "required": false, "type": { "name": "boolean" } }, "legendStyle": { "defaultValue": { value: "body" }, "description": "", "name": "legendStyle", "required": false, "type": { "name": "enum", "value": [{ "value": "\"body\"" }, { "value": "\"code\"" }, { "value": "\"h1\"" }, { "value": "\"h2\"" }, { "value": "\"h3\"" }, { "value": "\"h4\"" }, { "value": "\"body-bold\"" }, { "value": "\"sub-text\"" }] } }, "hideLegend": { "defaultValue": { value: "false" }, "description": "", "name": "hideLegend", "required": false, "type": { "name": "boolean" } }, "background": { "defaultValue": { value: "noBackground ? \"\" : \"#FFF\"" }, "description": "", "name": "background", "required": false, "type": { "name": "string" } }, "noPadding": { "defaultValue": { value: "false" }, "description": "", "name": "noPadding", "required": false, "type": { "name": "boolean" } }, "noBackground": { "defaultValue": null, "description": "", "name": "noBackground", "required": false, "type": { "name": "boolean" } }, "disablePropagation": { "defaultValue": { value: "false" }, "description": "", "name": "disablePropagation", "required": false, "type": { "name": "boolean" } } } };
+    Fieldset.__docgenInfo = { "description": "", "displayName": "Fieldset", "props": { "legend": { "defaultValue": null, "description": "", "name": "legend", "required": true, "type": { "name": "string" } }, "required": { "defaultValue": { value: "false" }, "description": "", "name": "required", "required": false, "type": { "name": "boolean" } }, "legendStyle": { "defaultValue": { value: "body" }, "description": "", "name": "legendStyle", "required": false, "type": { "name": "enum", "value": [{ "value": "\"body\"" }, { "value": "\"code\"" }, { "value": "\"h1\"" }, { "value": "\"h2\"" }, { "value": "\"h3\"" }, { "value": "\"h4\"" }, { "value": "\"body-bold\"" }, { "value": "\"sub-text\"" }] } }, "hideLegend": { "defaultValue": { value: "false" }, "description": "", "name": "hideLegend", "required": false, "type": { "name": "boolean" } }, "background": { "defaultValue": { value: "noBackground ? \"\" : \"#FFF\"" }, "description": "", "name": "background", "required": false, "type": { "name": "string" } }, "noPadding": { "defaultValue": { value: "false" }, "description": "", "name": "noPadding", "required": false, "type": { "name": "boolean" } }, "noBackground": { "defaultValue": null, "description": "", "name": "noBackground", "required": false, "type": { "name": "boolean" } }, "disablePropagation": { "defaultValue": { value: "false" }, "description": "", "name": "disablePropagation", "required": false, "type": { "name": "boolean" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore

@@ -62,7 +62,7 @@ var update = injectStylesIntoStyleTag_default()(FormControl_module/* default */.
        /* harmony default export */ var FormControl_FormControl_module = (FormControl_module/* default */.Z && FormControl_module/* default */.Z.locals ? FormControl_module/* default */.Z.locals : undefined);
 
 ;// CONCATENATED MODULE: ./src/components/Form/FormControl/FormControl.tsx
-var _excluded = ["children", "disabled", "error", "className", "grid", "align"];
+var _excluded = ["children", "disabled", "className", "grid", "align"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -125,7 +125,6 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 var FormControlComponent = function FormControlComponent(_ref, ref) {
   var children = _ref.children,
     disabled = _ref.disabled,
-    error = _ref.error,
     className = _ref.className,
     grid = _ref.grid,
     _ref$align = _ref.align,
@@ -137,8 +136,7 @@ var FormControlComponent = function FormControlComponent(_ref, ref) {
         return null;
       }
       var childElement = /*#__PURE__*/react.cloneElement(child, {
-        disabled: child.props.disabled !== undefined ? child.props.disabled : disabled,
-        error: child.props.error !== undefined ? child.props.error : error
+        disabled: child.props.disabled !== undefined ? child.props.disabled : disabled
       });
       if (grid && grid > 1) {
         return /*#__PURE__*/react.createElement("div", {
@@ -159,7 +157,7 @@ try {
     // @ts-ignore
     FormControl.displayName = "FormControl";
     // @ts-ignore
-    FormControl.__docgenInfo = { "description": "", "displayName": "FormControl", "props": { "align": { "defaultValue": { value: "center" }, "description": "", "name": "align", "required": false, "type": { "name": "enum", "value": [{ "value": "\"center\"" }, { "value": "\"top\"" }, { "value": "\"bottom\"" }, { "value": "\"start\"" }, { "value": "\"end\"" }, { "value": "\"middle\"" }, { "value": "\"stretch\"" }] } }, "grid": { "defaultValue": null, "description": "", "name": "grid", "required": false, "type": { "name": "enum", "value": [{ "value": "1" }, { "value": "2" }, { "value": "3" }] } }, "disabled": { "defaultValue": null, "description": "", "name": "disabled", "required": false, "type": { "name": "boolean" } }, "error": { "defaultValue": null, "description": "", "name": "error", "required": false, "type": { "name": "boolean" } } } };
+    FormControl.__docgenInfo = { "description": "", "displayName": "FormControl", "props": { "align": { "defaultValue": { value: "center" }, "description": "", "name": "align", "required": false, "type": { "name": "enum", "value": [{ "value": "\"center\"" }, { "value": "\"top\"" }, { "value": "\"bottom\"" }, { "value": "\"start\"" }, { "value": "\"end\"" }, { "value": "\"middle\"" }, { "value": "\"stretch\"" }] } }, "grid": { "defaultValue": null, "description": "", "name": "grid", "required": false, "type": { "name": "enum", "value": [{ "value": "1" }, { "value": "2" }, { "value": "3" }] } }, "disabled": { "defaultValue": null, "description": "", "name": "disabled", "required": false, "type": { "name": "boolean" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore

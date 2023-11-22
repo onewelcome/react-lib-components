@@ -259,7 +259,7 @@ var FormControl = __webpack_require__("./src/components/Form/FormControl/FormCon
 // EXTERNAL MODULE: ./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx + 1 modules
 var InputWrapper = __webpack_require__("./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx");
 ;// CONCATENATED MODULE: ./stories/Notifications/Modal/Modal.stories.tsx
-var _args, _argTypes, _Modal$parameters, _Modal$parameters2;
+var _Modal$parameters, _Modal$parameters2;
 function _typeof(o) {
   "@babel/helpers - typeof";
 
@@ -406,20 +406,20 @@ var meta = {
       page: Modal
     }
   },
-  args: (_args = {
+  args: _defineProperty(_defineProperty(_defineProperty({
     id: "modal"
-  }, _defineProperty(_args, "header.title", "Modal title"), _defineProperty(_args, "content.disableAutoFocus", false), _defineProperty(_args, "actions.className", undefined), _args),
-  argTypes: (_argTypes = {
+  }, "header.title", "Modal title"), "content.disableAutoFocus", false), "actions.className", undefined),
+  argTypes: _defineProperty(_defineProperty(_defineProperty({
     open: {
       control: false
     }
-  }, _defineProperty(_argTypes, "header.title", {
+  }, "header.title", {
     control: "text"
-  }), _defineProperty(_argTypes, "content.disableAutoFocus", {
+  }), "content.disableAutoFocus", {
     control: "boolean"
-  }), _defineProperty(_argTypes, "actions.className", {
+  }), "actions.className", {
     control: "text"
-  }), _argTypes)
+  })
 };
 /* harmony default export */ var Modal_stories = (meta);
 var Template = function Template(args) {

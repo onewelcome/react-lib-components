@@ -766,7 +766,6 @@ var CheckboxWrapperComponent = function CheckboxWrapperComponent(_ref, ref) {
     });
   };
   return /*#__PURE__*/react.createElement(Fieldset/* Fieldset */.p, _extends({}, fieldsetProps, {
-    error: error,
     required: rest.required
   }), /*#__PURE__*/react.createElement(Wrapper/* Wrapper */.i, _extends({}, rest, {
     ref: ref,

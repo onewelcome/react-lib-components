@@ -131,13 +131,8 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  DisabledButton: function() { return /* binding */ DisabledButton; },
-  EndIconButton: function() { return /* binding */ EndIconButton; },
-  FilledButton: function() { return /* binding */ FilledButton; },
-  LoadingButton: function() { return /* binding */ LoadingButton; },
-  OutlineButton: function() { return /* binding */ OutlineButton; },
-  StartIconButton: function() { return /* binding */ StartIconButton; },
-  TextButton: function() { return /* binding */ TextButton; },
+  ButtonStates: function() { return /* binding */ ButtonStates; },
+  SingleButton: function() { return /* binding */ SingleButton; },
   __namedExportsOrder: function() { return /* binding */ __namedExportsOrder; },
   "default": function() { return /* binding */ Button_stories; }
 });
@@ -199,16 +194,10 @@ function _createMdxContent(props) {
         className: "language-jsx",
         children: "<Button>\n  This is a button\n</Button>\n\n<Button variant=\"outline\">\n  This is a button\n</Button>\n\n<Button variant=\"text\">\n  This is a button\n</Button>\n\n<Button variant=\"filled\" startIcon={<Icon icon={Icons.Calendar} />}>\n  This is a button\n</Button>\n"
       })
-    }), "\n", (0,jsx_runtime.jsxs)(dist/* Canvas */.Xz, {
-      children: [(0,jsx_runtime.jsx)(dist/* Story */.oG, {
-        of: FilledButton
-      }), (0,jsx_runtime.jsx)(dist/* Story */.oG, {
-        of: OutlineButton
-      }), (0,jsx_runtime.jsx)(dist/* Story */.oG, {
-        of: TextButton
-      }), (0,jsx_runtime.jsx)(dist/* Story */.oG, {
-        of: StartIconButton
-      })]
+    }), "\n", (0,jsx_runtime.jsx)(dist/* Canvas */.Xz, {
+      children: (0,jsx_runtime.jsx)(dist/* Story */.oG, {
+        of: SingleButton
+      })
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "props",
       children: "Props"
@@ -235,7 +224,7 @@ function _typeof(o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
   }, _typeof(o);
 }
-var _FilledButton$paramet, _FilledButton$paramet2, _OutlineButton$parame, _OutlineButton$parame2, _TextButton$parameter, _TextButton$parameter2, _StartIconButton$para, _StartIconButton$para2, _EndIconButton$parame, _EndIconButton$parame2, _DisabledButton$param, _DisabledButton$param2, _LoadingButton$parame, _LoadingButton$parame2;
+var _SingleButton$paramet, _SingleButton$paramet2, _ButtonStates$paramet, _ButtonStates$paramet2;
 function ownKeys(e, r) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -354,96 +343,139 @@ var Template = function Template(args) {
     })
   }), "This is a button");
 };
-var FilledButton = Template.bind({});
-FilledButton.args = {
+var SingleButton = Template.bind({});
+SingleButton.args = {
+  color: "primary",
+  variant: "fill"
+};
+var ButtonStates = Template.bind({});
+var buttonStates = [{
+  color: "primary",
+  variant: "fill"
+}, {
   color: "primary",
   variant: "fill",
-  type: "button"
-};
-var OutlineButton = Template.bind({});
-OutlineButton.args = {
+  event: "hover"
+}, {
+  color: "primary",
+  variant: "fill",
+  event: "active"
+}, {
+  color: "primary",
+  variant: "fill",
+  event: "focus"
+}, {
   color: "primary",
   variant: "outline",
-  type: "button"
-};
-var TextButton = Template.bind({});
-TextButton.args = {
+  event: "hover"
+}, {
+  color: "primary",
+  variant: "outline",
+  event: "active"
+}, {
+  color: "primary",
+  variant: "outline",
+  event: "focus"
+}, {
+  color: "primary",
+  variant: "outline"
+}, {
+  color: "primary",
+  variant: "text"
+}, {
   color: "primary",
   variant: "text",
-  type: "button"
-};
-var StartIconButton = Template.bind({});
-var EndIconButton = Template.bind({});
-StartIconButton.args = {
-  startIcon: Icon/* Icons */.P.Calendar,
+  event: "hover"
+}, {
   color: "primary",
-  variant: "fill",
-  type: "button"
-};
-EndIconButton.args = {
-  endIcon: Icon/* Icons */.P.Calendar,
+  variant: "text",
+  event: "active"
+}, {
   color: "primary",
-  variant: "fill",
-  type: "button"
-};
-var DisabledButton = Template.bind({});
-DisabledButton.args = {
+  variant: "text",
+  event: "focus"
+}, {
+  color: "primary",
+  variant: "text",
   disabled: true
-};
-var LoadingButton = Template.bind({});
-LoadingButton.args = {
+}, {
+  color: "primary",
+  variant: "fill",
+  disabled: true
+}, {
+  color: "primary",
+  variant: "outline",
+  disabled: true,
   loading: true
+}, {
+  color: "primary",
+  variant: "fill",
+  loading: true,
+  disabled: false
+}, {
+  color: "primary",
+  variant: "fill",
+  disabled: true,
+  loading: true
+}, {
+  color: "primary",
+  variant: "outline",
+  loading: true,
+  disabled: false
+}, {
+  color: "primary",
+  variant: "fill",
+  startIcon: true
+}, {
+  color: "primary",
+  variant: "fill",
+  endIcon: true
+}];
+ButtonStates.decorators = [function () {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, buttonStates.map(function (states, index) {
+    return /*#__PURE__*/react.createElement("div", {
+      style: {
+        marginBottom: "10px"
+      },
+      key: index
+    }, /*#__PURE__*/react.createElement(Button/* Button */.z, {
+      id: states.event,
+      disabled: states.disabled,
+      color: states.color,
+      variant: states.variant,
+      type: states.type,
+      endIcon: states.endIcon ? /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
+        icon: Icon/* Icons */.P.Calendar
+      }) : false,
+      startIcon: states.startIcon ? /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
+        icon: Icon/* Icons */.P.Calendar
+      }) : false,
+      loading: states.loading
+    }, "".concat(states.variant, " ").concat(states.disabled ? "disabled" : "", " ").concat(states.event !== undefined ? states.event : "")));
+  }));
+}];
+ButtonStates.parameters = {
+  pseudo: {
+    hover: "#hover",
+    active: "#active",
+    focusVisible: "#focus"
+  }
 };
-FilledButton.parameters = _objectSpread(_objectSpread({}, FilledButton.parameters), {}, {
-  docs: _objectSpread(_objectSpread({}, (_FilledButton$paramet = FilledButton.parameters) === null || _FilledButton$paramet === void 0 ? void 0 : _FilledButton$paramet.docs), {}, {
+SingleButton.parameters = _objectSpread(_objectSpread({}, SingleButton.parameters), {}, {
+  docs: _objectSpread(_objectSpread({}, (_SingleButton$paramet = SingleButton.parameters) === null || _SingleButton$paramet === void 0 ? void 0 : _SingleButton$paramet.docs), {}, {
     source: _objectSpread({
       originalSource: "args => {\n  return <Button {...args} title=\"This is a button\" startIcon={args?.startIcon && <Icon icon={(args?.startIcon as Icons)} />} endIcon={args?.endIcon && <Icon icon={(args?.endIcon as Icons)} />}>\n      This is a button\n    </Button>;\n}"
-    }, (_FilledButton$paramet2 = FilledButton.parameters) === null || _FilledButton$paramet2 === void 0 || (_FilledButton$paramet2 = _FilledButton$paramet2.docs) === null || _FilledButton$paramet2 === void 0 ? void 0 : _FilledButton$paramet2.source)
+    }, (_SingleButton$paramet2 = SingleButton.parameters) === null || _SingleButton$paramet2 === void 0 || (_SingleButton$paramet2 = _SingleButton$paramet2.docs) === null || _SingleButton$paramet2 === void 0 ? void 0 : _SingleButton$paramet2.source)
   })
 });
-OutlineButton.parameters = _objectSpread(_objectSpread({}, OutlineButton.parameters), {}, {
-  docs: _objectSpread(_objectSpread({}, (_OutlineButton$parame = OutlineButton.parameters) === null || _OutlineButton$parame === void 0 ? void 0 : _OutlineButton$parame.docs), {}, {
+ButtonStates.parameters = _objectSpread(_objectSpread({}, ButtonStates.parameters), {}, {
+  docs: _objectSpread(_objectSpread({}, (_ButtonStates$paramet = ButtonStates.parameters) === null || _ButtonStates$paramet === void 0 ? void 0 : _ButtonStates$paramet.docs), {}, {
     source: _objectSpread({
       originalSource: "args => {\n  return <Button {...args} title=\"This is a button\" startIcon={args?.startIcon && <Icon icon={(args?.startIcon as Icons)} />} endIcon={args?.endIcon && <Icon icon={(args?.endIcon as Icons)} />}>\n      This is a button\n    </Button>;\n}"
-    }, (_OutlineButton$parame2 = OutlineButton.parameters) === null || _OutlineButton$parame2 === void 0 || (_OutlineButton$parame2 = _OutlineButton$parame2.docs) === null || _OutlineButton$parame2 === void 0 ? void 0 : _OutlineButton$parame2.source)
+    }, (_ButtonStates$paramet2 = ButtonStates.parameters) === null || _ButtonStates$paramet2 === void 0 || (_ButtonStates$paramet2 = _ButtonStates$paramet2.docs) === null || _ButtonStates$paramet2 === void 0 ? void 0 : _ButtonStates$paramet2.source)
   })
 });
-TextButton.parameters = _objectSpread(_objectSpread({}, TextButton.parameters), {}, {
-  docs: _objectSpread(_objectSpread({}, (_TextButton$parameter = TextButton.parameters) === null || _TextButton$parameter === void 0 ? void 0 : _TextButton$parameter.docs), {}, {
-    source: _objectSpread({
-      originalSource: "args => {\n  return <Button {...args} title=\"This is a button\" startIcon={args?.startIcon && <Icon icon={(args?.startIcon as Icons)} />} endIcon={args?.endIcon && <Icon icon={(args?.endIcon as Icons)} />}>\n      This is a button\n    </Button>;\n}"
-    }, (_TextButton$parameter2 = TextButton.parameters) === null || _TextButton$parameter2 === void 0 || (_TextButton$parameter2 = _TextButton$parameter2.docs) === null || _TextButton$parameter2 === void 0 ? void 0 : _TextButton$parameter2.source)
-  })
-});
-StartIconButton.parameters = _objectSpread(_objectSpread({}, StartIconButton.parameters), {}, {
-  docs: _objectSpread(_objectSpread({}, (_StartIconButton$para = StartIconButton.parameters) === null || _StartIconButton$para === void 0 ? void 0 : _StartIconButton$para.docs), {}, {
-    source: _objectSpread({
-      originalSource: "args => {\n  return <Button {...args} title=\"This is a button\" startIcon={args?.startIcon && <Icon icon={(args?.startIcon as Icons)} />} endIcon={args?.endIcon && <Icon icon={(args?.endIcon as Icons)} />}>\n      This is a button\n    </Button>;\n}"
-    }, (_StartIconButton$para2 = StartIconButton.parameters) === null || _StartIconButton$para2 === void 0 || (_StartIconButton$para2 = _StartIconButton$para2.docs) === null || _StartIconButton$para2 === void 0 ? void 0 : _StartIconButton$para2.source)
-  })
-});
-EndIconButton.parameters = _objectSpread(_objectSpread({}, EndIconButton.parameters), {}, {
-  docs: _objectSpread(_objectSpread({}, (_EndIconButton$parame = EndIconButton.parameters) === null || _EndIconButton$parame === void 0 ? void 0 : _EndIconButton$parame.docs), {}, {
-    source: _objectSpread({
-      originalSource: "args => {\n  return <Button {...args} title=\"This is a button\" startIcon={args?.startIcon && <Icon icon={(args?.startIcon as Icons)} />} endIcon={args?.endIcon && <Icon icon={(args?.endIcon as Icons)} />}>\n      This is a button\n    </Button>;\n}"
-    }, (_EndIconButton$parame2 = EndIconButton.parameters) === null || _EndIconButton$parame2 === void 0 || (_EndIconButton$parame2 = _EndIconButton$parame2.docs) === null || _EndIconButton$parame2 === void 0 ? void 0 : _EndIconButton$parame2.source)
-  })
-});
-DisabledButton.parameters = _objectSpread(_objectSpread({}, DisabledButton.parameters), {}, {
-  docs: _objectSpread(_objectSpread({}, (_DisabledButton$param = DisabledButton.parameters) === null || _DisabledButton$param === void 0 ? void 0 : _DisabledButton$param.docs), {}, {
-    source: _objectSpread({
-      originalSource: "args => {\n  return <Button {...args} title=\"This is a button\" startIcon={args?.startIcon && <Icon icon={(args?.startIcon as Icons)} />} endIcon={args?.endIcon && <Icon icon={(args?.endIcon as Icons)} />}>\n      This is a button\n    </Button>;\n}"
-    }, (_DisabledButton$param2 = DisabledButton.parameters) === null || _DisabledButton$param2 === void 0 || (_DisabledButton$param2 = _DisabledButton$param2.docs) === null || _DisabledButton$param2 === void 0 ? void 0 : _DisabledButton$param2.source)
-  })
-});
-LoadingButton.parameters = _objectSpread(_objectSpread({}, LoadingButton.parameters), {}, {
-  docs: _objectSpread(_objectSpread({}, (_LoadingButton$parame = LoadingButton.parameters) === null || _LoadingButton$parame === void 0 ? void 0 : _LoadingButton$parame.docs), {}, {
-    source: _objectSpread({
-      originalSource: "args => {\n  return <Button {...args} title=\"This is a button\" startIcon={args?.startIcon && <Icon icon={(args?.startIcon as Icons)} />} endIcon={args?.endIcon && <Icon icon={(args?.endIcon as Icons)} />}>\n      This is a button\n    </Button>;\n}"
-    }, (_LoadingButton$parame2 = LoadingButton.parameters) === null || _LoadingButton$parame2 === void 0 || (_LoadingButton$parame2 = _LoadingButton$parame2.docs) === null || _LoadingButton$parame2 === void 0 ? void 0 : _LoadingButton$parame2.source)
-  })
-});
-var __namedExportsOrder = ["FilledButton", "OutlineButton", "TextButton", "StartIconButton", "EndIconButton", "DisabledButton", "LoadingButton"];
+var __namedExportsOrder = ["SingleButton", "ButtonStates"];
 
 /***/ }),
 
@@ -673,7 +705,7 @@ catch (__react_docgen_typescript_loader_error) { }
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.BaseButton-module__sr-only--pIoQP{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.BaseButton-module__hidden--YXbft{display:none}.BaseButton-module__slide-in--f4Qq6{animation:BaseButton-module__slide-in--f4Qq6 .5s forwards}@media(prefers-reduced-motion: reduce){.BaseButton-module__slide-in--f4Qq6{animation-duration:.1ms}}.BaseButton-module__slide-out--QlyO7{animation:BaseButton-module__slide-out--QlyO7 .5s forwards}@media(prefers-reduced-motion: reduce){.BaseButton-module__slide-out--QlyO7{animation-duration:.1ms}}@keyframes BaseButton-module__slide-in--f4Qq6{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes BaseButton-module__slide-out--QlyO7{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}.BaseButton-module__button--q6T9A{border-width:var(--button-border-width);border-style:var(--button-border-style);border-radius:var(--button-border-radius);font-size:var(--button-font-size);line-height:var(--button-font-size);margin:0;padding:.75rem 1rem;min-height:2.5rem;cursor:pointer;transition-property:color,background-color,border-color;transition-duration:.2s;transition-timing-function:ease-in-out;font-family:var(--font-family);position:relative}@media(prefers-reduced-motion: reduce){.BaseButton-module__button--q6T9A{transition-duration:.1ms}}.BaseButton-module__button--q6T9A:disabled{color:var(--greyed-out);cursor:not-allowed}.BaseButton-module__button--q6T9A .BaseButton-module__content-hidden--QNxtO{visibility:hidden;display:flex}.BaseButton-module__spinner--sHeyQ{position:absolute;top:calc(50% - .75rem);left:calc(50% - .75rem);transform:translate(-50%, -50%);animation:BaseButton-module__spin--KXAHp 1s infinite linear}@keyframes BaseButton-module__spin--KXAHp{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.BaseButton-module__sr-only--pIoQP{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.BaseButton-module__hidden--YXbft{display:none}.BaseButton-module__slide-in--f4Qq6{animation:BaseButton-module__slide-in--f4Qq6 .5s forwards}@media(prefers-reduced-motion: reduce){.BaseButton-module__slide-in--f4Qq6{animation-duration:.1ms}}.BaseButton-module__slide-out--QlyO7{animation:BaseButton-module__slide-out--QlyO7 .5s forwards}@media(prefers-reduced-motion: reduce){.BaseButton-module__slide-out--QlyO7{animation-duration:.1ms}}@keyframes BaseButton-module__slide-in--f4Qq6{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes BaseButton-module__slide-out--QlyO7{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}.BaseButton-module__button--q6T9A{border-width:var(--button-border-width);border-style:var(--button-border-style);border-radius:var(--button-border-radius);font-size:var(--button-font-size);line-height:var(--button-font-size);margin:0;padding:.5rem .75rem;min-height:2.5rem;cursor:pointer;transition-property:color,background-color,border-color;transition-duration:.2s;transition-timing-function:ease-in-out;font-family:var(--font-family);position:relative}@media(prefers-reduced-motion: reduce){.BaseButton-module__button--q6T9A{transition-duration:.1ms}}.BaseButton-module__button--q6T9A:disabled{color:var(--greyed-out);cursor:not-allowed}.BaseButton-module__button--q6T9A .BaseButton-module__content-hidden--QNxtO{visibility:hidden;display:flex}.BaseButton-module__spinner--sHeyQ{position:absolute;top:calc(50% - .75rem);left:calc(50% - .75rem);transform:translate(-50%, -50%);animation:BaseButton-module__spin--KXAHp 1s infinite linear}@keyframes BaseButton-module__spin--KXAHp{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"sr-only": "BaseButton-module__sr-only--pIoQP",

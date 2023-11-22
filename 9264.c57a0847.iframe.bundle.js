@@ -620,8 +620,7 @@ var usePosition = function usePosition() {
       oppositeDirection = "bottom";
     }
     setPosition(function (prevState) {
-      var _objectSpread2;
-      return _objectSpread(_objectSpread({}, prevState), {}, (_objectSpread2 = {}, _defineProperty(_objectSpread2, direction, placementValue), _defineProperty(_objectSpread2, oppositeDirection, "initial"), _objectSpread2));
+      return _objectSpread(_objectSpread({}, prevState), {}, _defineProperty(_defineProperty({}, direction, placementValue), oppositeDirection, "initial"));
     });
   };
   var calculatePosition = useDebouncedCallback(function () {
