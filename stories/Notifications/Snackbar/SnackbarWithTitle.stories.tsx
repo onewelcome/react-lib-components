@@ -43,22 +43,20 @@ const AppContent = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    enqueueSnackbar(
-      "This is a title",
-      "Phasellus eleifend cursus vehicula. Pellentesque ut sem in elit pulvinar luctus.",
-      {
-        actions: [{ label: "Action", onClick: () => alert("Clicked support") }],
-        onClose: () => console.warn("onClose handler"),
-        duration: 200000,
-        className: classes["remove-animation"]
-      }
-    );
+    enqueueSnackbar({
+      title: "This is a title",
+      content: "Phasellus eleifend cursus vehicula. Pellentesque ut sem in elit pulvinar luctus.",
+      actions: [{ label: "Action", onClick: () => alert("Clicked support") }],
+      onClose: () => console.warn("onClose handler"),
+      duration: 200000,
+      className: classes["remove-animation"]
+    });
   }, []);
 
   return null;
 };
 
-const Template: Story<Props> = args => {
+const Template: Story<Props> = () => {
   return (
     <SnackbarProvider closeButtonTitle="Close">
       <AppContent />

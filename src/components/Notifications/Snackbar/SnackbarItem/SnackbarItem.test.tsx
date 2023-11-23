@@ -22,25 +22,27 @@ import userEvent from "@testing-library/user-event";
 const initParams: Props = {
   id: "id",
   title: "title",
+  content: "content",
   duration: 1,
   variant: "success",
   closeButtonTitle: "close",
   onClose: jest.fn()
 };
 
-describe("SnackbarItem", () => {
-  it("renders without crashing", () => {
+describe("<SnackbarItem />", () => {
+  it("should render without crashing", () => {
     const { container } = render(<SnackbarItem {...initParams} />);
 
-    expect(container).toHaveTextContent(initParams.title!);
+    const titleDiv = container.querySelector(".title");
+    expect(titleDiv).toHaveTextContent(initParams.title!);
     const contentDiv = container.querySelector(".content");
-    expect(contentDiv).toBeNull();
+    expect(contentDiv).toHaveTextContent(initParams.content!);
     const actionsDiv = container.querySelector(".actions");
     expect(actionsDiv).toBeNull();
     expect(getByRole(container, "button")).toBeDefined();
   });
 
-  it("clicking close button call callback function", async () => {
+  it("should clicking close button call callback function", async () => {
     const { container } = render(<SnackbarItem {...initParams} duration={10000000} />);
 
     expect(initParams.onClose).not.toBeCalled();
@@ -51,7 +53,7 @@ describe("SnackbarItem", () => {
     });
   });
 
-  it("call close callback after provided duration", () => {
+  it("should call close callback after provided duration", () => {
     render(<SnackbarItem {...initParams} />);
 
     expect(initParams.onClose).not.toBeCalled();
@@ -59,5 +61,17 @@ describe("SnackbarItem", () => {
       expect(initParams.onClose).toBeCalledTimes(1);
       expect(initParams.onClose).toHaveBeenCalledWith(initParams.id);
     });
+  });
+
+  it("should render only content when only title is provided", () => {
+    const { container } = render(<SnackbarItem {...initParams} content={undefined} />);
+
+    const titleDiv = container.querySelector(".title");
+    expect(titleDiv).toBeNull();
+    const contentDiv = container.querySelector(".content");
+    expect(contentDiv).toHaveTextContent(initParams.title!);
+    const actionsDiv = container.querySelector(".actions");
+    expect(actionsDiv).toBeNull();
+    expect(getByRole(container, "button")).toBeDefined();
   });
 });

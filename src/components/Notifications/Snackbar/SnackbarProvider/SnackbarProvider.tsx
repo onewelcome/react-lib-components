@@ -17,7 +17,13 @@
 import React, { ReactNode, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { SnackbarContextProvider } from "./SnackbarStateProvider";
-import { Actions, SnackbarOptionsProps, Variant } from "../interfaces";
+import {
+  Actions,
+  EnqueueSnackbarProps,
+  SnackbarOptionsProps,
+  Variant,
+  isNewEnqueueSnackbarInterface
+} from "../interfaces";
 import { Placement, SnackbarContainer } from "../SnackbarContainer/SnackbarContainer";
 import { generateID } from "../../../../util/helper";
 import { SnackbarItem } from "../SnackbarItem/SnackbarItem";
@@ -92,52 +98,66 @@ export const SnackbarProvider = (
   };
 
   const enqueueSnackbar = (
-    title?: string,
+    propsOrTitle: EnqueueSnackbarProps | string | undefined,
     content?: string,
     options: SnackbarOptionsProps = {}
   ): void => {
+    const newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
     const {
       variant = "info",
       actions,
-      duration = getDuration(variant, actions, content),
+      duration = getDuration(variant, actions, props.content),
       onClose
-    } = options;
+    } = props;
     const item: Item = {
-      title,
-      content,
+      title: props.title,
+      content: props.content,
       variant,
-      className: options.className,
+      className: props.className,
       actions,
       duration,
       height: 0,
-      id: generateID(15, title),
+      id: generateID(15, props.title),
       onClose
     };
     addSnackbar(item);
   };
 
-  const enqueueSuccessSnackbar = (
+  const mapToNewInterface = (
     title?: string,
     content?: string,
-    options?: SnackbarOptionsProps
+    options: SnackbarOptionsProps = {}
+  ): EnqueueSnackbarProps => {
+    return {
+      title,
+      content,
+      ...options
+    };
+  };
+
+  const enqueueSuccessSnackbar = (
+    propsOrTitle: EnqueueSnackbarProps | string | undefined,
+    content?: string,
+    options: SnackbarOptionsProps = {}
   ): void => {
-    enqueueSnackbar(title, content, { ...options, variant: "success" });
+    enqueueSnackbar(propsOrTitle, content, { ...options, variant: "success" });
   };
 
   const enqueueErrorSnackbar = (
-    title?: string,
+    propsOrTitle: EnqueueSnackbarProps | string | undefined,
     content?: string,
-    options?: SnackbarOptionsProps
+    options: SnackbarOptionsProps = {}
   ): void => {
-    enqueueSnackbar(title, content, { ...options, variant: "error" });
+    enqueueSnackbar(propsOrTitle, content, { ...options, variant: "error" });
   };
 
   const enqueueWarningSnackbar = (
-    title?: string,
+    propsOrTitle: EnqueueSnackbarProps | string | undefined,
     content?: string,
-    options?: SnackbarOptionsProps
+    options: SnackbarOptionsProps = {}
   ): void => {
-    enqueueSnackbar(title, content, { ...options, variant: "warning" });
+    enqueueSnackbar(propsOrTitle, content, { ...options, variant: "warning" });
   };
 
   const onItemClosed = (id: string) => {

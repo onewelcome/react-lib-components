@@ -65,6 +65,9 @@ export const SnackbarItem = ({
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => onClose(id);
   const { ref, animationStarted, startAnimation } = useAnimation<HTMLDivElement>(onAnimationEnd);
+  const hasOnlyTitle = !content && !!title;
+  const renderTitle = title && !hasOnlyTitle;
+  const renderContentOrTitleOnly = content || hasOnlyTitle;
 
   useRegisterSnackbarHeight(ref, id);
 
@@ -113,7 +116,7 @@ export const SnackbarItem = ({
     classes["snackbar"],
     classes[variant],
     animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"],
-    title ? classes["has-title"] : "",
+    renderTitle ? classes["has-title"] : "",
     className ?? ""
   ].join(" ");
 
@@ -127,14 +130,14 @@ export const SnackbarItem = ({
     >
       <Icon icon={getVariantIcon()} className={classes["icon"]} />
       <div className={classes["content-wrapper"]}>
-        {title && (
+        {renderTitle && (
           <Typography className={classes["title"]} variant="body-bold" tag="span">
             {title}
           </Typography>
         )}
-        {content && (
+        {renderContentOrTitleOnly && (
           <Typography className={classes["content"]} variant="body">
-            {content}
+            {hasOnlyTitle ? title : content}
           </Typography>
         )}
       </div>

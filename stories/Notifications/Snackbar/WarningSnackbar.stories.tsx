@@ -43,7 +43,8 @@ const AppContent = () => {
   const { enqueueWarningSnackbar } = useSnackbar();
 
   useEffect(() => {
-    enqueueWarningSnackbar(undefined, "Alert message", {
+    enqueueWarningSnackbar({
+      content: "Alert message.",
       actions: [{ label: "Action", onClick: () => alert("Clicked support") }],
       onClose: () => console.warn("onClose handler"),
       duration: 200000,
@@ -54,7 +55,7 @@ const AppContent = () => {
   return null;
 };
 
-const Template: Story<Props> = args => {
+const Template: Story<Props> = () => {
   return (
     <SnackbarProvider closeButtonTitle="Close">
       <AppContent />

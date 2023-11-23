@@ -15,22 +15,14 @@
  */
 
 import React, { createContext } from "react";
-import { SnackbarOptionsProps } from "../interfaces";
+import { DeprecatedEnqueueSnackbarType } from "../interfaces";
 import { Item } from "./SnackbarProvider";
 
 interface SnackbarContextProps {
-  enqueueSnackbar: (title?: string, content?: string, options?: SnackbarOptionsProps) => void;
-  enqueueSuccessSnackbar: (
-    title?: string,
-    content?: string,
-    options?: SnackbarOptionsProps
-  ) => void;
-  enqueueWarningSnackbar: (
-    title?: string,
-    content?: string,
-    options?: SnackbarOptionsProps
-  ) => void;
-  enqueueErrorSnackbar: (title?: string, content?: string, options?: SnackbarOptionsProps) => void;
+  enqueueSnackbar: DeprecatedEnqueueSnackbarType;
+  enqueueSuccessSnackbar: DeprecatedEnqueueSnackbarType;
+  enqueueWarningSnackbar: DeprecatedEnqueueSnackbarType;
+  enqueueErrorSnackbar: DeprecatedEnqueueSnackbarType;
   setSnackbarHeight: (id: string, height: number) => void;
   snackbars: Item[];
 }
