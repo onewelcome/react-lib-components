@@ -157,11 +157,11 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   useEffect(() => {
     if (!visible) return;
 
-    function escapePressHandler(event: KeyboardEvent) {
+    const escapePressHandler = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setVisible(false);
       }
-    }
+    };
 
     document.addEventListener("keyup", escapePressHandler);
 
