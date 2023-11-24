@@ -76,7 +76,11 @@ const DataGridColumnsToggleComponent: ForwardRefRenderFunction<HTMLDivElement, P
     >
       {open &&
         createPortal(
-          <div className={classes["backdrop"]} onClick={handleBackdropClick}></div>,
+          <div
+            aria-hidden="true"
+            className={classes["backdrop"]}
+            onClick={handleBackdropClick}
+          ></div>,
           domRoot
         )}
       {open && (

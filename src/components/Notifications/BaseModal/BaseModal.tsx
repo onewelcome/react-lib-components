@@ -137,6 +137,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         >
           <div
             {...backdropProps}
+            aria-hidden={true}
             className={`${classes["backdrop"]} ${backdropProps?.className ?? ""}`}
             onClick={handleBackdropClick}
           ></div>
