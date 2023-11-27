@@ -39,7 +39,7 @@ const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props>
   const primaryActionsRef = useRef<HTMLDivElement>(null);
 
   const cancelButton = (
-    <Button variant="text" color="primary" {...cancelAction?.cancelButtonProps} onClick={onClose}>
+    <Button variant="text" color="default" {...cancelAction?.cancelButtonProps} onClick={onClose}>
       {cancelAction?.label}
     </Button>
   );

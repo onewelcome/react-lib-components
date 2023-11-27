@@ -61,6 +61,16 @@
         $type
       );
     }
+    &.default:not(#{$disabledSelector}) {
+      @include buttonStyles(
+        var(--button-default-color),
+        var(--button-default-hover-color),
+        var(--button-default-focused-color),
+        var(--button-default-pressed-color),
+        $variant,
+        $type
+      );
+    }
   } @else if $variant == "fill" {
     &.danger:not(#{$disabledSelector}) {
       @include buttonStyles(

@@ -80,6 +80,10 @@ interface CSSProperties {
   buttonDangerHoverColor?: string;
   buttonDangerFocusedColor?: string;
   buttonDangerPressedColor?: string;
+  buttonDefaultColor?: string;
+  buttonDefaultHoverColor?: string;
+  buttonDefaultFocusedColor?: string;
+  buttonDefaultPressedColor?: string;
   buttonOutlineActiveTextColor?: string;
   checkboxUncheckedHoverColor?: string;
   checkboxUncheckedPressedColor?: string;
@@ -246,6 +250,10 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonDangerHoverColor: "var(--color-red600)",
     buttonDangerFocusedColor: "var(--color-red500)",
     buttonDangerPressedColor: "var(--color-red700)",
+    buttonDefaultColor: "var(--color-blue-grey700)",
+    buttonDefaultHoverColor: "var(--color-blue-grey800)",
+    buttonDefaultFocusedColor: "var(--color-blue-grey700)",
+    buttonDefaultPressedColor: "var(--color-blue-grey800)",
     buttonOutlineHoverTextColor: "var(--color-primary600)",
     checkboxUncheckedHoverColor: "var(--color-blue-grey50)",
     checkboxUncheckedPressedColor: "var(--default-pressed-color)",
