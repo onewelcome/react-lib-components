@@ -220,7 +220,7 @@ const buttonStates: Array<
 ButtonStates.decorators = [
   () => {
     return (
-      <>
+      <div style={{ marginLeft: "5px" }}>
         {buttonStates.map((states, index) => (
           <div style={{ marginBottom: "10px" }} key={index}>
             <Button
@@ -239,7 +239,7 @@ ButtonStates.decorators = [
             </Button>
           </div>
         ))}
-      </>
+      </div>
     );
   }
 ];
