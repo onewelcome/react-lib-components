@@ -61,7 +61,7 @@
         $type
       );
     }
-  } @else {
+  } @else if $variant == "fill" {
     &.danger:not(#{$disabledSelector}) {
       @include buttonStyles(
         var(--button-danger-default-color),
