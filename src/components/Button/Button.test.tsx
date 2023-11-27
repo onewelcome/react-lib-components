@@ -84,31 +84,25 @@ describe("Button should render", () => {
 describe("Different variants of the button", () => {
   it('should have a class of "primary"', () => {
     const { button } = createButton();
+
     expect(button.classList.contains("primary")).toBe(true);
-  });
-
-  it('should have a class of "secondary"', () => {
-    const { button } = createButton(defaultParams => ({ ...defaultParams, color: "secondary" }));
-    expect(button.classList.contains("secondary")).toBe(true);
-  });
-
-  it('should have a class of "warning"', () => {
-    const { button } = createButton(defaultParams => ({ ...defaultParams, color: "warning" }));
-    expect(button.classList.contains("warning")).toBe(true);
   });
 
   it('should have a class of "fill"', () => {
     const { button } = createButton(defaultParams => ({ ...defaultParams, variant: "fill" }));
+
     expect(button.classList.contains("fill")).toBe(true);
   });
 
   it('should have a class of "outline"', () => {
     const { button } = createButton(defaultParams => ({ ...defaultParams, variant: "outline" }));
+
     expect(button.classList.contains("outline")).toBe(true);
   });
 
   it('should have a class of "text"', () => {
     const { button } = createButton(defaultParams => ({ ...defaultParams, variant: "text" }));
+
     expect(button.classList.contains("text")).toBe(true);
   });
 });

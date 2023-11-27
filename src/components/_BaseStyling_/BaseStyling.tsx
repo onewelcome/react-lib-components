@@ -76,22 +76,10 @@ interface CSSProperties {
   buttonPrimaryHoverColor?: string;
   buttonPrimaryFocusedColor?: string;
   buttonOutlineHoverTextColor?: string;
-  buttonSecondaryDefaultColor?: string;
-  buttonSecondaryHoverColor?: string;
-  buttonSecondaryFocusedColor?: string;
-  buttonSecondaryPressedColor?: string;
-  buttonWarningDefaultColor?: string;
-  buttonWarningHoverColor?: string;
-  buttonWarningFocusedColor?: string;
-  buttonWarningPressedColor?: string;
   buttonDangerDefaultColor?: string;
   buttonDangerHoverColor?: string;
   buttonDangerFocusedColor?: string;
   buttonDangerPressedColor?: string;
-  buttonDefaultColor?: string;
-  buttonDefaultHoverColor?: string;
-  buttonDefaultFocusedColor?: string;
-  buttonDefaultPressedColor?: string;
   buttonOutlineActiveTextColor?: string;
   checkboxUncheckedHoverColor?: string;
   checkboxUncheckedPressedColor?: string;
@@ -254,22 +242,10 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonPrimaryHoverColor: "var(--color-primary600)",
     buttonPrimaryFocusedColor: "var(--color-primary500)",
     buttonPrimaryPressedColor: "var(--color-primary700)",
-    buttonSecondaryDefaultColor: "var(--color-green500)",
-    buttonSecondaryHoverColor: "var(--color-green600)",
-    buttonSecondaryFocusedColor: "var(--color-green500)",
-    buttonSecondaryPressedColor: "var(--color-green700)",
-    buttonWarningDefaultColor: "var(--color-orange500)",
-    buttonWarningHoverColor: "var(--color-orange600)",
-    buttonWarningFocusedColor: "var(--color-orange500)",
-    buttonWarningPressedColor: "var(--color-orange700)",
     buttonDangerDefaultColor: "var(--color-red500)",
     buttonDangerHoverColor: "var(--color-red600)",
     buttonDangerFocusedColor: "var(--color-red500)",
     buttonDangerPressedColor: "var(--color-red700)",
-    buttonDefaultColor: "var(--color-blue-grey700)",
-    buttonDefaultHoverColor: "var(--color-blue-grey800)",
-    buttonDefaultFocusedColor: "var(--color-blue-grey700)",
-    buttonDefaultPressedColor: "var(--color-blue-grey800)",
     buttonOutlineHoverTextColor: "var(--color-primary600)",
     checkboxUncheckedHoverColor: "var(--color-blue-grey50)",
     checkboxUncheckedPressedColor: "var(--default-pressed-color)",

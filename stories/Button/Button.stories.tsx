@@ -115,6 +115,44 @@ const buttonStates: Array<
     variant: "outline"
   },
   {
+    color: "danger",
+    variant: "fill"
+  },
+  {
+    color: "danger",
+    variant: "fill",
+    event: "hover"
+  },
+  {
+    color: "danger",
+    variant: "fill",
+    event: "active"
+  },
+  {
+    color: "danger",
+    variant: "fill",
+    event: "focus"
+  },
+  {
+    color: "danger",
+    variant: "outline",
+    event: "hover"
+  },
+  {
+    color: "danger",
+    variant: "outline",
+    event: "active"
+  },
+  {
+    color: "danger",
+    variant: "outline",
+    event: "focus"
+  },
+  {
+    color: "danger",
+    variant: "outline"
+  },
+  {
     color: "primary",
     variant: "text"
   },
@@ -195,7 +233,7 @@ ButtonStates.decorators = [
               startIcon={states.startIcon ? <Icon icon={Icons.Calendar} /> : false}
               loading={states.loading}
             >
-              {`${states.variant} ${states.disabled ? "disabled" : ""} ${
+              {`${states.color} ${states.variant} ${states.disabled ? "disabled" : ""} ${
                 states.event !== undefined ? states.event : ""
               }`}
             </Button>

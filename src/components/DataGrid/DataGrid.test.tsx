@@ -37,7 +37,7 @@ const defaultParams: Props<DataType> = {
         <ContextMenu
           id={`consent_menu_${item.firstName}`}
           trigger={
-            <IconButton title={`Actions for ${item.firstName}`} color="default">
+            <IconButton title={`Actions for ${item.firstName}`} color="primary">
               <Icon icon={Icons.EllipsisAlt} />
             </IconButton>
           }

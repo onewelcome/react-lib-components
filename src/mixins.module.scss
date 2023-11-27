@@ -51,36 +51,6 @@
         $type
       );
     }
-    &.secondary:not(#{$disabledSelector}) {
-      @include buttonStyles(
-        var(--button-secondary-default-color),
-        var(--button-secondary-hover-color),
-        var(--button-secondary-focused-color),
-        var(--button-secondary-pressed-color),
-        $variant,
-        $type
-      );
-    }
-    &.warning:not(#{$disabledSelector}) {
-      @include buttonStyles(
-        var(--button-warning-default-color),
-        var(--button-warning-hover-color),
-        var(--button-warning-focused-color),
-        var(--button-warning-pressed-color),
-        $variant,
-        $type
-      );
-    }
-    &.default:not(#{$disabledSelector}) {
-      @include buttonStyles(
-        var(--button-default-color),
-        var(--button-default-hover-color),
-        var(--button-default-focused-color),
-        var(--button-default-pressed-color),
-        $variant,
-        $type
-      );
-    }
     &.danger:not(#{$disabledSelector}) {
       @include buttonStyles(
         var(--button-danger-default-color),
@@ -88,6 +58,17 @@
         var(--button-danger-focused-color),
         var(--button-danger-pressed-color),
         $variant,
+        $type
+      );
+    }
+  } @else {
+    &.danger:not(#{$disabledSelector}) {
+      @include buttonStyles(
+        var(--button-danger-default-color),
+        var(--button-danger-hover-color),
+        var(--button-danger-focused-color),
+        var(--button-danger-pressed-color),
+        "primary-fill",
         $type
       );
     }
@@ -115,6 +96,7 @@
   &:hover:not(.disabled) {
     @if $variant == "primary-fill" {
       background-color: $hoverColor;
+      border-color: $hoverColor;
     } @else {
       color: $hoverColor;
     }
@@ -151,6 +133,7 @@
   &:visited:not(.disabled) {
     @if $variant == "primary-fill" {
       background-color: $pressedColor;
+      border-color: $pressedColor;
     } @else {
       color: $pressedColor;
     }
