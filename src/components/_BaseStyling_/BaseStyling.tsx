@@ -76,10 +76,18 @@ interface CSSProperties {
   buttonPrimaryHoverColor?: string;
   buttonPrimaryFocusedColor?: string;
   buttonOutlineHoverTextColor?: string;
+  buttonSuccessDefaultColor?: string;
+  buttonSuccessHoverColor?: string;
+  buttonSuccessFocusedColor?: string;
+  buttonSuccessPressedColor?: string;
   buttonDangerDefaultColor?: string;
   buttonDangerHoverColor?: string;
   buttonDangerFocusedColor?: string;
   buttonDangerPressedColor?: string;
+  buttonWarningDefaultColor?: string;
+  buttonWarningHoverColor?: string;
+  buttonWarningFocusedColor?: string;
+  buttonWarningPressedColor?: string;
   buttonDefaultColor?: string;
   buttonDefaultHoverColor?: string;
   buttonDefaultFocusedColor?: string;
@@ -246,10 +254,18 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     buttonPrimaryHoverColor: "var(--color-primary600)",
     buttonPrimaryFocusedColor: "var(--color-primary500)",
     buttonPrimaryPressedColor: "var(--color-primary700)",
+    buttonSuccessDefaultColor: "var(--color-green500)",
+    buttonSuccessHoverColor: "var(--color-green600)",
+    buttonSuccessFocusedColor: "var(--color-green500)",
+    buttonSuccessPressedColor: "var(--color-green700)",
     buttonDangerDefaultColor: "var(--color-red500)",
     buttonDangerHoverColor: "var(--color-red600)",
     buttonDangerFocusedColor: "var(--color-red500)",
     buttonDangerPressedColor: "var(--color-red700)",
+    buttonWarningDefaultColor: "var(--color-orange500)",
+    buttonWarningHoverColor: "var(--color-orange600)",
+    buttonWarningFocusedColor: "var(--color-orange500)",
+    buttonWarningPressedColor: "var(--color-orange700)",
     buttonDefaultColor: "var(--color-blue-grey700)",
     buttonDefaultHoverColor: "var(--color-blue-grey800)",
     buttonDefaultFocusedColor: "var(--color-blue-grey700)",

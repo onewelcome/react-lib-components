@@ -88,6 +88,24 @@ describe("Different variants of the button", () => {
     expect(button.classList.contains("primary")).toBe(true);
   });
 
+  it('should have a class of "success"', () => {
+    const { button } = createButton(defaultParams => ({ ...defaultParams, color: "success" }));
+
+    expect(button.classList.contains("success")).toBe(true);
+  });
+
+  it('should have a class of "danger"', () => {
+    const { button } = createButton(defaultParams => ({ ...defaultParams, color: "danger" }));
+
+    expect(button.classList.contains("danger")).toBe(true);
+  });
+
+  it('should have a class of "warning"', () => {
+    const { button } = createButton(defaultParams => ({ ...defaultParams, color: "danger" }));
+
+    expect(button.classList.contains("warning")).toBe(true);
+  });
+
   it('should have a class of "fill"', () => {
     const { button } = createButton(defaultParams => ({ ...defaultParams, variant: "fill" }));
 

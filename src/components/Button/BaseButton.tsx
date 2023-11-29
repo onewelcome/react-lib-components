@@ -22,7 +22,7 @@ export interface Props extends ComponentPropsWithRef<"button"> {
   type?: "submit" | "button" | "reset";
   disabled?: boolean;
   loading?: boolean;
-  color?: "primary" | "danger" | "default";
+  color?: "primary" | "danger" | "default" | "success" | "warning";
 }
 
 const BaseButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (

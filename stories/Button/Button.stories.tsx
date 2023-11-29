@@ -75,102 +75,50 @@ const buttonStates: Array<
     event?: "hover" | "active" | "focus";
     type?: "button";
   }
-> = [
-  {
-    color: "primary",
-    variant: "fill"
-  },
-  {
-    color: "primary",
-    variant: "fill",
-    event: "hover"
-  },
-  {
-    color: "primary",
-    variant: "fill",
-    event: "active"
-  },
-  {
-    color: "primary",
-    variant: "fill",
-    event: "focus"
-  },
-  {
-    color: "primary",
-    variant: "outline",
-    event: "hover"
-  },
-  {
-    color: "primary",
-    variant: "outline",
-    event: "active"
-  },
-  {
-    color: "primary",
-    variant: "outline",
-    event: "focus"
-  },
-  {
-    color: "primary",
-    variant: "outline"
-  },
-  {
-    color: "danger",
-    variant: "fill"
-  },
-  {
-    color: "danger",
-    variant: "fill",
-    event: "hover"
-  },
-  {
-    color: "danger",
-    variant: "fill",
-    event: "active"
-  },
-  {
-    color: "danger",
-    variant: "fill",
-    event: "focus"
-  },
-  {
-    color: "danger",
-    variant: "outline",
-    event: "hover"
-  },
-  {
-    color: "danger",
-    variant: "outline",
-    event: "active"
-  },
-  {
-    color: "danger",
-    variant: "outline",
-    event: "focus"
-  },
-  {
-    color: "danger",
-    variant: "outline"
-  },
-  {
-    color: "primary",
-    variant: "text"
-  },
-  {
-    color: "primary",
-    variant: "text",
-    event: "hover"
-  },
-  {
-    color: "primary",
-    variant: "text",
-    event: "active"
-  },
-  {
-    color: "primary",
-    variant: "text",
-    event: "focus"
-  },
+> = [];
+
+const generatePermutations = (
+  types,
+  current: Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
+    endIcon?: boolean;
+    startIcon?: boolean;
+    event?: "hover" | "active" | "focus";
+    type?: "button";
+  } = {},
+  index = 0
+) => {
+  if (index === types.length) {
+    return [current];
+  }
+
+  const type = types[index];
+  const permutations: Array<
+    Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
+      endIcon?: boolean;
+      startIcon?: boolean;
+      event?: "hover" | "active" | "focus";
+      type?: "button";
+    }
+  > = [];
+
+  for (const option of type.options) {
+    const updatedCurrent = { ...current, [type.name]: option };
+    const nextPermutations = generatePermutations(types, updatedCurrent, index + 1);
+    permutations.push(...nextPermutations);
+  }
+
+  return permutations;
+};
+
+const types = [
+  { name: "color", options: ["primary", "danger", "success", "warning"] },
+  { name: "variant", options: ["fill", "outline", "text"] },
+  { name: "event", options: [undefined, "hover", "active", "focus"] }
+];
+
+const permutations = generatePermutations(types);
+
+permutations.push(
   {
     color: "primary",
     variant: "text",
@@ -215,13 +163,15 @@ const buttonStates: Array<
     variant: "fill",
     endIcon: true
   }
-];
+);
 
 ButtonStates.decorators = [
   () => {
     return (
-      <div style={{ marginLeft: "5px" }}>
-        {buttonStates.map((states, index) => (
+      <div
+        style={{ marginLeft: "5px", display: "grid", gridTemplateColumns: "auto auto auto auto" }}
+      >
+        {permutations.map((states, index) => (
           <div style={{ marginBottom: "10px" }} key={index}>
             <Button
               id={states.event}
