@@ -141,7 +141,9 @@ export const SnackbarProvider = (
     content?: string,
     options: SnackbarOptionsProps = {}
   ): void => {
-    enqueueSnackbar(propsOrTitle, content, { ...options, variant: "success" });
+    const newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
+    enqueueSnackbar({ ...props, variant: "success" });
   };
 
   const enqueueErrorSnackbar = (
@@ -149,7 +151,9 @@ export const SnackbarProvider = (
     content?: string,
     options: SnackbarOptionsProps = {}
   ): void => {
-    enqueueSnackbar(propsOrTitle, content, { ...options, variant: "error" });
+    const newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
+    enqueueSnackbar({ ...props, variant: "error" });
   };
 
   const enqueueWarningSnackbar = (
@@ -157,7 +161,9 @@ export const SnackbarProvider = (
     content?: string,
     options: SnackbarOptionsProps = {}
   ): void => {
-    enqueueSnackbar(propsOrTitle, content, { ...options, variant: "warning" });
+    const newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
+    enqueueSnackbar({ ...props, variant: "warning" });
   };
 
   const onItemClosed = (id: string) => {
