@@ -15,10 +15,10 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Props, Tooltip as TooltipComponent } from "../../src/components/Tooltip/Tooltip";
 import TooltipDocumentation from "./Tooltip.mdx";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { useStoryCentring } from "../utils/useStoryCentring";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
@@ -29,13 +29,16 @@ const meta: Meta = {
   parameters: {
     docs: {
       page: TooltipDocumentation
+    },
+    chromatic: {
+      delay: 300
     }
   }
 };
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   useStoryCentring();
 
   return <TooltipComponent {...args} />;
@@ -52,7 +55,7 @@ Tooltip.play = conditionalPlay(async ({ canvasElement }) => {
     .closest("div")
     ?.querySelector("[data-icon]");
 
-  expect(infoIcon).not.toBeNull();
+  await expect(infoIcon).not.toBeNull();
 
   await userEvent.hover(infoIcon!);
 });
