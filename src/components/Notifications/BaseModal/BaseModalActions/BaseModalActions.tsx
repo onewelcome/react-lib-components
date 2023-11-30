@@ -23,7 +23,6 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   onClose?: () => void;
   cancelAction?: CancelAction;
   cancelActionsClassName?: string;
-  onLastButtonTab?: () => void;
 }
 
 export interface CancelAction {
@@ -32,15 +31,7 @@ export interface CancelAction {
 }
 
 const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  {
-    children,
-    cancelAction,
-    cancelActionsClassName = "",
-    onClose,
-    className = "",
-    onLastButtonTab,
-    ...rest
-  }: Props,
+  { children, cancelAction, cancelActionsClassName = "", onClose, className = "", ...rest }: Props,
   ref
 ) => {
   const innerRef = (React.createRef() as React.RefObject<HTMLDivElement>) || ref;
