@@ -83,7 +83,7 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
         disabled ? classes.disabled : ""
       } ${className ?? ""}`}
       onClick={onSelectHandler}
-      onKeyDownCapture={event => {
+      onKeyDown={event => {
         if (event.code === "Enter") {
           event.stopPropagation();
           event.preventDefault();
