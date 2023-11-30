@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useRef, useEffect } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useRef } from "react";
 import classes from "./BaseModalActions.module.scss";
 import { Button, Props as ButtonProps } from "../../../Button/Button";
 
