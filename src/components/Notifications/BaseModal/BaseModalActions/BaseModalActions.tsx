@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useRef } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useRef, useEffect } from "react";
 import classes from "./BaseModalActions.module.scss";
 import { Button, Props as ButtonProps } from "../../../Button/Button";
 
@@ -23,6 +23,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   onClose?: () => void;
   cancelAction?: CancelAction;
   cancelActionsClassName?: string;
+  onLastButtonTab?: () => void;
 }
 
 export interface CancelAction {
@@ -31,7 +32,15 @@ export interface CancelAction {
 }
 
 const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, cancelAction, cancelActionsClassName = "", onClose, className = "", ...rest }: Props,
+  {
+    children,
+    cancelAction,
+    cancelActionsClassName = "",
+    onClose,
+    className = "",
+    onLastButtonTab,
+    ...rest
+  }: Props,
   ref
 ) => {
   const innerRef = (React.createRef() as React.RefObject<HTMLDivElement>) || ref;
@@ -43,6 +52,29 @@ const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props>
       {cancelAction?.label}
     </Button>
   );
+
+  // /**
+  //  * This useEffect is to make sure that whenever the last element in the actions has focus and is being tabbed we capture that event and bring the focus back to
+  //  * the first element in the entire modal, which in this case is the close button at the top.
+  //  */
+  // useEffect(() => {
+  //   let lastElementInPrimaryActions: HTMLElement | null = null;
+
+  //   if (!children) {
+  //     lastElementInPrimaryActions = cancelButtonRef.current;
+  //   } else if (primaryActionsRef.current) {
+  //     lastElementInPrimaryActions = primaryActionsRef.current.lastElementChild as HTMLElement;
+  //   } else {
+  //     return;
+  //   }
+
+  //   (lastElementInPrimaryActions as HTMLElement).addEventListener("keydown", event => {
+  //     if (event.key === "Tab" && !event.shiftKey) {
+  //       event.preventDefault();
+  //       onLastButtonTab?.();
+  //     }
+  //   });
+  // }, [primaryActionsRef.current, cancelButtonRef.current, children]);
 
   return (
     <div {...rest} ref={innerRef} className={`${classes["actions"]} ${className}`}>
