@@ -56,11 +56,9 @@ export const useRepeatFocus = (ref: RefObject<HTMLDivElement>) => {
           event.preventDefault();
           lastFocusableElement?.focus();
         }
-      } else {
-        if (document.activeElement === lastFocusableElement) {
-          event.preventDefault();
-          firstFocusableElement?.focus();
-        }
+      } else if (document.activeElement === lastFocusableElement) {
+        event.preventDefault();
+        firstFocusableElement?.focus();
       }
     };
 

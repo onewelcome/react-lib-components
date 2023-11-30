@@ -145,6 +145,7 @@ describe("BaseModal", () => {
     const { getByText } = createBaseModal();
 
     const firstButton = getByText("Button 1");
+    const lastButton = getByText("Button 6");
 
     await act(() => {
       firstButton.focus();
@@ -158,6 +159,10 @@ describe("BaseModal", () => {
     await userEvent.tab();
 
     expect(firstButton).toHaveFocus();
+
+    await userEvent.tab({ shift: true });
+
+    expect(lastButton).toHaveFocus();
   });
 });
 
