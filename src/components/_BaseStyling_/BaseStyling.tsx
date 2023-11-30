@@ -24,8 +24,9 @@ import React, { HTMLAttributes, ReactElement, useEffect, useRef, useState } from
 interface CSSProperties {
   colorFocus?: string;
   colorPrimary?: string;
-  colorSecondary?: string;
-  colorTertiary?: string;
+  colorSuccess?: string;
+  colorWarning?: string;
+  colorDanger?: string;
   colorPrimary100?: string;
   colorPrimary300?: string;
   colorPrimary500?: string;
@@ -238,14 +239,15 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorWhite: "#FFFFFF",
     colorFocus: "var(--color-primary300)",
     colorPrimary: "var(--color-primary500)",
-    colorSecondary: "var(--color-green500)",
-    colorTertiary: "var(--color-light-blue600)",
+    colorSuccess: "var(--color-green500)",
+    colorWarning: "var(--color-orange500)",
+    colorDanger: "var(--color-red500)",
     defaultPressedColor: "var(--color-blue-grey100)",
     defaultHoverColor: "var(--color-blue-grey25)",
     defaultLineHeight: "1.5", //FIXME: UCL-395
     defaultBorderRadius: "0.25rem",
     focusBorderRadius: "0.125rem",
-    buttonBorderRadius: "var(--default-border-radius)",
+    buttonBorderRadius: "0.125rem",
     buttonBorderWidth: "2px",
     buttonFontSize: "1rem",
     buttonBorderStyle: "solid",

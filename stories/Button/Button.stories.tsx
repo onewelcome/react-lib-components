@@ -68,46 +68,22 @@ SingleButton.args = {
 
 export const ButtonStates = Template.bind({});
 
-const buttonStates: Array<
-  Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
-    endIcon?: boolean;
-    startIcon?: boolean;
-    event?: "hover" | "active" | "focus";
-    type?: "button";
-  }
-> = [];
+type ButtonStorybookProps = Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
+  endIcon?: boolean;
+  startIcon?: boolean;
+  event?: "hover" | "active" | "focus";
+  type?: "button";
+};
 
-const generatePermutations = (
-  types,
-  current: Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
-    endIcon?: boolean;
-    startIcon?: boolean;
-    event?: "hover" | "active" | "focus";
-    type?: "button";
-  } = {},
-  index = 0
-) => {
-  if (index === types.length) {
-    return [current];
-  }
-
-  const type = types[index];
-  const permutations: Array<
-    Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
-      endIcon?: boolean;
-      startIcon?: boolean;
-      event?: "hover" | "active" | "focus";
-      type?: "button";
-    }
-  > = [];
-
-  for (const option of type.options) {
-    const updatedCurrent = { ...current, [type.name]: option };
-    const nextPermutations = generatePermutations(types, updatedCurrent, index + 1);
-    permutations.push(...nextPermutations);
-  }
-
-  return permutations;
+const generateButtonStates = (types): Array<ButtonStorybookProps> => {
+  return types.reduce(
+    (result, type) => {
+      return result.flatMap(permutation =>
+        type.options.map(option => ({ ...permutation, [type.name]: option }))
+      );
+    },
+    [{}]
+  );
 };
 
 const types = [
@@ -116,9 +92,9 @@ const types = [
   { name: "event", options: [undefined, "hover", "active", "focus"] }
 ];
 
-const permutations = generatePermutations(types);
+const mainButtonStates = generateButtonStates(types);
 
-permutations.push(
+const uniqueButtonStates: Array<ButtonStorybookProps> = [
   {
     color: "primary",
     variant: "text",
@@ -163,15 +139,22 @@ permutations.push(
     variant: "fill",
     endIcon: true
   }
-);
+];
+
+mainButtonStates.push(...uniqueButtonStates);
 
 ButtonStates.decorators = [
   () => {
     return (
       <div
-        style={{ marginLeft: "5px", display: "grid", gridTemplateColumns: "auto auto auto auto" }}
+        style={{
+          marginLeft: "5px",
+          marginTop: "5px",
+          display: "grid",
+          gridTemplateColumns: "auto auto auto auto"
+        }}
       >
-        {permutations.map((states, index) => (
+        {mainButtonStates.map((states, index) => (
           <div style={{ marginBottom: "10px" }} key={index}>
             <Button
               id={states.event}

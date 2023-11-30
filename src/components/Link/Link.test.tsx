@@ -184,14 +184,20 @@ describe("colors", () => {
   });
 
   it("should be color secondary", () => {
-    const { link } = createLink(defaultParams => ({ ...defaultParams, color: "secondary" }));
+    const { link } = createLink(defaultParams => ({ ...defaultParams, color: "success" }));
 
-    expect(link).toHaveStyle({ color: "var(--color-secondary)" });
+    expect(link).toHaveStyle({ color: "var(--color-success)" });
   });
 
-  it("should be color tertiary", () => {
-    const { link } = createLink(defaultParams => ({ ...defaultParams, color: "tertiary" }));
+  it("should be color danger", () => {
+    const { link } = createLink(defaultParams => ({ ...defaultParams, color: "danger" }));
 
-    expect(link).toHaveStyle({ color: "var(--color-tertiary)" });
+    expect(link).toHaveStyle({ color: "var(--color-danger)" });
+  });
+
+  it("should be color warning", () => {
+    const { link } = createLink(defaultParams => ({ ...defaultParams, color: "warning" }));
+
+    expect(link).toHaveStyle({ color: "var(--color-warning)" });
   });
 });
