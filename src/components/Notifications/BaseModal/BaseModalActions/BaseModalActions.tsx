@@ -53,29 +53,6 @@ const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props>
     </Button>
   );
 
-  // /**
-  //  * This useEffect is to make sure that whenever the last element in the actions has focus and is being tabbed we capture that event and bring the focus back to
-  //  * the first element in the entire modal, which in this case is the close button at the top.
-  //  */
-  // useEffect(() => {
-  //   let lastElementInPrimaryActions: HTMLElement | null = null;
-
-  //   if (!children) {
-  //     lastElementInPrimaryActions = cancelButtonRef.current;
-  //   } else if (primaryActionsRef.current) {
-  //     lastElementInPrimaryActions = primaryActionsRef.current.lastElementChild as HTMLElement;
-  //   } else {
-  //     return;
-  //   }
-
-  //   (lastElementInPrimaryActions as HTMLElement).addEventListener("keydown", event => {
-  //     if (event.key === "Tab" && !event.shiftKey) {
-  //       event.preventDefault();
-  //       onLastButtonTab?.();
-  //     }
-  //   });
-  // }, [primaryActionsRef.current, cancelButtonRef.current, children]);
-
   return (
     <div {...rest} ref={innerRef} className={`${classes["actions"]} ${className}`}>
       {cancelAction && (
