@@ -18,6 +18,7 @@ import React, { useEffect, useRef } from "react";
 import { BaseModal, Props } from "./BaseModal";
 import { render, getByText, queryByText, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 
 const classNames = ["class11", "class12"];
 const containerClassNames = ["class21", "class22"];
@@ -36,7 +37,17 @@ const createBaseModal = (params?: (defaultParams: Props) => Props) => {
   if (params) {
     parameters = params(defaultParams);
   }
-  const queries = render(<BaseModal {...parameters} data-testid="BaseModal" />);
+  const queries = render(
+    <BaseModal {...parameters} data-testid="BaseModal">
+      <button>Button 1</button>
+      <button>Button 2</button>
+      <button>Button 3</button>
+      <span>{defaultParams.children}</span>
+      <button>Button 4</button>
+      <button>Button 5</button>
+      <button>Button 6</button>
+    </BaseModal>
+  );
   const slideInModal = queries.getByTestId("BaseModal");
 
   return {
@@ -129,6 +140,30 @@ describe("BaseModal", () => {
 
     fireEvent.keyDown(modal, { key: "Escape" });
     expect(defaultParams.onClose).toHaveBeenCalledTimes(2);
+  });
+
+  it("should repeat focus back to the first button when tabbing through the modal", async () => {
+    const { getByText } = createBaseModal();
+
+    const firstButton = getByText("Button 1");
+    const lastButton = getByText("Button 6");
+
+    await act(() => {
+      firstButton.focus();
+    });
+
+    await userEvent.tab();
+    await userEvent.tab();
+    await userEvent.tab();
+    await userEvent.tab();
+    await userEvent.tab();
+    await userEvent.tab();
+
+    expect(firstButton).toHaveFocus();
+
+    await userEvent.tab({ shift: true });
+
+    expect(lastButton).toHaveFocus();
   });
 });
 

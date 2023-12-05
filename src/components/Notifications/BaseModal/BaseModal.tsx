@@ -19,12 +19,15 @@ import React, {
   ComponentPropsWithRef,
   useEffect,
   useRef,
-  ReactElement
+  ReactElement,
+  RefObject,
+  createRef
 } from "react";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 import classes from "./BaseModal.module.scss";
 import { labelId, descriptionId } from "./BaseModalContext";
+import { useRepeatFocus } from "./useRepeatFocus";
 
 const SCROLL_PROPERTY_NAME = "overflow";
 const SCROLL_PROPERTY_VALUE = "hidden";
@@ -90,6 +93,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 ) => {
   useSetBodyScroll(open);
   const wrappingDivRef = useRef<HTMLDivElement>(null);
+  const modalRef = (ref as RefObject<HTMLDivElement>) || createRef<HTMLDivElement>();
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 
   const handleEscKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -99,9 +103,11 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     }
   };
 
+  useRepeatFocus(modalRef);
+
   useEffect(() => {
     if (open) {
-      wrappingDivRef.current?.focus();
+      modalRef.current?.focus();
     }
   }, [open]);
 
@@ -122,7 +128,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       {createPortal(
         <div
           {...rest}
-          ref={ref}
+          ref={modalRef}
           id={id}
           className={`${classes["modal"]} ${open ? classes["visible"] : ""} ${className}`}
           role="dialog"
