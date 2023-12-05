@@ -62,13 +62,13 @@ describe("<Stepper/> should render", () => {
   });
 
   it("should render the horizontal stepper", () => {
-    const { StepperComponent, getAllByText } = createStepper(params => ({
+    const { StepperComponent } = createStepper(params => ({
       ...params,
       direction: "horizontal"
     }));
 
     expect(StepperComponent).toBeDefined();
-    expect(StepperComponent.classList.contains("horizontal")).toBe(true);
+    expect(StepperComponent.classList).toContain("horizontal");
   });
 
   it("should render the vertical stepper", () => {
@@ -78,6 +78,6 @@ describe("<Stepper/> should render", () => {
     }));
 
     expect(StepperComponent).toBeDefined();
-    expect(StepperComponent.classList.contains("vertical")).toBe(true);
+    expect(StepperComponent.classList).not.toContain("horizontal");
   });
 });

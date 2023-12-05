@@ -47,6 +47,9 @@ const useStepChanging = (onStepChange: (stepNo: number) => void) => {
   }, [currentStepNo]);
 };
 
+/**
+ * @deprecated
+ */
 const WizardContent = ({ steps, mode, onStepChange, children }: Props) => {
   useSetWizardState(steps, mode);
   useStepChanging(onStepChange);

@@ -1,13 +1,17 @@
 .stepper {
-  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  width: auto;
+  flex-direction: column;
 
-  &.vertical {
-    flex-direction: column;
-    justify-content: flex-start;
-    height: 100%;
-    width: auto;
+  &.horizontal {
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+
+    &.text-bottom {
+      gap: 0;
+    }
   }
 }

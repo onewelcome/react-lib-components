@@ -61,6 +61,9 @@ const useNextStepNo = (mode: WizardMode, currentStepNo: number, steps: Step[]) =
 const usePreviousStepNo = (mode: WizardMode, currentStepNo: number, steps: Step[]) =>
   useMemo(calculatePrevStepNo(steps, currentStepNo), [mode, currentStepNo, steps]);
 
+/**
+ * @deprecated
+ */
 export const WizardActions = ({ actions }: Props) => {
   const {
     state: { mode, steps, currentStepNo },
