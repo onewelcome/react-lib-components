@@ -48,8 +48,8 @@ const getStepContent = (index: number, status: StepStatus) => {
 
 const getStepMaxWidth = (isHorizontal: boolean, lastStep: boolean, index: number) => {
   if (isHorizontal && lastStep) {
-    const percentage = 100 / (index! + 1);
-    const gapSize = index! * gapBetweenStepsInRem;
+    const percentage = 100 / (index + 1);
+    const gapSize = index * gapBetweenStepsInRem;
     return `calc(${percentage}% - ${gapSize}rem)`;
   }
 };

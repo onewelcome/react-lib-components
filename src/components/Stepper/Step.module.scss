@@ -172,16 +172,12 @@
         width: calc(100% + 2.25rem);
       }
 
-      &.last-step {
-        justify-content: center;
-        grid-template-columns: auto;
-      }
-
       .label-inner-wrapper {
         display: inline;
       }
 
       &.last-step {
+        justify-content: center;
         grid-template-columns: 5rem;
         grid-template-rows: auto 1fr;
         flex: 1 0 5rem;
