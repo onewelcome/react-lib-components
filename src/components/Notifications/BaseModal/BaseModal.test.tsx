@@ -142,7 +142,7 @@ describe("BaseModal", () => {
     expect(defaultParams.onClose).toHaveBeenCalledTimes(2);
   });
 
-  it("should repeat focus back to button 1 when tabbing through the modal", async () => {
+  it("should repeat focus back to the first button when tabbing through the modal", async () => {
     const { getByText } = createBaseModal();
 
     const firstButton = getByText("Button 1");
