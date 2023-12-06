@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[1734],{
+(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[1133],{
 
 /***/ "./src/components/Notifications/BaseModal/BaseModal.tsx":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -69,6 +69,78 @@ var update = injectStylesIntoStyleTag_default()(BaseModal_module/* default */.Z,
 
 // EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModalContext.ts
 var BaseModalContext = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalContext.ts");
+;// CONCATENATED MODULE: ./src/components/Notifications/BaseModal/useRepeatFocus.tsx
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+/**
+ * @description This is a hook that will make sure that when a modal is open and the user tabs through the it,
+ * the focus will be repeated and the user will not lose their entire focusable element to an element in the background
+ * that is being blocked by the modal.
+ */
+
+var useRepeatFocus = function useRepeatFocus(ref) {
+  var getFocusableElement = function getFocusableElement(element, position) {
+    var focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    var focusableElements = element.querySelectorAll(focusableSelectors);
+    if (position === "first") {
+      return focusableElements[0] || null;
+    } else if (position === "last") {
+      return focusableElements[focusableElements.length - 1] || null;
+    }
+    return null;
+  };
+  (0,react.useEffect)(function () {
+    if (!ref.current || !open) return;
+    var lastFocusableElement = getFocusableElement(ref.current, "last");
+    var firstFocusableElement = getFocusableElement(ref.current, "first");
+    if (!lastFocusableElement || !firstFocusableElement) return;
+    var handleTabKeyPress = function handleTabKeyPress(event) {
+      if (event.key !== "Tab") return;
+      if (event.shiftKey) {
+        if (document.activeElement === firstFocusableElement) {
+          event.preventDefault();
+          lastFocusableElement === null || lastFocusableElement === void 0 || lastFocusableElement.focus();
+        }
+      } else if (document.activeElement === lastFocusableElement) {
+        event.preventDefault();
+        firstFocusableElement === null || firstFocusableElement === void 0 || firstFocusableElement.focus();
+      }
+    };
+    lastFocusableElement.addEventListener("keydown", handleTabKeyPress);
+    firstFocusableElement.addEventListener("keydown", handleTabKeyPress);
+    return function () {
+      lastFocusableElement.removeEventListener("keydown", handleTabKeyPress);
+      firstFocusableElement.removeEventListener("keydown", handleTabKeyPress);
+    };
+  }, [ref, open]);
+};
+try {
+    // @ts-ignore
+    useRepeatFocus.displayName = "useRepeatFocus";
+    // @ts-ignore
+    useRepeatFocus.__docgenInfo = { "description": "", "displayName": "useRepeatFocus", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Notifications/BaseModal/useRepeatFocus.tsx#useRepeatFocus"] = { docgenInfo: useRepeatFocus.__docgenInfo, name: "useRepeatFocus", path: "src/components/Notifications/BaseModal/useRepeatFocus.tsx#useRepeatFocus" };
+}
+catch (__react_docgen_typescript_loader_error) { }
 ;// CONCATENATED MODULE: ./src/components/Notifications/BaseModal/BaseModal.tsx
 var _excluded = ["id", "children", "open", "onClose", "className", "containerProps", "backdropProps", "labelledby", "describedby", "disableEscapeKeyDown", "disableBackdrop", "forceContainerOpen", "zIndex", "domRoot"];
 function _extends() {
@@ -133,6 +205,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 
 
+
 var SCROLL_PROPERTY_NAME = "overflow";
 var SCROLL_PROPERTY_VALUE = "hidden";
 var useSetBodyScroll = function useSetBodyScroll(open) {
@@ -176,6 +249,7 @@ var BaseModalComponent = function BaseModalComponent(_ref, ref) {
     rest = _objectWithoutProperties(_ref, _excluded);
   useSetBodyScroll(open);
   var wrappingDivRef = (0,react.useRef)(null);
+  var modalRef = ref || /*#__PURE__*/(0,react.createRef)();
   var _useGetDomRoot = (0,useGetDomRoot/* useGetDomRoot */.X)(domRoot, wrappingDivRef),
     root = _useGetDomRoot.root;
   var handleEscKeyPress = function handleEscKeyPress(event) {
@@ -184,10 +258,11 @@ var BaseModalComponent = function BaseModalComponent(_ref, ref) {
       onClose === null || onClose === void 0 || onClose();
     }
   };
+  useRepeatFocus(modalRef);
   (0,react.useEffect)(function () {
     if (open) {
-      var _wrappingDivRef$curre;
-      (_wrappingDivRef$curre = wrappingDivRef.current) === null || _wrappingDivRef$curre === void 0 || _wrappingDivRef$curre.focus();
+      var _modalRef$current;
+      (_modalRef$current = modalRef.current) === null || _modalRef$current === void 0 || _modalRef$current.focus();
     }
   }, [open]);
   var handleBackdropClick = function handleBackdropClick() {
@@ -207,7 +282,7 @@ var BaseModalComponent = function BaseModalComponent(_ref, ref) {
   return /*#__PURE__*/react.createElement("div", {
     ref: wrappingDivRef
   }, /*#__PURE__*/(0,react_dom.createPortal)( /*#__PURE__*/react.createElement("div", _extends({}, rest, {
-    ref: ref,
+    ref: modalRef,
     id: id,
     className: "".concat(BaseModal_BaseModal_module["modal"], " ").concat(open ? BaseModal_BaseModal_module["visible"] : "", " ").concat(className),
     role: "dialog",
@@ -222,6 +297,7 @@ var BaseModalComponent = function BaseModalComponent(_ref, ref) {
       zIndex: zIndex
     }
   }), /*#__PURE__*/react.createElement("div", _extends({}, backdropProps, {
+    "aria-hidden": true,
     className: "".concat(BaseModal_BaseModal_module["backdrop"], " ").concat((_backdropProps$classN = backdropProps === null || backdropProps === void 0 ? void 0 : backdropProps.className) !== null && _backdropProps$classN !== void 0 ? _backdropProps$classN : ""),
     onClick: handleBackdropClick
   })), forceContainerOpen ? /*#__PURE__*/react.createElement("div", _extends({}, containerProps, {

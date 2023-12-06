@@ -860,7 +860,7 @@ var OptionComponent = function OptionComponent(_ref, ref) {
     "data-value": value,
     className: "".concat(isSelected ? _Select_module_scss__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z["selected-option"] : "", " ").concat(disabled ? _Select_module_scss__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z.disabled : "", " ").concat(className !== null && className !== void 0 ? className : ""),
     onClick: onSelectHandler,
-    onKeyDownCapture: function onKeyDownCapture(event) {
+    onKeyDown: function onKeyDown(event) {
       if (event.code === "Enter") {
         event.stopPropagation();
         event.preventDefault();

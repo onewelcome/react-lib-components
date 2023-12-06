@@ -535,11 +535,11 @@ var TooltipComponent = function TooltipComponent(_ref, ref) {
     calculatePosition = _usePosition.calculatePosition;
   (0,react.useEffect)(function () {
     if (!visible) return;
-    function escapePressHandler(event) {
+    var escapePressHandler = function escapePressHandler(event) {
       if (event.key === "Escape") {
         setVisible(false);
       }
-    }
+    };
     document.addEventListener("keyup", escapePressHandler);
     return function () {
       document.removeEventListener("keyup", escapePressHandler);

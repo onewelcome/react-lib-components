@@ -660,6 +660,9 @@ var meta = {
   parameters: {
     docs: {
       page: Tooltip_Tooltip
+    },
+    chromatic: {
+      delay: 300
     }
   }
 };
@@ -705,10 +708,12 @@ Tooltip_stories_Tooltip.play = (0,conditionalPlay/* conditionalPlay */.B)( /*#__
           _context.t2 = _yield$canvas$findByT.querySelector("[data-icon]");
         case 15:
           infoIcon = _context.t2;
-          (0,jest_dist/* expect */.l)(infoIcon).not.toBeNull();
-          _context.next = 19;
+          _context.next = 18;
+          return (0,jest_dist/* expect */.l)(infoIcon).not.toBeNull();
+        case 18:
+          _context.next = 20;
           return testing_library_dist/* userEvent */.mV.hover(infoIcon);
-        case 19:
+        case 20:
         case "end":
           return _context.stop();
       }

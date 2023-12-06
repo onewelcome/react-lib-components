@@ -316,6 +316,9 @@ var WizardStateContext = /*#__PURE__*/(0,react.createContext)({
     return null;
   }
 });
+/**
+ * @deprecated
+ */
 var WizardStateProvider = function WizardStateProvider(_ref) {
   var children = _ref.children,
     initialState = _ref.initialState;
@@ -376,6 +379,10 @@ var useStepChanging = function useStepChanging(onStepChange) {
     onStepChange(currentStepNo);
   }, [currentStepNo]);
 };
+
+/**
+ * @deprecated
+ */
 var WizardContent = function WizardContent(_ref) {
   var steps = _ref.steps,
     mode = _ref.mode,
@@ -670,6 +677,10 @@ var WizardStepsComponent = function WizardStepsComponent(_ref, ref) {
     futureStepsClickable: mode === "edit"
   }));
 };
+
+/**
+ * @deprecated
+ */
 var WizardSteps = /*#__PURE__*/react.forwardRef(WizardStepsComponent);
 try {
     // @ts-ignore
@@ -755,6 +766,10 @@ var useNextStepNo = function useNextStepNo(mode, currentStepNo, steps) {
 var usePreviousStepNo = function usePreviousStepNo(mode, currentStepNo, steps) {
   return (0,react.useMemo)(calculatePrevStepNo(steps, currentStepNo), [mode, currentStepNo, steps]);
 };
+
+/**
+ * @deprecated
+ */
 var WizardActions = function WizardActions(_ref) {
   var actions = _ref.actions;
   var _useContext = (0,react.useContext)(WizardStateContext),
@@ -825,15 +840,33 @@ var dist = __webpack_require__("./node_modules/@storybook/blocks/dist/index.mjs"
 function _createMdxContent(props) {
   const _components = Object.assign({
     p: "p",
+    strong: "strong",
+    a: "a",
     code: "code",
     h2: "h2",
     pre: "pre",
     h3: "h3",
-    a: "a",
     h1: "h1"
   }, (0,lib/* useMDXComponents */.ah)(), props.components);
   return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
-    children: [(0,jsx_runtime.jsx)(dist/* Title */.Dx, {}), "\n", (0,jsx_runtime.jsx)(dist/* Subtitle */.QE, {}), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+    children: [(0,jsx_runtime.jsx)("div", {
+      style: {
+        color: "red",
+        fontSize: "2em",
+        padding: "1em",
+        border: "2px solid red",
+        borderRadius: "5px",
+        backgroundColor: "pink"
+      },
+      children: (0,jsx_runtime.jsx)(_components.p, {
+        children: (0,jsx_runtime.jsxs)(_components.strong, {
+          children: ["THIS COMPONENT HAS BEEN DEPRECATED IN FAVOR OF THE ", (0,jsx_runtime.jsx)(_components.a, {
+            href: "?path=/docs/components-layout-stepper--docs",
+            children: "STEPPER COMPONENT"
+          })]
+        })
+      })
+    }), "\n", (0,jsx_runtime.jsx)("br", {}), "\n", (0,jsx_runtime.jsx)(dist/* Title */.Dx, {}), "\n", (0,jsx_runtime.jsx)(dist/* Subtitle */.QE, {}), "\n", (0,jsx_runtime.jsxs)(_components.p, {
       children: ["The ", (0,jsx_runtime.jsx)(_components.code, {
         children: "Wizard"
       }), " component is used to give the user some indication of how far they are in a process. This could, for example, be a form with many different steps."]
@@ -1003,7 +1036,7 @@ function MDXContent(props = {}) {
 }
 /* harmony default export */ var Wizard_Wizard = (MDXContent);
 
-// EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModal.tsx + 1 modules
+// EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModal.tsx + 2 modules
 var BaseModal = __webpack_require__("./src/components/Notifications/BaseModal/BaseModal.tsx");
 // EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModalContent/BaseModalContent.tsx + 1 modules
 var BaseModalContent = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalContent/BaseModalContent.tsx");

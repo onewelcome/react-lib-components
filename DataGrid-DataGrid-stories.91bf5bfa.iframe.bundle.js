@@ -782,6 +782,7 @@ var DataGridColumnsToggleComponent = function DataGridColumnsToggleComponent(_re
     "aria-modal": "true",
     "aria-labelledby": labelledId
   }), open && /*#__PURE__*/(0,react_dom.createPortal)( /*#__PURE__*/react.createElement("div", {
+    "aria-hidden": "true",
     className: DataGridActions_DataGridColumnsToggle_module["backdrop"],
     onClick: handleBackdropClick
   }), domRoot), open && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
