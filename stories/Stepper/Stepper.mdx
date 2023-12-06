@@ -11,6 +11,7 @@ It has the following props:
 ```tsx
 steps: StepProps[];
 direction: "horizontal" | "vertical";
+textPosition?: "bottom" | "right";
 ```
 
 ### `steps`
@@ -24,6 +25,7 @@ caption?: string;
 index?: number;
 disabled?: boolean;
 direction?: "horizontal" | "vertical";
+textPosition?: "bottom" | "right";
 ```
 
 Each step must have a `label`, the `caption` is optional. User can specify the state of each step using the `status` prop. This interface extends the `ComponentPropsWithRef<"button">` interface which means that user can specify every `button` prop (such as `onClick`, `onBlur` etc.).

@@ -21,16 +21,25 @@ import classes from "./Stepper.module.scss";
 export interface Props extends ComponentPropsWithRef<"div"> {
   steps: StepProps[];
   direction: "horizontal" | "vertical";
+  textPosition?: "bottom" | "right";
 }
 
-export const Stepper = ({ steps, direction = "horizontal", ...rest }: Props) => {
+export const gapBetweenStepsInRem = 0.5;
+
+export const Stepper = ({
+  steps,
+  direction = "horizontal",
+  textPosition,
+  className,
+  ...rest
+}: Props) => {
+  const additionalClasses = [];
+  direction === "horizontal" && additionalClasses.push(classes["horizontal"]);
+  textPosition === "bottom" && additionalClasses.push(classes["text-bottom"]);
+  className && additionalClasses.push(className);
+
   return (
-    <div
-      {...rest}
-      className={`${classes["stepper"]} ${
-        direction === "horizontal" ? classes["horizontal"] : classes["vertical"]
-      }`}
-    >
+    <div {...rest} className={`${classes["stepper"]} ${additionalClasses.join(" ")}`}>
       {steps.map((step, index) => (
         <Step
           {...step}
@@ -38,6 +47,7 @@ export const Stepper = ({ steps, direction = "horizontal", ...rest }: Props) => 
           index={index}
           direction={direction}
           lastStep={index + 1 === steps.length}
+          textPosition={textPosition}
         />
       ))}
     </div>

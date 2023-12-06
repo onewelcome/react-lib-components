@@ -48,4 +48,7 @@ const WizardStepsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   );
 };
 
+/**
+ * @deprecated
+ */
 export const WizardSteps = React.forwardRef(WizardStepsComponent);

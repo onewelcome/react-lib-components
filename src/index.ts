@@ -54,6 +54,7 @@ export { StatusIndicator } from "./components/StatusIndicator/StatusIndicator";
 export type { Props as StatusIndicatorProps } from "./components/StatusIndicator/StatusIndicator";
 export { Stepper } from "./components/Stepper/Stepper";
 export type { Props as StepperProps } from "./components/Stepper/Stepper";
+export type { Props as StepProps } from "./components/Stepper/Step";
 export { Pagination } from "./components/Pagination/Pagination";
 export type {
   Props as PaginationProps,
