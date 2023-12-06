@@ -270,5 +270,6 @@ StepperStates.parameters = {
     active: "#active",
     disabled: "#disabled",
     focusVisible: "#focus button"
-  }
+  },
+  controls: { disable: true }
 };

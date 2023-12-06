@@ -119,7 +119,7 @@
 }
 
 .step-wrapper {
-  pointer-events: none; //turn off pointer-events beside .label and .step where we turn if on
+  pointer-events: none; //turn off pointer-events beside .label and .step where we turn it on
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 1.875rem 1fr;
