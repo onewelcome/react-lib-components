@@ -249,7 +249,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     focusBorderRadius: "0.125rem",
     buttonBorderRadius: "0.125rem",
     buttonBorderWidth: "2px",
-    buttonFontSize: "1rem",
+    buttonFontSize: "0.875rem",
     buttonBorderStyle: "solid",
     buttonFillTextColor: "var(--light)",
     buttonPrimaryDefaultColor: "var(--color-primary500)",

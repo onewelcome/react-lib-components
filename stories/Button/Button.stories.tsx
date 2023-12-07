@@ -108,6 +108,16 @@ const uniqueButtonStates: Array<ButtonStorybookProps> = [
   {
     color: "primary",
     variant: "outline",
+    disabled: true
+  },
+  {
+    color: "danger",
+    variant: "outline",
+    disabled: true
+  },
+  {
+    color: "primary",
+    variant: "outline",
     disabled: true,
     loading: true
   },
@@ -182,5 +192,6 @@ ButtonStates.parameters = {
     hover: "#hover",
     active: "#active",
     focusVisible: "#focus"
-  }
+  },
+  controls: { disable: true }
 };

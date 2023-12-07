@@ -51,15 +51,3 @@
     margin-right: 0.25rem;
   }
 }
-
-@media only screen and (min-width: 30em) {
-  .has-icon {
-    &.start-icon {
-      padding-left: 1rem;
-    }
-
-    &.end-icon {
-      padding-right: 1rem;
-    }
-  }
-}

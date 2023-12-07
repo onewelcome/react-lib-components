@@ -142,7 +142,6 @@
     position: relative;
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;
-    border-radius: 1px;
     z-index: 2;
   }
 
@@ -186,6 +185,8 @@
   &#{$disabledSelector} {
     color: var(--greyed-out);
     cursor: not-allowed;
+    background-color: var(--disabled);
+    border-color: var(--disabled);
   }
 }
 

@@ -86,7 +86,7 @@ LinkStates.decorators = [
               display={states.display}
               color={states.color}
               buttonVariant={states.buttonVariant}
-              to={"http://wp.pl"}
+              to={"https://google.com/search?q=onewelcome-react-lib-components"}
             >
               {`${states.color} ${states.display}`}
             </LinkComponent>
@@ -102,5 +102,6 @@ LinkStates.parameters = {
     hover: "#hover",
     active: "#active",
     focusVisible: "#focus"
-  }
+  },
+  controls: { disable: true }
 };
