@@ -27,3 +27,18 @@ export interface SnackbarOptionsProps {
   duration?: number;
   onClose?: () => void;
 }
+
+export interface EnqueueSnackbarProps extends SnackbarOptionsProps {
+  title?: string;
+  content?: string;
+}
+
+export type DeprecatedEnqueueSnackbarType = (
+  propsOrTitle: EnqueueSnackbarProps | string | undefined,
+  content?: string,
+  options?: SnackbarOptionsProps
+) => void;
+
+export function isNewEnqueueSnackbarInterface(args: unknown): args is EnqueueSnackbarProps {
+  return args !== null && typeof args === "object" && ("title" in args || "content" in args);
+}
