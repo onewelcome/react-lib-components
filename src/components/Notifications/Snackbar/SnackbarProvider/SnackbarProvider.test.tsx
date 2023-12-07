@@ -78,7 +78,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-success"
           onClick={() => {
-            enqueueSuccessSnackbar(successProps.title + index, undefined, successProps.options);
+            enqueueSuccessSnackbar({ title: successProps.title + index, ...successProps.options });
             setIndex(index + 1);
           }}
         >
@@ -87,7 +87,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-error"
           onClick={() => {
-            enqueueErrorSnackbar(errorProps.title + index);
+            enqueueErrorSnackbar({ title: errorProps.title + index });
             setIndex(index + 1);
           }}
         >
@@ -96,7 +96,11 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-info"
           onClick={() => {
-            enqueueSnackbar(infoProps.title + index, infoProps.content, infoProps.options);
+            enqueueSnackbar({
+              title: infoProps.title + index,
+              content: infoProps.content,
+              ...infoProps.options
+            });
             setIndex(index + 1);
           }}
         >
@@ -105,7 +109,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-warning"
           onClick={() => {
-            enqueueWarningSnackbar(warningProps.title + index, undefined, warningProps.options);
+            enqueueWarningSnackbar({ title: warningProps.title + index, ...warningProps.options });
             setIndex(index + 1);
           }}
         >
@@ -135,8 +139,8 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
   };
 };
 
-describe("SnackbarProvider", () => {
-  it("renders without crashing", () => {
+describe("<SnackbarProvider />", () => {
+  it("should render without crashing", () => {
     const { container } = renderSnackbarProvider();
 
     expect(container).toHaveTextContent("content");
@@ -176,40 +180,40 @@ describe("SnackbarProvider", () => {
 
     expect(infoProps.options.actions[0].onClick).toBeCalledTimes(1);
   });
-});
 
-describe("handlers", () => {
-  it("should fire onClose", async () => {
-    const onCloseHandler = jest.fn();
-    const ExampleComponent = () => {
-      const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useSnackbar();
+  describe("handlers", () => {
+    it("should fire onClose", async () => {
+      const onCloseHandler = jest.fn();
+      const ExampleComponent = () => {
+        const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useSnackbar();
 
-      useEffect(() => {
-        enqueueErrorSnackbar("error", undefined, { onClose: onCloseHandler, duration: 1 });
-        enqueueSuccessSnackbar("success", undefined, { onClose: onCloseHandler, duration: 1 });
-      }, []);
+        useEffect(() => {
+          enqueueErrorSnackbar("error", undefined, { onClose: onCloseHandler, duration: 1 });
+          enqueueSuccessSnackbar("success", undefined, { onClose: onCloseHandler, duration: 1 });
+        }, []);
 
-      return <div></div>;
-    };
+        return <div></div>;
+      };
 
-    const queries = render(
-      <SnackbarProvider closeButtonTitle="close">
-        <ExampleComponent />
-      </SnackbarProvider>
-    );
+      const queries = render(
+        <SnackbarProvider closeButtonTitle="close">
+          <ExampleComponent />
+        </SnackbarProvider>
+      );
 
-    const errorSnackbar = await queries.findByText(/error/i);
-    const successSnackbar = await queries.findByText(/success/i);
+      const errorSnackbar = await queries.findByText(/error/i);
+      const successSnackbar = await queries.findByText(/success/i);
 
-    expect(errorSnackbar).toBeTruthy();
-    expect(successSnackbar).toBeTruthy();
+      expect(errorSnackbar).toBeTruthy();
+      expect(successSnackbar).toBeTruthy();
 
-    const parentErrorSnackbar = errorSnackbar.closest(".snackbar")!;
-    const parentSuccessSnackbar = successSnackbar.closest(".snackbar")!;
+      const parentErrorSnackbar = errorSnackbar.closest(".snackbar")!;
+      const parentSuccessSnackbar = successSnackbar.closest(".snackbar")!;
 
-    fireEvent.animationEnd(parentErrorSnackbar);
-    fireEvent.animationEnd(parentSuccessSnackbar);
+      fireEvent.animationEnd(parentErrorSnackbar);
+      fireEvent.animationEnd(parentSuccessSnackbar);
 
-    await waitFor(() => expect(onCloseHandler).toHaveBeenCalledTimes(2));
+      await waitFor(() => expect(onCloseHandler).toHaveBeenCalledTimes(2));
+    });
   });
 });

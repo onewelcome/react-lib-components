@@ -1,0 +1,154 @@
+import { ArgTypes, PRIMARY_STORY, Meta } from "@storybook/blocks";
+
+<Meta
+  title="components/Feedback/Snackbar/Snackbar"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true }
+    }
+  }}
+/>
+
+# Snackbar component
+
+The `Snackbar` components and hook are there for you to make it easy to notify a user. You have the option of displaying an error, success or information `snackbar`. In order to use all of these different `Snackbar`s, you'll have to wrap your entire application
+in the `SnackbarProvider` component. This will enable to `Snackbar` component to be portaled and displayed in the top levels of the DOM.
+
+Once you've wrapped your application with the `SnackbarProvider` component, you are free to use the `useSnackbar` hook to create any `Snackbar` you like. This hook does **not** accept any arguments, but it returns 4 different functions.
+
+The following functions will all accept an object when called, which looks as follows:
+
+```js
+{
+  title?: string;
+  content?: string;
+  actions?: (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
+  className?: string;
+  variant?: "info" | "success" | "error" | "warning";
+  duration?: number;
+  onClose?: () => void;
+}
+```
+
+## Properties
+
+The `title` is displayed at the top of the snackbar. The `content` is displayed inside of the snackbar.
+If no `content` is provided, the `title` will be displayed in place of the content to ensure correct usage of the snackbar component.
+
+The `actions` parameter might seem confusing, but this is simply an array of `Button` props. In the example down below, the "Show long snackbar" has this `actions` prop filled to make it more clear as to how this would look like.
+
+The `className` adds the provided CSS class to Snackbar Item components.
+
+An additional callback for closing the snackbar can be provided via the `onClose` property. It is called when the snackbar is closed automatically or manually by clicking the close button.
+
+By default, the `duration` property is set to `4000` (4 seconds), except for the error variant Snackbar, where the `duration` is `8000` (8 seconds). You can increase or decrease this as you like.
+
+## Methods
+
+`useSnackbar` hook returns following methods:
+
+### `enqueueSnackbar`
+
+This function will allow you to create a regular info `Snackbar`. You could use the `variant` prop to specify a variant, but using `enqueueSuccessSnackbar`, `enqueueWarningSnackbar` or `enqueueErrorSnackbar` is an easier way of doing this.
+
+### `enqueueErrorSnackbar`
+
+It will allow you to easily and quickly create an error `Snackbar`. The `variant` prop is already set to be `error`.
+
+### `enqueueSuccessSnackbar`
+
+Creates a success snackbar with the `variant` prop already set to `success`.
+
+### `enqueueWarningSnackbar`
+
+Creates a warning snackbar with the `variant` prop already set to `warning`.
+
+# Examples
+
+First, wrap your entire application inside the `SnackbarProvider` component.
+
+```jsx
+<SnackbarProvider>
+  <AppContent />
+</SnackbarProvider>
+```
+
+Then use the `useSnackbar()` hook inside your application.
+
+```jsx
+const AppContent = () => {
+  const { enqueueSuccessSnackbar, enqueueErrorSnackbar, enqueueWarningSnackbar, enqueueSnackbar } =
+    useSnackbar();
+
+  return (
+    <Fragment>
+      <Button
+        onClick={() =>
+          enqueueSuccessSnackbar({
+            content: "Main message of the snackbar",
+            duration: 10000,
+            onClose: () => console.log("onClose handler")
+          })
+        }
+      >
+        Show success snackbar
+      </Button>
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          enqueueErrorSnackbar({
+            content: "Social account unlink failed",
+            onClose: () => console.log("onClose handler")
+          })
+        }
+      >
+        Show error snackbar
+      </Button>
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          enqueueSnackbar({
+            content: "Copy of your data is requested",
+            onClose: () => console.log("onClose handler")
+          })
+        }
+      >
+        Show info snackbar
+      </Button>
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          enqueueWarningSnackbar({ content: "You request is being processed with a delay" })
+        }
+      >
+        Show warning snackbar
+      </Button>
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          enqueueSnackbar({
+            title: "Copy of your data is requested",
+            content:
+              "Body text of the snackbar. Keep it short. Users only have a few seconds to read it. Try to keep the text within the limit of 1 text message: 160 ch.",
+            actions: [
+              { label: "Contact support", onClick: () => alert("Clicked support") },
+              { label: "Contact OneWelcome", onClick: () => alert("Clicked OneWelcome") }
+            ]
+          })
+        }
+      >
+        Show long snackbar
+      </Button>
+    </Fragment>
+  );
+};
+```
+
+# Props
+
+<ArgTypes story={PRIMARY_STORY} />

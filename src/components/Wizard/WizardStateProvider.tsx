@@ -30,6 +30,9 @@ export interface Props {
   children?: React.ReactNode;
 }
 
+/**
+ * @deprecated
+ */
 const WizardStateProvider = ({ children, initialState }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return (
