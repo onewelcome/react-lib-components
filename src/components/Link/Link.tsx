@@ -27,7 +27,7 @@ export type AnchorType = "external" | "internal" | "download";
 
 export interface Props extends ComponentPropsWithRef<"a"> {
   prefixIcon?: ReactElement<IconProps, typeof Icon>;
-  color?: "primary" | "secondary" | "tertiary";
+  color?: "primary" | "success" | "danger" | "warning";
   display?: "link" | "button";
   buttonVariant?: "outline" | "text" | "fill";
   type?: AnchorType;
