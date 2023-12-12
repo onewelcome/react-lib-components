@@ -17,7 +17,6 @@
 import React, { CSSProperties, ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
 import { Icon, Icons } from "../Icon/Icon";
 import classes from "./Step.module.scss";
-import { gapBetweenStepsInRem } from "./Stepper";
 
 export type StepStatus = "waiting" | "current" | "done" | "error";
 
@@ -32,6 +31,8 @@ export interface Props extends Omit<ComponentPropsWithRef<"div">, "onClick"> {
   textPosition?: "bottom" | "right";
   onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
 }
+
+export const gapBetweenStepsInRem = 0.5;
 
 const getStepContent = (index: number, status: StepStatus) => {
   switch (status) {
