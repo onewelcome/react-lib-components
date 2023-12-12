@@ -45,6 +45,18 @@
   font-size: 0.875rem;
 }
 
+.icon-save-outline:before {
+  content: "\e947";
+  @include fontProperties();
+}
+.icon-reply-outline:before {
+  content: "\e946";
+  @include fontProperties();
+}
+.icon-upload-outline:before {
+  content: "\e945";
+  @include fontProperties();
+}
 .icon-home-filled:before {
   content: "\e940";
   @include fontProperties();
