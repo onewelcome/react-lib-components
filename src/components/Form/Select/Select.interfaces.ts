@@ -30,6 +30,7 @@ export interface UseArrowNavigationParams {
   onOptionChangeHandler: (optionElement: HTMLElement | null) => void;
   searchInputRef: React.RefObject<HTMLInputElement>;
   renderSearchCondition: number;
+  addBtnRef?: React.RefObject<HTMLButtonElement>;
 }
 
 export interface UseSelectPositionListParams {

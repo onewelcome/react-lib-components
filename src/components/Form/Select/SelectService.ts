@@ -31,7 +31,8 @@ export const useArrowNavigation = ({
   childrenCount,
   setShouldClick,
   searchInputRef,
-  renderSearchCondition
+  renderSearchCondition,
+  addBtnRef
 }: UseArrowNavigationParams) => {
   const onArrowNavigation = (event: React.KeyboardEvent) => {
     const codesToPreventDefault = [
@@ -53,6 +54,8 @@ export const useArrowNavigation = ({
       "MetaLeft",
       "MetaRight"
     ];
+
+    const isAddBtnFocused = addBtnRef?.current === document.activeElement;
 
     /** If the select is expanded, we also want to control the Tab key */
     if (expanded) {
@@ -80,7 +83,15 @@ export const useArrowNavigation = ({
           setFocusedSelectItem(childrenCount - 1);
           return;
         case "Escape":
+          setIsSearching(false);
+          setExpanded(false);
+          return;
         case "Tab":
+          if (addBtnRef) {
+            event.preventDefault();
+            addBtnRef.current?.focus();
+            return;
+          }
           setIsSearching(false);
           setExpanded(false);
       }
@@ -125,7 +136,7 @@ export const useArrowNavigation = ({
 
           return;
         case "Tab":
-          if (childrenCount >= renderSearchCondition && expanded) {
+          if (childrenCount >= renderSearchCondition && expanded && !isAddBtnFocused) {
             setIsSearching(true);
             searchInputRef.current?.focus();
             return;
@@ -166,7 +177,7 @@ export const useSelectPositionList = ({
   containerReference
 }: UseSelectPositionListParams) => {
   const [optionsListMaxHeight, setOptionsListMaxHeight] = useState("none");
-  const [opacity, setOpacity] = useState(0); // We set opacity because other wise if we calculate the max height you see the list full height for a split second and then it shortens.
+  const [opacity, setOpacity] = useState(0); // We set opacity because otherwise if we calculate the max height you see the list full height for a split second and then it shortens.
   const [listPosition, setListPosition] = useState<Partial<Position>>({});
 
   useEffect(() => {

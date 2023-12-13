@@ -15,9 +15,9 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { Select as SelectComponent, Props } from "../../../src/components/Form/Select/Select";
-import { Option } from "../../../src/components/Form/Select/Option";
+import { Meta, StoryFn } from "@storybook/react";
+import { Props, Select as SelectComponent } from "../../../src/components/Form/Select/Select";
+import { Option } from "../../../src";
 import SelectDocumentation from "./Select.mdx";
 
 const meta: Meta = {
@@ -74,7 +74,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   return (
     <SelectComponent {...args}>
       <Option value="option1">Test</Option>

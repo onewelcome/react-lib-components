@@ -15,14 +15,14 @@
  */
 
 import React, { useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
-  SelectWrapper as SelectWrapperComponent,
-  Props
+  Props,
+  SelectWrapper as SelectWrapperComponent
 } from "../../../src/components/Form/Wrapper/SelectWrapper/SelectWrapper";
-import { Option } from "../../../src/components/Form/Select/Option";
+import { Option } from "../../../src";
 import SelectWrapperDocumentation from "./SelectWrapper.mdx";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
@@ -58,13 +58,22 @@ const defaultArgs: Omit<Props, "children"> = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [pickedOption, setPickedOption] = useState<string>("option1");
   return (
     <SelectWrapperComponent
       {...args}
       onChange={e => setPickedOption(e.target.value)}
       value={pickedOption}
+      selectProps={{
+        addNew: {
+          label: "Add new",
+          onAddNew: value => {
+            window.alert(`This callback is yours to control. Value passed: ${value}`);
+          },
+          btnProps: { title: "Add new select option" }
+        }
+      }}
     >
       <Option value="option1">Option 1</Option>
       <Option value="option2">Option 2</Option>
@@ -75,6 +84,9 @@ const Template: Story<Props> = args => {
       <Option value="option7">Option 7</Option>
       <Option value="option8">Option 8</Option>
       <Option value="option9">Option 9</Option>
+      <Option value="option10">Option 10</Option>
+      <Option value="option11">Option 11</Option>
+      <Option value="option12">Option 12</Option>
     </SelectWrapperComponent>
   );
 };

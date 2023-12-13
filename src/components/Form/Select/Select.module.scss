@@ -92,9 +92,7 @@ $listItemHeight: 2.125rem;
     border-style: var(--input-border-style);
     border-width: var(--input-border-width);
     border-radius: var(--input-border-radius);
-    box-shadow: 0px 4px 5px 0px #01053233;
-    box-shadow: 0px 3px 14px 0px #0105321f;
-    box-shadow: 0px 8px 10px 0px #01053224;
+    box-shadow: 0 8px 10px 0 #01053224;
     position: absolute;
     z-index: variables.$select-z-index;
     top: 44px;
@@ -114,6 +112,7 @@ $listItemHeight: 2.125rem;
     color: var(--default);
     text-align: left;
     max-height: calc($listItemHeight * 10);
+    overflow: auto;
 
     li {
       padding: 0.5rem 0.75rem;
@@ -123,29 +122,17 @@ $listItemHeight: 2.125rem;
       line-height: var(--default-line-height);
       cursor: pointer;
 
-      &:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: transparent;
-        width: 100%;
-        height: 100%;
-        opacity: 0.05;
-      }
-
       &:focus {
         outline: var(--input-border-width-focus) solid var(--color-primary300);
-        outline-offset: -var(--input-border-width-focus);
+        outline-offset: var(--input-border-width-focus);
       }
 
-      &:hover:after,
-      &:active:after {
-        background-color: var(--color-primary);
+      &:hover {
+        background-color: var(--color-blue-grey50);
       }
 
-      &:active:after {
-        opacity: 0.1;
+      &:active {
+        background-color: var(--color-blue-grey100);
       }
 
       &.disabled {
@@ -158,16 +145,14 @@ $listItemHeight: 2.125rem;
 }
 
 .selected-option {
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    border-top-right-radius: 0.125rem;
-    border-bottom-right-radius: 0.125rem;
-    border-left: 0.25rem solid var(--color-primary);
-  }
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-top-right-radius: 0.125rem;
+  border-bottom-right-radius: 0.125rem;
+  border-left: 0.25rem solid var(--color-primary);
   color: var(--color-primary);
 }
 
@@ -176,6 +161,34 @@ $listItemHeight: 2.125rem;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+}
+
+.action-button {
+  border: none;
+  border-top: 1px solid #00000033;
+  width: 100%;
+  padding: 10px 12px;
+  margin: 0;
+  background-color: var(--light);
+  border-radius: var(--input-border-radius);
+  color: var(--default);
+  text-align: left;
+  box-shadow: 0 8px 10px 0 #01053224;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:focus {
+    outline: 1px solid;
+    outline-offset: -1px;
+  }
+
+  &:hover {
+    background-color: var(--color-blue-grey50);
+  }
+
+  &:active {
+    background-color: var(--color-blue-grey100);
+  }
 }
 
 .status {

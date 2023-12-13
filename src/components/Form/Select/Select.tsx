@@ -51,6 +51,11 @@ export interface Props extends ComponentPropsWithRef<"select">, FormElement {
   clearLabel?: string;
   noResultsLabel?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
+  addNew?: {
+    label: string;
+    onAddNew: (value: string) => void;
+    btnProps: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  };
 }
 
 /** Amount of items to be rendered before a search input is rendered */
@@ -74,6 +79,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     clearLabel = "Clear selection",
     noResultsLabel = "No results found",
     onChange,
+    addNew,
     ...rest
   }: Props,
   ref
@@ -85,14 +91,15 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const optionListReference = useRef<HTMLDivElement>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
-  const [shouldClick, setShouldClick] =
-    useState(
-      false
-    ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
+  const [shouldClick, setShouldClick] = useState(false);
+  /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const addBtnRef = useRef<HTMLButtonElement>(null);
+
+  const addNewLabel = addNew && addNew.label ? addNew.label : "Add new";
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -114,7 +121,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     childrenCount: React.Children.count(children),
     setShouldClick,
     searchInputRef,
-    renderSearchCondition
+    renderSearchCondition,
+    addBtnRef
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
@@ -129,7 +137,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   };
 
   /**
-   * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected and focused at all times and if a filter is active.
+   * @description We have to modify the children (Option component) to have an additional props that allows us to keep track of which one is selected and focused at all times and if a filter is active.
    * The `children` prop can be either a single object (1 child) or an array of multiple children.
    */
   const renderOptions = () => {
@@ -165,7 +173,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           selectOpened: expanded,
           childIndex: index,
           hasFocus: focusedSelectItem === index,
-          shouldClick: shouldClick
+          shouldClick: shouldClick,
+          isAddBtnFocused: addBtnRef.current === document.activeElement
         });
       });
     }
@@ -318,10 +327,21 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           }}
         >
           <ul role="listbox">{renderOptions()}</ul>
+          {addNew && (
+            <button
+              className={classes["action-button"]}
+              onClick={() => addNew.onAddNew(filter)}
+              ref={addBtnRef}
+              {...addNew.btnProps}
+            >
+              {!filter && addNewLabel}
+              {filter && <span style={{ fontWeight: "700" }}>{`"${filter}"`}</span>}
+              {filter && ` (${addNewLabel})`}
+            </button>
+          )}
         </div>
       </div>
     </Fragment>
   );
 };
-
 export const Select = React.forwardRef(SelectComponent);
