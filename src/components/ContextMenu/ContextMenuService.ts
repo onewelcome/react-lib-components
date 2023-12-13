@@ -137,7 +137,7 @@ export const useFocusAnchorElement = (
   const handleEscapeKeyPress = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       setShowContextMenu(false);
-      anchorEl.current && anchorEl.current.focus();
+      anchorEl.current?.focus();
     }
   };
 
