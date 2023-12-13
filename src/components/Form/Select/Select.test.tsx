@@ -15,7 +15,7 @@
  */
 
 import React, { useEffect, useRef } from "react";
-import { Select as SelectComponent, Props } from "./Select";
+import { Props, Select as SelectComponent } from "./Select";
 import { act, render, waitFor } from "@testing-library/react";
 import { Option } from "./Option";
 import userEvent from "@testing-library/user-event";
@@ -560,5 +560,34 @@ describe("meta arrow left and right", () => {
     await userEvent.keyboard("{Meta>}{arrowleft}");
 
     expect(document.querySelector('li[data-value="option1"]')).toHaveFocus();
+  });
+});
+
+describe("addBtn feature", () => {
+  it("should not be visible by default", async () => {
+    const { button, queryByTestId } = createSelect();
+
+    await userEvent.click(button);
+
+    await waitFor(() => expect(queryByTestId("select-action-button")).toBeNull());
+  });
+
+  it("should be visible when action defined", async () => {
+    const label = "You shall never click me";
+    const onAddNewCallback = jest.fn();
+    const { button, findByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      addNew: { label: label, onAddNew: () => onAddNewCallback() }
+    }));
+    const addNewBtn = await findByTestId("select-action-button");
+
+    await userEvent.click(button);
+
+    await waitFor(() => expect(addNewBtn).toBeDefined());
+    await waitFor(() => expect(addNewBtn?.textContent).toEqual(label));
+
+    await userEvent.click(addNewBtn);
+
+    await waitFor(() => expect(onAddNewCallback).toHaveBeenCalled());
   });
 });

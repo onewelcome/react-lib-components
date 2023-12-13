@@ -54,7 +54,7 @@ export interface Props extends ComponentPropsWithRef<"select">, FormElement {
   addNew?: {
     label: string;
     onAddNew: (value: string) => void;
-    btnProps: React.ButtonHTMLAttributes<HTMLButtonElement>;
+    btnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   };
 }
 
@@ -329,6 +329,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           <ul role="listbox">{renderOptions()}</ul>
           {addNew && (
             <button
+              data-testid={"select-action-button"}
               className={classes["action-button"]}
               onClick={() => addNew.onAddNew(filter)}
               ref={addBtnRef}
