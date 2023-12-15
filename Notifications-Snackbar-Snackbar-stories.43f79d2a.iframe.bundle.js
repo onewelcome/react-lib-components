@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[4043],{
+(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[1627],{
 
 /***/ "./node_modules/@storybook/addon-docs/node_modules/@mdx-js/react/lib/index.js":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -123,21 +123,111 @@ function MDXProvider({components, children, disableParentContext}) {
 
 /***/ }),
 
-/***/ "./src/components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider.tsx":
+/***/ "./stories/Notifications/Snackbar/Snackbar.stories.tsx":
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  w: function() { return /* binding */ SnackbarProvider; }
+  ErrorSnackbar: function() { return /* binding */ ErrorSnackbar; },
+  Snackbar: function() { return /* binding */ Snackbar_stories_Snackbar; },
+  SnackbarWithTitle: function() { return /* binding */ SnackbarWithTitle; },
+  SuccessSnackbar: function() { return /* binding */ SuccessSnackbar; },
+  WarningSnackbar: function() { return /* binding */ WarningSnackbar; },
+  __namedExportsOrder: function() { return /* binding */ __namedExportsOrder; },
+  "default": function() { return /* binding */ Snackbar_stories; }
 });
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__("./node_modules/react/index.js");
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
 var react_dom = __webpack_require__("./node_modules/react-dom/index.js");
-// EXTERNAL MODULE: ./src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx
-var SnackbarStateProvider = __webpack_require__("./src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx");
+;// CONCATENATED MODULE: ./src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+var SnackbarContext = /*#__PURE__*/(0,react.createContext)({
+  enqueueSnackbar: function enqueueSnackbar() {
+    return null;
+  },
+  enqueueSuccessSnackbar: function enqueueSuccessSnackbar() {
+    return null;
+  },
+  enqueueErrorSnackbar: function enqueueErrorSnackbar() {
+    return null;
+  },
+  enqueueWarningSnackbar: function enqueueWarningSnackbar() {
+    return null;
+  },
+  setSnackbarHeight: function setSnackbarHeight() {
+    return null;
+  },
+  snackbars: []
+});
+var SnackbarContextProvider = function SnackbarContextProvider(_ref) {
+  var children = _ref.children,
+    initialState = _ref.initialState;
+  return /*#__PURE__*/react.createElement(SnackbarContext.Provider, {
+    value: initialState
+  }, children);
+};
+
+try {
+    // @ts-ignore
+    SnackbarContextProvider.displayName = "SnackbarContextProvider";
+    // @ts-ignore
+    SnackbarContextProvider.__docgenInfo = { "description": "", "displayName": "SnackbarContextProvider", "props": { "initialState": { "defaultValue": null, "description": "", "name": "initialState", "required": true, "type": { "name": "SnackbarContextProps" } } } };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx#SnackbarContextProvider"] = { docgenInfo: SnackbarContextProvider.__docgenInfo, name: "SnackbarContextProvider", path: "src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx#SnackbarContextProvider" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+;// CONCATENATED MODULE: ./src/components/Notifications/Snackbar/interfaces.ts
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+function isNewEnqueueSnackbarInterface(args) {
+  return args !== null && _typeof(args) === "object" && ("title" in args || "content" in args);
+}
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__("./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -299,7 +389,7 @@ function _arrayWithHoles(arr) {
 
 
 var useSnackbarContainerHeightAnimation = function useSnackbarContainerHeightAnimation() {
-  var _useContext = (0,react.useContext)(SnackbarStateProvider/* SnackbarContext */.S),
+  var _useContext = (0,react.useContext)(SnackbarContext),
     snackbars = _useContext.snackbars;
   var _useState = (0,react.useState)(0),
     _useState2 = _slicedToArray(_useState, 2),
@@ -544,7 +634,7 @@ function SnackbarItem_extends() {
 
 var textColor = "var(--snackbar-text-color)";
 var useRegisterSnackbarHeight = function useRegisterSnackbarHeight(singleSnackbarRef, snackbarId) {
-  var ctx = (0,react.useContext)(SnackbarStateProvider/* SnackbarContext */.S);
+  var ctx = (0,react.useContext)(SnackbarContext);
   (0,react.useEffect)(function () {
     if (singleSnackbarRef.current) {
       ctx.setSnackbarHeight(snackbarId, singleSnackbarRef.current.getBoundingClientRect().height);
@@ -570,6 +660,9 @@ var SnackbarItem = function SnackbarItem(_ref) {
     ref = _useAnimation.ref,
     animationStarted = _useAnimation.animationStarted,
     startAnimation = _useAnimation.startAnimation;
+  var hasOnlyTitle = !content && !!title;
+  var renderTitle = title && !hasOnlyTitle;
+  var renderContentOrTitleOnly = content || hasOnlyTitle;
   useRegisterSnackbarHeight(ref, id);
   (0,react.useEffect)(function () {
     timerHandler.current = setTimeout(function () {
@@ -608,26 +701,28 @@ var SnackbarItem = function SnackbarItem(_ref) {
       className: SnackbarItem_SnackbarItem_module["action-button"]
     }), actionProp.label);
   });
-  var snackbarClasses = [SnackbarItem_SnackbarItem_module["snackbar"], SnackbarItem_SnackbarItem_module[variant], animationStarted ? readyclasses_module/* default */.Z["slide-out"] : readyclasses_module/* default */.Z["slide-in"], title ? SnackbarItem_SnackbarItem_module["has-title"] : "", className !== null && className !== void 0 ? className : ""].join(" ");
+  var snackbarClasses = [SnackbarItem_SnackbarItem_module["snackbar"], SnackbarItem_SnackbarItem_module[variant], animationStarted ? readyclasses_module/* default */.Z["slide-out"] : readyclasses_module/* default */.Z["slide-in"], className !== null && className !== void 0 ? className : ""].join(" ");
   return /*#__PURE__*/react.createElement("div", {
     ref: ref,
     "aria-live": "polite",
     className: snackbarClasses,
     onMouseEnter: onMouseEnter,
     onMouseLeave: onMouseLeave
+  }, /*#__PURE__*/react.createElement("div", {
+    className: SnackbarItem_SnackbarItem_module["outer-content-wrapper"]
   }, /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
     icon: getVariantIcon(),
     className: SnackbarItem_SnackbarItem_module["icon"]
   }), /*#__PURE__*/react.createElement("div", {
     className: SnackbarItem_SnackbarItem_module["content-wrapper"]
-  }, title && /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
+  }, renderTitle && /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
     className: SnackbarItem_SnackbarItem_module["title"],
     variant: "body-bold",
     tag: "span"
-  }, title), content && /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
+  }, title), renderContentOrTitleOnly && /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
     className: SnackbarItem_SnackbarItem_module["content"],
     variant: "body"
-  }, content)), actionButtons.length > 0 && /*#__PURE__*/react.createElement("div", {
+  }, hasOnlyTitle ? title : content))), actionButtons.length > 0 && /*#__PURE__*/react.createElement("div", {
     className: SnackbarItem_SnackbarItem_module["actions"]
   }, actionButtons), /*#__PURE__*/react.createElement(IconButton/* IconButton */.h, {
     id: SnackbarItem_SnackbarItem_module["close-btn"],
@@ -654,14 +749,14 @@ catch (__react_docgen_typescript_loader_error) { }
 // EXTERNAL MODULE: ./src/hooks/useGetDomRoot.ts
 var useGetDomRoot = __webpack_require__("./src/hooks/useGetDomRoot.ts");
 ;// CONCATENATED MODULE: ./src/components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider.tsx
-function _typeof(o) {
+function SnackbarProvider_typeof(o) {
   "@babel/helpers - typeof";
 
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return SnackbarProvider_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
+  }, SnackbarProvider_typeof(o);
 }
 function SnackbarProvider_extends() {
   SnackbarProvider_extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -714,14 +809,14 @@ function _defineProperty(obj, key, value) {
 }
 function _toPropertyKey(arg) {
   var key = _toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+  return SnackbarProvider_typeof(key) === "symbol" ? key : String(key);
 }
 function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
+  if (SnackbarProvider_typeof(input) !== "object" || input === null) return input;
   var prim = input[Symbol.toPrimitive];
   if (prim !== undefined) {
     var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+    if (SnackbarProvider_typeof(res) !== "object") return res;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (hint === "string" ? String : Number)(input);
@@ -811,6 +906,7 @@ function SnackbarProvider_arrayWithHoles(arr) {
 
 
 
+
 /** Short msg is when only title is provided. Long one when content or/and actions are provided (or type is error). */
 
 var SnackbarProvider = function SnackbarProvider() {
@@ -864,39 +960,57 @@ var SnackbarProvider = function SnackbarProvider() {
     }
     return autoHideDuration.short;
   };
-  var enqueueSnackbar = function enqueueSnackbar(title, content) {
+  var enqueueSnackbar = function enqueueSnackbar(propsOrTitle, content) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var _options$variant = options.variant,
-      variant = _options$variant === void 0 ? "info" : _options$variant,
-      actions = options.actions,
-      _options$duration = options.duration,
-      duration = _options$duration === void 0 ? getDuration(variant, actions, content) : _options$duration,
-      onClose = options.onClose;
+    var newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    var props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
+    var _props$variant = props.variant,
+      variant = _props$variant === void 0 ? "info" : _props$variant,
+      actions = props.actions,
+      _props$duration = props.duration,
+      duration = _props$duration === void 0 ? getDuration(variant, actions, props.content) : _props$duration,
+      onClose = props.onClose;
     var item = {
-      title: title,
-      content: content,
+      title: props.title,
+      content: props.content,
       variant: variant,
-      className: options.className,
+      className: props.className,
       actions: actions,
       duration: duration,
       height: 0,
-      id: (0,helper/* generateID */.y)(15, title),
+      id: (0,helper/* generateID */.y)(15, props.title),
       onClose: onClose
     };
     addSnackbar(item);
   };
-  var enqueueSuccessSnackbar = function enqueueSuccessSnackbar(title, content, options) {
-    enqueueSnackbar(title, content, _objectSpread(_objectSpread({}, options), {}, {
+  var mapToNewInterface = function mapToNewInterface(title, content) {
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    return _objectSpread({
+      title: title,
+      content: content
+    }, options);
+  };
+  var enqueueSuccessSnackbar = function enqueueSuccessSnackbar(propsOrTitle, content) {
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    var props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
+    enqueueSnackbar(_objectSpread(_objectSpread({}, props), {}, {
       variant: "success"
     }));
   };
-  var enqueueErrorSnackbar = function enqueueErrorSnackbar(title, content, options) {
-    enqueueSnackbar(title, content, _objectSpread(_objectSpread({}, options), {}, {
+  var enqueueErrorSnackbar = function enqueueErrorSnackbar(propsOrTitle, content) {
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    var props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
+    enqueueSnackbar(_objectSpread(_objectSpread({}, props), {}, {
       variant: "error"
     }));
   };
-  var enqueueWarningSnackbar = function enqueueWarningSnackbar(title, content, options) {
-    enqueueSnackbar(title, content, _objectSpread(_objectSpread({}, options), {}, {
+  var enqueueWarningSnackbar = function enqueueWarningSnackbar(propsOrTitle, content) {
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    var props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
+    enqueueSnackbar(_objectSpread(_objectSpread({}, props), {}, {
       variant: "warning"
     }));
   };
@@ -923,7 +1037,7 @@ var SnackbarProvider = function SnackbarProvider() {
     placement: placement,
     className: className
   }, snackbarList), root);
-  return /*#__PURE__*/react.createElement(SnackbarStateProvider/* SnackbarContextProvider */.i, {
+  return /*#__PURE__*/react.createElement(SnackbarContextProvider, {
     initialState: {
       enqueueSnackbar: enqueueSnackbar,
       enqueueSuccessSnackbar: enqueueSuccessSnackbar,
@@ -947,82 +1061,7 @@ try {
         STORYBOOK_REACT_CLASSES["src/components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider.tsx#SnackbarProvider"] = { docgenInfo: SnackbarProvider.__docgenInfo, name: "SnackbarProvider", path: "src/components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider.tsx#SnackbarProvider" };
 }
 catch (__react_docgen_typescript_loader_error) { }
-
-/***/ }),
-
-/***/ "./src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx":
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   S: function() { return /* binding */ SnackbarContext; },
-/* harmony export */   i: function() { return /* binding */ SnackbarContextProvider; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-
-var SnackbarContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  enqueueSnackbar: function enqueueSnackbar() {
-    return null;
-  },
-  enqueueSuccessSnackbar: function enqueueSuccessSnackbar() {
-    return null;
-  },
-  enqueueErrorSnackbar: function enqueueErrorSnackbar() {
-    return null;
-  },
-  enqueueWarningSnackbar: function enqueueWarningSnackbar() {
-    return null;
-  },
-  setSnackbarHeight: function setSnackbarHeight() {
-    return null;
-  },
-  snackbars: []
-});
-var SnackbarContextProvider = function SnackbarContextProvider(_ref) {
-  var children = _ref.children,
-    initialState = _ref.initialState;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SnackbarContext.Provider, {
-    value: initialState
-  }, children);
-};
-
-try {
-    // @ts-ignore
-    SnackbarContextProvider.displayName = "SnackbarContextProvider";
-    // @ts-ignore
-    SnackbarContextProvider.__docgenInfo = { "description": "", "displayName": "SnackbarContextProvider", "props": { "initialState": { "defaultValue": null, "description": "", "name": "initialState", "required": true, "type": { "name": "SnackbarContextProps" } } } };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx#SnackbarContextProvider"] = { docgenInfo: SnackbarContextProvider.__docgenInfo, name: "SnackbarContextProvider", path: "src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx#SnackbarContextProvider" };
-}
-catch (__react_docgen_typescript_loader_error) { }
-
-/***/ }),
-
-/***/ "./src/components/Notifications/Snackbar/useSnackbar.ts":
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   D: function() { return /* binding */ useSnackbar; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
-/* harmony import */ var _SnackbarProvider_SnackbarStateProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx");
+;// CONCATENATED MODULE: ./src/components/Notifications/Snackbar/useSnackbar.ts
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -1042,7 +1081,7 @@ catch (__react_docgen_typescript_loader_error) { }
 
 
 var useSnackbar = function useSnackbar() {
-  var ctx = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_SnackbarProvider_SnackbarStateProvider__WEBPACK_IMPORTED_MODULE_1__/* .SnackbarContext */ .S);
+  var ctx = (0,react.useContext)(SnackbarContext);
   return {
     enqueueWarningSnackbar: ctx.enqueueWarningSnackbar,
     enqueueErrorSnackbar: ctx.enqueueErrorSnackbar,
@@ -1050,6 +1089,508 @@ var useSnackbar = function useSnackbar() {
     enqueueSnackbar: ctx.enqueueSnackbar
   };
 };
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__("./node_modules/react/jsx-runtime.js");
+// EXTERNAL MODULE: ./node_modules/@storybook/addon-docs/node_modules/@mdx-js/react/lib/index.js
+var lib = __webpack_require__("./node_modules/@storybook/addon-docs/node_modules/@mdx-js/react/lib/index.js");
+// EXTERNAL MODULE: ./node_modules/@storybook/blocks/dist/index.mjs + 11 modules
+var dist = __webpack_require__("./node_modules/@storybook/blocks/dist/index.mjs");
+;// CONCATENATED MODULE: ./stories/Notifications/Snackbar/Snackbar.mdx
+
+
+
+/*@jsxRuntime automatic @jsxImportSource react*/
+
+
+
+function _createMdxContent(props) {
+  const _components = Object.assign({
+    h1: "h1",
+    p: "p",
+    code: "code",
+    strong: "strong",
+    pre: "pre",
+    h2: "h2",
+    h3: "h3"
+  }, (0,lib/* useMDXComponents */.ah)(), props.components);
+  return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+    children: [(0,jsx_runtime.jsx)(dist/* Meta */.h_, {
+      title: "components/Feedback/Snackbar/Snackbar",
+      parameters: {
+        viewMode: "docs",
+        previewTabs: {
+          canvas: {
+            hidden: true
+          }
+        }
+      }
+    }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
+      id: "snackbar-component",
+      children: "Snackbar component"
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["The ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Snackbar"
+      }), " components and hook are there for you to make it easy to notify a user. You have the option of displaying an error, success or information ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "snackbar"
+      }), ". In order to use all of these different ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Snackbar"
+      }), "s, you'll have to wrap your entire application\nin the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "SnackbarProvider"
+      }), " component. This will enable to ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Snackbar"
+      }), " component to be portaled and displayed in the top levels of the DOM."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Once you've wrapped your application with the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "SnackbarProvider"
+      }), " component, you are free to use the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "useSnackbar"
+      }), " hook to create any ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Snackbar"
+      }), " you like. This hook does ", (0,jsx_runtime.jsx)(_components.strong, {
+        children: "not"
+      }), " accept any arguments, but it returns 4 different functions."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.p, {
+      children: "The following functions will all accept an object when called, which looks as follows:"
+    }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        className: "language-js",
+        children: "{\n  title?: string;\n  content?: string;\n  actions?: (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];\n  className?: string;\n  variant?: \"info\" | \"success\" | \"error\" | \"warning\";\n  duration?: number;\n  onClose?: () => void;\n}\n"
+      })
+    }), "\n", (0,jsx_runtime.jsx)(_components.h2, {
+      id: "properties",
+      children: "Properties"
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["The ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "title"
+      }), " is displayed at the top of the snackbar. The ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "content"
+      }), " is displayed inside of the snackbar.\nIf no ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "content"
+      }), " is provided, the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "title"
+      }), " will be displayed in place of the content to ensure correct usage of the snackbar component."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["The ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "actions"
+      }), " parameter might seem confusing, but this is simply an array of ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Button"
+      }), " props. In the example down below, the \"Show long snackbar\" has this ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "actions"
+      }), " prop filled to make it more clear as to how this would look like."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["The ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "className"
+      }), " adds the provided CSS class to Snackbar Item components."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["An additional callback for closing the snackbar can be provided via the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "onClose"
+      }), " property. It is called when the snackbar is closed automatically or manually by clicking the close button."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["By default, the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "duration"
+      }), " property is set to ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "4000"
+      }), " (4 seconds), except for the error variant Snackbar, where the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "duration"
+      }), " is ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "8000"
+      }), " (8 seconds). You can increase or decrease this as you like."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.h2, {
+      id: "methods",
+      children: "Methods"
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: [(0,jsx_runtime.jsx)(_components.code, {
+        children: "useSnackbar"
+      }), " hook returns following methods:"]
+    }), "\n", (0,jsx_runtime.jsx)(_components.h3, {
+      id: "enqueuesnackbar",
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        children: "enqueueSnackbar"
+      })
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["This function will allow you to create a regular info ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Snackbar"
+      }), ". You could use the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "variant"
+      }), " prop to specify a variant, but using ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "enqueueSuccessSnackbar"
+      }), ", ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "enqueueWarningSnackbar"
+      }), " or ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "enqueueErrorSnackbar"
+      }), " is an easier way of doing this."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.h3, {
+      id: "enqueueerrorsnackbar",
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        children: "enqueueErrorSnackbar"
+      })
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["It will allow you to easily and quickly create an error ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Snackbar"
+      }), ". The ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "variant"
+      }), " prop is already set to be ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "error"
+      }), "."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.h3, {
+      id: "enqueuesuccesssnackbar",
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        children: "enqueueSuccessSnackbar"
+      })
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Creates a success snackbar with the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "variant"
+      }), " prop already set to ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "success"
+      }), "."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.h3, {
+      id: "enqueuewarningsnackbar",
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        children: "enqueueWarningSnackbar"
+      })
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Creates a warning snackbar with the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "variant"
+      }), " prop already set to ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "warning"
+      }), "."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
+      id: "examples",
+      children: "Examples"
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["First, wrap your entire application inside the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "SnackbarProvider"
+      }), " component."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        className: "language-jsx",
+        children: "<SnackbarProvider>\n  <AppContent />\n</SnackbarProvider>\n"
+      })
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["Then use the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "useSnackbar()"
+      }), " hook inside your application."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        className: "language-jsx",
+        children: "const AppContent = () => {\n  const { enqueueSuccessSnackbar, enqueueErrorSnackbar, enqueueWarningSnackbar, enqueueSnackbar } =\n    useSnackbar();\n\n  return (\n    <Fragment>\n      <Button\n        onClick={() =>\n          enqueueSuccessSnackbar({\n            content: \"Main message of the snackbar\",\n            duration: 10000,\n            onClose: () => console.log(\"onClose handler\")\n          })\n        }\n      >\n        Show success snackbar\n      </Button>\n      <br />\n      <br />\n      <Button\n        onClick={() =>\n          enqueueErrorSnackbar({\n            content: \"Social account unlink failed\",\n            onClose: () => console.log(\"onClose handler\")\n          })\n        }\n      >\n        Show error snackbar\n      </Button>\n      <br />\n      <br />\n      <Button\n        onClick={() =>\n          enqueueSnackbar({\n            content: \"Copy of your data is requested\",\n            onClose: () => console.log(\"onClose handler\")\n          })\n        }\n      >\n        Show info snackbar\n      </Button>\n      <br />\n      <br />\n      <Button\n        onClick={() =>\n          enqueueWarningSnackbar({ content: \"You request is being processed with a delay\" })\n        }\n      >\n        Show warning snackbar\n      </Button>\n      <br />\n      <br />\n      <Button\n        onClick={() =>\n          enqueueSnackbar({\n            title: \"Copy of your data is requested\",\n            content:\n              \"Body text of the snackbar. Keep it short. Users only have a few seconds to read it. Try to keep the text within the limit of 1 text message: 160 ch.\",\n            actions: [\n              { label: \"Contact support\", onClick: () => alert(\"Clicked support\") },\n              { label: \"Contact OneWelcome\", onClick: () => alert(\"Clicked OneWelcome\") }\n            ]\n          })\n        }\n      >\n        Show long snackbar\n      </Button>\n    </Fragment>\n  );\n};\n"
+      })
+    }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
+      id: "props",
+      children: "Props"
+    }), "\n", (0,jsx_runtime.jsx)(dist/* ArgTypes */.Ed, {
+      story: dist/* PRIMARY_STORY */.Uh
+    })]
+  });
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = Object.assign({}, (0,lib/* useMDXComponents */.ah)(), props.components);
+  return MDXLayout ? (0,jsx_runtime.jsx)(MDXLayout, Object.assign({}, props, {
+    children: (0,jsx_runtime.jsx)(_createMdxContent, props)
+  })) : _createMdxContent(props);
+}
+/* harmony default export */ var Snackbar = (MDXContent);
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./stories/Notifications/Snackbar/Stories.module.scss
+var Stories_module = __webpack_require__("./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./stories/Notifications/Snackbar/Stories.module.scss");
+;// CONCATENATED MODULE: ./stories/Notifications/Snackbar/Stories.module.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var Stories_module_options = {};
+
+Stories_module_options.styleTagTransform = (styleTagTransform_default());
+Stories_module_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      Stories_module_options.insert = insertBySelector_default().bind(null, "head");
+    
+Stories_module_options.domAPI = (styleDomAPI_default());
+Stories_module_options.insertStyleElement = (insertStyleElement_default());
+
+var Stories_module_update = injectStylesIntoStyleTag_default()(Stories_module/* default */.Z, Stories_module_options);
+
+
+
+
+       /* harmony default export */ var Snackbar_Stories_module = (Stories_module/* default */.Z && Stories_module/* default */.Z.locals ? Stories_module/* default */.Z.locals : undefined);
+
+;// CONCATENATED MODULE: ./stories/Notifications/Snackbar/Snackbar.stories.tsx
+var _Snackbar$parameters, _Snackbar$parameters2, _ErrorSnackbar$parame, _ErrorSnackbar$parame2, _SnackbarWithTitle$pa, _SnackbarWithTitle$pa2, _SuccessSnackbar$para, _SuccessSnackbar$para2, _WarningSnackbar$para, _WarningSnackbar$para2;
+function Snackbar_stories_typeof(o) {
+  "@babel/helpers - typeof";
+
+  return Snackbar_stories_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, Snackbar_stories_typeof(o);
+}
+function Snackbar_stories_ownKeys(e, r) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function (r) {
+      return Object.getOwnPropertyDescriptor(e, r).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function Snackbar_stories_objectSpread(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? Snackbar_stories_ownKeys(Object(t), !0).forEach(function (r) {
+      Snackbar_stories_defineProperty(e, r, t[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : Snackbar_stories_ownKeys(Object(t)).forEach(function (r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+    });
+  }
+  return e;
+}
+function Snackbar_stories_defineProperty(obj, key, value) {
+  key = Snackbar_stories_toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function Snackbar_stories_toPropertyKey(arg) {
+  var key = Snackbar_stories_toPrimitive(arg, "string");
+  return Snackbar_stories_typeof(key) === "symbol" ? key : String(key);
+}
+function Snackbar_stories_toPrimitive(input, hint) {
+  if (Snackbar_stories_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (Snackbar_stories_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+
+
+
+/**
+ * We want to disable autogenerated docs for a single story, but we can't currently... https://github.com/storybookjs/storybook/issues/21085
+ */
+var meta = {
+  title: "components/Feedback/Snackbar",
+  component: SnackbarProvider,
+  parameters: {
+    docs: {
+      page: Snackbar,
+      description: {
+        component: "We want to disable autogenerated docs for a single story, but we can't currently... https://github.com/storybookjs/storybook/issues/21085"
+      }
+    }
+  }
+};
+/* harmony default export */ var Snackbar_stories = (meta);
+var AppContent = function AppContent() {
+  var _useSnackbar = useSnackbar(),
+    enqueueSnackbar = _useSnackbar.enqueueSnackbar;
+  (0,react.useEffect)(function () {
+    enqueueSnackbar({
+      content: "Main message of the snackbar",
+      actions: [{
+        label: "Contact support",
+        onClick: function onClick() {
+          return alert("Clicked support");
+        }
+      }],
+      onClose: function onClose() {
+        return console.warn("onClose handler");
+      },
+      duration: 200000,
+      className: Snackbar_Stories_module["remove-animation"]
+    });
+  }, []);
+  return null;
+};
+var Template = function Template() {
+  return /*#__PURE__*/react.createElement(SnackbarProvider, {
+    closeButtonTitle: "Close"
+  }, /*#__PURE__*/react.createElement(AppContent, null));
+};
+var Snackbar_stories_Snackbar = Template.bind({});
+var ErrorSnackbarAppContent = function ErrorSnackbarAppContent() {
+  var _useSnackbar2 = useSnackbar(),
+    enqueueErrorSnackbar = _useSnackbar2.enqueueErrorSnackbar;
+  (0,react.useEffect)(function () {
+    enqueueErrorSnackbar({
+      content: "Alert message.",
+      actions: [{
+        label: "Action",
+        onClick: function onClick() {
+          return alert("Clicked support");
+        }
+      }],
+      onClose: function onClose() {
+        return console.warn("onClose handler");
+      },
+      duration: 200000,
+      className: Snackbar_Stories_module["remove-animation"]
+    });
+  }, []);
+  return null;
+};
+var ErrorSnackbarTemplate = function ErrorSnackbarTemplate() {
+  return /*#__PURE__*/react.createElement(SnackbarProvider, {
+    closeButtonTitle: "Close"
+  }, /*#__PURE__*/react.createElement(ErrorSnackbarAppContent, null));
+};
+var ErrorSnackbar = ErrorSnackbarTemplate.bind({});
+var SnackbarWithTitleAppContent = function SnackbarWithTitleAppContent() {
+  var _useSnackbar3 = useSnackbar(),
+    enqueueSnackbar = _useSnackbar3.enqueueSnackbar;
+  (0,react.useEffect)(function () {
+    enqueueSnackbar({
+      title: "This is a title",
+      content: "Phasellus eleifend cursus vehicula. Pellentesque ut sem in elit pulvinar luctus.",
+      actions: [{
+        label: "Action",
+        onClick: function onClick() {
+          return alert("Clicked support");
+        }
+      }],
+      onClose: function onClose() {
+        return console.warn("onClose handler");
+      },
+      duration: 200000,
+      className: Snackbar_Stories_module["remove-animation"]
+    });
+  }, []);
+  return null;
+};
+var SnackbarWithTitleTemplate = function SnackbarWithTitleTemplate() {
+  return /*#__PURE__*/react.createElement(SnackbarProvider, {
+    closeButtonTitle: "Close"
+  }, /*#__PURE__*/react.createElement(SnackbarWithTitleAppContent, null));
+};
+var SnackbarWithTitle = SnackbarWithTitleTemplate.bind({});
+var SuccessSnackbarAppContent = function SuccessSnackbarAppContent() {
+  var _useSnackbar4 = useSnackbar(),
+    enqueueSuccessSnackbar = _useSnackbar4.enqueueSuccessSnackbar;
+  (0,react.useEffect)(function () {
+    enqueueSuccessSnackbar({
+      content: "Alert message.",
+      actions: [{
+        label: "Action",
+        onClick: function onClick() {
+          return alert("Clicked support");
+        }
+      }],
+      onClose: function onClose() {
+        return console.warn("onClose handler");
+      },
+      duration: 200000,
+      className: Snackbar_Stories_module["remove-animation"]
+    });
+  }, []);
+  return null;
+};
+var SuccessSnackbarTemplate = function SuccessSnackbarTemplate() {
+  return /*#__PURE__*/react.createElement(SnackbarProvider, {
+    closeButtonTitle: "Close"
+  }, /*#__PURE__*/react.createElement(SuccessSnackbarAppContent, null));
+};
+var SuccessSnackbar = SuccessSnackbarTemplate.bind({});
+var WarningSnackbarAppContent = function WarningSnackbarAppContent() {
+  var _useSnackbar5 = useSnackbar(),
+    enqueueWarningSnackbar = _useSnackbar5.enqueueWarningSnackbar;
+  (0,react.useEffect)(function () {
+    enqueueWarningSnackbar({
+      content: "Alert message.",
+      actions: [{
+        label: "Action",
+        onClick: function onClick() {
+          return alert("Clicked support");
+        }
+      }],
+      onClose: function onClose() {
+        return console.warn("onClose handler");
+      },
+      duration: 200000,
+      className: Snackbar_Stories_module["remove-animation"]
+    });
+  }, []);
+  return null;
+};
+var WarningSnackbarTemplate = function WarningSnackbarTemplate() {
+  return /*#__PURE__*/react.createElement(SnackbarProvider, {
+    closeButtonTitle: "Close"
+  }, /*#__PURE__*/react.createElement(WarningSnackbarAppContent, null));
+};
+var WarningSnackbar = WarningSnackbarTemplate.bind({});
+Snackbar_stories_Snackbar.parameters = Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, Snackbar_stories_Snackbar.parameters), {}, {
+  docs: Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, (_Snackbar$parameters = Snackbar_stories_Snackbar.parameters) === null || _Snackbar$parameters === void 0 ? void 0 : _Snackbar$parameters.docs), {}, {
+    source: Snackbar_stories_objectSpread({
+      originalSource: "() => {\n  return <SnackbarProvider closeButtonTitle=\"Close\">\n      <AppContent />\n    </SnackbarProvider>;\n}"
+    }, (_Snackbar$parameters2 = Snackbar_stories_Snackbar.parameters) === null || _Snackbar$parameters2 === void 0 || (_Snackbar$parameters2 = _Snackbar$parameters2.docs) === null || _Snackbar$parameters2 === void 0 ? void 0 : _Snackbar$parameters2.source)
+  })
+});
+ErrorSnackbar.parameters = Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, ErrorSnackbar.parameters), {}, {
+  docs: Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, (_ErrorSnackbar$parame = ErrorSnackbar.parameters) === null || _ErrorSnackbar$parame === void 0 ? void 0 : _ErrorSnackbar$parame.docs), {}, {
+    source: Snackbar_stories_objectSpread({
+      originalSource: "() => {\n  return <SnackbarProvider closeButtonTitle=\"Close\">\n      <ErrorSnackbarAppContent />\n    </SnackbarProvider>;\n}"
+    }, (_ErrorSnackbar$parame2 = ErrorSnackbar.parameters) === null || _ErrorSnackbar$parame2 === void 0 || (_ErrorSnackbar$parame2 = _ErrorSnackbar$parame2.docs) === null || _ErrorSnackbar$parame2 === void 0 ? void 0 : _ErrorSnackbar$parame2.source)
+  })
+});
+SnackbarWithTitle.parameters = Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, SnackbarWithTitle.parameters), {}, {
+  docs: Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, (_SnackbarWithTitle$pa = SnackbarWithTitle.parameters) === null || _SnackbarWithTitle$pa === void 0 ? void 0 : _SnackbarWithTitle$pa.docs), {}, {
+    source: Snackbar_stories_objectSpread({
+      originalSource: "() => {\n  return <SnackbarProvider closeButtonTitle=\"Close\">\n      <SnackbarWithTitleAppContent />\n    </SnackbarProvider>;\n}"
+    }, (_SnackbarWithTitle$pa2 = SnackbarWithTitle.parameters) === null || _SnackbarWithTitle$pa2 === void 0 || (_SnackbarWithTitle$pa2 = _SnackbarWithTitle$pa2.docs) === null || _SnackbarWithTitle$pa2 === void 0 ? void 0 : _SnackbarWithTitle$pa2.source)
+  })
+});
+SuccessSnackbar.parameters = Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, SuccessSnackbar.parameters), {}, {
+  docs: Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, (_SuccessSnackbar$para = SuccessSnackbar.parameters) === null || _SuccessSnackbar$para === void 0 ? void 0 : _SuccessSnackbar$para.docs), {}, {
+    source: Snackbar_stories_objectSpread({
+      originalSource: "() => {\n  return <SnackbarProvider closeButtonTitle=\"Close\">\n      <SuccessSnackbarAppContent />\n    </SnackbarProvider>;\n}"
+    }, (_SuccessSnackbar$para2 = SuccessSnackbar.parameters) === null || _SuccessSnackbar$para2 === void 0 || (_SuccessSnackbar$para2 = _SuccessSnackbar$para2.docs) === null || _SuccessSnackbar$para2 === void 0 ? void 0 : _SuccessSnackbar$para2.source)
+  })
+});
+WarningSnackbar.parameters = Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, WarningSnackbar.parameters), {}, {
+  docs: Snackbar_stories_objectSpread(Snackbar_stories_objectSpread({}, (_WarningSnackbar$para = WarningSnackbar.parameters) === null || _WarningSnackbar$para === void 0 ? void 0 : _WarningSnackbar$para.docs), {}, {
+    source: Snackbar_stories_objectSpread({
+      originalSource: "() => {\n  return <SnackbarProvider closeButtonTitle=\"Close\">\n      <WarningSnackbarAppContent />\n    </SnackbarProvider>;\n}"
+    }, (_WarningSnackbar$para2 = WarningSnackbar.parameters) === null || _WarningSnackbar$para2 === void 0 || (_WarningSnackbar$para2 = _WarningSnackbar$para2.docs) === null || _WarningSnackbar$para2 === void 0 ? void 0 : _WarningSnackbar$para2.source)
+  })
+});
+var __namedExportsOrder = ["Snackbar", "ErrorSnackbar", "SnackbarWithTitle", "SuccessSnackbar", "WarningSnackbar"];
 
 /***/ }),
 
@@ -1873,7 +2414,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.SnackbarItem-module__sr-only--eZ1bg{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.SnackbarItem-module__hidden--V8va5{display:none}.SnackbarItem-module__slide-in--qUDHP{animation:SnackbarItem-module__slide-in--qUDHP .5s forwards}@media(prefers-reduced-motion: reduce){.SnackbarItem-module__slide-in--qUDHP{animation-duration:.1ms}}.SnackbarItem-module__slide-out--c2p0v{animation:SnackbarItem-module__slide-out--c2p0v .5s forwards}@media(prefers-reduced-motion: reduce){.SnackbarItem-module__slide-out--c2p0v{animation-duration:.1ms}}@keyframes SnackbarItem-module__slide-in--qUDHP{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes SnackbarItem-module__slide-out--c2p0v{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}.SnackbarItem-module__snackbar--dcufU{padding:.5rem 1rem;border-radius:var(--snackbar-border-radius);display:flex;gap:.5rem;align-items:center;width:100%;box-sizing:border-box;transition-property:height;transition-duration:.2s;transition-timing-function:ease-in-out;flex-grow:0}@media(prefers-reduced-motion: reduce){.SnackbarItem-module__snackbar--dcufU{transition-duration:.1ms}}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__has-title--qyN2w{align-items:flex-start;padding:1rem}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__info--CSCWu{background-color:var(--snackbar-info-background-color)}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__success--gEUUJ{background-color:var(--snackbar-success-background-color)}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__error--T63Uq{background-color:var(--snackbar-error-background-color)}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__warning--gKofO{background-color:var(--snackbar-warning-background-color)}.SnackbarItem-module__snackbar--dcufU+.SnackbarItem-module__snackbar--dcufU{margin-top:.5rem}.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH{color:var(--snackbar-text-color);align-self:center;width:2.5rem;height:2.5rem;flex-shrink:0;border:0}.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH span{font-size:.875rem}.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH:not(:disabled):hover,.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH:not(:disabled):focus{background-color:var(--color-black10)}.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH:not(:disabled):active{background-color:var(--color-black20)}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__icon--azl89{color:var(--snackbar-text-color);font-size:1rem;line-height:var(--default-line-height);display:flex}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__title--BTBlp{color:var(--snackbar-text-color);flex:1;font-size:.875rem;line-height:var(--default-line-height);margin-bottom:.25rem;margin-top:-2.5px;display:block}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__content-wrapper--lxYmX{flex-grow:1}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__has-title--qyN2w .SnackbarItem-module__content-wrapper--lxYmX{width:12.5rem}@media screen and (min-width: 37.5em){.SnackbarItem-module__snackbar--dcufU:not(.SnackbarItem-module__has-title--qyN2w) .SnackbarItem-module__content--_ubCv{white-space:nowrap}}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__content--_ubCv{color:var(--snackbar-text-color);font-size:.875rem;margin-bottom:0;line-height:var(--default-line-height)}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__actions--S1N_9{text-align:right;align-self:center}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH{border-width:var(--button-border-width);border-style:var(--button-border-style);border-radius:var(--button-border-radius);white-space:nowrap;font-size:.875rem;line-height:var(--button-font-size);font-weight:400;margin:0;padding:.625rem 1.25rem;cursor:pointer;transition:color,background-color,border-color .2s ease-in-out;font-family:var(--font-family);color:var(--snackbar-text-color);background-color:rgba(0,0,0,0);border-color:rgba(0,0,0,0)}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:disabled{color:var(--greyed-out);cursor:not-allowed}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:focus-visible{outline:.125rem solid var(--color-focus);outline-offset:.125rem;border-radius:var(--focus-border-radius)}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:not(:disabled):hover,.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:not(:disabled):focus{background-color:var(--color-black10)}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:not(:disabled):active{background-color:var(--color-black20)}@media only screen and (min-width: 37.5em){.SnackbarItem-module__snackbar--dcufU{width:min-content;min-width:25rem}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n *//*!\n * Copyright 2022 OneWelcome B.V.\n *\n *    Licensed under the Apache License, Version 2.0 (the \"License\");\n *    you may not use this file except in compliance with the License.\n *    You may obtain a copy of the License at\n *\n *        http://www.apache.org/licenses/LICENSE-2.0\n *\n *    Unless required by applicable law or agreed to in writing, software\n *    distributed under the License is distributed on an \"AS IS\" BASIS,\n *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n *    See the License for the specific language governing permissions and\n *    limitations under the License.\n */.SnackbarItem-module__sr-only--eZ1bg{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.SnackbarItem-module__hidden--V8va5{display:none}.SnackbarItem-module__slide-in--qUDHP{animation:SnackbarItem-module__slide-in--qUDHP .5s forwards}@media(prefers-reduced-motion: reduce){.SnackbarItem-module__slide-in--qUDHP{animation-duration:.1ms}}.SnackbarItem-module__slide-out--c2p0v{animation:SnackbarItem-module__slide-out--c2p0v .5s forwards}@media(prefers-reduced-motion: reduce){.SnackbarItem-module__slide-out--c2p0v{animation-duration:.1ms}}@keyframes SnackbarItem-module__slide-in--qUDHP{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes SnackbarItem-module__slide-out--c2p0v{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}.SnackbarItem-module__snackbar--dcufU{padding:1rem;border-radius:var(--snackbar-border-radius);display:flex;gap:.5rem;align-items:center;width:100%;box-sizing:border-box;transition-property:height;transition-duration:.2s;transition-timing-function:ease-in-out;flex-grow:0}@media(prefers-reduced-motion: reduce){.SnackbarItem-module__snackbar--dcufU{transition-duration:.1ms}}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__info--CSCWu{background-color:var(--snackbar-info-background-color)}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__success--gEUUJ{background-color:var(--snackbar-success-background-color)}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__error--T63Uq{background-color:var(--snackbar-error-background-color)}.SnackbarItem-module__snackbar--dcufU.SnackbarItem-module__warning--gKofO{background-color:var(--snackbar-warning-background-color)}.SnackbarItem-module__snackbar--dcufU+.SnackbarItem-module__snackbar--dcufU{margin-top:.5rem}.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH{color:var(--snackbar-text-color);align-self:center;width:2.5rem;height:2.5rem;margin:-0.5rem 0;flex-shrink:0;border:0}.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH span{font-size:.875rem}.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH:not(:disabled):hover,.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH:not(:disabled):focus{background-color:var(--color-black10)}.SnackbarItem-module__snackbar--dcufU #SnackbarItem-module__close-btn--VlPbH:not(:disabled):active{background-color:var(--color-black20)}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__icon--azl89{color:var(--snackbar-text-color);font-size:1rem;height:1.25rem;display:inline-flex;align-items:center;align-self:flex-start}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__title--BTBlp{color:var(--snackbar-text-color);flex:1;font-size:.875rem;line-height:1.25rem;margin-bottom:.25rem;display:block}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__outer-content-wrapper--AsbQD{display:flex;gap:.5rem;flex-grow:1}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__content-wrapper--lxYmX{flex-grow:1}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__content--_ubCv{color:var(--snackbar-text-color);font-size:.875rem;line-height:1.25rem;margin-bottom:0}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__actions--S1N_9{text-align:right;align-self:center}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH{border-width:var(--button-border-width);border-style:var(--button-border-style);border-radius:var(--button-border-radius);white-space:nowrap;font-size:.875rem;line-height:var(--button-font-size);font-weight:400;margin:-0.5rem 0;padding:.625rem 1.25rem;cursor:pointer;transition:color,background-color,border-color .2s ease-in-out;font-family:var(--font-family);color:var(--snackbar-text-color);background-color:rgba(0,0,0,0);border-color:rgba(0,0,0,0)}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:disabled{color:var(--greyed-out);cursor:not-allowed}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:focus-visible{outline:.125rem solid var(--color-focus);outline-offset:.125rem;border-radius:var(--focus-border-radius)}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:not(:disabled):hover,.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:not(:disabled):focus{background-color:var(--color-black10)}.SnackbarItem-module__snackbar--dcufU .SnackbarItem-module__action-button--FX3PH:not(:disabled):active{background-color:var(--color-black20)}@media only screen and (min-width: 37.5em){.SnackbarItem-module__snackbar--dcufU{width:min-content;min-width:25rem}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"sr-only": "SnackbarItem-module__sr-only--eZ1bg",
@@ -1881,7 +2422,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 	"slide-in": "SnackbarItem-module__slide-in--qUDHP",
 	"slide-out": "SnackbarItem-module__slide-out--c2p0v",
 	"snackbar": "SnackbarItem-module__snackbar--dcufU",
-	"has-title": "SnackbarItem-module__has-title--qyN2w",
 	"info": "SnackbarItem-module__info--CSCWu",
 	"success": "SnackbarItem-module__success--gEUUJ",
 	"error": "SnackbarItem-module__error--T63Uq",
@@ -1889,6 +2429,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 	"close-btn": "SnackbarItem-module__close-btn--VlPbH",
 	"icon": "SnackbarItem-module__icon--azl89",
 	"title": "SnackbarItem-module__title--BTBlp",
+	"outer-content-wrapper": "SnackbarItem-module__outer-content-wrapper--AsbQD",
 	"content-wrapper": "SnackbarItem-module__content-wrapper--lxYmX",
 	"content": "SnackbarItem-module__content--_ubCv",
 	"actions": "SnackbarItem-module__actions--S1N_9",
@@ -2080,53 +2621,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
        /* harmony default export */ __webpack_exports__.Z = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_14_use_1_node_modules_sass_loader_dist_cjs_js_readyclasses_module_scss__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_14_use_1_node_modules_sass_loader_dist_cjs_js_readyclasses_module_scss__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z.locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_14_use_1_node_modules_sass_loader_dist_cjs_js_readyclasses_module_scss__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z.locals : undefined);
-
-
-/***/ }),
-
-/***/ "./stories/Notifications/Snackbar/Stories.module.scss":
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/style-loader/dist/runtime/styleDomAPI.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./node_modules/style-loader/dist/runtime/insertBySelector.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("./node_modules/style-loader/dist/runtime/insertStyleElement.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("./node_modules/style-loader/dist/runtime/styleTagTransform.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_14_use_1_node_modules_sass_loader_dist_cjs_js_Stories_module_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[14].use[1]!./node_modules/sass-loader/dist/cjs.js!./stories/Notifications/Snackbar/Stories.module.scss");
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
-options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
-
-      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
-    
-options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
-options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
-
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_14_use_1_node_modules_sass_loader_dist_cjs_js_Stories_module_scss__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z, options);
-
-
-
-
-       /* harmony default export */ __webpack_exports__.Z = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_14_use_1_node_modules_sass_loader_dist_cjs_js_Stories_module_scss__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_14_use_1_node_modules_sass_loader_dist_cjs_js_Stories_module_scss__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z.locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_14_use_1_node_modules_sass_loader_dist_cjs_js_Stories_module_scss__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z.locals : undefined);
 
 
 /***/ })

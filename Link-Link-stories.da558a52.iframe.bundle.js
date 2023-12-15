@@ -132,6 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   Link: function() { return /* binding */ Link_stories_Link; },
+  LinkStates: function() { return /* binding */ LinkStates; },
   __namedExportsOrder: function() { return /* binding */ __namedExportsOrder; },
   "default": function() { return /* binding */ Link_stories; }
 });
@@ -221,7 +222,7 @@ function MDXContent(props = {}) {
 /* harmony default export */ var Link_Link = (MDXContent);
 
 ;// CONCATENATED MODULE: ./stories/Link/Link.stories.tsx
-var _Link$parameters, _Link$parameters2;
+var _Link$parameters, _Link$parameters2, _LinkStates$parameter, _LinkStates$parameter2;
 function _typeof(o) {
   "@babel/helpers - typeof";
 
@@ -329,6 +330,61 @@ var Template = function Template(args) {
   return /*#__PURE__*/react.createElement(Link/* Link */.r, args, "content");
 };
 var Link_stories_Link = Template.bind({});
+var LinkStates = Template.bind({});
+var generateLinkStates = function generateLinkStates(types) {
+  return types.reduce(function (result, type) {
+    return result.flatMap(function (permutation) {
+      return type.options.map(function (option) {
+        return _objectSpread(_objectSpread({}, permutation), {}, _defineProperty({}, type.name, option));
+      });
+    });
+  }, [{}]);
+};
+var types = [{
+  name: "color",
+  options: ["primary", "danger", "success", "warning"]
+}, {
+  name: "buttonVariant",
+  options: ["fill"]
+}, {
+  name: "display",
+  options: ["button", "link"]
+}, {
+  name: "event",
+  options: [undefined, "hover", "active", "focus"]
+}];
+var mainLinkStates = generateLinkStates(types);
+LinkStates.decorators = [function () {
+  return /*#__PURE__*/react.createElement("div", {
+    style: {
+      marginLeft: "5px",
+      marginTop: "5px",
+      display: "grid",
+      gridTemplateColumns: "auto auto auto auto",
+      rowGap: "20px"
+    }
+  }, mainLinkStates.map(function (states, index) {
+    return /*#__PURE__*/react.createElement("div", {
+      key: index
+    }, /*#__PURE__*/react.createElement(Link/* Link */.r, {
+      id: states.event,
+      display: states.display,
+      color: states.color,
+      buttonVariant: states.buttonVariant,
+      to: "https://google.com/search?q=onewelcome-react-lib-components"
+    }, "".concat(states.color, " ").concat(states.display)));
+  }));
+}];
+LinkStates.parameters = {
+  pseudo: {
+    hover: "#hover",
+    active: "#active",
+    focusVisible: "#focus"
+  },
+  controls: {
+    disable: true
+  }
+};
 Link_stories_Link.parameters = _objectSpread(_objectSpread({}, Link_stories_Link.parameters), {}, {
   docs: _objectSpread(_objectSpread({}, (_Link$parameters = Link_stories_Link.parameters) === null || _Link$parameters === void 0 ? void 0 : _Link$parameters.docs), {}, {
     source: _objectSpread({
@@ -336,7 +392,14 @@ Link_stories_Link.parameters = _objectSpread(_objectSpread({}, Link_stories_Link
     }, (_Link$parameters2 = Link_stories_Link.parameters) === null || _Link$parameters2 === void 0 || (_Link$parameters2 = _Link$parameters2.docs) === null || _Link$parameters2 === void 0 ? void 0 : _Link$parameters2.source)
   })
 });
-var __namedExportsOrder = ["Link"];
+LinkStates.parameters = _objectSpread(_objectSpread({}, LinkStates.parameters), {}, {
+  docs: _objectSpread(_objectSpread({}, (_LinkStates$parameter = LinkStates.parameters) === null || _LinkStates$parameter === void 0 ? void 0 : _LinkStates$parameter.docs), {}, {
+    source: _objectSpread({
+      originalSource: "args => <LinkComponent {...args}>content</LinkComponent>"
+    }, (_LinkStates$parameter2 = LinkStates.parameters) === null || _LinkStates$parameter2 === void 0 || (_LinkStates$parameter2 = _LinkStates$parameter2.docs) === null || _LinkStates$parameter2 === void 0 ? void 0 : _LinkStates$parameter2.source)
+  })
+});
+var __namedExportsOrder = ["Link", "LinkStates"];
 
 /***/ }),
 
