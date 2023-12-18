@@ -99,7 +99,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const searchInputRef = useRef<HTMLInputElement>(null);
   const addBtnRef = useRef<HTMLButtonElement>(null);
 
-  const addNewLabel = addNew && addNew.label ? addNew.label : "Add new";
+  const addNewLabel = addNew?.label ?? "Add new";
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
