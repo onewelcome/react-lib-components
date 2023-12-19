@@ -99,7 +99,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const searchInputRef = useRef<HTMLInputElement>(null);
   const addBtnRef = useRef<HTMLButtonElement>(null);
 
-  const addNewLabel = addNew?.label ?? "Add new";
+  const addNewLabel = addNew?.label ?? "Create new";
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -326,7 +326,9 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             ...listPosition
           }}
         >
-          <ul role="listbox">{renderOptions()}</ul>
+          <ul className={addNew && classes["has-sibling"]} role="listbox">
+            {renderOptions()}
+          </ul>
           {addNew && (
             <button
               data-testid={"select-action-button"}
@@ -337,7 +339,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             >
               {!filter && addNewLabel}
               {filter && <span style={{ fontWeight: "700" }}>{`"${filter}"`}</span>}
-              {filter && ` (${addNewLabel})`}
+              {filter && ` (${addNewLabel.toLowerCase()})`}
             </button>
           )}
         </div>

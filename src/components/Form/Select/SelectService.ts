@@ -57,12 +57,14 @@ export const useArrowNavigation = ({
 
     const isAddBtnFocused = addBtnRef?.current === document.activeElement;
 
-    /** If the select is expanded, we also want to control the Tab key */
     if (expanded) {
       codesToPreventDefault.push("Tab");
     }
 
-    /** We will handle the way certain key strokes affect the Select, unless we're searching */
+    if (addBtnRef) {
+      codesToPreventDefaultWhenSearching.push("Tab");
+    }
+
     if (codesToPreventDefault.includes(event.code) && !event.metaKey && !isSearching) {
       event.preventDefault();
     }
@@ -88,7 +90,6 @@ export const useArrowNavigation = ({
           return;
         case "Tab":
           if (addBtnRef) {
-            event.preventDefault();
             addBtnRef.current?.focus();
             return;
           }
@@ -139,6 +140,9 @@ export const useArrowNavigation = ({
           if (childrenCount >= renderSearchCondition && expanded && !isAddBtnFocused) {
             setIsSearching(true);
             searchInputRef.current?.focus();
+            return;
+          } else if (addBtnRef && expanded && !isAddBtnFocused) {
+            addBtnRef.current?.focus();
             return;
           }
           setExpanded(false);

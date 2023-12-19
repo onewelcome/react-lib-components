@@ -67,7 +67,7 @@ const Template: StoryFn<Props> = args => {
       value={pickedOption}
       selectProps={{
         addNew: {
-          label: "Add new",
+          label: "Create new",
           onAddNew: value => {
             window.alert(`This callback is yours to control. Value passed: ${value}`);
           },

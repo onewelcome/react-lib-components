@@ -144,6 +144,10 @@ $listItemHeight: 2.125rem;
   }
 }
 
+ul.has-sibling {
+  padding-bottom: 2px;
+}
+
 .selected-option {
   content: "";
   position: absolute;
@@ -165,9 +169,10 @@ $listItemHeight: 2.125rem;
 
 .action-button {
   border: none;
-  border-top: 1px solid #00000033;
+  border-top: 1px solid var(--color-blue-grey50);
   width: 100%;
-  padding: 10px 12px;
+  height: 2.5rem;
+  padding: 0.625rem 0.75rem;
   margin: 0;
   background-color: var(--light);
   border-radius: var(--input-border-radius);

@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   InputWrapper as InputWrapperComponent,
   Props
@@ -70,13 +70,9 @@ const meta: Meta = {
   }
 };
 
-declare global {
-  var onInputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   return <InputWrapperComponent {...args} />;
 };
 
@@ -139,6 +135,7 @@ InputWrapperWithSuccess.args = {
 };
 
 export const InputWrapperWithIconPrefix = Template.bind({});
+
 InputWrapperWithIconPrefix.args = {
   label: "Example label",
   type: "text",

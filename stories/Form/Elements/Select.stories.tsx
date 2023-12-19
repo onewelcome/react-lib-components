@@ -20,6 +20,14 @@ import { Props, Select as SelectComponent } from "../../../src/components/Form/S
 import { Option } from "../../../src";
 import SelectDocumentation from "./Select.mdx";
 
+const generateOptions = count => {
+  return Array.from({ length: count }, (_, index) => (
+    <Option key={`option${index + 1}`} value={`option${index + 1}`}>
+      {`Option ${index + 1}`}
+    </Option>
+  ));
+};
+
 const meta: Meta = {
   title: "components/Inputs/Raw/Select",
   component: SelectComponent,
@@ -42,25 +50,7 @@ const meta: Meta = {
       control: false
     },
     value: {
-      options: [
-        "option1",
-        "option2",
-        "option3",
-        "option4",
-        "option5",
-        "option6",
-        "option7",
-        "option8",
-        "option9",
-        "option10",
-        "option11",
-        "option12",
-        "option13",
-        "option14",
-        "option15",
-        "option16",
-        "option17"
-      ],
+      options: generateOptions(11),
       control: "select"
     },
     disabled: {
@@ -75,31 +65,34 @@ const meta: Meta = {
 export default meta;
 
 const Template: StoryFn<Props> = args => {
-  return (
-    <SelectComponent {...args}>
-      <Option value="option1">Test</Option>
-      <Option value="option2">Test2</Option>
-      <Option value="option3">Test3</Option>
-      <Option value="option4">Test4</Option>
-      <Option value="option5">Test5</Option>
-      <Option value="option6">Test6</Option>
-      <Option value="option7">Test7</Option>
-      <Option value="option8">Test8</Option>
-      <Option value="option9">Test9</Option>
-      <Option value="option10">Test10</Option>
-      <Option value="option11">Test11</Option>
-      <Option value="option12">Test12</Option>
-      <Option value="option13">Test13</Option>
-      <Option value="option14">Test14</Option>
-      <Option value="option15">Test15</Option>
-      <Option value="option16">Test16</Option>
-      <Option value="option17">Test17</Option>
-    </SelectComponent>
-  );
+  return <SelectComponent {...args}></SelectComponent>;
 };
 
 export const Select = Template.bind({});
 
 Select.args = {
-  name: "Example select"
+  name: "Example select",
+  children: generateOptions(6)
+};
+
+export const SelectWithSearchOptions = Template.bind({});
+
+SelectWithSearchOptions.args = {
+  children: generateOptions(11)
+};
+
+export const SelectWithAddNewAndSearch = Template.bind({});
+
+SelectWithAddNewAndSearch.args = {
+  name: "Example select",
+  addNew: { label: "Create new", onAddNew: () => alert("YO!") },
+  children: generateOptions(11)
+};
+
+export const SelectWithAddNew = Template.bind({});
+
+SelectWithAddNew.args = {
+  name: "Example select",
+  addNew: { label: "Create new", onAddNew: () => alert("YO!") },
+  children: generateOptions(3)
 };
