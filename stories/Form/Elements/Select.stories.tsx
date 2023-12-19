@@ -19,6 +19,10 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Props, Select as SelectComponent } from "../../../src/components/Form/Select/Select";
 import { Option } from "../../../src";
 import SelectDocumentation from "./Select.mdx";
+import { conditionalPlay } from "../../../.storybook/conditionalPlay";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
+import { SelectWrapper } from "../Wrapper/SelectWrapper.stories";
 
 const generateOptions = count => {
   return Array.from({ length: count }, (_, index) => (
@@ -81,6 +85,16 @@ SelectWithSearchOptions.args = {
   children: generateOptions(11)
 };
 
+SelectWithSearchOptions.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
+
+  const select = await canvas.getByRole("button", { expanded: false });
+
+  await userEvent.click(select);
+});
+
 export const SelectWithAddNewAndSearch = Template.bind({});
 
 SelectWithAddNewAndSearch.args = {
@@ -89,6 +103,16 @@ SelectWithAddNewAndSearch.args = {
   children: generateOptions(11)
 };
 
+SelectWithAddNewAndSearch.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
+
+  const select = await canvas.getByRole("button", { expanded: false });
+
+  await userEvent.click(select);
+});
+
 export const SelectWithAddNew = Template.bind({});
 
 SelectWithAddNew.args = {
@@ -96,3 +120,13 @@ SelectWithAddNew.args = {
   addNew: { label: "Create new", onAddNew: () => alert("YO!") },
   children: generateOptions(3)
 };
+
+SelectWithAddNew.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
+
+  const select = await canvas.getByRole("button", { expanded: false });
+
+  await userEvent.click(select);
+});
