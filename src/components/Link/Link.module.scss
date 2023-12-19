@@ -41,16 +41,24 @@
     }
   }
 
-  &.secondary {
-    color: var(--color-secondary);
+  &.success {
+    color: var(--color-success);
 
     &:focus-visible {
       outline: 0.5px dashed var(--color-primary);
     }
   }
 
-  &.tertiary {
-    color: var(--color-tertiary);
+  &.danger {
+    color: var(--color-danger);
+
+    &:focus-visible {
+      outline: 0.5px dashed var(--color-primary);
+    }
+  }
+
+  &.warning {
+    color: var(--color-warning);
 
     &:focus-visible {
       outline: 0.5px dashed var(--color-primary);

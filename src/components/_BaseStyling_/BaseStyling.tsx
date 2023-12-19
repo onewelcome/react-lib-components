@@ -24,8 +24,9 @@ import React, { HTMLAttributes, ReactElement, useEffect, useRef, useState } from
 interface CSSProperties {
   colorFocus?: string;
   colorPrimary?: string;
-  colorSecondary?: string;
-  colorTertiary?: string;
+  colorSuccess?: string;
+  colorWarning?: string;
+  colorDanger?: string;
   colorPrimary100?: string;
   colorPrimary300?: string;
   colorPrimary500?: string;
@@ -76,18 +77,18 @@ interface CSSProperties {
   buttonPrimaryHoverColor?: string;
   buttonPrimaryFocusedColor?: string;
   buttonOutlineHoverTextColor?: string;
-  buttonSecondaryDefaultColor?: string;
-  buttonSecondaryHoverColor?: string;
-  buttonSecondaryFocusedColor?: string;
-  buttonSecondaryPressedColor?: string;
-  buttonWarningDefaultColor?: string;
-  buttonWarningHoverColor?: string;
-  buttonWarningFocusedColor?: string;
-  buttonWarningPressedColor?: string;
+  buttonSuccessDefaultColor?: string;
+  buttonSuccessHoverColor?: string;
+  buttonSuccessFocusedColor?: string;
+  buttonSuccessPressedColor?: string;
   buttonDangerDefaultColor?: string;
   buttonDangerHoverColor?: string;
   buttonDangerFocusedColor?: string;
   buttonDangerPressedColor?: string;
+  buttonWarningDefaultColor?: string;
+  buttonWarningHoverColor?: string;
+  buttonWarningFocusedColor?: string;
+  buttonWarningPressedColor?: string;
   buttonDefaultColor?: string;
   buttonDefaultHoverColor?: string;
   buttonDefaultFocusedColor?: string;
@@ -238,34 +239,35 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorWhite: "#FFFFFF",
     colorFocus: "var(--color-primary300)",
     colorPrimary: "var(--color-primary500)",
-    colorSecondary: "var(--color-green500)",
-    colorTertiary: "var(--color-light-blue600)",
+    colorSuccess: "var(--color-green500)",
+    colorWarning: "var(--color-orange500)",
+    colorDanger: "var(--color-red500)",
     defaultPressedColor: "var(--color-blue-grey100)",
     defaultHoverColor: "var(--color-blue-grey25)",
     defaultLineHeight: "1.5", //FIXME: UCL-395
     defaultBorderRadius: "0.25rem",
     focusBorderRadius: "0.125rem",
-    buttonBorderRadius: "var(--default-border-radius)",
+    buttonBorderRadius: "0.125rem",
     buttonBorderWidth: "2px",
-    buttonFontSize: "1rem",
+    buttonFontSize: "0.875rem",
     buttonBorderStyle: "solid",
     buttonFillTextColor: "var(--light)",
     buttonPrimaryDefaultColor: "var(--color-primary500)",
     buttonPrimaryHoverColor: "var(--color-primary600)",
     buttonPrimaryFocusedColor: "var(--color-primary500)",
     buttonPrimaryPressedColor: "var(--color-primary700)",
-    buttonSecondaryDefaultColor: "var(--color-green500)",
-    buttonSecondaryHoverColor: "var(--color-green600)",
-    buttonSecondaryFocusedColor: "var(--color-green500)",
-    buttonSecondaryPressedColor: "var(--color-green700)",
-    buttonWarningDefaultColor: "var(--color-orange500)",
-    buttonWarningHoverColor: "var(--color-orange600)",
-    buttonWarningFocusedColor: "var(--color-orange500)",
-    buttonWarningPressedColor: "var(--color-orange700)",
+    buttonSuccessDefaultColor: "var(--color-green500)",
+    buttonSuccessHoverColor: "var(--color-green600)",
+    buttonSuccessFocusedColor: "var(--color-green500)",
+    buttonSuccessPressedColor: "var(--color-green700)",
     buttonDangerDefaultColor: "var(--color-red500)",
     buttonDangerHoverColor: "var(--color-red600)",
     buttonDangerFocusedColor: "var(--color-red500)",
     buttonDangerPressedColor: "var(--color-red700)",
+    buttonWarningDefaultColor: "var(--color-orange500)",
+    buttonWarningHoverColor: "var(--color-orange600)",
+    buttonWarningFocusedColor: "var(--color-orange500)",
+    buttonWarningPressedColor: "var(--color-orange700)",
     buttonDefaultColor: "var(--color-blue-grey700)",
     buttonDefaultHoverColor: "var(--color-blue-grey800)",
     buttonDefaultFocusedColor: "var(--color-blue-grey700)",

@@ -68,71 +68,33 @@ SingleButton.args = {
 
 export const ButtonStates = Template.bind({});
 
-const buttonStates: Array<
-  Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
-    endIcon?: boolean;
-    startIcon?: boolean;
-    event?: "hover" | "active" | "focus";
-    type?: "button";
-  }
-> = [
-  {
-    color: "primary",
-    variant: "fill"
-  },
-  {
-    color: "primary",
-    variant: "fill",
-    event: "hover"
-  },
-  {
-    color: "primary",
-    variant: "fill",
-    event: "active"
-  },
-  {
-    color: "primary",
-    variant: "fill",
-    event: "focus"
-  },
-  {
-    color: "primary",
-    variant: "outline",
-    event: "hover"
-  },
-  {
-    color: "primary",
-    variant: "outline",
-    event: "active"
-  },
-  {
-    color: "primary",
-    variant: "outline",
-    event: "focus"
-  },
-  {
-    color: "primary",
-    variant: "outline"
-  },
-  {
-    color: "primary",
-    variant: "text"
-  },
-  {
-    color: "primary",
-    variant: "text",
-    event: "hover"
-  },
-  {
-    color: "primary",
-    variant: "text",
-    event: "active"
-  },
-  {
-    color: "primary",
-    variant: "text",
-    event: "focus"
-  },
+type ButtonStorybookProps = Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
+  endIcon?: boolean;
+  startIcon?: boolean;
+  event?: "hover" | "active" | "focus";
+  type?: "button";
+};
+
+const generateButtonStates = (types): Array<ButtonStorybookProps> => {
+  return types.reduce(
+    (result, type) => {
+      return result.flatMap(permutation =>
+        type.options.map(option => ({ ...permutation, [type.name]: option }))
+      );
+    },
+    [{}]
+  );
+};
+
+const types = [
+  { name: "color", options: ["primary", "danger", "success", "warning"] },
+  { name: "variant", options: ["fill", "outline", "text"] },
+  { name: "event", options: [undefined, "hover", "active", "focus"] }
+];
+
+const mainButtonStates = generateButtonStates(types);
+
+const uniqueButtonStates: Array<ButtonStorybookProps> = [
   {
     color: "primary",
     variant: "text",
@@ -141,6 +103,16 @@ const buttonStates: Array<
   {
     color: "primary",
     variant: "fill",
+    disabled: true
+  },
+  {
+    color: "primary",
+    variant: "outline",
+    disabled: true
+  },
+  {
+    color: "danger",
+    variant: "outline",
     disabled: true
   },
   {
@@ -179,11 +151,20 @@ const buttonStates: Array<
   }
 ];
 
+mainButtonStates.push(...uniqueButtonStates);
+
 ButtonStates.decorators = [
   () => {
     return (
-      <>
-        {buttonStates.map((states, index) => (
+      <div
+        style={{
+          marginLeft: "5px",
+          marginTop: "5px",
+          display: "grid",
+          gridTemplateColumns: "auto auto auto auto"
+        }}
+      >
+        {mainButtonStates.map((states, index) => (
           <div style={{ marginBottom: "10px" }} key={index}>
             <Button
               id={states.event}
@@ -195,13 +176,13 @@ ButtonStates.decorators = [
               startIcon={states.startIcon ? <Icon icon={Icons.Calendar} /> : false}
               loading={states.loading}
             >
-              {`${states.variant} ${states.disabled ? "disabled" : ""} ${
+              {`${states.color} ${states.variant} ${states.disabled ? "disabled" : ""} ${
                 states.event !== undefined ? states.event : ""
               }`}
             </Button>
           </div>
         ))}
-      </>
+      </div>
     );
   }
 ];
@@ -211,5 +192,6 @@ ButtonStates.parameters = {
     hover: "#hover",
     active: "#active",
     focusVisible: "#focus"
-  }
+  },
+  controls: { disable: true }
 };

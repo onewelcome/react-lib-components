@@ -44,3 +44,64 @@ export default meta;
 const Template: StoryFn<Props> = args => <LinkComponent {...args}>content</LinkComponent>;
 
 export const Link = Template.bind({});
+
+export const LinkStates = Template.bind({});
+
+const generateLinkStates = (types): Array<Props & { event?: "hover" | "active" | "focus" }> => {
+  return types.reduce(
+    (result, type) => {
+      return result.flatMap(permutation =>
+        type.options.map(option => ({ ...permutation, [type.name]: option }))
+      );
+    },
+    [{}]
+  );
+};
+
+const types = [
+  { name: "color", options: ["primary", "danger", "success", "warning"] },
+  { name: "buttonVariant", options: ["fill"] },
+  { name: "display", options: ["button", "link"] },
+  { name: "event", options: [undefined, "hover", "active", "focus"] }
+];
+
+const mainLinkStates = generateLinkStates(types);
+
+LinkStates.decorators = [
+  () => {
+    return (
+      <div
+        style={{
+          marginLeft: "5px",
+          marginTop: "5px",
+          display: "grid",
+          gridTemplateColumns: "auto auto auto auto",
+          rowGap: "20px"
+        }}
+      >
+        {mainLinkStates.map((states, index) => (
+          <div key={index}>
+            <LinkComponent
+              id={states.event}
+              display={states.display}
+              color={states.color}
+              buttonVariant={states.buttonVariant}
+              to={"https://google.com/search?q=onewelcome-react-lib-components"}
+            >
+              {`${states.color} ${states.display}`}
+            </LinkComponent>
+          </div>
+        ))}
+      </div>
+    );
+  }
+];
+
+LinkStates.parameters = {
+  pseudo: {
+    hover: "#hover",
+    active: "#active",
+    focusVisible: "#focus"
+  },
+  controls: { disable: true }
+};
