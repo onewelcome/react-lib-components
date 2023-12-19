@@ -22,7 +22,6 @@ import SelectDocumentation from "./Select.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { SelectWrapper } from "../Wrapper/SelectWrapper.stories";
 
 const generateOptions = count => {
   return Array.from({ length: count }, (_, index) => (
