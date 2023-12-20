@@ -590,4 +590,30 @@ describe("addBtn feature", () => {
 
     await waitFor(() => expect(onAddNewCallback).toHaveBeenCalled());
   });
+
+  it("is focused on tab after search and exits on next", async () => {
+    const label = "You shall never click me";
+    const onAddNewCallback = jest.fn();
+    const { button, findByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      addNew: { label: label, onAddNew: () => onAddNewCallback() }
+    }));
+
+    const searchInput = document.querySelector(".select-search")!;
+    const addNewBtn = await findByTestId("select-action-button");
+
+    await userEvent.click(button);
+
+    await userEvent.tab();
+
+    expect(searchInput).toHaveFocus();
+
+    await userEvent.tab();
+
+    expect(addNewBtn).toHaveFocus();
+
+    await userEvent.tab();
+
+    expect(button).toHaveAttribute("aria-expanded", "false");
+  });
 });
