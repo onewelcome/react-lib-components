@@ -181,6 +181,7 @@ ul.has-sibling {
   box-shadow: 0 8px 10px 0 #01053224;
   box-sizing: border-box;
   cursor: pointer;
+  font-family: var(--font-family);
 
   &:focus {
     outline: 1px solid;
