@@ -84,7 +84,7 @@ interface Dimensions {
   width: number;
 }
 
-type PositionType = number | "initial";
+export type PositionType = number | "initial";
 
 const defaultConfigObject: ConfigObject = {
   relativeElement: undefined,
