@@ -100,6 +100,10 @@ $listItemHeight: 2.125rem;
     left: 0;
     width: 100%;
     overflow: auto;
+
+    & ul {
+      padding-bottom: 0;
+    }
   }
 
   ul {
