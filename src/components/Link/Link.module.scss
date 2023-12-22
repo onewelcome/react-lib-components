@@ -78,13 +78,25 @@
 
   &.fill {
     @include mixins.button("fill", "link");
+
+    &:visited {
+      background-color: unset;
+    }
   }
 
   &.outline {
     @include mixins.button("outline", "link");
+
+    &:visited {
+      background-color: unset;
+    }
   }
 
   &.text {
     @include mixins.button("text", "link");
+
+    &:visited {
+      background-color: unset;
+    }
   }
 }
