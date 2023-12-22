@@ -89,8 +89,8 @@ export const useArrowNavigation = ({
           setExpanded(false);
           return;
         case "Tab":
-          if (addBtnRef) {
-            addBtnRef.current?.focus();
+          if (addBtnRef?.current) {
+            addBtnRef.current.focus();
             return;
           }
           setIsSearching(false);
@@ -141,8 +141,8 @@ export const useArrowNavigation = ({
             setIsSearching(true);
             searchInputRef.current?.focus();
             return;
-          } else if (addBtnRef && expanded && !isAddBtnFocused) {
-            addBtnRef.current?.focus();
+          } else if (addBtnRef?.current && expanded && !isAddBtnFocused) {
+            addBtnRef.current.focus();
             return;
           }
           setExpanded(false);

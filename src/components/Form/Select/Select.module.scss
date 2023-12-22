@@ -36,6 +36,7 @@ $listItemHeight: 2.125rem;
   &.expanded {
     .list-wrapper {
       background: var(--light);
+      padding-bottom: 0.25rem;
     }
   }
 
@@ -178,7 +179,6 @@ ul.has-sibling {
   border-radius: var(--input-border-radius);
   color: var(--default);
   text-align: left;
-  box-shadow: 0 8px 10px 0 #01053224;
   box-sizing: border-box;
   cursor: pointer;
   font-family: var(--font-family);

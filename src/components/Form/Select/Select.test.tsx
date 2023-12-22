@@ -20,7 +20,7 @@ import { act, render, waitFor } from "@testing-library/react";
 import { Option } from "./Option";
 import userEvent from "@testing-library/user-event";
 
-const defaultParams: Props = {
+export const defaultParams: Props = {
   name: "Example select",
   children: [
     <Option value="option1">Test</Option>,
@@ -47,7 +47,7 @@ const defaultParams: Props = {
   selectButtonProps: { "data-testid": "select-button" }
 };
 
-const createSelect = (params?: (defaultParams: Props) => Props) => {
+export const createSelect = (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;
   if (params) {
     parameters = params(defaultParams);
@@ -181,110 +181,6 @@ describe("Select should render with search", () => {
   });
 });
 
-describe("Selecting options using keyboard", () => {
-  it("should focus through list items and select on enterpress", async () => {
-    const onChangeHandler = jest.fn();
-    const { select, button } = createSelect(defaultParams => ({
-      ...defaultParams,
-      onChange: onChangeHandler
-    }));
-
-    await userEvent.click(button);
-
-    expect(button).toHaveAttribute("aria-expanded", "true");
-
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{enter}");
-
-    expect(button).toHaveAttribute("aria-expanded", "false");
-
-    expect(onChangeHandler).toHaveBeenCalled();
-
-    await userEvent.keyboard("{enter}");
-
-    expect(button).toHaveAttribute("aria-expanded", "true");
-
-    await userEvent.keyboard("{arrowdown}");
-
-    expect(select.querySelector('li[data-value="option2"]')).toHaveFocus();
-
-    await userEvent.keyboard("{arrowup}");
-    await userEvent.keyboard("{arrowup}");
-    await userEvent.keyboard("{arrowup}");
-    await userEvent.keyboard("{arrowup}");
-
-    expect(select.querySelector('li[data-value="option15"]')).toHaveFocus();
-    await userEvent.keyboard("{arrowup}");
-    expect(select.querySelector('li[data-value="option14"]')).toHaveFocus();
-
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-
-    expect(select.querySelector('li[data-value="option1"]')).toHaveFocus();
-
-    await userEvent.keyboard("{escape}");
-
-    expect(button).toHaveAttribute("aria-expanded", "false");
-  });
-
-  it("should focus through list items and select on spacebar press", async () => {
-    const onChangeHandler = jest.fn();
-    const { select, button } = createSelect(defaultParams => ({
-      ...defaultParams,
-      onChange: onChangeHandler
-    }));
-
-    await act(() => {
-      button.focus();
-    });
-
-    expect(button).toHaveFocus();
-
-    await userEvent.keyboard("[Space]");
-
-    expect(button).toHaveAttribute("aria-expanded", "true");
-
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("[Space]");
-
-    await waitFor(() => expect(button).toHaveAttribute("aria-expanded", "false"));
-
-    expect(onChangeHandler).toHaveBeenCalled();
-
-    await userEvent.keyboard("[Space]");
-
-    expect(button).toHaveAttribute("aria-expanded", "true");
-
-    await userEvent.keyboard("{arrowdown}");
-
-    expect(select.querySelector('li[data-value="option2"]')).toHaveFocus();
-
-    await userEvent.keyboard("{arrowup}");
-    await userEvent.keyboard("{arrowup}");
-    await userEvent.keyboard("{arrowup}");
-    await userEvent.keyboard("{arrowup}");
-
-    expect(select.querySelector('li[data-value="option15"]')).toHaveFocus();
-    await userEvent.keyboard("{arrowup}");
-    expect(select.querySelector('li[data-value="option14"]')).toHaveFocus();
-
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowdown}");
-
-    expect(select.querySelector('li[data-value="option1"]')).toHaveFocus();
-
-    await userEvent.keyboard("{escape}");
-
-    expect(button).toHaveAttribute("aria-expanded", "false");
-  });
-});
-
 describe("Expanded should be false whenever we click the body", () => {
   it("closes select on body click", async () => {
     const { button } = createSelect();
@@ -389,137 +285,6 @@ describe("previously selected item", () => {
   });
 });
 
-describe("search input", () => {
-  it("listens to different keyboard inputs", async () => {
-    const { button, select } = createSelect();
-
-    const searchInput = document.querySelector(".select-search")!;
-
-    await userEvent.click(button);
-
-    await act(() => {
-      (searchInput as HTMLElement).focus();
-    });
-
-    await userEvent.keyboard("{arrowup}");
-    expect(select.querySelector('li[data-value="option17"]')).toHaveFocus();
-  });
-
-  it("move focus with arrowdown", async () => {
-    const { button, select } = createSelect();
-
-    const searchInput = document.querySelector(".select-search")!;
-
-    await userEvent.click(button);
-
-    await act(() => {
-      (searchInput as HTMLElement).focus();
-    });
-
-    await userEvent.keyboard("{arrowdown}");
-    expect(select.querySelector('li[data-value="option1"]')).toHaveFocus();
-  });
-
-  it("select with enter", async () => {
-    const { button, select } = createSelect();
-
-    const searchInput = document.querySelector(".select-search")!;
-
-    await userEvent.click(button);
-
-    await act(() => {
-      (searchInput as HTMLElement).focus();
-    });
-
-    await userEvent.keyboard("{enter}");
-    expect(select.querySelector('li[data-value="option1"]')).toHaveFocus();
-  });
-
-  it("expand list with arrowdown", async () => {
-    const { button } = createSelect();
-
-    await act(() => {
-      button.focus();
-    });
-
-    await userEvent.keyboard("{arrowdown}");
-
-    expect(button).toHaveAttribute("aria-expanded", "true");
-  });
-
-  it("expand list with arrowup", async () => {
-    const { button } = createSelect();
-
-    await act(() => {
-      button.focus();
-    });
-
-    await userEvent.keyboard("{arrowup}");
-
-    expect(button).toHaveAttribute("aria-expanded", "true");
-  });
-
-  it("expand list with space", async () => {
-    const { button } = createSelect();
-
-    await act(() => {
-      button.focus();
-    });
-
-    await userEvent.keyboard("[space]");
-
-    await waitFor(() => expect(button).toHaveAttribute("aria-expanded", "true"));
-  });
-
-  it("closes on escape", async () => {
-    const { button } = createSelect();
-
-    const searchInput = document.querySelector(".select-search")!;
-
-    await userEvent.click(button);
-
-    await userEvent.tab();
-
-    await waitFor(() => expect(searchInput).toHaveFocus());
-
-    await userEvent.keyboard("{escape}");
-
-    expect(button).toHaveAttribute("aria-expanded", "false");
-  });
-
-  it("closes on tab", async () => {
-    const { button } = createSelect();
-
-    const searchInput = document.querySelector(".select-search")!;
-
-    await userEvent.click(button);
-
-    await userEvent.tab();
-
-    expect(searchInput).toHaveFocus();
-
-    await userEvent.tab();
-  });
-});
-
-describe("home and end keys work", () => {
-  it("goes to home and end", async () => {
-    const { button } = createSelect();
-
-    await userEvent.click(button);
-
-    const firstOption = document.querySelector('li[data-value="option1"]');
-    const lastOption = document.querySelector('li[data-value="option17"]');
-    await userEvent.keyboard("{end}");
-
-    expect(lastOption).toHaveFocus();
-
-    await userEvent.keyboard("{home}");
-
-    expect(firstOption).toHaveFocus();
-  });
-});
-
 describe("search input props work", () => {
   it("adds a classname", () => {
     createSelect(defaultParams => ({
@@ -528,38 +293,6 @@ describe("search input props work", () => {
     }));
 
     expect(document.querySelector(".test-wrapper-classname")).toBeInTheDocument();
-  });
-});
-
-describe("meta arrow left and right", () => {
-  it("goes to the last item in the list when pressing meta right", async () => {
-    const { button } = createSelect();
-
-    await act(() => {
-      button.focus();
-    });
-
-    await userEvent.keyboard("{enter}");
-
-    expect(button).toHaveAttribute("aria-expanded", "true");
-
-    await userEvent.keyboard("{Meta>}{arrowright}");
-
-    await waitFor(() => expect(document.querySelector('li[data-value="option17"]')).toHaveFocus());
-  });
-
-  it("goes to the first item in the list when pressing meta left", async () => {
-    const { button } = createSelect();
-
-    await userEvent.click(button);
-
-    await userEvent.keyboard("{Meta>}{arrowright}");
-
-    await waitFor(() => expect(document.querySelector('li[data-value="option17"]')).toHaveFocus());
-
-    await userEvent.keyboard("{Meta>}{arrowleft}");
-
-    expect(document.querySelector('li[data-value="option1"]')).toHaveFocus();
   });
 });
 
@@ -589,31 +322,5 @@ describe("addBtn feature", () => {
     await userEvent.click(addNewBtn);
 
     await waitFor(() => expect(onAddNewCallback).toHaveBeenCalled());
-  });
-
-  it("is focused on tab after search and exits on next", async () => {
-    const label = "You shall never click me";
-    const onAddNewCallback = jest.fn();
-    const { button, findByTestId } = createSelect(defaultParams => ({
-      ...defaultParams,
-      addNew: { label: label, onAddNew: () => onAddNewCallback() }
-    }));
-
-    const searchInput = document.querySelector(".select-search")!;
-    const addNewBtn = await findByTestId("select-action-button");
-
-    await userEvent.click(button);
-
-    await userEvent.tab();
-
-    expect(searchInput).toHaveFocus();
-
-    await userEvent.tab();
-
-    expect(addNewBtn).toHaveFocus();
-
-    await userEvent.tab();
-
-    expect(button).toHaveAttribute("aria-expanded", "false");
   });
 });
