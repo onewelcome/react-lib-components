@@ -39,6 +39,10 @@
     &:focus-visible {
       outline: 0.5px dashed var(--color-primary);
     }
+
+    &:visited {
+      color: var(--button-primary-pressed-color);
+    }
   }
 
   &.success {
@@ -46,6 +50,10 @@
 
     &:focus-visible {
       outline: 0.5px dashed var(--color-primary);
+    }
+
+    &:visited {
+      color: var(--button-success-pressed-color);
     }
   }
 
@@ -55,6 +63,10 @@
     &:focus-visible {
       outline: 0.5px dashed var(--color-primary);
     }
+
+    &:visited {
+      color: var(--button-danger-pressed-color);
+    }
   }
 
   &.warning {
@@ -62,6 +74,10 @@
 
     &:focus-visible {
       outline: 0.5px dashed var(--color-primary);
+    }
+
+    &:visited {
+      color: var(--button-warning-pressed-color);
     }
   }
 
@@ -78,25 +94,13 @@
 
   &.fill {
     @include mixins.button("fill", "link");
-
-    &:visited {
-      background-color: unset;
-    }
   }
 
   &.outline {
     @include mixins.button("outline", "link");
-
-    &:visited {
-      background-color: unset;
-    }
   }
 
   &.text {
     @include mixins.button("text", "link");
-
-    &:visited {
-      background-color: unset;
-    }
   }
 }
