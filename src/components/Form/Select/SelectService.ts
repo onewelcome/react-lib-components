@@ -31,7 +31,7 @@ export const useArrowNavigation = ({
   childrenCount,
   setShouldClick,
   searchInputRef,
-  renderSearchCondition
+  renderThreshold
 }: UseArrowNavigationParams) => {
   const onArrowNavigation = (event: React.KeyboardEvent) => {
     const codesToPreventDefault = [
@@ -125,7 +125,7 @@ export const useArrowNavigation = ({
 
           return;
         case "Tab":
-          if (childrenCount >= renderSearchCondition && expanded) {
+          if (childrenCount >= renderThreshold && expanded) {
             setIsSearching(true);
             searchInputRef.current?.focus();
             return;
