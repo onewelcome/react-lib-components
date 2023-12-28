@@ -597,7 +597,10 @@ describe("search input props work", () => {
   it("adds a classname", () => {
     createSelect(defaultParams => ({
       ...defaultParams,
-      search: { searchInputProps: { wrapperProps: { className: "test-wrapper-classname" } } }
+      search: {
+        enabled: true,
+        searchInputProps: { wrapperProps: { className: "test-wrapper-classname" } }
+      }
     }));
 
     expect(document.querySelector(".test-wrapper-classname")).toBeInTheDocument();
