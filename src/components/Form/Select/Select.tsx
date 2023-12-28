@@ -103,14 +103,19 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
 
+  const DEFAULT_RENDER_THRESHOLD = 10;
+
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const getRenderThreshold = search?.renderThreshold ?? DEFAULT_RENDER_THRESHOLD;
+  const hasEnoughChildren = Array.isArray(children) && children.length > getRenderThreshold;
+
   const shouldRenderSearch = search?.enabled
-    ? Array.isArray(children) && children.length > (search.renderThreshold ?? 10)
+    ? hasEnoughChildren
     : search
       ? search.enabled
-      : children.length > 10;
+      : children.length > DEFAULT_RENDER_THRESHOLD;
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -132,7 +137,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     childrenCount: React.Children.count(children),
     setShouldClick,
     searchInputRef,
-    renderThreshold: search?.renderThreshold ?? 10
+    renderThreshold: getRenderThreshold
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
