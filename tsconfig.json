@@ -9,8 +9,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": false
+    "isolatedModules": false,
+    "plugins": [{"name": "eslint-plugin-import-access"}]
   },
-  "include": ["src", "stories/utils"],
+  "include": ["src", "stories"],
   "exclude": ["node_modules", "dist", "example"]
 }
