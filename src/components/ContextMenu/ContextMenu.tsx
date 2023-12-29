@@ -36,6 +36,7 @@ import { Props as ContextMenuItemProps } from "./ContextMenuItem";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../hooks/useGetDomRoot";
 import { useArrowNavigation, useDefaultOffset, useFocusAnchorElement } from "./ContextMenuService";
+import * as crypto from "crypto";
 
 export interface Props extends Omit<ComponentPropsWithRef<"div">, "onChange"> {
   trigger: ReactElement<ButtonProps> | ReactElement<IconButtonProps>;
@@ -45,7 +46,7 @@ export interface Props extends Omit<ComponentPropsWithRef<"div">, "onChange"> {
   transformOrigin?: Placement;
   offset?: Offset;
   debounceAmount?: number;
-  id: string;
+  id?: string;
   show?: boolean;
   domRoot?: HTMLElement;
   onShow?: () => void;
@@ -60,7 +61,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     trigger,
     children,
     decorativeElement,
-    id,
+    id = `ID-${crypto.randomUUID()}`,
     show = false,
     onShow,
     onClose,
@@ -88,10 +89,6 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const [childrenCount] = useState(React.Children.count(children));
 
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
-
-  if (!id) {
-    throw new Error("You need to provide an ID to the context menu");
-  }
 
   const syncSelectedContextMenuItem = setSelectedContextMenuItem;
 
