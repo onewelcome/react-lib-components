@@ -12,6 +12,6 @@
     "isolatedModules": false,
     "plugins": [{"name": "eslint-plugin-import-access"}]
   },
-  "include": ["src", "stories"],
+  "include": ["src", "stories/utils"],
   "exclude": ["node_modules", "dist", "example"]
 }

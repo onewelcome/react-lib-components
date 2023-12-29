@@ -1,3 +1,5 @@
 **/*.test.tsx
 **/*.test.ts
 .eslintrc.js
+/stories/
+!/stories/utils/**
