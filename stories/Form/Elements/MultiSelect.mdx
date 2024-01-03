@@ -1,0 +1,51 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as SelectStories from "./Select.stories.tsx";
+
+<Title />
+<Subtitle />
+
+The `Select` component does **not** use the native HTML `select` element under the hood. Because of the design, we had to opt for a different variant. However, it still works as a `select` is intended to work.
+
+This also means that not all native `select` HTML attributes are available. By far, the most important one we currently do not support is `multiple`.
+
+Other than that, the `Select` component works as you would expect. It requires you to specify options by providing `Option` components that accept a `value` prop. This `value` prop will be passed to the parent `Select` component. Whenever you click on an `Option`, the `onChange` event will be fired on the parent `Select` component.
+
+We automatically display a search ' Input ' field when you have a `Select` component with 10 or more options. You don't need to do anything about this. In order to change the placeholder, you can use the `searchPlaceholder` prop on the `Select` component.
+
+# Examples
+
+An example of how a `Select` component can be built using state looks as follows:
+
+```jsx
+const ExampleComponent = () => {
+  const [selectValue, setSelectValue] = useState("");
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <Select
+      name="Example select element"
+      onChange={event => setSelectValue(event.target.value)}
+      value={selectValue}
+      error={hasError}
+    >
+      <Option value="option1">Option 1</Option>
+      <Option value="option2">Option 2</Option>
+      <Option value="option3">Option 3</Option>
+      <Option value="option4">Option 4</Option>
+      <Option value="option5">Option 5</Option>
+    </Select>
+  );
+};
+```
+
+The `onChange` method: if we click an `Option` we receive the `event` object as a parameter in our function, which has `target` prop, which has a `value` prop. This `value` corresponds to the `value` prop on the `Option` component that was clicked. You can see this if you go to [the Canvas tab](/story/stories-form-elements-select--select) and then click the `Actions` tab next to `Controls`. If you do not see this, press the `a` key on your keyboard. Then while on the `Actions` tab, select an option from the `Select` component in the `Canvas` and you'll see that the `onChange` function was fired. The very first object (index `0`) is the `event` object we send you. The second object we give you is the `React instance` of the `Option` component.
+
+See below an example of a `Select` component. It is controlled by Storybook, and selecting a value will not do anything. However, you can change the value by selecting it in the [Props table](#props).
+
+<Canvas>
+  <Story of={SelectStories.Select} />
+</Canvas>
+
+# Props
+
+<ArgTypes story={PRIMARY_STORY} />

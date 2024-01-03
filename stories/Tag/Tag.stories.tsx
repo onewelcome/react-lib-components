@@ -19,6 +19,7 @@ import { Meta, Story } from "@storybook/react";
 import { Tag, Props } from "../../src/components/Tag/Tag";
 import TagDocumentation from "./Tag.mdx";
 import { Icons } from "../../src/components/Icon/Icon";
+import { RemoveButton } from "../../src/components/Tag/RemoveButton";
 
 const meta: Meta = {
   title: "components/Feedback/Tag",

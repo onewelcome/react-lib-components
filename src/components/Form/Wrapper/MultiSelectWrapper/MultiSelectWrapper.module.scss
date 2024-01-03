@@ -14,33 +14,18 @@
  *    limitations under the License.
  */
 
-$tagFontSize: 0.75rem;
+@use "src/variables";
 
-.tag {
-  font-size: $tagFontSize;
-  padding: 0.25rem 0.75rem;
-  border: none;
-  border-radius: 3.125rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
+.select-label {
+  left: calc(
+    1.25rem + 2px
+  ); // 2px is for offset of the selectwrapper border. It's relative to the parent div which doesn't have a border.
+}
 
-  &.tag-enabled {
-    background-color: var(--color-green100);
-  }
+.select-helper-text {
+  margin-top: 0.15rem;
+}
 
-  &.tag-disabled {
-    background-color: var(--color-blue-grey100);
-  }
-
-  &.sharp {
-    border-radius: 0.125rem;
-  }
-
-  .label {
-    font-size: $tagFontSize;
-    line-height: 2;
-    font-size: inherit;
-    color: inherit;
-  }
+.floating-label-active [data-display] {
+  top: calc(50% + 0.5rem);
 }

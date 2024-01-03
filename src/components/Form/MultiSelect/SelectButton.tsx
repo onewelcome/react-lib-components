@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,33 +14,24 @@
  *    limitations under the License.
  */
 
-$tagFontSize: 0.75rem;
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction, RefObject } from "react";
+import classes from "./SelectButton.module.scss";
 
-.tag {
-  font-size: $tagFontSize;
-  padding: 0.25rem 0.75rem;
-  border: none;
-  border-radius: 3.125rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
+export interface Props extends ComponentPropsWithRef<"button"> {}
 
-  &.tag-enabled {
-    background-color: var(--color-green100);
-  }
-
-  &.tag-disabled {
-    background-color: var(--color-blue-grey100);
-  }
-
-  &.sharp {
-    border-radius: 0.125rem;
-  }
-
-  .label {
-    font-size: $tagFontSize;
-    line-height: 2;
-    font-size: inherit;
-    color: inherit;
-  }
-}
+const SelectButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+  { onClick, name, ...rest }: Props,
+  ref
+) => {
+  return (
+    <button
+      {...rest}
+      className={classes["add-btn"]}
+      onClick={onClick}
+      ref={ref}
+      type="button"
+      name={name}
+    ></button>
+  );
+};
+export const SelectButton = React.forwardRef(SelectButtonComponent);

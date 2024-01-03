@@ -14,33 +14,28 @@
  *    limitations under the License.
  */
 
-$tagFontSize: 0.75rem;
+@use "../../mixins.module.scss";
 
-.tag {
-  font-size: $tagFontSize;
-  padding: 0.25rem 0.75rem;
+.remove {
+  width: 1.25rem;
+  height: 1.25rem;
+  background: none;
   border: none;
-  border-radius: 3.125rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
+  padding: 0;
+  margin-right: -0.375rem;
 
-  &.tag-enabled {
-    background-color: var(--color-green100);
-  }
-
-  &.tag-disabled {
-    background-color: var(--color-blue-grey100);
-  }
-
-  &.sharp {
+  &:hover {
     border-radius: 0.125rem;
+    background-color: var(--color-black10);
   }
 
-  .label {
-    font-size: $tagFontSize;
-    line-height: 2;
-    font-size: inherit;
-    color: inherit;
+  &:active {
+    background-color: var(--color-blue-grey400);
+  }
+
+  @include mixins.focusVisibleOutline($outlineOffset: 0);
+
+  .icon {
+    font-size: 0.625rem;
   }
 }
