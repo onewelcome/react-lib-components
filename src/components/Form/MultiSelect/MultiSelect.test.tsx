@@ -41,7 +41,7 @@ const defaultParams: Props = {
     <Option value="option16">Test16</Option>,
     <Option value="option17">Test17</Option>
   ],
-  value: ["option1"],
+  value: [],
   searchInputProps: { "data-testid": "search-input" },
   // @ts-ignore it does exist Typescript, pls.
   selectButtonProps: { "data-testid": "select-button" }
@@ -121,13 +121,13 @@ describe("Select should render", () => {
   });
 
   it("should have a success icon when success state", () => {
-    const { button } = createMultiSelect(defaultParams => ({
+    const { select } = createMultiSelect(defaultParams => ({
       ...defaultParams,
       success: true
     }));
 
-    const icon = button.querySelector("[class*='icon-checkmark-circle-alt']");
-    expect(button).toHaveClass("success");
+    const icon = select.querySelector("[class*='icon-checkmark-circle-alt']");
+    expect(select).toHaveClass("success");
     expect(icon).toBeDefined();
   });
 });

@@ -131,7 +131,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
     setIsSearching,
     setFocusedSelectItem,
     onOptionChangeHandler,
-    childrenCount: React.Children.count(children),
+    childrenCount: React.Children.count(children) - Object.keys(display).length,
     setShouldClick,
     searchInputRef,
     renderSearchCondition
@@ -339,12 +339,6 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
         <div
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
           style={{ display: shouldRenderSearch ? "none" : "flex" }}
-          aria-disabled={disabled}
-          aria-invalid={error}
-          aria-expanded={expanded}
-          aria-haspopup="listbox"
-          aria-labelledby={labeledBy}
-          aria-describedby={describedBy}
         >
           <div className={classes["display-container"]} data-display>
             <SelectButton
@@ -352,6 +346,13 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
               onClick={onSelectButtonClick}
               name={name}
               ref={customSelectButtonRef}
+              disabled={disabled}
+              aria-disabled={disabled}
+              aria-invalid={error}
+              aria-expanded={expanded}
+              aria-haspopup="listbox"
+              aria-labelledby={labeledBy}
+              aria-describedby={describedBy}
             />
             {value?.length === 0 && placeholder && (
               <span className={classes["placeholder"]}>{placeholder}</span>
