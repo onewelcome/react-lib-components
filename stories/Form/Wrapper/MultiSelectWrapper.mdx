@@ -4,7 +4,7 @@ import * as MultiSelectWrapperStories from "./MultiSelectWrapper.stories.tsx";
 <Title />
 <Subtitle />
 
-The `MultiSelectWrapper` component has been created to make your life easier as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least 3 attributes. It needs `children` (which have to be `Option` components), a `name` and a `value` prop, which should be linked to a `useState` variable.
+The `MultiSelectWrapper` component has been created to make your life easier as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least 3 attributes. It needs `children` (which have to be `MultiOption` components), a `name` and a `value` prop, which should be linked to a `useState` variable.
 
 You can use the `onChange` event to update the linked `useState` variable whenever the user selects an option.
 
@@ -31,16 +31,16 @@ const ExampleComponent = () => {
       errorMessage="This is an error message"
       required={true}
       value={pickedOptions}
-      onChange={e => {
+      onChange={event => {
         setPickedOptions(
-          [...e.target.options].filter(option => option.selected).map(option => option.value)
+          [...event.target.options].filter(option => option.selected).map(option => option.value)
         );
       }}
     >
-      <Option value="option1">Option 1</Option>
-      <Option value="option2">Option 2</Option>
-      <Option value="option3">Option 3</Option>
-      <Option value="option4">Option 4</Option>
+      <MultiOption value="option1">Option 1</MultiOption>
+      <MultiOption value="option2">Option 2</MultiOption>
+      <MultiOption value="option3">Option 3</MultiOption>
+      <MultiOption value="option4">Option 4</MultiOption>
     </SelectWrapper>
   );
 };

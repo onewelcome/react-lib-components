@@ -20,7 +20,7 @@ import {
   MultiSelectWrapper as MultiSelectWrapperComponent,
   Props
 } from "../../../src/components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
-import { Option } from "../../../src/components/Form/Select/Option";
+import { MultiOption } from "../../../src/components/Form/MultiSelect/MultiOption";
 import MultiSelectWrapperDocumentation from "./MultiSelectWrapper.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
@@ -70,15 +70,15 @@ const Template: StoryFn<Props> = args => {
         );
       }}
     >
-      <Option value="option1">Option 1</Option>
-      <Option value="option2">Option 2</Option>
-      <Option value="option3">Option 3</Option>
-      <Option value="option4">Option 4</Option>
-      <Option value="option5">Option 5</Option>
-      <Option value="option6">Option 6</Option>
-      <Option value="option7">Option 7</Option>
-      <Option value="option8">Option 8</Option>
-      <Option value="option9">Option 9</Option>
+      <MultiOption value="option1">Option 1</MultiOption>
+      <MultiOption value="option2">Option 2</MultiOption>
+      <MultiOption value="option3">Option 3</MultiOption>
+      <MultiOption value="option4">Option 4</MultiOption>
+      <MultiOption value="option5">Option 5</MultiOption>
+      <MultiOption value="option6">Option 6</MultiOption>
+      <MultiOption value="option7">Option 7</MultiOption>
+      <MultiOption value="option8">Option 8</MultiOption>
+      <MultiOption value="option9">Option 9</MultiOption>
     </MultiSelectWrapperComponent>
   );
 };

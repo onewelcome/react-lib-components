@@ -34,7 +34,7 @@ import readyclasses from "../../../readyclasses.module.scss";
 import { filterProps } from "../../../util/helper";
 import { useArrowNavigation, useSelectPositionList } from "../Select/SelectService";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
-import { SelectedOptions } from "./SelectedOptions";
+import { SelectedOptions, Display } from "./SelectedOptions";
 import { SelectButton } from "./SelectButton";
 
 type PartialInputProps = Partial<InputProps>;
@@ -83,7 +83,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
 ) => {
   const [expanded, setExpanded] = useState(false);
   const [filter, setFilter] = useState("");
-  const [display, setDisplay] = useState<Record<string, string>>({});
+  const [display, setDisplay] = useState<Record<string, Display>>({});
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
   const [isSearching, setIsSearching] = useState(false);
@@ -144,11 +144,14 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
     const displayArray = React.Children.map(children, child => child as ReactElement<any>).reduce(
       (prevOption, curOption) => {
         if (vals.includes(curOption.props.value)) {
-          prevOption[curOption.props.value] = curOption.props.children;
+          prevOption[curOption.props.value] = {
+            label: curOption.props.children,
+            fixed: curOption.props.fixed
+          };
         }
         return prevOption;
       },
-      {} as Record<string, string>
+      {} as Record<string, Display>
     );
     setDisplay(displayArray);
   };

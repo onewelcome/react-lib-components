@@ -14,13 +14,18 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, RefObject } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
 import { Tag } from "../../Tag/Tag";
 
 import classes from "./SelectedOptions.module.scss";
 
+export type Display = {
+  label: string;
+  fixed?: boolean;
+};
+
 export interface Props extends ComponentPropsWithRef<"div"> {
-  display: Record<string, string>;
+  display: Record<string, Display>;
   onRemove: (value: string) => void;
 }
 
@@ -30,24 +35,28 @@ const SelectedOptionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
 ) => {
   return (
     <div {...rest} className={classes["options"]} ref={ref}>
-      {Object.entries(display).map(([value, label]) => (
+      {Object.entries(display).map(([value, item]) => (
         <Tag
           key={value}
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             e.stopPropagation();
           }}
           className={classes["tag"]}
-          removeButton={{
-            onRemove: (e: React.MouseEvent<HTMLButtonElement>) => {
-              e.stopPropagation();
-              onRemove(value);
-            },
-            className: classes["remove-btn"]
-          }}
+          removeButton={
+            !item.fixed
+              ? {
+                  onRemove: (e: React.MouseEvent<HTMLButtonElement>) => {
+                    e.stopPropagation();
+                    onRemove(value);
+                  },
+                  className: classes["remove-btn"]
+                }
+              : undefined
+          }
           backgroundColor="var(--color-blue-grey100)"
           shape="sharp"
         >
-          {label}
+          {item.label}
         </Tag>
       ))}
     </div>

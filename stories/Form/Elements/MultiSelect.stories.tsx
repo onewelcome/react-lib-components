@@ -20,15 +20,15 @@ import {
   MultiSelect as MultiSelectComponent,
   Props
 } from "../../../src/components/Form/MultiSelect/MultiSelect";
-import { Option } from "../../../src/components/Form/Select/Option";
-import SelectDocumentation from "./Select.mdx";
+import MultiSelectDocumentation from "./MultiSelect.mdx";
+import { MultiOption } from "../../../src/components/Form/MultiSelect/MultiOption";
 
 const meta: Meta = {
   title: "components/Inputs/Raw/MultiSelect",
   component: MultiSelectComponent,
   parameters: {
     docs: {
-      page: SelectDocumentation
+      page: MultiSelectDocumentation
     }
   },
   argTypes: {
@@ -68,14 +68,16 @@ const Template: StoryFn<Props> = args => {
         );
       }}
     >
-      <Option value="option1">Test</Option>
-      <Option value="option2">Test2</Option>
-      <Option value="option3">Test3</Option>
-      <Option value="option4">Test4</Option>
-      <Option value="option5">Test5</Option>
-      <Option value="option6">Test6</Option>
-      <Option value="option7">Test7</Option>
-      <Option value="option8">Test8</Option>
+      <MultiOption value="option1" fixed>
+        Test
+      </MultiOption>
+      <MultiOption value="option2">Test2</MultiOption>
+      <MultiOption value="option3">Test3</MultiOption>
+      <MultiOption value="option4">Test4</MultiOption>
+      <MultiOption value="option5">Test5</MultiOption>
+      <MultiOption value="option6">Test6</MultiOption>
+      <MultiOption value="option7">Test7</MultiOption>
+      <MultiOption value="option8">Test8</MultiOption>
     </MultiSelectComponent>
   );
 };
