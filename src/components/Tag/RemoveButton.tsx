@@ -22,11 +22,12 @@ import classes from "./RemoveButton.module.scss";
 
 export interface Props extends HTMLAttributes<HTMLButtonElement> {
   removeLabel?: string;
+  label?: string;
   onRemove?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const RemoveButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { children, removeLabel = "Remove", onRemove, ...rest }: Props,
+  { removeLabel = "Remove", label, onRemove, ...rest }: Props,
   ref
 ) => {
   return (
@@ -39,7 +40,10 @@ const RemoveButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> 
         onClick={onRemove}
       >
         <Icon icon={Icons.Times} className={classes["icon"]} />
-        <span className={readyclasses["sr-only"]}>{removeLabel}</span>
+        <span className={readyclasses["sr-only"]}>
+          {removeLabel}
+          {label ? " " + label : ""}
+        </span>
       </button>
     )
   );

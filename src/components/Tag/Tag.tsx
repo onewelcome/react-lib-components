@@ -71,7 +71,7 @@ const TagComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       <Typography spacing={{ marginBottom: 0 }} variant="body" className={classes["label"]}>
         {children}
       </Typography>
-      <RemoveButton {...removeButton} />
+      <RemoveButton {...removeButton} label={children} />
     </div>
   );
 };

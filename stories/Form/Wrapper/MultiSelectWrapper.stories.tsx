@@ -25,6 +25,8 @@ import MultiSelectWrapperDocumentation from "./MultiSelectWrapper.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
+import { BoundFunctions } from "@testing-library/dom/types/get-queries-for-element";
+import { queries } from "@testing-library/dom";
 
 const meta: Meta = {
   title: "components/Inputs/MultiSelect (Wrapper)",
@@ -70,7 +72,9 @@ const Template: StoryFn<Props> = args => {
         );
       }}
     >
-      <MultiOption value="option1">Option 1</MultiOption>
+      <MultiOption value="option1" fixed>
+        Option 1
+      </MultiOption>
       <MultiOption value="option2">Option 2</MultiOption>
       <MultiOption value="option3">Option 3</MultiOption>
       <MultiOption value="option4">Option 4</MultiOption>
@@ -85,6 +89,18 @@ const Template: StoryFn<Props> = args => {
 
 export const MultiSelectWrapper = Template.bind({});
 
+const expectRemovableTag = (label: string, canvas: BoundFunctions<typeof queries>) => {
+  const tag1 = canvas.getByText(label).parentElement!;
+  expect(tag1).toBeInTheDocument();
+  expect(within(tag1).queryByText(`Remove ${label}`)).toBeInTheDocument();
+};
+
+const expectNonRemovableTag = (label: string, canvas: BoundFunctions<typeof queries>) => {
+  const tag1 = canvas.getByText(label).parentElement!;
+  expect(tag1).toBeInTheDocument();
+  expect(within(tag1).queryByText(`Remove ${label}`)).not.toBeInTheDocument();
+};
+
 MultiSelectWrapper.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
@@ -94,19 +110,22 @@ MultiSelectWrapper.play = conditionalPlay(async ({ canvasElement }) => {
 
   await userEvent.click(select);
 
-  const option2 = await canvas.getByRole("option", { name: "Option 2" });
+  const option2 = canvas.getByRole("option", { name: "Option 2" });
 
   await userEvent.click(option2);
 
-  await waitFor(() => expect(select).toHaveTextContent("Option 2"));
+  expectNonRemovableTag("Option 1", canvas);
+  expectRemovableTag("Option 2", canvas);
 
   await userEvent.click(select);
 
-  const option3 = await canvas.getByRole("option", { name: "Option 3" });
+  const option3 = canvas.getByRole("option", { name: "Option 3" });
 
   await userEvent.click(option3);
 
-  await waitFor(() => expect(select).toHaveTextContent("Option 3"));
+  expectNonRemovableTag("Option 1", canvas);
+  expectRemovableTag("Option 2", canvas);
+  expectRemovableTag("Option 3", canvas);
 
   await userEvent.click(select);
 
@@ -114,7 +133,19 @@ MultiSelectWrapper.play = conditionalPlay(async ({ canvasElement }) => {
 
   await userEvent.click(option4);
 
-  await waitFor(() => expect(select).toHaveTextContent("Option 4"));
+  expectNonRemovableTag("Option 1", canvas);
+  expectRemovableTag("Option 2", canvas);
+  expectRemovableTag("Option 3", canvas);
+  expectRemovableTag("Option 4", canvas);
+
+  const option4RemoveBtn = await canvas.getByText("Remove Option 4");
+
+  await userEvent.click(option4RemoveBtn);
+
+  expectNonRemovableTag("Option 1", canvas);
+  expectRemovableTag("Option 2", canvas);
+  expectRemovableTag("Option 3", canvas);
+  expect(canvas.queryByText("Remove Option 4")).not.toBeInTheDocument();
 
   await userEvent.click(select);
 });
