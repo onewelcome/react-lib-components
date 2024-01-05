@@ -145,8 +145,7 @@
     z-index: 2;
   }
 
-  &:active:not(.disabled),
-  &:visited:not(.disabled) {
+  &:active:not(.disabled) {
     @if $variant == "fill" {
       background-color: $pressedColor;
       border-color: $pressedColor;
