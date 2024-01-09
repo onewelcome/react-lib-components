@@ -36,7 +36,7 @@ import { Props as ContextMenuItemProps } from "./ContextMenuItem";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../hooks/useGetDomRoot";
 import { useArrowNavigation, useDefaultOffset, useFocusAnchorElement } from "./ContextMenuService";
-import * as crypto from "crypto";
+import { generateID } from "../../util/helper";
 
 export interface Props extends Omit<ComponentPropsWithRef<"div">, "onChange"> {
   trigger: ReactElement<ButtonProps> | ReactElement<IconButtonProps>;
@@ -61,7 +61,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     trigger,
     children,
     decorativeElement,
-    id = `ID-${crypto.randomUUID()}`,
+    id = `ID-${generateID()}`,
     show = false,
     onShow,
     onClose,

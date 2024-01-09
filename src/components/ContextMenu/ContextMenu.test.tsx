@@ -170,7 +170,7 @@ describe("<ContextMenu />", () => {
       />
     );
 
-    expect(getByTestId("trigger").parentElement).toHaveProperty("id");
+    expect(getByTestId("trigger").id).toMatch(/ID-*/);
   });
 });
 
