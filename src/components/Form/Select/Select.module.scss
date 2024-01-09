@@ -36,7 +36,6 @@ $listItemHeight: 2.125rem;
   &.expanded {
     .list-wrapper {
       background: var(--light);
-      padding-bottom: 0.25rem;
     }
   }
 
@@ -100,10 +99,6 @@ $listItemHeight: 2.125rem;
     left: 0;
     width: 100%;
     overflow: auto;
-
-    & ul {
-      padding-bottom: 0;
-    }
   }
 
   ul {
@@ -185,11 +180,14 @@ ul.has-sibling {
   text-align: left;
   box-sizing: border-box;
   cursor: pointer;
+
   font-family: var(--font-family);
+  font-size: var(--form-control-font-size);
 
   &:focus {
     outline: 1px solid;
-    outline-offset: -1px;
+    outline-offset: 0;
+    border-radius: 0;
   }
 
   &:hover {
