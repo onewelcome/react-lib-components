@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent, Props } from "../../src/components/DataGrid/DataGrid";
 import { DataGridRow } from "../../src/components/DataGrid/DataGridBody/DataGridRow";
@@ -28,6 +28,21 @@ import { action } from "@storybook/addon-actions";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
+import { Modal } from "../../src/components/Notifications/Modal/Modal";
+import { ModalHeader } from "../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
+import { ModalContent } from "../../src/components/Notifications/Modal/ModalContent/ModalContent";
+import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
+import { Button } from "../../src/components/Button/Button";
+import { Form } from "../../src/components/Form/Form";
+import { InputWrapper } from "../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
+
+interface DataGridItem {
+  name: string;
+  id: string;
+  created: Date;
+  type: string;
+  enabled: boolean;
+}
 
 export default {
   title: "components/Data Display/DataGrid",
@@ -40,44 +55,108 @@ export default {
 } as Meta;
 
 const Template = args => {
+  const [openModalId, setOpenModalId] = useState<string>("");
+  const [modalData, setModalData] = useState<DataGridItem | null>(null);
+  const [inputValue, setInputValue] = useState("");
+
+  const openModal = (item: DataGridItem) => {
+    setModalData(item);
+    setOpenModalId(`testModal_${item.id}`);
+  };
+
+  const closeModal = () => {
+    setOpenModalId("");
+    setInputValue("");
+    setModalData(null);
+    if (modalData) {
+      document.getElementById(`consent_menu_${modalData.id}`)?.focus();
+    }
+  };
+
   return (
-    <div style={{ padding: "1rem", backgroundColor: "rgb(245, 248, 248)" }}>
-      <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
-        <DataGridComponent {...args}>
-          {({
-            item
-          }: {
-            item: { name: string; id: string; created: Date; type: string; enabled: boolean };
-          }) => (
-            <DataGridRow key={item.id}>
-              <DataGridCell>{item.name}</DataGridCell>
-              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
-              <DataGridCell>{item.id}</DataGridCell>
-              <DataGridCell>{item.type}</DataGridCell>
-              <DataGridCell>{item.enabled ? "Active" : "Delisted"}</DataGridCell>
-              {!args.disableContextMenuColumn && (
-                <DataGridCell>
-                  <ContextMenu
-                    id={`consent_menu_${item.id}`}
-                    placement={{ vertical: "bottom", horizontal: "right" }}
-                    transformOrigin={{ vertical: "top", horizontal: "right" }}
-                    trigger={
-                      <IconButton title={`Actions for ${item.name}`} color="default">
-                        <Icon icon={Icons.EllipsisAlt} />
-                      </IconButton>
-                    }
-                  >
-                    <ContextMenuItem>Item 1</ContextMenuItem>
-                    <ContextMenuItem>Item 2</ContextMenuItem>
-                    <ContextMenuItem>Item 3</ContextMenuItem>
-                  </ContextMenu>
-                </DataGridCell>
-              )}
-            </DataGridRow>
-          )}
-        </DataGridComponent>
+    <Fragment>
+      <div style={{ padding: "1rem", backgroundColor: "rgb(245, 248, 248)" }}>
+        <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
+          <DataGridComponent {...args}>
+            {({
+              item
+            }: {
+              item: { name: string; id: string; created: Date; type: string; enabled: boolean };
+            }) => (
+              <DataGridRow key={item.id}>
+                <DataGridCell>{item.name}</DataGridCell>
+                <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
+                <DataGridCell>{item.id}</DataGridCell>
+                <DataGridCell>{item.type}</DataGridCell>
+                <DataGridCell>{item.enabled ? "Active" : "Delisted"}</DataGridCell>
+                {!args.disableContextMenuColumn && (
+                  <Fragment>
+                    <DataGridCell>
+                      <ContextMenu
+                        id={`consent_menu_${item.id}`}
+                        placement={{ vertical: "bottom", horizontal: "right" }}
+                        transformOrigin={{ vertical: "top", horizontal: "right" }}
+                        trigger={
+                          <IconButton title={`Actions for ${item.name}`} color="default">
+                            <Icon icon={Icons.EllipsisAlt} />
+                          </IconButton>
+                        }
+                      >
+                        <ContextMenuItem
+                          aria-haspopup={true}
+                          aria-controls={`testModal_${item.id}`}
+                          onClick={() => openModal(item)}
+                        >
+                          Item 1
+                        </ContextMenuItem>
+                        <ContextMenuItem>Item 2</ContextMenuItem>
+                        <ContextMenuItem>Item 3</ContextMenuItem>
+                      </ContextMenu>
+                    </DataGridCell>
+                  </Fragment>
+                )}
+              </DataGridRow>
+            )}
+          </DataGridComponent>
+        </div>
       </div>
-    </div>
+      {modalData && (
+        <Modal
+          open={openModalId === `testModal_${modalData.id}`}
+          id={openModalId}
+          onClose={closeModal}
+        >
+          <ModalHeader id={`testmodal-header-${modalData.id}`} title={modalData.name} />
+          <ModalContent>
+            <Form
+              id={`example-form-${modalData.id}`}
+              onSubmit={e => {
+                e.preventDefault();
+                alert("Submitted form!");
+              }}
+            >
+              <InputWrapper
+                label="Example"
+                name="example"
+                type="text"
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
+              />
+            </Form>
+          </ModalContent>
+          <ModalActions>
+            <Button
+              form={`example-form-${modalData.id}`}
+              onClick={() => {
+                closeModal();
+              }}
+            >
+              Close
+            </Button>
+          </ModalActions>
+        </Modal>
+      )}
+    </Fragment>
   );
 };
 
