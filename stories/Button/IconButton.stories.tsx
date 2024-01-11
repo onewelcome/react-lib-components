@@ -15,9 +15,9 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { IconButton as IconButtonComponent, Props } from "../../src/components/Button/IconButton";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
+import { Icon, Icons } from "../../src";
 import IconButtonDocumentation from "./IconButton.mdx";
 
 const meta: Meta = {
@@ -46,7 +46,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => (
+const Template: StoryFn<Props> = args => (
   <IconButtonComponent {...args}>
     <Icon icon={Icons.Calendar} />
   </IconButtonComponent>

@@ -30,7 +30,8 @@ module.exports = {
     },
     tsconfigRootDir: __dirname,
     ecmaVersion: "latest",
-    sourceType: "module"
+    sourceType: "module",
+    project: ["tsconfig.json"]
   },
   plugins: ["react", "@typescript-eslint", "jest", "cypress", "react-hooks", "license-header"],
   ignorePatterns: ["dist/", "stories/types.d.ts", "setupTests.ts", "webpack.config.ts"],
@@ -39,6 +40,7 @@ module.exports = {
     {
       files: ["**/*.ts", "**/*.tsx"],
       parser: "@typescript-eslint/parser",
+      plugins: ["export-scope"],
       rules: {
         "react-hooks/rules-of-hooks": "error",
         "no-unused-vars": "off", //we have "@typescript-eslint/no-unused-vars"
@@ -48,7 +50,8 @@ module.exports = {
         "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
         "no-useless-escape": "error",
         "no-console": ["error", { allow: ["warn", "error"] }],
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "export-scope/no-imports-outside-export-scope": ["error", { strictMode: false }]
       }
     }
   ],

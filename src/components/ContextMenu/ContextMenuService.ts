@@ -15,7 +15,7 @@
  */
 
 import { SetStateAction, useEffect } from "react";
-import { Placement, Offset, vertical, horizontal } from "../../hooks/usePosition";
+import { horizontal, Offset, Placement, vertical } from "../../hooks/usePosition";
 import { remToPx } from "../../util/helper";
 
 interface UseArrowNavigation {
@@ -29,6 +29,7 @@ interface UseArrowNavigation {
   setShouldClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+/* @scope . */
 export const useArrowNavigation = ({
   selectedContextMenuItem,
   setSelectedContextMenuItem,
