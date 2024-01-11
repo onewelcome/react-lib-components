@@ -112,13 +112,13 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const shouldRenderSearch = () => {
     if (search?.enabled) {
       return hasEnoughChildren;
-    } else {
-      if (search) {
-        return search.enabled as boolean;
-      } else {
-        return children.length > DEFAULT_RENDER_THRESHOLD;
-      }
     }
+
+    if (search) {
+      return search.enabled as boolean;
+    }
+
+    return children.length > DEFAULT_RENDER_THRESHOLD;
   };
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
