@@ -97,10 +97,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const optionListReference = useRef<HTMLDivElement>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
-  const [shouldClick, setShouldClick] =
-    useState(
-      false
-    ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
+  const [shouldClick, setShouldClick] = useState(false);
+  /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
 
   const DEFAULT_RENDER_THRESHOLD = 10;
@@ -111,11 +109,17 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   const getRenderThreshold = search?.renderThreshold ?? DEFAULT_RENDER_THRESHOLD;
   const hasEnoughChildren = Array.isArray(children) && children.length > getRenderThreshold;
 
-  const shouldRenderSearch = search?.enabled
-    ? hasEnoughChildren
-    : search
-      ? search.enabled
-      : children.length > DEFAULT_RENDER_THRESHOLD;
+  const shouldRenderSearch = () => {
+    if (search?.enabled) {
+      return hasEnoughChildren;
+    } else {
+      if (search) {
+        return search.enabled as boolean;
+      } else {
+        return children.length > DEFAULT_RENDER_THRESHOLD;
+      }
+    }
+  };
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -302,7 +306,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           className ?? ""
         }`}
       >
-        {shouldRenderSearch && renderSearch()}
+        {shouldRenderSearch() && renderSearch()}
         <button
           {...selectButtonProps}
           onClick={() => {
@@ -312,7 +316,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           type="button"
           name={name}
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
-          style={{ display: expanded && shouldRenderSearch ? "none" : "initial" }}
+          style={{ display: expanded && shouldRenderSearch() ? "none" : "initial" }}
           disabled={disabled}
           aria-disabled={disabled}
           aria-invalid={error}
