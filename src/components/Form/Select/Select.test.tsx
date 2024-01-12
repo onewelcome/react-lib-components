@@ -179,6 +179,70 @@ describe("Select should render with search", () => {
     expect(list?.querySelectorAll("li[role='option']").length).toBe(1);
     expect(list?.querySelector("li[role='option']")?.innerHTML).toBe("Test17");
   });
+
+  it("should not show the search if disabled", async () => {
+    const { select, button, queryByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      search: { enabled: false }
+    }));
+
+    const searchInput = queryByTestId("search-input");
+
+    if (button) {
+      await userEvent.click(button);
+    }
+
+    expect(select).toBeTruthy();
+    expect(searchInput).toBeNull();
+  });
+
+  it("should not show the search if only one search property is defined", async () => {
+    const { select, button, queryByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      search: { renderThreshold: 0 }
+    }));
+
+    const searchInput = queryByTestId("search-input");
+
+    if (button) {
+      await userEvent.click(button);
+    }
+
+    expect(select).toBeTruthy();
+    expect(searchInput).toBeNull();
+  });
+
+  it("should render search when enabled", async () => {
+    const { select, button, queryByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      search: { enabled: true }
+    }));
+
+    const searchInput = queryByTestId("search-input");
+
+    if (button) {
+      await userEvent.click(button);
+    }
+
+    expect(select).toBeTruthy();
+    expect(searchInput).not.toBeNull();
+  });
+
+  it("should not render search when enabled but too little elements", async () => {
+    const { select, button, queryByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      search: { enabled: true, renderThreshold: 20 }
+    }));
+
+    const searchInput = queryByTestId("search-input");
+
+    if (button) {
+      await userEvent.click(button);
+    }
+
+    expect(select).toBeTruthy();
+    expect(searchInput).toBeNull();
+  });
 });
 
 describe("Selecting options using keyboard", () => {
@@ -521,10 +585,22 @@ describe("home and end keys work", () => {
 });
 
 describe("search input props work", () => {
-  it("adds a classname", () => {
+  it("adds a classname [DEPRECATED]", () => {
     createSelect(defaultParams => ({
       ...defaultParams,
       searchInputProps: { wrapperProps: { className: "test-wrapper-classname" } }
+    }));
+
+    expect(document.querySelector(".test-wrapper-classname")).toBeInTheDocument();
+  });
+
+  it("adds a classname", () => {
+    createSelect(defaultParams => ({
+      ...defaultParams,
+      search: {
+        enabled: true,
+        searchInputProps: { wrapperProps: { className: "test-wrapper-classname" } }
+      }
     }));
 
     expect(document.querySelector(".test-wrapper-classname")).toBeInTheDocument();
