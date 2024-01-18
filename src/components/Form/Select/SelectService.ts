@@ -21,6 +21,7 @@ import {
   UseSelectPositionListParams
 } from "./Select.interfaces";
 
+/* @scope . */
 export const useArrowNavigation = ({
   expanded,
   setExpanded,
@@ -31,8 +32,8 @@ export const useArrowNavigation = ({
   childrenCount,
   setShouldClick,
   searchInputRef,
-  renderSearchCondition,
-  addBtnRef
+  addBtnRef,
+  renderThreshold
 }: UseArrowNavigationParams) => {
   const onArrowNavigation = (event: React.KeyboardEvent) => {
     const codesToPreventDefault = [
@@ -137,7 +138,7 @@ export const useArrowNavigation = ({
 
           return;
         case "Tab":
-          if (childrenCount >= renderSearchCondition && expanded && !isAddBtnFocused) {
+          if (childrenCount >= renderThreshold && expanded && !isAddBtnFocused) {
             setIsSearching(true);
             searchInputRef.current?.focus();
             return;

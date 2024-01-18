@@ -158,25 +158,19 @@ describe("<ContextMenu />", () => {
     expect(getByText("test")).toBeInTheDocument();
   });
 
-  it("should throw an error", () => {
-    // Prevent throwing an error in the console when this test is executed. We fix this and the end of this test.
-    const err = console.error;
-    console.error = jest.fn();
+  it("should generate ID if not passed", () => {
+    const { getByTestId } = render(
+      <ContextMenu
+        trigger={<Button data-testid="trigger">Click me for a context menu</Button>}
+        children={[
+          <ContextMenuItem onClick={onClick} data-testid="contextmenuitem" key="1">
+            Example item 1
+          </ContextMenuItem>
+        ]}
+      />
+    );
 
-    let actual;
-
-    try {
-      // @ts-ignore: mandatory props (test for non-typescript react projects)
-      render(<ContextMenu />);
-    } catch (e: any) {
-      actual = e.message;
-    }
-
-    const expected = "You need to provide an ID to the context menu";
-
-    expect(actual).toEqual(expected);
-
-    console.error = err;
+    expect(getByTestId("trigger").id).toMatch(/ID-*/);
   });
 });
 
