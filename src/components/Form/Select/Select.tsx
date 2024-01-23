@@ -155,7 +155,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
-    useSelectPositionList({ expanded, optionListReference, containerReference });
+    useSelectPositionList({ expanded, optionListReference, containerReference, addBtnRef });
 
   const syncDisplayValue = (val: string) => {
     React.Children.forEach(children, child => {

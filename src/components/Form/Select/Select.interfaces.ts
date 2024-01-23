@@ -37,4 +37,5 @@ export interface UseSelectPositionListParams {
   expanded: boolean;
   optionListReference: React.RefObject<HTMLDivElement>;
   containerReference: React.RefObject<HTMLDivElement>;
+  addBtnRef: React.RefObject<HTMLButtonElement>;
 }

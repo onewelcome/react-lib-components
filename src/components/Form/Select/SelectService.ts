@@ -179,6 +179,7 @@ export const useArrowNavigation = ({
 export const useSelectPositionList = ({
   expanded,
   optionListReference,
+  addBtnRef,
   containerReference
 }: UseSelectPositionListParams) => {
   const [optionsListMaxHeight, setOptionsListMaxHeight] = useState("none");
@@ -219,6 +220,7 @@ export const useSelectPositionList = ({
   const calculateOptionListMaxHeight = (position: Position) => {
     // Calculate max height if there's more space below the select
     const listHeight = optionListReference.current?.getBoundingClientRect().height;
+    const addNewButtonHeight = addBtnRef.current?.getBoundingClientRect().height ?? 0;
     const transformOrigin = position.top !== "initial" ? "top" : "bottom";
 
     if (!containerReference.current) {
@@ -230,12 +232,10 @@ export const useSelectPositionList = ({
 
     const availableSpace =
       transformOrigin === "top"
-        ? window.innerHeight -
-          containerReference.current.getBoundingClientRect()[transformOrigin] -
-          16
-        : containerReference.current.getBoundingClientRect()[transformOrigin] - 16;
+        ? window.innerHeight - containerReference.current.getBoundingClientRect().bottom - 16
+        : containerReference.current.getBoundingClientRect().top - 16;
 
-    if (listHeight && availableSpace < listHeight) {
+    if (listHeight && availableSpace < listHeight + addNewButtonHeight) {
       setOptionsListMaxHeight(`${availableSpace}px`);
       setOpacity(100);
       return;
