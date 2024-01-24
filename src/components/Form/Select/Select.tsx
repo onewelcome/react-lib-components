@@ -65,6 +65,11 @@ export interface Props extends ComponentPropsWithRef<"select">, FormElement {
   clearLabel?: string;
   noResultsLabel?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
+  addNew?: {
+    label: string;
+    onAddNew: (value: string) => void;
+    btnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  };
 }
 
 const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
@@ -85,6 +90,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     clearLabel = "Clear selection",
     noResultsLabel = "No results found",
     onChange,
+    addNew,
     search,
     ...rest
   }: Props,
@@ -105,6 +111,9 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const addBtnRef = useRef<HTMLButtonElement>(null);
+
+  const addNewLabel = addNew?.label ?? "Create new";
 
   const getRenderThreshold = search?.renderThreshold ?? DEFAULT_RENDER_THRESHOLD;
   const hasEnoughChildren = Array.isArray(children) && children.length > getRenderThreshold;
@@ -141,11 +150,12 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     childrenCount: React.Children.count(children),
     setShouldClick,
     searchInputRef,
+    addBtnRef,
     renderThreshold: getRenderThreshold
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
-    useSelectPositionList({ expanded, optionListReference, containerReference });
+    useSelectPositionList({ expanded, optionListReference, containerReference, addBtnRef });
 
   const syncDisplayValue = (val: string) => {
     React.Children.forEach(children, child => {
@@ -156,7 +166,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   };
 
   /**
-   * @description We have to modify the children (Option component) to have a additional props that allows us to keep track of which one is selected and focused at all times and if a filter is active.
+   * @description We have to modify the children (Option component) to have an additional props that allows us to keep track of which one is selected and focused at all times and if a filter is active.
    * The `children` prop can be either a single object (1 child) or an array of multiple children.
    */
   const renderOptions = () => {
@@ -192,7 +202,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           selectOpened: expanded,
           childIndex: index,
           hasFocus: focusedSelectItem === index,
-          shouldClick: shouldClick
+          shouldClick: shouldClick,
+          isAddBtnFocused: addBtnRef.current === document.activeElement
         });
       });
     }
@@ -343,11 +354,25 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             ...listPosition
           }}
         >
-          <ul role="listbox">{renderOptions()}</ul>
+          <ul className={addNew && classes["has-sibling"]} role="listbox">
+            {renderOptions()}
+          </ul>
+          {addNew && (
+            <button
+              data-testid={"select-action-button"}
+              className={classes["action-button"]}
+              onClick={() => addNew.onAddNew(filter)}
+              ref={addBtnRef}
+              {...addNew.btnProps}
+            >
+              {!filter && addNewLabel}
+              {filter && <span style={{ fontWeight: "700" }}>{`"${filter}"`}</span>}
+              {filter && ` (${addNewLabel.toLowerCase()})`}
+            </button>
+          )}
         </div>
       </div>
     </Fragment>
   );
 };
-
 export const Select = React.forwardRef(SelectComponent);

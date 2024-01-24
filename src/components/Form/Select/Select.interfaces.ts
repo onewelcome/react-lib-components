@@ -29,6 +29,7 @@ export interface UseArrowNavigationParams {
   setShouldClick: React.Dispatch<React.SetStateAction<boolean>>;
   onOptionChangeHandler: (optionElement: HTMLElement | null) => void;
   searchInputRef: React.RefObject<HTMLInputElement>;
+  addBtnRef?: React.RefObject<HTMLButtonElement>;
   renderThreshold: number;
 }
 
@@ -36,4 +37,5 @@ export interface UseSelectPositionListParams {
   expanded: boolean;
   optionListReference: React.RefObject<HTMLDivElement>;
   containerReference: React.RefObject<HTMLDivElement>;
+  addBtnRef: React.RefObject<HTMLButtonElement>;
 }

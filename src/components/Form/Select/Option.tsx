@@ -37,6 +37,7 @@ export interface Props extends ComponentPropsWithRef<"li"> {
   childIndex?: number;
   onOptionSelect?: (ref: React.RefObject<HTMLLIElement>) => void;
   onFocusChange?: (childIndex: number) => void;
+  isAddBtnFocused?: boolean;
 }
 
 const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
@@ -53,6 +54,7 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
     onFocusChange,
     disabled,
     value,
+    isAddBtnFocused,
     ...rest
   }: Props,
   ref
@@ -66,7 +68,7 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
   }, [isSelected, shouldClick]);
 
   useEffect(() => {
-    if (innerOptionRef.current && hasFocus && selectOpened && !isSearching) {
+    if (innerOptionRef.current && hasFocus && selectOpened && !isSearching && !isAddBtnFocused) {
       onFocusChange && childIndex && onFocusChange(childIndex);
       innerOptionRef.current.focus();
     }
