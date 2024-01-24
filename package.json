@@ -9,7 +9,9 @@
   "typings": "dist/cjs/src/index.d.ts",
   "files": [
     "dist",
-    "src"
+    "src",
+    "!*/**/*.test.tsx",
+    "!*/**/*.test.ts"
   ],
   "sideEffects": [
     "*.css",
