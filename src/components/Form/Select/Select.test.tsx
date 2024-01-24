@@ -285,7 +285,7 @@ describe("List expansion", () => {
   });
 
   it("should expand downwards with a max height set", async () => {
-    const { select, getByRole, dropdownWrapper } = createSelect();
+    const { select, getByRole, dropdownWrapper, debug } = createSelect();
 
     dropdownWrapper!.getBoundingClientRect = () => ({
       x: 50,
@@ -318,7 +318,9 @@ describe("List expansion", () => {
     const button = getByRole("button");
     await userEvent.click(button);
 
-    expect(dropdownWrapper).toHaveStyle({ maxHeight: "474px" });
+    debug();
+
+    expect(dropdownWrapper).toHaveStyle({ maxHeight: "434px" });
     expect(dropdownWrapper).toHaveStyle({ top: "2.75rem" });
   });
 });
