@@ -10,8 +10,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": false,
-    "plugins": [{"name": "eslint-plugin-import-access"}]
+    "plugins": [{"name": "eslint-plugin-export-scope"}]
   },
-  "include": ["src", "stories/utils"],
+  "include": ["src", "stories/utils", "**/.scope.ts"],
   "exclude": ["node_modules", "dist", "example"]
 }

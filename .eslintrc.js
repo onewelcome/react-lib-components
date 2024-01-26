@@ -22,7 +22,11 @@ module.exports = {
     node: true,
     "cypress/globals": true
   },
-  extends: ["@onewelcome/eslint-config-shared-codestyle", "plugin:react/recommended"],
+  extends: [
+    "@onewelcome/eslint-config-shared-codestyle",
+    "plugin:react/recommended",
+    "plugin:eslint-plugin-export-scope/recommended"
+  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
@@ -34,13 +38,18 @@ module.exports = {
     project: ["tsconfig.json"]
   },
   plugins: ["react", "@typescript-eslint", "jest", "cypress", "react-hooks", "license-header"],
-  ignorePatterns: ["dist/", "stories/types.d.ts", "setupTests.ts", "webpack.config.ts"],
+  ignorePatterns: [
+    "dist/",
+    "stories/types.d.ts",
+    "setupTests.ts",
+    "webpack.config.ts",
+    "!.scope.ts"
+  ],
   rules: { "license-header/header": ["error", "copyright.txt"] },
   overrides: [
     {
       files: ["**/*.ts", "**/*.tsx"],
       parser: "@typescript-eslint/parser",
-      plugins: ["export-scope"],
       rules: {
         "react-hooks/rules-of-hooks": "error",
         "no-unused-vars": "off", //we have "@typescript-eslint/no-unused-vars"
@@ -50,8 +59,7 @@ module.exports = {
         "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
         "no-useless-escape": "error",
         "no-console": ["error", { allow: ["warn", "error"] }],
-        "react/prop-types": "off",
-        "export-scope/no-imports-outside-export-scope": ["error", { strictMode: false }]
+        "react/prop-types": "off"
       }
     }
   ],

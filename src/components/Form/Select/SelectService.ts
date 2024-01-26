@@ -21,7 +21,7 @@ import {
   UseSelectPositionListParams
 } from "./Select.interfaces";
 
-/* @scope . */
+/** @scope . */
 export const useArrowNavigation = ({
   expanded,
   setExpanded,

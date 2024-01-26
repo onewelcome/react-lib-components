@@ -18,12 +18,12 @@
 
 @mixin button($variant: "text", $type: "default") {
   $disabledSelector: if($type == "link", ".disabled", ":disabled");
+  font-weight: 500;
 
   @if $variant == "text" {
     border-color: transparent;
     background-color: transparent;
   } @else if $variant == "fill" {
-    font-weight: 500;
     &:not(#{$disabledSelector}) {
       color: var(--button-fill-text-color);
       @include buttonStyles(
@@ -37,7 +37,6 @@
     }
   } @else if $variant == "outline" {
     background-color: var(--white);
-    font-weight: 500;
   }
 
   &.primary:not(#{$disabledSelector}) {
