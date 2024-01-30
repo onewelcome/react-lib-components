@@ -24,8 +24,6 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   textPosition?: "bottom" | "right";
 }
 
-export const gapBetweenStepsInRem = 0.5;
-
 export const Stepper = ({
   steps,
   direction = "horizontal",

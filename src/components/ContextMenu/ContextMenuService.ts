@@ -29,7 +29,7 @@ interface UseArrowNavigation {
   setShouldClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-/* @scope . */
+/** @scope . */
 export const useArrowNavigation = ({
   selectedContextMenuItem,
   setSelectedContextMenuItem,
