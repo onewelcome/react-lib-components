@@ -14,24 +14,4 @@
  *    limitations under the License.
  */
 
-import React from "react";
-
-export type DataAttributeKey = `data-${string}`;
-
-export interface KeyValuePair {
-  [dataAttribute: DataAttributeKey]: unknown;
-}
-
-export type MergeElementProps<T extends React.ElementType, P> = Omit<
-  React.ComponentPropsWithRef<T>,
-  keyof P
-> &
-  P;
-
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? DeepPartial<U>[]
-    : T[P] extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : DeepPartial<T[P]>;
-};
+export default "*";

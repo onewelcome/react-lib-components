@@ -23,7 +23,7 @@ import React, {
   useRef,
   useState
 } from "react";
-import { Offset, Placement, usePosition } from "../../hooks/usePosition";
+import { Offset, Placement, PositionType, usePosition } from "../../hooks/usePosition";
 import classes from "./Popover.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
@@ -62,6 +62,18 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     transformOrigin: transformOrigin,
     debounceAmount: debounceAmount ?? undefined
   });
+
+  const normalizePosition = (value: PositionType) => {
+    if (value === "initial") {
+      return "initial";
+    }
+
+    if (isNaN(value)) {
+      return 0;
+    }
+
+    return Number(value);
+  };
 
   useEffect(() => {
     if (initialCalculationDone) {
@@ -114,7 +126,12 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       <div
         ref={elToBePositioned}
         className={`${classes.popover} ${className ?? ""} ${showPopover ? classes.show : ""}`}
-        style={{ top: top, left: left, right: right, bottom: bottom }}
+        style={{
+          top: normalizePosition(top),
+          left: normalizePosition(left),
+          right: normalizePosition(right),
+          bottom: normalizePosition(bottom)
+        }}
       >
         {children}
       </div>

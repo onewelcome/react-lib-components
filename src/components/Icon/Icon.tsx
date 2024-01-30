@@ -87,7 +87,10 @@ export enum Icons {
   Warning = "warning",
   FileOutline = "file-outline",
   FileUpload = "file-upload-outline",
-  FileDownload = "file-download-outline"
+  FileDownload = "file-download-outline",
+  UploadOutline = "upload-outline",
+  ReplyOutline = "reply-outline",
+  SaveOutline = "save-outline"
 }
 
 type Tag = "span" | "div" | "i";

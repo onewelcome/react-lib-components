@@ -32,7 +32,7 @@ export interface Props extends Omit<ComponentPropsWithRef<"div">, "onClick"> {
   onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
 }
 
-export const gapBetweenStepsInRem = 0.5;
+const gapBetweenStepsInRem = 0.5;
 
 const getStepContent = (index: number, status: StepStatus) => {
   switch (status) {

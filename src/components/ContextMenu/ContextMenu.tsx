@@ -35,7 +35,8 @@ import { useBodyClick } from "../../hooks/useBodyClick";
 import { Props as ContextMenuItemProps } from "./ContextMenuItem";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../hooks/useGetDomRoot";
-import { useArrowNavigation, useDefaultOffset } from "./ContextMenuService";
+import { useArrowNavigation, useDefaultOffset, useFocusAnchorElement } from "./ContextMenuService";
+import { generateID } from "../../util/helper";
 
 export interface Props extends Omit<ComponentPropsWithRef<"div">, "onChange"> {
   trigger: ReactElement<ButtonProps> | ReactElement<IconButtonProps>;
@@ -45,7 +46,7 @@ export interface Props extends Omit<ComponentPropsWithRef<"div">, "onChange"> {
   transformOrigin?: Placement;
   offset?: Offset;
   debounceAmount?: number;
-  id: string;
+  id?: string;
   show?: boolean;
   domRoot?: HTMLElement;
   onShow?: () => void;
@@ -60,7 +61,7 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     trigger,
     children,
     decorativeElement,
-    id,
+    id = `ID-${generateID()}`,
     show = false,
     onShow,
     onClose,
@@ -79,7 +80,6 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const anchorEl = useRef<HTMLButtonElement>(null);
   const wrappingDivRef = (ref as RefObject<HTMLDivElement>) || createRef<HTMLDivElement>();
   const [showContextMenu, setShowContextMenu] = useState(show);
-  const [hasBeenClosed, setHasBeenClosed] = useState(false);
   const [selectedContextMenuItem, setSelectedContextMenuItem] = useState(-1);
   const [focusedContextMenuItem, setFocusedContextMenuItem] = useState(-1);
   const [shouldClick, setShouldClick] =
@@ -89,10 +89,6 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const [childrenCount] = useState(React.Children.count(children));
 
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
-
-  if (!id) {
-    throw new Error("You need to provide an ID to the context menu");
-  }
 
   const syncSelectedContextMenuItem = setSelectedContextMenuItem;
 
@@ -128,21 +124,15 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     showContextMenu
   );
 
-  useEffect(() => {
-    if (showContextMenu === true) {
-      onShow?.();
-    } else {
-      onClose?.();
-      !hasBeenClosed && setHasBeenClosed(true);
-      setFocusedContextMenuItem(-1);
-      // If the user clicks on the trigger button, we want to focus it again after the context menu has been closed,
-      // but only if the option doesn't open another window (such as a modal),
-      // otherwise pressing enter wouldn't fire the primary action of the modal.
-      if (document.activeElement?.closest(`.${wrappingDivRef.current?.className}`)) {
-        hasBeenClosed && anchorEl.current && anchorEl.current.focus();
-      }
-    }
-  }, [showContextMenu]);
+  useFocusAnchorElement(
+    anchorEl,
+    id,
+    showContextMenu,
+    setShowContextMenu,
+    setFocusedContextMenuItem,
+    onShow,
+    onClose
+  );
 
   const renderTrigger = () =>
     React.cloneElement(trigger, {

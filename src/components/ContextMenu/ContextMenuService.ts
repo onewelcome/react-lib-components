@@ -14,7 +14,8 @@
  *    limitations under the License.
  */
 
-import { Placement, Offset, vertical, horizontal } from "../../hooks/usePosition";
+import { SetStateAction, useEffect } from "react";
+import { horizontal, Offset, Placement, vertical } from "../../hooks/usePosition";
 import { remToPx } from "../../util/helper";
 
 interface UseArrowNavigation {
@@ -28,6 +29,7 @@ interface UseArrowNavigation {
   setShouldClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+/** @scope . */
 export const useArrowNavigation = ({
   selectedContextMenuItem,
   setSelectedContextMenuItem,
@@ -122,4 +124,48 @@ export const useDefaultOffset = () => {
   };
 
   return { calculateDefaultOffset };
+};
+
+export const useFocusAnchorElement = (
+  anchorEl: React.RefObject<HTMLElement>,
+  id: string,
+  showContextMenu: boolean,
+  setShowContextMenu: React.Dispatch<SetStateAction<boolean>>,
+  setFocusedContextMenuItem: React.Dispatch<SetStateAction<number>>,
+  onShow?: () => void,
+  onClose?: () => void
+) => {
+  const handleEscapeKeyPress = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setShowContextMenu(false);
+      anchorEl.current?.focus();
+    }
+  };
+
+  const escapeKeyEventHandlerManager = () => {
+    if (showContextMenu) {
+      document.addEventListener("keydown", handleEscapeKeyPress);
+    } else {
+      document.removeEventListener("keydown", handleEscapeKeyPress);
+    }
+  };
+
+  const emitContextMenuEvent = () => {
+    if (showContextMenu) {
+      onShow?.();
+    } else {
+      onClose?.();
+
+      if (document.activeElement?.closest(`#${id}-menu`)) {
+        anchorEl.current?.focus();
+      }
+
+      setFocusedContextMenuItem(-1);
+    }
+  };
+
+  useEffect(() => {
+    escapeKeyEventHandlerManager();
+    emitContextMenuEvent();
+  }, [showContextMenu]);
 };

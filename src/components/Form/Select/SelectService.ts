@@ -21,6 +21,7 @@ import {
   UseSelectPositionListParams
 } from "./Select.interfaces";
 
+//@TODO: fix that :) /** @scope . */
 export const useArrowNavigation = ({
   expanded,
   setExpanded,
@@ -31,7 +32,8 @@ export const useArrowNavigation = ({
   childrenCount,
   setShouldClick,
   searchInputRef,
-  renderSearchCondition
+  addBtnRef,
+  renderThreshold
 }: UseArrowNavigationParams) => {
   const onArrowNavigation = (event: React.KeyboardEvent) => {
     const codesToPreventDefault = [
@@ -54,12 +56,16 @@ export const useArrowNavigation = ({
       "MetaRight"
     ];
 
-    /** If the select is expanded, we also want to control the Tab key */
+    const isAddBtnFocused = addBtnRef?.current === document.activeElement;
+
     if (expanded) {
       codesToPreventDefault.push("Tab");
     }
 
-    /** We will handle the way certain key strokes affect the Select, unless we're searching */
+    if (addBtnRef) {
+      codesToPreventDefaultWhenSearching.push("Tab");
+    }
+
     if (codesToPreventDefault.includes(event.code) && !event.metaKey && !isSearching) {
       event.preventDefault();
     }
@@ -80,7 +86,14 @@ export const useArrowNavigation = ({
           setFocusedSelectItem(childrenCount - 1);
           return;
         case "Escape":
+          setIsSearching(false);
+          setExpanded(false);
+          return;
         case "Tab":
+          if (addBtnRef?.current) {
+            addBtnRef.current.focus();
+            return;
+          }
           setIsSearching(false);
           setExpanded(false);
       }
@@ -125,9 +138,12 @@ export const useArrowNavigation = ({
 
           return;
         case "Tab":
-          if (childrenCount >= renderSearchCondition && expanded) {
+          if (childrenCount >= renderThreshold && expanded && !isAddBtnFocused) {
             setIsSearching(true);
             searchInputRef.current?.focus();
+            return;
+          } else if (addBtnRef?.current && expanded && !isAddBtnFocused) {
+            addBtnRef.current.focus();
             return;
           }
           setExpanded(false);
@@ -163,10 +179,11 @@ export const useArrowNavigation = ({
 export const useSelectPositionList = ({
   expanded,
   optionListReference,
+  addBtnRef,
   containerReference
 }: UseSelectPositionListParams) => {
   const [optionsListMaxHeight, setOptionsListMaxHeight] = useState("none");
-  const [opacity, setOpacity] = useState(0); // We set opacity because other wise if we calculate the max height you see the list full height for a split second and then it shortens.
+  const [opacity, setOpacity] = useState(0); // We set opacity because otherwise if we calculate the max height you see the list full height for a split second and then it shortens.
   const [listPosition, setListPosition] = useState<Partial<Position>>({});
 
   useEffect(() => {
@@ -203,6 +220,7 @@ export const useSelectPositionList = ({
   const calculateOptionListMaxHeight = (position: Position) => {
     // Calculate max height if there's more space below the select
     const listHeight = optionListReference.current?.getBoundingClientRect().height;
+    const addNewButtonHeight = addBtnRef.current?.getBoundingClientRect().height ?? 0;
     const transformOrigin = position.top !== "initial" ? "top" : "bottom";
 
     if (!containerReference.current) {
@@ -214,12 +232,10 @@ export const useSelectPositionList = ({
 
     const availableSpace =
       transformOrigin === "top"
-        ? window.innerHeight -
-          containerReference.current.getBoundingClientRect()[transformOrigin] -
-          16
-        : containerReference.current.getBoundingClientRect()[transformOrigin] - 16;
+        ? window.innerHeight - containerReference.current.getBoundingClientRect().bottom - 16
+        : containerReference.current.getBoundingClientRect().top - 16;
 
-    if (listHeight && availableSpace < listHeight) {
+    if (listHeight && availableSpace < listHeight + addNewButtonHeight) {
       setOptionsListMaxHeight(`${availableSpace}px`);
       setOpacity(100);
       return;

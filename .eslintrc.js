@@ -22,7 +22,11 @@ module.exports = {
     node: true,
     "cypress/globals": true
   },
-  extends: ["@onewelcome/eslint-config-shared-codestyle", "plugin:react/recommended"],
+  extends: [
+    "@onewelcome/eslint-config-shared-codestyle",
+    "plugin:react/recommended",
+    "plugin:eslint-plugin-export-scope/recommended"
+  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
@@ -30,10 +34,17 @@ module.exports = {
     },
     tsconfigRootDir: __dirname,
     ecmaVersion: "latest",
-    sourceType: "module"
+    sourceType: "module",
+    project: ["tsconfig.json"]
   },
   plugins: ["react", "@typescript-eslint", "jest", "cypress", "react-hooks", "license-header"],
-  ignorePatterns: ["dist/", "stories/types.d.ts", "setupTests.ts", "webpack.config.ts"],
+  ignorePatterns: [
+    "dist/",
+    "stories/types.d.ts",
+    "setupTests.ts",
+    "webpack.config.ts",
+    "!.scope.ts"
+  ],
   rules: { "license-header/header": ["error", "copyright.txt"] },
   overrides: [
     {
