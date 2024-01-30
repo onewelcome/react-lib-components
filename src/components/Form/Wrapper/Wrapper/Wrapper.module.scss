@@ -31,12 +31,6 @@
     @include mixins.transition(all, 0.2s, ease-in-out);
     pointer-events: none;
 
-    &.floating-label-active {
-      font-size: 0.75rem;
-      transform: translateY(-0.8rem);
-      color: var(--default);
-    }
-
     &.error {
       color: var(--error);
     }
