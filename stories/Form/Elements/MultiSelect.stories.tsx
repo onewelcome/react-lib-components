@@ -16,12 +16,10 @@
 
 import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import {
-  MultiSelect as MultiSelectComponent,
-  Props
-} from "../../../src/components/Form/MultiSelect/MultiSelect";
+import { MultiSelect as MultiSelectComponent } from "../../../src/components/Form/Select/MultiSelect/MultiSelect";
 import MultiSelectDocumentation from "./MultiSelect.mdx";
-import { MultiOption } from "../../../src/components/Form/MultiSelect/MultiOption";
+import { MultiOption } from "../../../src/components/Form/Select/MultiSelect/MultiOption";
+import { SelectProps } from "../../../src/components/Form/Select/Select.interfaces";
 
 const meta: Meta = {
   title: "components/Inputs/Raw/MultiSelect",
@@ -55,7 +53,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: StoryFn<Props> = args => {
+const Template: StoryFn<SelectProps> = args => {
   const [pickedOptions, setPickedOptions] = useState<string[]>(["option1", "option2"]);
 
   return (
@@ -78,6 +76,9 @@ const Template: StoryFn<Props> = args => {
       <MultiOption value="option6">Test6</MultiOption>
       <MultiOption value="option7">Test7</MultiOption>
       <MultiOption value="option8">Test8</MultiOption>
+      <MultiOption value="option9">Test8</MultiOption>
+      <MultiOption value="option10">Test8</MultiOption>
+      <MultiOption value="option11">Test8</MultiOption>
     </MultiSelectComponent>
   );
 };

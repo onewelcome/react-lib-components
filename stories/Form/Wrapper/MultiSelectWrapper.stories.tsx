@@ -20,7 +20,7 @@ import {
   MultiSelectWrapper as MultiSelectWrapperComponent,
   Props
 } from "../../../src/components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
-import { MultiOption } from "../../../src/components/Form/MultiSelect/MultiOption";
+import { MultiOption } from "../../../src/components/Form/Select/MultiSelect/MultiOption";
 import MultiSelectWrapperDocumentation from "./MultiSelectWrapper.mdx";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";

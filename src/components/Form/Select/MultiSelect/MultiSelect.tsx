@@ -17,7 +17,6 @@
 import classes from "./MultiSelect.module.scss";
 
 import React, {
-  ComponentPropsWithRef,
   createRef,
   ForwardRefRenderFunction,
   Fragment,
@@ -26,40 +25,18 @@ import React, {
   useRef,
   useState
 } from "react";
-import { Input, Props as InputProps } from "../Input/Input";
-import { Icon, Icons } from "../../Icon/Icon";
-import { FormElement } from "../form.interfaces";
-import { useBodyClick } from "../../../hooks/useBodyClick";
-import readyclasses from "../../../readyclasses.module.scss";
-import { filterProps } from "../../../util/helper";
-import { useArrowNavigation, useSelectPositionList } from "../Select/SelectService";
-import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
+import { Icon, Icons } from "../../../Icon/Icon";
+import { useBodyClick } from "../../../../hooks/useBodyClick";
+import readyclasses from "../../../../readyclasses.module.scss";
+import { filterProps } from "../../../../util/helper";
+import { useArrowNavigation, useSelectPositionList } from "../SelectService";
+import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 import { SelectedOptions, Display } from "./SelectedOptions";
 import { SelectButton } from "./SelectButton";
+import { SelectProps } from "../Select.interfaces";
+import { useSearch } from "../useSearch";
 
-type PartialInputProps = Partial<InputProps>;
-
-export interface Props extends ComponentPropsWithRef<"select">, FormElement {
-  children: ReactElement[];
-  name?: string;
-  labeledBy?: string;
-  describedBy?: string;
-  placeholder?: string;
-  searchPlaceholder?: string;
-  searchInputProps?: PartialInputProps & { reset?: boolean };
-  selectButtonProps?: ComponentPropsWithRef<"button">;
-  className?: string;
-  value: string[];
-  clearLabel?: string;
-  noResultsLabel?: string;
-  onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
-}
-
-/** Amount of items to be rendered before a search input is rendered */
-const renderSearchCondition = 10;
-
-const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
-  //@TODO: to be moved to BaseSelect.interfaces.ts
+const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
   {
     children,
     name,
@@ -77,25 +54,43 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
     clearLabel = "Clear selection",
     noResultsLabel = "No results found",
     onChange,
+    addNew,
+    search,
     ...rest
-  }: Props,
+  }: SelectProps,
   ref
 ) => {
   const [expanded, setExpanded] = useState(false);
-  const [filter, setFilter] = useState("");
   const [display, setDisplay] = useState<Record<string, Display>>({});
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
-  const [isSearching, setIsSearching] = useState(false);
   const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
   const [shouldClick, setShouldClick] =
     useState(
       false
     ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
+  const optionsVisibleCount = React.Children.count(children) - Object.keys(display).length;
+  const {
+    filter,
+    isSearching,
+    renderSearch,
+    searchInputRef,
+    setIsSearching,
+    searchThreshold,
+    searchVisible
+  } = useSearch({
+    expanded,
+    search,
+    searchInputClassName: classes["select-search"],
+    optionsCount: optionsVisibleCount,
+    setFocusedSelectItem
+  });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const addBtnRef = useRef<HTMLButtonElement>(null);
+
+  const addNewLabel = addNew?.label ?? "Create new";
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -131,14 +126,15 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
     setIsSearching,
     setFocusedSelectItem,
     onOptionChangeHandler,
-    childrenCount: React.Children.count(children) - Object.keys(display).length,
+    childrenCount: optionsVisibleCount,
     setShouldClick,
     searchInputRef,
-    renderSearchCondition
+    addBtnRef,
+    renderThreshold: searchThreshold
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
-    useSelectPositionList({ expanded, optionListReference, containerReference });
+    useSelectPositionList({ expanded, optionListReference, containerReference, addBtnRef });
 
   const syncDisplayValue = (vals: string[]) => {
     const displayArray = React.Children.map(children, child => child as ReactElement<any>).reduce(
@@ -223,39 +219,12 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
     }
   };
 
-  const shouldRenderSearch =
-    expanded && Array.isArray(children) && children.length > renderSearchCondition;
-
-  const renderSearch = () => (
-    <Input
-      {...searchInputProps}
-      ref={searchInputRef}
-      onFocus={() => setIsSearching(true)}
-      onBlur={() => setIsSearching(false)}
-      onChange={filterResults}
-      className={classes["select-search"]}
-      wrapperProps={{
-        className: searchInputProps?.wrapperProps?.className
-      }}
-      style={{
-        display: expanded ? "block" : "none"
-      }}
-      type="text"
-      name="search-option"
-      placeholder={searchPlaceholder}
-    />
-  );
-
   const renderChevronIcon = () => {
     return expanded ? (
       <Icon className={classes["chevron-icon"]} icon={Icons.ChevronUp} />
     ) : (
       <Icon className={classes["chevron-icon"]} icon={Icons.ChevronDown} />
     );
-  };
-
-  const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(event.currentTarget.value);
   };
 
   const icon = useDetermineStatusIcon({ success, error });
@@ -290,16 +259,6 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
     },
     expanded
   );
-
-  const resetSearchState = () => {
-    setFilter("");
-    setIsSearching(false);
-    setFocusedSelectItem(-1);
-  };
-
-  useEffect(() => {
-    searchInputProps?.reset && resetSearchState();
-  }, [searchInputProps?.reset]);
 
   const additionalClasses = [];
   expanded && additionalClasses.push(classes.expanded);
@@ -338,10 +297,10 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
           className ?? ""
         }`}
       >
-        {Array.isArray(children) && children.length > renderSearchCondition && renderSearch()}
+        {searchVisible && renderSearch()}
         <div
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
-          style={{ display: shouldRenderSearch ? "none" : "flex" }}
+          style={{ display: expanded && searchVisible ? "none" : "flex" }}
         >
           <div className={classes["display-container"]} data-display>
             <SelectButton
@@ -383,6 +342,19 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> =
           }}
         >
           <ul role="listbox">{renderOptions()}</ul>
+          {addNew && (
+            <button
+              data-testid={"select-action-button"}
+              className={classes["action-button"]}
+              onClick={() => addNew.onAddNew(filter)}
+              ref={addBtnRef}
+              {...addNew.btnProps}
+            >
+              {!filter && addNewLabel}
+              {filter && <span style={{ fontWeight: "700" }}>{`"${filter}"`}</span>}
+              {filter && ` (${addNewLabel.toLowerCase()})`}
+            </button>
+          )}
         </div>
       </div>
     </Fragment>

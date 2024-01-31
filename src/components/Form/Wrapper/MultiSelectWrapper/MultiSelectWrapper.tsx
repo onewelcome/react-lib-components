@@ -18,9 +18,10 @@ import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } 
 import classes from "./MultiSelectWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { useWrapper } from "../../../../hooks/useWrapper";
-import { MultiSelect, Props as MultiSelectProps } from "../../MultiSelect/MultiSelect";
+import { MultiSelect } from "../../Select/MultiSelect/MultiSelect";
+import { SelectProps } from "../../Select/Select.interfaces";
 
-interface PartialSelectProps extends Partial<MultiSelectProps> {}
+interface PartialSelectProps extends Partial<SelectProps> {}
 
 export interface Props
   extends Omit<ComponentPropsWithRef<"div">, "onChange">,

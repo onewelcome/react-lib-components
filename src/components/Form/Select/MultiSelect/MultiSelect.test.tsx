@@ -15,12 +15,13 @@
  */
 
 import React, { useEffect, useRef } from "react";
-import { MultiSelect as MultiSelectComponent, Props } from "./MultiSelect";
+import { MultiSelect as MultiSelectComponent } from "./MultiSelect";
 import { act, render, waitFor } from "@testing-library/react";
-import { Option } from "../Select/Option";
+import { Option } from "../Option";
 import userEvent from "@testing-library/user-event";
+import { SelectProps } from "../Select.interfaces";
 
-const defaultParams: Props = {
+const defaultParams: SelectProps = {
   name: "Example select",
   children: [
     <Option value="option1">Test</Option>,
@@ -47,8 +48,8 @@ const defaultParams: Props = {
   selectButtonProps: { "data-testid": "select-button" }
 };
 
-const createMultiSelect = (params?: (defaultParams: Props) => Props) => {
-  let parameters: Props = defaultParams;
+const createMultiSelect = (params?: (defaultParams: SelectProps) => SelectProps) => {
+  let parameters: SelectProps = defaultParams;
   if (params) {
     parameters = params(defaultParams);
   }

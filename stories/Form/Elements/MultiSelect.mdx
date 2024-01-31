@@ -14,7 +14,7 @@ We automatically display a search ' Input ' field when you have a `MultiSelect` 
 
 ## Preselected (unremovable) options
 
-Selected options are shown as [`Tag` components](?path=/docs/components-inputs-select-wrapper--docs). To deselect option just click on remove button inside tag with the value you want to deselect.
+Selected options are shown as [`Tag` components](?path=/docs/components-feedback-tag--docs). To deselect option just click on remove button inside tag with the value you want to deselect.
 The `fixed` prop of `MultiOption` among with preselecting that option let you show selected option that can not be deselected. This can be used to show user that some options are preselected for chosen flow.
 
 # Examples
@@ -47,9 +47,9 @@ const ExampleComponent = () => {
 };
 ```
 
-The `onChange` method: if we click an `MultiOption` we receive the `event` object as a parameter in our function, which has `target` prop, which has a `options` prop. This `options` is an array contains all selected options from which you can filter out all selected values. You can see this if you go to [the Canvas tab](/story/stories-form-elements-select--select) and then click the `Actions` tab next to `Controls`. If you do not see this, press the `a` key on your keyboard. Then while on the `Actions` tab, select an option from the `Select` component in the `Canvas` and you'll see that the `onChange` function was fired. The very first object (index `0`) is the `event` object we send you. The second object we give you is the `React instance` of the `Option` component.
+The `onChange` method: if we click an `MultiOption` we receive the `event` object as a parameter in our function, which has `target` prop, which has a `options` prop. This `options` is an array contains all selected options from which you can filter out all selected values. You can see this if you go to [the Canvas tab](/story/components-feedback-tag--enabled-tag) and then click the `Actions` tab next to `Controls`. If you do not see this, press the `a` key on your keyboard. Then while on the `Actions` tab, select an option from the `Select` component in the `Canvas` and you'll see that the `onChange` function was fired. The very first object (index `0`) is the `event` object we send you. The second object we give you is the `React instance` of the `Option` component.
 
-See below an example of a `MultiSelect` component. It is controlled by Storybook, and selecting a value will not do anything. However, you can change the value by selecting it in the [Props table](#props).
+See below an example of a `MultiSelect` component.
 
 <Canvas>
   <Story of={MultiSelectStories.MultiSelect} />

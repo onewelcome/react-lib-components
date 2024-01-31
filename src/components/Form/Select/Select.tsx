@@ -26,7 +26,7 @@ import React, {
   useRef,
   useState
 } from "react";
-import { Input, Props as InputProps } from "../Input/Input";
+import { Props as InputProps } from "../Input/Input";
 import { Icon, Icons } from "../../Icon/Icon";
 import { FormElement } from "../form.interfaces";
 import { useBodyClick } from "../../../hooks/useBodyClick";
@@ -34,6 +34,7 @@ import readyclasses from "../../../readyclasses.module.scss";
 import { filterProps } from "../../../util/helper";
 import { useArrowNavigation, useSelectPositionList } from "./SelectService";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
+import { useSearch } from "./useSearch";
 
 type PartialInputProps = Partial<InputProps>;
 
@@ -97,38 +98,34 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
   ref
 ) => {
   const [expanded, setExpanded] = useState(false);
-  const [filter, setFilter] = useState("");
   const [display, setDisplay] = useState("");
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
-  const [isSearching, setIsSearching] = useState(false);
   const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
   const [shouldClick, setShouldClick] = useState(false);
   /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
-
-  const DEFAULT_RENDER_THRESHOLD = 10;
+  const optionsCount = React.Children.count(children);
+  const {
+    filter,
+    isSearching,
+    renderSearch,
+    searchInputRef,
+    setIsSearching,
+    searchThreshold,
+    searchVisible
+  } = useSearch({
+    expanded,
+    search,
+    searchInputClassName: classes["select-search"],
+    optionsCount,
+    setFocusedSelectItem
+  });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
-  const searchInputRef = useRef<HTMLInputElement>(null);
   const addBtnRef = useRef<HTMLButtonElement>(null);
 
   const addNewLabel = addNew?.label ?? "Create new";
-
-  const getRenderThreshold = search?.renderThreshold ?? DEFAULT_RENDER_THRESHOLD;
-  const hasEnoughChildren = Array.isArray(children) && children.length > getRenderThreshold;
-
-  const shouldRenderSearch = () => {
-    if (search?.enabled) {
-      return hasEnoughChildren;
-    }
-
-    if (search) {
-      return search.enabled as boolean;
-    }
-
-    return children.length > DEFAULT_RENDER_THRESHOLD;
-  };
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -147,11 +144,11 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     setIsSearching,
     setFocusedSelectItem,
     onOptionChangeHandler,
-    childrenCount: React.Children.count(children),
+    childrenCount: optionsCount,
     setShouldClick,
     searchInputRef,
     addBtnRef,
-    renderThreshold: getRenderThreshold
+    renderThreshold: searchThreshold
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
@@ -209,38 +206,12 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     }
   };
 
-  const renderSearch = () => (
-    <Input
-      {...(search?.searchInputProps ?? searchInputProps)}
-      ref={searchInputRef}
-      onFocus={() => setIsSearching(true)}
-      onBlur={() => setIsSearching(false)}
-      onChange={filterResults}
-      className={classes["select-search"]}
-      wrapperProps={{
-        className:
-          search?.searchInputProps?.wrapperProps?.className ??
-          searchInputProps?.wrapperProps?.className
-      }}
-      style={{
-        display: expanded ? "block" : "none"
-      }}
-      type="text"
-      name="search-option"
-      placeholder={search?.searchPlaceholder ?? searchPlaceholder}
-    />
-  );
-
   const renderChevronIcon = () => {
     return expanded ? (
       <Icon className={classes["chevron-icon"]} icon={Icons.ChevronUp} />
     ) : (
       <Icon className={classes["chevron-icon"]} icon={Icons.ChevronDown} />
     );
-  };
-
-  const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(event.currentTarget.value);
   };
 
   const icon = useDetermineStatusIcon({ success, error });
@@ -275,16 +246,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     expanded
   );
 
-  const resetSearchState = () => {
-    setFilter("");
-    setIsSearching(false);
-    setFocusedSelectItem(-1);
-  };
-
-  useEffect(() => {
-    (search?.searchInputProps?.reset || searchInputProps?.reset) && resetSearchState();
-  }, [searchInputProps?.reset, search?.searchInputProps?.reset]);
-
   const additionalClasses = [];
   expanded && additionalClasses.push(classes.expanded);
   error && additionalClasses.push(classes.error);
@@ -317,7 +278,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           className ?? ""
         }`}
       >
-        {shouldRenderSearch() && renderSearch()}
+        {searchVisible && renderSearch()}
         <button
           {...selectButtonProps}
           onClick={() => {
@@ -327,7 +288,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           type="button"
           name={name}
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
-          style={{ display: expanded && shouldRenderSearch() ? "none" : "initial" }}
+          style={{ display: expanded && searchVisible ? "none" : "initial" }}
           disabled={disabled}
           aria-disabled={disabled}
           aria-invalid={error}

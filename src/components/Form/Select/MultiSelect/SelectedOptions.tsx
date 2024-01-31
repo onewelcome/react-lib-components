@@ -15,7 +15,7 @@
  */
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
-import { Tag } from "../../Tag/Tag";
+import { Tag } from "../../../Tag/Tag";
 
 import classes from "./SelectedOptions.module.scss";
 
