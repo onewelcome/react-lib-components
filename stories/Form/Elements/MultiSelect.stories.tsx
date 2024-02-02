@@ -21,6 +21,7 @@ import MultiSelectDocumentation from "./MultiSelect.mdx";
 import { MultiOption } from "../../../src/components/Form/Select/MultiSelect/MultiOption";
 import { MultiSelectProps } from "../../../src/components/Form/Select/Select.interfaces";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
+import { expect } from "@storybook/jest";
 import { userEvent, waitFor, within } from "@storybook/testing-library";
 
 const generateOptions = count => {
