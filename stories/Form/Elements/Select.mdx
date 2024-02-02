@@ -6,7 +6,7 @@ import * as SelectStories from "./Select.stories.tsx";
 
 The `Select` component does **not** use the native HTML `select` element under the hood. Because of the design, we had to opt for a different variant. However, it still works as a `select` is intended to work.
 
-This also means that not all native `select` HTML attributes are available. However, we support `multiple` attribute in [`MultiSelect` component](?path=/docs/components-inputs-select-wrapper--docs) component.
+This also means that not all native `select` HTML attributes are available. However, we support `multiple` attribute in [`MultiSelect` component](?path=/docs/components-inputs-raw-multiselect--docs) component.
 
 Other than that, the `Select` component works as you would expect. It requires you to specify options by providing `Option` components that accept a `value` prop. This `value` prop will be passed to the parent `Select` component. Whenever you click on an `Option`, the `onChange` event will be fired on the parent `Select` component.
 
