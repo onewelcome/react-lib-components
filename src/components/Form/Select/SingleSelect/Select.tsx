@@ -275,12 +275,16 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           style={{
             display: expanded ? "block" : "none",
             opacity: opacity,
-            maxHeight: optionsListMaxHeight,
+            maxHeight: optionsListMaxHeight.wrapper,
             pointerEvents: expanded ? "auto" : "none",
             ...listPosition
           }}
         >
-          <ul className={addNewBtnOptionsContainerClassName} role="listbox">
+          <ul
+            className={addNewBtnOptionsContainerClassName}
+            role="listbox"
+            style={{ maxHeight: optionsListMaxHeight.list }}
+          >
             {renderOptions()}
           </ul>
           {renderAddNew()}

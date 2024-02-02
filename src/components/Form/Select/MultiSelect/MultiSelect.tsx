@@ -96,8 +96,6 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
 
-  const addNewLabel = addNew?.label ?? "Create new";
-
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
       const value = optionElement.getAttribute("data-value")!;
@@ -342,12 +340,16 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           style={{
             display: expanded ? "block" : "none",
             opacity: opacity,
-            maxHeight: optionsListMaxHeight,
+            maxHeight: optionsListMaxHeight.wrapper,
             pointerEvents: expanded ? "auto" : "none",
             ...listPosition
           }}
         >
-          <ul className={addNewBtnOptionsContainerClassName} role="listbox">
+          <ul
+            className={addNewBtnOptionsContainerClassName}
+            role="listbox"
+            style={{ maxHeight: optionsListMaxHeight.list }}
+          >
             {renderOptions()}
           </ul>
           {renderAddNew()}

@@ -20,6 +20,16 @@ import { MultiSelect as MultiSelectComponent } from "../../../src/components/For
 import MultiSelectDocumentation from "./MultiSelect.mdx";
 import { MultiOption } from "../../../src/components/Form/Select/MultiSelect/MultiOption";
 import { MultiSelectProps } from "../../../src/components/Form/Select/Select.interfaces";
+import { conditionalPlay } from "../../../.storybook/conditionalPlay";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
+
+const generateOptions = count => {
+  return Array.from({ length: count }, (_, index) => (
+    <MultiOption key={`option${index + 1}`} value={`option${index + 1}`} fixed={index === 0}>
+      {`Option ${index + 1}`}
+    </MultiOption>
+  ));
+};
 
 const meta: Meta = {
   title: "components/Inputs/Raw/MultiSelect",
@@ -65,27 +75,65 @@ const Template: StoryFn<MultiSelectProps> = args => {
           [...e.target.options].filter(option => option.selected).map(option => option.value)
         );
       }}
-    >
-      <MultiOption value="option1" fixed>
-        Test
-      </MultiOption>
-      <MultiOption value="option2">Test2</MultiOption>
-      <MultiOption value="option3">Test3</MultiOption>
-      <MultiOption value="option4">Test4</MultiOption>
-      <MultiOption value="option5">Test5</MultiOption>
-      <MultiOption value="option6">Test6</MultiOption>
-      <MultiOption value="option7">Test7</MultiOption>
-      <MultiOption value="option8">Test8</MultiOption>
-      <MultiOption value="option9">Test8</MultiOption>
-      <MultiOption value="option10">Test8</MultiOption>
-      <MultiOption value="option11">Test8</MultiOption>
-      <MultiOption value="option12">Test8</MultiOption>
-    </MultiSelectComponent>
+    ></MultiSelectComponent>
   );
 };
 
 export const MultiSelect = Template.bind({});
 
 MultiSelect.args = {
-  name: "Example select"
+  name: "Example multi select",
+  children: generateOptions(6)
 };
+
+export const MultiSelectWithSearchOptions = Template.bind({});
+
+MultiSelectWithSearchOptions.args = {
+  children: generateOptions(15)
+};
+
+MultiSelectWithSearchOptions.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
+
+  const select = await canvas.getByRole("button", { expanded: false });
+
+  await userEvent.click(select);
+});
+
+export const MultiSelectWithAddNewAndSearch = Template.bind({});
+
+MultiSelectWithAddNewAndSearch.args = {
+  name: "Example select",
+  addNew: { label: "Create new", onAddNew: () => alert("YO!") },
+  children: generateOptions(15)
+};
+
+MultiSelectWithAddNewAndSearch.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
+
+  const select = await canvas.getByRole("button", { expanded: false });
+
+  await userEvent.click(select);
+});
+
+export const MultiSelectWithAddNew = Template.bind({});
+
+MultiSelectWithAddNew.args = {
+  name: "Example select",
+  addNew: { label: "Create new", onAddNew: () => alert("YO!") },
+  children: generateOptions(3)
+};
+
+MultiSelectWithAddNew.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
+
+  const select = await canvas.getByRole("button", { expanded: false });
+
+  await userEvent.click(select);
+});

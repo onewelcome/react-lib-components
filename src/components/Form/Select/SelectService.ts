@@ -182,7 +182,13 @@ export const useSelectPositionList = ({
   addBtnRef,
   containerReference
 }: UseSelectPositionListParams) => {
-  const [optionsListMaxHeight, setOptionsListMaxHeight] = useState("none");
+  const [optionsListMaxHeight, setOptionsListMaxHeight] = useState<{
+    wrapper?: string;
+    list?: string;
+  }>({
+    wrapper: undefined,
+    list: undefined
+  });
   const [opacity, setOpacity] = useState(0); // We set opacity because otherwise if we calculate the max height you see the list full height for a split second and then it shortens.
   const [listPosition, setListPosition] = useState<Partial<Position>>({});
 
@@ -220,7 +226,10 @@ export const useSelectPositionList = ({
   const calculateOptionListMaxHeight = (position: Position) => {
     // Calculate max height if there's more space below the select
     const listHeight = optionListReference.current?.getBoundingClientRect().height;
-    const addNewButtonHeight = addBtnRef.current?.getBoundingClientRect().height ?? 0;
+    const addNewButtonHeightWithMargin = addBtnRef.current
+      ? addBtnRef.current.getBoundingClientRect().height +
+        parseInt(getComputedStyle(addBtnRef.current).marginBottom)
+      : 0;
     const transformOrigin = position.top !== "initial" ? "top" : "bottom";
 
     if (!containerReference.current) {
@@ -235,13 +244,20 @@ export const useSelectPositionList = ({
         ? window.innerHeight - containerReference.current.getBoundingClientRect().bottom - 16
         : containerReference.current.getBoundingClientRect().top - 16;
 
-    if (listHeight && availableSpace < listHeight + addNewButtonHeight) {
-      setOptionsListMaxHeight(`${availableSpace}px`);
+    if (listHeight && availableSpace < listHeight + addNewButtonHeightWithMargin) {
+      const maxHeightObject = {
+        wrapper: `${availableSpace}px`,
+        list:
+          addNewButtonHeightWithMargin > 0
+            ? `${availableSpace - addNewButtonHeightWithMargin}px`
+            : "none"
+      };
+      setOptionsListMaxHeight(maxHeightObject);
       setOpacity(100);
       return;
     }
 
-    setOptionsListMaxHeight("none");
+    setOptionsListMaxHeight({ wrapper: undefined, list: undefined });
     setOpacity(100);
   };
 

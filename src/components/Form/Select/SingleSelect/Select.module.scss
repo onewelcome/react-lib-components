@@ -111,6 +111,8 @@ $listItemHeight: 2.5rem;
     border-radius: var(--input-border-radius);
     color: var(--default);
     text-align: left;
+    overflow: auto;
+    max-height: calc($listItemHeight * 10);
 
     li {
       padding: 0.62rem 0.75rem;
