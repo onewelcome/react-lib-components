@@ -16,12 +16,13 @@
 
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { Props, Select as SelectComponent } from "../../../src/components/Form/Select/Select";
+import { Select as SelectComponent } from "../../../src/components/Form/Select/Select";
 import { Option } from "../../../src";
 import SelectDocumentation from "./Select.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { SingleSelectProps } from "../../../src/components/Form/Select/Select.interfaces";
 
 const generateOptions = count => {
   return Array.from({ length: count }, (_, index) => (
@@ -67,7 +68,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: StoryFn<Props> = args => {
+const Template: StoryFn<SingleSelectProps> = args => {
   return <SelectComponent {...args}></SelectComponent>;
 };
 

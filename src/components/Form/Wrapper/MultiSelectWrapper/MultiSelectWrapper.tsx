@@ -19,9 +19,9 @@ import classes from "./MultiSelectWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { useWrapper } from "../../../../hooks/useWrapper";
 import { MultiSelect } from "../../Select/MultiSelect/MultiSelect";
-import { SelectProps } from "../../Select/Select.interfaces";
+import { MultiSelectProps } from "../../Select/Select.interfaces";
 
-interface PartialSelectProps extends Partial<SelectProps> {}
+interface PartialSelectProps extends Partial<MultiSelectProps> {}
 
 export interface Props
   extends Omit<ComponentPropsWithRef<"div">, "onChange">,

@@ -33,10 +33,11 @@ import { useArrowNavigation, useSelectPositionList } from "../SelectService";
 import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 import { SelectedOptions, Display } from "./SelectedOptions";
 import { SelectButton } from "./SelectButton";
-import { SelectProps } from "../Select.interfaces";
+import { MultiSelectProps } from "../Select.interfaces";
 import { useSearch } from "../useSearch";
+import { useAddNewBtn } from "../useAddNewBtn";
 
-const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
+const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSelectProps> = (
   {
     children,
     name,
@@ -57,7 +58,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SelectPr
     addNew,
     search,
     ...rest
-  }: SelectProps,
+  }: MultiSelectProps,
   ref
 ) => {
   const [expanded, setExpanded] = useState(false);
@@ -84,11 +85,16 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SelectPr
     search,
     searchInputClassName: classes["select-search"],
     optionsCount: optionsVisibleCount,
-    setFocusedSelectItem
+    setFocusedSelectItem,
+    searchInputProps,
+    searchPlaceholder
+  });
+  const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew } = useAddNewBtn({
+    addNew,
+    filter
   });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
-  const addBtnRef = useRef<HTMLButtonElement>(null);
 
   const addNewLabel = addNew?.label ?? "Create new";
 
@@ -341,20 +347,10 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SelectPr
             ...listPosition
           }}
         >
-          <ul role="listbox">{renderOptions()}</ul>
-          {addNew && (
-            <button
-              data-testid={"select-action-button"}
-              className={classes["action-button"]}
-              onClick={() => addNew.onAddNew(filter)}
-              ref={addBtnRef}
-              {...addNew.btnProps}
-            >
-              {!filter && addNewLabel}
-              {filter && <span style={{ fontWeight: "700" }}>{`"${filter}"`}</span>}
-              {filter && ` (${addNewLabel.toLowerCase()})`}
-            </button>
-          )}
+          <ul className={addNewBtnOptionsContainerClassName} role="listbox">
+            {renderOptions()}
+          </ul>
+          {renderAddNew()}
         </div>
       </div>
     </Fragment>

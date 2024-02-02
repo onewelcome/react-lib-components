@@ -35,45 +35,10 @@ import { filterProps } from "../../../util/helper";
 import { useArrowNavigation, useSelectPositionList } from "./SelectService";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
 import { useSearch } from "./useSearch";
+import { useAddNewBtn } from "./useAddNewBtn";
+import { SingleSelectProps } from "./Select.interfaces";
 
-type PartialInputProps = Partial<InputProps>;
-
-interface SearchProps {
-  enabled?: boolean;
-  renderThreshold?: number;
-  searchPlaceholder?: string;
-  searchInputProps?: PartialInputProps & { reset?: boolean };
-}
-
-export interface Props extends ComponentPropsWithRef<"select">, FormElement {
-  children: ReactElement[];
-  name?: string;
-  labeledBy?: string;
-  describedBy?: string;
-  placeholder?: string;
-  /**
-   * @deprecated
-   */
-  searchPlaceholder?: string;
-  /**
-   * @deprecated
-   */
-  searchInputProps?: PartialInputProps & { reset?: boolean };
-  selectButtonProps?: ComponentPropsWithRef<"button">;
-  search?: SearchProps;
-  className?: string;
-  value: string;
-  clearLabel?: string;
-  noResultsLabel?: string;
-  onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
-  addNew?: {
-    label: string;
-    onAddNew: (value: string) => void;
-    btnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  };
-}
-
-const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
+const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {
     children,
     name,
@@ -94,7 +59,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     addNew,
     search,
     ...rest
-  }: Props,
+  }: SingleSelectProps,
   ref
 ) => {
   const [expanded, setExpanded] = useState(false);
@@ -119,13 +84,16 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     search,
     searchInputClassName: classes["select-search"],
     optionsCount,
-    setFocusedSelectItem
+    setFocusedSelectItem,
+    searchInputProps,
+    searchPlaceholder
+  });
+  const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew } = useAddNewBtn({
+    addNew,
+    filter
   });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
-  const addBtnRef = useRef<HTMLButtonElement>(null);
-
-  const addNewLabel = addNew?.label ?? "Create new";
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -315,22 +283,10 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
             ...listPosition
           }}
         >
-          <ul className={addNew && classes["has-sibling"]} role="listbox">
+          <ul className={addNewBtnOptionsContainerClassName} role="listbox">
             {renderOptions()}
           </ul>
-          {addNew && (
-            <button
-              data-testid={"select-action-button"}
-              className={classes["action-button"]}
-              onClick={() => addNew.onAddNew(filter)}
-              ref={addBtnRef}
-              {...addNew.btnProps}
-            >
-              {!filter && addNewLabel}
-              {filter && <span style={{ fontWeight: "700" }}>{`"${filter}"`}</span>}
-              {filter && ` (${addNewLabel.toLowerCase()})`}
-            </button>
-          )}
+          {renderAddNew()}
         </div>
       </div>
     </Fragment>

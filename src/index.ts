@@ -129,9 +129,12 @@ export type { Props as RadioProps } from "./components/Form/Radio/Radio";
 export { RadioWrapper } from "./components/Form/Wrapper/RadioWrapper/RadioWrapper";
 export type { Props as RadioWrapperProps } from "./components/Form/Wrapper/RadioWrapper/RadioWrapper";
 export { Select } from "./components/Form/Select/Select";
-export type { Props as SelectProps } from "./components/Form/Select/Select";
 export { MultiSelect } from "./components/Form/Select/MultiSelect/MultiSelect";
-// export type { Props as MultiSelectProps } from "./components/Form/Select/MultiSelect/MultiSelect";
+export type {
+  SingleSelectProps,
+  MultiSelectProps,
+  SingleSelectProps as SelectProps
+} from "./components/Form/Select/Select.interfaces";
 export { Textarea } from "./components/Form/Textarea/Textarea";
 export type { Props as TextareaProps } from "./components/Form/Textarea/Textarea";
 export { Toggle } from "./components/Form/Toggle/Toggle";

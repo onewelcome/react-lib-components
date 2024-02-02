@@ -17,10 +17,11 @@
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import classes from "./SelectWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
-import { Select, Props as SelectProps } from "../../Select/Select";
+import { Select } from "../../Select/Select";
 import { useWrapper } from "../../../../hooks/useWrapper";
+import { SingleSelectProps } from "../../Select/Select.interfaces";
 
-interface PartialSelectProps extends Partial<SelectProps> {}
+interface PartialSelectProps extends Partial<SingleSelectProps> {}
 
 export interface Props
   extends Omit<ComponentPropsWithRef<"div">, "onChange">,

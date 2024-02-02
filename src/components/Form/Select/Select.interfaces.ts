@@ -27,7 +27,15 @@ export interface SearchProps {
   searchInputProps?: PartialInputProps & { reset?: boolean };
 }
 
-export interface SelectProps extends ComponentPropsWithRef<"select">, FormElement {
+export interface AddNewProps {
+  label: string;
+  onAddNew: (value: string) => void;
+  btnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+}
+
+export interface SelectProps<V extends string | readonly string[] | undefined>
+  extends ComponentPropsWithRef<"select">,
+    FormElement {
   children: ReactElement[];
   name?: string;
   labeledBy?: string;
@@ -44,16 +52,15 @@ export interface SelectProps extends ComponentPropsWithRef<"select">, FormElemen
   selectButtonProps?: ComponentPropsWithRef<"button">;
   search?: SearchProps;
   className?: string;
-  value: string[];
+  value: V;
   clearLabel?: string;
   noResultsLabel?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
-  addNew?: {
-    label: string;
-    onAddNew: (value: string) => void;
-    btnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  };
+  addNew?: AddNewProps;
 }
+
+export type SingleSelectProps = SelectProps<string>;
+export type MultiSelectProps = SelectProps<string[]>;
 
 export type Position = {
   top: number | `${number}rem` | "initial";

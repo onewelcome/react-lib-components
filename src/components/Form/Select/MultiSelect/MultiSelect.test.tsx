@@ -19,9 +19,9 @@ import { MultiSelect as MultiSelectComponent } from "./MultiSelect";
 import { act, render, waitFor } from "@testing-library/react";
 import { Option } from "../Option";
 import userEvent from "@testing-library/user-event";
-import { SelectProps } from "../Select.interfaces";
+import { MultiSelectProps } from "../Select.interfaces";
 
-const defaultParams: SelectProps = {
+const defaultParams: MultiSelectProps = {
   name: "Example select",
   children: [
     <Option value="option1">Test</Option>,
@@ -48,8 +48,8 @@ const defaultParams: SelectProps = {
   selectButtonProps: { "data-testid": "select-button" }
 };
 
-const createMultiSelect = (params?: (defaultParams: SelectProps) => SelectProps) => {
-  let parameters: SelectProps = defaultParams;
+const createMultiSelect = (params?: (defaultParams: MultiSelectProps) => MultiSelectProps) => {
+  let parameters: MultiSelectProps = defaultParams;
   if (params) {
     parameters = params(defaultParams);
   }
@@ -326,7 +326,7 @@ describe("List expansion", () => {
   });
 
   it("should expand downwards with a max height set", async () => {
-    const { select, getByRole, dropdownWrapper } = createMultiSelect();
+    const { select, getByRole, dropdownWrapper, debug } = createMultiSelect();
 
     dropdownWrapper!.getBoundingClientRect = () => ({
       x: 50,
@@ -358,8 +358,7 @@ describe("List expansion", () => {
 
     const button = getByRole("button");
     await userEvent.click(button);
-
-    expect(dropdownWrapper).toHaveStyle({ maxHeight: "474px" });
+    expect(dropdownWrapper).toHaveStyle({ maxHeight: "434px" });
     expect(dropdownWrapper).toHaveStyle({ top: "2.75rem" });
   });
 });
