@@ -17,7 +17,6 @@
 import classes from "./Select.module.scss";
 
 import React, {
-  ComponentPropsWithRef,
   createRef,
   ForwardRefRenderFunction,
   Fragment,
@@ -26,17 +25,15 @@ import React, {
   useRef,
   useState
 } from "react";
-import { Props as InputProps } from "../Input/Input";
-import { Icon, Icons } from "../../Icon/Icon";
-import { FormElement } from "../form.interfaces";
-import { useBodyClick } from "../../../hooks/useBodyClick";
-import readyclasses from "../../../readyclasses.module.scss";
-import { filterProps } from "../../../util/helper";
-import { useArrowNavigation, useSelectPositionList } from "./SelectService";
-import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
-import { useSearch } from "./useSearch";
-import { useAddNewBtn } from "./useAddNewBtn";
-import { SingleSelectProps } from "./Select.interfaces";
+import { useBodyClick } from "../../../../hooks/useBodyClick";
+import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
+import readyclasses from "../../../../readyclasses.module.scss";
+import { filterProps } from "../../../../util/helper";
+import { Icon, Icons } from "../../../Icon/Icon";
+import { SingleSelectProps } from "../Select.interfaces";
+import { useArrowNavigation, useSelectPositionList } from "../SelectService";
+import { useAddNewBtn } from "../useAddNewBtn";
+import { useSearch } from "../useSearch";
 
 const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {

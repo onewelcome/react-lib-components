@@ -17,7 +17,7 @@
 import React, { useEffect, useRef } from "react";
 import { SelectWrapper, Props } from "./SelectWrapper";
 import { render } from "@testing-library/react";
-import { Option } from "../../Select/Option";
+import { Option } from "../../Select/SingleSelect/Option";
 import userEvent from "@testing-library/user-event";
 
 const onChangeHandler = jest.fn();

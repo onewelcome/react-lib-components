@@ -16,7 +16,7 @@
 
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { Select as SelectComponent } from "../../../src/components/Form/Select/Select";
+import { Select as SelectComponent } from "../../../src/components/Form/Select/SingleSelect/Select";
 import { Option } from "../../../src";
 import SelectDocumentation from "./Select.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";

@@ -15,7 +15,7 @@
  */
 
 import React, { ForwardRefRenderFunction } from "react";
-import { Props as SelectOptionProps, Option as SelectOption } from "../Option";
+import { Props as SelectOptionProps, Option as SelectOption } from "../SingleSelect/Option";
 
 export interface Props extends SelectOptionProps {
   fixed?: boolean;

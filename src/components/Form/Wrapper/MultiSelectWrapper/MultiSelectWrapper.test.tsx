@@ -17,26 +17,26 @@
 import React, { useEffect, useRef } from "react";
 import { MultiSelectWrapper, Props } from "./MultiSelectWrapper";
 import { render } from "@testing-library/react";
-import { Option } from "../../Select/Option";
 import userEvent from "@testing-library/user-event";
+import { MultiOption } from "../../Select/MultiSelect/MultiOption";
 
 const onChangeHandler = jest.fn();
 
 const defaultParams: Props = {
   success: false,
   children: [
-    <Option key="1" value="option1">
-      Option 1
-    </Option>,
-    <Option key="2" value="option2">
-      Option 2
-    </Option>,
-    <Option key="3" value="option3">
-      Option 3
-    </Option>,
-    <Option key="4" value="option4">
-      Option 4
-    </Option>
+    <MultiOption key="1" value="option1">
+      MultiOption 1
+    </MultiOption>,
+    <MultiOption key="2" value="option2">
+      MultiOption 2
+    </MultiOption>,
+    <MultiOption key="3" value="option3">
+      MultiOption 3
+    </MultiOption>,
+    <MultiOption key="4" value="option4">
+      MultiOption 4
+    </MultiOption>
   ],
   label: "select_label",
   name: "select",
@@ -176,7 +176,7 @@ describe("<MultiSelectWrapper />", () => {
 
       await userEvent.click(select as Element);
 
-      const option3 = await findByText("Option 3");
+      const option3 = await findByText("MultiOption 3");
 
       await userEvent.click(option3 as Element);
 

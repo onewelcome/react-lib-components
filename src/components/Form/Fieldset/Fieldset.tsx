@@ -19,7 +19,8 @@ import readyclasses from "../../../readyclasses.module.scss";
 import classes from "./Fieldset.module.scss";
 import { Typography, Variant } from "../../Typography/Typography";
 import { Input } from "../Input/Input";
-import { Select } from "../Select/Select";
+import { Select } from "../Select/SingleSelect/Select";
+import { MultiSelect } from "../Select/MultiSelect/MultiSelect";
 import { Radio } from "../Radio/Radio";
 import { Checkbox } from "../Checkbox/Checkbox";
 import { Textarea } from "../Textarea/Textarea";
@@ -73,6 +74,7 @@ const FieldsetComponent: ForwardRefRenderFunction<HTMLFieldSetElement, Props> = 
     const allowedComponents: React.ComponentPropsWithRef<any>[] = [
       Input,
       Select,
+      MultiSelect,
       Radio,
       Checkbox,
       Textarea,

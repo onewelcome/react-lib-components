@@ -19,7 +19,7 @@ import { Select as SelectComponent } from "./Select";
 import { act, render, waitFor } from "@testing-library/react";
 import { Option } from "./Option";
 import userEvent from "@testing-library/user-event";
-import { SingleSelectProps } from "./Select.interfaces";
+import { SingleSelectProps } from "../Select.interfaces";
 
 export const defaultParams: SingleSelectProps = {
   name: "Example select",

@@ -17,30 +17,30 @@
 import React, { useEffect, useRef } from "react";
 import { MultiSelect as MultiSelectComponent } from "./MultiSelect";
 import { act, render, waitFor } from "@testing-library/react";
-import { Option } from "../Option";
+import { MultiOption } from "./MultiOption";
 import userEvent from "@testing-library/user-event";
 import { MultiSelectProps } from "../Select.interfaces";
 
 const defaultParams: MultiSelectProps = {
   name: "Example select",
   children: [
-    <Option value="option1">Test</Option>,
-    <Option value="option2">Test2</Option>,
-    <Option value="option3">Test3</Option>,
-    <Option value="option4">Test4</Option>,
-    <Option value="option5">Test5</Option>,
-    <Option value="option6">Test6</Option>,
-    <Option value="option7">Test7</Option>,
-    <Option value="option8">Test8</Option>,
-    <Option value="option9">Test9</Option>,
-    <Option value="option10">Test10</Option>,
-    <Option value="option11">Test11</Option>,
-    <Option value="option12">Test12</Option>,
-    <Option value="option13">Test13</Option>,
-    <Option value="option14">Test14</Option>,
-    <Option value="option15">Test15</Option>,
-    <Option value="option16">Test16</Option>,
-    <Option value="option17">Test17</Option>
+    <MultiOption value="option1">Test</MultiOption>,
+    <MultiOption value="option2">Test2</MultiOption>,
+    <MultiOption value="option3">Test3</MultiOption>,
+    <MultiOption value="option4">Test4</MultiOption>,
+    <MultiOption value="option5">Test5</MultiOption>,
+    <MultiOption value="option6">Test6</MultiOption>,
+    <MultiOption value="option7">Test7</MultiOption>,
+    <MultiOption value="option8">Test8</MultiOption>,
+    <MultiOption value="option9">Test9</MultiOption>,
+    <MultiOption value="option10">Test10</MultiOption>,
+    <MultiOption value="option11">Test11</MultiOption>,
+    <MultiOption value="option12">Test12</MultiOption>,
+    <MultiOption value="option13">Test13</MultiOption>,
+    <MultiOption value="option14">Test14</MultiOption>,
+    <MultiOption value="option15">Test15</MultiOption>,
+    <MultiOption value="option16">Test16</MultiOption>,
+    <MultiOption value="option17">Test17</MultiOption>
   ],
   value: [],
   searchInputProps: { "data-testid": "search-input" },
@@ -73,11 +73,11 @@ describe("Select should render", () => {
     const { select, button, list, dropdownWrapper } = createMultiSelect(defaultParams => ({
       ...defaultParams,
       children: [
-        <Option value="option1">Test</Option>,
-        <Option value="option2">Test2</Option>,
-        <Option value="option3">Test3</Option>,
-        <Option value="option4">Test4</Option>,
-        <Option value="option5">Test5</Option>
+        <MultiOption value="option1">Test</MultiOption>,
+        <MultiOption value="option2">Test2</MultiOption>,
+        <MultiOption value="option3">Test3</MultiOption>,
+        <MultiOption value="option4">Test4</MultiOption>,
+        <MultiOption value="option5">Test5</MultiOption>
       ],
       placeholder: "Placeholder",
       value: []
