@@ -21,7 +21,7 @@ import {
   UseSelectPositionListParams
 } from "./Select.interfaces";
 
-//@TODO: fix that :) /** @scope . */
+/** @scope .*/
 export const useArrowNavigation = ({
   expanded,
   setExpanded,
@@ -176,6 +176,7 @@ export const useArrowNavigation = ({
   return { onArrowNavigation };
 };
 
+/** @scope .*/
 export const useSelectPositionList = ({
   expanded,
   optionListReference,

@@ -141,7 +141,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     useSelectPositionList({ expanded, optionListReference, containerReference, addBtnRef });
 
   const syncDisplayValue = (vals: string[]) => {
-    const displayArray = React.Children.map(children, child => child as ReactElement<any>).reduce(
+    const displayArray = React.Children.map(children, child => child).reduce(
       (prevOption, curOption) => {
         if (vals.includes(curOption.props.value)) {
           prevOption[curOption.props.value] = {

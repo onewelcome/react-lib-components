@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ForwardRefRenderFunction, RefObject } from "react";
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
 import classes from "./SelectButton.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"button"> {}
