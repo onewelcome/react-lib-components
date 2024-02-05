@@ -325,6 +325,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
             )}
             {value?.length > 0 && (
               <SelectedOptions
+                disabled={disabled}
                 display={display}
                 onClick={onSelectButtonClick}
                 onRemove={onSelectedOptionRemoveHandler}

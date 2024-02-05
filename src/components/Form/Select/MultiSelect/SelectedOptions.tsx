@@ -27,10 +27,11 @@ export type Display = {
 export interface Props extends ComponentPropsWithRef<"div"> {
   display: Record<string, Display>;
   onRemove: (value: string) => void;
+  disabled: boolean;
 }
 
 const SelectedOptionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { display, onRemove, ...rest }: Props,
+  { display, onRemove, disabled, ...rest }: Props,
   ref
 ) => {
   return (
@@ -43,7 +44,7 @@ const SelectedOptionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
           }}
           className={classes["tag"]}
           removeButton={
-            !item.fixed
+            !disabled && !item.fixed
               ? {
                   onRemove: (e: React.MouseEvent<HTMLButtonElement>) => {
                     e.stopPropagation();
