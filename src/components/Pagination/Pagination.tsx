@@ -25,8 +25,8 @@ import classes from "./Pagination.module.scss";
 import readyclasses from "../../readyclasses.module.scss";
 import { IconButton } from "../Button/IconButton";
 import { Icons, Icon } from "../Icon/Icon";
-import { Select } from "../Form/Select/Select";
-import { Option } from "../Form/Select/Option";
+import { Select } from "../Form/Select/SingleSelect/Select";
+import { Option } from "../Form/Select/SingleSelect/Option";
 import { Label } from "../Form/Label/Label";
 
 export type PaginationTranslations = {

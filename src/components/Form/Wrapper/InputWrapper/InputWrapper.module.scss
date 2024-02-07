@@ -36,10 +36,6 @@ input {
     justify-content: center;
   }
 
-  .floating-label-active [data-icon]:before {
-    transform: translateY(5px);
-  }
-
   [data-prefix],
   [data-suffix] {
     font-size: var(--form-control-font-size);
@@ -62,10 +58,4 @@ input {
     cursor: not-allowed;
     color: var(--greyed-out);
   }
-}
-
-.floating-label-active [data-prefix],
-.floating-label-active [data-suffix] {
-  padding-top: 1rem;
-  transform: translateY(0);
 }

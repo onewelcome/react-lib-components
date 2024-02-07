@@ -18,6 +18,7 @@ import React, { ForwardRefRenderFunction, HTMLAttributes, forwardRef } from "rea
 import { Icon, Icons } from "../Icon/Icon";
 import classes from "./Tag.module.scss";
 import { Typography } from "../Typography/Typography";
+import { RemoveButton, Props as RemoveButtonProps } from "./RemoveButton";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   variant?: "enabled" | "disabled";
@@ -25,10 +26,21 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   backgroundColor?: string;
   color?: string;
   children?: string;
+  shape?: "rounded" | "sharp";
+  removeButton?: RemoveButtonProps;
 }
 
 const TagComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, variant, icon, backgroundColor, color, ...rest }: Props,
+  {
+    children,
+    variant,
+    icon,
+    backgroundColor,
+    color,
+    shape = "rounded",
+    removeButton = {},
+    ...rest
+  }: Props,
   ref
 ) => {
   const determineIcon = () => {
@@ -43,25 +55,23 @@ const TagComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     }
   };
 
-  const determineClassName = () => {
-    if (variant === "enabled") {
-      return classes["tag-enabled"];
-    } else if (variant === "disabled") {
-      return classes["tag-disabled"];
-    }
-  };
+  const tagClasses = [classes["tag"]];
+  variant === "enabled" && tagClasses.push(classes["tag-enabled"]);
+  variant === "disabled" && tagClasses.push(classes["tag-disabled"]);
+  shape === "sharp" && tagClasses.push(classes["sharp"]);
 
   return (
     <div
-      ref={ref}
-      className={`${determineClassName()} ${classes["tag"]} ${rest.className ?? ""}`}
-      style={{ backgroundColor, color }}
       {...rest}
+      ref={ref as any}
+      className={`${tagClasses.join(" ")} ${rest.className ?? ""}`}
+      style={{ backgroundColor, color }}
     >
       {determineIcon()}
       <Typography spacing={{ marginBottom: 0 }} variant="body" className={classes["label"]}>
         {children}
       </Typography>
+      <RemoveButton {...removeButton} label={children} />
     </div>
   );
 };

@@ -15,27 +15,27 @@
  */
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
-import classes from "./SelectWrapper.module.scss";
+import classes from "./MultiSelectWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
-import { Select } from "../../Select/SingleSelect/Select";
 import { useWrapper } from "../../../../hooks/useWrapper";
-import { SingleSelectProps } from "../../Select/Select.interfaces";
+import { MultiSelect } from "../../Select/MultiSelect/MultiSelect";
+import { MultiSelectProps } from "../../Select/Select.interfaces";
 
-interface PartialSelectProps extends Partial<SingleSelectProps> {}
+interface PartialSelectProps extends Partial<MultiSelectProps> {}
 
 export interface Props
   extends Omit<ComponentPropsWithRef<"div">, "onChange">,
     Omit<WrapperProps, "onChange" | "error"> {
   children: ReactElement[] | ReactElement | number[];
   placeholder?: string;
-  value: string;
+  value: string[];
   error?: boolean;
   selectProps?: PartialSelectProps;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   success?: boolean;
 }
 
-const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+const MultiSelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   {
     children,
     error,
@@ -64,7 +64,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
       }}
       error={error}
     >
-      <Select
+      <MultiSelect
         {...selectProps}
         value={value}
         labeledBy={labelId}
@@ -76,9 +76,9 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         className={`${selectProps?.className ?? ""}`}
       >
         {children as ReactElement[]}
-      </Select>
+      </MultiSelect>
     </Wrapper>
   );
 };
 
-export const SelectWrapper = React.forwardRef(SelectWrapperComponent);
+export const MultiSelectWrapper = React.forwardRef(MultiSelectWrapperComponent);

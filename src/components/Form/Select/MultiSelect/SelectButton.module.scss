@@ -14,14 +14,14 @@
  *    limitations under the License.
  */
 
-@use "src/variables";
-
-.select-label {
-  left: calc(
-    1.25rem + 2px
-  ); // 2px is for offset of the selectwrapper border. It's relative to the parent div which doesn't have a border.
-}
-
-.select-helper-text {
-  margin-top: 0.15rem;
+.add-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
 }

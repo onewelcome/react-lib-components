@@ -120,14 +120,21 @@ export { InputWrapper } from "./components/Form/Wrapper/InputWrapper/InputWrappe
 export type { Props as InputWrapperProps } from "./components/Form/Wrapper/InputWrapper/InputWrapper";
 export { Label } from "./components/Form/Label/Label";
 export type { Props as LabelProps } from "./components/Form/Label/Label";
-export { Option } from "./components/Form/Select/Option";
-export type { Props as OptionProps } from "./components/Form/Select/Option";
 export { Radio } from "./components/Form/Radio/Radio";
 export type { Props as RadioProps } from "./components/Form/Radio/Radio";
 export { RadioWrapper } from "./components/Form/Wrapper/RadioWrapper/RadioWrapper";
 export type { Props as RadioWrapperProps } from "./components/Form/Wrapper/RadioWrapper/RadioWrapper";
-export { Select } from "./components/Form/Select/Select";
-export type { Props as SelectProps } from "./components/Form/Select/Select";
+export { Select } from "./components/Form/Select/SingleSelect/Select";
+export { MultiSelect } from "./components/Form/Select/MultiSelect/MultiSelect";
+export type {
+  SingleSelectProps,
+  MultiSelectProps,
+  SingleSelectProps as SelectProps
+} from "./components/Form/Select/Select.interfaces";
+export { Option } from "./components/Form/Select/SingleSelect/Option";
+export type { Props as OptionProps } from "./components/Form/Select/SingleSelect/Option";
+export { MultiOption } from "./components/Form/Select/MultiSelect/MultiOption";
+export type { Props as MultiOptionProps } from "./components/Form/Select/MultiSelect/MultiOption";
 export { Textarea } from "./components/Form/Textarea/Textarea";
 export type { Props as TextareaProps } from "./components/Form/Textarea/Textarea";
 export { Toggle } from "./components/Form/Toggle/Toggle";

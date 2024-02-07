@@ -27,7 +27,7 @@ import { action } from "@storybook/addon-actions";
 import { RadioWrapper } from "../../src/components/Form/Wrapper/RadioWrapper/RadioWrapper";
 import { Radio } from "../../src/components/Form/Radio/Radio";
 import { SelectWrapper } from "../../src/components/Form/Wrapper/SelectWrapper/SelectWrapper";
-import { Option } from "../../src/components/Form/Select/Option";
+import { Option } from "../../src/components/Form/Select/SingleSelect/Option";
 import { Toggle } from "../../src/components/Form/Toggle/Toggle";
 
 import FormDocumentation from "./Form.mdx";

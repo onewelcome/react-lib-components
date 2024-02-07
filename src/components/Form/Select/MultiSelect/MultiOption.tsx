@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +14,18 @@
  *    limitations under the License.
  */
 
-@use "src/variables";
+import React, { ForwardRefRenderFunction } from "react";
+import { Props as SelectOptionProps, Option as SelectOption } from "../SingleSelect/Option";
 
-.select-label {
-  left: calc(
-    1.25rem + 2px
-  ); // 2px is for offset of the selectwrapper border. It's relative to the parent div which doesn't have a border.
+export interface Props extends SelectOptionProps {
+  fixed?: boolean;
 }
 
-.select-helper-text {
-  margin-top: 0.15rem;
-}
+const MultiOptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
+  { fixed: _fixed, ...rest }: Props,
+  ref
+) => {
+  return <SelectOption ref={ref} {...rest} />;
+};
+
+export const MultiOption = React.forwardRef(MultiOptionComponent);

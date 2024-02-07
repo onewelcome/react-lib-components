@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +14,24 @@
  *    limitations under the License.
  */
 
-@use "src/variables";
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
+import classes from "./SelectButton.module.scss";
 
-.select-label {
-  left: calc(
-    1.25rem + 2px
-  ); // 2px is for offset of the selectwrapper border. It's relative to the parent div which doesn't have a border.
-}
+export interface Props extends ComponentPropsWithRef<"button"> {}
 
-.select-helper-text {
-  margin-top: 0.15rem;
-}
+const SelectButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+  { onClick, name, ...rest }: Props,
+  ref
+) => {
+  return (
+    <button
+      {...rest}
+      className={classes["add-btn"]}
+      onClick={onClick}
+      ref={ref}
+      type="button"
+      name={name}
+    ></button>
+  );
+};
+export const SelectButton = React.forwardRef(SelectButtonComponent);

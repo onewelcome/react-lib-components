@@ -17,7 +17,6 @@
 import classes from "./Select.module.scss";
 
 import React, {
-  ComponentPropsWithRef,
   createRef,
   ForwardRefRenderFunction,
   Fragment,
@@ -26,53 +25,17 @@ import React, {
   useRef,
   useState
 } from "react";
-import { Input, Props as InputProps } from "../Input/Input";
-import { Icon, Icons } from "../../Icon/Icon";
-import { FormElement } from "../form.interfaces";
-import { useBodyClick } from "../../../hooks/useBodyClick";
-import readyclasses from "../../../readyclasses.module.scss";
-import { filterProps } from "../../../util/helper";
-import { useArrowNavigation, useSelectPositionList } from "./SelectService";
-import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
+import { useBodyClick } from "../../../../hooks/useBodyClick";
+import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
+import readyclasses from "../../../../readyclasses.module.scss";
+import { filterProps } from "../../../../util/helper";
+import { Icon, Icons } from "../../../Icon/Icon";
+import { SingleSelectProps } from "../Select.interfaces";
+import { useArrowNavigation, useSelectPositionList } from "../SelectService";
+import { useAddNewBtn } from "../useAddNewBtn";
+import { useSearch } from "../useSearch";
 
-type PartialInputProps = Partial<InputProps>;
-
-interface SearchProps {
-  enabled?: boolean;
-  renderThreshold?: number;
-  searchPlaceholder?: string;
-  searchInputProps?: PartialInputProps & { reset?: boolean };
-}
-
-export interface Props extends ComponentPropsWithRef<"select">, FormElement {
-  children: ReactElement[];
-  name?: string;
-  labeledBy?: string;
-  describedBy?: string;
-  placeholder?: string;
-  /**
-   * @deprecated
-   */
-  searchPlaceholder?: string;
-  /**
-   * @deprecated
-   */
-  searchInputProps?: PartialInputProps & { reset?: boolean };
-  selectButtonProps?: ComponentPropsWithRef<"button">;
-  search?: SearchProps;
-  className?: string;
-  value: string;
-  clearLabel?: string;
-  noResultsLabel?: string;
-  onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
-  addNew?: {
-    label: string;
-    onAddNew: (value: string) => void;
-    btnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  };
-}
-
-const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
+const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {
     children,
     name,
@@ -93,42 +56,41 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     addNew,
     search,
     ...rest
-  }: Props,
+  }: SingleSelectProps,
   ref
 ) => {
   const [expanded, setExpanded] = useState(false);
-  const [filter, setFilter] = useState("");
   const [display, setDisplay] = useState("");
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
-  const [isSearching, setIsSearching] = useState(false);
   const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
   const [shouldClick, setShouldClick] = useState(false);
   /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
-
-  const DEFAULT_RENDER_THRESHOLD = 10;
+  const optionsCount = React.Children.count(children);
+  const {
+    filter,
+    isSearching,
+    renderSearch,
+    searchInputRef,
+    setIsSearching,
+    searchThreshold,
+    searchVisible
+  } = useSearch({
+    expanded,
+    search,
+    searchInputClassName: classes["select-search"],
+    optionsCount,
+    setFocusedSelectItem,
+    searchInputProps,
+    searchPlaceholder
+  });
+  const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew } = useAddNewBtn({
+    addNew,
+    filter
+  });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const addBtnRef = useRef<HTMLButtonElement>(null);
-
-  const addNewLabel = addNew?.label ?? "Create new";
-
-  const getRenderThreshold = search?.renderThreshold ?? DEFAULT_RENDER_THRESHOLD;
-  const hasEnoughChildren = Array.isArray(children) && children.length > getRenderThreshold;
-
-  const shouldRenderSearch = () => {
-    if (search?.enabled) {
-      return hasEnoughChildren;
-    }
-
-    if (search) {
-      return search.enabled as boolean;
-    }
-
-    return children.length > DEFAULT_RENDER_THRESHOLD;
-  };
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -147,11 +109,11 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     setIsSearching,
     setFocusedSelectItem,
     onOptionChangeHandler,
-    childrenCount: React.Children.count(children),
+    childrenCount: optionsCount,
     setShouldClick,
     searchInputRef,
     addBtnRef,
-    renderThreshold: getRenderThreshold
+    renderThreshold: searchThreshold
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
@@ -209,38 +171,12 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     }
   };
 
-  const renderSearch = () => (
-    <Input
-      {...(search?.searchInputProps ?? searchInputProps)}
-      ref={searchInputRef}
-      onFocus={() => setIsSearching(true)}
-      onBlur={() => setIsSearching(false)}
-      onChange={filterResults}
-      className={classes["select-search"]}
-      wrapperProps={{
-        className:
-          search?.searchInputProps?.wrapperProps?.className ??
-          searchInputProps?.wrapperProps?.className
-      }}
-      style={{
-        display: expanded ? "block" : "none"
-      }}
-      type="text"
-      name="search-option"
-      placeholder={search?.searchPlaceholder ?? searchPlaceholder}
-    />
-  );
-
   const renderChevronIcon = () => {
     return expanded ? (
       <Icon className={classes["chevron-icon"]} icon={Icons.ChevronUp} />
     ) : (
       <Icon className={classes["chevron-icon"]} icon={Icons.ChevronDown} />
     );
-  };
-
-  const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(event.currentTarget.value);
   };
 
   const icon = useDetermineStatusIcon({ success, error });
@@ -275,16 +211,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
     expanded
   );
 
-  const resetSearchState = () => {
-    setFilter("");
-    setIsSearching(false);
-    setFocusedSelectItem(-1);
-  };
-
-  useEffect(() => {
-    (search?.searchInputProps?.reset || searchInputProps?.reset) && resetSearchState();
-  }, [searchInputProps?.reset, search?.searchInputProps?.reset]);
-
   const additionalClasses = [];
   expanded && additionalClasses.push(classes.expanded);
   error && additionalClasses.push(classes.error);
@@ -317,7 +243,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           className ?? ""
         }`}
       >
-        {shouldRenderSearch() && renderSearch()}
+        {searchVisible && renderSearch()}
         <button
           {...selectButtonProps}
           onClick={() => {
@@ -327,7 +253,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           type="button"
           name={name}
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
-          style={{ display: expanded && shouldRenderSearch() ? "none" : "initial" }}
+          style={{ display: expanded && searchVisible ? "none" : "initial" }}
           disabled={disabled}
           aria-disabled={disabled}
           aria-invalid={error}
@@ -349,27 +275,19 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Props> = (
           style={{
             display: expanded ? "block" : "none",
             opacity: opacity,
-            maxHeight: optionsListMaxHeight,
+            maxHeight: optionsListMaxHeight.wrapper,
             pointerEvents: expanded ? "auto" : "none",
             ...listPosition
           }}
         >
-          <ul className={addNew && classes["has-sibling"]} role="listbox">
+          <ul
+            className={addNewBtnOptionsContainerClassName}
+            role="listbox"
+            style={{ maxHeight: optionsListMaxHeight.list }}
+          >
             {renderOptions()}
           </ul>
-          {addNew && (
-            <button
-              data-testid={"select-action-button"}
-              className={classes["action-button"]}
-              onClick={() => addNew.onAddNew(filter)}
-              ref={addBtnRef}
-              {...addNew.btnProps}
-            >
-              {!filter && addNewLabel}
-              {filter && <span style={{ fontWeight: "700" }}>{`"${filter}"`}</span>}
-              {filter && ` (${addNewLabel.toLowerCase()})`}
-            </button>
-          )}
+          {renderAddNew()}
         </div>
       </div>
     </Fragment>

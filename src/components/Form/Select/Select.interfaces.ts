@@ -14,6 +14,54 @@
  *    limitations under the License.
  */
 
+import { ComponentPropsWithRef, ReactElement } from "react";
+import { Props as InputProps } from "../Input/Input";
+import { FormElement } from "../form.interfaces";
+
+export type PartialInputProps = Partial<InputProps>;
+
+export interface SearchProps {
+  enabled?: boolean;
+  renderThreshold?: number;
+  searchPlaceholder?: string;
+  searchInputProps?: PartialInputProps & { reset?: boolean };
+}
+
+export interface AddNewProps {
+  label: string;
+  onAddNew: (value: string) => void;
+  btnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+}
+
+export interface SelectProps<V extends string | readonly string[] | undefined>
+  extends ComponentPropsWithRef<"select">,
+    FormElement {
+  children: ReactElement[];
+  name?: string;
+  labeledBy?: string;
+  describedBy?: string;
+  placeholder?: string;
+  /**
+   * @deprecated
+   */
+  searchPlaceholder?: string;
+  /**
+   * @deprecated
+   */
+  searchInputProps?: PartialInputProps & { reset?: boolean };
+  selectButtonProps?: ComponentPropsWithRef<"button">;
+  search?: SearchProps;
+  className?: string;
+  value: V;
+  clearLabel?: string;
+  noResultsLabel?: string;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
+  addNew?: AddNewProps;
+}
+
+export type SingleSelectProps = SelectProps<string>;
+export type MultiSelectProps = SelectProps<string[]>;
+
 export type Position = {
   top: number | `${number}rem` | "initial";
   bottom: number | `${number}rem` | "initial";

@@ -14,30 +14,30 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { Select as SelectComponent } from "../../../src/components/Form/Select/SingleSelect/Select";
-import { Option } from "../../../src";
-import SelectDocumentation from "./Select.mdx";
+import { MultiSelect as MultiSelectComponent } from "../../../src/components/Form/Select/MultiSelect/MultiSelect";
+import MultiSelectDocumentation from "./MultiSelect.mdx";
+import { MultiOption } from "../../../src/components/Form/Select/MultiSelect/MultiOption";
+import { MultiSelectProps } from "../../../src/components/Form/Select/Select.interfaces";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { SingleSelectProps } from "../../../src/components/Form/Select/Select.interfaces";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
 
 const generateOptions = count => {
   return Array.from({ length: count }, (_, index) => (
-    <Option key={`option${index + 1}`} value={`option${index + 1}`}>
+    <MultiOption key={`option${index + 1}`} value={`option${index + 1}`} fixed={index === 0}>
       {`Option ${index + 1}`}
-    </Option>
+    </MultiOption>
   ));
 };
 
 const meta: Meta = {
-  title: "components/Inputs/Raw/Select",
-  component: SelectComponent,
+  title: "components/Inputs/Raw/MultiSelect",
+  component: MultiSelectComponent,
   parameters: {
     docs: {
-      page: SelectDocumentation
+      page: MultiSelectDocumentation
     }
   },
   argTypes: {
@@ -53,10 +53,6 @@ const meta: Meta = {
       table: { disable: true },
       control: false
     },
-    value: {
-      options: generateOptions(11),
-      control: "select"
-    },
     disabled: {
       control: "boolean"
     },
@@ -68,24 +64,36 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: StoryFn<SingleSelectProps> = args => {
-  return <SelectComponent {...args}></SelectComponent>;
+const Template: StoryFn<MultiSelectProps> = args => {
+  const [pickedOptions, setPickedOptions] = useState<string[]>(["option1", "option2"]);
+
+  return (
+    <MultiSelectComponent
+      {...args}
+      value={pickedOptions}
+      onChange={e => {
+        setPickedOptions(
+          [...e.target.options].filter(option => option.selected).map(option => option.value)
+        );
+      }}
+    ></MultiSelectComponent>
+  );
 };
 
-export const Select = Template.bind({});
+export const MultiSelect = Template.bind({});
 
-Select.args = {
-  name: "Example select",
+MultiSelect.args = {
+  name: "Example multi select",
   children: generateOptions(6)
 };
 
-export const SelectWithSearchOptions = Template.bind({});
+export const MultiSelectWithSearchOptions = Template.bind({});
 
-SelectWithSearchOptions.args = {
-  children: generateOptions(11)
+MultiSelectWithSearchOptions.args = {
+  children: generateOptions(15)
 };
 
-SelectWithSearchOptions.play = conditionalPlay(async ({ canvasElement }) => {
+MultiSelectWithSearchOptions.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
@@ -95,15 +103,15 @@ SelectWithSearchOptions.play = conditionalPlay(async ({ canvasElement }) => {
   await userEvent.click(select);
 });
 
-export const SelectWithAddNewAndSearch = Template.bind({});
+export const MultiSelectWithAddNewAndSearch = Template.bind({});
 
-SelectWithAddNewAndSearch.args = {
+MultiSelectWithAddNewAndSearch.args = {
   name: "Example select",
   addNew: { label: "Create new", onAddNew: () => alert("YO!") },
-  children: generateOptions(11)
+  children: generateOptions(15)
 };
 
-SelectWithAddNewAndSearch.play = conditionalPlay(async ({ canvasElement }) => {
+MultiSelectWithAddNewAndSearch.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
@@ -113,15 +121,15 @@ SelectWithAddNewAndSearch.play = conditionalPlay(async ({ canvasElement }) => {
   await userEvent.click(select);
 });
 
-export const SelectWithAddNew = Template.bind({});
+export const MultiSelectWithAddNew = Template.bind({});
 
-SelectWithAddNew.args = {
+MultiSelectWithAddNew.args = {
   name: "Example select",
   addNew: { label: "Create new", onAddNew: () => alert("YO!") },
   children: generateOptions(3)
 };
 
-SelectWithAddNew.play = conditionalPlay(async ({ canvasElement }) => {
+MultiSelectWithAddNew.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());

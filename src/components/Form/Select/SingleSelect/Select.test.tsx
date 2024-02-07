@@ -15,12 +15,13 @@
  */
 
 import React, { useEffect, useRef } from "react";
-import { Props, Select as SelectComponent } from "./Select";
+import { Select as SelectComponent } from "./Select";
 import { act, render, waitFor } from "@testing-library/react";
 import { Option } from "./Option";
 import userEvent from "@testing-library/user-event";
+import { SingleSelectProps } from "../Select.interfaces";
 
-export const defaultParams: Props = {
+export const defaultParams: SingleSelectProps = {
   name: "Example select",
   children: [
     <Option value="option1">Test</Option>,
@@ -47,8 +48,8 @@ export const defaultParams: Props = {
   selectButtonProps: { "data-testid": "select-button" }
 };
 
-export const createSelect = (params?: (defaultParams: Props) => Props) => {
-  let parameters: Props = defaultParams;
+export const createSelect = (params?: (defaultParams: SingleSelectProps) => SingleSelectProps) => {
+  let parameters: SingleSelectProps = defaultParams;
   if (params) {
     parameters = params(defaultParams);
   }

@@ -14,14 +14,18 @@
  *    limitations under the License.
  */
 
-@use "src/variables";
-
-.select-label {
-  left: calc(
-    1.25rem + 2px
-  ); // 2px is for offset of the selectwrapper border. It's relative to the parent div which doesn't have a border.
+.options {
+  position: relative;
+  display: flex;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+  cursor: pointer;
 }
 
-.select-helper-text {
-  margin-top: 0.15rem;
+.tag {
+  cursor: text;
+
+  .remove-btn {
+    cursor: pointer;
+  }
 }
