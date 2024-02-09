@@ -337,3 +337,8 @@
   content: "\e9d1";
   @include fontProperties();
 }
+
+.icon-warning-filled:before {
+  content: "\e948";
+  @include fontProperties();
+}
