@@ -85,6 +85,7 @@ export enum Icons {
   TriangleUp = "triangle-up",
   Undo = "undo",
   Warning = "warning",
+  WarningFilled = "warning-filled",
   FileOutline = "file-outline",
   FileUpload = "file-upload-outline",
   FileDownload = "file-download-outline",
