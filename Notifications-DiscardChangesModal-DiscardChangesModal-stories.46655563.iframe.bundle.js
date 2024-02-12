@@ -1,129 +1,7 @@
 "use strict";
-(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[9497],{
+(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[7847],{
 
-/***/ "./node_modules/@storybook/addon-docs/node_modules/@mdx-js/react/lib/index.js":
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   NF: () => (/* binding */ withMDXComponents),
-/* harmony export */   Zo: () => (/* binding */ MDXProvider),
-/* harmony export */   ah: () => (/* binding */ useMDXComponents),
-/* harmony export */   pC: () => (/* binding */ MDXContext)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
-/**
- * @typedef {import('react').ReactNode} ReactNode
- * @typedef {import('mdx/types.js').MDXComponents} Components
- *
- * @typedef Props
- *   Configuration.
- * @property {Components | MergeComponents | null | undefined} [components]
- *   Mapping of names for JSX components to React components.
- * @property {boolean | null | undefined} [disableParentContext=false]
- *   Turn off outer component context.
- * @property {ReactNode | null | undefined} [children]
- *   Children.
- *
- * @callback MergeComponents
- *   Custom merge function.
- * @param {Components} currentComponents
- *   Current components from the context.
- * @returns {Components}
- *   Merged components.
- */
-
-
-
-/**
- * @type {import('react').Context<Components>}
- * @deprecated
- *   This export is marked as a legacy feature.
- *   That means it’s no longer recommended for use as it might be removed
- *   in a future major release.
- *
- *   Please use `useMDXComponents` to get context based components and
- *   `MDXProvider` to set context based components instead.
- */
-const MDXContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext({})
-
-/**
- * @param {import('react').ComponentType<any>} Component
- * @deprecated
- *   This export is marked as a legacy feature.
- *   That means it’s no longer recommended for use as it might be removed
- *   in a future major release.
- *
- *   Please use `useMDXComponents` to get context based components instead.
- */
-function withMDXComponents(Component) {
-  return boundMDXComponent
-
-  /**
-   * @param {Record<string, unknown> & {components?: Components | null | undefined}} props
-   * @returns {JSX.Element}
-   */
-  function boundMDXComponent(props) {
-    const allComponents = useMDXComponents(props.components)
-    return react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, {...props, allComponents})
-  }
-}
-
-/**
- * Get current components from the MDX Context.
- *
- * @param {Components | MergeComponents | null | undefined} [components]
- *   Additional components to use or a function that takes the current
- *   components and filters/merges/changes them.
- * @returns {Components}
- *   Current components.
- */
-function useMDXComponents(components) {
-  const contextComponents = react__WEBPACK_IMPORTED_MODULE_0__.useContext(MDXContext)
-
-  // Memoize to avoid unnecessary top-level context changes
-  return react__WEBPACK_IMPORTED_MODULE_0__.useMemo(() => {
-    // Custom merge via a function prop
-    if (typeof components === 'function') {
-      return components(contextComponents)
-    }
-
-    return {...contextComponents, ...components}
-  }, [contextComponents, components])
-}
-
-/** @type {Components} */
-const emptyObject = {}
-
-/**
- * Provider for MDX context
- *
- * @param {Props} props
- * @returns {JSX.Element}
- */
-function MDXProvider({components, children, disableParentContext}) {
-  /** @type {Components} */
-  let allComponents
-
-  if (disableParentContext) {
-    allComponents =
-      typeof components === 'function'
-        ? components({})
-        : components || emptyObject
-  } else {
-    allComponents = useMDXComponents(components)
-  }
-
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(
-    MDXContext.Provider,
-    {value: allComponents},
-    children
-  )
-}
-
-
-/***/ }),
-
-/***/ "./stories/Notifications/Modal/Modal.stories.tsx":
+/***/ "./stories/Notifications/DiscardChangesModal/DiscardChangesModal.stories.tsx":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -131,32 +9,201 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  Modal: () => (/* binding */ Modal_stories_Modal),
+  DiscardChangesModal: () => (/* binding */ DiscardChangesModal_stories_DiscardChangesModal),
   __namedExportsOrder: () => (/* binding */ __namedExportsOrder),
-  "default": () => (/* binding */ Modal_stories)
+  "default": () => (/* binding */ DiscardChangesModal_stories)
 });
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__("./node_modules/react/index.js");
 // EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModal.tsx + 2 modules
 var BaseModal = __webpack_require__("./src/components/Notifications/BaseModal/BaseModal.tsx");
+// EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.tsx + 1 modules
+var BaseModalHeader = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.tsx");
+// EXTERNAL MODULE: ./src/components/Notifications/Dialog/Dialog.tsx + 5 modules
+var Dialog = __webpack_require__("./src/components/Notifications/Dialog/Dialog.tsx");
+// EXTERNAL MODULE: ./src/components/Typography/Typography.tsx + 1 modules
+var Typography = __webpack_require__("./src/components/Typography/Typography.tsx");
+;// CONCATENATED MODULE: ./src/components/Notifications/DiscardChangesModal/DiscardChangesDialog/DiscardChangesDialog.tsx
+function _extends() {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
+}
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+
+const DiscardChangesDialogComponent = (_ref, ref) => {
+  let {
+    open,
+    onKeepEditing,
+    onDiscardChanges,
+    discardChangesButtonLabel,
+    keepEditingButtonLabel,
+    contentLabel,
+    titleLabel,
+    cancelAction,
+    ...rest
+  } = _ref;
+  return /*#__PURE__*/react.createElement(Dialog/* Dialog */.V, _extends({}, rest, {
+    ref: ref,
+    open: open,
+    title: titleLabel,
+    onClose: onKeepEditing,
+    cancelAction: cancelAction,
+    primaryAction: {
+      label: discardChangesButtonLabel,
+      onClick: onDiscardChanges
+    },
+    secondaryAction: {
+      label: keepEditingButtonLabel,
+      onClick: onKeepEditing
+    },
+    disableEscapeKeyDown: false
+  }), /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
+    variant: "body",
+    spacing: {
+      margin: 0
+    }
+  }, contentLabel));
+};
+const DiscardChangesDialog = /*#__PURE__*/react.forwardRef(DiscardChangesDialogComponent);
+try {
+    // @ts-ignore
+    DiscardChangesDialog.displayName = "DiscardChangesDialog";
+    // @ts-ignore
+    DiscardChangesDialog.__docgenInfo = { "description": "", "displayName": "DiscardChangesDialog", "props": { "open": { "defaultValue": null, "description": "", "name": "open", "required": true, "type": { "name": "boolean" } }, "onKeepEditing": { "defaultValue": null, "description": "", "name": "onKeepEditing", "required": true, "type": { "name": "() => void" } }, "onDiscardChanges": { "defaultValue": null, "description": "", "name": "onDiscardChanges", "required": true, "type": { "name": "() => void" } }, "discardChangesButtonLabel": { "defaultValue": null, "description": "", "name": "discardChangesButtonLabel", "required": true, "type": { "name": "string" } }, "keepEditingButtonLabel": { "defaultValue": null, "description": "", "name": "keepEditingButtonLabel", "required": true, "type": { "name": "string" } }, "cancelAction": { "defaultValue": null, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } }, "contentLabel": { "defaultValue": null, "description": "", "name": "contentLabel", "required": true, "type": { "name": "string" } }, "titleLabel": { "defaultValue": null, "description": "", "name": "titleLabel", "required": true, "type": { "name": "string" } } } };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Notifications/DiscardChangesModal/DiscardChangesDialog/DiscardChangesDialog.tsx#DiscardChangesDialog"] = { docgenInfo: DiscardChangesDialog.__docgenInfo, name: "DiscardChangesDialog", path: "src/components/Notifications/DiscardChangesModal/DiscardChangesDialog/DiscardChangesDialog.tsx#DiscardChangesDialog" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+;// CONCATENATED MODULE: ./src/components/Notifications/DiscardChangesModal/DiscardChangesModal.tsx
+function DiscardChangesModal_extends() {
+  DiscardChangesModal_extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return DiscardChangesModal_extends.apply(this, arguments);
+}
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+
+
+const DiscardChangesModal = _ref => {
+  let {
+    id,
+    children,
+    headerProps,
+    discardChangedDialogProps,
+    modalRef,
+    dialogRef,
+    onClose,
+    hasUnsavedChanges,
+    ...rest
+  } = _ref;
+  const [openDiscardChangesDialog, setOpenDiscardChangesDialog] = (0,react.useState)(false);
+  const onCloseWrapper = () => hasUnsavedChanges() ? setOpenDiscardChangesDialog(true) : onClose();
+  const onDialogKeepEditing = () => {
+    setOpenDiscardChangesDialog(false);
+  };
+  const onDialogDiscardChanges = () => {
+    setOpenDiscardChangesDialog(false);
+    onClose();
+  };
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(BaseModal/* BaseModal */.I, DiscardChangesModal_extends({
+    id: id,
+    ref: modalRef,
+    onClose: onCloseWrapper
+  }, rest), /*#__PURE__*/react.createElement(BaseModalHeader/* BaseModalHeader */.o, DiscardChangesModal_extends({}, headerProps, {
+    id: "".concat(id, "-label"),
+    onClose: onCloseWrapper
+  })), children), /*#__PURE__*/react.createElement(DiscardChangesDialog, DiscardChangesModal_extends({}, discardChangedDialogProps, {
+    ref: dialogRef,
+    open: openDiscardChangesDialog,
+    onKeepEditing: onDialogKeepEditing,
+    onDiscardChanges: onDialogDiscardChanges
+  })));
+};
+try {
+    // @ts-ignore
+    DiscardChangesModal.displayName = "DiscardChangesModal";
+    // @ts-ignore
+    DiscardChangesModal.__docgenInfo = { "description": "", "displayName": "DiscardChangesModal", "props": { "hasUnsavedChanges": { "defaultValue": null, "description": "", "name": "hasUnsavedChanges", "required": true, "type": { "name": "() => boolean" } }, "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": true, "type": { "name": "(event?: MouseEvent<HTMLElement, MouseEvent> | undefined) => unknown" } }, "headerProps": { "defaultValue": null, "description": "", "name": "headerProps", "required": true, "type": { "name": "Omit<Props, \"id\" | \"onClose\">" } }, "discardChangedDialogProps": { "defaultValue": null, "description": "", "name": "discardChangedDialogProps", "required": true, "type": { "name": "Omit<Props, \"open\" | \"onKeepEditing\" | \"onDiscardChanges\">" } }, "modalRef": { "defaultValue": null, "description": "", "name": "modalRef", "required": false, "type": { "name": "RefObject<HTMLDivElement>" } }, "dialogRef": { "defaultValue": null, "description": "", "name": "dialogRef", "required": false, "type": { "name": "RefObject<HTMLDivElement>" } }, "ref": { "defaultValue": null, "description": "", "name": "ref", "required": false, "type": { "name": "((instance: HTMLDivElement | null) => void) | RefObject<HTMLDivElement> | null" } }, "className": { "defaultValue": null, "description": "", "name": "className", "required": false, "type": { "name": "string" } }, "id": { "defaultValue": null, "description": "", "name": "id", "required": true, "type": { "name": "string" } }, "domRoot": { "defaultValue": null, "description": "", "name": "domRoot", "required": false, "type": { "name": "HTMLElement" } }, "open": { "defaultValue": null, "description": "", "name": "open", "required": true, "type": { "name": "boolean" } }, "containerProps": { "defaultValue": null, "description": "", "name": "containerProps", "required": false, "type": { "name": "(Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ref?: ((instance: HTMLDivElement | null) => void) | ... 2 more ...; })" } }, "backdropProps": { "defaultValue": null, "description": "", "name": "backdropProps", "required": false, "type": { "name": "(Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ref?: ((instance: HTMLDivElement | null) => void) | ... 2 more ...; })" } }, "labelledby": { "defaultValue": null, "description": "", "name": "labelledby", "required": false, "type": { "name": "string" } }, "describedby": { "defaultValue": null, "description": "", "name": "describedby", "required": false, "type": { "name": "string" } }, "disableEscapeKeyDown": { "defaultValue": null, "description": "", "name": "disableEscapeKeyDown", "required": false, "type": { "name": "boolean" } }, "disableBackdrop": { "defaultValue": null, "description": "", "name": "disableBackdrop", "required": false, "type": { "name": "boolean" } }, "forceContainerOpen": { "defaultValue": null, "description": "", "name": "forceContainerOpen", "required": false, "type": { "name": "boolean" } }, "zIndex": { "defaultValue": null, "description": "", "name": "zIndex", "required": false, "type": { "name": "number" } } } };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Notifications/DiscardChangesModal/DiscardChangesModal.tsx#DiscardChangesModal"] = { docgenInfo: DiscardChangesModal.__docgenInfo, name: "DiscardChangesModal", path: "src/components/Notifications/DiscardChangesModal/DiscardChangesModal.tsx#DiscardChangesModal" };
+}
+catch (__react_docgen_typescript_loader_error) { }
 // EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx + 1 modules
 var BaseModalActions = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx");
 // EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModalContent/BaseModalContent.tsx + 1 modules
 var BaseModalContent = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalContent/BaseModalContent.tsx");
-// EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.tsx + 1 modules
-var BaseModalHeader = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.tsx");
 // EXTERNAL MODULE: ./src/components/Button/Button.tsx + 1 modules
 var Button = __webpack_require__("./src/components/Button/Button.tsx");
-// EXTERNAL MODULE: ./src/components/Typography/Typography.tsx + 1 modules
-var Typography = __webpack_require__("./src/components/Typography/Typography.tsx");
+// EXTERNAL MODULE: ./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx + 1 modules
+var InputWrapper = __webpack_require__("./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx");
+// EXTERNAL MODULE: ./src/components/Form/FormControl/FormControl.tsx + 1 modules
+var FormControl = __webpack_require__("./src/components/Form/FormControl/FormControl.tsx");
+// EXTERNAL MODULE: ./src/components/Form/Form.tsx + 1 modules
+var Form = __webpack_require__("./src/components/Form/Form.tsx");
 // EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
 var jsx_runtime = __webpack_require__("./node_modules/react/jsx-runtime.js");
 // EXTERNAL MODULE: ./node_modules/@storybook/addon-docs/node_modules/@mdx-js/react/lib/index.js
 var lib = __webpack_require__("./node_modules/@storybook/addon-docs/node_modules/@mdx-js/react/lib/index.js");
 // EXTERNAL MODULE: ./node_modules/@storybook/blocks/dist/index.mjs + 11 modules
 var dist = __webpack_require__("./node_modules/@storybook/blocks/dist/index.mjs");
-;// CONCATENATED MODULE: ./stories/Notifications/Modal/Modal.mdx
+;// CONCATENATED MODULE: ./stories/Notifications/DiscardChangesModal/DiscardChangesModal.mdx
 
 
 
@@ -168,75 +215,42 @@ var dist = __webpack_require__("./node_modules/@storybook/blocks/dist/index.mjs"
 function _createMdxContent(props) {
   const _components = Object.assign({
     p: "p",
-    ul: "ul",
-    li: "li",
-    h2: "h2",
     code: "code",
-    strong: "strong",
     h1: "h1",
     pre: "pre"
   }, (0,lib/* useMDXComponents */.ah)(), props.components);
   return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
-    children: [(0,jsx_runtime.jsx)(dist/* Title */.Dx, {}), "\n", (0,jsx_runtime.jsx)(dist/* Subtitle */.QE, {}), "\n", (0,jsx_runtime.jsx)(_components.p, {
-      children: "Modals are used to present interactive or larger content - like the modal with the form. Modals contain:"
-    }), "\n", (0,jsx_runtime.jsxs)(_components.ul, {
-      children: ["\n", (0,jsx_runtime.jsx)(_components.li, {
-        children: "header: title, close button and additional content like wizard,"
-      }), "\n", (0,jsx_runtime.jsx)(_components.li, {
-        children: "content: what ever content to display,"
-      }), "\n", (0,jsx_runtime.jsx)(_components.li, {
-        children: "footer: containing action buttons to interact with content and modal."
-      }), "\n"]
-    }), "\n", (0,jsx_runtime.jsx)(_components.p, {
-      children: "Modals appear as a modal on top of the existing content."
-    }), "\n", (0,jsx_runtime.jsx)(_components.h2, {
-      id: "cancel-button-configuration",
-      children: "Cancel button configuration"
-    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
-      children: ["Enhance your modal with a left-aligned cancel button by simply applying the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "cancelAction"
-      }), " property, complete with a required ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "label"
-      }), " field."]
-    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
-      children: ["Customization is possible by adding extra properties to the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "cancelAction"
-      }), " configuration, allowing adjustments to the button's visual style."]
-    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
-      children: ["The Modal's ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "onClose"
-      }), " method is attached to cancel button's ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "onClick"
-      }), " event."]
-    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
-      children: ["Unlike the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "<Dialog />"
-      }), " component, where the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "cancelButton"
-      }), " remains visible even on mobile resolutions,\nin the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "<Modal />"
-      }), " component, the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "cancelButton"
-      }), " ", (0,jsx_runtime.jsx)(_components.strong, {
-        children: "is hidden on smaller screens to preserve readability"
-      }), ".\nModal closure can be accomplished by pressing the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "Esc"
-      }), " key or by clicking outside the modal."]
+    children: [(0,jsx_runtime.jsx)(dist/* Title */.Dx, {}), "\n", (0,jsx_runtime.jsx)(dist/* Subtitle */.QE, {}), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["The ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "DiscardChangesModal"
+      }), " component is a special combination of the Modal and Dialog components.\nIt shows the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Modal"
+      }), " component and displays a dialog that displays a well-known sentence: \"You have unsaved changes\", whenever the user modifies form inputs and wants to close the modal."]
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "examples",
       children: "Examples"
     }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
       children: ["In the below code snippet, you'll see how you can create a ", (0,jsx_runtime.jsx)(_components.code, {
         children: "Modal"
-      }), " with simple form."]
+      }), " which shows ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Dialog"
+      }), " whenever a user changes an input value and closes the modal."]
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-jsx",
-        children: "<Modal id=\"modal\" open={open} onClose={onClose}>\n  <ModalHeader id=\"modal-label\" title=\"Modal title\" />\n  <ModalContent id=\"modal-description\">\n    <form id=\"modalForm\">\n      <Typography variant=\"body\" spacing={{ margin: 0, padding: \"0 5 5\" }}>\n        This is simple modal.\n      </Typography>\n      <FormControl>\n        <InputWrapper\n          helperText=\"Helper text for this field. Description should be short and not repeat the label\"\n          name=\"input1\"\n          type=\"text\"\n          value={value}\n          error={false}\n          label=\"Name\"\n          onChange={e => setValue(e.target.value)}\n        />\n      </FormControl>\n    </form>\n  </ModalContent>\n  <ModalActions cancelAction={{ label: \"Cancel\" }}>\n    <Button variant=\"text\" onClick={onExampleClick}>\n      Example\n    </Button>\n    <Button form=\"modalForm\" type=\"submit\">\n      Save\n    </Button>\n  </ModalActions>\n</Modal>\n"
+        children: "const [open, setOpen] = useState(false);\nconst initialFormState = { name: \"Value\" };\nconst [formState, setFormState] = useState(initialFormState);\nconst id = \"modal\";\n\nconst hasUnsavedChanges = () => JSON.stringify(initialFormState) !== JSON.stringify(formState);\n\nconst onOpen = () => {\n  setOpen(true);\n  setFormState(initialFormState);\n};\n\nconst onClose = () => {\n  setOpen(false);\n};\n\nreturn (\n  <Fragment>\n    <Button onClick={onOpen}>Open modal</Button>\n    <DiscardChangesModalComponent\n      id={id}\n      open={open}\n      onClose={onClose}\n      hasUnsavedChanges={hasUnsavedChanges}\n    >\n      <ModalContent id={`${id}-description`}>\n        <Form\n          id=\"modalForm\"\n          onSubmit={() => {\n            alert(JSON.stringify(formState));\n            onClose();\n          }}\n        >\n          <Typography variant=\"body\" spacing={{ paddingLeft: 5, paddingRight: 5, marginBottom: 5 }}>\n            Changing the input value and closing modal should show 'DiscardChangesDialog'. Clicking\n            on 'Cancel' button should close modal without showing 'DiscardChangesDialog'.\n          </Typography>\n          <FormControl>\n            <InputWrapper\n              name=\"input1\"\n              type=\"text\"\n              value={formState.name}\n              error={false}\n              label=\"Name\"\n              onChange={event =>\n                setFormState(prevState => ({\n                  ...prevState,\n                  name: event.target.value\n                }))\n              }\n            />\n          </FormControl>\n        </Form>\n      </ModalContent>\n      <ModalActions>\n        <Button variant=\"text\" onClick={onClose}>\n          Cancel\n        </Button>\n        <Button form=\"modalForm\" type=\"submit\">\n          Save\n        </Button>\n      </ModalActions>\n    </DiscardChangesModalComponent>\n  </Fragment>\n);\n"
       })
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["As you can see, action buttons are rendered outside of the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Form"
+      }), " component.\nFor the accessibility and handling of form submission/resetting ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "form"
+      }), " attribute has to refer to the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "Form"
+      }), " component id."]
     }), "\n", (0,jsx_runtime.jsx)(dist/* Canvas */.Xz, {
       children: (0,jsx_runtime.jsx)(dist/* Story */.oG, {
-        of: Modal_stories_Modal
+        of: DiscardChangesModal_stories_DiscardChangesModal
       })
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "props",
@@ -252,13 +266,29 @@ function MDXContent(props = {}) {
     children: (0,jsx_runtime.jsx)(_createMdxContent, props)
   })) : _createMdxContent(props);
 }
-/* harmony default export */ const Modal = (MDXContent);
+/* harmony default export */ const DiscardChangesModal_DiscardChangesModal = (MDXContent);
 
-// EXTERNAL MODULE: ./src/components/Form/FormControl/FormControl.tsx + 1 modules
-var FormControl = __webpack_require__("./src/components/Form/FormControl/FormControl.tsx");
-// EXTERNAL MODULE: ./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx + 1 modules
-var InputWrapper = __webpack_require__("./src/components/Form/Wrapper/InputWrapper/InputWrapper.tsx");
-;// CONCATENATED MODULE: ./stories/Notifications/Modal/Modal.stories.tsx
+// EXTERNAL MODULE: ./node_modules/@storybook/testing-library/dist/index.mjs + 89 modules
+var testing_library_dist = __webpack_require__("./node_modules/@storybook/testing-library/dist/index.mjs");
+// EXTERNAL MODULE: ./node_modules/@storybook/jest/dist/index.mjs + 13 modules
+var jest_dist = __webpack_require__("./node_modules/@storybook/jest/dist/index.mjs");
+// EXTERNAL MODULE: ./.storybook/conditionalPlay.ts + 1 modules
+var conditionalPlay = __webpack_require__("./.storybook/conditionalPlay.ts");
+;// CONCATENATED MODULE: ./stories/Notifications/DiscardChangesModal/DiscardChangesModal.stories.tsx
+function DiscardChangesModal_stories_extends() {
+  DiscardChangesModal_stories_extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return DiscardChangesModal_stories_extends.apply(this, arguments);
+}
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -285,141 +315,241 @@ var InputWrapper = __webpack_require__("./src/components/Form/Wrapper/InputWrapp
 
 
 
+
+
 const meta = {
-  title: "components/Utils/Modal",
-  component: BaseModal/* BaseModal */.I,
+  title: "components/Feedback/Discard Changes Modal",
+  component: DiscardChangesModal,
   subcomponents: {
-    ModalHeader: BaseModalHeader/* BaseModalHeader */.o,
-    ModalContent: BaseModalContent/* BaseModalContent */.v,
-    ModalActions: BaseModalActions/* BaseModalActions */.u
+    ModalContent: BaseModalContent/* BaseModalContent */.v
   },
   parameters: {
     docs: {
-      page: Modal
+      page: DiscardChangesModal_DiscardChangesModal
     }
   },
   args: {
     id: "modal",
-    ["header.title"]: "Modal title",
-    ["content.disableAutoFocus"]: false,
-    ["actions.className"]: undefined
+    headerProps: {
+      title: "Modal title"
+    },
+    discardChangedDialogProps: {
+      discardChangesButtonLabel: "Discard",
+      keepEditingButtonLabel: "Keep editing",
+      contentLabel: "You have unsaved changes that will be lost. Do you want to discard them?",
+      titleLabel: "Unsaved changes"
+    }
   },
   argTypes: {
     open: {
       control: false
     },
-    ["header.title"]: {
-      control: "text"
-    },
-    ["content.disableAutoFocus"]: {
-      control: "boolean"
-    },
-    ["actions.className"]: {
-      control: "text"
+    hasUnsavedChanges: {
+      control: false
     }
   }
 };
-/* harmony default export */ const Modal_stories = (meta);
+/* harmony default export */ const DiscardChangesModal_stories = (meta);
 const Template = args => {
   const [open, setOpen] = (0,react.useState)(false);
-  const [value, setValue] = (0,react.useState)("initial value");
-  const [value2, setValue2] = (0,react.useState)("initial value");
-  const [value3, setValue3] = (0,react.useState)("initial value");
-  const [value4, setValue4] = (0,react.useState)("initial value");
+  const initialFormState = {
+    name: "Name"
+  };
+  const [formState, setFormState] = (0,react.useState)(initialFormState);
+  const id = args.id;
+  const hasUnsavedChanges = () => JSON.stringify(initialFormState) !== JSON.stringify(formState);
 
-  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  /** When we're on the story page, we want the dialog to start in the "open" state. However, when we're on the "docs" page, we don't. */
   (0,react.useEffect)(() => {
     if (window.location.search.includes("story")) {
       setOpen(true);
     }
   }, []);
-  const id = args.id;
-  const onClose = () => setOpen(false);
-  const onExampleClick = () => alert("Example button clicked");
+  const onClose = () => {
+    setOpen(false);
+    setFormState(initialFormState);
+  };
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Button/* Button */.z, {
     onClick: () => setOpen(true)
-  }, "Open modal"), /*#__PURE__*/react.createElement(BaseModal/* BaseModal */.I, {
+  }, "Open modal"), /*#__PURE__*/react.createElement(DiscardChangesModal, DiscardChangesModal_stories_extends({}, args, {
     id: id,
     open: open,
     onClose: onClose,
-    zIndex: args.zIndex,
-    disableBackdrop: args.disableBackdrop,
-    disableEscapeKeyDown: args.disableEscapeKeyDown
-  }, /*#__PURE__*/react.createElement(BaseModalHeader/* BaseModalHeader */.o, {
-    id: "".concat(id, "-label"),
-    title: args["header.title"]
+    hasUnsavedChanges: hasUnsavedChanges
   }), /*#__PURE__*/react.createElement(BaseModalContent/* BaseModalContent */.v, {
-    id: "".concat(id, "-description"),
-    disableAutoFocus: args["content.disableAutoFocus"]
-  }, /*#__PURE__*/react.createElement("form", {
+    id: "".concat(id, "-description")
+  }, /*#__PURE__*/react.createElement(Form/* Form */.l, {
     id: "modalForm",
-    onSubmit: e => {
-      e.preventDefault();
-      alert("form submitted");
+    onSubmit: () => {
+      alert(JSON.stringify(formState));
       onClose();
     }
-  }, /*#__PURE__*/react.createElement(Typography/* Typography */.Z, {
-    variant: "body",
-    spacing: {
-      margin: 0,
-      paddingBottom: 5
+  }, /*#__PURE__*/react.createElement("span", {
+    style: {
+      display: "block",
+      marginBottom: "1.25rem"
     }
-  }, "This modal shows various options of form controls. It is not meant to be a realistic example of any of our forms.", /*#__PURE__*/react.createElement("br", null), " Clicking Save, Cancel or Close may bring you to a different screen than you came from."), /*#__PURE__*/react.createElement(FormControl/* FormControl */.N, null, /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
+  }, "Changing the input value and closing modal should show 'DiscardChangesDialog'. Clicking on 'Cancel' button should close modal without showing 'DiscardChangesDialog'."), /*#__PURE__*/react.createElement(FormControl/* FormControl */.N, null, /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
     helperText: "Helper text for this field. Description should be short and not repeat the label",
     name: "input1",
     type: "text",
-    value: value,
+    value: formState.name,
     error: false,
     label: "Name",
-    onChange: e => setValue(e.target.value)
-  })), /*#__PURE__*/react.createElement(FormControl/* FormControl */.N, null, /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
-    helperText: "Helper text for this field. Description should be short and not repeat the label",
-    name: "input2",
-    type: "text",
-    value: value2,
-    error: false,
-    label: "Name",
-    onChange: e => setValue2(e.target.value)
-  })), /*#__PURE__*/react.createElement(FormControl/* FormControl */.N, null, /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
-    helperText: "Helper text for this field. Description should be short and not repeat the label",
-    name: "input3",
-    type: "text",
-    value: value3,
-    error: false,
-    label: "Name",
-    onChange: e => setValue3(e.target.value)
-  })), /*#__PURE__*/react.createElement(FormControl/* FormControl */.N, null, /*#__PURE__*/react.createElement(InputWrapper/* InputWrapper */.S, {
-    helperText: "Helper text for this field. Description should be short and not repeat the label",
-    name: "input4",
-    type: "text",
-    value: value4,
-    error: false,
-    label: "Name",
-    onChange: e => setValue4(e.target.value)
+    onChange: event => setFormState(prevState => ({
+      ...prevState,
+      name: event.target.value
+    }))
   })))), /*#__PURE__*/react.createElement(BaseModalActions/* BaseModalActions */.u, {
-    className: args["actions.className"],
-    cancelAction: {
-      label: "Cancel"
-    }
+    onClose: onClose
   }, /*#__PURE__*/react.createElement(Button/* Button */.z, {
-    variant: "outline",
-    onClick: onExampleClick
-  }, "Example"), /*#__PURE__*/react.createElement(Button/* Button */.z, {
     form: "modalForm",
     type: "submit"
   }, "Save"))));
 };
-const Modal_stories_Modal = Template.bind({});
-Modal_stories_Modal.parameters = {
-  ...Modal_stories_Modal.parameters,
+const DiscardChangesModal_stories_DiscardChangesModal = Template.bind({});
+DiscardChangesModal_stories_DiscardChangesModal.play = (0,conditionalPlay/* conditionalPlay */.B)(async _ref => {
+  let {
+    canvasElement
+  } = _ref;
+  const canvas = (0,testing_library_dist/* within */.uh)(canvasElement);
+  await (0,testing_library_dist/* waitFor */.X_)(() => {
+    (0,jest_dist/* expect */.l)(canvas.getByLabelText("Name")).toHaveValue("Name");
+  });
+  const input = canvas.getByLabelText("Name");
+  await testing_library_dist/* userEvent */.mV.type(input, "New name");
+  const closeButton = canvas.getByText("close modal").closest("button");
+  await testing_library_dist/* userEvent */.mV.click(closeButton);
+});
+DiscardChangesModal_stories_DiscardChangesModal.parameters = {
+  ...DiscardChangesModal_stories_DiscardChangesModal.parameters,
   docs: {
-    ...Modal_stories_Modal.parameters?.docs,
+    ...DiscardChangesModal_stories_DiscardChangesModal.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n  const [value, setValue] = useState(\"initial value\");\n  const [value2, setValue2] = useState(\"initial value\");\n  const [value3, setValue3] = useState(\"initial value\");\n  const [value4, setValue4] = useState(\"initial value\");\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  const id = args.id;\n  const onClose = () => setOpen(false);\n  const onExampleClick = () => alert(\"Example button clicked\");\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <ModalComponent id={id} open={open} onClose={onClose} zIndex={args.zIndex} disableBackdrop={args.disableBackdrop} disableEscapeKeyDown={args.disableEscapeKeyDown}>\n        <ModalHeader id={`${id}-label`} title={args[\"header.title\"]} />\n        <ModalContent id={`${id}-description`} disableAutoFocus={args[\"content.disableAutoFocus\"]}>\n          <form id=\"modalForm\" onSubmit={e => {\n          e.preventDefault();\n          alert(\"form submitted\");\n          onClose();\n        }}>\n            <Typography variant=\"body\" spacing={{\n            margin: 0,\n            paddingBottom: 5\n          }}>\n              This modal shows various options of form controls. It is not meant to be a realistic\n              example of any of our forms.\n              <br /> Clicking Save, Cancel or Close may bring you to a different screen than you\n              came from.\n            </Typography>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input1\" type=\"text\" value={value} error={false} label=\"Name\" onChange={e => setValue(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input2\" type=\"text\" value={value2} error={false} label=\"Name\" onChange={e => setValue2(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input3\" type=\"text\" value={value3} error={false} label=\"Name\" onChange={e => setValue3(e.target.value)} />\n            </FormControl>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input4\" type=\"text\" value={value4} error={false} label=\"Name\" onChange={e => setValue4(e.target.value)} />\n            </FormControl>\n          </form>\n        </ModalContent>\n        <ModalActions className={args[\"actions.className\"]} cancelAction={{\n        label: \"Cancel\"\n      }}>\n          <Button variant=\"outline\" onClick={onExampleClick}>\n            Example\n          </Button>\n          <Button form=\"modalForm\" type=\"submit\">\n            Save\n          </Button>\n        </ModalActions>\n      </ModalComponent>\n    </Fragment>;\n}",
-      ...Modal_stories_Modal.parameters?.docs?.source
+      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n  const initialFormState = {\n    name: \"Name\"\n  };\n  const [formState, setFormState] = useState(initialFormState);\n  const id = args.id;\n  const hasUnsavedChanges = () => JSON.stringify(initialFormState) !== JSON.stringify(formState);\n\n  /** When we're on the story page, we want the dialog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  const onClose = () => {\n    setOpen(false);\n    setFormState(initialFormState);\n  };\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open modal</Button>\n      <DiscardChangesModalComponent {...args} id={id} open={open} onClose={onClose} hasUnsavedChanges={hasUnsavedChanges}>\n        <ModalContent id={`${id}-description`}>\n          <Form id=\"modalForm\" onSubmit={() => {\n          alert(JSON.stringify(formState));\n          onClose();\n        }}>\n            <span style={{\n            display: \"block\",\n            marginBottom: \"1.25rem\"\n          }}>\n              Changing the input value and closing modal should show\n              &apos;DiscardChangesDialog&apos;. Clicking on &apos;Cancel&apos; button should close\n              modal without showing &apos;DiscardChangesDialog&apos;.\n            </span>\n            <FormControl>\n              <InputWrapper helperText=\"Helper text for this field. Description should be short and not repeat the label\" name=\"input1\" type=\"text\" value={formState.name} error={false} label=\"Name\" onChange={event => setFormState(prevState => ({\n              ...prevState,\n              name: event.target.value\n            }))} />\n            </FormControl>\n          </Form>\n        </ModalContent>\n        <ModalActions onClose={onClose}>\n          <Button form=\"modalForm\" type=\"submit\">\n            Save\n          </Button>\n        </ModalActions>\n      </DiscardChangesModalComponent>\n    </Fragment>;\n}",
+      ...DiscardChangesModal_stories_DiscardChangesModal.parameters?.docs?.source
     }
   }
-};;const __namedExportsOrder = ["Modal"];
+};;const __namedExportsOrder = ["DiscardChangesModal"];
+
+/***/ }),
+
+/***/ "./src/components/Form/Form.tsx":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  l: () => (/* binding */ Form)
+});
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__("./node_modules/react/index.js");
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__("./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__("./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__("./node_modules/style-loader/dist/runtime/insertBySelector.js");
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__("./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__("./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__("./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[16].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/Form.module.scss
+var Form_module = __webpack_require__("./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[16].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/Form.module.scss");
+;// CONCATENATED MODULE: ./src/components/Form/Form.module.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      options.insert = insertBySelector_default().bind(null, "head");
+    
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
+
+var update = injectStylesIntoStyleTag_default()(Form_module/* default */.Z, options);
+
+
+
+
+       /* harmony default export */ const Form_Form_module = (Form_module/* default */.Z && Form_module/* default */.Z.locals ? Form_module/* default */.Z.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/components/Form/Form.tsx
+function _extends() {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
+}
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+const FormComponent = (_ref, ref) => {
+  let {
+    children,
+    className,
+    ...rest
+  } = _ref;
+  return /*#__PURE__*/react.createElement("form", _extends({
+    ref: ref,
+    className: "".concat(Form_Form_module.form, " ").concat(className !== null && className !== void 0 ? className : "")
+  }, rest), children);
+};
+const Form = /*#__PURE__*/react.forwardRef(FormComponent);
+try {
+    // @ts-ignore
+    Form.displayName = "Form";
+    // @ts-ignore
+    Form.__docgenInfo = { "description": "", "displayName": "Form", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Form/Form.tsx#Form"] = { docgenInfo: Form.__docgenInfo, name: "Form", path: "src/components/Form/Form.tsx#Form" };
+}
+catch (__react_docgen_typescript_loader_error) { }
 
 /***/ }),
 
@@ -756,146 +886,6 @@ catch (__react_docgen_typescript_loader_error) { }
 
 /***/ }),
 
-/***/ "./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx":
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  u: () => (/* binding */ BaseModalActions)
-});
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__("./node_modules/react/index.js");
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__("./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
-var styleDomAPI = __webpack_require__("./node_modules/style-loader/dist/runtime/styleDomAPI.js");
-var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
-var insertBySelector = __webpack_require__("./node_modules/style-loader/dist/runtime/insertBySelector.js");
-var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-var setAttributesWithoutAttributes = __webpack_require__("./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
-var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
-var insertStyleElement = __webpack_require__("./node_modules/style-loader/dist/runtime/insertStyleElement.js");
-var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
-var styleTagTransform = __webpack_require__("./node_modules/style-loader/dist/runtime/styleTagTransform.js");
-var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[16].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.module.scss
-var BaseModalActions_module = __webpack_require__("./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[16].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.module.scss");
-;// CONCATENATED MODULE: ./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.module.scss
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (styleTagTransform_default());
-options.setAttributes = (setAttributesWithoutAttributes_default());
-
-      options.insert = insertBySelector_default().bind(null, "head");
-    
-options.domAPI = (styleDomAPI_default());
-options.insertStyleElement = (insertStyleElement_default());
-
-var update = injectStylesIntoStyleTag_default()(BaseModalActions_module/* default */.Z, options);
-
-
-
-
-       /* harmony default export */ const BaseModalActions_BaseModalActions_module = (BaseModalActions_module/* default */.Z && BaseModalActions_module/* default */.Z.locals ? BaseModalActions_module/* default */.Z.locals : undefined);
-
-// EXTERNAL MODULE: ./src/components/Button/Button.tsx + 1 modules
-var Button = __webpack_require__("./src/components/Button/Button.tsx");
-;// CONCATENATED MODULE: ./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx
-function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
-}
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-
-
-
-const BaseModalActionsComponent = (_ref, ref) => {
-  let {
-    children,
-    cancelAction,
-    cancelActionsClassName = "",
-    onClose,
-    className = "",
-    ...rest
-  } = _ref;
-  const innerRef = /*#__PURE__*/ /*#__PURE__*/react.createRef() || ref;
-  const cancelButtonRef = (0,react.useRef)(null);
-  const primaryActionsRef = (0,react.useRef)(null);
-  const cancelButton = /*#__PURE__*/react.createElement(Button/* Button */.z, _extends({
-    variant: "text",
-    color: "default"
-  }, cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.cancelButtonProps, {
-    onClick: onClose
-  }), cancelAction === null || cancelAction === void 0 ? void 0 : cancelAction.label);
-  return /*#__PURE__*/react.createElement("div", _extends({}, rest, {
-    ref: innerRef,
-    className: "".concat(BaseModalActions_BaseModalActions_module["actions"], " ").concat(className)
-  }), cancelAction && /*#__PURE__*/react.createElement("div", {
-    className: "".concat(BaseModalActions_BaseModalActions_module["cancel-action"], " ").concat(cancelActionsClassName),
-    ref: cancelButtonRef
-  }, cancelButton), children && /*#__PURE__*/react.createElement("div", {
-    ref: primaryActionsRef,
-    className: BaseModalActions_BaseModalActions_module["primary-actions"]
-  }, children));
-};
-const BaseModalActions = /*#__PURE__*/react.forwardRef(BaseModalActionsComponent);
-try {
-    // @ts-ignore
-    BaseModalActions.displayName = "BaseModalActions";
-    // @ts-ignore
-    BaseModalActions.__docgenInfo = { "description": "", "displayName": "BaseModalActions", "props": { "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": false, "type": { "name": "(() => void)" } }, "cancelAction": { "defaultValue": null, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } }, "cancelActionsClassName": { "defaultValue": { value: "" }, "description": "", "name": "cancelActionsClassName", "required": false, "type": { "name": "string" } } } };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx#BaseModalActions"] = { docgenInfo: BaseModalActions.__docgenInfo, name: "BaseModalActions", path: "src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.tsx#BaseModalActions" };
-}
-catch (__react_docgen_typescript_loader_error) { }
-
-/***/ }),
-
 /***/ "./src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.tsx":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -1044,6 +1034,45 @@ catch (__react_docgen_typescript_loader_error) { }
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[16].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/Form.module.scss":
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */.Form-module__form--Nl9sb{font-family:var(--font-family)}`, ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {
+	"form": `Form-module__form--Nl9sb`
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[16].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/FormControl/FormControl.module.scss":
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -1151,7 +1180,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*!
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */.InputWrapper-module__sr-only--_BGLV{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.InputWrapper-module__hidden--j7j0R{display:none}.InputWrapper-module__slide-in--PMOZy{animation:InputWrapper-module__slide-in--PMOZy .5s forwards}@media(prefers-reduced-motion: reduce){.InputWrapper-module__slide-in--PMOZy{animation-duration:.1ms}}.InputWrapper-module__slide-out--ghrlP{animation:InputWrapper-module__slide-out--ghrlP .5s forwards}@media(prefers-reduced-motion: reduce){.InputWrapper-module__slide-out--ghrlP{animation-duration:.1ms}}@keyframes InputWrapper-module__slide-in--PMOZy{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes InputWrapper-module__slide-out--ghrlP{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}input.InputWrapper-module__floating-label--aGgwG{padding-top:1rem}.InputWrapper-module__input-wrapper-helper--GKzdc{margin-top:.14rem}.InputWrapper-module__input-wrapper--x9INE [data-icon]:before{transition-property:all;transition-duration:.2s;transition-timing-function:ease-in-out;transform:translateY(0px);font-size:1.125rem;display:flex;align-items:center;justify-content:center}@media(prefers-reduced-motion: reduce){.InputWrapper-module__input-wrapper--x9INE [data-icon]:before{transition-duration:.1ms}}.InputWrapper-module__input-wrapper--x9INE .InputWrapper-module__floating-label-active--GU6su [data-icon]:before{transform:translateY(5px)}.InputWrapper-module__input-wrapper--x9INE [data-prefix],.InputWrapper-module__input-wrapper--x9INE [data-suffix]{font-size:var(--form-control-font-size)}.InputWrapper-module__input-wrapper--x9INE [data-prefix]+input{padding-left:.5rem}.InputWrapper-module__input-wrapper--x9INE [data-suffix]{padding-left:1.25rem}.InputWrapper-module__input-wrapper--x9INE input+[data-suffix]{padding-left:.5rem}.InputWrapper-module__input-wrapper--x9INE .InputWrapper-module__disabled--TE5Ui{background-color:var(--disabled);cursor:not-allowed;color:var(--greyed-out)}.InputWrapper-module__floating-label-active--GU6su [data-prefix],.InputWrapper-module__floating-label-active--GU6su [data-suffix]{padding-top:1rem;transform:translateY(0)}`, ""]);
+ */.InputWrapper-module__sr-only--_BGLV{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.InputWrapper-module__hidden--j7j0R{display:none}.InputWrapper-module__slide-in--PMOZy{animation:InputWrapper-module__slide-in--PMOZy .5s forwards}@media(prefers-reduced-motion: reduce){.InputWrapper-module__slide-in--PMOZy{animation-duration:.1ms}}.InputWrapper-module__slide-out--ghrlP{animation:InputWrapper-module__slide-out--ghrlP .5s forwards}@media(prefers-reduced-motion: reduce){.InputWrapper-module__slide-out--ghrlP{animation-duration:.1ms}}@keyframes InputWrapper-module__slide-in--PMOZy{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes InputWrapper-module__slide-out--ghrlP{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}input.InputWrapper-module__floating-label--aGgwG{padding-top:1rem}.InputWrapper-module__input-wrapper-helper--GKzdc{margin-top:.14rem}.InputWrapper-module__input-wrapper--x9INE [data-icon]:before{transition-property:all;transition-duration:.2s;transition-timing-function:ease-in-out;transform:translateY(0px);font-size:1.125rem;display:flex;align-items:center;justify-content:center}@media(prefers-reduced-motion: reduce){.InputWrapper-module__input-wrapper--x9INE [data-icon]:before{transition-duration:.1ms}}.InputWrapper-module__input-wrapper--x9INE [data-prefix],.InputWrapper-module__input-wrapper--x9INE [data-suffix]{font-size:var(--form-control-font-size)}.InputWrapper-module__input-wrapper--x9INE [data-prefix]+input{padding-left:.5rem}.InputWrapper-module__input-wrapper--x9INE [data-suffix]{padding-left:1.25rem}.InputWrapper-module__input-wrapper--x9INE input+[data-suffix]{padding-left:.5rem}.InputWrapper-module__input-wrapper--x9INE .InputWrapper-module__disabled--TE5Ui{background-color:var(--disabled);cursor:not-allowed;color:var(--greyed-out)}`, ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"sr-only": `InputWrapper-module__sr-only--_BGLV`,
@@ -1161,49 +1190,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 	"floating-label": `InputWrapper-module__floating-label--aGgwG`,
 	"input-wrapper-helper": `InputWrapper-module__input-wrapper-helper--GKzdc`,
 	"input-wrapper": `InputWrapper-module__input-wrapper--x9INE`,
-	"floating-label-active": `InputWrapper-module__floating-label-active--GU6su`,
 	"disabled": `InputWrapper-module__disabled--TE5Ui`
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[16].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Notifications/BaseModal/BaseModalActions/BaseModalActions.module.scss":
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, `/*!
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */.BaseModalActions-module__actions--A4L3O{margin:1.5rem 0 1rem;padding:1rem 1.5rem 0;display:flex;justify-content:space-between;border-top:1px solid var(--color-blue-grey100)}.BaseModalActions-module__actions--A4L3O>*+*{margin-left:2rem}@media screen and (max-width: 640px){.BaseModalActions-module__actions--A4L3O{display:block}.BaseModalActions-module__actions--A4L3O .BaseModalActions-module__cancel-action--MgUvx{display:none}.BaseModalActions-module__actions--A4L3O .BaseModalActions-module__primary-actions--bcMat{flex-direction:column;align-items:flex-end;margin-left:0}.BaseModalActions-module__actions--A4L3O .BaseModalActions-module__primary-actions--bcMat>*{width:100%}.BaseModalActions-module__actions--A4L3O .BaseModalActions-module__primary-actions--bcMat>*+*{margin-top:.5rem}}.BaseModalActions-module__primary-actions--bcMat{display:flex;flex-grow:1;justify-content:flex-end}.BaseModalActions-module__primary-actions--bcMat button{white-space:nowrap}@media screen and (min-width: 640px){.BaseModalActions-module__primary-actions--bcMat button+button{margin-left:.5rem}}`, ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {
-	"actions": `BaseModalActions-module__actions--A4L3O`,
-	"cancel-action": `BaseModalActions-module__cancel-action--MgUvx`,
-	"primary-actions": `BaseModalActions-module__primary-actions--bcMat`
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1247,36 +1234,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 	"title": `BaseModalHeader-module__title--FjtRT`
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/react/cjs/react-jsx-runtime.production.min.js":
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-/**
- * @license React
- * react-jsx-runtime.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-var f=__webpack_require__("./node_modules/react/index.js"),k=Symbol.for("react.element"),l=Symbol.for("react.fragment"),m=Object.prototype.hasOwnProperty,n=f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,p={key:!0,ref:!0,__self:!0,__source:!0};
-function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(h=a.ref);for(b in a)m.call(a,b)&&!p.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a)void 0===d[b]&&(d[b]=a[b]);return{$$typeof:k,type:c,key:e,ref:h,props:d,_owner:n.current}}exports.Fragment=l;exports.jsx=q;exports.jsxs=q;
-
-
-/***/ }),
-
-/***/ "./node_modules/react/jsx-runtime.js":
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-
-
-if (true) {
-  module.exports = __webpack_require__("./node_modules/react/cjs/react-jsx-runtime.production.min.js");
-} else {}
 
 
 /***/ })

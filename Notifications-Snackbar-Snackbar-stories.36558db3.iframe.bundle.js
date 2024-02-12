@@ -191,6 +191,17 @@ try {
         STORYBOOK_REACT_CLASSES["src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx#SnackbarContextProvider"] = { docgenInfo: SnackbarContextProvider.__docgenInfo, name: "SnackbarContextProvider", path: "src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx#SnackbarContextProvider" };
 }
 catch (__react_docgen_typescript_loader_error) { }
+try {
+    // @ts-ignore
+    Context.displayName = "Context";
+    // @ts-ignore
+    Context.__docgenInfo = { "description": "Context lets components pass information deep down without explicitly\npassing props.\n\nCreated from {@link createContext}", "displayName": "Context", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx#Context"] = { docgenInfo: Context.__docgenInfo, name: "Context", path: "src/components/Notifications/Snackbar/SnackbarProvider/SnackbarStateProvider.tsx#Context" };
+}
+catch (__react_docgen_typescript_loader_error) { }
 ;// CONCATENATED MODULE: ./src/components/Notifications/Snackbar/interfaces.ts
 /*
  * Copyright 2022 OneWelcome B.V.
