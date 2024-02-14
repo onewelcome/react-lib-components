@@ -102,7 +102,13 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       zIndex={zIndex}
       disableEscapeKeyDown={disableEscapeKeyDown}
     >
-      <DialogTitle titleIcon={titleIcon} caption={caption} id={labelId(dialogId)} title={title} />
+      <DialogTitle
+        titleIcon={titleIcon}
+        caption={caption}
+        id={labelId(dialogId)}
+        title={title}
+        onClose={onClose}
+      />
       <BaseModalContent
         id={descriptionId(dialogId)}
         className={classes["content"]}
