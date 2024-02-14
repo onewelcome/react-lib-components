@@ -43,7 +43,7 @@ const getButtons = (container: HTMLElement) => getAllByRole(container, "button")
 describe("Dialog", () => {
   it("renders without crashing", () => {
     const { getByText, debug } = render(<Dialog {...initParams} />);
-    const [_cancelButton, secondaryButton, primaryButton] = getButtons(document.body);
+    const [_closeButton, _cancelButton, secondaryButton, primaryButton] = getButtons(document.body);
 
     expect(getByText(initParams.title)).toBeDefined();
     expect(getByText(initParams.children as string)).toBeDefined();
@@ -54,17 +54,17 @@ describe("Dialog", () => {
     expect(secondaryButton).toHaveClass("outline");
   });
 
-  it("renders only one button", () => {
+  it("renders only one primary button", () => {
     render(<Dialog {...initParams} secondaryAction={undefined} />);
     const buttons = getButtons(document.body);
 
-    expect(buttons).toHaveLength(2);
-    expect(buttons[1]).toHaveClass("fill");
+    expect(buttons).toHaveLength(3);
+    expect(buttons[2]).toHaveClass("fill");
   });
 
   it("should handle clicking on buttons and ENTER press", async () => {
     render(<Dialog {...initParams} />);
-    const [_cancelButton, secondaryButton, primaryButton] = getButtons(document.body);
+    const [_closeButton, _cancelButton, secondaryButton, primaryButton] = getButtons(document.body);
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(0);
     expect(initParams.secondaryAction?.onClick).toHaveBeenCalledTimes(0);
     expect(initParams.onClose).toHaveBeenCalledTimes(0);
