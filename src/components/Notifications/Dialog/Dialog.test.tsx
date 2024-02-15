@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { Dialog, Props } from "./Dialog";
-import { render, getAllByRole } from "@testing-library/react";
+import { render, getAllByRole, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const initParams: Props = {
@@ -77,6 +77,20 @@ describe("Dialog", () => {
     expect(initParams.primaryAction.onClick).toHaveBeenCalledTimes(2);
     await userEvent.click(secondaryButton);
     expect(initParams.secondaryAction?.onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("should handle clicking on backdrop & ESC key", async () => {
+    const { getByRole } = render(<Dialog {...initParams} />);
+    const modal = getByRole("dialog");
+
+    const backdrop = modal.querySelector(".backdrop")!;
+    expect(initParams.onClose).toHaveBeenCalledTimes(0);
+
+    await userEvent.click(backdrop);
+    expect(initParams.onClose).toHaveBeenCalledTimes(1);
+
+    fireEvent.keyDown(modal, { key: "Escape" });
+    expect(initParams.onClose).toHaveBeenCalledTimes(2);
   });
 });
 

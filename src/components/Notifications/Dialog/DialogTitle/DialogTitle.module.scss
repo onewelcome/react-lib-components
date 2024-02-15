@@ -45,3 +45,7 @@
 .caption {
   color: var(--color-blue-grey500);
 }
+
+.close-button {
+  flex-shrink: 0;
+}
