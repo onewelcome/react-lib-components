@@ -384,6 +384,8 @@ var DialogTitle_module_update = injectStylesIntoStyleTag_default()(DialogTitle_m
 
 // EXTERNAL MODULE: ./src/components/Icon/Icon.tsx + 1 modules
 var Icon = __webpack_require__("./src/components/Icon/Icon.tsx");
+// EXTERNAL MODULE: ./src/components/Button/IconButton.tsx + 1 modules
+var IconButton = __webpack_require__("./src/components/Button/IconButton.tsx");
 ;// CONCATENATED MODULE: ./src/components/Notifications/Dialog/DialogTitle/DialogTitle.tsx
 function DialogTitle_extends() {
   DialogTitle_extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -419,18 +421,22 @@ function DialogTitle_extends() {
 
 
 
+
 const DialogTitleComponent = (_ref, ref) => {
   let {
     id,
     title,
     titleIcon,
     caption,
+    onClose,
     ...rest
   } = _ref;
   return /*#__PURE__*/react.createElement("div", DialogTitle_extends({}, rest, {
     ref: ref,
     className: DialogTitle_DialogTitle_module["header"]
-  }), titleIcon && /*#__PURE__*/react.createElement("div", {
+  }), /*#__PURE__*/react.createElement("div", {
+    className: "".concat(DialogTitle_DialogTitle_module["headline"], " ").concat(caption ? DialogTitle_DialogTitle_module["with-caption"] : DialogTitle_DialogTitle_module["no-caption"])
+  }, titleIcon && /*#__PURE__*/react.createElement("div", {
     className: DialogTitle_DialogTitle_module["title-icon"]
   }, typeof titleIcon === "boolean" ? /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
     icon: Icon/* Icons */.P.InfoCircle
@@ -450,14 +456,20 @@ const DialogTitleComponent = (_ref, ref) => {
       marginLeft: 2
     },
     variant: "sub-text"
-  }, caption)));
+  }, caption))), /*#__PURE__*/react.createElement(IconButton/* IconButton */.h, {
+    onClick: onClose,
+    className: DialogTitle_DialogTitle_module["close-button"],
+    title: "close modal"
+  }, /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
+    icon: Icon/* Icons */.P.Times
+  })));
 };
 const DialogTitle = /*#__PURE__*/react.forwardRef(DialogTitleComponent);
 try {
     // @ts-ignore
     DialogTitle.displayName = "DialogTitle";
     // @ts-ignore
-    DialogTitle.__docgenInfo = { "description": "", "displayName": "DialogTitle", "props": { "caption": { "defaultValue": null, "description": "", "name": "caption", "required": false, "type": { "name": "string" } }, "title": { "defaultValue": null, "description": "", "name": "title", "required": true, "type": { "name": "string" } }, "id": { "defaultValue": null, "description": "", "name": "id", "required": true, "type": { "name": "string" } }, "titleIcon": { "defaultValue": null, "description": "", "name": "titleIcon", "required": false, "type": { "name": "ReactNode" } } } };
+    DialogTitle.__docgenInfo = { "description": "", "displayName": "DialogTitle", "props": { "caption": { "defaultValue": null, "description": "", "name": "caption", "required": false, "type": { "name": "string" } }, "title": { "defaultValue": null, "description": "", "name": "title", "required": true, "type": { "name": "string" } }, "id": { "defaultValue": null, "description": "", "name": "id", "required": true, "type": { "name": "string" } }, "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": false, "type": { "name": "((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)" } }, "titleIcon": { "defaultValue": null, "description": "", "name": "titleIcon", "required": false, "type": { "name": "ReactNode" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -521,7 +533,6 @@ const DialogComponent = (_ref, ref) => {
     secondaryAction,
     cancelAction,
     zIndex,
-    disableEscapeKeyDown = true,
     titleIcon,
     caption,
     ...rest
@@ -558,15 +569,14 @@ const DialogComponent = (_ref, ref) => {
       className: Dialog_Dialog_module["container"]
     },
     open: open,
-    disableBackdrop: true,
     onClose: onClose,
-    zIndex: zIndex,
-    disableEscapeKeyDown: disableEscapeKeyDown
+    zIndex: zIndex
   }), /*#__PURE__*/react.createElement(DialogTitle, {
     titleIcon: titleIcon,
     caption: caption,
     id: (0,BaseModalContext/* labelId */.j)(dialogId),
-    title: title
+    title: title,
+    onClose: onClose
   }), /*#__PURE__*/react.createElement(BaseModalContent/* BaseModalContent */.v, {
     id: (0,BaseModalContext/* descriptionId */.S)(dialogId),
     className: Dialog_Dialog_module["content"],
@@ -593,7 +603,7 @@ try {
     // @ts-ignore
     Dialog.displayName = "Dialog";
     // @ts-ignore
-    Dialog.__docgenInfo = { "description": "", "displayName": "Dialog", "props": { "caption": { "defaultValue": null, "description": "", "name": "caption", "required": false, "type": { "name": "string" } }, "title": { "defaultValue": null, "description": "", "name": "title", "required": true, "type": { "name": "string" } }, "id": { "defaultValue": null, "description": "", "name": "id", "required": false, "type": { "name": "string" } }, "open": { "defaultValue": null, "description": "", "name": "open", "required": true, "type": { "name": "boolean" } }, "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": true, "type": { "name": "() => void" } }, "disableEscapeKeyDown": { "defaultValue": { value: "true" }, "description": "", "name": "disableEscapeKeyDown", "required": false, "type": { "name": "boolean" } }, "zIndex": { "defaultValue": null, "description": "", "name": "zIndex", "required": false, "type": { "name": "number" } }, "cancelAction": { "defaultValue": null, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } }, "primaryAction": { "defaultValue": null, "description": "", "name": "primaryAction", "required": true, "type": { "name": "Action" } }, "secondaryAction": { "defaultValue": null, "description": "", "name": "secondaryAction", "required": false, "type": { "name": "Action" } }, "titleIcon": { "defaultValue": null, "description": "", "name": "titleIcon", "required": false, "type": { "name": "ReactNode" } } } };
+    Dialog.__docgenInfo = { "description": "", "displayName": "Dialog", "props": { "caption": { "defaultValue": null, "description": "", "name": "caption", "required": false, "type": { "name": "string" } }, "title": { "defaultValue": null, "description": "", "name": "title", "required": true, "type": { "name": "string" } }, "id": { "defaultValue": null, "description": "", "name": "id", "required": false, "type": { "name": "string" } }, "open": { "defaultValue": null, "description": "", "name": "open", "required": true, "type": { "name": "boolean" } }, "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": true, "type": { "name": "() => void" } }, "disableEscapeKeyDown": { "defaultValue": null, "description": "", "name": "disableEscapeKeyDown", "required": false, "type": { "name": "boolean" } }, "zIndex": { "defaultValue": null, "description": "", "name": "zIndex", "required": false, "type": { "name": "number" } }, "cancelAction": { "defaultValue": null, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } }, "primaryAction": { "defaultValue": null, "description": "", "name": "primaryAction", "required": true, "type": { "name": "Action" } }, "secondaryAction": { "defaultValue": null, "description": "", "name": "secondaryAction", "required": false, "type": { "name": "Action" } }, "titleIcon": { "defaultValue": null, "description": "", "name": "titleIcon", "required": false, "type": { "name": "ReactNode" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -758,13 +768,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*!
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */.DialogTitle-module__header--Y1sRh{margin:1rem 1.5rem;display:flex;align-items:flex-start}.DialogTitle-module__title--suZdL{margin:0;line-height:1}.DialogTitle-module__title-icon--Ugp4w>[data-icon]{font-size:1.25rem}.DialogTitle-module__caption--GuyA1{color:var(--color-blue-grey500)}`, ""]);
+ */.DialogTitle-module__header--Y1sRh{margin:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between}.DialogTitle-module__headline--Vdu9y{display:flex}.DialogTitle-module__headline--Vdu9y.DialogTitle-module__with-caption--gWI98{align-items:flex-start}.DialogTitle-module__headline--Vdu9y.DialogTitle-module__no-caption--TAUs4{align-items:center}.DialogTitle-module__title--suZdL{margin:0;line-height:1}.DialogTitle-module__title-icon--Ugp4w>[data-icon]{font-size:1.25rem}.DialogTitle-module__caption--GuyA1{color:var(--color-blue-grey500)}.DialogTitle-module__close-button--pv910{flex-shrink:0}`, ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"header": `DialogTitle-module__header--Y1sRh`,
+	"headline": `DialogTitle-module__headline--Vdu9y`,
+	"with-caption": `DialogTitle-module__with-caption--gWI98`,
+	"no-caption": `DialogTitle-module__no-caption--TAUs4`,
 	"title": `DialogTitle-module__title--suZdL`,
 	"title-icon": `DialogTitle-module__title-icon--Ugp4w`,
-	"caption": `DialogTitle-module__caption--GuyA1`
+	"caption": `DialogTitle-module__caption--GuyA1`,
+	"close-button": `DialogTitle-module__close-button--pv910`
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
