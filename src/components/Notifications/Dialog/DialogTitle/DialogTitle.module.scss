@@ -17,7 +17,20 @@
 .header {
   margin: 1rem 1.5rem;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headline {
+  display: flex;
+
+  &.with-caption {
+    align-items: flex-start;
+  }
+
+  &.no-caption {
+    align-items: center;
+  }
 }
 
 .title {
@@ -31,4 +44,8 @@
 
 .caption {
   color: var(--color-blue-grey500);
+}
+
+.close-button {
+  flex-shrink: 0;
 }

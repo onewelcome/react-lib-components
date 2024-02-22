@@ -56,7 +56,6 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     secondaryAction,
     cancelAction,
     zIndex,
-    disableEscapeKeyDown = true,
     titleIcon,
     caption,
     ...rest
@@ -97,12 +96,16 @@ const DialogComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       className={classes["dialog"]}
       containerProps={{ className: classes["container"] }}
       open={open}
-      disableBackdrop
       onClose={onClose}
       zIndex={zIndex}
-      disableEscapeKeyDown={disableEscapeKeyDown}
     >
-      <DialogTitle titleIcon={titleIcon} caption={caption} id={labelId(dialogId)} title={title} />
+      <DialogTitle
+        titleIcon={titleIcon}
+        caption={caption}
+        id={labelId(dialogId)}
+        title={title}
+        onClose={onClose}
+      />
       <BaseModalContent
         id={descriptionId(dialogId)}
         className={classes["content"]}
