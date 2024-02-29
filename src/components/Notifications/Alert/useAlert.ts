@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,44 +13,17 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-@use "../../../../mixins.module.scss";
-@use "../../../../variables.scss";
 
-.snackbars {
-  position: fixed;
-  z-index: variables.$snackbar-z-index;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  @include mixins.transition(height, 0.2s, ease-in-out);
+import { useContext } from "react";
+import { AlertContext } from "./AlertProvider/AlertStateProvider";
 
-  &.bottom {
-    bottom: 3.5rem;
-  }
+export const useAlert = () => {
+  const ctx = useContext(AlertContext);
 
-  &.top {
-    top: 3.5rem;
-  }
-
-  &.start {
-    left: 0;
-  }
-
-  &.center {
-    left: 0;
-  }
-
-  &.end {
-    right: 0;
-  }
-}
-
-@media only screen and (min-width: 37.5em) {
-  .snackbars {
-    width: initial;
-
-    &.center {
-      left: calc(50% - 18.75rem);
-    }
-  }
-}
+  return {
+    enqueueWarningAlert: ctx.enqueueWarningAlert,
+    enqueueErrorAlert: ctx.enqueueErrorAlert,
+    enqueueSuccessAlert: ctx.enqueueSuccessAlert,
+    enqueueAlert: ctx.enqueueAlert
+  };
+};

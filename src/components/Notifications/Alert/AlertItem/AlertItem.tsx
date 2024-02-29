@@ -18,13 +18,13 @@ import React, { useContext, useEffect, useRef } from "react";
 import { IconButton } from "../../../Button/IconButton";
 import { Icon, Icons } from "../../../Icon/Icon";
 import { Variant, Actions } from "../interfaces";
-import classes from "./SnackbarItem.module.scss";
+import classes from "./AlertItem.module.scss";
 import readyclasses from "../../../../readyclasses.module.scss";
 import { useAnimation } from "../../../../hooks/useAnimation";
 import { Typography } from "../../../Typography/Typography";
-import { SnackbarContext } from "../SnackbarProvider/SnackbarStateProvider";
+import { AlertContext } from "../AlertProvider/AlertStateProvider";
 
-const textColor = "var(--snackbar-text-color)";
+const textColor = "var(--alert-text-color)";
 
 export interface Props {
   id: string;
@@ -38,20 +38,20 @@ export interface Props {
   actions?: Actions;
 }
 
-const useRegisterSnackbarHeight = (
-  singleSnackbarRef: React.RefObject<HTMLDivElement>,
-  snackbarId: string
+const useRegisterAlertHeight = (
+  singleAlertRef: React.RefObject<HTMLDivElement>,
+  alertId: string
 ) => {
-  const ctx = useContext(SnackbarContext);
+  const ctx = useContext(AlertContext);
 
   useEffect(() => {
-    if (singleSnackbarRef.current) {
-      ctx.setSnackbarHeight(snackbarId, singleSnackbarRef.current.getBoundingClientRect().height);
+    if (singleAlertRef.current) {
+      ctx.setAlertHeight(alertId, singleAlertRef.current.getBoundingClientRect().height);
     }
-  }, [singleSnackbarRef.current]);
+  }, [singleAlertRef.current]);
 };
 
-export const SnackbarItem = ({
+export const AlertItem = ({
   id,
   title,
   duration,
@@ -69,7 +69,7 @@ export const SnackbarItem = ({
   const renderTitle = title && !hasOnlyTitle;
   const renderContentOrTitleOnly = content || hasOnlyTitle;
 
-  useRegisterSnackbarHeight(ref, id);
+  useRegisterAlertHeight(ref, id);
 
   useEffect(() => {
     timerHandler.current = setTimeout(() => startAnimation(), duration);
@@ -112,8 +112,8 @@ export const SnackbarItem = ({
     </button>
   ));
 
-  const snackbarClasses = [
-    classes["snackbar"],
+  const alertClasses = [
+    classes["alert"],
     classes[variant],
     animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"],
     className ?? ""
@@ -123,7 +123,7 @@ export const SnackbarItem = ({
     <div
       ref={ref}
       aria-live="polite"
-      className={snackbarClasses}
+      className={alertClasses}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

@@ -16,9 +16,9 @@
 
 @use "../../../../mixins.module.scss";
 
-.snackbar {
+.alert {
   padding: 1rem;
-  border-radius: var(--snackbar-border-radius);
+  border-radius: var(--alert-border-radius);
   display: flex;
   gap: 0.5rem;
   align-items: center;
@@ -28,19 +28,19 @@
   flex-grow: 0;
 
   &.info {
-    background-color: var(--snackbar-info-background-color);
+    background-color: var(--alert-info-background-color);
   }
 
   &.success {
-    background-color: var(--snackbar-success-background-color);
+    background-color: var(--alert-success-background-color);
   }
 
   &.error {
-    background-color: var(--snackbar-error-background-color);
+    background-color: var(--alert-error-background-color);
   }
 
   &.warning {
-    background-color: var(--snackbar-warning-background-color);
+    background-color: var(--alert-warning-background-color);
   }
 
   & + & {
@@ -48,7 +48,7 @@
   }
 
   #close-btn {
-    color: var(--snackbar-text-color);
+    color: var(--alert-text-color);
     align-self: center;
     width: 2.5rem;
     height: 2.5rem;
@@ -71,7 +71,7 @@
   }
 
   .icon {
-    color: var(--snackbar-text-color);
+    color: var(--alert-text-color);
     font-size: 1rem;
     height: 1.25rem;
     display: inline-flex;
@@ -80,7 +80,7 @@
   }
 
   .title {
-    color: var(--snackbar-text-color);
+    color: var(--alert-text-color);
     flex: 1;
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -99,7 +99,7 @@
   }
 
   .content {
-    color: var(--snackbar-text-color);
+    color: var(--alert-text-color);
     font-size: 0.875rem;
     line-height: 1.25rem;
     margin-bottom: 0;
@@ -126,7 +126,7 @@
       background-color,
       border-color 0.2s ease-in-out;
     font-family: var(--font-family);
-    color: var(--snackbar-text-color);
+    color: var(--alert-text-color);
     background-color: transparent;
     border-color: transparent;
 
@@ -149,7 +149,7 @@
 }
 
 @media only screen and (min-width: 37.5em) {
-  .snackbar {
+  .alert {
     width: min-content;
     min-width: 25rem;
   }

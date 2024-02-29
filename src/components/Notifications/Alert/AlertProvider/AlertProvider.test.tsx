@@ -24,8 +24,8 @@ import {
   getByText,
   fireEvent
 } from "@testing-library/react";
-import { SnackbarProvider, Props } from "./SnackbarProvider";
-import { useSnackbar } from "../useSnackbar";
+import { AlertProvider, Props } from "./AlertProvider";
+import { useAlert } from "../useAlert";
 import userEvent from "@testing-library/user-event";
 
 const successProps = {
@@ -63,14 +63,10 @@ const warningProps = {
   }
 };
 
-const renderSnackbarProvider = (props?: Partial<Props>) => {
+const renderAlertProvider = (props?: Partial<Props>) => {
   const AppComponent = () => {
-    const {
-      enqueueSuccessSnackbar,
-      enqueueErrorSnackbar,
-      enqueueSnackbar,
-      enqueueWarningSnackbar
-    } = useSnackbar();
+    const { enqueueSuccessAlert, enqueueErrorAlert, enqueueAlert, enqueueWarningAlert } =
+      useAlert();
     const [index, setIndex] = useState(0);
     return (
       <div>
@@ -78,7 +74,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-success"
           onClick={() => {
-            enqueueSuccessSnackbar({ title: successProps.title + index, ...successProps.options });
+            enqueueSuccessAlert({ title: successProps.title + index, ...successProps.options });
             setIndex(index + 1);
           }}
         >
@@ -87,7 +83,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-error"
           onClick={() => {
-            enqueueErrorSnackbar({ title: errorProps.title + index });
+            enqueueErrorAlert({ title: errorProps.title + index });
             setIndex(index + 1);
           }}
         >
@@ -96,7 +92,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-info"
           onClick={() => {
-            enqueueSnackbar({
+            enqueueAlert({
               title: infoProps.title + index,
               content: infoProps.content,
               ...infoProps.options
@@ -109,7 +105,7 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
         <button
           data-testid="show-warning"
           onClick={() => {
-            enqueueWarningSnackbar({ title: warningProps.title + index, ...warningProps.options });
+            enqueueWarningAlert({ title: warningProps.title + index, ...warningProps.options });
             setIndex(index + 1);
           }}
         >
@@ -120,39 +116,39 @@ const renderSnackbarProvider = (props?: Partial<Props>) => {
   };
 
   const queries = render(
-    <SnackbarProvider {...props} closeButtonTitle="close">
+    <AlertProvider {...props} closeButtonTitle="close">
       <AppComponent />
-    </SnackbarProvider>
+    </AlertProvider>
   );
 
-  const showSuccessSnackbarBtn = getByTestId(queries.container, "show-success");
-  const showErrorSnackbarBtn = getByTestId(queries.container, "show-error");
-  const showInfoSnackbarBtn = getByTestId(queries.container, "show-info");
-  const showWarningSnackbarBtn = getByTestId(queries.container, "show-warning");
+  const showSuccessAlertBtn = getByTestId(queries.container, "show-success");
+  const showErrorAlertBtn = getByTestId(queries.container, "show-error");
+  const showInfoAlertBtn = getByTestId(queries.container, "show-info");
+  const showWarningAlertBtn = getByTestId(queries.container, "show-warning");
 
   return {
     ...queries,
-    showSuccessSnackbarBtn,
-    showErrorSnackbarBtn,
-    showInfoSnackbarBtn,
-    showWarningSnackbarBtn
+    showSuccessAlertBtn,
+    showErrorAlertBtn,
+    showInfoAlertBtn,
+    showWarningAlertBtn
   };
 };
 
-describe("<SnackbarProvider />", () => {
+describe("<AlertProvider />", () => {
   it("should render without crashing", () => {
-    const { container } = renderSnackbarProvider();
+    const { container } = renderAlertProvider();
 
     expect(container).toHaveTextContent("content");
   });
 
-  it("should stack 3 snackbars at one time", async () => {
-    const { showSuccessSnackbarBtn, showWarningSnackbarBtn } = renderSnackbarProvider();
+  it("should stack 3 alerts at one time", async () => {
+    const { showSuccessAlertBtn, showWarningAlertBtn } = renderAlertProvider();
 
-    await userEvent.click(showSuccessSnackbarBtn);
-    await userEvent.click(showWarningSnackbarBtn);
-    await userEvent.click(showSuccessSnackbarBtn);
-    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showSuccessAlertBtn);
+    await userEvent.click(showWarningAlertBtn);
+    await userEvent.click(showSuccessAlertBtn);
+    await userEvent.click(showSuccessAlertBtn);
 
     await waitFor(() => {
       expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(2);
@@ -160,23 +156,22 @@ describe("<SnackbarProvider />", () => {
     });
   });
 
-  it("should render 3 variants of snackbars", async () => {
-    const { showSuccessSnackbarBtn, showErrorSnackbarBtn, showInfoSnackbarBtn } =
-      renderSnackbarProvider();
+  it("should render 3 variants of alerts", async () => {
+    const { showSuccessAlertBtn, showErrorAlertBtn, showInfoAlertBtn } = renderAlertProvider();
 
-    await userEvent.click(showSuccessSnackbarBtn);
-    await userEvent.click(showErrorSnackbarBtn);
-    await userEvent.click(showInfoSnackbarBtn);
+    await userEvent.click(showSuccessAlertBtn);
+    await userEvent.click(showErrorAlertBtn);
+    await userEvent.click(showInfoAlertBtn);
 
     expect(getByText(document.body, new RegExp(successProps.title))).toBeDefined();
     expect(getByText(document.body, new RegExp(errorProps.title))).toBeDefined();
     expect(getByText(document.body, new RegExp(infoProps.title))).toBeDefined();
     expect(getByText(document.body, infoProps.content)).toBeDefined();
-    const infoSnackbarActions = getAllByRole(document.body, "button", { name: /Contact/i });
-    expect(infoSnackbarActions).toHaveLength(2);
+    const infoAlertActions = getAllByRole(document.body, "button", { name: /Contact/i });
+    expect(infoAlertActions).toHaveLength(2);
 
-    await userEvent.click(infoSnackbarActions[0]);
-    await userEvent.click(infoSnackbarActions[1]);
+    await userEvent.click(infoAlertActions[0]);
+    await userEvent.click(infoAlertActions[1]);
 
     expect(infoProps.options.actions[0].onClick).toBeCalledTimes(1);
   });
@@ -185,33 +180,33 @@ describe("<SnackbarProvider />", () => {
     it("should fire onClose", async () => {
       const onCloseHandler = jest.fn();
       const ExampleComponent = () => {
-        const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useSnackbar();
+        const { enqueueErrorAlert, enqueueSuccessAlert } = useAlert();
 
         useEffect(() => {
-          enqueueErrorSnackbar("error", undefined, { onClose: onCloseHandler, duration: 1 });
-          enqueueSuccessSnackbar("success", undefined, { onClose: onCloseHandler, duration: 1 });
+          enqueueErrorAlert("error", undefined, { onClose: onCloseHandler, duration: 1 });
+          enqueueSuccessAlert("success", undefined, { onClose: onCloseHandler, duration: 1 });
         }, []);
 
         return <div></div>;
       };
 
       const queries = render(
-        <SnackbarProvider closeButtonTitle="close">
+        <AlertProvider closeButtonTitle="close">
           <ExampleComponent />
-        </SnackbarProvider>
+        </AlertProvider>
       );
 
-      const errorSnackbar = await queries.findByText(/error/i);
-      const successSnackbar = await queries.findByText(/success/i);
+      const errorAlert = await queries.findByText(/error/i);
+      const successAlert = await queries.findByText(/success/i);
 
-      expect(errorSnackbar).toBeTruthy();
-      expect(successSnackbar).toBeTruthy();
+      expect(errorAlert).toBeTruthy();
+      expect(successAlert).toBeTruthy();
 
-      const parentErrorSnackbar = errorSnackbar.closest(".snackbar")!;
-      const parentSuccessSnackbar = successSnackbar.closest(".snackbar")!;
+      const parentErrorAlert = errorAlert.closest(".alert")!;
+      const parentSuccessAlert = successAlert.closest(".alert")!;
 
-      fireEvent.animationEnd(parentErrorSnackbar);
-      fireEvent.animationEnd(parentSuccessSnackbar);
+      fireEvent.animationEnd(parentErrorAlert);
+      fireEvent.animationEnd(parentSuccessAlert);
 
       await waitFor(() => expect(onCloseHandler).toHaveBeenCalledTimes(2));
     });

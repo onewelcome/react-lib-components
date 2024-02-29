@@ -30,7 +30,7 @@ import {
   AddNotification
 } from "./notification.interfaces";
 import { defaultTranslations } from "./NotificationService";
-import { useSnackbar } from "../Snackbar/useSnackbar";
+import { useAlert } from "../Alert/useAlert";
 import { deepMerge, generateID } from "../../../util/helper";
 import { DeepPartial } from "../../../interfaces";
 
@@ -59,7 +59,7 @@ export const NotificationHandler = ({
   translations = {},
   dispatchFn
 }: NotificationHandlerProps) => {
-  const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useSnackbar();
+  const { enqueueErrorAlert, enqueueSuccessAlert } = useAlert();
   const {
     state: { notifications }
   } = useNotificationContext();
@@ -101,7 +101,7 @@ export const NotificationHandler = ({
       ) {
         dispatchFn({ type: "remove", payload: { id: notification.id } });
       } else if (notification.status && !notification.handled && notification.type === "error") {
-        enqueueErrorSnackbar(
+        enqueueErrorAlert(
           notification.title ?? mergedTranslations.general.error,
           determineNotificationMessage(notification as Notification<ErrorNotification>),
           {
@@ -110,7 +110,7 @@ export const NotificationHandler = ({
         );
         dispatchFn({ type: "handled", payload: { id: notification.id, handled: true } });
       } else if (notification.title && !notification.handled && notification.type === "success") {
-        enqueueSuccessSnackbar(
+        enqueueSuccessAlert(
           notification.title ?? mergedTranslations.general.success,
           notification.message,
           {

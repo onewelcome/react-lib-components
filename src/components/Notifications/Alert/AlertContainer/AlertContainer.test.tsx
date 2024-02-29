@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { SnackbarContainer, Props } from "./SnackbarContainer";
+import { AlertContainer, Props } from "./AlertContainer";
 import { render } from "@testing-library/react";
 
 const defaultParams: Props = {
@@ -23,31 +23,31 @@ const defaultParams: Props = {
   children: <span>children</span>
 };
 
-const createSnackbarContainer = (params?: (defaultParams: Props) => Props) => {
+const createAlertContainer = (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;
   if (params) {
     parameters = params(defaultParams);
   }
-  const queries = render(<SnackbarContainer {...parameters} data-testid="snackbarcontainer" />);
-  const snackbarcontainer = queries.getByTestId("snackbarcontainer");
-  return { ...queries, snackbarcontainer };
+  const queries = render(<AlertContainer {...parameters} data-testid="alertcontainer" />);
+  const alertcontainer = queries.getByTestId("alertcontainer");
+  return { ...queries, alertcontainer };
 };
 
-describe("SnackbarContainer should render", () => {
+describe("AlertContainer should render", () => {
   it("renders without crashing", () => {
-    const { snackbarcontainer, getByText } = createSnackbarContainer();
-    expect(snackbarcontainer).toHaveClass("top");
-    expect(snackbarcontainer).toHaveClass("center");
-    expect(snackbarcontainer).toHaveStyle({ zIndex: "" });
+    const { alertcontainer, getByText } = createAlertContainer();
+    expect(alertcontainer).toHaveClass("top");
+    expect(alertcontainer).toHaveClass("center");
+    expect(alertcontainer).toHaveStyle({ zIndex: "" });
     expect(getByText("children")).toBeDefined();
-    expect(snackbarcontainer).toBeDefined();
+    expect(alertcontainer).toBeDefined();
   });
 
   it("renders with zIndex", () => {
-    const { snackbarcontainer } = createSnackbarContainer(defaultParams => ({
+    const { alertcontainer } = createAlertContainer(defaultParams => ({
       ...defaultParams,
       zIndex: 1
     }));
-    expect(snackbarcontainer).toHaveStyle({ zIndex: "1" });
+    expect(alertcontainer).toHaveStyle({ zIndex: "1" });
   });
 });

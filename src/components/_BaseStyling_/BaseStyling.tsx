@@ -119,12 +119,12 @@ interface CSSProperties {
   modalBackdropColor?: string;
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
-  snackbarTextColor?: string;
-  snackbarInfoBackgroundColor?: string;
-  snackbarSuccessBackgroundColor?: string;
-  snackbarErrorBackgroundColor?: string;
-  snackbarWarningBackgroundColor?: string;
-  snackbarBorderRadius?: string;
+  alertTextColor?: string;
+  alertInfoBackgroundColor?: string;
+  alertSuccessBackgroundColor?: string;
+  alertErrorBackgroundColor?: string;
+  alertWarningBackgroundColor?: string;
+  alertBorderRadius?: string;
   stepperWaitingColor?: string;
   stepperWaitingHoverColor?: string;
   stepperWaitingActiveColor?: string;
@@ -297,12 +297,12 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalBackdropColor: "var(--default)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
-    snackbarTextColor: "var(--light)",
-    snackbarInfoBackgroundColor: "var(--color-primary500)",
-    snackbarSuccessBackgroundColor: "var(--color-green500)",
-    snackbarErrorBackgroundColor: "var(--color-red500)",
-    snackbarWarningBackgroundColor: "var(--color-orange500)",
-    snackbarBorderRadius: "2px",
+    alertTextColor: "var(--light)",
+    alertInfoBackgroundColor: "var(--color-primary500)",
+    alertSuccessBackgroundColor: "var(--color-green500)",
+    alertErrorBackgroundColor: "var(--color-red500)",
+    alertWarningBackgroundColor: "var(--color-orange500)",
+    alertBorderRadius: "2px",
     stepperWaitingColor: "var(--color-blue-grey200)",
     stepperWaitingHoverColor: "var(--color-blue-grey300)",
     stepperWaitingActiveColor: "var(--color-blue-grey400)",

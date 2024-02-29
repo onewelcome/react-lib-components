@@ -20,7 +20,7 @@ export type Variant = "info" | "success" | "error" | "warning";
 
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
 
-export interface SnackbarOptionsProps {
+export interface AlertOptionsProps {
   actions?: Actions;
   className?: string;
   variant?: Variant;
@@ -28,17 +28,17 @@ export interface SnackbarOptionsProps {
   onClose?: () => void;
 }
 
-export interface EnqueueSnackbarProps extends SnackbarOptionsProps {
+export interface EnqueueAlertProps extends AlertOptionsProps {
   title?: string;
   content?: string;
 }
 
-export type DeprecatedEnqueueSnackbarType = (
-  propsOrTitle: EnqueueSnackbarProps | string | undefined,
+export type DeprecatedEnqueueAlertType = (
+  propsOrTitle: EnqueueAlertProps | string | undefined,
   content?: string,
-  options?: SnackbarOptionsProps
+  options?: AlertOptionsProps
 ) => void;
 
-export function isNewEnqueueSnackbarInterface(args: unknown): args is EnqueueSnackbarProps {
+export function isNewEnqueueAlertInterface(args: unknown): args is EnqueueAlertProps {
   return args !== null && typeof args === "object" && ("title" in args || "content" in args);
 }

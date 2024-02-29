@@ -16,17 +16,17 @@
 
 import React, { ReactNode, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { SnackbarContextProvider } from "./SnackbarStateProvider";
+import { AlertContextProvider } from "./AlertStateProvider";
 import {
   Actions,
-  EnqueueSnackbarProps,
-  SnackbarOptionsProps,
+  EnqueueAlertProps,
+  AlertOptionsProps,
   Variant,
-  isNewEnqueueSnackbarInterface
+  isNewEnqueueAlertInterface
 } from "../interfaces";
-import { Placement, SnackbarContainer } from "../SnackbarContainer/SnackbarContainer";
+import { Placement, AlertContainer } from "../AlertContainer/AlertContainer";
 import { generateID } from "../../../../util/helper";
-import { SnackbarItem } from "../SnackbarItem/SnackbarItem";
+import { AlertItem } from "../AlertItem/AlertItem";
 import { useGetDomRoot } from "../../../../hooks/useGetDomRoot";
 
 /** Short msg is when only title is provided. Long one when content or/and actions are provided (or type is error). */
@@ -57,7 +57,7 @@ export interface Item {
   onClose?: () => void;
 }
 
-export const SnackbarProvider = (
+export const AlertProvider = (
   {
     closeButtonTitle,
     placement = { vertical: "bottom", horizontal: "center" },
@@ -68,24 +68,24 @@ export const SnackbarProvider = (
     className
   }: Props = { closeButtonTitle: "" }
 ) => {
-  const [snackbars, setSnackbars] = useState<Item[]>([]);
+  const [alerts, setAlerts] = useState<Item[]>([]);
   const wrappingDivRef = useRef(null);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 
-  const addSnackbar = (item: Item) => {
-    setSnackbars(items => [...items, item]);
+  const addAlert = (item: Item) => {
+    setAlerts(items => [...items, item]);
   };
 
-  const setSnackbarHeight = (id: string, height: number) => {
-    const newSnackbarsState = snackbars.map(snackbar => {
-      if (snackbar.id !== id) {
-        return snackbar;
+  const setAlertHeight = (id: string, height: number) => {
+    const newAlertsState = alerts.map(alert => {
+      if (alert.id !== id) {
+        return alert;
       }
 
-      return { ...snackbar, height };
+      return { ...alert, height };
     });
 
-    setSnackbars(newSnackbarsState);
+    setAlerts(newAlertsState);
   };
 
   const getDuration = (variant: Variant, actions?: Actions, content?: string) => {
@@ -97,12 +97,12 @@ export const SnackbarProvider = (
     return autoHideDuration.short;
   };
 
-  const enqueueSnackbar = (
-    propsOrTitle: EnqueueSnackbarProps | string | undefined,
+  const enqueueAlert = (
+    propsOrTitle: EnqueueAlertProps | string | undefined,
     content?: string,
-    options: SnackbarOptionsProps = {}
+    options: AlertOptionsProps = {}
   ): void => {
-    const newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    const newInterface = isNewEnqueueAlertInterface(propsOrTitle);
     const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
     const {
       variant = "info",
@@ -121,14 +121,14 @@ export const SnackbarProvider = (
       id: generateID(15, props.title),
       onClose
     };
-    addSnackbar(item);
+    addAlert(item);
   };
 
   const mapToNewInterface = (
     title?: string,
     content?: string,
-    options: SnackbarOptionsProps = {}
-  ): EnqueueSnackbarProps => {
+    options: AlertOptionsProps = {}
+  ): EnqueueAlertProps => {
     return {
       title,
       content,
@@ -136,43 +136,43 @@ export const SnackbarProvider = (
     };
   };
 
-  const enqueueSuccessSnackbar = (
-    propsOrTitle: EnqueueSnackbarProps | string | undefined,
+  const enqueueSuccessAlert = (
+    propsOrTitle: EnqueueAlertProps | string | undefined,
     content?: string,
-    options: SnackbarOptionsProps = {}
+    options: AlertOptionsProps = {}
   ): void => {
-    const newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    const newInterface = isNewEnqueueAlertInterface(propsOrTitle);
     const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
-    enqueueSnackbar({ ...props, variant: "success" });
+    enqueueAlert({ ...props, variant: "success" });
   };
 
-  const enqueueErrorSnackbar = (
-    propsOrTitle: EnqueueSnackbarProps | string | undefined,
+  const enqueueErrorAlert = (
+    propsOrTitle: EnqueueAlertProps | string | undefined,
     content?: string,
-    options: SnackbarOptionsProps = {}
+    options: AlertOptionsProps = {}
   ): void => {
-    const newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    const newInterface = isNewEnqueueAlertInterface(propsOrTitle);
     const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
-    enqueueSnackbar({ ...props, variant: "error" });
+    enqueueAlert({ ...props, variant: "error" });
   };
 
-  const enqueueWarningSnackbar = (
-    propsOrTitle: EnqueueSnackbarProps | string | undefined,
+  const enqueueWarningAlert = (
+    propsOrTitle: EnqueueAlertProps | string | undefined,
     content?: string,
-    options: SnackbarOptionsProps = {}
+    options: AlertOptionsProps = {}
   ): void => {
-    const newInterface = isNewEnqueueSnackbarInterface(propsOrTitle);
+    const newInterface = isNewEnqueueAlertInterface(propsOrTitle);
     const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
-    enqueueSnackbar({ ...props, variant: "warning" });
+    enqueueAlert({ ...props, variant: "warning" });
   };
 
   const onItemClosed = (id: string) => {
-    setSnackbars(items => [...items].filter(item => item.id !== id));
+    setAlerts(items => [...items].filter(item => item.id !== id));
   };
 
-  const snackbarList = snackbars.map((item, index) =>
+  const alertList = alerts.map((item, index) =>
     index < stackSize ? (
-      <SnackbarItem
+      <AlertItem
         {...item}
         key={item.id}
         className={item.className}
@@ -185,26 +185,26 @@ export const SnackbarProvider = (
     ) : null
   );
 
-  const snackbarPortal = createPortal(
-    <SnackbarContainer placement={placement} className={className}>
-      {snackbarList}
-    </SnackbarContainer>,
+  const alertPortal = createPortal(
+    <AlertContainer placement={placement} className={className}>
+      {alertList}
+    </AlertContainer>,
     root
   );
 
   return (
-    <SnackbarContextProvider
+    <AlertContextProvider
       initialState={{
-        enqueueSnackbar,
-        enqueueSuccessSnackbar,
-        enqueueErrorSnackbar,
-        enqueueWarningSnackbar,
-        setSnackbarHeight,
-        snackbars
+        enqueueAlert,
+        enqueueSuccessAlert,
+        enqueueErrorAlert,
+        enqueueWarningAlert,
+        setAlertHeight,
+        alerts
       }}
     >
       {children}
-      <div ref={wrappingDivRef}>{snackbarPortal}</div>
-    </SnackbarContextProvider>
+      <div ref={wrappingDivRef}>{alertPortal}</div>
+    </AlertContextProvider>
   );
 };

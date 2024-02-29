@@ -15,8 +15,8 @@
  */
 
 import React, { useContext, useEffect, useState } from "react";
-import classes from "./SnackbarContainer.module.scss";
-import { SnackbarContext } from "../SnackbarProvider/SnackbarStateProvider";
+import classes from "./AlertContainer.module.scss";
+import { AlertContext } from "../AlertProvider/AlertStateProvider";
 
 export interface Placement {
   vertical: "top" | "bottom";
@@ -30,26 +30,26 @@ export interface Props {
   className?: string;
 }
 
-const useSnackbarContainerHeightAnimation = () => {
-  const { snackbars } = useContext(SnackbarContext);
+const useAlertContainerHeightAnimation = () => {
+  const { alerts } = useContext(AlertContext);
   const [height, setHeight] = useState(0);
   const [justifyContent, setJustifyContent] = useState<"flex-start" | "flex-end">("flex-start");
-  const spaceBetweenSnackbars = 8;
-  const exceedsMaximumVisibleSnackbars = snackbars.length >= 3;
+  const spaceBetweenAlerts = 8;
+  const exceedsMaximumVisibleAlerts = alerts.length >= 3;
 
   useEffect(() => {
-    const allHeights = snackbars.map(snackbar => snackbar.height);
+    const allHeights = alerts.map(alert => alert.height);
 
     let totalHeight = allHeights.reduce((prev, curr) => prev + curr, 0);
 
-    totalHeight += (Math.min(snackbars.length, 3) - 1) * spaceBetweenSnackbars;
+    totalHeight += (Math.min(alerts.length, 3) - 1) * spaceBetweenAlerts;
 
     /**
-     * Once we reach the maximum amount of snackbars, they will start to disappear. We have to wait with reversing the justify-content until the last snackbar
-     * has completed their animationIn. This is around 500ms. Then we want to reverse it, because otherwise whenever a snackbar disappears they shift up
+     * Once we reach the maximum amount of alerts, they will start to disappear. We have to wait with reversing the justify-content until the last alert
+     * has completed their animationIn. This is around 500ms. Then we want to reverse it, because otherwise whenever a alert disappears they shift up
      * and then down again, which looks really bad.
      * */
-    if (exceedsMaximumVisibleSnackbars)
+    if (exceedsMaximumVisibleAlerts)
       setTimeout(() => {
         setJustifyContent("flex-end");
       }, 500);
@@ -61,19 +61,19 @@ const useSnackbarContainerHeightAnimation = () => {
     }
 
     setHeight(totalHeight);
-  }, [snackbars]);
+  }, [alerts]);
 
   return { height, justifyContent };
 };
 
-export const SnackbarContainer = ({ placement, children, zIndex, className, ...rest }: Props) => {
-  const { height, justifyContent } = useSnackbarContainerHeightAnimation();
+export const AlertContainer = ({ placement, children, zIndex, className, ...rest }: Props) => {
+  const { height, justifyContent } = useAlertContainerHeightAnimation();
 
   return (
     <div
       {...rest}
       style={{ zIndex, height, justifyContent }}
-      className={`${classes["snackbars"]} ${classes[placement.horizontal]} ${
+      className={`${classes["alerts"]} ${classes[placement.horizontal]} ${
         classes[placement.vertical]
       } ${className ?? ""}`}
     >

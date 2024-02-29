@@ -16,7 +16,7 @@
 
 import React from "react";
 import { render, getByRole, waitFor } from "@testing-library/react";
-import { SnackbarItem, Props } from "./SnackbarItem";
+import { AlertItem, Props } from "./AlertItem";
 import userEvent from "@testing-library/user-event";
 
 const initParams: Props = {
@@ -29,9 +29,9 @@ const initParams: Props = {
   onClose: jest.fn()
 };
 
-describe("<SnackbarItem />", () => {
+describe("<AlertItem />", () => {
   it("should render without crashing", () => {
-    const { container } = render(<SnackbarItem {...initParams} />);
+    const { container } = render(<AlertItem {...initParams} />);
 
     const titleDiv = container.querySelector(".title");
     expect(titleDiv).toHaveTextContent(initParams.title!);
@@ -43,7 +43,7 @@ describe("<SnackbarItem />", () => {
   });
 
   it("should clicking close button call callback function", async () => {
-    const { container } = render(<SnackbarItem {...initParams} duration={10000000} />);
+    const { container } = render(<AlertItem {...initParams} duration={10000000} />);
 
     expect(initParams.onClose).not.toBeCalled();
     await userEvent.click(getByRole(container, "button"));
@@ -54,7 +54,7 @@ describe("<SnackbarItem />", () => {
   });
 
   it("should call close callback after provided duration", () => {
-    render(<SnackbarItem {...initParams} />);
+    render(<AlertItem {...initParams} />);
 
     expect(initParams.onClose).not.toBeCalled();
     waitFor(() => {
@@ -64,7 +64,7 @@ describe("<SnackbarItem />", () => {
   });
 
   it("should render only content when only title is provided", () => {
-    const { container } = render(<SnackbarItem {...initParams} content={undefined} />);
+    const { container } = render(<AlertItem {...initParams} content={undefined} />);
 
     const titleDiv = container.querySelector(".title");
     expect(titleDiv).toBeNull();
