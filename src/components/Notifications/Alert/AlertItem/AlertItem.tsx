@@ -124,11 +124,11 @@ export const AlertItem = ({
       className={alertClasses}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      role="log"
+      role="button"
     >
       <div className={classes["outer-content-wrapper"]}>
         <Icon icon={getVariantIcon()} className={classes["icon"]} />
-        <div className={classes["content-wrapper"]}>
+        <div className={classes["content-wrapper"]} role="log">
           {!!title && !!content && (
             <Typography className={classes["title"]} variant="body-bold" tag="span">
               {title}
