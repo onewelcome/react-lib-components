@@ -14,12 +14,8 @@
  *    limitations under the License.
  */
 
-import { ButtonHTMLAttributes } from "react";
+import { Actions, Variant } from "./AlertItem/AlertItem";
 import { PropsOrTitle } from "./AlertProvider/AlertProvider";
-
-export type Variant = "info" | "success" | "error" | "warning";
-
-export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
 
 export interface AlertOptionsProps {
   actions?: Actions;

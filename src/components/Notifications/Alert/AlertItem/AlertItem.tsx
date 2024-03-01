@@ -14,10 +14,9 @@
  *    limitations under the License.
  */
 
-import React, { useContext, useEffect, useRef } from "react";
+import React, { ButtonHTMLAttributes, useContext, useEffect, useRef } from "react";
 import { IconButton } from "../../../Button/IconButton";
 import { Icon, Icons } from "../../../Icon/Icon";
-import { Variant, Actions } from "../interfaces";
 import classes from "./AlertItem.module.scss";
 import readyclasses from "../../../../readyclasses.module.scss";
 import { useAnimation } from "../../../../hooks/useAnimation";
@@ -25,6 +24,9 @@ import { Typography } from "../../../Typography/Typography";
 import { AlertContext } from "../AlertProvider/AlertStateProvider";
 
 const textColor = "var(--alert-text-color)";
+const VARIANTS: string[] = ["info", "success", "error", "warning"] as const;
+export type Variant = (typeof VARIANTS)[number];
+export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
 
 export interface Props {
   id: string;

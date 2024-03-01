@@ -17,16 +17,10 @@
 import React, { ReactNode, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AlertContextProvider } from "./AlertStateProvider";
-import {
-  Actions,
-  EnqueueAlertProps,
-  AlertOptionsProps,
-  Variant,
-  isNewEnqueueAlertInterface
-} from "../interfaces";
+import { EnqueueAlertProps, AlertOptionsProps, isNewEnqueueAlertInterface } from "../interfaces";
 import { Placement, AlertContainer } from "../AlertContainer/AlertContainer";
 import { generateID } from "../../../../util/helper";
-import { AlertItem } from "../AlertItem/AlertItem";
+import { Actions, AlertItem, Variant } from "../AlertItem/AlertItem";
 import { useGetDomRoot } from "../../../../hooks/useGetDomRoot";
 
 /** Short msg is when only title is provided. Long one when content or/and actions are provided (or type is error). */
