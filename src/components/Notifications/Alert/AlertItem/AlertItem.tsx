@@ -132,9 +132,11 @@ export const AlertItem = ({
               {title}
             </Typography>
           )}
-          <Typography className={classes["content"]} variant="body">
-            {content || title}
-          </Typography>
+          {(!!content || !!title) && (
+            <Typography className={classes["content"]} variant="body">
+              {content || title}
+            </Typography>
+          )}
         </div>
       </div>
       {actionButtons.length > 0 && <div className={classes["actions"]}>{actionButtons}</div>}
