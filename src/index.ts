@@ -145,6 +145,8 @@ export { TextareaWrapper } from "./components/Form/Wrapper/TextareaWrapper/Texta
 export type { Props as TextareaWrapperProps } from "./components/Form/Wrapper/TextareaWrapper/TextareaWrapper";
 export { SelectWrapper } from "./components/Form/Wrapper/SelectWrapper/SelectWrapper";
 export type { Props as SelectWrapperProps } from "./components/Form/Wrapper/SelectWrapper/SelectWrapper";
+export { FileUpload } from "./components/Form/FileUpload/FileUpload";
+export type { Props as FileUploadProps } from "./components/Form/FileUpload/FileUpload";
 
 /** Wizard */
 export { Wizard } from "./components/Wizard/Wizard";
