@@ -65,9 +65,6 @@ export const AlertItem = ({
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => onClose(id);
   const { ref, animationStarted, startAnimation } = useAnimation<HTMLDivElement>(onAnimationEnd);
-  const hasOnlyTitle = !content && !!title;
-  const renderTitle = title && !hasOnlyTitle;
-  const renderContentOrTitleOnly = content || hasOnlyTitle;
 
   useRegisterAlertHeight(ref, id);
 
@@ -130,16 +127,14 @@ export const AlertItem = ({
       <div className={classes["outer-content-wrapper"]}>
         <Icon icon={getVariantIcon()} className={classes["icon"]} />
         <div className={classes["content-wrapper"]}>
-          {renderTitle && (
+          {!!title && !!content && (
             <Typography className={classes["title"]} variant="body-bold" tag="span">
               {title}
             </Typography>
           )}
-          {renderContentOrTitleOnly && (
-            <Typography className={classes["content"]} variant="body">
-              {hasOnlyTitle ? title : content}
-            </Typography>
-          )}
+          <Typography className={classes["content"]} variant="body">
+            {content || title}
+          </Typography>
         </div>
       </div>
       {actionButtons.length > 0 && <div className={classes["actions"]}>{actionButtons}</div>}
