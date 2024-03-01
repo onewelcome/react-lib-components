@@ -57,6 +57,8 @@ export interface Item {
   onClose?: () => void;
 }
 
+export type PropsOrTitle = EnqueueAlertProps | string | undefined;
+
 export const AlertProvider = (
   {
     closeButtonTitle,
@@ -98,7 +100,7 @@ export const AlertProvider = (
   };
 
   const enqueueAlert = (
-    propsOrTitle: EnqueueAlertProps | string | undefined,
+    propsOrTitle: PropsOrTitle,
     content?: string,
     options: AlertOptionsProps = {}
   ): void => {
@@ -137,7 +139,7 @@ export const AlertProvider = (
   };
 
   const enqueueSuccessAlert = (
-    propsOrTitle: EnqueueAlertProps | string | undefined,
+    propsOrTitle: PropsOrTitle,
     content?: string,
     options: AlertOptionsProps = {}
   ): void => {
@@ -147,7 +149,7 @@ export const AlertProvider = (
   };
 
   const enqueueErrorAlert = (
-    propsOrTitle: EnqueueAlertProps | string | undefined,
+    propsOrTitle: PropsOrTitle,
     content?: string,
     options: AlertOptionsProps = {}
   ): void => {
@@ -157,7 +159,7 @@ export const AlertProvider = (
   };
 
   const enqueueWarningAlert = (
-    propsOrTitle: EnqueueAlertProps | string | undefined,
+    propsOrTitle: PropsOrTitle,
     content?: string,
     options: AlertOptionsProps = {}
   ): void => {

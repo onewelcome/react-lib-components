@@ -15,6 +15,7 @@
  */
 
 import { ButtonHTMLAttributes } from "react";
+import { PropsOrTitle } from "./AlertProvider/AlertProvider";
 
 export type Variant = "info" | "success" | "error" | "warning";
 
@@ -34,7 +35,7 @@ export interface EnqueueAlertProps extends AlertOptionsProps {
 }
 
 export type DeprecatedEnqueueAlertType = (
-  propsOrTitle: EnqueueAlertProps | string | undefined,
+  propsOrTitle: PropsOrTitle,
   content?: string,
   options?: AlertOptionsProps
 ) => void;

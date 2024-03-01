@@ -51,6 +51,7 @@ const useRegisterAlertHeight = (
   }, [singleAlertRef.current]);
 };
 
+let actionButtonKeyCounter = 1;
 export const AlertItem = ({
   id,
   title,
@@ -95,9 +96,9 @@ export const AlertItem = ({
     return variant === "success" ? Icons.CheckmarkCircleAlt : Icons.InfoCircle;
   };
 
-  const actionButtons = actions.map((actionProp, index) => (
+  const actionButtons = actions.map(actionProp => (
     <button
-      key={index}
+      key={`alert-action-button-${(actionButtonKeyCounter++).toString()}`}
       {...actionProp}
       onClick={e => {
         onClose(id);
@@ -123,6 +124,7 @@ export const AlertItem = ({
       className={alertClasses}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      role="log"
     >
       <div className={classes["outer-content-wrapper"]}>
         <Icon icon={getVariantIcon()} className={classes["icon"]} />
