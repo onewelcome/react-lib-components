@@ -78,11 +78,11 @@ export const AlertItem = ({
     };
   }, []);
 
-  const onMouseEnter = () => {
+  const onItemFocus = () => {
     timerHandler.current && clearTimeout(timerHandler.current);
   };
 
-  const onMouseLeave = () => {
+  const onItemBlur = () => {
     timerHandler.current = setTimeout(() => startAnimation(), duration);
   };
 
@@ -124,9 +124,11 @@ export const AlertItem = ({
       ref={ref}
       aria-live="polite"
       className={alertClasses}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      role="button"
+      onMouseEnter={onItemFocus}
+      onMouseLeave={onItemBlur}
+      onFocus={onItemFocus}
+      onBlur={onItemBlur}
+      role="tooltip"
     >
       <div className={classes["outer-content-wrapper"]}>
         <Icon icon={getVariantIcon()} className={classes["icon"]} />
