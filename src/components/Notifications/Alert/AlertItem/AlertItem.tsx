@@ -128,7 +128,7 @@ export const AlertItem = ({
       onMouseLeave={onItemBlur}
       onFocus={onItemFocus}
       onBlur={onItemBlur}
-      role="tooltip"
+      role="alert"
     >
       <div className={classes["outer-content-wrapper"]}>
         <Icon icon={getVariantIcon()} className={classes["icon"]} />
