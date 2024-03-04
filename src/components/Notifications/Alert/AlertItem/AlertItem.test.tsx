@@ -25,6 +25,7 @@ const initParams: Props = {
   content: "content",
   duration: 1,
   variant: "success",
+  emphasis: undefined,
   closeButtonTitle: "close",
   onClose: jest.fn()
 };
@@ -73,5 +74,47 @@ describe("<AlertItem />", () => {
     const actionsDiv = container.querySelector(".actions");
     expect(actionsDiv).toBeNull();
     expect(getByRole(container, "button")).toBeDefined();
+  });
+
+  it("should render with default emphasis medium", () => {
+    const { container } = render(<AlertItem {...initParams} emphasis="" />);
+    const containerDiv = container.querySelector(".emph-medium");
+    expect(containerDiv).toBeDefined();
+  });
+
+  it("should render with emphasis low", () => {
+    const { container } = render(<AlertItem {...initParams} emphasis="low" />);
+    const containerDiv = container.querySelector(".emph-low");
+    expect(containerDiv).toBeDefined();
+  });
+
+  it("should render with emphasis medium", () => {
+    const { container } = render(<AlertItem {...initParams} emphasis="medium" />);
+    const containerDiv = container.querySelector(".emph-medium");
+    expect(containerDiv).toBeDefined();
+  });
+
+  it("should render with emphasis high", () => {
+    const { container } = render(<AlertItem {...initParams} emphasis="high" />);
+    const containerDiv = container.querySelector(".emph-high");
+    expect(containerDiv).toBeDefined();
+  });
+
+  it("error variant emphasis low should be polite", () => {
+    const { container } = render(<AlertItem {...initParams} variant="error" emphasis="low" />);
+    const ariaLive = container.ariaLive;
+    expect(ariaLive).toBe("polite");
+  });
+
+  it("error variant emphasis medium should be assertive", () => {
+    const { container } = render(<AlertItem {...initParams} variant="error" emphasis="medium" />);
+    const ariaLive = container.ariaLive;
+    expect(ariaLive).toBe("assertive");
+  });
+
+  it("error variant emphasis high should be assertive", () => {
+    const { container } = render(<AlertItem {...initParams} variant="error" emphasis="high" />);
+    const ariaLive = container.ariaLive;
+    expect(ariaLive).toBe("assertive");
   });
 });
