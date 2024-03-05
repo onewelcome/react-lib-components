@@ -170,7 +170,7 @@ export const AlertProvider = (
     index < stackSize ? (
       <AlertItem
         {...item}
-        key={item.id}
+        key={`${item.id}-${index.toString()}`}
         className={item.className}
         onClose={() => {
           onItemClosed(item.id);
