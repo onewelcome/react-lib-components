@@ -147,6 +147,8 @@ export { SelectWrapper } from "./components/Form/Wrapper/SelectWrapper/SelectWra
 export type { Props as SelectWrapperProps } from "./components/Form/Wrapper/SelectWrapper/SelectWrapper";
 export { FileUpload } from "./components/Form/FileUpload/FileUpload";
 export type { Props as FileUploadProps } from "./components/Form/FileUpload/FileUpload";
+export { MultiSelectWrapper } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
+export type { Props as MultiSelectWrapperProps } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 
 /** Wizard */
 export { Wizard } from "./components/Wizard/Wizard";
