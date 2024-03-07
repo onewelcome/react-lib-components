@@ -24,12 +24,10 @@ import { Typography } from "../../../Typography/Typography";
 
 import { AlertContext } from "../AlertProvider/AlertProvider";
 
-const textColor = "var(--alert-text-color)";
-
 const EMPHASES = ["low", "medium", "high"] as const;
 export type Emphasis = (typeof EMPHASES)[keyof typeof EMPHASES];
 
-const VARIANTS = ["informative", "neutral", "success", "warning", "error"] as const;
+const VARIANTS = ["neutral", "informative", "success", "warning", "error"] as const;
 export type Variant = (typeof VARIANTS)[keyof typeof EMPHASES];
 
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
@@ -127,7 +125,6 @@ export const AlertItem = ({
   const getAlertClasses = (): string => {
     const alertClasses = [
       classes["alert"],
-      "is_this-normal",
       classes[variant as string],
       classes[`emph-${emphasis as string}`],
       animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"],
@@ -168,7 +165,7 @@ export const AlertItem = ({
         onClick={() => startAnimation()}
         title={closeButtonTitle}
       >
-        <Icon icon={Icons.Times} color={textColor} />
+        <Icon icon={Icons.Times} />
       </IconButton>
     </div>
   );
