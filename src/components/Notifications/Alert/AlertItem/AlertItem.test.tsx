@@ -77,7 +77,7 @@ describe("<AlertItem />", () => {
   });
 
   it("should render with default emphasis medium", () => {
-    const { container } = render(<AlertItem {...initParams} emphasis="" />);
+    const { container } = render(<AlertItem {...initParams} />);
     const containerDiv = container.querySelector(".emph-medium");
     expect(containerDiv).not.toBe(null);
   });

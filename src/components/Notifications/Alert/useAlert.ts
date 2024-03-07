@@ -15,15 +15,17 @@
  */
 
 import { useContext } from "react";
-import { AlertContext } from "./AlertProvider/AlertStateProvider";
+import { AlertContext } from "./AlertProvider/AlertProvider";
 
 export const useAlert = () => {
   const ctx = useContext(AlertContext);
 
   return {
+    enqueueAlert: ctx.enqueueAlert,
+    enqueueInfoAlert: ctx.enqueueInfoAlert,
+    enqueueSuccessAlert: ctx.enqueueSuccessAlert,
     enqueueWarningAlert: ctx.enqueueWarningAlert,
     enqueueErrorAlert: ctx.enqueueErrorAlert,
-    enqueueSuccessAlert: ctx.enqueueSuccessAlert,
-    enqueueAlert: ctx.enqueueAlert
+    setAlertHeight: ctx.setAlertHeight
   };
 };

@@ -119,12 +119,24 @@ interface CSSProperties {
   modalBackdropColor?: string;
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
+
   alertTextColor?: string;
+  alertTextInvertedColor?: string;
+
+  alertNeutralBackgroundColor?: string;
   alertInfoBackgroundColor?: string;
   alertSuccessBackgroundColor?: string;
   alertErrorBackgroundColor?: string;
   alertWarningBackgroundColor?: string;
-  alertBorderRadius?: string;
+
+  alertNeutralInvertedColor?: string;
+  alertInfoInvertedColor?: string;
+  alertSuccessInvertedColor?: string;
+  alertErrorInvertedColor?: string;
+  alertWarningInvertedColor?: string;
+
+  alertBorderWidth?: string;
+
   stepperWaitingColor?: string;
   stepperWaitingHoverColor?: string;
   stepperWaitingActiveColor?: string;
@@ -297,12 +309,27 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalBackdropColor: "var(--default)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
-    alertTextColor: "var(--light)",
-    alertInfoBackgroundColor: "var(--color-primary500)",
+
+    alertTextColor: "var(--default)",
+    alertTextInvertedColor: "var(--light)",
+
+    alertNeutralBackgroundColor: "var(--color-blue-grey50)", //
+    alertNeutralInvertedColor: "var(--color-blue-grey500)", //
+
+    alertInfoBackgroundColor: "var(--color-primary100)", //
+    alertInfoInvertedColor: "var(--color-primary500)", //
+
     alertSuccessBackgroundColor: "var(--color-green500)",
+    alertSuccessInvertedColor: "var(--color-green500)",
+
     alertErrorBackgroundColor: "var(--color-red500)",
+    alertErrorInvertedColor: "var(--color-red500)",
+
     alertWarningBackgroundColor: "var(--color-orange500)",
-    alertBorderRadius: "2px",
+    alertWarningInvertedColor: "var(--color-orange500)",
+
+    alertBorderWidth: "6px",
+
     stepperWaitingColor: "var(--color-blue-grey200)",
     stepperWaitingHoverColor: "var(--color-blue-grey300)",
     stepperWaitingActiveColor: "var(--color-blue-grey400)",

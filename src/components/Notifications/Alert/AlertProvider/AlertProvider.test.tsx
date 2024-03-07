@@ -183,8 +183,8 @@ describe("<AlertProvider />", () => {
         const { enqueueErrorAlert, enqueueSuccessAlert } = useAlert();
 
         useEffect(() => {
-          enqueueErrorAlert("error", undefined, { onClose: onCloseHandler, duration: 1 });
-          enqueueSuccessAlert("success", undefined, { onClose: onCloseHandler, duration: 1 });
+          enqueueErrorAlert({ content: "error", onClose: onCloseHandler, duration: 1 });
+          enqueueSuccessAlert({ content: "success", onClose: onCloseHandler, duration: 1 });
         }, []);
 
         return <div></div>;

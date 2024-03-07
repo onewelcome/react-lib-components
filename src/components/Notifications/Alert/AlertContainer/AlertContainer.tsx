@@ -16,7 +16,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./AlertContainer.module.scss";
-import { AlertContext } from "../AlertProvider/AlertStateProvider";
+import { AlertContext } from "../AlertProvider/AlertProvider";
 
 export interface Placement {
   vertical: "top" | "bottom";
@@ -38,7 +38,7 @@ const useAlertContainerHeightAnimation = () => {
   const exceedsMaximumVisibleAlerts = alerts.length >= 3;
 
   useEffect(() => {
-    const allHeights = alerts.map(alert => alert.height);
+    const allHeights = alerts.map(alert => alert.height ?? 0);
 
     let totalHeight = allHeights.reduce((prev, curr) => prev + curr, 0);
 

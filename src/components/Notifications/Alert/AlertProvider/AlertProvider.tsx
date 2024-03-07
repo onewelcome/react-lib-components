@@ -14,13 +14,11 @@
  *    limitations under the License.
  */
 
-import React, { ReactNode, useRef, useState } from "react";
+import React, { ReactNode, useRef, useState, createContext } from "react";
 import { createPortal } from "react-dom";
-import { AlertContextProvider } from "./AlertStateProvider";
-import { EnqueueAlertProps, AlertOptionsProps, isNewEnqueueAlertInterface } from "../interfaces";
 import { Placement, AlertContainer } from "../AlertContainer/AlertContainer";
 import { generateID } from "../../../../util/helper";
-import { Actions, AlertItem, Variant } from "../AlertItem/AlertItem";
+import { AlertItem, Props as AlertComponentProps } from "../AlertItem/AlertItem";
 import { useGetDomRoot } from "../../../../hooks/useGetDomRoot";
 
 /** Short msg is when only title is provided. Long one when content or/and actions are provided (or type is error). */
@@ -39,168 +37,129 @@ export interface Props {
   className?: string;
 }
 
-export interface Item {
-  id: string;
-  title?: string;
-  duration: number;
-  className?: string;
-  height: number;
-  variant: Variant;
-  content?: string;
-  actions?: Actions;
-  onClose?: () => void;
-}
+type AlertEntry = AlertComponentProps & { height?: number };
+const STACK_SIZE = 3;
 
-export type PropsOrTitle = EnqueueAlertProps | string | undefined;
+export const AlertContext = createContext<{
+  enqueueAlert: (entry: string | Omit<AlertEntry, "id">) => void;
+  enqueueInfoAlert: (entry: string | Omit<AlertEntry, "id">) => void;
+  enqueueSuccessAlert: (entry: string | Omit<AlertEntry, "id">) => void;
+  enqueueWarningAlert: (entry: string | Omit<AlertEntry, "id">) => void;
+  enqueueErrorAlert: (entry: string | Error | Omit<AlertEntry, "id">) => void;
+  setAlertHeight: (id: string, height: number) => void;
+  alerts: AlertEntry[];
+}>({
+  enqueueAlert: entry => null,
+  enqueueInfoAlert: entry => null,
+  enqueueSuccessAlert: entry => null,
+  enqueueErrorAlert: entry => null,
+  enqueueWarningAlert: entry => null,
+  setAlertHeight: (id, height) => null,
+  alerts: []
+});
 
-export const AlertProvider = (
-  {
-    closeButtonTitle,
-    placement = { vertical: "bottom", horizontal: "center" },
-    autoHideDuration = { long: 8000, short: 4000 },
-    stackSize = 3,
-    domRoot,
-    children,
-    className
-  }: Props = { closeButtonTitle: "" }
-) => {
-  const [alerts, setAlerts] = useState<Item[]>([]);
-  const wrappingDivRef = useRef(null);
-  const { root } = useGetDomRoot(domRoot, wrappingDivRef);
+export const AlertProvider = ({
+  closeButtonTitle,
+  placement = { vertical: "bottom", horizontal: "center" },
+  autoHideDuration = { long: 8000, short: 4000 },
+  stackSize = 3,
+  domRoot,
+  children,
+  className
+}: Props) => {
+  const [alertEnties, setAlertEnties] = useState<AlertEntry[]>([]);
 
-  const addAlert = (item: Item) => {
-    setAlerts(items => [...items, item]);
-  };
-
-  const setAlertHeight = (id: string, height: number) => {
-    const newAlertsState = alerts.map(alert => {
-      if (alert.id !== id) {
-        return alert;
-      }
-
-      return { ...alert, height };
-    });
-
-    setAlerts(newAlertsState);
-  };
-
-  const getDuration = (variant: Variant, actions?: Actions, content?: string) => {
-    const hasError = variant === "error";
-    const hasContentOrActions = content ?? actions;
-    if (hasError || hasContentOrActions) {
+  const getDuration = (entry: Omit<AlertEntry, "id">) => {
+    if (entry.variant === "error") {
+      return autoHideDuration.long;
+    }
+    if (entry.actions?.length) {
       return autoHideDuration.long;
     }
     return autoHideDuration.short;
   };
 
-  const enqueueAlert = (
-    propsOrTitle: PropsOrTitle,
-    content?: string,
-    options: AlertOptionsProps = {}
-  ): void => {
-    const newInterface = isNewEnqueueAlertInterface(propsOrTitle);
-    const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
-    const {
-      variant = "info",
-      actions,
-      duration = getDuration(variant, actions, props.content),
-      onClose
-    } = props;
-    const item: Item = {
-      title: props.title,
-      content: props.content,
-      variant,
-      className: props.className,
-      actions,
-      duration,
-      height: 0,
-      id: generateID(15, props.title),
-      onClose
-    };
-    addAlert(item);
+  const enqueueAlert = (arg: string | Omit<AlertEntry, "id">) => {
+    if (typeof arg === "string") {
+      const newEntry: AlertEntry = {
+        id: generateID(15, arg),
+        content: arg,
+        duration: autoHideDuration.short,
+        closeButtonTitle
+      };
+      setAlertEnties(entries => [...entries, newEntry]);
+      return;
+    }
+
+    if (typeof arg !== "string") {
+      arg = arg as AlertEntry;
+      const newEntry: AlertEntry = {
+        ...arg,
+        id: generateID(15, arg.content || arg.title),
+        duration: arg.duration ?? getDuration(arg),
+        closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle
+      };
+      setAlertEnties(entries => [...entries, newEntry]);
+    }
   };
 
-  const mapToNewInterface = (
-    title?: string,
-    content?: string,
-    options: AlertOptionsProps = {}
-  ): EnqueueAlertProps => {
-    return {
-      title,
-      content,
-      ...options
-    };
+  const enqueueInfoAlert = (arg: unknown) => {};
+  const enqueueSuccessAlert = () => {};
+  const enqueueErrorAlert = () => {};
+  const enqueueWarningAlert = () => {};
+
+  const setAlertHeight = (id: string, height: number) => {
+    const newAlertsState = alertEnties.map(alertEntry => {
+      if (alertEntry.id !== id) {
+        return alertEntry;
+      }
+      return { ...alertEntry, height };
+    });
+    setAlertEnties(newAlertsState);
   };
 
-  const enqueueSuccessAlert = (
-    propsOrTitle: PropsOrTitle,
-    content?: string,
-    options: AlertOptionsProps = {}
-  ): void => {
-    const newInterface = isNewEnqueueAlertInterface(propsOrTitle);
-    const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
-    enqueueAlert({ ...props, variant: "success" });
+  const removeEntry = (entryId: string) => {
+    setAlertEnties(entries => entries.filter(item => item.id !== entryId));
   };
 
-  const enqueueErrorAlert = (
-    propsOrTitle: PropsOrTitle,
-    content?: string,
-    options: AlertOptionsProps = {}
-  ): void => {
-    const newInterface = isNewEnqueueAlertInterface(propsOrTitle);
-    const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
-    enqueueAlert({ ...props, variant: "error" });
-  };
-
-  const enqueueWarningAlert = (
-    propsOrTitle: PropsOrTitle,
-    content?: string,
-    options: AlertOptionsProps = {}
-  ): void => {
-    const newInterface = isNewEnqueueAlertInterface(propsOrTitle);
-    const props = newInterface ? propsOrTitle : mapToNewInterface(propsOrTitle, content, options);
-    enqueueAlert({ ...props, variant: "warning" });
-  };
-
-  const onItemClosed = (id: string) => {
-    setAlerts(items => [...items].filter(item => item.id !== id));
-  };
-
-  const alertList = alerts.map((item, index) =>
-    index < stackSize ? (
+  const renderAlertList = (): ReactNode => {
+    const result = alertEnties.slice(0, stackSize).map((entry, index) => (
       <AlertItem
-        {...item}
-        key={`${item.id}-${index.toString()}`}
-        className={item.className}
+        {...entry}
+        key={`${entry.id}-${index.toString()}`}
         onClose={() => {
-          onItemClosed(item.id);
-          item.onClose?.();
+          removeEntry(entry.id);
+          entry.onClose?.();
         }}
-        closeButtonTitle={closeButtonTitle}
       />
-    ) : null
-  );
+    ));
 
-  const alertPortal = createPortal(
-    <AlertContainer placement={placement} className={className}>
-      {alertList}
-    </AlertContainer>,
-    root
-  );
+    return result;
+  };
 
+  const wrappingDivRef = useRef(null);
+  const { root } = useGetDomRoot(domRoot, wrappingDivRef);
   return (
-    <AlertContextProvider
-      initialState={{
+    <AlertContext.Provider
+      value={{
         enqueueAlert,
+        enqueueInfoAlert,
         enqueueSuccessAlert,
         enqueueErrorAlert,
         enqueueWarningAlert,
         setAlertHeight,
-        alerts
+        alerts: alertEnties
       }}
     >
       {children}
-      <div ref={wrappingDivRef}>{alertPortal}</div>
-    </AlertContextProvider>
+      <div ref={wrappingDivRef}>
+        {createPortal(
+          <AlertContainer placement={placement} className={className}>
+            {renderAlertList()}
+          </AlertContainer>,
+          root
+        )}
+      </div>
+    </AlertContext.Provider>
   );
 };

@@ -21,22 +21,29 @@ import classes from "./AlertItem.module.scss";
 import readyclasses from "../../../../readyclasses.module.scss";
 import { useAnimation } from "../../../../hooks/useAnimation";
 import { Typography } from "../../../Typography/Typography";
-import { AlertContext } from "../AlertProvider/AlertStateProvider";
+
+import { AlertContext } from "../AlertProvider/AlertProvider";
 
 const textColor = "var(--alert-text-color)";
-const VARIANTS: string[] = ["info", "success", "error", "warning"] as const;
-export type Variant = (typeof VARIANTS)[number];
+
+const EMPHASES = ["low", "medium", "high"] as const;
+export type Emphasis = (typeof EMPHASES)[keyof typeof EMPHASES];
+
+const VARIANTS = ["informative", "neutral", "success", "warning", "error"] as const;
+export type Variant = (typeof VARIANTS)[keyof typeof EMPHASES];
+
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
 
 export interface Props {
   id: string;
   title?: string;
-  duration: number;
-  variant: Variant;
-  className?: string;
-  onClose: (key: string) => void;
-  closeButtonTitle: string;
   content?: string;
+  duration?: number;
+  emphasis?: Emphasis;
+  variant?: Variant;
+  className?: string;
+  onClose?: () => void;
+  closeButtonTitle?: string;
   actions?: Actions;
 }
 
@@ -58,7 +65,8 @@ export const AlertItem = ({
   id,
   title,
   duration,
-  variant,
+  variant = "neutral",
+  emphasis = "medium",
   content,
   className,
   actions = [],
@@ -66,13 +74,15 @@ export const AlertItem = ({
   closeButtonTitle
 }: Props) => {
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
-  const onAnimationEnd = () => onClose(id);
+  const onAnimationEnd = () => onClose?.();
   const { ref, animationStarted, startAnimation } = useAnimation<HTMLDivElement>(onAnimationEnd);
 
   useRegisterAlertHeight(ref, id);
 
   useEffect(() => {
-    timerHandler.current = setTimeout(() => startAnimation(), duration);
+    if (duration && duration > 0) {
+      timerHandler.current = setTimeout(() => startAnimation(), duration);
+    }
     return () => {
       timerHandler.current && clearTimeout(timerHandler.current);
     };
@@ -83,7 +93,9 @@ export const AlertItem = ({
   };
 
   const onItemBlur = () => {
-    timerHandler.current = setTimeout(() => startAnimation(), duration);
+    if (duration && duration > 0) {
+      timerHandler.current = setTimeout(() => startAnimation(), duration);
+    }
   };
 
   const getVariantIcon = () => {
@@ -103,7 +115,7 @@ export const AlertItem = ({
       key={`alert-action-button-${(actionButtonKeyCounter++).toString()}`}
       {...actionProp}
       onClick={e => {
-        onClose(id);
+        onClose?.();
         actionProp.onClick?.(e);
       }}
       className={classes["action-button"]}
@@ -112,18 +124,23 @@ export const AlertItem = ({
     </button>
   ));
 
-  const alertClasses = [
-    classes["alert"],
-    classes[variant],
-    animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"],
-    className ?? ""
-  ].join(" ");
+  const getAlertClasses = (): string => {
+    const alertClasses = [
+      classes["alert"],
+      "is_this-normal",
+      classes[variant as string],
+      classes[`emph-${emphasis as string}`],
+      animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"],
+      className ?? ""
+    ];
+    return alertClasses.join(" ");
+  };
 
   return (
     <div
       ref={ref}
       aria-live="polite"
-      className={alertClasses}
+      className={getAlertClasses()}
       onMouseEnter={onItemFocus}
       onMouseLeave={onItemBlur}
       onFocus={onItemFocus}
