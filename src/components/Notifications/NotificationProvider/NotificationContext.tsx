@@ -101,22 +101,18 @@ export const NotificationHandler = ({
       ) {
         dispatchFn({ type: "remove", payload: { id: notification.id } });
       } else if (notification.status && !notification.handled && notification.type === "error") {
-        enqueueErrorAlert(
-          notification.title ?? mergedTranslations.general.error,
-          determineNotificationMessage(notification as Notification<ErrorNotification>),
-          {
-            onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
-          }
-        );
+        enqueueErrorAlert({
+          title: notification.title ?? mergedTranslations.general.error,
+          content: determineNotificationMessage(notification as Notification<ErrorNotification>),
+          onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
+        });
         dispatchFn({ type: "handled", payload: { id: notification.id, handled: true } });
       } else if (notification.title && !notification.handled && notification.type === "success") {
-        enqueueSuccessAlert(
-          notification.title ?? mergedTranslations.general.success,
-          notification.message,
-          {
-            onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
-          }
-        );
+        enqueueSuccessAlert({
+          title: notification.title ?? mergedTranslations.general.success,
+          content: notification.message,
+          onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
+        });
 
         dispatchFn({ type: "handled", payload: { id: notification.id, handled: true } });
       }
