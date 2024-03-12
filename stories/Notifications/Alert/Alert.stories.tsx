@@ -38,7 +38,13 @@ const meta: Meta = {
 export default meta;
 
 const AppContent = () => {
-  const { enqueueAlert } = useAlert();
+  const {
+    enqueueAlert,
+    enqueueInfoAlert,
+    enqueueSuccessAlert,
+    enqueueWarningAlert,
+    enqueueErrorAlert
+  } = useAlert();
 
   // useEffect(() => {
   //   enqueueAlert({
@@ -51,145 +57,190 @@ const AppContent = () => {
 
   return (
     <>
-      <button
-        onClick={() => {
-          enqueueAlert({
-            content: "Low emph neutral alert",
-            onClose: () => console.warn("Alert closed."),
-            emphasis: "low"
-          });
+      <div>
+        <p>Basic enqueue</p>
+        <button
+          onClick={() => {
+            enqueueAlert({
+              content: "Low emph neutral alert",
+              onClose: () => console.warn("Alert closed."),
+              emphasis: "low"
+            });
 
-          enqueueAlert({
-            content: "Simple neutral alert, medium emph",
-            onClose: () => console.warn("Alert closed.")
-          });
+            enqueueAlert({
+              content: "Simple neutral alert, medium emph",
+              onClose: () => console.warn("Alert closed.")
+            });
 
-          enqueueAlert({
-            content: "High emphasis neutral alert",
-            onClose: () => console.warn("Alert closed."),
-            emphasis: "high",
-            duration: 240000
-          });
-        }}
-      >
-        Tripple neutrals
-      </button>
+            enqueueAlert({
+              content: "High emphasis neutral alert",
+              onClose: () => console.warn("Alert closed."),
+              emphasis: "high",
+              duration: 240000
+            });
+          }}
+        >
+          Tripple neutrals
+        </button>
 
-      <button
-        onClick={() => {
-          enqueueAlert({
-            content: "Low emph info alert",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "informative",
-            emphasis: "low"
-          });
+        <button
+          onClick={() => {
+            enqueueAlert({
+              content: "Low emph info alert",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "informative",
+              emphasis: "low"
+            });
 
-          enqueueAlert({
-            content: "Simple info alert, medium emph",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "informative"
-          });
+            enqueueAlert({
+              content: "Simple info alert, medium emph",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "informative"
+            });
 
-          enqueueAlert({
-            content: "High emphasis info alert",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "informative",
-            emphasis: "high"
-          });
-        }}
-      >
-        Tripple info
-      </button>
+            enqueueAlert({
+              content: "High emphasis info alert",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "informative",
+              emphasis: "high"
+            });
+          }}
+        >
+          Tripple info
+        </button>
 
-      <button
-        onClick={() => {
-          enqueueAlert({
-            content: "Low emph info alert",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "success",
-            emphasis: "low"
-          });
+        <button
+          onClick={() => {
+            enqueueAlert({
+              content: "Low emph info alert",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "success",
+              emphasis: "low",
+              actions: [{ label: "Action", onClick: () => console.log("Action Action fired") }]
+            });
 
-          enqueueAlert({
-            content: "Simple info alert, medium emph",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "success"
-          });
+            enqueueAlert({
+              content: "Simple info alert, medium emph",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "success"
+            });
 
-          enqueueAlert({
-            content: "High emphasis info alert",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "success",
-            emphasis: "high"
-          });
-        }}
-      >
-        Tripple success
-      </button>
+            enqueueAlert({
+              content: "High emphasis info alert",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "success",
+              emphasis: "high",
+              actions: [{ label: "Action", onClick: () => console.log("Action Action fired") }]
+            });
+          }}
+        >
+          Tripple success
+        </button>
 
-      <button
-        onClick={() => {
-          enqueueAlert({
-            content: "Low emph info alert",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "warning",
-            emphasis: "low"
-          });
+        <button
+          onClick={() => {
+            enqueueAlert({
+              content: "Low emph info alert",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "warning",
+              emphasis: "low"
+            });
 
-          enqueueAlert({
-            content: "Simple info alert, medium emph",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "warning"
-          });
+            enqueueAlert({
+              content: "Simple info alert, medium emph",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "warning"
+            });
 
-          enqueueAlert({
-            content: "High emphasis info alert",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "warning",
-            emphasis: "high"
-          });
-        }}
-      >
-        Tripple warning
-      </button>
+            enqueueAlert({
+              content: "High emphasis info alert",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "warning",
+              emphasis: "high"
+            });
+          }}
+        >
+          Tripple warning
+        </button>
 
-      <button
-        onClick={() => {
-          enqueueAlert({
-            content: "Low emph info alert",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "error",
-            emphasis: "low"
-          });
+        <button
+          onClick={() => {
+            enqueueAlert({
+              content: "Low emph info alert",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "error",
+              emphasis: "low"
+            });
 
-          enqueueAlert({
-            content: "Simple info alert, medium emph",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "error"
-          });
+            enqueueAlert({
+              content: "Simple info alert, medium emph",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "error"
+            });
 
-          enqueueAlert({
-            content: "High emphasis info alert",
-            onClose: () => console.warn("Alert closed."),
-            duration: 240000,
-            variant: "error",
-            emphasis: "high"
-          });
-        }}
-      >
-        Tripple error
-      </button>
+            enqueueAlert({
+              content: "High emphasis info alert",
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000,
+              variant: "error",
+              emphasis: "high"
+            });
+          }}
+        >
+          Tripple error
+        </button>
+      </div>
+
+      <div>
+        <p>Specific queues</p>
+        <button
+          onClick={() => {
+            enqueueInfoAlert("This is a simple info alert");
+          }}
+        >
+          Queue info
+        </button>
+        <button
+          onClick={() => {
+            enqueueSuccessAlert("This is a simple success");
+          }}
+        >
+          Queue success
+        </button>
+        <button
+          onClick={() => {
+            enqueueWarningAlert("This is a simple warning");
+          }}
+        >
+          Queue warning
+        </button>
+        <button
+          onClick={() => {
+            enqueueErrorAlert("This is a simple error");
+          }}
+        >
+          Queue error
+        </button>
+        <button
+          onClick={() => {
+            const error = new Error("Message of the error instance");
+            enqueueErrorAlert(error);
+          }}
+        >
+          Queue error directly passing error
+        </button>
+      </div>
     </>
   );
 };
