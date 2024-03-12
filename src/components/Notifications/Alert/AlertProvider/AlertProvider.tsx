@@ -126,7 +126,7 @@ export const AlertProvider = ({
     const result = alertEnties.slice(0, stackSize).map((entry, index) => (
       <AlertItem
         {...entry}
-        key={`${entry.id}-${index.toString()}`}
+        key={`${entry.id}-${index.toString()}`} // TODO: check this if it could cause an issue with the animation
         onClose={() => {
           removeEntry(entry.id);
           entry.onClose?.();
