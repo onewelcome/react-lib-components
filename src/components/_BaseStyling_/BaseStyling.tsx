@@ -122,6 +122,13 @@ interface CSSProperties {
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
 
+  snackbarTextColor?: string;
+  snackbarInfoBackgroundColor?: string;
+  snackbarSuccessBackgroundColor?: string;
+  snackbarErrorBackgroundColor?: string;
+  snackbarWarningBackgroundColor?: string;
+  snackbarBorderRadius?: string;
+
   alertTextColor?: string;
   alertTextInvertedColor?: string;
 
@@ -314,6 +321,13 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalBackdropColor: "var(--default)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
+
+    snackbarTextColor: "var(--light)",
+    snackbarInfoBackgroundColor: "var(--color-primary500)",
+    snackbarSuccessBackgroundColor: "var(--color-green500)",
+    snackbarErrorBackgroundColor: "var(--color-red500)",
+    snackbarWarningBackgroundColor: "var(--color-orange500)",
+    snackbarBorderRadius: "2px",
 
     alertTextColor: "var(--default)",
     alertTextInvertedColor: "var(--light)",

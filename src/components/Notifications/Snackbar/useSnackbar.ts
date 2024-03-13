@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +14,16 @@
  *    limitations under the License.
  */
 
-$form-element-horizontal-padding-mobile: 0.5rem;
-$form-element-horizontal-padding-desktop: 0.5rem;
-$form-element-vertical-padding-mobile: 0.625rem;
-$form-element-vertical-padding-desktop: 0.625rem;
+import { useContext } from "react";
+import { SnackbarContext } from "./SnackbarProvider/SnackbarStateProvider";
 
-$popover-z-index: 100;
-$select-z-index: 11;
-$toggle-z-index: 10;
-$modal-z-index: 10;
-$snackbar-z-index: 20;
-$alert-z-index: 20;
+export const useSnackbar = () => {
+  const ctx = useContext(SnackbarContext);
+
+  return {
+    enqueueWarningSnackbar: ctx.enqueueWarningSnackbar,
+    enqueueErrorSnackbar: ctx.enqueueErrorSnackbar,
+    enqueueSuccessSnackbar: ctx.enqueueSuccessSnackbar,
+    enqueueSnackbar: ctx.enqueueSnackbar
+  };
+};
