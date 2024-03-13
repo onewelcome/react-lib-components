@@ -494,10 +494,12 @@ const RemoveButtonComponent = (_ref, ref) => {
     onRemove,
     ...rest
   } = _ref;
-  return onRemove && /*#__PURE__*/react.createElement("button", _extends({}, rest, {
+  return onRemove && /*#__PURE__*/react.createElement("button", _extends({
+    title: "",
+    type: "button"
+  }, rest, {
     ref: ref,
     className: "".concat(Tag_RemoveButton_module["remove"], " ").concat((_rest$className = rest.className) !== null && _rest$className !== void 0 ? _rest$className : ""),
-    title: "",
     onClick: onRemove
   }), /*#__PURE__*/react.createElement(Icon/* Icon */.J, {
     icon: Icon/* Icons */.P.Times,

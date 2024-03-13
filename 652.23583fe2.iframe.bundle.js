@@ -345,7 +345,8 @@ const useAddNewBtn = _ref => {
     "data-testid": "select-action-button",
     className: Select_useAddNewBtn_module["action-button"],
     onClick: () => addNew.onAddNew(filter),
-    ref: addBtnRef
+    ref: addBtnRef,
+    type: "button"
   }, addNew.btnProps), !filter && addNewLabel, filter && /*#__PURE__*/react.createElement("span", {
     style: {
       fontWeight: "700"
