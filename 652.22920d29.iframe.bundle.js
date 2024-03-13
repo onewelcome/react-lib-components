@@ -428,7 +428,7 @@ const useSearch = _ref => {
   const DEFAULT_RENDER_THRESHOLD = 10;
   const searchInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const threshold = (_search$renderThresho = search === null || search === void 0 ? void 0 : search.renderThreshold) !== null && _search$renderThresho !== void 0 ? _search$renderThresho : DEFAULT_RENDER_THRESHOLD;
-  const hasEnoughChildren = optionsCount > threshold;
+  const hasEnoughChildren = optionsCount >= threshold;
   const filterResults = event => {
     setFilter(event.currentTarget.value);
   };

@@ -20923,6 +20923,7 @@ var $byteLength = callBound('ArrayBuffer.prototype.byteLength', true);
 
 var isArrayBuffer = __webpack_require__("./node_modules/is-array-buffer/index.js");
 
+/** @type {import('.')} */
 module.exports = function byteLength(ab) {
 	if (!isArrayBuffer(ab)) {
 		return NaN;
@@ -21744,11 +21745,10 @@ module.exports = (string, count = 1, options) => {
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__("./node_modules/get-intrinsic/index.js");
 var hasOwn = __webpack_require__("./node_modules/hasown/index.js");
 var channel = __webpack_require__("./node_modules/side-channel/index.js")();
 
-var $TypeError = GetIntrinsic('%TypeError%');
+var $TypeError = __webpack_require__("./node_modules/es-errors/type.js");
 
 var SLOT = {
 	assert: function (O, slot) {
@@ -21817,16 +21817,17 @@ module.exports = SLOT;
 var callBind = __webpack_require__("./node_modules/call-bind/index.js");
 var callBound = __webpack_require__("./node_modules/call-bind/callBound.js");
 var GetIntrinsic = __webpack_require__("./node_modules/get-intrinsic/index.js");
-var isTypedArray = __webpack_require__("./node_modules/is-typed-array/index.js");
 
-var $ArrayBuffer = GetIntrinsic('ArrayBuffer', true);
-var $Float32Array = GetIntrinsic('Float32Array', true);
+var $ArrayBuffer = GetIntrinsic('%ArrayBuffer%', true);
+/** @type {undefined | ((receiver: ArrayBuffer) => number) | ((receiver: unknown) => never)} */
 var $byteLength = callBound('ArrayBuffer.prototype.byteLength', true);
+var $toString = callBound('Object.prototype.toString');
 
 // in node 0.10, ArrayBuffers have no prototype methods, but have an own slot-checking `slice` method
-var abSlice = $ArrayBuffer && !$byteLength && new $ArrayBuffer().slice;
-var $abSlice = abSlice && callBind(abSlice);
+var abSlice = !!$ArrayBuffer && !$byteLength && new $ArrayBuffer(0).slice;
+var $abSlice = !!abSlice && callBind(abSlice);
 
+/** @type {import('.')} */
 module.exports = $byteLength || $abSlice
 	? function isArrayBuffer(obj) {
 		if (!obj || typeof obj !== 'object') {
@@ -21834,8 +21835,10 @@ module.exports = $byteLength || $abSlice
 		}
 		try {
 			if ($byteLength) {
+				// @ts-expect-error no idea why TS can't handle the overload
 				$byteLength(obj);
 			} else {
+				// @ts-expect-error TS chooses not to type-narrow inside a closure
 				$abSlice(obj, 0);
 			}
 			return true;
@@ -21843,14 +21846,10 @@ module.exports = $byteLength || $abSlice
 			return false;
 		}
 	}
-	: $Float32Array
-		// in node 0.8, ArrayBuffers have no prototype or own methods
-		? function IsArrayBuffer(obj) {
-			try {
-				return (new $Float32Array(obj)).buffer === obj && !isTypedArray(obj);
-			} catch (e) {
-				return typeof obj === 'object' && e.name === 'RangeError';
-			}
+	: $ArrayBuffer
+		// in node 0.8, ArrayBuffers have no prototype or own methods, but also no Symbol.toStringTag
+		? function isArrayBuffer(obj) {
+			return $toString(obj) === '[object ArrayBuffer]';
 		}
 		: function isArrayBuffer(obj) { // eslint-disable-line no-unused-vars
 			return false;
@@ -22177,6 +22176,7 @@ var callBound = __webpack_require__("./node_modules/call-bind/callBound.js");
 
 var $byteLength = callBound('SharedArrayBuffer.prototype.byteLength', true);
 
+/** @type {import('.')} */
 module.exports = $byteLength
 	? function isSharedArrayBuffer(obj) {
 		if (!obj || typeof obj !== 'object') {
@@ -25789,12 +25789,12 @@ module.exports = (string, count = 0, options) => indentString(stripIndent(string
 
 
 var setFunctionName = __webpack_require__("./node_modules/set-function-name/index.js");
+var $TypeError = __webpack_require__("./node_modules/es-errors/type.js");
 
 var $Object = Object;
-var $TypeError = TypeError;
 
 module.exports = setFunctionName(function flags() {
-	if (this != null && this !== $Object(this)) {
+	if (this == null || this !== $Object(this)) {
 		throw new $TypeError('RegExp.prototype.flags getter called on non-object');
 	}
 	var result = '';

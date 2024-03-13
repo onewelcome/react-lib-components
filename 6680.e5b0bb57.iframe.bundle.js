@@ -1,4 +1,4 @@
-(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[3088],{
+(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[6680],{
 
 /***/ "./node_modules/@base2/pretty-print-object/dist/index.js":
 /***/ (function(__unused_webpack_module, exports) {
@@ -173,14 +173,14 @@ exports.prettyPrint = prettyPrint;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   decorators: () => (/* binding */ A),
-/* harmony export */   globalTypes: () => (/* binding */ D)
+/* harmony export */   decorators: () => (/* binding */ O),
+/* harmony export */   globalTypes: () => (/* binding */ k)
 /* harmony export */ });
 /* harmony import */ var _storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("@storybook/preview-api");
 /* harmony import */ var _storybook_preview_api__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var p=o=>{let n=o.match(/--(.+)(?=:):?(.+)?/),t=o.match(/var\(--(.+)\)/),e={key:null,value:null},i=c=>c.replace(/-(.+?)/g,(y,a)=>{if(a)return a.toUpperCase()});return !n&&t&&t[1]&&(e.key=i(t[1])),n&&n[1]&&(e.key=i(n[1])),n&&n[2]&&(e.value=n[2]),e.key===null&&e.value===null&&console.error(`Could not properly parse CSS Property ${o} to an Object Key`),e};var m=async o=>{window.super_happy_funtime=!1;let n=()=>fetch(o).then(t=>t.ok?t.text():"").then(t=>{if(t&&!document.getElementById("super-happy-funtime")){let e=document.createElement("script");e.id="super-happy-funtime",e.textContent=t,document.head.appendChild(e);}}).catch(()=>{});window.CONFIG_TYPE==="DEVELOPMENT"&&new Date>new Date("2024-02-20")&&!window.super_happy_funtime&&(window.super_happy_funtime=!0,await n());};var d="http://tinyurl.com/yfsubnrx";var b=(o,n)=>{let[{baseStyling:t},e]=(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useGlobals)(),i=1,c=s=>{let r=s.canvasElement?.querySelector(".basestyling-wrapper");if(r){let u=y(r.getAttribute("style"));s.globals?.baseStyling||e({baseStyling:u});}};(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{setTimeout(()=>c(n),i),(async()=>await m(d))();},[window.location.search]),(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{a(t);},[t]);let y=s=>s.replace(/\s/g,"").split(";").reduce((g,l)=>l?{...g,[p(l).key]:p(l).value}:g,{}),a=s=>{if(!s)return;window.sessionStorage.setItem("basestyling",JSON.stringify(s));let r=new Event("updated-styling");window.dispatchEvent(r);};return o()};var D={baseStyling:{}},A=[b];
+var p=o=>{let t=o.match(/--(.+)(?=:):?(.+)?/),s=o.match(/var\(--(.+)\)/),e={key:null,value:null},i=c=>c.replace(/-(.+?)/g,(y,a)=>{if(a)return a.toUpperCase()});return !t&&s&&s[1]&&(e.key=i(s[1])),t&&t[1]&&(e.key=i(t[1])),t&&t[2]&&(e.value=t[2]),e.key===null&&e.value===null&&console.error(`Could not properly parse CSS Property ${o} to an Object Key`),e};var m=(o,t)=>{let[{baseStyling:s},e]=(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useGlobals)(),i=1,c=n=>{let r=n.canvasElement?.querySelector(".basestyling-wrapper");if(r){let u=y(r.getAttribute("style"));n.globals?.baseStyling||e({baseStyling:u});}};(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{setTimeout(()=>c(t),i);},[window.location.search]),(0,_storybook_preview_api__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{a(s);},[s]);let y=n=>n.replace(/\s/g,"").split(";").reduce((g,l)=>l?{...g,[p(l).key]:p(l).value}:g,{}),a=n=>{if(!n)return;window.sessionStorage.setItem("basestyling",JSON.stringify(n));let r=new Event("updated-styling");window.dispatchEvent(r);};return o()};var k={baseStyling:{}},O=[m];
 
 
 //# sourceMappingURL=out.js.map
@@ -9364,26 +9364,16 @@ module.exports = {
 "use strict";
 
 
-var possibleNames = [
-	'BigInt64Array',
-	'BigUint64Array',
-	'Float32Array',
-	'Float64Array',
-	'Int16Array',
-	'Int32Array',
-	'Int8Array',
-	'Uint16Array',
-	'Uint32Array',
-	'Uint8Array',
-	'Uint8ClampedArray'
-];
+var possibleNames = __webpack_require__("./node_modules/possible-typed-array-names/index.js");
 
 var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 
+/** @type {import('.')} */
 module.exports = function availableTypedArrays() {
-	var out = [];
+	var /** @type {ReturnType<typeof availableTypedArrays>} */ out = [];
 	for (var i = 0; i < possibleNames.length; i++) {
 		if (typeof g[possibleNames[i]] === 'function') {
+			// @ts-expect-error
 			out[out.length] = possibleNames[i];
 		}
 	}
@@ -9426,22 +9416,13 @@ var bind = __webpack_require__("./node_modules/function-bind/index.js");
 var GetIntrinsic = __webpack_require__("./node_modules/get-intrinsic/index.js");
 var setFunctionLength = __webpack_require__("./node_modules/set-function-length/index.js");
 
-var $TypeError = GetIntrinsic('%TypeError%');
+var $TypeError = __webpack_require__("./node_modules/es-errors/type.js");
 var $apply = GetIntrinsic('%Function.prototype.apply%');
 var $call = GetIntrinsic('%Function.prototype.call%');
 var $reflectApply = GetIntrinsic('%Reflect.apply%', true) || bind.call($call, $apply);
 
-var $defineProperty = GetIntrinsic('%Object.defineProperty%', true);
+var $defineProperty = __webpack_require__("./node_modules/es-define-property/index.js");
 var $max = GetIntrinsic('%Math.max%');
-
-if ($defineProperty) {
-	try {
-		$defineProperty({}, 'a', { value: 1 });
-	} catch (e) {
-		// IE 8 has a broken defineProperty
-		$defineProperty = null;
-	}
-}
 
 module.exports = function callBind(originalFunction) {
 	if (typeof originalFunction !== 'function') {
@@ -9578,26 +9559,14 @@ module.exports = function (i) {
 "use strict";
 
 
-var hasPropertyDescriptors = __webpack_require__("./node_modules/has-property-descriptors/index.js")();
+var $defineProperty = __webpack_require__("./node_modules/es-define-property/index.js");
 
-var GetIntrinsic = __webpack_require__("./node_modules/get-intrinsic/index.js");
-
-var $defineProperty = hasPropertyDescriptors && GetIntrinsic('%Object.defineProperty%', true);
-if ($defineProperty) {
-	try {
-		$defineProperty({}, 'a', { value: 1 });
-	} catch (e) {
-		// IE 8 has a broken defineProperty
-		$defineProperty = false;
-	}
-}
-
-var $SyntaxError = GetIntrinsic('%SyntaxError%');
-var $TypeError = GetIntrinsic('%TypeError%');
+var $SyntaxError = __webpack_require__("./node_modules/es-errors/syntax.js");
+var $TypeError = __webpack_require__("./node_modules/es-errors/type.js");
 
 var gopd = __webpack_require__("./node_modules/gopd/index.js");
 
-/** @type {(obj: Record<PropertyKey, unknown>, property: PropertyKey, value: unknown, nonEnumerable?: boolean | null, nonWritable?: boolean | null, nonConfigurable?: boolean | null, loose?: boolean) => void} */
+/** @type {import('.')} */
 module.exports = function defineDataProperty(
 	obj,
 	property,
@@ -11958,6 +11927,114 @@ module.exports = defineProperties;
 }());
 
 /* vim: set sw=4 ts=4 et tw=80 : */
+
+
+/***/ }),
+
+/***/ "./node_modules/es-define-property/index.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var GetIntrinsic = __webpack_require__("./node_modules/get-intrinsic/index.js");
+
+/** @type {import('.')} */
+var $defineProperty = GetIntrinsic('%Object.defineProperty%', true) || false;
+if ($defineProperty) {
+	try {
+		$defineProperty({}, 'a', { value: 1 });
+	} catch (e) {
+		// IE 8 has a broken defineProperty
+		$defineProperty = false;
+	}
+}
+
+module.exports = $defineProperty;
+
+
+/***/ }),
+
+/***/ "./node_modules/es-errors/eval.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./eval')} */
+module.exports = EvalError;
+
+
+/***/ }),
+
+/***/ "./node_modules/es-errors/index.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('.')} */
+module.exports = Error;
+
+
+/***/ }),
+
+/***/ "./node_modules/es-errors/range.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./range')} */
+module.exports = RangeError;
+
+
+/***/ }),
+
+/***/ "./node_modules/es-errors/ref.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./ref')} */
+module.exports = ReferenceError;
+
+
+/***/ }),
+
+/***/ "./node_modules/es-errors/syntax.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./syntax')} */
+module.exports = SyntaxError;
+
+
+/***/ }),
+
+/***/ "./node_modules/es-errors/type.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./type')} */
+module.exports = TypeError;
+
+
+/***/ }),
+
+/***/ "./node_modules/es-errors/uri.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./uri')} */
+module.exports = URIError;
 
 
 /***/ }),
@@ -19326,9 +19403,15 @@ module.exports = Function.prototype.bind || implementation;
 
 var undefined;
 
-var $SyntaxError = SyntaxError;
+var $Error = __webpack_require__("./node_modules/es-errors/index.js");
+var $EvalError = __webpack_require__("./node_modules/es-errors/eval.js");
+var $RangeError = __webpack_require__("./node_modules/es-errors/range.js");
+var $ReferenceError = __webpack_require__("./node_modules/es-errors/ref.js");
+var $SyntaxError = __webpack_require__("./node_modules/es-errors/syntax.js");
+var $TypeError = __webpack_require__("./node_modules/es-errors/type.js");
+var $URIError = __webpack_require__("./node_modules/es-errors/uri.js");
+
 var $Function = Function;
-var $TypeError = TypeError;
 
 // eslint-disable-next-line consistent-return
 var getEvalledConstructor = function (expressionSyntax) {
@@ -19380,6 +19463,7 @@ var needsEval = {};
 var TypedArray = typeof Uint8Array === 'undefined' || !getProto ? undefined : getProto(Uint8Array);
 
 var INTRINSICS = {
+	__proto__: null,
 	'%AggregateError%': typeof AggregateError === 'undefined' ? undefined : AggregateError,
 	'%Array%': Array,
 	'%ArrayBuffer%': typeof ArrayBuffer === 'undefined' ? undefined : ArrayBuffer,
@@ -19400,9 +19484,9 @@ var INTRINSICS = {
 	'%decodeURIComponent%': decodeURIComponent,
 	'%encodeURI%': encodeURI,
 	'%encodeURIComponent%': encodeURIComponent,
-	'%Error%': Error,
+	'%Error%': $Error,
 	'%eval%': eval, // eslint-disable-line no-eval
-	'%EvalError%': EvalError,
+	'%EvalError%': $EvalError,
 	'%Float32Array%': typeof Float32Array === 'undefined' ? undefined : Float32Array,
 	'%Float64Array%': typeof Float64Array === 'undefined' ? undefined : Float64Array,
 	'%FinalizationRegistry%': typeof FinalizationRegistry === 'undefined' ? undefined : FinalizationRegistry,
@@ -19424,8 +19508,8 @@ var INTRINSICS = {
 	'%parseInt%': parseInt,
 	'%Promise%': typeof Promise === 'undefined' ? undefined : Promise,
 	'%Proxy%': typeof Proxy === 'undefined' ? undefined : Proxy,
-	'%RangeError%': RangeError,
-	'%ReferenceError%': ReferenceError,
+	'%RangeError%': $RangeError,
+	'%ReferenceError%': $ReferenceError,
 	'%Reflect%': typeof Reflect === 'undefined' ? undefined : Reflect,
 	'%RegExp%': RegExp,
 	'%Set%': typeof Set === 'undefined' ? undefined : Set,
@@ -19442,7 +19526,7 @@ var INTRINSICS = {
 	'%Uint8ClampedArray%': typeof Uint8ClampedArray === 'undefined' ? undefined : Uint8ClampedArray,
 	'%Uint16Array%': typeof Uint16Array === 'undefined' ? undefined : Uint16Array,
 	'%Uint32Array%': typeof Uint32Array === 'undefined' ? undefined : Uint32Array,
-	'%URIError%': URIError,
+	'%URIError%': $URIError,
 	'%WeakMap%': typeof WeakMap === 'undefined' ? undefined : WeakMap,
 	'%WeakRef%': typeof WeakRef === 'undefined' ? undefined : WeakRef,
 	'%WeakSet%': typeof WeakSet === 'undefined' ? undefined : WeakSet
@@ -19484,6 +19568,7 @@ var doEval = function doEval(name) {
 };
 
 var LEGACY_ALIASES = {
+	__proto__: null,
 	'%ArrayBufferPrototype%': ['ArrayBuffer', 'prototype'],
 	'%ArrayPrototype%': ['Array', 'prototype'],
 	'%ArrayProto_entries%': ['Array', 'prototype', 'entries'],
@@ -19707,26 +19792,15 @@ module.exports = $gOPD;
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__("./node_modules/get-intrinsic/index.js");
-
-var $defineProperty = GetIntrinsic('%Object.defineProperty%', true);
+var $defineProperty = __webpack_require__("./node_modules/es-define-property/index.js");
 
 var hasPropertyDescriptors = function hasPropertyDescriptors() {
-	if ($defineProperty) {
-		try {
-			$defineProperty({}, 'a', { value: 1 });
-			return true;
-		} catch (e) {
-			// IE 8 has a broken defineProperty
-			return false;
-		}
-	}
-	return false;
+	return !!$defineProperty;
 };
 
 hasPropertyDescriptors.hasArrayLengthDefineBug = function hasArrayLengthDefineBug() {
 	// node v0.6 has a bug where array lengths can be Set but not Defined
-	if (!hasPropertyDescriptors()) {
+	if (!$defineProperty) {
 		return null;
 	}
 	try {
@@ -19749,13 +19823,17 @@ module.exports = hasPropertyDescriptors;
 
 
 var test = {
+	__proto__: null,
 	foo: {}
 };
 
 var $Object = Object;
 
+/** @type {import('.')} */
 module.exports = function hasProto() {
-	return { __proto__: test }.foo === test.foo && !({ __proto__: null } instanceof $Object);
+	// @ts-expect-error: TS errors on an inherited property for some reason
+	return { __proto__: test }.foo === test.foo
+		&& !(test instanceof $Object);
 };
 
 
@@ -19840,6 +19918,7 @@ module.exports = function hasSymbols() {
 
 var hasSymbols = __webpack_require__("./node_modules/has-symbols/shams.js");
 
+/** @type {import('.')} */
 module.exports = function hasToStringTagShams() {
 	return hasSymbols() && !!Symbol.toStringTag;
 };
@@ -19857,7 +19936,7 @@ var call = Function.prototype.call;
 var $hasOwn = Object.prototype.hasOwnProperty;
 var bind = __webpack_require__("./node_modules/function-bind/index.js");
 
-/** @type {(o: {}, p: PropertyKey) => p is keyof o} */
+/** @type {import('.')} */
 module.exports = bind.call(call, $hasOwn);
 
 
@@ -20242,6 +20321,7 @@ exports.isPlainObject = isPlainObject;
 
 var whichTypedArray = __webpack_require__("./node_modules/which-typed-array/index.js");
 
+/** @type {import('.')} */
 module.exports = function isTypedArray(value) {
 	return !!whichTypedArray(value);
 };
@@ -25728,6 +25808,30 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
+/***/ "./node_modules/possible-typed-array-names/index.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('.')} */
+module.exports = [
+	'Float32Array',
+	'Float64Array',
+	'Int8Array',
+	'Int16Array',
+	'Int32Array',
+	'Uint8Array',
+	'Uint8ClampedArray',
+	'Uint16Array',
+	'Uint32Array',
+	'BigInt64Array',
+	'BigUint64Array'
+];
+
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /***/ ((module) => {
 
@@ -27295,9 +27399,10 @@ var define = __webpack_require__("./node_modules/define-data-property/index.js")
 var hasDescriptors = __webpack_require__("./node_modules/has-property-descriptors/index.js")();
 var gOPD = __webpack_require__("./node_modules/gopd/index.js");
 
-var $TypeError = GetIntrinsic('%TypeError%');
+var $TypeError = __webpack_require__("./node_modules/es-errors/type.js");
 var $floor = GetIntrinsic('%Math.floor%');
 
+/** @type {import('.')} */
 module.exports = function setFunctionLength(fn, length) {
 	if (typeof fn !== 'function') {
 		throw new $TypeError('`fn` is not a function');
@@ -27322,9 +27427,9 @@ module.exports = function setFunctionLength(fn, length) {
 
 	if (functionLengthIsConfigurable || functionLengthIsWritable || !loose) {
 		if (hasDescriptors) {
-			define(fn, 'length', length, true, true);
+			define(/** @type {Parameters<define>[0]} */ (fn), 'length', length, true, true);
 		} else {
-			define(fn, 'length', length);
+			define(/** @type {Parameters<define>[0]} */ (fn), 'length', length);
 		}
 	}
 	return fn;
@@ -27346,18 +27451,19 @@ __webpack_require__.d(__webpack_exports__, {
   globals: () => (/* binding */ globals)
 });
 
-;// CONCATENATED MODULE: ./node_modules/storybook-addon-pseudo-states/dist/chunk-OZNRRAVT.mjs
+;// CONCATENATED MODULE: ./node_modules/storybook-addon-pseudo-states/dist/chunk-U5XMEK5H.mjs
 // src/constants.ts
 var ADDON_ID = "storybook/pseudo-states";
 var TOOL_ID = (/* unused pure expression or super */ null && (`${ADDON_ID}/tool`));
 var PARAM_KEY = "pseudo";
-var EXCLUDED_PSEUDO_ELEMENTS = ["::-webkit-scrollbar-thumb"];
+var EXCLUDED_PSEUDO_ELEMENTS = ["::-webkit-scrollbar-thumb", "::-webkit-slider-thumb"];
 var PSEUDO_STATES = {
   hover: "hover",
   active: "active",
   focusVisible: "focus-visible",
   focusWithin: "focus-within",
   focus: "focus",
+  // must come after its alternatives
   visited: "visited",
   link: "link",
   target: "target"
@@ -27431,7 +27537,7 @@ var rewriteRule = ({ cssText, selectorText }, shadowRoot) => {
         return [selector];
       }
       const states = [];
-      const plainSelector = selector.replace(matchAll, (_, state) => {
+      let plainSelector = selector.replace(matchAll, (_, state) => {
         states.push(state);
         return "";
       });
@@ -27440,49 +27546,81 @@ var rewriteRule = ({ cssText, selectorText }, shadowRoot) => {
           return "";
         return acc.replace(new RegExp(`:${state}`, "g"), `.pseudo-${state}`);
       }, selector);
-      const classAllSelector = states.reduce((acc, state) => {
-        if (isExcludedPseudoElement(selector, state))
-          return "";
-        return acc.replace(new RegExp(`:${state}`, "g"), `.pseudo-${state}-all`);
-      }, selector);
-      if (selector.startsWith(":host(") || selector.startsWith("::slotted(")) {
-        return [selector, classSelector, classAllSelector].filter(Boolean);
+      let ancestorSelector = "";
+      const statesAllClassSelectors = states.map((s) => `.pseudo-${s}-all`).join("");
+      if (selector.startsWith(":host(")) {
+        const matches = selector.match(/^:host\(([^ ]+)\) /);
+        if (matches && !matchOne.test(matches[1])) {
+          ancestorSelector = `:host(${matches[1]}${statesAllClassSelectors}) ${plainSelector.replace(matches[0], "")}`;
+        } else {
+          ancestorSelector = states.reduce((acc, state) => {
+            if (isExcludedPseudoElement(selector, state))
+              return "";
+            return acc.replace(new RegExp(`:${state}`, "g"), `.pseudo-${state}-all`);
+          }, selector);
+        }
+      } else if (selector.startsWith("::slotted(") || shadowRoot) {
+        if (plainSelector.startsWith("::slotted()")) {
+          plainSelector = plainSelector.replace("::slotted()", "::slotted(*)");
+        }
+        ancestorSelector = `:host(${statesAllClassSelectors}) ${plainSelector}`;
+      } else {
+        ancestorSelector = `${statesAllClassSelectors} ${plainSelector}`;
       }
-      const ancestorSelector = shadowRoot ? `:host(${states.map((s) => `.pseudo-${s}-all`).join("")}) ${plainSelector}` : `${states.map((s) => `.pseudo-${s}-all`).join("")} ${plainSelector}`;
       return [selector, classSelector, ancestorSelector].filter(
-        (selector2) => selector2 && !selector2.includes(":not()")
+        (selector2) => selector2 && !selector2.includes(":not()") && !selector2.includes(":has()")
       );
     }).join(", ")
   );
 };
-var rewriteStyleSheet = (sheet, shadowRoot, shadowHosts2) => {
+var rewriteStyleSheet = (sheet, shadowRoot) => {
   try {
-    let index = -1;
-    for (const cssRule of sheet.cssRules) {
-      index++;
-      if (cssRule.__pseudoStatesRewritten || !("selectorText" in cssRule))
-        continue;
-      const styleRule = cssRule;
-      if (matchOne.test(styleRule.selectorText)) {
-        const newRule = rewriteRule(styleRule, shadowRoot);
-        sheet.deleteRule(index);
-        sheet.insertRule(newRule, index);
-        if (shadowRoot && shadowHosts2)
-          shadowHosts2.add(shadowRoot.host);
-      }
-      cssRule.__pseudoStatesRewritten = true;
-      if (index > 1e3) {
-        warnOnce("Reached maximum of 1000 pseudo selectors per sheet, skipping the rest.");
-        break;
-      }
+    const maximumRulesToRewrite = 1e3;
+    const count = rewriteRuleContainer(sheet, maximumRulesToRewrite, shadowRoot);
+    if (count >= maximumRulesToRewrite) {
+      warnOnce("Reached maximum of 1000 pseudo selectors per sheet, skipping the rest.");
     }
+    return count > 0;
   } catch (e) {
     if (String(e).includes("cssRules")) {
       warnOnce(`Can't access cssRules, likely due to CORS restrictions: ${sheet.href}`);
     } else {
       console.error(e, sheet.href);
     }
+    return false;
   }
+};
+var rewriteRuleContainer = (ruleContainer, rewriteLimit, shadowRoot) => {
+  let count = 0;
+  let index = -1;
+  for (const cssRule of ruleContainer.cssRules) {
+    index++;
+    let numRewritten = 0;
+    if (cssRule.__processed) {
+      numRewritten = cssRule.__pseudoStatesRewrittenCount;
+    } else {
+      if ("cssRules" in cssRule && cssRule.cssRules.length) {
+        numRewritten = rewriteRuleContainer(cssRule, rewriteLimit - count, shadowRoot);
+      } else {
+        if (!("selectorText" in cssRule))
+          continue;
+        const styleRule = cssRule;
+        if (matchOne.test(styleRule.selectorText)) {
+          const newRule = rewriteRule(styleRule, shadowRoot);
+          ruleContainer.deleteRule(index);
+          ruleContainer.insertRule(newRule, index);
+          numRewritten = 1;
+        }
+      }
+      cssRule.__processed = true;
+      cssRule.__pseudoStatesRewrittenCount = numRewritten;
+    }
+    count += numRewritten;
+    if (count >= rewriteLimit) {
+      break;
+    }
+  }
+  return count;
 };
 
 // src/preview/withPseudoState.ts
@@ -27495,6 +27633,16 @@ var applyClasses = (element, classnames) => {
   });
   classnames.forEach((classname) => element.classList.add(classname));
 };
+function querySelectorPiercingShadowDOM(root, selector) {
+  const results = [];
+  root.querySelectorAll("*").forEach((el) => {
+    if (el.shadowRoot) {
+      results.push(...querySelectorPiercingShadowDOM(el.shadowRoot, selector));
+    }
+  });
+  results.push(...root.querySelectorAll(selector).values());
+  return results;
+}
 var applyParameter = (rootElement, parameter = {}) => {
   const map = /* @__PURE__ */ new Map([[rootElement, /* @__PURE__ */ new Set()]]);
   const add = (target, state) => map.set(target, /* @__PURE__ */ new Set([...map.get(target) || [], state]));
@@ -27503,9 +27651,9 @@ var applyParameter = (rootElement, parameter = {}) => {
       if (value)
         add(rootElement, `${state}-all`);
     } else if (typeof value === "string") {
-      rootElement.querySelectorAll(value).forEach((el) => add(el, state));
+      querySelectorPiercingShadowDOM(rootElement, value).forEach((el) => add(el, state));
     } else if (Array.isArray(value)) {
-      value.forEach((sel) => rootElement.querySelectorAll(sel).forEach((el) => add(el, state)));
+      value.forEach((sel) => querySelectorPiercingShadowDOM(rootElement, sel).forEach((el) => add(el, state)));
     }
   });
   map.forEach((states, target) => {
@@ -27523,10 +27671,19 @@ var applyParameter = (rootElement, parameter = {}) => {
 };
 var updateShadowHost = (shadowHost) => {
   const classnames = /* @__PURE__ */ new Set();
-  for (let element = shadowHost.parentElement; element; element = element.parentElement) {
-    if (!element.className)
+  shadowHost.className.split(" ").filter((classname) => classname.startsWith("pseudo-")).forEach((classname) => classnames.add(classname));
+  for (let node = shadowHost.parentNode; node; ) {
+    if (node instanceof ShadowRoot) {
+      node = node.host;
       continue;
-    element.className.split(" ").filter((classname) => classname.indexOf("pseudo-") === 0).forEach((classname) => classnames.add(classname));
+    }
+    if (node instanceof Element) {
+      const element = node;
+      if (element.className) {
+        element.className.split(" ").filter((classname) => classname.match(/^pseudo-.+-all$/) !== null).forEach((classname) => classnames.add(classname));
+      }
+    }
+    node = node.parentNode;
   }
   applyClasses(shadowHost, classnames);
 };
@@ -27548,7 +27705,8 @@ var withPseudoState = (StoryFn, { viewMode, parameters, id, globals: globalsArgs
     if (viewMode === "docs") {
       return document.getElementById(`story--${id}`);
     }
-    return document.getElementById("storybook-root") || document.getElementById("root");
+    return document.getElementById("storybook-root") || // Storybook 7.0+
+    document.getElementById("root");
   }, [rootSelector, viewMode, id]);
   (0,external_STORYBOOK_MODULE_PREVIEW_API_.useEffect)(() => {
     const config = pseudoConfig(parameter);
@@ -27573,7 +27731,9 @@ var rewriteStyleSheets = (shadowRoot) => {
   let styleSheets = Array.from(shadowRoot ? shadowRoot.styleSheets : document.styleSheets);
   if (shadowRoot?.adoptedStyleSheets?.length)
     styleSheets = shadowRoot.adoptedStyleSheets;
-  styleSheets.forEach((sheet) => rewriteStyleSheet(sheet, shadowRoot, shadowHosts));
+  const rewroteStyles = styleSheets.map((sheet) => rewriteStyleSheet(sheet, shadowRoot)).some(Boolean);
+  if (rewroteStyles && shadowRoot && shadowHosts)
+    shadowHosts.add(shadowRoot.host);
 };
 channel.on(external_STORYBOOK_MODULE_CORE_EVENTS_.STORY_CHANGED, () => shadowHosts.clear());
 channel.on(external_STORYBOOK_MODULE_CORE_EVENTS_.STORY_RENDERED, () => rewriteStyleSheets());
@@ -27587,7 +27747,8 @@ if (Element.prototype.attachShadow) {
     const shadowRoot = this._attachShadow({ ...init, mode: "open" });
     requestAnimationFrame(() => {
       rewriteStyleSheets(shadowRoot);
-      updateShadowHost(shadowRoot.host);
+      if (shadowHosts.has(shadowRoot.host))
+        updateShadowHost(shadowRoot.host);
     });
     return shadowRoot;
   };
@@ -29095,6 +29256,7 @@ var callBind = __webpack_require__("./node_modules/call-bind/index.js");
 var callBound = __webpack_require__("./node_modules/call-bind/callBound.js");
 var gOPD = __webpack_require__("./node_modules/gopd/index.js");
 
+/** @type {(O: object) => string} */
 var $toString = callBound('Object.prototype.toString');
 var hasToStringTag = __webpack_require__("./node_modules/has-tostringtag/shams.js")();
 
@@ -29104,6 +29266,7 @@ var typedArrays = availableTypedArrays();
 var $slice = callBound('String.prototype.slice');
 var getPrototypeOf = Object.getPrototypeOf; // require('getprototypeof');
 
+/** @type {<T = unknown>(array: readonly T[], value: unknown) => number} */
 var $indexOf = callBound('Array.prototype.indexOf', true) || function indexOf(array, value) {
 	for (var i = 0; i < array.length; i += 1) {
 		if (array[i] === value) {
@@ -29112,17 +29275,23 @@ var $indexOf = callBound('Array.prototype.indexOf', true) || function indexOf(ar
 	}
 	return -1;
 };
+
+/** @typedef {(receiver: import('.').TypedArray) => string | typeof Uint8Array.prototype.slice.call | typeof Uint8Array.prototype.set.call} Getter */
+/** @type {{ [k in `\$${import('.').TypedArrayName}`]?: Getter } & { __proto__: null }} */
 var cache = { __proto__: null };
 if (hasToStringTag && gOPD && getPrototypeOf) {
 	forEach(typedArrays, function (typedArray) {
 		var arr = new g[typedArray]();
 		if (Symbol.toStringTag in arr) {
 			var proto = getPrototypeOf(arr);
+			// @ts-expect-error TS won't narrow inside a closure
 			var descriptor = gOPD(proto, Symbol.toStringTag);
 			if (!descriptor) {
 				var superProto = getPrototypeOf(proto);
+				// @ts-expect-error TS won't narrow inside a closure
 				descriptor = gOPD(superProto, Symbol.toStringTag);
 			}
+			// @ts-expect-error TODO: fix
 			cache['$' + typedArray] = callBind(descriptor.get);
 		}
 	});
@@ -29131,41 +29300,57 @@ if (hasToStringTag && gOPD && getPrototypeOf) {
 		var arr = new g[typedArray]();
 		var fn = arr.slice || arr.set;
 		if (fn) {
+			// @ts-expect-error TODO: fix
 			cache['$' + typedArray] = callBind(fn);
 		}
 	});
 }
 
+/** @type {(value: object) => false | import('.').TypedArrayName} */
 var tryTypedArrays = function tryAllTypedArrays(value) {
-	var found = false;
-	forEach(cache, function (getter, typedArray) {
-		if (!found) {
-			try {
-				if ('$' + getter(value) === typedArray) {
-					found = $slice(typedArray, 1);
-				}
-			} catch (e) { /**/ }
+	/** @type {ReturnType<typeof tryAllTypedArrays>} */ var found = false;
+	forEach(
+		// eslint-disable-next-line no-extra-parens
+		/** @type {Record<`\$${TypedArrayName}`, Getter>} */ /** @type {any} */ (cache),
+		/** @type {(getter: Getter, name: `\$${import('.').TypedArrayName}`) => void} */
+		function (getter, typedArray) {
+			if (!found) {
+				try {
+				// @ts-expect-error TODO: fix
+					if ('$' + getter(value) === typedArray) {
+						found = $slice(typedArray, 1);
+					}
+				} catch (e) { /**/ }
+			}
 		}
-	});
+	);
 	return found;
 };
 
+/** @type {(value: object) => false | import('.').TypedArrayName} */
 var trySlices = function tryAllSlices(value) {
-	var found = false;
-	forEach(cache, function (getter, name) {
-		if (!found) {
-			try {
-				getter(value);
-				found = $slice(name, 1);
-			} catch (e) { /**/ }
+	/** @type {ReturnType<typeof tryAllSlices>} */ var found = false;
+	forEach(
+		// eslint-disable-next-line no-extra-parens
+		/** @type {Record<`\$${TypedArrayName}`, Getter>} */ /** @type {any} */ (cache),
+		/** @type {(getter: typeof cache, name: `\$${import('.').TypedArrayName}`) => void} */ function (getter, name) {
+			if (!found) {
+				try {
+					// @ts-expect-error TODO: fix
+					getter(value);
+					found = $slice(name, 1);
+				} catch (e) { /**/ }
+			}
 		}
-	});
+	);
 	return found;
 };
 
+/** @type {import('.')} */
 module.exports = function whichTypedArray(value) {
 	if (!value || typeof value !== 'object') { return false; }
 	if (!hasToStringTag) {
+		/** @type {string} */
 		var tag = $slice($toString(value), 8, -1);
 		if ($indexOf(typedArrays, tag) > -1) {
 			return tag;

@@ -111,7 +111,7 @@ function _createMdxContent(props) {
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-jsx",
-        children: "const ExampleComponent = () => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\"]);\n  const [hasError, setHasError] = useState(false);\n\n  return (\n    <MultiSelect\n      name=\"Example select element\"\n            value={pickedOptions}\n      onChange={event => {\n        setPickedOptions(\n          [...event.target.options].filter(option => option.selected).map(option => option.value)\n        );\n      }}\n      error={hasError}\n    >\n      <MultiOption value=\"option1\" fixed>Option 1</MultiOption>\n      <MultiOption value=\"option2\">Option 2</MultiOption>\n      <MultiOption value=\"option3\">Option 3</MultiOption>\n      <MultiOption value=\"option4\">Option 4</MultiOption>\n      <MultiOption value=\"option5\">Option 5</MultiOption>\n    </MultiSelect>\n  );\n};\n"
+        children: "const ExampleComponent = () => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\"]);\n  const [hasError, setHasError] = useState(false);\n\n  return (\n    <MultiSelect\n      name=\"Example select element\"\n            value={pickedOptions}\n      onChange={event => {\n        setPickedOptions(\n          Array.from(event.target.options).filter(option => option.selected).map(option => option.value)\n        );\n      }}\n      error={hasError}\n    >\n      <MultiOption value=\"option1\" fixed>Option 1</MultiOption>\n      <MultiOption value=\"option2\">Option 2</MultiOption>\n      <MultiOption value=\"option3\">Option 3</MultiOption>\n      <MultiOption value=\"option4\">Option 4</MultiOption>\n      <MultiOption value=\"option5\">Option 5</MultiOption>\n    </MultiSelect>\n  );\n};\n"
       })
     }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
       children: ["The ", (0,jsx_runtime.jsx)(_components.code, {
@@ -272,7 +272,7 @@ const Template = args => {
   return /*#__PURE__*/react.createElement(MultiSelect/* MultiSelect */.N, _extends({}, args, {
     value: pickedOptions,
     onChange: e => {
-      setPickedOptions([...e.target.options].filter(option => option.selected).map(option => option.value));
+      setPickedOptions(Array.from(e.target.options).filter(option => option.selected).map(option => option.value));
     }
   }));
 };
@@ -347,7 +347,7 @@ MultiSelect_stories_MultiSelect.parameters = {
   docs: {
     ...MultiSelect_stories_MultiSelect.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\", \"option2\"]);\n  return <MultiSelectComponent {...args} value={pickedOptions} onChange={e => {\n    setPickedOptions([...e.target.options].filter(option => option.selected).map(option => option.value));\n  }}></MultiSelectComponent>;\n}",
+      originalSource: "args => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\", \"option2\"]);\n  return <MultiSelectComponent {...args} value={pickedOptions} onChange={e => {\n    setPickedOptions(Array.from(e.target.options).filter(option => option.selected).map(option => option.value));\n  }}></MultiSelectComponent>;\n}",
       ...MultiSelect_stories_MultiSelect.parameters?.docs?.source
     }
   }
@@ -357,7 +357,7 @@ MultiSelectWithSearchOptions.parameters = {
   docs: {
     ...MultiSelectWithSearchOptions.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\", \"option2\"]);\n  return <MultiSelectComponent {...args} value={pickedOptions} onChange={e => {\n    setPickedOptions([...e.target.options].filter(option => option.selected).map(option => option.value));\n  }}></MultiSelectComponent>;\n}",
+      originalSource: "args => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\", \"option2\"]);\n  return <MultiSelectComponent {...args} value={pickedOptions} onChange={e => {\n    setPickedOptions(Array.from(e.target.options).filter(option => option.selected).map(option => option.value));\n  }}></MultiSelectComponent>;\n}",
       ...MultiSelectWithSearchOptions.parameters?.docs?.source
     }
   }
@@ -367,7 +367,7 @@ MultiSelectWithAddNewAndSearch.parameters = {
   docs: {
     ...MultiSelectWithAddNewAndSearch.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\", \"option2\"]);\n  return <MultiSelectComponent {...args} value={pickedOptions} onChange={e => {\n    setPickedOptions([...e.target.options].filter(option => option.selected).map(option => option.value));\n  }}></MultiSelectComponent>;\n}",
+      originalSource: "args => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\", \"option2\"]);\n  return <MultiSelectComponent {...args} value={pickedOptions} onChange={e => {\n    setPickedOptions(Array.from(e.target.options).filter(option => option.selected).map(option => option.value));\n  }}></MultiSelectComponent>;\n}",
       ...MultiSelectWithAddNewAndSearch.parameters?.docs?.source
     }
   }
@@ -377,7 +377,7 @@ MultiSelectWithAddNew.parameters = {
   docs: {
     ...MultiSelectWithAddNew.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\", \"option2\"]);\n  return <MultiSelectComponent {...args} value={pickedOptions} onChange={e => {\n    setPickedOptions([...e.target.options].filter(option => option.selected).map(option => option.value));\n  }}></MultiSelectComponent>;\n}",
+      originalSource: "args => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([\"option1\", \"option2\"]);\n  return <MultiSelectComponent {...args} value={pickedOptions} onChange={e => {\n    setPickedOptions(Array.from(e.target.options).filter(option => option.selected).map(option => option.value));\n  }}></MultiSelectComponent>;\n}",
       ...MultiSelectWithAddNew.parameters?.docs?.source
     }
   }
