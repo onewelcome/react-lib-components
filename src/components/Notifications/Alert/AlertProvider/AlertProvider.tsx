@@ -38,9 +38,8 @@ export interface Props {
 }
 
 type AlertEntry = AlertComponentProps & { height?: number };
-const STACK_SIZE = 3;
 
-export const AlertContext = createContext<{
+interface AlertContextValue {
   enqueueAlert: (entry: string | Omit<AlertEntry, "id">) => void;
   enqueueInfoAlert: (entry: string | Omit<AlertEntry, "id">) => void;
   enqueueSuccessAlert: (entry: string | Omit<AlertEntry, "id">) => void;
@@ -48,7 +47,9 @@ export const AlertContext = createContext<{
   enqueueErrorAlert: (entry: string | Error | Omit<AlertEntry, "id">) => void;
   setAlertHeight: (id: string, height: number) => void;
   alerts: AlertEntry[];
-}>({
+}
+
+export const AlertContext = createContext<AlertContextValue>({
   enqueueAlert: entry => null,
   enqueueInfoAlert: entry => null,
   enqueueSuccessAlert: entry => null,
@@ -91,22 +92,122 @@ export const AlertProvider = ({
       return;
     }
 
-    if (typeof arg !== "string") {
-      arg = arg as AlertEntry;
-      const newEntry: AlertEntry = {
-        ...arg,
-        id: generateID(15, arg.content || arg.title),
-        duration: arg.duration ?? getDuration(arg),
-        closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle
-      };
-      setAlertEnties(entries => [...entries, newEntry]);
-    }
+    arg = arg as AlertEntry;
+    const newEntry: AlertEntry = {
+      ...arg,
+      id: generateID(15, arg.content || arg.title),
+      duration: arg.duration ?? getDuration(arg),
+      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle
+    };
+    setAlertEnties(entries => [...entries, newEntry]);
   };
 
-  const enqueueInfoAlert = (arg: unknown) => {};
-  const enqueueSuccessAlert = () => {};
-  const enqueueErrorAlert = () => {};
-  const enqueueWarningAlert = () => {};
+  const enqueueInfoAlert: AlertContextValue["enqueueInfoAlert"] = arg => {
+    if (typeof arg === "string") {
+      const newEntry: AlertEntry = {
+        id: generateID(15, arg),
+        content: arg,
+        duration: autoHideDuration.short,
+        closeButtonTitle,
+        variant: "informative"
+      };
+      setAlertEnties(entries => [...entries, newEntry]);
+      return;
+    }
+
+    const newEntry: AlertEntry = {
+      ...arg,
+      id: generateID(15, arg.content || arg.title),
+      duration: arg.duration ?? getDuration(arg),
+      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle,
+      variant: "informative"
+    };
+    setAlertEnties(entries => [...entries, newEntry]);
+  };
+
+  const enqueueSuccessAlert: AlertContextValue["enqueueSuccessAlert"] = arg => {
+    if (typeof arg === "string") {
+      const newEntry: AlertEntry = {
+        id: generateID(15, arg),
+        content: arg,
+        duration: autoHideDuration.short,
+        closeButtonTitle,
+        variant: "success"
+      };
+      setAlertEnties(entries => [...entries, newEntry]);
+      return;
+    }
+
+    const newEntry: AlertEntry = {
+      ...arg,
+      id: generateID(15, arg.content || arg.title),
+      duration: arg.duration ?? getDuration(arg),
+      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle,
+      variant: "success"
+    };
+    setAlertEnties(entries => [...entries, newEntry]);
+  };
+
+  const enqueueWarningAlert: AlertContextValue["enqueueWarningAlert"] = arg => {
+    if (typeof arg === "string") {
+      const newEntry: AlertEntry = {
+        id: generateID(15, arg),
+        content: arg,
+        duration: autoHideDuration.short,
+        closeButtonTitle,
+        variant: "warning"
+      };
+      setAlertEnties(entries => [...entries, newEntry]);
+      return;
+    }
+
+    const newEntry: AlertEntry = {
+      ...arg,
+      id: generateID(15, arg.content || arg.title),
+      duration: arg.duration ?? getDuration(arg),
+      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle,
+      variant: "warning"
+    };
+    setAlertEnties(entries => [...entries, newEntry]);
+  };
+
+  const enqueueErrorAlert: AlertContextValue["enqueueErrorAlert"] = arg => {
+    if (typeof arg === "string") {
+      const newEntry: AlertEntry = {
+        id: generateID(15, arg),
+        content: arg,
+        duration: autoHideDuration.short,
+        closeButtonTitle,
+        variant: "error"
+      };
+      setAlertEnties(entries => [...entries, newEntry]);
+      return;
+    }
+
+    if (arg instanceof Error) {
+      if (!arg.message) {
+        return;
+      }
+      const newEntry: AlertEntry = {
+        id: generateID(15, arg.message),
+        content: arg.message,
+        duration: autoHideDuration.short,
+        closeButtonTitle,
+        variant: "error"
+      };
+      setAlertEnties(entries => [...entries, newEntry]);
+      return;
+    }
+
+    const newEntry: AlertEntry = {
+      ...arg,
+      id: generateID(15, arg.content || arg.title),
+      duration: arg.duration ?? getDuration(arg),
+      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle,
+      variant: "error"
+    };
+    setAlertEnties(entries => [...entries, newEntry]);
+  };
 
   const setAlertHeight = (id: string, height: number) => {
     const newAlertsState = alertEnties.map(alertEntry => {
