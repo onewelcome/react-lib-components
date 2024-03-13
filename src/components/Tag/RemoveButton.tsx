@@ -33,12 +33,12 @@ const RemoveButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> 
   return (
     onRemove && (
       <button
+        title=""
         type="button"
+        {...rest}
         ref={ref}
         className={`${classes["remove"]} ${rest.className ?? ""}`}
-        title=""
         onClick={onRemove}
-        {...rest}
       >
         <Icon icon={Icons.Times} className={classes["icon"]} />
         <span className={readyclasses["sr-only"]}>
