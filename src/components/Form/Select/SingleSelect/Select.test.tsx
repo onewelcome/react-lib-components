@@ -229,6 +229,23 @@ describe("Select should render with search", () => {
     expect(searchInput).not.toBeNull();
   });
 
+  it("should render search when threshold has been reached", async () => {
+    const { select, button, queryByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      search: { enabled: true, renderThreshold: 0 },
+      children: []
+    }));
+
+    const searchInput = queryByTestId("search-input");
+
+    if (button) {
+      await userEvent.click(button);
+    }
+
+    expect(select).toBeTruthy();
+    expect(searchInput).not.toBeNull();
+  });
+
   it("should not render search when enabled but too little elements", async () => {
     const { select, button, queryByTestId } = createSelect(defaultParams => ({
       ...defaultParams,

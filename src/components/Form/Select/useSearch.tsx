@@ -51,7 +51,7 @@ export const useSearch = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const threshold = search?.renderThreshold ?? DEFAULT_RENDER_THRESHOLD;
-  const hasEnoughChildren = optionsCount > threshold;
+  const hasEnoughChildren = optionsCount >= threshold;
 
   const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(event.currentTarget.value);
