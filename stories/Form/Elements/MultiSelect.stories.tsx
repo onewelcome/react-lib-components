@@ -73,7 +73,9 @@ const Template: StoryFn<MultiSelectProps> = args => {
       value={pickedOptions}
       onChange={e => {
         setPickedOptions(
-          [...e.target.options].filter(option => option.selected).map(option => option.value)
+          Array.from(e.target.options)
+            .filter(option => option.selected)
+            .map(option => option.value)
         );
       }}
     ></MultiSelectComponent>

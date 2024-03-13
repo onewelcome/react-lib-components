@@ -32,7 +32,7 @@ const ExampleComponent = () => {
             value={pickedOptions}
       onChange={event => {
         setPickedOptions(
-          [...event.target.options].filter(option => option.selected).map(option => option.value)
+          Array.from(event.target.options).filter(option => option.selected).map(option => option.value)
         );
       }}
       error={hasError}
