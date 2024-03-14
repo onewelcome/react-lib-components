@@ -19,9 +19,9 @@ import { getByTestId, render, renderHook, waitFor } from "@testing-library/react
 import { NotificationProvider, useNotificationContext } from "./NotificationContext";
 import { Translations } from "./notification.interfaces";
 import { act } from "react-dom/test-utils";
-import { AlertProvider } from "../Alert/AlertProvider/AlertProvider";
+import { SnackbarProvider } from "../Snackbar/SnackbarProvider/SnackbarProvider";
 import userEvent from "@testing-library/user-event";
-import * as useAlertModule from "../Alert/useAlert";
+import * as useSnackbarModule from "../Snackbar/useSnackbar";
 
 jest.mock("../../../util/helper", () => ({
   generateID: () => "test-id",
@@ -31,7 +31,7 @@ jest.mock("../../../util/helper", () => ({
   })
 }));
 
-const renderAlertProvider = () => {
+const renderSnackbarProvider = () => {
   const AppComponent = () => {
     const { addNotification } = useNotificationContext();
     const [index, setIndex] = useState(0);
@@ -71,29 +71,29 @@ const renderAlertProvider = () => {
   };
 
   const queries = render(
-    <AlertProvider closeButtonTitle="close" key={5}>
+    <SnackbarProvider closeButtonTitle="close">
       <NotificationProvider>
         <AppComponent />
       </NotificationProvider>
-    </AlertProvider>
+    </SnackbarProvider>
   );
 
-  const showSuccessAlertBtn = getByTestId(queries.container, "show-success");
-  const showErrorAlertBtn = getByTestId(queries.container, "show-error");
+  const showSuccessSnackbarBtn = getByTestId(queries.container, "show-success");
+  const showErrorSnackbarBtn = getByTestId(queries.container, "show-error");
 
   return {
     ...queries,
-    showSuccessAlertBtn,
-    showErrorAlertBtn
+    showSuccessSnackbarBtn,
+    showErrorSnackbarBtn
   };
 };
 
-describe("Actually shows the alerts showing up", () => {
-  it("Shows the alerts", async () => {
-    const { showSuccessAlertBtn, showErrorAlertBtn, getByText } = renderAlertProvider();
+describe("Actually shows the snackbars showing up", () => {
+  it("Shows the snackbars", async () => {
+    const { showSuccessSnackbarBtn, showErrorSnackbarBtn, getByText } = renderSnackbarProvider();
 
-    await userEvent.click(showSuccessAlertBtn);
-    await userEvent.click(showErrorAlertBtn);
+    await userEvent.click(showSuccessSnackbarBtn);
+    await userEvent.click(showErrorSnackbarBtn);
 
     await waitFor(() => expect(getByText("Test Success")).toBeInTheDocument());
     await waitFor(() => expect(getByText("Test bad request")).toBeInTheDocument());
@@ -185,13 +185,13 @@ describe("Notification", () => {
 
   describe("Translations", () => {
     it("Translates the status 400, 401 and 403 translations", async () => {
-      const enqueueErrorAlertMock = jest.fn();
+      const enqueueErrorSnackbarMock = jest.fn();
 
-      jest.spyOn(useAlertModule, "useAlert").mockImplementation(() => ({
-        enqueueWarningAlert: jest.fn(),
-        enqueueErrorAlert: enqueueErrorAlertMock,
-        enqueueSuccessAlert: jest.fn(),
-        enqueueAlert: jest.fn()
+      jest.spyOn(useSnackbarModule, "useSnackbar").mockImplementation(() => ({
+        enqueueWarningSnackbar: jest.fn(),
+        enqueueErrorSnackbar: enqueueErrorSnackbarMock,
+        enqueueSuccessSnackbar: jest.fn(),
+        enqueueSnackbar: jest.fn()
       }));
 
       const providedTranslations = {
@@ -258,27 +258,27 @@ describe("Notification", () => {
       );
 
       await waitFor(() => {
-        expect(enqueueErrorAlertMock).toHaveBeenCalledTimes(3);
-        expect(enqueueErrorAlertMock).toHaveBeenCalledWith("TestError", "Test bad request", {
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledTimes(3);
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledWith("TestError", "Test bad request", {
           onClose: expect.any(Function)
         });
-        expect(enqueueErrorAlertMock).toHaveBeenCalledWith("TestError", "Test unauthorized", {
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledWith("TestError", "Test unauthorized", {
           onClose: expect.any(Function)
         });
-        expect(enqueueErrorAlertMock).toHaveBeenCalledWith("TestError", "Test forbidden", {
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledWith("TestError", "Test forbidden", {
           onClose: expect.any(Function)
         });
       });
     });
 
     it("Translates the status 404, 500 and 502 translations", async () => {
-      const enqueueErrorAlertMock = jest.fn();
+      const enqueueErrorSnackbarMock = jest.fn();
 
-      jest.spyOn(useAlertModule, "useAlert").mockImplementation(() => ({
-        enqueueWarningAlert: jest.fn(),
-        enqueueErrorAlert: enqueueErrorAlertMock,
-        enqueueSuccessAlert: jest.fn(),
-        enqueueAlert: jest.fn()
+      jest.spyOn(useSnackbarModule, "useSnackbar").mockImplementation(() => ({
+        enqueueWarningSnackbar: jest.fn(),
+        enqueueErrorSnackbar: enqueueErrorSnackbarMock,
+        enqueueSuccessSnackbar: jest.fn(),
+        enqueueSnackbar: jest.fn()
       }));
 
       const providedTranslations = {
@@ -345,27 +345,27 @@ describe("Notification", () => {
       );
 
       await waitFor(() => {
-        expect(enqueueErrorAlertMock).toHaveBeenCalledTimes(3);
-        expect(enqueueErrorAlertMock).toHaveBeenCalledWith("TestError", "Test not found", {
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledTimes(3);
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledWith("TestError", "Test not found", {
           onClose: expect.any(Function)
         });
-        expect(enqueueErrorAlertMock).toHaveBeenCalledWith("TestError", "Test general", {
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledWith("TestError", "Test general", {
           onClose: expect.any(Function)
         });
-        expect(enqueueErrorAlertMock).toHaveBeenCalledWith("TestError", "Test unavailable", {
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledWith("TestError", "Test unavailable", {
           onClose: expect.any(Function)
         });
       });
     });
 
     it("Translates the status 503, 504 and general if the code isn't recognized", async () => {
-      const enqueueErrorAlertMock = jest.fn();
+      const enqueueErrorSnackbarMock = jest.fn();
 
-      jest.spyOn(useAlertModule, "useAlert").mockImplementation(() => ({
-        enqueueWarningAlert: jest.fn(),
-        enqueueErrorAlert: enqueueErrorAlertMock,
-        enqueueSuccessAlert: jest.fn(),
-        enqueueAlert: jest.fn()
+      jest.spyOn(useSnackbarModule, "useSnackbar").mockImplementation(() => ({
+        enqueueWarningSnackbar: jest.fn(),
+        enqueueErrorSnackbar: enqueueErrorSnackbarMock,
+        enqueueSuccessSnackbar: jest.fn(),
+        enqueueSnackbar: jest.fn()
       }));
 
       const providedTranslations = {
@@ -433,14 +433,14 @@ describe("Notification", () => {
       );
 
       await waitFor(() => {
-        expect(enqueueErrorAlertMock).toHaveBeenCalledTimes(3);
-        expect(enqueueErrorAlertMock).toHaveBeenCalledWith("TestError", "Test timeout", {
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledTimes(3);
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledWith("TestError", "Test timeout", {
           onClose: expect.any(Function)
         });
-        expect(enqueueErrorAlertMock).toHaveBeenCalledWith("TestError", "Test general", {
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledWith("TestError", "Test general", {
           onClose: expect.any(Function)
         });
-        expect(enqueueErrorAlertMock).toHaveBeenCalledWith("TestError", "Test unavailable", {
+        expect(enqueueErrorSnackbarMock).toHaveBeenCalledWith("TestError", "Test unavailable", {
           onClose: expect.any(Function)
         });
       });

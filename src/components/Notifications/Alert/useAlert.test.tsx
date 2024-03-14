@@ -18,20 +18,7 @@ import { act, renderHook } from "@testing-library/react";
 import { useAlert } from "./useAlert";
 import { AlertProvider } from "./AlertProvider/AlertProvider";
 
-describe("useNotificationContext", () => {
-  it("should return the correct context", () => {
-    const { result } = renderHook(() => useAlert(), {
-      wrapper: ({ children }) => <AlertProvider closeButtonTitle="close">{children}</AlertProvider>
-    });
-
-    expect(result.current).toEqual({
-      enqueueWarningAlert: expect.any(Function),
-      enqueueErrorAlert: expect.any(Function),
-      enqueueSuccessAlert: expect.any(Function),
-      enqueueAlert: expect.any(Function)
-    });
-  });
-
+describe("useAlertContext", () => {
   it("should call new API", () => {
     const { result } = renderHook(() => useAlert(), {
       wrapper: ({ children }) => <AlertProvider closeButtonTitle="close">{children}</AlertProvider>
