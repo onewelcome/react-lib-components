@@ -94,37 +94,56 @@ describe("useNotificationContext", () => {
     });
 
     act(() => {
-      result.current.enqueueAlert("title");
-      result.current.enqueueAlert("title", "content");
-      result.current.enqueueAlert("title", "content", { onClose: () => {}, actions: [] });
-      result.current.enqueueAlert(undefined, "content");
-      result.current.enqueueAlert(undefined, "content", { className: "123" });
-      result.current.enqueueAlert("title", undefined, { variant: "error", duration: 123 });
-
-      result.current.enqueueErrorAlert("title");
-      result.current.enqueueErrorAlert("title", "content");
-      result.current.enqueueErrorAlert("title", "content", { onClose: () => {}, actions: [] });
-      result.current.enqueueErrorAlert(undefined, "content");
-      result.current.enqueueErrorAlert(undefined, "content", { className: "123" });
-      result.current.enqueueErrorAlert("title", undefined, { duration: 123 });
-
-      result.current.enqueueSuccessAlert("title");
-      result.current.enqueueSuccessAlert("title", "content");
-      result.current.enqueueSuccessAlert("title", "content", { onClose: () => {}, actions: [] });
-      result.current.enqueueSuccessAlert(undefined, "content");
-      result.current.enqueueSuccessAlert(undefined, "content", { className: "123" });
-      result.current.enqueueSuccessAlert("title", undefined, {
-        duration: 123
+      result.current.enqueueAlert("content");
+      result.current.enqueueAlert({
+        title: "title",
+        content: "content",
+        onClose: () => {},
+        actions: []
       });
+      result.current.enqueueAlert({ content: "content", className: "123" });
+      result.current.enqueueAlert({ title: "title", variant: "error", duration: 123 });
 
-      result.current.enqueueWarningAlert("title");
-      result.current.enqueueWarningAlert("title", "content");
-      result.current.enqueueWarningAlert("title", "content", { onClose: () => {}, actions: [] });
-      result.current.enqueueWarningAlert(undefined, "content");
-      result.current.enqueueWarningAlert(undefined, "content", { className: "123" });
-      result.current.enqueueWarningAlert("title", undefined, {
-        duration: 123
+      result.current.enqueueInfoAlert("content");
+      result.current.enqueueInfoAlert({
+        title: "title",
+        content: "content",
+        onClose: () => {},
+        actions: []
       });
+      result.current.enqueueInfoAlert({ content: "content", className: "123" });
+      result.current.enqueueInfoAlert({ title: "title", variant: "informative", duration: 123 });
+
+      result.current.enqueueSuccessAlert("content");
+      result.current.enqueueSuccessAlert({
+        title: "title",
+        content: "content",
+        onClose: () => {},
+        actions: []
+      });
+      result.current.enqueueSuccessAlert({ content: "content", className: "123" });
+      result.current.enqueueSuccessAlert({ title: "title", duration: 123 });
+
+      result.current.enqueueWarningAlert("content");
+      result.current.enqueueWarningAlert({
+        title: "title",
+        content: "content",
+        onClose: () => {},
+        actions: []
+      });
+      result.current.enqueueWarningAlert({ content: "content", className: "123" });
+      result.current.enqueueWarningAlert({ title: "title", duration: 123, emphasis: "low" });
+
+      result.current.enqueueErrorAlert("content");
+      result.current.enqueueErrorAlert(new Error("content"));
+      result.current.enqueueErrorAlert({
+        title: "title",
+        content: "content",
+        onClose: () => {},
+        actions: []
+      });
+      result.current.enqueueErrorAlert({ content: "content", className: "123" });
+      result.current.enqueueErrorAlert({ title: "title", duration: 123, emphasis: "high" });
     });
   });
 });

@@ -133,10 +133,17 @@ export const AlertItem = ({
     return alertClasses.join(" ");
   };
 
+  const getAria = (): "off" | "polite" | "assertive" | undefined => {
+    if (variant === "error" && (emphasis === "medium" || emphasis === "high")) {
+      return "assertive";
+    }
+    return "polite";
+  };
+
   return (
     <div
       ref={ref}
-      aria-live="polite"
+      aria-live={getAria()}
       className={getAlertClasses()}
       onMouseEnter={onItemFocus}
       onMouseLeave={onItemBlur}
