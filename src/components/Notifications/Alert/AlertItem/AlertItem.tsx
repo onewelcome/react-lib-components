@@ -27,7 +27,7 @@ const EMPHASES = ["low", "medium", "high"] as const;
 export type Emphasis = (typeof EMPHASES)[keyof typeof EMPHASES];
 
 const VARIANTS = ["neutral", "informative", "success", "warning", "error"] as const;
-export type Variant = (typeof VARIANTS)[keyof typeof EMPHASES];
+export type Variant = (typeof VARIANTS)[keyof typeof VARIANTS];
 
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
 
