@@ -20,6 +20,7 @@ import { Placement, AlertContainer } from "../AlertContainer/AlertContainer";
 import { generateID } from "../../../../util/helper";
 import { AlertItem, Props as AlertComponentProps } from "../AlertItem/AlertItem";
 import { useGetDomRoot } from "../../../../hooks/useGetDomRoot";
+import AlertContext, { AlertContextValue } from "./AlertContext";
 
 /** Short msg is when only title is provided. Long one when content or/and actions are provided (or type is error). */
 interface Duration {
@@ -38,26 +39,6 @@ export interface Props {
 }
 
 type AlertEntry = AlertComponentProps & { height?: number };
-
-interface AlertContextValue {
-  enqueueAlert: (entry: string | Omit<AlertEntry, "id">) => void;
-  enqueueInfoAlert: (entry: string | Omit<AlertEntry, "id">) => void;
-  enqueueSuccessAlert: (entry: string | Omit<AlertEntry, "id">) => void;
-  enqueueWarningAlert: (entry: string | Omit<AlertEntry, "id">) => void;
-  enqueueErrorAlert: (entry: string | Error | Omit<AlertEntry, "id">) => void;
-  setAlertHeight: (id: string, height: number) => void;
-  alerts: AlertEntry[];
-}
-
-export const AlertContext = createContext<AlertContextValue>({
-  enqueueAlert: entry => null,
-  enqueueInfoAlert: entry => null,
-  enqueueSuccessAlert: entry => null,
-  enqueueErrorAlert: entry => null,
-  enqueueWarningAlert: entry => null,
-  setAlertHeight: (id, height) => null,
-  alerts: []
-});
 
 export const AlertProvider = ({
   closeButtonTitle,
@@ -220,22 +201,27 @@ export const AlertProvider = ({
   };
 
   const removeEntry = (entryId: string) => {
-    setAlertEnties(entries => entries.filter(item => item.id !== entryId));
+    setAlertEnties(entries =>
+      entries.filter((entry, idx) => {
+        if (idx < stackSize) {
+          entry.wasShown = true;
+        }
+        return entry.id !== entryId;
+      })
+    );
   };
 
   const renderAlertList = (): ReactNode => {
-    const result = alertEnties.slice(0, stackSize).map((entry, index) => (
+    return alertEnties.slice(0, stackSize).map((entry, index) => (
       <AlertItem
         {...entry}
-        key={`${entry.id}-${index.toString()}`} // TODO: check this if it could cause an issue with the animation
+        key={`${entry.id}-${index.toString()}`}
         onClose={() => {
           removeEntry(entry.id);
           entry.onClose?.();
         }}
       />
     ));
-
-    return result;
   };
 
   const wrappingDivRef = useRef(null);

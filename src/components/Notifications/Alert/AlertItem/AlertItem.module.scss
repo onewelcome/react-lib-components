@@ -24,7 +24,6 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  @include mixins.transition(height, 0.2s, ease-in-out);
   flex-grow: 0;
 
   &.neutral {

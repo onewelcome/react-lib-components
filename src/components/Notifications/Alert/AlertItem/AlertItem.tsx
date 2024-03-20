@@ -21,8 +21,7 @@ import classes from "./AlertItem.module.scss";
 import readyclasses from "../../../../readyclasses.module.scss";
 import { useAnimation } from "../../../../hooks/useAnimation";
 import { Typography } from "../../../Typography/Typography";
-
-import { AlertContext } from "../AlertProvider/AlertProvider";
+import AlertContext from "../AlertProvider/AlertContext";
 
 const EMPHASES = ["low", "medium", "high"] as const;
 export type Emphasis = (typeof EMPHASES)[keyof typeof EMPHASES];
@@ -43,6 +42,7 @@ export interface Props {
   onClose?: () => void;
   closeButtonTitle?: string;
   actions?: Actions;
+  wasShown?: boolean;
 }
 
 const useRegisterAlertHeight = (
@@ -69,7 +69,8 @@ export const AlertItem = ({
   className,
   actions = [],
   onClose,
-  closeButtonTitle
+  closeButtonTitle,
+  wasShown
 }: Props) => {
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => onClose?.();
@@ -126,10 +127,17 @@ export const AlertItem = ({
     const alertClasses = [
       classes["alert"],
       classes[variant as string],
-      classes[`emph-${emphasis as string}`],
-      animationStarted ? readyclasses["slide-out"] : readyclasses["slide-in"],
-      className ?? ""
+      classes[`emph-${emphasis as string}`]
     ];
+    if (animationStarted) {
+      alertClasses.push(readyclasses["slide-out"]);
+    }
+    if (!animationStarted && !wasShown) {
+      alertClasses.push(readyclasses["slide-in"]);
+    }
+    if (className) {
+      alertClasses.push(className);
+    }
     return alertClasses.join(" ");
   };
 

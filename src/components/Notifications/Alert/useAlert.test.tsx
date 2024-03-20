@@ -75,7 +75,7 @@ describe("useAlertContext", () => {
     });
   });
 
-  it("should call deprecated API", () => {
+  it("should call API", () => {
     const { result } = renderHook(() => useAlert(), {
       wrapper: ({ children }) => <AlertProvider closeButtonTitle="close">{children}</AlertProvider>
     });

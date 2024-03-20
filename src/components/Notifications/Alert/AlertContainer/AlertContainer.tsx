@@ -16,7 +16,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./AlertContainer.module.scss";
-import { AlertContext } from "../AlertProvider/AlertProvider";
+import AlertContext from "../AlertProvider/AlertContext";
 
 export interface Placement {
   vertical: "top" | "bottom";

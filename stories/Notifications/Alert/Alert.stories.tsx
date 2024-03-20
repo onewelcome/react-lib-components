@@ -64,12 +64,14 @@ const AppContent = () => {
             enqueueAlert({
               content: "Low emph neutral alert",
               onClose: () => console.warn("Alert closed."),
-              emphasis: "low"
+              emphasis: "low",
+              duration: 240000
             });
 
             enqueueAlert({
               content: "Simple neutral alert, medium emph",
-              onClose: () => console.warn("Alert closed.")
+              onClose: () => console.warn("Alert closed."),
+              duration: 240000
             });
 
             enqueueAlert({
