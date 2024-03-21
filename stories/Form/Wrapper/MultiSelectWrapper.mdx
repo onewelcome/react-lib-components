@@ -50,6 +50,51 @@ const ExampleComponent = () => {
   <Story of={MultiSelectWrapperStories.MultiSelectWrapper} />
 </Canvas>
 
+A code example of a fully functional `MultiSelectWrapper` with the add new button and search enabled:
+
+```jsx
+const ExampleComponent = () => {
+  const [pickedOptions, setPickedOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>([]);
+  return (
+    <MultiSelectWrapperComponent
+      {...args}
+      value={pickedOptions}
+      onChange={e => {
+        setPickedOptions(
+          Array.from(e.target.options)
+            .filter(option => option.selected)
+            .map(option => option.value)
+        );
+      }}
+      selectProps={{
+        addNew: {
+          label: "Create new",
+          onAddNew: value => {
+            allOptions && value && setAllOptions([...allOptions, value]);
+          },
+          btnProps: { title: "Add new select option", type: "button" }
+        },
+        search: {
+          enabled: true,
+          renderThreshold: 0
+        }
+      }}
+    >
+      {allOptions.map(option => (
+        <MultiOption key={option} value={option}>
+          {option}
+        </MultiOption>
+      ))}
+    </MultiSelectWrapperComponent>
+  );
+}
+```
+
+<Canvas>
+  <Story of={MultiSelectWrapperStories.MultiSelectAddNewWrapper} />
+</Canvas>
+
 # Props
 
 <ArgTypes story={PRIMARY_STORY} />
