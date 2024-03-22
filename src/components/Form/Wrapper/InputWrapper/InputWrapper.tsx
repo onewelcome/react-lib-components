@@ -64,6 +64,9 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     inputWrapperClasses.push(inputProps?.wrapperProps?.className);
   disabled && inputWrapperClasses.push(classes["disabled"]);
 
+  const describedByErrorId = error ? errorId : undefined;
+  const describedByHelperId = helperText ? helperId : undefined;
+
   return (
     <Wrapper
       {...rest}
@@ -93,7 +96,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         }}
         ref={inputProps?.ref || input}
         aria-labelledby={labelId}
-        aria-describedby={error ? errorId : helperText ? helperId : undefined}
+        aria-describedby={describedByErrorId ?? describedByHelperId}
         onChange={onChange}
         onFocus={e => {
           onFocus?.(e);
