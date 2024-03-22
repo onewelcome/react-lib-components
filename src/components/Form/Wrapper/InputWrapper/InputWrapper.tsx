@@ -93,7 +93,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         }}
         ref={inputProps?.ref || input}
         aria-labelledby={labelId}
-        aria-describedby={error ? errorId : helperId}
+        aria-describedby={error ? errorId : helperText ? helperId : undefined}
         onChange={onChange}
         onFocus={e => {
           onFocus?.(e);
