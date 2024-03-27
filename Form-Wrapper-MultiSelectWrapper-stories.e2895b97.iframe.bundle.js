@@ -9,6 +9,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  MultiSelectAddNewWrapper: () => (/* binding */ MultiSelectAddNewWrapper),
   MultiSelectWrapper: () => (/* binding */ MultiSelectWrapper_stories_MultiSelectWrapper),
   MultiSelectWrapperDisabled: () => (/* binding */ MultiSelectWrapperDisabled),
   MultiSelectWrapperError: () => (/* binding */ MultiSelectWrapperError),
@@ -258,6 +259,19 @@ function _createMdxContent(props) {
       children: (0,jsx_runtime.jsx)(dist/* Story */.oG, {
         of: MultiSelectWrapper_stories_MultiSelectWrapper
       })
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["A code example of a fully functional ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "MultiSelectWrapper"
+      }), " with the add new button and search enabled:"]
+    }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        className: "language-jsx",
+        children: "const ExampleComponent = () => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([]);\n  const [allOptions, setAllOptions] = useState<string[]>([]);\n  return (\n    <MultiSelectWrapperComponent\n      {...args}\n      value={pickedOptions}\n      onChange={e => {\n        setPickedOptions(\n          Array.from(e.target.options)\n            .filter(option => option.selected)\n            .map(option => option.value)\n        );\n      }}\n      selectProps={{\n        addNew: {\n          label: \"Create new\",\n          onAddNew: value => {\n            allOptions && value && setAllOptions([...allOptions, value]);\n          },\n          btnProps: { title: \"Add new select option\", type: \"button\" }\n        },\n        search: {\n          enabled: true,\n          renderThreshold: 0\n        }\n      }}\n    >\n      {allOptions.map(option => (\n        <MultiOption key={option} value={option}>\n          {option}\n        </MultiOption>\n      ))}\n    </MultiSelectWrapperComponent>\n  );\n}\n"
+      })
+    }), "\n", (0,jsx_runtime.jsx)(dist/* Canvas */.Xz, {
+      children: (0,jsx_runtime.jsx)(dist/* Story */.oG, {
+        of: MultiSelectAddNewWrapper
+      })
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "props",
       children: "Props"
@@ -452,6 +466,36 @@ MultiSelectWrapperRequired.args = {
   ...defaultArgs,
   required: true
 };
+const AddNewTemplate = args => {
+  const [pickedOptions, setPickedOptions] = (0,react.useState)([]);
+  const [allOptions, setAllOptions] = (0,react.useState)([]);
+  return /*#__PURE__*/react.createElement(MultiSelectWrapper, MultiSelectWrapper_stories_extends({}, args, {
+    value: pickedOptions,
+    onChange: e => {
+      setPickedOptions(Array.from(e.target.options).filter(option => option.selected).map(option => option.value));
+    },
+    selectProps: {
+      addNew: {
+        label: "Create new",
+        onAddNew: value => {
+          allOptions && value && setAllOptions([...allOptions, value]);
+        },
+        btnProps: {
+          title: "Add new select option",
+          type: "button"
+        }
+      },
+      search: {
+        enabled: true,
+        renderThreshold: 0
+      }
+    }
+  }), allOptions.map(option => /*#__PURE__*/react.createElement(MultiOption/* MultiOption */.r, {
+    key: option,
+    value: option
+  }, option)));
+};
+const MultiSelectAddNewWrapper = AddNewTemplate.bind({});
 MultiSelectWrapper_stories_MultiSelectWrapper.parameters = {
   ...MultiSelectWrapper_stories_MultiSelectWrapper.parameters,
   docs: {
@@ -501,7 +545,17 @@ MultiSelectWrapperRequired.parameters = {
       ...MultiSelectWrapperRequired.parameters?.docs?.source
     }
   }
-};;const __namedExportsOrder = ["MultiSelectWrapper","MultiSelectWrapperError","MultiSelectWrapperSuccess","MultiSelectWrapperDisabled","MultiSelectWrapperRequired"];
+};
+MultiSelectAddNewWrapper.parameters = {
+  ...MultiSelectAddNewWrapper.parameters,
+  docs: {
+    ...MultiSelectAddNewWrapper.parameters?.docs,
+    source: {
+      originalSource: "args => {\n  const [pickedOptions, setPickedOptions] = useState<string[]>([]);\n  const [allOptions, setAllOptions] = useState<string[]>([]);\n  return <MultiSelectWrapperComponent {...args} value={pickedOptions} onChange={e => {\n    setPickedOptions(Array.from(e.target.options).filter(option => option.selected).map(option => option.value));\n  }} selectProps={{\n    addNew: {\n      label: \"Create new\",\n      onAddNew: value => {\n        allOptions && value && setAllOptions([...allOptions, value]);\n      },\n      btnProps: {\n        title: \"Add new select option\",\n        type: \"button\"\n      }\n    },\n    search: {\n      enabled: true,\n      renderThreshold: 0\n    }\n  }}>\n      {allOptions.map(option => <MultiOption key={option} value={option}>\n          {option}\n        </MultiOption>)}\n    </MultiSelectWrapperComponent>;\n}",
+      ...MultiSelectAddNewWrapper.parameters?.docs?.source
+    }
+  }
+};;const __namedExportsOrder = ["MultiSelectWrapper","MultiSelectWrapperError","MultiSelectWrapperSuccess","MultiSelectWrapperDisabled","MultiSelectWrapperRequired","MultiSelectAddNewWrapper"];
 
 /***/ }),
 

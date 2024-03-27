@@ -634,7 +634,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*!
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */.BaseModalContent-module__content--FW2Bc{padding:1.25rem 1.5rem 0;overflow-y:auto;flex:1;outline:none;color:var(--color-blue-grey500);font-size:.875rem;line-height:1.25rem}`, ""]);
+ */.BaseModalContent-module__content--FW2Bc{padding:1.25rem 1.5rem 0;overflow-y:auto;flex:1;outline:none;font-size:.875rem;line-height:1.25rem}`, ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"content": `BaseModalContent-module__content--FW2Bc`
