@@ -183,3 +183,42 @@ MultiSelectWrapperRequired.args = {
   ...defaultArgs,
   required: true
 };
+
+const AddNewTemplate: StoryFn<Props> = args => {
+  const [pickedOptions, setPickedOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>([]);
+  return (
+    <MultiSelectWrapperComponent
+      {...args}
+      value={pickedOptions}
+      onChange={e => {
+        setPickedOptions(
+          Array.from(e.target.options)
+            .filter(option => option.selected)
+            .map(option => option.value)
+        );
+      }}
+      selectProps={{
+        addNew: {
+          label: "Create new",
+          onAddNew: value => {
+            allOptions && value && setAllOptions([...allOptions, value]);
+          },
+          btnProps: { title: "Add new select option", type: "button" }
+        },
+        search: {
+          enabled: true,
+          renderThreshold: 0
+        }
+      }}
+    >
+      {allOptions.map(option => (
+        <MultiOption key={option} value={option}>
+          {option}
+        </MultiOption>
+      ))}
+    </MultiSelectWrapperComponent>
+  );
+};
+
+export const MultiSelectAddNewWrapper = AddNewTemplate.bind({});

@@ -36,6 +36,7 @@ export const useAddNewBtn = ({ addNew, filter }: Props) => {
         className={classes["action-button"]}
         onClick={() => addNew.onAddNew(filter)}
         ref={addBtnRef}
+        type="button"
         {...addNew.btnProps}
       >
         {!filter && addNewLabel}
