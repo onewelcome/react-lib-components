@@ -15,12 +15,12 @@
  */
 
 import React, { Fragment, useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, Story, StoryFn } from "@storybook/react";
 import { Dialog, Props } from "../../../src/components/Notifications/Dialog/Dialog";
 import { Button } from "../../../src/components/Button/Button";
 import { Typography } from "../../../src/components/Typography/Typography";
 import DialogDocumentation from "./Dialog.mdx";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { Icon, Icons } from "../../../src/components/Icon/Icon";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
@@ -61,10 +61,10 @@ declare global {
   var setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [open, setOpen] = useState(false);
 
-  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  /** When we're on the story page, we want the dialog to start in the "open" state. However, when we're on the "docs" page, we don't. */
   useEffect(() => {
     if (window.location.search.includes("story")) {
       setOpen(true);

@@ -63,9 +63,11 @@ const DialogTitleComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           )}
         </div>
       </div>
-      <IconButton onClick={onClose} className={classes["close-button"]} title="close modal">
-        <Icon icon={Icons.Times} />
-      </IconButton>
+      {onClose && (
+        <IconButton onClick={onClose} className={classes["close-button"]} title="close modal">
+          <Icon icon={Icons.Times} />
+        </IconButton>
+      )}
     </div>
   );
 };
