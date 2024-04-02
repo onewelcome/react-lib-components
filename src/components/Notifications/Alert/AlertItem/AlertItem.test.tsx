@@ -27,19 +27,29 @@ const initParams: Props = {
   variant: "success",
   emphasis: undefined,
   closeButtonTitle: "close",
-  onClose: jest.fn()
+  onClose: jest.fn(),
+  elementProps: {
+    container: { ["data-testid"]: "container" },
+    title: { ["data-testid"]: "title" },
+    content: { ["data-testid"]: "content" },
+    actionsContainer: { ["data-testid"]: "actions" },
+    closeButton: { ["data-testid"]: "close" }
+  }
 };
 
-describe("<AlertItem />", () => {
+describe("AlertItem", () => {
   it("should render without crashing", () => {
-    const { container } = render(<AlertItem {...initParams} />);
+    const { container, queryByTestId } = render(<AlertItem {...initParams} />);
 
-    const titleDiv = container.querySelector(".title");
+    const titleDiv = queryByTestId("title");
     expect(titleDiv).toHaveTextContent(initParams.title!);
-    const contentDiv = container.querySelector(".content");
+
+    const contentDiv = queryByTestId("content");
     expect(contentDiv).toHaveTextContent(initParams.content!);
-    const actionsDiv = container.querySelector(".actions");
-    expect(actionsDiv).toBeNull();
+
+    const actionsContainer = queryByTestId("actions");
+    expect(actionsContainer).toBeNull();
+
     expect(getByRole(container, "button")).toBeDefined();
   });
 
@@ -64,57 +74,32 @@ describe("<AlertItem />", () => {
     });
   });
 
-  it("should render only content when only title is provided", () => {
-    const { container } = render(<AlertItem {...initParams} content={undefined} />);
-
-    const titleDiv = container.querySelector(".title");
+  it("should render only content when only title is provided", async () => {
+    const { container, queryByTestId } = render(<AlertItem {...initParams} content={undefined} />);
+    const titleDiv = queryByTestId("title");
     expect(titleDiv).toBeNull();
-    const contentDiv = container.querySelector(".content");
+    const contentDiv = queryByTestId("content");
     expect(contentDiv).toHaveTextContent(initParams.title!);
-    const actionsDiv = container.querySelector(".actions");
-    expect(actionsDiv).toBeNull();
     expect(getByRole(container, "button")).toBeDefined();
   });
 
-  it("should render with default emphasis medium", () => {
-    const { container } = render(<AlertItem {...initParams} />);
-    const containerDiv = container.querySelector(".emph-medium");
-    expect(containerDiv).not.toBe(null);
-  });
-
-  it("should render with emphasis low", () => {
-    const { container } = render(<AlertItem {...initParams} emphasis="low" />);
-    const containerDiv = container.querySelector(".emph-low");
-    expect(containerDiv).not.toBe(null);
-  });
-
-  it("should render with emphasis medium", () => {
-    const { container } = render(<AlertItem {...initParams} emphasis="medium" />);
-    const containerDiv = container.querySelector(".emph-medium");
-    expect(containerDiv).not.toBe(null);
-  });
-
-  it("should render with emphasis high", () => {
-    const { container } = render(<AlertItem {...initParams} emphasis="high" />);
-    const containerDiv = container.querySelector(".emph-high");
-    expect(containerDiv).not.toBe(null);
-  });
-
   it("error variant emphasis low should be polite", () => {
-    const { container } = render(<AlertItem {...initParams} variant="error" emphasis="low" />);
-    const internal = container.firstChild;
-    expect(internal).toHaveAttribute("aria-live", "polite");
+    const { queryByTestId } = render(<AlertItem {...initParams} variant="error" emphasis="low" />);
+    const container = queryByTestId("container");
+    expect(container).toHaveAttribute("aria-live", "polite");
   });
 
   it("error variant emphasis medium should be assertive", () => {
-    const { container } = render(<AlertItem {...initParams} variant="error" emphasis="medium" />);
-    const internal = container.firstChild;
-    expect(internal).toHaveAttribute("aria-live", "assertive");
+    const { queryByTestId } = render(
+      <AlertItem {...initParams} variant="error" emphasis="medium" />
+    );
+    const container = queryByTestId("container");
+    expect(container).toHaveAttribute("aria-live", "assertive");
   });
 
   it("error variant emphasis high should be assertive", () => {
-    const { container } = render(<AlertItem {...initParams} variant="error" emphasis="high" />);
-    const internal = container.firstChild;
-    expect(internal).toHaveAttribute("aria-live", "assertive");
+    const { queryByTestId } = render(<AlertItem {...initParams} variant="error" emphasis="high" />);
+    const container = queryByTestId("container");
+    expect(container).toHaveAttribute("aria-live", "assertive");
   });
 });

@@ -14,7 +14,15 @@
  *    limitations under the License.
  */
 
-import React, { ButtonHTMLAttributes, useContext, useEffect, useRef } from "react";
+import React, {
+  ButtonHTMLAttributes,
+  useContext,
+  useEffect,
+  useRef,
+  DetailedHTMLProps,
+  HTMLAttributes,
+  Ref
+} from "react";
 import { IconButton } from "../../../Button/IconButton";
 import { Icon, Icons } from "../../../Icon/Icon";
 import classes from "./AlertItem.module.scss";
@@ -22,6 +30,7 @@ import readyclasses from "../../../../readyclasses.module.scss";
 import { useAnimation } from "../../../../hooks/useAnimation";
 import { Typography } from "../../../Typography/Typography";
 import AlertContext from "../AlertProvider/AlertContext";
+import { IconButtonProps, TypographyProps } from "../../../..";
 
 const EMPHASES = ["low", "medium", "high"] as const;
 export type Emphasis = (typeof EMPHASES)[keyof typeof EMPHASES];
@@ -30,7 +39,7 @@ const VARIANTS = ["neutral", "informative", "success", "warning", "error"] as co
 export type Variant = (typeof VARIANTS)[keyof typeof VARIANTS];
 
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
-
+// DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 export interface Props {
   id: string;
   title?: string;
@@ -43,6 +52,13 @@ export interface Props {
   closeButtonTitle?: string;
   actions?: Actions;
   wasShown?: boolean;
+  elementProps?: {
+    container?: { ["data-testid"]: string } | any;
+    title?: any;
+    content?: any;
+    actionsContainer?: any;
+    closeButton?: any;
+  };
 }
 
 const useRegisterAlertHeight = (
@@ -70,7 +86,8 @@ export const AlertItem = ({
   actions = [],
   onClose,
   closeButtonTitle,
-  wasShown
+  wasShown,
+  elementProps
 }: Props) => {
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => onClose?.();
@@ -150,6 +167,7 @@ export const AlertItem = ({
 
   return (
     <div
+      {...elementProps?.container}
       ref={ref}
       aria-live={getAria()}
       className={getAlertClasses()}
@@ -163,19 +181,29 @@ export const AlertItem = ({
         <Icon icon={getVariantIcon()} className={classes["icon"]} />
         <div className={classes["content-wrapper"]} role="log">
           {!!title && !!content && (
-            <Typography className={classes["title"]} variant="body-bold" tag="span">
+            <Typography
+              {...elementProps?.title}
+              className={classes["title"]}
+              variant="body-bold"
+              tag="span"
+            >
               {title}
             </Typography>
           )}
           {(!!content || !!title) && (
-            <Typography className={classes["content"]} variant="body">
+            <Typography {...elementProps?.content} className={classes["content"]} variant="body">
               {content || title}
             </Typography>
           )}
         </div>
       </div>
-      {actionButtons.length > 0 && <div className={classes["actions"]}>{actionButtons}</div>}
+      {actionButtons.length > 0 && (
+        <div {...elementProps?.actionsContainer} className={classes["actions"]}>
+          {actionButtons}
+        </div>
+      )}
       <IconButton
+        {...elementProps?.closeButton}
         id={classes["close-btn"]}
         onClick={() => startAnimation()}
         title={closeButtonTitle}
