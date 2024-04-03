@@ -38,13 +38,24 @@ describe("BaseModalActions", () => {
     expect(dialogActionsContainer).not.toHaveTextContent("Cancel");
   });
 
-  it("Should render a cancel button with a `Close` label", () => {
+  it("Shouldn render a cancel button with a `Close` label if onClose property is passed", () => {
+    const cancelAction = { label: "Close" };
+    const { container } = render(
+      <BaseModalActions onClose={() => {}} cancelAction={cancelAction} />
+    );
+
+    const dialogActionsContainer = container.children[0];
+    expect(dialogActionsContainer).toHaveClass("actions");
+    expect(dialogActionsContainer).toHaveTextContent(cancelAction.label);
+  });
+
+  it("Shouldn't render a cancel button with a `Close` label if onClose property was not passed", () => {
     const cancelAction = { label: "Close" };
     const { container } = render(<BaseModalActions cancelAction={cancelAction} />);
 
     const dialogActionsContainer = container.children[0];
     expect(dialogActionsContainer).toHaveClass("actions");
-    expect(dialogActionsContainer).toHaveTextContent(cancelAction.label);
+    expect(dialogActionsContainer).not.toHaveTextContent(cancelAction.label);
   });
 });
 describe("ref should work", () => {
