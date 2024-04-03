@@ -131,7 +131,7 @@ SingleActionDialog.args = {
   cancelAction: undefined
 };
 
-const NestedDialogsTemplate: Story<Props> = () => {
+const NestedDialogsTemplate: StoryFn<Props> = () => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
 

@@ -29,7 +29,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   id?: string;
   open: boolean;
   children: React.ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
   title: string;
   primaryAction: Action;
   secondaryAction?: Action;

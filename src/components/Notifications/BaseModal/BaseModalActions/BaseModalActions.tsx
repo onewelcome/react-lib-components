@@ -46,7 +46,7 @@ const BaseModalActionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props>
 
   return (
     <div {...rest} ref={innerRef} className={`${classes["actions"]} ${className}`}>
-      {cancelAction && (
+      {cancelAction && onClose && (
         <div
           className={`${classes["cancel-action"]} ${cancelActionsClassName}`}
           ref={cancelButtonRef}
