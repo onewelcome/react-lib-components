@@ -15,7 +15,7 @@
  */
 
 import React, { Fragment, useEffect, useState } from "react";
-import { Meta, Story, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Dialog, Props } from "../../../src/components/Notifications/Dialog/Dialog";
 import { Button } from "../../../src/components/Button/Button";
 import { Typography } from "../../../src/components/Typography/Typography";
@@ -51,7 +51,8 @@ const meta: Meta = {
     },
     titleIcon: <Icon icon={Icons.Bell} />,
     caption: "This is a caption",
-    cancelAction: { label: "Cancel" }
+    cancelAction: { label: "Cancel" },
+    onClose: () => window.setDialogOpen(false)
   }
 };
 
@@ -78,7 +79,7 @@ const Template: StoryFn<Props> = args => {
       <Dialog
         id={args.id}
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={args.onClose}
         title={args.title}
         primaryAction={args.primaryAction}
         secondaryAction={args.secondaryAction}
@@ -128,7 +129,8 @@ SingleActionDialog.args = {
     onClick: () => window.setDialogOpen(false)
   },
   secondaryAction: undefined,
-  cancelAction: undefined
+  cancelAction: undefined,
+  onClose: null
 };
 
 const NestedDialogsTemplate: StoryFn<Props> = () => {
