@@ -14,15 +14,7 @@
  *    limitations under the License.
  */
 
-import React, {
-  ButtonHTMLAttributes,
-  useContext,
-  useEffect,
-  useRef,
-  DetailedHTMLProps,
-  HTMLAttributes,
-  Ref
-} from "react";
+import React, { ButtonHTMLAttributes, useContext, useEffect, useRef } from "react";
 import { IconButton } from "../../../Button/IconButton";
 import { Icon, Icons } from "../../../Icon/Icon";
 import classes from "./AlertItem.module.scss";
@@ -30,7 +22,6 @@ import readyclasses from "../../../../readyclasses.module.scss";
 import { useAnimation } from "../../../../hooks/useAnimation";
 import { Typography } from "../../../Typography/Typography";
 import AlertContext from "../AlertProvider/AlertContext";
-import { IconButtonProps, TypographyProps } from "../../../..";
 
 const EMPHASES = ["low", "medium", "high"] as const;
 export type Emphasis = (typeof EMPHASES)[keyof typeof EMPHASES];
@@ -39,7 +30,7 @@ const VARIANTS = ["neutral", "informative", "success", "warning", "error"] as co
 export type Variant = (typeof VARIANTS)[keyof typeof VARIANTS];
 
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
-// DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+
 export interface Props {
   id: string;
   title?: string;
@@ -90,7 +81,9 @@ export const AlertItem = ({
   elementProps
 }: Props) => {
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
-  const onAnimationEnd = () => onClose?.();
+  const onAnimationEnd = () => {
+    onClose?.();
+  };
   const { ref, animationStarted, startAnimation } = useAnimation<HTMLDivElement>(onAnimationEnd);
 
   useRegisterAlertHeight(ref, id);
@@ -202,14 +195,16 @@ export const AlertItem = ({
           {actionButtons}
         </div>
       )}
-      <IconButton
-        {...elementProps?.closeButton}
-        id={classes["close-btn"]}
-        onClick={() => startAnimation()}
-        title={closeButtonTitle}
-      >
-        <Icon icon={Icons.Times} />
-      </IconButton>
+      {onClose && (
+        <IconButton
+          {...elementProps?.closeButton}
+          id={classes["close-btn"]}
+          onClick={() => startAnimation()}
+          title={closeButtonTitle}
+        >
+          <Icon icon={Icons.Times} />
+        </IconButton>
+      )}
     </div>
   );
 };
