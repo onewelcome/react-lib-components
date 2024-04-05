@@ -102,19 +102,16 @@ workflows:
           name: build
           dependency_install_command: npm ci --ignore-script
           <<: *dev-context
-          <<: *filter-branches-tags
 
       - onegini-build/npm-lint:
           name: lint
           <<: *dev-context
           <<: *require-build
-          <<: *filter-branches-tags
 
       - onegini-build/npm-test-jest:
           name: test
           <<: *dev-context
           <<: *require-build
-          <<: *filter-branches-tags
 
       - onegini-build/sonar:
           name: analyse
