@@ -70,7 +70,7 @@ const Template: Story<Props> = args => {
   const [value3, setValue3] = useState("initial value");
   const [value4, setValue4] = useState("initial value");
 
-  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  /** When we're on the story page, we want the dialog to start in the "open" state. However, when we're on the "docs" page, we don't. */
   useEffect(() => {
     if (window.location.search.includes("story")) {
       setOpen(true);
