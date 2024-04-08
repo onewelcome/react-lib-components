@@ -38,7 +38,7 @@ describe("BaseModalActions", () => {
     expect(dialogActionsContainer).not.toHaveTextContent("Cancel");
   });
 
-  it("Shouldn render a cancel button with a `Close` label if onClose property is passed", () => {
+  it("Should render a cancel button with a `Close` label if onClose property is passed", () => {
     const cancelAction = { label: "Close" };
     const { container } = render(
       <BaseModalActions onClose={() => {}} cancelAction={cancelAction} />
