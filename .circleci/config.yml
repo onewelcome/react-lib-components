@@ -102,6 +102,7 @@ workflows:
           name: build
           dependency_install_command: npm ci --ignore-script
           <<: *dev-context
+          <<: *filter-branches-tags
 
       - onegini-build/npm-lint:
           name: lint
@@ -149,7 +150,6 @@ workflows:
             name: onegini-build/docs-builder
           <<: *filter-tags
           requires:
-            - test
             - build-storybook
 
       - onegini-build/deploy-docs:
@@ -168,7 +168,7 @@ workflows:
       - onegini-build/npm-publish:
           name: publish-library
           <<: *dev-context
-          <<: *require-test
+          <<: *require-build
           <<: *filter-tags
 
       - onegini-build/notify-released:
