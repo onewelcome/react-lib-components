@@ -167,7 +167,7 @@ const BaseModalActionsComponent = (_ref, ref) => {
   return /*#__PURE__*/react.createElement("div", _extends({}, rest, {
     ref: innerRef,
     className: "".concat(BaseModalActions_BaseModalActions_module["actions"], " ").concat(className)
-  }), cancelAction && /*#__PURE__*/react.createElement("div", {
+  }), cancelAction && onClose && /*#__PURE__*/react.createElement("div", {
     className: "".concat(BaseModalActions_BaseModalActions_module["cancel-action"], " ").concat(cancelActionsClassName),
     ref: cancelButtonRef
   }, cancelButton), children && /*#__PURE__*/react.createElement("div", {
@@ -456,7 +456,7 @@ const DialogTitleComponent = (_ref, ref) => {
       marginLeft: 2
     },
     variant: "sub-text"
-  }, caption))), /*#__PURE__*/react.createElement(IconButton/* IconButton */.h, {
+  }, caption))), onClose && /*#__PURE__*/react.createElement(IconButton/* IconButton */.h, {
     onClick: onClose,
     className: DialogTitle_DialogTitle_module["close-button"],
     title: "close modal"
@@ -603,7 +603,7 @@ try {
     // @ts-ignore
     Dialog.displayName = "Dialog";
     // @ts-ignore
-    Dialog.__docgenInfo = { "description": "", "displayName": "Dialog", "props": { "caption": { "defaultValue": null, "description": "", "name": "caption", "required": false, "type": { "name": "string" } }, "title": { "defaultValue": null, "description": "", "name": "title", "required": true, "type": { "name": "string" } }, "id": { "defaultValue": null, "description": "", "name": "id", "required": false, "type": { "name": "string" } }, "open": { "defaultValue": null, "description": "", "name": "open", "required": true, "type": { "name": "boolean" } }, "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": true, "type": { "name": "() => void" } }, "disableEscapeKeyDown": { "defaultValue": null, "description": "", "name": "disableEscapeKeyDown", "required": false, "type": { "name": "boolean" } }, "zIndex": { "defaultValue": null, "description": "", "name": "zIndex", "required": false, "type": { "name": "number" } }, "cancelAction": { "defaultValue": null, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } }, "primaryAction": { "defaultValue": null, "description": "", "name": "primaryAction", "required": true, "type": { "name": "Action" } }, "secondaryAction": { "defaultValue": null, "description": "", "name": "secondaryAction", "required": false, "type": { "name": "Action" } }, "titleIcon": { "defaultValue": null, "description": "", "name": "titleIcon", "required": false, "type": { "name": "ReactNode" } } } };
+    Dialog.__docgenInfo = { "description": "", "displayName": "Dialog", "props": { "caption": { "defaultValue": null, "description": "", "name": "caption", "required": false, "type": { "name": "string" } }, "title": { "defaultValue": null, "description": "", "name": "title", "required": true, "type": { "name": "string" } }, "id": { "defaultValue": null, "description": "", "name": "id", "required": false, "type": { "name": "string" } }, "open": { "defaultValue": null, "description": "", "name": "open", "required": true, "type": { "name": "boolean" } }, "onClose": { "defaultValue": null, "description": "", "name": "onClose", "required": false, "type": { "name": "(() => void)" } }, "disableEscapeKeyDown": { "defaultValue": null, "description": "", "name": "disableEscapeKeyDown", "required": false, "type": { "name": "boolean" } }, "zIndex": { "defaultValue": null, "description": "", "name": "zIndex", "required": false, "type": { "name": "number" } }, "cancelAction": { "defaultValue": null, "description": "", "name": "cancelAction", "required": false, "type": { "name": "CancelAction" } }, "primaryAction": { "defaultValue": null, "description": "", "name": "primaryAction", "required": true, "type": { "name": "Action" } }, "secondaryAction": { "defaultValue": null, "description": "", "name": "secondaryAction", "required": false, "type": { "name": "Action" } }, "titleIcon": { "defaultValue": null, "description": "", "name": "titleIcon", "required": false, "type": { "name": "ReactNode" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore

@@ -347,14 +347,15 @@ const meta = {
     caption: "This is a caption",
     cancelAction: {
       label: "Cancel"
-    }
+    },
+    onClose: () => window.setDialogOpen(false)
   }
 };
 /* harmony default export */ const Dialog_stories = (meta);
 const Template = args => {
   const [open, setOpen] = (0,react.useState)(false);
 
-  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  /** When we're on the story page, we want the dialog to start in the "open" state. However, when we're on the "docs" page, we don't. */
   (0,react.useEffect)(() => {
     if (window.location.search.includes("story")) {
       setOpen(true);
@@ -366,7 +367,7 @@ const Template = args => {
   }, "Open dialog"), /*#__PURE__*/react.createElement(Dialog/* Dialog */.V, {
     id: args.id,
     open: open,
-    onClose: () => setOpen(false),
+    onClose: args.onClose,
     title: args.title,
     primaryAction: args.primaryAction,
     secondaryAction: args.secondaryAction,
@@ -406,7 +407,8 @@ SingleActionDialog.args = {
     onClick: () => window.setDialogOpen(false)
   },
   secondaryAction: undefined,
-  cancelAction: undefined
+  cancelAction: undefined,
+  onClose: null
 };
 const NestedDialogsTemplate = () => {
   const [open, setOpen] = (0,react.useState)(false);
@@ -497,7 +499,7 @@ ActionDialog.parameters = {
   docs: {
     ...ActionDialog.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={() => setOpen(false)} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption} cancelAction={args.cancelAction}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}",
+      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the dialog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={args.onClose} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption} cancelAction={args.cancelAction}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}",
       ...ActionDialog.parameters?.docs?.source
     }
   }
@@ -507,7 +509,7 @@ SingleActionDialog.parameters = {
   docs: {
     ...SingleActionDialog.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={() => setOpen(false)} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption} cancelAction={args.cancelAction}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}",
+      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the dialog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={args.onClose} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption} cancelAction={args.cancelAction}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}",
       ...SingleActionDialog.parameters?.docs?.source
     }
   }
@@ -527,7 +529,7 @@ DialogWithoutIcon.parameters = {
   docs: {
     ...DialogWithoutIcon.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the diaglog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={() => setOpen(false)} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption} cancelAction={args.cancelAction}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}",
+      originalSource: "args => {\n  const [open, setOpen] = useState(false);\n\n  /** When we're on the story page, we want the dialog to start in the \"open\" state. However, when we're on the \"docs\" page, we don't. */\n  useEffect(() => {\n    if (window.location.search.includes(\"story\")) {\n      setOpen(true);\n    }\n  }, []);\n  window.setDialogOpen = setOpen;\n  return <Fragment>\n      <Button onClick={() => setOpen(true)}>Open dialog</Button>\n      <Dialog id={args.id} open={open} onClose={args.onClose} title={args.title} primaryAction={args.primaryAction} secondaryAction={args.secondaryAction} titleIcon={args.titleIcon} caption={args.caption} cancelAction={args.cancelAction}>\n        {args.children}\n      </Dialog>\n    </Fragment>;\n}",
       ...DialogWithoutIcon.parameters?.docs?.source
     }
   }

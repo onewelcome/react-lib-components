@@ -1411,7 +1411,7 @@ const BaseModalActionsComponent = (_ref, ref) => {
   return /*#__PURE__*/react.createElement("div", _extends({}, rest, {
     ref: innerRef,
     className: "".concat(BaseModalActions_BaseModalActions_module["actions"], " ").concat(className)
-  }), cancelAction && /*#__PURE__*/react.createElement("div", {
+  }), cancelAction && onClose && /*#__PURE__*/react.createElement("div", {
     className: "".concat(BaseModalActions_BaseModalActions_module["cancel-action"], " ").concat(cancelActionsClassName),
     ref: cancelButtonRef
   }, cancelButton), children && /*#__PURE__*/react.createElement("div", {
