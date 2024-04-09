@@ -30,7 +30,7 @@ import {
   AddNotification
 } from "./notification.interfaces";
 import { defaultTranslations } from "./NotificationService";
-import { useAlert } from "../Alert/useAlert";
+import { useSnackbar } from "../Snackbar/useSnackbar";
 import { deepMerge, generateID } from "../../../util/helper";
 import { DeepPartial } from "../../../interfaces";
 
@@ -59,7 +59,7 @@ export const NotificationHandler = ({
   translations = {},
   dispatchFn
 }: NotificationHandlerProps) => {
-  const { enqueueErrorAlert, enqueueSuccessAlert } = useAlert();
+  const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useSnackbar();
   const {
     state: { notifications }
   } = useNotificationContext();
@@ -101,18 +101,22 @@ export const NotificationHandler = ({
       ) {
         dispatchFn({ type: "remove", payload: { id: notification.id } });
       } else if (notification.status && !notification.handled && notification.type === "error") {
-        enqueueErrorAlert({
-          title: notification.title ?? mergedTranslations.general.error,
-          content: determineNotificationMessage(notification as Notification<ErrorNotification>),
-          onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
-        });
+        enqueueErrorSnackbar(
+          notification.title ?? mergedTranslations.general.error,
+          determineNotificationMessage(notification as Notification<ErrorNotification>),
+          {
+            onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
+          }
+        );
         dispatchFn({ type: "handled", payload: { id: notification.id, handled: true } });
       } else if (notification.title && !notification.handled && notification.type === "success") {
-        enqueueSuccessAlert({
-          title: notification.title ?? mergedTranslations.general.success,
-          content: notification.message,
-          onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
-        });
+        enqueueSuccessSnackbar(
+          notification.title ?? mergedTranslations.general.success,
+          notification.message,
+          {
+            onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
+          }
+        );
 
         dispatchFn({ type: "handled", payload: { id: notification.id, handled: true } });
       }
