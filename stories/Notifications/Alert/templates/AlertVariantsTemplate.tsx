@@ -2,7 +2,7 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import { AlertItem } from "../../../../src/components/Notifications/Alert/AlertItem/AlertItem";
 
-const AlertVariantsTemplate: StoryFn = () => {
+const AlertVariantsTemplate: StoryFn<{}> = () => {
   const renderNeutrals = () => (
     <div style={{ marginRight: "1em" }}>
       <AlertItem

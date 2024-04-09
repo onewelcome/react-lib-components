@@ -78,7 +78,7 @@ export const AlertProvider = ({
       ...arg,
       id: generateID(15, arg.content || arg.title),
       duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle
+      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle
     };
     setAlertEnties(entries => [...entries, newEntry]);
   };
@@ -100,7 +100,7 @@ export const AlertProvider = ({
       ...arg,
       id: generateID(15, arg.content || arg.title),
       duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle,
+      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle,
       variant: "informative"
     };
     setAlertEnties(entries => [...entries, newEntry]);
@@ -123,7 +123,7 @@ export const AlertProvider = ({
       ...arg,
       id: generateID(15, arg.content || arg.title),
       duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle,
+      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle,
       variant: "success"
     };
     setAlertEnties(entries => [...entries, newEntry]);
@@ -146,7 +146,7 @@ export const AlertProvider = ({
       ...arg,
       id: generateID(15, arg.content || arg.title),
       duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle,
+      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle,
       variant: "warning"
     };
     setAlertEnties(entries => [...entries, newEntry]);
@@ -158,7 +158,7 @@ export const AlertProvider = ({
         id: generateID(15, arg),
         content: arg,
         duration: autoHideDuration.short,
-        closeButtonTitle,
+        closeButtonTitle: closeButtonTitle,
         variant: "error"
       };
       setAlertEnties(entries => [...entries, newEntry]);
@@ -184,7 +184,7 @@ export const AlertProvider = ({
       ...arg,
       id: generateID(15, arg.content || arg.title),
       duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle ?? closeButtonTitle,
+      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle,
       variant: "error"
     };
     setAlertEnties(entries => [...entries, newEntry]);

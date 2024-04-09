@@ -18,13 +18,15 @@ import { Props as AlertComponentProps } from "../AlertItem/AlertItem";
 import { createContext } from "react";
 
 export type AlertEntry = AlertComponentProps & { height?: number };
+export type AlertQueue = Omit<AlertEntry, "id"> | string;
+export type AlertQueueError = Omit<AlertEntry, "id"> | string | Error;
 
 export interface AlertContextValue {
-  enqueueAlert: (entry: string | Omit<AlertEntry, "id">) => void;
-  enqueueInfoAlert: (entry: string | Omit<AlertEntry, "id">) => void;
-  enqueueSuccessAlert: (entry: string | Omit<AlertEntry, "id">) => void;
-  enqueueWarningAlert: (entry: string | Omit<AlertEntry, "id">) => void;
-  enqueueErrorAlert: (entry: string | Error | Omit<AlertEntry, "id">) => void;
+  enqueueAlert: (entry: AlertQueue) => void;
+  enqueueInfoAlert: (entry: AlertQueue) => void;
+  enqueueSuccessAlert: (entry: AlertQueue) => void;
+  enqueueWarningAlert: (entry: AlertQueue) => void;
+  enqueueErrorAlert: (entry: AlertQueueError) => void;
   setAlertHeight: (id: string, height: number) => void;
   alerts: AlertEntry[];
 }
