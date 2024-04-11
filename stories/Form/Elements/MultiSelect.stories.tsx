@@ -86,6 +86,7 @@ export const MultiSelect = Template.bind({});
 
 MultiSelect.args = {
   name: "Example multi select",
+  search: { enabled: false },
   children: generateOptions(6)
 };
 

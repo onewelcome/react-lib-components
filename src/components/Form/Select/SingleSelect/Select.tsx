@@ -87,7 +87,9 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   });
   const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew } = useAddNewBtn({
     addNew,
-    filter
+    filter,
+    focusedSelectItem,
+    optionsCount
   });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();

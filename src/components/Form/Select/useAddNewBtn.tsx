@@ -20,24 +20,32 @@ import React, { useRef } from "react";
 import { AddNewProps } from "./Select.interfaces";
 
 interface Props {
+  id?: string;
   addNew?: AddNewProps;
   filter: string;
+  focusedSelectItem: number;
+  optionsCount: number;
 }
 
-export const useAddNewBtn = ({ addNew, filter }: Props) => {
+export const useAddNewBtn = ({ id, addNew, filter, focusedSelectItem, optionsCount }: Props) => {
   const addBtnRef = useRef<HTMLButtonElement>(null);
-
   const addNewLabel = addNew?.label ?? "Create new";
+  const isProgrammaticallyFocused = focusedSelectItem === optionsCount;
+
+  const additionalClasses = [classes["action-button"]];
+  addNew?.btnProps?.className && additionalClasses.push(addNew?.btnProps?.className);
+  isProgrammaticallyFocused && additionalClasses.push(classes["focus"]);
 
   const renderAddNew = () =>
     addNew && (
       <button
-        data-testid={"select-action-button"}
-        className={classes["action-button"]}
-        onClick={() => addNew.onAddNew(filter)}
+        data-testid="select-action-button"
+        {...addNew.btnProps}
         ref={addBtnRef}
         type="button"
-        {...addNew.btnProps}
+        className={additionalClasses.join(" ")}
+        onClick={() => addNew.onAddNew(filter)}
+        id={id}
       >
         {!filter && addNewLabel}
         {filter && <span style={{ fontWeight: "700" }}>{`"${filter}"`}</span>}
@@ -50,6 +58,7 @@ export const useAddNewBtn = ({ addNew, filter }: Props) => {
   return {
     addNewBtnOptionsContainerClassName,
     renderAddNew,
+    isProgrammaticallyFocused,
     addBtnRef
   };
 };

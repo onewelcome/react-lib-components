@@ -28,17 +28,22 @@ import React, {
 import { Icon, Icons } from "../../../Icon/Icon";
 import { useBodyClick } from "../../../../hooks/useBodyClick";
 import readyclasses from "../../../../readyclasses.module.scss";
-import { filterProps } from "../../../../util/helper";
-import { useArrowNavigation, useSelectPositionList } from "../SelectService";
+import { filterProps, generateID } from "../../../../util/helper";
+import { useSelectPositionList } from "../SelectService";
 import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 import { SelectedOptions, Display } from "./SelectedOptions";
 import { SelectButton } from "./SelectButton";
 import { MultiSelectProps } from "../Select.interfaces";
-import { useSearch } from "../useSearch";
 import { useAddNewBtn } from "../useAddNewBtn";
+import { useSearch } from "./useSearch";
+import { useArrowNavigation } from "./useArrowNavigation";
+
+const getOptionId = (multiSelectId: string, optionIndex: number) =>
+  `${multiSelectId}_option${optionIndex}`;
 
 const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSelectProps> = (
   {
+    id,
     children,
     name,
     disabled = false,
@@ -56,11 +61,12 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     noResultsLabel = "No results found",
     onChange,
     addNew,
-    search,
+    search = { enabled: true, renderThreshold: 0 }, //@TODO: it should be disabled by default.
     ...rest
   }: MultiSelectProps,
   ref
 ) => {
+  const multiSelectId = useRef(id ?? generateID(20));
   const [expanded, setExpanded] = useState(false);
   const [display, setDisplay] = useState<Record<string, Display>>({});
   const containerReference = useRef<HTMLDivElement>(null);
@@ -71,28 +77,30 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
       false
     ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
-  const optionsVisibleCount = React.Children.count(children) - Object.keys(display).length;
-  const {
-    filter,
-    isSearching,
-    renderSearch,
-    searchInputRef,
-    setIsSearching,
-    searchThreshold,
-    searchVisible
-  } = useSearch({
+  const [optionsVisibleCount, setOptionsVisibleCount] = useState(
+    React.Children.count(children) - Object.keys(display).length
+  );
+  const { filter, renderSearch, searchInputRef, resetSearchState, searchVisible } = useSearch({
+    selectId: multiSelectId.current,
     expanded,
     search,
     searchInputClassName: classes["select-search"],
     optionsCount: optionsVisibleCount,
+    focusedSelectItem,
     setFocusedSelectItem,
     searchInputProps,
-    searchPlaceholder
+    searchPlaceholder,
+    describedBy,
+    getOptionId
   });
-  const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew } = useAddNewBtn({
-    addNew,
-    filter
-  });
+  const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew, isProgrammaticallyFocused } =
+    useAddNewBtn({
+      id: getOptionId(multiSelectId.current, focusedSelectItem),
+      addNew,
+      filter,
+      focusedSelectItem,
+      optionsCount: optionsVisibleCount
+    });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
 
@@ -110,8 +118,9 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
       });
       nativeSelect.current.dispatchEvent(new Event("change", { bubbles: true }));
     }
-
     setExpanded(false);
+    setFocusedSelectItem(0);
+    resetSearchState();
   };
 
   const onSelectedOptionRemoveHandler = (value: string) => {
@@ -126,15 +135,11 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   const { onArrowNavigation } = useArrowNavigation({
     expanded,
     setExpanded,
-    isSearching,
-    setIsSearching,
     setFocusedSelectItem,
-    onOptionChangeHandler,
+    focusedSelectItem,
     childrenCount: optionsVisibleCount,
     setShouldClick,
-    searchInputRef,
-    addBtnRef,
-    renderThreshold: searchThreshold
+    addBtnRef
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
@@ -186,7 +191,8 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
       );
     };
 
-    if (isSearching || filter !== "") {
+    let results;
+    if (filter !== "") {
       const filteredChildren = React.Children.toArray(children).filter(
         child =>
           (child as ReactElement).props.children.toLowerCase().match(filter.toLowerCase()) !== null
@@ -194,17 +200,24 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 
       const internalChildren = _internalRenderChildren(filterOutSelectedChildren(filteredChildren));
 
-      if (internalChildren.length === 0) {
-        return <li className={classes["no-results"]}>{noResultsLabel}</li>;
-      }
-
-      return internalChildren;
+      results = internalChildren;
+    } else {
+      results = _internalRenderChildren(
+        filterOutSelectedChildren(React.Children.toArray(children))
+      );
     }
 
-    return _internalRenderChildren(filterOutSelectedChildren(React.Children.toArray(children)));
+    optionsVisibleCount !== results.length && setOptionsVisibleCount(results.length);
+
+    if (results.length === 0) {
+      return <li className={classes["no-results"]}>{noResultsLabel}</li>;
+    }
+
+    return results;
 
     function _internalRenderChildren(internalChildren: ReactChildrenType) {
       return React.Children.map(internalChildren, (child, index) => {
+        // console.log("1234", index, focusedSelectItem === index, shouldClick);
         return React.cloneElement(child as ReactElement, {
           onFocusChange: (childIndex: number) => {
             setFocusedSelectItem(childIndex);
@@ -213,11 +226,12 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
             onOptionChangeHandler(optionRef.current);
             setShouldClick(false);
           },
-          isSearching: isSearching,
+          isSearching: false,
           selectOpened: expanded,
           childIndex: index,
           hasFocus: focusedSelectItem === index,
-          shouldClick: shouldClick
+          shouldClick: shouldClick,
+          id: getOptionId(multiSelectId.current, index)
         });
       });
     }
@@ -238,8 +252,8 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   };
 
   useEffect(() => {
-    if (expanded) {
-      setFocusedSelectItem(0);
+    if (expanded && searchInputRef.current) {
+      searchInputRef.current.focus();
       setShouldFocusButtonAfterClose(true);
     }
 
@@ -247,7 +261,12 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
       customSelectButtonRef.current.focus();
       setShouldFocusButtonAfterClose(false);
     }
-  }, [expanded, customSelectButtonRef.current, shouldFocusButtonAfterClose]);
+  }, [
+    expanded,
+    customSelectButtonRef.current,
+    shouldFocusButtonAfterClose,
+    searchInputRef.current
+  ]);
 
   useEffect(() => {
     syncDisplayValue(value);
@@ -273,6 +292,12 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 
   const onSelectButtonClick = () => {
     setExpanded(!expanded);
+    const addBtnClicked = addBtnRef.current && isProgrammaticallyFocused && shouldClick;
+    if (addBtnClicked) {
+      addBtnRef.current.click();
+    }
+    setShouldClick(false);
+    setFocusedSelectItem(0);
   };
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
@@ -295,16 +320,16 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
       </select>
       <div
         {...filterProps(rest, /^data-/)}
+        id={multiSelectId.current}
         ref={containerReference}
         onKeyDown={onArrowNavigation}
         className={`custom-select ${classes.select} ${additionalClasses.join(" ")} ${
           className ?? ""
         }`}
       >
-        {searchVisible && renderSearch()}
         <div
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
-          style={{ display: expanded && searchVisible ? "none" : "flex" }}
+          style={{ display: "flex" }}
         >
           <div className={classes["display-container"]} data-display>
             <SelectButton
@@ -331,10 +356,10 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
                 onRemove={onSelectedOptionRemoveHandler}
               />
             )}
+            {searchVisible && renderSearch()}
           </div>
           <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </div>
-
         <div
           ref={optionListReference}
           className={`list-wrapper ${classes["list-wrapper"]}`}
@@ -347,8 +372,10 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           }}
         >
           <ul
+            id="listbox-test-id"
             className={addNewBtnOptionsContainerClassName}
             role="listbox"
+            aria-multiselectable="true"
             style={{ maxHeight: optionsListMaxHeight.list }}
           >
             {renderOptions()}

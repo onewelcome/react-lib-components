@@ -143,7 +143,8 @@ $listItemHeight: 2.5rem;
         opacity: 0.05;
       }
 
-      &:focus {
+      &:focus,
+      &.focus {
         outline: var(--input-border-width-focus) solid var(--color-primary300);
         outline-offset: -var(--input-border-width-focus);
       }
@@ -164,20 +165,6 @@ $listItemHeight: 2.5rem;
       }
     }
   }
-}
-
-.selected-option {
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    border-top-right-radius: 0.125rem;
-    border-bottom-right-radius: 0.125rem;
-    border-left: 0.25rem solid var(--color-primary);
-  }
-  color: var(--color-primary);
 }
 
 .status {
@@ -210,11 +197,20 @@ $listItemHeight: 2.5rem;
 }
 
 .select-search {
-  position: relative;
-  width: 100%;
+  flex: 1;
   box-sizing: border-box;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  border: 0;
+  background-color: transparent;
+  color: var(--default);
+  font-family: var(--font-family);
+  line-height: 1.3333;
+
+  &:focus-visible,
+  &:focus {
+    outline: none;
+  }
 }
 
 .disabled {

@@ -35,7 +35,8 @@ ul.has-sibling {
   font-family: var(--font-family);
   font-size: var(--form-control-font-size);
 
-  &:focus {
+  &:focus,
+  &.focus {
     outline: 1px solid;
     outline-offset: 0;
     border-radius: 0;
