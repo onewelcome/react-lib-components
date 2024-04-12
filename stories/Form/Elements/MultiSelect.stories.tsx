@@ -110,7 +110,7 @@ export const MultiSelectWithAddNewAndSearch = Template.bind({});
 
 MultiSelectWithAddNewAndSearch.args = {
   name: "Example select",
-  addNew: { label: "Create new", onAddNew: () => alert("YO!") },
+  addNew: { label: "Create new", onAddNew: (filter: string) => alert(`YO! Filter: ${filter}`) },
   children: generateOptions(15)
 };
 
@@ -128,6 +128,7 @@ export const MultiSelectWithAddNew = Template.bind({});
 
 MultiSelectWithAddNew.args = {
   name: "Example select",
+  search: { enabled: false },
   addNew: { label: "Create new", onAddNew: () => alert("YO!") },
   children: generateOptions(3)
 };

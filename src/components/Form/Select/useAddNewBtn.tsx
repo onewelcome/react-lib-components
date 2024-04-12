@@ -38,6 +38,7 @@ export const useAddNewBtn = ({ id, addNew, filter, focusedSelectItem, optionsCou
 
   const renderAddNew = () =>
     addNew && (
+      // (!!filter || addNew.alwaysEnabled) && ( ///@TODO: odblokowac
       <button
         data-testid="select-action-button"
         {...addNew.btnProps}

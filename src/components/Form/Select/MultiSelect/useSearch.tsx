@@ -78,7 +78,7 @@ export const useSearch = ({
         ref={searchInputRef}
         value={filter}
         onChange={event => setFilter(event.currentTarget.value)}
-        className={searchInputClassName}
+        className={[searchInputClassName, searchInputProps?.className].join(" ")}
         style={{
           display: expanded ? "block" : "none"
         }}

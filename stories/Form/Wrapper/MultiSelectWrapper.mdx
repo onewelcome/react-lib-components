@@ -36,6 +36,11 @@ const ExampleComponent = () => {
           Array.from(event.target.options).filter(option => option.selected).map(option => option.value)
         );
       }}
+      selectProps={{
+        search: {
+          enabled: false
+        }
+      }}
     >
       <MultiOption value="option1">Option 1</MultiOption>
       <MultiOption value="option2">Option 2</MultiOption>
@@ -55,7 +60,12 @@ A code example of a fully functional `MultiSelectWrapper` with the add new butto
 ```jsx
 const ExampleComponent = () => {
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
-  const [allOptions, setAllOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>([
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4"
+  ]);
   return (
     <MultiSelectWrapperComponent
       {...args}
@@ -71,13 +81,14 @@ const ExampleComponent = () => {
         addNew: {
           label: "Create new",
           onAddNew: value => {
-            allOptions && value && setAllOptions([...allOptions, value]);
+            value && setAllOptions([...allOptions, value]);
+            setPickedOptions(picked => [...picked, value]);
           },
-          btnProps: { title: "Add new select option", type: "button" }
+          btnProps: { title: "Add new select option" }
         },
         search: {
           enabled: true,
-          renderThreshold: 0
+          searchPlaceholder: "Search or add new option (Enter)"
         }
       }}
     >
