@@ -68,7 +68,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 ) => {
   const multiSelectId = useRef(id ?? generateID(20));
   const [expanded, setExpanded] = useState(false);
-  const [display, setDisplay] = useState<Record<string, Display>>({});
+  const [display, setDisplay] = useState<Display[]>([]);
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
   const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
@@ -78,7 +78,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     ); /** We need this, because whenever we use the arrow keys to select the select item, and we focus the currently selected item it fires the "click" listener in Option component. Instead, we only want this to fire if we press "enter" or "spacebar" so we set this to true whenever that is the case, and back to false when it has been executed. */
   const [shouldFocusButtonAfterClose, setShouldFocusButtonAfterClose] = useState(false);
   const [optionsVisibleCount, setOptionsVisibleCount] = useState(
-    React.Children.count(children) - Object.keys(display).length
+    React.Children.count(children) - display.length
   );
   const { filter, renderSearch, searchInputRef, resetSearchState, searchVisible } = useSearch({
     selectId: multiSelectId.current,
@@ -145,19 +145,12 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
     useSelectPositionList({ expanded, optionListReference, containerReference, addBtnRef });
 
-  const syncDisplayValue = (vals: string[]) => {
-    const displayArray = React.Children.map(children, child => child).reduce(
-      (prevOption, curOption) => {
-        if (vals.includes(curOption.props.value)) {
-          prevOption[curOption.props.value] = {
-            label: curOption.props.children,
-            fixed: curOption.props.fixed
-          };
-        }
-        return prevOption;
-      },
-      {} as Record<string, Display>
-    );
+  const syncDisplayValue = (values: string[]) => {
+    const options = React.Children.map(children, child => child);
+    const displayArray: Display[] = values.map(value => {
+      const option = options.find(option => option.props.value === value);
+      return { value, label: option?.props.children, fixed: option?.props.fixed };
+    });
     setDisplay(displayArray);
   };
 
@@ -182,12 +175,11 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     type ReactChildrenType = ReturnType<typeof React.Children.toArray>;
 
     const filterOutSelectedChildren = (internalChildren: ReactChildrenType) => {
-      const selectedValues = Object.keys(display);
       return internalChildren.filter(
         child =>
           typeof child === "object" &&
           "props" in child &&
-          !selectedValues.includes(child.props.value as string)
+          !display.find(option => option.value === child.props.value)
       );
     };
 
@@ -219,7 +211,6 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 
     function _internalRenderChildren(internalChildren: ReactChildrenType) {
       return React.Children.map(internalChildren, (child, index) => {
-        // console.log("1234", index, focusedSelectItem === index, shouldClick);
         return React.cloneElement(child as ReactElement, {
           onFocusChange: (childIndex: number) => {
             setFocusedSelectItem(childIndex);

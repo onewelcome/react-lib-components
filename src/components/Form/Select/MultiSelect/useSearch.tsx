@@ -51,6 +51,7 @@ export const useSearch = ({
   describedBy,
   getOptionId
 }: Props) => {
+  //extract reusable part of useSearch :)
   const [filter, setFilter] = useState("");
 
   const DEFAULT_RENDER_THRESHOLD = 0;

@@ -70,23 +70,38 @@ const ExampleComponent = () => {
     "Option 3",
     "Option 4"
   ]);
+
+  const handleOptionChange = (options: HTMLOptionsCollection, obsoletePickedOptions: string[]) => {
+    let newPickedOptions = [...obsoletePickedOptions];
+    Array.from(options).forEach(option => {
+      const selected = option.selected;
+      const exists = newPickedOptions.includes(option.value);
+
+      const shouldAdd = !exists && selected;
+      const shouldRemove = exists && !selected;
+
+      if (shouldAdd) {
+        newPickedOptions.push(option.value);
+      } else if (shouldRemove) {
+        newPickedOptions = newPickedOptions.filter(value => value !== option.value);
+      }
+    });
+    return newPickedOptions;
+  };
+
   return (
     <MultiSelectWrapperComponent
       {...args}
       value={pickedOptions}
       onChange={e => {
-        setPickedOptions(
-          Array.from(e.target.options)
-            .filter(option => option.selected)
-            .map(option => option.value)
-        );
+        setPickedOptions(options => handleOptionChange(e.target.options, options));
       }}
       selectProps={{
         addNew: {
           label: "Create new",
           onAddNew: value => {
             value && setAllOptions([...allOptions, value]);
-            setPickedOptions(picked => [...picked, value]);
+            value && setPickedOptions(picked => [...picked, value]);
           },
           btnProps: { title: "Add new select option" }
         },
