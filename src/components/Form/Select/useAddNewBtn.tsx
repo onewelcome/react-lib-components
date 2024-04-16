@@ -16,7 +16,7 @@
 
 import classes from "./useAddNewBtn.module.scss";
 
-import React, { useRef } from "react";
+import React, { RefObject, useRef } from "react";
 import { AddNewProps } from "./Select.interfaces";
 
 interface Props {
@@ -25,21 +25,30 @@ interface Props {
   filter: string;
   focusedSelectItem: number;
   optionsCount: number;
+  searchInputRef: RefObject<HTMLInputElement>;
 }
 
 /** @scope .*/
-export const useAddNewBtn = ({ id, addNew, filter, focusedSelectItem, optionsCount }: Props) => {
+export const useAddNewBtn = ({
+  id,
+  addNew,
+  filter,
+  focusedSelectItem,
+  optionsCount,
+  searchInputRef
+}: Props) => {
   const addBtnRef = useRef<HTMLButtonElement>(null);
   const addNewLabel = addNew?.label ?? "Create new";
   const isProgrammaticallyFocused = focusedSelectItem === optionsCount;
+  const hasSearchQuery = typeof filter === "string" && !!filter.trim() && !!searchInputRef.current;
+  const shouldRender = addNew && (hasSearchQuery || addNew.alwaysEnabled);
 
   const additionalClasses = [classes["action-button"]];
   addNew?.btnProps?.className && additionalClasses.push(addNew?.btnProps?.className);
   isProgrammaticallyFocused && additionalClasses.push(classes["focus"]);
 
   const renderAddNew = () =>
-    addNew && (
-      // (!!filter || addNew.alwaysEnabled) && ( ///@TODO: odblokowac
+    shouldRender && (
       <button
         data-testid="select-action-button"
         {...addNew.btnProps}

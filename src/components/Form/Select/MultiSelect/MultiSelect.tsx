@@ -99,7 +99,8 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
       addNew,
       filter,
       focusedSelectItem,
-      optionsCount: optionsVisibleCount
+      optionsCount: optionsVisibleCount,
+      searchInputRef
     });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
