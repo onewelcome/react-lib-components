@@ -14,8 +14,8 @@
  *    limitations under the License.
  */
 
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
-import { AddNewProps, PartialInputProps, SearchProps } from "../Select.interfaces";
+import React, { useEffect, useRef, useState } from "react";
+import { PartialInputProps, SearchProps } from "../Select.interfaces";
 
 interface Props {
   selectId: string;
@@ -37,6 +37,7 @@ interface Props {
   getOptionId: (multiSelectId: string, optionIndex: number) => string;
 }
 
+/** @scope .*/
 export const useSearch = ({
   selectId,
   search,

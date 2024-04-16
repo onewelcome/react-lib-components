@@ -27,6 +27,7 @@ interface Props {
   optionsCount: number;
 }
 
+/** @scope .*/
 export const useAddNewBtn = ({ id, addNew, filter, focusedSelectItem, optionsCount }: Props) => {
   const addBtnRef = useRef<HTMLButtonElement>(null);
   const addNewLabel = addNew?.label ?? "Create new";

@@ -209,7 +209,7 @@ const AddNewTemplate: StoryFn<Props> = args => {
           label: "Create new",
           onAddNew: value => {
             value && setAllOptions([...allOptions, value]);
-            setPickedOptions(picked => [...picked, value]);
+            value && setPickedOptions(picked => [...picked, value]);
           },
           btnProps: { title: "Add new select option" }
         },

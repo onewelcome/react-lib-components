@@ -201,6 +201,20 @@ describe("Select should render with search", () => {
     expect(list?.querySelectorAll("li[role='option']").length).toBe(1);
     expect(list?.querySelector("li[role='option']")?.innerHTML).toBe("Test17");
   });
+
+  it("and filtering should escape reserved chars", async () => {
+    const { list, button, getByTestId } = createMultiSelect(defaultParams => ({
+      ...defaultParams,
+      children: [<MultiOption value="option1">\</MultiOption>]
+    }));
+
+    const searchInput = getByTestId("search-input");
+    await userEvent.click(button);
+    await userEvent.type(searchInput, "\\");
+
+    expect(list?.querySelectorAll("li[role='option']").length).toBe(1);
+    expect(list?.querySelector("li[role='option']")?.innerHTML).toBe("\\");
+  });
 });
 
 describe("Selecting options using keyboard", () => {

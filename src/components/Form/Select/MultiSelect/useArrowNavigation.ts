@@ -18,17 +18,16 @@ interface UseArrowNavigationParams {
   expanded: boolean;
   setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
   setFocusedSelectItem: React.Dispatch<React.SetStateAction<number>>;
-  focusedSelectItem: number;
   childrenCount: number;
   setShouldClick: React.Dispatch<React.SetStateAction<boolean>>;
   addBtnRef: React.RefObject<HTMLButtonElement>;
 }
 
+/** @scope .*/
 export const useArrowNavigation = ({
   expanded,
   setExpanded,
   setFocusedSelectItem,
-  focusedSelectItem,
   childrenCount,
   setShouldClick,
   addBtnRef

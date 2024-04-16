@@ -125,8 +125,19 @@ $listItemHeight: 2.5rem;
       cursor: pointer;
 
       &:focus {
-        outline: var(--input-border-width-focus) solid var(--color-primary300);
-        outline-offset: var(--input-border-width-focus);
+        outline: none;
+
+        &::before {
+          @include mixins.focusVisibleOutline($outlineOffset: 0, $selectors: null);
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0.125rem;
+          height: 100%;
+          width: calc(100% - 0.25rem);
+          opacity: 1;
+          z-index: calc(variables.$popover-z-index + 1);
+        }
       }
 
       &:hover {

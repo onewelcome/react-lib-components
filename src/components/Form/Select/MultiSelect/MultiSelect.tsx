@@ -28,8 +28,8 @@ import React, {
 import { Icon, Icons } from "../../../Icon/Icon";
 import { useBodyClick } from "../../../../hooks/useBodyClick";
 import readyclasses from "../../../../readyclasses.module.scss";
-import { filterProps, generateID } from "../../../../util/helper";
-import { useSelectPositionList } from "../SelectService";
+import { filterProps, generateID, escapeRegExp } from "../../../../util/helper";
+import { useSelectPositionList } from "../useSelectPositionList";
 import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 import { SelectedOptions, Display } from "./SelectedOptions";
 import { SelectButton } from "./SelectButton";
@@ -136,7 +136,6 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     expanded,
     setExpanded,
     setFocusedSelectItem,
-    focusedSelectItem,
     childrenCount: optionsVisibleCount,
     setShouldClick,
     addBtnRef
@@ -195,7 +194,9 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     if (filter !== "") {
       const filteredChildren = React.Children.toArray(children).filter(
         child =>
-          (child as ReactElement).props.children.toLowerCase().match(filter.toLowerCase()) !== null
+          (child as ReactElement).props.children
+            .toLowerCase()
+            .match(escapeRegExp(filter.toLowerCase())) !== null
       );
 
       const internalChildren = _internalRenderChildren(filterOutSelectedChildren(filteredChildren));
