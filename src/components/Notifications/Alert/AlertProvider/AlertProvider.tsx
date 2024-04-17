@@ -239,11 +239,9 @@ export const AlertProvider = ({
       }}
     >
       {children}
-      <div ref={wrappingDivRef}>
+      <div ref={wrappingDivRef} className={className}>
         {createPortal(
-          <AlertContainer placement={placement} className={className}>
-            {renderAlertList()}
-          </AlertContainer>,
+          <AlertContainer placement={placement}>{renderAlertList()}</AlertContainer>,
           root
         )}
       </div>

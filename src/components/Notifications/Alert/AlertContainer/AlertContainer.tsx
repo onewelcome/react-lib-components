@@ -44,11 +44,6 @@ const useAlertContainerHeightAnimation = () => {
 
     totalHeight += (Math.min(alerts.length, 3) - 1) * spaceBetweenAlerts;
 
-    /**
-     * Once we reach the maximum amount of alerts, they will start to disappear. We have to wait with reversing the justify-content until the last alert
-     * has completed their animationIn. This is around 500ms. Then we want to reverse it, because otherwise whenever a alert disappears they shift up
-     * and then down again, which looks really bad.
-     * */
     if (exceedsMaximumVisibleAlerts)
       setTimeout(() => {
         setJustifyContent("flex-end");

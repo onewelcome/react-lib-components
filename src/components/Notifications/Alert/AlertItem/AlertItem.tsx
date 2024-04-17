@@ -44,7 +44,7 @@ export interface Props {
   actions?: Actions;
   wasShown?: boolean;
   elementProps?: {
-    container?: { ["data-testid"]: string } | any;
+    container?: any;
     title?: any;
     content?: any;
     actionsContainer?: any;

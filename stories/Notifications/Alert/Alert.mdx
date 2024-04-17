@@ -1,153 +1,74 @@
-import { ArgTypes, PRIMARY_STORY, Meta } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
 
-<Meta
-  title="components/Feedback/Alert/Alert"
-  parameters={{
-    viewMode: "docs",
-    previewTabs: {
-      canvas: { hidden: true }
-    }
-  }}
-/>
+# Alert
 
-# Alert component
+The `Alert` components and hook are there for you to make it easy to notify a user with diferent type of messages, replacing the `Snackbar`. The components, the Alert component, provider and hooks are designed to be used together.
 
-The `Alert` components and hook are there for you to make it easy to notify a user. You have the option of displaying an error, success or information `alert`. In order to use all of these different `Alert`s, you'll have to wrap your entire application
-in the `AlertProvider` component. This will enable to `Alert` component to be portaled and displayed in the top levels of the DOM.
+You need to wrap your application with the `AlertProvider` to allow the alerts to appear on top of your page.
 
-Once you've wrapped your application with the `AlertProvider` component, you are free to use the `useAlert` hook to create any `Alert` you like. This hook does **not** accept any arguments, but it returns 4 different functions.
+## Basic usage
 
-The following functions will all accept an object when called, which looks as follows:
+Main app component
+
+```jsx
+<AlertProvider closeButtonTitle="Close">...</AlertProvider>
+```
+
+In app
 
 ```js
-{
-  title?: string;
-  content?: string;
-  actions?: (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
-  className?: string;
-  variant?: "info" | "success" | "error" | "warning";
-  duration?: number;
-  onClose?: () => void;
-}
+const { enqueueAlert } = useAlert();
+enqueueAlert("Message");
 ```
 
-## Properties
+## Queue functions
 
-The `title` is displayed at the top of the alert. The `content` is displayed inside of the alert.
-If no `content` is provided, the `title` will be displayed in place of the content to ensure correct usage of the alert component.
+`enqueueAlert(string | AlertQueue)` - The base alert hook. Enqueues a new alert. By default a total of 3 can be visible.
+`enqueueInfoAlert(string | AlertQueue)` - The variant is fixed to `informative`.
+`enqueueSuccessAlert(string | AlertQueue)` - The variant is fixed to `success`.
+`enqueueWarningAlert(string | AlertQueue)` - The variant is fixed to `warning`.
+`enqueueErrorAlert(string | Error | AlertQueue)` - The variant is fixed to `error`. In case an Error instance is passed the `message` of the error is passed as content.
 
-The `actions` parameter might seem confusing, but this is simply an array of `Button` props. In the example down below, the "Show long alert" has this `actions` prop filled to make it more clear as to how this would look like.
+## AlertQueue
 
-The `className` adds the provided CSS class to Alert Item components.
+Object representing the information an alert poppup.
 
-An additional callback for closing the alert can be provided via the `onClose` property. It is called when the alert is closed automatically or manually by clicking the close button.
+`title: string` - Optional title of the alert. In case the content is ommited, the title takes the role of content.
 
-By default, the `duration` property is set to `4000` (4 seconds), except for the error variant Alert, where the `duration` is `8000` (8 seconds). You can increase or decrease this as you like.
+`content: string` - Optional content. Either content or title must be provided.
 
-## Methods
+`variant: "neutral" | "informative" | "success" | "warning" | "error"` - Controls which variant to show. `"neutral"` default. It may be overriden by the queue function. See [All Alert Variants](/story/components-feedback-alert--all-alert-variants) for details.
 
-`useAlert` hook returns following methods:
+`emphasis: "low" | "medium" | "high"` - Controls the emphasis if the alert. `"medium"` default. The `error` variant, `medium` and `high` emphases are assertive.
 
-### `enqueueAlert`
+`duration: number` - The auto-close duration of the alert.
 
-This function will allow you to create a regular info `Alert`. You could use the `variant` prop to specify a variant, but using `enqueueSuccessAlert`, `enqueueWarningAlert` or `enqueueErrorAlert` is an easier way of doing this.
+`className: string` - Css class extension for the main div container of the alert component.
 
-### `enqueueErrorAlert`
+`onClose: () => void` - Fires if the alert has finist closeing.
 
-It will allow you to easily and quickly create an error `Alert`. The `variant` prop is already set to be `error`.
+`closeButtonTitle: string` - The title of the closebutton. Overrides the provider prop of the same name.
 
-### `enqueueSuccessAlert`
+`actions: Array<ButtonHTMLAttributes<HTMLButtonElement> & { label: string }>` - Objects representing an array of buttons that will be displayed next to the content.
 
-Creates a success alert with the `variant` prop already set to `success`.
+`elementProps:`
 
-### `enqueueWarningAlert`
+> `container: any;` - props passed to the top most container, `<div>` element.\
+> `title: any;` - props passed to the `<Typography>` component representing the title.\
+> `content: any;` - props passed to the `<Typography>` component representing the content.\
+> `actionsContainer: any;` - props passed to the action buttons container `<div>` element.\
+> `closeButton: any;` - props passed to the `<IconButton>` which closes the alert.
 
-Creates a warning alert with the `variant` prop already set to `warning`.
+## AlertProvicer props
 
-# Examples
+`closeButtonTitle: string (required)` - The default title for the close button on the alerts.
 
-First, wrap your entire application inside the `AlertProvider` component.
+`placement?: {vertical: "top" | "bottom", horizontal: "start" | "center" | "end"}` - The placemt of the alerts relative to domRoot.
 
-```jsx
-<AlertProvider>
-  <AppContent />
-</AlertProvider>
-```
+`stackSize?: number` - The number of alerts that can ve visible at any given time.
 
-Then use the `useAlert()` hook inside your application.
+`domRoot?: HTMLElement` - Used if custom dom root is required. Default body.
 
-```jsx
-const AppContent = () => {
-  const { enqueueSuccessAlert, enqueueErrorAlert, enqueueWarningAlert, enqueueAlert } = useAlert();
+`autoHideDuration?: { long: number, short: number }` - The ammount of time it takes for an alert to hide itself automatically if not focused. Default `{ long: 8000, short: 4000 }`.
 
-  return (
-    <Fragment>
-      <Button
-        onClick={() =>
-          enqueueSuccessAlert({
-            content: "Main message of the alert",
-            duration: 10000,
-            onClose: () => console.log("onClose handler")
-          })
-        }
-      >
-        Show success alert
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={() =>
-          enqueueErrorAlert({
-            content: "Social account unlink failed",
-            onClose: () => console.log("onClose handler")
-          })
-        }
-      >
-        Show error alert
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={() =>
-          enqueueAlert({
-            content: "Copy of your data is requested",
-            onClose: () => console.log("onClose handler")
-          })
-        }
-      >
-        Show info alert
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={() =>
-          enqueueWarningAlert({ content: "You request is being processed with a delay" })
-        }
-      >
-        Show warning alert
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={() =>
-          enqueueAlert({
-            title: "Copy of your data is requested",
-            content:
-              "Body text of the alert. Keep it short. Users only have a few seconds to read it. Try to keep the text within the limit of 1 text message: 160 ch.",
-            actions: [
-              { label: "Contact support", onClick: () => alert("Clicked support") },
-              { label: "Contact OneWelcome", onClick: () => alert("Clicked OneWelcome") }
-            ]
-          })
-        }
-      >
-        Show long alert
-      </Button>
-    </Fragment>
-  );
-};
-```
-
-# Props
-
-<ArgTypes story={PRIMARY_STORY} />
+`className?: string` - Css class extension for the main div container.
