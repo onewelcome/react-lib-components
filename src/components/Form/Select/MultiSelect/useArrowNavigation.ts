@@ -33,19 +33,9 @@ export const useArrowNavigation = ({
   addBtnRef
 }: UseArrowNavigationParams) => {
   const onArrowNavigation = (event: React.KeyboardEvent) => {
-    const codesToPreventDefault = [
-      "ArrowDown",
-      "ArrowUp",
-      "ArrowLeft",
-      "ArrowRight",
-      "Escape",
-      "End",
-      "Home"
-    ];
+    const codesToPreventDefault = ["ArrowDown", "ArrowUp", "Escape", "End", "Home"];
     const hasAddBtn = !!addBtnRef?.current;
     const childrenCountWithAddButton = childrenCount + (hasAddBtn ? 1 : 0);
-    // const isAddBtnFocused = (focusedItem: number) =>
-    //   hasAddBtn ? childrenCountWithAddButton - 1 === focusedItem : false;
 
     if (expanded) {
       codesToPreventDefault.push("Tab");
