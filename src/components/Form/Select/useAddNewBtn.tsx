@@ -40,8 +40,9 @@ export const useAddNewBtn = ({
   const addBtnRef = useRef<HTMLButtonElement>(null);
   const addNewLabel = addNew?.label ?? "Create new";
   const isProgrammaticallyFocused = focusedSelectItem === optionsCount;
+  const isSearchDisabled = !searchInputRef.current;
   const hasSearchQuery = typeof filter === "string" && !!filter.trim() && !!searchInputRef.current;
-  const shouldRender = addNew && (hasSearchQuery || addNew.alwaysEnabled);
+  const shouldRender = addNew && (isSearchDisabled || hasSearchQuery || addNew.alwaysEnabled);
 
   const additionalClasses = [classes["action-button"]];
   addNew?.btnProps?.className && additionalClasses.push(addNew?.btnProps?.className);

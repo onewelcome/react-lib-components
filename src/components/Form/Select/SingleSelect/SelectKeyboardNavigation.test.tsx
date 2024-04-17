@@ -294,7 +294,7 @@ describe("addBtn feature", () => {
     const onAddNewCallback = jest.fn();
     const { button, findByTestId } = createSelect(defaultParams => ({
       ...defaultParams,
-      addNew: { label: label, onAddNew: () => onAddNewCallback() }
+      addNew: { label: label, onAddNew: () => onAddNewCallback(), alwaysEnabled: true }
     }));
 
     const searchInput = document.querySelector(".select-search")!;
