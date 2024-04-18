@@ -18,7 +18,7 @@ import React, { ReactNode, useRef, useState, createContext } from "react";
 import { createPortal } from "react-dom";
 import { Placement, AlertContainer } from "../AlertContainer/AlertContainer";
 import { generateID } from "../../../../util/helper";
-import { AlertItem, Props as AlertComponentProps } from "../AlertItem/AlertItem";
+import { AlertItem, Props as AlertComponentProps, Variant } from "../AlertItem/AlertItem";
 import { useGetDomRoot } from "../../../../hooks/useGetDomRoot";
 import AlertContext, { AlertContextValue } from "./AlertContext";
 
@@ -61,110 +61,53 @@ export const AlertProvider = ({
     return autoHideDuration.short;
   };
 
-  const enqueueAlert = (arg: string | Omit<AlertEntry, "id">) => {
+  const buildEntryWithVariant = (
+    arg: string | Omit<AlertEntry, "id">,
+    variant?: Variant
+  ): AlertEntry => {
     if (typeof arg === "string") {
       const newEntry: AlertEntry = {
         id: generateID(15, arg),
         content: arg,
         duration: autoHideDuration.short,
+        variant,
         closeButtonTitle
       };
-      setAlertEnties(entries => [...entries, newEntry]);
-      return;
+      return newEntry;
     }
 
     arg = arg as AlertEntry;
     const newEntry: AlertEntry = {
       ...arg,
+      variant: variant ?? arg.variant,
       id: generateID(15, arg.content || arg.title),
       duration: arg.duration ?? getDuration(arg),
       closeButtonTitle: arg.closeButtonTitle || closeButtonTitle
     };
+    return newEntry;
+  };
+
+  const enqueueAlert = (arg: string | Omit<AlertEntry, "id">) => {
+    const newEntry = buildEntryWithVariant(arg);
     setAlertEnties(entries => [...entries, newEntry]);
   };
 
   const enqueueInfoAlert: AlertContextValue["enqueueInfoAlert"] = arg => {
-    if (typeof arg === "string") {
-      const newEntry: AlertEntry = {
-        id: generateID(15, arg),
-        content: arg,
-        duration: autoHideDuration.short,
-        closeButtonTitle,
-        variant: "informative"
-      };
-      setAlertEnties(entries => [...entries, newEntry]);
-      return;
-    }
-
-    const newEntry: AlertEntry = {
-      ...arg,
-      id: generateID(15, arg.content || arg.title),
-      duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle,
-      variant: "informative"
-    };
+    const newEntry: AlertEntry = buildEntryWithVariant(arg, "informative");
     setAlertEnties(entries => [...entries, newEntry]);
   };
 
   const enqueueSuccessAlert: AlertContextValue["enqueueSuccessAlert"] = arg => {
-    if (typeof arg === "string") {
-      const newEntry: AlertEntry = {
-        id: generateID(15, arg),
-        content: arg,
-        duration: autoHideDuration.short,
-        closeButtonTitle,
-        variant: "success"
-      };
-      setAlertEnties(entries => [...entries, newEntry]);
-      return;
-    }
-
-    const newEntry: AlertEntry = {
-      ...arg,
-      id: generateID(15, arg.content || arg.title),
-      duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle,
-      variant: "success"
-    };
+    const newEntry: AlertEntry = buildEntryWithVariant(arg, "success");
     setAlertEnties(entries => [...entries, newEntry]);
   };
 
   const enqueueWarningAlert: AlertContextValue["enqueueWarningAlert"] = arg => {
-    if (typeof arg === "string") {
-      const newEntry: AlertEntry = {
-        id: generateID(15, arg),
-        content: arg,
-        duration: autoHideDuration.short,
-        closeButtonTitle,
-        variant: "warning"
-      };
-      setAlertEnties(entries => [...entries, newEntry]);
-      return;
-    }
-
-    const newEntry: AlertEntry = {
-      ...arg,
-      id: generateID(15, arg.content || arg.title),
-      duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle,
-      variant: "warning"
-    };
+    const newEntry: AlertEntry = buildEntryWithVariant(arg, "warning");
     setAlertEnties(entries => [...entries, newEntry]);
   };
 
   const enqueueErrorAlert: AlertContextValue["enqueueErrorAlert"] = arg => {
-    if (typeof arg === "string") {
-      const newEntry: AlertEntry = {
-        id: generateID(15, arg),
-        content: arg,
-        duration: autoHideDuration.short,
-        closeButtonTitle: closeButtonTitle,
-        variant: "error"
-      };
-      setAlertEnties(entries => [...entries, newEntry]);
-      return;
-    }
-
     if (arg instanceof Error) {
       if (!arg.message) {
         return;
@@ -180,13 +123,7 @@ export const AlertProvider = ({
       return;
     }
 
-    const newEntry: AlertEntry = {
-      ...arg,
-      id: generateID(15, arg.content || arg.title),
-      duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle,
-      variant: "error"
-    };
+    const newEntry: AlertEntry = buildEntryWithVariant(arg, "error");
     setAlertEnties(entries => [...entries, newEntry]);
   };
 
