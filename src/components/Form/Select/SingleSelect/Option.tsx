@@ -21,6 +21,8 @@ import React, {
   RefObject,
   useEffect,
   ReactNode,
+  KeyboardEvent,
+  MouseEvent,
   useRef
 } from "react";
 import classes from "./Select.module.scss";
@@ -38,7 +40,10 @@ export interface Props extends ComponentPropsWithRef<"li"> {
   isSearching?: boolean;
   label?: string;
   childIndex?: number;
-  onOptionSelect?: (ref: React.RefObject<HTMLLIElement>) => void;
+  onOptionSelect?: (
+    ref: React.RefObject<HTMLLIElement>,
+    event: KeyboardEvent<HTMLLIElement> | MouseEvent<HTMLLIElement>
+  ) => void;
   onFocusChange?: (childIndex: number) => void;
   isAddBtnFocused?: boolean;
 }
@@ -86,7 +91,9 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
     }
   }, [hasFocus, innerOptionRef, selectOpened, isSearching]);
 
-  const onSelectHandler = () => onOptionSelect?.(innerOptionRef);
+  const onSelectHandler = (
+    event: KeyboardEvent<HTMLLIElement> | MouseEvent<HTMLLIElement> //TODO: remove added event
+  ) => onOptionSelect?.(innerOptionRef, event);
 
   return (
     <li
@@ -101,7 +108,7 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
           event.stopPropagation();
           event.preventDefault();
 
-          onSelectHandler();
+          onSelectHandler(event);
         }
       }}
       aria-selected={isSelected}

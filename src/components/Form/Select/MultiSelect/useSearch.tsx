@@ -104,7 +104,7 @@ export const useSearch = ({
 
   const resetSearchState = () => {
     setFilter("");
-    setFocusedSelectItem(-1);
+    setFocusedSelectItem(0);
   };
 
   const visible = shouldRenderSearch();

@@ -293,15 +293,17 @@ describe("addBtn feature", () => {
     expect(getSelectedOptionValue(select)).toEqual("option1");
 
     await userEvent.keyboard("123456789");
+
     const addNewBtn = await findByTestId("select-action-button");
     await waitFor(() => expect(addNewBtn).toBeDefined());
     await waitFor(() =>
       expect(addNewBtn?.textContent).toEqual(`"123456789" (${label.toLowerCase()})`)
     );
-    await userEvent.keyboard("{arrowup}");
 
     await userEvent.keyboard("{enter}");
 
     await waitFor(() => expect(onAddNewCallback).toHaveBeenCalled());
-  }, 4000000);
+
+    await waitFor(() => expect(button).toHaveFocus());
+  });
 });

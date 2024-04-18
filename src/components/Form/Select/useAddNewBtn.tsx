@@ -16,7 +16,7 @@
 
 import classes from "./useAddNewBtn.module.scss";
 
-import React, { RefObject, useRef } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 import { AddNewProps } from "./Select.interfaces";
 
 interface Props {
@@ -26,6 +26,7 @@ interface Props {
   focusedSelectItem: number;
   optionsCount: number;
   searchInputRef: RefObject<HTMLInputElement>;
+  shouldClick?: boolean;
   onClickCallback?: () => void;
 }
 
@@ -37,6 +38,7 @@ export const useAddNewBtn = ({
   focusedSelectItem,
   optionsCount,
   searchInputRef,
+  shouldClick,
   onClickCallback
 }: Props) => {
   const addBtnRef = useRef<HTMLButtonElement>(null);
@@ -49,6 +51,13 @@ export const useAddNewBtn = ({
   const additionalClasses = [classes["action-button"]];
   addNew?.btnProps?.className && additionalClasses.push(addNew?.btnProps?.className);
   isProgrammaticallyFocused && additionalClasses.push(classes["focus"]);
+
+  useEffect(() => {
+    const addBtnClicked = addBtnRef.current && isProgrammaticallyFocused && shouldClick;
+    if (addBtnClicked) {
+      addBtnRef.current.click();
+    }
+  }, [addBtnRef.current, isProgrammaticallyFocused, shouldClick]);
 
   const renderAddNew = () =>
     shouldRender && (
@@ -75,7 +84,6 @@ export const useAddNewBtn = ({
   return {
     addNewBtnOptionsContainerClassName,
     renderAddNew,
-    isProgrammaticallyFocused,
     addBtnRef
   };
 };

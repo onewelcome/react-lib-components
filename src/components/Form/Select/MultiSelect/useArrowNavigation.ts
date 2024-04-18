@@ -21,6 +21,9 @@ interface UseArrowNavigationParams {
   childrenCount: number;
   setShouldClick: React.Dispatch<React.SetStateAction<boolean>>;
   addBtnRef: React.RefObject<HTMLButtonElement>;
+  searchInputRef: React.RefObject<HTMLInputElement>;
+  customSelectButtonRef: React.RefObject<HTMLButtonElement>;
+  onClose: () => void;
 }
 
 /** @scope .*/
@@ -30,15 +33,22 @@ export const useArrowNavigation = ({
   setFocusedSelectItem,
   childrenCount,
   setShouldClick,
-  addBtnRef
+  addBtnRef,
+  searchInputRef,
+  customSelectButtonRef,
+  onClose
 }: UseArrowNavigationParams) => {
   const onArrowNavigation = (event: React.KeyboardEvent) => {
     const codesToPreventDefault = ["ArrowDown", "ArrowUp", "Escape", "End", "Home"];
     const hasAddBtn = !!addBtnRef?.current;
     const childrenCountWithAddButton = childrenCount + (hasAddBtn ? 1 : 0);
+    const isSearchEvent = event.target === searchInputRef.current;
+    const isSelectButtonEvent = event.target === customSelectButtonRef.current;
+    const isSearchOrSelectButtonEvent = isSelectButtonEvent || isSearchEvent;
 
     if (expanded) {
       codesToPreventDefault.push("Tab");
+      codesToPreventDefault.push("Enter");
     }
 
     if (!expanded) {
@@ -74,7 +84,11 @@ export const useArrowNavigation = ({
       case "Enter":
         if (expanded) {
           setShouldClick(true);
-          setExpanded(false);
+        } else {
+          setFocusedSelectItem(0);
+        }
+        if (isSearchOrSelectButtonEvent) {
+          setExpanded(!expanded);
         }
         break;
       case "Space":
@@ -89,6 +103,7 @@ export const useArrowNavigation = ({
       case "Escape":
         if (expanded) {
           setExpanded(false);
+          onClose();
         }
         break;
       case "End":

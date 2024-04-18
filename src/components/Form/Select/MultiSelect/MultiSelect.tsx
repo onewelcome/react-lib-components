@@ -17,26 +17,26 @@
 import classes from "./MultiSelect.module.scss";
 
 import React, {
-  createRef,
   ForwardRefRenderFunction,
   Fragment,
   ReactElement,
+  createRef,
   useEffect,
   useRef,
   useState
 } from "react";
-import { Icon, Icons } from "../../../Icon/Icon";
 import { useBodyClick } from "../../../../hooks/useBodyClick";
-import readyclasses from "../../../../readyclasses.module.scss";
-import { filterProps, generateID, escapeRegExp } from "../../../../util/helper";
-import { useSelectPositionList } from "../useSelectPositionList";
 import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
-import { SelectedOptions, Display } from "./SelectedOptions";
-import { SelectButton } from "./SelectButton";
+import readyclasses from "../../../../readyclasses.module.scss";
+import { escapeRegExp, filterProps, generateID } from "../../../../util/helper";
+import { Icon, Icons } from "../../../Icon/Icon";
 import { MultiSelectProps } from "../Select.interfaces";
 import { useAddNewBtn } from "../useAddNewBtn";
-import { useSearch } from "./useSearch";
+import { useSelectPositionList } from "../useSelectPositionList";
+import { SelectButton } from "./SelectButton";
+import { Display, SelectedOptions } from "./SelectedOptions";
 import { useArrowNavigation } from "./useArrowNavigation";
+import { useSearch } from "./useSearch";
 
 const getOptionId = (multiSelectId: string, optionIndex: number) =>
   `${multiSelectId}_option${optionIndex}`;
@@ -73,7 +73,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   const [display, setDisplay] = useState<Display[]>([]);
   const containerReference = useRef<HTMLDivElement>(null);
   const optionListReference = useRef<HTMLDivElement>(null);
-  const [focusedSelectItem, setFocusedSelectItem] = useState(-1);
+  const [focusedSelectItem, setFocusedSelectItem] = useState(0);
   const [shouldClick, setShouldClick] =
     useState(
       false
@@ -96,16 +96,19 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     getOptionId,
     getListboxId
   });
-  const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew, isProgrammaticallyFocused } =
-    useAddNewBtn({
-      id: getOptionId(multiSelectId.current, optionsVisibleCount),
-      addNew,
-      filter,
-      focusedSelectItem,
-      optionsCount: optionsVisibleCount,
-      searchInputRef,
-      onClickCallback: resetSearchState
-    });
+  const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew } = useAddNewBtn({
+    id: getOptionId(multiSelectId.current, optionsVisibleCount),
+    addNew,
+    filter,
+    focusedSelectItem,
+    optionsCount: optionsVisibleCount,
+    searchInputRef,
+    shouldClick,
+    onClickCallback: () => {
+      setShouldClick(false);
+      resetSearchState();
+    }
+  });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
 
@@ -124,7 +127,6 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
       nativeSelect.current.dispatchEvent(new Event("change", { bubbles: true }));
     }
     setExpanded(false);
-    setFocusedSelectItem(0);
     resetSearchState();
   };
 
@@ -143,7 +145,10 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     setFocusedSelectItem,
     childrenCount: optionsVisibleCount,
     setShouldClick,
-    addBtnRef
+    addBtnRef,
+    searchInputRef,
+    customSelectButtonRef,
+    onClose: resetSearchState
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
@@ -221,6 +226,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           },
           onOptionSelect: (optionRef: React.RefObject<HTMLLIElement>) => {
             onOptionChangeHandler(optionRef.current);
+            setExpanded(false);
             setShouldClick(false);
           },
           isSearching: false,
@@ -250,13 +256,13 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 
   useEffect(() => {
     if (expanded && searchInputRef.current) {
-      searchInputRef.current.focus();
       setShouldFocusButtonAfterClose(true);
+      searchInputRef.current.focus();
     }
 
     if (!expanded && customSelectButtonRef.current && shouldFocusButtonAfterClose) {
-      customSelectButtonRef.current.focus();
       setShouldFocusButtonAfterClose(false);
+      customSelectButtonRef.current.focus();
     }
   }, [
     expanded,
@@ -287,14 +293,9 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   className && additionalClasses.push(className);
   success && additionalClasses.push(classes.success);
 
-  const onSelectButtonClick = () => {
-    setExpanded(!expanded);
-    const addBtnClicked = addBtnRef.current && isProgrammaticallyFocused && shouldClick;
-    if (addBtnClicked) {
-      addBtnRef.current.click();
-    }
+  const onSelectButtonClick = (event: any) => {
+    setExpanded(expanded => !expanded);
     setShouldClick(false);
-    setFocusedSelectItem(0);
   };
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
