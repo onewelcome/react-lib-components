@@ -35,6 +35,7 @@ interface Props {
   focusedSelectItem: number;
   describedBy?: string;
   getOptionId: (multiSelectId: string, optionIndex: number) => string;
+  getListboxId: (multiSelectId: string) => string;
 }
 
 /** @scope .*/
@@ -49,9 +50,9 @@ export const useSearch = ({
   setFocusedSelectItem,
   focusedSelectItem,
   describedBy,
-  getOptionId
+  getOptionId,
+  getListboxId
 }: Props) => {
-  //extract reusable part of useSearch :)
   const [filter, setFilter] = useState("");
 
   const DEFAULT_RENDER_THRESHOLD = 0;
@@ -91,7 +92,7 @@ export const useSearch = ({
         autoComplete="off"
         autoCorrect="off"
         spellCheck={false}
-        aria-controls="listbox-test-id"
+        aria-controls={getListboxId(selectId)}
         aria-describedby={describedBy}
         aria-autocomplete="none"
         aria-expanded={expanded}
@@ -109,8 +110,10 @@ export const useSearch = ({
   const visible = shouldRenderSearch();
 
   useEffect(() => {
-    (search?.searchInputProps?.reset || searchInputProps?.reset || !expanded) && resetSearchState();
-  }, [searchInputProps?.reset, search?.searchInputProps?.reset, expanded]);
+    if (search?.searchInputProps?.reset || searchInputProps?.reset) {
+      resetSearchState();
+    }
+  }, [searchInputProps?.reset, search?.searchInputProps?.reset]);
 
   return {
     renderSearch,

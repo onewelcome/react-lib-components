@@ -223,8 +223,10 @@ const AddNewTemplate: StoryFn<Props> = args => {
         addNew: {
           label: "Create new",
           onAddNew: value => {
-            value && setAllOptions([...allOptions, value]);
-            value && setPickedOptions(picked => [...picked, value]);
+            const getValuesWithValueIfUnique = (value: string) => (values: string[]) =>
+              values.includes(value) ? values : [...values, value];
+            value && setAllOptions(getValuesWithValueIfUnique(value));
+            value && setPickedOptions(getValuesWithValueIfUnique(value));
           },
           btnProps: { title: "Add new select option" }
         },

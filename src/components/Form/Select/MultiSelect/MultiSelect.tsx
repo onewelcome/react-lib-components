@@ -41,6 +41,8 @@ import { useArrowNavigation } from "./useArrowNavigation";
 const getOptionId = (multiSelectId: string, optionIndex: number) =>
   `${multiSelectId}_option${optionIndex}`;
 
+const getListboxId = (multiSelectId: string) => `${multiSelectId}_listbox`;
+
 const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSelectProps> = (
   {
     id,
@@ -91,16 +93,18 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     searchInputProps,
     searchPlaceholder,
     describedBy,
-    getOptionId
+    getOptionId,
+    getListboxId
   });
   const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew, isProgrammaticallyFocused } =
     useAddNewBtn({
-      id: getOptionId(multiSelectId.current, focusedSelectItem),
+      id: getOptionId(multiSelectId.current, optionsVisibleCount),
       addNew,
       filter,
       focusedSelectItem,
       optionsCount: optionsVisibleCount,
-      searchInputRef
+      searchInputRef,
+      onClickCallback: resetSearchState
     });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
@@ -365,7 +369,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           }}
         >
           <ul
-            id="listbox-test-id"
+            id={getListboxId(multiSelectId.current)} //@TODO: fix it!
             className={addNewBtnOptionsContainerClassName}
             role="listbox"
             aria-multiselectable="true"

@@ -16,7 +16,6 @@
 
 import userEvent from "@testing-library/user-event";
 import { act, getByRole, waitFor } from "@testing-library/react";
-import React from "react";
 import { createMultiSelect, turnOnScrollToFunctionSupportInTest } from "./MultiSelect.test";
 
 const getSelectedOptionValue = (select: HTMLElement) =>
@@ -105,9 +104,9 @@ describe("search input", () => {
   });
 
   it("should have first option selected when expanding list", async () => {
-    const { button, select } = createMultiSelect();
+    const { button, select, getByTestId } = createMultiSelect();
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -117,9 +116,9 @@ describe("search input", () => {
   });
 
   it("should have last option selected when expanding list and pressing arrow up", async () => {
-    const { button, select } = createMultiSelect();
+    const { button, select, getByTestId } = createMultiSelect();
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -131,9 +130,9 @@ describe("search input", () => {
   });
 
   it("should have second option selected when expanding list nad pressing arrow down", async () => {
-    const { button, select } = createMultiSelect();
+    const { button, select, getByTestId } = createMultiSelect();
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -145,12 +144,12 @@ describe("search input", () => {
 
   it("should select option with enter", async () => {
     const onChangeHandler = jest.fn();
-    const { select, button } = createMultiSelect(defaultParams => ({
+    const { select, button, getByTestId } = createMultiSelect(defaultParams => ({
       ...defaultParams,
       onChange: onChangeHandler
     }));
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -201,9 +200,9 @@ describe("search input", () => {
   });
 
   it("should close on escape", async () => {
-    const { button } = createMultiSelect();
+    const { button, getByTestId } = createMultiSelect();
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -273,30 +272,36 @@ describe("meta arrow left and right", () => {
   });
 });
 
-// describe("addBtn feature", () => {
-//   it("is focused on tab after search and exits on next", async () => {
-//     const label = "You shall never click me";
-//     const onAddNewCallback = jest.fn();
-//     const { button, findByTestId } = createSelect(defaultParams => ({
-//       ...defaultParams,
-//       addNew: { label: label, onAddNew: () => onAddNewCallback(), alwaysEnabled: true }
-//     }));
+describe("addBtn feature", () => {
+  beforeAll(() => {
+    turnOnScrollToFunctionSupportInTest();
+  });
 
-//     const searchInput = document.querySelector(".select-search")!;
-//     const addNewBtn = await findByTestId("select-action-button");
+  it("should btn be focused on pressing up arrow", async () => {
+    const label = "You shall click me";
+    const onAddNewCallback = jest.fn();
+    const { button, select, getByTestId, findByTestId } = createMultiSelect(defaultParams => ({
+      ...defaultParams,
+      addNew: { label, onAddNew: onAddNewCallback, alwaysEnabled: true }
+    }));
 
-//     await userEvent.click(button);
+    const searchInput = getByTestId("search-input");
 
-//     await userEvent.tab();
+    await userEvent.click(button);
 
-//     expect(searchInput).toHaveFocus();
+    expect(searchInput).toHaveFocus();
+    expect(getSelectedOptionValue(select)).toEqual("option1");
 
-//     await userEvent.tab();
+    await userEvent.keyboard("123456789");
+    const addNewBtn = await findByTestId("select-action-button");
+    await waitFor(() => expect(addNewBtn).toBeDefined());
+    await waitFor(() =>
+      expect(addNewBtn?.textContent).toEqual(`"123456789" (${label.toLowerCase()})`)
+    );
+    await userEvent.keyboard("{arrowup}");
 
-//     expect(addNewBtn).toHaveFocus();
+    await userEvent.keyboard("{enter}");
 
-//     await userEvent.tab();
-
-//     expect(button).toHaveAttribute("aria-expanded", "false");
-//   });
-// });
+    await waitFor(() => expect(onAddNewCallback).toHaveBeenCalled());
+  }, 4000000);
+});

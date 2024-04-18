@@ -26,6 +26,7 @@ interface Props {
   focusedSelectItem: number;
   optionsCount: number;
   searchInputRef: RefObject<HTMLInputElement>;
+  onClickCallback?: () => void;
 }
 
 /** @scope .*/
@@ -35,7 +36,8 @@ export const useAddNewBtn = ({
   filter,
   focusedSelectItem,
   optionsCount,
-  searchInputRef
+  searchInputRef,
+  onClickCallback
 }: Props) => {
   const addBtnRef = useRef<HTMLButtonElement>(null);
   const addNewLabel = addNew?.label ?? "Create new";
@@ -56,7 +58,10 @@ export const useAddNewBtn = ({
         ref={addBtnRef}
         type="button"
         className={additionalClasses.join(" ")}
-        onClick={() => addNew.onAddNew(filter)}
+        onClick={() => {
+          addNew.onAddNew(filter);
+          onClickCallback?.();
+        }}
         id={id}
       >
         {!filter && addNewLabel}
