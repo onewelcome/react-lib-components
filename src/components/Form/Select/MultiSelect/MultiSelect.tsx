@@ -63,7 +63,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     noResultsLabel = "No results found",
     onChange,
     addNew,
-    search = { enabled: true, renderThreshold: 0 }, //@TODO: it should be disabled by default.
+    search = { enabled: true, renderThreshold: 0 },
     ...rest
   }: MultiSelectProps,
   ref
@@ -370,7 +370,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           }}
         >
           <ul
-            id={getListboxId(multiSelectId.current)} //@TODO: fix it!
+            id={getListboxId(multiSelectId.current)}
             className={addNewBtnOptionsContainerClassName}
             role="listbox"
             aria-multiselectable="true"
