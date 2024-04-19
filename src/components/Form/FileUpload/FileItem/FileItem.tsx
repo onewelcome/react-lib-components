@@ -15,7 +15,7 @@
  */
 
 import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
-import classes from "./FileItem.modules.scss";
+import classes from "./FileItem.module.scss";
 import { Typography } from "../../../Typography/Typography";
 import { Icon, Icons } from "../../../Icon/Icon";
 import { ProgressBar } from "../../../ProgressBar/ProgressBar";

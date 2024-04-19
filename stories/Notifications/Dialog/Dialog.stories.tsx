@@ -15,12 +15,12 @@
  */
 
 import React, { Fragment, useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Dialog, Props } from "../../../src/components/Notifications/Dialog/Dialog";
 import { Button } from "../../../src/components/Button/Button";
 import { Typography } from "../../../src/components/Typography/Typography";
 import DialogDocumentation from "./Dialog.mdx";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { Icon, Icons } from "../../../src/components/Icon/Icon";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
@@ -51,7 +51,8 @@ const meta: Meta = {
     },
     titleIcon: <Icon icon={Icons.Bell} />,
     caption: "This is a caption",
-    cancelAction: { label: "Cancel" }
+    cancelAction: { label: "Cancel" },
+    onClose: () => window.setDialogOpen(false)
   }
 };
 
@@ -61,10 +62,10 @@ declare global {
   var setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [open, setOpen] = useState(false);
 
-  /** When we're on the story page, we want the diaglog to start in the "open" state. However, when we're on the "docs" page, we don't. */
+  /** When we're on the story page, we want the dialog to start in the "open" state. However, when we're on the "docs" page, we don't. */
   useEffect(() => {
     if (window.location.search.includes("story")) {
       setOpen(true);
@@ -78,7 +79,7 @@ const Template: Story<Props> = args => {
       <Dialog
         id={args.id}
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={args.onClose}
         title={args.title}
         primaryAction={args.primaryAction}
         secondaryAction={args.secondaryAction}
@@ -128,10 +129,11 @@ SingleActionDialog.args = {
     onClick: () => window.setDialogOpen(false)
   },
   secondaryAction: undefined,
-  cancelAction: undefined
+  cancelAction: undefined,
+  onClose: null
 };
 
-const NestedDialogsTemplate: Story<Props> = () => {
+const NestedDialogsTemplate: StoryFn<Props> = () => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
 

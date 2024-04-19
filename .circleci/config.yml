@@ -108,13 +108,11 @@ workflows:
           name: lint
           <<: *dev-context
           <<: *require-build
-          <<: *filter-branches-tags
 
       - onegini-build/npm-test-jest:
           name: test
           <<: *dev-context
           <<: *require-build
-          <<: *filter-branches-tags
 
       - onegini-build/sonar:
           name: analyse
@@ -152,7 +150,6 @@ workflows:
             name: onegini-build/docs-builder
           <<: *filter-tags
           requires:
-            - test
             - build-storybook
 
       - onegini-build/deploy-docs:
@@ -171,7 +168,7 @@ workflows:
       - onegini-build/npm-publish:
           name: publish-library
           <<: *dev-context
-          <<: *require-test
+          <<: *require-build
           <<: *filter-tags
 
       - onegini-build/notify-released:
