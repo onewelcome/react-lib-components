@@ -199,7 +199,10 @@ export const AlertItem = ({
         <IconButton
           {...elementProps?.closeButton}
           id={classes["close-btn"]}
-          onClick={() => startAnimation()}
+          onClick={e => {
+            e.stopPropagation();
+            startAnimation();
+          }}
           title={closeButtonTitle}
         >
           <Icon icon={Icons.Times} />

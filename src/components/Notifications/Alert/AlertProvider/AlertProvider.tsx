@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ReactNode, useRef, useState, createContext } from "react";
+import React, { ReactNode, useRef, useState, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { Placement, AlertContainer } from "../AlertContainer/AlertContainer";
 import { generateID } from "../../../../util/helper";
@@ -77,12 +77,16 @@ export const AlertProvider = ({
     }
 
     arg = arg as AlertEntry;
+    let closeTitle = closeButtonTitle;
+    if (arg.closeButtonTitle) {
+      closeTitle = arg.closeButtonTitle;
+    }
     const newEntry: AlertEntry = {
       ...arg,
       variant: variant ?? arg.variant,
-      id: generateID(15, arg.content || arg.title),
+      id: generateID(15, arg.content ?? arg.title),
       duration: arg.duration ?? getDuration(arg),
-      closeButtonTitle: arg.closeButtonTitle || closeButtonTitle
+      closeButtonTitle: closeTitle
     };
     return newEntry;
   };
@@ -161,20 +165,29 @@ export const AlertProvider = ({
     ));
   };
 
+  const contextFunctions = useMemo(
+    () => ({
+      enqueueAlert,
+      enqueueInfoAlert,
+      enqueueSuccessAlert,
+      enqueueErrorAlert,
+      enqueueWarningAlert,
+      setAlertHeight
+    }),
+    [
+      enqueueAlert,
+      enqueueInfoAlert,
+      enqueueSuccessAlert,
+      enqueueErrorAlert,
+      enqueueWarningAlert,
+      setAlertHeight
+    ]
+  );
+
   const wrappingDivRef = useRef(null);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
   return (
-    <AlertContext.Provider
-      value={{
-        enqueueAlert,
-        enqueueInfoAlert,
-        enqueueSuccessAlert,
-        enqueueErrorAlert,
-        enqueueWarningAlert,
-        setAlertHeight,
-        alerts: alertEnties
-      }}
-    >
+    <AlertContext.Provider value={{ ...contextFunctions, alerts: alertEnties }}>
       {children}
       <div ref={wrappingDivRef} className={className}>
         {createPortal(
