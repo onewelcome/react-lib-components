@@ -186,16 +186,13 @@ MultiSelectWrapperRequired.args = {
 };
 
 const AddNewTemplate: StoryFn<Props> = args => {
+  const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
-  const [allOptions, setAllOptions] = useState<string[]>([
-    "Option 1",
-    "Option 2",
-    "Option 3",
-    "Option 4"
-  ]);
+  const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
 
-  const handleOptionChange = (options: HTMLOptionsCollection, obsoletePickedOptions: string[]) => {
-    let newPickedOptions = [...obsoletePickedOptions];
+  const handleOptionChange = (options: HTMLOptionsCollection) => {
+    let newPickedOptions = [...pickedOptions];
+    let newAllOptions = [...allOptions];
     Array.from(options).forEach(option => {
       const selected = option.selected;
       const exists = newPickedOptions.includes(option.value);
@@ -207,9 +204,13 @@ const AddNewTemplate: StoryFn<Props> = args => {
         newPickedOptions.push(option.value);
       } else if (shouldRemove) {
         newPickedOptions = newPickedOptions.filter(value => value !== option.value);
+        const isInInitialOptions = initialOptions.includes(option.value);
+        if (!isInInitialOptions) {
+          newAllOptions = newAllOptions.filter(value => value !== option.value);
+        }
       }
     });
-    return newPickedOptions;
+    return { newPickedOptions, newAllOptions };
   };
 
   return (
@@ -217,16 +218,19 @@ const AddNewTemplate: StoryFn<Props> = args => {
       {...args}
       value={pickedOptions}
       onChange={e => {
-        setPickedOptions(options => handleOptionChange(e.target.options, options));
+        const { newPickedOptions, newAllOptions } = handleOptionChange(e.target.options);
+        setPickedOptions(newPickedOptions);
+        setAllOptions(newAllOptions);
       }}
       selectProps={{
         addNew: {
           label: "Create new",
           onAddNew: value => {
+            const trimmedValue = value.trim();
             const getValuesWithValueIfUnique = (value: string) => (values: string[]) =>
               values.includes(value) ? values : [...values, value];
-            value && setAllOptions(getValuesWithValueIfUnique(value));
-            value && setPickedOptions(getValuesWithValueIfUnique(value));
+            trimmedValue && setAllOptions(getValuesWithValueIfUnique(trimmedValue));
+            trimmedValue && setPickedOptions(getValuesWithValueIfUnique(trimmedValue));
           },
           btnProps: { title: "Add new select option" }
         },
