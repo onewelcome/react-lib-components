@@ -92,6 +92,12 @@ export const AlertItem = ({
     if (duration && duration > 0) {
       timerHandler.current = setTimeout(() => startAnimation(), duration);
     }
+    if (ref) {
+      ref.current?.addEventListener("focus", onItemFocus);
+      ref.current?.addEventListener("blur", onItemBlur);
+      ref.current?.addEventListener("mouseenter", onItemFocus);
+      ref.current?.addEventListener("mouseleave", onItemBlur);
+    }
     return () => {
       timerHandler.current && clearTimeout(timerHandler.current);
     };
@@ -164,10 +170,6 @@ export const AlertItem = ({
       ref={ref}
       aria-live={getAria()}
       className={getAlertClasses()}
-      onMouseEnter={onItemFocus}
-      onMouseLeave={onItemBlur}
-      onFocus={onItemFocus}
-      onBlur={onItemBlur}
       role="alert"
     >
       <div className={classes["outer-content-wrapper"]}>
