@@ -165,14 +165,15 @@ export const AlertProvider = ({
     ));
   };
 
-  const contextFunctions = useMemo(
+  const contextValue = useMemo(
     () => ({
       enqueueAlert,
       enqueueInfoAlert,
       enqueueSuccessAlert,
       enqueueErrorAlert,
       enqueueWarningAlert,
-      setAlertHeight
+      setAlertHeight,
+      alerts: alertEnties
     }),
     [
       enqueueAlert,
@@ -180,14 +181,15 @@ export const AlertProvider = ({
       enqueueSuccessAlert,
       enqueueErrorAlert,
       enqueueWarningAlert,
-      setAlertHeight
+      setAlertHeight,
+      alertEnties
     ]
   );
 
   const wrappingDivRef = useRef(null);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
   return (
-    <AlertContext.Provider value={{ ...contextFunctions, alerts: alertEnties }}>
+    <AlertContext.Provider value={contextValue}>
       {children}
       <div ref={wrappingDivRef} className={className}>
         {createPortal(

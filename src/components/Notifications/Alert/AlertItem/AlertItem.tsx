@@ -185,7 +185,7 @@ export const AlertItem = ({
           )}
           {(!!content || !!title) && (
             <Typography {...elementProps?.content} className={classes["content"]} variant="body">
-              {content || title}
+              {content ? content : title}
             </Typography>
           )}
         </div>
