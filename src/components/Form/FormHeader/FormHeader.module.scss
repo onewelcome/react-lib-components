@@ -1,0 +1,25 @@
+$header-height: 13.25rem;
+
+.header {
+  background-color: var(--color-blue-grey25);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem;
+  z-index: 1;
+}
+
+.header-text {
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-primary500);
+  line-height: 2.25rem;
+}
+
+.buttons-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  gap: 1rem;
+}
