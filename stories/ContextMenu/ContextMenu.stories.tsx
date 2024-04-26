@@ -15,7 +15,7 @@
  */
 
 import React, { Fragment, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   ContextMenu as ContextMenuComponent,
   Props
@@ -24,10 +24,10 @@ import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuIte
 import { action } from "@storybook/addon-actions";
 import { IconButton } from "../../src/components/Button/IconButton";
 import { Icon, Icons } from "../../src/components/Icon/Icon";
-import { Offset, Placement, horizontal, vertical } from "../../src/hooks/usePosition";
+import { Offset, Placement } from "../../src/hooks/usePosition";
 import ContextMenuDocumentation from "./ContextMenu.mdx";
 import { Typography } from "../../src/components/Typography/Typography";
-import { within, userEvent, waitFor, getByRole, getAllByRole } from "@storybook/testing-library";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { useStoryCentring } from "../utils/useStoryCentring";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
@@ -63,7 +63,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [placement, setPlacement] = useState<Placement>({
     vertical: "bottom",
     horizontal: "left"

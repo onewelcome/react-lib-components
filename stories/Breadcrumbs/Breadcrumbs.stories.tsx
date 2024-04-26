@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   Breadcrumbs as BreadcrumbsComponent,
   Props
@@ -36,7 +36,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <BreadcrumbsComponent {...args} />;
+const Template: StoryFn<Props> = args => <BreadcrumbsComponent {...args} />;
 
 export const Breadcrumbs = Template.bind({});
 
@@ -58,7 +58,7 @@ Breadcrumbs.args = {
   ]
 };
 
-const TemplateWithReactRouter: Story<Props> = args => (
+const TemplateWithReactRouter: StoryFn<Props> = args => (
   <BrowserRouter>
     <BreadcrumbsComponent {...args} />
   </BrowserRouter>
