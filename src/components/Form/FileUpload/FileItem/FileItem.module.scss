@@ -17,15 +17,24 @@
 @import "../../../../mixins.module.scss";
 
 .file-item-wrapper {
-  padding: 0.5rem 1.25rem;
+  padding: 0;
   border-radius: var(--input-border-radius);
-  background-color: var(--input-background-color);
   @include transition(all, 0.2s, ease-in-out);
 
   [class*="icon"] {
     font-size: 1.25rem;
   }
+  & .file-list-container {
+    background-color: #f7f7f9;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
+    .action-button-wrapper {
+      margin: 0.25rem 0;
+    }
+  }
   .progress-bar {
     background-color: var(--color-black10);
   }
@@ -51,6 +60,13 @@
     color: var(--color-primary);
     cursor: pointer;
     padding-left: 1.25rem;
+    margin-right: 1rem;
+
+    & label {
+      text-transform: capitalize;
+      padding-left: 8px;
+      cursor: pointer;
+    }
   }
 
   .file-icon {

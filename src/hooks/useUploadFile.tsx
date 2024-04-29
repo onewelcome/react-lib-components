@@ -40,6 +40,8 @@ export const useUploadFile = (
   request: UploadFileRequestParams,
   callbacks?: UseUploadFileCallback
 ) => {
+  // eslint-disable-next-line no-console
+  console.log("inside useUploadFile", request);
   const { url, headers, withCredentials, networkErrorText, responseErrorPath } = request;
 
   const { onComplete, onProgress } = callbacks ?? {};

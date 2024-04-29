@@ -62,6 +62,11 @@
   }
 }
 
+.upload-button-wrapper {
+  background: var(--color-blue-grey25);
+  padding: 4px;
+}
+
 .file-selector-sub-text {
   color: var(--greyed-out);
   padding: 0 1.25rem;
@@ -73,12 +78,16 @@
 .file-select {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  border: 1px dashed var(--color-blue-grey100);
+  padding: 1.25rem;
   [class*="file"] {
     font-size: 1.25rem;
+    margin-left: 0.5rem;
   }
   [class*="typography"] {
-    margin-bottom: 0.625rem;
+    margin-bottom: 0;
   }
 }
 
@@ -106,7 +115,7 @@
 .file-list {
   list-style: none;
   padding: 0;
-  margin: 0.75rem 0;
+  margin: 0.25rem 0;
   li:not(:last-child) {
     margin-bottom: 0.5rem;
   }

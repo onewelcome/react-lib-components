@@ -32,11 +32,12 @@ export interface Props extends ComponentPropsWithRef<"div"> {
 }
 interface FileItemIcons {
   fileIcon: Icons;
-  actionIcon?: { type: Icons; action: FILE_ACTION };
+  actionIcon?: { type: Icons; action: FILE_ACTION }[];
 }
 
 export enum FILE_ACTION {
   DELETE = "delete",
+  DOWNLOAD = "download",
   REMOVE = "remove",
   ABORT = "abort",
   RETRY = "retry"
@@ -51,34 +52,50 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       case "completed":
         return {
           fileIcon: Icons.FileOutline,
-          actionIcon: {
-            type: Icons.Trash,
-            action: FILE_ACTION.DELETE
-          }
+          actionIcon: [
+            {
+              type: Icons.Trash,
+              action: FILE_ACTION.DELETE
+            }
+          ]
         };
       case "error":
         return {
           fileIcon: Icons.InfoCircle,
-          actionIcon: {
-            type: Icons.Times,
-            action: FILE_ACTION.REMOVE
-          }
+          actionIcon: [
+            {
+              type: Icons.Times,
+              action: FILE_ACTION.REMOVE
+            }
+          ]
         };
       case "uploading":
         return {
           fileIcon: Icons.FileUpload,
-          actionIcon: {
-            type: Icons.Times,
-            action: FILE_ACTION.ABORT
-          }
+          actionIcon: [
+            {
+              type: Icons.Times,
+              action: FILE_ACTION.ABORT
+            }
+          ]
         };
       case "retry":
         return {
           fileIcon: Icons.InfoCircle,
-          actionIcon: {
-            type: Icons.Refresh,
-            action: FILE_ACTION.RETRY
-          }
+          actionIcon: [
+            {
+              type: Icons.Refresh,
+              action: FILE_ACTION.RETRY
+            },
+            {
+              type: Icons.Trash,
+              action: FILE_ACTION.DELETE
+            },
+            {
+              type: Icons.DownloadFile,
+              action: FILE_ACTION.DOWNLOAD
+            }
+          ]
         };
       case "readonly":
       default:
@@ -95,28 +112,51 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const { friendlyName, extension } = getFriendlyNameAndExtension(name);
 
+  const renderActionIcon = (
+    actionIcons: { type: Icons; action: FILE_ACTION }[],
+    status: UploadProgress = "uploading"
+  ) => {
+    // eslint-disable-next-line no-console
+    console.log("status-->", status);
+    let actionIconsSet: Array<any> = [];
+    for (const icons of actionIcons) {
+      actionIconsSet.push(
+        <Icon
+          key={icons.action}
+          title={icons.action}
+          icon={icons.type}
+          className={classes["action-icon"]}
+          onClick={() =>
+            icons && onRequestedFileAction && onRequestedFileAction(icons.action, name)
+          }
+        >
+          <label>
+            {icons.action === FILE_ACTION.DOWNLOAD || icons.action === FILE_ACTION.DELETE
+              ? icons.action
+              : ""}
+          </label>
+        </Icon>
+      );
+    }
+    return actionIconsSet;
+  };
+
   return (
     <div ref={ref} className={classes["file-item-wrapper"]} aria-label={`${name}-wrapper`}>
-      <Typography
-        variant={"body"}
-        title={name}
-        className={`${classes["file-name"]} ${status ? classes[status] : ""}`}
-      >
-        <Icon icon={icons.fileIcon} className={classes["file-icon"]} />
-        <span className={classes["friendly-name"]}>{friendlyName}</span>.<span>{extension}</span>
-        {icons.actionIcon && (
-          <Icon
-            title={icons.actionIcon.action}
-            icon={icons.actionIcon.type}
-            className={classes["action-icon"]}
-            onClick={() =>
-              icons.actionIcon &&
-              onRequestedFileAction &&
-              onRequestedFileAction(icons.actionIcon.action, name)
-            }
-          />
-        )}
-      </Typography>
+      <div className={classes["file-list-container"]}>
+        <Typography
+          variant={"body"}
+          title={name}
+          className={`${classes["file-name"]} ${status ? classes[status] : ""}`}
+        >
+          <Icon icon={icons.fileIcon} className={classes["file-icon"]} />
+          <span className={classes["friendly-name"]}>{friendlyName}</span>.<span>{extension}</span>
+        </Typography>
+
+        <div className={classes["action-button-wrapper"]}>
+          {icons.actionIcon && renderActionIcon(icons.actionIcon, status)}
+        </div>
+      </div>
       {error && (
         <Typography
           variant={"sub-text"}

@@ -65,8 +65,8 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     labeledBy,
     disabled = false,
     onChange,
-    dragAndDropText = "Drop file here or",
-    selectButtonText = "Select file",
+    dragAndDropText = "Drag and drop or",
+    selectButtonText = "Browse file",
     onDragOver,
     onDragLeave,
     wrapperProps,
@@ -200,31 +200,54 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
           <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
             {title}
           </Typography>
-          <div className={classes["file-select"]}>
-            <Icon className={"drop-file-icon"} icon={Icons.FileUpload} />
-            <Typography variant="body" className={"drag-and-drop-text"}>
-              {dragAndDropText}
-            </Typography>
-            <div className={classes["file-upload-btn"]}>
-              <Button variant="outline" disabled={disabled}>
-                {selectButtonText}
-                <input
-                  className={classes["upload-input"]}
-                  {...rest}
-                  ref={ref}
-                  aria-labelledby={labeledBy}
-                  type="file"
-                  name={name}
-                  {...(multiple && { multiple: true })}
-                  disabled={disabled}
-                  accept={accept}
-                  onChange={onInputChange}
-                  spellCheck={rest.spellCheck ?? false}
-                />
-              </Button>
+
+          {/* Uploaded Files List */}
+
+          {fileList?.length > 0 && (
+            <ul className={classes["file-list"]}>
+              {fileList.map(({ name, status, progress, error }) => (
+                <li key={name} className={status} id={name}>
+                  <FileItem
+                    name={name}
+                    status={status}
+                    progress={progress}
+                    error={error}
+                    onRequestedFileAction={onRequestedFileAction}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {/* Upload File Button */}
+          <div className={classes["upload-button-wrapper"]}>
+            <div className={classes["file-select"]}>
+              {/* <Icon className={"drop-file-icon"} icon={Icons.FileUpload} /> */}
+              <Typography variant="body" className={"drag-and-drop-text"}>
+                {dragAndDropText}
+              </Typography>
+
+              <div className={classes["file-upload-btn"]}>
+                <Button variant="outline" disabled={disabled}>
+                  {selectButtonText}
+                  <input
+                    className={classes["upload-input"]}
+                    {...rest}
+                    ref={ref}
+                    aria-labelledby={labeledBy}
+                    type="file"
+                    name={name}
+                    {...(multiple && { multiple: true })}
+                    disabled={disabled}
+                    accept={accept}
+                    onChange={onInputChange}
+                    spellCheck={rest.spellCheck ?? false}
+                  />
+                </Button>
+              </div>
+              {!disabled && icon}
+              <span className={classes["outline"]}></span>
             </div>
-            {!disabled && icon}
-            <span className={classes["outline"]}></span>
           </div>
         </div>
         {subText && (
@@ -233,21 +256,6 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
           </Typography>
         )}
       </div>
-      {fileList?.length > 0 && (
-        <ul className={classes["file-list"]}>
-          {fileList.map(({ name, status, progress, error }) => (
-            <li key={name} className={status} id={name}>
-              <FileItem
-                name={name}
-                status={status}
-                progress={progress}
-                error={error}
-                onRequestedFileAction={onRequestedFileAction}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 };

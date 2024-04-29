@@ -95,11 +95,16 @@ const Template: Story<Props & { url: string }> = args => {
         break;
       case FILE_ACTION.REMOVE:
       case FILE_ACTION.DELETE:
+        console.log("time to delete this file");
+        fileList = updatedFiles.filter(file => file.name !== name);
+      case FILE_ACTION.DOWNLOAD:
+        console.log("time to DOWNload this file", updatedFiles);
       case FILE_ACTION.ABORT:
         fileList = updatedFiles.filter(file => file.name !== name);
         break;
     }
 
+    console.log("trigger setUpdatedFiles fileList-->", fileList);
     setUpdatedFiles(fileList);
   };
   const onDrop = (e: FileType[]) => {
@@ -124,7 +129,7 @@ export const FileUploadComponent = Template.bind({});
 FileUploadComponent.args = {
   accept: ".mp4, .jpg, .jpeg",
   multiple: true,
-  dragAndDropText: "Testing drop text",
+  dragAndDropText: "Testing drop text or",
   title: "File Upload Title Placeholder",
   fileList: files
 };
@@ -134,7 +139,7 @@ export const FileUploadComponentWithServerInteraction = Template.bind({});
 FileUploadComponentWithServerInteraction.args = {
   accept: ".mp4, .jpg, .jpeg",
   multiple: true,
-  dragAndDropText: "Testing drop text",
+  dragAndDropText: "Testing drop text or",
   title: "File Upload Title Placeholder",
   fileList: files,
   url: "http://localhost:4000/upload"
