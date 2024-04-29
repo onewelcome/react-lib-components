@@ -43,57 +43,55 @@ describe("Selecting options using keyboard", () => {
   });
 
   it("should focus through list items and select on enter press", async () => {
+    // given
     const onChangeHandler = jest.fn();
     const { select, button } = createMultiSelect(defaultParams => ({
       ...defaultParams,
       onChange: onChangeHandler
     }));
-
     await act(() => {
       button.focus();
     });
-
     expect(button).toHaveFocus();
-
     await userEvent.keyboard("[space]");
-
     expect(button).toHaveAttribute("aria-expanded", "true");
-
+    // when
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("[enter]");
     await userEvent.keyboard("{escape}");
-
+    // then
     await waitFor(() => expect(button).toHaveAttribute("aria-expanded", "false"));
-
     expect(onChangeHandler).toHaveBeenCalled();
-
+    // when
     await userEvent.keyboard("[enter]");
-
+    // then
     expect(button).toHaveAttribute("aria-expanded", "true");
-
+    // when
     await userEvent.keyboard("{arrowdown}");
-
+    // then
     expect(getSelectedOptionValue(select)).toEqual("option2");
-
+    // when
     await userEvent.keyboard("{arrowup}");
     await userEvent.keyboard("{arrowup}");
     await userEvent.keyboard("{arrowup}");
     await userEvent.keyboard("{arrowup}");
-
+    // then
     expect(getSelectedOptionValue(select)).toEqual("option15");
+    // when
     await userEvent.keyboard("{arrowup}");
+    // then
     expect(getSelectedOptionValue(select)).toEqual("option14");
-
+    // when
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
     await userEvent.keyboard("{arrowdown}");
-
+    // then
     expect(getSelectedOptionValue(select)).toEqual("option1");
-
+    // when
     await userEvent.keyboard("{escape}");
-
+    // then
     expect(button).toHaveAttribute("aria-expanded", "false");
   });
 });

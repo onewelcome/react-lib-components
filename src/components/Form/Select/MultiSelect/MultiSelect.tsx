@@ -201,9 +201,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
             .match(escapeRegExp(filter.toLowerCase())) !== null
       );
 
-      const internalChildren = _internalRenderChildren(filterOutSelectedChildren(filteredChildren));
-
-      results = internalChildren;
+      results = _internalRenderChildren(filterOutSelectedChildren(filteredChildren));
     } else {
       results = _internalRenderChildren(
         filterOutSelectedChildren(React.Children.toArray(children))
@@ -293,7 +291,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   className && additionalClasses.push(className);
   success && additionalClasses.push(classes.success);
 
-  const onSelectButtonClick = (event: any) => {
+  const onSelectButtonClick = () => {
     setExpanded(expanded => !expanded);
     setShouldClick(false);
   };
