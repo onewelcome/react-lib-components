@@ -122,11 +122,29 @@ interface CSSProperties {
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
 
+  /**
+   * @deprecated
+   */
   snackbarTextColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarInfoBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarSuccessBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarErrorBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarWarningBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarBorderRadius?: string;
 
   alertTextColor?: string;
@@ -347,8 +365,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     alertWarningBackgroundColor: "var(--color-orange100)",
     alertWarningInvertedColor: "var(--color-orange500)",
 
-    alertBorderWidth: "6px",
-    alertBorderRadius: "3px",
+    alertBorderWidth: "4px",
+    alertBorderRadius: "2px",
 
     stepperWaitingColor: "var(--color-blue-grey200)",
     stepperWaitingHoverColor: "var(--color-blue-grey300)",
