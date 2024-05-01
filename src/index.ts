@@ -72,9 +72,16 @@ export { generateID, debounce, throttle } from "./util/helper";
 /* Notifications */
 export { Modal } from "./components/Notifications/Modal/Modal";
 export type { Props as ModalProps } from "./components/Notifications/Modal/Modal";
+/**
+ * @deprecated
+ */
 export { useSnackbar } from "./components/Notifications/Snackbar/useSnackbar";
 export { useAlert } from "./components/Notifications/Alert/useAlert";
 export { AlertProvider } from "./components/Notifications/Alert/AlertProvider/AlertProvider";
+export {
+  AlertItem,
+  Props as AlertItemProps
+} from "./components/Notifications/Alert/AlertItem/AlertItem";
 export type { Props as AlertProviderProps } from "./components/Notifications/Alert/AlertProvider/AlertProvider";
 export { Dialog } from "./components/Notifications/Dialog/Dialog";
 export type {
@@ -101,7 +108,13 @@ export type {
 } from "./components/Notifications/NotificationProvider/notification.interfaces";
 export { SlideInModal } from "./components/Notifications/SlideInModal/SlideInModal";
 export type { Props as SlideInModalProps } from "./components/Notifications/SlideInModal/SlideInModal";
+/**
+ * @deprecated
+ */
 export { SnackbarProvider } from "./components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
+/**
+ * @deprecated
+ */
 export type { Props as SnackbarProviderProps } from "./components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
 
 /** Form components */
