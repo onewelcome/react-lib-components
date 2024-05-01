@@ -14,18 +14,18 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { ComponentPropsWithRef, ReactElement } from "react";
 import classes from "./FormHeader.module.scss";
-import { Button, ButtonProps, Typography, generateID } from "../../..";
+import { Button, ButtonProps, Typography } from "../../..";
 
-export interface Props extends React.HTMLAttributes<"Div"> {
+export interface Props extends ComponentPropsWithRef<"div"> {
   title: string;
   formButtonList: Array<ButtonProps>;
 }
 
-export const FormHeader = ({ title, children, formButtonList }: Props) => {
+export const FormHeader = ({ title, children, formButtonList, ...rest }: Props) => {
   return (
-    <div className={classes["header"]}>
+    <div className={`${classes["header"]} ${rest.className}`} {...rest}>
       <div>
         <Typography className={classes["header-text"]} variant={"h3"}>
           {title}
@@ -35,16 +35,11 @@ export const FormHeader = ({ title, children, formButtonList }: Props) => {
         </Typography>
       </div>
       <div className={classes["buttons-wrapper"]}>
-        {formButtonList?.map(btn => {
+        {formButtonList?.map((btn, index) => {
           return (
             <Button
               {...btn}
-              key={generateID()}
-              onClick={btn.onClick}
-              variant={btn.variant}
-              startIcon={btn.startIcon}
-              endIcon={btn.endIcon}
-              form={btn.form}
+              key={index}
             >
               {btn.title}
             </Button>
