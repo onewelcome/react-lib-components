@@ -20,12 +20,13 @@ import { Tag } from "../../../Tag/Tag";
 import classes from "./SelectedOptions.module.scss";
 
 export type Display = {
+  value: string;
   label: string;
   fixed?: boolean;
 };
 
 export interface Props extends ComponentPropsWithRef<"div"> {
-  display: Record<string, Display>;
+  display: Display[];
   onRemove: (value: string) => void;
   disabled: boolean;
 }
@@ -36,9 +37,9 @@ const SelectedOptionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
 ) => {
   return (
     <div {...rest} className={classes["options"]} ref={ref}>
-      {Object.entries(display).map(([value, item]) => (
+      {display.map(item => (
         <Tag
-          key={value}
+          key={item.value}
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             e.stopPropagation();
           }}
@@ -48,7 +49,7 @@ const SelectedOptionsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
               ? {
                   onRemove: (e: React.MouseEvent<HTMLButtonElement>) => {
                     e.stopPropagation();
-                    onRemove(value);
+                    onRemove(item.value);
                   },
                   className: classes["remove-btn"]
                 }

@@ -303,7 +303,7 @@ describe("List expansion", () => {
   });
 
   it("should expand downwards with a max height set", async () => {
-    const { select, getByRole, dropdownWrapper, debug } = createSelect();
+    const { select, getByRole, dropdownWrapper } = createSelect();
 
     dropdownWrapper!.getBoundingClientRect = () => ({
       x: 50,
@@ -335,8 +335,6 @@ describe("List expansion", () => {
 
     const button = getByRole("button");
     await userEvent.click(button);
-
-    debug();
 
     expect(dropdownWrapper).toHaveStyle({ maxHeight: "434px" });
     expect(dropdownWrapper).toHaveStyle({ top: "2.75rem" });
@@ -401,12 +399,30 @@ describe("addBtn feature", () => {
     await waitFor(() => expect(queryByTestId("select-action-button")).toBeNull());
   });
 
-  it("should be visible when action defined", async () => {
+  it("should not be visible when action defined & search has empty query", async () => {
+    const { button, queryByTestId, getByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      addNew: { label: "You shall never click me", onAddNew: () => {} }
+    }));
+
+    const searchInput = getByTestId("search-input");
+
+    await userEvent.click(button);
+
+    if (searchInput) {
+      await userEvent.type(searchInput, "     ");
+    }
+
+    await waitFor(() => expect(queryByTestId("select-action-button")).toBeNull());
+  });
+
+  it("should be visible when action defined & search is disabled", async () => {
     const label = "You shall never click me";
     const onAddNewCallback = jest.fn();
     const { button, findByTestId } = createSelect(defaultParams => ({
       ...defaultParams,
-      addNew: { label: label, onAddNew: () => onAddNewCallback() }
+      addNew: { label: label, onAddNew: onAddNewCallback },
+      search: { enabled: false }
     }));
     const addNewBtn = await findByTestId("select-action-button");
 
@@ -418,5 +434,60 @@ describe("addBtn feature", () => {
     await userEvent.click(addNewBtn);
 
     await waitFor(() => expect(onAddNewCallback).toHaveBeenCalled());
+  });
+
+  it("should be visible when action defined & search has not empty query", async () => {
+    const label = "You shall never click me";
+    const onAddNewCallback = jest.fn();
+    const filter = "Option 123";
+    const { button, findByTestId, getByTestId, queryByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      addNew: { label: label, onAddNew: onAddNewCallback }
+    }));
+
+    await userEvent.click(button);
+
+    await waitFor(() => expect(queryByTestId("select-action-button")).toBeNull());
+
+    const searchInput = getByTestId("search-input");
+    if (searchInput) {
+      await userEvent.type(searchInput, filter);
+    }
+
+    const addNewBtn = await findByTestId("select-action-button");
+    await waitFor(() => expect(addNewBtn).toBeDefined());
+    await waitFor(() =>
+      expect(addNewBtn?.textContent).toEqual(`"${filter}" (${label.toLowerCase()})`)
+    );
+
+    await userEvent.click(addNewBtn);
+
+    await waitFor(() => expect(onAddNewCallback).toHaveBeenCalledWith(filter));
+  });
+
+  it("should be visible when action defined with `alwaysEnabled` props", async () => {
+    const label = "You shall never click me";
+    const onAddNewCallback = jest.fn();
+    const filter = "Option 123";
+    const { button, findByTestId, getByTestId } = createSelect(defaultParams => ({
+      ...defaultParams,
+      addNew: { label: label, onAddNew: onAddNewCallback, alwaysEnabled: true }
+    }));
+
+    await userEvent.click(button);
+
+    const addNewBtn = await findByTestId("select-action-button");
+    await waitFor(() => expect(addNewBtn).toBeDefined());
+    await waitFor(() => expect(addNewBtn?.textContent).toEqual(label));
+
+    const searchInput = getByTestId("search-input");
+    if (searchInput) {
+      await userEvent.type(searchInput, filter);
+    }
+
+    await waitFor(() => expect(addNewBtn).toBeDefined());
+    await waitFor(() =>
+      expect(addNewBtn?.textContent).toEqual(`"${filter}" (${label.toLowerCase()})`)
+    );
   });
 });

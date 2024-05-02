@@ -26,7 +26,7 @@ const SelectButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> 
   return (
     <button
       {...rest}
-      className={classes["add-btn"]}
+      className={classes["btn"]}
       onClick={onClick}
       ref={ref}
       type="button"

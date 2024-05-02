@@ -64,7 +64,17 @@ const createMultiSelectWrapper = (params?: (defaultParams: Props) => Props) => {
   };
 };
 
+const scrollTo = jest.fn;
+
+const turnOnScrollToFunctionSupportInTest = () => {
+  Element.prototype.scrollTo = scrollTo;
+};
+
 describe("<MultiSelectWrapper />", () => {
+  beforeAll(() => {
+    turnOnScrollToFunctionSupportInTest();
+  });
+
   it("should render without crashing", () => {
     const { multiselectwrapper } = createMultiSelectWrapper();
 

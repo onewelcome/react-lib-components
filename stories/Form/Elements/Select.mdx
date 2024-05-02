@@ -12,6 +12,32 @@ Other than that, the `Select` component works as you would expect. It requires y
 
 We automatically display a search ' Input ' field when you have a `Select` component with 10 or more options. You don't need to do anything about this. In order to change the placeholder, you can use the `searchPlaceholder` prop on the `Select` component.
 
+# Features
+
+## Search feature
+
+The `Search` feature will be automatically turned on when more than 10 elements are on the list. Developers can turn off this feature regardless of that limit by setting: `search: { enabled: false },`
+
+Also, the threshold can be adjusted by setting: `search: { renderThreshold: 5 },`
+
+To force search, set `search: { renderThreshold: 0, enabled: true },`.
+
+## Add new feature
+
+The `Add new` feature allows the user to define new options. The API is flexible, letting devs take control of how to ask for new elements to be added.
+
+The feature can be turned on by providing the `addNew` property on the `Select` component. The value of the provided property should contain at least the `label` property and the `onAddNew(value)` callback.
+
+If the `Add new` button needs to be styled or changed, the additional property `btnProps` can be passed.
+
+### Visibility
+
+By default, `Add new` is hidden when the `addNew` property is provided. A few factors influence the visibility of this component:
+
+1. Button is visible when `Search` feature is disabled.
+2. Button is visible when `Search` feature is enabled, but only when the provided search query exists.
+3. Button is visible when `alwaysEnabled` flag is turned on. This flag should be used when you need to get more data for an added option than only value (displaying popup).
+
 # Examples
 
 An example of how a `Select` component can be built using state looks as follows:
