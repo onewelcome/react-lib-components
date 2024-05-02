@@ -20,7 +20,7 @@ import { Button, ButtonProps, Typography } from "../../..";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   title: string;
-  formButtonList: Array<ButtonProps>;
+  formButtonList: ReactElement<ButtonProps, typeof Button>[];
 }
 
 export const FormHeader = ({ title, children, formButtonList, ...rest }: Props) => {
@@ -35,16 +35,7 @@ export const FormHeader = ({ title, children, formButtonList, ...rest }: Props) 
         </Typography>
       </div>
       <div className={classes["buttons-wrapper"]}>
-        {formButtonList?.map((btn, index) => {
-          return (
-            <Button
-              {...btn}
-              key={index}
-            >
-              {btn.title}
-            </Button>
-          );
-        })}
+        {formButtonList}
       </div>
     </div>
   );

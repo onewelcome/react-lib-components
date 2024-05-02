@@ -5,33 +5,23 @@ import {
   Props
 } from "../../../src/components/Form/FormHeader/FormHeader";
 import FormHeaderDocumentation from "./FormHeader.mdx";
-import React from "react";
-import { ButtonProps, Icon, Icons } from "../../../src";
+import React, { ReactElement } from "react";
+import { Button, ButtonProps, Icon, Icons } from "../../../src";
 
 const getReactNode = (icons: Icons) => {
   return (<Icon icon={icons} />) as React.ReactNode;
 };
 
-const formButtonList: Array<ButtonProps> = [
-  {
-    title: "Cancel",
-    onClick: () => {
-      alert("Cancel button is clicked.");
-    },
-    variant: "text"
-  },
-  {
-    title: "Save Draft",
-    disabled: true
-  },
-  {
-    title: "Submit",
-    type: "submit",
-    startIcon: getReactNode(Icons.ReplyOutline),
-    onClick: () => {
-      alert("Submit button clicked.");
-    }
-  }
+const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
+  <Button key="1" onClick={() => alert("Cancel button clicked.")} variant="text">
+    Cancel
+  </Button>,
+  <Button key="2" disabled>
+    Save Draft
+  </Button>,
+  <Button key="3" onClick={() => alert("Submit button clicked.")} startIcon={getReactNode(Icons.Circle)}>
+    Submit
+  </Button>
 ];
 
 const meta: Meta = {
@@ -62,14 +52,15 @@ const defaultArgs: Props = {
       Form <i>Description</i>
     </p>
   ),
-  formButtonList: formButtonList
+  formButtonList: []
 };
 
 const Template: Story<Props> = args => <FormHeader {...args} />;
 export const FormHeaderComponent1 = Template.bind({});
 
 FormHeaderComponent1.args = {
-  ...defaultArgs
+  ...defaultArgs,
+  formButtonList:formButtonList
 };
 
 export const FormHeaderComponent2 = Template.bind({});
