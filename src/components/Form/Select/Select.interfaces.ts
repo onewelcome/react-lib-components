@@ -31,6 +31,7 @@ export interface AddNewProps {
   label: string;
   onAddNew: (value: string) => void;
   btnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  alwaysEnabled?: boolean;
 }
 
 export interface SelectProps<V extends string | readonly string[] | undefined>

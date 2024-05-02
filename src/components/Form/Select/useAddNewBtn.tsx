@@ -16,28 +16,62 @@
 
 import classes from "./useAddNewBtn.module.scss";
 
-import React, { useRef } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 import { AddNewProps } from "./Select.interfaces";
 
 interface Props {
+  id?: string;
   addNew?: AddNewProps;
   filter: string;
+  focusedSelectItem: number;
+  optionsCount: number;
+  searchInputRef: RefObject<HTMLInputElement>;
+  shouldClick?: boolean;
+  onClickCallback?: () => void;
 }
 
-export const useAddNewBtn = ({ addNew, filter }: Props) => {
+/** @scope .*/
+export const useAddNewBtn = ({
+  id,
+  addNew,
+  filter,
+  focusedSelectItem,
+  optionsCount,
+  searchInputRef,
+  shouldClick,
+  onClickCallback
+}: Props) => {
   const addBtnRef = useRef<HTMLButtonElement>(null);
-
   const addNewLabel = addNew?.label ?? "Create new";
+  const isProgrammaticallyFocused = focusedSelectItem === optionsCount;
+  const isSearchDisabled = !searchInputRef.current;
+  const hasSearchQuery = typeof filter === "string" && !!filter.trim() && !!searchInputRef.current;
+  const shouldRender = addNew && (isSearchDisabled || hasSearchQuery || addNew.alwaysEnabled);
+
+  const additionalClasses = [classes["action-button"]];
+  addNew?.btnProps?.className && additionalClasses.push(addNew?.btnProps?.className);
+  isProgrammaticallyFocused && additionalClasses.push(classes["focus"]);
+
+  useEffect(() => {
+    const addBtnClicked = addBtnRef.current && isProgrammaticallyFocused && shouldClick;
+    if (addBtnClicked) {
+      addBtnRef.current.click();
+    }
+  }, [addBtnRef.current, isProgrammaticallyFocused, shouldClick]);
 
   const renderAddNew = () =>
-    addNew && (
+    shouldRender && (
       <button
-        data-testid={"select-action-button"}
-        className={classes["action-button"]}
-        onClick={() => addNew.onAddNew(filter)}
+        data-testid="select-action-button"
+        {...addNew.btnProps}
         ref={addBtnRef}
         type="button"
-        {...addNew.btnProps}
+        className={additionalClasses.join(" ")}
+        onClick={() => {
+          addNew.onAddNew(filter);
+          onClickCallback?.();
+        }}
+        id={id}
       >
         {!filter && addNewLabel}
         {filter && <span style={{ fontWeight: "700" }}>{`"${filter}"`}</span>}

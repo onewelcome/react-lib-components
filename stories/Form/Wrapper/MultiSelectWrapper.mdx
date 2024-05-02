@@ -14,6 +14,10 @@ The `MultiSelectWrapper` accepts a `name`, `helperText` and `errorMessage` prop.
 
 The `value` prop should be linked to a `useState` variable that gets updated using the `onChange` event.
 
+# Features
+
+See [`MultiSelect` components](?path=/docs/components-inputs-raw-multiselect--docs#features) for more information.
+
 # Examples
 
 A code example of how you can configure a `MultiSelectWrapper` within a React component:
@@ -36,6 +40,11 @@ const ExampleComponent = () => {
           Array.from(event.target.options).filter(option => option.selected).map(option => option.value)
         );
       }}
+      selectProps={{
+        search: {
+          enabled: false
+        }
+      }}
     >
       <MultiOption value="option1">Option 1</MultiOption>
       <MultiOption value="option2">Option 2</MultiOption>
@@ -54,30 +63,57 @@ A code example of a fully functional `MultiSelectWrapper` with the add new butto
 
 ```jsx
 const ExampleComponent = () => {
+  const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
-  const [allOptions, setAllOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
+
+  const handleOptionChange = (options: HTMLOptionsCollection) => {
+    let newPickedOptions = [...pickedOptions];
+    let newAllOptions = [...allOptions];
+    Array.from(options).forEach(option => {
+      const selected = option.selected;
+      const exists = newPickedOptions.includes(option.value);
+
+      const shouldAdd = !exists && selected;
+      const shouldRemove = exists && !selected;
+
+      if (shouldAdd) {
+        newPickedOptions.push(option.value);
+      } else if (shouldRemove) {
+        newPickedOptions = newPickedOptions.filter(value => value !== option.value);
+        const isInInitialOptions = initialOptions.includes(option.value);
+        if (!isInInitialOptions) {
+          newAllOptions = newAllOptions.filter(value => value !== option.value);
+        }
+      }
+    });
+    return { newPickedOptions, newAllOptions };
+  };
+
   return (
     <MultiSelectWrapperComponent
       {...args}
       value={pickedOptions}
       onChange={e => {
-        setPickedOptions(
-          Array.from(e.target.options)
-            .filter(option => option.selected)
-            .map(option => option.value)
-        );
+        const { newPickedOptions, newAllOptions } = handleOptionChange(e.target.options);
+        setPickedOptions(newPickedOptions);
+        setAllOptions(newAllOptions);
       }}
       selectProps={{
         addNew: {
           label: "Create new",
           onAddNew: value => {
-            allOptions && value && setAllOptions([...allOptions, value]);
+            const trimmedValue = value.trim();
+            const getValuesWithValueIfUnique = (value: string) => (values: string[]) =>
+              values.includes(value) ? values : [...values, value];
+            trimmedValue && setAllOptions(getValuesWithValueIfUnique(trimmedValue));
+            trimmedValue && setPickedOptions(getValuesWithValueIfUnique(trimmedValue));
           },
-          btnProps: { title: "Add new select option", type: "button" }
+          btnProps: { title: "Add new select option" }
         },
         search: {
           enabled: true,
-          renderThreshold: 0
+          searchPlaceholder: "Search or add new option (Enter)"
         }
       }}
     >

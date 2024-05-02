@@ -16,7 +16,6 @@
 
 import userEvent from "@testing-library/user-event";
 import { act, waitFor } from "@testing-library/react";
-import React from "react";
 import { createSelect } from "./Select.test";
 
 describe("Selecting options using keyboard", () => {
@@ -125,9 +124,9 @@ describe("Selecting options using keyboard", () => {
 
 describe("search input", () => {
   it("listens to different keyboard inputs", async () => {
-    const { button, select } = createSelect();
+    const { button, select, getByTestId } = createSelect();
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -140,9 +139,9 @@ describe("search input", () => {
   });
 
   it("move focus with arrowdown", async () => {
-    const { button, select } = createSelect();
+    const { button, select, getByTestId } = createSelect();
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -155,9 +154,9 @@ describe("search input", () => {
   });
 
   it("select with enter", async () => {
-    const { button, select } = createSelect();
+    const { button, select, getByTestId } = createSelect();
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -206,9 +205,9 @@ describe("search input", () => {
   });
 
   it("closes on escape", async () => {
-    const { button } = createSelect();
+    const { button, getByTestId } = createSelect();
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -222,9 +221,9 @@ describe("search input", () => {
   });
 
   it("closes on tab", async () => {
-    const { button } = createSelect();
+    const { button, getByTestId } = createSelect();
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
 
     await userEvent.click(button);
 
@@ -289,15 +288,15 @@ describe("meta arrow left and right", () => {
 });
 
 describe("addBtn feature", () => {
-  it("is focused on tab after search and exits on next", async () => {
+  it("should btn be focused on pressing tab and exits on next tab press", async () => {
     const label = "You shall never click me";
     const onAddNewCallback = jest.fn();
-    const { button, findByTestId } = createSelect(defaultParams => ({
+    const { button, findByTestId, getByTestId } = createSelect(defaultParams => ({
       ...defaultParams,
-      addNew: { label: label, onAddNew: () => onAddNewCallback() }
+      addNew: { label: label, onAddNew: () => onAddNewCallback(), alwaysEnabled: true }
     }));
 
-    const searchInput = document.querySelector(".select-search")!;
+    const searchInput = getByTestId("search-input");
     const addNewBtn = await findByTestId("select-action-button");
 
     await userEvent.click(button);

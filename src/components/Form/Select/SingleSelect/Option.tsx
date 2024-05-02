@@ -20,15 +20,18 @@ import React, {
   createRef,
   RefObject,
   useEffect,
-  ReactNode
+  ReactNode,
+  useRef
 } from "react";
 import classes from "./Select.module.scss";
+import { generateID } from "../../../../util/helper";
 
 export interface Props extends ComponentPropsWithRef<"li"> {
   children: ReactNode;
   value: string;
   disabled?: boolean;
   isSelected?: boolean;
+  disableDefaultSelectedStyle?: boolean;
   selectOpened?: boolean;
   hasFocus?: boolean;
   shouldClick?: boolean;
@@ -42,9 +45,11 @@ export interface Props extends ComponentPropsWithRef<"li"> {
 
 const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
   {
+    id,
     children,
     className,
     isSelected = false,
+    disableDefaultSelectedStyle,
     shouldClick,
     hasFocus,
     selectOpened,
@@ -59,7 +64,14 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
   }: Props,
   ref
 ) => {
+  const defaultOptionId = useRef(generateID(20));
+  const optionId = id ?? defaultOptionId.current;
   let innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
+
+  const additionalClasses = [];
+  className && additionalClasses.push(className);
+  isSelected && !disableDefaultSelectedStyle && additionalClasses.push(classes["selected-option"]);
+  disabled && additionalClasses.push(classes["disabled"]);
 
   useEffect(() => {
     if (isSelected && innerOptionRef.current && shouldClick) {
@@ -79,11 +91,10 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
   return (
     <li
       {...rest}
+      id={optionId}
       ref={innerOptionRef}
       data-value={value}
-      className={`${isSelected ? classes["selected-option"] : ""} ${
-        disabled ? classes.disabled : ""
-      } ${className ?? ""}`}
+      className={additionalClasses.join(" ")}
       onClick={onSelectHandler}
       onKeyDown={event => {
         if (event.code === "Enter") {

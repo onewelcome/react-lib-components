@@ -31,7 +31,8 @@ const meta: Meta = {
       page: TooltipDocumentation
     },
     chromatic: {
-      delay: 300
+      delay: 300,
+      diffThreshold: 0.7 //To not look at font change, checked with https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out
     }
   }
 };
