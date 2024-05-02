@@ -52,7 +52,7 @@ const defaultArgs: Props = {
       Form <i>Description</i>
     </p>
   ),
-  formButtonList: []
+  buttons: []
 };
 
 const Template: Story<Props> = args => <FormHeader {...args} />;
@@ -60,12 +60,12 @@ export const FormHeaderComponent1 = Template.bind({});
 
 FormHeaderComponent1.args = {
   ...defaultArgs,
-  formButtonList:formButtonList
+  buttons:formButtonList
 };
 
 export const FormHeaderComponent2 = Template.bind({});
 
 FormHeaderComponent2.args = {
   ...defaultArgs,
-  formButtonList: formButtonList.slice(0, 2)
+  buttons: formButtonList.slice(0, 2)
 };

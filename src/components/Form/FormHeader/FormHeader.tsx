@@ -20,10 +20,10 @@ import { Button, ButtonProps, Typography } from "../../..";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   title: string;
-  formButtonList: ReactElement<ButtonProps, typeof Button>[];
+  buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
 }
 
-export const FormHeader = ({ title, children, formButtonList, ...rest }: Props) => {
+export const FormHeader = ({ title, children, buttons, ...rest }: Props) => {
   return (
     <div className={`${classes["header"]} ${rest.className}`} {...rest}>
       <div>
@@ -35,7 +35,7 @@ export const FormHeader = ({ title, children, formButtonList, ...rest }: Props) 
         </Typography>
       </div>
       <div className={classes["buttons-wrapper"]}>
-        {formButtonList}
+        {buttons}
       </div>
     </div>
   );
