@@ -12,7 +12,7 @@ The `FormHeader` component is a wrapper componet for creating the header of a fo
 
 ```jsx
 
-const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
+const buttons: ReactElement<ButtonProps, typeof Button>[] = [
   <Button key="1" onClick={() => alert("Cancel button clicked.")} variant="text">
     Cancel
   </Button>,
@@ -26,7 +26,7 @@ const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
 
  <FormHeader
     title= {"Form Header Text"}
-    formButtonList={formButtonList}>
+    buttons={buttons}>
         <p>Form <i>Description</i></p>
  </FormHeader>
 ```
