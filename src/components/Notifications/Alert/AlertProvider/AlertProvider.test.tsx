@@ -111,6 +111,27 @@ const renderAlertProvider = (props?: Partial<Props>) => {
         >
           Warning
         </button>
+        <button
+          data-testid="show-neutral-alerts"
+          onClick={() => {
+            enqueueAlert({
+              title: "neutral-low",
+              emphasis: "low",
+              elementProps: { container: { "data-testid": "neutral-low" } }
+            });
+            enqueueAlert({
+              title: "neutral-medium",
+              elementProps: { container: { "data-testid": "neutral-medium" } }
+            });
+            enqueueAlert({
+              title: "neutral-high",
+              emphasis: "high",
+              elementProps: { container: { "data-testid": "neutral-high" } }
+            });
+          }}
+        >
+          3 neutral alerts
+        </button>
       </div>
     );
   };
@@ -125,13 +146,15 @@ const renderAlertProvider = (props?: Partial<Props>) => {
   const showErrorAlertBtn = getByTestId(queries.container, "show-error");
   const showInfoAlertBtn = getByTestId(queries.container, "show-info");
   const showWarningAlertBtn = getByTestId(queries.container, "show-warning");
+  const showNeutralAlertsBtn = getByTestId(queries.container, "show-neutral-alerts");
 
   return {
     ...queries,
     showSuccessAlertBtn,
     showErrorAlertBtn,
     showInfoAlertBtn,
-    showWarningAlertBtn
+    showWarningAlertBtn,
+    showNeutralAlertsBtn
   };
 };
 
@@ -154,6 +177,21 @@ describe("<AlertProvider />", () => {
       expect(getAllByText(document.body, new RegExp(successProps.title))).toHaveLength(2);
       expect(getAllByText(document.body, new RegExp(warningProps.title))).toHaveLength(1);
     });
+  });
+
+  it("should render all 3 emphasys with the corect colors", async () => {
+    const content = renderAlertProvider();
+    const showNeutralAlertsBtn = content.showNeutralAlertsBtn;
+    const body = content.baseElement;
+    await userEvent.click(showNeutralAlertsBtn);
+
+    const lowEmpAlert = getByTestId(body, "neutral-low");
+    const mediumEmpAlert = getByTestId(body, "neutral-medium");
+    const highEmpAlert = getByTestId(body, "neutral-high");
+
+    expect(lowEmpAlert).toHaveClass("emph-low");
+    expect(mediumEmpAlert).toHaveClass("emph-medium");
+    expect(highEmpAlert).toHaveClass("emph-high");
   });
 
   it("should render 3 variants of alerts", async () => {

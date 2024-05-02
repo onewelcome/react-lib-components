@@ -19,7 +19,20 @@ import { useAlert } from "./useAlert";
 import { AlertProvider } from "./AlertProvider/AlertProvider";
 
 describe("useAlertContext", () => {
-  it("should call new API", () => {
+  it("should have enqueue functions", () => {
+    const rendered = renderHook(() => useAlert(), {
+      wrapper: ({ children }) => <AlertProvider closeButtonTitle="close">{children}</AlertProvider>
+    });
+    const currentResult = rendered.result.current;
+    expect(currentResult.enqueueAlert).toBeDefined();
+    expect(currentResult.enqueueInfoAlert).toBeDefined();
+    expect(currentResult.enqueueSuccessAlert).toBeDefined();
+    expect(currentResult.enqueueWarningAlert).toBeDefined();
+    expect(currentResult.enqueueErrorAlert).toBeDefined();
+    expect(currentResult.setAlertHeight).toBeDefined();
+  });
+
+  it("should call API", () => {
     const { result } = renderHook(() => useAlert(), {
       wrapper: ({ children }) => <AlertProvider closeButtonTitle="close">{children}</AlertProvider>
     });
