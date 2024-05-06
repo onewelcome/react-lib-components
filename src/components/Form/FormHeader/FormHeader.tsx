@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ReactElement } from "react";
+import React, { ComponentPropsWithRef, ReactElement, forwardRef, useState, useImperativeHandle } from "react";
 import classes from "./FormHeader.module.scss";
 import { Button, ButtonProps, Typography } from "../../..";
 
@@ -23,20 +23,30 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
 }
 
-export const FormHeader = ({ title, children, buttons, ...rest }: Props) => {
+export const FormHeader = forwardRef(({ title, children, buttons, ...rest }: Props, ref) => {
+  const [IsCollapsed, setIsCollapsed] = useState(false);
+  useImperativeHandle(ref, () => {
+    return {
+      CollapsedExpendHeader(collapsed: boolean = false) {
+        setIsCollapsed(collapsed);
+      }
+    }
+  }, []);
   return (
     <div className={`${classes["header"]} ${rest.className}`} {...rest}>
       <div>
         <Typography className={classes["header-text"]} variant={"h3"}>
           {title}
         </Typography>
-        <Typography variant={"body"} spacing={{ margin: 0 }}>
-          {children}
-        </Typography>
+        {!IsCollapsed &&
+          <Typography variant={"body"} spacing={{ margin: 0 }}>
+            {children}
+          </Typography>
+        }
       </div>
       <div className={classes["buttons-wrapper"]}>
         {buttons}
       </div>
     </div>
   );
-};
+});
