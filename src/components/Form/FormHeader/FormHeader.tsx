@@ -24,7 +24,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
 }
 
 export const FormHeaderComponent = ({ title, children, buttons, ...rest }: Props, ref: ForwardedRef<any>) => {
-  const [IsCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   useImperativeHandle(ref, () => {
     return {
       CollapseExpendHeader(collapsed: boolean = false) {
@@ -38,7 +38,7 @@ export const FormHeaderComponent = ({ title, children, buttons, ...rest }: Props
         <Typography className={classes["header-text"]} variant={"h3"}>
           {title}
         </Typography>
-        {!IsCollapsed &&
+        {!isCollapsed &&
           <Typography variant={"body"} spacing={{ margin: 0 }}>
             {children}
           </Typography>
