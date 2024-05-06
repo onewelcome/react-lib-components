@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ReactElement, forwardRef, useState, useImperativeHandle } from "react";
+import React, { ComponentPropsWithRef, ReactElement, useState, useImperativeHandle, ForwardedRef } from "react";
 import classes from "./FormHeader.module.scss";
 import { Button, ButtonProps, Typography } from "../../..";
 
@@ -23,7 +23,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
 }
 
-export const FormHeader = forwardRef(({ title, children, buttons, ...rest }: Props, ref) => {
+export const FormHeaderComponent = ({ title, children, buttons, ...rest }: Props, ref: ForwardedRef<any>) => {
   const [IsCollapsed, setIsCollapsed] = useState(false);
   useImperativeHandle(ref, () => {
     return {
@@ -49,4 +49,6 @@ export const FormHeader = forwardRef(({ title, children, buttons, ...rest }: Pro
       </div>
     </div>
   );
-});
+};
+
+export const FormHeader = React.forwardRef(FormHeaderComponent);
