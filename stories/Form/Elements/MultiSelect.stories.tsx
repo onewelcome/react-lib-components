@@ -67,16 +67,30 @@ export default meta;
 const Template: StoryFn<MultiSelectProps> = args => {
   const [pickedOptions, setPickedOptions] = useState<string[]>(["option1", "option2"]);
 
+  const handleOptionChange = (options: HTMLOptionsCollection, obsoletePickedOptions: string[]) => {
+    let newPickedOptions = [...obsoletePickedOptions];
+    Array.from(options).forEach(option => {
+      const selected = option.selected;
+      const exists = newPickedOptions.includes(option.value);
+
+      const shouldAdd = !exists && selected;
+      const shouldRemove = exists && !selected;
+
+      if (shouldAdd) {
+        newPickedOptions.push(option.value);
+      } else if (shouldRemove) {
+        newPickedOptions = newPickedOptions.filter(value => value !== option.value);
+      }
+    });
+    return newPickedOptions;
+  };
+
   return (
     <MultiSelectComponent
       {...args}
       value={pickedOptions}
       onChange={e => {
-        setPickedOptions(
-          Array.from(e.target.options)
-            .filter(option => option.selected)
-            .map(option => option.value)
-        );
+        setPickedOptions(options => handleOptionChange(e.target.options, options));
       }}
     ></MultiSelectComponent>
   );
@@ -86,6 +100,7 @@ export const MultiSelect = Template.bind({});
 
 MultiSelect.args = {
   name: "Example multi select",
+  search: { enabled: false },
   children: generateOptions(6)
 };
 
@@ -109,7 +124,7 @@ export const MultiSelectWithAddNewAndSearch = Template.bind({});
 
 MultiSelectWithAddNewAndSearch.args = {
   name: "Example select",
-  addNew: { label: "Create new", onAddNew: () => alert("YO!") },
+  addNew: { label: "Create new", onAddNew: (filter: string) => alert(`YO! Filter: ${filter}`) },
   children: generateOptions(15)
 };
 
@@ -127,6 +142,7 @@ export const MultiSelectWithAddNew = Template.bind({});
 
 MultiSelectWithAddNew.args = {
   name: "Example select",
+  search: { enabled: false },
   addNew: { label: "Create new", onAddNew: () => alert("YO!") },
   children: generateOptions(3)
 };

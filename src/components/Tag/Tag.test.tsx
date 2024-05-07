@@ -43,14 +43,12 @@ describe("Tag should render", () => {
   });
 
   it("should render the custom version", () => {
-    const { Tag, debug } = createTag(defaultParams => ({
+    const { Tag } = createTag(defaultParams => ({
       ...defaultParams,
       backgroundColor: "blue",
       color: "white",
       icon: Icons.Calendar
     }));
-
-    debug();
 
     const icon = Tag.querySelector("[data-icon]");
 

@@ -62,6 +62,7 @@ export default meta;
 
 const Template: StoryFn<Props> = args => {
   const [pickedOptions, setPickedOptions] = useState<string[]>(["option1"]);
+  const [newOptions, setNewOptions] = useState<string[]>();
   return (
     <MultiSelectWrapperComponent
       {...args}
@@ -185,30 +186,57 @@ MultiSelectWrapperRequired.args = {
 };
 
 const AddNewTemplate: StoryFn<Props> = args => {
+  const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
-  const [allOptions, setAllOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
+
+  const handleOptionChange = (options: HTMLOptionsCollection) => {
+    let newPickedOptions = [...pickedOptions];
+    let newAllOptions = [...allOptions];
+    Array.from(options).forEach(option => {
+      const selected = option.selected;
+      const exists = newPickedOptions.includes(option.value);
+
+      const shouldAdd = !exists && selected;
+      const shouldRemove = exists && !selected;
+
+      if (shouldAdd) {
+        newPickedOptions.push(option.value);
+      } else if (shouldRemove) {
+        newPickedOptions = newPickedOptions.filter(value => value !== option.value);
+        const isInInitialOptions = initialOptions.includes(option.value);
+        if (!isInInitialOptions) {
+          newAllOptions = newAllOptions.filter(value => value !== option.value);
+        }
+      }
+    });
+    return { newPickedOptions, newAllOptions };
+  };
+
   return (
     <MultiSelectWrapperComponent
       {...args}
       value={pickedOptions}
       onChange={e => {
-        setPickedOptions(
-          Array.from(e.target.options)
-            .filter(option => option.selected)
-            .map(option => option.value)
-        );
+        const { newPickedOptions, newAllOptions } = handleOptionChange(e.target.options);
+        setPickedOptions(newPickedOptions);
+        setAllOptions(newAllOptions);
       }}
       selectProps={{
         addNew: {
           label: "Create new",
           onAddNew: value => {
-            allOptions && value && setAllOptions([...allOptions, value]);
+            const trimmedValue = value.trim();
+            const getValuesWithValueIfUnique = (value: string) => (values: string[]) =>
+              values.includes(value) ? values : [...values, value];
+            trimmedValue && setAllOptions(getValuesWithValueIfUnique(trimmedValue));
+            trimmedValue && setPickedOptions(getValuesWithValueIfUnique(trimmedValue));
           },
-          btnProps: { title: "Add new select option", type: "button" }
+          btnProps: { title: "Add new select option" }
         },
         search: {
           enabled: true,
-          renderThreshold: 0
+          searchPlaceholder: "Search or add new option (Enter)"
         }
       }}
     >

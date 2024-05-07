@@ -31,9 +31,10 @@ import readyclasses from "../../../../readyclasses.module.scss";
 import { filterProps } from "../../../../util/helper";
 import { Icon, Icons } from "../../../Icon/Icon";
 import { SingleSelectProps } from "../Select.interfaces";
-import { useArrowNavigation, useSelectPositionList } from "../SelectService";
+import { useSelectPositionList } from "../useSelectPositionList";
 import { useAddNewBtn } from "../useAddNewBtn";
-import { useSearch } from "../useSearch";
+import { useSearch } from "./useSearch";
+import { useArrowNavigation } from "./useArrowNavigation";
 
 const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {
@@ -87,7 +88,10 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   });
   const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew } = useAddNewBtn({
     addNew,
-    filter
+    filter,
+    focusedSelectItem,
+    optionsCount,
+    searchInputRef
   });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
