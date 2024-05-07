@@ -108,13 +108,7 @@ export type {
 } from "./components/Notifications/NotificationProvider/notification.interfaces";
 export { SlideInModal } from "./components/Notifications/SlideInModal/SlideInModal";
 export type { Props as SlideInModalProps } from "./components/Notifications/SlideInModal/SlideInModal";
-/**
- * @deprecated
- */
 export { SnackbarProvider } from "./components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
-/**
- * @deprecated
- */
 export type { Props as SnackbarProviderProps } from "./components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
 
 /** Form components */
