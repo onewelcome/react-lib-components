@@ -33,7 +33,7 @@ export const FormHeaderComponent = ({ title, children, buttons, ...rest }: Props
     }
   }, []);
   return (
-    <div className={`${classes["header"]} ${rest.className}`} {...rest}>
+    <div className={`${classes["header"]} ${rest.className} ${isCollapsed ? classes["collapsed-header"] : ''}`} {...rest}>
       <div>
         <Typography className={classes["header-text"]} variant={"h3"}>
           {title}
