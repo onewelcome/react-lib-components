@@ -27,7 +27,7 @@ export const FormHeaderComponent = ({ title, children, buttons, ...rest }: Props
   const [isCollapsed, setIsCollapsed] = useState(false);
   useImperativeHandle(ref, () => {
     return {
-      collapseExpendHeader(collapsed: boolean = false) {
+      CollapseExpendHeader(collapsed: boolean = false) {
         setIsCollapsed(collapsed);
       }
     }
