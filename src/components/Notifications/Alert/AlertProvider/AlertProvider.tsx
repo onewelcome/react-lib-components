@@ -49,7 +49,7 @@ export const AlertProvider = ({
   children,
   className
 }: Props) => {
-  const [alertEnties, setAlertEnties] = useState<AlertEntry[]>([]);
+  const [alertEntries, setAlertEnties] = useState<AlertEntry[]>([]);
 
   const getDuration = (entry: Omit<AlertEntry, "id">) => {
     if (entry.variant === "error") {
@@ -66,14 +66,13 @@ export const AlertProvider = ({
     variant?: Variant
   ): AlertEntry => {
     if (typeof arg === "string") {
-      const newEntry: AlertEntry = {
+      return {
         id: generateID(15, arg),
         content: arg,
         duration: autoHideDuration.short,
         variant,
         closeButtonTitle
       };
-      return newEntry;
     }
 
     arg = arg as AlertEntry;
@@ -81,14 +80,13 @@ export const AlertProvider = ({
     if (arg.closeButtonTitle) {
       closeTitle = arg.closeButtonTitle;
     }
-    const newEntry: AlertEntry = {
+    return {
       ...arg,
       variant: variant ?? arg.variant,
       id: generateID(15, arg.content ?? arg.title),
       duration: arg.duration ?? getDuration(arg),
       closeButtonTitle: closeTitle
     };
-    return newEntry;
   };
 
   const enqueueAlert = (arg: string | Omit<AlertEntry, "id">) => {
@@ -132,7 +130,7 @@ export const AlertProvider = ({
   };
 
   const setAlertHeight = (id: string, height: number) => {
-    const newAlertsState = alertEnties.map(alertEntry => {
+    const newAlertsState = alertEntries.map(alertEntry => {
       if (alertEntry.id !== id) {
         return alertEntry;
       }
@@ -153,7 +151,7 @@ export const AlertProvider = ({
   };
 
   const renderAlertList = (): ReactNode => {
-    return alertEnties.slice(0, stackSize).map((entry, index) => (
+    return alertEntries.slice(0, stackSize).map((entry, index) => (
       <AlertItem
         {...entry}
         key={`${entry.id}-${index.toString()}`}
@@ -173,7 +171,7 @@ export const AlertProvider = ({
       enqueueErrorAlert,
       enqueueWarningAlert,
       setAlertHeight,
-      alerts: alertEnties
+      alerts: alertEntries
     }),
     [
       enqueueAlert,
@@ -182,7 +180,7 @@ export const AlertProvider = ({
       enqueueErrorAlert,
       enqueueWarningAlert,
       setAlertHeight,
-      alertEnties
+      alertEntries
     ]
   );
 

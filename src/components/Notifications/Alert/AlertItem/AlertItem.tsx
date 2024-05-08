@@ -164,7 +164,7 @@ export const AlertItem = ({
     return "polite";
   };
 
-  const getContentOrTitile = (): string => {
+  const getContentOrTitle = (): string => {
     if (content) {
       return content;
     }
@@ -197,7 +197,7 @@ export const AlertItem = ({
           )}
           {(!!content || !!title) && (
             <Typography {...elementProps?.content} className={classes["content"]} variant="body">
-              {getContentOrTitile()}
+              {getContentOrTitle()}
             </Typography>
           )}
         </div>
