@@ -23,11 +23,15 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
 }
 
-export const FormHeaderComponent = ({ title, children, buttons, ...rest }: Props, ref: ForwardedRef<any>) => {
+export interface CollapseHandler {
+  collapseExpendHeader(collapsed: boolean): void;
+}
+
+export const FormHeaderComponent = ({ title, children, buttons, ...rest }: Props, ref: ForwardedRef<CollapseHandler>) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   useImperativeHandle(ref, () => {
     return {
-      CollapseExpendHeader(collapsed: boolean = false) {
+      collapseExpendHeader(collapsed: boolean = false) {
         setIsCollapsed(collapsed);
       }
     }
