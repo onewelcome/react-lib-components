@@ -1,0 +1,25 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as FormSectionStories from "./FormSection.stories.tsx";
+
+<Title />
+<Subtitle />
+
+The `FormSection` component has been created to align specific section of the page with some header and sub header.
+
+# Examples
+
+A code example of using form section component is as follows:
+
+```jsx
+<FormSection>
+      <input></input>
+</FormSection>
+```
+
+<Canvas>
+  <Story of={FormSectionStories.FormSectionComponent} />
+</Canvas>
+
+# Props
+
+<ArgTypes story={PRIMARY_STORY} />
