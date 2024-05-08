@@ -28,6 +28,11 @@
     padding-right: 1rem;
   }
 
+  .text {
+    font-size: var(--font-size-data-grid);
+    line-height: var(--data-grid-line-height);
+  }
+
   .loading {
     @include mixins.skeletonLoading();
     border-radius: 0.5rem;
