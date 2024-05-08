@@ -37,13 +37,13 @@ const createFormHeader = (params?: (defaultParams: Props) => Props) => {
   if (params) {
     parameters = params(defaultParams);
   }
- 
+
   const queries = render(<FormHeader {...parameters} data-testid="formHeaderTestId"></FormHeader>);
   const formHeader = queries.getByTestId("formHeaderTestId");
-  
+
   return {
     ...queries,
-    formHeader,
+    formHeader
   };
 };
 
@@ -78,5 +78,4 @@ describe("<FormHeader />", () => {
 
     expect(formHeader).toHaveClass("form-header-custom-class");
   });
-
 });
