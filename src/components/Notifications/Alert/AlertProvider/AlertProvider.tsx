@@ -38,7 +38,7 @@ export interface Props {
   className?: string;
 }
 
-type AlertEntry = AlertComponentProps & { height?: number };
+export type AlertEntry = AlertComponentProps & { height?: number };
 
 export const AlertProvider = ({
   closeButtonTitle,

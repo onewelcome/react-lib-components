@@ -210,7 +210,7 @@ export const AlertItem = ({
       {onClose && (
         <IconButton
           {...elementProps?.closeButton}
-          id={classes["close-btn"]}
+          className={classes["close-btn"]}
           onClick={e => {
             e.stopPropagation();
             startAnimation();

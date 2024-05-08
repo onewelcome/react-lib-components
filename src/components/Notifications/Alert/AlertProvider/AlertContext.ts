@@ -14,10 +14,9 @@
  *    limitations under the License.
  */
 
-import { Props as AlertComponentProps } from "../AlertItem/AlertItem";
+import { AlertEntry } from "./AlertProvider";
 import { createContext } from "react";
 
-export type AlertEntry = AlertComponentProps & { height?: number };
 export type AlertQueue = Omit<AlertEntry, "id"> | string;
 export type AlertQueueError = Omit<AlertEntry, "id"> | string | Error;
 
