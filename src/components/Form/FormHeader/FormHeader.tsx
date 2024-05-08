@@ -38,11 +38,9 @@ export const FormHeaderComponent = ({ title, children, buttons, ...rest }: Props
         <Typography className={classes["header-text"]} variant={"h3"}>
           {title}
         </Typography>
-        {!isCollapsed &&
-          <Typography variant={"body"} spacing={{ margin: 0 }}>
-            {children}
-          </Typography>
-        }
+        <Typography className={`${isCollapsed ? classes["hide-description"] : ''}`} variant={"body"} spacing={{ margin: 0 }}>
+          {children}
+        </Typography>
       </div>
       <div className={classes["buttons-wrapper"]}>
         {buttons}
