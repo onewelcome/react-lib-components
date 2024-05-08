@@ -23,7 +23,7 @@ import {
 import FormSectionDocumentation from "./FormSection.mdx";
 
 const meta: Meta = {
-  title: "Components/layout/Form section",
+  title: "Components/layout/FormSection",
   component: FormSection,
   parameters: {
     docs: {
