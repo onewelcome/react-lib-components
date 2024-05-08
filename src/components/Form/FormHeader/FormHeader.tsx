@@ -15,8 +15,10 @@
  */
 
 import React, { HTMLAttributes, ReactElement } from "react";
+import { Button, Props as ButtonProps } from "../../Button/Button";
+import { Typography } from "../../Typography/Typography";
+
 import classes from "./FormHeader.module.scss";
-import { Button, ButtonProps, Typography } from "../../..";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;

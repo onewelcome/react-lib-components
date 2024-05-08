@@ -16,18 +16,18 @@ const buttons: ReactElement<ButtonProps, typeof Button>[] = [
   <Button key="1" onClick={() => alert("Cancel button clicked.")} variant="text">
     Cancel
   </Button>,
-  <Button key="2" disabled>
+  <Button key="2" disabled startIcon={<Icon icon={Icons.SaveOutline} />}>
     Save Draft
   </Button>,
-  <Button key="3" onClick={() => alert("Submit button clicked.")} startIcon={getReactNode(Icons.Circle)}>
+  <Button key="3" onClick={() => alert("Submit button clicked.")} startIcon={<Icon icon={Icons.ReplyOutline} />}>
     Submit
   </Button>
 ];
 
  <FormHeader
-    title= {"Form Header Text"}
-    buttons={buttons}>
-        <p>Form <i>Description</i></p>
+  title= {"Form Header Text"}
+  buttons={buttons}>
+    Form Description
  </FormHeader>
 ```
 
