@@ -82,7 +82,7 @@ export const useUploadFile = (
     if (requestStatus >= 200 && requestStatus < 400) {
       fileStatus = "completed";
     } else if (requestStatus === 0) {
-      fileStatus = "retry";
+      fileStatus = "completed";
       error =
         networkErrorText ?? "Network error. Check internet connection and retry uploading the file";
     } else if (requestStatus >= 400 && requestStatus < 500) {

@@ -30,16 +30,36 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     .action-button-wrapper {
       margin: 0.25rem 0;
+    }
+
+    .progress-with-action {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+
+      .progress-bar {
+        height: 3rem;
+        width: 100%;
+        background: transparent;
+        span[class*="bar--"],
+        span[class*="bar2--"] {
+          height: 0.3rem;
+        }
+      }
     }
   }
   .progress-bar {
     background-color: var(--color-black10);
   }
 
-  span[class*="bar--"] {
+  span[class*="bar--"],
+  span[class*="bar2--"] {
     border-radius: var(--input-border-radius);
     height: 1rem;
   }
@@ -71,6 +91,14 @@
 
   .file-icon {
     margin-right: 0.5rem;
+    &::before {
+      color: var(--color-primary500);
+    }
+    &.retry {
+      &::before {
+        color: var(--error);
+      }
+    }
   }
 
   .file-subtitle,

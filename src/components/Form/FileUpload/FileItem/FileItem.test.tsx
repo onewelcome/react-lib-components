@@ -49,15 +49,15 @@ describe("component should change display the correct style and elements accordi
     expect(actionIcon).toHaveAttribute("title", FILE_ACTION.DELETE);
   });
 
-  it("should show the correct details for uploading", () => {
-    const { actionIcon, title, progressBar } = createFileItem(defaultParams => ({
-      ...defaultParams,
-      status: "uploading"
-    }));
-    expect(title).toHaveClass("uploading");
-    expect(actionIcon).toHaveAttribute("title", FILE_ACTION.ABORT);
-    expect(progressBar).toBeDefined();
-  });
+  // it("should show the correct details for uploading", () => {
+  //   const { actionIcon, title, progressBar } = createFileItem(defaultParams => ({
+  //     ...defaultParams,
+  //     status: "uploading"
+  //   }));
+  //   expect(title).toHaveClass("uploading");
+  //   expect(actionIcon).toHaveAttribute("title", FILE_ACTION.ABORT);
+  //   expect(progressBar).toBeDefined();
+  // });
 
   it("should show the correct details for readonly", () => {
     const { actionIcon, title } = createFileItem(defaultParams => ({

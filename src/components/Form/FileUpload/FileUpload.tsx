@@ -29,6 +29,7 @@ import { Typography } from "../../Typography/Typography";
 import classes from "./FileUpload.module.scss";
 import { Icon, Icons } from "../../Icon/Icon";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
+import { ProgressBar } from "../../ProgressBar/ProgressBar";
 
 type FileUploadType = Omit<InputProps, "onDrop" | "type" | "onChange" | "suffix" | "prefix">;
 export type FileType = Omit<FileConfig, "onRequestedFileAction"> &
@@ -50,6 +51,7 @@ export interface Props extends FileUploadType {
   onDrop?: (e: FileType[]) => void;
   onChange?: (e: FileType[]) => void;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
+  uploadFileList?: any;
 }
 
 const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
@@ -75,6 +77,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onRequestedFileAction,
     exceedingMaxSizeErrorText,
     fileList,
+    uploadFileList,
     ...rest
   }: Props,
   ref
@@ -198,15 +201,13 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
           onDrop={e => !disabled && handleOnDrop(e)}
         >
           <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
-            {title}
+            {title} <span className={classes["file-upload-title-mandatory"]}>*</span>
           </Typography>
-
-          {/* Uploaded Files List */}
 
           {fileList?.length > 0 && (
             <ul className={classes["file-list"]}>
               {fileList.map(({ name, status, progress, error }) => (
-                <li key={name} className={status} id={name}>
+                <li key={name} className={"completed"} id={name}>
                   <FileItem
                     name={name}
                     status={status}

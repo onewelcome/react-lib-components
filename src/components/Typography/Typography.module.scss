@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@mixin fontProperties($fontFamily, $fontSize, $fontWeight, $lineHeight) {
+@mixin fontProperties($fontFamily, $fontSize, $fontWeight, $lineHeight, $marginBottom: 1rem) {
   font-family: $fontFamily;
   font-size: $fontSize;
   font-style: normal;
@@ -24,7 +24,7 @@
   text-transform: none;
   letter-spacing: 0;
   color: var(--default);
-  margin: 0 0 1rem 0;
+  margin: 0 0 $marginBottom 0;
 }
 
 .typography_style_ {
@@ -49,7 +49,13 @@
   }
 
   &body-bold {
-    @include fontProperties(var(--font-family), var(--font-size), 700, var(--default-line-height));
+    @include fontProperties(
+      var(--font-family),
+      var(--font-size),
+      700,
+      var(--default-line-height),
+      0.25rem
+    );
   }
 
   &sub-text {

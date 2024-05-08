@@ -79,6 +79,7 @@ const Template: Story<Props & { url: string }> = args => {
   useEffect(() => {
     if (areArraysDifferent(args.fileList, updatedFiles, "status")) {
       updateArgs({ ...args, fileList: updatedFiles });
+      console.log("inside use effect IF", updatedFiles);
     }
   }, [updatedFiles]);
 
@@ -103,8 +104,6 @@ const Template: Story<Props & { url: string }> = args => {
         fileList = updatedFiles.filter(file => file.name !== name);
         break;
     }
-
-    console.log("trigger setUpdatedFiles fileList-->", fileList);
     setUpdatedFiles(fileList);
   };
   const onDrop = (e: FileType[]) => {
@@ -119,6 +118,7 @@ const Template: Story<Props & { url: string }> = args => {
         onChange={onChange}
         onDrop={onDrop}
         onRequestedFileAction={updateFileList}
+        uploadFileList={updatedFiles ? updatedFiles["status"] : "ambuj"}
       />
     </Form>
   );
@@ -129,7 +129,7 @@ export const FileUploadComponent = Template.bind({});
 FileUploadComponent.args = {
   accept: ".mp4, .jpg, .jpeg",
   multiple: true,
-  dragAndDropText: "Testing drop text or",
+  dragAndDropText: "Drag and drop or",
   title: "File Upload Title Placeholder",
   fileList: files
 };
@@ -139,7 +139,7 @@ export const FileUploadComponentWithServerInteraction = Template.bind({});
 FileUploadComponentWithServerInteraction.args = {
   accept: ".mp4, .jpg, .jpeg",
   multiple: true,
-  dragAndDropText: "Testing drop text or",
+  dragAndDropText: "Drag and drop or",
   title: "File Upload Title Placeholder",
   fileList: files,
   url: "http://localhost:4000/upload"

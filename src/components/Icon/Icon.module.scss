@@ -345,3 +345,15 @@
   content: "\e949";
   @include fontProperties();
 }
+.icon-retry:before {
+  content: "\e949";
+  @include fontProperties();
+}
+.icon-cancel:before {
+  content: "\e94a";
+  @include fontProperties();
+}
+.icon-file-alt:before {
+  content: "\e94b";
+  @include fontProperties();
+}
