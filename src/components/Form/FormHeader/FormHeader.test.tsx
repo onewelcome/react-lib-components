@@ -47,24 +47,14 @@ const createFormHeader = (params?: (defaultParams: Props) => Props) => {
   };
 };
 
-describe("FormHeader should render", () => {
-  it("renders without crashing", () => {
+describe("<FormHeader />", () => {
+  it("should render without crashing", () => {
     const { formHeader } = createFormHeader();
     expect(formHeader).toBeDefined();
   });
 
-  it("FormHeader has the correct values and attributes", () => {
-    const { getByTestId, getByText } = createFormHeader(defaultParams => ({
-      ...defaultParams,
-      buttons: [
-        <Button id="cancelButton" key="1" data-testid="button1">
-          Cancel Button
-        </Button>,
-        <Button id="saveButton" key="2" data-testid="button2">
-          Save Button
-        </Button>
-      ]
-    }));
+  it("should have the correct values and attributes", () => {
+    const { getByTestId, getByText } = createFormHeader();
 
     expect(getByTestId("formHeaderChildren")).toHaveTextContent("Form Header sample description");
     expect(getByText(defaultParams.title)).toBeInTheDocument();
@@ -80,7 +70,7 @@ describe("FormHeader should render", () => {
     expect(button2).toHaveTextContent("Save Button");
   });
 
-  it("FormHeader has the correct classes", () => {
+  it("should have the correct classes", () => {
     const { formHeader } = createFormHeader(defaultParams => ({
       ...defaultParams,
       className: "form-header-custom-class"

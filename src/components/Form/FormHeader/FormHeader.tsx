@@ -14,11 +14,11 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ReactElement } from "react";
+import React, { HTMLAttributes, ReactElement } from "react";
 import classes from "./FormHeader.module.scss";
 import { Button, ButtonProps, Typography } from "../../..";
 
-export interface Props extends ComponentPropsWithRef<"div"> {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
   buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
 }
@@ -34,9 +34,7 @@ export const FormHeader = ({ title, children, buttons, ...rest }: Props) => {
           {children}
         </Typography>
       </div>
-      <div className={classes["buttons-wrapper"]}>
-        {buttons}
-      </div>
+      <div className={classes["buttons-wrapper"]}>{buttons}</div>
     </div>
   );
 };
