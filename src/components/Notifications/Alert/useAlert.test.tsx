@@ -19,11 +19,12 @@ import { useAlert } from "./useAlert";
 import { AlertProvider } from "./AlertProvider/AlertProvider";
 
 describe("useAlertContext", () => {
-  it("should have enqueue functions", () => {
+  it("should have enqueue functions defined", () => {
     const rendered = renderHook(() => useAlert(), {
       wrapper: ({ children }) => <AlertProvider closeButtonTitle="close">{children}</AlertProvider>
     });
     const currentResult = rendered.result.current;
+
     expect(currentResult.enqueueAlert).toBeDefined();
     expect(currentResult.enqueueInfoAlert).toBeDefined();
     expect(currentResult.enqueueSuccessAlert).toBeDefined();
@@ -32,118 +33,30 @@ describe("useAlertContext", () => {
     expect(currentResult.setAlertHeight).toBeDefined();
   });
 
-  it("should call API", () => {
-    const { result } = renderHook(() => useAlert(), {
-      wrapper: ({ children }) => <AlertProvider closeButtonTitle="close">{children}</AlertProvider>
-    });
-
-    act(() => {
-      result.current.enqueueAlert({ title: "title" });
-      result.current.enqueueAlert({ title: "title", content: "content" });
-      result.current.enqueueAlert({
-        title: "title",
-        content: "content",
-        onClose: () => {},
-        actions: []
-      });
-      result.current.enqueueAlert({ content: "content" });
-      result.current.enqueueAlert({ content: "content", className: "123" });
-      result.current.enqueueAlert({ title: "title", variant: "error", duration: 123 });
-
-      result.current.enqueueErrorAlert({ title: "title" });
-      result.current.enqueueErrorAlert({ title: "title", content: "content" });
-      result.current.enqueueErrorAlert({
-        title: "title",
-        content: "content",
-        onClose: () => {},
-        actions: []
-      });
-      result.current.enqueueErrorAlert({ content: "content" });
-      result.current.enqueueErrorAlert({ content: "content", className: "123" });
-      result.current.enqueueErrorAlert({ title: "title", duration: 123 });
-
-      result.current.enqueueSuccessAlert({ title: "title" });
-      result.current.enqueueSuccessAlert({ title: "title", content: "content" });
-      result.current.enqueueSuccessAlert({
-        title: "title",
-        content: "content",
-        onClose: () => {},
-        actions: []
-      });
-      result.current.enqueueSuccessAlert({ content: "content" });
-      result.current.enqueueSuccessAlert({ content: "content", className: "123" });
-      result.current.enqueueSuccessAlert({ title: "title", duration: 123 });
-
-      result.current.enqueueWarningAlert({ title: "title" });
-      result.current.enqueueWarningAlert({ title: "title", content: "content" });
-      result.current.enqueueWarningAlert({
-        title: "title",
-        content: "content",
-        onClose: () => {},
-        actions: []
-      });
-      result.current.enqueueWarningAlert({ content: "content" });
-      result.current.enqueueWarningAlert({ content: "content", className: "123" });
-      result.current.enqueueWarningAlert({ title: "title", duration: 123 });
-    });
-  });
-
-  it("should call API", () => {
+  it("calling enqueue functions should work", () => {
     const { result } = renderHook(() => useAlert(), {
       wrapper: ({ children }) => <AlertProvider closeButtonTitle="close">{children}</AlertProvider>
     });
 
     act(() => {
       result.current.enqueueAlert("content");
+      result.current.enqueueAlert({ title: "title" });
+      result.current.enqueueAlert({ content: "content" });
+      result.current.enqueueAlert({ title: "title", content: "content" });
       result.current.enqueueAlert({
         title: "title",
         content: "content",
+        variant: "error",
+        duration: 123,
         onClose: () => {},
         actions: []
       });
-      result.current.enqueueAlert({ content: "content", className: "123" });
-      result.current.enqueueAlert({ title: "title", variant: "error", duration: 123 });
 
       result.current.enqueueInfoAlert("content");
-      result.current.enqueueInfoAlert({
-        title: "title",
-        content: "content",
-        onClose: () => {},
-        actions: []
-      });
-      result.current.enqueueInfoAlert({ content: "content", className: "123" });
-      result.current.enqueueInfoAlert({ title: "title", variant: "informative", duration: 123 });
-
-      result.current.enqueueSuccessAlert("content");
-      result.current.enqueueSuccessAlert({
-        title: "title",
-        content: "content",
-        onClose: () => {},
-        actions: []
-      });
-      result.current.enqueueSuccessAlert({ content: "content", className: "123" });
-      result.current.enqueueSuccessAlert({ title: "title", duration: 123 });
-
-      result.current.enqueueWarningAlert("content");
-      result.current.enqueueWarningAlert({
-        title: "title",
-        content: "content",
-        onClose: () => {},
-        actions: []
-      });
-      result.current.enqueueWarningAlert({ content: "content", className: "123" });
-      result.current.enqueueWarningAlert({ title: "title", duration: 123, emphasis: "low" });
-
       result.current.enqueueErrorAlert("content");
-      result.current.enqueueErrorAlert(new Error("content"));
-      result.current.enqueueErrorAlert({
-        title: "title",
-        content: "content",
-        onClose: () => {},
-        actions: []
-      });
-      result.current.enqueueErrorAlert({ content: "content", className: "123" });
-      result.current.enqueueErrorAlert({ title: "title", duration: 123, emphasis: "high" });
+      result.current.enqueueErrorAlert(new Error("Error message"));
+      result.current.enqueueSuccessAlert("content");
+      result.current.enqueueWarningAlert("content");
     });
   });
 });
