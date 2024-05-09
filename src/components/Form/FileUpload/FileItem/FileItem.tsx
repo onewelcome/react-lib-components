@@ -28,7 +28,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   status?: UploadProgress;
   progress?: number;
   error?: string;
-  fileLink?: string;
+  downloadFileLink?: string;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
 }
 interface FileItemIcons {
@@ -47,7 +47,7 @@ export enum FILE_ACTION {
 const UPLOADING = "uploading";
 
 const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { name, status, error, progress, fileLink, onRequestedFileAction }: Props,
+  { name, status, error, progress, downloadFileLink, onRequestedFileAction }: Props,
   ref
 ) => {
   const determineIcons = (status?: UploadProgress): FileItemIcons => {
@@ -135,7 +135,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             <label>{icons.action !== FILE_ACTION.ABORT ? icons.action : ""}</label>
           )}
           {icons.action === FILE_ACTION.DOWNLOAD && (
-            <a href={fileLink} target="_blank" rel="noreferrer">
+            <a href={downloadFileLink} target="_blank" rel="noreferrer">
               {icons.action}
             </a>
           )}

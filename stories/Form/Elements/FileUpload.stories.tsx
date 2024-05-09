@@ -118,7 +118,6 @@ const Template: Story<Props & { url: string }> = args => {
         onChange={onChange}
         onDrop={onDrop}
         onRequestedFileAction={updateFileList}
-        uploadFileList={updatedFiles ? updatedFiles["status"] : ""}
       />
     </Form>
   );

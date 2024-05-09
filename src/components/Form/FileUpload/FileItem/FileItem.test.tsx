@@ -145,6 +145,7 @@ describe("component should transmit the correct message upwards when a file acti
       defaultParams.name
     );
   });
+
   it("should call Abort action for uploading file", async () => {
     const onRequestedFileAction = jest.fn();
     const { actionIcons } = createFileItem(defaultParams => ({

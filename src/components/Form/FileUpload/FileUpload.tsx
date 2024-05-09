@@ -49,7 +49,6 @@ export interface Props extends FileUploadType {
   onDrop?: (e: FileType[]) => void;
   onChange?: (e: FileType[]) => void;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
-  uploadFileList?: any;
   downloadFileLink?: string;
 }
 
@@ -76,7 +75,6 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onRequestedFileAction,
     exceedingMaxSizeErrorText,
     fileList,
-    uploadFileList,
     downloadFileLink,
     ...rest
   }: Props,
@@ -211,7 +209,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                     status={status}
                     progress={progress}
                     error={error}
-                    fileLink={downloadFileLink}
+                    downloadFileLink={downloadFileLink}
                     onRequestedFileAction={onRequestedFileAction}
                   />
                 </li>
