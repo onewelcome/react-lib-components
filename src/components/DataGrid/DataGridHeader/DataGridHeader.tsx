@@ -103,7 +103,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
   });
 
   return (
-    <thead {...rest} ref={ref} className={classes["thead"]}>
+    <thead {...rest} ref={ref}>
       <tr className={classes["row"]}>
         {headerCells}
         {!disableContextMenuColumn && (
