@@ -79,7 +79,6 @@ const Template: Story<Props & { url: string }> = args => {
   useEffect(() => {
     if (areArraysDifferent(args.fileList, updatedFiles, "status")) {
       updateArgs({ ...args, fileList: updatedFiles });
-      console.log("inside use effect IF", updatedFiles);
     }
   }, [updatedFiles]);
 
@@ -96,10 +95,11 @@ const Template: Story<Props & { url: string }> = args => {
         break;
       case FILE_ACTION.REMOVE:
       case FILE_ACTION.DELETE:
-        console.log("time to delete this file");
         fileList = updatedFiles.filter(file => file.name !== name);
+        break;
       case FILE_ACTION.DOWNLOAD:
-        console.log("time to DOWNload this file", updatedFiles);
+        fileList = updatedFiles;
+        break;
       case FILE_ACTION.ABORT:
         fileList = updatedFiles.filter(file => file.name !== name);
         break;
@@ -118,7 +118,7 @@ const Template: Story<Props & { url: string }> = args => {
         onChange={onChange}
         onDrop={onDrop}
         onRequestedFileAction={updateFileList}
-        uploadFileList={updatedFiles ? updatedFiles["status"] : "ambuj"}
+        uploadFileList={updatedFiles ? updatedFiles["status"] : ""}
       />
     </Form>
   );

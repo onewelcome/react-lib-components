@@ -28,6 +28,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   status?: UploadProgress;
   progress?: number;
   error?: string;
+  fileLink?: string;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
 }
 interface FileItemIcons {
@@ -46,7 +47,7 @@ export enum FILE_ACTION {
 const UPLOADING = "uploading";
 
 const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { name, status, error, progress, onRequestedFileAction }: Props,
+  { name, status, error, progress, fileLink, onRequestedFileAction }: Props,
   ref
 ) => {
   const determineIcons = (status?: UploadProgress): FileItemIcons => {
@@ -118,8 +119,6 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     actionIcons: { type: Icons; action: FILE_ACTION }[],
     status: UploadProgress = UPLOADING
   ) => {
-    // eslint-disable-next-line no-console
-    console.log("status-->", status);
     let actionIconsSet: Array<any> = [];
     for (const icons of actionIcons) {
       actionIconsSet.push(
@@ -132,7 +131,14 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             icons && onRequestedFileAction && onRequestedFileAction(icons.action, name)
           }
         >
-          <label>{icons.action !== FILE_ACTION.ABORT ? icons.action : ""}</label>
+          {icons.action !== FILE_ACTION.DOWNLOAD && (
+            <label>{icons.action !== FILE_ACTION.ABORT ? icons.action : ""}</label>
+          )}
+          {icons.action === FILE_ACTION.DOWNLOAD && (
+            <a href={fileLink} target="_blank" rel="noreferrer">
+              {icons.action}
+            </a>
+          )}
         </Icon>
       );
     }

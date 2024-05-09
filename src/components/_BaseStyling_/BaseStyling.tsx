@@ -33,6 +33,7 @@ interface CSSProperties {
   colorPrimary600?: string;
   colorPrimary700?: string;
   colorPrimary900?: string;
+  colorPrimaryLight?: string;
   colorBlueGrey100?: string;
   colorBlueGrey200?: string;
   colorBlueGrey300?: string;
@@ -207,6 +208,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
+    colorPrimaryLight: "#E6E7F4",
     colorBlueGrey25: "#F7F7F9",
     colorBlueGrey25Transparent: "rgba(247, 247, 249, .8)",
     colorBlueGrey50: "#EEEFF3",
@@ -291,7 +293,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputHoverBackgroundColor: "var(--default-hover-color)",
     inputDisabledBackgroundColor: "var(--input-hover-background-color)",
     dragBackgroundColor: "var(--color-blue-grey25-transparent)",
-    dragBorderStyle: "solid",
+    dragBorderStyle: "dashed",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--light)",
     modalBackdropColor: "var(--default)",

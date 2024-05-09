@@ -16,7 +16,8 @@ const createFileItem = (params?: (defaultParams: Props) => Props) => {
   const component = queries.getByLabelText(`${parameters.name}-wrapper`);
   const title = component.querySelector(".file-name");
   const fileIcon = component.querySelector(".file-icon");
-  const actionIcon = component.querySelector(".action-icon");
+  const errorIcon = component.querySelector(".icon-info-circle");
+  const actionIcons = component.querySelectorAll(".action-icon");
   const errorSubtitle = component.querySelector(".file-subtitle");
   const progressBar = component.querySelector(".progress-bar");
 
@@ -25,9 +26,10 @@ const createFileItem = (params?: (defaultParams: Props) => Props) => {
     component,
     title,
     fileIcon,
-    actionIcon,
+    actionIcons,
     errorSubtitle,
-    progressBar
+    progressBar,
+    errorIcon
   };
 };
 
@@ -41,63 +43,158 @@ describe("component should render", () => {
 
 describe("component should change display the correct style and elements according to the status", () => {
   it("should show the correct details for completed", () => {
-    const { actionIcon, title } = createFileItem(defaultParams => ({
+    const { actionIcons, title } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "completed"
     }));
     expect(title).toHaveClass("completed");
-    expect(actionIcon).toHaveAttribute("title", FILE_ACTION.DELETE);
+    expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.DELETE);
+    expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.DOWNLOAD);
   });
 
-  // it("should show the correct details for uploading", () => {
-  //   const { actionIcon, title, progressBar } = createFileItem(defaultParams => ({
-  //     ...defaultParams,
-  //     status: "uploading"
-  //   }));
-  //   expect(title).toHaveClass("uploading");
-  //   expect(actionIcon).toHaveAttribute("title", FILE_ACTION.ABORT);
-  //   expect(progressBar).toBeDefined();
-  // });
+  it("should show the correct details for uploading", () => {
+    const { actionIcons, title, progressBar } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "uploading"
+    }));
+    expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.ABORT);
+    expect(progressBar).toBeDefined();
+  });
 
   it("should show the correct details for readonly", () => {
-    const { actionIcon, title } = createFileItem(defaultParams => ({
+    const { actionIcons, title } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "readonly"
     }));
+
     expect(title).toHaveClass("readonly");
-    expect(actionIcon).toBeNull();
+    expect(actionIcons).toHaveLength(0);
   });
 
   it("should show the correct details for error", () => {
-    const { actionIcon, title, errorSubtitle } = createFileItem(defaultParams => ({
+    const { actionIcons, title, errorSubtitle } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "error"
     }));
+
     expect(title).toHaveClass("error");
-    expect(actionIcon).toHaveAttribute("title", FILE_ACTION.REMOVE);
+    expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.REMOVE);
     expect(errorSubtitle).toBeDefined();
   });
 
   it("should show the correct details for retry", () => {
-    const { actionIcon, title } = createFileItem(defaultParams => ({
+    const { actionIcons, title, errorIcon } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "retry"
     }));
     expect(title).toHaveClass("retry");
-    expect(actionIcon).toHaveAttribute("title", FILE_ACTION.RETRY);
+    expect(errorIcon).not.toBeNull();
+    expect(actionIcons[0]).toHaveClass("icon-refresh");
+    expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.RETRY);
+    expect(actionIcons[1]).toHaveClass("icon-trash");
+    expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.REMOVE);
+  });
+
+  it("should show Delete & Download option for successfully uploaded file", () => {
+    const { actionIcons, title } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "completed"
+    }));
+    expect(title).toHaveClass("completed");
+    expect(actionIcons[0]).toHaveClass("icon-trash");
+    expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.DELETE);
+    expect(actionIcons[1]).toHaveClass("icon-download-file-outline");
+    expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.DOWNLOAD);
+  });
+
+  it("should show Abort option for uploading file", () => {
+    const { actionIcons, title } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "uploading"
+    }));
+    expect(title).toBeNull();
+    expect(actionIcons[0]).toHaveClass("icon-cancel");
+    expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.ABORT);
+  });
+
+  it("should show Remove option for error file", () => {
+    const { actionIcons, title } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "error"
+    }));
+    expect(title).toHaveClass("error");
+    expect(actionIcons[0]).toHaveClass("icon-times");
+    expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.REMOVE);
   });
 });
 
 describe("component should transmit the correct message upwards when a file action icon is clicked", () => {
-  it("should call retry action", async () => {
+  it("should call Remove action for error", async () => {
     const onRequestedFileAction = jest.fn();
-    const { actionIcon } = createFileItem(defaultParams => ({
+    const { actionIcons } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "error",
+      onRequestedFileAction
+    }));
+
+    await user.click(actionIcons[0] as Element);
+    expect(actionIcons).toHaveLength(1);
+    expect(onRequestedFileAction).toHaveBeenNthCalledWith(
+      1,
+      FILE_ACTION.REMOVE,
+      defaultParams.name
+    );
+  });
+  it("should call Abort action for uploading file", async () => {
+    const onRequestedFileAction = jest.fn();
+    const { actionIcons } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "uploading",
+      onRequestedFileAction
+    }));
+
+    await user.click(actionIcons[0] as Element);
+    expect(actionIcons).toHaveLength(1);
+    expect(onRequestedFileAction).toHaveBeenNthCalledWith(1, FILE_ACTION.ABORT, defaultParams.name);
+  });
+
+  it("should call Delete & Download action for completed", async () => {
+    const onRequestedFileAction = jest.fn();
+    const { actionIcons } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "completed",
+      onRequestedFileAction
+    }));
+
+    expect(actionIcons).toHaveLength(2);
+
+    for (let i = 0; i < actionIcons.length; i++) {
+      await user.click(actionIcons[i] as Element);
+      expect(onRequestedFileAction).toHaveBeenNthCalledWith(
+        i + 1,
+        i === 0 ? FILE_ACTION.DELETE : FILE_ACTION.DOWNLOAD,
+        defaultParams.name
+      );
+    }
+  });
+
+  it("should call Retry & Remove action for failed", async () => {
+    const onRequestedFileAction = jest.fn();
+    const { actionIcons } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "retry",
       onRequestedFileAction
     }));
 
-    await user.click(actionIcon as Element);
-    expect(onRequestedFileAction).toHaveBeenNthCalledWith(1, FILE_ACTION.RETRY, defaultParams.name);
+    expect(actionIcons).toHaveLength(2);
+
+    for (let i = 0; i < actionIcons.length; i++) {
+      await user.click(actionIcons[i] as Element);
+      expect(onRequestedFileAction).toHaveBeenNthCalledWith(
+        i + 1,
+        i === 0 ? FILE_ACTION.RETRY : FILE_ACTION.REMOVE,
+        defaultParams.name
+      );
+    }
   });
 });

@@ -40,8 +40,6 @@ export const useUploadFile = (
   request: UploadFileRequestParams,
   callbacks?: UseUploadFileCallback
 ) => {
-  // eslint-disable-next-line no-console
-  console.log("inside useUploadFile", request);
   const { url, headers, withCredentials, networkErrorText, responseErrorPath } = request;
 
   const { onComplete, onProgress } = callbacks ?? {};
@@ -82,7 +80,7 @@ export const useUploadFile = (
     if (requestStatus >= 200 && requestStatus < 400) {
       fileStatus = "completed";
     } else if (requestStatus === 0) {
-      fileStatus = "completed";
+      fileStatus = "retry";
       error =
         networkErrorText ?? "Network error. Check internet connection and retry uploading the file";
     } else if (requestStatus >= 400 && requestStatus < 500) {

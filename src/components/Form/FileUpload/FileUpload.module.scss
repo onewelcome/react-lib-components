@@ -31,16 +31,16 @@
   padding: 0.25rem 1.25rem;
   position: relative;
   @include transition(all, 0.2s, ease-in-out);
-  &.drag-active {
-    @include outline(
-      var(--color-blue-grey500),
-      var(--drag-border-style),
-      var(--input-border-width),
-      var(--input-border-radius),
-      var(--drag-background-color)
-    );
-    @include outlineStates;
-  }
+  // &.drag-active {
+  //   @include outline(
+  //     var(--color-blue-grey500),
+  //     var(--drag-border-style),
+  //     var(--input-border-width),
+  //     var(--input-border-radius),
+  //     var(--drag-background-color)
+  //   );
+  //   @include outlineStates;
+  // }
   &.error {
     span[data-icon-status],
     .file-upload-title {
@@ -76,6 +76,22 @@
 .upload-button-wrapper {
   background: var(--color-blue-grey25);
   padding: 4px;
+
+  &.drag-active {
+    @include outline(
+      var(--color-blue-grey500),
+      var(--drag-border-style),
+      var(--input-border-width),
+      var(--input-border-radius),
+      var(--color-primary-light)
+    );
+    &:hover .outline {
+      background-color: var(--color-primary-light);
+    }
+    & .file-select {
+      position: relative;
+    }
+  }
 }
 
 .file-selector-sub-text {

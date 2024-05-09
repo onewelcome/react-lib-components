@@ -82,10 +82,13 @@
     padding-left: 1.25rem;
     margin-right: 1rem;
 
-    & label {
+    & label,
+    & a {
       text-transform: capitalize;
       padding-left: 8px;
       cursor: pointer;
+      color: var(--color-primary);
+      text-decoration: none;
     }
   }
 

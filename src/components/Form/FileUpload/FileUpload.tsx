@@ -27,9 +27,7 @@ import { FILE_ACTION, FileItem, Props as FileConfig } from "./FileItem/FileItem"
 import { Props as InputProps } from "../Input/Input";
 import { Typography } from "../../Typography/Typography";
 import classes from "./FileUpload.module.scss";
-import { Icon, Icons } from "../../Icon/Icon";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
-import { ProgressBar } from "../../ProgressBar/ProgressBar";
 
 type FileUploadType = Omit<InputProps, "onDrop" | "type" | "onChange" | "suffix" | "prefix">;
 export type FileType = Omit<FileConfig, "onRequestedFileAction"> &
@@ -52,6 +50,7 @@ export interface Props extends FileUploadType {
   onChange?: (e: FileType[]) => void;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
   uploadFileList?: any;
+  downloadFileLink?: string;
 }
 
 const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
@@ -78,6 +77,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     exceedingMaxSizeErrorText,
     fileList,
     uploadFileList,
+    downloadFileLink,
     ...rest
   }: Props,
   ref
@@ -87,8 +87,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const [inputError, setInputError] = useState(false);
   const icon = useDetermineStatusIcon({ success, error });
   let dropzoneClassNames = [classes["file-dropzone"]];
+  let dropzoneContainerClassNames = [classes["upload-button-wrapper"]];
   let subTextClass = [classes["file-selector-sub-text"]];
-  dragActive && dropzoneClassNames.push(classes["drag-active"]);
+  dragActive && dropzoneContainerClassNames.push(classes["drag-active"]);
   inputError ||
     (error && dropzoneClassNames.push(classes["error"]) && subTextClass.push(classes["error"]));
   disabled && dropzoneClassNames.push(classes["disabled"]);
@@ -182,6 +183,8 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     if (e?.dataTransfer?.files && e.dataTransfer.files.length) {
       const extension = e?.dataTransfer?.files[0].name.split(".").pop();
       if (extension && accept && !accept.includes(extension)) {
+        // eslint-disable-next-line no-console
+        console.error("incorrect file format. Allowed format are", accept);
         setDragActive(false);
         return;
       }
@@ -194,12 +197,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   return (
     <div className={classes["file-upload-wrapper"]} {...wrapperProps}>
       <div className={classes["dropzone-wrapper"]}>
-        <div
-          className={dropzoneClassNames.join(" ")}
-          onDragOver={e => !disabled && handleOnDragOver(e)}
-          onDragLeave={e => !disabled && handleOnDragLeave(e)}
-          onDrop={e => !disabled && handleOnDrop(e)}
-        >
+        <div className={dropzoneClassNames.join(" ")}>
           <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
             {title} <span className={classes["file-upload-title-mandatory"]}>*</span>
           </Typography>
@@ -213,6 +211,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                     status={status}
                     progress={progress}
                     error={error}
+                    fileLink={downloadFileLink}
                     onRequestedFileAction={onRequestedFileAction}
                   />
                 </li>
@@ -220,10 +219,13 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             </ul>
           )}
 
-          {/* Upload File Button */}
-          <div className={classes["upload-button-wrapper"]}>
+          <div
+            className={dropzoneContainerClassNames.join(" ")}
+            onDragOver={e => !disabled && handleOnDragOver(e)}
+            onDragLeave={e => !disabled && handleOnDragLeave(e)}
+            onDrop={e => !disabled && handleOnDrop(e)}
+          >
             <div className={classes["file-select"]}>
-              {/* <Icon className={"drop-file-icon"} icon={Icons.FileUpload} /> */}
               <Typography variant="body" className={"drag-and-drop-text"}>
                 {dragAndDropText}
               </Typography>

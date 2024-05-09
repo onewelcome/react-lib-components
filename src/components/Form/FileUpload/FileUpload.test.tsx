@@ -214,7 +214,7 @@ describe("file drag and drop properties", () => {
       }
     };
 
-    const dropZone = container.querySelector(".file-dropzone") as Element;
+    const dropZone = container.querySelector(".upload-button-wrapper") as Element;
     const dragEnterEvent = createEvent.dragEnter(dropZone, eventData);
     const dragOverEvent = createEvent.dragOver(dropZone, eventData);
     const dropEvent = createEvent.drop(dropZone, eventData);
