@@ -20,6 +20,7 @@ import {
   FormSection,
   Props
 } from "../../../src/components/Form/FormSection/FormSection";
+import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import FormSectionDocumentation from "./FormSection.mdx";
 
 const meta: Meta = {
@@ -33,7 +34,15 @@ const meta: Meta = {
   args: {
     header: "Form Section Header Text",
     children: (
-      <input></input>
+      <InputWrapper
+        errorMessage="This is an error"
+        helperText="Helper text for this field. Description should be short and not repeat the label"
+        label="Label for this inputfield"
+        name="input1"
+        onChange={() => { }}
+        type="text"
+        value=""
+      />
     ),
     subtext: "Form Section Subheader"
   }
@@ -41,18 +50,5 @@ const meta: Meta = {
 
 export default meta;
 
-const defaultArgs: Props = {
-  header: "Form Section Header Text",
-  children: (
-    <input></input>
-  ),
-  subtext: "Form Section Subheader"
-};
-
 const Template: Story<Props> = args => <FormSection {...args} />;
 export const FormSectionComponent = Template.bind({});
-
-FormSectionComponent.args = {
-  ...defaultArgs
-};
-

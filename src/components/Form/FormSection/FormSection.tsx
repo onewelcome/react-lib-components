@@ -15,8 +15,8 @@
  */
 
 import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
-import { Typography } from "@onewelcome/react-lib-components";
 import classes from "./FormSection.module.scss";
+import { Typography } from "../../Typography/Typography";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   header?: string;
@@ -32,14 +32,14 @@ export const FormSectionComponent: ForwardRefRenderFunction<HTMLDivElement, Prop
       {header && (
         <div className={classes["section-header-wrapper"]}>
           <Typography
-            variant="h3"
+            variant="h4"
             className={classes["section-header"]}
             spacing={{ marginBottom: 0 }}
           >
             {header}
           </Typography>
           {subtext && (
-            <Typography className={classes["subtext"]} variant="body" spacing={{ marginBottom: 0 }}>
+            <Typography variant="sub-text" spacing={{ marginBottom: 0 }}>
               {subtext}
             </Typography>
           )}
