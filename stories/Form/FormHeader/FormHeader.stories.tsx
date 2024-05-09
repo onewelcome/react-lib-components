@@ -39,7 +39,8 @@ const meta: Meta = {
         Form <i>Description</i>
       </p>
     ),
-    formButtonList: formButtonList
+    formButtonList: formButtonList,
+    isCollapsed: false
   }
 };
 
@@ -52,7 +53,8 @@ const defaultArgs: Props = {
       Form <i>Description</i>
     </p>
   ),
-  buttons: []
+  buttons: [],
+  isCollapsed: false
 };
 
 const Template: Story<Props> = args => <FormHeader {...args} />;

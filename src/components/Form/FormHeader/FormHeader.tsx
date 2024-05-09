@@ -21,21 +21,11 @@ import { Button, ButtonProps, Typography } from "../../..";
 export interface Props extends ComponentPropsWithRef<"div"> {
   title: string;
   buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
+  isCollapsed: boolean;
 }
 
-export interface CollapseHandler {
-  collapseExpendHeader(collapsed: boolean): void;
-}
+export const FormHeaderComponent = ({ title, children, buttons, isCollapsed, ...rest }: Props) => {
 
-export const FormHeaderComponent = ({ title, children, buttons, ...rest }: Props, ref: ForwardedRef<CollapseHandler>) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  useImperativeHandle(ref, () => {
-    return {
-      collapseExpendHeader(collapsed: boolean = false) {
-        setIsCollapsed(collapsed);
-      }
-    }
-  }, []);
   return (
     <div className={`${classes["header"]} ${rest.className} ${isCollapsed ? classes["collapsed-header"] : ''}`} {...rest}>
       <div>
