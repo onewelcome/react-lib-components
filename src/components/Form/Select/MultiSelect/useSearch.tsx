@@ -15,10 +15,10 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { PartialInputProps, SearchProps } from "./Select.interfaces";
-import { Input } from "../Input/Input";
+import { PartialInputProps, SearchProps } from "../Select.interfaces";
 
 interface Props {
+  selectId: string;
   search?: SearchProps;
   optionsCount: number;
   /**
@@ -32,30 +32,35 @@ interface Props {
   searchInputClassName: string;
   expanded: boolean;
   setFocusedSelectItem: (idx: number) => void;
+  focusedSelectItem: number;
+  describedBy?: string;
+  getOptionId: (multiSelectId: string, optionIndex: number) => string;
+  getListboxId: (multiSelectId: string) => string;
 }
 
+/** @scope .*/
 export const useSearch = ({
+  selectId,
   search,
   optionsCount,
   searchPlaceholder,
   searchInputProps,
   searchInputClassName,
   expanded,
-  setFocusedSelectItem
+  setFocusedSelectItem,
+  focusedSelectItem,
+  describedBy,
+  getOptionId,
+  getListboxId
 }: Props) => {
   const [filter, setFilter] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
 
-  const DEFAULT_RENDER_THRESHOLD = 10;
+  const DEFAULT_RENDER_THRESHOLD = 0;
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const threshold = search?.renderThreshold ?? DEFAULT_RENDER_THRESHOLD;
   const hasEnoughChildren = optionsCount >= threshold;
-
-  const filterResults = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(event.currentTarget.value);
-  };
 
   const shouldRenderSearch = () => {
     if (search?.enabled) {
@@ -69,56 +74,53 @@ export const useSearch = ({
     return optionsCount > DEFAULT_RENDER_THRESHOLD;
   };
 
-  const renderSearch = () => (
-    <Input
-      {...(search?.searchInputProps ?? searchInputProps ?? {})}
-      ref={searchInputRef}
-      onFocus={() => setIsSearching(true)}
-      onBlur={() => setIsSearching(false)}
-      onChange={filterResults}
-      className={searchInputClassName}
-      wrapperProps={{
-        className:
-          search?.searchInputProps?.wrapperProps?.className ??
-          searchInputProps?.wrapperProps?.className
-      }}
-      style={{
-        display: expanded ? "block" : "none"
-      }}
-      type="text"
-      name="search-option"
-      placeholder={search?.searchPlaceholder ?? searchPlaceholder}
-    />
-  );
+  const renderSearch = () => {
+    return (
+      <input
+        {...((search?.searchInputProps as any) ?? searchInputProps ?? {})}
+        ref={searchInputRef}
+        value={filter}
+        onChange={event => setFilter(event.currentTarget.value)}
+        className={[searchInputClassName, searchInputProps?.className].join(" ")}
+        style={{
+          display: expanded ? "block" : "none"
+        }}
+        type="text"
+        name="search-option"
+        placeholder={search?.searchPlaceholder ?? searchPlaceholder}
+        role="combobox"
+        autoComplete="off"
+        autoCorrect="off"
+        spellCheck={false}
+        aria-controls={getListboxId(selectId)}
+        aria-describedby={describedBy}
+        aria-autocomplete="none"
+        aria-expanded={expanded}
+        aria-activedescendant={getOptionId(selectId, focusedSelectItem)}
+        aria-haspopup={true}
+      />
+    );
+  };
 
   const resetSearchState = () => {
     setFilter("");
-    setIsSearching(false);
-    setFocusedSelectItem(-1);
+    setFocusedSelectItem(0);
   };
 
   const visible = shouldRenderSearch();
 
   useEffect(() => {
-    (search?.searchInputProps?.reset || searchInputProps?.reset) && resetSearchState();
-  }, [searchInputProps?.reset, search?.searchInputProps?.reset]);
-
-  useEffect(() => {
-    const searchDeactivated =
-      !visible &&
-      !isSearching; /*solves issue in MultiSelect when we filtered result and selected result causes list to be shorter than threshold so still we have a filter applied but can't change it due to `visible` variable has false  */
-    if (searchDeactivated) {
+    if (search?.searchInputProps?.reset || searchInputProps?.reset) {
       resetSearchState();
     }
-  }, [isSearching, visible]);
+  }, [searchInputProps?.reset, search?.searchInputProps?.reset]);
 
   return {
     renderSearch,
-    setIsSearching,
+    resetSearchState,
     searchVisible: visible,
     searchThreshold: threshold,
     searchInputRef,
-    filter,
-    isSearching
+    filter
   };
 };

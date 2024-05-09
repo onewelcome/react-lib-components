@@ -14,18 +14,51 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction } from "react";
+import React, { ForwardRefRenderFunction, RefObject, createRef, useEffect } from "react";
 import { Props as SelectOptionProps, Option as SelectOption } from "../SingleSelect/Option";
+
+import classes from "./MultiSelect.module.scss";
 
 export interface Props extends SelectOptionProps {
   fixed?: boolean;
 }
 
 const MultiOptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
-  { fixed: _fixed, ...rest }: Props,
+  { fixed: _fixed, hasFocus, className, ...rest }: Props,
   ref
 ) => {
-  return <SelectOption ref={ref} {...rest} />;
+  let innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
+
+  const additionalClasses = [];
+  className && additionalClasses.push(className);
+  hasFocus && additionalClasses.push(classes["focus"]);
+
+  const scrollToSelectedElement = (element: HTMLLIElement) => {
+    const listbox = element.parentElement;
+    const listboxWrapper = element.parentElement?.parentElement;
+    const isListboxWrapperScrollable = !!listboxWrapper?.style.maxHeight;
+    if (isListboxWrapperScrollable) {
+      listboxWrapper?.scrollTo(0, element.offsetTop - (listboxWrapper?.offsetHeight ?? 1) / 2);
+    }
+    listbox?.scrollTo(0, element.offsetTop - (listbox?.offsetHeight ?? 1) / 2);
+  };
+
+  useEffect(() => {
+    if (innerOptionRef.current && hasFocus) {
+      scrollToSelectedElement(innerOptionRef.current);
+    }
+  }, [hasFocus, innerOptionRef]);
+
+  return (
+    <SelectOption
+      ref={innerOptionRef}
+      isSelected={hasFocus}
+      disableDefaultSelectedStyle
+      className={additionalClasses.join(" ")}
+      aria-disabled={false}
+      {...rest}
+    />
+  );
 };
 
 export const MultiOption = React.forwardRef(MultiOptionComponent);

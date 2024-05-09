@@ -10,12 +10,36 @@ This also means that not all native `select` HTML attributes are available.
 
 Other than that, the `MultiSelect` component works as you would expect. It requires you to specify options by providing `MultiOption` components that accept a `value` prop. This `value` prop will be passed to the parent `MultiSelect` component. Whenever you click on an `MultiOption`, the `onChange` event will be fired on the parent `MultiSelect` component.
 
-We automatically display a search ' Input ' field when you have a `MultiSelect` component with 10 or more options. You don't need to do anything about this. In order to change the placeholder, you can use the `searchPlaceholder` prop on the `Select` component.
+We automatically display a search ' Input ' field when you have a `MultiSelect` component. You don't need to do anything about this. In order to change the placeholder, you can use the `searchPlaceholder` prop on the `MultiSelect` component.
+To turn off search pass `search` prop object with `enabled` property set to `false`.
+
+# Features
+
+## Search feature
+
+Search feature is enabled by default in `MultiSelect` component.
+
+See [`Select` components](?path=/docs/components-inputs-raw-select--docs#search-feature) for more information.
+
+## Add new feature
+
+See [`Select` components](?path=/docs/components-inputs-raw-select--docs#add-new-feature) for more information.
 
 ## Preselected (unremovable) options
 
 Selected options are shown as [`Tag` components](?path=/docs/components-feedback-tag--docs). To deselect option just click on remove button inside tag with the value you want to deselect.
 The `fixed` prop of `MultiOption` among with preselecting that option let you show selected option that can not be deselected. This can be used to show user that some options are preselected for chosen flow.
+
+## Keyboard navigation
+
+The `MultiSelect` component supports keyboard navigation and was prepared to speed up selecting of options.
+
+- To enter dropdown list press `Enter` or `Space`;
+- To navigate over list use `Arrow Up`, `Arrow Down`,`Home` and `End`;
+- To search (if enabled) just type your query when dropdown list is expanded;
+- To select press `Enter`;
+- To close press `Escape`;
+- To remove selected options use `Tab` and `Enter`;
 
 # Examples
 
@@ -26,14 +50,30 @@ const ExampleComponent = () => {
   const [pickedOptions, setPickedOptions] = useState<string[]>(["option1"]);
   const [hasError, setHasError] = useState(false);
 
+  const handleOptionChange = (options: HTMLOptionsCollection, obsoletePickedOptions: string[]) => {
+    let newPickedOptions = [...obsoletePickedOptions];
+    Array.from(options).forEach(option => {
+      const selected = option.selected;
+      const exists = newPickedOptions.includes(option.value);
+
+      const shouldAdd = !exists && selected;
+      const shouldRemove = exists && !selected;
+
+      if (shouldAdd) {
+        newPickedOptions.push(option.value);
+      } else if (shouldRemove) {
+        newPickedOptions = newPickedOptions.filter(value => value !== option.value);
+      }
+    });
+    return newPickedOptions;
+  };
+
   return (
     <MultiSelect
       name="Example select element"
-            value={pickedOptions}
-      onChange={event => {
-        setPickedOptions(
-          Array.from(event.target.options).filter(option => option.selected).map(option => option.value)
-        );
+      value={pickedOptions}
+      onChange={e => {
+        setPickedOptions(options => handleOptionChange(e.target.options, options));
       }}
       error={hasError}
     >
