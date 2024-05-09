@@ -44,7 +44,7 @@ const Template: StoryFn<any> = (args: AlertQueue) => {
 };
 
 const AlertTemplate = {
-  oopReinventedBecauseReasons: () => {
+  getTemplate: () => {
     const result = Template.bind({});
     result.args = controlArguments;
     result.argTypes = {

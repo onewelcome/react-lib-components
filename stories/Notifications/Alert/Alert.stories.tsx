@@ -29,7 +29,7 @@ const meta: Meta = {
 export default meta;
 
 import AlertTemplate from "./templates/AlertTemplate";
-export const AlertPlayground = AlertTemplate.oopReinventedBecauseReasons();
+export const AlertPlayground = AlertTemplate.getTemplate();
 
 import AlertVariantsTemplate from "./templates/AlertVariantsTemplate";
 export const AllAlertVariants = AlertVariantsTemplate;
