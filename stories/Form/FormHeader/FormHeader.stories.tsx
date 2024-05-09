@@ -34,28 +34,13 @@ const meta: Meta = {
   },
   args: {
     title: "Form Header Text",
-    children: (
-      <p>
-        Form <i>Description</i>
-      </p>
-    ),
-    formButtonList: formButtonList,
+    children: "Form Description",
+    buttons: formButtonList,
     isCollapsed: false
   }
 };
 
 export default meta;
-
-const defaultArgs: Props = {
-  title: "Form Header Text",
-  children: (
-    <p>
-      Form <i>Description</i>
-    </p>
-  ),
-  buttons: [],
-  isCollapsed: false
-};
 
 const Template: Story<Props> = args => <FormHeader {...args} />;
 
