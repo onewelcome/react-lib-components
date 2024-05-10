@@ -25,7 +25,7 @@ const createFormSection = (params?: (defaultParams: Props) => Props) => {
   };
 };
 
-describe("FormSection should render", () => {
+describe("<FormSection />", () => {
   it("should render without crashing", () => {
     const { FormSectionComponent } = createFormSection();
 
