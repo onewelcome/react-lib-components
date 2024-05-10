@@ -68,6 +68,25 @@
   padding: 4px;
 
   &.drag-active {
+    .outline {
+      pointer-events: none;
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      inset: 0;
+      border: var(--input-border-width) dashed var(--color-blue-grey500);
+      border-radius: var(--input-border-radius);
+      background-color: var(--color-primary-light);
+      @include transition(all, 0.2s, ease-in-out);
+      &::before {
+        content: "Drop here";
+        text-align: center;
+        display: block;
+        color: var(--color-primary);
+        padding-top: 2rem;
+      }
+    }
+
     @include outline(
       var(--color-blue-grey500),
       var(--drag-border-style),

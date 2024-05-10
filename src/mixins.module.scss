@@ -201,19 +201,14 @@
     margin: 0;
     padding: 0;
     inset: 0;
-    border: $width dashed $color;
+    border-color: $color;
+    border-style: $style;
+    border-width: $width;
     border-radius: $borderRadius;
     @if ($backgroundColor != "") {
       background-color: $backgroundColor;
     }
     @include transition(all, 0.2s, ease-in-out);
-    &::before {
-      content: "Drop here";
-      text-align: center;
-      display: block;
-      color: var(--color-primary);
-      padding-top: 2rem;
-    }
   }
 }
 

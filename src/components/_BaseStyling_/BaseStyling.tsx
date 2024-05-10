@@ -293,7 +293,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputHoverBackgroundColor: "var(--default-hover-color)",
     inputDisabledBackgroundColor: "var(--input-hover-background-color)",
     dragBackgroundColor: "var(--color-blue-grey25-transparent)",
-    dragBorderStyle: "dashed",
+    dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--light)",
     modalBackdropColor: "var(--default)",
