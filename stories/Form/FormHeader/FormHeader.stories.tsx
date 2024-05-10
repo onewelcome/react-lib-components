@@ -36,7 +36,7 @@ const meta: Meta = {
     title: "Form Header Text",
     children: "Form Description",
     buttons: formButtonList,
-    isCollapsed: false
+    collapsed: false
   }
 };
 
