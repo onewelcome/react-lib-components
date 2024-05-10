@@ -39,16 +39,14 @@ const useAlertContainerHeightAnimation = () => {
 
   useEffect(() => {
     const allHeights = alerts.map(alert => alert.height ?? 0);
-
     let totalHeight = allHeights.reduce((prev, curr) => prev + curr, 0);
-
     totalHeight += (Math.min(alerts.length, 3) - 1) * spaceBetweenAlerts;
 
-    if (exceedsMaximumVisibleAlerts)
+    if (exceedsMaximumVisibleAlerts) {
       setTimeout(() => {
         setJustifyContent("flex-end");
       }, 500);
-
+    }
     if (height > totalHeight && justifyContent !== "flex-end") {
       setJustifyContent("flex-end");
     } else if (height < totalHeight && justifyContent !== "flex-start") {
@@ -64,13 +62,18 @@ const useAlertContainerHeightAnimation = () => {
 export const AlertContainer = ({ placement, children, zIndex, className, ...rest }: Props) => {
   const { height, justifyContent } = useAlertContainerHeightAnimation();
 
+  const containerClasses = [
+    classes["alerts"],
+    classes[placement.horizontal],
+    classes[placement.vertical],
+    className ?? ""
+  ];
+
   return (
     <div
       {...rest}
       style={{ zIndex, height, justifyContent }}
-      className={`${classes["alerts"]} ${classes[placement.horizontal]} ${
-        classes[placement.vertical]
-      } ${className ?? ""}`}
+      className={containerClasses.join(" ")}
     >
       {children}
     </div>
