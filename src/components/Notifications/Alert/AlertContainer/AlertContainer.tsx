@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import classes from "./AlertContainer.module.scss";
-import AlertContext from "../AlertProvider/AlertContext";
+import useAlertContainerHeightAnimation from "./useAlertContainerHeightAnimation";
 
 export interface Placement {
   vertical: "top" | "bottom";
@@ -29,35 +29,6 @@ export interface Props {
   zIndex?: number;
   className?: string;
 }
-
-const useAlertContainerHeightAnimation = () => {
-  const { alerts } = useContext(AlertContext);
-  const [height, setHeight] = useState(0);
-  const [justifyContent, setJustifyContent] = useState<"flex-start" | "flex-end">("flex-start");
-  const spaceBetweenAlerts = 8;
-  const exceedsMaximumVisibleAlerts = alerts.length >= 3;
-
-  useEffect(() => {
-    const allHeights = alerts.map(alert => alert.height ?? 0);
-    let totalHeight = allHeights.reduce((prev, curr) => prev + curr, 0);
-    totalHeight += (Math.min(alerts.length, 3) - 1) * spaceBetweenAlerts;
-
-    if (exceedsMaximumVisibleAlerts) {
-      setTimeout(() => {
-        setJustifyContent("flex-end");
-      }, 500);
-    }
-    if (height > totalHeight && justifyContent !== "flex-end") {
-      setJustifyContent("flex-end");
-    } else if (height < totalHeight && justifyContent !== "flex-start") {
-      setJustifyContent("flex-start");
-    }
-
-    setHeight(totalHeight);
-  }, [alerts]);
-
-  return { height, justifyContent };
-};
 
 export const AlertContainer = ({ placement, children, zIndex, className, ...rest }: Props) => {
   const { height, justifyContent } = useAlertContainerHeightAnimation();
