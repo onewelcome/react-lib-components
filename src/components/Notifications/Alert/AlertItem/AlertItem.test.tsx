@@ -38,7 +38,7 @@ const initParams: Props = {
 };
 
 describe("AlertItem", () => {
-  it("should render without crashing", () => {
+  it("should render without crashing displaying both content and title", () => {
     const { container, queryByTestId } = render(<AlertItem {...initParams} />);
 
     const titleDiv = queryByTestId("title");
@@ -53,9 +53,24 @@ describe("AlertItem", () => {
     expect(getByRole(container, "button")).toBeDefined();
   });
 
+  it("should render only content when only title is provided", async () => {
+    const { container, queryByTestId } = render(<AlertItem {...initParams} content={undefined} />);
+    const titleDiv = queryByTestId("title");
+    expect(titleDiv).toBeNull();
+    const contentDiv = queryByTestId("content");
+    expect(contentDiv).toHaveTextContent(initParams.title!);
+  });
+
+  it("should render content if content is provided", async () => {
+    const { container, queryByTestId } = render(<AlertItem {...initParams} title={undefined} />);
+    const titleDiv = queryByTestId("title");
+    expect(titleDiv).toBeNull();
+    const contentDiv = queryByTestId("content");
+    expect(contentDiv).toHaveTextContent(initParams.content!);
+  });
+
   it("should clicking close button call callback function", async () => {
     const { container } = render(<AlertItem {...initParams} duration={10000000} />);
-
     expect(initParams.onClose).not.toHaveBeenCalled();
     await userEvent.click(getByRole(container, "button"));
     waitFor(() => {
@@ -72,33 +87,6 @@ describe("AlertItem", () => {
       expect(initParams.onClose).toHaveBeenCalledTimes(1);
       expect(initParams.onClose).toHaveBeenCalledWith(initParams.id);
     });
-  });
-
-  it("should render only content when only title is provided", async () => {
-    const { container, queryByTestId } = render(<AlertItem {...initParams} content={undefined} />);
-    const titleDiv = queryByTestId("title");
-    expect(titleDiv).toBeNull();
-    const contentDiv = queryByTestId("content");
-    expect(contentDiv).toHaveTextContent(initParams.title!);
-    expect(getByRole(container, "button")).toBeDefined();
-  });
-
-  it("should render content if content is provided", async () => {
-    const { container, queryByTestId } = render(<AlertItem {...initParams} title={undefined} />);
-    const titleDiv = queryByTestId("title");
-    expect(titleDiv).toBeNull();
-    const contentDiv = queryByTestId("content");
-    expect(contentDiv).toHaveTextContent(initParams.content!);
-    expect(getByRole(container, "button")).toBeDefined();
-  });
-
-  it("should render content and title is both provided", async () => {
-    const { container, queryByTestId } = render(<AlertItem {...initParams} />);
-    const titleDiv = queryByTestId("title");
-    const contentDiv = queryByTestId("content");
-    expect(titleDiv).toHaveTextContent(initParams.title!);
-    expect(contentDiv).toHaveTextContent(initParams.content!);
-    expect(getByRole(container, "button")).toBeDefined();
   });
 
   it("should have aira-live=polite when variant is error and emphasis low", () => {
