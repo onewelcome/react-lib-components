@@ -128,30 +128,24 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     actionIcons: { type: Icons; action: FILE_ACTION }[],
     status: UploadProgress = "uploading"
   ) => {
-    let actionIconsSet: Array<any> = [];
-    for (const icons of actionIcons) {
-      actionIconsSet.push(
-        <Icon
-          key={icons.action}
-          title={icons.action}
-          icon={icons.type}
-          className={classes["action-icon"]}
-          onClick={() =>
-            icons && onRequestedFileAction && onRequestedFileAction(icons.action, name)
-          }
-        >
-          {icons.action !== FILE_ACTION.DOWNLOAD && (
-            <label>{icons.action !== FILE_ACTION.ABORT ? icons.action : ""}</label>
-          )}
-          {icons.action === FILE_ACTION.DOWNLOAD && (
-            <a href={downloadFileLink} target="_blank" rel="noreferrer">
-              {icons.action}
-            </a>
-          )}
-        </Icon>
-      );
-    }
-    return actionIconsSet;
+    return actionIcons.map(icon => (
+      <Icon
+        key={icon.action}
+        title={icon.action}
+        icon={icon.type}
+        className={classes["action-icon"]}
+        onClick={() => icon && onRequestedFileAction && onRequestedFileAction(icon.action, name)}
+      >
+        {icon.action !== FILE_ACTION.DOWNLOAD && (
+          <label>{icon.action !== FILE_ACTION.ABORT ? icon.action : ""}</label>
+        )}
+        {icon.action === FILE_ACTION.DOWNLOAD && (
+          <a href={downloadFileLink} target="_blank" rel="noreferrer">
+            {icon.action}
+          </a>
+        )}
+      </Icon>
+    ));
   };
 
   return (
