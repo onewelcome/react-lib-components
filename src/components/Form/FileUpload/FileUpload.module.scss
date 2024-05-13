@@ -19,10 +19,6 @@
 .file-upload-wrapper {
   display: flex;
   flex-direction: column;
-  .uploadInProgress {
-    border: 1px dashed var(--color-blue-grey100);
-    padding: 1.25rem;
-  }
 }
 
 .file-dropzone {

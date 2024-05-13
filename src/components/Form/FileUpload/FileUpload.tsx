@@ -243,7 +243,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                     disabled={disabled}
                     accept={accept}
                     onChange={onInputChange}
-                    spellCheck={rest.spellCheck ?? false}
+                    spellCheck={false}
                   />
                 </Button>
               </div>
