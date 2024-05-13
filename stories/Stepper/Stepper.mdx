@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as StepperStories from "./Stepper.stories.tsx";
 
+<Meta of={StepperStories} />
 <Title />
 <Subtitle />
 
@@ -82,4 +83,4 @@ export const StepperComponent = () => {
 
 ## Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

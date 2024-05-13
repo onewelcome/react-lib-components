@@ -1,4 +1,4 @@
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   FormHeader,
   FormHeader as FormHeaderComponent,
@@ -41,7 +41,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <FormHeader {...args} />;
+const Template: StoryFn<Props> = args => <FormHeader {...args} />;
 
 export const FormHeaderComponent1 = Template.bind({});
 

@@ -47,11 +47,13 @@ export const Link = Template.bind({});
 
 export const LinkStates = Template.bind({});
 
-const generateLinkStates = (types): Array<Props & { event?: "hover" | "active" | "focus" }> => {
+const generateLinkStates = (
+  types: any[]
+): Array<Props & { event?: "hover" | "active" | "focus" }> => {
   return types.reduce(
     (result, type) => {
-      return result.flatMap(permutation =>
-        type.options.map(option => ({ ...permutation, [type.name]: option }))
+      return result.flatMap((permutation: any) =>
+        type.options.map((option: any) => ({ ...permutation, [type.name]: option }))
       );
     },
     [{}]

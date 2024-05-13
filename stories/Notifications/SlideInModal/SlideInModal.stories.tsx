@@ -15,7 +15,7 @@
  */
 
 import React, { Fragment, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   SlideInModal as SlideInModalComponent,
   Props
@@ -25,8 +25,7 @@ import { Button } from "../../../src/components/Button/Button";
 import { ModalHeader } from "../../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
 import { ModalContent } from "../../../src/components/Notifications/Modal/ModalContent/ModalContent";
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {
@@ -41,7 +40,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const onOpen = () => setOpen(true);

@@ -15,23 +15,22 @@
  */
 
 import React, { Fragment, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   ContextMenu as ContextMenuComponent,
   Props
 } from "../../src/components/ContextMenu/ContextMenu";
-import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
+import { ContextMenuItem } from "../../src";
 import { action } from "@storybook/addon-actions";
-import { IconButton } from "../../src/components/Button/IconButton";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
-import { Offset, Placement, horizontal, vertical } from "../../src/hooks/usePosition";
+import { IconButton } from "../../src";
+import { Icon, Icons } from "../../src";
+import { Offset, Placement } from "../../src/hooks/usePosition";
 import ContextMenuDocumentation from "./ContextMenu.mdx";
-import { Typography } from "../../src/components/Typography/Typography";
-import { within, userEvent, waitFor, getByRole, getAllByRole } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { Typography } from "../../src";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useStoryCentring } from "../utils/useStoryCentring";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
-import { Tooltip } from "../../src/components/Tooltip/Tooltip";
+import { Tooltip } from "../../src";
 
 const meta: Meta = {
   /* fixme: currently it's impossible to add conditional exclusions: https://github.com/storybookjs/storybook/issues/18233
@@ -63,7 +62,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [placement, setPlacement] = useState<Placement>({
     vertical: "bottom",
     horizontal: "left"
@@ -442,8 +441,8 @@ const contextMenuStates: {
 
 ContextMenuStates.decorators = [
   /* We need to place all context menu components on single page as the inside logic doesn't let 
-     the context menu be invisible, so the position is fixed and that mean those will overlaps
-   */
+       the context menu be invisible, so the position is fixed and that mean those will overlaps
+     */
   () => {
     return (
       <div

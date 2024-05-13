@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { FileItem, Props } from "../../../src/components/Form/FileUpload/FileItem/FileItem";
 import FileItemDocumentation from "./FileItem.mdx";
 
@@ -49,7 +49,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   return <FileItem {...args} />;
 };
 

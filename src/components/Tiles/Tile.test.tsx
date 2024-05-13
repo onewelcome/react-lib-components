@@ -22,7 +22,7 @@ import { ContextMenu } from "../ContextMenu/ContextMenu";
 import { IconButton } from "../Button/IconButton";
 import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
 import userEvent from "@testing-library/user-event";
-import { waitFor } from "@storybook/testing-library";
+import { waitFor } from "@testing-library/dom";
 
 const onShow = jest.fn();
 const onClose = jest.fn();

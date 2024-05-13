@@ -15,12 +15,9 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { Tile as TileComponent, Props } from "../../src/components/Tiles/Tile";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
-import { ContextMenu } from "../../src/components/ContextMenu/ContextMenu";
-import { IconButton } from "../../src/components/Button/IconButton";
-import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
+import { Meta, StoryFn } from "@storybook/react";
+import { Props, Tile as TileComponent } from "../../src/components/Tiles/Tile";
+import { ContextMenu, ContextMenuItem, Icon, IconButton, Icons } from "../../src";
 import TileDocumentation from "./Tile.mdx";
 
 const meta: Meta = {
@@ -35,7 +32,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <TileComponent {...args} />;
+const Template: StoryFn<Props> = args => <TileComponent {...args} />;
 
 export const Tile = Template.bind({});
 

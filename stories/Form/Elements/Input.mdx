@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as InputStories from "./Input.stories.tsx";
 
+<Meta of={InputStories} />
 <Title />
 <Subtitle />
 
@@ -35,4 +36,4 @@ const ExampleComponent = () => {
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

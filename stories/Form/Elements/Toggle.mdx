@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as ToggleStories from "./Toggle.stories.tsx";
 
+<Meta of={ToggleStories} />
 <Title />
 <Subtitle />
 
@@ -189,4 +190,4 @@ Below you can find an exampe of the `Toggle` component. It can be controlled thr
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

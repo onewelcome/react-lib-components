@@ -1,7 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
-import { Button } from "../../src/components/Button/Button.tsx";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as ButtonStories from "./Button.stories.tsx";
 
+<Meta of={ButtonStories} />
 <Title />
 <Subtitle />
 
@@ -37,4 +37,4 @@ In the below code snippet you'll see how you can create the buttons displayed do
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

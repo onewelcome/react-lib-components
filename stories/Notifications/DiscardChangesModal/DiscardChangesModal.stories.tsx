@@ -27,8 +27,7 @@ import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/
 import { FormControl } from "../../../src/components/Form/FormControl/FormControl";
 import { Form } from "../../../src/components/Form/Form";
 import DiscardChangesModalDocumentation from "./DiscardChangesModal.mdx";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { userEvent, waitFor, within, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {

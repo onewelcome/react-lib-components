@@ -1,9 +1,13 @@
-import { Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Meta, Subtitle, Title } from "@storybook/blocks";
+import FileItemStories from "./FileItem.stories";
 
+<Meta of={FileItemStories} />
 <Title />
 <Subtitle />
+
 File Item component was created to encapsulate the styles reserved for file items, in a file list It
 receives the following props:
+
 <ul>
   <li>
     <strong>name</strong> -> File Name, as is saved or selected from a file selector
@@ -32,4 +36,4 @@ receives the following props:
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

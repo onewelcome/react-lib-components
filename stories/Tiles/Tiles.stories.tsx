@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Props, Tiles as TitlesComponent } from "../../src/components/Tiles/Tiles";
 import { ContextMenu, ContextMenuItem, Icon, IconButton, Icons, Tile } from "../../src";
 import TilesDocumentation from "./Tiles.mdx";
@@ -32,7 +32,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const addToFavorites = () => {
     window.alert("Add to favorites!");
   };

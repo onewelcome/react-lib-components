@@ -15,15 +15,14 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { Tabs as TabsComponent, Props } from "../../src/components/Tabs/Tabs";
-import { Typography } from "../../src/components/Typography/Typography";
-import { Tab } from "../../src/components/Tabs/Tab";
+import { Meta, StoryFn } from "@storybook/react";
+import { Props, Tabs as TabsComponent } from "../../src/components/Tabs/Tabs";
+import { Typography } from "../../src";
+import { Tab } from "../../src";
 import TabsDocumentation from "./Tabs.mdx";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
+import { Icon, Icons } from "../../src";
 
 const meta: Meta = {
   title: "components/Navigation/Tabs",
@@ -40,7 +39,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   return (
     <TabsComponent {...args}>
       <Tab title="First tab" {...(args as any).tabs?.[0]}>

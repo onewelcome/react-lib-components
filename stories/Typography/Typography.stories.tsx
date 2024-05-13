@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   Props,
   Typography as TypographyComponent,
@@ -41,7 +41,9 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <TypographyComponent {...args}>content</TypographyComponent>;
+const Template: StoryFn<Props> = args => (
+  <TypographyComponent {...args}>content</TypographyComponent>
+);
 
 export const Typography = Template.bind({});
 

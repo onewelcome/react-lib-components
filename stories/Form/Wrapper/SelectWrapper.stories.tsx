@@ -22,8 +22,7 @@ import {
 } from "../../../src/components/Form/Wrapper/SelectWrapper/SelectWrapper";
 import { Option } from "../../../src";
 import SelectWrapperDocumentation from "./SelectWrapper.mdx";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { userEvent, waitFor, within, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {

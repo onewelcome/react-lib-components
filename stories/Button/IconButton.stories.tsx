@@ -61,4 +61,5 @@ IconButton.args = {
   type: "button",
   title: "components/Calendar"
 };
+
 IconButton.storyName = "IconButton";

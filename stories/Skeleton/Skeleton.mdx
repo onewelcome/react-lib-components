@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as SkeletonStories from "./Skeleton.stories.tsx";
 
+<Meta of={SkeletonStories} />
 <Title />
 <Subtitle />
 
@@ -33,4 +34,4 @@ If the `height` property is not defined, it takes a `height` of the current font
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

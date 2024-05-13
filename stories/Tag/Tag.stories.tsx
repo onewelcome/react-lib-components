@@ -15,10 +15,10 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { Tag, Props } from "../../src/components/Tag/Tag";
+import { Meta, StoryFn } from "@storybook/react";
+import { Props, Tag } from "../../src/components/Tag/Tag";
 import TagDocumentation from "./Tag.mdx";
-import { Icons } from "../../src/components/Icon/Icon";
+import { Icons } from "../../src";
 
 const meta: Meta = {
   title: "components/Feedback/Tag",
@@ -32,7 +32,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <Tag {...args}></Tag>;
+const Template: StoryFn<Props> = args => <Tag {...args}></Tag>;
 
 export const EnabledTag = Template.bind({});
 

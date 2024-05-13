@@ -16,22 +16,17 @@
 
 import React, { Fragment, useState } from "react";
 import { Meta } from "@storybook/react";
-import { Wizard } from "../../src/components/Wizard/Wizard";
-import { WizardSteps } from "../../src/components/Wizard/WizardSteps/WizardSteps";
+import { Button, Checkbox, InputWrapper, Typography, Wizard, WizardSteps } from "../../src";
 import {
-  WizardActions,
-  Props as WizardActionsProps
+  Props as WizardActionsProps,
+  WizardActions
 } from "../../src/components/Wizard/WizardActions/WizardActions";
-import { Button } from "../../src/components/Button/Button";
-
 import { Step } from "../../src/components/Wizard/BaseWizardSteps/BaseWizardSteps";
 import WizardDocumentation from "./Wizard.mdx";
 import { Modal } from "../../src/components/Notifications/Modal/Modal";
 import { ModalContent } from "../../src/components/Notifications/Modal/ModalContent/ModalContent";
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { ModalHeader } from "../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
-import { Checkbox } from "../../src/components/Form/Checkbox/Checkbox";
-import { InputWrapper, Typography } from "../../src";
 
 const meta: Meta = {
   title: "components/Layout/Wizard/Wizard",
@@ -209,6 +204,7 @@ const WizardModalTemplate = () => {
 };
 
 export const WizardInModal = WizardModalTemplate.bind({});
+
 WizardInModal.parameters = {
   controls: { hideNoControlsWarning: true }
 };

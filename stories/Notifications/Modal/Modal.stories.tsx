@@ -15,7 +15,7 @@
  */
 
 import React, { Fragment, useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Modal as ModalComponent, Props } from "../../../src/components/Notifications/Modal/Modal";
 import { ModalActions } from "../../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { ModalContent } from "../../../src/components/Notifications/Modal/ModalContent/ModalContent";
@@ -63,7 +63,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("initial value");
   const [value2, setValue2] = useState("initial value");

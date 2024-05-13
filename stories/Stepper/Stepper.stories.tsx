@@ -16,10 +16,9 @@
 
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { Stepper, Props } from "../../src/components/Stepper/Stepper";
+import { Props, Stepper } from "../../src/components/Stepper/Stepper";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
-import { within, waitFor } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { expect, waitFor, within } from "@storybook/test";
 import StepperDocumentation from "./Stepper.mdx";
 
 const meta: Meta = {

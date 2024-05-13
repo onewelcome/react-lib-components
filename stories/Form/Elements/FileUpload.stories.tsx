@@ -15,10 +15,10 @@
  */
 
 import React, { useEffect } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { FileType, FileUpload, Props } from "../../../src/components/Form/FileUpload/FileUpload";
 import { Form } from "../../../src";
-import { useArgs } from "@storybook/addons";
+import { useArgs } from "@storybook/manager-api";
 import { useUploadFile } from "../../../src/hooks/useUploadFile";
 import { FILE_ACTION } from "../../../src/components/Form/FileUpload/FileItem/FileItem";
 import { areArraysDifferent } from "../../../src/util/helper";
@@ -64,7 +64,7 @@ export default meta;
 
 const files: FileType[] = [];
 
-const Template: Story<Props & { url: string }> = args => {
+const Template: StoryFn<Props & { url: string }> = args => {
   const [_, updateArgs] = useArgs();
   const onChange = (e: FileType[]) => {
     setUpdatedFiles(e);

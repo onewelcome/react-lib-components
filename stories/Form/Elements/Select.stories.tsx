@@ -20,8 +20,7 @@ import { Select as SelectComponent } from "../../../src/components/Form/Select/S
 import { Option } from "../../../src";
 import SelectDocumentation from "./Select.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { userEvent, waitFor, within, expect } from "@storybook/test";
 import { SingleSelectProps } from "../../../src/components/Form/Select/Select.interfaces";
 
 const generateOptions = count => {
