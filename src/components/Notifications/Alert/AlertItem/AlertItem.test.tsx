@@ -56,10 +56,10 @@ describe("AlertItem", () => {
   it("should clicking close button call callback function", async () => {
     const { container } = render(<AlertItem {...initParams} duration={10000000} />);
 
-    expect(initParams.onClose).not.toBeCalled();
+    expect(initParams.onClose).not.toHaveBeenCalled();
     await userEvent.click(getByRole(container, "button"));
     waitFor(() => {
-      expect(initParams.onClose).toBeCalledTimes(1);
+      expect(initParams.onClose).toHaveBeenCalledTimes(1);
       expect(initParams.onClose).toHaveBeenCalledWith(initParams.id);
     });
   });
@@ -67,9 +67,9 @@ describe("AlertItem", () => {
   it("should call close callback after provided duration", () => {
     render(<AlertItem {...initParams} />);
 
-    expect(initParams.onClose).not.toBeCalled();
+    expect(initParams.onClose).not.toHaveBeenCalled();
     waitFor(() => {
-      expect(initParams.onClose).toBeCalledTimes(1);
+      expect(initParams.onClose).toHaveBeenCalledTimes(1);
       expect(initParams.onClose).toHaveBeenCalledWith(initParams.id);
     });
   });
@@ -83,13 +83,31 @@ describe("AlertItem", () => {
     expect(getByRole(container, "button")).toBeDefined();
   });
 
-  it("error variant emphasis low should be polite", () => {
+  it("should render content if content is provided", async () => {
+    const { container, queryByTestId } = render(<AlertItem {...initParams} title={undefined} />);
+    const titleDiv = queryByTestId("title");
+    expect(titleDiv).toBeNull();
+    const contentDiv = queryByTestId("content");
+    expect(contentDiv).toHaveTextContent(initParams.content!);
+    expect(getByRole(container, "button")).toBeDefined();
+  });
+
+  it("should render content and title is both provided", async () => {
+    const { container, queryByTestId } = render(<AlertItem {...initParams} />);
+    const titleDiv = queryByTestId("title");
+    const contentDiv = queryByTestId("content");
+    expect(titleDiv).toHaveTextContent(initParams.title!);
+    expect(contentDiv).toHaveTextContent(initParams.content!);
+    expect(getByRole(container, "button")).toBeDefined();
+  });
+
+  it("should have aira-live=polite when variant is error and emphasis low", () => {
     const { queryByTestId } = render(<AlertItem {...initParams} variant="error" emphasis="low" />);
     const container = queryByTestId("container");
     expect(container).toHaveAttribute("aria-live", "polite");
   });
 
-  it("error variant emphasis medium should be assertive", () => {
+  it("should have aria-live=assertive when variant is error and emphasis medium", () => {
     const { queryByTestId } = render(
       <AlertItem {...initParams} variant="error" emphasis="medium" />
     );
@@ -97,7 +115,7 @@ describe("AlertItem", () => {
     expect(container).toHaveAttribute("aria-live", "assertive");
   });
 
-  it("error variant emphasis high should be assertive", () => {
+  it("should have aria-live=assertive when variant is error and emphasis high", () => {
     const { queryByTestId } = render(<AlertItem {...initParams} variant="error" emphasis="high" />);
     const container = queryByTestId("container");
     expect(container).toHaveAttribute("aria-live", "assertive");

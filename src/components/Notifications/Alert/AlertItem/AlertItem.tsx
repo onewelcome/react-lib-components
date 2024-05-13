@@ -140,11 +140,7 @@ export const AlertItem = ({
   ));
 
   const getAlertClasses = (): string => {
-    const alertClasses = [
-      classes["alert"],
-      classes[variant as string],
-      classes[`emph-${emphasis as string}`]
-    ];
+    const alertClasses = [classes["alert"], classes[`${variant}`], classes[`emph-${emphasis}`]];
     if (animationStarted) {
       alertClasses.push(readyclasses["slide-out"]);
     }

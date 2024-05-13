@@ -15,10 +15,10 @@ const AlertVariantsTemplate: StoryFn<{}> = () => {
 
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
-      {variants.map(vari => {
-        const renderedEmph = emphases.map(emph => {
+      {variants.map((vari, variIndex) => {
+        const renderedEmph = emphases.map((emph, emphIndex) => {
           return (
-            <div style={{ margin: "8px" }}>
+            <div style={{ margin: "8px" }} key={`alert-${variIndex}-${emphIndex}`}>
               <AlertItem
                 title={`Variant: ${vari}`}
                 content={`Emphasis: ${emph}`}

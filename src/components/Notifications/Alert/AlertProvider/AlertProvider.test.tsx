@@ -211,7 +211,7 @@ describe("<AlertProvider />", () => {
     await userEvent.click(infoAlertActions[0]);
     await userEvent.click(infoAlertActions[1]);
 
-    expect(infoProps.options.actions[0].onClick).toBeCalledTimes(1);
+    expect(infoProps.options.actions[0].onClick).toHaveBeenCalledTimes(1);
   });
 
   describe("handlers", () => {
