@@ -203,7 +203,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
           {fileList?.length > 0 && (
             <ul className={classes["file-list"]}>
               {fileList.map(({ name, status, progress, error }) => (
-                <li key={name} className={"completed"} id={name}>
+                <li key={name} className={status} id={name}>
                   <FileItem
                     name={name}
                     status={status}
@@ -231,14 +231,15 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
               <div className={classes["file-upload-btn"]}>
                 <Button variant="outline" disabled={disabled}>
                   {selectButtonText}
+                  {(rest.spellCheck = true)}
                   <input
-                    className={classes["upload-input"]}
                     {...rest}
+                    className={`${classes["upload-input"]} ${rest.className}`}
                     ref={ref}
                     aria-labelledby={labeledBy}
                     type="file"
                     name={name}
-                    {...(multiple && { multiple: true })}
+                    multiple={multiple ?? true}
                     disabled={disabled}
                     accept={accept}
                     onChange={onInputChange}

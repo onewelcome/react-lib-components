@@ -77,7 +77,8 @@
       margin: 0;
       padding: 0;
       inset: 0;
-      border: var(--input-border-width) dashed var(--color-blue-grey500);
+      border: var(--file-upload-border-width) var(--drag-drop-border-style)
+        var(--color-blue-grey500);
       border-radius: var(--input-border-radius);
       background-color: var(--color-primary-light);
       @include transition(all, 0.2s, ease-in-out);
@@ -90,13 +91,6 @@
       }
     }
 
-    @include outline(
-      var(--color-blue-grey500),
-      var(--drag-border-style),
-      var(--input-border-width),
-      var(--input-border-radius),
-      var(--color-primary-light)
-    );
     &:hover .outline {
       background-color: var(--color-primary-light);
     }
@@ -119,7 +113,7 @@
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  border: 1px dashed var(--color-blue-grey100);
+  border: var(--file-upload-border-width) var(--drag-drop-border-style) var(--color-blue-grey100);
   padding: 1.25rem;
   [class*="file"] {
     font-size: 1.25rem;

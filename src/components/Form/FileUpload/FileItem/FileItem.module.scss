@@ -26,7 +26,7 @@
   }
 
   & .file-list-container {
-    background-color: #f7f7f9;
+    background-color: var(--color-blue-grey25);
     padding: 1rem 0.75rem;
     display: flex;
     flex-direction: row;
@@ -40,8 +40,6 @@
     .progress-with-action {
       width: 100%;
       display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
       align-items: center;
 
       .progress-bar {

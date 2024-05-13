@@ -193,6 +193,8 @@ interface CSSProperties {
   fontSizeSub?: string;
   fontSizeCode?: string;
   formControlFontSize?: string;
+  fileUploadBorderWidth?: string;
+  dragDropBorderStyle?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -287,6 +289,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "1px",
     inputBorderStyle: "solid",
+    fileUploadBorderWidth: "1px",
+    dragDropBorderStyle: "dashed",
     inputBorderColor: "var(--color-blue-grey500)",
     inputBackgroundColor: "var(--light)",
     inputHelperTextColor: "var(--color-blue-grey500)",

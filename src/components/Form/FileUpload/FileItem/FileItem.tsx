@@ -29,6 +29,8 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   progress?: number;
   error?: string;
   downloadFileLink?: string;
+  uploading?: string;
+  totalPercentage?: number;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
 }
 interface FileItemIcons {
@@ -44,10 +46,17 @@ export enum FILE_ACTION {
   RETRY = "retry"
 }
 
-const UPLOADING = "uploading";
-
 const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { name, status, error, progress, downloadFileLink, onRequestedFileAction }: Props,
+  {
+    name,
+    status,
+    error,
+    progress,
+    downloadFileLink,
+    uploading = "uploading",
+    totalPercentage,
+    onRequestedFileAction
+  }: Props,
   ref
 ) => {
   const determineIcons = (status?: UploadProgress): FileItemIcons => {
@@ -76,7 +85,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             }
           ]
         };
-      case UPLOADING:
+      case uploading:
         return {
           fileIcon: Icons.FileAltIcon,
           actionIcon: [
@@ -115,9 +124,9 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const { friendlyName, extension } = getFriendlyNameAndExtension(name);
 
-  const renderActionIcon = (
+  const renderActionIcons = (
     actionIcons: { type: Icons; action: FILE_ACTION }[],
-    status: UploadProgress = UPLOADING
+    status: UploadProgress = "uploading"
   ) => {
     let actionIconsSet: Array<any> = [];
     for (const icons of actionIcons) {
@@ -148,7 +157,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   return (
     <div ref={ref} className={classes["file-item-wrapper"]} aria-label={`${name}-wrapper`}>
       <div className={classes["file-list-container"]}>
-        {status !== UPLOADING && (
+        {status !== uploading && (
           <Typography
             variant={"body"}
             title={name}
@@ -161,23 +170,22 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               />
             )}
             <Icon icon={icons.fileIcon} className={classes["file-icon"]} />
-            <span className={classes["friendly-name"]}>{friendlyName}</span>.<span>{extension}</span>
+            <span className={classes["friendly-name"]}>{friendlyName}</span>.
+            <span>{extension}</span>
           </Typography>
         )}
 
-        <div className={`${status && status === UPLOADING ? classes["progress-with-action"] : ""}`}>
-          {status === UPLOADING ? (
+        <div className={`${status === uploading ? classes["progress-with-action"] : ""}`}>
+          {status === uploading && (
             <ProgressBar
               className={classes["progress-bar"]}
-              completed={30}
+              completed={progress}
               label={`${friendlyName}.${extension}`}
-              percentage={40}
+              percentage={totalPercentage}
             />
-          ) : (
-            ""
           )}
           <div className={classes["action-button-wrapper"]}>
-            {icons.actionIcon && renderActionIcon(icons.actionIcon, status)}
+            {icons.actionIcon && renderActionIcons(icons.actionIcon, status)}
           </div>
         </div>
       </div>
