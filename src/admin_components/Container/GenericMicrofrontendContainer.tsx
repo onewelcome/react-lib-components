@@ -15,16 +15,18 @@
  */
 
 import React, { ForwardRefRenderFunction, HTMLProps } from "react";
-import classes from "./MicrofrontendContainer.module.scss";
+import classes from "./GenericMicrofrontendContainer.module.scss";
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   fullWidth?: boolean;
 }
 
-/*
- *  FIXME: This component is meant to be moved to a separate UCL package when it's finished.
+/**
+ * FIXME: This component is meant to be moved to a separate UCL package when it's finished.
+ * @deprecated / @experimental
+ * This component may undergo multiple breaking changes or even get removed in the near future.
  */
-export const MicrofrontendContainer: ForwardRefRenderFunction<HTMLDivElement, Props> = ({
+export const GenericMicrofrontendContainer: ForwardRefRenderFunction<HTMLDivElement, Props> = ({
   fullWidth = false,
   children,
   ...rest

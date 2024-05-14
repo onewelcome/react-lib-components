@@ -16,18 +16,18 @@
 
 import React, { Fragment } from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import MicrofrontendContainerDocumentation from "./MicrofrontendContainer.mdx";
+import GenericMicrofrontendContainerDocumentation from "./GenericMicrofrontendContainer.mdx";
 import {
-  MicrofrontendContainer as MicrofrontendContainerComponent,
+  GenericMicrofrontendContainer as GenericMicrofrontendContainerComponent,
   Props
-} from "../../../src/admin_components/Container/MicrofrontendContainer";
+} from "../../../src/admin_components/Container/GenericMicrofrontendContainer";
 
 const meta: Meta = {
-  title: "Admin components/Microfrontend Container",
-  component: MicrofrontendContainerComponent,
+  title: "Admin components/Generic Microfrontend Container",
+  component: GenericMicrofrontendContainerComponent,
   parameters: {
     docs: {
-      page: MicrofrontendContainerDocumentation
+      page: GenericMicrofrontendContainerDocumentation
     }
   },
   argTypes: {
@@ -57,21 +57,21 @@ const Template: StoryFn<Props> = args => {
       <div style={{ height: "5vw", ...outline, ...centerText }}>HEADER</div>
       <div style={{ display: "flex" }}>
         <div style={{ ...outline, ...centerText, width: "8vw" }}>NAV</div>
-        <MicrofrontendContainerComponent style={{ width: "100%" }} {...args}>
+        <GenericMicrofrontendContainerComponent style={{ width: "100%" }} {...args}>
           <div style={{ height: "50vw", ...outline, ...centerText }}>CONTENT</div>
-        </MicrofrontendContainerComponent>
+        </GenericMicrofrontendContainerComponent>
       </div>
     </Fragment>
   );
 };
-export const MicrofrontendContainer = Template.bind({});
+export const GenericMicrofrontendContainer = Template.bind({});
 
-MicrofrontendContainer.args = {};
+GenericMicrofrontendContainer.args = {};
 
-export const MicrofrontendContainerFullWidth = Template.bind({});
+export const GenericMicrofrontendContainerFullWidth = Template.bind({});
 
-MicrofrontendContainerFullWidth.args = { fullWidth: true };
+GenericMicrofrontendContainerFullWidth.args = { fullWidth: true };
 
-MicrofrontendContainerFullWidth.parameters = {
+GenericMicrofrontendContainerFullWidth.parameters = {
   chromatic: { viewports: [1440, 3440] }
 };

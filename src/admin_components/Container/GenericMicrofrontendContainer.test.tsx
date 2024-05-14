@@ -16,14 +16,14 @@
 
 import React from "react";
 import { render } from "@testing-library/react";
-import { MicrofrontendContainer, Props } from "./MicrofrontendContainer";
+import { GenericMicrofrontendContainer, Props } from "./GenericMicrofrontendContainer";
 
 const createMicrofrontendContainer = (props?: Props) => {
   const queries = render(
-    <MicrofrontendContainer
+    <GenericMicrofrontendContainer
       {...props}
       data-testid="microfrontend-container"
-    ></MicrofrontendContainer>
+    ></GenericMicrofrontendContainer>
   );
   const microfrontendContainer = queries.getByTestId("microfrontend-container");
 

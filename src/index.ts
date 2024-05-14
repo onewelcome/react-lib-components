@@ -179,5 +179,5 @@ export type { Props as BannerProps } from "./components/Notifications/Banner/Ban
 /**
  * Admin components
  */
-export type { Props as MicrofrontendContainerProps } from "./admin_components/Container/MicrofrontendContainer";
-export { MicrofrontendContainer } from "./admin_components/Container/MicrofrontendContainer";
+export type { Props as GenericMicrofrontendContainerProps } from "./admin_components/Container/GenericMicrofrontendContainer";
+export { GenericMicrofrontendContainer } from "./admin_components/Container/GenericMicrofrontendContainer";

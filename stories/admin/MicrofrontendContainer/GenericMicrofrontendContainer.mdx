@@ -1,12 +1,13 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
-import * as MicrofrontendContainerStories from "./MicrofrontendContainer.stories.tsx";
+import { ArgTypes, PRIMARY_STORY, Subtitle, Title } from "@storybook/blocks";
 
 <Title />
-<Subtitle />
+<Subtitle>
+  <span style={{ color: "red" }}>**EXPERIMENTAL**</span>
+</Subtitle>
 
-The Microfrontend Container component is designed to simplify the implementation of responsive layouts and spacing management
-within microfrontend architectures. This component offers developers a straightforward solution for ensuring that content remains
-visually appealing and well-structured across various screen sizes and devices.
+The Generic Microfrontend Container component is designed to simplify the implementation of responsive layouts and spacing management
+within microfrontend architectures. It's a go-to solution suitable for basic scenarios, but remember to validate with the designs to ensure it meets your specific requirements.
+This component offers developers a straightforward solution for ensuring that content remains visually appealing and well-structured across various screen sizes and devices.
 
 At its core, the Microfrontend Container utilizes standard CSS techniques to adjust its size and layout based on the dimensions of the viewport.
 This ensures that content within the container adapts seamlessly to different screen sizes, providing a consistent user experience across desktops, tablets,
