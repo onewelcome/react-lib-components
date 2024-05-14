@@ -54,7 +54,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
   };
 
   /**
-   * The sortList contains sorting columns objects. The order of those objects determinates priorities of sorting.
+   * The sortList contains sorting columns objects. The order of those objects determines priorities of sorting.
    * Last modified sorting column has the highest priority.
    */
   const updateSortList = (name: string): Sort => {

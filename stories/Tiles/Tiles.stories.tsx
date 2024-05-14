@@ -43,7 +43,7 @@ const Template: StoryFn<Props> = args => {
         key="tile1"
         title="Tile1"
         imageProps={{
-          src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
+          src: "https://yt3.ggpht.com/ytc/AIdro_kADn_H24AfNf1hw5v3P3ShFuYFhlTjUsdNtZv2r1YpfyM=s68-c-k-c0x00ffffff-no-rj"
         }}
         enabled={false}
         tileAction={
@@ -101,7 +101,7 @@ const Template: StoryFn<Props> = args => {
         key="tile4"
         title="Tile4"
         imageProps={{
-          src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
+          src: "https://yt3.ggpht.com/ytc/AIdro_kADn_H24AfNf1hw5v3P3ShFuYFhlTjUsdNtZv2r1YpfyM=s68-c-k-c0x00ffffff-no-rj"
         }}
         enabled={false}
         tileAction={

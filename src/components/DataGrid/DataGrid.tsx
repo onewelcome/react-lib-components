@@ -70,7 +70,7 @@ const DataGridInner = <T extends {}>(
     throw new Error("Headers definition has to be provided");
   }
   if (!children) {
-    throw new Error("DataGridBody should be provieded with a template how to render rows");
+    throw new Error("DataGridBody should be provided with a template how to render rows");
   }
 
   const [internalHeaders, setInternalHeaders] = useState(headers);

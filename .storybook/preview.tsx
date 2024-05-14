@@ -14,10 +14,9 @@
  *    limitations under the License.
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./base.scss";
-import { BaseStyling } from "../src/components/_BaseStyling_/BaseStyling";
-import { useState } from "react";
+import { BaseStyling } from "../src";
 
 const Preview = story => {
   const [properties, setProperties] = useState({});

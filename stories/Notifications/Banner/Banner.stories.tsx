@@ -66,17 +66,20 @@ const Template: StoryFn<Props> = args => {
   );
 };
 
+export const InfoBanner = Template.bind({});
+
+InfoBanner.args = {
+  type: "info"
+};
+
 export const WarningBanner = Template.bind({});
+
 WarningBanner.args = {
   type: "warning"
 };
 
 export const ErrorBanner = Template.bind({});
+
 ErrorBanner.args = {
   type: "error"
-};
-
-export const InfoBanner = Template.bind({});
-InfoBanner.args = {
-  type: "info"
 };

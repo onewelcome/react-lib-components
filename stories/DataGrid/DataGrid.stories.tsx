@@ -16,24 +16,27 @@
 
 import React, { Fragment, useState } from "react";
 import { Meta } from "@storybook/react";
-import { DataGrid as DataGridComponent, Props } from "../../src/components/DataGrid/DataGrid";
-import { DataGridRow } from "../../src/components/DataGrid/DataGridBody/DataGridRow";
-import { DataGridCell } from "../../src/components/DataGrid/DataGridBody/DataGridCell";
-import { ContextMenu } from "../../src/components/ContextMenu/ContextMenu";
-import { IconButton } from "../../src/components/Button/IconButton";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
-import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
+import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
+import {
+  Button,
+  ContextMenu,
+  ContextMenuItem,
+  DataGridCell,
+  DataGridRow,
+  Form,
+  Icon,
+  IconButton,
+  Icons,
+  InputWrapper
+} from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 import { Modal } from "../../src/components/Notifications/Modal/Modal";
 import { ModalHeader } from "../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
 import { ModalContent } from "../../src/components/Notifications/Modal/ModalContent/ModalContent";
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
-import { Button } from "../../src/components/Button/Button";
-import { Form } from "../../src/components/Form/Form";
-import { InputWrapper } from "../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 
 interface DataGridItem {
   name: string;
@@ -274,6 +277,7 @@ DataGridWithColumnsPopup.args = {
 };
 
 export const HideColumnDataGrid = Template.bind({});
+
 HideColumnDataGrid.args = {
   data: [
     {
