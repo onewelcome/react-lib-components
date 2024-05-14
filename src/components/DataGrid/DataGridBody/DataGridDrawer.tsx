@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,28 +14,10 @@
  *    limitations under the License.
  */
 
-.row {
-  position: relative;
-  background-color: var(--data-grid-row-background-color);
+import React from "react";
 
-  &:not(.loading):hover {
-    background-color: var(--data-grid-row-hover-background-color);
-  }
+type Props = {};
 
-  &.border {
-    &:not(:last-child)::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      left: 0;
-      bottom: 0;
-      border-bottom: 1px solid var(--light-grey-border);
-    }
-  }
-}
-
-.drawer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
+export const DataGridDrawer = (props: Props) => {
+  return <div>DataGridDrawer</div>;
+};

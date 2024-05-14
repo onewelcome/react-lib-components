@@ -14,21 +14,37 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef } from "react";
+import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useState, Fragment } from "react";
 import { HeaderCell } from "../datagrid.interfaces";
 import classes from "./DataGridRow.module.scss";
+import { IconButton } from "../../Button/IconButton";
+import { Icon, Icons } from "../../Icon/Icon";
+import { DataGridCell } from "./DataGridCell";
 
 export interface Props extends ComponentPropsWithRef<"tr"> {
   headers?: HeaderCell[];
   isLoading?: boolean;
   spacing?: React.CSSProperties;
   disableContextMenuColumn?: boolean;
+  disableExpandableRow?: boolean;
+  rowExpanded?: boolean;
+  onExpandRowButtonClick?: boolean;
 }
 
 const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props> = (
-  { children, className, headers, isLoading, spacing, disableContextMenuColumn, ...rest }: Props,
+  {
+    children,
+    className,
+    headers,
+    isLoading,
+    spacing,
+    disableContextMenuColumn,
+    disableExpandableRow,
+    ...rest
+  }: Props,
   ref
 ) => {
+  const [isRowExpanded, setIsRowExpanded] = useState(false);
   const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
     if (child) {
       const cellWithSpacing = React.cloneElement(child, {
@@ -46,12 +62,32 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
 
   const classNames = [classes["row"]];
   className && classNames.push(className);
+  !isRowExpanded && classNames.push(classes["border"]);
   isLoading && classNames.push(classes["loading"]);
 
   return (
-    <tr {...rest} ref={ref} className={classNames.join(" ")}>
-      {visibleCells}
-    </tr>
+    <Fragment>
+      <tr {...rest} ref={ref} className={classNames.join(" ")}>
+        {!disableExpandableRow && (
+          <DataGridCell onClick={() => setIsRowExpanded(!isRowExpanded)} style={{ width: "1px" }}>
+            <IconButton>
+              <Icon icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
+            </IconButton>
+          </DataGridCell>
+        )}
+        {visibleCells}
+      </tr>
+      {isRowExpanded && (
+        <tr className={`${classes["row"]} ${classes["border"]}`}>
+          <td colSpan={7}>
+            <div className={classes["drawer"]}>
+              <div>test</div>
+              <div>test</div>
+            </div>
+          </td>
+        </tr>
+      )}
+    </Fragment>
   );
 };
 

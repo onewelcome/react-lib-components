@@ -84,6 +84,7 @@ const Template = args => {
               item: { name: string; id: string; created: Date; type: string; enabled: boolean };
             }) => (
               <DataGridRow key={item.id}>
+                {!args.disabled}
                 <DataGridCell>{item.name}</DataGridCell>
                 <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
                 <DataGridCell>{item.id}</DataGridCell>
