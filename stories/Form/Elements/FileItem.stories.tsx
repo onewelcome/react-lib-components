@@ -54,12 +54,14 @@ const Template: StoryFn<Props> = args => {
 };
 
 export const FileItemCompleted = Template.bind({});
+
 FileItemCompleted.args = {
   name: "test.txt",
   status: "completed"
 };
 
 export const FileItemError = Template.bind({});
+
 FileItemError.args = {
   name: "test.txt",
   status: "error",
@@ -67,6 +69,7 @@ FileItemError.args = {
 };
 
 export const FileItemProgress = Template.bind({});
+
 FileItemProgress.args = {
   name: "test.txt",
   status: "uploading",
@@ -74,6 +77,7 @@ FileItemProgress.args = {
 };
 
 export const FileItemReadOnly = Template.bind({});
+
 FileItemReadOnly.args = {
   name: "test.txt",
   status: "readonly"

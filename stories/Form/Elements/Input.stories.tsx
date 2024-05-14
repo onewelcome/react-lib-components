@@ -21,7 +21,7 @@ import {
   Input as InputComponent,
   Props
 } from "../../../src/components/Form/Input/Input";
-import { Form } from "../../../src/components/Form/Form";
+import { Form } from "../../../src";
 import InputDocumentation from "./Input.mdx";
 
 const meta: Meta = {

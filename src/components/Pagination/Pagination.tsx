@@ -147,7 +147,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 className={`${classes["form-element"]} ${classes["current-page-select"]}`}
                 searchInputProps={{
                   wrapperProps: { className: classes["search-input-wrapper"] },
-                  reset: resetPageNoSelect,
+                  reset: resetPageNoSelect ? resetPageNoSelect : undefined,
                   autoComplete: "off"
                 }}
               >
@@ -190,7 +190,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             </div>
           )}
           <div className={classes["next"]}>
-            {!!(currentPage !== undefined || (currentPage !== undefined && !totalElements)) && (
+            {(currentPage !== undefined || false) && (
               <IconButton
                 disabled={currentPage >= pagesAmount}
                 title="next"

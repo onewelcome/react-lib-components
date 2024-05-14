@@ -18,11 +18,11 @@ import React, { useEffect } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { FileType, FileUpload, Props } from "../../../src/components/Form/FileUpload/FileUpload";
 import { Form } from "../../../src";
-import { useArgs } from "@storybook/manager-api";
 import { useUploadFile } from "../../../src/hooks/useUploadFile";
 import { FILE_ACTION } from "../../../src/components/Form/FileUpload/FileItem/FileItem";
 import { areArraysDifferent } from "../../../src/util/helper";
 import FileUploadDocumentation from "./FileUpload.mdx";
+import { useArgs } from "@storybook/preview-api";
 
 const meta: Meta = {
   title: "components/Inputs/FileUpload",
