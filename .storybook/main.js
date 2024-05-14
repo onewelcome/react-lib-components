@@ -21,21 +21,14 @@ module.exports = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-docs",
+    "@storybook/addon-essentials",
     "@storybook/addon-a11y",
     "@storybook/addon-interactions",
     "@onewelcome/storybook-addon-basestyling",
     "storybook-addon-pseudo-states",
     "@storybook/addon-mdx-gfm",
     "@storybook/addon-webpack5-compiler-babel",
-    "@chromatic-com/storybook",
-    {
-      name: "@storybook/addon-essentials",
-      options: {
-        chromatic: {
-          waitForFontFace: true
-        }
-      }
-    }
+    "@chromatic-com/storybook"
   ],
   webpackFinal: async (config, { configType }) => {
     config.devtool = configType === "PRODUCTION" ? false : "eval-source-map";

@@ -14,13 +14,10 @@
  *    limitations under the License.
  */
 
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import React from "react";
-import {
-  FormSection,
-  Props
-} from "../../../src/components/Form/FormSection/FormSection";
-import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
+import { FormSection, Props } from "../../../src/components/Form/FormSection/FormSection";
+import { InputWrapper } from "../../../src";
 import FormSectionDocumentation from "./FormSection.mdx";
 
 const meta: Meta = {
@@ -39,7 +36,7 @@ const meta: Meta = {
         helperText="Helper text for this field. Description should be short and not repeat the label"
         label="Label for this inputfield"
         name="input1"
-        onChange={() => { }}
+        onChange={() => {}}
         type="text"
         value=""
       />
@@ -50,5 +47,6 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <FormSection {...args} />;
+const Template: StoryFn<Props> = args => <FormSection {...args} />;
+
 export const FormSectionComponent = Template.bind({});
