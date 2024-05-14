@@ -140,21 +140,21 @@ export const AlertProvider = ({
   };
 
   const removeEntry = (entryId: string) => {
-    setAlertEnties(entries =>
-      entries.filter((entry, idx) => {
+    setAlertEnties(entries => {
+      return entries.filter((entry, idx) => {
         if (idx < stackSize) {
-          entry.wasShown = true;
+          entries[idx] = { ...entries[idx], wasShown: true };
         }
         return entry.id !== entryId;
-      })
-    );
+      });
+    });
   };
 
   const renderAlertList = (): ReactNode => {
-    return alertEntries.slice(0, stackSize).map((entry, index) => (
+    return alertEntries.slice(0, stackSize).map(entry => (
       <AlertItem
         {...entry}
-        key={`${entry.id}-${index.toString()}`}
+        key={`${entry.id}`}
         onClose={() => {
           removeEntry(entry.id);
           entry.onClose?.();
@@ -189,9 +189,11 @@ export const AlertProvider = ({
   return (
     <AlertContext.Provider value={contextValue}>
       {children}
-      <div ref={wrappingDivRef} className={className}>
+      <div ref={wrappingDivRef}>
         {createPortal(
-          <AlertContainer placement={placement}>{renderAlertList()}</AlertContainer>,
+          <AlertContainer placement={placement} className={className}>
+            {renderAlertList()}
+          </AlertContainer>,
           root
         )}
       </div>

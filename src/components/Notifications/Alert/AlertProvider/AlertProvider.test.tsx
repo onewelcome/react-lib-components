@@ -116,11 +116,11 @@ const renderAlertProvider = (props?: Partial<Props>) => {
           onClick={() => {
             enqueueAlert({
               title: "neutral-low",
-              emphasis: "low",
               elementProps: { container: { "data-testid": "neutral-low" } }
             });
             enqueueAlert({
               title: "neutral-medium",
+              emphasis: "medium",
               elementProps: { container: { "data-testid": "neutral-medium" } }
             });
             enqueueAlert({

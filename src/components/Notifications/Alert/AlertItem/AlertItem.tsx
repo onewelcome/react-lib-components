@@ -71,7 +71,7 @@ export const AlertItem = ({
   title,
   duration,
   variant = "neutral",
-  emphasis = "medium",
+  emphasis = "low",
   content,
   className,
   actions = [],
