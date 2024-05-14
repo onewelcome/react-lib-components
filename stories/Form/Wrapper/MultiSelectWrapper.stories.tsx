@@ -45,19 +45,17 @@ const meta: Meta = {
     disabled: {
       control: "boolean"
     }
+  },
+  args: {
+    label: "Example multi select wrapper",
+    name: "Example multi select",
+    helperText: "Example helper text",
+    error: false,
+    errorMessage: "This is an error message",
+    success: false,
+    value: ["option1"]
   }
 };
-
-const defaultArgs: Omit<Props, "children"> = {
-  label: "Example multi select wrapper",
-  name: "Example multi select",
-  helperText: "Example helper text",
-  error: false,
-  errorMessage: "This is an error message",
-  success: false,
-  value: ["option1"]
-};
-
 export default meta;
 
 const Template: StoryFn<Props> = args => {
@@ -153,35 +151,27 @@ MultiSelectWrapper.play = conditionalPlay(async ({ canvasElement }) => {
   await userEvent.click(select);
 });
 
-MultiSelectWrapper.args = {
-  ...defaultArgs
-};
-
 export const MultiSelectWrapperError = Template.bind({});
 
 MultiSelectWrapperError.args = {
-  ...defaultArgs,
   error: true
 };
 
 export const MultiSelectWrapperSuccess = Template.bind({});
 
 MultiSelectWrapperSuccess.args = {
-  ...defaultArgs,
   success: true
 };
 
 export const MultiSelectWrapperDisabled = Template.bind({});
 
 MultiSelectWrapperDisabled.args = {
-  ...defaultArgs,
   disabled: true
 };
 
 export const MultiSelectWrapperRequired = Template.bind({});
 
 MultiSelectWrapperRequired.args = {
-  ...defaultArgs,
   required: true
 };
 
