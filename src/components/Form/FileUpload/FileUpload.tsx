@@ -240,7 +240,6 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
               <div className={classes["file-upload-btn"]}>
                 <Button variant="outline" disabled={disabled}>
                   {selectButtonText}
-                  {(rest.spellCheck = true)}
                   <input
                     {...rest}
                     className={`${classes["upload-input"]} ${rest.className}`}

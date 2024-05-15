@@ -20,7 +20,7 @@ import { Typography } from "../../../Typography/Typography";
 import { Icon, Icons } from "../../../Icon/Icon";
 import { ProgressBar } from "../../../ProgressBar/ProgressBar";
 import { FileType } from "../FileUpload";
-import { Button, Props as ButtonProps } from "../../../Button/Button";
+import { Button } from "../../../Button/Button";
 import { Link } from "../../../Link/Link";
 export type UploadProgress = "uploading" | "completed" | "error" | "readonly" | "retry";
 
@@ -30,7 +30,6 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   progress?: number;
   error?: string;
   downloadFileLink?: string;
-  uploading?: string;
   totalPercentage?: number;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
 }
