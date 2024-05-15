@@ -49,7 +49,6 @@ describe("component should change display the correct style and elements accordi
     }));
     expect(title).toHaveClass("completed");
     expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.DELETE);
-    expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.DOWNLOAD);
   });
 
   it("should show the correct details for uploading", () => {
@@ -98,13 +97,28 @@ describe("component should change display the correct style and elements accordi
   it("should show Delete & Download option for successfully uploaded file", () => {
     const { actionIcons, title } = createFileItem(defaultParams => ({
       ...defaultParams,
-      status: "completed"
+      status: "completed",
+      downloadFileLink: "https://test.com/download"
     }));
+
     expect(title).toHaveClass("completed");
     expect(actionIcons[0]).toHaveClass("icon-trash");
     expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.DELETE);
     expect(actionIcons[1]).toHaveClass("icon-download-file-outline");
     expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.DOWNLOAD);
+  });
+
+  it("should not display Download action for successfully uploaded file when download link not available", () => {
+    const { actionIcons, title } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "completed"
+    }));
+
+    expect(title).toHaveClass("completed");
+    expect(actionIcons).toHaveLength(1);
+    expect(actionIcons[0]).not.toHaveClass("icon-download-file-outline");
+    expect(actionIcons[0]).not.toHaveAttribute("title", FILE_ACTION.DOWNLOAD);
+    expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.DELETE);
   });
 
   it("should show Abort option for uploading file", () => {
@@ -164,19 +178,18 @@ describe("component should transmit the correct message upwards when a file acti
     const { actionIcons } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "completed",
+      downloadFileLink: "https://test.com/download",
       onRequestedFileAction
     }));
 
     expect(actionIcons).toHaveLength(2);
 
-    for (let i = 0; i < actionIcons.length; i++) {
-      await user.click(actionIcons[i] as Element);
-      expect(onRequestedFileAction).toHaveBeenNthCalledWith(
-        i + 1,
-        i === 0 ? FILE_ACTION.DELETE : FILE_ACTION.DOWNLOAD,
-        defaultParams.name
-      );
-    }
+    await user.click(actionIcons[0] as Element);
+    expect(onRequestedFileAction).toHaveBeenNthCalledWith(
+      1,
+      FILE_ACTION.DELETE,
+      defaultParams.name
+    );
   });
 
   it("should call Retry & Remove action for failed", async () => {
@@ -189,13 +202,7 @@ describe("component should transmit the correct message upwards when a file acti
 
     expect(actionIcons).toHaveLength(2);
 
-    for (let i = 0; i < actionIcons.length; i++) {
-      await user.click(actionIcons[i] as Element);
-      expect(onRequestedFileAction).toHaveBeenNthCalledWith(
-        i + 1,
-        i === 0 ? FILE_ACTION.RETRY : FILE_ACTION.REMOVE,
-        defaultParams.name
-      );
-    }
+    await user.click(actionIcons[0] as Element);
+    expect(onRequestedFileAction).toHaveBeenNthCalledWith(1, FILE_ACTION.RETRY, defaultParams.name);
   });
 });

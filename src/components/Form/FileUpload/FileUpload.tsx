@@ -82,14 +82,20 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
 ) => {
   const labelRef = useRef(null);
   const [dragActive, setDragActive] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [inputError, setInputError] = useState(false);
   const icon = useDetermineStatusIcon({ success, error });
   let dropzoneClassNames = [classes["file-dropzone"]];
   let dropzoneContainerClassNames = [classes["upload-button-wrapper"]];
   let subTextClass = [classes["file-selector-sub-text"]];
+  let errorTextClass = [classes["file-selector-sub-text"]];
   dragActive && dropzoneContainerClassNames.push(classes["drag-active"]);
   inputError ||
-    (error && dropzoneClassNames.push(classes["error"]) && subTextClass.push(classes["error"]));
+    ((error || errorMsg) &&
+      dropzoneClassNames.push(classes["error"]) &&
+      subTextClass.push(classes["error"]) &&
+      errorMsg &&
+      errorTextClass.push(classes["error"]));
   disabled && dropzoneClassNames.push(classes["disabled"]);
   success && !error && dropzoneClassNames.push(classes["success"]);
 
@@ -176,15 +182,18 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   };
 
   const handleOnDrop = (e: DragEvent<HTMLDivElement>) => {
+    // eslint-disable-next-line no-console
+    console.log("inside handleOnDrop", e);
     e.preventDefault();
     e.stopPropagation();
     if (e?.dataTransfer?.files && e.dataTransfer.files.length) {
-      const extension = e?.dataTransfer?.files[0].name.split(".").pop();
+      const extension = e?.dataTransfer?.files[0]?.name.split(".").pop();
       if (extension && accept && !accept.includes(extension)) {
-        // eslint-disable-next-line no-console
-        console.error("incorrect file format. Allowed format are", accept);
+        setErrorMsg(`Invalid file format. Supported formats are: ${accept}.`);
         setDragActive(false);
         return;
+      } else {
+        setErrorMsg("");
       }
       const validatedFiles = getFileList(e.dataTransfer.files);
       onDrop?.(validatedFiles);
@@ -255,6 +264,12 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         {subText && (
           <Typography variant={"sub-text"} className={subTextClass.join(" ")}>
             {subText}
+          </Typography>
+        )}
+
+        {errorMsg && (
+          <Typography variant={"sub-text"} className={errorTextClass.join(" ")}>
+            {errorMsg}
           </Typography>
         )}
       </div>

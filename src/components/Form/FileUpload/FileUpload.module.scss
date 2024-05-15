@@ -93,6 +93,11 @@
     & .file-select {
       position: relative;
     }
+    .error {
+      .outline {
+        border-color: var(--error);
+      }
+    }
   }
 }
 

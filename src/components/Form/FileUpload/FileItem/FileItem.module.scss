@@ -27,13 +27,55 @@
 
   & .file-list-container {
     background-color: var(--color-blue-grey25);
-    padding: 1rem 0.75rem;
+    padding: 0.25rem 0.75rem;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    min-height: 46px;
 
     .action-button-wrapper {
       margin: 0.25rem 0;
+      display: flex;
+      button {
+        margin-left: 0.5rem;
+        span {
+          font-size: 1rem;
+          text-transform: capitalize;
+        }
+      }
+      a {
+        padding-left: 0.75rem;
+        padding-right: 1.25rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        margin-left: 0.5rem;
+
+        span[data-icon] {
+          display: flex;
+          justify-content: center;
+          width: 1.5rem;
+          margin-right: 0.25rem;
+          font-size: 1rem;
+        }
+
+        span {
+          font-size: 1rem;
+          text-transform: capitalize;
+        }
+        &:hover {
+          color: var(--button-primary-hover-color);
+          background-color: var(--color-black10);
+        }
+        &:focus {
+          outline: 2px var(--button-border-style) var(--color-focus);
+          outline-offset: 2px;
+          border-radius: var(--button-border-radius);
+          z-index: 2;
+        }
+      }
     }
 
     .progress-with-action {
@@ -45,9 +87,9 @@
         height: 3rem;
         width: 100%;
         background: transparent;
-        span[class*="bar--"],
-        span[class*="bar2--"] {
+        > span {
           height: 0.3rem;
+          border-radius: var(--input-border-radius);
         }
       }
     }
@@ -56,8 +98,7 @@
     background-color: var(--color-black10);
   }
 
-  span[class*="bar--"],
-  span[class*="bar2--"] {
+  span[class*="bar--"] {
     border-radius: var(--input-border-radius);
     height: 1rem;
   }
@@ -116,5 +157,9 @@
 
   .readonly {
     color: var(--greyed-out);
+  }
+
+  .file-subtitle {
+    margin-left: 0;
   }
 }
