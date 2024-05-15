@@ -185,38 +185,46 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     ));
   };
 
+  const getUploadedFileInfo = () => {
+    return (
+      <Typography
+        variant={"body"}
+        title={name}
+        className={`${classes["file-name"]} ${status ? classes[status] : ""}`}
+      >
+        {status === "retry" && (
+          <Icon
+            icon={Icons.InfoCircle}
+            className={`${classes["file-icon"]} ${status ? classes[status] : ""}`}
+          />
+        )}
+        <Icon icon={icons.fileIcon} className={classes["file-icon"]} />
+        <span className={classes["friendly-name"]}>{friendlyName}</span>.<span>{extension}</span>
+      </Typography>
+    );
+  };
+
+  const getProgressBar = () => {
+    return (
+      <ProgressBar
+        className={classes["progress-bar"]}
+        completed={progress}
+        label={`${friendlyName}.${extension}`}
+        percentage={totalPercentage}
+      />
+    );
+  };
+
   return (
     <div ref={ref} className={classes["file-item-wrapper"]} aria-label={`${name}-wrapper`}>
       <div className={classes["file-list-container"]}>
-        {status !== ACTION_STATUS.UPLOADING && (
-          <Typography
-            variant={"body"}
-            title={name}
-            className={`${classes["file-name"]} ${status ? classes[status] : ""}`}
-          >
-            {status === "retry" && (
-              <Icon
-                icon={Icons.InfoCircle}
-                className={`${classes["file-icon"]} ${status ? classes[status] : ""}`}
-              />
-            )}
-            <Icon icon={icons.fileIcon} className={classes["file-icon"]} />
-            <span className={classes["friendly-name"]}>{friendlyName}</span>.
-            <span>{extension}</span>
-          </Typography>
-        )}
+        {status !== ACTION_STATUS.UPLOADING && getUploadedFileInfo()}
 
         <div
           className={`${status === ACTION_STATUS.UPLOADING ? classes["progress-with-action"] : ""}`}
         >
-          {status === ACTION_STATUS.UPLOADING && (
-            <ProgressBar
-              className={classes["progress-bar"]}
-              completed={progress}
-              label={`${friendlyName}.${extension}`}
-              percentage={totalPercentage}
-            />
-          )}
+          {status === ACTION_STATUS.UPLOADING && getProgressBar()}
+
           <div className={classes["action-button-wrapper"]}>
             {icons.actionIcons && renderActionIcons(icons.actionIcons, status)}
           </div>
