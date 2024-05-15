@@ -1,0 +1,10 @@
+.stepper {
+    position: sticky;
+    top: 0px;
+    & > div:first-child {
+      height: auto;
+      min-height: 15rem;
+      align-items: flex-start;
+    }
+  }
+  
