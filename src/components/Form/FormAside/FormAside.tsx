@@ -17,7 +17,6 @@
 import React from "react";
 import classes from ".//FormAside.module.scss";
 import { StepProps, Stepper, StepperProps } from "../../..";
-import { StepStatus } from "../../Stepper/Step";
 
 export interface FormStepProps extends StepProps {
   targetScrollView?: string;
@@ -25,10 +24,6 @@ export interface FormStepProps extends StepProps {
 
 export interface Props extends StepperProps {
   steps: FormStepProps[];
-}
-
-export interface StepStatusProps {
-  updateStepStatus: (index: number, newStatus: StepStatus) => void;
 }
 
 export const FormAside = ({ steps, direction, textPosition, ...rest }: Props) => {
