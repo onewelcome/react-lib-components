@@ -71,7 +71,3 @@ GenericMicrofrontendContainer.args = {};
 export const GenericMicrofrontendContainerFullWidth = Template.bind({});
 
 GenericMicrofrontendContainerFullWidth.args = { fullWidth: true };
-
-GenericMicrofrontendContainerFullWidth.parameters = {
-  chromatic: { viewports: [1440, 3440] }
-};
