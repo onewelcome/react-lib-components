@@ -15,11 +15,11 @@
  */
 
 import React from "react";
-import classes from ".//FormAside.module.scss";
-import { StepProps, Stepper, StepperProps } from "../../..";
+import classes from "./FormAside.module.scss";
+import { StepProps, Stepper, StepperProps } from "../../../";
 
 export interface FormStepProps extends StepProps {
-  targetScrollView?: string;
+  targetScrollViewId?: string;
 }
 
 export interface Props extends StepperProps {
@@ -28,8 +28,8 @@ export interface Props extends StepperProps {
 
 export const FormAside = ({ steps, direction, textPosition, ...rest }: Props) => {
   const stepper = steps.map(step => {
-    if (step.targetScrollView && !step.onClick) {
-      step.onClick = () => document.getElementById(step.targetScrollView!)?.scrollIntoView();
+    if (step.targetScrollViewId && !step.onClick) {
+      return {...step, onClick: () => document.getElementById(step.targetScrollViewId!)?.scrollIntoView()}
     }
     return step;
   });

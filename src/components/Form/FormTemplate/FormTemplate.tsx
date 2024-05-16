@@ -14,23 +14,23 @@
  *    limitations under the License.
  */
 
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, ReactElement } from "react";
 import { Props as FormAsideProps, FormAside } from "../FormAside/FormAside";
 import classes from "./FormTemplate.module.scss";
 import React from "react";
 import { FormHeader, Props as FormHeaderProps } from "../FormHeader/FormHeader";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  formHeader?: FormHeaderProps;
-  formAside?: FormAsideProps;
+  formHeader?: ReactElement<FormHeaderProps, typeof FormHeader>;
+  formAside?: ReactElement<FormAsideProps, typeof FormAside>;
 }
 
-export const FormTemplateComponent = ({ children, formAside, formHeader, ...rest }: Props) => {
+export const FormTemplate = ({ children, formAside, formHeader, ...rest }: Props) => {
   return (
     <div className={`${classes["wrapper"]} ${rest.className}`} {...rest}>
-      {formHeader && <FormHeader {...formHeader}>{formHeader.children}</FormHeader>}
+      {formHeader}
       <div className={classes["content"]}>
-        {formAside && <FormAside {...formAside} />}
+        {formAside}
         <div className={classes["form-section"]}>{children}</div>
       </div>
     </div>
