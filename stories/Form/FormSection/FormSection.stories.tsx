@@ -16,10 +16,7 @@
 
 import { Meta, Story } from "@storybook/react";
 import React from "react";
-import {
-  FormSection,
-  Props
-} from "../../../src/components/Form/FormSection/FormSection";
+import { FormSection, Props } from "../../../src/components/Form/FormSection/FormSection";
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import FormSectionDocumentation from "./FormSection.mdx";
 
@@ -39,7 +36,7 @@ const meta: Meta = {
         helperText="Helper text for this field. Description should be short and not repeat the label"
         label="Label for this inputfield"
         name="input1"
-        onChange={() => { }}
+        onChange={() => {}}
         type="text"
         value=""
       />
