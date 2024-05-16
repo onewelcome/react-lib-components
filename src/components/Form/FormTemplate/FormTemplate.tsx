@@ -14,10 +14,9 @@
  *    limitations under the License.
  */
 
-import { HTMLAttributes, ReactElement } from "react";
+import React, { HTMLAttributes, ReactElement } from "react";
 import { Props as FormAsideProps, FormAside } from "../FormAside/FormAside";
 import classes from "./FormTemplate.module.scss";
-import React from "react";
 import { FormHeader, Props as FormHeaderProps } from "../FormHeader/FormHeader";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {

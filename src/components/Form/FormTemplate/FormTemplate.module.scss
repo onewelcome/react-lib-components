@@ -20,23 +20,21 @@ $header-height: 13.25rem;
     position: relative;
     margin: 0 auto;
     font-family: var(--font-family);
+    .content {
+        position: relative;
+        display: flex;
+        gap: 3.5rem;
+        padding: 2rem;
+    
+        background-color: var(--color-white);
+        height: calc(100vh - $header-height);
+        overflow: auto;
+        scroll-behavior: smooth;
+    
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 72%;
+        }
+    }
 }
-
-.content {
-    position: relative;
-    display: flex;
-    gap: 3.5rem;
-    padding: 2rem;
-
-    background-color: var(--color-white);
-    height: calc(100vh - $header-height);
-    overflow: auto;
-}
-
-.form-section {
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 72%;
-    scroll-behavior: smooth;
-}
-
