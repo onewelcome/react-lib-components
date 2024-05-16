@@ -6,6 +6,18 @@
   gap: 2rem;
   padding: 2rem;
   z-index: 1;
+  -webkit-transition: .5s;
+  transition: .5s;
+
+  &.collapsed-header {
+    padding: 1rem 2rem 1rem 2rem;
+    -webkit-transition: .5s;
+    transition: .5s;
+  }
+}
+
+.hide-description {
+  display: none;
 }
 
 .header-text {
