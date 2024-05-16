@@ -82,7 +82,7 @@ describe("<FormHeader />", () => {
   it("should render collapsed header when collapsed property is true", () => {
     const paramForCollpsed = { ...defaultParams };
     paramForCollpsed.collapsed = true;
-    const { formHeader, getByTestId } = createFormHeader({ ...defaultParams });
+    const { formHeader, getByTestId } = createFormHeader(paramForCollpsed);
 
     expect(formHeader.querySelector(".hide-description p")).toHaveTextContent(
       "Form Header sample description"
