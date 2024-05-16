@@ -43,7 +43,7 @@ const Template: Story<Props> = args => {
         key="tile1"
         title="Tile1"
         imageProps={{
-          src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
+          src: "https://www.onewelcome.com/hubfs/OneWelcome_Beeldmerk.svg"
         }}
         enabled={false}
         tileAction={
@@ -101,7 +101,7 @@ const Template: Story<Props> = args => {
         key="tile4"
         title="Tile4"
         imageProps={{
-          src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
+          src: "https://www.onewelcome.com/hubfs/OneWelcome_Beeldmerk.svg"
         }}
         enabled={false}
         tileAction={

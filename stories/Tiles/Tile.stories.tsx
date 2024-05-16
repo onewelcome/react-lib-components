@@ -42,7 +42,7 @@ export const Tile = Template.bind({});
 Tile.args = {
   title: "components/Tile1",
   imageProps: {
-    src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
+    src: "https://www.onewelcome.com/hubfs/OneWelcome_Beeldmerk.svg"
   },
   tileAction: (
     <ContextMenu
