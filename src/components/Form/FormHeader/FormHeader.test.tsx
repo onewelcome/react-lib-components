@@ -29,8 +29,7 @@ const defaultParams: Props = {
     <Button id="saveButton" key="2" data-testid="button2">
       Save Button
     </Button>
-  ],
-  collapsed: false
+  ]
 };
 
 const createFormHeader = (params?: Props) => {
