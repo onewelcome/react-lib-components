@@ -16,7 +16,8 @@
 
 import React from "react";
 import classes from "./FormAside.module.scss";
-import { StepProps, Stepper, StepperProps } from "../../../";
+import { Stepper, Props as StepperProps } from "../../Stepper/Stepper";
+import { Props as StepProps } from "../../Stepper/Step";
 
 export interface FormStepProps extends StepProps {
   targetScrollViewId?: string;
@@ -29,7 +30,10 @@ export interface Props extends StepperProps {
 export const FormAside = ({ steps, direction, textPosition, ...rest }: Props) => {
   const stepper = steps.map(step => {
     if (step.targetScrollViewId && !step.onClick) {
-      return {...step, onClick: () => document.getElementById(step.targetScrollViewId!)?.scrollIntoView()}
+      return {
+        ...step,
+        onClick: () => document.getElementById(step.targetScrollViewId!)?.scrollIntoView()
+      };
     }
     return step;
   });
