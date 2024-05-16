@@ -158,7 +158,6 @@ export type { Props as FormSectionProps } from "./components/Form/FormSection/Fo
 export { FormTemplate } from "./components/Form/FormTemplate/FormTemplate";
 export type { Props as FormTemplateProps } from "./components/Form/FormTemplate/FormTemplate";
 
-
 /** Wizard */
 export { Wizard } from "./components/Wizard/Wizard";
 export type { Props as WizardProps } from "./components/Wizard/Wizard";
