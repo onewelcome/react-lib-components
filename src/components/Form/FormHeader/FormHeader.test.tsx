@@ -29,13 +29,14 @@ const defaultParams: Props = {
     <Button id="saveButton" key="2" data-testid="button2">
       Save Button
     </Button>
-  ]
+  ],
+  collapsed: false
 };
 
-const createFormHeader = (params?: (defaultParams: Props) => Props) => {
+const createFormHeader = (params?: Props) => {
   let parameters: Props = defaultParams;
   if (params) {
-    parameters = params(defaultParams);
+    parameters = params;
   }
 
   const queries = render(<FormHeader {...parameters} data-testid="formHeaderTestId"></FormHeader>);
@@ -71,11 +72,21 @@ describe("<FormHeader />", () => {
   });
 
   it("should have the correct classes", () => {
-    const { formHeader } = createFormHeader(defaultParams => ({
+    const { formHeader } = createFormHeader({
       ...defaultParams,
       className: "form-header-custom-class"
-    }));
+    });
 
     expect(formHeader).toHaveClass("form-header-custom-class");
+  });
+
+  it("should render collapsed header when collapsed property is true", () => {
+    const paramForCollpsed = { ...defaultParams };
+    paramForCollpsed.collapsed = true;
+    const { formHeader, getByTestId } = createFormHeader({ ...defaultParams });
+
+    expect(formHeader.querySelector(".hide-description p")).toHaveTextContent(
+      "Form Header sample description"
+    );
   });
 });
