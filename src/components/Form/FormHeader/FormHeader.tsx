@@ -23,24 +23,18 @@ import classes from "./FormHeader.module.scss";
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
   buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
-  collapsed?: boolean;
+  collapsed: boolean;
 }
 
 export const FormHeaderComponent = ({ title, children, buttons, collapsed, ...rest }: Props) => {
+
   return (
-    <div
-      className={`${classes["header"]} ${rest.className} ${collapsed ? classes["collapsed-header"] : ""}`}
-      {...rest}
-    >
+    <div className={`${classes["header"]} ${rest.className} ${collapsed ? classes["collapsed-header"] : ''}`} {...rest}>
       <div>
         <Typography className={classes["header-text"]} variant={"h3"}>
           {title}
         </Typography>
-        <Typography
-          className={`${collapsed ? classes["hide-description"] : ""}`}
-          variant={"body"}
-          spacing={{ margin: 0 }}
-        >
+        <Typography className={`${collapsed ? classes["hide-description"] : ''}`} variant={"body"} spacing={{ margin: 0 }}>
           {children}
         </Typography>
       </div>
