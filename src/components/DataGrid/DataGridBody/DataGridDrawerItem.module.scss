@@ -1,0 +1,21 @@
+.item-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title {
+  font-size: var(--font-size-data-grid);
+  line-height: var(--data-grid-line-height);
+  font-weight: 700;
+  margin: 0;
+}
+
+.item-description {
+  font-size: var(--font-size-data-grid);
+  line-height: var(--data-grid-line-height);
+  margin: 0;
+}
+
+.children-wrapper {
+  margin-top: 8px;
+}

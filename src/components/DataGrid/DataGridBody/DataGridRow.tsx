@@ -20,6 +20,7 @@ import classes from "./DataGridRow.module.scss";
 import { IconButton } from "../../Button/IconButton";
 import { Icon, Icons } from "../../Icon/Icon";
 import { DataGridCell } from "./DataGridCell";
+import { DataGridDrawer } from "./DataGridDrawer";
 
 export interface Props extends ComponentPropsWithRef<"tr"> {
   headers?: HeaderCell[];
@@ -27,6 +28,7 @@ export interface Props extends ComponentPropsWithRef<"tr"> {
   spacing?: React.CSSProperties;
   disableContextMenuColumn?: boolean;
   disableExpandableRow?: boolean;
+  expandableRowContent?: React.ReactNode;
   rowExpanded?: boolean;
   onExpandRowButtonClick?: boolean;
 }
@@ -38,6 +40,7 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
     headers,
     isLoading,
     spacing,
+    expandableRowContent,
     disableContextMenuColumn,
     disableExpandableRow,
     ...rest
@@ -69,9 +72,13 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
     <Fragment>
       <tr {...rest} ref={ref} className={classNames.join(" ")}>
         {!disableExpandableRow && (
-          <DataGridCell onClick={() => setIsRowExpanded(!isRowExpanded)} style={{ width: "1px" }}>
-            <IconButton>
-              <Icon icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
+          <DataGridCell
+            className={classes["expand-button-cell"]}
+            onClick={() => setIsRowExpanded(!isRowExpanded)}
+            style={{ width: "1px" }}
+          >
+            <IconButton title="Expand row">
+              <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
             </IconButton>
           </DataGridCell>
         )}
@@ -80,10 +87,7 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
       {isRowExpanded && (
         <tr className={`${classes["row"]} ${classes["border"]}`}>
           <td colSpan={7}>
-            <div className={classes["drawer"]}>
-              <div>test</div>
-              <div>test</div>
-            </div>
+            <DataGridDrawer>{expandableRowContent}</DataGridDrawer>
           </td>
         </tr>
       )}

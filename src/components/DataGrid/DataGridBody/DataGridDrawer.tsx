@@ -14,10 +14,20 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
+import classes from "./DataGridDrawer.module.scss";
 
-type Props = {};
+export interface Props extends ComponentPropsWithRef<"div"> {}
 
-export const DataGridDrawer = (props: Props) => {
-  return <div>DataGridDrawer</div>;
+const DataGridDrawerComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { children }: Props,
+  ref
+) => {
+  return (
+    <div ref={ref} className={classes["drawer"]}>
+      {children}
+    </div>
+  );
 };
+
+export const DataGridDrawer = React.forwardRef(DataGridDrawerComponent);
