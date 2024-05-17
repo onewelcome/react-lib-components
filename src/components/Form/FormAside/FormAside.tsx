@@ -32,7 +32,13 @@ export const FormAside = ({ steps, direction, textPosition, ...rest }: Props) =>
     if (step.targetScrollViewId && !step.onClick) {
       return {
         ...step,
-        onClick: () => document.getElementById(step.targetScrollViewId!)?.scrollIntoView()
+        onClick: () => {
+          try {
+            document.getElementById(step.targetScrollViewId!)?.scrollIntoView();
+          } catch (e) {
+            throw new Error("Target element not found in the DOM.");
+          }
+        }
       };
     }
     return step;
