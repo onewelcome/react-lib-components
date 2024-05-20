@@ -56,3 +56,14 @@ FormHeaderComponent2.args = {
   ),
   buttons: formButtonList.slice(0, 2)
 };
+
+export const FormHeaderComponent3 = Template.bind({});
+FormHeaderComponent3.args = {
+  children: (
+    <Fragment>
+      Form <i>Description</i>
+    </Fragment>
+  ),
+  buttons: formButtonList,
+  collapsed: true
+};
