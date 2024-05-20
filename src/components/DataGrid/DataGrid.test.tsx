@@ -305,8 +305,8 @@ describe("spacing should work correctly", () => {
       }
     }));
 
-    const firstHeaderCell = dataGrid.querySelector(".table .thead .row .header-cell");
-    const lastHeaderCell = dataGrid.querySelector(".table .thead .row td");
+    const firstHeaderCell = dataGrid.querySelector(".table .row .header-cell");
+    const lastHeaderCell = dataGrid.querySelector(".table .row td");
     const firstBodyCell = dataGrid.querySelector(".table tbody .row .cell");
     const lastBodyCell = dataGrid.querySelector(".table tbody .row td:last-of-type");
     const pagination = dataGrid.querySelector(".pagination-wrapper");
@@ -332,8 +332,8 @@ describe("spacing should work correctly", () => {
       }
     }));
 
-    const firstHeaderCell = dataGrid.querySelector(".table .thead .row .header-cell");
-    const lastHeaderCell = dataGrid.querySelector(".table .thead .row td");
+    const firstHeaderCell = dataGrid.querySelector(".table .row .header-cell");
+    const lastHeaderCell = dataGrid.querySelector(".table .row td");
     const firstBodyCell = dataGrid.querySelector(".table tbody .row .cell");
     const lastBodyCell = dataGrid.querySelector(".table tbody .row td:last-of-type");
     const pagination = dataGrid.querySelector(".pagination-wrapper");
@@ -359,8 +359,8 @@ describe("spacing should work correctly", () => {
       }
     }));
 
-    const firstHeaderCell = dataGrid.querySelector(".table .thead .row .header-cell");
-    const lastHeaderCell = dataGrid.querySelector(".table .thead .row td");
+    const firstHeaderCell = dataGrid.querySelector(".table .row .header-cell");
+    const lastHeaderCell = dataGrid.querySelector(".table .row td");
     const firstBodyCell = dataGrid.querySelector(".table tbody .row .cell");
     const lastBodyCell = dataGrid.querySelector(".table tbody .row td:last-of-type");
     const pagination = dataGrid.querySelector(".pagination-wrapper");
@@ -386,8 +386,8 @@ describe("spacing should work correctly", () => {
       }
     }));
 
-    const firstHeaderCell = dataGrid.querySelector(".table .thead .row .header-cell");
-    const lastHeaderCell = dataGrid.querySelector(".table .thead .row td");
+    const firstHeaderCell = dataGrid.querySelector(".table .row .header-cell");
+    const lastHeaderCell = dataGrid.querySelector(".table .row td");
     const firstBodyCell = dataGrid.querySelector(".table tbody .row .cell");
     const lastBodyCell = dataGrid.querySelector(".table tbody .row td:last-of-type");
     const pagination = dataGrid.querySelector(".pagination-wrapper");
@@ -421,8 +421,8 @@ describe("spacing should work correctly", () => {
       )
     }));
 
-    const firstHeaderCell = dataGrid.querySelector(".table .thead .row .header-cell");
-    const lastHeaderCell = dataGrid.querySelector(".table .thead .row th:last-of-type");
+    const firstHeaderCell = dataGrid.querySelector(".table .row .header-cell");
+    const lastHeaderCell = dataGrid.querySelector(".table .row th:last-of-type");
     const firstBodyCell = dataGrid.querySelector(".table tbody .row .cell");
     const lastBodyCell = dataGrid.querySelector(".table tbody .row td:last-of-type");
     const pagination = dataGrid.querySelector(".pagination-wrapper");
