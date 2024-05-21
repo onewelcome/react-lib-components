@@ -17,8 +17,8 @@
 @use "../../../mixins.module.scss";
 
 .cell {
-  min-height: 3.5rem;
-  padding: 0.5rem 0.625rem;
+  min-height: 3rem;
+  padding: 0.25rem 1rem;
 
   &:first-child {
     padding-left: 1rem;
@@ -26,6 +26,11 @@
 
   &:last-child {
     padding-right: 1rem;
+  }
+
+  .text {
+    font-size: var(--font-size-data-grid);
+    line-height: var(--data-grid-line-height);
   }
 
   .loading {
