@@ -49,7 +49,7 @@ export const AlertProvider = ({
   children,
   className
 }: Props) => {
-  const [alertEntries, setAlertEnties] = useState<AlertEntry[]>([]);
+  const [alertEntries, setAlertEntries] = useState<AlertEntry[]>([]);
 
   const getDuration = (entry: Omit<AlertEntry, "id">) => {
     if (entry.variant === "error") {
@@ -91,22 +91,22 @@ export const AlertProvider = ({
 
   const enqueueAlert = (arg: string | Omit<AlertEntry, "id">) => {
     const newEntry = buildEntryWithVariant(arg);
-    setAlertEnties(entries => [...entries, newEntry]);
+    setAlertEntries(entries => [...entries, newEntry]);
   };
 
   const enqueueInfoAlert: AlertContextValue["enqueueInfoAlert"] = arg => {
     const newEntry: AlertEntry = buildEntryWithVariant(arg, "informative");
-    setAlertEnties(entries => [...entries, newEntry]);
+    setAlertEntries(entries => [...entries, newEntry]);
   };
 
   const enqueueSuccessAlert: AlertContextValue["enqueueSuccessAlert"] = arg => {
     const newEntry: AlertEntry = buildEntryWithVariant(arg, "success");
-    setAlertEnties(entries => [...entries, newEntry]);
+    setAlertEntries(entries => [...entries, newEntry]);
   };
 
   const enqueueWarningAlert: AlertContextValue["enqueueWarningAlert"] = arg => {
     const newEntry: AlertEntry = buildEntryWithVariant(arg, "warning");
-    setAlertEnties(entries => [...entries, newEntry]);
+    setAlertEntries(entries => [...entries, newEntry]);
   };
 
   const enqueueErrorAlert: AlertContextValue["enqueueErrorAlert"] = arg => {
@@ -121,12 +121,12 @@ export const AlertProvider = ({
         closeButtonTitle,
         variant: "error"
       };
-      setAlertEnties(entries => [...entries, newEntry]);
+      setAlertEntries(entries => [...entries, newEntry]);
       return;
     }
 
     const newEntry: AlertEntry = buildEntryWithVariant(arg, "error");
-    setAlertEnties(entries => [...entries, newEntry]);
+    setAlertEntries(entries => [...entries, newEntry]);
   };
 
   const setAlertHeight = (id: string, height: number) => {
@@ -136,11 +136,11 @@ export const AlertProvider = ({
       }
       return { ...alertEntry, height };
     });
-    setAlertEnties(newAlertsState);
+    setAlertEntries(newAlertsState);
   };
 
   const removeEntry = (entryId: string) => {
-    setAlertEnties(entries => {
+    setAlertEntries(entries => {
       return entries.filter((entry, idx) => {
         if (idx < stackSize) {
           entries[idx] = { ...entries[idx], wasShown: true };
