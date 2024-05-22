@@ -202,7 +202,6 @@ DefaultDataGrid.args = {
     { name: "type", headline: "Type", disableSorting: true },
     { name: "enabled", headline: "Status", disableSorting: true }
   ],
-  enableExpandableRow: true,
   expandableRowHeaders: [
     { name: "description", headline: "Description" },
     { name: "metadata", headline: "Metadata" }
@@ -390,3 +389,69 @@ EmptyDataGrid.args = {
   data: [],
   emptyLabel: "There are no vegetables within the current selection"
 };
+
+export const ExpandableDataGrid = Template.bind({});
+
+ExpandableDataGrid.args = {
+  data: [
+    {
+      name: "Company 1",
+      created: new Date(2023, 0, 1),
+      id: "1",
+      type: "Stock",
+      enabled: true,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      name: "Company 2",
+      created: new Date(2023, 0, 2),
+      id: "2",
+      type: "Stock",
+      enabled: false,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "created", headline: "Created" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "enabled", headline: "Status", disableSorting: true }
+  ],
+  enableExpandableRow: true,
+  expandableRowHeaders: [
+    { name: "description", headline: "Description" },
+    { name: "metadata", headline: "Metadata" }
+  ],
+  initialSort: [
+    { name: "name", direction: "ASC" },
+    { name: "created", direction: "DESC" }
+  ],
+  onSort: sort => action(`Sort callback: ${sort}`),
+  actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
+  },
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 2,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+ExpandableDataGrid.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => canvas.queryAllByTitle("Expand row"));
+
+  const expandButtons = await canvas.queryAllByTitle("Expand row");
+
+  await userEvent.click(expandButtons[0]);
+});
