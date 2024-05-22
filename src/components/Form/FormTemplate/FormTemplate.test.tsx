@@ -17,7 +17,6 @@
 import React from "react";
 import { FormTemplate, Props } from "./FormTemplate";
 import { getByText, render } from "@testing-library/react";
-//import userEvent from "@testing-library/user-event";
 import { FormHeader, Props as FormHeaderProps } from "../../Form/FormHeader/FormHeader";
 import { FormAside, Props as FormAsideProps } from "../../Form/FormAside/FormAside";
 import { Button } from "../../Button/Button";
@@ -44,6 +43,7 @@ const createFormTemplate = (params?: (defaultParams: Props) => Props) => {
 describe("<FormTemplate />", () => {
   it("should render without crashing", () => {
     const { formTemplate } = createFormTemplate();
+    
     expect(formTemplate).toBeDefined();
   });
 
@@ -52,6 +52,7 @@ describe("<FormTemplate />", () => {
       ...defaultParams,
       className: "form-template-class"
     }));
+
     expect(formTemplate.className).toContain("form-template-class");
   });
 
@@ -80,6 +81,7 @@ describe("<FormTemplate />", () => {
       ...defaultParams,
       formHeader: <FormHeader {...formHeadProp} data-testid="formHeader"></FormHeader>
     }));
+
     var formHeader = getByTestId("formHeader");
     expect(formHeader).toBeDefined();
     expect(formHeader.className).toContain("form-header-custom-class");
@@ -97,6 +99,7 @@ describe("<FormTemplate />", () => {
       ...defaultParams,
       formAside: <FormAside {...formAsideProp} data-testid="formAside"></FormAside>
     }));
+
     var formAside = getByTestId("formAside");
     expect(formAside).toBeDefined();
     expect(formAside.className).toContain("form-aside-custom-class");

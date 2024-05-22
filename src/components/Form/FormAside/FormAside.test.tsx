@@ -47,6 +47,7 @@ const createFormAside = (params?: (defaultParams: Props) => Props) => {
 describe("<FormAside />", () => {
   it("should render without crashing", () => {
     const { formAside } = createFormAside();
+
     expect(formAside).toBeDefined();
   });
 
