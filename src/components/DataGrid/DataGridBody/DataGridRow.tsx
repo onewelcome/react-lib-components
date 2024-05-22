@@ -14,14 +14,7 @@
  *    limitations under the License.
  */
 
-import React, {
-  ForwardRefRenderFunction,
-  ComponentPropsWithRef,
-  useState,
-  Fragment,
-  Ref,
-  ReactElement
-} from "react";
+import React, { ComponentPropsWithRef, useState, Fragment, Ref, ReactElement } from "react";
 import { HeaderCell } from "../datagrid.interfaces";
 import classes from "./DataGridRow.module.scss";
 import { IconButton } from "../../Button/IconButton";
@@ -35,7 +28,6 @@ export interface Props<T> extends ComponentPropsWithRef<"tr"> {
   isLoading?: boolean;
   spacing?: React.CSSProperties;
   disableContextMenuColumn?: boolean;
-  expandableRowHeaders?: HeaderCell[];
   enableExpandableRow?: boolean;
   expandableRowContent?: React.ReactNode;
   rowExpanded?: boolean;
@@ -51,7 +43,6 @@ const DataGridRowComponent = <T extends {}>(
     isLoading,
     spacing,
     expandableRowContent,
-    expandableRowHeaders,
     disableContextMenuColumn,
     enableExpandableRow,
     ...rest

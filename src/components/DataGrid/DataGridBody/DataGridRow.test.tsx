@@ -16,8 +16,10 @@
 
 import React, { useEffect, useRef } from "react";
 import { DataGridRow, Props } from "./DataGridRow";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { DataGridCell } from "./DataGridCell";
+import { DataGridDrawerItem } from "./DataGridDrawerItem";
+import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props<{}> = {
   children: [<DataGridCell>1</DataGridCell>, <DataGridCell>2</DataGridCell>],
@@ -88,6 +90,32 @@ describe("DataGridRow should render", () => {
     expect(cells).toHaveLength(2);
     expect(cells[0]).toHaveTextContent("3");
     expect(cells[1]).toHaveTextContent("4");
+  });
+
+  it("renders expandable row, expands it on click", async () => {
+    const { dataGridRow, getAllByRole, getByRole, getByText, findByText } = createDataGridRow(
+      params => ({
+        ...params,
+        enableExpandableRow: true,
+        headers: [
+          { name: "firstName", headline: "first name" },
+          { name: "lastName", headline: "last name" }
+        ],
+        expandableRowContent: (
+          <DataGridDrawerItem title={"Description"} description={"this is description"} />
+        ),
+        children: [<DataGridCell>1</DataGridCell>, <DataGridCell>2</DataGridCell>]
+      })
+    );
+
+    expect(dataGridRow).toBeDefined();
+    const cells = getAllByRole("cell");
+    expect(cells).toHaveLength(3);
+
+    await userEvent.click(getByRole("button"));
+    await waitFor(() => findByText("this is description"));
+
+    expect(getByText("this is description")).toBeDefined();
   });
 });
 

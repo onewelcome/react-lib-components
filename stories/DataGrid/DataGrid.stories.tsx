@@ -86,7 +86,6 @@ const Template = args => {
               <DataGridRow
                 key={item.id}
                 item={item}
-                expandableRowHeaders={args.expandableRowHeaders}
                 enableExpandableRow={args.enableExpandableRow}
                 expandableRowContent={
                   <Fragment>
