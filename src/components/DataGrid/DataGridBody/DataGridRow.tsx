@@ -97,7 +97,7 @@ const DataGridRowComponent = <T extends {}>(
       </tr>
       {isRowExpanded && (
         <tr className={`${classes["row"]} ${classes["border"]}`}>
-          <td colSpan={visibleCells.length}>
+          <td colSpan={visibleCells.length + 1}>
             <DataGridDrawer>{expandableRowContent}</DataGridDrawer>
           </td>
         </tr>

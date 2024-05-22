@@ -47,7 +47,7 @@ describe("DataGridRow should render", () => {
     const { dataGridRow, getAllByRole } = createDataGridRow();
 
     expect(dataGridRow).toBeDefined();
-    expect(dataGridRow).toHaveClass("row", { exact: true });
+    expect(dataGridRow).toHaveClass("row border", { exact: true });
     const cells = getAllByRole("cell");
     expect(cells).toHaveLength(2);
     expect(cells[0]).toHaveTextContent("1");
@@ -57,13 +57,13 @@ describe("DataGridRow should render", () => {
   it("renders with additional class", () => {
     const { dataGridRow } = createDataGridRow(params => ({ ...params, className: "test" }));
 
-    expect(dataGridRow).toHaveClass("row test", { exact: true });
+    expect(dataGridRow).toHaveClass("row test border", { exact: true });
   });
 
   it("renders loading state", () => {
     const { dataGridRow } = createDataGridRow(params => ({ ...params, isLoading: true }));
 
-    expect(dataGridRow).toHaveClass("row loading", { exact: true });
+    expect(dataGridRow).toHaveClass("row border loading", { exact: true });
   });
 
   it("renders only visible columns", () => {
