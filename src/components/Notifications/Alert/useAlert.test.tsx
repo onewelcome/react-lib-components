@@ -39,7 +39,6 @@ describe("useAlertContext", () => {
     });
 
     act(() => {
-      result.current.enqueueAlert("content");
       result.current.enqueueAlert({ title: "title" });
       result.current.enqueueAlert({ content: "content" });
       result.current.enqueueAlert({ title: "title", content: "content" });
@@ -51,12 +50,6 @@ describe("useAlertContext", () => {
         onClose: () => {},
         actions: []
       });
-
-      result.current.enqueueInfoAlert("content");
-      result.current.enqueueErrorAlert("content");
-      result.current.enqueueErrorAlert(new Error("Error message"));
-      result.current.enqueueSuccessAlert("content");
-      result.current.enqueueWarningAlert("content");
     });
   });
 });

@@ -27,27 +27,20 @@ const initParams: Props = {
   variant: "success",
   emphasis: undefined,
   closeButtonTitle: "close",
-  onClose: jest.fn(),
-  elementProps: {
-    container: { ["data-testid"]: "container" },
-    title: { ["data-testid"]: "title" },
-    content: { ["data-testid"]: "content" },
-    actionsContainer: { ["data-testid"]: "actions" },
-    closeButton: { ["data-testid"]: "close" }
-  }
+  onClose: jest.fn()
 };
 
 describe("AlertItem", () => {
   it("should render without crashing displaying both content and title", () => {
     const { container, queryByTestId } = render(<AlertItem {...initParams} />);
 
-    const titleDiv = queryByTestId("title");
+    const titleDiv = queryByTestId("alert-title");
     expect(titleDiv).toHaveTextContent(initParams.title!);
 
-    const contentDiv = queryByTestId("content");
+    const contentDiv = queryByTestId("alert-content");
     expect(contentDiv).toHaveTextContent(initParams.content!);
 
-    const actionsContainer = queryByTestId("actions");
+    const actionsContainer = queryByTestId("alert-actions");
     expect(actionsContainer).toBeNull();
 
     expect(getByRole(container, "button")).toBeDefined();
@@ -55,17 +48,17 @@ describe("AlertItem", () => {
 
   it("should render only content when only title is provided", async () => {
     const { container, queryByTestId } = render(<AlertItem {...initParams} content={undefined} />);
-    const titleDiv = queryByTestId("title");
+    const titleDiv = queryByTestId("alert-title");
     expect(titleDiv).toBeNull();
-    const contentDiv = queryByTestId("content");
+    const contentDiv = queryByTestId("alert-content");
     expect(contentDiv).toHaveTextContent(initParams.title!);
   });
 
   it("should render content if content is provided", async () => {
     const { container, queryByTestId } = render(<AlertItem {...initParams} title={undefined} />);
-    const titleDiv = queryByTestId("title");
+    const titleDiv = queryByTestId("alert-title");
     expect(titleDiv).toBeNull();
-    const contentDiv = queryByTestId("content");
+    const contentDiv = queryByTestId("alert-content");
     expect(contentDiv).toHaveTextContent(initParams.content!);
   });
 
@@ -91,7 +84,7 @@ describe("AlertItem", () => {
 
   it("should have aira-live=polite when variant is error and emphasis low", () => {
     const { queryByTestId } = render(<AlertItem {...initParams} variant="error" emphasis="low" />);
-    const container = queryByTestId("container");
+    const container = queryByTestId("alert-container");
     expect(container).toHaveAttribute("aria-live", "polite");
   });
 
@@ -99,13 +92,13 @@ describe("AlertItem", () => {
     const { queryByTestId } = render(
       <AlertItem {...initParams} variant="error" emphasis="medium" />
     );
-    const container = queryByTestId("container");
+    const container = queryByTestId("alert-container");
     expect(container).toHaveAttribute("aria-live", "assertive");
   });
 
   it("should have aria-live=assertive when variant is error and emphasis high", () => {
     const { queryByTestId } = render(<AlertItem {...initParams} variant="error" emphasis="high" />);
-    const container = queryByTestId("container");
+    const container = queryByTestId("alert-container");
     expect(container).toHaveAttribute("aria-live", "assertive");
   });
 });

@@ -50,6 +50,7 @@ export const AlertProvider = ({
   className
 }: Props) => {
   const [alertEntries, setAlertEntries] = useState<AlertEntry[]>([]);
+  const wrappingDivRef = useRef(null);
 
   const getDuration = (entry: Omit<AlertEntry, "id">) => {
     if (entry.variant === "error") {
@@ -61,21 +62,7 @@ export const AlertProvider = ({
     return autoHideDuration.short;
   };
 
-  const buildEntryWithVariant = (
-    arg: string | Omit<AlertEntry, "id">,
-    variant?: Variant
-  ): AlertEntry => {
-    if (typeof arg === "string") {
-      return {
-        id: generateID(15, arg),
-        content: arg,
-        duration: autoHideDuration.short,
-        variant,
-        closeButtonTitle
-      };
-    }
-
-    arg = arg as AlertEntry;
+  const buildEntryWithVariant = (arg: Omit<AlertEntry, "id">, variant?: Variant): AlertEntry => {
     let closeTitle = closeButtonTitle;
     if (arg.closeButtonTitle) {
       closeTitle = arg.closeButtonTitle;
@@ -89,7 +76,7 @@ export const AlertProvider = ({
     };
   };
 
-  const enqueueAlert = (arg: string | Omit<AlertEntry, "id">) => {
+  const enqueueAlert = (arg: Omit<AlertEntry, "id">) => {
     const newEntry = buildEntryWithVariant(arg);
     setAlertEntries(entries => [...entries, newEntry]);
   };
@@ -110,21 +97,6 @@ export const AlertProvider = ({
   };
 
   const enqueueErrorAlert: AlertContextValue["enqueueErrorAlert"] = arg => {
-    if (arg instanceof Error) {
-      if (!arg.message) {
-        return;
-      }
-      const newEntry: AlertEntry = {
-        id: generateID(15, arg.message),
-        content: arg.message,
-        duration: autoHideDuration.short,
-        closeButtonTitle,
-        variant: "error"
-      };
-      setAlertEntries(entries => [...entries, newEntry]);
-      return;
-    }
-
     const newEntry: AlertEntry = buildEntryWithVariant(arg, "error");
     setAlertEntries(entries => [...entries, newEntry]);
   };
@@ -184,7 +156,6 @@ export const AlertProvider = ({
     ]
   );
 
-  const wrappingDivRef = useRef(null);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
   return (
     <AlertContext.Provider value={contextValue}>

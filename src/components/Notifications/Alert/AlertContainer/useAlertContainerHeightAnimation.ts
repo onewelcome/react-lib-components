@@ -17,7 +17,7 @@
 import { useContext, useEffect, useState } from "react";
 import AlertContext from "../AlertProvider/AlertContext";
 
-export default function useAlertContainerHeightAnimation() {
+export function useAlertContainerHeightAnimation() {
   const { alerts } = useContext(AlertContext);
   const [height, setHeight] = useState(0);
   const [justifyContent, setJustifyContent] = useState<"flex-start" | "flex-end">("flex-start");

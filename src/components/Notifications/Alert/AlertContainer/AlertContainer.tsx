@@ -16,7 +16,7 @@
 
 import React from "react";
 import classes from "./AlertContainer.module.scss";
-import useAlertContainerHeightAnimation from "./useAlertContainerHeightAnimation";
+import { useAlertContainerHeightAnimation } from "./useAlertContainerHeightAnimation";
 
 export interface Placement {
   vertical: "top" | "bottom";

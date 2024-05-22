@@ -43,13 +43,6 @@ export interface Props {
   closeButtonTitle?: string;
   actions?: Actions;
   wasShown?: boolean;
-  elementProps?: {
-    container?: any;
-    title?: any;
-    content?: any;
-    actionsContainer?: any;
-    closeButton?: any;
-  };
 }
 
 const useRegisterAlertHeight = (
@@ -77,8 +70,8 @@ export const AlertItem = ({
   actions = [],
   onClose,
   closeButtonTitle,
-  wasShown,
-  elementProps
+  wasShown
+  //elementProps
 }: Props) => {
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => {
@@ -153,7 +146,7 @@ export const AlertItem = ({
     return alertClasses.join(" ");
   };
 
-  const getAria = (): "off" | "polite" | "assertive" | undefined => {
+  const getAria = () => {
     if (variant === "error" && (emphasis === "medium" || emphasis === "high")) {
       return "assertive";
     }
@@ -172,7 +165,7 @@ export const AlertItem = ({
 
   return (
     <div
-      {...elementProps?.container}
+      {...{ ["data-testid"]: "alert-container" }}
       ref={ref}
       aria-live={getAria()}
       className={getAlertClasses()}
@@ -183,7 +176,7 @@ export const AlertItem = ({
         <div className={classes["content-wrapper"]} role="log">
           {!!title && !!content && (
             <Typography
-              {...elementProps?.title}
+              {...{ ["data-testid"]: "alert-title" }}
               className={classes["title"]}
               variant="body-bold"
               tag="span"
@@ -192,26 +185,30 @@ export const AlertItem = ({
             </Typography>
           )}
           {(!!content || !!title) && (
-            <Typography {...elementProps?.content} className={classes["content"]} variant="body">
+            <Typography
+              {...{ ["data-testid"]: "alert-content" }}
+              className={classes["content"]}
+              variant="body"
+            >
               {getContentOrTitle()}
             </Typography>
           )}
         </div>
       </div>
       {actionButtons.length > 0 && (
-        <div {...elementProps?.actionsContainer} className={classes["actions"]}>
+        <div {...{ ["data-testid"]: "alert-actions" }} className={classes["actions"]}>
           {actionButtons}
         </div>
       )}
       {onClose && (
         <IconButton
-          {...elementProps?.closeButton}
           className={classes["close-btn"]}
           onClick={e => {
             e.stopPropagation();
             startAnimation();
           }}
           title={closeButtonTitle}
+          {...{ ["data-testid"]: "alert-close" }}
         >
           <Icon icon={Icons.Times} />
         </IconButton>

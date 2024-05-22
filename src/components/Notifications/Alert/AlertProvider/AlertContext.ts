@@ -17,15 +17,14 @@
 import { AlertEntry } from "./AlertProvider";
 import { createContext } from "react";
 
-export type AlertQueue = Omit<AlertEntry, "id"> | string;
-export type AlertQueueError = Omit<AlertEntry, "id"> | string | Error;
+export type AlertQueue = Omit<AlertEntry, "id">;
 
 export interface AlertContextValue {
   enqueueAlert: (entry: AlertQueue) => void;
   enqueueInfoAlert: (entry: AlertQueue) => void;
   enqueueSuccessAlert: (entry: AlertQueue) => void;
   enqueueWarningAlert: (entry: AlertQueue) => void;
-  enqueueErrorAlert: (entry: AlertQueueError) => void;
+  enqueueErrorAlert: (entry: AlertQueue) => void;
   setAlertHeight: (id: string, height: number) => void;
   alerts: AlertEntry[];
 }

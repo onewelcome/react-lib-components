@@ -115,18 +115,15 @@ const renderAlertProvider = (props?: Partial<Props>) => {
           data-testid="show-neutral-alerts"
           onClick={() => {
             enqueueAlert({
-              title: "neutral-low",
-              elementProps: { container: { "data-testid": "neutral-low" } }
+              title: "neutral-low"
             });
             enqueueAlert({
               title: "neutral-medium",
-              emphasis: "medium",
-              elementProps: { container: { "data-testid": "neutral-medium" } }
+              emphasis: "medium"
             });
             enqueueAlert({
               title: "neutral-high",
-              emphasis: "high",
-              elementProps: { container: { "data-testid": "neutral-high" } }
+              emphasis: "high"
             });
           }}
         >
@@ -161,7 +158,6 @@ const renderAlertProvider = (props?: Partial<Props>) => {
 describe("<AlertProvider />", () => {
   it("should render without crashing", () => {
     const { container } = renderAlertProvider();
-
     expect(container).toHaveTextContent("content");
   });
 
@@ -182,19 +178,16 @@ describe("<AlertProvider />", () => {
   it("should render all 3 emphasys with the corect colors", async () => {
     const content = renderAlertProvider();
     const showNeutralAlertsBtn = content.showNeutralAlertsBtn;
-    const body = content.baseElement;
     await userEvent.click(showNeutralAlertsBtn);
 
-    const lowEmpAlert = getByTestId(body, "neutral-low");
-    const mediumEmpAlert = getByTestId(body, "neutral-medium");
-    const highEmpAlert = getByTestId(body, "neutral-high");
+    const containers = content.getAllByTestId("alert-container");
 
-    expect(lowEmpAlert).toHaveClass("emph-low");
-    expect(mediumEmpAlert).toHaveClass("emph-medium");
-    expect(highEmpAlert).toHaveClass("emph-high");
+    expect(containers[0]).toHaveClass("emph-low");
+    expect(containers[1]).toHaveClass("emph-medium");
+    expect(containers[2]).toHaveClass("emph-high");
   });
 
-  it("should render 3 variants of alerts", async () => {
+  it("should render action buttons and fire click events", async () => {
     const { showSuccessAlertBtn, showErrorAlertBtn, showInfoAlertBtn } = renderAlertProvider();
 
     await userEvent.click(showSuccessAlertBtn);

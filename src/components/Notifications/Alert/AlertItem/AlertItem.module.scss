@@ -17,7 +17,7 @@
 @use "../../../../mixins.module.scss";
 
 .alert {
-  padding: 16px 14px;
+  padding: 1rem 0.875rem;
   border-radius: var(--alert-border-radius);
   display: flex;
   gap: 0.5rem;
@@ -231,7 +231,7 @@
 
   .content-wrapper {
     flex-grow: 1;
-    padding-left: 2px;
+    padding-left: 0.125rem;
   }
 
   .content {
