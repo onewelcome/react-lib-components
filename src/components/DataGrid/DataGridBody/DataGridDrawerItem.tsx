@@ -19,7 +19,7 @@ import classes from "./DataGridDrawerItem.module.scss";
 import { Typography } from "../../Typography/Typography";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
-  title: string;
+  title?: string;
   description?: string;
 }
 
@@ -29,9 +29,11 @@ const DataGridDrawerItemComponent: ForwardRefRenderFunction<HTMLDivElement, Prop
 ) => {
   return (
     <div {...rest} ref={ref} className={classes["item-wrapper"]}>
-      <Typography className={classes["item-title"]} variant="body" tag="span">
-        {title}
-      </Typography>
+      {title && (
+        <Typography className={classes["item-title"]} variant="body" tag="span">
+          {title}
+        </Typography>
+      )}
       {description && (
         <Typography className={classes["item-description"]} variant="body" tag="span">
           {description}

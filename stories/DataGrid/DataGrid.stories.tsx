@@ -19,11 +19,13 @@ import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent, Props } from "../../src/components/DataGrid/DataGrid";
 import { DataGridRow } from "../../src/components/DataGrid/DataGridBody/DataGridRow";
 import { DataGridCell } from "../../src/components/DataGrid/DataGridBody/DataGridCell";
+import { DataGridDrawerItem } from "../../src/components/DataGrid/DataGridBody/DataGridDrawerItem";
 import { ContextMenu } from "../../src/components/ContextMenu/ContextMenu";
 import { IconButton } from "../../src/components/Button/IconButton";
 import { Icon, Icons } from "../../src/components/Icon/Icon";
 import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
 import DataGridDocumentation from "./DataGrid.mdx";
+
 import { action } from "@storybook/addon-actions";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
@@ -42,6 +44,8 @@ interface DataGridItem {
   created: Date;
   type: string;
   enabled: boolean;
+  description?: string;
+  metadata?: string;
 }
 
 export default {
@@ -78,12 +82,20 @@ const Template = args => {
       <div style={{ padding: "1rem", backgroundColor: "rgb(245, 248, 248)" }}>
         <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
           <DataGridComponent {...args}>
-            {({
-              item
-            }: {
-              item: { name: string; id: string; created: Date; type: string; enabled: boolean };
-            }) => (
-              <DataGridRow key={item.id}>
+            {({ item }: { item: DataGridItem }) => (
+              <DataGridRow
+                key={item.id}
+                item={item}
+                expandableRowHeaders={args.expandableRowHeaders}
+                enableExpandableRow={args.enableExpandableRow}
+                expandableRowContent={
+                  <Fragment>
+                    {args.expandableRowHeaders?.map(({ name, headline }) => (
+                      <DataGridDrawerItem key={name} title={headline} description={item[name]} />
+                    ))}
+                  </Fragment>
+                }
+              >
                 {!args.disabled}
                 <DataGridCell>{item.name}</DataGridCell>
                 <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
@@ -170,14 +182,18 @@ DefaultDataGrid.args = {
       created: new Date(2023, 0, 1),
       id: "1",
       type: "Stock",
-      enabled: true
+      enabled: true,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
     },
     {
       name: "Company 2",
       created: new Date(2023, 0, 2),
       id: "2",
       type: "Stock",
-      enabled: false
+      enabled: false,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
     }
   ],
   headers: [
@@ -186,6 +202,11 @@ DefaultDataGrid.args = {
     { name: "id", headline: "Identifier" },
     { name: "type", headline: "Type", disableSorting: true },
     { name: "enabled", headline: "Status", disableSorting: true }
+  ],
+  enableExpandableRow: true,
+  expandableRowHeaders: [
+    { name: "description", headline: "Description" },
+    { name: "metadata", headline: "Metadata" }
   ],
   initialSort: [
     { name: "name", direction: "ASC" },

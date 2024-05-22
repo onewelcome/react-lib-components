@@ -27,6 +27,8 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"tbody">, "children
   headers: HeaderCell[];
   isLoading?: boolean;
   disableContextMenuColumn?: boolean;
+  expandableRowHeaders?: HeaderCell[];
+  enableExpandableRow?: boolean;
   emptyLabel?: string;
   spacing?: React.CSSProperties;
 }
