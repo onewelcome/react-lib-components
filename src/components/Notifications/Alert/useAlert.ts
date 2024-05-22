@@ -25,7 +25,6 @@ export const useAlert = () => {
     enqueueInfoAlert: ctx.enqueueInfoAlert,
     enqueueSuccessAlert: ctx.enqueueSuccessAlert,
     enqueueWarningAlert: ctx.enqueueWarningAlert,
-    enqueueErrorAlert: ctx.enqueueErrorAlert,
-    setAlertHeight: ctx.setAlertHeight
+    enqueueErrorAlert: ctx.enqueueErrorAlert
   };
 };

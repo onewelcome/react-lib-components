@@ -5,7 +5,7 @@ import { Title, Subtitle } from "@storybook/blocks";
 
 The `Alert` components and hook are there for you to make it easy to notify a user with diferent type of messages. The components, the Alert component, provider and hooks are designed to be used together.
 
-You need to wrap your application with the `AlertProvider` to allow the alerts to appear on top of your page.
+You need to wrap your application with the `AlertProvider` to ensure the alerts appear above the content on your page.
 
 ## Basic usage
 
@@ -35,12 +35,6 @@ Object representing the information an alert poppup.
 - `onClose: () => void` - Fires if the alert has finist closeing.
 - `closeButtonTitle: string` - The title of the closebutton. Overrides the provider prop of the same name.
 - `actions: Array<ButtonHTMLAttributes<HTMLButtonElement> & { label: string }>` - Objects representing an array of buttons that will be displayed next to the content.
-- `elementProps:`
-  - `container: any;` - props passed to the top most container, `<div>` element.\
-  - `title: any;` - props passed to the `<Typography>` component representing the title.\
-  - `content: any;` - props passed to the `<Typography>` component representing the content.\
-  - `actionsContainer: any;` - props passed to the action buttons container `<div>` element.\
-  - `closeButton: any;` - props passed to the `<IconButton>` which closes the alert.
 
 ## AlertProvicer props
 

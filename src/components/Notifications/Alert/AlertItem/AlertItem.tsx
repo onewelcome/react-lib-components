@@ -153,14 +153,11 @@ export const AlertItem = ({
     return "polite";
   };
 
-  const getContentOrTitle = (): string => {
+  const getContentOrTitle = () => {
     if (content) {
       return content;
     }
-    if (title) {
-      return title;
-    }
-    return "";
+    return title;
   };
 
   return (
