@@ -73,12 +73,14 @@ describe("<FormAside />", () => {
     }));
 
     expect(getAllByText(/Step/i)).toHaveLength(2);
-    await userEvent.click(getByText("Step 1"));
+    const step1 = getByText("Step 1");
+    await userEvent.click(step1);
     expect(onStepHandler).toBeCalled();
 
     const element = (await document.getElementById("samlConnectionDetail")) as HTMLDivElement;
     element.scrollIntoView = scrollIntoViewMock;
-    await userEvent.click(getByText("Step 2"));
+    const step2 = getByText("Step 2");
+    await userEvent.click(step2);
     expect(scrollIntoViewMock).toBeCalled();
   });
 
