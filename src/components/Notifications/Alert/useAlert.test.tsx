@@ -30,7 +30,6 @@ describe("useAlertContext", () => {
     expect(currentResult.enqueueSuccessAlert).toBeDefined();
     expect(currentResult.enqueueWarningAlert).toBeDefined();
     expect(currentResult.enqueueErrorAlert).toBeDefined();
-    expect(currentResult.setAlertHeight).toBeDefined();
   });
 
   it("calling enqueue functions should work", () => {
