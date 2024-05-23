@@ -28,6 +28,9 @@ import {
   VARIANTS,
   Variant
 } from "../../../src/components/Notifications/Alert/AlertItem/AlertItem";
+import { conditionalPlay } from "../../../.storybook/conditionalPlay";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta = {
   title: "components/Feedback/Alert",
@@ -60,7 +63,11 @@ const Content = (args: AlertQueue) => {
     enqueueAlert({ ...args });
   };
 
-  return <Button onClick={handleTriggerAlert}>Trigger alert</Button>;
+  return (
+    <Button data-testid={"trigger-alert"} onClick={handleTriggerAlert}>
+      Trigger alert
+    </Button>
+  );
 };
 
 const Template: StoryFn<Props> = args => {
@@ -121,5 +128,15 @@ export const AlertVariantsTemplate = MultipleStatesTemplate.bind({});
 AlertVariantsTemplate.parameters = {
   controls: { disable: true }
 };
+
+Alert.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByTestId("trigger-alert")).toBeInTheDocument());
+
+  await userEvent.click(canvas.getByTestId("trigger-alert"));
+
+  await waitFor(() => expect(canvas.getByTestId("alert-container")).toBeVisible());
+});
 
 export default meta;
