@@ -12,9 +12,8 @@ import { FormHeader } from "../../../src/components/Form/FormHeader/FormHeader";
 import FormTemplateDocumentation from "./FormTemplate.mdx";
 import React, { ReactElement } from "react";
 import { FormSection } from "../../../src/components/Form/FormSection/FormSection";
-import { Form } from "../../Form/Form.stories";
-import { FormControl } from "../../Form/Elements/FormControl.stories";
-import { Fieldset } from "../../Form/Elements/Fieldset.stories";
+import { FormControlExample } from "../Examples/FormChildren.example.stories";
+
 import { Button, ButtonProps, Icon, Icons } from "../../../src";
 
 const initialStepperState: FormStepProps[] = [
@@ -91,28 +90,28 @@ const Template: StoryFn<Props> = args => (
         header="Step 1 Form Section"
         subtext="Form Section sub-header."
       >
-        <Form></Form>
+        <FormControlExample></FormControlExample>
       </FormSection>
       <FormSection
         id="samlConnectionDetail"
         header="Step 2 Form Section"
         subtext="Form Section Subheader"
       >
-        <FormControl></FormControl>
+        <FormControlExample></FormControlExample>
       </FormSection>
       <FormSection
         id="samlFederationRequest"
         header="Step 3 Form section"
         subtext="Form Section Subheader"
       >
-        <Form></Form>
+        <FormControlExample></FormControlExample>
       </FormSection>
       <FormSection
         id="samlAttributeMapping"
         header="Step 4 Form section"
         subtext="Form Section Subheader"
       >
-        <Fieldset></Fieldset>
+        <FormControlExample></FormControlExample>
       </FormSection>
     </div>
   </FormTemplate>

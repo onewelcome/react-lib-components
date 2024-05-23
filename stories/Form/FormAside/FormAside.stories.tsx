@@ -1,16 +1,10 @@
 import { Meta, StoryFn } from "@storybook/react";
-import {
-  FormAside,
-  FormStepProps,
-  Props
-} from "../../../src/components/Form/FormAside/FormAside";
+import { FormAside, FormStepProps, Props } from "../../../src/components/Form/FormAside/FormAside";
 import FormAsideDocumentation from "./FormAside.mdx";
 import React from "react";
 import { FormSection } from "../../../src/components/Form/FormSection/FormSection";
 import { FormTemplate } from "../../../src/components/Form/FormTemplate/FormTemplate";
-import { Form } from "../../Form/Form.stories";
-import { FormControl } from "../../Form/Elements/FormControl.stories";
-import { Fieldset } from "../../Form/Elements/Fieldset.stories";
+import { FormControlExample } from "../Examples/FormChildren.example.stories";
 
 const initialStepperState: FormStepProps[] = [
   {
@@ -65,28 +59,28 @@ const Template: StoryFn<Props> = args => (
           header="Step 1 Form Section"
           subtext="Form Section sub-header."
         >
-          <Form></Form>
+          <FormControlExample></FormControlExample>
         </FormSection>
         <FormSection
           id="samlConnectionDetail"
           header="Step 2 Form Section"
           subtext="Form Section Subheader"
         >
-          <FormControl></FormControl>
+          <FormControlExample></FormControlExample>
         </FormSection>
         <FormSection
           id="samlFederationRequest"
           header="Step 3 Form section"
           subtext="Form Section Subheader"
         >
-          <Form></Form>
+          <FormControlExample></FormControlExample>
         </FormSection>
         <FormSection
           id="samlAttributeMapping"
           header="Step 4 Form section"
           subtext="Form Section Subheader"
         >
-          <Fieldset></Fieldset>
+          <FormControlExample></FormControlExample>
         </FormSection>
       </div>
     </FormTemplate>

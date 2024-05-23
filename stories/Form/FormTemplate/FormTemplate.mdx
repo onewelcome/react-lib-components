@@ -35,22 +35,22 @@ const buttons: ReactElement<ButtonProps, typeof Button>[] = [
   {
     status: "done",
     label: "Step 1",
-    targetScrollViewId: "samlBaseInfo"
+    targetscrollviewid: "samlBaseInfo"
   },
   {
     status: "error",
     label: "Step 2",
-    targetScrollViewId: "samlConnectionDetail"
+    targetscrollviewid: "samlConnectionDetail"
   },
   {
     status: "current",
     label: "Step 3",
-    targetScrollViewId: "samlFederationRequest"
+    targetscrollviewid: "samlFederationRequest"
   },
   {
     status: "waiting",
     label: "Step 4",
-    targetScrollViewId: "samlAttributeMapping"
+    targetscrollviewid: "samlAttributeMapping"
   }
 ];
 
@@ -62,7 +62,7 @@ const formAsideProps: Props = {
 
 const formAsideComponent = <FormAside {...formAsideProps}></FormAside>
 
-<FormTemplate FormHeader={formHeaderComponent} FormAside={formAsideComponent}>
+<FormTemplate formHeader={formHeaderComponent} formAside={formAsideComponent}>
     Any form children
 </FormTemplate>
 ```
