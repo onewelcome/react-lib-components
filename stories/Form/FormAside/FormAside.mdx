@@ -19,7 +19,7 @@ The `FormAside` component is a wrapper componet for creating the stepper of a fo
         targetScrollViewId: "samlBaseInfo"
       },
       {
-        status: "done",
+        status: "error",
         label: "Step 2",
         targetScrollViewId: "samlConnectionDetail"
       },
@@ -54,7 +54,7 @@ const [steps, setSteps] = useState(initialStepperState());
 ```
 
 <Canvas>
-  <Story of={FormAsideStories.FormAsideComponent1} />
+  <Story of={FormAsideStories.FormAsideComponent} />
 </Canvas>
 
 # Props

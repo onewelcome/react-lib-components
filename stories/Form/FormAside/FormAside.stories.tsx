@@ -1,7 +1,6 @@
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   FormAside,
-  FormAside as FormAsideComponent,
   FormStepProps,
   Props
 } from "../../../src/components/Form/FormAside/FormAside";
@@ -20,7 +19,7 @@ const initialStepperState: FormStepProps[] = [
     targetScrollViewId: "samlBaseInfo"
   },
   {
-    status: "done",
+    status: "error",
     label: "Step 2",
     targetScrollViewId: "samlConnectionDetail"
   },
@@ -44,7 +43,7 @@ const formAsideProps: Props = {
 
 const meta: Meta = {
   title: "Components/layout/FormAside",
-  component: FormAsideComponent,
+  component: FormAside,
   parameters: {
     docs: {
       page: FormAsideDocumentation
@@ -57,7 +56,7 @@ export default meta;
 
 const formAsideComponent = <FormAside {...formAsideProps}></FormAside>;
 
-const Template: Story<Props> = args => (
+const Template: StoryFn<Props> = args => (
   <>
     <FormTemplate formAside={formAsideComponent}>
       <div>
@@ -94,4 +93,4 @@ const Template: Story<Props> = args => (
   </>
 );
 
-export const FormAsideComponent1 = Template.bind({});
+export const FormAsideComponent = Template.bind({});

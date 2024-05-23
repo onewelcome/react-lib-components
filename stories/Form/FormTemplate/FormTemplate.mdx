@@ -38,7 +38,7 @@ const buttons: ReactElement<ButtonProps, typeof Button>[] = [
     targetScrollViewId: "samlBaseInfo"
   },
   {
-    status: "done",
+    status: "error",
     label: "Step 2",
     targetScrollViewId: "samlConnectionDetail"
   },
@@ -68,7 +68,7 @@ const formAsideComponent = <FormAside {...formAsideProps}></FormAside>
 ```
 
 <Canvas>
-  <Story of={FormTemplateStories.FormTemplateComponent1} />
+  <Story of={FormTemplateStories.FormTemplateComponent} />
 </Canvas>
 
 # Props
