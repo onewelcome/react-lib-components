@@ -42,7 +42,7 @@ const [steps, setSteps] = useState(initialStepperState());
     steps: steps
   };
 
-  function updateStepStatus(index: number, status: StepStatus) {
+  const updateStepStatus= (index: number, status: StepStatus)=> {
     setSteps(prevState => {
       const props = prevState.concat();
       props[index].status = status;
