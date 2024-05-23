@@ -35,10 +35,7 @@
     }
 
     &.emph-medium {
-      border-style: none none none solid;
-      border-width: var(--alert-border-width);
-      border-color: var(--alert-neutral-inverted-color);
-      padding-left: calc(1rem - var(--alert-border-width));
+      @include mixins.alertBorder(var(--alert-neutral-inverted-color));
     }
 
     &.emph-high {
@@ -63,10 +60,7 @@
     }
 
     &.emph-medium {
-      border-style: none none none solid;
-      border-width: var(--alert-border-width);
-      border-color: var(--alert-info-inverted-color);
-      padding-left: calc(1rem - var(--alert-border-width));
+      @include mixins.alertBorder(var(--alert-info-inverted-color));
     }
 
     &.emph-high {
@@ -91,10 +85,7 @@
     }
 
     &.emph-medium {
-      border-style: none none none solid;
-      border-width: var(--alert-border-width);
-      border-color: var(--alert-success-inverted-color);
-      padding-left: calc(1rem - var(--alert-border-width));
+      @include mixins.alertBorder(var(--alert-success-inverted-color));
 
       .icon {
         color: var(--alert-success-inverted-color);
@@ -123,10 +114,7 @@
     }
 
     &.emph-medium {
-      border-style: none none none solid;
-      border-width: var(--alert-border-width);
-      border-color: var(--alert-warning-inverted-color);
-      padding-left: calc(1rem - var(--alert-border-width));
+      @include mixins.alertBorder(var(--alert-warning-inverted-color));
 
       .icon {
         color: var(--alert-warning-inverted-color);
@@ -155,10 +143,7 @@
     }
 
     &.emph-medium {
-      border-style: none none none solid;
-      border-width: var(--alert-border-width);
-      border-color: var(--alert-error-inverted-color);
-      padding-left: calc(1rem - var(--alert-border-width));
+      @include mixins.alertBorder(var(--alert-error-inverted-color));
 
       .icon {
         color: var(--alert-error-inverted-color);

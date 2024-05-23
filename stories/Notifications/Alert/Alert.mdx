@@ -1,16 +1,29 @@
-import { Title, Subtitle } from "@storybook/blocks";
+import { Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
 
 <Title />
 <Subtitle />
 
-The `Alert` components and hook are there for you to make it easy to notify a user with diferent type of messages. The components, the Alert component, provider and hooks are designed to be used together.
+The `Alert` components and hook are there for you to make it easy to notify a user with different type of messages. The components, the Alert component, provider and hooks are designed to be used together.
 
-You need to wrap your application with the `AlertProvider` to ensure the alerts appear above the content on your page.
+You need to wrap your application with the AlertProvider to ensure the alerts appear below the content on your page.
 
-## Basic usage
+## Example
 
-```js
+### Wrapping your code with AlertProvider
+
+```jsx
+createRoot(root).render(
+  <AlertProvider closeButtonTitle="Close">
+    <RouterProvider router={router} />
+  </AlertProvider>
+);
+```
+
+### Usage
+
+```jsx
 const { enqueueAlert } = useAlert();
+
 enqueueAlert("Message");
 ```
 
@@ -20,27 +33,17 @@ enqueueAlert("Message");
 - `enqueueInfoAlert(string | AlertQueue)` - The variant is fixed to `informative`.
 - `enqueueSuccessAlert(string | AlertQueue)` - The variant is fixed to `success`.
 - `enqueueWarningAlert(string | AlertQueue)` - The variant is fixed to `warning`.
-- `enqueueErrorAlert(string | Error | AlertQueue)` - The variant is fixed to `error`. In case an Error instance is passed the `message` of the error is passed as content.
+- `enqueueErrorAlert(string | AlertQueue)` - The variant is fixed to `error`.
 
-## AlertQueue
+## AlertItem props
 
-Object representing the information an alert poppup.
+<ArgTypes story={PRIMARY_STORY} />
 
-- `title: string` - Optional title of the alert. In case the content is ommited, the title takes the role of content.
-- `content: string` - Optional content. Either content or title must be provided.
-- `variant: "neutral" | "informative" | "success" | "warning" | "error"` - Controls which variant to show. `"neutral"` default. It may be overriden by the queue function. See [All Alert Variants](/story/components-feedback-alert--all-alert-variants) for details.
-- `emphasis: "low" | "medium" | "high"` - Controls the emphasis if the alert. `"medium"` default. The `error` variant, `medium` and `high` emphases are assertive.
-- `duration: number` - The auto-close duration of the alert.
-- `className: string` - Css class extension for the main div container of the alert component.
-- `onClose: () => void` - Fires if the alert has finist closeing.
-- `closeButtonTitle: string` - The title of the closebutton. Overrides the provider prop of the same name.
-- `actions: Array<ButtonHTMLAttributes<HTMLButtonElement> & { label: string }>` - Objects representing an array of buttons that will be displayed next to the content.
-
-## AlertProvicer props
+## AlertProvider props
 
 - `closeButtonTitle: string (required)` - The default title for the close button on the alerts.
-- `placement?: {vertical: "top" | "bottom", horizontal: "start" | "center" | "end"}` - The placemt of the alerts relative to domRoot.
+- `placement?: {vertical: "top" | "bottom", horizontal: "start" | "center" | "end"}` - The placement of the alerts relative to domRoot.
 - `stackSize?: number` - The number of alerts that can ve visible at any given time.
 - `domRoot?: HTMLElement` - Used if custom dom root is required. Default body.
-- `autoHideDuration?: { long: number, short: number }` - The ammount of time it takes for an alert to hide itself automatically if not focused. Default `{ long: 8000, short: 4000 }`.
+- `autoHideDuration?: { long: number, short: number }` - The amount of time it takes for an alert to hide itself automatically if not focused. Default `{ long: 8000, short: 4000 }`.
 - `className?: string` - Css class extension for the main div container.

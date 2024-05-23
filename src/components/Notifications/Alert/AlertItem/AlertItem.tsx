@@ -23,10 +23,10 @@ import { useAnimation } from "../../../../hooks/useAnimation";
 import { Typography } from "../../../Typography/Typography";
 import AlertContext from "../AlertProvider/AlertContext";
 
-const EMPHASES = ["low", "medium", "high"] as const;
+export const EMPHASES = ["low", "medium", "high"] as const;
 export type Emphasis = (typeof EMPHASES)[keyof typeof EMPHASES];
 
-const VARIANTS = ["neutral", "informative", "success", "warning", "error"] as const;
+export const VARIANTS = ["neutral", "informative", "success", "warning", "error"] as const;
 export type Variant = (typeof VARIANTS)[keyof typeof VARIANTS];
 
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
@@ -71,7 +71,6 @@ export const AlertItem = ({
   onClose,
   closeButtonTitle,
   wasShown
-  //elementProps
 }: Props) => {
   const timerHandler = useRef<ReturnType<typeof setTimeout>>();
   const onAnimationEnd = () => {

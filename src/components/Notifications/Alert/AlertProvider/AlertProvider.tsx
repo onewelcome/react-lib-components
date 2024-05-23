@@ -51,6 +51,7 @@ export const AlertProvider = ({
 }: Props) => {
   const [alertEntries, setAlertEntries] = useState<AlertEntry[]>([]);
   const wrappingDivRef = useRef(null);
+  const { root } = useGetDomRoot(domRoot, wrappingDivRef);
 
   const getDuration = (entry: Omit<AlertEntry, "id">) => {
     if (entry.variant === "error") {
@@ -156,7 +157,6 @@ export const AlertProvider = ({
     ]
   );
 
-  const { root } = useGetDomRoot(domRoot, wrappingDivRef);
   return (
     <AlertContext.Provider value={contextValue}>
       {children}
