@@ -109,14 +109,14 @@ describe("component should change display the correct style and elements accordi
   });
 
   it("should not display Download action for successfully uploaded file when download link not available", () => {
-    const { actionIcons, title } = createFileItem(defaultParams => ({
+    const { actionIcons, title, queryByTestId } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "completed"
     }));
 
     expect(title).toHaveClass("completed");
     expect(actionIcons).toHaveLength(1);
-    expect(actionIcons[0]).not.toHaveClass("icon-download-file-outline");
+    expect(actionIcons[0].parentElement?.tagName).not.toEqual("a");
     expect(actionIcons[0]).not.toHaveAttribute("title", FILE_ACTION.DOWNLOAD);
     expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.DELETE);
   });

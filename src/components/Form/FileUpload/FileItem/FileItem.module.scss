@@ -31,18 +31,21 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    min-height: 46px;
+    min-height: 2.875rem;
 
     .action-button-wrapper {
       margin: 0.25rem 0;
       display: flex;
+
       button {
         margin-left: 0.5rem;
+
         span {
-          font-size: 1rem;
+          font-size: 0.875rem;
           text-transform: capitalize;
         }
       }
+
       a {
         padding-left: 0.75rem;
         padding-right: 1.25rem;
@@ -53,27 +56,30 @@
         text-decoration: none;
         margin-left: 0.5rem;
 
-        span[data-icon] {
+        span.action-icon {
           display: flex;
           justify-content: center;
           width: 1.5rem;
           margin-right: 0.25rem;
           font-size: 1rem;
+          padding-left: 0;
         }
 
         span {
           font-size: 1rem;
           text-transform: capitalize;
         }
+
         &:hover {
           color: var(--button-primary-hover-color);
           background-color: var(--color-black10);
         }
+
         &:focus {
           outline: 2px var(--button-border-style) var(--color-focus);
           outline-offset: 2px;
           border-radius: var(--button-border-radius);
-          z-index: 2;
+          z-index: var(--default-z-index1);
         }
       }
     }
@@ -87,6 +93,7 @@
         height: 3rem;
         width: 100%;
         background: transparent;
+
         > span {
           height: 0.3rem;
           border-radius: var(--input-border-radius);
@@ -94,6 +101,7 @@
       }
     }
   }
+
   .progress-bar {
     background-color: var(--color-black10);
   }
@@ -107,6 +115,8 @@
     margin: 0;
     display: flex;
     align-items: center;
+    font-size: 0.875rem;
+
     .friendly-name {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -124,7 +134,7 @@
     & label,
     & a {
       text-transform: capitalize;
-      padding-left: 8px;
+      padding-left: 0.5rem;
       cursor: pointer;
       color: var(--color-primary);
       text-decoration: none;
@@ -133,9 +143,11 @@
 
   .file-icon {
     margin-right: 0.5rem;
+
     &::before {
       color: var(--color-primary500);
     }
+
     &.retry {
       &::before {
         color: var(--error);

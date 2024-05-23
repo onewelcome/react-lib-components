@@ -195,7 +195,7 @@ interface CSSProperties {
   formControlFontSize?: string;
   fileUploadBorderWidth?: string;
   dragDropBorderStyle?: string;
-  defaultUnit1px?: string;
+  defaultZIndex1?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -251,7 +251,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     defaultHoverColor: "var(--color-blue-grey25)",
     defaultLineHeight: "1.5", //FIXME: UCL-395
     defaultBorderRadius: "0.25rem",
-    defaultUnit1px: "1px",
     focusBorderRadius: "0.125rem",
     buttonBorderRadius: "0.125rem",
     buttonBorderWidth: "2px",
@@ -377,6 +376,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
+    defaultZIndex1: "1",
     formControlFontSize: "0.875rem" //FIXME: UCL-395
   };
 

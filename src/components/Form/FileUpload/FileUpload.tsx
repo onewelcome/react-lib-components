@@ -90,12 +90,13 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   let subTextClass = [classes["file-selector-sub-text"]];
   let errorTextClass = [classes["file-selector-sub-text"]];
   dragActive && dropzoneContainerClassNames.push(classes["drag-active"]);
-  inputError ||
-    ((error || errorMsg) &&
-      dropzoneClassNames.push(classes["error"]) &&
-      subTextClass.push(classes["error"]) &&
-      errorMsg &&
-      errorTextClass.push(classes["error"]));
+  const hasError = inputError || error || errorMsg;
+  if (hasError) {
+    const errorClass = classes["error"];
+    dropzoneClassNames.push(errorClass);
+    subTextClass.push(errorClass);
+    errorTextClass.push(errorClass);
+  }
   disabled && dropzoneClassNames.push(classes["disabled"]);
   success && !error && dropzoneClassNames.push(classes["success"]);
 
@@ -182,8 +183,6 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   };
 
   const handleOnDrop = (e: DragEvent<HTMLDivElement>) => {
-    // eslint-disable-next-line no-console
-    console.log("inside handleOnDrop", e);
     e.preventDefault();
     e.stopPropagation();
     if (e?.dataTransfer?.files && e.dataTransfer.files.length) {
@@ -247,7 +246,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                     aria-labelledby={labeledBy}
                     type="file"
                     name={name}
-                    multiple={multiple ?? true}
+                    multiple={multiple}
                     disabled={disabled}
                     accept={accept}
                     onChange={onInputChange}

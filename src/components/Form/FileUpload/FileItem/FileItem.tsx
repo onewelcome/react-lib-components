@@ -193,7 +193,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       >
         {status === "retry" && (
           <Icon
-            icon={Icons.InfoCircle}
+            icon={Icons.Error}
             className={`${classes["file-icon"]} ${status ? classes[status] : ""}`}
           />
         )}
