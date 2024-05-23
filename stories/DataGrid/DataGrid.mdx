@@ -124,6 +124,51 @@ The last cell of each row is reserved for item actions that can affect it, which
 </DataGrid>
 ```
 
+### Expandable rows
+
+In order to enable expandable rows, user has to set `enableExpandableRow` prop to `true` and provide it both to `DataGrid` and `DataGridRow` component.
+Furthermore `DataGridRow` consumes `expandableRowContent` prop which takes `ReactNode`. This prop can be used to set what sort of content should be displayed in the expandable row.
+You should use the `DataGridDrawerItem` to display the data within the table expandable row.
+
+```jsx
+const expandableRowHeaders= [
+    { name: "description", headline: "Description" },
+    { name: "metadata", headline: "Metadata" }
+  ];
+
+<DataGrid
+  headers={[
+    { name: 'index', headline: '#' },
+    { name: 'name', headline: 'Name' },
+    { name: 'number', headline: 'Random number' },
+  ]}
+  enableExpandableRow={true}
+  data={[...]}
+  spacing={{ paddingLeft: 4, paddingRight: 8 }}
+>
+  {({ item, index }) => (
+    <DataGridRow
+      key={item.id}
+      enableExpandableRow={true}
+      expandableRowContent={
+        <Fragment>
+          {expandableRowHeaders?.map(({ name, headline }) => (
+            <DataGridDrawerItem key={name} title={headline} description={item[name]} />
+          ))}
+        </Fragment>
+      }
+    >
+      <DataGridCell>{index + 1}</DataGridCell>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{Math.random()}</DataGridCell>
+      <DataGridCell>
+        <ContextMenu ... />
+      </DataGridCell>
+    </DataGridRow>
+  )}
+</DataGrid>
+```
+
 ### Disabling context menu column
 
 To disable context menu column set the `disableContextMenuColumn` property to `true`.
