@@ -14,16 +14,26 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, useState, Fragment, Ref, ReactElement } from "react";
+import React, {
+  ComponentPropsWithRef,
+  useState,
+  Fragment,
+  Ref,
+  ReactElement,
+  ForwardRefRenderFunction
+} from "react";
 import { HeaderCell } from "../datagrid.interfaces";
 import classes from "./DataGridRow.module.scss";
 import { IconButton } from "../../Button/IconButton";
 import { Icon, Icons } from "../../Icon/Icon";
 import { DataGridCell } from "./DataGridCell";
 import { DataGridDrawer } from "./DataGridDrawer";
+import { generateID } from "../../../util/helper";
 
-export interface Props<T> extends ComponentPropsWithRef<"tr"> {
-  item?: T;
+export interface Props extends ComponentPropsWithRef<"tr"> {
+  expandButtonTitle?: string;
+  expandButtonId?: string;
+  drawerId?: string;
   headers?: HeaderCell[];
   isLoading?: boolean;
   spacing?: React.CSSProperties;
@@ -34,9 +44,11 @@ export interface Props<T> extends ComponentPropsWithRef<"tr"> {
   onExpandRowButtonClick?: boolean;
 }
 
-const DataGridRowComponent = <T extends {}>(
+const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props> = (
   {
-    item,
+    expandButtonTitle = "Expand row",
+    expandButtonId = `ID-${generateID()}`,
+    drawerId = `ID-${generateID()}`,
     children,
     className,
     headers,
@@ -46,8 +58,8 @@ const DataGridRowComponent = <T extends {}>(
     disableContextMenuColumn,
     enableExpandableRow,
     ...rest
-  }: Props<T>,
-  ref: Ref<HTMLTableRowElement>
+  },
+  ref
 ) => {
   const [isRowExpanded, setIsRowExpanded] = useState(false);
   const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
@@ -79,17 +91,29 @@ const DataGridRowComponent = <T extends {}>(
             onClick={() => setIsRowExpanded(!isRowExpanded)}
             style={{ width: "1px" }}
           >
-            <IconButton title="Expand row">
+            <IconButton
+              id={expandButtonId}
+              title={expandButtonTitle}
+              aria-expanded={isRowExpanded}
+              aria-controls={drawerId}
+            >
               <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
             </IconButton>
           </DataGridCell>
         )}
         {visibleCells}
       </tr>
-      {isRowExpanded && (
-        <tr className={`${classes["row"]} ${classes["border"]}`}>
+      {enableExpandableRow && (
+        <tr className={`${classes["row"]} ${isRowExpanded ? classes["border"] : ""}`}>
           <td colSpan={visibleCells.length + 1}>
-            <DataGridDrawer>{expandableRowContent}</DataGridDrawer>
+            <DataGridDrawer
+              id={drawerId}
+              role="region"
+              aria-labelledby={expandButtonId}
+              isExpanded={isRowExpanded}
+            >
+              {expandableRowContent}
+            </DataGridDrawer>
           </td>
         </tr>
       )}
@@ -97,6 +121,4 @@ const DataGridRowComponent = <T extends {}>(
   );
 };
 
-export const DataGridRow = React.forwardRef(DataGridRowComponent) as <T extends {}>(
-  p: Props<T> & { ref?: Ref<HTMLTableRowElement> }
-) => ReactElement;
+export const DataGridRow = React.forwardRef(DataGridRowComponent);

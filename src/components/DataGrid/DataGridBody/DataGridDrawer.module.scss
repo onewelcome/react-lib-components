@@ -1,6 +1,60 @@
 .drawer {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 0fr;
   gap: 0.5rem;
-  padding: 1rem 4.75rem;
+  transition: grid-template-rows 200ms;
+
+  & > div > * {
+    padding-left: 4.75rem;
+    padding-right: 1.5rem;
+  }
+
+  & > div > *:first-child {
+    padding-top: 1rem;
+  }
+
+  & > div > *:last-child {
+    padding-bottom: 1.5rem;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &.expanded {
+    grid-template-rows: 1fr;
+    $maxElements: 100;
+
+    @for $i from 1 to $maxElements {
+      & > div > :nth-child(#{$i}) {
+        opacity: 0;
+        animation-name: item-fade-in;
+        animation-duration: 250ms;
+        animation-fill-mode: forwards;
+        animation-delay: (100ms * ($i - 1));
+      }
+    }
+  }
+
+  @keyframes item-fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-60px);
+    }
+
+    80% {
+      opacity: 0.6;
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+
+  & > * {
+    overflow: hidden;
+  }
 }

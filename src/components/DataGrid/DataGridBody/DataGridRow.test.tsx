@@ -21,7 +21,7 @@ import { DataGridCell } from "./DataGridCell";
 import { DataGridDrawerItem } from "./DataGridDrawerItem";
 import userEvent from "@testing-library/user-event";
 
-const defaultParams: Props<{}> = {
+const defaultParams: Props = {
   children: [<DataGridCell>1</DataGridCell>, <DataGridCell>2</DataGridCell>],
   headers: [
     { name: "firstName", headline: "first name" },
@@ -29,8 +29,8 @@ const defaultParams: Props<{}> = {
   ]
 };
 
-const createDataGridRow = (params?: (defaultParams: Props<{}>) => Props<{}>) => {
-  let parameters: Props<{}> = defaultParams;
+const createDataGridRow = (params?: (defaultParams: Props) => Props) => {
+  let parameters: Props = defaultParams;
   if (params) {
     parameters = params(defaultParams);
   }
@@ -110,12 +110,16 @@ describe("DataGridRow should render", () => {
 
     expect(dataGridRow).toBeDefined();
     const cells = getAllByRole("cell");
-    expect(cells).toHaveLength(3);
+    expect(cells).toHaveLength(4);
 
-    await userEvent.click(getByRole("button"));
+    const expandButton = getByRole("button");
+    expect(expandButton).toHaveAttribute("aria-expanded", "false");
+
+    await userEvent.click(expandButton);
     await waitFor(() => findByText("this is description"));
 
     expect(getByText("this is description")).toBeDefined();
+    expect(expandButton).toHaveAttribute("aria-expanded", "true");
   });
 });
 

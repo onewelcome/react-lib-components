@@ -79,13 +79,12 @@ const Template = args => {
 
   return (
     <Fragment>
-      <div style={{ padding: "1rem", backgroundColor: "rgb(245, 248, 248)" }}>
+      <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
         <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
           <DataGridComponent {...args}>
             {({ item }: { item: DataGridItem }) => (
               <DataGridRow
                 key={item.id}
-                item={item}
                 enableExpandableRow={args.enableExpandableRow}
                 expandableRowContent={
                   <Fragment>

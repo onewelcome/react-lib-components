@@ -17,15 +17,21 @@
 import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
 import classes from "./DataGridDrawer.module.scss";
 
-export interface Props extends ComponentPropsWithRef<"div"> {}
+export interface Props extends ComponentPropsWithRef<"div"> {
+  isExpanded: boolean;
+}
 
 const DataGridDrawerComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children }: Props,
+  { children, isExpanded, ...rest }: Props,
   ref
 ) => {
   return (
-    <div ref={ref} className={classes["drawer"]}>
-      {children}
+    <div
+      {...rest}
+      ref={ref}
+      className={`${classes["drawer"]} ${isExpanded ? classes["expanded"] : ""}`}
+    >
+      <div className={classes["wrapper"]}>{children}</div>
     </div>
   );
 };
