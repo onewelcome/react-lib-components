@@ -16,7 +16,7 @@ const createFileItem = (params?: (defaultParams: Props) => Props) => {
   const component = queries.getByLabelText(`${parameters.name}-wrapper`);
   const title = component.querySelector(".file-name");
   const fileIcon = component.querySelector(".file-icon");
-  const errorIcon = component.querySelector(".icon-info-circle");
+  const errorIcon = component.querySelector(".icon-error-circle");
   const actionIcons = component.querySelectorAll(".action-icon");
   const errorSubtitle = component.querySelector(".file-subtitle");
   const progressBar = component.querySelector(".progress-bar");

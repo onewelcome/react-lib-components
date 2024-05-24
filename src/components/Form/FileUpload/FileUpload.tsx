@@ -50,6 +50,8 @@ export interface Props extends FileUploadType {
   onChange?: (e: FileType[]) => void;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
   downloadFileLink?: string;
+  isRequired?: boolean;
+  invalidDropErrorMessage?: string;
 }
 
 const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
@@ -76,6 +78,8 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     exceedingMaxSizeErrorText,
     fileList,
     downloadFileLink,
+    isRequired = true,
+    invalidDropErrorMessage = "Invalid file format. Supported formats are: $accept.",
     ...rest
   }: Props,
   ref
@@ -188,7 +192,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     if (e?.dataTransfer?.files && e.dataTransfer.files.length) {
       const extension = e?.dataTransfer?.files[0]?.name.split(".").pop();
       if (extension && accept && !accept.includes(extension)) {
-        setErrorMsg(`Invalid file format. Supported formats are: ${accept}.`);
+        setErrorMsg(invalidDropErrorMessage.replace("$accept", accept));
         setDragActive(false);
         return;
       } else {
@@ -205,7 +209,8 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       <div className={classes["dropzone-wrapper"]}>
         <div className={dropzoneClassNames.join(" ")}>
           <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
-            {title} <span className={classes["file-upload-title-mandatory"]}>*</span>
+            {title}{" "}
+            {isRequired && <span className={classes["file-upload-title-mandatory"]}>*</span>}
           </Typography>
 
           {fileList?.length > 0 && (
@@ -214,6 +219,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                 <li key={name} className={status} id={name}>
                   <FileItem
                     name={name}
+                    key={`${name}_${status}`}
                     status={status}
                     progress={progress}
                     error={error}

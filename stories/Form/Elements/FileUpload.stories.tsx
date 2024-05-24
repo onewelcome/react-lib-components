@@ -130,7 +130,9 @@ FileUploadComponent.args = {
   multiple: true,
   dragAndDropText: "Drag and drop or",
   title: "File Upload Title Placeholder",
-  fileList: files
+  fileList: files,
+  invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
+  downloadFileLink: "http://localhost:4000/download.link"
 };
 
 export const FileUploadComponentWithServerInteraction = Template.bind({});
@@ -141,5 +143,7 @@ FileUploadComponentWithServerInteraction.args = {
   dragAndDropText: "Drag and drop or",
   title: "File Upload Title Placeholder",
   fileList: files,
-  url: "http://localhost:4000/upload"
+  url: "http://localhost:4000/upload",
+  invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
+  downloadFileLink: "http://localhost:4000/download.link"
 };
