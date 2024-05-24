@@ -61,7 +61,7 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
     >
       {isLoading && <div className={classes["loading"]} aria-busy="true" aria-live="polite"></div>}
       {!isLoading && (
-        <Typography variant="body" tag="span">
+        <Typography className={classes["text"]} variant="body" tag="span">
           {children}
         </Typography>
       )}

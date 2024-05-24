@@ -102,7 +102,9 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       <div className={classes["left"]}>
         {pageSize && (
           <div className={classes["per-page"]}>
-            <Label id="page-size-select-label">{translate.itemsPerPage}</Label>
+            <Label id="page-size-select-label" className={classes["label"]}>
+              {translate.itemsPerPage}
+            </Label>
             <Select
               labeledBy="page-size-select-label"
               className={`${classes["form-element"]} ${classes["page-size-select"]}`}

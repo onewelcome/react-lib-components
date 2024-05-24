@@ -67,6 +67,7 @@ interface CSSProperties {
   defaultPressedColor?: string;
   defaultHoverColor?: string;
   defaultLineHeight?: string;
+  dataGridLineHeight?: string;
   focusBorderRadius?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
@@ -196,6 +197,7 @@ interface CSSProperties {
   fileUploadBorderWidth?: string;
   dragDropBorderStyle?: string;
   defaultZIndex1?: string;
+  fontSizeDataGrid?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -250,6 +252,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     defaultPressedColor: "var(--color-blue-grey100)",
     defaultHoverColor: "var(--color-blue-grey25)",
     defaultLineHeight: "1.5", //FIXME: UCL-395
+    dataGridLineHeight: "1.25",
     defaultBorderRadius: "0.25rem",
     focusBorderRadius: "0.125rem",
     buttonBorderRadius: "0.125rem",
@@ -377,7 +380,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
     defaultZIndex1: "1",
-    formControlFontSize: "0.875rem" //FIXME: UCL-395
+    formControlFontSize: "0.875rem", //FIXME: UCL-395
+    fontSizeDataGrid: "0.875rem" //FIXME: UCL-395
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

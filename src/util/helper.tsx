@@ -217,3 +217,5 @@ export const deepMerge = <T extends {}>(obj1: ObjectType, obj2: ObjectType | fal
 
   return result as T;
 };
+
+export const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

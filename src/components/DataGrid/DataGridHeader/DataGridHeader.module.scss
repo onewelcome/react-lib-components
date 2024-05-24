@@ -14,16 +14,6 @@
  *    limitations under the License.
  */
 
-.thead {
-  &::after {
-    content: "";
-    position: absolute;
-    width: calc(100% - 2rem);
-    left: 1rem;
-    border-bottom: 2px solid var(--light-grey-border);
-  }
-}
-
 .row {
   height: 2.5rem;
 }

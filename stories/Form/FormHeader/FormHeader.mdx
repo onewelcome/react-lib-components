@@ -1,0 +1,40 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as FormHeaderStories from "./FormHeader.stories.tsx";
+
+<Title />
+<Subtitle />
+
+The `FormHeader` component will be used as a wrapper component for header of a form. Its root element is the default HTML `div` tag and thus also accepts all of its HTML attributes. You should use this component whenever you want to create a `FormHeader`.
+
+# Examples
+
+The `FormHeader` component is a wrapper componet for creating the header of a form. See the code snippet below that showcases how you can use it.
+
+```jsx
+
+const buttons: ReactElement<ButtonProps, typeof Button>[] = [
+  <Button key="1" onClick={() => alert("Cancel button clicked.")} variant="text">
+    Cancel
+  </Button>,
+  <Button key="2" disabled startIcon={<Icon icon={Icons.SaveOutline} />}>
+    Save Draft
+  </Button>,
+  <Button key="3" onClick={() => alert("Submit button clicked.")} startIcon={<Icon icon={Icons.ReplyOutline} />}>
+    Submit
+  </Button>
+];
+
+ <FormHeader
+  title= {"Form Header Text"}
+  buttons={buttons}>
+    Form Description
+ </FormHeader>
+```
+
+<Canvas>
+  <Story of={FormHeaderStories.FormHeaderComponent1} />
+</Canvas>
+
+# Props
+
+<ArgTypes story={PRIMARY_STORY} />{" "}
