@@ -93,6 +93,7 @@ const renderAlerts = (title: string, variant: Variant) => (
       title={title}
       content="Medium emphasis (default)"
       variant={variant}
+      emphasis={"medium"}
       id={`${variant}-medium`}
     />
     <AlertItem
