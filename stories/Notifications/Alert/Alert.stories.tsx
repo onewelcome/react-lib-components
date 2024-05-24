@@ -124,9 +124,9 @@ const MultipleStatesTemplate: StoryFn = () => {
   );
 };
 
-export const AlertVariantsTemplate = MultipleStatesTemplate.bind({});
+export const AlertVariants = MultipleStatesTemplate.bind({});
 
-AlertVariantsTemplate.parameters = {
+AlertVariants.parameters = {
   controls: { disable: true }
 };
 
