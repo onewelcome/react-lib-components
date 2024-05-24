@@ -107,7 +107,7 @@ export const AlertItem = ({
 
   const getVariantIcon = () => {
     if (variant === "error") {
-      return Icons.Error;
+      return Icons.ErrorAlt;
     }
 
     if (variant === "warning") {
