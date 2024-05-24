@@ -14,14 +14,7 @@
  *    limitations under the License.
  */
 
-import React, {
-  ComponentPropsWithRef,
-  useState,
-  Fragment,
-  Ref,
-  ReactElement,
-  ForwardRefRenderFunction
-} from "react";
+import React, { ComponentPropsWithRef, useState, Fragment, ForwardRefRenderFunction } from "react";
 import { HeaderCell } from "../datagrid.interfaces";
 import classes from "./DataGridRow.module.scss";
 import { IconButton } from "../../Button/IconButton";
