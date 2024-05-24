@@ -18,6 +18,9 @@ import React, { createContext } from "react";
 import { DeprecatedEnqueueSnackbarType } from "../interfaces";
 import { Item } from "./SnackbarProvider";
 
+/**
+ * @deprecated
+ */
 interface SnackbarContextProps {
   enqueueSnackbar: DeprecatedEnqueueSnackbarType;
   enqueueSuccessSnackbar: DeprecatedEnqueueSnackbarType;
@@ -27,6 +30,9 @@ interface SnackbarContextProps {
   snackbars: Item[];
 }
 
+/**
+ * @deprecated
+ */
 const SnackbarContext = createContext<SnackbarContextProps>({
   enqueueSnackbar: () => null,
   enqueueSuccessSnackbar: () => null,
@@ -41,6 +47,9 @@ interface Props {
   children?: React.ReactNode;
 }
 
+/**
+ * @deprecated
+ */
 const SnackbarContextProvider = ({ children, initialState }: Props) => {
   return <SnackbarContext.Provider value={initialState}>{children}</SnackbarContext.Provider>;
 };

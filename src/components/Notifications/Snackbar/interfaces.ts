@@ -16,10 +16,19 @@
 
 import { ButtonHTMLAttributes } from "react";
 
+/**
+ * @deprecated
+ */
 export type Variant = "info" | "success" | "error" | "warning";
 
+/**
+ * @deprecated
+ */
 export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string })[];
 
+/**
+ * @deprecated
+ */
 export interface SnackbarOptionsProps {
   actions?: Actions;
   className?: string;
@@ -28,17 +37,26 @@ export interface SnackbarOptionsProps {
   onClose?: () => void;
 }
 
+/**
+ * @deprecated
+ */
 export interface EnqueueSnackbarProps extends SnackbarOptionsProps {
   title?: string;
   content?: string;
 }
 
+/**
+ * @deprecated
+ */
 export type DeprecatedEnqueueSnackbarType = (
   propsOrTitle: EnqueueSnackbarProps | string | undefined,
   content?: string,
   options?: SnackbarOptionsProps
 ) => void;
 
+/**
+ * @deprecated
+ */
 export function isNewEnqueueSnackbarInterface(args: unknown): args is EnqueueSnackbarProps {
   return args !== null && typeof args === "object" && ("title" in args || "content" in args);
 }
