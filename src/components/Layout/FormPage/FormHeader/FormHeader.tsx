@@ -15,8 +15,8 @@
  */
 
 import React, { HTMLAttributes, ReactElement } from "react";
-import { Button, Props as ButtonProps } from "../../Button/Button";
-import { Typography } from "../../Typography/Typography";
+import { Button, Props as ButtonProps } from "../../../Button/Button";
+import { Typography } from "../../../Typography/Typography";
 
 import classes from "./FormHeader.module.scss";
 
