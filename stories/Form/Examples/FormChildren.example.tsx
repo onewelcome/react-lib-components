@@ -52,7 +52,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+export const FormExample = args => {
   const [selectValue, setSelectValue] = useState("option1");
   const [prefix, setPrefix] = useState("mr");
   const [preferredMobileDevice, setPreferredMobileDevice] = useState("mobile");
@@ -137,7 +137,7 @@ const Template: Story<Props> = args => {
 
   return (
     <Form style={{ padding: "20px", backgroundColor: "#F5F8F8" }}>
-      <FormControlComponent {...args}>
+      <FormControlComponent grid={3} align={"center"}>
         <RadioWrapper
           error={false}
           errorMessage="Error message"
@@ -191,11 +191,4 @@ const Template: Story<Props> = args => {
       </FormControlComponent>
     </Form>
   );
-};
-
-export const FormControlExample = Template.bind({});
-
-FormControlExample.args = {
-  grid: 3,
-  align: "center"
 };

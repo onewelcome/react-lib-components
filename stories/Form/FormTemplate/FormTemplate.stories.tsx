@@ -12,7 +12,7 @@ import { FormHeader } from "../../../src/components/Form/FormHeader/FormHeader";
 import FormTemplateDocumentation from "./FormTemplate.mdx";
 import React, { ReactElement } from "react";
 import { FormSection } from "../../../src/components/Form/FormSection/FormSection";
-import { FormControlExample } from "../Examples/FormChildren.example.stories";
+import { FormExample } from "../Examples/FormChildren.example";
 
 import { Button, ButtonProps, Icon, Icons } from "../../../src";
 
@@ -20,22 +20,22 @@ const initialStepperState: FormStepProps[] = [
   {
     status: "done",
     label: "Step 1",
-    targetscrollviewid: "samlBaseInfo"
+    targetScrollView: "samlBaseInfo"
   },
   {
     status: "error",
     label: "Step 2",
-    targetscrollviewid: "samlConnectionDetail"
+    targetScrollView: "samlConnectionDetail"
   },
   {
     status: "current",
     label: "Step 3",
-    targetscrollviewid: "samlFederationRequest"
+    targetScrollView: "samlFederationRequest"
   },
   {
     status: "waiting",
     label: "Step 4",
-    targetscrollviewid: "samlAttributeMapping"
+    targetScrollView: "samlAttributeMapping"
   }
 ];
 
@@ -90,28 +90,28 @@ const Template: StoryFn<Props> = args => (
         header="Step 1 Form Section"
         subtext="Form Section sub-header."
       >
-        <FormControlExample></FormControlExample>
+        <FormExample></FormExample>
       </FormSection>
       <FormSection
         id="samlConnectionDetail"
         header="Step 2 Form Section"
         subtext="Form Section Subheader"
       >
-        <FormControlExample></FormControlExample>
+        <FormExample></FormExample>
       </FormSection>
       <FormSection
         id="samlFederationRequest"
         header="Step 3 Form section"
         subtext="Form Section Subheader"
       >
-        <FormControlExample></FormControlExample>
+        <FormExample></FormExample>
       </FormSection>
       <FormSection
         id="samlAttributeMapping"
         header="Step 4 Form section"
         subtext="Form Section Subheader"
       >
-        <FormControlExample></FormControlExample>
+        <FormExample></FormExample>
       </FormSection>
     </div>
   </FormTemplate>
