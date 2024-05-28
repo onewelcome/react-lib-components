@@ -19,7 +19,7 @@ import React from "react";
 import {
   FormSection,
   Props
-} from "../../../src/components/Form/FormSection/FormSection";
+} from "../../../src/components/Layout/FormPage/FormSection/FormSection";
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import FormSectionDocumentation from "./FormSection.mdx";
 

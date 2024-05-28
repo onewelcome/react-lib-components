@@ -8,10 +8,10 @@ import {
   FormTemplate,
   Props
 } from "../../../src/components/Layout/FormPage/FormTemplate/FormTemplate";
-import { FormHeader } from "../../../src/components/Form/FormHeader/FormHeader";
+import { FormHeader } from "../../../src/components/Layout/FormPage/FormHeader/FormHeader";
 import FormTemplateDocumentation from "./FormTemplate.mdx";
 import React, { ReactElement } from "react";
-import { FormSection } from "../../../src/components/Form/FormSection/FormSection";
+import { FormSection } from "../../../src/components/Layout/FormPage/FormSection/FormSection";
 import { FormControlExample } from "../Examples/FormControlExample";
 
 import { Button, ButtonProps, Icon, Icons } from "../../../src";
