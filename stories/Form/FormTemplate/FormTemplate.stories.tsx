@@ -3,16 +3,16 @@ import {
   FormAside,
   FormStepProps,
   Props as FormAsideProps
-} from "../../../src/components/Form/FormAside/FormAside";
+} from "../../../src/components/Layout/FormPage/FormAside/FormAside";
 import {
   FormTemplate,
   Props
-} from "../../../src/components/Form/FormTemplate/FormTemplate";
+} from "../../../src/components/Layout/FormPage/FormTemplate/FormTemplate";
 import { FormHeader } from "../../../src/components/Form/FormHeader/FormHeader";
 import FormTemplateDocumentation from "./FormTemplate.mdx";
 import React, { ReactElement } from "react";
 import { FormSection } from "../../../src/components/Form/FormSection/FormSection";
-import { FormExample } from "../Examples/FormChildren.example";
+import { FormControlExample } from "../Examples/FormControlExample";
 
 import { Button, ButtonProps, Icon, Icons } from "../../../src";
 
@@ -90,28 +90,28 @@ const Template: StoryFn<Props> = args => (
         header="Step 1 Form Section"
         subtext="Form Section sub-header."
       >
-        <FormExample></FormExample>
+        <FormControlExample></FormControlExample>
       </FormSection>
       <FormSection
         id="samlConnectionDetail"
         header="Step 2 Form Section"
         subtext="Form Section Subheader"
       >
-        <FormExample></FormExample>
+        <FormControlExample></FormControlExample>
       </FormSection>
       <FormSection
         id="samlFederationRequest"
         header="Step 3 Form section"
         subtext="Form Section Subheader"
       >
-        <FormExample></FormExample>
+        <FormControlExample></FormControlExample>
       </FormSection>
       <FormSection
         id="samlAttributeMapping"
         header="Step 4 Form section"
         subtext="Form Section Subheader"
       >
-        <FormExample></FormExample>
+        <FormControlExample></FormControlExample>
       </FormSection>
     </div>
   </FormTemplate>

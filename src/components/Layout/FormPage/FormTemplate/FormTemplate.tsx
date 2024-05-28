@@ -17,7 +17,7 @@
 import React, { HTMLAttributes, ReactElement } from "react";
 import { Props as FormAsideProps, FormAside } from "../FormAside/FormAside";
 import classes from "./FormTemplate.module.scss";
-import { FormHeader, Props as FormHeaderProps } from "../FormHeader/FormHeader";
+import { FormHeader, Props as FormHeaderProps } from "../../../Form/FormHeader/FormHeader";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   formHeader?: ReactElement<FormHeaderProps, typeof FormHeader>;

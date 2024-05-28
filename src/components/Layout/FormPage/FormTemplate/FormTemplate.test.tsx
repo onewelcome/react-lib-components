@@ -17,9 +17,9 @@
 import React from "react";
 import { FormTemplate, Props } from "./FormTemplate";
 import { render } from "@testing-library/react";
-import { FormHeader, Props as FormHeaderProps } from "../../Form/FormHeader/FormHeader";
-import { FormAside, Props as FormAsideProps } from "../../Form/FormAside/FormAside";
-import { Button } from "../../Button/Button";
+import { FormHeader, Props as FormHeaderProps } from "../../../Form/FormHeader/FormHeader";
+import { FormAside, Props as FormAsideProps } from "../FormAside/FormAside";
+import { Button } from "../../../Button/Button";
 
 const defaultParams: Props = {};
 

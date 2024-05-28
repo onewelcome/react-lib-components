@@ -151,12 +151,12 @@ export { MultiSelectWrapper } from "./components/Form/Wrapper/MultiSelectWrapper
 export type { Props as MultiSelectWrapperProps } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 export { FormHeader } from "./components/Form/FormHeader/FormHeader";
 export type { Props as FormHeaderProps } from "./components/Form/FormHeader/FormHeader";
-export { FormAside } from "./components/Form/FormAside/FormAside";
-export type { Props as FormAsideProps, FormStepProps } from "./components/Form/FormAside/FormAside";
+export { FormAside } from "./components/Layout/FormPage/FormAside/FormAside";
+export type { Props as FormAsideProps, FormStepProps } from "./components/Layout/FormPage/FormAside/FormAside";
 export { FormSection } from "./components/Form/FormSection/FormSection";
 export type { Props as FormSectionProps } from "./components/Form/FormSection/FormSection";
-export { FormTemplate } from "./components/Form/FormTemplate/FormTemplate";
-export type { Props as FormTemplateProps } from "./components/Form/FormTemplate/FormTemplate";
+export { FormTemplate } from "./components/Layout/FormPage/FormTemplate/FormTemplate";
+export type { Props as FormTemplateProps } from "./components/Layout/FormPage/FormTemplate/FormTemplate";
 
 /** Wizard */
 export { Wizard } from "./components/Wizard/Wizard";

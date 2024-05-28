@@ -15,10 +15,9 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta } from "@storybook/react";
 import {
   FormControl as FormControlComponent,
-  Props
 } from "../../../src/components/Form/FormControl/FormControl";
 import { Form } from "../../../src/components/Form/Form";
 import { RadioWrapper } from "../../../src/components/Form/Wrapper/RadioWrapper/RadioWrapper";
@@ -52,7 +51,7 @@ const meta: Meta = {
 
 export default meta;
 
-export const FormExample = args => {
+export const FormControlExample = args => {
   const [selectValue, setSelectValue] = useState("option1");
   const [prefix, setPrefix] = useState("mr");
   const [preferredMobileDevice, setPreferredMobileDevice] = useState("mobile");

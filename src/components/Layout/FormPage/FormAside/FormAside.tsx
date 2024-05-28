@@ -16,8 +16,8 @@
 
 import React from "react";
 import classes from "./FormAside.module.scss";
-import { Stepper, Props as StepperProps } from "../../Stepper/Stepper";
-import { Props as StepProps } from "../../Stepper/Step";
+import { Stepper, Props as StepperProps } from "../../../Stepper/Stepper";
+import { Props as StepProps } from "../../../Stepper/Step";
 
 export interface FormStepProps extends StepProps {
   targetScrollView?: string;
@@ -36,7 +36,7 @@ export const FormAside = ({ steps, direction, textPosition, ...rest }: Props) =>
         ...stepRest,
         onClick: () => {
           try {
-            document.getElementById(targetScrollView!)?.scrollIntoView();
+            document.getElementById(targetScrollView)?.scrollIntoView();
           } catch (e) {
             throw new Error("Target element not found in the DOM.");
           }
