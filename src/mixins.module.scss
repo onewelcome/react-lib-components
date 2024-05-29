@@ -305,3 +305,10 @@
     border-radius: var(--focus-border-radius);
   }
 }
+
+@mixin alertBorder($border-color) {
+  border-style: none none none solid;
+  border-width: var(--alert-border-width);
+  border-color: $border-color;
+  padding-left: calc(1rem - var(--alert-border-width));
+}

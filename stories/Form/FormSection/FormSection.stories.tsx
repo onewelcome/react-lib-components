@@ -39,7 +39,7 @@ const meta: Meta = {
         helperText="Helper text for this field. Description should be short and not repeat the label"
         label="Label for this inputfield"
         name="input1"
-        onChange={() => { }}
+        onChange={() => {}}
         type="text"
         value=""
       />
