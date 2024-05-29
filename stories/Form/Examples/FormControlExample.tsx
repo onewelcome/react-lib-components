@@ -26,6 +26,7 @@ import { CheckboxWrapper } from "../../../src/components/Form/Wrapper/CheckboxWr
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import { Radio } from "../../../src/components/Form/Radio/Radio";
 import { Fieldset } from "../../../src/components/Form/Fieldset/Fieldset";
+import { StepStatus } from "../../../src/components/Stepper/Step";
 
 const meta: Meta = {
   component: FormControlComponent,
@@ -49,13 +50,19 @@ const meta: Meta = {
   }
 };
 
+interface Props {
+  index?: number;
+  updateStepStatus?: any;
+}
+
 export default meta;
 
-export const FormControlExample = args => {
+export const FormControlExample = ({ index, updateStepStatus }: Props) => {
   const [selectValue, setSelectValue] = useState("option1");
   const [prefix, setPrefix] = useState("mr");
   const [preferredMobileDevice, setPreferredMobileDevice] = useState("mobile");
   const [newsletter, setNewsletter] = useState(true);
+  const [dirtyData, setDirtyData] = useState(false);
   const [electronics, setElectronics] = useState({
     indeterminate: false,
     checked: false,
@@ -63,7 +70,8 @@ export const FormControlExample = args => {
     mobile: false,
     laptop: false
   });
-  const [inputValue, setInputValue] = useState("");
+  const defaultInputValue = "";
+  const [inputValue, setInputValue] = useState(defaultInputValue);
 
   const onSelectChange = event => {
     setSelectValue(event.target.value);
@@ -134,6 +142,13 @@ export const FormControlExample = args => {
     });
   };
 
+  const setInputControlValue = (event: any) => {
+    setInputValue(event.target.value);
+    setDirtyData(true);
+
+    updateStepStatus && updateStepStatus(index, event.target.value ? "done" : "error");
+  }
+
   return (
     <Form style={{ padding: "20px", backgroundColor: "#F5F8F8" }}>
       <FormControlComponent grid={3} align={"center"}>
@@ -179,11 +194,12 @@ export const FormControlExample = args => {
           <InputWrapper
             helperText="Helper text for this field. Description should be short and not repeat the label"
             name="input1"
+            required
             errorMessage={"This is an error"}
             type="text"
             value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-            error={false}
+            onChange={e => setInputControlValue(e)}
+            error={!inputValue && dirtyData}
             label="Label for this inputfield"
           />
         </Fieldset>
