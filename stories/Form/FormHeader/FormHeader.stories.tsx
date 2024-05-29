@@ -3,7 +3,7 @@ import {
   FormHeader,
   FormHeader as FormHeaderComponent,
   Props
-} from "../../../src/components/Form/FormHeader/FormHeader";
+} from "../../../src/components/Layout/FormPage/FormHeader/FormHeader";
 import FormHeaderDocumentation from "./FormHeader.mdx";
 import React, { Fragment, ReactElement } from "react";
 import { Button, ButtonProps, Icon, Icons } from "../../../src";

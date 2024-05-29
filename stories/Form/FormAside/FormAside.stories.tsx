@@ -1,31 +1,31 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { FormAside, FormStepProps, Props } from "../../../src/components/Form/FormAside/FormAside";
+import { FormAside, FormStepProps, Props } from "../../../src/components/Layout/FormPage/FormAside/FormAside";
 import FormAsideDocumentation from "./FormAside.mdx";
 import React from "react";
-import { FormSection } from "../../../src/components/Form/FormSection/FormSection";
-import { FormTemplate } from "../../../src/components/Form/FormTemplate/FormTemplate";
-import { FormControlExample } from "../Examples/FormChildren.example.stories";
+import { FormSection } from "../../../src/components/Layout/FormPage/FormSection/FormSection";
+import { FormTemplate } from "../../../src/components/Layout/FormPage/FormTemplate/FormTemplate";
+import { FormControlExample } from "../Examples/FormControlExample";
 
 const initialStepperState: FormStepProps[] = [
   {
     status: "done",
     label: "Step 1",
-    targetscrollviewid: "samlBaseInfo"
+    targetScrollViewId: "samlBaseInfo"
   },
   {
     status: "error",
     label: "Step 2",
-    targetscrollviewid: "samlConnectionDetail"
+    targetScrollViewId: "samlConnectionDetail"
   },
   {
     status: "current",
     label: "Step 3",
-    targetscrollviewid: "samlFederationRequest"
+    targetScrollViewId: "samlFederationRequest"
   },
   {
     status: "waiting",
     label: "Step 4",
-    targetscrollviewid: "samlAttributeMapping"
+    targetScrollViewId: "samlAttributeMapping"
   }
 ];
 

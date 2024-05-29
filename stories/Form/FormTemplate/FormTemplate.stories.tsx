@@ -3,47 +3,42 @@ import {
   FormAside,
   FormStepProps,
   Props as FormAsideProps
-} from "../../../src/components/Form/FormAside/FormAside";
+} from "../../../src/components/Layout/FormPage/FormAside/FormAside";
 import {
   FormTemplate,
   Props
-} from "../../../src/components/Form/FormTemplate/FormTemplate";
-import { FormHeader } from "../../../src/components/Form/FormHeader/FormHeader";
+} from "../../../src/components/Layout/FormPage/FormTemplate/FormTemplate";
+import { FormHeader } from "../../../src/components/Layout/FormPage/FormHeader/FormHeader";
 import FormTemplateDocumentation from "./FormTemplate.mdx";
-import React, { ReactElement } from "react";
-import { FormSection } from "../../../src/components/Form/FormSection/FormSection";
-import { FormControlExample } from "../Examples/FormChildren.example.stories";
+import React, { ReactElement, useState } from "react";
+import { FormSection } from "../../../src/components/Layout/FormPage/FormSection/FormSection";
+import { FormControlExample } from "../Examples/FormControlExample";
 
 import { Button, ButtonProps, Icon, Icons } from "../../../src";
+import { StepStatus } from "../../../src/components/Stepper/Step";
 
 const initialStepperState: FormStepProps[] = [
   {
-    status: "done",
-    label: "Step 1",
-    targetscrollviewid: "samlBaseInfo"
-  },
-  {
-    status: "error",
-    label: "Step 2",
-    targetscrollviewid: "samlConnectionDetail"
-  },
-  {
     status: "current",
+    label: "Step 1",
+    targetScrollViewId: "samlBaseInfo"
+  },
+  {
+    status: "waiting",
+    label: "Step 2",
+    targetScrollViewId: "samlConnectionDetail"
+  },
+  {
+    status: "waiting",
     label: "Step 3",
-    targetscrollviewid: "samlFederationRequest"
+    targetScrollViewId: "samlFederationRequest"
   },
   {
     status: "waiting",
     label: "Step 4",
-    targetscrollviewid: "samlAttributeMapping"
+    targetScrollViewId: "samlAttributeMapping"
   }
 ];
-
-const formAsideProps: FormAsideProps = {
-  direction: "vertical",
-  textPosition: "bottom",
-  steps: initialStepperState
-};
 
 const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
   <Button key="1" onClick={() => alert("Cancel button clicked.")} variant="text">
@@ -67,6 +62,12 @@ const formHeaderComponent = (
   </FormHeader>
 );
 
+const formAsideProps: FormAsideProps = {
+  direction: "vertical",
+  textPosition: "bottom",
+  steps: initialStepperState
+};
+
 const meta: Meta = {
   title: "Components/layout/FormTemplate",
   component: FormTemplate,
@@ -80,41 +81,57 @@ const meta: Meta = {
 
 export default meta;
 
-const formAsideComponent = <FormAside {...formAsideProps}></FormAside>;
 
-const Template: StoryFn<Props> = args => (
-  <FormTemplate formAside={formAsideComponent} formHeader={formHeaderComponent}>
-    <div>
-      <FormSection
-        id="samlBaseInfo"
-        header="Step 1 Form Section"
-        subtext="Form Section sub-header."
-      >
-        <FormControlExample></FormControlExample>
-      </FormSection>
-      <FormSection
-        id="samlConnectionDetail"
-        header="Step 2 Form Section"
-        subtext="Form Section Subheader"
-      >
-        <FormControlExample></FormControlExample>
-      </FormSection>
-      <FormSection
-        id="samlFederationRequest"
-        header="Step 3 Form section"
-        subtext="Form Section Subheader"
-      >
-        <FormControlExample></FormControlExample>
-      </FormSection>
-      <FormSection
-        id="samlAttributeMapping"
-        header="Step 4 Form section"
-        subtext="Form Section Subheader"
-      >
-        <FormControlExample></FormControlExample>
-      </FormSection>
-    </div>
-  </FormTemplate>
-);
+const Template: StoryFn<Props> = args => {
+
+  const [steps, setSteps] = useState(initialStepperState);
+
+  const updateStepStatus = (index: number, status: StepStatus) => {
+    setSteps(prevState => {
+      const props = prevState.concat();
+      props[index].status = status;
+      return props;
+    });
+  }
+
+  const formAsideState = { ...formAsideProps, steps: steps };
+
+  const formAsideComponent = <FormAside {...formAsideState}></FormAside>;
+
+  return (
+    <FormTemplate formAside={formAsideComponent} formHeader={formHeaderComponent}>
+      <div>
+        <FormSection
+          id="samlBaseInfo"
+          header="Step 1 Form Section"
+          subtext="Form Section sub-header."
+        >
+          <FormControlExample index={0} updateStepStatus={updateStepStatus}></FormControlExample>
+        </FormSection>
+        <FormSection
+          id="samlConnectionDetail"
+          header="Step 2 Form Section"
+          subtext="Form Section Subheader"
+        >
+          <FormControlExample index={1} updateStepStatus={updateStepStatus}></FormControlExample>
+        </FormSection>
+        <FormSection
+          id="samlFederationRequest"
+          header="Step 3 Form section"
+          subtext="Form Section Subheader"
+        >
+          <FormControlExample index={2} updateStepStatus={updateStepStatus}></FormControlExample>
+        </FormSection>
+        <FormSection
+          id="samlAttributeMapping"
+          header="Step 4 Form section"
+          subtext="Form Section Subheader"
+        >
+          <FormControlExample index={3} updateStepStatus={updateStepStatus}></FormControlExample>
+        </FormSection>
+      </div>
+    </FormTemplate>
+  );
+};
 
 export const FormTemplateComponent = Template.bind({});

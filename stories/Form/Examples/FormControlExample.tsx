@@ -15,10 +15,8 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
 import {
   FormControl as FormControlComponent,
-  Props
 } from "../../../src/components/Form/FormControl/FormControl";
 import { Form } from "../../../src/components/Form/Form";
 import { RadioWrapper } from "../../../src/components/Form/Wrapper/RadioWrapper/RadioWrapper";
@@ -28,35 +26,17 @@ import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/
 import { Radio } from "../../../src/components/Form/Radio/Radio";
 import { Fieldset } from "../../../src/components/Form/Fieldset/Fieldset";
 
-const meta: Meta = {
-  component: FormControlComponent,
-  parameters: {
-  },
-  argTypes: {
-    disabled: {
-      table: {
-        disable: true
-      },
-      control: false
-    },
-    grid: {
-      options: [1, 2, 3],
-      control: "radio"
-    },
-    align: {
-      options: ["start", "center", "end", "stretch"],
-      control: "radio"
-    }
-  }
-};
+interface Props {
+  index?: number;
+  updateStepStatus?: any;
+}
 
-export default meta;
-
-const Template: Story<Props> = args => {
+export const FormControlExample = ({ index, updateStepStatus }: Props) => {
   const [selectValue, setSelectValue] = useState("option1");
   const [prefix, setPrefix] = useState("mr");
   const [preferredMobileDevice, setPreferredMobileDevice] = useState("mobile");
   const [newsletter, setNewsletter] = useState(true);
+  const [dirtyData, setDirtyData] = useState(false);
   const [electronics, setElectronics] = useState({
     indeterminate: false,
     checked: false,
@@ -64,7 +44,8 @@ const Template: Story<Props> = args => {
     mobile: false,
     laptop: false
   });
-  const [inputValue, setInputValue] = useState("");
+  const defaultInputValue = "";
+  const [inputValue, setInputValue] = useState(defaultInputValue);
 
   const onSelectChange = event => {
     setSelectValue(event.target.value);
@@ -135,9 +116,16 @@ const Template: Story<Props> = args => {
     });
   };
 
+  const setInputControlValue = (event: any) => {
+    setInputValue(event.target.value);
+    setDirtyData(true);
+
+    updateStepStatus && updateStepStatus(index, event.target.value ? "done" : "error");
+  }
+
   return (
     <Form style={{ padding: "20px", backgroundColor: "#F5F8F8" }}>
-      <FormControlComponent {...args}>
+      <FormControlComponent grid={3} align={"center"}>
         <RadioWrapper
           error={false}
           errorMessage="Error message"
@@ -180,22 +168,16 @@ const Template: Story<Props> = args => {
           <InputWrapper
             helperText="Helper text for this field. Description should be short and not repeat the label"
             name="input1"
+            required
             errorMessage={"This is an error"}
             type="text"
             value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-            error={false}
+            onChange={e => setInputControlValue(e)}
+            error={!inputValue && dirtyData}
             label="Label for this inputfield"
           />
         </Fieldset>
       </FormControlComponent>
     </Form>
   );
-};
-
-export const FormControlExample = Template.bind({});
-
-FormControlExample.args = {
-  grid: 3,
-  align: "center"
 };
