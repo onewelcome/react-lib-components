@@ -15,7 +15,6 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Meta } from "@storybook/react";
 import {
   FormControl as FormControlComponent,
 } from "../../../src/components/Form/FormControl/FormControl";
@@ -26,36 +25,11 @@ import { CheckboxWrapper } from "../../../src/components/Form/Wrapper/CheckboxWr
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import { Radio } from "../../../src/components/Form/Radio/Radio";
 import { Fieldset } from "../../../src/components/Form/Fieldset/Fieldset";
-import { StepStatus } from "../../../src/components/Stepper/Step";
-
-const meta: Meta = {
-  component: FormControlComponent,
-  parameters: {
-  },
-  argTypes: {
-    disabled: {
-      table: {
-        disable: true
-      },
-      control: false
-    },
-    grid: {
-      options: [1, 2, 3],
-      control: "radio"
-    },
-    align: {
-      options: ["start", "center", "end", "stretch"],
-      control: "radio"
-    }
-  }
-};
 
 interface Props {
   index?: number;
   updateStepStatus?: any;
 }
-
-export default meta;
 
 export const FormControlExample = ({ index, updateStepStatus }: Props) => {
   const [selectValue, setSelectValue] = useState("option1");

@@ -20,7 +20,7 @@ import { Stepper, Props as StepperProps } from "../../../Stepper/Stepper";
 import { Props as StepProps } from "../../../Stepper/Step";
 
 export interface FormStepProps extends StepProps {
-  targetScrollView?: string;
+  targetScrollViewId?: string;
 }
 
 export interface Props extends StepperProps {
@@ -29,14 +29,14 @@ export interface Props extends StepperProps {
 
 export const FormAside = ({ steps, direction, textPosition, ...rest }: Props) => {
   const stepper = steps.map(step => {
-    const { targetScrollView, ...stepRest } = step;
+    const { targetScrollViewId, ...stepRest } = step;
 
-    if (targetScrollView && !step.onClick) {
+    if (targetScrollViewId && !step.onClick) {
       return {
         ...stepRest,
         onClick: () => {
           try {
-            document.getElementById(targetScrollView)?.scrollIntoView();
+            document.getElementById(targetScrollViewId)?.scrollIntoView();
           } catch (e) {
             throw new Error("Target element not found in the DOM.");
           }

@@ -21,22 +21,22 @@ const initialStepperState: FormStepProps[] = [
   {
     status: "current",
     label: "Step 1",
-    targetScrollView: "samlBaseInfo"
+    targetScrollViewId: "samlBaseInfo"
   },
   {
     status: "waiting",
     label: "Step 2",
-    targetScrollView: "samlConnectionDetail"
+    targetScrollViewId: "samlConnectionDetail"
   },
   {
     status: "waiting",
     label: "Step 3",
-    targetScrollView: "samlFederationRequest"
+    targetScrollViewId: "samlFederationRequest"
   },
   {
     status: "waiting",
     label: "Step 4",
-    targetScrollView: "samlAttributeMapping"
+    targetScrollViewId: "samlAttributeMapping"
   }
 ];
 

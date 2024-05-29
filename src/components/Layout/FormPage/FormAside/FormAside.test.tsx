@@ -61,13 +61,13 @@ describe("<FormAside />", () => {
         {
           status: "done",
           label: "Step 1",
-          targetScrollView: "samlBaseInfo",
+          targetScrollViewId: "samlBaseInfo",
           onClick: onStepHandler
         },
         {
           status: "done",
           label: "Step 2",
-          targetScrollView: "samlConnectionDetail"
+          targetScrollViewId: "samlConnectionDetail"
         }
       ]
     }));
