@@ -17,7 +17,7 @@
 import React from "react";
 import { FormHeader, Props } from "./FormHeader";
 import { render } from "@testing-library/react";
-import { Button } from "../../Button/Button";
+import { Button } from "../../../Button/Button";
 
 const defaultParams: Props = {
   children: <p data-testid="formHeaderChildren">Form Header sample description</p>,

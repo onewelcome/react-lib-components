@@ -1,0 +1,62 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import * as FormAsideStories from "./FormAside.stories.tsx";
+
+<Title />
+<Subtitle />
+
+The `FormAside` component will be used as a wrapper component for a form stepper. Its root element is the default HTML `div` tag, and thus, it also accepts all of its HTML attributes. You should use this component whenever you want to integrated a stepper with your form.
+
+# Examples
+
+The `FormAside` component is a wrapper componet for creating the stepper of a form. See the code snippet below that showcases how you can use it.
+
+```jsx
+
+  const initialStepperState :FormStepProps[] = [
+      {
+        status: "done",
+        label: "Step 1",
+        targetScrollViewId: "samlBaseInfo"
+      },
+      {
+        status: "error",
+        label: "Step 2",
+        targetScrollViewId: "samlConnectionDetail"
+      },
+      {
+        status: "current",
+        label: "Step 3",
+        targetScrollViewId: "samlFederationRequest"
+      },
+      {
+        status: "waiting",
+        label: "Step 4",
+        targetScrollViewId: "samlAttributeMapping"
+      }
+    ];
+
+const [steps, setSteps] = useState(initialStepperState());
+
+  const formAside: FormAsideProps = {
+    direction: "vertical",
+    steps: steps
+  };
+
+  const updateStepStatus= (index: number, status: StepStatus)=> {
+    setSteps(prevState => {
+      const props = prevState.concat();
+      props[index].status = status;
+      return props;
+    });
+  }
+
+ <FormAside {...formAside}></FormAside>
+```
+
+<Canvas>
+  <Story of={FormAsideStories.FormAsideComponent} />
+</Canvas>
+
+# Props
+
+<ArgTypes story={PRIMARY_STORY} />

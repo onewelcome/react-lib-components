@@ -1,9 +1,9 @@
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   FormHeader,
   FormHeader as FormHeaderComponent,
   Props
-} from "../../../src/components/Form/FormHeader/FormHeader";
+} from "../../../src/components/Layout/FormPage/FormHeader/FormHeader";
 import FormHeaderDocumentation from "./FormHeader.mdx";
 import React, { Fragment, ReactElement } from "react";
 import { Button, ButtonProps, Icon, Icons } from "../../../src";
@@ -25,7 +25,7 @@ const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
 ];
 
 const meta: Meta = {
-  title: "Components/layout/FormHeader",
+  title: "Components/layout/FormPage/FormHeader",
   component: FormHeaderComponent,
   parameters: {
     docs: {
@@ -42,7 +42,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <FormHeader {...args} />;
+const Template: StoryFn<Props> = args => <FormHeader {...args} />;
 
 export const FormHeaderComponent1 = Template.bind({});
 
@@ -55,4 +55,15 @@ FormHeaderComponent2.args = {
     </Fragment>
   ),
   buttons: formButtonList.slice(0, 2)
+};
+
+export const FormHeaderWithCollapseHeader = Template.bind({});
+FormHeaderWithCollapseHeader.args = {
+  children: (
+    <Fragment>
+      Form <i>Description</i>
+    </Fragment>
+  ),
+  buttons: formButtonList,
+  collapsed: true
 };
