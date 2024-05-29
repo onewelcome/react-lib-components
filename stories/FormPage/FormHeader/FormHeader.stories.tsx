@@ -25,7 +25,7 @@ const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
 ];
 
 const meta: Meta = {
-  title: "Components/layout/FormHeader",
+  title: "Components/layout/FormPage/FormHeader",
   component: FormHeaderComponent,
   parameters: {
     docs: {

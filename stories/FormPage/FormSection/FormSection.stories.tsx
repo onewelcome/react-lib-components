@@ -24,7 +24,7 @@ import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/
 import FormSectionDocumentation from "./FormSection.mdx";
 
 const meta: Meta = {
-  title: "Components/layout/FormSection",
+  title: "Components/layout/FormPage/FormSection",
   component: FormSection,
   parameters: {
     docs: {

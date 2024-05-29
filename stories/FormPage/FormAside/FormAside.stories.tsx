@@ -4,7 +4,7 @@ import FormAsideDocumentation from "./FormAside.mdx";
 import React from "react";
 import { FormSection } from "../../../src/components/Layout/FormPage/FormSection/FormSection";
 import { FormTemplate } from "../../../src/components/Layout/FormPage/FormTemplate/FormTemplate";
-import { FormControlExample } from "../Examples/FormControlExample";
+import { FormControlExample } from "../../Form/Examples/FormControlExample";
 
 const initialStepperState: FormStepProps[] = [
   {
@@ -36,7 +36,7 @@ const formAsideProps: Props = {
 };
 
 const meta: Meta = {
-  title: "Components/layout/FormAside",
+  title: "Components/layout/FormPage/FormAside",
   component: FormAside,
   parameters: {
     docs: {

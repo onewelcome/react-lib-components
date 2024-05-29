@@ -12,7 +12,7 @@ import { FormHeader } from "../../../src/components/Layout/FormPage/FormHeader/F
 import FormTemplateDocumentation from "./FormTemplate.mdx";
 import React, { ReactElement, useState } from "react";
 import { FormSection } from "../../../src/components/Layout/FormPage/FormSection/FormSection";
-import { FormControlExample } from "../Examples/FormControlExample";
+import { FormControlExample } from "../../Form/Examples/FormControlExample";
 
 import { Button, ButtonProps, Icon, Icons } from "../../../src";
 import { StepStatus } from "../../../src/components/Stepper/Step";
@@ -69,7 +69,7 @@ const formAsideProps: FormAsideProps = {
 };
 
 const meta: Meta = {
-  title: "Components/layout/FormTemplate",
+  title: "Components/layout/FormPage/FormTemplate",
   component: FormTemplate,
   parameters: {
     docs: {
