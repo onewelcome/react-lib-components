@@ -15,9 +15,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import {
-  FormControl as FormControlComponent,
-} from "../../../src/components/Form/FormControl/FormControl";
+import { FormControl as FormControlComponent } from "../../../src/components/Form/FormControl/FormControl";
 import { Form } from "../../../src/components/Form/Form";
 import { RadioWrapper } from "../../../src/components/Form/Wrapper/RadioWrapper/RadioWrapper";
 import { Checkbox } from "../../../src/components/Form/Checkbox/Checkbox";
@@ -121,7 +119,7 @@ export const FormControlExample = ({ index, updateStepStatus }: Props) => {
     setDirtyData(true);
 
     updateStepStatus && updateStepStatus(index, event.target.value ? "done" : "error");
-  }
+  };
 
   return (
     <Form style={{ padding: "20px", backgroundColor: "#F5F8F8" }}>

@@ -17,24 +17,24 @@
 $header-height: 13.25rem;
 
 .wrapper {
+  position: relative;
+  margin: 0 auto;
+  font-family: var(--font-family);
+  .content {
     position: relative;
-    margin: 0 auto;
-    font-family: var(--font-family);
-    .content {
-        position: relative;
-        display: flex;
-        gap: 3.5rem;
-        padding: 2rem;
-    
-        background-color: var(--color-white);
-        height: calc(100vh - $header-height);
-        overflow: auto;
-        scroll-behavior: smooth;
-    
-        .form-section {
-            display: flex;
-            flex-direction: column;
-            flex: 0 0 72%;
-        }
+    display: flex;
+    gap: 3.5rem;
+    padding: 2rem;
+
+    background-color: var(--color-white);
+    height: calc(100vh - $header-height);
+    overflow: auto;
+    scroll-behavior: smooth;
+
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 72%;
     }
+  }
 }

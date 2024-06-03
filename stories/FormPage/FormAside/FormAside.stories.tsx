@@ -1,5 +1,9 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { FormAside, FormStepProps, Props } from "../../../src/components/Layout/FormPage/FormAside/FormAside";
+import {
+  FormAside,
+  FormStepProps,
+  Props
+} from "../../../src/components/Layout/FormPage/FormAside/FormAside";
 import FormAsideDocumentation from "./FormAside.mdx";
 import React from "react";
 import { FormSection } from "../../../src/components/Layout/FormPage/FormSection/FormSection";

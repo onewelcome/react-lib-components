@@ -81,9 +81,7 @@ const meta: Meta = {
 
 export default meta;
 
-
 const Template: StoryFn<Props> = args => {
-
   const [steps, setSteps] = useState(initialStepperState);
 
   const updateStepStatus = (index: number, status: StepStatus) => {
@@ -92,7 +90,7 @@ const Template: StoryFn<Props> = args => {
       props[index].status = status;
       return props;
     });
-  }
+  };
 
   const formAsideState = { ...formAsideProps, steps: steps };
 

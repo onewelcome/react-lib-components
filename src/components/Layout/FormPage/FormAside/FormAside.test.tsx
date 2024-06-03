@@ -32,7 +32,7 @@ const createFormAside = (params?: (defaultParams: Props) => Props) => {
 
   const queries = render(
     <>
-      <FormAside {...parameters} data-testid="formAsideTestId"></FormAside>      
+      <FormAside {...parameters} data-testid="formAsideTestId"></FormAside>
       <div id="samlConnectionDetail"></div>
     </>
   );

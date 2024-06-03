@@ -33,6 +33,7 @@ interface CSSProperties {
   colorPrimary600?: string;
   colorPrimary700?: string;
   colorPrimary900?: string;
+  colorPrimaryLight?: string;
   colorBlueGrey100?: string;
   colorBlueGrey200?: string;
   colorBlueGrey300?: string;
@@ -233,6 +234,9 @@ interface CSSProperties {
   fontSizeSub?: string;
   fontSizeCode?: string;
   formControlFontSize?: string;
+  fileUploadBorderWidth?: string;
+  dragDropBorderStyle?: string;
+  defaultZIndex1?: string;
   fontSizeDataGrid?: string;
 }
 
@@ -249,6 +253,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
+    colorPrimaryLight: "#E6E7F4",
     colorBlueGrey25: "#F7F7F9",
     colorBlueGrey25Transparent: "rgba(247, 247, 249, .8)",
     colorBlueGrey50: "#EEEFF3",
@@ -330,6 +335,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "1px",
     inputBorderStyle: "solid",
+    fileUploadBorderWidth: "1px",
+    dragDropBorderStyle: "dashed",
     inputBorderColor: "var(--color-blue-grey500)",
     inputBackgroundColor: "var(--light)",
     inputHelperTextColor: "var(--color-blue-grey500)",
@@ -437,6 +444,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
+    defaultZIndex1: "1",
     formControlFontSize: "0.875rem", //FIXME: UCL-395
     fontSizeDataGrid: "0.875rem" //FIXME: UCL-395
   };
