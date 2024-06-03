@@ -96,6 +96,10 @@
           height: 0.3rem;
           border-radius: var(--input-border-radius);
         }
+
+        p {
+          font-size: 0.875rem;
+        }
       }
     }
   }
@@ -119,6 +123,14 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    &.error {
+      & span {
+        &::before {
+          color: var(--error);
+        }
+      }
     }
   }
 

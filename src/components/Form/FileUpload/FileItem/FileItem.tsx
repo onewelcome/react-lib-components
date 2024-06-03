@@ -84,7 +84,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         };
       case ACTION_STATUS.ERROR:
         return {
-          fileIcon: Icons.InfoCircle,
+          fileIcon: Icons.Error,
           actionIcons: [
             {
               type: Icons.Times,
