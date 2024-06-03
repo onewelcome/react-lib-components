@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 @use "../../../../mixins.module.scss";
-@use "../../../../variables.scss";
 @import "../../../../mixins.module.scss";
 
 .file-item-wrapper {
@@ -78,7 +77,6 @@
 
         &:focus {
           @include mixins.focusVisibleOutline($outlineOffset: 2px, $selectors: null);
-          z-index: calc(variables.$popover-z-index + 1);
         }
       }
     }
