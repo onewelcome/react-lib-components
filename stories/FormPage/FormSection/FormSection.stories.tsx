@@ -16,12 +16,15 @@
 
 import { Meta, Story } from "@storybook/react";
 import React from "react";
-import { FormSection, Props } from "../../../src/components/Form/FormSection/FormSection";
+import {
+  FormSection,
+  Props
+} from "../../../src/components/Layout/FormPage/FormSection/FormSection";
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import FormSectionDocumentation from "./FormSection.mdx";
 
 const meta: Meta = {
-  title: "Components/layout/FormSection",
+  title: "Components/layout/FormPage/FormSection",
   component: FormSection,
   parameters: {
     docs: {

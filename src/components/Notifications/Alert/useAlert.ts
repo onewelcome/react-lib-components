@@ -15,18 +15,16 @@
  */
 
 import { useContext } from "react";
-import { SnackbarContext } from "./SnackbarProvider/SnackbarStateProvider";
+import AlertContext from "./AlertProvider/AlertContext";
 
-/**
- * @deprecated
- */
-export const useSnackbar = () => {
-  const ctx = useContext(SnackbarContext);
+export const useAlert = () => {
+  const ctx = useContext(AlertContext);
 
   return {
-    enqueueWarningSnackbar: ctx.enqueueWarningSnackbar,
-    enqueueErrorSnackbar: ctx.enqueueErrorSnackbar,
-    enqueueSuccessSnackbar: ctx.enqueueSuccessSnackbar,
-    enqueueSnackbar: ctx.enqueueSnackbar
+    enqueueAlert: ctx.enqueueAlert,
+    enqueueInfoAlert: ctx.enqueueInfoAlert,
+    enqueueSuccessAlert: ctx.enqueueSuccessAlert,
+    enqueueWarningAlert: ctx.enqueueWarningAlert,
+    enqueueErrorAlert: ctx.enqueueErrorAlert
   };
 };

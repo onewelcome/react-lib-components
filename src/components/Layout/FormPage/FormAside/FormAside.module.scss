@@ -14,19 +14,12 @@
  *    limitations under the License.
  */
 
-import { useContext } from "react";
-import { SnackbarContext } from "./SnackbarProvider/SnackbarStateProvider";
-
-/**
- * @deprecated
- */
-export const useSnackbar = () => {
-  const ctx = useContext(SnackbarContext);
-
-  return {
-    enqueueWarningSnackbar: ctx.enqueueWarningSnackbar,
-    enqueueErrorSnackbar: ctx.enqueueErrorSnackbar,
-    enqueueSuccessSnackbar: ctx.enqueueSuccessSnackbar,
-    enqueueSnackbar: ctx.enqueueSnackbar
-  };
-};
+.stepper {
+  position: sticky;
+  top: 0;
+  & > div:first-child {
+    height: auto;
+    min-height: 15rem;
+    align-items: flex-start;
+  }
+}

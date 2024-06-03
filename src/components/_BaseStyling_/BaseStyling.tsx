@@ -53,9 +53,11 @@ interface CSSProperties {
   colorLightBlue500?: string;
   colorLightBlue600?: string;
   colorShadowBlue?: string;
+  colorOrange100?: string;
   colorOrange500?: string;
   colorOrange600?: string;
   colorOrange700?: string;
+  colorRed100?: string;
   colorRed200?: string;
   colorRed500?: string;
   colorRed600?: string;
@@ -121,12 +123,50 @@ interface CSSProperties {
   modalBackdropColor?: string;
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
+
+  /**
+   * @deprecated
+   */
   snackbarTextColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarInfoBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarSuccessBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarErrorBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarWarningBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarBorderRadius?: string;
+
+  alertTextColor?: string;
+  alertTextInvertedColor?: string;
+
+  alertNeutralBackgroundColor?: string;
+  alertInfoBackgroundColor?: string;
+  alertSuccessBackgroundColor?: string;
+  alertErrorBackgroundColor?: string;
+  alertWarningBackgroundColor?: string;
+
+  alertNeutralInvertedColor?: string;
+  alertInfoInvertedColor?: string;
+  alertSuccessInvertedColor?: string;
+  alertErrorInvertedColor?: string;
+  alertWarningInvertedColor?: string;
+
+  alertBorderWidth?: string;
+  alertBorderRadius?: string;
+
   stepperWaitingColor?: string;
   stepperWaitingHoverColor?: string;
   stepperWaitingActiveColor?: string;
@@ -232,9 +272,11 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorGreen700: "#0E4E29",
     colorLightBlue500: "#00BCDD",
     colorLightBlue600: "#0096B1",
+    colorOrange100: "#FFE0B2",
     colorOrange500: "#E07900",
     colorOrange600: "#B36100",
     colorOrange700: "#864900",
+    colorRed100: "#FFCDD2",
     colorRed200: "#F3A599",
     colorRed500: "#E01E00",
     colorRed600: "#B31800",
@@ -307,12 +349,35 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalBackdropColor: "var(--default)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
+
     snackbarTextColor: "var(--light)",
     snackbarInfoBackgroundColor: "var(--color-primary500)",
     snackbarSuccessBackgroundColor: "var(--color-green500)",
     snackbarErrorBackgroundColor: "var(--color-red500)",
     snackbarWarningBackgroundColor: "var(--color-orange500)",
     snackbarBorderRadius: "2px",
+
+    alertTextColor: "var(--default)",
+    alertTextInvertedColor: "var(--light)",
+
+    alertNeutralBackgroundColor: "var(--color-blue-grey50)",
+    alertNeutralInvertedColor: "var(--color-blue-grey500)",
+
+    alertInfoBackgroundColor: "var(--color-primary100)",
+    alertInfoInvertedColor: "var(--color-primary500)",
+
+    alertSuccessBackgroundColor: "var(--color-green100)",
+    alertSuccessInvertedColor: "var(--color-green500)",
+
+    alertErrorBackgroundColor: "var(--color-red100)",
+    alertErrorInvertedColor: "var(--color-red500)",
+
+    alertWarningBackgroundColor: "var(--color-orange100)",
+    alertWarningInvertedColor: "var(--color-orange500)",
+
+    alertBorderWidth: "4px",
+    alertBorderRadius: "2px",
+
     stepperWaitingColor: "var(--color-blue-grey200)",
     stepperWaitingHoverColor: "var(--color-blue-grey300)",
     stepperWaitingActiveColor: "var(--color-blue-grey400)",

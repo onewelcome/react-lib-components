@@ -14,19 +14,27 @@
  *    limitations under the License.
  */
 
-import { useContext } from "react";
-import { SnackbarContext } from "./SnackbarProvider/SnackbarStateProvider";
+$header-height: 13.25rem;
 
-/**
- * @deprecated
- */
-export const useSnackbar = () => {
-  const ctx = useContext(SnackbarContext);
+.wrapper {
+  position: relative;
+  margin: 0 auto;
+  font-family: var(--font-family);
+  .content {
+    position: relative;
+    display: flex;
+    gap: 3.5rem;
+    padding: 2rem;
 
-  return {
-    enqueueWarningSnackbar: ctx.enqueueWarningSnackbar,
-    enqueueErrorSnackbar: ctx.enqueueErrorSnackbar,
-    enqueueSuccessSnackbar: ctx.enqueueSuccessSnackbar,
-    enqueueSnackbar: ctx.enqueueSnackbar
-  };
-};
+    background-color: var(--color-white);
+    height: calc(100vh - $header-height);
+    overflow: auto;
+    scroll-behavior: smooth;
+
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 72%;
+    }
+  }
+}

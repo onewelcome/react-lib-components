@@ -35,6 +35,9 @@ interface Duration {
   short: number;
 }
 
+/**
+ * @deprecated
+ */
 export interface Props {
   closeButtonTitle: string;
   children?: ReactNode;
@@ -45,6 +48,9 @@ export interface Props {
   className?: string;
 }
 
+/**
+ * @deprecated
+ */
 export interface Item {
   id: string;
   title?: string;
@@ -57,6 +63,9 @@ export interface Item {
   onClose?: () => void;
 }
 
+/**
+ * @deprecated
+ */
 export const SnackbarProvider = (
   {
     closeButtonTitle,
