@@ -27,7 +27,6 @@ import { FILE_ACTION, FileItem, Props as FileConfig } from "./FileItem/FileItem"
 import { Props as InputProps } from "../Input/Input";
 import { Typography } from "../../Typography/Typography";
 import classes from "./FileUpload.module.scss";
-import { Icon, Icons } from "../../Icon/Icon";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
 
 type FileUploadType = Omit<InputProps, "onDrop" | "type" | "onChange" | "suffix" | "prefix">;
@@ -50,6 +49,9 @@ export interface Props extends FileUploadType {
   onDrop?: (e: FileType[]) => void;
   onChange?: (e: FileType[]) => void;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
+  downloadFileLink?: string;
+  isRequired?: boolean;
+  invalidDropErrorMessage?: string;
 }
 
 const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
@@ -65,8 +67,8 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     labeledBy,
     disabled = false,
     onChange,
-    dragAndDropText = "Drop file here or",
-    selectButtonText = "Select file",
+    dragAndDropText = "Drag and drop or",
+    selectButtonText = "Browse file",
     onDragOver,
     onDragLeave,
     wrapperProps,
@@ -75,19 +77,30 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onRequestedFileAction,
     exceedingMaxSizeErrorText,
     fileList,
+    downloadFileLink,
+    isRequired = true,
+    invalidDropErrorMessage = "Invalid file format. Supported formats are: $accept.",
     ...rest
   }: Props,
   ref
 ) => {
   const labelRef = useRef(null);
   const [dragActive, setDragActive] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [inputError, setInputError] = useState(false);
   const icon = useDetermineStatusIcon({ success, error });
   let dropzoneClassNames = [classes["file-dropzone"]];
+  let dropzoneContainerClassNames = [classes["upload-button-wrapper"]];
   let subTextClass = [classes["file-selector-sub-text"]];
-  dragActive && dropzoneClassNames.push(classes["drag-active"]);
-  inputError ||
-    (error && dropzoneClassNames.push(classes["error"]) && subTextClass.push(classes["error"]));
+  let errorTextClass = [classes["file-selector-sub-text"]];
+  dragActive && dropzoneContainerClassNames.push(classes["drag-active"]);
+  const hasError = inputError || error || errorMsg;
+  if (hasError) {
+    const errorClass = classes["error"];
+    dropzoneClassNames.push(errorClass);
+    subTextClass.push(errorClass);
+    errorTextClass.push(errorClass);
+  }
   disabled && dropzoneClassNames.push(classes["disabled"]);
   success && !error && dropzoneClassNames.push(classes["success"]);
 
@@ -177,10 +190,13 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     e.preventDefault();
     e.stopPropagation();
     if (e?.dataTransfer?.files && e.dataTransfer.files.length) {
-      const extension = e?.dataTransfer?.files[0].name.split(".").pop();
+      const extension = e?.dataTransfer?.files[0]?.name.split(".").pop();
       if (extension && accept && !accept.includes(extension)) {
+        setErrorMsg(invalidDropErrorMessage.replace("$accept", accept));
         setDragActive(false);
         return;
+      } else {
+        setErrorMsg("");
       }
       const validatedFiles = getFileList(e.dataTransfer.files);
       onDrop?.(validatedFiles);
@@ -191,40 +207,62 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   return (
     <div className={classes["file-upload-wrapper"]} {...wrapperProps}>
       <div className={classes["dropzone-wrapper"]}>
-        <div
-          className={dropzoneClassNames.join(" ")}
-          onDragOver={e => !disabled && handleOnDragOver(e)}
-          onDragLeave={e => !disabled && handleOnDragLeave(e)}
-          onDrop={e => !disabled && handleOnDrop(e)}
-        >
+        <div className={dropzoneClassNames.join(" ")}>
           <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
-            {title}
+            {title}{" "}
+            {isRequired && <span className={classes["file-upload-title-mandatory"]}>*</span>}
           </Typography>
-          <div className={classes["file-select"]}>
-            <Icon className={"drop-file-icon"} icon={Icons.FileUpload} />
-            <Typography variant="body" className={"drag-and-drop-text"}>
-              {dragAndDropText}
-            </Typography>
-            <div className={classes["file-upload-btn"]}>
-              <Button variant="outline" disabled={disabled}>
-                {selectButtonText}
-                <input
-                  className={classes["upload-input"]}
-                  {...rest}
-                  ref={ref}
-                  aria-labelledby={labeledBy}
-                  type="file"
-                  name={name}
-                  {...(multiple && { multiple: true })}
-                  disabled={disabled}
-                  accept={accept}
-                  onChange={onInputChange}
-                  spellCheck={rest.spellCheck ?? false}
-                />
-              </Button>
+
+          {fileList?.length > 0 && (
+            <ul className={classes["file-list"]}>
+              {fileList.map(({ name, status, progress, error }) => (
+                <li key={name} className={status} id={name}>
+                  <FileItem
+                    name={name}
+                    key={`${name}_${status}`}
+                    status={status}
+                    progress={progress}
+                    error={error}
+                    downloadFileLink={downloadFileLink}
+                    onRequestedFileAction={onRequestedFileAction}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div
+            className={dropzoneContainerClassNames.join(" ")}
+            onDragOver={e => !disabled && handleOnDragOver(e)}
+            onDragLeave={e => !disabled && handleOnDragLeave(e)}
+            onDrop={e => !disabled && handleOnDrop(e)}
+          >
+            <div className={classes["file-select"]}>
+              <Typography variant="body" className={"drag-and-drop-text"}>
+                {dragAndDropText}
+              </Typography>
+
+              <div className={classes["file-upload-btn"]}>
+                <Button variant="outline" disabled={disabled}>
+                  {selectButtonText}
+                  <input
+                    {...rest}
+                    className={`${classes["upload-input"]} ${rest.className}`}
+                    ref={ref}
+                    aria-labelledby={labeledBy}
+                    type="file"
+                    name={name}
+                    multiple={multiple}
+                    disabled={disabled}
+                    accept={accept}
+                    onChange={onInputChange}
+                    spellCheck={false}
+                  />
+                </Button>
+              </div>
+              {!disabled && icon}
+              <span className={classes["outline"]}></span>
             </div>
-            {!disabled && icon}
-            <span className={classes["outline"]}></span>
           </div>
         </div>
         {subText && (
@@ -232,22 +270,13 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             {subText}
           </Typography>
         )}
+
+        {errorMsg && (
+          <Typography variant={"sub-text"} className={errorTextClass.join(" ")}>
+            {errorMsg}
+          </Typography>
+        )}
       </div>
-      {fileList?.length > 0 && (
-        <ul className={classes["file-list"]}>
-          {fileList.map(({ name, status, progress, error }) => (
-            <li key={name} className={status} id={name}>
-              <FileItem
-                name={name}
-                status={status}
-                progress={progress}
-                error={error}
-                onRequestedFileAction={onRequestedFileAction}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 };
