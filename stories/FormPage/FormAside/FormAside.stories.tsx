@@ -1,9 +1,13 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { FormAside, FormStepProps, Props } from "../../../src/components/Layout/FormPage/FormAside/FormAside";
+import {
+  FormStepper,
+  FormStepProps,
+  Props
+} from "../../../src/components/Layout/FormPage/FormWithStepper/FormStepper/FormStepper";
 import FormAsideDocumentation from "./FormAside.mdx";
 import React from "react";
-import { FormSection } from "../../../src/components/Layout/FormPage/FormSection/FormSection";
-import { FormTemplate } from "../../../src/components/Layout/FormPage/FormTemplate/FormTemplate";
+import { FormSection } from "../../../src/components/Layout/FormPage/FormWithStepper/FormSection/FormSection";
+import { FormWithStepper } from "../../../src/components/Layout/FormPage/FormWithStepper/FormWithStepper";
 import { FormControlExample } from "../../Form/Examples/FormControlExample";
 
 const initialStepperState: FormStepProps[] = [
@@ -37,7 +41,7 @@ const formAsideProps: Props = {
 
 const meta: Meta = {
   title: "Components/layout/FormPage/FormAside",
-  component: FormAside,
+  component: FormStepper,
   parameters: {
     docs: {
       page: FormAsideDocumentation
@@ -48,11 +52,11 @@ const meta: Meta = {
 
 export default meta;
 
-const formAsideComponent = <FormAside {...formAsideProps}></FormAside>;
+const formAsideComponent = <FormStepper {...formAsideProps}></FormStepper>;
 
 const Template: StoryFn<Props> = args => (
   <>
-    <FormTemplate formAside={formAsideComponent}>
+    <FormWithStepper formAside={formAsideComponent}>
       <div>
         <FormSection
           id="samlBaseInfo"
@@ -83,7 +87,7 @@ const Template: StoryFn<Props> = args => (
           <FormControlExample></FormControlExample>
         </FormSection>
       </div>
-    </FormTemplate>
+    </FormWithStepper>
   </>
 );
 

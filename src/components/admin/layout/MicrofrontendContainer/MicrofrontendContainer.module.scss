@@ -1,4 +1,4 @@
-/*
+/*!
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,27 +14,10 @@
  *    limitations under the License.
  */
 
-$header-height: 13.25rem;
+.microfrontend-container-margin {
+  padding: 2rem;
+}
 
-.wrapper {
-    position: relative;
-    margin: 0 auto;
-    font-family: var(--font-family);
-    .content {
-        position: relative;
-        display: flex;
-        gap: 3.5rem;
-        padding: 2rem;
-    
-        background-color: var(--color-white);
-        height: calc(100vh - $header-height);
-        overflow: auto;
-        scroll-behavior: smooth;
-    
-        .form-section {
-            display: flex;
-            flex-direction: column;
-            flex: 0 0 72%;
-        }
-    }
+.microfrontend-container-max-width {
+  max-width: 105rem;
 }

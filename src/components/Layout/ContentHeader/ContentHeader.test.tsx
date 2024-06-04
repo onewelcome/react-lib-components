@@ -15,13 +15,13 @@
  */
 
 import React from "react";
-import { FormHeader, Props } from "./FormHeader";
+import { ContentHeader, Props } from "./ContentHeader";
 import { render } from "@testing-library/react";
-import { Button } from "../../../Button/Button";
+import { Button } from "../../Button/Button";
 
 const defaultParams: Props = {
-  children: <p data-testid="formHeaderChildren">Form Header sample description</p>,
-  title: "Form Header sample Title",
+  children: <p data-testid="contentHeaderChildren">Content Header sample description</p>,
+  title: "Content Header sample Title",
   buttons: [
     <Button id="cancelButton" key="1" data-testid="button1">
       Cancel Button
@@ -32,31 +32,35 @@ const defaultParams: Props = {
   ]
 };
 
-const createFormHeader = (params?: Props) => {
+const createContentHeader = (params?: Props) => {
   let parameters: Props = defaultParams;
   if (params) {
     parameters = params;
   }
 
-  const queries = render(<FormHeader {...parameters} data-testid="formHeaderTestId"></FormHeader>);
-  const formHeader = queries.getByTestId("formHeaderTestId");
+  const queries = render(
+    <ContentHeader {...parameters} data-testid="contentHeaderTestId"></ContentHeader>
+  );
+  const contentHeader = queries.getByTestId("contentHeaderTestId");
 
   return {
     ...queries,
-    formHeader
+    contentHeader
   };
 };
 
-describe("<FormHeader />", () => {
+describe("<ContentHeader />", () => {
   it("should render without crashing", () => {
-    const { formHeader } = createFormHeader();
-    expect(formHeader).toBeDefined();
+    const { contentHeader } = createContentHeader();
+    expect(contentHeader).toBeDefined();
   });
 
   it("should have the correct values and attributes", () => {
-    const { getByTestId, getByText } = createFormHeader();
+    const { getByTestId, getByText } = createContentHeader();
 
-    expect(getByTestId("formHeaderChildren")).toHaveTextContent("Form Header sample description");
+    expect(getByTestId("contentHeaderChildren")).toHaveTextContent(
+      "Content Header sample description"
+    );
     expect(getByText(defaultParams.title)).toBeInTheDocument();
 
     const button1 = getByTestId("button1");
@@ -71,21 +75,21 @@ describe("<FormHeader />", () => {
   });
 
   it("should have the correct classes", () => {
-    const { formHeader } = createFormHeader({
+    const { contentHeader } = createContentHeader({
       ...defaultParams,
-      className: "form-header-custom-class"
+      className: "content-header-custom-class"
     });
 
-    expect(formHeader).toHaveClass("form-header-custom-class");
+    expect(contentHeader).toHaveClass("content-header-custom-class");
   });
 
   it("should render collapsed header when collapsed property is true", () => {
-    const paramForCollpsed = { ...defaultParams };
-    paramForCollpsed.collapsed = true;
-    const { formHeader, getByTestId } = createFormHeader(paramForCollpsed);
+    const paramForCollapsed = { ...defaultParams };
+    paramForCollapsed.collapsed = true;
+    const { contentHeader, getByTestId } = createContentHeader(paramForCollapsed);
 
-    expect(formHeader.querySelector(".hide-description p")).toHaveTextContent(
-      "Form Header sample description"
+    expect(contentHeader.querySelector(".hide-description p")).toHaveTextContent(
+      "Content Header sample description"
     );
   });
 });

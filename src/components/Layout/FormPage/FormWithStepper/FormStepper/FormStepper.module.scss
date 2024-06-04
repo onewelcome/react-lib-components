@@ -14,13 +14,12 @@
  *    limitations under the License.
  */
 
- .stepper {
-    position: sticky;
-    top: 0;
-    & > div:first-child {
-      height: auto;
-      min-height: 15rem;
-      align-items: flex-start;
-    }
+.stepper {
+  position: sticky;
+  top: 0;
+  & > div:first-child {
+    height: auto;
+    min-height: 15rem;
+    align-items: flex-start;
   }
-  
+}

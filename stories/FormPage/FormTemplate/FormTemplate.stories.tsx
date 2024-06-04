@@ -1,20 +1,17 @@
 import { Meta, StoryFn } from "@storybook/react";
 import {
-  FormAside,
+  FormStepper,
   FormStepProps,
   Props as FormAsideProps
-} from "../../../src/components/Layout/FormPage/FormAside/FormAside";
+} from "../../../src/components/Layout/FormPage/FormWithStepper/FormStepper/FormStepper";
 import {
-  FormTemplate,
+  FormWithStepper,
   Props
-} from "../../../src/components/Layout/FormPage/FormTemplate/FormTemplate";
-import { FormHeader } from "../../../src/components/Layout/FormPage/FormHeader/FormHeader";
+} from "../../../src/components/Layout/FormPage/FormWithStepper/FormWithStepper";
+import { Button, ButtonProps, FormSection, Icon, Icons } from "../../../src";
 import FormTemplateDocumentation from "./FormTemplate.mdx";
 import React, { ReactElement, useState } from "react";
-import { FormSection } from "../../../src/components/Layout/FormPage/FormSection/FormSection";
 import { FormControlExample } from "../../Form/Examples/FormControlExample";
-
-import { Button, ButtonProps, Icon, Icons } from "../../../src";
 import { StepStatus } from "../../../src/components/Stepper/Step";
 
 const initialStepperState: FormStepProps[] = [
@@ -56,12 +53,6 @@ const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
   </Button>
 ];
 
-const formHeaderComponent = (
-  <FormHeader buttons={formButtonList} title="Form Header title">
-    Form Header children{" "}
-  </FormHeader>
-);
-
 const formAsideProps: FormAsideProps = {
   direction: "vertical",
   textPosition: "bottom",
@@ -70,7 +61,7 @@ const formAsideProps: FormAsideProps = {
 
 const meta: Meta = {
   title: "Components/layout/FormPage/FormTemplate",
-  component: FormTemplate,
+  component: FormWithStepper,
   parameters: {
     docs: {
       page: FormTemplateDocumentation
@@ -81,9 +72,7 @@ const meta: Meta = {
 
 export default meta;
 
-
 const Template: StoryFn<Props> = args => {
-
   const [steps, setSteps] = useState(initialStepperState);
 
   const updateStepStatus = (index: number, status: StepStatus) => {
@@ -92,14 +81,14 @@ const Template: StoryFn<Props> = args => {
       props[index].status = status;
       return props;
     });
-  }
+  };
 
   const formAsideState = { ...formAsideProps, steps: steps };
 
-  const formAsideComponent = <FormAside {...formAsideState}></FormAside>;
+  const formAsideComponent = <FormStepper {...formAsideState}></FormStepper>;
 
   return (
-    <FormTemplate formAside={formAsideComponent} formHeader={formHeaderComponent}>
+    <FormWithStepper stepper={formAsideComponent}>
       <div>
         <FormSection
           id="samlBaseInfo"
@@ -130,7 +119,7 @@ const Template: StoryFn<Props> = args => {
           <FormControlExample index={3} updateStepStatus={updateStepStatus}></FormControlExample>
         </FormSection>
       </div>
-    </FormTemplate>
+    </FormWithStepper>
   );
 };
 

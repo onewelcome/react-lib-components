@@ -1,9 +1,9 @@
 import { Meta, StoryFn } from "@storybook/react";
 import {
-  FormHeader,
-  FormHeader as FormHeaderComponent,
+  ContentHeader,
+  ContentHeader as FormHeaderComponent,
   Props
-} from "../../../src/components/Layout/FormPage/FormHeader/FormHeader";
+} from "../../../src/components/Layout/ContentHeader/ContentHeader";
 import FormHeaderDocumentation from "./FormHeader.mdx";
 import React, { Fragment, ReactElement } from "react";
 import { Button, ButtonProps, Icon, Icons } from "../../../src";
@@ -42,7 +42,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: StoryFn<Props> = args => <FormHeader {...args} />;
+const Template: StoryFn<Props> = args => <ContentHeader {...args} />;
 
 export const FormHeaderComponent1 = Template.bind({});
 
