@@ -52,6 +52,7 @@ export interface Props extends FileUploadType {
   downloadFileLink?: string;
   isRequired?: boolean;
   invalidDropErrorMessage?: string;
+  noMultipleFileDropErrorMessage?: string;
 }
 
 const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
@@ -80,6 +81,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     downloadFileLink,
     isRequired = true,
     invalidDropErrorMessage = "Invalid file format. Supported formats are: $accept.",
+    noMultipleFileDropErrorMessage = "Multiple files drop are not allowed.",
     ...rest
   }: Props,
   ref
@@ -195,6 +197,10 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         setErrorMsg(invalidDropErrorMessage.replace("$accept", accept));
         setDragActive(false);
         return;
+      } else if (!multiple && e.dataTransfer.files.length > 1) {
+        setErrorMsg(noMultipleFileDropErrorMessage);
+        setDragActive(false);
+        return;
       } else {
         setErrorMsg("");
       }
@@ -265,15 +271,14 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             </div>
           </div>
         </div>
-        {subText && (
-          <Typography variant={"sub-text"} className={subTextClass.join(" ")}>
-            {subText}
-          </Typography>
-        )}
-
         {errorMsg && (
           <Typography variant={"sub-text"} className={errorTextClass.join(" ")}>
             {errorMsg}
+          </Typography>
+        )}
+        {subText && (
+          <Typography variant={"sub-text"} className={subTextClass.join(" ")}>
+            {subText}
           </Typography>
         )}
       </div>

@@ -133,6 +133,7 @@ FileUploadComponent.args = {
   subText: "Caption",
   fileList: files,
   invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
+  noMultipleFileDropErrorMessage: "Multiple files are not allowed to upload.",
   downloadFileLink: "http://localhost:4000/download.link"
 };
 
@@ -147,5 +148,6 @@ FileUploadComponentWithServerInteraction.args = {
   fileList: files,
   url: "http://localhost:4000/upload",
   invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
+  noMultipleFileDropErrorMessage: "Multiple files are not allowed to upload.",
   downloadFileLink: "http://localhost:4000/download.link"
 };
