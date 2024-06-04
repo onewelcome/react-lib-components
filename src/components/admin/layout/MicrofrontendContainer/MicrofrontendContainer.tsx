@@ -18,28 +18,30 @@ import React, { ForwardRefRenderFunction, ReactElement } from "react";
 import classes from "./MicrofrontendContainer.module.scss";
 
 export interface Props {
-  header?: ReactElement | ReactElement[] | null;
+  header?: ReactElement | ReactElement[];
   children: ReactElement | ReactElement[];
-  appliesMargins?: boolean;
-  appliesMaxWidth?: boolean;
+  contentMargins?: boolean;
+  contentMaxWidth?: boolean;
 }
 
 export const MicrofrontendContainer: ForwardRefRenderFunction<HTMLDivElement, Props> = ({
   header,
   children,
-  appliesMargins = true,
-  appliesMaxWidth = true,
+  contentMargins = true,
+  contentMaxWidth = true,
   ...rest
 }) => {
   const appliedClasses = [];
 
-  appliesMargins && appliedClasses.push(classes["microfrontend-container-margin"]);
-  appliesMaxWidth && appliedClasses.push(classes["microfrontend-container-max-width"]);
+  contentMargins && appliedClasses.push(classes["microfrontend-container-margin"]);
+  contentMaxWidth && appliedClasses.push(classes["microfrontend-container-max-width"]);
 
   return (
     <>
       <div>{header}</div>
-      <div className={appliedClasses.join(" ")}>{children}</div>
+      <div className={appliedClasses.join(" ")} {...rest}>
+        {children}
+      </div>
     </>
   );
 };

@@ -17,7 +17,7 @@
 import React from "react";
 import { FormWithStepper, Props } from "./FormWithStepper";
 import { render } from "@testing-library/react";
-import { FormStepper, Props as FormAsideProps } from "./FormStepper/FormStepper";
+import { FormStepper, Props as FormStepperProps } from "./FormStepper/FormStepper";
 
 const defaultParams: Props = {};
 
@@ -63,21 +63,21 @@ describe("<FormWithStepper />", () => {
     expect(formWithStepper).toHaveClass("form-with-stepper-custom-class");
   });
 
-  it("should have correct data render for FormAside", () => {
-    const formAsideProp: FormAsideProps = {
+  it("should have correct data render for FormStepper", () => {
+    const formStepperProp: FormStepperProps = {
       direction: "horizontal",
       steps: [],
-      className: "form-aside-custom-class"
+      className: "form-stepper-custom-class"
     };
 
     const { getByTestId } = createFormWithStepper(defaultParams => ({
       ...defaultParams,
-      stepper: <FormStepper {...formAsideProp} data-testid="formAside"></FormStepper>
+      stepper: <FormStepper {...formStepperProp} data-testid="formStepper"></FormStepper>
     }));
 
-    const formAside = getByTestId("formAside");
-    expect(formAside).toBeDefined();
-    expect(formAside.className).toContain("form-aside-custom-class");
-    expect(formAside.classList).toContain("horizontal");
+    const formStepper = getByTestId("formStepper");
+    expect(formStepper).toBeDefined();
+    expect(formStepper.className).toContain("form-stepper-custom-class");
+    expect(formStepper.classList).toContain("horizontal");
   });
 });

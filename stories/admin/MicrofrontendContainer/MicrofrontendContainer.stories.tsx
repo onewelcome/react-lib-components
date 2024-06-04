@@ -21,26 +21,23 @@ import {
 } from "../../../src/components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
 import React, { Fragment, ReactElement } from "react";
 import {
-  FormStepper,
+  Button,
+  ButtonProps,
   ContentHeader,
+  DataGrid,
+  DataGridCell,
+  DataGridRow,
+  FormSection,
+  FormStepper,
   FormStepProps,
   FormWithStepper,
-  ButtonProps,
-  Button,
   Icon,
-  Icons,
-  FormSection,
-  DataGrid,
-  DataGridRow,
-  DataGridCell,
-  ContextMenu,
-  IconButton,
-  ContextMenuItem
+  Icons
 } from "../../../src";
 import { FormControlExample } from "../../Form/Examples/FormControlExample";
 
 const meta: Meta = {
-  title: "admin/container",
+  title: "admin/Layout",
   component: MicrofrontendContainerComponent
 };
 
@@ -94,7 +91,6 @@ const Template: StoryFn<Props> = args => {
         </div>
         <div style={{ flexGrow: 1 }}>
           <MicrofrontendContainerComponent
-            appliesMargins={false}
             header={<ContentHeader buttons={formButtonList} title={"Example title"} />}
             {...args}
           >

@@ -75,13 +75,15 @@ describe("<FormStepper />", () => {
     expect(getAllByText(/Step/i)).toHaveLength(2);
     const step1 = getByText("Step 1");
     await userEvent.click(step1);
-    expect(onStepHandler).toBeCalled();
 
-    const element = (await document.getElementById("samlConnectionDetail")) as HTMLDivElement;
+    expect(onStepHandler).toHaveBeenCalled();
+
+    const element = document.getElementById("samlConnectionDetail") as HTMLDivElement;
     element.scrollIntoView = scrollIntoViewMock;
     const step2 = getByText("Step 2");
     await userEvent.click(step2);
-    expect(scrollIntoViewMock).toBeCalled();
+
+    expect(scrollIntoViewMock).toHaveBeenCalled();
   });
 
   it("should render the horizontal form stepper", () => {
