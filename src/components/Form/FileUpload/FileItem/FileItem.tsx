@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction, Fragment } from "react";
 import classes from "./FileItem.module.scss";
 import { Typography } from "../../../Typography/Typography";
 import { Icon, Icons } from "../../../Icon/Icon";
@@ -145,7 +145,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     status: UploadProgress = ACTION_STATUS.UPLOADING
   ) => {
     return actionIcons.map(icon => (
-      <>
+      <Fragment key={Math.random().toString()}>
         {icon.action !== FILE_ACTION.DOWNLOAD && (
           <Button
             color="primary"
@@ -180,7 +180,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             {icon.action}
           </Link>
         )}
-      </>
+      </Fragment>
     ));
   };
 
