@@ -86,9 +86,9 @@ describe("<ContentHeader />", () => {
   it("should render collapsed header when collapsed property is true", () => {
     const paramForCollapsed = { ...defaultParams };
     paramForCollapsed.collapsed = true;
-    const { contentHeader, getByTestId } = createContentHeader(paramForCollapsed);
+    const { contentHeader } = createContentHeader(paramForCollapsed);
 
-    expect(contentHeader.querySelector(".hide-description p")).toHaveTextContent(
+    expect(contentHeader.querySelector(".hide-text p")).toHaveTextContent(
       "Content Header sample description"
     );
   });
