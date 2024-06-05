@@ -43,6 +43,14 @@ const meta: Meta = {
   argTypes: {
     children: {
       control: false
+    },
+    contentMargins: {
+      description:
+        "Specifies if the content (children) element should have the default margins added.\n"
+    },
+    contentMaxWidth: {
+      description:
+        "Specifies if the content (children) element should have the default max-width added.\n"
     }
   },
   parameters: {
@@ -112,7 +120,6 @@ const Template: StoryFn<Props> = args => {
                 can do it. Have fun!
               </ContentHeader>
             }
-            {...args}
           >
             {args.children}
           </MicrofrontendContainerComponent>
