@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import {Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY, Meta} from "@storybook/blocks";
 import * as FormAsideStories from "./FormAside.stories.tsx";
 
+<Meta of={FormAsideStories} />
 <Title />
 <Subtitle />
 
@@ -59,4 +60,4 @@ const [steps, setSteps] = useState(initialStepperState());
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes/>

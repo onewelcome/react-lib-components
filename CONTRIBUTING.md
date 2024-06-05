@@ -228,7 +228,7 @@ const { component } = createComponent(defaultParams => ({ ...defaultParams, prop
     "",
     "# Props",
     "",
-    "&lt;ArgsTable story={PRIMARY_STORY} />"
+    "&lt;ArgsTable/>"
   ],
   "description": "Insert MDX documentation snippet."
 },</code></pre>

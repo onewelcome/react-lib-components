@@ -29,8 +29,7 @@ import {
   Variant
 } from "../../../src/components/Notifications/Alert/AlertItem/AlertItem";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { userEvent, waitFor, within } from "@storybook/test";
 
 const meta: Meta = {
   title: "components/Feedback/Alert",

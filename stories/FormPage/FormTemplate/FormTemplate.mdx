@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import {Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY, Meta} from "@storybook/blocks";
 import * as FormTemplateStories from "./FormTemplate.stories.tsx";
 
+<Meta of={FormTemplateStories} />
 <Title />
 <Subtitle />
 
@@ -73,4 +74,4 @@ const formAsideComponent = <FormAside {...formAsideProps}></FormAside>
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes/>

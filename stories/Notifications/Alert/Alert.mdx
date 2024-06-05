@@ -1,5 +1,7 @@
-import { Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import {Title, Subtitle, ArgTypes, PRIMARY_STORY, Meta} from "@storybook/blocks";
+import AlertStories from "./Alert.stories";
 
+<Meta of={AlertStories} />
 <Title />
 <Subtitle />
 
@@ -37,7 +39,7 @@ enqueueAlert("Message");
 
 ## AlertItem props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes/>
 
 ## AlertProvider props
 

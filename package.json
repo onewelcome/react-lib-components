@@ -59,7 +59,7 @@
     "@chromatic-com/storybook": "^1.3.4",
     "@mdx-js/react": "^3.0.1",
     "@onewelcome/eslint-config-shared-codestyle": "^9.1.0",
-    "@onewelcome/storybook-addon-basestyling": "file:.yalc/@onewelcome/storybook-addon-basestyling",
+    "@onewelcome/storybook-addon-basestyling": "^2.0.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
