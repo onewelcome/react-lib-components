@@ -13,17 +13,94 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
+@use "../../../../mixins.module.scss";
 @import "../../../../mixins.module.scss";
 
 .file-item-wrapper {
-  padding: 0.5rem 1.25rem;
+  padding: 0;
   border-radius: var(--input-border-radius);
-  background-color: var(--input-background-color);
   @include transition(all, 0.2s, ease-in-out);
 
   [class*="icon"] {
     font-size: 1.25rem;
+  }
+
+  & .file-list-container {
+    background-color: var(--color-blue-grey25);
+    padding: 0.25rem 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 2.875rem;
+
+    .action-button-wrapper {
+      margin: 0.25rem 0;
+      display: flex;
+
+      button {
+        margin-left: 0.5rem;
+
+        span {
+          font-size: 0.875rem;
+          text-transform: capitalize;
+        }
+      }
+
+      a {
+        padding-left: 0.75rem;
+        padding-right: 1.25rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        margin-left: 0.5rem;
+
+        span.action-icon {
+          display: flex;
+          justify-content: center;
+          width: 1.5rem;
+          margin-right: 0.25rem;
+          font-size: 0.875rem;
+          padding-left: 0;
+        }
+
+        span {
+          font-size: 0.875rem;
+          text-transform: capitalize;
+        }
+
+        &:hover {
+          color: var(--button-primary-hover-color);
+          background-color: var(--color-black10);
+        }
+
+        &:focus {
+          @include mixins.focusVisibleOutline($outlineOffset: 2px, $selectors: null);
+        }
+      }
+    }
+
+    .progress-with-action {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      .progress-bar {
+        height: 3rem;
+        width: 100%;
+        background: transparent;
+
+        > span {
+          height: 0.3rem;
+          border-radius: var(--input-border-radius);
+        }
+
+        p {
+          font-size: 0.875rem;
+        }
+      }
+    }
   }
 
   .progress-bar {
@@ -39,10 +116,20 @@
     margin: 0;
     display: flex;
     align-items: center;
+    font-size: 0.875rem;
+
     .friendly-name {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    &.error {
+      & span {
+        &::before {
+          color: var(--error);
+        }
+      }
     }
   }
 
@@ -51,10 +138,30 @@
     color: var(--color-primary);
     cursor: pointer;
     padding-left: 1.25rem;
+    margin-right: 1rem;
+
+    & label,
+    & a {
+      text-transform: capitalize;
+      padding-left: 0.5rem;
+      cursor: pointer;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
   }
 
   .file-icon {
     margin-right: 0.5rem;
+
+    &::before {
+      color: var(--color-primary500);
+    }
+
+    &.retry {
+      &::before {
+        color: var(--error);
+      }
+    }
   }
 
   .file-subtitle,
@@ -71,5 +178,9 @@
 
   .readonly {
     color: var(--greyed-out);
+  }
+
+  .file-subtitle {
+    margin-left: 0;
   }
 }

@@ -15,9 +15,19 @@
  */
 
 .row {
+  position: relative;
   background-color: var(--data-grid-row-background-color);
 
   &:not(.loading):hover {
     background-color: var(--data-grid-row-hover-background-color);
+  }
+
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    border-bottom: 1px solid var(--light-grey-border);
   }
 }

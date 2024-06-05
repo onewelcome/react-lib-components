@@ -18,11 +18,17 @@ import React, { useContext, useEffect, useState } from "react";
 import classes from "./SnackbarContainer.module.scss";
 import { SnackbarContext } from "../SnackbarProvider/SnackbarStateProvider";
 
+/**
+ * @deprecated
+ */
 export interface Placement {
   vertical: "top" | "bottom";
   horizontal: "start" | "center" | "end";
 }
 
+/**
+ * @deprecated
+ */
 export interface Props {
   placement: Placement;
   children?: React.ReactNode;
@@ -66,6 +72,9 @@ const useSnackbarContainerHeightAnimation = () => {
   return { height, justifyContent };
 };
 
+/**
+ * @deprecated
+ */
 export const SnackbarContainer = ({ placement, children, zIndex, className, ...rest }: Props) => {
   const { height, justifyContent } = useSnackbarContainerHeightAnimation();
 

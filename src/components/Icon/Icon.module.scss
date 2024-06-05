@@ -337,8 +337,23 @@
   content: "\e9d1";
   @include fontProperties();
 }
-
 .icon-warning-filled:before {
   content: "\e948";
+  @include fontProperties();
+}
+.icon-download-file-outline:before {
+  content: "\e945";
+  @include fontProperties();
+}
+.icon-retry:before {
+  content: "\e949";
+  @include fontProperties();
+}
+.icon-cancel:before {
+  content: "\e94a";
+  @include fontProperties();
+}
+.icon-file-alt:before {
+  content: "\e94b";
   @include fontProperties();
 }

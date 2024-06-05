@@ -95,11 +95,15 @@ const Template: StoryFn<Props & { url: string }> = args => {
         break;
       case FILE_ACTION.REMOVE:
       case FILE_ACTION.DELETE:
+        fileList = updatedFiles.filter(file => file.name !== name);
+        break;
+      case FILE_ACTION.DOWNLOAD:
+        fileList = updatedFiles;
+        break;
       case FILE_ACTION.ABORT:
         fileList = updatedFiles.filter(file => file.name !== name);
         break;
     }
-
     setUpdatedFiles(fileList);
   };
   const onDrop = (e: FileType[]) => {
@@ -124,9 +128,12 @@ export const FileUploadComponent = Template.bind({});
 FileUploadComponent.args = {
   accept: ".mp4, .jpg, .jpeg",
   multiple: true,
-  dragAndDropText: "Testing drop text",
-  title: "File Upload Title Placeholder",
-  fileList: files
+  dragAndDropText: "Drag and drop or",
+  title: "Label",
+  subText: "Caption",
+  fileList: files,
+  invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
+  downloadFileLink: "http://localhost:4000/download.link"
 };
 
 export const FileUploadComponentWithServerInteraction = Template.bind({});
@@ -134,8 +141,11 @@ export const FileUploadComponentWithServerInteraction = Template.bind({});
 FileUploadComponentWithServerInteraction.args = {
   accept: ".mp4, .jpg, .jpeg",
   multiple: true,
-  dragAndDropText: "Testing drop text",
-  title: "File Upload Title Placeholder",
+  dragAndDropText: "Drag and drop or",
+  title: "Label",
+  subText: "Caption",
   fileList: files,
-  url: "http://localhost:4000/upload"
+  url: "http://localhost:4000/upload",
+  invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
+  downloadFileLink: "http://localhost:4000/download.link"
 };

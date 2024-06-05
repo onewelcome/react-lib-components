@@ -15,28 +15,23 @@
  */
 
 import React, { HTMLAttributes, ReactElement } from "react";
-import { Button, Props as ButtonProps } from "../../Button/Button";
-import { Typography } from "../../Typography/Typography";
-
-import classes from "./FormHeader.module.scss";
+import { Props as FormAsideProps, FormAside } from "../FormAside/FormAside";
+import classes from "./FormTemplate.module.scss";
+import { FormHeader, Props as FormHeaderProps } from "../FormHeader/FormHeader";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  title: string;
-  buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
+  formHeader?: ReactElement<FormHeaderProps, typeof FormHeader>;
+  formAside?: ReactElement<FormAsideProps, typeof FormAside>;
 }
 
-export const FormHeader = ({ title, children, buttons, ...rest }: Props) => {
+export const FormTemplate = ({ children, formAside, formHeader, ...rest }: Props) => {
   return (
-    <div className={`${classes["header"]} ${rest.className}`} {...rest}>
-      <div>
-        <Typography className={classes["header-text"]} variant={"h3"}>
-          {title}
-        </Typography>
-        <Typography variant={"body"} spacing={{ margin: 0 }}>
-          {children}
-        </Typography>
+    <div className={`${classes["wrapper"]} ${rest.className}`} {...rest}>
+      {formHeader}
+      <div className={classes["content"]}>
+        {formAside}
+        <div className={classes["form-section"]}>{children}</div>
       </div>
-      <div className={classes["buttons-wrapper"]}>{buttons}</div>
     </div>
   );
 };

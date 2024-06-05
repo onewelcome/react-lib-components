@@ -33,6 +33,7 @@ interface CSSProperties {
   colorPrimary600?: string;
   colorPrimary700?: string;
   colorPrimary900?: string;
+  colorPrimaryLight?: string;
   colorBlueGrey100?: string;
   colorBlueGrey200?: string;
   colorBlueGrey300?: string;
@@ -52,9 +53,11 @@ interface CSSProperties {
   colorLightBlue500?: string;
   colorLightBlue600?: string;
   colorShadowBlue?: string;
+  colorOrange100?: string;
   colorOrange500?: string;
   colorOrange600?: string;
   colorOrange700?: string;
+  colorRed100?: string;
   colorRed200?: string;
   colorRed500?: string;
   colorRed600?: string;
@@ -66,6 +69,7 @@ interface CSSProperties {
   defaultPressedColor?: string;
   defaultHoverColor?: string;
   defaultLineHeight?: string;
+  dataGridLineHeight?: string;
   focusBorderRadius?: string;
   buttonBorderRadius?: string;
   buttonBorderWidth?: string;
@@ -119,12 +123,50 @@ interface CSSProperties {
   modalBackdropColor?: string;
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
+
+  /**
+   * @deprecated
+   */
   snackbarTextColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarInfoBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarSuccessBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarErrorBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarWarningBackgroundColor?: string;
+  /**
+   * @deprecated
+   */
   snackbarBorderRadius?: string;
+
+  alertTextColor?: string;
+  alertTextInvertedColor?: string;
+
+  alertNeutralBackgroundColor?: string;
+  alertInfoBackgroundColor?: string;
+  alertSuccessBackgroundColor?: string;
+  alertErrorBackgroundColor?: string;
+  alertWarningBackgroundColor?: string;
+
+  alertNeutralInvertedColor?: string;
+  alertInfoInvertedColor?: string;
+  alertSuccessInvertedColor?: string;
+  alertErrorInvertedColor?: string;
+  alertWarningInvertedColor?: string;
+
+  alertBorderWidth?: string;
+  alertBorderRadius?: string;
+
   stepperWaitingColor?: string;
   stepperWaitingHoverColor?: string;
   stepperWaitingActiveColor?: string;
@@ -192,6 +234,10 @@ interface CSSProperties {
   fontSizeSub?: string;
   fontSizeCode?: string;
   formControlFontSize?: string;
+  fileUploadBorderWidth?: string;
+  dragDropBorderStyle?: string;
+  defaultZIndex1?: string;
+  fontSizeDataGrid?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -207,6 +253,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
+    colorPrimaryLight: "#E6E7F4",
     colorBlueGrey25: "#F7F7F9",
     colorBlueGrey25Transparent: "rgba(247, 247, 249, .8)",
     colorBlueGrey50: "#EEEFF3",
@@ -225,9 +272,11 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorGreen700: "#0E4E29",
     colorLightBlue500: "#00BCDD",
     colorLightBlue600: "#0096B1",
+    colorOrange100: "#FFE0B2",
     colorOrange500: "#E07900",
     colorOrange600: "#B36100",
     colorOrange700: "#864900",
+    colorRed100: "#FFCDD2",
     colorRed200: "#F3A599",
     colorRed500: "#E01E00",
     colorRed600: "#B31800",
@@ -245,6 +294,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     defaultPressedColor: "var(--color-blue-grey100)",
     defaultHoverColor: "var(--color-blue-grey25)",
     defaultLineHeight: "1.5", //FIXME: UCL-395
+    dataGridLineHeight: "1.25",
     defaultBorderRadius: "0.25rem",
     focusBorderRadius: "0.125rem",
     buttonBorderRadius: "0.125rem",
@@ -285,6 +335,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "1px",
     inputBorderStyle: "solid",
+    fileUploadBorderWidth: "1px",
+    dragDropBorderStyle: "dashed",
     inputBorderColor: "var(--color-blue-grey500)",
     inputBackgroundColor: "var(--light)",
     inputHelperTextColor: "var(--color-blue-grey500)",
@@ -297,12 +349,35 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalBackdropColor: "var(--default)",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
+
     snackbarTextColor: "var(--light)",
     snackbarInfoBackgroundColor: "var(--color-primary500)",
     snackbarSuccessBackgroundColor: "var(--color-green500)",
     snackbarErrorBackgroundColor: "var(--color-red500)",
     snackbarWarningBackgroundColor: "var(--color-orange500)",
     snackbarBorderRadius: "2px",
+
+    alertTextColor: "var(--default)",
+    alertTextInvertedColor: "var(--light)",
+
+    alertNeutralBackgroundColor: "var(--color-blue-grey50)",
+    alertNeutralInvertedColor: "var(--color-blue-grey500)",
+
+    alertInfoBackgroundColor: "var(--color-primary100)",
+    alertInfoInvertedColor: "var(--color-primary500)",
+
+    alertSuccessBackgroundColor: "var(--color-green100)",
+    alertSuccessInvertedColor: "var(--color-green500)",
+
+    alertErrorBackgroundColor: "var(--color-red100)",
+    alertErrorInvertedColor: "var(--color-red500)",
+
+    alertWarningBackgroundColor: "var(--color-orange100)",
+    alertWarningInvertedColor: "var(--color-orange500)",
+
+    alertBorderWidth: "4px",
+    alertBorderRadius: "2px",
+
     stepperWaitingColor: "var(--color-blue-grey200)",
     stepperWaitingHoverColor: "var(--color-blue-grey300)",
     stepperWaitingActiveColor: "var(--color-blue-grey400)",
@@ -369,7 +444,9 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
-    formControlFontSize: "0.875rem" //FIXME: UCL-395
+    defaultZIndex1: "1",
+    formControlFontSize: "0.875rem", //FIXME: UCL-395
+    fontSizeDataGrid: "0.875rem" //FIXME: UCL-395
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

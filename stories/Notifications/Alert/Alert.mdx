@@ -1,0 +1,49 @@
+import { Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+
+<Title />
+<Subtitle />
+
+The `Alert` components and hook are there for you to make it easy to notify a user with different type of messages. The components, the Alert component, provider and hooks are designed to be used together.
+
+You need to wrap your application with the AlertProvider to ensure the alerts appear below the content on your page.
+
+## Example
+
+### Wrapping your code with AlertProvider
+
+```jsx
+createRoot(root).render(
+  <AlertProvider closeButtonTitle="Close">
+    <RouterProvider router={router} />
+  </AlertProvider>
+);
+```
+
+### Usage
+
+```jsx
+const { enqueueAlert } = useAlert();
+
+enqueueAlert("Message");
+```
+
+## Queue functions
+
+- `enqueueAlert(string | AlertQueue)` - The base alert hook. Enqueues a new alert. By default a total of 3 can be visible.
+- `enqueueInfoAlert(string | AlertQueue)` - The variant is fixed to `informative`.
+- `enqueueSuccessAlert(string | AlertQueue)` - The variant is fixed to `success`.
+- `enqueueWarningAlert(string | AlertQueue)` - The variant is fixed to `warning`.
+- `enqueueErrorAlert(string | AlertQueue)` - The variant is fixed to `error`.
+
+## AlertItem props
+
+<ArgTypes story={PRIMARY_STORY} />
+
+## AlertProvider props
+
+- `closeButtonTitle: string (required)` - The default title for the close button on the alerts.
+- `placement?: {vertical: "top" | "bottom", horizontal: "start" | "center" | "end"}` - The placement of the alerts relative to domRoot.
+- `stackSize?: number` - The number of alerts that can ve visible at any given time.
+- `domRoot?: HTMLElement` - Used if custom dom root is required. Default body.
+- `autoHideDuration?: { long: number, short: number }` - The amount of time it takes for an alert to hide itself automatically if not focused. Default `{ long: 8000, short: 4000 }`.
+- `className?: string` - Css class extension for the main div container.

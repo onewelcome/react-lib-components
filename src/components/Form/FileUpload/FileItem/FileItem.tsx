@@ -20,7 +20,8 @@ import { Typography } from "../../../Typography/Typography";
 import { Icon, Icons } from "../../../Icon/Icon";
 import { ProgressBar } from "../../../ProgressBar/ProgressBar";
 import { FileType } from "../FileUpload";
-
+import { Button } from "../../../Button/Button";
+import { Link } from "../../../Link/Link";
 export type UploadProgress = "uploading" | "completed" | "error" | "readonly" | "retry";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
@@ -28,61 +29,96 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   status?: UploadProgress;
   progress?: number;
   error?: string;
+  downloadFileLink?: string;
+  totalPercentage?: number;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
 }
 interface FileItemIcons {
   fileIcon: Icons;
-  actionIcon?: { type: Icons; action: FILE_ACTION };
+  actionIcons?: { type: Icons; action: FILE_ACTION }[];
 }
 
 export enum FILE_ACTION {
   DELETE = "delete",
+  DOWNLOAD = "download",
   REMOVE = "remove",
   ABORT = "abort",
   RETRY = "retry"
 }
 
+export enum ACTION_STATUS {
+  COMPLETED = "completed",
+  UPLOADING = "uploading",
+  ERROR = "error",
+  RETRY = "retry",
+  READONLY = "readonly"
+}
+
 const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { name, status, error, progress, onRequestedFileAction }: Props,
+  {
+    name,
+    status,
+    error,
+    progress,
+    downloadFileLink,
+    totalPercentage,
+    onRequestedFileAction
+  }: Props,
   ref
 ) => {
   const determineIcons = (status?: UploadProgress): FileItemIcons => {
     switch (status) {
-      case "completed":
+      case ACTION_STATUS.COMPLETED:
         return {
-          fileIcon: Icons.FileOutline,
-          actionIcon: {
-            type: Icons.Trash,
-            action: FILE_ACTION.DELETE
-          }
+          fileIcon: Icons.FileAltIcon,
+          actionIcons: [
+            {
+              type: Icons.Trash,
+              action: FILE_ACTION.DELETE
+            },
+            {
+              type: Icons.DownloadFile,
+              action: FILE_ACTION.DOWNLOAD
+            }
+          ]
         };
-      case "error":
+      case ACTION_STATUS.ERROR:
         return {
-          fileIcon: Icons.InfoCircle,
-          actionIcon: {
-            type: Icons.Times,
-            action: FILE_ACTION.REMOVE
-          }
+          fileIcon: Icons.Error,
+          actionIcons: [
+            {
+              type: Icons.Times,
+              action: FILE_ACTION.REMOVE
+            }
+          ]
         };
-      case "uploading":
+      case ACTION_STATUS.UPLOADING:
         return {
-          fileIcon: Icons.FileUpload,
-          actionIcon: {
-            type: Icons.Times,
-            action: FILE_ACTION.ABORT
-          }
+          fileIcon: Icons.FileAltIcon,
+          actionIcons: [
+            {
+              type: Icons.AbortFile,
+              action: FILE_ACTION.ABORT
+            }
+          ]
         };
-      case "retry":
+      case ACTION_STATUS.RETRY:
         return {
-          fileIcon: Icons.InfoCircle,
-          actionIcon: {
-            type: Icons.Refresh,
-            action: FILE_ACTION.RETRY
-          }
+          fileIcon: Icons.FileAltIcon,
+          actionIcons: [
+            {
+              type: Icons.Refresh,
+              action: FILE_ACTION.RETRY
+            },
+            {
+              type: Icons.Trash,
+              action: FILE_ACTION.REMOVE
+            }
+          ]
         };
-      case "readonly":
+      case ACTION_STATUS.READONLY:
       default:
-        return { fileIcon: Icons.FileOutline };
+        return { fileIcon: Icons.FileAltIcon };
     }
   };
 
@@ -95,28 +131,104 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const { friendlyName, extension } = getFriendlyNameAndExtension(name);
 
-  return (
-    <div ref={ref} className={classes["file-item-wrapper"]} aria-label={`${name}-wrapper`}>
+  const getStartIcon = (icon: { type: Icons; action: FILE_ACTION }) => (
+    <Icon
+      key={icon.action}
+      title={icon.action}
+      icon={icon.type}
+      className={classes["action-icon"]}
+    ></Icon>
+  );
+
+  const renderActionIcons = (
+    actionIcons: { type: Icons; action: FILE_ACTION }[],
+    status: UploadProgress = ACTION_STATUS.UPLOADING
+  ) => {
+    return actionIcons.map(icon => (
+      <>
+        {icon.action !== FILE_ACTION.DOWNLOAD && (
+          <Button
+            color="primary"
+            startIcon={getStartIcon(icon)}
+            title={icon.action !== FILE_ACTION.ABORT ? icon.action : ""}
+            type="button"
+            variant="text"
+            onClick={() =>
+              icon && onRequestedFileAction && onRequestedFileAction(icon.action, name)
+            }
+          >
+            {icon.action !== FILE_ACTION.ABORT ? icon.action : ""}
+          </Button>
+        )}
+
+        {icon.action === FILE_ACTION.DOWNLOAD && downloadFileLink && (
+          <Link
+            color="primary"
+            display="link"
+            to={downloadFileLink}
+            type="download"
+            target="_blank"
+            prefixIcon={
+              <Icon
+                key={icon.action}
+                className={classes["action-icon"]}
+                title={icon.action}
+                icon={icon.type}
+              ></Icon>
+            }
+          >
+            {icon.action}
+          </Link>
+        )}
+      </>
+    ));
+  };
+
+  const getUploadedFileInfo = () => {
+    return (
       <Typography
         variant={"body"}
         title={name}
         className={`${classes["file-name"]} ${status ? classes[status] : ""}`}
       >
-        <Icon icon={icons.fileIcon} className={classes["file-icon"]} />
-        <span className={classes["friendly-name"]}>{friendlyName}</span>.<span>{extension}</span>
-        {icons.actionIcon && (
+        {status === "retry" && (
           <Icon
-            title={icons.actionIcon.action}
-            icon={icons.actionIcon.type}
-            className={classes["action-icon"]}
-            onClick={() =>
-              icons.actionIcon &&
-              onRequestedFileAction &&
-              onRequestedFileAction(icons.actionIcon.action, name)
-            }
+            icon={Icons.Error}
+            className={`${classes["file-icon"]} ${status ? classes[status] : ""}`}
           />
         )}
+        <Icon icon={icons.fileIcon} className={classes["file-icon"]} />
+        <span className={classes["friendly-name"]}>{friendlyName}</span>.<span>{extension}</span>
       </Typography>
+    );
+  };
+
+  const getProgressBar = () => {
+    return (
+      <ProgressBar
+        className={classes["progress-bar"]}
+        completed={progress}
+        label={`${friendlyName}.${extension}`}
+        percentage={totalPercentage}
+      />
+    );
+  };
+
+  return (
+    <div ref={ref} className={classes["file-item-wrapper"]} aria-label={`${name}-wrapper`}>
+      <div className={classes["file-list-container"]}>
+        {status !== ACTION_STATUS.UPLOADING && getUploadedFileInfo()}
+
+        <div
+          className={`${status === ACTION_STATUS.UPLOADING ? classes["progress-with-action"] : ""}`}
+        >
+          {status === ACTION_STATUS.UPLOADING && getProgressBar()}
+
+          <div className={classes["action-button-wrapper"]}>
+            {icons.actionIcons && renderActionIcons(icons.actionIcons, status)}
+          </div>
+        </div>
+      </div>
       {error && (
         <Typography
           variant={"sub-text"}
@@ -124,11 +236,6 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         >
           {error}
         </Typography>
-      )}
-      {status === "uploading" ? (
-        <ProgressBar className={classes["progress-bar"]} completed={progress} />
-      ) : (
-        ""
       )}
     </div>
   );

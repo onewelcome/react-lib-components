@@ -26,6 +26,9 @@ import { SnackbarContext } from "../SnackbarProvider/SnackbarStateProvider";
 
 const textColor = "var(--snackbar-text-color)";
 
+/**
+ * @deprecated
+ */
 export interface Props {
   id: string;
   title?: string;
@@ -51,6 +54,9 @@ const useRegisterSnackbarHeight = (
   }, [singleSnackbarRef.current]);
 };
 
+/**
+ * @deprecated
+ */
 export const SnackbarItem = ({
   id,
   title,

@@ -17,6 +17,9 @@
 import { useContext } from "react";
 import { SnackbarContext } from "./SnackbarProvider/SnackbarStateProvider";
 
+/**
+ * @deprecated
+ */
 export const useSnackbar = () => {
   const ctx = useContext(SnackbarContext);
 
