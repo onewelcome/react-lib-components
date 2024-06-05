@@ -46,11 +46,13 @@ const meta: Meta = {
     },
     contentMargins: {
       description:
-        "Specifies if the content (children) element should have the default margins added.\n"
+        "Specifies if the content (children) element should have the default margins added.\n",
+      defaultValue: true
     },
     contentMaxWidth: {
       description:
-        "Specifies if the content (children) element should have the default max-width added.\n"
+        "Specifies if the content (children) element should have the default max-width added.\n",
+      defaultValue: true
     }
   },
   parameters: {
@@ -91,16 +93,23 @@ const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
 
 const stepper = <FormStepper steps={initialStepperState} direction={"vertical"} />;
 
-const Template: StoryFn<Props> = args => {
-  const boxShadow = {
-    boxShadow: "0px 1px 5px 0px #01053214"
-  };
-  const centerText = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
-  };
+const boxShadow = {
+  boxShadow: "0px 1px 5px 0px #01053214"
+};
 
+const centerText = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+};
+
+const createDummyContent = (text: string) => (
+  <div style={{ backgroundColor: "#F7F7F9", width: "100%", ...boxShadow, ...centerText }}>
+    {text}
+  </div>
+);
+
+const Template: StoryFn<Props> = args => {
   return (
     <Fragment>
       <div style={{ height: "4rem", ...boxShadow, ...centerText }}>HEADER</div>
@@ -120,6 +129,7 @@ const Template: StoryFn<Props> = args => {
                 can do it. Have fun!
               </ContentHeader>
             }
+            {...args}
           >
             {args.children}
           </MicrofrontendContainerComponent>
@@ -191,4 +201,26 @@ MicrofrontendContainerTable.args = {
     </DataGrid>
   )
 };
+
+export const MicrofrontendContainerDefaultMaxWidth = Template.bind({});
+
+MicrofrontendContainerDefaultMaxWidth.parameters = {
+  chromatic: { viewports: [1440, 2560] }
+};
+
+MicrofrontendContainerDefaultMaxWidth.args = {
+  children: createDummyContent("DEFAULT MAX-WIDTH CONTENT")
+};
+
+export const MicrofrontendContainerFullWidth = Template.bind({});
+
+MicrofrontendContainerFullWidth.args = {
+  contentMaxWidth: false,
+  children: createDummyContent("FULL WIDTH CONTENT")
+};
+
+MicrofrontendContainerFullWidth.parameters = {
+  chromatic: { viewports: [1440, 2560] }
+};
+
 export default meta;
