@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 OneWelcome B.V.
+ * Copyright 2024 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -35,10 +35,21 @@ import {
   Icons
 } from "../../../src";
 import { FormControlExample } from "../../Form/Examples/FormControlExample";
+import MicrofrontendContainerDocumentation from "./MicrofrontendContainer.mdx";
 
 const meta: Meta = {
-  title: "admin/Layout",
-  component: MicrofrontendContainerComponent
+  title: "admin/Layout/MicrofrontendContainer",
+  component: MicrofrontendContainerComponent,
+  argTypes: {
+    children: {
+      control: false
+    }
+  },
+  parameters: {
+    docs: {
+      page: MicrofrontendContainerDocumentation
+    }
+  }
 };
 
 const initialStepperState: FormStepProps[] = [
@@ -91,7 +102,16 @@ const Template: StoryFn<Props> = args => {
         </div>
         <div style={{ flexGrow: 1 }}>
           <MicrofrontendContainerComponent
-            header={<ContentHeader buttons={formButtonList} title={"Example title"} />}
+            header={
+              <ContentHeader
+                buttons={formButtonList}
+                title={"Example title"}
+                subtitle={"This is a subtitle, you can put a short message here"}
+              >
+                If you need more place to write some explanation to your user, this is the place you
+                can do it. Have fun!
+              </ContentHeader>
+            }
             {...args}
           >
             {args.children}

@@ -15,11 +15,11 @@
  */
 
 import React, { HTMLAttributes, ReactElement } from "react";
-import { Props as FormAsideProps, FormStepper } from "./FormStepper/FormStepper";
+import { Props as FormStepperProps, FormStepper } from "./FormStepper/FormStepper";
 import classes from "./FormWithStepper.module.scss";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  stepper?: ReactElement<FormAsideProps, typeof FormStepper>;
+  stepper?: ReactElement<FormStepperProps, typeof FormStepper>;
 }
 
 export const FormWithStepper = ({ children, stepper, ...rest }: Props) => {

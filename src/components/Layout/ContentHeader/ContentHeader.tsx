@@ -22,11 +22,19 @@ import classes from "./ContentHeader.module.scss";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
+  subtitle?: string;
   buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
   collapsed?: boolean;
 }
 
-export const ContentHeaderComponent = ({ title, children, buttons, collapsed, ...rest }: Props) => {
+export const ContentHeaderComponent = ({
+  title,
+  children,
+  buttons,
+  collapsed,
+  subtitle,
+  ...rest
+}: Props) => {
   return (
     <div className={classes["header-background-color"]}>
       <div
@@ -34,11 +42,19 @@ export const ContentHeaderComponent = ({ title, children, buttons, collapsed, ..
         {...rest}
       >
         <div>
-          <Typography className={classes["header-text"]} variant={"h3"}>
+          <Typography className={classes["header-text"]} variant={"h1"}>
             {title}
           </Typography>
+          {subtitle && (
+            <Typography
+              className={`${classes["header-subtitle"]} ${collapsed ? classes["hide-text"] : ""}`}
+              variant={"h4"}
+            >
+              {subtitle}
+            </Typography>
+          )}
           <Typography
-            className={`${collapsed ? classes["hide-description"] : ""}`}
+            className={`${collapsed ? classes["hide-text"] : ""}`}
             variant={"body"}
             spacing={{ margin: 0 }}
           >

@@ -20,15 +20,20 @@
   }
 }
 
-.hide-description {
+.hide-text {
   display: none;
 }
 
 .header-text {
   margin: 0;
-  font-weight: 700;
-  color: var(--color-primary500);
-  line-height: 2.25rem;
+  font-weight: 500;
+  color: var(--color-blue-grey900);
+  line-height: 3.125rem;
+}
+
+.header-subtitle {
+  color: var(--color-blue-grey400);
+  font-weight: 500;
 }
 
 .buttons-wrapper {
