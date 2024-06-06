@@ -194,3 +194,7 @@ export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell";
 export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell";
 export { Banner } from "./components/Notifications/Banner/Banner";
 export type { Props as BannerProps } from "./components/Notifications/Banner/Banner";
+
+/** Admin */
+export { MicrofrontendContainer } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
+export type { Props as MicrofrontendContainerProps } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
