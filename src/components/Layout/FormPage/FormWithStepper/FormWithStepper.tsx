@@ -15,21 +15,18 @@
  */
 
 import React, { HTMLAttributes, ReactElement } from "react";
-import { Props as FormAsideProps, FormAside } from "../FormAside/FormAside";
-import classes from "./FormTemplate.module.scss";
-import { FormHeader, Props as FormHeaderProps } from "../FormHeader/FormHeader";
+import { Props as FormStepperProps, FormStepper } from "./FormStepper/FormStepper";
+import classes from "./FormWithStepper.module.scss";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  formHeader?: ReactElement<FormHeaderProps, typeof FormHeader>;
-  formAside?: ReactElement<FormAsideProps, typeof FormAside>;
+  stepper?: ReactElement<FormStepperProps, typeof FormStepper>;
 }
 
-export const FormTemplate = ({ children, formAside, formHeader, ...rest }: Props) => {
+export const FormWithStepper = ({ children, stepper, ...rest }: Props) => {
   return (
     <div className={`${classes["wrapper"]} ${rest.className}`} {...rest}>
-      {formHeader}
       <div className={classes["content"]}>
-        {formAside}
+        {stepper}
         <div className={classes["form-section"]}>{children}</div>
       </div>
     </div>

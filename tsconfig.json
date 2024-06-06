@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2018",
     "moduleResolution": "node",
-    "types": ["jest", "@testing-library/jest-dom", "node"],
+    "types": ["jest", "@testing-library/jest-dom", "node", "mdx"],
     "jsx": "react",
     "strict": true,
     "declaration": true,

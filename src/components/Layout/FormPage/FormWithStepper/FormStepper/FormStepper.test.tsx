@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { FormAside, Props } from "./FormAside";
+import { FormStepper, Props } from "./FormStepper";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -24,7 +24,7 @@ const defaultParams: Props = {
   steps: []
 };
 
-const createFormAside = (params?: (defaultParams: Props) => Props) => {
+const createFormStepper = (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;
   if (params) {
     parameters = params(defaultParams);
@@ -32,30 +32,30 @@ const createFormAside = (params?: (defaultParams: Props) => Props) => {
 
   const queries = render(
     <>
-      <FormAside {...parameters} data-testid="formAsideTestId"></FormAside>
+      <FormStepper {...parameters} data-testid="formStepperTestId"></FormStepper>
       <div id="samlConnectionDetail"></div>
     </>
   );
-  const formAside = queries.getByTestId("formAsideTestId");
+  const formStepper = queries.getByTestId("formStepperTestId");
 
   return {
     ...queries,
-    formAside
+    formStepper
   };
 };
 
-describe("<FormAside />", () => {
+describe("<FormStepper />", () => {
   it("should render without crashing", () => {
-    const { formAside } = createFormAside();
+    const { formStepper } = createFormStepper();
 
-    expect(formAside).toBeDefined();
+    expect(formStepper).toBeDefined();
   });
 
   it("should have the correct values and attributes", async () => {
     const onStepHandler = jest.fn();
     const scrollIntoViewMock = jest.fn();
 
-    const { getAllByText, getByText } = createFormAside(defaultParams => ({
+    const { getAllByText, getByText } = createFormStepper(defaultParams => ({
       ...defaultParams,
       steps: [
         {
@@ -75,22 +75,24 @@ describe("<FormAside />", () => {
     expect(getAllByText(/Step/i)).toHaveLength(2);
     const step1 = getByText("Step 1");
     await userEvent.click(step1);
-    expect(onStepHandler).toBeCalled();
 
-    const element = (await document.getElementById("samlConnectionDetail")) as HTMLDivElement;
+    expect(onStepHandler).toHaveBeenCalled();
+
+    const element = document.getElementById("samlConnectionDetail") as HTMLDivElement;
     element.scrollIntoView = scrollIntoViewMock;
     const step2 = getByText("Step 2");
     await userEvent.click(step2);
-    expect(scrollIntoViewMock).toBeCalled();
+
+    expect(scrollIntoViewMock).toHaveBeenCalled();
   });
 
   it("should render the horizontal form stepper", () => {
-    const { formAside } = createFormAside(params => ({
+    const { formStepper } = createFormStepper(params => ({
       ...params,
       direction: "horizontal"
     }));
 
-    expect(formAside).toBeDefined();
-    expect(formAside.classList).toContain("horizontal");
+    expect(formStepper).toBeDefined();
+    expect(formStepper.classList).toContain("horizontal");
   });
 });

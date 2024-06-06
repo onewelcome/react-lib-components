@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 OneWelcome B.V.
+ * Copyright 2024 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  *    limitations under the License.
  */
 
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import React from "react";
 import {
-  FormSection,
+  FormSection as FormSectionComponent,
   Props
-} from "../../../src/components/Layout/FormPage/FormSection/FormSection";
-import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
+} from "../../../src/components/Layout/FormPage/FormWithStepper/FormSection/FormSection";
+import { InputWrapper } from "../../../src";
 import FormSectionDocumentation from "./FormSection.mdx";
 
 const meta: Meta = {
-  title: "Components/layout/FormPage/FormSection",
-  component: FormSection,
+  title: "Components/Layout/FormSection",
+  component: FormSectionComponent,
   parameters: {
     docs: {
       page: FormSectionDocumentation
@@ -50,5 +50,5 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <FormSection {...args} />;
-export const FormSectionComponent = Template.bind({});
+const Template: StoryFn<Props> = args => <FormSectionComponent {...args} />;
+export const FormSection = Template.bind({});

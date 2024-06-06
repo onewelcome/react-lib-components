@@ -1,5 +1,4 @@
 .header {
-  background-color: var(--color-blue-grey25);
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -8,23 +7,33 @@
   z-index: 1;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  max-width: 105rem;
 
   &.collapsed-header {
     padding: 1rem 2rem 1rem 2rem;
     -webkit-transition: 0.5s;
     transition: 0.5s;
   }
+
+  &-background-color {
+    background-color: var(--color-blue-grey25);
+  }
 }
 
-.hide-description {
+.hide-text {
   display: none;
 }
 
 .header-text {
   margin: 0;
-  font-weight: 700;
-  color: var(--color-primary500);
-  line-height: 2.25rem;
+  font-weight: 500;
+  color: var(--color-blue-grey900);
+  line-height: 3.125rem;
+}
+
+.header-subtitle {
+  color: var(--color-blue-grey400);
+  font-weight: 500;
 }
 
 .buttons-wrapper {

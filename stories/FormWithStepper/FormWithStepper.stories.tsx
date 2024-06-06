@@ -1,21 +1,18 @@
 import { Meta, StoryFn } from "@storybook/react";
 import {
-  FormAside,
+  FormStepper,
   FormStepProps,
-  Props as FormAsideProps
-} from "../../../src/components/Layout/FormPage/FormAside/FormAside";
+  Props as FormStepperProps
+} from "../../src/components/Layout/FormPage/FormWithStepper/FormStepper/FormStepper";
 import {
-  FormTemplate,
+  FormWithStepper,
   Props
-} from "../../../src/components/Layout/FormPage/FormTemplate/FormTemplate";
-import { FormHeader } from "../../../src/components/Layout/FormPage/FormHeader/FormHeader";
-import FormTemplateDocumentation from "./FormTemplate.mdx";
-import React, { ReactElement, useState } from "react";
-import { FormSection } from "../../../src/components/Layout/FormPage/FormSection/FormSection";
-import { FormControlExample } from "../../Form/Examples/FormControlExample";
-
-import { Button, ButtonProps, Icon, Icons } from "../../../src";
-import { StepStatus } from "../../../src/components/Stepper/Step";
+} from "../../src/components/Layout/FormPage/FormWithStepper/FormWithStepper";
+import { FormSection } from "../../src";
+import FormWithStepperDocumentation from "./FormWithStepper.mdx";
+import React, { useState } from "react";
+import { FormControlExample } from "../Form/Examples/FormControlExample";
+import { StepStatus } from "../../src/components/Stepper/Step";
 
 const initialStepperState: FormStepProps[] = [
   {
@@ -29,54 +26,32 @@ const initialStepperState: FormStepProps[] = [
     targetScrollViewId: "samlConnectionDetail"
   },
   {
-    status: "waiting",
+    status: "done",
     label: "Step 3",
     targetScrollViewId: "samlFederationRequest"
   },
   {
-    status: "waiting",
+    status: "error",
     label: "Step 4",
     targetScrollViewId: "samlAttributeMapping"
   }
 ];
 
-const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
-  <Button key="1" onClick={() => alert("Cancel button clicked.")} variant="text">
-    Cancel
-  </Button>,
-  <Button key="2" disabled startIcon={<Icon icon={Icons.SaveOutline} />}>
-    Save Draft
-  </Button>,
-  <Button
-    key="3"
-    onClick={() => alert("Submit button clicked.")}
-    startIcon={<Icon icon={Icons.ReplyOutline} />}
-  >
-    Submit
-  </Button>
-];
-
-const formHeaderComponent = (
-  <FormHeader buttons={formButtonList} title="Form Header title">
-    Form Header children{" "}
-  </FormHeader>
-);
-
-const formAsideProps: FormAsideProps = {
+const formStepperProps: FormStepperProps = {
   direction: "vertical",
   textPosition: "bottom",
   steps: initialStepperState
 };
 
 const meta: Meta = {
-  title: "Components/layout/FormPage/FormTemplate",
-  component: FormTemplate,
+  title: "Components/Layout/FormPage/FormWithStepper",
+  component: FormWithStepper,
   parameters: {
     docs: {
-      page: FormTemplateDocumentation
+      page: FormWithStepperDocumentation
     }
   },
-  args: formAsideProps
+  args: formStepperProps
 };
 
 export default meta;
@@ -92,12 +67,12 @@ const Template: StoryFn<Props> = args => {
     });
   };
 
-  const formAsideState = { ...formAsideProps, steps: steps };
+  const formStepperState = { ...formStepperProps, steps: steps };
 
-  const formAsideComponent = <FormAside {...formAsideState}></FormAside>;
+  const formStepperComponent = <FormStepper {...formStepperState}></FormStepper>;
 
   return (
-    <FormTemplate formAside={formAsideComponent} formHeader={formHeaderComponent}>
+    <FormWithStepper stepper={formStepperComponent}>
       <div>
         <FormSection
           id="samlBaseInfo"
@@ -128,8 +103,8 @@ const Template: StoryFn<Props> = args => {
           <FormControlExample index={3} updateStepStatus={updateStepStatus}></FormControlExample>
         </FormSection>
       </div>
-    </FormTemplate>
+    </FormWithStepper>
   );
 };
 
-export const FormTemplateComponent = Template.bind({});
+export const FormWithStepperComponent = Template.bind({});
