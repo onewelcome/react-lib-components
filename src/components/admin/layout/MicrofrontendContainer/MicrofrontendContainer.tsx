@@ -24,13 +24,13 @@ export interface Props {
   contentMaxWidth?: boolean;
 }
 
-export const MicrofrontendContainer: ForwardRefRenderFunction<HTMLDivElement, Props> = ({
+export const MicrofrontendContainer = ({
   header,
   children,
   contentMargins = true,
   contentMaxWidth = true,
   ...rest
-}) => {
+}: Props) => {
   const appliedClasses = [];
 
   contentMargins && appliedClasses.push(classes["microfrontend-container-margin"]);

@@ -23,7 +23,7 @@ import classes from "./ContentHeader.module.scss";
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
   subtitle?: string;
-  buttons: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
+  buttons?: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
   collapsed?: boolean;
 }
 
@@ -61,10 +61,10 @@ export const ContentHeaderComponent = ({
             {children}
           </Typography>
         </div>
-        <div className={classes["buttons-wrapper"]}>{buttons}</div>
+        {buttons && <div className={classes["buttons-wrapper"]}>{buttons}</div>}
       </div>
     </div>
   );
 };
 
-export const ContentHeader = React.forwardRef(ContentHeaderComponent);
+export const ContentHeader = ContentHeaderComponent;
