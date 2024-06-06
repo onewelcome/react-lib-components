@@ -175,7 +175,7 @@ function MDXContent(props = {}) {
 
 
 const meta = {
-  title: "Components/layout/Form",
+  title: "Components/Layout/Form",
   component: Form/* Form */.l,
   parameters: {
     docs: {

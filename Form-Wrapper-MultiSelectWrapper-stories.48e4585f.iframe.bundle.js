@@ -360,16 +360,16 @@ const meta = {
     disabled: {
       control: "boolean"
     }
+  },
+  args: {
+    label: "Example multi select wrapper",
+    name: "Example multi select",
+    helperText: "Example helper text",
+    error: false,
+    errorMessage: "This is an error message",
+    success: false,
+    value: ["option1"]
   }
-};
-const defaultArgs = {
-  label: "Example multi select wrapper",
-  name: "Example multi select",
-  helperText: "Example helper text",
-  error: false,
-  errorMessage: "This is an error message",
-  success: false,
-  value: ["option1"]
 };
 /* harmony default export */ const MultiSelectWrapper_stories = (meta);
 const Template = args => {
@@ -455,27 +455,20 @@ MultiSelectWrapper_stories_MultiSelectWrapper.play = (0,conditionalPlay/* condit
   (0,jest_dist/* expect */.E)(canvas.queryByText("Remove Option 4")).not.toBeInTheDocument();
   await testing_library_dist/* userEvent */.Q4.click(select);
 });
-MultiSelectWrapper_stories_MultiSelectWrapper.args = {
-  ...defaultArgs
-};
 const MultiSelectWrapperError = Template.bind({});
 MultiSelectWrapperError.args = {
-  ...defaultArgs,
   error: true
 };
 const MultiSelectWrapperSuccess = Template.bind({});
 MultiSelectWrapperSuccess.args = {
-  ...defaultArgs,
   success: true
 };
 const MultiSelectWrapperDisabled = Template.bind({});
 MultiSelectWrapperDisabled.args = {
-  ...defaultArgs,
   disabled: true
 };
 const MultiSelectWrapperRequired = Template.bind({});
 MultiSelectWrapperRequired.args = {
-  ...defaultArgs,
   required: true
 };
 const AddNewTemplate = args => {

@@ -188,6 +188,7 @@ const BaseStyling = _ref => {
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
+    colorPrimaryLight: "#E6E7F4",
     colorBlueGrey25: "#F7F7F9",
     colorBlueGrey25Transparent: "rgba(247, 247, 249, .8)",
     colorBlueGrey50: "#EEEFF3",
@@ -206,9 +207,11 @@ const BaseStyling = _ref => {
     colorGreen700: "#0E4E29",
     colorLightBlue500: "#00BCDD",
     colorLightBlue600: "#0096B1",
+    colorOrange100: "#FFE0B2",
     colorOrange500: "#E07900",
     colorOrange600: "#B36100",
     colorOrange700: "#864900",
+    colorRed100: "#FFCDD2",
     colorRed200: "#F3A599",
     colorRed500: "#E01E00",
     colorRed600: "#B31800",
@@ -227,6 +230,7 @@ const BaseStyling = _ref => {
     defaultHoverColor: "var(--color-blue-grey25)",
     defaultLineHeight: "1.5",
     //FIXME: UCL-395
+    dataGridLineHeight: "1.25",
     defaultBorderRadius: "0.25rem",
     focusBorderRadius: "0.125rem",
     buttonBorderRadius: "0.125rem",
@@ -267,6 +271,8 @@ const BaseStyling = _ref => {
     inputBorderWidth: "1px",
     inputBorderWidthFocus: "1px",
     inputBorderStyle: "solid",
+    fileUploadBorderWidth: "1px",
+    dragDropBorderStyle: "dashed",
     inputBorderColor: "var(--color-blue-grey500)",
     inputBackgroundColor: "var(--light)",
     inputHelperTextColor: "var(--color-blue-grey500)",
@@ -285,6 +291,20 @@ const BaseStyling = _ref => {
     snackbarErrorBackgroundColor: "var(--color-red500)",
     snackbarWarningBackgroundColor: "var(--color-orange500)",
     snackbarBorderRadius: "2px",
+    alertTextColor: "var(--default)",
+    alertTextInvertedColor: "var(--light)",
+    alertNeutralBackgroundColor: "var(--color-blue-grey50)",
+    alertNeutralInvertedColor: "var(--color-blue-grey500)",
+    alertInfoBackgroundColor: "var(--color-primary100)",
+    alertInfoInvertedColor: "var(--color-primary500)",
+    alertSuccessBackgroundColor: "var(--color-green100)",
+    alertSuccessInvertedColor: "var(--color-green500)",
+    alertErrorBackgroundColor: "var(--color-red100)",
+    alertErrorInvertedColor: "var(--color-red500)",
+    alertWarningBackgroundColor: "var(--color-orange100)",
+    alertWarningInvertedColor: "var(--color-orange500)",
+    alertBorderWidth: "4px",
+    alertBorderRadius: "2px",
     stepperWaitingColor: "var(--color-blue-grey200)",
     stepperWaitingHoverColor: "var(--color-blue-grey300)",
     stepperWaitingActiveColor: "var(--color-blue-grey400)",
@@ -353,7 +373,10 @@ const BaseStyling = _ref => {
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
-    formControlFontSize: "0.875rem" //FIXME: UCL-395
+    defaultZIndex1: "1",
+    formControlFontSize: "0.875rem",
+    //FIXME: UCL-395
+    fontSizeDataGrid: "0.875rem" //FIXME: UCL-395
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
@@ -538,6 +561,20 @@ var map = {
 		398,
 		6327
 	],
+	"./ContentHeader/ContentHeader.stories": [
+		"./stories/ContentHeader/ContentHeader.stories.tsx",
+		3126,
+		9276,
+		295,
+		3510
+	],
+	"./ContentHeader/ContentHeader.stories.tsx": [
+		"./stories/ContentHeader/ContentHeader.stories.tsx",
+		3126,
+		9276,
+		295,
+		3510
+	],
 	"./ContextMenu/ContextMenu.stories": [
 		"./stories/ContextMenu/ContextMenu.stories.tsx",
 		3126,
@@ -571,13 +608,14 @@ var map = {
 		2634,
 		988,
 		398,
-		5697,
 		295,
+		5697,
 		320,
 		3471,
-		1619,
 		1263,
+		1619,
 		2751,
+		462,
 		692
 	],
 	"./DataGrid/DataGrid.stories.tsx": [
@@ -589,13 +627,14 @@ var map = {
 		2634,
 		988,
 		398,
-		5697,
 		295,
+		5697,
 		320,
 		3471,
-		1619,
 		1263,
+		1619,
 		2751,
+		462,
 		692
 	],
 	"./Form/Elements/Checkbox.stories": [
@@ -620,8 +659,8 @@ var map = {
 		9276,
 		2634,
 		988,
-		5697,
 		295,
+		5697,
 		320,
 		3471,
 		7116,
@@ -635,8 +674,8 @@ var map = {
 		9276,
 		2634,
 		988,
-		5697,
 		295,
+		5697,
 		320,
 		3471,
 		7116,
@@ -648,14 +687,20 @@ var map = {
 		"./stories/Form/Elements/FileItem.stories.tsx",
 		3126,
 		9276,
+		295,
+		3723,
 		7512,
+		3746,
 		1961
 	],
 	"./Form/Elements/FileItem.stories.tsx": [
 		"./stories/Form/Elements/FileItem.stories.tsx",
 		3126,
 		9276,
+		295,
+		3723,
 		7512,
+		3746,
 		1961
 	],
 	"./Form/Elements/FileUpload.stories": [
@@ -663,7 +708,9 @@ var map = {
 		3126,
 		9276,
 		295,
+		3723,
 		7512,
+		3746,
 		5975
 	],
 	"./Form/Elements/FileUpload.stories.tsx": [
@@ -671,7 +718,9 @@ var map = {
 		3126,
 		9276,
 		295,
+		3723,
 		7512,
+		3746,
 		5975
 	],
 	"./Form/Elements/FormControl.stories": [
@@ -832,8 +881,8 @@ var map = {
 		9276,
 		2634,
 		988,
-		5697,
 		295,
+		5697,
 		320,
 		3471,
 		7116,
@@ -847,14 +896,30 @@ var map = {
 		9276,
 		2634,
 		988,
-		5697,
 		295,
+		5697,
 		320,
 		3471,
 		7116,
 		6813,
 		1242,
 		1736
+	],
+	"./Form/FormSection/FormSection.stories": [
+		"./stories/Form/FormSection/FormSection.stories.tsx",
+		3126,
+		9276,
+		2634,
+		988,
+		65
+	],
+	"./Form/FormSection/FormSection.stories.tsx": [
+		"./stories/Form/FormSection/FormSection.stories.tsx",
+		3126,
+		9276,
+		2634,
+		988,
+		65
 	],
 	"./Form/Wrapper/CheckboxWrapper.stories": [
 		"./stories/Form/Wrapper/CheckboxWrapper.stories.tsx",
@@ -990,6 +1055,38 @@ var map = {
 		6813,
 		6727
 	],
+	"./FormWithStepper/FormWithStepper.stories": [
+		"./stories/FormWithStepper/FormWithStepper.stories.tsx",
+		3126,
+		9276,
+		2634,
+		988,
+		5697,
+		320,
+		3471,
+		7116,
+		6813,
+		1242,
+		381,
+		2277,
+		6850
+	],
+	"./FormWithStepper/FormWithStepper.stories.tsx": [
+		"./stories/FormWithStepper/FormWithStepper.stories.tsx",
+		3126,
+		9276,
+		2634,
+		988,
+		5697,
+		320,
+		3471,
+		7116,
+		6813,
+		1242,
+		381,
+		2277,
+		6850
+	],
 	"./Icon/Icon.stories": [
 		"./stories/Icon/Icon.stories.tsx",
 		3126,
@@ -1013,6 +1110,28 @@ var map = {
 		3126,
 		3723,
 		5332
+	],
+	"./Notifications/Alert/Alert.stories": [
+		"./stories/Notifications/Alert/Alert.stories.tsx",
+		3126,
+		734,
+		9701,
+		9276,
+		398,
+		295,
+		8220,
+		7113
+	],
+	"./Notifications/Alert/Alert.stories.tsx": [
+		"./stories/Notifications/Alert/Alert.stories.tsx",
+		3126,
+		734,
+		9701,
+		9276,
+		398,
+		295,
+		8220,
+		7113
 	],
 	"./Notifications/Banner/Banner.stories": [
 		"./stories/Notifications/Banner/Banner.stories.tsx",
@@ -1136,6 +1255,7 @@ var map = {
 		3126,
 		9276,
 		398,
+		8220,
 		6529
 	],
 	"./Notifications/Snackbar/Snackbar.stories.tsx": [
@@ -1143,6 +1263,7 @@ var map = {
 		3126,
 		9276,
 		398,
+		8220,
 		6529
 	],
 	"./Pagination/Pagination.stories": [
@@ -1207,6 +1328,7 @@ var map = {
 		734,
 		9701,
 		9276,
+		381,
 		2990
 	],
 	"./Stepper/Stepper.stories.tsx": [
@@ -1215,6 +1337,7 @@ var map = {
 		734,
 		9701,
 		9276,
+		381,
 		2990
 	],
 	"./Tabs/Tabs.stories": [
@@ -1352,6 +1475,46 @@ var map = {
 		320,
 		1619,
 		2006
+	],
+	"./admin/MicrofrontendContainer/MicrofrontendContainer.stories": [
+		"./stories/admin/MicrofrontendContainer/MicrofrontendContainer.stories.tsx",
+		3126,
+		9276,
+		2634,
+		988,
+		398,
+		295,
+		5697,
+		320,
+		3471,
+		7116,
+		6813,
+		1242,
+		1263,
+		381,
+		462,
+		2277,
+		124
+	],
+	"./admin/MicrofrontendContainer/MicrofrontendContainer.stories.tsx": [
+		"./stories/admin/MicrofrontendContainer/MicrofrontendContainer.stories.tsx",
+		3126,
+		9276,
+		2634,
+		988,
+		398,
+		295,
+		5697,
+		320,
+		3471,
+		7116,
+		6813,
+		1242,
+		1263,
+		381,
+		462,
+		2277,
+		124
 	],
 	"./hooks/useBodyClick.stories.mdx": [
 		"./stories/hooks/useBodyClick.stories.mdx",
