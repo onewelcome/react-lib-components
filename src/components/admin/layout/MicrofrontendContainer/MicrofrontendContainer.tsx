@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ReactElement } from "react";
+import React, { ReactElement } from "react";
 import classes from "./MicrofrontendContainer.module.scss";
 
 export interface Props {
