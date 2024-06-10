@@ -96,7 +96,6 @@ const Template = args => {
                   )
                 }}
               >
-                {!args.disabled}
                 <DataGridCell>{item.name}</DataGridCell>
                 <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
                 <DataGridCell>{item.id}</DataGridCell>
