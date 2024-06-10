@@ -17,9 +17,9 @@
 import React, { Fragment, useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent, Props } from "../../src/components/DataGrid/DataGrid";
-import { DataGridRow } from "../../src/components/DataGrid/DataGridBody/DataGridRow";
-import { DataGridCell } from "../../src/components/DataGrid/DataGridBody/DataGridCell";
-import { DataGridDrawerItem } from "../../src/components/DataGrid/DataGridBody/DataGridDrawerItem";
+import { DataGridRow } from "../../src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow";
+import { DataGridCell } from "../../src/components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
+import { DataGridDrawerItem } from "../../src/components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
 import { ContextMenu } from "../../src/components/ContextMenu/ContextMenu";
 import { IconButton } from "../../src/components/Button/IconButton";
 import { Icon, Icons } from "../../src/components/Icon/Icon";

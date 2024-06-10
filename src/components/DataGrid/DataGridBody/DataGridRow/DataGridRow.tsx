@@ -15,13 +15,13 @@
  */
 
 import React, { ComponentPropsWithRef, useState, Fragment, ForwardRefRenderFunction } from "react";
-import { HeaderCell } from "../datagrid.interfaces";
+import { HeaderCell } from "../../datagrid.interfaces";
 import classes from "./DataGridRow.module.scss";
-import { IconButton } from "../../Button/IconButton";
-import { Icon, Icons } from "../../Icon/Icon";
-import { DataGridCell } from "./DataGridCell";
-import { DataGridDrawer } from "./DataGridDrawer";
-import { generateID } from "../../../util/helper";
+import { IconButton } from "../../../Button/IconButton";
+import { Icon, Icons } from "../../../Icon/Icon";
+import { DataGridCell } from "../DataGridCell/DataGridCell";
+import { DataGridDrawer } from "../DataGridDrawer/DataGridDrawer";
+import { generateID } from "../../../../util/helper";
 
 export interface Props extends ComponentPropsWithRef<"tr"> {
   headers?: HeaderCell[];

@@ -17,8 +17,8 @@
 import React, { useEffect, useRef } from "react";
 import { DataGridRow, Props } from "./DataGridRow";
 import { render, waitFor } from "@testing-library/react";
-import { DataGridCell } from "./DataGridCell";
-import { DataGridDrawerItem } from "./DataGridDrawerItem";
+import { DataGridCell } from "../DataGridCell/DataGridCell";
+import { DataGridDrawerItem } from "../DataGridDrawer/DataGridDrawerItem";
 import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {

@@ -167,11 +167,11 @@ export type {
 export type { HeaderCell } from "./components/DataGrid/datagrid.interfaces";
 export { DataGrid } from "./components/DataGrid/DataGrid";
 export type { Props as DataGridProps } from "./components/DataGrid/DataGrid";
-export { DataGridRow } from "./components/DataGrid/DataGridBody/DataGridRow";
-export type { Props as DataGridRowProps } from "./components/DataGrid/DataGridBody/DataGridRow";
-export { DataGridDrawerItem } from "./components/DataGrid/DataGridBody/DataGridDrawerItem";
-export type { Props as DataGridDrawerItemProps } from "./components/DataGrid/DataGridBody/DataGridDrawerItem";
-export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell";
-export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell";
+export { DataGridRow } from "./components/DataGrid/DataGridBody/DataGridRow/DataGridRow";
+export type { Props as DataGridRowProps } from "./components/DataGrid/DataGridBody/DataGridRow/DataGridRow";
+export { DataGridDrawerItem } from "./components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
+export type { Props as DataGridDrawerItemProps } from "./components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
+export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
+export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
 export { Banner } from "./components/Notifications/Banner/Banner";
 export type { Props as BannerProps } from "./components/Notifications/Banner/Banner";

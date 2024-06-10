@@ -16,7 +16,7 @@
 
 import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
 import classes from "./DataGridDrawerItem.module.scss";
-import { Typography } from "../../Typography/Typography";
+import { Typography } from "../../../Typography/Typography";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   title?: string;
