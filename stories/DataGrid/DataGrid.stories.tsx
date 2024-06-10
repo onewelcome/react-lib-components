@@ -85,14 +85,16 @@ const Template = args => {
             {({ item }: { item: DataGridItem }) => (
               <DataGridRow
                 key={item.id}
-                enableExpandableRow={args.enableExpandableRow}
-                expandableRowContent={
-                  <Fragment>
-                    {args.expandableRowHeaders?.map(({ name, headline }) => (
-                      <DataGridDrawerItem key={name} title={headline} description={item[name]} />
-                    ))}
-                  </Fragment>
-                }
+                expandableRowProps={{
+                  enableExpandableRow: args.enableExpandableRow,
+                  expandableRowContent: (
+                    <Fragment>
+                      {args.expandableRowHeaders?.map(({ name, headline }) => (
+                        <DataGridDrawerItem key={name} title={headline} description={item[name]} />
+                      ))}
+                    </Fragment>
+                  )
+                }}
               >
                 {!args.disabled}
                 <DataGridCell>{item.name}</DataGridCell>

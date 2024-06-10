@@ -96,14 +96,16 @@ describe("DataGridRow should render", () => {
     const { dataGridRow, getAllByRole, getByRole, getByText, findByText } = createDataGridRow(
       params => ({
         ...params,
-        enableExpandableRow: true,
+        expandableRowProps: {
+          enableExpandableRow: true,
+          expandableRowContent: (
+            <DataGridDrawerItem title={"Description"} description={"this is description"} />
+          )
+        },
         headers: [
           { name: "firstName", headline: "first name" },
           { name: "lastName", headline: "last name" }
         ],
-        expandableRowContent: (
-          <DataGridDrawerItem title={"Description"} description={"this is description"} />
-        ),
         children: [<DataGridCell>1</DataGridCell>, <DataGridCell>2</DataGridCell>]
       })
     );

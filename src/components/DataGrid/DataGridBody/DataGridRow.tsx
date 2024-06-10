@@ -24,36 +24,39 @@ import { DataGridDrawer } from "./DataGridDrawer";
 import { generateID } from "../../../util/helper";
 
 export interface Props extends ComponentPropsWithRef<"tr"> {
-  expandButtonTitle?: string;
-  expandButtonId?: string;
-  drawerId?: string;
   headers?: HeaderCell[];
   isLoading?: boolean;
   spacing?: React.CSSProperties;
   disableContextMenuColumn?: boolean;
-  enableExpandableRow?: boolean;
-  expandableRowContent?: React.ReactNode;
-  rowExpanded?: boolean;
-  onExpandRowButtonClick?: boolean;
+  expandableRowProps?: {
+    enableExpandableRow: boolean;
+    expandableRowContent: React.ReactNode;
+    expandButtonTitle?: string;
+    expandButtonId?: string;
+    drawerId?: string;
+  };
 }
 
 const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props> = (
   {
-    expandButtonTitle = "Expand row",
-    expandButtonId = `ID-${generateID()}`,
-    drawerId = `ID-${generateID()}`,
     children,
     className,
     headers,
     isLoading,
     spacing,
-    expandableRowContent,
+    expandableRowProps,
     disableContextMenuColumn,
-    enableExpandableRow,
     ...rest
   },
   ref
 ) => {
+  const {
+    enableExpandableRow = false,
+    expandButtonId = `ID-${generateID()}`,
+    expandButtonTitle = "Expand row",
+    drawerId = `ID-${generateID()}`,
+    expandableRowContent
+  } = expandableRowProps || {};
   const [isRowExpanded, setIsRowExpanded] = useState(false);
   const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
     if (child) {
@@ -72,7 +75,9 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
 
   const classNames = [classes["row"]];
   className && classNames.push(className);
-  !isRowExpanded && classNames.push(classes["border"]);
+  enableExpandableRow
+    ? !isRowExpanded && classNames.push(classes["border-drawer"])
+    : classNames.push(classes["border"]);
   isLoading && classNames.push(classes["loading"]);
 
   return (
@@ -97,7 +102,7 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
         {visibleCells}
       </tr>
       {enableExpandableRow && (
-        <tr className={`${classes["row"]} ${isRowExpanded ? classes["border"] : ""}`}>
+        <tr className={`${classes["row"]} ${isRowExpanded ? classes["border-drawer"] : ""}`}>
           <td colSpan={visibleCells.length + 1}>
             <DataGridDrawer
               id={drawerId}
