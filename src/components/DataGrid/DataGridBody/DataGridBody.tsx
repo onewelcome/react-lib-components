@@ -16,8 +16,8 @@
 
 import React, { ComponentPropsWithRef, ReactElement, Ref } from "react";
 import { HeaderCell } from "../datagrid.interfaces";
-import { DataGridCell } from "./DataGridCell";
-import { DataGridRow } from "./DataGridRow";
+import { DataGridCell } from "./DataGridCell/DataGridCell";
+import { DataGridRow } from "./DataGridRow/DataGridRow";
 import classes from "./DataGridBody.module.scss";
 import { Typography } from "../../Typography/Typography";
 

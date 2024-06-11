@@ -42,6 +42,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   emptyLabel?: string;
   paginationProps?: PaginationProps;
   disableContextMenuColumn?: boolean;
+  enableExpandableRow?: boolean;
   isLoading?: boolean;
   enableMultiSorting?: boolean;
   spacing?: Spacing;
@@ -57,6 +58,7 @@ const DataGridInner = <T extends {}>(
     actions = {},
     paginationProps,
     disableContextMenuColumn,
+    enableExpandableRow,
     isLoading,
     enableMultiSorting,
     emptyLabel,
@@ -140,6 +142,7 @@ const DataGridInner = <T extends {}>(
             initialSort={initialSort}
             onSort={onSort}
             disableContextMenuColumn={disableContextMenuColumn}
+            enableExpandableRow={enableExpandableRow}
             enableMultiSorting={enableMultiSorting}
             spacing={styleWithSpacing}
           />

@@ -16,8 +16,10 @@
 
 import React, { useEffect, useRef } from "react";
 import { DataGridRow, Props } from "./DataGridRow";
-import { render } from "@testing-library/react";
-import { DataGridCell } from "./DataGridCell";
+import { render, waitFor } from "@testing-library/react";
+import { DataGridCell } from "../DataGridCell/DataGridCell";
+import { DataGridDrawerItem } from "../DataGridDrawer/DataGridDrawerItem";
+import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
   children: [<DataGridCell>1</DataGridCell>, <DataGridCell>2</DataGridCell>],
@@ -47,7 +49,7 @@ describe("DataGridRow should render", () => {
     const { dataGridRow, getAllByRole } = createDataGridRow();
 
     expect(dataGridRow).toBeDefined();
-    expect(dataGridRow).toHaveClass("row", { exact: true });
+    expect(dataGridRow).toHaveClass("row border", { exact: true });
     const cells = getAllByRole("cell");
     expect(cells).toHaveLength(2);
     expect(cells[0]).toHaveTextContent("1");
@@ -57,13 +59,13 @@ describe("DataGridRow should render", () => {
   it("renders with additional class", () => {
     const { dataGridRow } = createDataGridRow(params => ({ ...params, className: "test" }));
 
-    expect(dataGridRow).toHaveClass("row test", { exact: true });
+    expect(dataGridRow).toHaveClass("row test border", { exact: true });
   });
 
   it("renders loading state", () => {
     const { dataGridRow } = createDataGridRow(params => ({ ...params, isLoading: true }));
 
-    expect(dataGridRow).toHaveClass("row loading", { exact: true });
+    expect(dataGridRow).toHaveClass("row border loading", { exact: true });
   });
 
   it("renders only visible columns", () => {
@@ -88,6 +90,38 @@ describe("DataGridRow should render", () => {
     expect(cells).toHaveLength(2);
     expect(cells[0]).toHaveTextContent("3");
     expect(cells[1]).toHaveTextContent("4");
+  });
+
+  it("renders expandable row, expands it on click", async () => {
+    const { dataGridRow, getAllByRole, getByRole, getByText, findByText } = createDataGridRow(
+      params => ({
+        ...params,
+        expandableRowProps: {
+          enableExpandableRow: true,
+          expandableRowContent: (
+            <DataGridDrawerItem title={"Description"} description={"this is description"} />
+          )
+        },
+        headers: [
+          { name: "firstName", headline: "first name" },
+          { name: "lastName", headline: "last name" }
+        ],
+        children: [<DataGridCell>1</DataGridCell>, <DataGridCell>2</DataGridCell>]
+      })
+    );
+
+    expect(dataGridRow).toBeDefined();
+    const cells = getAllByRole("cell");
+    expect(cells).toHaveLength(4);
+
+    const expandButton = getByRole("button");
+    expect(expandButton).toHaveAttribute("aria-expanded", "false");
+
+    await userEvent.click(expandButton);
+    await waitFor(() => findByText("this is description"));
+
+    expect(getByText("this is description")).toBeDefined();
+    expect(expandButton).toHaveAttribute("aria-expanded", "true");
   });
 });
 
