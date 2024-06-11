@@ -16,16 +16,19 @@
 
 import React, { Fragment, useState } from "react";
 import { Meta } from "@storybook/react";
-import { DataGrid as DataGridComponent, Props } from "../../src/components/DataGrid/DataGrid";
-import { DataGridRow } from "../../src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow";
-import { DataGridCell } from "../../src/components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
-import { DataGridDrawerItem } from "../../src/components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
-import { ContextMenu } from "../../src/components/ContextMenu/ContextMenu";
-import { IconButton } from "../../src/components/Button/IconButton";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
-import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
+import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
+import {
+  Button,
+  ContextMenu,
+  ContextMenuItem,
+  DataGridCell,
+  DataGridDrawerItem,
+  DataGridRow,
+  Icon,
+  IconButton,
+  Icons
+} from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
-
 import { action } from "@storybook/addon-actions";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
@@ -33,6 +36,8 @@ import { Modal } from "../../src/components/Notifications/Modal/Modal";
 import { ModalHeader } from "../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
 import { ModalContent } from "../../src/components/Notifications/Modal/ModalContent/ModalContent";
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
+import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
+import { Form } from "../Form/Form.stories";
 
 interface DataGridItem {
   name: string;
