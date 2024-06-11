@@ -1,15 +1,15 @@
-import {Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY, Meta} from "@storybook/blocks";
-import * as FormTemplateStories from "./FormTemplate.stories.tsx";
+import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY, Meta } from "@storybook/blocks";
+import * as FormWithStepperStories from "./FormWithStepper.stories.tsx";
 
 <Meta of={FormTemplateStories} />
 <Title />
 <Subtitle />
 
-The `FormTemplate` component will be used as a wrapper component that contains FormHeader, FormAside or Stepper and form. Its root element is the default HTML `div` tag and thus also accepts all of its HTML attributes. You should use this component whenever you want to create a `FormTemplate`.
+The `FormWithStepper` component will be used as a wrapper component that contains FormHeader, FormStepper or Stepper and form. Its root element is the default HTML `div` tag and thus also accepts all of its HTML attributes. You should use this component whenever you want to create a `FormWithStepper`.
 
 # Examples
 
-The `FromTemplate` component is a wrapper component for creating FormHeader, FormAside or Stepper and form. See the code snippet below that showcases how you can use it.
+The `FromTemplate` component is a wrapper component for creating FormHeader, FormStepper or Stepper and form. See the code snippet below that showcases how you can use it.
 
 ```jsx
 
@@ -55,23 +55,23 @@ const buttons: ReactElement<ButtonProps, typeof Button>[] = [
   }
 ];
 
-const formAsideProps: Props = {
+const formStepperProps: Props = {
   direction: "vertical",
   textPosition: "bottom",
   steps: initialStepperState
 };
 
-const formAsideComponent = <FormAside {...formAsideProps}></FormAside>
+const formStepperComponent = <FormStepper {...formStepperProps}></FormStepper>
 
-<FormTemplate formHeader={formHeaderComponent} formAside={formAsideComponent}>
+<FormWithStepper formHeader={formHeaderComponent} formStepper={formStepperComponent}>
     Any form children
-</FormTemplate>
+</FormWithStepper>
 ```
 
 <Canvas>
-  <Story of={FormTemplateStories.FormTemplateComponent} />
+  <Story of={FormWithStepperStories.FormWithStepperComponent} />
 </Canvas>
 
 # Props
 
-<ArgTypes/>
+<ArgTypes />

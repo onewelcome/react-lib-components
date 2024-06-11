@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 OneWelcome B.V.
+ * Copyright 2024 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,13 +16,16 @@
 
 import { Meta, StoryFn } from "@storybook/react";
 import React from "react";
-import { FormSection, Props } from "../../../src/components/Layout/FormPage/FormSection/FormSection";
+import {
+  FormSection as FormSectionComponent,
+  Props
+} from "../../../src/components/Layout/FormPage/FormWithStepper/FormSection/FormSection";
 import { InputWrapper } from "../../../src";
 import FormSectionDocumentation from "./FormSection.mdx";
 
 const meta: Meta = {
-  title: "Components/layout/FormPage/FormSection",
-  component: FormSection,
+  title: "Components/Layout/FormSection",
+  component: FormSectionComponent,
   parameters: {
     docs: {
       page: FormSectionDocumentation
@@ -47,6 +50,6 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: StoryFn<Props> = args => <FormSection {...args} />;
+const Template: StoryFn<Props> = args => <FormSectionComponent {...args} />;
 
-export const FormSectionComponent = Template.bind({});
+export const FormSection = Template.bind({});

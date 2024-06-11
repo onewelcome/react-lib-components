@@ -15,9 +15,9 @@
  */
 
 import React from "react";
-import classes from "./FormAside.module.scss";
-import { Stepper, Props as StepperProps } from "../../../Stepper/Stepper";
-import { Props as StepProps } from "../../../Stepper/Step";
+import classes from "./FormStepper.module.scss";
+import { Stepper, Props as StepperProps } from "../../../../Stepper/Stepper";
+import { Props as StepProps } from "../../../../Stepper/Step";
 
 export interface FormStepProps extends StepProps {
   targetScrollViewId?: string;
@@ -27,7 +27,7 @@ export interface Props extends StepperProps {
   steps: FormStepProps[];
 }
 
-export const FormAside = ({ steps, direction, textPosition, ...rest }: Props) => {
+export const FormStepper = ({ steps, direction, textPosition, ...rest }: Props) => {
   const stepper = steps.map(step => {
     const { targetScrollViewId, ...stepRest } = step;
 
