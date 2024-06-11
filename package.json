@@ -69,7 +69,6 @@
     "@storybook/addon-essentials": "^8.0.10",
     "@storybook/addon-interactions": "^8.0.10",
     "@storybook/addon-links": "^8.0.10",
-    "@storybook/addon-mdx-gfm": "^8.0.10",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
     "@storybook/blocks": "^8.0.10",
     "@storybook/components": "^8.0.10",

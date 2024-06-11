@@ -26,7 +26,6 @@ module.exports = {
     "@storybook/addon-interactions",
     "@onewelcome/storybook-addon-basestyling",
     "storybook-addon-pseudo-states",
-    "@storybook/addon-mdx-gfm",
     "@storybook/addon-webpack5-compiler-babel",
     "@chromatic-com/storybook"
   ],
