@@ -42,13 +42,13 @@ export const ContentHeaderComponent = ({
         {...rest}
       >
         <div>
-          <Typography className={classes["header-text"]} variant={"h1"}>
+          <Typography className={classes["header-text"]} variant={"h3"}>
             {title}
           </Typography>
           {subtitle && (
             <Typography
               className={`${classes["header-subtitle"]} ${collapsed ? classes["hide-text"] : ""}`}
-              variant={"h4"}
+              variant={"body"} 
             >
               {subtitle}
             </Typography>
