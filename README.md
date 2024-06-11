@@ -5,6 +5,12 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=vulnerabilities&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=onewelcome_react-lib-components&metric=coverage&token=bfd2f636f3bec9d8df5f67a3c2881238964a8d5a)](https://sonarcloud.io/summary/new_code?id=onewelcome_react-lib-components)
 
+
+![NPM Version](https://img.shields.io/npm/v/%40onewelcome%2Freact-lib-components)
+![NPM Downloads](https://img.shields.io/npm/dw/%40onewelcome%2Freact-lib-components)
+[![NPM Outdated version download](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2F%40onewelcome%2Freact-lib-components%3FactiveTab%3Dversions&query=sum(%2F%2F*%5B%40id%3D%22tabpanel-versions%22%5D%2F%2Fli%5Bnot(starts-with(.%2F%2Fa%2F%40aria-label%2C%20substring-before(substring-after((%2F%2F*%5B%40id%3D%22tabpanel-versions%22%5D%2F%2Fa%2F%40aria-label)%5B1%5D%2C%20%22%22)%2C%20%22.%22)))%20and%20position()%20%3E%202%5D%2F%2F*%5B%40class%3D%22downloads%22%5D%2Ftext())&suffix=%2Fweek&label=outdated%20versions%20downloads&color=red&cacheSeconds=600)](https://www.npmjs.com/package/@onewelcome/react-lib-components?activeTab=versions)
+
+
 This project provides React components built according to the OneWelcome design.
 We recommend visiting our [Storybook page](https://onewelcome.github.io/react-lib-components) to see the components in action.
 
