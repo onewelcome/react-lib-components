@@ -22,7 +22,7 @@
     background-color: var(--data-grid-row-hover-background-color);
   }
 
-  &:not(:last-child)::after {
+  @mixin borderAfter {
     content: "";
     position: absolute;
     width: 100%;
@@ -30,4 +30,20 @@
     bottom: 0;
     border-bottom: 1px solid var(--light-grey-border);
   }
+
+  &.border {
+    &:not(:last-child)::after {
+      @include borderAfter();
+    }
+  }
+
+  &.border-drawer {
+    &:not(:last-child):not(:nth-last-child(2))::after {
+      @include borderAfter();
+    }
+  }
+}
+
+.expand-button-cell {
+  padding: 0;
 }

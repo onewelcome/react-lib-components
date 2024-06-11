@@ -15,7 +15,7 @@
  */
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
-import { Typography } from "../../Typography/Typography";
+import { Typography } from "../../../Typography/Typography";
 import classes from "./DataGridCell.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"td"> {
