@@ -235,7 +235,7 @@ DataGridWithColumnsPopup.play = conditionalPlay(async ({ canvasElement }) => {
 
   await waitFor(() => expect(canvas.queryByText("Columns")?.closest("button")).toBeInTheDocument());
 
-  const columnsButton = await canvas.queryByText("Columns")?.closest("button");
+  const columnsButton = await waitFor(async () => canvas.queryByText("Columns")?.closest("button"));
 
   await userEvent.click(columnsButton!);
 
