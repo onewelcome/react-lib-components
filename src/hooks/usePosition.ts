@@ -299,14 +299,12 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       transformOrigin
     );
 
-    const valueCorrectionForViewportOverflow = _fixPossibleViewportOverflow(
+    return _fixPossibleViewportOverflow(
       valueWithOffset,
       transformOrigin,
       requestedReturnValue,
       elDimensions
     );
-
-    return valueCorrectionForViewportOverflow;
   };
 
   const _calculatePlacement = (relEl: DomRectObject, elDimensions: Dimensions, axis: Axis) => {
@@ -345,8 +343,9 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
   };
 
   const calculatePosition = useDebouncedCallback(() => {
-    if (!configObject.relativeElement?.current || !configObject.elementToBePositioned?.current)
+    if (!configObject.relativeElement?.current || !configObject.elementToBePositioned?.current) {
       return;
+    }
     const relativeElRect = (configObject.relativeElement!
       .current as HTMLElement)!.getBoundingClientRect();
     const elementToBePositionedDimensions: Dimensions = {

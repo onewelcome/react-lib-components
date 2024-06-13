@@ -248,6 +248,14 @@ DataGridWithColumnsPopup.play = conditionalPlay(async ({ canvasElement }) => {
   const nameToggle = await canvas.getByLabelText("Name");
 
   await userEvent.click(nameToggle);
+
+  await waitFor(() => {
+    const table = canvas.getByRole("table");
+    const nameHeader = Array.from(table.querySelectorAll("th")).find(cell =>
+      cell.textContent!.includes("Name")
+    );
+    expect(nameHeader).toBeUndefined();
+  });
 });
 
 DataGridWithColumnsPopup.args = {
@@ -451,9 +459,14 @@ ExpandableDataGrid.args = {
 ExpandableDataGrid.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  await waitFor(() => canvas.queryAllByTitle("Expand row"));
+  await waitFor(() => expect(canvas.queryAllByTitle("Expand row")).not.toHaveLength(0));
 
   const expandButtons = await canvas.queryAllByTitle("Expand row");
 
   await userEvent.click(expandButtons[0]);
+
+  await waitFor(() => {
+    const expandedElement = canvas.queryAllByText("Description");
+    expect(expandedElement[0]).toBeVisible();
+  });
 });
