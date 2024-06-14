@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Banner, Props } from "../../../src/components/Notifications/Banner/Banner";
 import React from "react";
 import BannerDocumentation from "./Banner.mdx";
@@ -55,7 +55,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const type = args.type;
   const title = args.title;
   const children = args.children;
@@ -66,17 +66,20 @@ const Template: Story<Props> = args => {
   );
 };
 
+export const InfoBanner = Template.bind({});
+
+InfoBanner.args = {
+  type: "info"
+};
+
 export const WarningBanner = Template.bind({});
+
 WarningBanner.args = {
   type: "warning"
 };
 
 export const ErrorBanner = Template.bind({});
+
 ErrorBanner.args = {
   type: "error"
-};
-
-export const InfoBanner = Template.bind({});
-InfoBanner.args = {
-  type: "info"
 };

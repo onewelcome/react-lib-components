@@ -15,15 +15,14 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   PageSize,
   Pagination as PaginationComponent,
   Props
 } from "../../src/components/Pagination/Pagination";
 import PaginationDocumentation from "./Pagination.mdx";
-import { within, userEvent, waitFor, getByRole } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { expect, getByRole, userEvent, waitFor, within } from "@storybook/test";
 
 const meta: Meta = {
   title: "components/Navigation/Pagination",
@@ -50,7 +49,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [currentPage, setCurrentPage] = useState(args.currentPage);
   const [pageSize, setPageSize] = useState(args.pageSize);
 

@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as SlideInModalStories from "./SlideInModal.stories.tsx";
 
+<Meta of={SlideInModalStories} />
 <Title />
 <Subtitle />
 
@@ -14,4 +15,4 @@ SlideInModal is an extension of the basic `Modal` component. The only difference
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

@@ -1,6 +1,8 @@
-import { Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Meta, Subtitle, Title } from "@storybook/blocks";
 import { IconGrid } from "./IconGrid.tsx";
+import IconStories from "./Icon.stories";
 
+<Meta of={IconStories} />
 <Title />
 <Subtitle />
 
@@ -23,4 +25,4 @@ Please see the grid below. You can click on any of the buttons below the icon to
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

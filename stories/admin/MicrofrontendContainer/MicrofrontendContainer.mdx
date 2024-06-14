@@ -1,6 +1,7 @@
-import { ArgTypes, Canvas, PRIMARY_STORY, Story, Subtitle, Title } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as MicrofrontendContainerStories from "./MicrofrontendContainer.stories";
 
+<Meta of={MicrofrontendContainerStories} />
 <Title />
 <Subtitle />
 
@@ -24,4 +25,4 @@ content while ensuring a polished and cohesive user experience across all device
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

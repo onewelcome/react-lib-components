@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as CheckboxStories from "./Checkbox.stories.tsx";
 
+<Meta of={CheckboxStories} />
 <Title />
 <Subtitle />
 
@@ -89,22 +90,18 @@ const ExampleForm = () => {
         onChange={handleElectronicsOnChange}
       >
         <Checkbox
-          onChange={setCheckedLaptop(!checkedLaptop);}
+          onChange={setCheckedLaptop(!checkedLaptop)}
           checked={checkedLaptop}
           helperText="More examples"
           name="laptop"
         >
           Laptop
         </Checkbox>
-        <Checkbox
-          onChange={setCheckedTV(!checkedTV);}
-          checked={checkedTV}
-          name="tv"
-        >
+        <Checkbox onChange={setCheckedTV(!checkedTV)} checked={checkedTV} name="tv">
           TVs
         </Checkbox>
         <Checkbox
-          onChange={setCheckedMicrophone(!checkedMicrophone);}
+          onChange={setCheckedMicrophone(!checkedMicrophone)}
           checked={checkedMicrophone}
           name="microphones"
         >
@@ -112,8 +109,8 @@ const ExampleForm = () => {
         </Checkbox>
       </Checkbox>
     </Form>
-  )
-}
+  );
+};
 ```
 
 There are multiple ways to keep track of all of the `Checkbox` states (whether they are checked or not). In this example we chose for 5 separate state variables, but you can also choose to use `useReducer` to manage all of the state variables. Alternatively you could also use a single `useState` with an object that manages all the state.
@@ -122,4 +119,4 @@ We manage the indeterminate and checkbox state in the parent `Checkbox` with two
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

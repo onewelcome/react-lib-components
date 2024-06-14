@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as BreadcrumbStories from "./Breadcrumbs.stories.tsx";
 
+<Meta of={BreadcrumbStories} />
 <Title />
 <Subtitle />
 
@@ -16,9 +17,7 @@ is used as a menu or other purposes. You should pass the translation of `breadcr
 
 # Examples
 
-<Canvas>
-  <Story of={BreadcrumbStories.Breadcrumbs} />
-</Canvas>
+<Canvas of={BreadcrumbStories.Breadcrumbs}></Canvas>
 
 ```jsx
 <Breadcrumbs ariaLabel="breadcrumbs">
@@ -39,4 +38,4 @@ is used as a menu or other purposes. You should pass the translation of `breadcr
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

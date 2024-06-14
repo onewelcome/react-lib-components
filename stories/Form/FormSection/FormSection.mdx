@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as FormSectionStories from "./FormSection.stories.tsx";
 
+<Meta of={FormSectionStories} />
 <Title />
 <Subtitle />
 
@@ -29,4 +30,4 @@ A code example of using form section component is as follows:
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

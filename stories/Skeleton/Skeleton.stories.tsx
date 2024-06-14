@@ -15,9 +15,9 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { Skeleton as SkeletonComponent, Props } from "../../src/components/Skeleton/Skeleton";
-import { Typography } from "../../src/components/Typography/Typography";
+import { Meta, StoryFn } from "@storybook/react";
+import { Props, Skeleton as SkeletonComponent } from "../../src/components/Skeleton/Skeleton";
+import { Typography } from "../../src";
 import SkeletonDocumentation from "./Skeleton.mdx";
 
 const meta: Meta = {
@@ -44,7 +44,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <SkeletonComponent {...args} />;
+const Template: StoryFn<Props> = args => <SkeletonComponent {...args} />;
 
 export const Skeleton = Template.bind({});
 Skeleton.args = {
@@ -58,11 +58,13 @@ RectangleSkeleton.args = {
   width: 100
 };
 
-const TypographySkeletonTemplate: Story<Props> = args => (
+const TypographySkeletonTemplate: StoryFn<Props> = args => (
   <Typography variant="h1">
     <SkeletonComponent {...args} />
   </Typography>
 );
+
 export const TypographySkeleton = TypographySkeletonTemplate.bind({});
+
 TypographySkeleton.storyName = "Skeleton inside Typography";
 TypographySkeleton.args = {};

@@ -16,12 +16,22 @@
 
 import isChromatic from "chromatic/isChromatic";
 
+/**
+ * To improve our visual tests, we need to display various states of our components. This often requires simulating user actions.
+ * In Storybook, visiting the desired component automatically triggers the play function, which can be confusing for those not familiar with the tool.
+ * To address this, we've wrapped the original play function, so it only runs when Chromatic is active or when in development mode.
+ * @param playFunction
+ */
 export const conditionalPlay = (
   playFunction: ({ canvasElement }: { canvasElement: any }) => Promise<void>
 ) => {
   const isDevMode = process.env.NODE_ENV === "development";
 
   if (isChromatic() || isDevMode) {
-    return playFunction;
+    return async (context: { canvasElement: any }) => {
+      await playFunction(context);
+    };
   }
+
+  return async () => {};
 };

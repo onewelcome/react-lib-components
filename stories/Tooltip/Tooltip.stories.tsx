@@ -18,8 +18,7 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Props, Tooltip as TooltipComponent } from "../../src/components/Tooltip/Tooltip";
 import TooltipDocumentation from "./Tooltip.mdx";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useStoryCentring } from "../utils/useStoryCentring";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 

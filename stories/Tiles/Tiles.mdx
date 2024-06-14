@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as TilesStories from "./Tiles.stories.tsx";
 
+<Meta of={TilesStories} />
 <Title />
 <Subtitle />
 
@@ -19,4 +20,4 @@ For documentation regarding individual `Tile` components, [see this page](?path=
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as SelectStories from "./Select.stories.tsx";
 
+<Meta of={SelectStories} />
 <Title />
 <Subtitle />
 
@@ -74,4 +75,4 @@ See below an example of a `Select` component. It is controlled by Storybook, and
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

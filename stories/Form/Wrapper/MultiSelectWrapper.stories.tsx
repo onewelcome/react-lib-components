@@ -22,8 +22,7 @@ import {
 } from "../../../src/components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 import { MultiOption } from "../../../src/components/Form/Select/MultiSelect/MultiOption";
 import MultiSelectWrapperDocumentation from "./MultiSelectWrapper.mdx";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { BoundFunctions } from "@testing-library/dom/types/get-queries-for-element";
 import { queries } from "@testing-library/dom";

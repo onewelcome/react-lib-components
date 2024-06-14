@@ -22,13 +22,9 @@ import {
 } from "../../../src/components/Notifications/DiscardChangesModal/DiscardChangesModal";
 import { ModalActions } from "../../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { ModalContent } from "../../../src/components/Notifications/Modal/ModalContent/ModalContent";
-import { Button } from "../../../src/components/Button/Button";
-import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
-import { FormControl } from "../../../src/components/Form/FormControl/FormControl";
-import { Form } from "../../../src/components/Form/Form";
+import { Button, Form, FormControl, InputWrapper } from "../../../src";
 import DiscardChangesModalDocumentation from "./DiscardChangesModal.mdx";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {

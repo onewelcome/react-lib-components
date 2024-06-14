@@ -20,8 +20,7 @@ import { Dialog, Props } from "../../../src/components/Notifications/Dialog/Dial
 import { Button } from "../../../src/components/Button/Button";
 import { Typography } from "../../../src/components/Typography/Typography";
 import DialogDocumentation from "./Dialog.mdx";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { userEvent, waitFor, within, expect } from "@storybook/test";
 import { Icon, Icons } from "../../../src/components/Icon/Icon";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 

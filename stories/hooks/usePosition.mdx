@@ -1,4 +1,4 @@
-import { Meta, Story } from "@storybook/addon-docs";
+import { Meta } from "@storybook/blocks";
 
 <Meta
   title="Hooks/usePosition"
@@ -26,46 +26,52 @@ If all of these conditions are met, you can use the `usePosition` hook by import
 
 # Props
 
-Below you will find all of the args of the hook.
+Below you will find all the args of the hook.
 
 <table>
-    <tr>
-        <td>Prop name</td>
-        <td>Type</td>
-        <td>Default</td>
-        <td>Description</td>
-    </tr>
-    <tr>
-        <td>relativeElement</td>
-        <td><code>Ref&lt;HTMLElement></code></td>
-        <td><code>undefined</code></td>
-        <td>The relative element that is grabbed by placing a `ref` prop on an element in your JSX, storing it in a `React.useRef` hook.</td>
-    </tr>
-    <tr>
-        <td>elementToBePositioned</td>
-        <td><code>Ref&lt;HTMLElement></code></td>
-        <td><code>undefined</code></td>
-        <td>The element to be positioned relatively by placing a `ref` prop on an element in your JSX, storing it in a `React.useRef` hook.</td>
-    </tr>
-    <tr>
-        <td>placement</td>
-        <td><pre><code>\{ <br />&nbsp;&nbsp;horizontal: 'start' \| 'center' \| 'end', <br />&nbsp;&nbsp;vertical: 'top' \| 'center' \| 'bottom'<br /> }</code></pre></td>
-        <td><pre><code>\{ <br />&nbsp;&nbsp;horizontal: 'start',<br />&nbsp;&nbsp;vertical: 'top'<br />}</code></pre></td>
-        <td>Where you want to place the element to be positioned in relation to the relative element.</td>
-    </tr>
-    <tr>
-        <td>transformOrigin</td>
-        <td><pre><code>\{ <br />&nbsp;&nbsp;horizontal: 'start' \| 'center' \| 'end', <br />&nbsp;&nbsp;vertical: 'top' \| 'center' \| 'bottom'<br /> }</code></pre></td>
-        <td><pre><code>\{ <br />&nbsp;&nbsp;horizontal: 'start',<br />&nbsp;&nbsp;vertical: 'top'<br />}</code></pre></td>
-        <td>The position you want to place the element to be positioned from.</td>
-    </tr>
-    <tr>
-        <td>offset</td>
-        <td><pre><code>\{ <br />&nbsp;&nbsp;top: number, <br />&nbsp;&nbsp;right: number<br />&nbsp;&nbsp;bottom: number<br />&nbsp;&nbsp;left: number<br />}</code></pre></td>
-        <td><pre><code>\{ <br />&nbsp;&nbsp;top: 0, <br />&nbsp;&nbsp;right: 0<br />&nbsp;&nbsp;bottom: 0<br />&nbsp;&nbsp;left: 0<br />}</code></pre></td>
-        <td>What offset you want to create, and from which direction (in pixels).</td>
-    </tr>
+  <tr>
+    <td>Prop name</td>
+    <td>Type</td>
+    <td>Default</td>
+    <td>Description</td>
+  </tr>
+
+  <tr>
+    <td>relativeElement</td>
+    <td><code>Ref\<HTMLElement></code></td>
+    <td><code>undefined</code></td>
+    <td>The relative element that is grabbed by placing a `ref` prop on an element in your JSX, storing it in a `React.useRef` hook.</td>
+  </tr>
+
+  <tr>
+    <td>elementToBePositioned</td>
+    <td><code>Ref\<HTMLElement></code></td>
+    <td><code>undefined</code></td>
+    <td>The element to be positioned relatively by placing a `ref` prop on an element in your JSX, storing it in a `React.useRef` hook.</td>
+  </tr>
+
+  <tr>
+    <td>placement</td>
+    <td><pre><code>\{ <br />  horizontal: 'start' | 'center' | 'end', <br />  vertical: 'top' | 'center' | 'bottom'<br /> }</code></pre></td>
+    <td><pre><code>\{ <br />  horizontal: 'start',<br />  vertical: 'top'<br />}</code></pre></td>
+    <td>Where you want to place the element to be positioned in relation to the relative element.</td>
+  </tr>
+
+  <tr>
+    <td>transformOrigin</td>
+    <td><pre><code>\{ <br />  horizontal: 'start' | 'center' | 'end', <br />  vertical: 'top' | 'center' | 'bottom'<br /> }</code></pre></td>
+    <td><pre><code>\{ <br />  horizontal: 'start',<br />  vertical: 'top'<br />}</code></pre></td>
+    <td>The position you want to place the element to be positioned from.</td>
+  </tr>
+
+  <tr>
+    <td>offset</td>
+    <td><pre><code>\{ <br />  top: number, <br />  right: number<br />  bottom: number<br />  left: number<br />}</code></pre></td>
+    <td><pre><code>\{ <br />  top: 0, <br />  right: 0<br />  bottom: 0<br />  left: 0<br />}</code></pre></td>
+    <td>What offset you want to create, and from which direction (in pixels).</td>
+  </tr>
 </table>
+
 # Return values
 
 The `usePosition` hook takes 5 arguments, and gives back 5 variables [you can extract using destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
@@ -77,40 +83,56 @@ The `usePosition` hook takes 5 arguments, and gives back 5 variables [you can ex
     <td>Default</td>
     <td>Description</td>
   </tr>
-  <tr>
-    <td>top</td>
-    <td>number</td>
-    <td>0</td>
-    <td>The top value in px</td>
-  </tr>
-  <tr>
-    <td>right</td>
-    <td>number</td>
-    <td>0</td>
-    <td>The right value in px</td>
-  </tr>
-  <tr>
-    <td>bottom</td>
-    <td>number</td>
-    <td>0</td>
-    <td>The bottom value in px</td>
-  </tr>
-  <tr>
-    <td>left</td>
-    <td>number</td>
-    <td>0</td>
-    <td>The left value in px</td>
-  </tr>
+
+{" "}
+
+<tr>
+  <td>top</td>
+  <td>number</td>
+  <td>0</td>
+  <td>The top value in px</td>
+</tr>
+
+{" "}
+
+<tr>
+  <td>right</td>
+  <td>number</td>
+  <td>0</td>
+  <td>The right value in px</td>
+</tr>
+
+{" "}
+
+<tr>
+  <td>bottom</td>
+  <td>number</td>
+  <td>0</td>
+  <td>The bottom value in px</td>
+</tr>
+
+{" "}
+
+<tr>
+  <td>left</td>
+  <td>number</td>
+  <td>0</td>
+  <td>The left value in px</td>
+</tr>
+
   <tr>
     <td>calculatePosition</td>
     <td>`function`</td>
     <td>undefined</td>
+
     <td>
       Execute this function when you want to calculate the position using the arguments passed in
       the `usePosition` hook
     </td>
+
   </tr>
 </table>
+
 # Examples
 
 You can play around with the `usePosition` API [in the ContextMenu story](/story/components-navigation-contextmenu--context-menu). An example component of the `usePosition` hook can be found below:

@@ -46,13 +46,11 @@ const meta: Meta = {
     },
     contentMargins: {
       description:
-        "Specifies if the content (children) element should have the default margins added.\n",
-      defaultValue: true
+        "Specifies if the content (children) element should have the default margins added.\n"
     },
     contentMaxWidth: {
       description:
-        "Specifies if the content (children) element should have the default max-width added.\n",
-      defaultValue: true
+        "Specifies if the content (children) element should have the default max-width added.\n"
     }
   },
   parameters: {
@@ -178,16 +176,12 @@ MicrofrontendContainerTable.args = {
         {
           name: "Company 1",
           created: new Date(2023, 0, 1),
-          id: "1",
-          type: "Stock",
-          enabled: true
+          id: "1"
         },
         {
           name: "Company 2",
           created: new Date(2023, 0, 2),
-          id: "2",
-          type: "Stock",
-          enabled: false
+          id: "2"
         }
       ]}
     >

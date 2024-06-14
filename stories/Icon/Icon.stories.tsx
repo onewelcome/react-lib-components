@@ -15,8 +15,8 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { Icon as IconComponent, Props, Icons } from "../../src/components/Icon/Icon";
+import { Meta, StoryFn } from "@storybook/react";
+import { Icon as IconComponent, Icons, Props } from "../../src/components/Icon/Icon";
 import IconDocumentation from "./Icon.mdx";
 
 const meta: Meta = {
@@ -37,7 +37,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <IconComponent {...args} />;
+const Template: StoryFn<Props> = args => <IconComponent {...args} />;
 
 export const Icon = Template.bind({});
 

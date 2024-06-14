@@ -1,7 +1,8 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import LinkTo from "@storybook/addon-links/react";
 import * as DataGridStories from "./DataGrid.stories.tsx";
 
+<Meta of={DataGridStories} />
 <Title />
 <Subtitle />
 
@@ -249,4 +250,4 @@ An example can be found below:
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as ContentHeaderStories from "./ContentHeader.stories.tsx";
 
+<Meta of={ContentHeaderStories} />
 <Title />
 <Subtitle />
 
@@ -37,4 +38,4 @@ const buttons: ReactElement<ButtonProps, typeof Button>[] = [
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />{" "}
+<ArgTypes />{" "}

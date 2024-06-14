@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as FormControlStories from "./FormControl.stories.tsx";
 
+<Meta of={FormControlStories} />
 <Title />
 <Subtitle />
 
@@ -18,4 +19,4 @@ The `FormControl` story you see below can be controlled using the Props table at
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

@@ -51,4 +51,5 @@ const meta: Meta = {
 export default meta;
 
 const Template: StoryFn<Props> = args => <FormSectionComponent {...args} />;
+
 export const FormSection = Template.bind({});

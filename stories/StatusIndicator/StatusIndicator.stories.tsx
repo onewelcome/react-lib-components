@@ -15,10 +15,10 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
-  StatusIndicator as StatusIndicatorComponent,
-  Props
+  Props,
+  StatusIndicator as StatusIndicatorComponent
 } from "../../src/components/StatusIndicator/StatusIndicator";
 import StatusIndicatorDocumentation from "./StatusIndicator.mdx";
 
@@ -37,7 +37,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => (
+const Template: StoryFn<Props> = args => (
   <div>
     <StatusIndicatorComponent {...args}>
       {`${args.status[0].toUpperCase()}${args.status.slice(1)}`}

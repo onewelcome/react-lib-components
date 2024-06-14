@@ -15,16 +15,10 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
-import { InputWrapper } from "../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
-import { useRepeater } from "../../src/hooks/useRepeater";
-import { Button } from "../../src/components/Button/Button";
-import { IconButton } from "../../src/components/Button/IconButton";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
+import { Meta, StoryFn } from "@storybook/react";
+import { Button, generateID, Icon, IconButton, Icons, InputWrapper, useRepeater } from "../../src";
 import RepeaterDocumentation from "./useRepeater.mdx";
-import { generateID } from "../../src/util/helper";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { expect, userEvent, within } from "@storybook/test";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 
 const meta: Meta = {
@@ -74,10 +68,10 @@ const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => 
   );
 };
 
-const Template: Story = () => {
+const Template: StoryFn = () => {
   const [tags] = useState([]);
 
-  const onChangeHandler = state => {
+  const onChangeHandler = (state: any) => {
     console.warn(state);
     console.warn("executing on change handler");
   };

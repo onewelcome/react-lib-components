@@ -15,13 +15,13 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   dateTypes,
   Input as InputComponent,
   Props
 } from "../../../src/components/Form/Input/Input";
-import { Form } from "../../../src/components/Form/Form";
+import { Form } from "../../../src";
 import InputDocumentation from "./Input.mdx";
 
 const meta: Meta = {
@@ -71,7 +71,7 @@ const meta: Meta = {
 export default meta;
 
 /** This is not how to properly use the validation. */
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   return (
     <Form onSubmit={() => {}}>
       <InputComponent id="input-component" {...args} />

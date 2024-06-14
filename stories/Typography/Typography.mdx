@@ -1,6 +1,8 @@
-import { ArgTypes, PRIMARY_STORY, Subtitle, Title } from "@storybook/blocks";
-import { Typography } from "../../src/components/Typography/Typography.tsx";
+import { ArgTypes, Meta, Subtitle, Title } from "@storybook/blocks";
+import { Typography } from "../../src";
+import TypographyStories from "./Typography.stories";
 
+<Meta of={TypographyStories} />
 <Title />
 <Subtitle />
 
@@ -128,4 +130,4 @@ You can see all the variants below:
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

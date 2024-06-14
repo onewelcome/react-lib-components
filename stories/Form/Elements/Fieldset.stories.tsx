@@ -15,18 +15,13 @@
  */
 
 import React, { useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   Fieldset as FieldsetComponent,
   Props
 } from "../../../src/components/Form/Fieldset/Fieldset";
-import { FormControl } from "../../../src";
-import { Option } from "../../../src";
-import { Form } from "../../../src";
-import { SelectWrapper } from "../../../src";
+import { Button, Form, FormControl, InputWrapper, Option, SelectWrapper } from "../../../src";
 import FieldsetDocumentation from "./Fieldset.mdx";
-import { InputWrapper } from "../../../src";
-import { Button } from "../../../src";
 
 const meta: Meta = {
   title: "components/Layout/Fieldset",
@@ -52,7 +47,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [prefix, setPrefix] = useState("mr");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

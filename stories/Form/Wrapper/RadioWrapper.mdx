@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as RadioWrapperStories from "./RadioWrapper.stories.tsx";
 
+<Meta of={RadioWrapperStories} />
 <Title />
 <Subtitle />
 
@@ -56,4 +57,4 @@ The story below is controlled by Storybook. You can configure it using the [Prop
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

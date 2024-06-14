@@ -1,14 +1,7 @@
-import {
-  Canvas,
-  Title,
-  Subtitle,
-  Subheading,
-  ArgTypes,
-  PRIMARY_STORY,
-  Story
-} from "@storybook/blocks";
+import { Canvas, Title, Subtitle, Subheading, ArgTypes, Story, Meta } from "@storybook/blocks";
 import * as FileUploadStories from "./FileUpload.stories.tsx";
 
+<Meta of={FileUploadStories}></Meta>
 <Title />
 <Subtitle />
 
@@ -108,7 +101,7 @@ In this case, the component will receive all the state changes and progress of t
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />
 
 <Subheading>useUploadFile hook</Subheading>A custom hook has been created in order to be used along
 side the `FileUpload` component, in order to perform the upload action with ease The hook will

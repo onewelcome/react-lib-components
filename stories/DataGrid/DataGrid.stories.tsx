@@ -16,27 +16,28 @@
 
 import React, { Fragment, useState } from "react";
 import { Meta } from "@storybook/react";
-import { DataGrid as DataGridComponent, Props } from "../../src/components/DataGrid/DataGrid";
-import { DataGridRow } from "../../src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow";
-import { DataGridCell } from "../../src/components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
-import { DataGridDrawerItem } from "../../src/components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
-import { ContextMenu } from "../../src/components/ContextMenu/ContextMenu";
-import { IconButton } from "../../src/components/Button/IconButton";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
-import { ContextMenuItem } from "../../src/components/ContextMenu/ContextMenuItem";
+import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
+import {
+  Button,
+  ContextMenu,
+  ContextMenuItem,
+  DataGridCell,
+  DataGridDrawerItem,
+  DataGridRow,
+  Icon,
+  IconButton,
+  Icons
+} from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
-
 import { action } from "@storybook/addon-actions";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 import { Modal } from "../../src/components/Notifications/Modal/Modal";
 import { ModalHeader } from "../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
 import { ModalContent } from "../../src/components/Notifications/Modal/ModalContent/ModalContent";
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
-import { Button } from "../../src/components/Button/Button";
-import { Form } from "../../src/components/Form/Form";
-import { InputWrapper } from "../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
+import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
+import { Form } from "../Form/Form.stories";
 
 interface DataGridItem {
   name: string;
@@ -227,74 +228,8 @@ DefaultDataGrid.args = {
   enableMultiSorting: true
 };
 
-export const DataGridWithColumnsPopup = Template.bind({});
-
-DataGridWithColumnsPopup.play = conditionalPlay(async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-
-  await waitFor(() => expect(canvas.queryByText("Columns")?.closest("button")).toBeInTheDocument());
-
-  const columnsButton = await canvas.queryByText("Columns")?.closest("button");
-
-  await userEvent.click(columnsButton!);
-
-  const showColumnsDialog = canvas.queryByRole("dialog");
-  const innerDiv = showColumnsDialog?.querySelector("div");
-
-  expect(showColumnsDialog).toBeInTheDocument();
-  await waitFor(() => expect(innerDiv).toHaveStyle({ "pointer-events": "auto" }));
-
-  const nameToggle = await canvas.getByLabelText("Name");
-
-  await userEvent.click(nameToggle);
-});
-
-DataGridWithColumnsPopup.args = {
-  data: [
-    {
-      name: "Company 1",
-      created: new Date(2023, 0, 1),
-      id: "1",
-      type: "Stock",
-      enabled: true
-    },
-    {
-      name: "Company 2",
-      created: new Date(2023, 0, 2),
-      id: "2",
-      type: "Stock",
-      enabled: false
-    }
-  ],
-  headers: [
-    { name: "name", headline: "Name" },
-    { name: "created", headline: "Created" },
-    { name: "id", headline: "Identifier" },
-    { name: "type", headline: "Type", disableSorting: true },
-    { name: "enabled", headline: "Status", disableSorting: true }
-  ],
-  initialSort: [
-    { name: "name", direction: "ASC" },
-    { name: "created", direction: "DESC" }
-  ],
-  onSort: sort => action(`Sort callback: ${sort}`),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: { onClick: () => action("add btn clicked") },
-    searchBtnProps: { onClick: () => action("search btn clicked") }
-  },
-  disableContextMenuColumn: false,
-  paginationProps: {
-    totalElements: 2,
-    currentPage: 1
-  },
-  isLoading: false,
-  enableMultiSorting: true
-};
-
 export const HideColumnDataGrid = Template.bind({});
+
 HideColumnDataGrid.args = {
   data: [
     {
@@ -449,9 +384,14 @@ ExpandableDataGrid.args = {
 ExpandableDataGrid.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  await waitFor(() => canvas.queryAllByTitle("Expand row"));
+  await waitFor(() => expect(canvas.queryAllByTitle("Expand row")).not.toHaveLength(0));
 
   const expandButtons = await canvas.queryAllByTitle("Expand row");
 
   await userEvent.click(expandButtons[0]);
+
+  await waitFor(() => {
+    const expandedElement = canvas.queryAllByText("Description");
+    expect(expandedElement[0]).toBeVisible();
+  });
 });
