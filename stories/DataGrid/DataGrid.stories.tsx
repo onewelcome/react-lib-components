@@ -395,3 +395,60 @@ ExpandableDataGrid.play = conditionalPlay(async ({ canvasElement }) => {
     expect(expandedElement[0]).toBeVisible();
   });
 });
+
+export const DataGridWithFilters = Template.bind({});
+
+DataGridWithFilters.args = {
+  data: [
+    {
+      name: "Company 1",
+      created: new Date(2023, 0, 1),
+      id: "1",
+      type: "Stock",
+      enabled: true
+    },
+    {
+      name: "Company 2",
+      created: new Date(2023, 0, 2),
+      id: "2",
+      type: "Stock",
+      enabled: false
+    }
+  ],
+  filters: {
+    enableFilters: true,
+    columnsMetadata: [
+      { name: "name", headline: "Name" },
+      { name: "created", headline: "Created", operators: ["before", "after", "between"] },
+      { name: "id", headline: "Identifier" },
+      { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"] },
+      { name: "enabled", headline: "Status" }
+    ]
+  },
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "created", headline: "Created" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "enabled", headline: "Status", disableSorting: true }
+  ],
+  initialSort: [
+    { name: "name", direction: "ASC" },
+    { name: "created", direction: "DESC" }
+  ],
+  onSort: sort => action(`Sort callback: ${sort}`),
+  actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
+  },
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 2,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
