@@ -17,13 +17,9 @@
 import React, { useReducer } from "react";
 import { DataGridFilter } from "./DataGridFilter";
 import classes from "./DataGridToolbar.module.scss";
-import {
-  DataGridColumnMetadata,
-  Filter,
-  FiltersAction,
-  FiltersState
-} from "./DataGridFilters.interfaces";
+import { DataGridColumnMetadata, FiltersAction, FiltersState } from "./DataGridFilters.interfaces";
 import { generateID } from "../../../util/helper";
+import { Typography } from "../../Typography/Typography";
 
 type Props = {
   columnsMetadata: DataGridColumnMetadata[];
@@ -38,8 +34,12 @@ const filtersReducer = (state: FiltersState, action: FiltersAction): FiltersStat
         ...state,
         //todo it should be recreated in place so that the filters don't get reshuffled...
         filters: [
-          ...state.filters.filter(value => value.id !== action.payload.id),
-          { ...action.payload }
+          ...state.filters.map(value => {
+            if (value.id === action.payload.id) {
+              return action.payload;
+            }
+            return value;
+          })
         ]
       };
     case "remove":
@@ -67,6 +67,15 @@ export const DataGridToolbar = ({ columnsMetadata }: Props) => {
         />
       ))}
       <DataGridFilter columnsMetadata={columnsMetadata} dispatch={dispatch} addFilter />
+      {state.filters.length > 1 && (
+        <Typography
+          variant="body"
+          className={classes["clear-button"]}
+          onClick={() => dispatch({ type: "clear" })}
+        >
+          Clear all filters
+        </Typography>
+      )}
     </div>
   );
 };

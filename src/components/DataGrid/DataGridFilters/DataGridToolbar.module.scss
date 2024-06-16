@@ -2,7 +2,17 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
   gap: 0.5rem;
   width: 100%;
   padding-bottom: 1rem;
+
+  .clear-button {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-decoration: underline;
+    color: var(--color-primary500);
+    cursor: pointer;
+  }
 }

@@ -50,6 +50,8 @@ export const DataGridFilter = ({
   columnsMetadata,
   dispatch
 }: Props) => {
+  //TODO this should be passed as a prop once we split this component
+  const mode: "ADD" | "EDIT" = addFilter ? "ADD" : "EDIT";
   const wrappingDivRef = createRef<HTMLDivElement>();
   const [filterOpen, setFilterOpen] = useState(false);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
@@ -66,9 +68,41 @@ export const DataGridFilter = ({
     setPickedValues([]);
   };
 
-  const onFilterCreate = () => {
+  //user can extend the list of picked values with custom ones. We need to make sure that the default list includes the user created values.
+  const mergeValues = (values: string[], pickedValues: string[]) => {
+    return Array.from(new Set([...values, ...pickedValues]));
+  };
+
+  const initialiseFilterValues = (filter: Filter) => {
+    const { column, operator, value } = filter;
+    const columnMetadata = columnsMetadata.find(({ name }) => name === column);
+    //todo something went really wrong if this condition is met. Figure out better error handling
+    if (!columnMetadata) return;
+
+    const { defaultValues, operators } = columnMetadata;
+
+    setColumn(column);
+
+    setOperator(operator);
+    operators && setOperators(operators);
+
+    setPickedValues(value);
+    setValues(mergeValues(defaultValues || [], value));
+  };
+
+  const onFilterSubmit = () => {
     //todo add error handling
-    dispatch({ type: "add", payload: { column, operator, value: pickedValues } });
+    if (mode === "ADD") {
+      dispatch({ type: "add", payload: { column, operator, value: pickedValues } });
+    }
+
+    if (mode === "EDIT" && filter) {
+      dispatch({
+        type: "edit",
+        payload: { id: filter?.id, column, operator, value: pickedValues }
+      });
+    }
+
     resetFields();
     setFilterOpen(false);
   };
@@ -83,7 +117,12 @@ export const DataGridFilter = ({
       <div
         ref={wrappingDivRef}
         className={classes["filter-wrapper"]}
-        onClick={() => setFilterOpen(!filterOpen)}
+        onClick={() => {
+          setFilterOpen(!filterOpen);
+          if (!filterOpen && filter) {
+            initialiseFilterValues(filter);
+          }
+        }}
       >
         {addFilter ? (
           <Fragment>
@@ -98,11 +137,16 @@ export const DataGridFilter = ({
               {filter?.column}
             </Typography>
             <Typography variant="body" className={classes["caption"]}>
+              {" "}
               {filter?.operator}
             </Typography>
             <Typography variant="body" className={`${classes["caption"]} ${classes["bold"]}`}>
-              {filter?.value[0]}
-            </Typography>
+              {" "}
+              <b> {filter?.value[0]}</b> {/*todo why does it bold the second part as well... */}
+              {filter?.value?.length &&
+                filter?.value?.length >= 2 &&
+                ` or ${filter?.value.length - 1} other`}
+            </Typography>{" "}
             <Icon onClick={onFilterRemove} className={classes["remove-icon"]} icon={Icons.Times} />
           </Fragment>
         )}
@@ -126,12 +170,21 @@ export const DataGridFilter = ({
                     ({ name }) => name === e.target.value
                   );
 
+                  //todo only reset the picked operators when changing to a column which has custom operators - check if prev had defaults
                   if (columnMetadata?.operators) {
                     setOperator("");
                     setOperators(columnMetadata.operators);
                   } else {
                     setOperator("");
                     setOperators(Object.values(DefaultOperators));
+                  }
+
+                  if (columnMetadata?.defaultValues) {
+                    setPickedValues([]);
+                    setValues(columnMetadata.defaultValues);
+                  } else {
+                    setPickedValues([]);
+                    setValues([]);
                   }
                 }}
               >
@@ -186,7 +239,7 @@ export const DataGridFilter = ({
               </MultiSelectWrapper>
             </div>
             <div className={classes["actions"]}>
-              <Button onClick={onFilterCreate}>Apply</Button>
+              <Button onClick={onFilterSubmit}>Apply</Button>
               <Button
                 variant="text"
                 onClick={() => {
