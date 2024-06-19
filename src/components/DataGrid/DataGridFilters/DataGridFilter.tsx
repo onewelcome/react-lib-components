@@ -30,9 +30,9 @@ import {
   Filter,
   FiltersAction
 } from "./DataGridFilters.interfaces";
-import { SelectedOptions } from "../../Form/Select/MultiSelect/SelectedOptions";
 import { Option } from "../../Form/Select/SingleSelect/Option";
 import { MultiOption } from "../../Form/Select/MultiSelect/MultiOption";
+import { generateID } from "../../../util/helper";
 
 export type Props = {
   //that aint it - split this component into filter, popover and add button
@@ -41,6 +41,9 @@ export type Props = {
   filter?: Filter;
   columnsMetadata: DataGridColumnMetadata[];
   dispatch: React.Dispatch<FiltersAction>;
+  onFilterAdd?: (filter: Filter) => void;
+  onFilterEdit?: (filter: Filter) => void;
+  onFilterDelete?: (id: string) => void;
 };
 
 export const DataGridFilter = ({
@@ -48,7 +51,10 @@ export const DataGridFilter = ({
   filter,
   domRoot,
   columnsMetadata,
-  dispatch
+  dispatch,
+  onFilterAdd,
+  onFilterEdit,
+  onFilterDelete
 }: Props) => {
   //TODO this should be passed as a prop once we split this component
   const mode: "ADD" | "EDIT" = addFilter ? "ADD" : "EDIT";
@@ -76,7 +82,6 @@ export const DataGridFilter = ({
   const initialiseFilterValues = (filter: Filter) => {
     const { column, operator, value } = filter;
     const columnMetadata = columnsMetadata.find(({ name }) => name === column);
-    //todo something went really wrong if this condition is met. Figure out better error handling
     if (!columnMetadata) return;
 
     const { defaultValues, operators } = columnMetadata;
@@ -93,7 +98,11 @@ export const DataGridFilter = ({
   const onFilterSubmit = () => {
     //todo add error handling
     if (mode === "ADD") {
-      dispatch({ type: "add", payload: { column, operator, value: pickedValues } });
+      dispatch({
+        type: "add",
+        payload: { id: generateID(), column, operator, value: pickedValues }
+      });
+      onFilterAdd && onFilterAdd({ id: generateID(), column, operator, value: pickedValues });
     }
 
     if (mode === "EDIT" && filter) {
@@ -101,6 +110,7 @@ export const DataGridFilter = ({
         type: "edit",
         payload: { id: filter?.id, column, operator, value: pickedValues }
       });
+      onFilterEdit && onFilterEdit({ id: filter?.id, column, operator, value: pickedValues });
     }
 
     resetFields();
@@ -108,7 +118,10 @@ export const DataGridFilter = ({
   };
 
   const onFilterRemove = () => {
-    filter && dispatch({ type: "remove", payload: { id: filter.id } });
+    if (!filter) return;
+
+    dispatch({ type: "remove", payload: { id: filter.id } });
+    onFilterDelete && onFilterDelete(filter?.id);
     resetFields();
   };
 

@@ -14,25 +14,34 @@
  *    limitations under the License.
  */
 
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { DataGridFilter } from "./DataGridFilter";
 import classes from "./DataGridToolbar.module.scss";
-import { DataGridColumnMetadata, FiltersAction, FiltersState } from "./DataGridFilters.interfaces";
+import {
+  DataGridColumnMetadata,
+  Filter,
+  FiltersAction,
+  FiltersState
+} from "./DataGridFilters.interfaces";
 import { generateID } from "../../../util/helper";
 import { Typography } from "../../Typography/Typography";
 
-type Props = {
+export type Props = {
   columnsMetadata: DataGridColumnMetadata[];
+  filterValues?: Filter[];
+  onFilterAdd?: (filter: Filter) => void;
+  onFilterEdit?: (filter: Filter) => void;
+  onFilterDelete?: (id: string) => void;
+  onFiltersClear?: () => void;
 };
 
 const filtersReducer = (state: FiltersState, action: FiltersAction): FiltersState => {
   switch (action.type) {
     case "add":
-      return { ...state, filters: [...state.filters, { ...action.payload, id: generateID() }] };
+      return { ...state, filters: [...state.filters, { ...action.payload }] };
     case "edit":
       return {
         ...state,
-        //todo it should be recreated in place so that the filters don't get reshuffled...
         filters: [
           ...state.filters.map(value => {
             if (value.id === action.payload.id) {
@@ -53,8 +62,15 @@ const filtersReducer = (state: FiltersState, action: FiltersAction): FiltersStat
 };
 
 //todo export in the index.ts
-export const DataGridToolbar = ({ columnsMetadata }: Props) => {
-  const [state, dispatch] = useReducer(filtersReducer, { filters: [] });
+export const DataGridToolbar = ({
+  columnsMetadata,
+  filterValues,
+  onFilterAdd,
+  onFilterEdit,
+  onFilterDelete,
+  onFiltersClear
+}: Props) => {
+  const [state, dispatch] = useReducer(filtersReducer, { filters: filterValues || [] });
 
   return (
     <div className={classes["toolbar"]}>
@@ -64,18 +80,30 @@ export const DataGridToolbar = ({ columnsMetadata }: Props) => {
           filter={filter}
           columnsMetadata={columnsMetadata}
           dispatch={dispatch}
+          onFilterEdit={onFilterEdit}
+          onFilterDelete={onFilterDelete}
         />
       ))}
-      <DataGridFilter columnsMetadata={columnsMetadata} dispatch={dispatch} addFilter />
-      {state.filters.length > 1 && (
-        <Typography
-          variant="body"
-          className={classes["clear-button"]}
-          onClick={() => dispatch({ type: "clear" })}
-        >
-          Clear all filters
-        </Typography>
-      )}
+      <div className={classes["actions-wrapper"]}>
+        <DataGridFilter
+          columnsMetadata={columnsMetadata}
+          dispatch={dispatch}
+          addFilter
+          onFilterAdd={onFilterAdd}
+        />
+        {state.filters.length > 1 && (
+          <Typography
+            variant="body"
+            className={classes["clear-button"]}
+            onClick={() => {
+              dispatch({ type: "clear" });
+              onFiltersClear && onFiltersClear();
+            }}
+          >
+            Clear all filters
+          </Typography>
+        )}
+      </div>
     </div>
   );
 };

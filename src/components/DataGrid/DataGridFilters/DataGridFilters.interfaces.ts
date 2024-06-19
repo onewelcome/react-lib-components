@@ -21,12 +21,10 @@ export interface Filter {
   value: string[];
 }
 
-export type FilterWithoutId = Omit<Filter, "id">;
-
 export type FiltersAction =
   | {
       type: "add";
-      payload: FilterWithoutId;
+      payload: Filter;
     }
   | {
       type: "edit";

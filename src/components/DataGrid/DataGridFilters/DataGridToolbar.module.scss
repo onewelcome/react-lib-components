@@ -7,6 +7,13 @@
   width: 100%;
   padding-bottom: 1rem;
 
+  .actions-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
   .clear-button {
     margin: 0;
     font-size: 0.875rem;

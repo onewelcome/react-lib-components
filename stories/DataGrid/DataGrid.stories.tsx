@@ -26,7 +26,8 @@ import {
   DataGridRow,
   Icon,
   IconButton,
-  Icons
+  Icons,
+  generateID
 } from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
@@ -38,6 +39,7 @@ import { ModalContent } from "../../src/components/Notifications/Modal/ModalCont
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
+import { DefaultOperators } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
 
 interface DataGridItem {
   name: string;
@@ -417,13 +419,27 @@ DataGridWithFilters.args = {
   ],
   filters: {
     enableFilters: true,
-    columnsMetadata: [
-      { name: "name", headline: "Name" },
-      { name: "created", headline: "Created", operators: ["before", "after", "between"] },
-      { name: "id", headline: "Identifier" },
-      { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"] },
-      { name: "enabled", headline: "Status" }
-    ]
+    filtersProps: {
+      filterValues: [
+        {
+          id: generateID(),
+          column: "name",
+          operator: DefaultOperators.is,
+          value: ["test", "test2"]
+        }
+      ],
+      columnsMetadata: [
+        { name: "name", headline: "Name" },
+        { name: "created", headline: "Created", operators: ["before", "after", "between"] },
+        { name: "id", headline: "Identifier" },
+        { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"] },
+        { name: "enabled", headline: "Status" }
+      ],
+      onFilterAdd: filter => console.log(filter),
+      onFilterEdit: filter => console.log(filter),
+      onFilterDelete: id => console.log(id),
+      onFiltersClear: () => console.log("clear")
+    }
   },
   headers: [
     { name: "name", headline: "Name" },
