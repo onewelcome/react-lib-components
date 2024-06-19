@@ -69,7 +69,8 @@ module.exports = {
     return config;
   },
   typescript: {
-    check: true
+    check: true,
+    reactDocgen: "react-docgen-typescript"
   },
   staticDirs: ["../public"],
   docs: {

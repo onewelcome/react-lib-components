@@ -29,18 +29,6 @@ const meta: Meta = {
     }
   },
   argTypes: {
-    color: {
-      options: ["primary", "danger", "default", "success", "warning"],
-      control: {
-        type: "radio"
-      }
-    },
-    variant: {
-      options: ["text", "fill", "outline"],
-      control: {
-        type: "radio"
-      }
-    },
     startIcon: {
       options: Icons,
       control: {
@@ -99,7 +87,7 @@ const generateButtonStates = (types): Array<ButtonStorybookProps> => {
 };
 
 const types = [
-  { name: "color", options: ["primary", "danger", "success", "warning"] },
+  { name: "color", options: ["primary", "danger", "success", "warning", "default"] },
   { name: "variant", options: ["fill", "outline", "text"] },
   { name: "event", options: [undefined, "hover", "active", "focus"] }
 ];

@@ -27,20 +27,6 @@ const meta: Meta = {
     docs: {
       page: IconButtonDocumentation
     }
-  },
-  argTypes: {
-    color: {
-      options: ["primary", "danger", "default", "success", "warning"],
-      control: {
-        type: "radio"
-      }
-    },
-    variant: {
-      options: ["text", "fill", "outline"],
-      control: {
-        type: "radio"
-      }
-    }
   }
 };
 
