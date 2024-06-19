@@ -30,7 +30,7 @@ const meta: Meta = {
   },
   argTypes: {
     color: {
-      options: ["default", "primary", "secondary", "tertiary"],
+      options: ["primary", "danger", "default", "success", "warning"],
       control: {
         type: "radio"
       }

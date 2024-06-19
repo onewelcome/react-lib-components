@@ -29,6 +29,18 @@ const meta: Meta = {
     }
   },
   argTypes: {
+    color: {
+      options: ["primary", "danger", "default", "success", "warning"],
+      control: {
+        type: "radio"
+      }
+    },
+    variant: {
+      options: ["text", "fill", "outline"],
+      control: {
+        type: "radio"
+      }
+    },
     startIcon: {
       options: Icons,
       control: {
