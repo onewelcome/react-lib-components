@@ -42,6 +42,8 @@ export type FiltersState = {
   filters: Filter[];
 };
 
+export type FilterEditorMode = "ADD" | "EDIT";
+
 export enum DefaultOperators {
   is = "is",
   isNot = "is not",

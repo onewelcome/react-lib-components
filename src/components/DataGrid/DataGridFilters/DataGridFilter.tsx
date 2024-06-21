@@ -15,28 +15,22 @@
  */
 
 import React, { Fragment, createRef, useState } from "react";
-import classes from "./DataGridFilter.module.scss";
-import { Icon, Icons } from "../../Icon/Icon";
-import { Typography } from "../../Typography/Typography";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
-import { Popover } from "../../Popover/Popover";
-import { Button } from "../../Button/Button";
-import { SelectWrapper } from "../../Form/Wrapper/SelectWrapper/SelectWrapper";
-import { MultiSelectWrapper } from "../../Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 import {
   DataGridColumnMetadata,
   DefaultOperators,
   Filter,
+  FilterEditorMode,
   FiltersAction
 } from "./DataGridFilters.interfaces";
-import { Option } from "../../Form/Select/SingleSelect/Option";
-import { MultiOption } from "../../Form/Select/MultiSelect/MultiOption";
 import { generateID } from "../../../util/helper";
+import { DataGridFilterTag } from "./DataGridFilterTag";
+import { DataGridFilterPopover } from "./DataGridFilterPopover";
+import { mergeValues } from "./DataGridFilterService";
 
 export type Props = {
-  //that aint it - split this component into filter, popover and add button
-  addFilter?: boolean;
+  mode: FilterEditorMode;
   domRoot?: HTMLElement;
   filter?: Filter;
   columnsMetadata: DataGridColumnMetadata[];
@@ -47,7 +41,7 @@ export type Props = {
 };
 
 export const DataGridFilter = ({
-  addFilter,
+  mode,
   filter,
   domRoot,
   columnsMetadata,
@@ -56,8 +50,6 @@ export const DataGridFilter = ({
   onFilterEdit,
   onFilterDelete
 }: Props) => {
-  //TODO this should be passed as a prop once we split this component
-  const mode: "ADD" | "EDIT" = addFilter ? "ADD" : "EDIT";
   const wrappingDivRef = createRef<HTMLDivElement>();
   const [filterOpen, setFilterOpen] = useState(false);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
@@ -74,25 +66,33 @@ export const DataGridFilter = ({
     setPickedValues([]);
   };
 
-  //user can extend the list of picked values with custom ones. We need to make sure that the default list includes the user created values.
-  const mergeValues = (values: string[], pickedValues: string[]) => {
-    return Array.from(new Set([...values, ...pickedValues]));
-  };
+  const initialiseFilterValues = (filter?: Filter) => {
+    if (mode === "ADD") {
+      setColumn(columnsMetadata[0].name);
+      setOperator(
+        columnsMetadata[0].operators
+          ? columnsMetadata[0].operators[0]
+          : Object.values(DefaultOperators)[0]
+      );
 
-  const initialiseFilterValues = (filter: Filter) => {
-    const { column, operator, value } = filter;
-    const columnMetadata = columnsMetadata.find(({ name }) => name === column);
-    if (!columnMetadata) return;
+      columnsMetadata[0].defaultValues && setValues(columnsMetadata[0].defaultValues);
+    }
 
-    const { defaultValues, operators } = columnMetadata;
+    if (mode === "EDIT" && filter) {
+      const { column, operator, value } = filter;
+      const columnMetadata = columnsMetadata.find(({ name }) => name === column);
+      if (!columnMetadata) return;
 
-    setColumn(column);
+      const { defaultValues, operators } = columnMetadata;
 
-    setOperator(operator);
-    operators && setOperators(operators);
+      setColumn(column);
 
-    setPickedValues(value);
-    setValues(mergeValues(defaultValues || [], value));
+      setOperator(operator);
+      operators && setOperators(operators);
+
+      setPickedValues(value);
+      setValues(mergeValues(defaultValues || [], value));
+    }
   };
 
   const onFilterSubmit = () => {
@@ -125,146 +125,44 @@ export const DataGridFilter = ({
     resetFields();
   };
 
+  const onFilterOpen = () => {
+    setFilterOpen(!filterOpen);
+    if (!filterOpen) {
+      initialiseFilterValues(filter);
+    }
+  };
+
   return (
     <Fragment>
-      <div
-        ref={wrappingDivRef}
-        className={classes["filter-wrapper"]}
-        onClick={() => {
-          setFilterOpen(!filterOpen);
-          if (!filterOpen && filter) {
-            initialiseFilterValues(filter);
-          }
-        }}
-      >
-        {addFilter ? (
-          <Fragment>
-            <Icon icon={Icons.AddCircle} />
-            <Typography variant="body" className={classes["caption"]}>
-              Add filter
-            </Typography>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <Typography variant="body" className={classes["caption"]}>
-              {filter?.column}
-            </Typography>
-            <Typography variant="body" className={classes["caption"]}>
-              {" "}
-              {filter?.operator}
-            </Typography>
-            <Typography variant="body" className={`${classes["caption"]} ${classes["bold"]}`}>
-              {" "}
-              <b> {filter?.value[0]}</b> {/*todo why does it bold the second part as well... */}
-              {filter?.value?.length &&
-                filter?.value?.length >= 2 &&
-                ` or ${filter?.value.length - 1} other`}
-            </Typography>{" "}
-            <Icon onClick={onFilterRemove} className={classes["remove-icon"]} icon={Icons.Times} />
-          </Fragment>
-        )}
-      </div>
+      <DataGridFilterTag
+        mode={mode}
+        onFilterOpen={onFilterOpen}
+        onFilterRemove={onFilterRemove}
+        triggerRef={wrappingDivRef}
+        setFilterOpen={setFilterOpen}
+        filterOpen={filterOpen}
+        initialiseFilterValues={initialiseFilterValues}
+        filter={filter}
+      />
       {createPortal(
-        <Popover
-          anchorEl={wrappingDivRef}
-          show={filterOpen}
-          placement={{ horizontal: "left", vertical: "bottom" }}
-          transformOrigin={{ horizontal: "left", vertical: "top" }}
-        >
-          <div className={classes["popover"]}>
-            <div className={classes["controls"]}>
-              <SelectWrapper
-                label="Filter by"
-                value={column}
-                name={""}
-                onChange={e => {
-                  setColumn(e.target.value);
-                  const columnMetadata = columnsMetadata.find(
-                    ({ name }) => name === e.target.value
-                  );
-
-                  //todo only reset the picked operators when changing to a column which has custom operators - check if prev had defaults
-                  if (columnMetadata?.operators) {
-                    setOperator("");
-                    setOperators(columnMetadata.operators);
-                  } else {
-                    setOperator("");
-                    setOperators(Object.values(DefaultOperators));
-                  }
-
-                  if (columnMetadata?.defaultValues) {
-                    setPickedValues([]);
-                    setValues(columnMetadata.defaultValues);
-                  } else {
-                    setPickedValues([]);
-                    setValues([]);
-                  }
-                }}
-              >
-                {columnsMetadata.map(({ name, headline }) => (
-                  <Option key={name} value={name}>
-                    {headline}
-                  </Option>
-                ))}
-              </SelectWrapper>
-              <SelectWrapper
-                label="Operator"
-                value={operator}
-                name={""}
-                onChange={e => setOperator(e.target.value)}
-              >
-                {operators.map(operator => (
-                  <Option key={operator} value={operator}>
-                    {operator}
-                  </Option>
-                ))}
-              </SelectWrapper>
-              <MultiSelectWrapper
-                label="Value"
-                name={""}
-                value={pickedValues}
-                onChange={e =>
-                  setPickedValues(
-                    [...Array.from(e.target.options)]
-                      .filter(option => option.selected)
-                      .map(option => option.value)
-                  )
-                }
-                selectProps={{
-                  addNew: {
-                    label: "Create new",
-                    onAddNew: value => {
-                      value && setValues(prev => [...prev, value]);
-                    },
-                    btnProps: { title: "Add new select option", type: "button" }
-                  },
-                  search: {
-                    enabled: true,
-                    renderThreshold: 0
-                  }
-                }}
-              >
-                {values.map(value => (
-                  <MultiOption key={value} value={value}>
-                    {value}
-                  </MultiOption>
-                ))}
-              </MultiSelectWrapper>
-            </div>
-            <div className={classes["actions"]}>
-              <Button onClick={onFilterSubmit}>Apply</Button>
-              <Button
-                variant="text"
-                onClick={() => {
-                  resetFields();
-                  setFilterOpen(false);
-                }}
-              >
-                Cancel
-              </Button>
-            </div>
-          </div>
-        </Popover>,
+        <DataGridFilterPopover
+          anchorRef={wrappingDivRef}
+          isOpen={filterOpen}
+          column={column}
+          columnsMetadata={columnsMetadata}
+          values={values}
+          pickedValues={pickedValues}
+          operator={operator}
+          operators={operators}
+          onFilterSubmit={onFilterSubmit}
+          resetFields={resetFields}
+          setFilterOpen={setFilterOpen}
+          setColumn={setColumn}
+          setOperator={setOperator}
+          setOperators={setOperators}
+          setValues={setValues}
+          setPickedValues={setPickedValues}
+        />,
         root
       )}
     </Fragment>

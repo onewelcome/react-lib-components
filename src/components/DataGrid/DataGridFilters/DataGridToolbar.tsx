@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useReducer } from "react";
+import React, { useReducer } from "react";
 import { DataGridFilter } from "./DataGridFilter";
 import classes from "./DataGridToolbar.module.scss";
 import {
@@ -23,7 +23,6 @@ import {
   FiltersAction,
   FiltersState
 } from "./DataGridFilters.interfaces";
-import { generateID } from "../../../util/helper";
 import { Typography } from "../../Typography/Typography";
 
 export type Props = {
@@ -61,7 +60,6 @@ const filtersReducer = (state: FiltersState, action: FiltersAction): FiltersStat
   }
 };
 
-//todo export in the index.ts
 export const DataGridToolbar = ({
   columnsMetadata,
   filterValues,
@@ -76,6 +74,7 @@ export const DataGridToolbar = ({
     <div className={classes["toolbar"]}>
       {state.filters.map(filter => (
         <DataGridFilter
+          mode="EDIT"
           key={filter.id}
           filter={filter}
           columnsMetadata={columnsMetadata}
@@ -86,22 +85,24 @@ export const DataGridToolbar = ({
       ))}
       <div className={classes["actions-wrapper"]}>
         <DataGridFilter
+          mode="ADD"
           columnsMetadata={columnsMetadata}
           dispatch={dispatch}
-          addFilter
           onFilterAdd={onFilterAdd}
         />
-        {state.filters.length > 1 && (
-          <Typography
-            variant="body"
+        {state.filters.length >= 1 && (
+          <button
+            type="button"
             className={classes["clear-button"]}
             onClick={() => {
               dispatch({ type: "clear" });
               onFiltersClear && onFiltersClear();
             }}
           >
-            Clear all filters
-          </Typography>
+            <Typography variant="body" className={classes["caption"]}>
+              Clear all filters
+            </Typography>
+          </button>
         )}
       </div>
     </div>

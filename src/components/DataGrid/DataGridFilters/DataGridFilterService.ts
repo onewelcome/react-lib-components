@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,29 +14,7 @@
  *    limitations under the License.
  */
 
-@use "../../mixins.module.scss";
-
-.remove {
-  width: 1.25rem;
-  height: 1.25rem;
-  background: none;
-  border: none;
-  padding: 0;
-  margin-right: -0.375rem;
-  cursor: pointer;
-
-  &:hover {
-    border-radius: 0.125rem;
-    background-color: var(--color-black10);
-  }
-
-  &:active {
-    background-color: var(--color-blue-grey400);
-  }
-
-  @include mixins.focusVisibleOutline($outlineOffset: 0);
-
-  .icon {
-    font-size: 0.625rem;
-  }
-}
+//user can extend the list of picked values with custom ones. We need to make sure that the default list includes the user created values.
+export const mergeValues = (values: string[], pickedValues: string[]) => {
+  return Array.from(new Set([...values, ...pickedValues]));
+};
