@@ -81,7 +81,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     downloadFileLink,
     isRequired = true,
     invalidDropErrorMessage = "Invalid file format. Supported formats are: $accept.",
-    noMultipleFileDropErrorMessage = "Multiple files drop are not allowed.",
+    noMultipleFileDropErrorMessage = "You can upload only a single file.",
     ...rest
   }: Props,
   ref
@@ -175,7 +175,6 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     if (!dragActive) {
       setDragActive(true);
     }
-    onDragOver?.(e);
   };
 
   const handleOnDragLeave = (e: DragEvent<HTMLDivElement>) => {
@@ -205,7 +204,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         setErrorMsg("");
       }
       const validatedFiles = getFileList(e.dataTransfer.files);
-      onDrop?.(validatedFiles);
+      onDrop ? onDrop?.(validatedFiles) : onChange?.(validatedFiles);
     }
     setDragActive(false);
   };

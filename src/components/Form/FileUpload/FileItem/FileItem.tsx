@@ -145,7 +145,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     status: UploadProgress = ACTION_STATUS.UPLOADING
   ) => {
     return actionIcons.map(icon => (
-      <Fragment key={Math.random().toString()}>
+      <Fragment key={icon.action}>
         {icon.action !== FILE_ACTION.DOWNLOAD && (
           <Button
             color="primary"

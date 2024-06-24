@@ -56,6 +56,34 @@ const meta: Meta = {
     },
     exceedingMaxSizeErrorText: {
       control: "text"
+    },
+    onRequestedFileAction: {
+      control: "object"
+    },
+    onDragOver: {
+      table: {
+        disable: true
+      }
+    },
+    onDragLeave: {
+      table: {
+        disable: true
+      }
+    },
+    onDragEnter: {
+      table: {
+        disable: true
+      }
+    },
+    onDrop: {
+      table: {
+        disable: true
+      }
+    },
+    onChange: {
+      table: {
+        disable: true
+      }
     }
   }
 };
@@ -83,6 +111,7 @@ const Template: Story<Props & { url: string }> = args => {
   }, [updatedFiles]);
 
   const updateFileList = (action: FILE_ACTION, name: FileType["name"]) => {
+    console.log("inside updateFileList via onRequestedFileAction", action, name);
     let fileList: any[] = [];
     switch (action) {
       case FILE_ACTION.RETRY:
@@ -90,6 +119,7 @@ const Template: Story<Props & { url: string }> = args => {
           if (file.name === name) {
             delete file.status;
           }
+          console.log("file->", file);
           return file;
         });
         break;
@@ -133,7 +163,7 @@ FileUploadComponent.args = {
   subText: "Caption",
   fileList: files,
   invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
-  noMultipleFileDropErrorMessage: "Multiple files are not allowed to upload.",
+  noMultipleFileDropErrorMessage: "You can upload only a single file.",
   downloadFileLink: "http://localhost:4000/download.link"
 };
 
@@ -148,6 +178,6 @@ FileUploadComponentWithServerInteraction.args = {
   fileList: files,
   url: "http://localhost:4000/upload",
   invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
-  noMultipleFileDropErrorMessage: "Multiple files are not allowed to upload.",
+  noMultipleFileDropErrorMessage: "You can upload only a single file.",
   downloadFileLink: "http://localhost:4000/download.link"
 };
