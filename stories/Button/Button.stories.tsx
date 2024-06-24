@@ -87,7 +87,7 @@ const generateButtonStates = (types): Array<ButtonStorybookProps> => {
 };
 
 const types = [
-  { name: "color", options: ["primary", "danger", "success", "warning"] },
+  { name: "color", options: ["primary", "danger", "success", "warning", "default"] },
   { name: "variant", options: ["fill", "outline", "text"] },
   { name: "event", options: [undefined, "hover", "active", "focus"] }
 ];
