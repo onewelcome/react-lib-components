@@ -113,6 +113,44 @@ describe("DataGridToolbar should render", () => {
     expect(secondValueSelect).toHaveTextContent("");
   });
 
+  it("should allow to edit an existing filter", async () => {
+    const { getByText, getAllByText, getAllByLabelText, getAllByPlaceholderText, debug } =
+      createDataGridToolbar(prev => ({
+        ...prev,
+        filterValues: [{ id: "test", column: "name", operator: "is", value: ["test"] }]
+      }));
+
+    const editFilterButton = getByText(/name/);
+    expect(editFilterButton).toBeDefined();
+    await userEvent.click(editFilterButton);
+
+    const columnSelect = getAllByLabelText("Filter by")[0];
+    const operatorSelect = getAllByLabelText("Operator")[0];
+    const valueSelect = getAllByLabelText("Value")[0];
+
+    expect(columnSelect).toBeDefined();
+    expect(operatorSelect).toBeDefined();
+    expect(valueSelect).toBeDefined();
+
+    await userEvent.click(columnSelect);
+    await userEvent.click(getAllByText("Created")[0]);
+    expect(columnSelect).toHaveTextContent("Created");
+
+    await userEvent.click(operatorSelect);
+    await userEvent.click(getByText("after"));
+
+    await userEvent.click(valueSelect);
+    const multiSelectInput = getAllByPlaceholderText("Search item")[0];
+    await userEvent.type(multiSelectInput, "yesterday");
+    const multiSelectButton = getByText("create new", { exact: false });
+    await userEvent.click(multiSelectButton);
+
+    await userEvent.click(getAllByText("Apply")[0]);
+
+    expect(getByText(/created/)).toBeDefined();
+    expect(getByText(/yesterday/)).toBeDefined();
+  });
+
   it("should allow to remove given filter when user presses the remove button", async () => {
     const { getByText, queryByText } = createDataGridToolbar(prev => ({
       ...prev,
