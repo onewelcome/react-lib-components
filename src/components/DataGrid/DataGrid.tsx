@@ -140,7 +140,7 @@ const DataGridInner = <T extends {}>(
         paddingBottom: styleWithSpacing?.paddingBottom
       }}
     >
-      {filters && filters.enableFilters ? (
+      {filters?.enableFilters ? (
         <DataGridToolbar {...filters.filtersProps} />
       ) : (
         <DataGridActions

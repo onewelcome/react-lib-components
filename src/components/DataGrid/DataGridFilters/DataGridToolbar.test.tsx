@@ -37,7 +37,7 @@ describe("DataGridToolbar should render", () => {
   });
 
   it("should allow to create a new filter", async () => {
-    const { getByText, getByLabelText, getByPlaceholderText, debug } = createDataGridToolbar();
+    const { getByText, getByLabelText, getByPlaceholderText } = createDataGridToolbar();
 
     const addFilterButton = getByText("Add filter");
     expect(addFilterButton).toBeDefined();
@@ -72,7 +72,7 @@ describe("DataGridToolbar should render", () => {
   });
 
   it("should reset filter form values when user closes the popover", async () => {
-    const { getByText, getByLabelText, getByPlaceholderText, debug } = createDataGridToolbar();
+    const { getByText, getByLabelText, getByPlaceholderText } = createDataGridToolbar();
 
     const addFilterButton = getByText("Add filter");
     expect(addFilterButton).toBeDefined();
@@ -111,5 +111,48 @@ describe("DataGridToolbar should render", () => {
     expect(secondColumnSelect).toHaveTextContent("Name");
     expect(secondOperatorSelect).toHaveTextContent("is");
     expect(secondValueSelect).toHaveTextContent("");
+  });
+
+  it("should allow to remove given filter when user presses the remove button", async () => {
+    const { getByText, queryByText } = createDataGridToolbar(prev => ({
+      ...prev,
+      filterValues: [{ id: "test", column: "name", operator: "is", value: ["test"] }]
+    }));
+
+    expect(getByText(/name/)).toBeDefined();
+    expect(getByText(/test/)).toBeDefined();
+
+    const removeButton = getByText("Remove");
+    expect(removeButton).toBeDefined();
+    await userEvent.click(removeButton);
+
+    expect(queryByText(/name/)).not.toBeInTheDocument();
+    expect(queryByText(/test/)).not.toBeInTheDocument();
+  });
+
+  it("should remove all of the filters user presses the remove all button", async () => {
+    const { getByText, queryByText } = createDataGridToolbar(prev => ({
+      ...prev,
+      filterValues: [
+        { id: "test", column: "name", operator: "is", value: ["test"] },
+        { id: "test2", column: "created", operator: "after", value: ["yesterday"] }
+      ]
+    }));
+
+    expect(getByText(/name/)).toBeDefined();
+    expect(getByText(/test/)).toBeDefined();
+
+    expect(getByText(/created/)).toBeDefined();
+    expect(getByText(/yesterday/)).toBeDefined();
+
+    const removeAllButton = getByText("Clear all filters");
+    expect(removeAllButton).toBeDefined();
+    await userEvent.click(removeAllButton);
+
+    expect(queryByText(/name/)).not.toBeInTheDocument();
+    expect(queryByText(/test/)).not.toBeInTheDocument();
+
+    expect(queryByText(/created/)).not.toBeInTheDocument();
+    expect(queryByText(/yesterday/)).not.toBeInTheDocument();
   });
 });

@@ -66,24 +66,22 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
 
   return (
     <div {...rest} ref={triggerRef} className={classes["filter-wrapper"]}>
-      <Fragment>
-        <button type="button" className={classes["filter-button"]} onClick={onFilterOpen}>
-          {shouldRenderAddTag && (
-            <Fragment>
-              <Icon icon={Icons.AddCircle} />
-              <Typography variant="body" className={classes["caption"]}>
-                {addButtonCaption}
-              </Typography>
-            </Fragment>
-          )}
-          {shouldRenderEditTag && (
+      <button type="button" className={classes["filter-button"]} onClick={onFilterOpen}>
+        {shouldRenderAddTag && (
+          <Fragment>
+            <Icon icon={Icons.AddCircle} />
             <Typography variant="body" className={classes["caption"]}>
-              <EditTagContent filter={filter} />
+              {addButtonCaption}
             </Typography>
-          )}
-        </button>
-        {shouldRenderEditTag && <RemoveButton onRemove={onFilterRemove} />}
-      </Fragment>
+          </Fragment>
+        )}
+        {shouldRenderEditTag && (
+          <Typography variant="body" className={classes["caption"]}>
+            <EditTagContent filter={filter} />
+          </Typography>
+        )}
+      </button>
+      {shouldRenderEditTag && <RemoveButton onRemove={onFilterRemove} />}
     </div>
   );
 };
