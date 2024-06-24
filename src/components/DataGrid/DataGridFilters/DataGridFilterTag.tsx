@@ -14,56 +14,60 @@
  *    limitations under the License.
  */
 
-import React, { Fragment } from "react";
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction, Fragment } from "react";
 import { Icon, Icons } from "../../Icon/Icon";
 import { RemoveButton } from "../../Tag/RemoveButton";
 import { Typography } from "../../Typography/Typography";
 import classes from "./DataGridFilter.module.scss";
 import { Filter, FilterEditorMode } from "./DataGridFilters.interfaces";
 
-export type DataGridFilterTagProps = {
+export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
+  triggerRef: React.Ref<HTMLDivElement>;
+  filter?: Filter;
   mode: FilterEditorMode;
   onFilterRemove: () => void;
-  filter?: Filter;
-  triggerRef: React.Ref<HTMLDivElement>;
-  setFilterOpen: (value: React.SetStateAction<boolean>) => void;
-  filterOpen: boolean;
-  initialiseFilterValues: (filter?: Filter) => void;
-  addButtonCaption?: string;
   onFilterOpen: () => void;
+  addButtonCaption?: string;
+}
+
+const EditTagContent = ({ filter }: { filter: Filter }) => {
+  const { column, operator, value } = filter;
+
+  return (
+    <Fragment>
+      {column} {operator} {value.length > 0 && <b>{value[0]}</b>}
+      {value.length >= 2 && (
+        <>
+          {" "}
+          or <b> {value.length - 1} other</b>
+        </>
+      )}
+    </Fragment>
+  );
 };
 
-export const DataGridFilterTag = ({
-  triggerRef,
-  filter,
-  mode,
-  onFilterRemove,
-  onFilterOpen,
-  addButtonCaption = "Add filter"
-}: DataGridFilterTagProps) => {
+export const DataGridFilterTagComponent: ForwardRefRenderFunction<
+  HTMLDivElement,
+  DataGridFilterTagProps
+> = (
+  {
+    triggerRef,
+    filter,
+    mode,
+    onFilterRemove,
+    onFilterOpen,
+    addButtonCaption = "Add filter",
+    ...rest
+  }: DataGridFilterTagProps,
+  ref
+) => {
   const shouldRenderAddTag = mode === "ADD";
   const shouldRenderEditTag = mode === "EDIT" && filter;
 
-  const getEditTagContent = (filter: Filter) => {
-    const { column, operator, value } = filter;
-
-    return (
-      <Fragment>
-        {column} {operator} {value.length > 0 && <b>{value[0]}</b>}
-        {value.length >= 2 && (
-          <>
-            {" "}
-            or <b> {value.length - 1} other</b>
-          </>
-        )}
-      </Fragment>
-    );
-  };
-
   return (
-    <div ref={triggerRef} className={classes["filter-wrapper"]}>
+    <div {...rest} ref={triggerRef} className={classes["filter-wrapper"]}>
       <Fragment>
-        <button className={classes["filter-button"]} onClick={onFilterOpen}>
+        <button type="button" className={classes["filter-button"]} onClick={onFilterOpen}>
           {shouldRenderAddTag && (
             <Fragment>
               <Icon icon={Icons.AddCircle} />
@@ -74,7 +78,7 @@ export const DataGridFilterTag = ({
           )}
           {shouldRenderEditTag && (
             <Typography variant="body" className={classes["caption"]}>
-              {getEditTagContent(filter)}
+              <EditTagContent filter={filter} />
             </Typography>
           )}
         </button>
@@ -83,3 +87,5 @@ export const DataGridFilterTag = ({
     </div>
   );
 };
+
+export const DataGridFilterTag = React.forwardRef(DataGridFilterTagComponent);

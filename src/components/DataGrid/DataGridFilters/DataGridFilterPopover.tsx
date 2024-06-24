@@ -73,12 +73,11 @@ export const DataGridFilterPopover = ({
           <SelectWrapper
             label="Filter by"
             value={column}
-            name={""}
+            name={"column"}
             onChange={e => {
               setColumn(e.target.value);
               const columnMetadata = columnsMetadata.find(({ name }) => name === e.target.value);
 
-              //todo only reset the picked operators when changing to a column which has custom operators - check if prev had defaults
               if (columnMetadata?.operators) {
                 setOperator(columnMetadata.operators[0]);
                 setOperators(columnMetadata.operators);
@@ -105,7 +104,7 @@ export const DataGridFilterPopover = ({
           <SelectWrapper
             label="Operator"
             value={operator}
-            name={""}
+            name={"operator"}
             onChange={e => setOperator(e.target.value)}
           >
             {operators.map(operator => (
@@ -116,7 +115,7 @@ export const DataGridFilterPopover = ({
           </SelectWrapper>
           <MultiSelectWrapper
             label="Value"
-            name={""}
+            name={"value"}
             value={pickedValues}
             onChange={e =>
               setPickedValues(
@@ -129,7 +128,10 @@ export const DataGridFilterPopover = ({
               addNew: {
                 label: "Create new",
                 onAddNew: value => {
-                  value && setValues(prev => [...prev, value]);
+                  if (value) {
+                    setValues(prev => [...prev, value]);
+                    setPickedValues(prev => [...prev, value]);
+                  }
                 },
                 btnProps: { title: "Add new select option", type: "button" }
               },

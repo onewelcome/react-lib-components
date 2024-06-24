@@ -19,7 +19,6 @@ import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 import {
   DataGridColumnMetadata,
-  DefaultOperators,
   Filter,
   FilterEditorMode,
   FiltersAction
@@ -27,7 +26,7 @@ import {
 import { generateID } from "../../../util/helper";
 import { DataGridFilterTag } from "./DataGridFilterTag";
 import { DataGridFilterPopover } from "./DataGridFilterPopover";
-import { mergeValues } from "./DataGridFilterService";
+import { useDataGridFilter } from "./DataGridFilterService";
 
 export type Props = {
   mode: FilterEditorMode;
@@ -53,64 +52,36 @@ export const DataGridFilter = ({
   const wrappingDivRef = createRef<HTMLDivElement>();
   const [filterOpen, setFilterOpen] = useState(false);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
-  const [operators, setOperators] = useState<string[]>(Object.values(DefaultOperators));
-  const [column, setColumn] = useState("");
-  const [operator, setOperator] = useState("");
-  const [values, setValues] = useState<string[]>([]);
-  const [pickedValues, setPickedValues] = useState<string[]>([]);
-
-  const resetFields = () => {
-    setColumn("");
-    setOperator("");
-    setValues([]);
-    setPickedValues([]);
-  };
-
-  const initialiseFilterValues = (filter?: Filter) => {
-    if (mode === "ADD") {
-      setColumn(columnsMetadata[0].name);
-      setOperator(
-        columnsMetadata[0].operators
-          ? columnsMetadata[0].operators[0]
-          : Object.values(DefaultOperators)[0]
-      );
-
-      columnsMetadata[0].defaultValues && setValues(columnsMetadata[0].defaultValues);
-    }
-
-    if (mode === "EDIT" && filter) {
-      const { column, operator, value } = filter;
-      const columnMetadata = columnsMetadata.find(({ name }) => name === column);
-      if (!columnMetadata) return;
-
-      const { defaultValues, operators } = columnMetadata;
-
-      setColumn(column);
-
-      setOperator(operator);
-      operators && setOperators(operators);
-
-      setPickedValues(value);
-      setValues(mergeValues(defaultValues || [], value));
-    }
-  };
+  const {
+    resetFields,
+    operator,
+    setOperator,
+    operators,
+    setOperators,
+    column,
+    setColumn,
+    values,
+    setValues,
+    pickedValues,
+    setPickedValues,
+    initialiseFilterValues
+  } = useDataGridFilter(mode, columnsMetadata);
 
   const onFilterSubmit = () => {
-    //todo add error handling
     if (mode === "ADD") {
       dispatch({
         type: "add",
         payload: { id: generateID(), column, operator, value: pickedValues }
       });
       onFilterAdd && onFilterAdd({ id: generateID(), column, operator, value: pickedValues });
-    }
+    } else if (mode === "EDIT" && filter) {
+      const { id } = filter;
 
-    if (mode === "EDIT" && filter) {
       dispatch({
         type: "edit",
-        payload: { id: filter?.id, column, operator, value: pickedValues }
+        payload: { id, column, operator, value: pickedValues }
       });
-      onFilterEdit && onFilterEdit({ id: filter?.id, column, operator, value: pickedValues });
+      onFilterEdit && onFilterEdit({ id, column, operator, value: pickedValues });
     }
 
     resetFields();
@@ -119,14 +90,17 @@ export const DataGridFilter = ({
 
   const onFilterRemove = () => {
     if (!filter) return;
+    const { id } = filter;
 
-    dispatch({ type: "remove", payload: { id: filter.id } });
-    onFilterDelete && onFilterDelete(filter?.id);
+    dispatch({ type: "remove", payload: { id } });
+    onFilterDelete && onFilterDelete(id);
+
     resetFields();
+    setFilterOpen(false);
   };
 
   const onFilterOpen = () => {
-    setFilterOpen(!filterOpen);
+    setFilterOpen(true);
     if (!filterOpen) {
       initialiseFilterValues(filter);
     }
@@ -139,9 +113,6 @@ export const DataGridFilter = ({
         onFilterOpen={onFilterOpen}
         onFilterRemove={onFilterRemove}
         triggerRef={wrappingDivRef}
-        setFilterOpen={setFilterOpen}
-        filterOpen={filterOpen}
-        initialiseFilterValues={initialiseFilterValues}
         filter={filter}
       />
       {createPortal(

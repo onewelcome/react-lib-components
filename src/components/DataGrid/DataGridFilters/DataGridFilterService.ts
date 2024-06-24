@@ -14,7 +14,83 @@
  *    limitations under the License.
  */
 
+import { useState } from "react";
+import {
+  DataGridColumnMetadata,
+  DefaultOperators,
+  Filter,
+  FilterEditorMode
+} from "./DataGridFilters.interfaces";
+
 //user can extend the list of picked values with custom ones. We need to make sure that the default list includes the user created values.
 export const mergeValues = (values: string[], pickedValues: string[]) => {
   return Array.from(new Set([...values, ...pickedValues]));
+};
+
+export const useDataGridFilter = (
+  mode: FilterEditorMode,
+  columnsMetadata: DataGridColumnMetadata[]
+) => {
+  const [column, setColumn] = useState("");
+  const [operator, setOperator] = useState("");
+  const [operators, setOperators] = useState<string[]>(Object.values(DefaultOperators));
+  const [values, setValues] = useState<string[]>([]);
+  const [pickedValues, setPickedValues] = useState<string[]>([]);
+
+  const resetFields = () => {
+    setColumn("");
+    setOperator("");
+    setValues([]);
+    setPickedValues([]);
+  };
+
+  const initialiseFilterValues = (filter?: Filter) => {
+    if (mode === "ADD") {
+      const firstColumnMetadata = columnsMetadata[0];
+
+      if (!firstColumnMetadata) {
+        return;
+      }
+
+      setColumn(firstColumnMetadata.name);
+      setOperator(
+        firstColumnMetadata.operators
+          ? firstColumnMetadata.operators[0]
+          : Object.values(DefaultOperators)[0]
+      );
+      firstColumnMetadata.defaultValues && setValues(firstColumnMetadata.defaultValues);
+    }
+
+    if (mode === "EDIT" && filter) {
+      const { column, operator, value } = filter;
+      const columnMetadata = columnsMetadata.find(({ name }) => name === column);
+
+      if (!columnMetadata) {
+        return;
+      }
+
+      const { defaultValues, operators } = columnMetadata;
+
+      setColumn(column);
+      setOperator(operator);
+      operators && setOperators(operators);
+      setPickedValues(value);
+      setValues(mergeValues(defaultValues || [], value));
+    }
+  };
+
+  return {
+    resetFields,
+    initialiseFilterValues,
+    operator,
+    setOperator,
+    operators,
+    setOperators,
+    column,
+    setColumn,
+    values,
+    setValues,
+    pickedValues,
+    setPickedValues
+  };
 };

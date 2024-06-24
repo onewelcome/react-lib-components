@@ -429,12 +429,7 @@ DataGridWithFilters.args = {
         }
       ],
       columnsMetadata: [
-        {
-          name: "name",
-          headline: "Name",
-          operators: ["is", "contains", "does not contain"],
-          defaultValues: ["Stock", "Bond"]
-        },
+        { name: "name", headline: "Name" },
         { name: "created", headline: "Created", operators: ["before", "after", "between"] },
         { name: "id", headline: "Identifier" },
         { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"] },
