@@ -111,7 +111,6 @@ const Template: StoryFn<Props & { url: string }> = args => {
   }, [updatedFiles]);
 
   const updateFileList = (action: FILE_ACTION, name: FileType["name"]) => {
-    console.log("inside updateFileList via onRequestedFileAction", action, name);
     let fileList: any[] = [];
     switch (action) {
       case FILE_ACTION.RETRY:

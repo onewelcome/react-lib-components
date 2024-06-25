@@ -20,7 +20,6 @@ module.exports = {
   stories: ["../stories/intro.mdx", "../stories/**/*.@(mdx|stories.@(ts|tsx|js|jsx))"],
   addons: [
     "@storybook/addon-links",
-    "storybook-addon-mock",
     "@storybook/addon-docs",
     "@storybook/addon-essentials",
     "@storybook/addon-a11y",
@@ -28,7 +27,8 @@ module.exports = {
     "@onewelcome/storybook-addon-basestyling",
     "storybook-addon-pseudo-states",
     "@storybook/addon-webpack5-compiler-babel",
-    "@chromatic-com/storybook"
+    "@chromatic-com/storybook",
+    "storybook-addon-mock"
   ],
   webpackFinal: async (config, { configType }) => {
     config.devtool = configType === "PRODUCTION" ? false : "eval-source-map";

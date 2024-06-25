@@ -88,7 +88,7 @@ describe("File upload properties", () => {
       }),
       "file-upload-1"
     );
-    const dropZone = container.querySelector(".file-dropzone");
+    const dropZone = container.querySelector(".upload-button-wrapper");
     expect(dropZone).toHaveClass("disabled");
   });
 
