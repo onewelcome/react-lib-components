@@ -14,16 +14,9 @@
  *    limitations under the License.
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./base.scss";
-import { BaseStyling } from "../src/components/_BaseStyling_/BaseStyling";
-import { useState } from "react";
-
-// https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
-export const parameters = {
-  // https://storybook.js.org/docs/react/essentials/actions#automatically-matching-args
-  actions: { argTypesRegex: "^on.*" }
-};
+import { BaseStyling } from "../src";
 
 const Preview = story => {
   const [properties, setProperties] = useState({});

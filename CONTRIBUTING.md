@@ -215,7 +215,7 @@ const { component } = createComponent(defaultParams => ({ ...defaultParams, prop
 "Component Library MDX": {
   "prefix": "clmdx",
   "body": [
-    "import { Story, Canvas, Title, Subtitle, ArgsTable, PRIMARY_STORY } from '@storybook/addon-docs';",
+    "import { Story, Canvas, Title, Subtitle, ArgsTable } from '@storybook/addon-docs';",
     "",
     "&lt;Title />",
     "&lt;Subtitle />",
@@ -228,7 +228,7 @@ const { component } = createComponent(defaultParams => ({ ...defaultParams, prop
     "",
     "# Props",
     "",
-    "&lt;ArgsTable story={PRIMARY_STORY} />"
+    "&lt;ArgsTable/>"
   ],
   "description": "Insert MDX documentation snippet."
 },</code></pre>

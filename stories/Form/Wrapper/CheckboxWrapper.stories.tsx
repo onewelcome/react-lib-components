@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import React from "react";
 import { useEffect, useState } from "react";
 import { Checkbox } from "../../../src/components/Form/Checkbox/Checkbox";
@@ -68,7 +68,7 @@ const meta: Meta = {
 
 export default meta;
 
-const CheckboxesTemplate: Story<CheckboxWrapperProps> = args => {
+const CheckboxesTemplate: StoryFn<CheckboxWrapperProps> = args => {
   const [checkboxStates, setCheckboxStates] = useState({
     option1: false,
     option2: true,
@@ -146,7 +146,7 @@ Checkboxes.args = {
   errorMessage: "Please check all the boxes"
 };
 
-const NestedTemplate: Story<CheckboxWrapperProps> = args => {
+const NestedTemplate: StoryFn<CheckboxWrapperProps> = args => {
   const [indeterminate, setIndeterminate] = useState(true);
   const [electronics, setElectronics] = useState(false);
   const [checkedLaptop, setCheckedLaptop] = useState(true);

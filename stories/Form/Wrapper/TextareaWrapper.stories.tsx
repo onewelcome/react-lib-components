@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   TextareaWrapper as TextareaWrapperComponent,
   Props
@@ -56,7 +56,7 @@ const defaultArgs: Props = {
   errorMessage: "This is an error message"
 };
 
-const Template: Story<Props> = args => <TextareaWrapperComponent {...args} />;
+const Template: StoryFn<Props> = args => <TextareaWrapperComponent {...args} />;
 export const TextareaWrapper = Template.bind({});
 
 TextareaWrapper.args = {

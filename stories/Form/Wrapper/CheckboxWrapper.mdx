@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as CheckboxWrapperStories from "./CheckboxWrapper.stories.tsx";
 
+<Meta of={CheckboxWrapperStories} />
 <Title />
 <Subtitle />
 
@@ -202,4 +203,4 @@ const ExampleForm = () => {
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

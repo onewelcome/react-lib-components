@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Props, Tiles as TitlesComponent } from "../../src/components/Tiles/Tiles";
 import { ContextMenu, ContextMenuItem, Icon, IconButton, Icons, Tile } from "../../src";
 import TilesDocumentation from "./Tiles.mdx";
@@ -32,7 +32,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const addToFavorites = () => {
     window.alert("Add to favorites!");
   };
@@ -43,7 +43,7 @@ const Template: Story<Props> = args => {
         key="tile1"
         title="Tile1"
         imageProps={{
-          src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
+          src: "https://yt3.ggpht.com/ytc/AIdro_kADn_H24AfNf1hw5v3P3ShFuYFhlTjUsdNtZv2r1YpfyM=s68-c-k-c0x00ffffff-no-rj"
         }}
         enabled={false}
         tileAction={
@@ -101,7 +101,7 @@ const Template: Story<Props> = args => {
         key="tile4"
         title="Tile4"
         imageProps={{
-          src: "https://www.onegini.com/hubfs/OneWelcome_Beeldmerk.svg"
+          src: "https://yt3.ggpht.com/ytc/AIdro_kADn_H24AfNf1hw5v3P3ShFuYFhlTjUsdNtZv2r1YpfyM=s68-c-k-c0x00ffffff-no-rj"
         }}
         enabled={false}
         tileAction={

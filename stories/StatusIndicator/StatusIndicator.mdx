@@ -1,13 +1,21 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as StatusIndicatorStories from "./StatusIndicator.stories.tsx";
 
-<div style={{color: "red", fontSize: "2em", padding: "1em", border: "2px solid red", borderRadius: "5px", backgroundColor: "pink"}}>
-  
-**THIS COMPONENT HAS BEEN DEPRECATED IN FAVOR OF THE [TAG COMPONENT](?path=/docs/components-feedback-tag--docs)**
+<div style={{
+    color: "red",
+    fontSize: "2em",
+    padding: "1em",
+    border: "2px solid red",
+    borderRadius: "5px",
+    backgroundColor: "pink"
+}}>
+
+    **THIS COMPONENT HAS BEEN DEPRECATED IN FAVOR OF THE [TAG COMPONENT](?path=/docs/components-feedback-tag--docs)**
 
 </div>
-<br />
+<br/>
 
+<Meta of={StatusIndicatorStories} />
 <Title />
 <Subtitle />
 
@@ -23,4 +31,4 @@ It accepts a `status` prop, which can be used to change the badge's color and a 
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

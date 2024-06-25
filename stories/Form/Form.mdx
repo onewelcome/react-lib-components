@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as FormStories from "./Form.stories.tsx";
 
+<Meta of={FormStories} />
 <Title />
 <Subtitle />
 
@@ -38,4 +39,4 @@ The `Form` component is a wrapper element. That means you can wrap any `FormElem
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

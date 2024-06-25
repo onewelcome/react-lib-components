@@ -17,10 +17,9 @@
 import React from "react";
 import { Meta } from "@storybook/react";
 import { TextEllipsis as TextEllipsisComponent } from "../../src/components/TextEllipsis/TextEllipsis";
-import { Typography } from "../../src/components/Typography/Typography";
+import { Typography } from "../../src";
 import TextEllipsisDocumentation from "./TextEllipsis.mdx";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 
 export default {

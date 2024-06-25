@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as TagStories from "./Tag.stories.tsx";
 
+<Meta of={TagStories} />
 <Title />
 <Subtitle />
 
@@ -12,7 +13,7 @@ The tag component is used to display a short string describing an item or a stat
 ## Usage
 
 ```jsx
-import { Icons, Tag } from "@onewelcome/react-lib-components";
+import { Tag } from "@onewelcome/react-lib-components";
 
 <Tag variant="enabled">Enabled</Tag>;
 ```
@@ -22,7 +23,7 @@ import { Icons, Tag } from "@onewelcome/react-lib-components";
 </Canvas>
 
 ```jsx
-import { Icons, Tag } from "@onewelcome/react-lib-components";
+import { Tag } from "@onewelcome/react-lib-components";
 
 <Tag variant="disabled">Disabled</Tag>;
 ```
@@ -57,4 +58,4 @@ The icon prop can be any of the icons exported by the `@onewelcome/react-lib-com
 
 The removeButton can be set to show remove icon on the right side of the tag. Provide at least the `onRemove` callback to make it visible.
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

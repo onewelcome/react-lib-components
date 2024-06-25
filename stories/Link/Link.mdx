@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as LinkStories from "./Link.stories.tsx";
 
+<Meta of={LinkStories} />
 <Title />
 <Subtitle />
 
@@ -47,4 +48,4 @@ By doing this you ensure that the Link component has access to the Router contex
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

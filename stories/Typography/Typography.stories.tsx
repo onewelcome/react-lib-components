@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   Props,
   Typography as TypographyComponent,
@@ -29,6 +29,10 @@ const meta: Meta = {
   parameters: {
     docs: {
       page: TypographyDocumentation
+    },
+    chromatic: {
+      delay: 300,
+      diffThreshold: 0.9 //To not look at font change, checked with https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out
     }
   },
   argTypes: {
@@ -41,7 +45,9 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <TypographyComponent {...args}>content</TypographyComponent>;
+const Template: StoryFn<Props> = args => (
+  <TypographyComponent {...args}>content</TypographyComponent>
+);
 
 export const Typography = Template.bind({});
 

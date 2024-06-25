@@ -159,17 +159,17 @@ export { FileUpload } from "./components/Form/FileUpload/FileUpload";
 export type { Props as FileUploadProps } from "./components/Form/FileUpload/FileUpload";
 export { MultiSelectWrapper } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 export type { Props as MultiSelectWrapperProps } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
-export { FormHeader } from "./components/Layout/FormPage/FormHeader/FormHeader";
-export type { Props as FormHeaderProps } from "./components/Layout/FormPage/FormHeader/FormHeader";
-export { FormAside } from "./components/Layout/FormPage/FormAside/FormAside";
+export { ContentHeader } from "./components/Layout/ContentHeader/ContentHeader";
+export type { Props as ContentHeaderProps } from "./components/Layout/ContentHeader/ContentHeader";
+export { FormStepper } from "./components/Layout/FormPage/FormWithStepper/FormStepper/FormStepper";
 export type {
-  Props as FormAsideProps,
+  Props as FormStepperProps,
   FormStepProps
-} from "./components/Layout/FormPage/FormAside/FormAside";
-export { FormSection } from "./components/Layout/FormPage/FormSection/FormSection";
-export type { Props as FormSectionProps } from "./components/Layout/FormPage/FormSection/FormSection";
-export { FormTemplate } from "./components/Layout/FormPage/FormTemplate/FormTemplate";
-export type { Props as FormTemplateProps } from "./components/Layout/FormPage/FormTemplate/FormTemplate";
+} from "./components/Layout/FormPage/FormWithStepper/FormStepper/FormStepper";
+export { FormSection } from "./components/Layout/FormPage/FormWithStepper/FormSection/FormSection";
+export type { Props as FormSectionProps } from "./components/Layout/FormPage/FormWithStepper/FormSection/FormSection";
+export { FormWithStepper } from "./components/Layout/FormPage/FormWithStepper/FormWithStepper";
+export type { Props as FormWithStepperProps } from "./components/Layout/FormPage/FormWithStepper/FormWithStepper";
 
 /** Wizard */
 export { Wizard } from "./components/Wizard/Wizard";
@@ -188,9 +188,15 @@ export type {
 export type { HeaderCell } from "./components/DataGrid/datagrid.interfaces";
 export { DataGrid } from "./components/DataGrid/DataGrid";
 export type { Props as DataGridProps } from "./components/DataGrid/DataGrid";
-export { DataGridRow } from "./components/DataGrid/DataGridBody/DataGridRow";
-export type { Props as DataGridRowProps } from "./components/DataGrid/DataGridBody/DataGridRow";
-export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell";
-export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell";
+export { DataGridRow } from "./components/DataGrid/DataGridBody/DataGridRow/DataGridRow";
+export type { Props as DataGridRowProps } from "./components/DataGrid/DataGridBody/DataGridRow/DataGridRow";
+export { DataGridDrawerItem } from "./components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
+export type { Props as DataGridDrawerItemProps } from "./components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
+export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
+export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
 export { Banner } from "./components/Notifications/Banner/Banner";
 export type { Props as BannerProps } from "./components/Notifications/Banner/Banner";
+
+/** Admin */
+export { MicrofrontendContainer } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
+export type { Props as MicrofrontendContainerProps } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";

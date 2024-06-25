@@ -17,7 +17,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
-  stories: ["../stories/intro.stories.mdx", "../stories/**/*.stories.@(ts|tsx|js|jsx|mdx)"],
+  stories: ["../stories/intro.mdx", "../stories/**/*.@(mdx|stories.@(ts|tsx|js|jsx))"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-docs",
@@ -25,7 +25,9 @@ module.exports = {
     "@storybook/addon-a11y",
     "@storybook/addon-interactions",
     "@onewelcome/storybook-addon-basestyling",
-    "storybook-addon-pseudo-states"
+    "storybook-addon-pseudo-states",
+    "@storybook/addon-webpack5-compiler-babel",
+    "@chromatic-com/storybook"
   ],
   webpackFinal: async (config, { configType }) => {
     config.devtool = configType === "PRODUCTION" ? false : "eval-source-map";
@@ -67,9 +69,9 @@ module.exports = {
     return config;
   },
   typescript: {
-    check: true
+    check: true,
+    reactDocgen: "react-docgen-typescript"
   },
-
   staticDirs: ["../public"],
   docs: {
     autodocs: true

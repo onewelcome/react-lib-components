@@ -42,6 +42,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   emptyLabel?: string;
   paginationProps?: PaginationProps;
   disableContextMenuColumn?: boolean;
+  enableExpandableRow?: boolean;
   isLoading?: boolean;
   enableMultiSorting?: boolean;
   spacing?: Spacing;
@@ -57,6 +58,7 @@ const DataGridInner = <T extends {}>(
     actions = {},
     paginationProps,
     disableContextMenuColumn,
+    enableExpandableRow,
     isLoading,
     enableMultiSorting,
     emptyLabel,
@@ -70,7 +72,7 @@ const DataGridInner = <T extends {}>(
     throw new Error("Headers definition has to be provided");
   }
   if (!children) {
-    throw new Error("DataGridBody should be provieded with a template how to render rows");
+    throw new Error("DataGridBody should be provided with a template how to render rows");
   }
 
   const [internalHeaders, setInternalHeaders] = useState(headers);
@@ -140,6 +142,7 @@ const DataGridInner = <T extends {}>(
             initialSort={initialSort}
             onSort={onSort}
             disableContextMenuColumn={disableContextMenuColumn}
+            enableExpandableRow={enableExpandableRow}
             enableMultiSorting={enableMultiSorting}
             spacing={styleWithSpacing}
           />

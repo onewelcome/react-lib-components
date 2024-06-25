@@ -27,20 +27,6 @@ const meta: Meta = {
     docs: {
       page: IconButtonDocumentation
     }
-  },
-  argTypes: {
-    color: {
-      options: ["default", "primary", "secondary", "tertiary"],
-      control: {
-        type: "radio"
-      }
-    },
-    variant: {
-      options: ["text", "fill", "outline"],
-      control: {
-        type: "radio"
-      }
-    }
   }
 };
 
@@ -61,4 +47,5 @@ IconButton.args = {
   type: "button",
   title: "components/Calendar"
 };
+
 IconButton.storyName = "IconButton";

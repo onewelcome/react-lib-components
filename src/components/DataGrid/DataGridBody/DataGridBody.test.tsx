@@ -17,8 +17,8 @@
 import React, { useEffect, useRef } from "react";
 import { DataGridBody, Props } from "./DataGridBody";
 import { render, getAllByRole } from "@testing-library/react";
-import { DataGridRow } from "./DataGridRow";
-import { DataGridCell } from "./DataGridCell";
+import { DataGridRow } from "./DataGridRow/DataGridRow";
+import { DataGridCell } from "./DataGridCell/DataGridCell";
 import { ContextMenu } from "../../ContextMenu/ContextMenu";
 import { IconButton } from "../../Button/IconButton";
 import { Icon, Icons } from "../../Icon/Icon";

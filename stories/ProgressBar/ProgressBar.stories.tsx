@@ -15,7 +15,7 @@
  */
 
 import React, { Fragment, useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   ProgressBar as ProgressBarComponent,
   Props
@@ -34,7 +34,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {

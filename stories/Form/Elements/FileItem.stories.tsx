@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { FileItem, Props } from "../../../src/components/Form/FileUpload/FileItem/FileItem";
 import FileItemDocumentation from "./FileItem.mdx";
 
@@ -49,11 +49,12 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   return <FileItem {...args} />;
 };
 
 export const FileItemCompleted = Template.bind({});
+
 FileItemCompleted.args = {
   name: "test.txt",
   status: "completed",
@@ -61,6 +62,7 @@ FileItemCompleted.args = {
 };
 
 export const FileItemError = Template.bind({});
+
 FileItemError.args = {
   name: "test.txt",
   status: "error",
@@ -68,6 +70,7 @@ FileItemError.args = {
 };
 
 export const FileItemProgress = Template.bind({});
+
 FileItemProgress.args = {
   name: "test.txt",
   status: "uploading",
@@ -75,6 +78,7 @@ FileItemProgress.args = {
 };
 
 export const FileItemReadOnly = Template.bind({});
+
 FileItemReadOnly.args = {
   name: "test.txt",
   status: "readonly"

@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as TileStories from "./Tile.stories.tsx";
 
+<Meta of={TileStories} />
 <Title />
 <Subtitle />
 
@@ -34,4 +35,4 @@ This prop will be inherited from the `Tiles` wrapper component. But if you use `
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

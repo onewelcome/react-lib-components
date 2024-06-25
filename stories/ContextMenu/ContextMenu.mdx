@@ -1,7 +1,8 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import "./ContextMenuDocumentation.css";
 import * as ContextMenuStories from "./ContextMenu.stories.tsx";
 
+<Meta of={ContextMenuStories} />
 <Title />
 <Subtitle />
 
@@ -109,4 +110,4 @@ const onChange = (_e: unknown, itemNo: number) => setItemNo(itemNo);
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

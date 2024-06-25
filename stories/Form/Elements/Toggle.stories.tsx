@@ -15,12 +15,11 @@
  */
 
 import React, { useState } from "react";
-import { Meta, Story, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Toggle as ToggleComponent } from "../../../src/components/Form/Toggle/Toggle";
 import { Props } from "../../../src/components/Form/Checkbox/Checkbox";
 import ToggleDocumentation from "./Toggle.mdx";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {

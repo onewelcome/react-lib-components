@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as SelectWrapperStories from "./SelectWrapper.stories.tsx";
 
+<Meta of={SelectWrapperStories} />
 <Title />
 <Subtitle />
 
@@ -52,4 +53,4 @@ const ExampleComponent = () => {
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

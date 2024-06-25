@@ -1,7 +1,8 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
-import { Icon, Icons } from "../../src/components/Icon/Icon.tsx";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import { Icons, Icon } from "../../src/components/Icon/Icon.tsx";
 import * as TooltipStories from "./Tooltip.stories.tsx";
 
+<Meta of={TooltipStories} />
 <Title />
 <Subtitle />
 
@@ -82,4 +83,4 @@ const Example = () => (
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

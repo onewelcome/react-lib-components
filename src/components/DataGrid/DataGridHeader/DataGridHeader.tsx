@@ -23,6 +23,7 @@ export interface Props extends ComponentPropsWithRef<"thead"> {
   headers: HeaderCell[];
   initialSort?: Sort;
   onSort?: OnSortFunction;
+  enableExpandableRow?: boolean;
   disableContextMenuColumn?: boolean;
   enableMultiSorting?: boolean;
   spacing?: React.CSSProperties;
@@ -36,6 +37,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
     onSort,
     headers,
     disableContextMenuColumn,
+    enableExpandableRow,
     enableMultiSorting,
     spacing,
     ...rest
@@ -54,7 +56,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
   };
 
   /**
-   * The sortList contains sorting columns objects. The order of those objects determinates priorities of sorting.
+   * The sortList contains sorting columns objects. The order of those objects determines priorities of sorting.
    * Last modified sorting column has the highest priority.
    */
   const updateSortList = (name: string): Sort => {
@@ -105,6 +107,9 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
   return (
     <thead {...rest} ref={ref}>
       <tr className={classes["row"]}>
+        {enableExpandableRow && (
+          <td style={{ paddingRight: spacing?.paddingRight }} aria-label="expandable row"></td>
+        )}
         {headerCells}
         {!disableContextMenuColumn && (
           <td

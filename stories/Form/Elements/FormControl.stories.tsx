@@ -15,7 +15,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   FormControl as FormControlComponent,
   Props
@@ -57,7 +57,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [selectValue, setSelectValue] = useState("option1");
   const [prefix, setPrefix] = useState("mr");
   const [preferredMobileDevice, setPreferredMobileDevice] = useState("mobile");

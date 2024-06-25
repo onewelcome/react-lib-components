@@ -1,7 +1,8 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import LinkTo from "@storybook/addon-links/react";
 import * as DataGridStories from "./DataGrid.stories.tsx";
 
+<Meta of={DataGridStories} />
 <Title />
 <Subtitle />
 
@@ -124,6 +125,58 @@ The last cell of each row is reserved for item actions that can affect it, which
 </DataGrid>
 ```
 
+### Expandable rows
+
+In order to enable expandable rows, user has to set `enableExpandableRow` prop to `true` and provide it both to the `DataGrid` component.
+Furthermore `DataGridRow` consumes `expandableRowPros` which is an object with following required properties:
+
+- `enableExpandableRow` - takes `boolean` value which indicates if given row should be expandable or not.
+- `expandableRowContent` - takes `ReactNode` which can be used to set what sort of content should be displayed in the row.
+  You can use the `DataGridDrawerItem` to display the data within the table expandable row. It provides all of the correct styling for the title and description
+  and allows to pass custom components via `children` so it can be used to display data other than simple text.
+
+```jsx
+const expandableRowHeaders= [
+    { name: "description", headline: "Description" },
+    { name: "metadata", headline: "Metadata" }
+  ];
+
+<DataGrid
+  headers={[
+    { name: 'index', headline: '#' },
+    { name: 'name', headline: 'Name' },
+    { name: 'number', headline: 'Random number' },
+  ]}
+  enableExpandableRow={true}
+  data={[...]}
+  spacing={{ paddingLeft: 4, paddingRight: 8 }}
+>
+  {({ item, index }) => (
+    <DataGridRow
+      key={item.id}
+      expandableRowProps= {{
+        enableExpandableRow:true,
+        expandableRowContent: (
+          <Fragment>
+            {expandableRowHeaders?.map(({ name, headline }) => (
+              <DataGridDrawerItem key={name} title={headline} description={item[name]} />
+            ))}
+          </Fragment>),
+        }
+      }
+
+    >
+      <DataGridCell>{index + 1}</DataGridCell>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{Math.random()}</DataGridCell>
+      <DataGridCell>
+        <ContextMenu ... />
+      </DataGridCell>
+    </DataGridRow>
+  )}
+</DataGrid>
+```
+
 ### Disabling context menu column
 
 To disable context menu column set the `disableContextMenuColumn` property to `true`.
@@ -197,4 +250,4 @@ An example can be found below:
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

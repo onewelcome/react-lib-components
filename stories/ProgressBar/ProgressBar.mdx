@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as ProgressBarStories from "./ProgressBar.stories.tsx";
 
+<Meta of={ProgressBarStories} />
 <Title />
 <Subtitle />
 
@@ -136,4 +137,4 @@ const Example = () => {
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

@@ -122,7 +122,7 @@ export const FormControlExample = ({ index, updateStepStatus }: Props) => {
   };
 
   return (
-    <Form style={{ padding: "20px", backgroundColor: "#F5F8F8" }}>
+    <Form style={{ padding: "20px" }}>
       <FormControlComponent grid={3} align={"center"}>
         <RadioWrapper
           error={false}

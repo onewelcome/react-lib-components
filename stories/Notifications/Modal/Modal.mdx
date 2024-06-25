@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as ModalStories from "./Modal.stories.tsx";
 
+<Meta of={ModalStories} />
 <Title />
 <Subtitle />
 
@@ -66,4 +67,4 @@ In the below code snippet, you'll see how you can create a `Modal` with simple f
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   Textarea as TextareaComponent,
   Props
@@ -45,7 +45,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <TextareaComponent {...args} />;
+const Template: StoryFn<Props> = args => <TextareaComponent {...args} />;
 
 export const Textarea = Template.bind({});
 

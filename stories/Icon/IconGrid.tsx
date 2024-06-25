@@ -15,7 +15,7 @@
  */
 
 import React, { HTMLProps, ReactChild } from "react";
-import { Icon, Icons } from "../../src/components/Icon/Icon";
+import { Icon, Icons } from "../../src";
 
 export interface Props extends HTMLProps<HTMLDivElement> {
   children?: ReactChild;

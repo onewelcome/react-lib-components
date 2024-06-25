@@ -3,7 +3,7 @@
 exports[`DataGridBody should render renders without crashing 1`] = `
 [
   <tr
-    class="row"
+    class="row border"
   >
     <td
       class="cell "
@@ -67,7 +67,7 @@ exports[`DataGridBody should render renders without crashing 1`] = `
     </td>
   </tr>,
   <tr
-    class="row"
+    class="row border"
   >
     <td
       class="cell "
@@ -131,7 +131,7 @@ exports[`DataGridBody should render renders without crashing 1`] = `
     </td>
   </tr>,
   <tr
-    class="row"
+    class="row border"
   >
     <td
       class="cell "
@@ -195,7 +195,7 @@ exports[`DataGridBody should render renders without crashing 1`] = `
     </td>
   </tr>,
   <tr
-    class="row"
+    class="row border"
   >
     <td
       class="cell "

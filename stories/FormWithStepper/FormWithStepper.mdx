@@ -1,0 +1,18 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as FormWithStepperStories from "./FormWithStepper.stories.tsx";
+
+<Meta of={FormWithStepperStories} />
+<Title />
+<Subtitle />
+
+The `FormWithStepper` component will be used as a wrapper component that contains FormHeader, FormStepper or Stepper and form. Its root element is the default HTML `div` tag and thus also accepts all of its HTML attributes. You should use this component whenever you want to create a `FormWithStepper`.
+
+# Example
+
+<Canvas>
+  <Story of={FormWithStepperStories.FormWithStepperComponent} />
+</Canvas>
+
+# Props
+
+<ArgTypes />

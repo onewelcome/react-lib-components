@@ -1,6 +1,7 @@
-import { Canvas, Story, Title, Subtitle, ArgTypes, PRIMARY_STORY } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as BannerStories from "./Banner.stories.tsx";
 
+<Meta of={BannerStories} />
 <Title />
 <Subtitle />
 
@@ -21,4 +22,4 @@ Variants:
 
 # Props
 
-<ArgTypes story={PRIMARY_STORY} />
+<ArgTypes />

@@ -17,3 +17,7 @@ test-report.xml
 *.ipr
 *.iws
 .idea/
+
+# yalc
+/.yalc/
+/yalc.lock

@@ -15,7 +15,7 @@
  */
 
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Form as FormComponent, Props } from "../../src/components/Form/Form";
 import { InputWrapper } from "../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import { Fieldset } from "../../src/components/Form/Fieldset/Fieldset";
@@ -33,7 +33,7 @@ import { Toggle } from "../../src/components/Form/Toggle/Toggle";
 import FormDocumentation from "./Form.mdx";
 
 const meta: Meta = {
-  title: "Components/layout/Form",
+  title: "Components/Layout/Form",
   component: FormComponent,
   parameters: {
     docs: {
@@ -55,7 +55,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => {
+const Template: StoryFn<Props> = args => {
   const [input1, setInput1] = useState({ error: false, value: "", errorMessage: "" });
   const [subscribe, setSubscribe] = useState({
     error: false,
