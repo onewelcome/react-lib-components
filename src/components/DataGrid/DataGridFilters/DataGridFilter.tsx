@@ -69,11 +69,13 @@ export const DataGridFilter = ({
 
   const onFilterSubmit = () => {
     if (mode === "ADD") {
+      const id = generateID();
+
       dispatch({
         type: "add",
-        payload: { id: generateID(), column, operator, value: pickedValues }
+        payload: { id, column, operator, value: pickedValues }
       });
-      onFilterAdd && onFilterAdd({ id: generateID(), column, operator, value: pickedValues });
+      onFilterAdd && onFilterAdd({ id, column, operator, value: pickedValues });
     } else if (mode === "EDIT" && filter) {
       const { id } = filter;
 

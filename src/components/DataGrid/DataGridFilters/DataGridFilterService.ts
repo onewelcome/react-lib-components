@@ -58,6 +58,7 @@ export const useDataGridFilter = (
           ? firstColumnMetadata.operators[0]
           : Object.values(DefaultOperators)[0]
       );
+      firstColumnMetadata.operators && setOperators(firstColumnMetadata.operators);
       firstColumnMetadata.defaultValues && setValues(firstColumnMetadata.defaultValues);
     }
 

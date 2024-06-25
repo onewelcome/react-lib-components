@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
 import {
@@ -26,8 +26,7 @@ import {
   DataGridRow,
   Icon,
   IconButton,
-  Icons,
-  generateID
+  Icons
 } from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
@@ -39,7 +38,7 @@ import { ModalContent } from "../../src/components/Notifications/Modal/ModalCont
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
-import { DefaultOperators } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
+import { Filter } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
 
 interface DataGridItem {
   name: string;
@@ -398,42 +397,99 @@ ExpandableDataGrid.play = conditionalPlay(async ({ canvasElement }) => {
   });
 });
 
-export const DataGridWithFilters = Template.bind({});
+const DataGridWithFiltersTemplate = args => {
+  const [filters, setFilters] = useState<Filter[]>([]);
+
+  const [gridData, setGridData] = useState(args.data);
+
+  const onFilterAdd = (filter: Filter) => setFilters(prev => [...prev, filter]);
+
+  const onFilterEdit = (filter: Filter) =>
+    setFilters(prev => prev.map(f => (f.id === filter.id ? filter : f)));
+
+  const onFilterDelete = (id: string) =>
+    setFilters(prev => [...prev.filter(value => value.id !== id)]);
+
+  const onFiltersClear = () => setFilters([]);
+
+  const operatorPredicateMap = {
+    is: (v1, v2) => v1 === v2,
+    isNot: (v1, v2) => v1 !== v2
+  };
+
+  useEffect(() => {
+    const filteredData = args.data
+      .map(row => {
+        let shouldBeDiscarded = false;
+        filters.forEach(filter => {
+          shouldBeDiscarded = !filter.value.reduce((acc, val) => {
+            return operatorPredicateMap[filter.operator](row[filter.column], val) && acc;
+          }, true);
+        });
+
+        return shouldBeDiscarded ? undefined : row;
+      })
+      .filter(val => val !== undefined);
+    setGridData(filteredData);
+  }, [filters]);
+
+  return (
+    <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
+      <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
+        <DataGridComponent
+          {...args}
+          data={gridData}
+          filters={{
+            ...args.filters,
+            filtersProps: {
+              ...args.filters.filtersProps,
+              onFilterAdd,
+              onFilterEdit,
+              onFilterDelete,
+              onFiltersClear
+            }
+          }}
+        >
+          {({ item }: { item: DataGridItem }) => (
+            <DataGridRow key={item.id}>
+              <DataGridCell>{item.name}</DataGridCell>
+              <DataGridCell>{item.type}</DataGridCell>
+            </DataGridRow>
+          )}
+        </DataGridComponent>
+      </div>
+    </div>
+  );
+};
+
+export const DataGridWithFilters = DataGridWithFiltersTemplate.bind({});
 
 DataGridWithFilters.args = {
   data: [
     {
-      name: "Company 1",
-      created: new Date(2023, 0, 1),
       id: "1",
-      type: "Stock",
-      enabled: true
+      name: "Company 1",
+      type: "Stock"
+    },
+
+    {
+      id: "2",
+      name: "Company 2",
+      type: "Bond"
     },
     {
-      name: "Company 2",
-      created: new Date(2023, 0, 2),
-      id: "2",
-      type: "Stock",
-      enabled: false
+      id: "3",
+      name: "Company 1",
+      type: "Bond"
     }
   ],
   filters: {
     enableFilters: true,
     filtersProps: {
-      filterValues: [
-        {
-          id: generateID(),
-          column: "name",
-          operator: DefaultOperators.is,
-          value: ["test", "test2"]
-        }
-      ],
+      filterValues: [],
       columnsMetadata: [
-        { name: "name", headline: "Name" },
-        { name: "created", headline: "Created", operators: ["before", "after", "between"] },
-        { name: "id", headline: "Identifier" },
-        { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"] },
-        { name: "enabled", headline: "Status" }
+        { name: "name", headline: "Name", operators: ["is", "is not"] },
+        { name: "type", headline: "Type", operators: ["is", "is not"] }
       ],
       onFilterAdd: filter => console.log(filter),
       onFilterEdit: filter => console.log(filter),
@@ -443,10 +499,7 @@ DataGridWithFilters.args = {
   },
   headers: [
     { name: "name", headline: "Name" },
-    { name: "created", headline: "Created" },
-    { name: "id", headline: "Identifier" },
-    { name: "type", headline: "Type", disableSorting: true },
-    { name: "enabled", headline: "Status", disableSorting: true }
+    { name: "type", headline: "Type", disableSorting: true }
   ],
   initialSort: [
     { name: "name", direction: "ASC" },
