@@ -119,7 +119,6 @@ const Template: StoryFn<Props & { url: string }> = args => {
           if (file.name === name) {
             delete file.status;
           }
-          console.log("file->", file);
           return file;
         });
         break;
@@ -180,4 +179,19 @@ FileUploadComponentWithServerInteraction.args = {
   invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
   noMultipleFileDropErrorMessage: "You can upload only a single file.",
   downloadFileLink: "http://localhost:4000/download.link"
+};
+
+// Mock upload file and return success response
+FileUploadComponentWithServerInteraction.parameters = {
+  mockData: [
+    {
+      url: "http://localhost:4000/upload",
+      method: "POST",
+      status: 201,
+      body: {},
+      response: {
+        data: "File successfully uploaded on server"
+      }
+    }
+  ]
 };
