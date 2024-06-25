@@ -103,7 +103,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     subTextClass.push(errorClass);
     errorTextClass.push(errorClass);
   }
-  disabled && dropzoneClassNames.push(classes["disabled"]);
+  disabled && dropzoneContainerClassNames.push(classes["disabled"]);
   success && !error && dropzoneClassNames.push(classes["success"]);
 
   const getFileList = (files: FileList | null): FileType[] => {

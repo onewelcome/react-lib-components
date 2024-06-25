@@ -51,10 +51,14 @@
     }
   }
 
-  &.disabled {
-    pointer-events: none;
-    background-color: var(--disabled);
-    color: var(--greyed-out);
+  .upload-button-wrapper {
+    &.disabled {
+      pointer-events: none;
+
+      p {
+        color: var(--color-blue-grey400);
+      }
+    }
   }
 
   span[data-icon-status] {
