@@ -183,6 +183,13 @@ FileUploadComponentWithServerInteraction.args = {
 
 // Mock upload file and return success response
 FileUploadComponentWithServerInteraction.parameters = {
+  mockAddonConfigs: {
+    globalMockData: [],
+    ignoreQueryParams: true, // Whether or not to ignore query parameters globally
+    refreshStoryOnUpdate: true, // This property re-renders the story if there's any data changes
+    disableUsingOriginal: false, // This property disables the toggle (on/off) option to use the original endpoint
+    disable: false // This property disables the panel from all the stories
+  },
   mockData: [
     {
       url: "http://localhost:4000/upload",
