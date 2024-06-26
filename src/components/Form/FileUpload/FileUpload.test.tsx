@@ -286,6 +286,45 @@ describe("upload action", () => {
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
+  it("shows error when only single file upload enabled", async () => {
+    const onDrop = jest.fn();
+    const { container } = createComponent(
+      defaultParams => ({
+        ...defaultParams,
+        onDrop,
+        fileList: []
+      }),
+      "file-upload-6"
+    );
+
+    const file = new File([""], "test.jpg", {
+      type: "image/jpg"
+    });
+    const file2 = new File([""], "test2.jpg", {
+      type: "image/jpg"
+    });
+
+    const eventData = {
+      dataTransfer: {
+        files: [file, file2]
+      }
+    };
+
+    const dropZone = container.querySelector(".upload-button-wrapper") as Element;
+    const dropEvent = createEvent.drop(dropZone, eventData);
+
+    await waitFor(() => {
+      fireEvent(dropZone, dropEvent);
+    });
+
+    const dragDropWrapper = container.querySelector(".file-dropzone") as Element;
+    const errorMessage = container.querySelector(".file-selector-sub-text") as Element;
+
+    expect(dragDropWrapper.classList.contains("error")).toBeTruthy();
+    expect(errorMessage.classList.contains("error")).toBeTruthy();
+    expect(errorMessage.innerHTML).toStrictEqual("You can upload only a single file.");
+  });
+
   it("doesn't upload a file two times", async () => {
     const onChange = jest.fn();
     const { component } = createComponent(
@@ -345,6 +384,44 @@ describe("upload action", () => {
     });
 
     expect(onDrop).toHaveBeenCalledTimes(0);
+  });
+
+  it("show error state and error message on drop of invalid extension file", async () => {
+    const onDrop = jest.fn();
+    const { container } = createComponent(
+      defaultParams => ({
+        ...defaultParams,
+        onDrop,
+        fileList: []
+      }),
+      "file-upload-6"
+    );
+
+    const file = new File([""], "test.png", {
+      type: "image/png"
+    });
+
+    const eventData = {
+      dataTransfer: {
+        files: [file]
+      }
+    };
+
+    const dropZone = container.querySelector(".upload-button-wrapper") as Element;
+    const dropEvent = createEvent.drop(dropZone, eventData);
+
+    await waitFor(() => {
+      fireEvent(dropZone, dropEvent);
+    });
+
+    const dragDropWrapper = container.querySelector(".file-dropzone") as Element;
+    const errorMessage = container.querySelector(".file-selector-sub-text") as Element;
+
+    expect(dragDropWrapper.classList.contains("error")).toBeTruthy();
+    expect(errorMessage.classList.contains("error")).toBeTruthy();
+    expect(errorMessage.innerHTML).toStrictEqual(
+      `Invalid file format. Supported formats are: ${defaultParams.accept}.`
+    );
   });
 
   afterEach(() => {
