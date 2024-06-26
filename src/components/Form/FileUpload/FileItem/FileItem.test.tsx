@@ -7,6 +7,8 @@ const defaultParams: Props = {
   name: "Test.txt"
 };
 
+const errorMessage = "Network error. Check internet connection and retry uploading the file";
+
 const createFileItem = (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;
   if (params) {
@@ -20,6 +22,7 @@ const createFileItem = (params?: (defaultParams: Props) => Props) => {
   const actionIcons = component.querySelectorAll(".action-icon");
   const errorSubtitle = component.querySelector(".file-subtitle");
   const progressBar = component.querySelector(".progress-bar");
+  const failedFileItemError = component.querySelector(".file-subtitle.retry");
 
   return {
     ...queries,
@@ -29,7 +32,8 @@ const createFileItem = (params?: (defaultParams: Props) => Props) => {
     actionIcons,
     errorSubtitle,
     progressBar,
-    errorIcon
+    errorIcon,
+    failedFileItemError
   };
 };
 
@@ -94,14 +98,26 @@ describe("component should change display the correct style and elements accordi
     expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.REMOVE);
   });
 
+  it("should show error message and error state for failed upload", () => {
+    const { failedFileItemError } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "retry",
+      error: errorMessage
+    }));
+    expect(failedFileItemError).not.toBeNull();
+    expect(failedFileItemError?.innerHTML).toStrictEqual(errorMessage);
+    expect(failedFileItemError?.classList.contains("retry")).toBeTruthy();
+  });
+
   it("should show Delete & Download option for successfully uploaded file", () => {
-    const { actionIcons, title } = createFileItem(defaultParams => ({
+    const { actionIcons, title, errorIcon } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "completed",
       downloadFileLink: "https://test.com/download"
     }));
 
     expect(title).toHaveClass("completed");
+    expect(errorIcon).toBeNull();
     expect(actionIcons[0]).toHaveClass("icon-trash");
     expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.DELETE);
     expect(actionIcons[1]).toHaveClass("icon-download-file-outline");

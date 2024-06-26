@@ -140,10 +140,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     ></Icon>
   );
 
-  const renderActionIcons = (
-    actionIcons: { type: Icons; action: FILE_ACTION }[],
-    status: UploadProgress = ACTION_STATUS.UPLOADING
-  ) => {
+  const renderActionIcons = (actionIcons: { type: Icons; action: FILE_ACTION }[]) => {
     return actionIcons.map(icon => (
       <Fragment key={icon.action}>
         {icon.action !== FILE_ACTION.DOWNLOAD && (
@@ -225,7 +222,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           {status === ACTION_STATUS.UPLOADING && getProgressBar()}
 
           <div className={classes["action-button-wrapper"]}>
-            {icons.actionIcons && renderActionIcons(icons.actionIcons, status)}
+            {icons.actionIcons && renderActionIcons(icons.actionIcons)}
           </div>
         </div>
       </div>
