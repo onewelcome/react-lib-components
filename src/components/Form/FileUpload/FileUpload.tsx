@@ -182,7 +182,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     e.preventDefault();
     e.stopPropagation();
     const target = e.target as HTMLElement;
-    if (target?.classList.contains(classes["file-dropzone"])) {
+    if (target?.offsetParent?.classList.contains(classes["file-dropzone"])) {
       setDragActive(false);
     }
     onDragLeave?.(e);
