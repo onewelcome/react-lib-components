@@ -229,13 +229,13 @@ describe("file drag and drop properties", () => {
     });
 
     expect(onDragLeave).toHaveBeenCalled();
+    expect(dropZone).not.toHaveClass("drag-active");
 
     await waitFor(() => {
       fireEvent(dropZone, dragOverEvent);
     });
 
     expect(dropZone).toHaveClass("drag-active");
-
     expect(onDragOver).toHaveBeenCalled();
 
     await waitFor(() => {
@@ -279,6 +279,7 @@ describe("file drag and drop properties", () => {
     });
 
     expect(onDrop).toHaveBeenCalledTimes(1);
+    expect(dropZone).not.toHaveClass("drag-active");
   });
 
   afterEach(() => {
