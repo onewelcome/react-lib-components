@@ -243,6 +243,42 @@ describe("file drag and drop properties", () => {
     });
 
     expect(onDrop).toHaveBeenCalled();
+    expect(dropZone).not.toHaveClass("drag-active");
+  });
+
+  it("show max size error if user upload beyond allowed limit", async () => {
+    const onDrop = jest.fn();
+    const { container } = createComponent(
+      defaultParams => ({
+        ...defaultParams,
+        onDrop,
+        maxFileSize: 2000,
+        status: "error",
+        exceedingMaxSizeErrorText: "Upload a smaller file",
+        fileList: []
+      }),
+      "file-upload-20"
+    );
+
+    const file = new File([""], "test.txt", {
+      type: "image/jpg"
+    });
+    Object.defineProperty(file, "size", { value: 1024 * 1024 * 4 });
+
+    const eventData = {
+      dataTransfer: {
+        files: [file]
+      }
+    };
+
+    const dropZone = container.querySelector(".upload-button-wrapper") as Element;
+    const dropEvent = createEvent.drop(dropZone, eventData);
+
+    await waitFor(() => {
+      fireEvent(dropZone, dropEvent);
+    });
+
+    expect(onDrop).toHaveBeenCalledTimes(1);
   });
 
   afterEach(() => {
@@ -422,6 +458,21 @@ describe("upload action", () => {
     expect(errorMessage.innerHTML).toStrictEqual(
       `Invalid file format. Supported formats are: ${defaultParams.accept}.`
     );
+  });
+
+  it("sub text or custom text is visible", async () => {
+    const { container } = createComponent(
+      defaultParams => ({
+        ...defaultParams,
+        fileList: [],
+        subText: "This is sub heading."
+      }),
+      "file-upload-6"
+    );
+    const subTextElement = container.querySelector(".file-selector-sub-text") as Element;
+
+    expect(subTextElement).not.toBeNull();
+    expect(subTextElement.innerHTML).toStrictEqual("This is sub heading.");
   });
 
   afterEach(() => {
