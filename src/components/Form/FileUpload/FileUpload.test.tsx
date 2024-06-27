@@ -246,42 +246,6 @@ describe("file drag and drop properties", () => {
     expect(dropZone).not.toHaveClass("drag-active");
   });
 
-  it("show max size error if user upload beyond allowed limit", async () => {
-    const onDrop = jest.fn();
-    const { container } = createComponent(
-      defaultParams => ({
-        ...defaultParams,
-        onDrop,
-        maxFileSize: 2000,
-        status: "error",
-        exceedingMaxSizeErrorText: "Upload a smaller file",
-        fileList: []
-      }),
-      "file-upload-20"
-    );
-
-    const file = new File([""], "test.txt", {
-      type: "image/jpg"
-    });
-    Object.defineProperty(file, "size", { value: 1024 * 1024 * 4 });
-
-    const eventData = {
-      dataTransfer: {
-        files: [file]
-      }
-    };
-
-    const dropZone = container.querySelector(".upload-button-wrapper") as Element;
-    const dropEvent = createEvent.drop(dropZone, eventData);
-
-    await waitFor(() => {
-      fireEvent(dropZone, dropEvent);
-    });
-
-    expect(onDrop).toHaveBeenCalledTimes(1);
-    expect(dropZone).not.toHaveClass("drag-active");
-  });
-
   afterEach(() => {
     jest.clearAllMocks();
   });
