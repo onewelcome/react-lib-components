@@ -19,7 +19,7 @@ import { useState } from "react";
 export const useContentHeaderCollapse = (isCollapsed: boolean) => {
   const [collapsed, setCollapsed] = useState(isCollapsed);
 
-  const handleScroll = (e: any) => {
+  const handleScroll = e => {
     const { scrollTop, scrollHeight, clientHeight } = e.target;
     const position = Math.ceil((scrollTop / (scrollHeight - clientHeight)) * 100);
     setCollapsed(position !== 0);
