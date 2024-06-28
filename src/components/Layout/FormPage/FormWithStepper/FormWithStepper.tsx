@@ -24,11 +24,9 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const FormWithStepper = ({ children, stepper, ...rest }: Props) => {
   return (
-    <div className={`${classes["wrapper"]} ${rest.className}`} {...rest}>
-      <div className={classes["content"]}>
-        {stepper}
-        <div className={classes["form-section"]}>{children}</div>
-      </div>
+    <div className={`${classes["content"]} ${rest.className}`} {...rest}>
+      {stepper}
+      <div className={classes["form-section"]}>{children}</div>
     </div>
   );
 };
