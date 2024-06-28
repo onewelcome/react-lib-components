@@ -14,12 +14,11 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, act } from "react";
 import { FileType, FileUpload, Props } from "./FileUpload";
 import { createEvent, fireEvent, render, waitFor } from "@testing-library/react";
 
 import user from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 const defaultParams: Props = {
   accept: ".pdf, .jpg, .txt",
@@ -287,7 +286,7 @@ describe("upload action", () => {
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
-  it("shows error when only single file upload enabled", async () => {
+  it("should show error when only single file upload enabled", async () => {
     const onDrop = jest.fn();
     const { container } = createComponent(
       defaultParams => ({
@@ -387,7 +386,7 @@ describe("upload action", () => {
     expect(onDrop).toHaveBeenCalledTimes(0);
   });
 
-  it("show error state and error message on drop of invalid extension file", async () => {
+  it("should show error state and error message on drop of invalid extension file", async () => {
     const onDrop = jest.fn();
     const { container } = createComponent(
       defaultParams => ({
@@ -425,7 +424,7 @@ describe("upload action", () => {
     );
   });
 
-  it("sub text or custom text is visible", async () => {
+  it("should sub text or custom text be visible", async () => {
     const { container } = createComponent(
       defaultParams => ({
         ...defaultParams,
@@ -436,7 +435,7 @@ describe("upload action", () => {
     );
     const subTextElement = container.querySelector(".file-selector-sub-text") as Element;
 
-    expect(subTextElement).not.toBeNull();
+    expect(subTextElement).toBeVisible();
     expect(subTextElement.innerHTML).toStrictEqual("This is sub heading.");
   });
 

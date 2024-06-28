@@ -14,11 +14,10 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, act } from "react";
 import { getByTestId, render, renderHook, waitFor } from "@testing-library/react";
 import { NotificationProvider, useNotificationContext } from "./NotificationContext";
 import { Translations } from "./notification.interfaces";
-import { act } from "react-dom/test-utils";
 import { SnackbarProvider } from "../Snackbar/SnackbarProvider/SnackbarProvider";
 import userEvent from "@testing-library/user-event";
 import * as useSnackbarModule from "../Snackbar/useSnackbar";

@@ -13,8 +13,8 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-import React from "react";
-import { act, renderHook } from "@testing-library/react";
+import React, { act } from "react";
+import { renderHook } from "@testing-library/react";
 import { useAlert } from "./useAlert";
 import { AlertProvider } from "./AlertProvider/AlertProvider";
 
