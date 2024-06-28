@@ -13,7 +13,7 @@ import FormWithStepperDocumentation from "./FormWithStepper.mdx";
 import React, { useState } from "react";
 import { FormControlExample } from "../Form/Examples/FormControlExample";
 import { StepStatus } from "../../src/components/Stepper/Step";
-import { ContentHeader } from "../../src";
+import { ContentHeader } from "../../src/components/Layout/ContentHeader/ContentHeader";
 import { useContentHeaderCollapse } from "../../src/hooks/useContentHeaderCollapse";
 
 const initialStepperState: FormStepProps[] = [
