@@ -13,8 +13,6 @@ import FormWithStepperDocumentation from "./FormWithStepper.mdx";
 import React, { useState } from "react";
 import { FormControlExample } from "../Form/Examples/FormControlExample";
 import { StepStatus } from "../../src/components/Stepper/Step";
-import { ContentHeader } from "../../src";
-import { useContentHeaderCollapse } from "../../src/hooks/useContentHeaderCollapse";
 
 const initialStepperState: FormStepProps[] = [
   {
@@ -58,7 +56,7 @@ const meta: Meta = {
 
 export default meta;
 
-const sampleFormWithStepper = (handleScroll?: any) => {
+const Template: StoryFn<Props> = args => {
   const [steps, setSteps] = useState(initialStepperState);
 
   const updateStepStatus = (index: number, status: StepStatus) => {
@@ -74,7 +72,7 @@ const sampleFormWithStepper = (handleScroll?: any) => {
   const formStepperComponent = <FormStepper {...formStepperState}></FormStepper>;
 
   return (
-    <FormWithStepper stepper={formStepperComponent} onScroll={handleScroll}>
+    <FormWithStepper stepper={formStepperComponent}>
       <div>
         <FormSection
           id="samlBaseInfo"
@@ -109,21 +107,4 @@ const sampleFormWithStepper = (handleScroll?: any) => {
   );
 };
 
-const Template: StoryFn<Props> = args => {
-  return <>{sampleFormWithStepper(() => {})}</>;
-};
-
-const Template1: StoryFn<Props> = args => {
-  const { collapsed, handleScroll } = useContentHeaderCollapse(false);
-  return (
-    <>
-      <ContentHeader title="Form Header" collapsed={collapsed}>
-        <p>Form Header Description</p>
-      </ContentHeader>
-      {sampleFormWithStepper(handleScroll)}
-    </>
-  );
-};
-
 export const FormWithStepperComponent = Template.bind({});
-export const FormWithStepperAndScrollComponent = Template1.bind({});
