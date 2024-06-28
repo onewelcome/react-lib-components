@@ -165,9 +165,9 @@ FileUploadComponent.args = {
   downloadFileLink: "http://localhost:4000/download.link"
 };
 
-export const FileUploadComponentWithMockedServerInteraction = Template.bind({});
+export const FileUploadComponentWithServerInteraction = Template.bind({});
 
-FileUploadComponentWithMockedServerInteraction.args = {
+FileUploadComponentWithServerInteraction.args = {
   accept: ".mp4, .jpg, .jpeg",
   multiple: true,
   dragAndDropText: "Drag and drop or",
@@ -181,7 +181,7 @@ FileUploadComponentWithMockedServerInteraction.args = {
 };
 
 // Mock upload file and return success response
-FileUploadComponentWithMockedServerInteraction.parameters = {
+FileUploadComponentWithServerInteraction.parameters = {
   mockAddonConfigs: {
     globalMockData: [],
     ignoreQueryParams: true, // Whether or not to ignore query parameters globally
