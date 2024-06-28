@@ -287,7 +287,7 @@ describe("upload action", () => {
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
-  it("shows error when only single file upload enabled", async () => {
+  it("should show error when trying to upload multiple files but only single file upload is enabled", async () => {
     const onDrop = jest.fn();
     const { container } = createComponent(
       defaultParams => ({
