@@ -26,6 +26,11 @@ describe('useContentHeaderCollapse', () => {
     expect(result2.current.collapsed).toBe(false);
   });
 
+  it('should default to false if isCollapsed is not provided', () => {
+    const { result } = renderHook(() => useContentHeaderCollapse());
+    expect(result.current.collapsed).toBe(false);
+  });
+  
   it('should update collapsed state based on scroll position', () => {
     const { result } = renderHook(() => useContentHeaderCollapse(false));
     const mockEvent = {

@@ -9,10 +9,12 @@ import {
   Props
 } from "../../src/components/Layout/FormPage/FormWithStepper/FormWithStepper";
 import { FormSection } from "../../src";
-import FormWithStepperDocumentation from "./FormWithStepper.mdx";
+import useContentHeaderCollapseDocumentation from "./useContentHeaderCollapse.mdx";
 import React, { useState } from "react";
 import { FormControlExample } from "../Form/Examples/FormControlExample";
 import { StepStatus } from "../../src/components/Stepper/Step";
+import { ContentHeader } from "../../src/components/Layout/ContentHeader/ContentHeader";
+import { useContentHeaderCollapse } from "../../src/hooks/useContentHeaderCollapse";
 
 const initialStepperState: FormStepProps[] = [
   {
@@ -44,19 +46,21 @@ const formStepperProps: FormStepperProps = {
 };
 
 const meta: Meta = {
-  title: "Components/Layout/FormPage/FormWithStepper",
-  component: FormWithStepper,
+  title: "Hooks/useContentHeaderCollapse",
   parameters: {
     docs: {
-      page: FormWithStepperDocumentation
+      page: useContentHeaderCollapseDocumentation
+    },
+    controls: {
+      hideNoControlsWarning: true
     }
-  },
-  args: formStepperProps
+  }
 };
 
 export default meta;
 
 const Template: StoryFn<Props> = args => {
+  
   const [steps, setSteps] = useState(initialStepperState);
 
   const updateStepStatus = (index: number, status: StepStatus) => {
@@ -70,9 +74,13 @@ const Template: StoryFn<Props> = args => {
   const formStepperState = { ...formStepperProps, steps: steps };
 
   const formStepperComponent = <FormStepper {...formStepperState}></FormStepper>;
-
+  const { collapsed, handleScroll } = useContentHeaderCollapse(false);
   return (
-    <FormWithStepper stepper={formStepperComponent}>
+    <>
+    <ContentHeader title="Form Header" collapsed={collapsed}>
+    <p>Form Header Description</p>
+  </ContentHeader>
+    <FormWithStepper stepper={formStepperComponent} onScroll={handleScroll}>
       <div>
         <FormSection
           id="samlBaseInfo"
@@ -104,7 +112,8 @@ const Template: StoryFn<Props> = args => {
         </FormSection>
       </div>
     </FormWithStepper>
+    </>
   );
 };
 
-export const FormWithStepperComponent = Template.bind({});
+export const FormWithStepperComponentAndExpandOrCollapsibleHeader  = Template.bind({});
