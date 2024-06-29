@@ -1,32 +1,60 @@
-import { renderHook, waitFor } from "@testing-library/react";
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+import { act, renderHook } from "@testing-library/react";
 import { useContentHeaderCollapse } from "./useContentHeaderCollapse";
 
-describe("we should get the correct return values", () => {
-  it("should return collapse true", () => {
+describe('useContentHeaderCollapse', () => {
+  it('should initialize with the given isCollapsed value', () => {
     const { result } = renderHook(() => useContentHeaderCollapse(true));
+    expect(result.current.collapsed).toBe(true);
 
-    expect(result.current.collapsed).toBeTruthy();
+    const { result: result2 } = renderHook(() => useContentHeaderCollapse(false));
+    expect(result2.current.collapsed).toBe(false);
   });
 
-  it("should return collapse false", () => {
+  it('should update collapsed state based on scroll position', () => {
     const { result } = renderHook(() => useContentHeaderCollapse(false));
-
-    expect(result.current.collapsed).toBeFalsy();
-  });
-
-  it("should return collapse true on scroll event fire", async () => {
-    const { result } = renderHook(() => useContentHeaderCollapse(false));
-    // send sample data...
-    result.current.handleScroll({
+    const mockEvent = {
       target: {
-        scrollTop: 1000,
-        scrollHeight: 1000,
-        clientHeight: 0
+        scrollTop: 50,
+        scrollHeight: 300,
+        clientHeight: 100
       }
+    };
+
+    act(() => {
+      result.current.handleScroll(mockEvent as unknown as React.UIEvent<HTMLDivElement>);
     });
 
-    await waitFor(async () => {
-      await expect(result.current.collapsed).toBeTruthy();
+    expect(result.current.collapsed).toBe(true);
+
+    const mockEventTop= {
+      target: {
+        scrollTop: 0,
+        scrollHeight: 300,
+        clientHeight: 100
+      }
+    };
+
+    act(() => {
+      result.current.handleScroll(mockEventTop  as unknown as React.UIEvent<HTMLDivElement>);
     });
+
+    expect(result.current.collapsed).toBe(false);
   });
 });
+
