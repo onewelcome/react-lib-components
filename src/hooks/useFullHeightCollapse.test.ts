@@ -15,24 +15,24 @@
  */
 
 import { act, renderHook } from "@testing-library/react";
-import { useContentHeaderCollapse } from "./useContentHeaderCollapse";
+import { useFullHeightCollapse } from "./useFullHeightCollapse";
 
-describe('useContentHeaderCollapse', () => {
+describe('useFullHeightCollapse', () => {
   it('should initialize with the given isCollapsed value', () => {
-    const { result } = renderHook(() => useContentHeaderCollapse(true));
+    const { result } = renderHook(() => useFullHeightCollapse(true));
     expect(result.current.collapsed).toBe(true);
 
-    const { result: result2 } = renderHook(() => useContentHeaderCollapse(false));
+    const { result: result2 } = renderHook(() => useFullHeightCollapse(false));
     expect(result2.current.collapsed).toBe(false);
   });
 
   it('should default to false if isCollapsed is not provided', () => {
-    const { result } = renderHook(() => useContentHeaderCollapse());
+    const { result } = renderHook(() => useFullHeightCollapse());
     expect(result.current.collapsed).toBe(false);
   });
   
   it('should update collapsed state based on scroll position', () => {
-    const { result } = renderHook(() => useContentHeaderCollapse(false));
+    const { result } = renderHook(() => useFullHeightCollapse(false));
     const mockEvent = {
       target: {
         scrollTop: 50,

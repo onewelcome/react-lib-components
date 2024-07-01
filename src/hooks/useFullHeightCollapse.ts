@@ -16,7 +16,7 @@
 
 import { useState } from "react";
 
-export const useContentHeaderCollapse = (isCollapsed?: boolean) => {
+export const useFullHeightCollapse = (isCollapsed?: boolean) => {
   const [collapsed, setCollapsed] = useState(isCollapsed ?? false);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {

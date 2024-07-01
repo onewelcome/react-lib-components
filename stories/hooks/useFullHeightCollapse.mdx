@@ -1,0 +1,42 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta
+  title="Hooks/useFullHeightCollapse"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true }
+    }
+  }}
+/>
+
+The `useFullHeightCollapse` hook will be used for collapse and expend the ContentHeader on behalf of the scrollbar. You should use this hook whenever you want to collapse/expand a `ContentHeader`.
+
+
+# Example
+
+Example `ContentHeaderWithCollapseandExpend`:
+
+```jsx
+
+const ExampleComponent =() => {
+ 
+  const formStepperState = { ...formStepperProps, steps: steps };
+
+  const formStepperComponent = <FormStepper {...formStepperState}></FormStepper>;
+  const { collapsed, handleScroll } = useContentHeaderCollapse(false);
+  return (
+    <>
+    <ContentHeader title="Form Header" collapsed={collapsed}>
+    <p>Form Header Description</p>
+  </ContentHeader>
+  
+    <FormWithStepper stepper={formStepperComponent} onScroll={handleScroll}>
+      <div>
+        Sample Form
+      </div>
+    </FormWithStepper>
+    </>
+  );
+};
+```
