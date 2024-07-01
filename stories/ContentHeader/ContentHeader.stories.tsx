@@ -20,6 +20,8 @@ import { FormSection } from "../../src";
 import { FormControlExample } from "../Form/Examples/FormControlExample";
 import { StepStatus } from "../../src/components/Stepper/Step";
 import { useFullHeightCollapse } from "../../src/hooks/useFullHeightCollapse";
+import { conditionalPlay } from "../../.storybook/conditionalPlay";
+import { userEvent, waitFor, within, expect } from "@storybook/test";
 
 const contentButtonList: ReactElement<ButtonProps, typeof Button>[] = [
   <Button key="1" onClick={() => alert("Cancel button clicked.")} variant="text">
@@ -173,3 +175,15 @@ ContentHeaderWithCollapseHeader.args = {
   buttons: [],
   collapsed: false
 };
+
+ContentHeaderWithCollapseHeader.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByText("Step 4")).toBeInTheDocument());
+
+  const select = await canvas.getByText("Step 4");
+
+  await userEvent.click(select);
+});
+
+
