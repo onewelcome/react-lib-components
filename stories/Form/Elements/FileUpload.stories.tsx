@@ -196,7 +196,7 @@ FileUploadComponentWithServerInteraction.parameters = {
       status: 201,
       body: {},
       response: {
-        data: "File successfully uploaded on server"
+        message: "This is default response message."
       }
     }
   ]
