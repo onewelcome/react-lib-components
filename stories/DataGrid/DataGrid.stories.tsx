@@ -467,16 +467,24 @@ const DataGridWithFiltersTemplate = args => {
   useEffect(() => {
     const filteredData = args.data
       .map(row => {
-        let shouldBeDiscarded = false;
+        let shouldBeDiscarded: boolean[] = [];
         filters.forEach(filter => {
-          shouldBeDiscarded = !filter.value.reduce((acc, val) => {
-            return operatorPredicateMap[filter.operator](row[filter.column], val) && acc;
-          }, true);
+          shouldBeDiscarded = [
+            ...shouldBeDiscarded,
+            !filter.value.reduce((acc, val) => {
+              return operatorPredicateMap[filter.operator](row[filter.column], val) && acc;
+            }, true)
+          ];
         });
 
-        return shouldBeDiscarded ? undefined : row;
+        return shouldBeDiscarded.length > 0 &&
+          shouldBeDiscarded.reduce((acc, val) => acc || val, false)
+          ? undefined
+          : row;
       })
-      .filter(val => val !== undefined);
+      .filter(val => {
+        return val !== undefined;
+      });
     setGridData(filteredData);
   }, [filters]);
 
