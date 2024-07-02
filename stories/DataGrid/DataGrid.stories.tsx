@@ -397,8 +397,55 @@ ExpandableDataGrid.play = conditionalPlay(async ({ canvasElement }) => {
   });
 });
 
+export const HiddenContextMenuColumnDataGrid = Template.bind({});
+
+HiddenContextMenuColumnDataGrid.args = {
+  data: [
+    {
+      name: "Company 1",
+      created: new Date(2023, 0, 1),
+      id: "1",
+      type: "Stock",
+      enabled: true
+    },
+    {
+      name: "Company 2",
+      created: new Date(2023, 0, 2),
+      id: "2",
+      type: "Stock",
+      enabled: false
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "created", headline: "Created" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "enabled", headline: "Status", disableSorting: true }
+  ],
+  initialSort: [
+    { name: "name", direction: "ASC" },
+    { name: "created", direction: "DESC" }
+  ],
+  onSort: sort => action(`Sort callback: ${sort}`),
+  actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
+  },
+  disableContextMenuColumn: true,
+  paginationProps: {
+    totalElements: 2,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
+
 const DataGridWithFiltersTemplate = args => {
-  const [filters, setFilters] = useState<Filter[]>([]);
+  const [filters, setFilters] = useState<Filter[]>(args.filters.filtersProps.filterValues || []);
 
   const [gridData, setGridData] = useState(args.data);
 
@@ -522,46 +569,44 @@ DataGridWithFilters.args = {
   enableMultiSorting: true
 };
 
-// DataGridWithFilters.play = conditionalPlay(async ({ canvasElement }) => {
-//   const canvas = within(canvasElement);
+export const DataGridWithFiltersInEditMode = DataGridWithFiltersTemplate.bind({});
 
-//   await waitFor(() => expect(canvas.queryAllByTitle("Add filter")).not.toHaveLength(0));
-
-//   const expandButtons = await canvas.queryAllByTitle("Expand row");
-
-//   await userEvent.click(expandButtons[0]);
-
-//   await waitFor(() => {
-//     const expandedElement = canvas.queryAllByText("Description");
-//     expect(expandedElement[0]).toBeVisible();
-//   });
-// });
-
-export const HiddenContextMenuColumnDataGrid = Template.bind({});
-
-HiddenContextMenuColumnDataGrid.args = {
+DataGridWithFiltersInEditMode.args = {
   data: [
     {
-      name: "Company 1",
-      created: new Date(2023, 0, 1),
       id: "1",
-      type: "Stock",
-      enabled: true
+      name: "Company 1",
+      type: "Stock"
+    },
+
+    {
+      id: "2",
+      name: "Company 2",
+      type: "Bond"
     },
     {
-      name: "Company 2",
-      created: new Date(2023, 0, 2),
-      id: "2",
-      type: "Stock",
-      enabled: false
+      id: "3",
+      name: "Company 1",
+      type: "Bond"
     }
   ],
+  filters: {
+    enable: true,
+    filtersProps: {
+      filterValues: [{ id: "test", column: "type", operator: "is", value: ["Bond"] }],
+      columnsMetadata: [
+        { name: "name", headline: "Name", operators: ["is", "is not"] },
+        { name: "type", headline: "Type", operators: ["is", "is not"] }
+      ],
+      onFilterAdd: filter => console.log(filter),
+      onFilterEdit: filter => console.log(filter),
+      onFilterDelete: id => console.log(id),
+      onFiltersClear: () => console.log("clear")
+    }
+  },
   headers: [
     { name: "name", headline: "Name" },
-    { name: "created", headline: "Created" },
-    { name: "id", headline: "Identifier" },
-    { name: "type", headline: "Type", disableSorting: true },
-    { name: "enabled", headline: "Status", disableSorting: true }
+    { name: "type", headline: "Type", disableSorting: true }
   ],
   initialSort: [
     { name: "name", direction: "ASC" },
@@ -575,7 +620,7 @@ HiddenContextMenuColumnDataGrid.args = {
     addBtnProps: { onClick: () => action("add btn clicked") },
     searchBtnProps: { onClick: () => action("search btn clicked") }
   },
-  disableContextMenuColumn: true,
+  disableContextMenuColumn: false,
   paginationProps: {
     totalElements: 2,
     currentPage: 1
@@ -583,3 +628,18 @@ HiddenContextMenuColumnDataGrid.args = {
   isLoading: false,
   enableMultiSorting: true
 };
+
+DataGridWithFiltersInEditMode.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getAllByRole("button")).not.toHaveLength(0));
+
+  const editFilterButton = await canvas.getAllByRole("button")[0];
+
+  await userEvent.click(editFilterButton);
+
+  await waitFor(() => {
+    const filterSelect = canvas.queryAllByLabelText("Filter by");
+    expect(filterSelect[0]).toBeVisible();
+  });
+});

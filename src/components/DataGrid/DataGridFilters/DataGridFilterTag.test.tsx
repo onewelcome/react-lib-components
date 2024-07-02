@@ -1,6 +1,6 @@
 import React from "react";
 import { DataGridFilterTag, DataGridFilterTagProps } from "./DataGridFilterTag";
-import { getByLabelText, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const defaultParams: DataGridFilterTagProps = {
