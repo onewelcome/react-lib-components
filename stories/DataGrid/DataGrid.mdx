@@ -207,6 +207,40 @@ Text will be displayed only if the `data` property is empty, and `isLoading` is 
   <Story of={DataGridStories.EmptyDataGrid} />
 </Canvas>
 
+# Filters section
+
+To show filter toolbar one has to pass `filters` prop to the `DataGrid` component with `enableFilters` property set to `true`.
+
+User can configure the behavior of the toolbar using the `filterProps` object which has the following properties:
+
+- `columnsMetadata` - mandatory array of `DataGridColumnMetadata` which specifies what operators and defaultValues are available for a given column
+- `filterValues` - array of `Filter` objects which can be used to pass predefined filters
+- `onFilterAdd`, `onFilterEdit`, `onFilterDelete`, `onFiltersClear` - callbacks used in the filter editor
+
+```jsx
+<DataGrid
+  filters={
+    enableFilters: true,
+    filtersProps: {
+      filterValues: [{
+        column: "name",
+        id: "vkLVWIwLEhDa2b4",
+        operator: "is",
+        value: ['test']
+      }],
+      columnsMetadata: [
+        { name: "name", headline: "Name", operators: ["is", "is not"] },
+        { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"] }
+      ],
+      onFilterAdd: filter => console.log(filter),
+      onFilterEdit: filter => console.log(filter),
+      onFilterDelete: id => console.log(id),
+      onFiltersClear: () => console.log("clear")
+    }
+  }
+/>
+```
+
 # Action section
 
 It's possible to show the `Add item`, `Columns` and `Search` buttons.

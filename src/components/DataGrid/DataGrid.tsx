@@ -23,6 +23,8 @@ import { DataGridBody } from "./DataGridBody/DataGridBody";
 import { HeaderCell, OnSortFunction, Sort } from "./datagrid.interfaces";
 import { Pagination, Props as PaginationProps } from "../Pagination/Pagination";
 import { Spacing, useSpacing } from "../../hooks/useSpacing";
+import { DataGridToolbar } from "./DataGridFilters/DataGridToolbar";
+import { DataGridColumnMetadata, Filter } from "./DataGridFilters/DataGridFilters.interfaces";
 
 export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
@@ -43,6 +45,17 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   paginationProps?: PaginationProps;
   disableContextMenuColumn?: boolean;
   enableExpandableRow?: boolean;
+  filters?: {
+    enable: boolean;
+    filtersProps: {
+      columnsMetadata: DataGridColumnMetadata[];
+      filterValues?: Filter[];
+      onFilterAdd?: (filter: Filter) => void;
+      onFilterEdit?: (filter: Filter) => void;
+      onFilterDelete?: (id: string) => void;
+      onFiltersClear?: () => void;
+    };
+  };
   isLoading?: boolean;
   enableMultiSorting?: boolean;
   spacing?: Spacing;
@@ -59,6 +72,7 @@ const DataGridInner = <T extends {}>(
     paginationProps,
     disableContextMenuColumn,
     enableExpandableRow,
+    filters,
     isLoading,
     enableMultiSorting,
     emptyLabel,
@@ -126,15 +140,20 @@ const DataGridInner = <T extends {}>(
         paddingBottom: styleWithSpacing?.paddingBottom
       }}
     >
-      <DataGridActions
-        {...actions}
-        style={{
-          paddingLeft: styleWithSpacing?.paddingLeft,
-          paddingRight: styleWithSpacing?.paddingRight
-        }}
-        headers={internalHeaders}
-        onColumnToggled={onColumnToggled}
-      />
+      {filters?.enable ? (
+        <DataGridToolbar {...filters.filtersProps} />
+      ) : (
+        <DataGridActions
+          {...actions}
+          style={{
+            paddingLeft: styleWithSpacing?.paddingLeft,
+            paddingRight: styleWithSpacing?.paddingRight
+          }}
+          headers={internalHeaders}
+          onColumnToggled={onColumnToggled}
+        />
+      )}
+
       <div className={classes["table-wrapper"]}>
         <table className={classes["table"]}>
           <DataGridHeader

@@ -37,10 +37,12 @@ const MultiOptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
     const listbox = element.parentElement;
     const listboxWrapper = element.parentElement?.parentElement;
     const isListboxWrapperScrollable = !!listboxWrapper?.style.maxHeight;
+
     if (isListboxWrapperScrollable) {
-      listboxWrapper?.scrollTo(0, element.offsetTop - (listboxWrapper?.offsetHeight ?? 1) / 2);
+      listboxWrapper?.scrollTo &&
+        listboxWrapper?.scrollTo(0, element.offsetTop - (listboxWrapper?.offsetHeight ?? 1) / 2);
     }
-    listbox?.scrollTo(0, element.offsetTop - (listbox?.offsetHeight ?? 1) / 2);
+    listbox?.scrollTo && listbox?.scrollTo(0, element.offsetTop - (listbox?.offsetHeight ?? 1) / 2);
   };
 
   useEffect(() => {
