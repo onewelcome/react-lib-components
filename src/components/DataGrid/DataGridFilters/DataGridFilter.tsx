@@ -91,7 +91,9 @@ export const DataGridFilter = ({
   };
 
   const onFilterRemove = () => {
-    if (!filter) return;
+    if (!filter) {
+      return;
+    }
     const { id } = filter;
 
     dispatch({ type: "remove", payload: { id } });
@@ -100,9 +102,8 @@ export const DataGridFilter = ({
     resetFields();
     setFilterOpen(false);
   };
-
   const onFilterOpen = () => {
-    setFilterOpen(true);
+    setFilterOpen(!filterOpen);
     if (!filterOpen) {
       initialiseFilterValues(filter);
     }

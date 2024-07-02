@@ -484,7 +484,7 @@ DataGridWithFilters.args = {
     }
   ],
   filters: {
-    enableFilters: true,
+    enable: true,
     filtersProps: {
       filterValues: [],
       columnsMetadata: [
@@ -521,6 +521,21 @@ DataGridWithFilters.args = {
   isLoading: false,
   enableMultiSorting: true
 };
+
+// DataGridWithFilters.play = conditionalPlay(async ({ canvasElement }) => {
+//   const canvas = within(canvasElement);
+
+//   await waitFor(() => expect(canvas.queryAllByTitle("Add filter")).not.toHaveLength(0));
+
+//   const expandButtons = await canvas.queryAllByTitle("Expand row");
+
+//   await userEvent.click(expandButtons[0]);
+
+//   await waitFor(() => {
+//     const expandedElement = canvas.queryAllByText("Description");
+//     expect(expandedElement[0]).toBeVisible();
+//   });
+// });
 
 export const HiddenContextMenuColumnDataGrid = Template.bind({});
 

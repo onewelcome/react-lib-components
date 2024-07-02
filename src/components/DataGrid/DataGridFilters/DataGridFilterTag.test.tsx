@@ -26,7 +26,7 @@ const createDataGridFilterTag = (
   };
 };
 
-describe("DataGridFilterTag should render", () => {
+describe("DataGridFilterTag", () => {
   it("should render without crashing", () => {
     const { DataGridFilterTagComponent } = createDataGridFilterTag();
 

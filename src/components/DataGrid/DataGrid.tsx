@@ -46,7 +46,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   disableContextMenuColumn?: boolean;
   enableExpandableRow?: boolean;
   filters?: {
-    enableFilters: boolean;
+    enable: boolean;
     filtersProps: {
       columnsMetadata: DataGridColumnMetadata[];
       filterValues?: Filter[];
@@ -140,7 +140,7 @@ const DataGridInner = <T extends {}>(
         paddingBottom: styleWithSpacing?.paddingBottom
       }}
     >
-      {filters?.enableFilters ? (
+      {filters?.enable ? (
         <DataGridToolbar {...filters.filtersProps} />
       ) : (
         <DataGridActions

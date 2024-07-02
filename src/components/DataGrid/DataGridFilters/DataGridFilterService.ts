@@ -22,11 +22,6 @@ import {
   FilterEditorMode
 } from "./DataGridFilters.interfaces";
 
-//user can extend the list of picked values with custom ones. We need to make sure that the default list includes the user created values.
-export const mergeValues = (values: string[], pickedValues: string[]) => {
-  return Array.from(new Set([...values, ...pickedValues]));
-};
-
 export const useDataGridFilter = (
   mode: FilterEditorMode,
   columnsMetadata: DataGridColumnMetadata[]
@@ -36,6 +31,11 @@ export const useDataGridFilter = (
   const [operators, setOperators] = useState<string[]>(Object.values(DefaultOperators));
   const [values, setValues] = useState<string[]>([]);
   const [pickedValues, setPickedValues] = useState<string[]>([]);
+
+  //user can extend the list of picked values with custom ones. We need to make sure that the default list includes the user created values.
+  const mergeCustomValuesWithPredefined = (values: string[], pickedValues: string[]) => {
+    return Array.from(new Set([...values, ...pickedValues]));
+  };
 
   const resetFields = () => {
     setColumn("");
@@ -76,7 +76,7 @@ export const useDataGridFilter = (
       setOperator(operator);
       operators && setOperators(operators);
       setPickedValues(value);
-      setValues(mergeValues(defaultValues || [], value));
+      setValues(mergeCustomValuesWithPredefined(defaultValues || [], value));
     }
   };
 
