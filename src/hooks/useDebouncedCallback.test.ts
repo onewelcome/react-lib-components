@@ -1,5 +1,6 @@
-import { renderHook, act } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 import { useDebouncedCallback } from "./useDebouncedCallback";
+import { act } from "react";
 
 const BASE_DELAY = 300;
 const EXTRA_DELAY = 200;

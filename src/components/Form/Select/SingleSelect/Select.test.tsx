@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, act } from "react";
 import { Select as SelectComponent } from "./Select";
-import { act, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { Option } from "./Option";
 import userEvent from "@testing-library/user-event";
 import { SingleSelectProps } from "../Select.interfaces";

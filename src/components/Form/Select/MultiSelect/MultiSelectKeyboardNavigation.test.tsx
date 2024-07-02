@@ -15,8 +15,9 @@
  */
 
 import userEvent from "@testing-library/user-event";
-import { act, getByRole, waitFor } from "@testing-library/react";
+import { getByRole, waitFor } from "@testing-library/react";
 import { createMultiSelect, turnOnScrollToFunctionSupportInTest } from "./MultiSelect.test";
+import { act } from "react";
 
 const getSelectedOptionValue = (select: HTMLElement) =>
   getByRole(select, "option", { selected: true }).dataset.value;

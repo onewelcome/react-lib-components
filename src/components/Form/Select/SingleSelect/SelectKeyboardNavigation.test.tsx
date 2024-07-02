@@ -15,8 +15,9 @@
  */
 
 import userEvent from "@testing-library/user-event";
-import { act, waitFor } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 import { createSelect } from "./Select.test";
+import { act } from "react";
 
 describe("Selecting options using keyboard", () => {
   it("should focus through list items and select on enterpress", async () => {

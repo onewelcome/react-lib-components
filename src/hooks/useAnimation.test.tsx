@@ -14,11 +14,10 @@
  *    limitations under the License.
  */
 
-import React, { Fragment } from "react";
+import React, { Fragment, act } from "react";
 import { render, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useAnimation } from "./useAnimation";
-import { act } from "react-dom/test-utils";
 
 describe("useAnimation", () => {
   it("should execute", async () => {
