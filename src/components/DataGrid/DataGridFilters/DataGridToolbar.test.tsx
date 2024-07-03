@@ -114,7 +114,7 @@ describe("DataGridToolbar should render", () => {
   });
 
   it("should allow to edit an existing filter", async () => {
-    const { getByText, getAllByText, getAllByLabelText, getAllByPlaceholderText, debug } =
+    const { getByText, getAllByText, getAllByLabelText, getAllByPlaceholderText } =
       createDataGridToolbar(prev => ({
         ...prev,
         filterValues: [{ id: "test", column: "name", operator: "is", value: ["test"] }]

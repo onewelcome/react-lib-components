@@ -34,7 +34,10 @@ describe("DataGridFilterTag", () => {
   });
 
   it("should render DataGridFilterTag in add mode", () => {
-    const { getByText } = createDataGridFilterTag(prev => ({ ...prev, addButtonCaption: "Add" }));
+    const { getByText } = createDataGridFilterTag(prev => ({
+      ...prev,
+      translations: { addButtonCaption: "Add" }
+    }));
 
     expect(getByText("Add")).toBeDefined();
   });

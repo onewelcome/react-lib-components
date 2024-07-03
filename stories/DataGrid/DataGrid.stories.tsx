@@ -14,9 +14,10 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
+import { useMockFilteringLogic } from "../../src/components/DataGrid/testUtils";
 import {
   Button,
   ContextMenu,
@@ -38,7 +39,6 @@ import { ModalContent } from "../../src/components/Notifications/Modal/ModalCont
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
-import { Filter } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
 
 interface DataGridItem {
   name: string;
@@ -445,49 +445,8 @@ HiddenContextMenuColumnDataGrid.args = {
 };
 
 const DataGridWithFiltersTemplate = args => {
-  const [filters, setFilters] = useState<Filter[]>(args.filters.filtersProps.filterValues || []);
-
-  const [gridData, setGridData] = useState(args.data);
-
-  const onFilterAdd = (filter: Filter) => setFilters(prev => [...prev, filter]);
-
-  const onFilterEdit = (filter: Filter) =>
-    setFilters(prev => prev.map(f => (f.id === filter.id ? filter : f)));
-
-  const onFilterDelete = (id: string) =>
-    setFilters(prev => [...prev.filter(value => value.id !== id)]);
-
-  const onFiltersClear = () => setFilters([]);
-
-  const operatorPredicateMap = {
-    is: (v1, v2) => v1 === v2,
-    isNot: (v1, v2) => v1 !== v2
-  };
-
-  useEffect(() => {
-    const filteredData = args.data
-      .map(row => {
-        let shouldBeDiscarded: boolean[] = [];
-        filters.forEach(filter => {
-          shouldBeDiscarded = [
-            ...shouldBeDiscarded,
-            !filter.value.reduce((acc, val) => {
-              return operatorPredicateMap[filter.operator](row[filter.column], val) && acc;
-            }, true)
-          ];
-        });
-
-        return shouldBeDiscarded.length > 0 &&
-          shouldBeDiscarded.reduce((acc, val) => acc || val, false)
-          ? undefined
-          : row;
-      })
-      .filter(val => {
-        return val !== undefined;
-      });
-    setGridData(filteredData);
-  }, [filters]);
-
+  const { filters, gridData, onFilterAdd, onFilterEdit, onFilterDelete, onFiltersClear } =
+    useMockFilteringLogic(args.data, args.filters.filterValues);
   return (
     <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
       <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
@@ -498,6 +457,7 @@ const DataGridWithFiltersTemplate = args => {
             ...args.filters,
             filtersProps: {
               ...args.filters.filtersProps,
+              filterValues: filters,
               onFilterAdd,
               onFilterEdit,
               onFilterDelete,
