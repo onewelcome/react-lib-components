@@ -18,7 +18,6 @@ import React, { useEffect, useState, act } from "react";
 import { getByTestId, render, renderHook, waitFor } from "@testing-library/react";
 import { NotificationProvider, useNotificationContext } from "./NotificationContext";
 import { Translations } from "./notification.interfaces";
-import { SnackbarProvider } from "../Snackbar/SnackbarProvider/SnackbarProvider";
 import userEvent from "@testing-library/user-event";
 import * as useAlertModule from "../Alert/useAlert";
 import { AlertProvider } from "../Alert/AlertProvider/AlertProvider";

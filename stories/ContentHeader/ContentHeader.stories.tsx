@@ -109,7 +109,7 @@ const formStepperProps: FormStepperProps = {
   steps: initialStepperState
 };
 
-const Template1: StoryFn<FormWithStepperProps> = args => {
+const FormWithStepperTemplate: StoryFn<FormWithStepperProps> = args => {
   const [steps, setSteps] = useState(initialStepperState);
 
   const updateStepStatus = (index: number, status: StepStatus) => {
@@ -165,13 +165,7 @@ const Template1: StoryFn<FormWithStepperProps> = args => {
   );
 };
 
-export const ContentHeaderWithCollapseHeader = Template1.bind({});
-
-ContentHeaderWithCollapseHeader.args = {
-  children: <p>Form Header Description</p>,
-  buttons: [],
-  collapsed: false
-};
+export const ContentHeaderWithCollapseHeader = FormWithStepperTemplate.bind({});
 
 ContentHeaderWithCollapseHeader.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
