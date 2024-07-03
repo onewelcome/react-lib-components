@@ -253,7 +253,7 @@ describe("file drag and drop properties", () => {
 describe("upload action", () => {
   it("shows accepts only files that follow the type rules", async () => {
     const onChange = jest.fn();
-    const { component } = createComponent(
+    const { component, container } = createComponent(
       defaultParams => ({
         ...defaultParams,
         onChange,

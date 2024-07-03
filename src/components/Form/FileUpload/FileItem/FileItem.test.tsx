@@ -7,8 +7,6 @@ const defaultParams: Props = {
   name: "Test.txt"
 };
 
-const errorMessage = "Network error. Check internet connection and retry uploading the file";
-
 const createFileItem = (params?: (defaultParams: Props) => Props) => {
   let parameters: Props = defaultParams;
   if (params) {
@@ -22,7 +20,6 @@ const createFileItem = (params?: (defaultParams: Props) => Props) => {
   const actionIcons = component.querySelectorAll(".action-icon");
   const errorSubtitle = component.querySelector(".file-subtitle");
   const progressBar = component.querySelector(".progress-bar");
-  const failedFileItemError = component.querySelector(".file-subtitle.retry");
 
   return {
     ...queries,
@@ -32,8 +29,7 @@ const createFileItem = (params?: (defaultParams: Props) => Props) => {
     actionIcons,
     errorSubtitle,
     progressBar,
-    errorIcon,
-    failedFileItemError
+    errorIcon
   };
 };
 
@@ -98,15 +94,28 @@ describe("component should change display the correct style and elements accordi
     expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.REMOVE);
   });
 
-  it("should show error message and error state for failed upload", () => {
-    const { failedFileItemError } = createFileItem(defaultParams => ({
+  it("should show response error message when file failed to upload with retry state", () => {
+    const errorMessage = "Network error. Check internet connection and retry uploading the file";
+    const { errorSubtitle } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "retry",
       error: errorMessage
     }));
-    expect(failedFileItemError).not.toBeNull();
-    expect(failedFileItemError?.innerHTML).toStrictEqual(errorMessage);
-    expect(failedFileItemError?.classList.contains("retry")).toBeTruthy();
+    expect(errorSubtitle).not.toBeNull();
+    expect(errorSubtitle?.innerHTML).toStrictEqual(errorMessage);
+    expect(errorSubtitle?.classList.contains("retry")).toBeTruthy();
+  });
+
+  it("should show response error message when file failed to upload with error state", () => {
+    const responseErrorMsg = "Failed to upload due to internal server error";
+    const { errorSubtitle } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "error",
+      error: responseErrorMsg
+    }));
+    expect(errorSubtitle).not.toBeNull();
+    expect(errorSubtitle?.classList.contains("error")).toBeTruthy();
+    expect(errorSubtitle?.innerHTML).toStrictEqual(responseErrorMsg);
   });
 
   it("should show Delete & Download option for successfully uploaded file", () => {
