@@ -61,7 +61,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     noResultsLabel = "No results found",
     onChange,
     addNew,
-    search = { enabled: true, renderThreshold: 0 },
+    search = { enabled: true, renderThreshold: 0, searchPlaceholder: "Search item" },
     ...rest
   }: MultiSelectProps,
   ref

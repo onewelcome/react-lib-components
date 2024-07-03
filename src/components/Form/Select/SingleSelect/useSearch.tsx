@@ -76,7 +76,7 @@ export const useSearch = ({
       }}
       type="text"
       name="search-option"
-      placeholder={search?.searchPlaceholder}
+      placeholder={search?.searchPlaceholder ? search?.searchPlaceholder : "Search item"}
     />
   );
 

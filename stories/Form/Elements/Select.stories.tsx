@@ -81,7 +81,7 @@ export const SelectWithSearchOptions = Template.bind({});
 
 SelectWithSearchOptions.args = {
   children: generateOptions(11),
-  search: { renderThreshold: 0 }
+  search: { enabled: true, renderThreshold: 0 }
 };
 
 SelectWithSearchOptions.play = conditionalPlay(async ({ canvasElement }) => {
