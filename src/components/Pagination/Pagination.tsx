@@ -102,10 +102,16 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       <div className={classes["left"]}>
         {pageSize && (
           <div className={classes["per-page"]}>
-            <Label id="page-size-select-label" className={classes["label"]}>
+            <Label
+              id="page-size-select-label"
+              htmlFor="page-size-select"
+              className={classes["label"]}
+            >
               {translate.itemsPerPage}
             </Label>
             <Select
+              name="page-size-select"
+              id="page-size-select"
               labeledBy="page-size-select-label"
               className={`${classes["form-element"]} ${classes["page-size-select"]}`}
               value={pageSize.toString()}
@@ -148,6 +154,7 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 value={currentPage.toString()}
                 className={`${classes["form-element"]} ${classes["current-page-select"]}`}
                 search={{
+                  enabled: true,
                   searchInputProps: {
                     wrapperProps: { className: classes["search-input-wrapper"] },
                     reset: resetPageNoSelect ? resetPageNoSelect : undefined,
