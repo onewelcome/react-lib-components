@@ -19,7 +19,7 @@ import { Icon, Icons } from "../../Icon/Icon";
 import { RemoveButton } from "../../Tag/RemoveButton";
 import { Typography } from "../../Typography/Typography";
 import classes from "./DataGridFilter.module.scss";
-import { Filter, FilterEditorMode } from "./DataGridFilters.interfaces";
+import { Filter, FilterEditorMode, TagTranslations } from "./DataGridFilters.interfaces";
 
 export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
   triggerRef: React.Ref<HTMLDivElement>;
@@ -27,7 +27,7 @@ export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
   mode: FilterEditorMode;
   onFilterRemove: () => void;
   onFilterOpen: () => void;
-  addButtonCaption?: string;
+  translations?: TagTranslations;
 }
 
 const EditTagContent = ({ filter }: { filter: Filter }) => {
@@ -56,11 +56,13 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
     mode,
     onFilterRemove,
     onFilterOpen,
-    addButtonCaption = "Add filter",
+    translations,
+
     ...rest
   }: DataGridFilterTagProps,
   ref
 ) => {
+  const { addButtonCaption = "Add filter" } = translations || {};
   const shouldRenderAddTag = mode === "ADD";
   const shouldRenderEditTag = mode === "EDIT" && filter;
 

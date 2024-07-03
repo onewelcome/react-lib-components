@@ -21,7 +21,9 @@ import {
   DataGridColumnMetadata,
   Filter,
   FilterEditorMode,
-  FiltersAction
+  FiltersAction,
+  PopoverTranslations,
+  TagTranslations
 } from "./DataGridFilters.interfaces";
 import { generateID } from "../../../util/helper";
 import { DataGridFilterTag } from "./DataGridFilterTag";
@@ -37,6 +39,8 @@ export type Props = {
   onFilterAdd?: (filter: Filter) => void;
   onFilterEdit?: (filter: Filter) => void;
   onFilterDelete?: (id: string) => void;
+  tagTranslations?: TagTranslations;
+  popoverTranslations?: PopoverTranslations;
 };
 
 export const DataGridFilter = ({
@@ -47,7 +51,9 @@ export const DataGridFilter = ({
   dispatch,
   onFilterAdd,
   onFilterEdit,
-  onFilterDelete
+  onFilterDelete,
+  tagTranslations,
+  popoverTranslations
 }: Props) => {
   const wrappingDivRef = createRef<HTMLDivElement>();
   const [filterOpen, setFilterOpen] = useState(false);

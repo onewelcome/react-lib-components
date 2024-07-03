@@ -21,13 +21,15 @@ import {
   DataGridColumnMetadata,
   Filter,
   FiltersAction,
-  FiltersState
+  FiltersState,
+  FiltersTranslations
 } from "./DataGridFilters.interfaces";
 import { Typography } from "../../Typography/Typography";
 
 export interface DataGridToolbarProps extends ComponentPropsWithRef<"div"> {
   columnsMetadata: DataGridColumnMetadata[];
   filterValues?: Filter[];
+  translations?: FiltersTranslations;
   onFilterAdd?: (filter: Filter) => void;
   onFilterEdit?: (filter: Filter) => void;
   onFilterDelete?: (id: string) => void;
@@ -67,6 +69,7 @@ export const DataGridToolbarComponent: ForwardRefRenderFunction<
   {
     columnsMetadata,
     filterValues,
+    translations,
     onFilterAdd,
     onFilterEdit,
     onFilterDelete,
@@ -76,7 +79,7 @@ export const DataGridToolbarComponent: ForwardRefRenderFunction<
   ref
 ) => {
   const [state, dispatch] = useReducer(filtersReducer, { filters: filterValues || [] });
-
+  const { clearButtonCaption = "Clear all filters" } = translations?.toolbar || {};
   return (
     <div {...rest} ref={ref} className={classes["toolbar"]}>
       {state.filters.map(filter => (
@@ -88,6 +91,8 @@ export const DataGridToolbarComponent: ForwardRefRenderFunction<
           dispatch={dispatch}
           onFilterEdit={onFilterEdit}
           onFilterDelete={onFilterDelete}
+          tagTranslations={translations?.tag}
+          popoverTranslations={translations?.popover}
         />
       ))}
       <div className={classes["actions-wrapper"]}>
@@ -96,6 +101,8 @@ export const DataGridToolbarComponent: ForwardRefRenderFunction<
           columnsMetadata={columnsMetadata}
           dispatch={dispatch}
           onFilterAdd={onFilterAdd}
+          tagTranslations={translations?.tag}
+          popoverTranslations={translations?.popover}
         />
         {state.filters.length >= 1 && (
           <button
@@ -107,7 +114,7 @@ export const DataGridToolbarComponent: ForwardRefRenderFunction<
             }}
           >
             <Typography variant="body" className={classes["caption"]}>
-              Clear all filters
+              {clearButtonCaption}
             </Typography>
           </button>
         )}

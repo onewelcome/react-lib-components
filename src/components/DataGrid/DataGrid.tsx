@@ -23,7 +23,7 @@ import { DataGridBody } from "./DataGridBody/DataGridBody";
 import { HeaderCell, OnSortFunction, Sort } from "./datagrid.interfaces";
 import { Pagination, Props as PaginationProps } from "../Pagination/Pagination";
 import { Spacing, useSpacing } from "../../hooks/useSpacing";
-import { DataGridToolbar } from "./DataGridFilters/DataGridToolbar";
+import { DataGridToolbar, DataGridToolbarProps } from "./DataGridFilters/DataGridToolbar";
 import { DataGridColumnMetadata, Filter } from "./DataGridFilters/DataGridFilters.interfaces";
 
 export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children"> {
@@ -47,14 +47,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   enableExpandableRow?: boolean;
   filters?: {
     enable: boolean;
-    filtersProps: {
-      columnsMetadata: DataGridColumnMetadata[];
-      filterValues?: Filter[];
-      onFilterAdd?: (filter: Filter) => void;
-      onFilterEdit?: (filter: Filter) => void;
-      onFilterDelete?: (id: string) => void;
-      onFiltersClear?: () => void;
-    };
+    filtersProps: DataGridToolbarProps;
   };
   isLoading?: boolean;
   enableMultiSorting?: boolean;
