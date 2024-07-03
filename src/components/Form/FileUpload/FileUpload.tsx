@@ -52,6 +52,7 @@ export interface Props extends FileUploadType {
   downloadFileLink?: string;
   isRequired?: boolean;
   invalidDropErrorMessage?: string;
+  noMultipleFileDropErrorMessage?: string;
 }
 
 const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
@@ -80,6 +81,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     downloadFileLink,
     isRequired = true,
     invalidDropErrorMessage = "Invalid file format. Supported formats are: $accept.",
+    noMultipleFileDropErrorMessage = "You can upload only a single file.",
     ...rest
   }: Props,
   ref
@@ -101,7 +103,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     subTextClass.push(errorClass);
     errorTextClass.push(errorClass);
   }
-  disabled && dropzoneClassNames.push(classes["disabled"]);
+  disabled && dropzoneContainerClassNames.push(classes["disabled"]);
   success && !error && dropzoneClassNames.push(classes["success"]);
 
   const getFileList = (files: FileList | null): FileType[] => {
@@ -132,7 +134,11 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     e.preventDefault();
     e.stopPropagation();
     let files = getFileList(e.target.files);
-    files.length && verifyExtensionValidity(files[files.length - 1]) && onChange?.(files);
+    const isFileValid = files.length && verifyExtensionValidity(files[files.length - 1]);
+    if (isFileValid) {
+      setErrorMsg("");
+    }
+    isFileValid && onChange?.(files);
   };
 
   const verifyExtensionValidity = (file: FileType) => {
@@ -180,7 +186,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     e.preventDefault();
     e.stopPropagation();
     const target = e.target as HTMLElement;
-    if (target?.classList.contains(classes["file-dropzone"])) {
+    if (target?.offsetParent?.classList.contains(classes["file-dropzone"])) {
       setDragActive(false);
     }
     onDragLeave?.(e);
@@ -195,11 +201,15 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         setErrorMsg(invalidDropErrorMessage.replace("$accept", accept));
         setDragActive(false);
         return;
+      } else if (!multiple && e.dataTransfer.files.length > 1) {
+        setErrorMsg(noMultipleFileDropErrorMessage);
+        setDragActive(false);
+        return;
       } else {
         setErrorMsg("");
       }
       const validatedFiles = getFileList(e.dataTransfer.files);
-      onDrop?.(validatedFiles);
+      onDrop ? onDrop?.(validatedFiles) : onChange?.(validatedFiles);
     }
     setDragActive(false);
   };
@@ -265,15 +275,14 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             </div>
           </div>
         </div>
-        {subText && (
-          <Typography variant={"sub-text"} className={subTextClass.join(" ")}>
-            {subText}
-          </Typography>
-        )}
-
         {errorMsg && (
           <Typography variant={"sub-text"} className={errorTextClass.join(" ")}>
             {errorMsg}
+          </Typography>
+        )}
+        {subText && (
+          <Typography variant={"sub-text"} className={subTextClass.join(" ")}>
+            {subText}
           </Typography>
         )}
       </div>
