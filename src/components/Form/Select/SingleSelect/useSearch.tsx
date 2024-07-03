@@ -15,7 +15,7 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { PartialInputProps, SearchProps } from "../Select.interfaces";
+import { SearchProps } from "../Select.interfaces";
 import { Input } from "../../Input/Input";
 
 interface Props {
