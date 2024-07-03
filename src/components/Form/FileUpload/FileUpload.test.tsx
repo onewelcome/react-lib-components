@@ -14,12 +14,11 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, act } from "react";
 import { FileType, FileUpload, Props } from "./FileUpload";
 import { createEvent, fireEvent, render, waitFor } from "@testing-library/react";
 
 import user from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 const defaultParams: Props = {
   accept: ".pdf, .jpg, .txt",
@@ -88,7 +87,7 @@ describe("File upload properties", () => {
       }),
       "file-upload-1"
     );
-    const dropZone = container.querySelector(".file-dropzone");
+    const dropZone = container.querySelector(".upload-button-wrapper");
     expect(dropZone).toHaveClass("disabled");
   });
 
@@ -229,13 +228,13 @@ describe("file drag and drop properties", () => {
     });
 
     expect(onDragLeave).toHaveBeenCalled();
+    expect(dropZone).not.toHaveClass("drag-active");
 
     await waitFor(() => {
       fireEvent(dropZone, dragOverEvent);
     });
 
     expect(dropZone).toHaveClass("drag-active");
-
     expect(onDragOver).toHaveBeenCalled();
 
     await waitFor(() => {
@@ -243,6 +242,7 @@ describe("file drag and drop properties", () => {
     });
 
     expect(onDrop).toHaveBeenCalled();
+    expect(dropZone).not.toHaveClass("drag-active");
   });
 
   afterEach(() => {
@@ -253,7 +253,7 @@ describe("file drag and drop properties", () => {
 describe("upload action", () => {
   it("shows accepts only files that follow the type rules", async () => {
     const onChange = jest.fn();
-    const { component } = createComponent(
+    const { component, container } = createComponent(
       defaultParams => ({
         ...defaultParams,
         onChange,
@@ -284,6 +284,45 @@ describe("upload action", () => {
       });
     });
     expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("should show error when trying to upload multiple files but only single file upload is enabled", async () => {
+    const onDrop = jest.fn();
+    const { container } = createComponent(
+      defaultParams => ({
+        ...defaultParams,
+        onDrop,
+        fileList: []
+      }),
+      "file-upload-6"
+    );
+
+    const file = new File([""], "test.jpg", {
+      type: "image/jpg"
+    });
+    const file2 = new File([""], "test2.jpg", {
+      type: "image/jpg"
+    });
+
+    const eventData = {
+      dataTransfer: {
+        files: [file, file2]
+      }
+    };
+
+    const dropZone = container.querySelector(".upload-button-wrapper") as Element;
+    const dropEvent = createEvent.drop(dropZone, eventData);
+
+    await waitFor(() => {
+      fireEvent(dropZone, dropEvent);
+    });
+
+    const dragDropWrapper = container.querySelector(".file-dropzone") as Element;
+    const errorMessage = container.querySelector(".file-selector-sub-text") as Element;
+
+    expect(dragDropWrapper.classList.contains("error")).toBeTruthy();
+    expect(errorMessage.classList.contains("error")).toBeTruthy();
+    expect(errorMessage.innerHTML).toStrictEqual("You can upload only a single file.");
   });
 
   it("doesn't upload a file two times", async () => {
@@ -345,6 +384,59 @@ describe("upload action", () => {
     });
 
     expect(onDrop).toHaveBeenCalledTimes(0);
+  });
+
+  it("should show error state and error message on drop of invalid extension file", async () => {
+    const onDrop = jest.fn();
+    const { container } = createComponent(
+      defaultParams => ({
+        ...defaultParams,
+        onDrop,
+        fileList: []
+      }),
+      "file-upload-6"
+    );
+
+    const file = new File([""], "test.png", {
+      type: "image/png"
+    });
+
+    const eventData = {
+      dataTransfer: {
+        files: [file]
+      }
+    };
+
+    const dropZone = container.querySelector(".upload-button-wrapper") as Element;
+    const dropEvent = createEvent.drop(dropZone, eventData);
+
+    await waitFor(() => {
+      fireEvent(dropZone, dropEvent);
+    });
+
+    const dragDropWrapper = container.querySelector(".file-dropzone") as Element;
+    const errorMessage = container.querySelector(".file-selector-sub-text") as Element;
+
+    expect(dragDropWrapper.classList.contains("error")).toBeTruthy();
+    expect(errorMessage.classList.contains("error")).toBeTruthy();
+    expect(errorMessage.innerHTML).toStrictEqual(
+      `Invalid file format. Supported formats are: ${defaultParams.accept}.`
+    );
+  });
+
+  it("should sub text or custom text be visible", async () => {
+    const { container } = createComponent(
+      defaultParams => ({
+        ...defaultParams,
+        fileList: [],
+        subText: "This is sub heading."
+      }),
+      "file-upload-6"
+    );
+    const subTextElement = container.querySelector(".file-selector-sub-text") as Element;
+
+    expect(subTextElement).toBeVisible();
+    expect(subTextElement.innerHTML).toStrictEqual("This is sub heading.");
   });
 
   afterEach(() => {

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, act } from "react";
 import { fireEvent, waitFor } from "@testing-library/dom";
 import {
   debounce,
@@ -29,7 +29,6 @@ import {
   deepMerge
 } from "./helper";
 import { render } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 
 /* Generate an ID of 20 characters with a string woven in */
 

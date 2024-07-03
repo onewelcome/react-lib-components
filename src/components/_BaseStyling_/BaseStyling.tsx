@@ -236,7 +236,6 @@ interface CSSProperties {
   formControlFontSize?: string;
   fileUploadBorderWidth?: string;
   dragDropBorderStyle?: string;
-  defaultZIndex1?: string;
   fontSizeDataGrid?: string;
 }
 
@@ -444,7 +443,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
-    defaultZIndex1: "1",
     formControlFontSize: "0.875rem", //FIXME: UCL-395
     fontSizeDataGrid: "0.875rem" //FIXME: UCL-395
   };

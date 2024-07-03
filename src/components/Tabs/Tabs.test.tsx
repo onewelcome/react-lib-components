@@ -14,12 +14,11 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { act } from "react";
 import { Tabs, Props } from "./Tabs";
 import { render } from "@testing-library/react";
 import { TabButton as Tab } from "./TabButton";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 const defaultParams: Props = {
   children: [
