@@ -42,15 +42,7 @@ export interface SelectProps<V extends string | readonly string[] | undefined>
   labeledBy?: string;
   describedBy?: string;
   placeholder?: string;
-  /**
-   * @deprecated
-   */
-  searchPlaceholder?: string;
-  /**
-   * @deprecated
-   */
-  searchInputProps?: PartialInputProps & { reset?: boolean };
-  selectButtonProps?: ComponentPropsWithRef<"button">;
+  selectButtonProps?: ComponentPropsWithRef<"button"> & FormElement;
   search?: SearchProps;
   className?: string;
   value: V;

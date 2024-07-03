@@ -52,8 +52,6 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     labeledBy,
     placeholder,
     describedBy,
-    searchPlaceholder = "Search item",
-    searchInputProps,
     selectButtonProps = {},
     className,
     error = false,
@@ -90,8 +88,6 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     optionsCount: optionsVisibleCount,
     focusedSelectItem,
     setFocusedSelectItem,
-    searchInputProps,
-    searchPlaceholder,
     describedBy,
     getOptionId,
     getListboxId

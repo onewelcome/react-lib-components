@@ -21,14 +21,6 @@ import { Input } from "../../Input/Input";
 interface Props {
   search?: SearchProps;
   optionsCount: number;
-  /**
-   * @deprecated
-   */
-  searchPlaceholder?: string;
-  /**
-   * @deprecated
-   */
-  searchInputProps?: PartialInputProps & { reset?: boolean };
   searchInputClassName: string;
   expanded: boolean;
   setFocusedSelectItem: (idx: number) => void;
@@ -38,8 +30,6 @@ interface Props {
 export const useSearch = ({
   search,
   optionsCount,
-  searchPlaceholder,
-  searchInputProps,
   searchInputClassName,
   expanded,
   setFocusedSelectItem
@@ -72,23 +62,21 @@ export const useSearch = ({
 
   const renderSearch = () => (
     <Input
-      {...(search?.searchInputProps ?? searchInputProps ?? {})}
+      {...(search?.searchInputProps ?? {})}
       ref={searchInputRef}
       onFocus={() => setIsSearching(true)}
       onBlur={() => setIsSearching(false)}
       onChange={filterResults}
       className={searchInputClassName}
       wrapperProps={{
-        className:
-          search?.searchInputProps?.wrapperProps?.className ??
-          searchInputProps?.wrapperProps?.className
+        className: search?.searchInputProps?.wrapperProps?.className
       }}
       style={{
         display: expanded ? "block" : "none"
       }}
       type="text"
       name="search-option"
-      placeholder={search?.searchPlaceholder ?? searchPlaceholder}
+      placeholder={search?.searchPlaceholder}
     />
   );
 
@@ -101,8 +89,8 @@ export const useSearch = ({
   const visible = shouldRenderSearch();
 
   useEffect(() => {
-    (search?.searchInputProps?.reset || searchInputProps?.reset) && resetSearchState();
-  }, [searchInputProps?.reset, search?.searchInputProps?.reset]);
+    search?.searchInputProps?.reset && resetSearchState();
+  }, [search?.searchInputProps?.reset]);
 
   useEffect(() => {
     const searchDeactivated =

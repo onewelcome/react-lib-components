@@ -30,9 +30,9 @@ import {
   AddNotification
 } from "./notification.interfaces";
 import { defaultTranslations } from "./NotificationService";
-import { useSnackbar } from "../Snackbar/useSnackbar";
 import { deepMerge, generateID } from "../../../util/helper";
 import { DeepPartial } from "../../../interfaces";
+import { useAlert } from "../Alert/useAlert";
 
 interface NotificationState {
   notifications: Notification<ErrorNotification | SuccessNotification>[];
@@ -59,7 +59,7 @@ export const NotificationHandler = ({
   translations = {},
   dispatchFn
 }: NotificationHandlerProps) => {
-  const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useSnackbar();
+  const { enqueueErrorAlert, enqueueSuccessAlert } = useAlert();
   const {
     state: { notifications }
   } = useNotificationContext();
@@ -101,22 +101,18 @@ export const NotificationHandler = ({
       ) {
         dispatchFn({ type: "remove", payload: { id: notification.id } });
       } else if (notification.status && !notification.handled && notification.type === "error") {
-        enqueueErrorSnackbar(
-          notification.title ?? mergedTranslations.general.error,
-          determineNotificationMessage(notification as Notification<ErrorNotification>),
-          {
-            onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
-          }
-        );
+        enqueueErrorAlert({
+          title: notification.title ?? mergedTranslations.general.error,
+          content: determineNotificationMessage(notification as Notification<ErrorNotification>),
+          onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
+        });
         dispatchFn({ type: "handled", payload: { id: notification.id, handled: true } });
       } else if (notification.title && !notification.handled && notification.type === "success") {
-        enqueueSuccessSnackbar(
-          notification.title ?? mergedTranslations.general.success,
-          notification.message,
-          {
-            onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
-          }
-        );
+        enqueueSuccessAlert({
+          title: notification.title ?? mergedTranslations.general.success,
+          content: notification.message,
+          onClose: () => dispatchFn({ type: "remove", payload: { id: notification.id } })
+        });
 
         dispatchFn({ type: "handled", payload: { id: notification.id, handled: true } });
       }
