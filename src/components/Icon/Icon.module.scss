@@ -357,3 +357,8 @@
   content: "\e94b";
   @include fontProperties();
 }
+
+.icon-add-circle:before {
+  content: "\e94c";
+  @include fontProperties();
+}

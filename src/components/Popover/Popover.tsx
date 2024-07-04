@@ -97,7 +97,7 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   useEffect(() => {
     calculatePosition();
-  }, [showPopover]);
+  }, [showPopover, elToBePositioned, anchorEl]);
 
   useEffect(() => {
     const anchor = anchorEl?.current as HTMLElement;

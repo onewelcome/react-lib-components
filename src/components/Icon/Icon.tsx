@@ -95,7 +95,8 @@ export enum Icons {
   DownloadFile = "download-file-outline",
   RetryFile = "retry",
   AbortFile = "cancel",
-  FileAltIcon = "file-alt"
+  FileAltIcon = "file-alt",
+  AddCircle = "add-circle"
 }
 
 type Tag = "span" | "div" | "i";
