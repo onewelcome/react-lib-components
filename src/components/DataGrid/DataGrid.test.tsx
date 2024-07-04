@@ -529,14 +529,8 @@ const createDataGridWithFilters = (params?: (defaultParams: any) => Props<WithFi
 
 describe("DataGrid with filters", () => {
   it("should filter out given values", async () => {
-    const {
-      dataGrid,
-      getByText,
-      getByLabelText,
-      getAllByText,
-      getByPlaceholderText,
-      getAllByRole
-    } = createDataGridWithFilters();
+    const { dataGrid, getByText, getByLabelText, getAllByText, getByRole, getAllByRole } =
+      createDataGridWithFilters();
 
     expect(dataGrid).toBeDefined();
 
@@ -561,7 +555,7 @@ describe("DataGrid with filters", () => {
     await userEvent.click(getAllByText("is")[0]);
 
     await userEvent.click(valueSelect);
-    const multiSelectInput = getByPlaceholderText("Search item");
+    const multiSelectInput = getByRole("combobox");
     await userEvent.type(multiSelectInput, "Company 1");
     const multiSelectButton = getByText("create new", { exact: false });
     await userEvent.click(multiSelectButton);
