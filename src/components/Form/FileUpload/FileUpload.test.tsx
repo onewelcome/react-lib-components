@@ -291,7 +291,7 @@ describe("upload action", () => {
     const { component } = createComponent(
       defaultParams => ({
         ...defaultParams,
-        maxFileSizeBytes: 1024 * 1024,
+        maxFileSizeInBytes: 1024 * 1024,
         onChange,
         fileList: []
       }),
