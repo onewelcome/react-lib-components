@@ -17,6 +17,10 @@
 import { useEffect, useState } from "react";
 import { Filter } from "./DataGridFilters/DataGridFilters.interfaces";
 
+/**
+ * @scope .
+ * @scopeException stories/DataGrid/DataGrid.stories.tsx
+ */
 export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | undefined) => {
   const [filters, setFilters] = useState<Filter[]>(filterValues || []);
 
