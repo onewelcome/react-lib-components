@@ -17,13 +17,12 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Select as SelectComponent } from "../../../src/components/Form/Select/SingleSelect/Select";
-import { Option } from "../../../src";
+import { Option, SingleSelectProps } from "../../../src";
 import SelectDocumentation from "./Select.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
-import { userEvent, waitFor, within, expect } from "@storybook/test";
-import { SingleSelectProps } from "../../../src/components/Form/Select/Select.interfaces";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 
-const generateOptions = count => {
+const generateOptions = (count: number) => {
   return Array.from({ length: count }, (_, index) => (
     <Option key={`option${index + 1}`} value={`option${index + 1}`}>
       {`Option ${index + 1}`}
@@ -81,7 +80,8 @@ Select.args = {
 export const SelectWithSearchOptions = Template.bind({});
 
 SelectWithSearchOptions.args = {
-  children: generateOptions(11)
+  children: generateOptions(11),
+  search: { enabled: true, renderThreshold: 0 }
 };
 
 SelectWithSearchOptions.play = conditionalPlay(async ({ canvasElement }) => {

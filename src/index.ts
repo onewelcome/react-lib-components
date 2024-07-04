@@ -50,8 +50,6 @@ export { ProgressBar } from "./components/ProgressBar/ProgressBar";
 export type { Props as ProgressBarProps } from "./components/ProgressBar/ProgressBar";
 export { Skeleton } from "./components/Skeleton/Skeleton";
 export type { Props as SkeletonProps } from "./components/Skeleton/Skeleton";
-export { StatusIndicator } from "./components/StatusIndicator/StatusIndicator";
-export type { Props as StatusIndicatorProps } from "./components/StatusIndicator/StatusIndicator";
 export { Stepper } from "./components/Stepper/Stepper";
 export type { Props as StepperProps } from "./components/Stepper/Stepper";
 export type { Props as StepProps } from "./components/Stepper/Step";
@@ -73,10 +71,6 @@ export { generateID, debounce, throttle } from "./util/helper";
 /* Notifications */
 export { Modal } from "./components/Notifications/Modal/Modal";
 export type { Props as ModalProps } from "./components/Notifications/Modal/Modal";
-/**
- * @deprecated
- */
-export { useSnackbar } from "./components/Notifications/Snackbar/useSnackbar";
 export { useAlert } from "./components/Notifications/Alert/useAlert";
 export { AlertProvider } from "./components/Notifications/Alert/AlertProvider/AlertProvider";
 export {
@@ -109,8 +103,6 @@ export type {
 } from "./components/Notifications/NotificationProvider/notification.interfaces";
 export { SlideInModal } from "./components/Notifications/SlideInModal/SlideInModal";
 export type { Props as SlideInModalProps } from "./components/Notifications/SlideInModal/SlideInModal";
-export { SnackbarProvider } from "./components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
-export type { Props as SnackbarProviderProps } from "./components/Notifications/Snackbar/SnackbarProvider/SnackbarProvider";
 
 /** Form components */
 export { Checkbox } from "./components/Form/Checkbox/Checkbox";
@@ -171,19 +163,6 @@ export { FormSection } from "./components/Layout/FormPage/FormWithStepper/FormSe
 export type { Props as FormSectionProps } from "./components/Layout/FormPage/FormWithStepper/FormSection/FormSection";
 export { FormWithStepper } from "./components/Layout/FormPage/FormWithStepper/FormWithStepper";
 export type { Props as FormWithStepperProps } from "./components/Layout/FormPage/FormWithStepper/FormWithStepper";
-
-/** Wizard */
-export { Wizard } from "./components/Wizard/Wizard";
-export type { Props as WizardProps } from "./components/Wizard/Wizard";
-export { WizardActions } from "./components/Wizard/WizardActions/WizardActions";
-export type { Props as WizardActionsProps } from "./components/Wizard/WizardActions/WizardActions";
-export { WizardSteps } from "./components/Wizard/WizardSteps/WizardSteps";
-export type { Props as WizardStepsProps } from "./components/Wizard/WizardSteps/WizardSteps";
-export { BaseWizardSteps } from "./components/Wizard/BaseWizardSteps/BaseWizardSteps";
-export type {
-  Props as BaseWizardStepsProps,
-  Step as WizardStep
-} from "./components/Wizard/BaseWizardSteps/BaseWizardSteps";
 
 /** DataGrid */
 export type { HeaderCell } from "./components/DataGrid/datagrid.interfaces";

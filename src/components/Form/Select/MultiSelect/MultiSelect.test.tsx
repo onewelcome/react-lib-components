@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { MultiSelect as MultiSelectComponent } from "./MultiSelect";
-import { act, render, waitFor, getByRole } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { MultiOption } from "./MultiOption";
 import userEvent from "@testing-library/user-event";
 import { MultiSelectProps } from "../Select.interfaces";
@@ -43,8 +43,7 @@ const defaultParams: MultiSelectProps = {
     <MultiOption value="option17">Test17</MultiOption>
   ],
   value: [],
-  searchInputProps: { "data-testid": "search-input" },
-  // @ts-ignore it does exist Typescript, pls.
+  search: { enabled: true, searchInputProps: { "data-testid": "search-input" } },
   selectButtonProps: { "data-testid": "select-button" }
 };
 
@@ -309,7 +308,7 @@ describe("search input props work", () => {
   it("adds a classname", () => {
     createMultiSelect(defaultParams => ({
       ...defaultParams,
-      searchInputProps: { className: "test-wrapper-classname" }
+      search: { enabled: true, searchInputProps: { className: "test-wrapper-classname" } }
     }));
 
     expect(document.querySelector(".test-wrapper-classname")).toBeInTheDocument();
