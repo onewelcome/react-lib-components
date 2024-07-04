@@ -14,19 +14,20 @@
  *    limitations under the License.
  */
 
-import { useContext } from "react";
-import { SnackbarContext } from "./SnackbarProvider/SnackbarStateProvider";
+import { useState } from "react";
 
-/**
- * @deprecated
- */
-export const useSnackbar = () => {
-  const ctx = useContext(SnackbarContext);
+export const useFullHeightCollapse = (isCollapsed?: boolean) => {
+  const [collapsed, setCollapsed] = useState(isCollapsed ?? false);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    const { scrollTop, scrollHeight, clientHeight } = target;
+    const position = Math.ceil((scrollTop / (scrollHeight - clientHeight)) * 100);
+    setCollapsed(position !== 0);
+  };
 
   return {
-    enqueueWarningSnackbar: ctx.enqueueWarningSnackbar,
-    enqueueErrorSnackbar: ctx.enqueueErrorSnackbar,
-    enqueueSuccessSnackbar: ctx.enqueueSuccessSnackbar,
-    enqueueSnackbar: ctx.enqueueSnackbar
+    collapsed,
+    handleScroll
   };
 };

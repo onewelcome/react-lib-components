@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,30 +14,36 @@
  *    limitations under the License.
  */
 
-.status-indicator {
+@use "../../../mixins.module.scss";
+
+.toolbar {
   display: flex;
   align-items: center;
-}
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  padding-bottom: 1rem;
 
-.status-badge {
-  width: 0.75rem;
-  height: 0.75rem;
-  margin-right: 0.5rem;
-  border-radius: 50%;
-}
+  .actions-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
 
-.active {
-  background-color: var(--success);
-}
+  .clear-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    @include mixins.focusVisibleOutline($outlineOffset: 0);
 
-.error {
-  background-color: var(--error);
-}
-
-.neutral {
-  background-color: var(--greyed-out);
-}
-
-.warning {
-  background-color: var(--warning);
+    .caption {
+      margin: 0;
+      font-size: var(--font-size-data-grid);
+      line-height: var(--data-grid-line-height);
+      text-decoration: underline;
+      color: var(--color-primary500);
+    }
+  }
 }

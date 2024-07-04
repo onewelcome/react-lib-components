@@ -57,7 +57,8 @@ export const FileItemCompleted = Template.bind({});
 
 FileItemCompleted.args = {
   name: "test.txt",
-  status: "completed"
+  status: "completed",
+  downloadFileLink: "https://www.test.com/download"
 };
 
 export const FileItemError = Template.bind({});
