@@ -1,6 +1,6 @@
 import React from "react";
 import { DataGridFilterTag, DataGridFilterTagProps } from "./DataGridFilterTag";
-import { getByLabelText, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const defaultParams: DataGridFilterTagProps = {
@@ -26,7 +26,7 @@ const createDataGridFilterTag = (
   };
 };
 
-describe("DataGridFilterTag should render", () => {
+describe("DataGridFilterTag", () => {
   it("should render without crashing", () => {
     const { DataGridFilterTagComponent } = createDataGridFilterTag();
 
@@ -34,7 +34,10 @@ describe("DataGridFilterTag should render", () => {
   });
 
   it("should render DataGridFilterTag in add mode", () => {
-    const { getByText } = createDataGridFilterTag(prev => ({ ...prev, addButtonCaption: "Add" }));
+    const { getByText } = createDataGridFilterTag(prev => ({
+      ...prev,
+      translations: { addButtonCaption: "Add" }
+    }));
 
     expect(getByText("Add")).toBeDefined();
   });

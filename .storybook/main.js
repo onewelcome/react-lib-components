@@ -27,7 +27,8 @@ module.exports = {
     "@onewelcome/storybook-addon-basestyling",
     "storybook-addon-pseudo-states",
     "@storybook/addon-webpack5-compiler-babel",
-    "@chromatic-com/storybook"
+    "@chromatic-com/storybook",
+    "storybook-addon-mock"
   ],
   webpackFinal: async (config, { configType }) => {
     config.devtool = configType === "PRODUCTION" ? false : "eval-source-map";
@@ -52,7 +53,10 @@ module.exports = {
           options: {
             importLoaders: 1,
             modules: {
-              localIdentName: "[name]__[local]--[hash:base64:5]"
+              localIdentName: "[name]__[local]--[hash:base64:5]",
+              namedExport: false,
+              exportLocalsConvention: "as-is",
+              exportOnlyLocals: false
             }
           }
         },

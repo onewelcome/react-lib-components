@@ -24,6 +24,7 @@ import { IconButton } from "../Button/IconButton";
 import { Icon, Icons } from "../Icon/Icon";
 import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
 import userEvent from "@testing-library/user-event";
+import { useMockFilteringLogic } from "./testUtils";
 
 type DataType = { firstName: string; lastName: string; date: string };
 
@@ -433,5 +434,198 @@ describe("spacing should work correctly", () => {
     expect(firstBodyCell).toHaveStyle({ "padding-left": "2rem" });
     expect(lastBodyCell).toHaveStyle({ "padding-right": "1rem" });
     expect(pagination).toHaveStyle({ "padding-left": "2rem", "padding-right": "1rem" });
+  });
+});
+
+type WithFiltersDataType = { id: string; name: string; type: string };
+
+const paramsWithFilters: Props<WithFiltersDataType> = {
+  children: ({ item }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{item.type}</DataGridCell>
+    </DataGridRow>
+  ),
+  data: [
+    {
+      id: "1",
+      name: "Company 1",
+      type: "Stock"
+    },
+
+    {
+      id: "2",
+      name: "Company 2",
+      type: "Bond"
+    },
+    {
+      id: "3",
+      name: "Company 1",
+      type: "Bond"
+    }
+  ],
+  filters: {
+    enable: true,
+    filtersProps: {
+      filterValues: [],
+      columnsMetadata: [
+        { name: "name", headline: "Name", operators: ["is", "is not"] },
+        { name: "type", headline: "Type", operators: ["is", "is not"] }
+      ],
+      onFilterAdd: filter => console.log(filter),
+      onFilterEdit: filter => console.log(filter),
+      onFilterDelete: id => console.log(id),
+      onFiltersClear: () => console.log("clear")
+    }
+  },
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "type", headline: "Type", disableSorting: true }
+  ],
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+const createDataGridWithFilters = (params?: (defaultParams: any) => Props<WithFiltersDataType>) => {
+  let parameters = paramsWithFilters;
+  if (params) {
+    parameters = params(paramsWithFilters);
+  }
+
+  const DataGridWithFilters = () => {
+    const { onFilterAdd, onFilterDelete, onFilterEdit, onFiltersClear, gridData, filters } =
+      useMockFilteringLogic(parameters.data || [], parameters.filters?.filtersProps.filterValues);
+
+    return (
+      parameters.filters && (
+        <DataGrid
+          {...parameters}
+          data={gridData}
+          filters={{
+            ...parameters.filters,
+            filtersProps: {
+              ...parameters?.filters.filtersProps,
+              filterValues: filters,
+              onFilterAdd,
+              onFilterEdit,
+              onFilterDelete,
+              onFiltersClear
+            }
+          }}
+          data-testid="dataGrid"
+        />
+      )
+    );
+  };
+
+  const queries = render(<DataGridWithFilters />);
+  const dataGrid = queries.getByTestId("dataGrid");
+
+  return {
+    ...queries,
+    dataGrid
+  };
+};
+
+describe("DataGrid with filters", () => {
+  it("should filter out given values", async () => {
+    const { dataGrid, getByText, getByLabelText, getAllByText, getByRole, getAllByRole } =
+      createDataGridWithFilters();
+
+    expect(dataGrid).toBeDefined();
+
+    const addFilterButton = getByText("Add filter");
+    expect(addFilterButton).toBeDefined();
+
+    await userEvent.click(addFilterButton);
+
+    const columnSelect = getByLabelText("Filter by");
+    const operatorSelect = getByLabelText("Operator");
+    const valueSelect = getByLabelText("Value");
+
+    expect(columnSelect).toBeDefined();
+    expect(operatorSelect).toBeDefined();
+    expect(valueSelect).toBeDefined();
+
+    await userEvent.click(columnSelect);
+    await userEvent.click(getAllByText("Name")[0]);
+    expect(columnSelect).toHaveTextContent("Name");
+
+    await userEvent.click(operatorSelect);
+    await userEvent.click(getAllByText("is")[0]);
+
+    await userEvent.click(valueSelect);
+    const multiSelectInput = getByRole("combobox");
+    await userEvent.type(multiSelectInput, "Company 1");
+    const multiSelectButton = getByText("create new", { exact: false });
+    await userEvent.click(multiSelectButton);
+
+    await userEvent.click(getByText("Apply"));
+
+    expect(getAllByRole("row")).toHaveLength(3);
+  });
+
+  it("should allow to edit filters", async () => {
+    const { dataGrid, getByText, getAllByLabelText, getAllByText, getAllByRole } =
+      createDataGridWithFilters(prev => ({
+        ...prev,
+        filters: {
+          enable: !!prev.filters?.enable,
+          filtersProps: {
+            ...prev.filters.filtersProps,
+            filterValues: [{ id: "test", column: "name", operator: "is", value: ["Company 1"] }]
+          }
+        }
+      }));
+
+    expect(dataGrid).toBeDefined();
+
+    expect(getAllByRole("row")).toHaveLength(3);
+
+    const editFilterButton = getByText(/name/);
+    expect(editFilterButton).toBeDefined();
+    await userEvent.click(editFilterButton);
+
+    const columnSelect = getAllByLabelText("Filter by")[0];
+    const operatorSelect = getAllByLabelText("Operator")[0];
+    const valueSelect = getAllByLabelText("Value")[0];
+
+    expect(columnSelect).toBeDefined();
+    expect(operatorSelect).toBeDefined();
+    expect(valueSelect).toBeDefined();
+
+    await userEvent.click(columnSelect);
+    await userEvent.click(getAllByText("Name")[0]);
+    expect(columnSelect).toHaveTextContent("Name");
+
+    await userEvent.click(operatorSelect);
+    await userEvent.click(getAllByText("is not")[0]);
+
+    await userEvent.click(getAllByText("Apply")[0]);
+
+    expect(getAllByRole("row")).toHaveLength(2);
+  });
+
+  it("should allow to delete filters", async () => {
+    const { dataGrid, getByText, getAllByRole } = createDataGridWithFilters(prev => ({
+      ...prev,
+      filters: {
+        enable: !!prev.filters?.enable,
+        filtersProps: {
+          ...prev.filters.filtersProps,
+          filterValues: [{ id: "test", column: "name", operator: "is", value: ["Company 1"] }]
+        }
+      }
+    }));
+
+    expect(dataGrid).toBeDefined();
+
+    expect(getAllByRole("row")).toHaveLength(3);
+
+    const removeAllButton = getByText("Clear all filters");
+    expect(removeAllButton).toBeDefined();
+    await userEvent.click(removeAllButton);
+
+    expect(getAllByRole("row")).toHaveLength(4);
   });
 });

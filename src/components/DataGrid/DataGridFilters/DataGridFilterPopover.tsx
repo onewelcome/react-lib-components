@@ -22,7 +22,11 @@ import { MultiOption } from "../../Form/Select/MultiSelect/MultiOption";
 import { MultiSelectWrapper } from "../../Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 import { SelectWrapper } from "../../Form/Wrapper/SelectWrapper/SelectWrapper";
 import { Popover } from "../../Popover/Popover";
-import { DataGridColumnMetadata, DefaultOperators } from "./DataGridFilters.interfaces";
+import {
+  DataGridColumnMetadata,
+  DefaultOperators,
+  PopoverTranslations
+} from "./DataGridFilters.interfaces";
 import { useRepeatFocus } from "../../../hooks/useRepeatFocus";
 
 export type Props = {
@@ -43,6 +47,7 @@ export type Props = {
   setOperators: (operators: React.SetStateAction<string[]>) => void;
   setValues: (values: React.SetStateAction<string[]>) => void;
   setPickedValues: (pickedValues: React.SetStateAction<string[]>) => void;
+  translations?: PopoverTranslations;
 };
 
 export const DataGridFilterPopover = ({
@@ -62,8 +67,18 @@ export const DataGridFilterPopover = ({
   setOperator,
   setOperators,
   setValues,
-  setPickedValues
+  setPickedValues,
+  translations
 }: Props) => {
+  const {
+    columnSelectLabel = "Filter by",
+    operatorSelectLabel = "Operator",
+    valueSelectLabel = "Value",
+    addNewValueLabel = "Create new",
+    addNewValueButtonTitle = "Add new select value",
+    submitButtonTitle = "Apply",
+    cancelButtonTitle = "Cancel"
+  } = translations || {};
   useRepeatFocus(popoverRef);
 
   useEffect(() => {
@@ -84,7 +99,7 @@ export const DataGridFilterPopover = ({
       <div className={classes["popover"]}>
         <div className={classes["controls"]}>
           <SelectWrapper
-            label="Filter by"
+            label={columnSelectLabel}
             value={column}
             name={"column"}
             onChange={e => {
@@ -115,7 +130,7 @@ export const DataGridFilterPopover = ({
             ))}
           </SelectWrapper>
           <SelectWrapper
-            label="Operator"
+            label={operatorSelectLabel}
             value={operator}
             name={"operator"}
             onChange={e => setOperator(e.target.value)}
@@ -127,7 +142,7 @@ export const DataGridFilterPopover = ({
             ))}
           </SelectWrapper>
           <MultiSelectWrapper
-            label="Value"
+            label={valueSelectLabel}
             name={"value"}
             value={pickedValues}
             onChange={e =>
@@ -139,14 +154,14 @@ export const DataGridFilterPopover = ({
             }
             selectProps={{
               addNew: {
-                label: "Create new",
+                label: addNewValueLabel,
                 onAddNew: value => {
                   if (value) {
                     setValues(prev => [...prev, value]);
                     setPickedValues(prev => [...prev, value]);
                   }
                 },
-                btnProps: { title: "Add new select option", type: "button" }
+                btnProps: { title: addNewValueButtonTitle, type: "button" }
               },
               search: {
                 enabled: true,
@@ -162,7 +177,7 @@ export const DataGridFilterPopover = ({
           </MultiSelectWrapper>
         </div>
         <div className={classes["actions"]}>
-          <Button onClick={onFilterSubmit}>Apply</Button>
+          <Button onClick={onFilterSubmit}>{submitButtonTitle}</Button>
           <Button
             variant="text"
             onClick={() => {
@@ -170,7 +185,7 @@ export const DataGridFilterPopover = ({
               setFilterOpen(false);
             }}
           >
-            Cancel
+            {cancelButtonTitle}
           </Button>
         </div>
       </div>

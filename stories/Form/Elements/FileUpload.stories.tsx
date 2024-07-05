@@ -56,6 +56,34 @@ const meta: Meta = {
     },
     exceedingMaxSizeErrorText: {
       control: "text"
+    },
+    onRequestedFileAction: {
+      control: "object"
+    },
+    onDragOver: {
+      table: {
+        disable: true
+      }
+    },
+    onDragLeave: {
+      table: {
+        disable: true
+      }
+    },
+    onDragEnter: {
+      table: {
+        disable: true
+      }
+    },
+    onDrop: {
+      table: {
+        disable: true
+      }
+    },
+    onChange: {
+      table: {
+        disable: true
+      }
     }
   }
 };
@@ -133,6 +161,7 @@ FileUploadComponent.args = {
   subText: "Caption",
   fileList: files,
   invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
+  noMultipleFileDropErrorMessage: "You can upload only a single file.",
   downloadFileLink: "http://localhost:4000/download.link"
 };
 
@@ -147,5 +176,27 @@ FileUploadComponentWithServerInteraction.args = {
   fileList: files,
   url: "http://localhost:4000/upload",
   invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
+  noMultipleFileDropErrorMessage: "You can upload only a single file.",
   downloadFileLink: "http://localhost:4000/download.link"
+};
+
+FileUploadComponentWithServerInteraction.parameters = {
+  mockAddonConfigs: {
+    globalMockData: [],
+    ignoreQueryParams: true,
+    refreshStoryOnUpdate: true,
+    disableUsingOriginal: false,
+    disable: false
+  },
+  mockData: [
+    {
+      url: "http://localhost:4000/upload",
+      method: "POST",
+      status: 201,
+      body: {},
+      response: {
+        message: "This is default response message."
+      }
+    }
+  ]
 };

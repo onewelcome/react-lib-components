@@ -58,3 +58,27 @@ export interface DataGridColumnMetadata {
   operators?: string[];
   defaultValues?: string[];
 }
+
+export interface PopoverTranslations {
+  columnSelectLabel?: string;
+  operatorSelectLabel?: string;
+  valueSelectLabel?: string;
+  addNewValueLabel?: string;
+  addNewValueButtonTitle?: string;
+  submitButtonTitle?: string;
+  cancelButtonTitle?: string;
+}
+
+export interface TagTranslations {
+  addButtonCaption?: string;
+}
+
+export interface ToolbarTranslations {
+  clearButtonCaption?: string;
+}
+
+export interface FiltersTranslations {
+  toolbar?: ToolbarTranslations;
+  tag?: TagTranslations;
+  popover?: PopoverTranslations;
+}

@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, act } from "react";
 import { Select as SelectComponent } from "./Select";
-import { act, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { Option } from "./Option";
 import userEvent from "@testing-library/user-event";
 import { SingleSelectProps } from "../Select.interfaces";
@@ -43,8 +43,7 @@ export const defaultParams: SingleSelectProps = {
     <Option value="option17">Test17</Option>
   ],
   value: "option1",
-  searchInputProps: { "data-testid": "search-input" },
-  // @ts-ignore it does exist Typescript, pls.
+  search: { enabled: true, searchInputProps: { "data-testid": "search-input" } },
   selectButtonProps: { "data-testid": "select-button" }
 };
 
@@ -213,30 +212,18 @@ describe("Select should render with search", () => {
     expect(searchInput).toBeNull();
   });
 
-  it("should render search when enabled", async () => {
-    const { select, button, queryByTestId } = createSelect(defaultParams => ({
+  it("should render search when enabled and threshold has been reached", async () => {
+    const { select, button, getByTestId } = createSelect(defaultParams => ({
       ...defaultParams,
-      search: { enabled: true }
-    }));
-
-    const searchInput = queryByTestId("search-input");
-
-    if (button) {
-      await userEvent.click(button);
-    }
-
-    expect(select).toBeTruthy();
-    expect(searchInput).not.toBeNull();
-  });
-
-  it("should render search when threshold has been reached", async () => {
-    const { select, button, queryByTestId } = createSelect(defaultParams => ({
-      ...defaultParams,
-      search: { enabled: true, renderThreshold: 0 },
+      search: {
+        renderThreshold: 0,
+        enabled: true,
+        searchInputProps: { "data-testid": "search-input" }
+      },
       children: []
     }));
 
-    const searchInput = queryByTestId("search-input");
+    const searchInput = getByTestId("search-input");
 
     if (button) {
       await userEvent.click(button);
@@ -368,15 +355,6 @@ describe("previously selected item", () => {
 });
 
 describe("search input props work", () => {
-  it("adds a classname [DEPRECATED]", () => {
-    createSelect(defaultParams => ({
-      ...defaultParams,
-      searchInputProps: { wrapperProps: { className: "test-wrapper-classname" } }
-    }));
-
-    expect(document.querySelector(".test-wrapper-classname")).toBeInTheDocument();
-  });
-
   it("adds a classname", () => {
     createSelect(defaultParams => ({
       ...defaultParams,
@@ -402,7 +380,10 @@ describe("addBtn feature", () => {
   it("should not be visible when action defined & search has empty query", async () => {
     const { button, queryByTestId, getByTestId } = createSelect(defaultParams => ({
       ...defaultParams,
-      addNew: { label: "You shall never click me", onAddNew: () => {} }
+      addNew: {
+        label: "You shall never click me",
+        onAddNew: () => {}
+      }
     }));
 
     const searchInput = getByTestId("search-input");

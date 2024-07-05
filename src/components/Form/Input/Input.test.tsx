@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useRef, useState, Fragment } from "react";
+import React, { useEffect, useRef, useState, Fragment, act } from "react";
 import { Input, Props, Type } from "./Input";
-import { act, fireEvent, render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Label } from "../Label/Label";
 

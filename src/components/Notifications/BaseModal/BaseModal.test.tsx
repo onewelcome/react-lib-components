@@ -14,11 +14,10 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, act } from "react";
 import { BaseModal, Props } from "./BaseModal";
 import { render, getByText, queryByText, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 const classNames = ["class11", "class12"];
 const containerClassNames = ["class21", "class22"];

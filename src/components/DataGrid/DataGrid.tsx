@@ -23,8 +23,7 @@ import { DataGridBody } from "./DataGridBody/DataGridBody";
 import { HeaderCell, OnSortFunction, Sort } from "./datagrid.interfaces";
 import { Pagination, Props as PaginationProps } from "../Pagination/Pagination";
 import { Spacing, useSpacing } from "../../hooks/useSpacing";
-import { DataGridToolbar } from "./DataGridFilters/DataGridToolbar";
-import { DataGridColumnMetadata, Filter } from "./DataGridFilters/DataGridFilters.interfaces";
+import { DataGridToolbar, DataGridToolbarProps } from "./DataGridFilters/DataGridToolbar";
 
 export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
@@ -46,15 +45,8 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   disableContextMenuColumn?: boolean;
   enableExpandableRow?: boolean;
   filters?: {
-    enableFilters: boolean;
-    filtersProps: {
-      columnsMetadata: DataGridColumnMetadata[];
-      filterValues?: Filter[];
-      onFilterAdd?: (filter: Filter) => void;
-      onFilterEdit?: (filter: Filter) => void;
-      onFilterDelete?: (id: string) => void;
-      onFiltersClear?: () => void;
-    };
+    enable: boolean;
+    filtersProps: DataGridToolbarProps;
   };
   isLoading?: boolean;
   enableMultiSorting?: boolean;
@@ -140,7 +132,7 @@ const DataGridInner = <T extends {}>(
         paddingBottom: styleWithSpacing?.paddingBottom
       }}
     >
-      {filters?.enableFilters ? (
+      {filters?.enable ? (
         <DataGridToolbar {...filters.filtersProps} />
       ) : (
         <DataGridActions

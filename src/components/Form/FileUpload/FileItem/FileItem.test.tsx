@@ -94,14 +94,39 @@ describe("component should change display the correct style and elements accordi
     expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.REMOVE);
   });
 
+  it("should show response error message when file failed to upload with retry state", () => {
+    const errorMessage = "Network error. Check internet connection and retry uploading the file";
+    const { errorSubtitle } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "retry",
+      error: errorMessage
+    }));
+    expect(errorSubtitle).not.toBeNull();
+    expect(errorSubtitle?.innerHTML).toStrictEqual(errorMessage);
+    expect(errorSubtitle?.classList.contains("retry")).toBeTruthy();
+  });
+
+  it("should show response error message when file failed to upload with error state", () => {
+    const responseErrorMsg = "Failed to upload due to internal server error";
+    const { errorSubtitle } = createFileItem(defaultParams => ({
+      ...defaultParams,
+      status: "error",
+      error: responseErrorMsg
+    }));
+    expect(errorSubtitle).not.toBeNull();
+    expect(errorSubtitle?.classList.contains("error")).toBeTruthy();
+    expect(errorSubtitle?.innerHTML).toStrictEqual(responseErrorMsg);
+  });
+
   it("should show Delete & Download option for successfully uploaded file", () => {
-    const { actionIcons, title } = createFileItem(defaultParams => ({
+    const { actionIcons, title, errorIcon } = createFileItem(defaultParams => ({
       ...defaultParams,
       status: "completed",
       downloadFileLink: "https://test.com/download"
     }));
 
     expect(title).toHaveClass("completed");
+    expect(errorIcon).toBeNull();
     expect(actionIcons[0]).toHaveClass("icon-trash");
     expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.DELETE);
     expect(actionIcons[1]).toHaveClass("icon-download-file-outline");

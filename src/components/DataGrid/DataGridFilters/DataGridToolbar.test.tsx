@@ -37,7 +37,7 @@ describe("DataGridToolbar should render", () => {
   });
 
   it("should allow to create a new filter", async () => {
-    const { getByText, getByLabelText, getByPlaceholderText } = createDataGridToolbar();
+    const { getByText, getByLabelText, getByRole } = createDataGridToolbar();
 
     const addFilterButton = getByText("Add filter");
     expect(addFilterButton).toBeDefined();
@@ -60,7 +60,7 @@ describe("DataGridToolbar should render", () => {
     await userEvent.click(getByText("after"));
 
     await userEvent.click(valueSelect);
-    const multiSelectInput = getByPlaceholderText("Search item");
+    const multiSelectInput = getByRole("combobox");
     await userEvent.type(multiSelectInput, "yesterday");
     const multiSelectButton = getByText("create new", { exact: false });
     await userEvent.click(multiSelectButton);
@@ -72,7 +72,7 @@ describe("DataGridToolbar should render", () => {
   });
 
   it("should reset filter form values when user closes the popover", async () => {
-    const { getByText, getByLabelText, getByPlaceholderText } = createDataGridToolbar();
+    const { getByText, getByLabelText, getByRole } = createDataGridToolbar();
 
     const addFilterButton = getByText("Add filter");
     expect(addFilterButton).toBeDefined();
@@ -96,7 +96,7 @@ describe("DataGridToolbar should render", () => {
     expect(operatorSelect).toHaveTextContent("contains");
 
     await userEvent.click(valueSelect);
-    const multiSelectInput = getByPlaceholderText("Search item");
+    const multiSelectInput = getByRole("combobox");
     await userEvent.type(multiSelectInput, "yesterday");
     const multiSelectButton = getByText("create new", { exact: false });
     await userEvent.click(multiSelectButton);
@@ -114,11 +114,12 @@ describe("DataGridToolbar should render", () => {
   });
 
   it("should allow to edit an existing filter", async () => {
-    const { getByText, getAllByText, getAllByLabelText, getAllByPlaceholderText, debug } =
-      createDataGridToolbar(prev => ({
+    const { getByText, getAllByText, getAllByLabelText, getByRole } = createDataGridToolbar(
+      prev => ({
         ...prev,
         filterValues: [{ id: "test", column: "name", operator: "is", value: ["test"] }]
-      }));
+      })
+    );
 
     const editFilterButton = getByText(/name/);
     expect(editFilterButton).toBeDefined();
@@ -140,7 +141,7 @@ describe("DataGridToolbar should render", () => {
     await userEvent.click(getByText("after"));
 
     await userEvent.click(valueSelect);
-    const multiSelectInput = getAllByPlaceholderText("Search item")[0];
+    const multiSelectInput = getByRole("combobox");
     await userEvent.type(multiSelectInput, "yesterday");
     const multiSelectButton = getByText("create new", { exact: false });
     await userEvent.click(multiSelectButton);
