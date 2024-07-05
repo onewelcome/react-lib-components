@@ -54,7 +54,7 @@ const baseConfig = {
             );
             file.code = file.code.replace(
               /import\s?(\w+)?\s?from\s?["'](\.\.\/|\.\/){1,5}node_modules\/style-inject\/dist\/style-inject.es.(esm).?js["'];?/,
-              `import $1 from "${relativePath}";`
+              `import $1 from "${relativePath.replaceAll('\\', '/')}";`
             );
           } else if (fileName.match(/.*(.module.cjs.js)$/)) {
             // Replace tslib import with a custom resolution or code snippet
@@ -64,7 +64,7 @@ const baseConfig = {
             );
             file.code = file.code.replace(
               /require\(["'](\.\.\/|\.\/){1,5}node_modules\/style-inject\/dist\/style-inject.es.(cjs).?js["']\);?/,
-              `require("${relativePath}");`
+              `require("${relativePath.replaceAll('\\', '/')}");`
             );
           }
         });
