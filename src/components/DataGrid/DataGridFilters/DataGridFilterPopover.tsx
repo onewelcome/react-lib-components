@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { createRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import classes from "./DataGridFilter.module.scss";
 import { Button } from "../../Button/Button";
 import { Option } from "../../Form/Select/SingleSelect/Option";
@@ -26,7 +26,8 @@ import { DataGridColumnMetadata, DefaultOperators } from "./DataGridFilters.inte
 import { useRepeatFocus } from "../../../hooks/useRepeatFocus";
 
 export type Props = {
-  anchorRef?: React.RefObject<HTMLOrSVGElement>;
+  popoverRef: React.RefObject<HTMLDivElement>;
+  anchorRef?: React.RefObject<HTMLDivElement>;
   isOpen: boolean;
   column: string;
   columnsMetadata: DataGridColumnMetadata[];
@@ -45,6 +46,7 @@ export type Props = {
 };
 
 export const DataGridFilterPopover = ({
+  popoverRef,
   anchorRef,
   isOpen,
   column,
@@ -62,8 +64,6 @@ export const DataGridFilterPopover = ({
   setValues,
   setPickedValues
 }: Props) => {
-  const popoverRef = createRef<HTMLDivElement>();
-
   useRepeatFocus(popoverRef);
 
   useEffect(() => {
@@ -74,12 +74,14 @@ export const DataGridFilterPopover = ({
 
   return (
     <Popover
+      tabIndex={-1}
       anchorEl={anchorRef}
+      ref={popoverRef}
       show={isOpen}
       placement={{ horizontal: "left", vertical: "bottom" }}
       transformOrigin={{ horizontal: "left", vertical: "top" }}
     >
-      <div tabIndex={-1} ref={popoverRef} className={classes["popover"]}>
+      <div className={classes["popover"]}>
         <div className={classes["controls"]}>
           <SelectWrapper
             label="Filter by"

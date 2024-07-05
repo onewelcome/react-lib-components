@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, createRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 import {
@@ -49,7 +49,10 @@ export const DataGridFilter = ({
   onFilterEdit,
   onFilterDelete
 }: Props) => {
-  const wrappingDivRef = createRef<HTMLDivElement>();
+  const wrappingDivRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
   const [filterOpen, setFilterOpen] = useState(false);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
   const {
@@ -114,11 +117,13 @@ export const DataGridFilter = ({
         mode={mode}
         onFilterOpen={onFilterOpen}
         onFilterRemove={onFilterRemove}
-        triggerRef={wrappingDivRef}
+        triggerRef={triggerRef}
+        ref={wrappingDivRef}
         filter={filter}
       />
       {createPortal(
         <DataGridFilterPopover
+          popoverRef={popoverRef}
           anchorRef={wrappingDivRef}
           isOpen={filterOpen}
           column={column}

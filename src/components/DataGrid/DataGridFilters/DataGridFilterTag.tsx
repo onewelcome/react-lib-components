@@ -22,7 +22,7 @@ import classes from "./DataGridFilter.module.scss";
 import { Filter, FilterEditorMode } from "./DataGridFilters.interfaces";
 
 export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
-  triggerRef: React.Ref<HTMLDivElement>;
+  triggerRef: React.Ref<HTMLButtonElement>;
   filter?: Filter;
   mode: FilterEditorMode;
   onFilterRemove: () => void;
@@ -65,8 +65,13 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
   const shouldRenderEditTag = mode === "EDIT" && filter;
 
   return (
-    <div {...rest} ref={triggerRef} className={classes["filter-wrapper"]}>
-      <button type="button" className={classes["filter-button"]} onClick={onFilterOpen}>
+    <div {...rest} ref={ref} className={classes["filter-wrapper"]}>
+      <button
+        ref={triggerRef}
+        type="button"
+        className={classes["filter-button"]}
+        onClick={onFilterOpen}
+      >
         {shouldRenderAddTag && (
           <Fragment>
             <Icon icon={Icons.AddCircle} />
