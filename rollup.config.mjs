@@ -19,7 +19,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import postcss from "rollup-plugin-postcss";
 import postcssUrl from "postcss-url";
-import { terser } from "rollup-plugin-terser";
+import terser from '@rollup/plugin-terser';
 import path from "path";
 
 const packageJson = require("./package.json");
@@ -69,16 +69,7 @@ const baseConfig = {
           }
         });
       }
-    },
-    terser({
-      mangle: true,
-      compress: {
-        defaults: false
-      },
-      output: {
-        comments: false
-      }
-    })
+    }
   ],
   external: Object.keys(packageJson.peerDependencies || {})
 };
@@ -123,7 +114,7 @@ const cjsConfig = {
     entryFileNames: "[name].cjs.js",
     exports: "named"
   },
-  plugins: [...baseConfig.plugins, typescript({ tsconfig: "./tsconfig.cjs.json" })]
+  plugins: [...baseConfig.plugins, typescript({ tsconfig: "./tsconfig.cjs.json" }), terser()]
 };
 
 export default [esmConfig, cjsConfig, libsConfig];
