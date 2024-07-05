@@ -39,7 +39,7 @@ export interface Props extends FileUploadType {
   multiple: boolean;
   fileList: FileType[];
   exceedingMaxSizeErrorText?: string;
-  maxFileSize?: number;
+  maxFileSizeInBytes?: number;
   selectButtonText?: string;
   dragAndDropText?: string;
   subText?: string;
@@ -61,7 +61,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     accept,
     error,
     success,
-    maxFileSize,
+    maxFileSizeInBytes,
     multiple,
     id,
     title,
@@ -154,14 +154,24 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     };
 
     let err = false;
-    if (maxFileSize && file.size && file.size >= maxFileSize) {
-      const mb = (maxFileSize / (1024 * 1024)).toFixed(2);
+
+    if (maxFileSizeInBytes && file.size && file.size >= maxFileSizeInBytes) {
+      let sizeMessage: string;
+      const isAtLeastOneMb = maxFileSizeInBytes >= 1024 * 1024;
+
+      if (isAtLeastOneMb) {
+        sizeMessage = `${(maxFileSizeInBytes / (1024 * 1024)).toFixed(2)}MB`;
+      } else {
+        sizeMessage = `${(maxFileSizeInBytes / 1024).toFixed(2)}KB`;
+      }
+
       result.error =
         exceedingMaxSizeErrorText ??
-        `The maximum allowed file size is ${mb}MB. Upload a smaller file.`;
+        `The maximum allowed file size is ${sizeMessage}. Upload a smaller file.`;
       result.status = "error";
       err = true;
     }
+
     setInputError(err);
     return result;
   };

@@ -109,8 +109,7 @@ const formStepperProps: FormStepperProps = {
   steps: initialStepperState
 };
 
-const Template1: StoryFn<FormWithStepperProps> = args => {
-  
+const FormWithStepperTemplate: StoryFn<FormWithStepperProps> = args => {
   const [steps, setSteps] = useState(initialStepperState);
 
   const updateStepStatus = (index: number, status: StepStatus) => {
@@ -127,54 +126,46 @@ const Template1: StoryFn<FormWithStepperProps> = args => {
   const { collapsed, handleScroll } = useFullHeightCollapse(false);
   return (
     <>
-    <ContentHeader title="Form Header" collapsed={collapsed}>
-    <p>Form Header Description</p>
-  </ContentHeader>
-    <FormWithStepper stepper={formStepperComponent} onScroll={handleScroll}>
-      <div>
-        <FormSection
-          id="samlBaseInfo"
-          header="Step 1 Form Section"
-          subtext="Form Section sub-header."
-        >
-          <FormControlExample index={0} updateStepStatus={updateStepStatus}></FormControlExample>
-        </FormSection>
-        <FormSection
-          id="samlConnectionDetail"
-          header="Step 2 Form Section"
-          subtext="Form Section Subheader"
-        >
-          <FormControlExample index={1} updateStepStatus={updateStepStatus}></FormControlExample>
-        </FormSection>
-        <FormSection
-          id="samlFederationRequest"
-          header="Step 3 Form section"
-          subtext="Form Section Subheader"
-        >
-          <FormControlExample index={2} updateStepStatus={updateStepStatus}></FormControlExample>
-        </FormSection>
-        <FormSection
-          id="samlAttributeMapping"
-          header="Step 4 Form section"
-          subtext="Form Section Subheader"
-        >
-          <FormControlExample index={3} updateStepStatus={updateStepStatus}></FormControlExample>
-        </FormSection>
-      </div>
-    </FormWithStepper>
+      <ContentHeader title="Form Header" collapsed={collapsed}>
+        <p>Form Header Description</p>
+      </ContentHeader>
+      <FormWithStepper stepper={formStepperComponent} onScroll={handleScroll}>
+        <div>
+          <FormSection
+            id="samlBaseInfo"
+            header="Step 1 Form Section"
+            subtext="Form Section sub-header."
+          >
+            <FormControlExample index={0} updateStepStatus={updateStepStatus}></FormControlExample>
+          </FormSection>
+          <FormSection
+            id="samlConnectionDetail"
+            header="Step 2 Form Section"
+            subtext="Form Section Subheader"
+          >
+            <FormControlExample index={1} updateStepStatus={updateStepStatus}></FormControlExample>
+          </FormSection>
+          <FormSection
+            id="samlFederationRequest"
+            header="Step 3 Form section"
+            subtext="Form Section Subheader"
+          >
+            <FormControlExample index={2} updateStepStatus={updateStepStatus}></FormControlExample>
+          </FormSection>
+          <FormSection
+            id="samlAttributeMapping"
+            header="Step 4 Form section"
+            subtext="Form Section Subheader"
+          >
+            <FormControlExample index={3} updateStepStatus={updateStepStatus}></FormControlExample>
+          </FormSection>
+        </div>
+      </FormWithStepper>
     </>
   );
 };
 
-export const ContentHeaderWithCollapseHeader = Template1.bind({});
-
-ContentHeaderWithCollapseHeader.args = {
-  children: (
-    <p>Form Header Description</p>
-  ),
-  buttons: [],
-  collapsed: false
-};
+export const ContentHeaderWithCollapseHeader = FormWithStepperTemplate.bind({});
 
 ContentHeaderWithCollapseHeader.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -185,5 +176,3 @@ ContentHeaderWithCollapseHeader.play = conditionalPlay(async ({ canvasElement })
 
   await userEvent.click(select);
 });
-
-

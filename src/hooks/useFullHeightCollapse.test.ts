@@ -17,8 +17,8 @@
 import { act, renderHook } from "@testing-library/react";
 import { useFullHeightCollapse } from "./useFullHeightCollapse";
 
-describe('useFullHeightCollapse', () => {
-  it('should initialize with the given isCollapsed value', () => {
+describe("useFullHeightCollapse", () => {
+  it("should initialize with the given isCollapsed value", () => {
     const { result } = renderHook(() => useFullHeightCollapse(true));
     expect(result.current.collapsed).toBe(true);
 
@@ -26,12 +26,12 @@ describe('useFullHeightCollapse', () => {
     expect(result2.current.collapsed).toBe(false);
   });
 
-  it('should default to false if isCollapsed is not provided', () => {
+  it("should default to false if isCollapsed is not provided", () => {
     const { result } = renderHook(() => useFullHeightCollapse());
     expect(result.current.collapsed).toBe(false);
   });
-  
-  it('should update collapsed state based on scroll position', () => {
+
+  it("should update collapsed state based on scroll position", () => {
     const { result } = renderHook(() => useFullHeightCollapse(false));
     const mockEvent = {
       target: {
@@ -47,7 +47,7 @@ describe('useFullHeightCollapse', () => {
 
     expect(result.current.collapsed).toBe(true);
 
-    const mockEventTop= {
+    const mockEventTop = {
       target: {
         scrollTop: 0,
         scrollHeight: 300,
@@ -56,10 +56,9 @@ describe('useFullHeightCollapse', () => {
     };
 
     act(() => {
-      result.current.handleScroll(mockEventTop  as unknown as React.UIEvent<HTMLDivElement>);
+      result.current.handleScroll(mockEventTop as unknown as React.UIEvent<HTMLDivElement>);
     });
 
     expect(result.current.collapsed).toBe(false);
   });
 });
-

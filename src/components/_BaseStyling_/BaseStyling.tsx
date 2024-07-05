@@ -124,31 +124,6 @@ interface CSSProperties {
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
 
-  /**
-   * @deprecated
-   */
-  snackbarTextColor?: string;
-  /**
-   * @deprecated
-   */
-  snackbarInfoBackgroundColor?: string;
-  /**
-   * @deprecated
-   */
-  snackbarSuccessBackgroundColor?: string;
-  /**
-   * @deprecated
-   */
-  snackbarErrorBackgroundColor?: string;
-  /**
-   * @deprecated
-   */
-  snackbarWarningBackgroundColor?: string;
-  /**
-   * @deprecated
-   */
-  snackbarBorderRadius?: string;
-
   alertTextColor?: string;
   alertTextInvertedColor?: string;
 
@@ -211,7 +186,6 @@ interface CSSProperties {
   tabPressedColor?: string;
   toggleBackgroundColor?: string;
   tooltipBackgroundColor?: string;
-  wizardStepIndicatorFutureColor?: string;
   contextMenuHoverColor?: string;
   contextMenuPressedColor?: string;
   default?: string;
@@ -349,13 +323,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
 
-    snackbarTextColor: "var(--light)",
-    snackbarInfoBackgroundColor: "var(--color-primary500)",
-    snackbarSuccessBackgroundColor: "var(--color-green500)",
-    snackbarErrorBackgroundColor: "var(--color-red500)",
-    snackbarWarningBackgroundColor: "var(--color-orange500)",
-    snackbarBorderRadius: "2px",
-
     alertTextColor: "var(--default)",
     alertTextInvertedColor: "var(--light)",
 
@@ -421,7 +388,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     tabPressedColor: "var(--default-pressed-color)",
     toggleBackgroundColor: "var(--color-blue-grey100)",
     tooltipBackgroundColor: "var(--default)",
-    wizardStepIndicatorFutureColor: "var(--color-blue-grey200)",
     contextMenuHoverColor: "var(--default-hover-color)",
     contextMenuPressedColor: "var(--default-pressed-color)",
     default: "var(--color-blue-grey900)",

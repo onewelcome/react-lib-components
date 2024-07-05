@@ -44,8 +44,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     labeledBy,
     placeholder,
     describedBy,
-    searchPlaceholder = "Search item",
-    searchInputProps,
     selectButtonProps,
     className,
     error = false,
@@ -82,9 +80,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     search,
     searchInputClassName: classes["select-search"],
     optionsCount,
-    setFocusedSelectItem,
-    searchInputProps,
-    searchPlaceholder
+    setFocusedSelectItem
   });
   const { addBtnRef, addNewBtnOptionsContainerClassName, renderAddNew } = useAddNewBtn({
     addNew,
