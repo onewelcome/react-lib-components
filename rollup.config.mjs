@@ -69,16 +69,7 @@ const baseConfig = {
           }
         });
       }
-    },
-    terser({
-      mangle: true,
-      compress: {
-        defaults: false
-      },
-      output: {
-        comments: false
-      }
-    })
+    }
   ],
   external: Object.keys(packageJson.peerDependencies || {})
 };
@@ -123,7 +114,7 @@ const cjsConfig = {
     entryFileNames: "[name].cjs.js",
     exports: "named"
   },
-  plugins: [...baseConfig.plugins, typescript({ tsconfig: "./tsconfig.cjs.json" })]
+  plugins: [...baseConfig.plugins, typescript({ tsconfig: "./tsconfig.cjs.json" }), terser()]
 };
 
 export default [esmConfig, cjsConfig, libsConfig];
