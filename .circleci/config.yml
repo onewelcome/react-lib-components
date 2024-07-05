@@ -76,7 +76,7 @@ jobs:
           at: ~/
       - run:
           name: Install gh-pages
-          command: npm install --legacy-peer-deps --prefix=$HOME/.local -g --silent gh-pages
+          command: npm install --prefix=$HOME/.local -g --silent gh-pages
       - run:
           name: Add host
           command: |
