@@ -180,6 +180,6 @@ workflows:
 
       - deploy-storybook-to-github-pages:
           name: deploy-github-pages
-#          <<: *filter-tags
+          <<: *filter-tags
           requires:
             - build-storybook
