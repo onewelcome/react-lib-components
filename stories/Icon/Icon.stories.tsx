@@ -18,6 +18,7 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Icon as IconComponent, Icons, Props } from "../../src/components/Icon/Icon";
 import IconDocumentation from "./Icon.mdx";
+import { IconGrid } from "./IconGrid";
 
 const meta: Meta = {
   title: "components/Data Display/Icon",
@@ -38,6 +39,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: StoryFn<Props> = args => <IconComponent {...args} />;
+const IconGridTemplate: StoryFn<Props> = args => <IconGrid />;
 
 export const Icon = Template.bind({});
 
@@ -54,7 +56,10 @@ IconColor.args = {
 };
 
 export const IconSize = Template.bind({});
+
 IconSize.args = {
   icon: Icons.Calendar,
   size: "3rem"
 };
+
+export const IconStates = IconGridTemplate.bind({});
