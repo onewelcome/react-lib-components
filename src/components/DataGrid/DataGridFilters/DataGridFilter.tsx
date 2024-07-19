@@ -127,12 +127,14 @@ export const DataGridFilter = ({
         triggerRef={triggerRef}
         ref={wrappingDivRef}
         filter={filter}
+        translations={tagTranslations}
       />
       {createPortal(
         <DataGridFilterPopover
           popoverRef={popoverRef}
           anchorRef={wrappingDivRef}
           isOpen={filterOpen}
+          translations={popoverTranslations}
           column={column}
           columnsMetadata={columnsMetadata}
           values={values}
