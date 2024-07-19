@@ -96,7 +96,9 @@ export enum Icons {
   RetryFile = "retry",
   AbortFile = "cancel",
   FileAltIcon = "file-alt",
-  AddCircle = "add-circle"
+  AddCircle = "add-circle",
+  ZoomIn = "zoom-in",
+  ZoomOut = "zoom-out"
 }
 
 type Tag = "span" | "div" | "i";
