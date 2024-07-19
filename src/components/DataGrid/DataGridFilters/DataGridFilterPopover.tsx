@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import classes from "./DataGridFilter.module.scss";
 import { Button } from "../../Button/Button";
 import { Option } from "../../Form/Select/SingleSelect/Option";
