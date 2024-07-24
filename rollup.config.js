@@ -64,7 +64,7 @@ const baseConfig = {
             );
             file.code = file.code.replace(
               /require\(["'](\.\.\/|\.\/){1,5}node_modules\/style-inject\/dist\/style-inject.es.(cjs).?js["']\);?/,
-              `import $1 from "${relativePath.replaceAll('\\', '/')}";`
+              `require("${relativePath.replaceAll('\\', '/')}");`
             );
           }
         });
