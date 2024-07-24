@@ -35,7 +35,7 @@
     "build-storybook": "storybook build",
     "chromatic": "chromatic --exit-zero-on-changes",
     "dev": "npm-run-all -p start test:watch storybook",
-    "lint": "eslint '**/*.{ts,tsx}'",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
     "prepare": "husky install && rollup -c",
     "size": "size-limit",
     "start": "rollup -c -w",
