@@ -22,6 +22,7 @@ export interface Props extends ComponentPropsWithRef<"td"> {
   children?: ReactElement | string | number;
   isLoading?: boolean;
   spacing?: React.CSSProperties;
+  searchValue?: string;
   cellIndex?: number;
   columnLength?: number;
   disableContextMenuColumn?: boolean;
@@ -33,6 +34,7 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
     className,
     isLoading,
     spacing,
+    searchValue,
     cellIndex,
     columnLength,
     disableContextMenuColumn,
@@ -52,6 +54,31 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
     cellStyle.paddingRight = spacing?.paddingRight;
   }
 
+  const renderContent = () => {
+    if (typeof children === "string" && searchValue) {
+      if (!children.toLowerCase().includes(searchValue.toLowerCase())) return children;
+
+      const parts = children.toLowerCase().split(searchValue.toLowerCase());
+
+      return (
+        <>
+          {parts.map((part, i) => {
+            if (i === parts.length - 1) return part;
+
+            return (
+              <>
+                {part}
+                <mark>{searchValue.toLowerCase()}</mark>
+              </>
+            );
+          })}
+        </>
+      );
+    }
+
+    return children;
+  };
+
   return (
     <td
       {...rest}
@@ -62,7 +89,7 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
       {isLoading && <div className={classes["loading"]} aria-busy="true" aria-live="polite"></div>}
       {!isLoading && (
         <Typography className={classes["text"]} variant="body" tag="span">
-          {children}
+          {renderContent()}
         </Typography>
       )}
     </td>

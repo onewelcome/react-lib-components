@@ -16,7 +16,7 @@
 
 @use "../../../mixins.module.scss";
 
-.toolbar {
+.wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -24,6 +24,10 @@
   gap: 0.5rem;
   width: 100%;
   padding-bottom: 1rem;
+
+  .searchbar {
+    min-width: 15rem;
+  }
 
   .actions-wrapper {
     display: flex;

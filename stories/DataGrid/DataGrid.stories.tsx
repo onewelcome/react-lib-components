@@ -611,3 +611,79 @@ DataGridWithFiltersInEditMode.play = conditionalPlay(async ({ canvasElement }) =
     expect(filterSelect[0]).toBeVisible();
   });
 });
+
+const SearchTemplate = args => {
+  const [searchValue, setSearchValue] = useState("");
+
+  console.log("srerch", searchValue);
+
+  return (
+    <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
+      <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
+        <DataGridComponent
+          {...args}
+          search={{
+            enable: true,
+            searchProps: {
+              onSearch: setSearchValue,
+              debounceTime: 500,
+              searchValue
+            }
+          }}
+        >
+          {({ item }: { item: DataGridItem }) => (
+            <DataGridRow key={item.id}>
+              <DataGridCell>{item.name}</DataGridCell>
+              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
+              <DataGridCell>{item.id}</DataGridCell>
+              <DataGridCell>{item.type}</DataGridCell>
+              <DataGridCell>{item.enabled ? "Active" : "Delisted"}</DataGridCell>
+            </DataGridRow>
+          )}
+        </DataGridComponent>
+      </div>
+    </div>
+  );
+};
+
+export const DataGridWithSearch = SearchTemplate.bind({});
+
+DataGridWithSearch.args = {
+  data: [
+    {
+      name: "Company 1",
+      created: new Date(2023, 0, 1),
+      id: "1",
+      type: "Stock",
+      enabled: true,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      name: "Company 2",
+      created: new Date(2023, 0, 2),
+      id: "2",
+      type: "Stock",
+      enabled: false,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "created", headline: "Created" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "enabled", headline: "Status", disableSorting: true }
+  ],
+  search: {
+    enable: true,
+    searchProps: {
+      onSearch: val => console.log(val),
+      debounceTime: 500
+    }
+  },
+
+  isLoading: false,
+  enableMultiSorting: true
+};

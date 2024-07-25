@@ -24,6 +24,8 @@ import { HeaderCell, OnSortFunction, Sort } from "./datagrid.interfaces";
 import { Pagination, Props as PaginationProps } from "../Pagination/Pagination";
 import { Spacing, useSpacing } from "../../hooks/useSpacing";
 import { DataGridToolbar, DataGridToolbarProps } from "./DataGridFilters/DataGridToolbar";
+import { DataGridToolbarWrapper } from "./DataGridFilters/DataGridToolbarWrapper";
+import { DataGridSearchbar, DataGridSearchbarProps } from "./DataGridFilters/DataGridSearchbar";
 
 export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
@@ -48,6 +50,10 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
     enable: boolean;
     filtersProps: DataGridToolbarProps;
   };
+  search?: {
+    enable: boolean;
+    searchProps: DataGridSearchbarProps;
+  };
   isLoading?: boolean;
   enableMultiSorting?: boolean;
   spacing?: Spacing;
@@ -65,6 +71,7 @@ const DataGridInner = <T extends {}>(
     disableContextMenuColumn,
     enableExpandableRow,
     filters,
+    search,
     isLoading,
     enableMultiSorting,
     emptyLabel,
@@ -132,8 +139,11 @@ const DataGridInner = <T extends {}>(
         paddingBottom: styleWithSpacing?.paddingBottom
       }}
     >
-      {filters?.enable ? (
-        <DataGridToolbar {...filters.filtersProps} />
+      {filters?.enable || search?.enable ? (
+        <DataGridToolbarWrapper>
+          {search?.enable && <DataGridSearchbar {...search.searchProps} />}
+          {filters?.enable && <DataGridToolbar {...filters.filtersProps} />}
+        </DataGridToolbarWrapper>
       ) : (
         <DataGridActions
           {...actions}
@@ -164,6 +174,7 @@ const DataGridInner = <T extends {}>(
             disableContextMenuColumn={disableContextMenuColumn}
             emptyLabel={emptyLabel}
             spacing={styleWithSpacing}
+            searchValue={search?.searchProps.searchValue}
           >
             {children}
           </DataGridBody>

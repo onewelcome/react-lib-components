@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ForwardRefRenderFunction, useReducer } from "react";
+import React, { useReducer } from "react";
 import { DataGridFilter } from "./DataGridFilter";
 import classes from "./DataGridToolbar.module.scss";
 import {
@@ -26,7 +26,7 @@ import {
 } from "./DataGridFilters.interfaces";
 import { Typography } from "../../Typography/Typography";
 
-export interface DataGridToolbarProps extends ComponentPropsWithRef<"div"> {
+export interface DataGridToolbarProps {
   columnsMetadata: DataGridColumnMetadata[];
   filterValues?: Filter[];
   translations?: FiltersTranslations;
@@ -62,26 +62,19 @@ const filtersReducer = (state: FiltersState, action: FiltersAction): FiltersStat
   }
 };
 
-export const DataGridToolbarComponent: ForwardRefRenderFunction<
-  HTMLDivElement,
-  DataGridToolbarProps
-> = (
-  {
-    columnsMetadata,
-    filterValues,
-    translations,
-    onFilterAdd,
-    onFilterEdit,
-    onFilterDelete,
-    onFiltersClear,
-    ...rest
-  },
-  ref
-) => {
+export const DataGridToolbar = ({
+  columnsMetadata,
+  filterValues,
+  translations,
+  onFilterAdd,
+  onFilterEdit,
+  onFilterDelete,
+  onFiltersClear
+}: DataGridToolbarProps) => {
   const [state, dispatch] = useReducer(filtersReducer, { filters: filterValues || [] });
   const { clearButtonCaption = "Clear all filters" } = translations?.toolbar || {};
   return (
-    <div {...rest} ref={ref} className={classes["toolbar"]}>
+    <>
       {state.filters.map(filter => (
         <DataGridFilter
           mode="EDIT"
@@ -119,8 +112,6 @@ export const DataGridToolbarComponent: ForwardRefRenderFunction<
           </button>
         )}
       </div>
-    </div>
+    </>
   );
 };
-
-export const DataGridToolbar = React.forwardRef(DataGridToolbarComponent);
