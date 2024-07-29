@@ -62,6 +62,15 @@ describe("DataGridCell should render", () => {
     expect(skeletonLoadingEl).toHaveAttribute("aria-busy", "true");
     expect(skeletonLoadingEl).toHaveAttribute("aria-live", "polite");
   });
+
+  it("should render highlighted text once match is found", () => {
+    const { dataGridCell } = createDataGridCell(params => ({
+      ...params,
+      searchValue: "ce"
+    }));
+    const highlightEl = dataGridCell.querySelector("span")?.querySelector("mark");
+    expect(highlightEl).toBeDefined();
+  });
 });
 
 describe("ref should work", () => {

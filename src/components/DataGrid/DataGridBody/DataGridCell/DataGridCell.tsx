@@ -54,11 +54,14 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
     cellStyle.paddingRight = spacing?.paddingRight;
   }
 
+  //NOTE: we might want to migrate to Highlight API once it's supported by Firefox
   const renderContent = () => {
     if (typeof children === "string" && searchValue) {
       if (!children.toLowerCase().includes(searchValue.toLowerCase())) return children;
 
-      const parts = children.toLowerCase().split(searchValue.toLowerCase());
+      const matchingSequence = children.match(new RegExp(`${searchValue}`, "i"));
+
+      const parts = children.split(matchingSequence?.[0] || "");
 
       return (
         <>
@@ -68,7 +71,7 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
             return (
               <>
                 {part}
-                <mark>{searchValue.toLowerCase()}</mark>
+                <mark>{matchingSequence}</mark>
               </>
             );
           })}
