@@ -59,9 +59,9 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
     if (typeof children === "string" && searchValue) {
       if (!children.toLowerCase().includes(searchValue.toLowerCase())) return children;
 
-      const matchingSequence = children.match(new RegExp(`${searchValue}`, "i"));
+      const matchingSequence = new RegExp(`${searchValue}`, "i").exec(children);
 
-      const parts = children.split(matchingSequence?.[0] || "");
+      const parts = children.split(matchingSequence?.[0] ?? "");
 
       return (
         <>

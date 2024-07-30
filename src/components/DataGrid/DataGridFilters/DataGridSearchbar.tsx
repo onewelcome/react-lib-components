@@ -31,8 +31,8 @@ export const DataGridSearchbar = ({
   searchValue,
   debounceTime
 }: DataGridSearchbarProps) => {
-  const [search, setSearch] = useState(searchValue || "");
-  const debouncedCallback = useDebouncedCallback(onSearch, debounceTime || 500);
+  const [search, setSearch] = useState(searchValue ?? "");
+  const debouncedCallback = useDebouncedCallback(onSearch, debounceTime ?? 500);
   const onSearchCallback = debounceTime ? debouncedCallback : onSearch;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
