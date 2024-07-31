@@ -209,7 +209,7 @@ Text will be displayed only if the `data` property is empty, and `isLoading` is 
 
 # Filters section
 
-To show filter toolbar one has to pass `filters` prop to the `DataGrid` component with `enableFilters` property set to `true`.
+To show filter toolbar one has to pass `filters` prop to the `DataGrid` component with `enable` property set to `true`.
 
 User can configure the behavior of the toolbar using the `filterProps` object which has the following properties:
 
@@ -220,7 +220,7 @@ User can configure the behavior of the toolbar using the `filterProps` object wh
 ```jsx
 <DataGrid
   filters={
-    enableFilters: true,
+    enable: true,
     filtersProps: {
       filterValues: [{
         column: "name",
@@ -238,6 +238,30 @@ User can configure the behavior of the toolbar using the `filterProps` object wh
       onFiltersClear: () => console.log("clear")
     }
   }
+/>
+```
+
+# Search section
+
+To show searchbar one has to pass `search` prop to the `DataGrid` component with `enable` property set to `true`.
+
+User can configure the behavior of the search using the `searchProps` object which has the following properties:
+
+- `onSearch` - callback function called when user types in searchbar
+- `debounceTime` - time in `ms` used to debounce the `onSearch` callback. When not specified the callback will fire on every `onChange` event
+- `searchValue` - default search value
+- `inputProps` - props which can be used to configure the search input component
+
+```jsx
+<DataGrid
+   search={{
+    enable: true,
+    searchProps: {
+      onSearch,
+      debounceTime
+      searchValue
+    }
+  }}
 />
 ```
 

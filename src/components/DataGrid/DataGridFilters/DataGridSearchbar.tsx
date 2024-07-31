@@ -46,15 +46,16 @@ export const DataGridSearchbar = ({
     <InputWrapper
       {...inputProps}
       className={classes["searchbar"]}
-      label={""}
+      label={inputProps?.label ?? ""}
       onChange={onChange}
       type={"search"}
-      name={"searchbar"}
+      name={inputProps?.name ?? "searchbar"}
       value={search}
       inputProps={{
+        ...inputProps?.inputProps,
         type: "search",
         prefix: <Icon icon={Icons.Search} />,
-        placeholder: "Search items"
+        placeholder: inputProps?.inputProps?.placeholder ?? "Search items"
       }}
     ></InputWrapper>
   );
