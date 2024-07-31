@@ -14,7 +14,12 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  ReactElement,
+  Fragment
+} from "react";
 import { Typography } from "../../../Typography/Typography";
 import classes from "./DataGridCell.module.scss";
 
@@ -63,20 +68,16 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
 
       const parts = children.split(matchingSequence?.[0] ?? "");
 
-      return (
-        <>
-          {parts.map((part, i) => {
-            if (i === parts.length - 1) return part;
+      return parts.map((part, i) => {
+        if (i === parts.length - 1) return <Fragment key={`${part}-${i}`}>{part}</Fragment>;
 
-            return (
-              <>
-                {part}
-                <mark>{matchingSequence}</mark>
-              </>
-            );
-          })}
-        </>
-      );
+        return (
+          <Fragment key={`${part}-${i}`}>
+            {part}
+            <mark data-testid={`${matchingSequence}-mark`}>{matchingSequence}</mark>
+          </Fragment>
+        );
+      });
     }
 
     return children;

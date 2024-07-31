@@ -615,8 +615,6 @@ DataGridWithFiltersInEditMode.play = conditionalPlay(async ({ canvasElement }) =
 const SearchTemplate = args => {
   const [searchValue, setSearchValue] = useState("");
 
-  console.log("srerch", searchValue);
-
   return (
     <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
       <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>

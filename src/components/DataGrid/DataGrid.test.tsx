@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DataGrid, Props } from "./DataGrid";
-import { getAllByRole, render, queryAllByRole, getByRole } from "@testing-library/react";
+import { getAllByRole, render, queryAllByRole, getByRole, waitFor } from "@testing-library/react";
 import { DataGridRow } from "./DataGridBody/DataGridRow/DataGridRow";
 import { DataGridCell } from "./DataGridBody/DataGridCell/DataGridCell";
 import { ContextMenu } from "../ContextMenu/ContextMenu";
@@ -627,5 +627,77 @@ describe("DataGrid with filters", () => {
     await userEvent.click(removeAllButton);
 
     expect(getAllByRole("row")).toHaveLength(4);
+  });
+});
+
+const paramsWithSearch: Props<DataType> = {
+  children: ({ item }) => (
+    <DataGridRow key={item.firstName}>
+      <DataGridCell>{item.firstName}</DataGridCell>
+      <DataGridCell>{item.lastName}</DataGridCell>
+      <DataGridCell>{item.date}</DataGridCell>
+    </DataGridRow>
+  ),
+  headers: [
+    { name: "firstName", headline: "First name" },
+    { name: "lastName", headline: "Last name" },
+    { name: "date", headline: "Date" }
+  ],
+  enableMultiSorting: true,
+  data: [
+    { firstName: "Paweł", lastName: "Napieracz", date: "12.12.1990" },
+    { firstName: "Michał", lastName: "Górski", date: "12.12.1994" },
+    { firstName: "Daniel", lastName: "Velden", date: "12.12.199x" },
+    { firstName: "Jasha", lastName: "Joachimsthal", date: "12.12.198x" }
+  ],
+  isLoading: false
+};
+
+const createDataGridWithSearch = (params?: (defaultParams: any) => Props<DataType>) => {
+  let parameters = paramsWithSearch;
+  if (params) {
+    parameters = params(paramsWithSearch);
+  }
+
+  const DataGridWithSearch = () => {
+    const [searchValue, setSearchValue] = useState("");
+
+    return (
+      <DataGrid
+        {...parameters}
+        search={{
+          enable: true,
+          searchProps: {
+            onSearch: setSearchValue,
+            debounceTime: 500,
+            searchValue
+          }
+        }}
+        data-testid="dataGrid"
+      />
+    );
+  };
+
+  const queries = render(<DataGridWithSearch />);
+  const dataGrid = queries.getByTestId("dataGrid");
+
+  return {
+    ...queries,
+    dataGrid
+  };
+};
+
+describe("DataGrid with search", () => {
+  it("should highlight matching values", async () => {
+    const { dataGrid, getByPlaceholderText, findByTestId } = createDataGridWithSearch();
+
+    expect(dataGrid).toBeInTheDocument();
+    expect(getByPlaceholderText("Search items")).toBeInTheDocument();
+
+    await userEvent.type(getByPlaceholderText("Search items"), "Daniel");
+
+    const highlight = await findByTestId("Daniel-mark");
+
+    expect(highlight).toBeInTheDocument();
   });
 });

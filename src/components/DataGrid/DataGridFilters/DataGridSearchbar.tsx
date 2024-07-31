@@ -20,16 +20,18 @@ import { Icon, Icons } from "../../Icon/Icon";
 import classes from "./DataGridToolbar.module.scss";
 import { InputWrapperProps, useDebouncedCallback } from "../../..";
 
-export interface DataGridSearchbarProps extends InputWrapperProps {
+export interface DataGridSearchbarProps {
   onSearch: (value: string) => void;
   searchValue?: string;
   debounceTime?: number;
+  inputProps?: InputWrapperProps;
 }
 
 export const DataGridSearchbar = ({
   onSearch,
   searchValue,
-  debounceTime
+  debounceTime,
+  inputProps
 }: DataGridSearchbarProps) => {
   const [search, setSearch] = useState(searchValue ?? "");
   const debouncedCallback = useDebouncedCallback(onSearch, debounceTime ?? 500);
@@ -42,6 +44,7 @@ export const DataGridSearchbar = ({
 
   return (
     <InputWrapper
+      {...inputProps}
       className={classes["searchbar"]}
       label={""}
       onChange={onChange}
