@@ -26,7 +26,8 @@
   padding-bottom: 1rem;
 
   .searchbar {
-    min-width: 15rem;
+    min-width: 7rem;
+    flex-basis: 15rem;
   }
 
   .actions-wrapper {

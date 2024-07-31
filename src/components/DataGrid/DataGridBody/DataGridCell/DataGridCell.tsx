@@ -62,12 +62,13 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
   //NOTE: we might want to migrate to Highlight API once it's supported by Firefox
   const renderContent = () => {
     if (typeof children === "string" && searchValue) {
-      if (!children.toLowerCase().includes(searchValue.toLowerCase())) return children;
+      if (!children.toLowerCase().includes(searchValue.toLowerCase())) {
+        return children;
+      }
 
-      const matchingSequence = new RegExp(`${searchValue}`, "i").exec(children);
+      const matchingSequence = new RegExp(searchValue, "i").exec(children);
 
       const parts = children.split(matchingSequence?.[0] ?? "");
-
       return parts.map((part, i) => {
         if (i === parts.length - 1) return <Fragment key={`${part}-${i}`}>{part}</Fragment>;
 

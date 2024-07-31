@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useReducer } from "react";
+import React, { Fragment, useReducer } from "react";
 import { DataGridFilter } from "./DataGridFilter";
 import classes from "./DataGridToolbar.module.scss";
 import {
@@ -74,7 +74,7 @@ export const DataGridToolbar = ({
   const [state, dispatch] = useReducer(filtersReducer, { filters: filterValues || [] });
   const { clearButtonCaption = "Clear all filters" } = translations?.toolbar || {};
   return (
-    <>
+    <Fragment>
       {state.filters.map(filter => (
         <DataGridFilter
           mode="EDIT"
@@ -112,6 +112,6 @@ export const DataGridToolbar = ({
           </button>
         )}
       </div>
-    </>
+    </Fragment>
   );
 };

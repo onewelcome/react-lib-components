@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { InputWrapper } from "../../Form/Wrapper/InputWrapper/InputWrapper";
 import { Icon, Icons } from "../../Icon/Icon";
 import classes from "./DataGridToolbar.module.scss";
@@ -22,18 +22,20 @@ import { InputWrapperProps, useDebouncedCallback } from "../../..";
 
 export interface DataGridSearchbarProps {
   onSearch: (value: string) => void;
-  searchValue?: string;
+  initialSearchValue?: string;
   debounceTime?: number;
-  inputProps?: InputWrapperProps;
+  placeholder?: string;
+  inputWrapperProps?: InputWrapperProps;
 }
 
 export const DataGridSearchbar = ({
   onSearch,
-  searchValue,
+  initialSearchValue,
   debounceTime,
-  inputProps
+  inputWrapperProps,
+  placeholder
 }: DataGridSearchbarProps) => {
-  const [search, setSearch] = useState(searchValue ?? "");
+  const [search, setSearch] = useState(initialSearchValue ?? "");
   const debouncedCallback = useDebouncedCallback(onSearch, debounceTime ?? 500);
   const onSearchCallback = debounceTime ? debouncedCallback : onSearch;
 
@@ -42,20 +44,24 @@ export const DataGridSearchbar = ({
     setSearch(event.target.value);
   };
 
+  useEffect(() => {
+    initialSearchValue && setSearch(initialSearchValue);
+  }, [initialSearchValue]);
+
   return (
     <InputWrapper
-      {...inputProps}
-      className={classes["searchbar"]}
-      label={inputProps?.label ?? ""}
+      {...inputWrapperProps}
+      className={`${classes["searchbar"]} ${inputWrapperProps?.className ?? ""}`}
+      label={inputWrapperProps?.label ?? ""}
       onChange={onChange}
-      type={"search"}
-      name={inputProps?.name ?? "searchbar"}
+      type="search"
+      name={inputWrapperProps?.name ?? "searchbar"}
       value={search}
       inputProps={{
-        ...inputProps?.inputProps,
+        ...inputWrapperProps?.inputProps,
         type: "search",
         prefix: <Icon icon={Icons.Search} />,
-        placeholder: inputProps?.inputProps?.placeholder ?? "Search items"
+        placeholder: placeholder ?? "Search items"
       }}
     ></InputWrapper>
   );

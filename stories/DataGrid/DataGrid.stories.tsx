@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
 import { useMockFilteringLogic } from "../../src/components/DataGrid/testUtils";
@@ -455,14 +455,11 @@ const DataGridWithFiltersTemplate = args => {
           data={gridData}
           filters={{
             ...args.filters,
-            filtersProps: {
-              ...args.filters.filtersProps,
-              filterValues: filters,
-              onFilterAdd,
-              onFilterEdit,
-              onFilterDelete,
-              onFiltersClear
-            }
+            filterValues: filters,
+            onFilterAdd,
+            onFilterEdit,
+            onFilterDelete,
+            onFiltersClear
           }}
         >
           {({ item }: { item: DataGridItem }) => (
@@ -499,18 +496,15 @@ DataGridWithFilters.args = {
     }
   ],
   filters: {
-    enable: true,
-    filtersProps: {
-      filterValues: [],
-      columnsMetadata: [
-        { name: "name", headline: "Name", operators: ["is", "is not"] },
-        { name: "type", headline: "Type", operators: ["is", "is not"] }
-      ],
-      onFilterAdd: filter => console.log(filter),
-      onFilterEdit: filter => console.log(filter),
-      onFilterDelete: id => console.log(id),
-      onFiltersClear: () => console.log("clear")
-    }
+    filterValues: [],
+    columnsMetadata: [
+      { name: "name", headline: "Name", operators: ["is", "is not"] },
+      { name: "type", headline: "Type", operators: ["is", "is not"] }
+    ],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
   },
   headers: [
     { name: "name", headline: "Name" },
@@ -559,18 +553,15 @@ DataGridWithFiltersInEditMode.args = {
     }
   ],
   filters: {
-    enable: true,
-    filtersProps: {
-      filterValues: [{ id: "test", column: "type", operator: "is", value: ["Bond"] }],
-      columnsMetadata: [
-        { name: "name", headline: "Name", operators: ["is", "is not"] },
-        { name: "type", headline: "Type", operators: ["is", "is not"] }
-      ],
-      onFilterAdd: filter => console.log(filter),
-      onFilterEdit: filter => console.log(filter),
-      onFilterDelete: id => console.log(id),
-      onFiltersClear: () => console.log("clear")
-    }
+    filterValues: [{ id: "test", column: "type", operator: "is", value: ["Bond"] }],
+    columnsMetadata: [
+      { name: "name", headline: "Name", operators: ["is", "is not"] },
+      { name: "type", headline: "Type", operators: ["is", "is not"] }
+    ],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
   },
   headers: [
     { name: "name", headline: "Name" },
@@ -614,28 +605,40 @@ DataGridWithFiltersInEditMode.play = conditionalPlay(async ({ canvasElement }) =
 
 const SearchTemplate = args => {
   const [searchValue, setSearchValue] = useState("");
+  const [gridData, setGridData] = useState(args.data);
+
+  useEffect(() => {
+    if (searchValue) {
+      setGridData(
+        args.data.filter(row => {
+          const values: string[] = Object.values(row);
+          const match = values.some(val => val.toLowerCase().includes(searchValue.toLowerCase()));
+          return match;
+        })
+      );
+    } else {
+      setGridData(args.data);
+    }
+  }, [searchValue]);
 
   return (
     <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
       <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
         <DataGridComponent
           {...args}
+          data={gridData}
           search={{
-            enable: true,
-            searchProps: {
-              onSearch: setSearchValue,
-              debounceTime: 500,
-              searchValue
-            }
+            onSearch: setSearchValue,
+            debounceTime: 500,
+            initialSearchValue: searchValue
           }}
         >
           {({ item }: { item: DataGridItem }) => (
             <DataGridRow key={item.id}>
               <DataGridCell>{item.name}</DataGridCell>
-              <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
               <DataGridCell>{item.id}</DataGridCell>
               <DataGridCell>{item.type}</DataGridCell>
-              <DataGridCell>{item.enabled ? "Active" : "Delisted"}</DataGridCell>
+              <DataGridCell>{item.description}</DataGridCell>
             </DataGridRow>
           )}
         </DataGridComponent>
@@ -650,36 +653,28 @@ DataGridWithSearch.args = {
   data: [
     {
       name: "Company 1",
-      created: new Date(2023, 0, 1),
+
       id: "1",
       type: "Stock",
-      enabled: true,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+
+      description: "Lorem ipsum dolor sit amet"
     },
     {
       name: "Company 2",
-      created: new Date(2023, 0, 2),
       id: "2",
       type: "Stock",
-      enabled: false,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      description: "Consectetur adipiscing elit"
     }
   ],
   headers: [
     { name: "name", headline: "Name" },
-    { name: "created", headline: "Created" },
     { name: "id", headline: "Identifier" },
     { name: "type", headline: "Type", disableSorting: true },
-    { name: "enabled", headline: "Status", disableSorting: true }
+    { name: "description", headline: "Description", disableSorting: true }
   ],
   search: {
-    enable: true,
-    searchProps: {
-      onSearch: val => console.log(val),
-      debounceTime: 500
-    }
+    onSearch: val => console.log(val),
+    debounceTime: 500
   },
 
   isLoading: false,

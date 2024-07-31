@@ -46,14 +46,8 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   paginationProps?: PaginationProps;
   disableContextMenuColumn?: boolean;
   enableExpandableRow?: boolean;
-  filters?: {
-    enable: boolean;
-    filtersProps: DataGridToolbarProps;
-  };
-  search?: {
-    enable: boolean;
-    searchProps: DataGridSearchbarProps;
-  };
+  filters?: DataGridToolbarProps;
+  search?: DataGridSearchbarProps;
   isLoading?: boolean;
   enableMultiSorting?: boolean;
   spacing?: Spacing;
@@ -139,10 +133,10 @@ const DataGridInner = <T extends {}>(
         paddingBottom: styleWithSpacing?.paddingBottom
       }}
     >
-      {filters?.enable || search?.enable ? (
+      {filters || search ? (
         <DataGridToolbarWrapper>
-          {search?.enable && <DataGridSearchbar {...search.searchProps} />}
-          {filters?.enable && <DataGridToolbar {...filters.filtersProps} />}
+          {search && <DataGridSearchbar {...search} />}
+          {filters && <DataGridToolbar {...filters} />}
         </DataGridToolbarWrapper>
       ) : (
         <DataGridActions
@@ -174,7 +168,7 @@ const DataGridInner = <T extends {}>(
             disableContextMenuColumn={disableContextMenuColumn}
             emptyLabel={emptyLabel}
             spacing={styleWithSpacing}
-            searchValue={search?.searchProps.searchValue}
+            searchValue={search?.initialSearchValue}
           >
             {children}
           </DataGridBody>

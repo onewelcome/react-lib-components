@@ -465,18 +465,15 @@ const paramsWithFilters: Props<WithFiltersDataType> = {
     }
   ],
   filters: {
-    enable: true,
-    filtersProps: {
-      filterValues: [],
-      columnsMetadata: [
-        { name: "name", headline: "Name", operators: ["is", "is not"] },
-        { name: "type", headline: "Type", operators: ["is", "is not"] }
-      ],
-      onFilterAdd: filter => console.log(filter),
-      onFilterEdit: filter => console.log(filter),
-      onFilterDelete: id => console.log(id),
-      onFiltersClear: () => console.log("clear")
-    }
+    filterValues: [],
+    columnsMetadata: [
+      { name: "name", headline: "Name", operators: ["is", "is not"] },
+      { name: "type", headline: "Type", operators: ["is", "is not"] }
+    ],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
   },
   headers: [
     { name: "name", headline: "Name" },
@@ -494,7 +491,7 @@ const createDataGridWithFilters = (params?: (defaultParams: any) => Props<WithFi
 
   const DataGridWithFilters = () => {
     const { onFilterAdd, onFilterDelete, onFilterEdit, onFiltersClear, gridData, filters } =
-      useMockFilteringLogic(parameters.data || [], parameters.filters?.filtersProps.filterValues);
+      useMockFilteringLogic(parameters.data || [], parameters.filters?.filterValues);
 
     return (
       parameters.filters && (
@@ -503,14 +500,11 @@ const createDataGridWithFilters = (params?: (defaultParams: any) => Props<WithFi
           data={gridData}
           filters={{
             ...parameters.filters,
-            filtersProps: {
-              ...parameters?.filters.filtersProps,
-              filterValues: filters,
-              onFilterAdd,
-              onFilterEdit,
-              onFilterDelete,
-              onFiltersClear
-            }
+            filterValues: filters,
+            onFilterAdd,
+            onFilterEdit,
+            onFilterDelete,
+            onFiltersClear
           }}
           data-testid="dataGrid"
         />
@@ -570,11 +564,8 @@ describe("DataGrid with filters", () => {
       createDataGridWithFilters(prev => ({
         ...prev,
         filters: {
-          enable: !!prev.filters?.enable,
-          filtersProps: {
-            ...prev.filters.filtersProps,
-            filterValues: [{ id: "test", column: "name", operator: "is", value: ["Company 1"] }]
-          }
+          ...prev.filters,
+          filterValues: [{ id: "test", column: "name", operator: "is", value: ["Company 1"] }]
         }
       }));
 
@@ -610,11 +601,8 @@ describe("DataGrid with filters", () => {
     const { dataGrid, getByText, getAllByRole } = createDataGridWithFilters(prev => ({
       ...prev,
       filters: {
-        enable: !!prev.filters?.enable,
-        filtersProps: {
-          ...prev.filters.filtersProps,
-          filterValues: [{ id: "test", column: "name", operator: "is", value: ["Company 1"] }]
-        }
+        ...prev.filters,
+        filterValues: [{ id: "test", column: "name", operator: "is", value: ["Company 1"] }]
       }
     }));
 
@@ -666,12 +654,9 @@ const createDataGridWithSearch = (params?: (defaultParams: any) => Props<DataTyp
       <DataGrid
         {...parameters}
         search={{
-          enable: true,
-          searchProps: {
-            onSearch: setSearchValue,
-            debounceTime: 500,
-            searchValue
-          }
+          onSearch: setSearchValue,
+          debounceTime: 500,
+          initialSearchValue: searchValue
         }}
         data-testid="dataGrid"
       />
