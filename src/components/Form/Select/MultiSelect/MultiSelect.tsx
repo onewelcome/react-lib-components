@@ -315,9 +315,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
         id={multiSelectId.current}
         ref={containerReference}
         onKeyDown={onArrowNavigation}
-        className={`custom-select ${classes.select} ${additionalClasses.join(" ")} ${
-          className ?? ""
-        }`}
+        className={`custom-select ${classes.select} ${additionalClasses.join(" ")}`}
       >
         <div
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}

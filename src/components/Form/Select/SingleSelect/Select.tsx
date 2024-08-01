@@ -239,9 +239,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
         {...filterProps(rest, /^data-/)}
         ref={containerReference}
         onKeyDown={onArrowNavigation}
-        className={`custom-select ${classes.select} ${additionalClasses.join(" ")} ${
-          className ?? ""
-        }`}
+        className={`custom-select ${classes.select} ${additionalClasses.join(" ")}`}
       >
         {searchVisible && renderSearch()}
         <button
