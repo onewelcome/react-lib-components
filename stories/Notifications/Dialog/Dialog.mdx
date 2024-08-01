@@ -51,7 +51,7 @@ The dialog has different properties that can be used to customize the dialog.
         <td>no</td>
     </tr>
     <tr>
-        <td>primaryAction</td>
+        <td>  </td>
         <td>\{ label: string; onClick: () => void; disabled?: boolean }</td>
         <td>The primary action of the dialog.</td>
         <td>yes</td>
@@ -132,7 +132,7 @@ In the below code snippet, you'll see how you can show dialog.
   titleIcon={true}
   caption="Example dialog"
   title="Verify email address"
-  primaryAction={label: 'Send email', onClick: onSendEmail}
+  primaryAction={label: 'Send email', onClick: onSendEmail, color: 'primary'}
   cancelAction={label: 'Cancel'}
 >
   <Fragment>
@@ -162,7 +162,7 @@ In the below code snippet, you'll see how you can show dialog with on one button
   caption="Example dialog"
   onClose={onClose}
   title="Info"
-  primaryAction={label: 'Ok', onClick}
+  primaryAction={label: 'Ok', onClick, color: 'primary'}
 >
   <Typography variant="body" spacing={{ margin: 0 }}>
     You can't remove your account.
