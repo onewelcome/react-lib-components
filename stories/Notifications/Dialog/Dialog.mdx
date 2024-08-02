@@ -52,18 +52,9 @@ The dialog has different properties that can be used to customize the dialog.
     </tr>
     <tr>
         <td>primaryAction</td>
-        <td>\{ label: string; onClick: () => void; disabled?: boolean }</td>
+        <td>\{ label: string; onClick: () => void; disabled?: boolean, color?: 'primary' | 'success' | 'danger' | 'warning' | 'default' }</td>
         <td>The primary action of the dialog.</td>
         <td>yes</td>
-    </tr>
-    <tr>
-        <td>color</td>
-        <td>\{ label: string; onClick: () => void; color?: danger }</td>
-        <td>
-          This way you can define and change color of button <br />
-          `"primary" (default)` `"success"` `"danger"` `"warning"` `"default"`
-        </td>
-        <td>no</td>
     </tr>
     <tr>
         <td>secondaryAction</td>
