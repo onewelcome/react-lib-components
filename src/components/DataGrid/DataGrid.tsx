@@ -24,6 +24,8 @@ import { HeaderCell, OnSortFunction, Sort } from "./datagrid.interfaces";
 import { Pagination, Props as PaginationProps } from "../Pagination/Pagination";
 import { Spacing, useSpacing } from "../../hooks/useSpacing";
 import { DataGridToolbar, DataGridToolbarProps } from "./DataGridFilters/DataGridToolbar";
+import { DataGridToolbarWrapper } from "./DataGridFilters/DataGridToolbarWrapper";
+import { DataGridSearchbar, DataGridSearchbarProps } from "./DataGridFilters/DataGridSearchbar";
 
 export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
@@ -44,10 +46,8 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   paginationProps?: PaginationProps;
   disableContextMenuColumn?: boolean;
   enableExpandableRow?: boolean;
-  filters?: {
-    enable: boolean;
-    filtersProps: DataGridToolbarProps;
-  };
+  filters?: DataGridToolbarProps;
+  search?: DataGridSearchbarProps;
   isLoading?: boolean;
   enableMultiSorting?: boolean;
   spacing?: Spacing;
@@ -65,6 +65,7 @@ const DataGridInner = <T extends {}>(
     disableContextMenuColumn,
     enableExpandableRow,
     filters,
+    search,
     isLoading,
     enableMultiSorting,
     emptyLabel,
@@ -132,8 +133,11 @@ const DataGridInner = <T extends {}>(
         paddingBottom: styleWithSpacing?.paddingBottom
       }}
     >
-      {filters?.enable ? (
-        <DataGridToolbar {...filters.filtersProps} />
+      {filters || search ? (
+        <DataGridToolbarWrapper>
+          {search && <DataGridSearchbar {...search} />}
+          {filters && <DataGridToolbar {...filters} />}
+        </DataGridToolbarWrapper>
       ) : (
         <DataGridActions
           {...actions}
@@ -164,6 +168,7 @@ const DataGridInner = <T extends {}>(
             disableContextMenuColumn={disableContextMenuColumn}
             emptyLabel={emptyLabel}
             spacing={styleWithSpacing}
+            searchValue={search?.initialSearchValue}
           >
             {children}
           </DataGridBody>
