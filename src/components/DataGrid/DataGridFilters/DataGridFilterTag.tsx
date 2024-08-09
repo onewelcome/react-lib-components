@@ -92,7 +92,9 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
           </Typography>
         )}
       </button>
-      {shouldRenderEditTag && <RemoveButton onRemove={onFilterRemove} />}
+      {shouldRenderEditTag && (
+        <RemoveButton className={classes["remove-button"]} onRemove={onFilterRemove} />
+      )}
     </div>
   );
 };
