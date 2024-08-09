@@ -14,7 +14,12 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  ComponentPropsWithRef,
+  ReactElement,
+  Fragment
+} from "react";
 import { Typography } from "../../../Typography/Typography";
 import classes from "./DataGridCell.module.scss";
 
@@ -22,6 +27,7 @@ export interface Props extends ComponentPropsWithRef<"td"> {
   children?: ReactElement | string | number;
   isLoading?: boolean;
   spacing?: React.CSSProperties;
+  searchValue?: string;
   cellIndex?: number;
   columnLength?: number;
   disableContextMenuColumn?: boolean;
@@ -33,6 +39,7 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
     className,
     isLoading,
     spacing,
+    searchValue,
     cellIndex,
     columnLength,
     disableContextMenuColumn,
@@ -52,6 +59,31 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
     cellStyle.paddingRight = spacing?.paddingRight;
   }
 
+  //NOTE: we might want to migrate to Highlight API once it's supported by Firefox
+  const renderContent = () => {
+    if (typeof children === "string" && searchValue) {
+      if (!children.toLowerCase().includes(searchValue.toLowerCase())) {
+        return children;
+      }
+
+      const matchingSequence = new RegExp(searchValue, "i").exec(children);
+
+      const parts = children.split(matchingSequence?.[0] ?? "");
+      return parts.map((part, i) => {
+        if (i === parts.length - 1) return <Fragment key={`${part}-${i}`}>{part}</Fragment>;
+
+        return (
+          <Fragment key={`${part}-${i}`}>
+            {part}
+            <mark data-testid={`${matchingSequence}-mark`}>{matchingSequence}</mark>
+          </Fragment>
+        );
+      });
+    }
+
+    return children;
+  };
+
   return (
     <td
       {...rest}
@@ -62,7 +94,7 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
       {isLoading && <div className={classes["loading"]} aria-busy="true" aria-live="polite"></div>}
       {!isLoading && (
         <Typography className={classes["text"]} variant="body" tag="span">
-          {children}
+          {renderContent()}
         </Typography>
       )}
     </td>

@@ -27,6 +27,7 @@ export interface Props extends ComponentPropsWithRef<"tr"> {
   headers?: HeaderCell[];
   isLoading?: boolean;
   spacing?: React.CSSProperties;
+  searchValue?: string;
   disableContextMenuColumn?: boolean;
   expandableRowProps?: {
     enableExpandableRow: boolean;
@@ -42,6 +43,7 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
     children,
     className,
     headers,
+    searchValue,
     isLoading,
     spacing,
     expandableRowProps,
@@ -61,6 +63,7 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
   const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
     if (child) {
       const cellWithSpacing = React.cloneElement(child, {
+        searchValue,
         spacing: spacing,
         cellIndex: index,
         columnLength: headers?.length,

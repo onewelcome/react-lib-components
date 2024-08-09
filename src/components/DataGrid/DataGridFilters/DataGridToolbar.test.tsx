@@ -2,6 +2,7 @@ import React from "react";
 import { DataGridToolbar, DataGridToolbarProps } from "./DataGridToolbar";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { DataGridToolbarWrapper } from "./DataGridToolbarWrapper";
 
 const defaultParams: DataGridToolbarProps = {
   columnsMetadata: [
@@ -20,7 +21,11 @@ const createDataGridToolbar = (
   if (params) {
     parameters = params(defaultParams);
   }
-  const queries = render(<DataGridToolbar {...parameters} data-testid="DataGridToolbar" />);
+  const queries = render(
+    <DataGridToolbarWrapper data-testid="DataGridToolbar">
+      <DataGridToolbar {...parameters} />
+    </DataGridToolbarWrapper>
+  );
   const DataGridToolbarComponent = queries.getByTestId("DataGridToolbar");
 
   return {

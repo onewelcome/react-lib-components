@@ -52,7 +52,7 @@ The dialog has different properties that can be used to customize the dialog.
     </tr>
     <tr>
         <td>primaryAction</td>
-        <td>\{ label: string; onClick: () => void; disabled?: boolean }</td>
+        <td>\{ label: string; onClick: () => void; disabled?: boolean, color?: 'primary' | 'success' | 'danger' | 'warning' | 'default' }</td>
         <td>The primary action of the dialog.</td>
         <td>yes</td>
     </tr>
@@ -123,7 +123,7 @@ In the below code snippet, you'll see how you can show dialog.
   titleIcon={true}
   caption="Example dialog"
   title="Verify email address"
-  primaryAction={label: 'Send email', onClick: onSendEmail}
+  primaryAction={label: 'Send email', onClick: onSendEmail, color: 'primary'}
   cancelAction={label: 'Cancel'}
 >
   <Fragment>
@@ -153,7 +153,7 @@ In the below code snippet, you'll see how you can show dialog with on one button
   caption="Example dialog"
   onClose={onClose}
   title="Info"
-  primaryAction={label: 'Ok', onClick}
+  primaryAction={label: 'Ok', onClick, color: 'primary'}
 >
   <Typography variant="body" spacing={{ margin: 0 }}>
     You can't remove your account.
@@ -183,6 +183,7 @@ return (
       onClose={() => setOpen(false)}
       primaryAction={{
         label: "Open another dialog",
+        color: 'primary'
         onClick: () => setOpen2(true)
       }}
       cancelAction={{ label: "Cancel" }}
@@ -200,6 +201,7 @@ return (
       caption="Example dialog"
       primaryAction={{
         label: "Close",
+        color: 'primary'
         onClick: () => setOpen2(false)
       }}
     >

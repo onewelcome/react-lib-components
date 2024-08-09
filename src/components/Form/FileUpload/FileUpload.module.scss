@@ -24,7 +24,6 @@
 .file-dropzone {
   border-radius: var(--input-border-radius);
   background-color: var(--input-background-color);
-  padding: 0.25rem 1.25rem;
   position: relative;
 
   .file-upload-title {
@@ -117,7 +116,7 @@
 
 .file-selector-sub-text {
   color: var(--greyed-out);
-  padding: 0 1.25rem;
+
   &.error {
     color: var(--error);
     display: block;

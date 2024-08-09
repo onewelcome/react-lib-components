@@ -27,6 +27,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"tbody">, "children
   headers: HeaderCell[];
   isLoading?: boolean;
   disableContextMenuColumn?: boolean;
+  searchValue?: string;
   emptyLabel?: string;
   spacing?: React.CSSProperties;
 }
@@ -42,6 +43,7 @@ const DataGridBodyInner = <T extends {}>(
     disableContextMenuColumn,
     emptyLabel,
     spacing,
+    searchValue,
     ...rest
   }: Props<T>,
   ref: Ref<HTMLTableSectionElement>
@@ -77,6 +79,7 @@ const DataGridBodyInner = <T extends {}>(
 
     return data?.map((item, index) => {
       return React.cloneElement(children({ item, index }), {
+        searchValue: searchValue,
         headers,
         spacing,
         disableContextMenuColumn
