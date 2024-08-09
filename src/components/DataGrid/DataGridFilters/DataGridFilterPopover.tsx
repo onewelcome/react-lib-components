@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./DataGridFilter.module.scss";
 import { Button } from "../../Button/Button";
 import { Option } from "../../Form/Select/SingleSelect/Option";
@@ -27,9 +27,11 @@ import {
   DefaultOperators,
   PopoverTranslations
 } from "./DataGridFilters.interfaces";
+import { useRepeatFocus } from "../../../hooks/useRepeatFocus";
 
 export type Props = {
-  anchorRef?: React.RefObject<HTMLOrSVGElement>;
+  popoverRef: React.RefObject<HTMLDivElement>;
+  anchorRef?: React.RefObject<HTMLDivElement>;
   isOpen: boolean;
   column: string;
   columnsMetadata: DataGridColumnMetadata[];
@@ -49,6 +51,7 @@ export type Props = {
 };
 
 export const DataGridFilterPopover = ({
+  popoverRef,
   anchorRef,
   isOpen,
   column,
@@ -76,9 +79,19 @@ export const DataGridFilterPopover = ({
     submitButtonTitle = "Apply",
     cancelButtonTitle = "Cancel"
   } = translations || {};
+  useRepeatFocus(popoverRef);
+
+  useEffect(() => {
+    if (isOpen) {
+      popoverRef.current?.focus();
+    }
+  }, [isOpen]);
+
   return (
     <Popover
+      tabIndex={-1}
       anchorEl={anchorRef}
+      ref={popoverRef}
       show={isOpen}
       placement={{ horizontal: "left", vertical: "bottom" }}
       transformOrigin={{ horizontal: "left", vertical: "top" }}

@@ -21,9 +21,18 @@
   justify-content: center;
   align-items: center;
   gap: 0.375rem;
+  min-height: 1.5rem;
   padding: 0.25rem 0.75rem 0.25rem 0.5rem;
   border-radius: 3.125rem;
   background-color: var(--color-blue-grey100);
+
+  &:hover {
+    background-color: var(--color-blue-grey200);
+  }
+
+  &:active {
+    background-color: var(--color-primary100);
+  }
 
   .filter-button {
     display: flex;
@@ -39,16 +48,11 @@
       margin-right: -0.25rem;
     }
 
-    &:hover {
-      border-radius: 0.125rem;
-      background-color: var(--color-black10);
-    }
-
-    &:active {
-      background-color: var(--color-blue-grey400);
-    }
-
     @include mixins.focusVisibleOutline($outlineOffset: 0);
+  }
+
+  .remove-button {
+    border-radius: 1.25rem;
   }
 
   .caption {
@@ -84,8 +88,7 @@
     display: flex;
     gap: 1rem;
 
-    & > *:last-child,
-    *:first-child {
+    & > *:first-child {
       flex-grow: 1.8;
       flex-shrink: 0;
       margin-top: 0;
@@ -93,6 +96,13 @@
 
     & > *:nth-child(2) {
       flex-grow: 1;
+      flex-shrink: 0;
+      margin-top: 0;
+    }
+
+    & > *:last-child {
+      flex-basis: 15rem;
+      flex-grow: 1.8;
       flex-shrink: 0;
       margin-top: 0;
     }

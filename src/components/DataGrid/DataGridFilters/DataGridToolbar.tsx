@@ -28,6 +28,7 @@ import { Typography } from "../../Typography/Typography";
 
 export interface DataGridToolbarProps {
   columnsMetadata: DataGridColumnMetadata[];
+  customEditTagContent?: React.ReactElement;
   filterValues?: Filter[];
   translations?: FiltersTranslations;
   onFilterAdd?: (filter: Filter) => void;
@@ -69,7 +70,8 @@ export const DataGridToolbar = ({
   onFilterAdd,
   onFilterEdit,
   onFilterDelete,
-  onFiltersClear
+  onFiltersClear,
+  customEditTagContent
 }: DataGridToolbarProps) => {
   const [state, dispatch] = useReducer(filtersReducer, { filters: filterValues || [] });
   const { clearButtonCaption = "Clear all filters" } = translations?.toolbar || {};
@@ -86,11 +88,13 @@ export const DataGridToolbar = ({
           onFilterDelete={onFilterDelete}
           tagTranslations={translations?.tag}
           popoverTranslations={translations?.popover}
+          customEditTagContent={customEditTagContent}
         />
       ))}
       <div className={classes["actions-wrapper"]}>
         <DataGridFilter
           mode="ADD"
+          customEditTagContent={customEditTagContent}
           columnsMetadata={columnsMetadata}
           dispatch={dispatch}
           onFilterAdd={onFilterAdd}

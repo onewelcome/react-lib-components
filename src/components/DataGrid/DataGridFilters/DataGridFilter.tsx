@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, createRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 import {
@@ -41,6 +41,7 @@ export type Props = {
   onFilterDelete?: (id: string) => void;
   tagTranslations?: TagTranslations;
   popoverTranslations?: PopoverTranslations;
+  customEditTagContent?: React.ReactElement;
 };
 
 export const DataGridFilter = ({
@@ -53,9 +54,13 @@ export const DataGridFilter = ({
   onFilterEdit,
   onFilterDelete,
   tagTranslations,
-  popoverTranslations
+  popoverTranslations,
+  customEditTagContent
 }: Props) => {
-  const wrappingDivRef = createRef<HTMLDivElement>();
+  const wrappingDivRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
   const [filterOpen, setFilterOpen] = useState(false);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
   const {
@@ -121,13 +126,18 @@ export const DataGridFilter = ({
         mode={mode}
         onFilterOpen={onFilterOpen}
         onFilterRemove={onFilterRemove}
-        triggerRef={wrappingDivRef}
+        triggerRef={triggerRef}
+        ref={wrappingDivRef}
         filter={filter}
+        translations={tagTranslations}
+        customEditTagContent={customEditTagContent}
       />
       {createPortal(
         <DataGridFilterPopover
+          popoverRef={popoverRef}
           anchorRef={wrappingDivRef}
           isOpen={filterOpen}
+          translations={popoverTranslations}
           column={column}
           columnsMetadata={columnsMetadata}
           values={values}

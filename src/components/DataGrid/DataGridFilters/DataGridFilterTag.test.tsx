@@ -1,13 +1,29 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { DataGridFilterTag, DataGridFilterTagProps } from "./DataGridFilterTag";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Filter } from "./DataGridFilters.interfaces";
 
 const defaultParams: DataGridFilterTagProps = {
   mode: "ADD",
   onFilterRemove: jest.fn(),
   triggerRef: null,
   onFilterOpen: jest.fn()
+};
+
+const CustomTagContent = ({ filter }: { filter: Filter }) => {
+  const { column, operator, value } = filter || {};
+
+  return (
+    <Fragment>
+      {column} {operator} {value.length > 0 && <b>{value[0]}</b>}
+      {value.length >= 2 && (
+        <>
+          lub <b> {value.length - 1} innych</b>
+        </>
+      )}
+    </Fragment>
+  );
 };
 
 const createDataGridFilterTag = (
@@ -67,6 +83,25 @@ describe("DataGridFilterTag", () => {
     expect(getByText(/test/)).toBeDefined();
     expect(getByText(/or/)).toBeDefined();
     expect(getByText(/1 other/)).toBeDefined();
+  });
+
+  it("should render DataGridFilterTag in edit mode with custom tag content", () => {
+    const { getByText } = createDataGridFilterTag(prev => ({
+      ...prev,
+      mode: "EDIT",
+      filter: { id: "test", column: "name", operator: "is", value: ["test", "test2"] },
+      customEditTagContent: (
+        <CustomTagContent
+          filter={{ id: "test", column: "name", operator: "is", value: ["test", "test2"] }}
+        />
+      )
+    }));
+
+    expect(getByText(/name/)).toBeDefined();
+    expect(getByText(/is/)).toBeDefined();
+    expect(getByText(/test/)).toBeDefined();
+    expect(getByText(/lub/)).toBeDefined();
+    expect(getByText(/1 innych/)).toBeDefined();
   });
 
   it("should fire provided callbacks", async () => {

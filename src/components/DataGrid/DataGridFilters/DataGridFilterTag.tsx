@@ -22,7 +22,8 @@ import classes from "./DataGridFilter.module.scss";
 import { Filter, FilterEditorMode, TagTranslations } from "./DataGridFilters.interfaces";
 
 export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
-  triggerRef: React.Ref<HTMLDivElement>;
+  customEditTagContent?: React.ReactElement;
+  triggerRef: React.Ref<HTMLButtonElement>;
   filter?: Filter;
   mode: FilterEditorMode;
   onFilterRemove: () => void;
@@ -38,7 +39,6 @@ const EditTagContent = ({ filter }: { filter: Filter }) => {
       {column} {operator} {value.length > 0 && <b>{value[0]}</b>}
       {value.length >= 2 && (
         <>
-          {" "}
           or <b> {value.length - 1} other</b>
         </>
       )}
@@ -57,7 +57,7 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
     onFilterRemove,
     onFilterOpen,
     translations,
-
+    customEditTagContent,
     ...rest
   }: DataGridFilterTagProps,
   ref
@@ -67,8 +67,13 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
   const shouldRenderEditTag = mode === "EDIT" && filter;
 
   return (
-    <div {...rest} ref={triggerRef} className={classes["filter-wrapper"]}>
-      <button type="button" className={classes["filter-button"]} onClick={onFilterOpen}>
+    <div {...rest} ref={ref} className={classes["filter-wrapper"]}>
+      <button
+        ref={triggerRef}
+        type="button"
+        className={classes["filter-button"]}
+        onClick={onFilterOpen}
+      >
         {shouldRenderAddTag && (
           <Fragment>
             <Icon icon={Icons.AddCircle} />
@@ -79,11 +84,17 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
         )}
         {shouldRenderEditTag && (
           <Typography variant="body" className={classes["caption"]}>
-            <EditTagContent filter={filter} />
+            {customEditTagContent ? (
+              React.cloneElement(customEditTagContent, { filter })
+            ) : (
+              <EditTagContent filter={filter} />
+            )}
           </Typography>
         )}
       </button>
-      {shouldRenderEditTag && <RemoveButton onRemove={onFilterRemove} />}
+      {shouldRenderEditTag && (
+        <RemoveButton className={classes["remove-button"]} onRemove={onFilterRemove} />
+      )}
     </div>
   );
 };
