@@ -22,6 +22,7 @@ import classes from "./DataGridFilter.module.scss";
 import { Filter, FilterEditorMode, TagTranslations } from "./DataGridFilters.interfaces";
 
 export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
+  customEditTagContent?: React.ReactElement;
   triggerRef: React.Ref<HTMLButtonElement>;
   filter?: Filter;
   mode: FilterEditorMode;
@@ -38,7 +39,6 @@ const EditTagContent = ({ filter }: { filter: Filter }) => {
       {column} {operator} {value.length > 0 && <b>{value[0]}</b>}
       {value.length >= 2 && (
         <>
-          {" "}
           or <b> {value.length - 1} other</b>
         </>
       )}
@@ -57,7 +57,7 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
     onFilterRemove,
     onFilterOpen,
     translations,
-
+    customEditTagContent,
     ...rest
   }: DataGridFilterTagProps,
   ref
@@ -84,7 +84,11 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
         )}
         {shouldRenderEditTag && (
           <Typography variant="body" className={classes["caption"]}>
-            <EditTagContent filter={filter} />
+            {customEditTagContent ? (
+              React.cloneElement(customEditTagContent, { filter })
+            ) : (
+              <EditTagContent filter={filter} />
+            )}
           </Typography>
         )}
       </button>

@@ -41,6 +41,7 @@ export type Props = {
   onFilterDelete?: (id: string) => void;
   tagTranslations?: TagTranslations;
   popoverTranslations?: PopoverTranslations;
+  customEditTagContent?: React.ReactElement;
 };
 
 export const DataGridFilter = ({
@@ -53,7 +54,8 @@ export const DataGridFilter = ({
   onFilterEdit,
   onFilterDelete,
   tagTranslations,
-  popoverTranslations
+  popoverTranslations,
+  customEditTagContent
 }: Props) => {
   const wrappingDivRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -128,6 +130,7 @@ export const DataGridFilter = ({
         ref={wrappingDivRef}
         filter={filter}
         translations={tagTranslations}
+        customEditTagContent={customEditTagContent}
       />
       {createPortal(
         <DataGridFilterPopover
