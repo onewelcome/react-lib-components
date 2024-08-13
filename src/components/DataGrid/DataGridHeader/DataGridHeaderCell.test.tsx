@@ -45,7 +45,7 @@ describe("DataGridHeaderCell should render", () => {
     expect(dataGridHeaderCell).toBeDefined();
     expect(dataGridHeaderCell).toHaveTextContent(defaultParams.headline);
     expect(queryByRole("button")).toBeDefined();
-    expect(dataGridHeaderCell.querySelectorAll("[data-icon]")).toHaveLength(2);
+    expect(dataGridHeaderCell.querySelectorAll("[data-icon]")).toHaveLength(1);
   });
 
   it("renders without sorting indicators (icons)", () => {
@@ -62,7 +62,7 @@ describe("DataGridHeaderCell should render", () => {
 
     expect(dataGridHeaderCell).toBeDefined();
     const sortingIcons = dataGridHeaderCell.querySelectorAll("[data-icon]");
-    expect(sortingIcons).toHaveLength(2);
+    expect(sortingIcons).toHaveLength(1);
     sortingIcons.forEach(icon => {
       expect(icon).toHaveClass("indicator");
       expect(icon).not.toHaveClass("active");
@@ -78,12 +78,10 @@ describe("DataGridHeaderCell should render", () => {
 
     expect(dataGridHeaderCell).toBeDefined();
     const sortingIcons = dataGridHeaderCell.querySelectorAll("[data-icon]");
-    expect(sortingIcons).toHaveLength(2);
+    expect(sortingIcons).toHaveLength(1);
     sortingIcons.forEach(icon => expect(icon).toHaveClass("indicator"));
-    expect(sortingIcons[0]).toHaveClass("indicator", "active", "icon-triangle-up");
-    expect(sortingIcons[0]).not.toHaveClass("hidden");
-    expect(sortingIcons[1]).toHaveClass("indicator", "hidden", "icon-triangle-down");
-    expect(sortingIcons[1]).not.toHaveClass("active");
+    expect(sortingIcons[0]).toHaveClass("indicator", "ascending", "icon-arrow-up");
+    expect(sortingIcons[0]).not.toHaveClass("descenidng");
   });
 });
 
@@ -95,12 +93,10 @@ it("renders DESC sorting indicator (icon) when sorting is enabled and current so
 
   expect(dataGridHeaderCell).toBeDefined();
   const sortingIcons = dataGridHeaderCell.querySelectorAll("[data-icon]");
-  expect(sortingIcons).toHaveLength(2);
+  expect(sortingIcons).toHaveLength(1);
   sortingIcons.forEach(icon => expect(icon).toHaveClass("indicator"));
-  expect(sortingIcons[0]).toHaveClass("indicator", "hidden", "icon-triangle-up");
-  expect(sortingIcons[0]).not.toHaveClass("active");
-  expect(sortingIcons[1]).toHaveClass("indicator", "active", "icon-triangle-down");
-  expect(sortingIcons[1]).not.toHaveClass("hidden");
+  expect(sortingIcons[0]).toHaveClass("indicator", "descending", "icon-arrow-up");
+  expect(sortingIcons[0]).not.toHaveClass("ascending");
 });
 
 describe("DataGridHeaderCell should be interactive", () => {

@@ -45,6 +45,11 @@
   font-size: 0.875rem;
 }
 
+.icon-arrow-up:before {
+  content: "\e94f";
+  @include fontProperties();
+}
+
 .icon-save-outline:before {
   content: "\e947";
   @include fontProperties();
@@ -367,5 +372,10 @@
 }
 .icon-zoom-out:before {
   content: "\e94d";
+  @include fontProperties();
+}
+
+.icon-arrow-up:before {
+  content: "\e94f";
   @include fontProperties();
 }
