@@ -21,7 +21,6 @@ import {
   DataGridColumnMetadata,
   Filter,
   FilterEditorMode,
-  FiltersAction,
   PopoverTranslations,
   TagTranslations
 } from "./DataGridFilters.interfaces";
