@@ -35,7 +35,6 @@ export type Props = {
   domRoot?: HTMLElement;
   filter?: Filter;
   columnsMetadata: DataGridColumnMetadata[];
-  dispatch: React.Dispatch<FiltersAction>;
   onFilterAdd?: (filter: Filter) => void;
   onFilterEdit?: (filter: Filter) => void;
   onFilterDelete?: (id: string) => void;
@@ -49,7 +48,6 @@ export const DataGridFilter = ({
   filter,
   domRoot,
   columnsMetadata,
-  dispatch,
   onFilterAdd,
   onFilterEdit,
   onFilterDelete,
@@ -81,19 +79,9 @@ export const DataGridFilter = ({
   const onFilterSubmit = () => {
     if (mode === "ADD") {
       const id = generateID();
-
-      dispatch({
-        type: "add",
-        payload: { id, column, operator, value: pickedValues }
-      });
       onFilterAdd && onFilterAdd({ id, column, operator, value: pickedValues });
     } else if (mode === "EDIT" && filter) {
       const { id } = filter;
-
-      dispatch({
-        type: "edit",
-        payload: { id, column, operator, value: pickedValues }
-      });
       onFilterEdit && onFilterEdit({ id, column, operator, value: pickedValues });
     }
 
@@ -105,9 +93,8 @@ export const DataGridFilter = ({
     if (!filter) {
       return;
     }
-    const { id } = filter;
 
-    dispatch({ type: "remove", payload: { id } });
+    const { id } = filter;
     onFilterDelete && onFilterDelete(id);
 
     resetFields();
