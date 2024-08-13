@@ -329,15 +329,7 @@ function _createMdxContent(props) {
         children: "filters"
       }), " prop to the ", (0,jsx_runtime.jsx)(_components.code, {
         children: "DataGrid"
-      }), " component with ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "enableFilters"
-      }), " property set to ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "true"
-      }), "."]
-    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
-      children: ["User can configure the behavior of the toolbar using the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "filterProps"
-      }), " object which has the following properties:"]
+      }), ".\nUser can configure the behavior of the toolbar using that object which has the following properties:"]
     }), "\n", (0,jsx_runtime.jsxs)(_components.ul, {
       children: ["\n", (0,jsx_runtime.jsxs)(_components.li, {
         children: [(0,jsx_runtime.jsx)(_components.code, {
@@ -365,7 +357,53 @@ function _createMdxContent(props) {
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-jsx",
-        children: "<DataGrid\n  filters={\n    enableFilters: true,\n    filtersProps: {\n      filterValues: [{\n        column: \"name\",\n        id: \"vkLVWIwLEhDa2b4\",\n        operator: \"is\",\n        value: ['test']\n      }],\n      columnsMetadata: [\n        { name: \"name\", headline: \"Name\", operators: [\"is\", \"is not\"] },\n        { name: \"type\", headline: \"Type\", defaultValues: [\"Stock\", \"Bond\"] }\n      ],\n      onFilterAdd: filter => console.log(filter),\n      onFilterEdit: filter => console.log(filter),\n      onFilterDelete: id => console.log(id),\n      onFiltersClear: () => console.log(\"clear\")\n    }\n  }\n/>\n"
+        children: "<DataGrid\n  filters={\n    enable: true,\n    filtersProps: {\n      filterValues: [{\n        column: \"name\",\n        id: \"vkLVWIwLEhDa2b4\",\n        operator: \"is\",\n        value: ['test']\n      }],\n      columnsMetadata: [\n        { name: \"name\", headline: \"Name\", operators: [\"is\", \"is not\"] },\n        { name: \"type\", headline: \"Type\", defaultValues: [\"Stock\", \"Bond\"] }\n      ],\n      onFilterAdd: filter => console.log(filter),\n      onFilterEdit: filter => console.log(filter),\n      onFilterDelete: id => console.log(id),\n      onFiltersClear: () => console.log(\"clear\")\n    }\n  }\n/>\n"
+      })
+    }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
+      id: "search-section",
+      children: "Search section"
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["To show searchbar one has to pass ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "search"
+      }), " prop to the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "DataGrid"
+      }), "."]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["User can configure the behavior of the search using the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "searchProps"
+      }), " object which has the following properties:"]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.ul, {
+      children: ["\n", (0,jsx_runtime.jsxs)(_components.li, {
+        children: [(0,jsx_runtime.jsx)(_components.code, {
+          children: "onSearch"
+        }), " - callback function called when user types in searchbar"]
+      }), "\n", (0,jsx_runtime.jsxs)(_components.li, {
+        children: [(0,jsx_runtime.jsx)(_components.code, {
+          children: "debounceTime"
+        }), " - time in ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "ms"
+        }), " used to debounce the ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "onSearch"
+        }), " callback. When not specified the callback will fire on every ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "onChange"
+        }), " event"]
+      }), "\n", (0,jsx_runtime.jsxs)(_components.li, {
+        children: [(0,jsx_runtime.jsx)(_components.code, {
+          children: "initialSearchValue"
+        }), " - default search value"]
+      }), "\n", (0,jsx_runtime.jsxs)(_components.li, {
+        children: [(0,jsx_runtime.jsx)(_components.code, {
+          children: "placeholder"
+        }), " - placeholder value for search input"]
+      }), "\n", (0,jsx_runtime.jsxs)(_components.li, {
+        children: [(0,jsx_runtime.jsx)(_components.code, {
+          children: "inputProps"
+        }), " - props which can be used to configure the search input component"]
+      }), "\n"]
+    }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        className: "language-jsx",
+        children: "<DataGrid\n   search={{\n    enable: true,\n    searchProps: {\n      onSearch,\n      debounceTime\n      searchValue\n    }\n  }}\n/>\n"
       })
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "action-section",
@@ -658,6 +696,7 @@ __webpack_require__.d(__webpack_exports__, {
   DataGridIsLoading: () => (/* binding */ DataGridIsLoading),
   DataGridWithFilters: () => (/* binding */ DataGridWithFilters),
   DataGridWithFiltersInEditMode: () => (/* binding */ DataGridWithFiltersInEditMode),
+  DataGridWithSearch: () => (/* binding */ DataGridWithSearch),
   DefaultDataGrid: () => (/* binding */ DefaultDataGrid),
   EmptyDataGrid: () => (/* binding */ EmptyDataGrid),
   ExpandableDataGrid: () => (/* binding */ ExpandableDataGrid),
@@ -669,7 +708,7 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__("./node_modules/react/index.js");
-// EXTERNAL MODULE: ./src/components/DataGrid/DataGrid.tsx + 19 modules
+// EXTERNAL MODULE: ./src/components/DataGrid/DataGrid.tsx + 21 modules
 var DataGrid = __webpack_require__("./src/components/DataGrid/DataGrid.tsx");
 ;// CONCATENATED MODULE: ./src/components/DataGrid/testUtils.ts
 /*
@@ -1391,14 +1430,11 @@ const DataGridWithFiltersTemplate = args => {
     data: gridData,
     filters: {
       ...args.filters,
-      filtersProps: {
-        ...args.filters.filtersProps,
-        filterValues: filters,
-        onFilterAdd,
-        onFilterEdit,
-        onFilterDelete,
-        onFiltersClear
-      }
+      filterValues: filters,
+      onFilterAdd,
+      onFilterEdit,
+      onFilterDelete,
+      onFiltersClear
     }
   }), _ref4 => {
     let {
@@ -1425,23 +1461,20 @@ DataGridWithFilters.args = {
     type: "Bond"
   }],
   filters: {
-    enable: true,
-    filtersProps: {
-      filterValues: [],
-      columnsMetadata: [{
-        name: "name",
-        headline: "Name",
-        operators: ["is", "is not"]
-      }, {
-        name: "type",
-        headline: "Type",
-        operators: ["is", "is not"]
-      }],
-      onFilterAdd: filter => console.log(filter),
-      onFilterEdit: filter => console.log(filter),
-      onFilterDelete: id => console.log(id),
-      onFiltersClear: () => console.log("clear")
-    }
+    filterValues: [],
+    columnsMetadata: [{
+      name: "name",
+      headline: "Name",
+      operators: ["is", "is not"]
+    }, {
+      name: "type",
+      headline: "Type",
+      operators: ["is", "is not"]
+    }],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
   },
   headers: [{
     name: "name",
@@ -1494,28 +1527,25 @@ DataGridWithFiltersInEditMode.args = {
     type: "Bond"
   }],
   filters: {
-    enable: true,
-    filtersProps: {
-      filterValues: [{
-        id: "test",
-        column: "type",
-        operator: "is",
-        value: ["Bond"]
-      }],
-      columnsMetadata: [{
-        name: "name",
-        headline: "Name",
-        operators: ["is", "is not"]
-      }, {
-        name: "type",
-        headline: "Type",
-        operators: ["is", "is not"]
-      }],
-      onFilterAdd: filter => console.log(filter),
-      onFilterEdit: filter => console.log(filter),
-      onFilterDelete: id => console.log(id),
-      onFiltersClear: () => console.log("clear")
-    }
+    filterValues: [{
+      id: "test",
+      column: "type",
+      operator: "is",
+      value: ["Bond"]
+    }],
+    columnsMetadata: [{
+      name: "name",
+      headline: "Name",
+      operators: ["is", "is not"]
+    }, {
+      name: "type",
+      headline: "Type",
+      operators: ["is", "is not"]
+    }],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
   },
   headers: [{
     name: "name",
@@ -1565,6 +1595,81 @@ DataGridWithFiltersInEditMode.play = (0,conditionalPlay/* conditionalPlay */.h)(
     (0,test_dist/* expect */.E3)(filterSelect[0]).toBeVisible();
   });
 });
+const SearchTemplate = args => {
+  const [searchValue, setSearchValue] = (0,react.useState)("");
+  const [gridData, setGridData] = (0,react.useState)(args.data);
+  (0,react.useEffect)(() => {
+    if (searchValue) {
+      setGridData(args.data.filter(row => {
+        const values = Object.values(row);
+        const match = values.some(val => val.toLowerCase().includes(searchValue.toLowerCase()));
+        return match;
+      }));
+    } else {
+      setGridData(args.data);
+    }
+  }, [searchValue]);
+  return /*#__PURE__*/react.createElement("div", {
+    style: {
+      padding: "1rem",
+      boxShadow: "0px 1px 5px 0px #01053214"
+    }
+  }, /*#__PURE__*/react.createElement("div", {
+    style: {
+      borderRadius: ".5rem",
+      backgroundColor: "#FFF"
+    }
+  }, /*#__PURE__*/react.createElement(DataGrid/* DataGrid */.z, DataGrid_stories_extends({}, args, {
+    data: gridData,
+    search: {
+      onSearch: setSearchValue,
+      debounceTime: 500,
+      initialSearchValue: searchValue
+    }
+  }), _ref6 => {
+    let {
+      item
+    } = _ref6;
+    return /*#__PURE__*/react.createElement(DataGridRow/* DataGridRow */.r, {
+      key: item.id
+    }, /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.name), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.id), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.type), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.description));
+  })));
+};
+const DataGridWithSearch = SearchTemplate.bind({});
+DataGridWithSearch.args = {
+  data: [{
+    name: "Company 1",
+    id: "1",
+    type: "Stock",
+    description: "Lorem ipsum dolor sit amet"
+  }, {
+    name: "Company 2",
+    id: "2",
+    type: "Stock",
+    description: "Consectetur adipiscing elit"
+  }],
+  headers: [{
+    name: "name",
+    headline: "Name"
+  }, {
+    name: "id",
+    headline: "Identifier"
+  }, {
+    name: "type",
+    headline: "Type",
+    disableSorting: true
+  }, {
+    name: "description",
+    headline: "Description",
+    disableSorting: true
+  }],
+  search: {
+    onSearch: val => console.log(val),
+    debounceTime: 500
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
 DefaultDataGrid.parameters = {
   ...DefaultDataGrid.parameters,
   docs: {
@@ -1630,7 +1735,7 @@ DataGridWithFilters.parameters = {
   docs: {
     ...DataGridWithFilters.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const {\n    filters,\n    gridData,\n    onFilterAdd,\n    onFilterEdit,\n    onFilterDelete,\n    onFiltersClear\n  } = useMockFilteringLogic(args.data, args.filters.filterValues);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} filters={{\n        ...args.filters,\n        filtersProps: {\n          ...args.filters.filtersProps,\n          filterValues: filters,\n          onFilterAdd,\n          onFilterEdit,\n          onFilterDelete,\n          onFiltersClear\n        }\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
+      originalSource: "args => {\n  const {\n    filters,\n    gridData,\n    onFilterAdd,\n    onFilterEdit,\n    onFilterDelete,\n    onFiltersClear\n  } = useMockFilteringLogic(args.data, args.filters.filterValues);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} filters={{\n        ...args.filters,\n        filterValues: filters,\n        onFilterAdd,\n        onFilterEdit,\n        onFilterDelete,\n        onFiltersClear\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
       ...DataGridWithFilters.parameters?.docs?.source
     }
   }
@@ -1640,11 +1745,21 @@ DataGridWithFiltersInEditMode.parameters = {
   docs: {
     ...DataGridWithFiltersInEditMode.parameters?.docs,
     source: {
-      originalSource: "args => {\n  const {\n    filters,\n    gridData,\n    onFilterAdd,\n    onFilterEdit,\n    onFilterDelete,\n    onFiltersClear\n  } = useMockFilteringLogic(args.data, args.filters.filterValues);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} filters={{\n        ...args.filters,\n        filtersProps: {\n          ...args.filters.filtersProps,\n          filterValues: filters,\n          onFilterAdd,\n          onFilterEdit,\n          onFilterDelete,\n          onFiltersClear\n        }\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
+      originalSource: "args => {\n  const {\n    filters,\n    gridData,\n    onFilterAdd,\n    onFilterEdit,\n    onFilterDelete,\n    onFiltersClear\n  } = useMockFilteringLogic(args.data, args.filters.filterValues);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} filters={{\n        ...args.filters,\n        filterValues: filters,\n        onFilterAdd,\n        onFilterEdit,\n        onFilterDelete,\n        onFiltersClear\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
       ...DataGridWithFiltersInEditMode.parameters?.docs?.source
     }
   }
-};;const __namedExportsOrder = ["DefaultDataGrid","HideColumnDataGrid","DataGridIsLoading","EmptyDataGrid","ExpandableDataGrid","HiddenContextMenuColumnDataGrid","DataGridWithFilters","DataGridWithFiltersInEditMode"];
+};
+DataGridWithSearch.parameters = {
+  ...DataGridWithSearch.parameters,
+  docs: {
+    ...DataGridWithSearch.parameters?.docs,
+    source: {
+      originalSource: "args => {\n  const [searchValue, setSearchValue] = useState(\"\");\n  const [gridData, setGridData] = useState(args.data);\n  useEffect(() => {\n    if (searchValue) {\n      setGridData(args.data.filter(row => {\n        const values: string[] = Object.values(row);\n        const match = values.some(val => val.toLowerCase().includes(searchValue.toLowerCase()));\n        return match;\n      }));\n    } else {\n      setGridData(args.data);\n    }\n  }, [searchValue]);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} search={{\n        onSearch: setSearchValue,\n        debounceTime: 500,\n        initialSearchValue: searchValue\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.description}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
+      ...DataGridWithSearch.parameters?.docs?.source
+    }
+  }
+};;const __namedExportsOrder = ["DefaultDataGrid","HideColumnDataGrid","DataGridIsLoading","EmptyDataGrid","ExpandableDataGrid","HiddenContextMenuColumnDataGrid","DataGridWithFilters","DataGridWithFiltersInEditMode","DataGridWithSearch"];
 try {
     // @ts-ignore
     DefaultDataGrid.displayName = "DefaultDataGrid";
@@ -1731,6 +1846,17 @@ try {
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
         STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DataGridWithFiltersInEditMode"] = { docgenInfo: DataGridWithFiltersInEditMode.__docgenInfo, name: "DataGridWithFiltersInEditMode", path: "stories/DataGrid/DataGrid.stories.tsx#DataGridWithFiltersInEditMode" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+try {
+    // @ts-ignore
+    DataGridWithSearch.displayName = "DataGridWithSearch";
+    // @ts-ignore
+    DataGridWithSearch.__docgenInfo = { "description": "", "displayName": "DataGridWithSearch", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DataGridWithSearch"] = { docgenInfo: DataGridWithSearch.__docgenInfo, name: "DataGridWithSearch", path: "stories/DataGrid/DataGrid.stories.tsx#DataGridWithSearch" };
 }
 catch (__react_docgen_typescript_loader_error) { }
 

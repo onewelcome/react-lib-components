@@ -747,7 +747,7 @@ const MultiSelectComponent = (_ref, ref) => {
     id: multiSelectId.current,
     ref: containerReference,
     onKeyDown: onArrowNavigation,
-    className: "custom-select ".concat(MultiSelect_module/* default */.A.select, " ").concat(additionalClasses.join(" "), " ").concat(className !== null && className !== void 0 ? className : "")
+    className: "custom-select ".concat(MultiSelect_module/* default */.A.select, " ").concat(additionalClasses.join(" "))
   }), /*#__PURE__*/react.createElement("div", {
     className: "".concat(MultiSelect_module/* default */.A["custom-select"], " ").concat(additionalClasses.join(" "), " "),
     style: {

@@ -104,7 +104,7 @@ function _createMdxContent(props) {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
             children: "primaryAction"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "{ label: string; onClick: () => void; disabled?: boolean }"
+            children: "{ label: string; onClick: () => void; disabled?: boolean, color?: 'primary' | 'success' | 'danger' | 'warning' | 'default' }"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
             children: "The primary action of the dialog."
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
@@ -216,7 +216,7 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
         className: "language-jsx",
-        children: "<Dialog\n  open={open}\n  onClose={onClose}\n  titleIcon={true}\n  caption=\"Example dialog\"\n  title=\"Verify email address\"\n  primaryAction={label: 'Send email', onClick: onSendEmail}\n  cancelAction={label: 'Cancel'}\n>\n  <Fragment>\n    <Typography variant=\"body\">\n      You want to verify the email address <b>dana.george@mydomain.com</b>.\n    </Typography>\n    <Typography variant=\"body\" spacing={{ margin: 0 }}>\n      <b>Dana George</b> will receive an email with a verification link and must click the link to\n      complete the verification.\n    </Typography>\n  </Fragment>\n</Dialog>\n"
+        children: "<Dialog\n  open={open}\n  onClose={onClose}\n  titleIcon={true}\n  caption=\"Example dialog\"\n  title=\"Verify email address\"\n  primaryAction={label: 'Send email', onClick: onSendEmail, color: 'primary'}\n  cancelAction={label: 'Cancel'}\n>\n  <Fragment>\n    <Typography variant=\"body\">\n      You want to verify the email address <b>dana.george@mydomain.com</b>.\n    </Typography>\n    <Typography variant=\"body\" spacing={{ margin: 0 }}>\n      <b>Dana George</b> will receive an email with a verification link and must click the link to\n      complete the verification.\n    </Typography>\n  </Fragment>\n</Dialog>\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Canvas */ .Hl, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Story */ .gG, {
@@ -230,7 +230,7 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
         className: "language-jsx",
-        children: "<Dialog\n  open={open}\n  titleIcon={<Icon icon={Icons.Bell} />}\n  caption=\"Example dialog\"\n  onClose={onClose}\n  title=\"Info\"\n  primaryAction={label: 'Ok', onClick}\n>\n  <Typography variant=\"body\" spacing={{ margin: 0 }}>\n    You can't remove your account.\n  </Typography>\n</Dialog>\n"
+        children: "<Dialog\n  open={open}\n  titleIcon={<Icon icon={Icons.Bell} />}\n  caption=\"Example dialog\"\n  onClose={onClose}\n  title=\"Info\"\n  primaryAction={label: 'Ok', onClick, color: 'primary'}\n>\n  <Typography variant=\"body\" spacing={{ margin: 0 }}>\n    You can't remove your account.\n  </Typography>\n</Dialog>\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Canvas */ .Hl, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Story */ .gG, {
@@ -244,7 +244,7 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
         className: "language-jsx",
-        children: "const [open, setOpen] = useState(false);\nconst [open2, setOpen2] = useState(false);\nreturn (\n  <Fragment>\n    <Button onClick={() => setOpen(true)}>Open dialog</Button>\n    <Dialog\n      open={open}\n      title=\"Dialog 1\"\n      titleIcon={<Icon icon={Icons.Bell} />}\n      caption=\"Example dialog\"\n      onClose={() => setOpen(false)}\n      primaryAction={{\n        label: \"Open another dialog\",\n        onClick: () => setOpen2(true)\n      }}\n      cancelAction={{ label: \"Cancel\" }}\n    >\n      <Typography variant=\"body\" spacing={{ margin: 0 }}>\n        Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long\n        dialog content.\n      </Typography>\n    </Dialog>\n    <Dialog\n      open={open2}\n      onClose={() => setOpen2(false)}\n      title=\"Dialog 2\"\n      titleIcon={true}\n      caption=\"Example dialog\"\n      primaryAction={{\n        label: \"Close\",\n        onClick: () => setOpen2(false)\n      }}\n    >\n      <Typography variant=\"body\" spacing={{ margin: 0 }}>\n        Short dialog content.\n      </Typography>\n    </Dialog>\n  </Fragment>\n);\n"
+        children: "const [open, setOpen] = useState(false);\nconst [open2, setOpen2] = useState(false);\nreturn (\n  <Fragment>\n    <Button onClick={() => setOpen(true)}>Open dialog</Button>\n    <Dialog\n      open={open}\n      title=\"Dialog 1\"\n      titleIcon={<Icon icon={Icons.Bell} />}\n      caption=\"Example dialog\"\n      onClose={() => setOpen(false)}\n      primaryAction={{\n        label: \"Open another dialog\",\n        color: 'primary'\n        onClick: () => setOpen2(true)\n      }}\n      cancelAction={{ label: \"Cancel\" }}\n    >\n      <Typography variant=\"body\" spacing={{ margin: 0 }}>\n        Long dialog content. Long dialog content. Long dialog content. Long dialog content. Long\n        dialog content.\n      </Typography>\n    </Dialog>\n    <Dialog\n      open={open2}\n      onClose={() => setOpen2(false)}\n      title=\"Dialog 2\"\n      titleIcon={true}\n      caption=\"Example dialog\"\n      primaryAction={{\n        label: \"Close\",\n        color: 'primary'\n        onClick: () => setOpen2(false)\n      }}\n    >\n      <Typography variant=\"body\" spacing={{ margin: 0 }}>\n        Short dialog content.\n      </Typography>\n    </Dialog>\n  </Fragment>\n);\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Canvas */ .Hl, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Story */ .gG, {

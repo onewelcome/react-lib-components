@@ -292,7 +292,7 @@ var ContentHeader = __webpack_require__("./src/components/Layout/ContentHeader/C
 var FormWithStepper = __webpack_require__("./src/components/Layout/FormPage/FormWithStepper/FormWithStepper.tsx");
 // EXTERNAL MODULE: ./src/components/Layout/FormPage/FormWithStepper/FormSection/FormSection.tsx + 1 modules
 var FormSection = __webpack_require__("./src/components/Layout/FormPage/FormWithStepper/FormSection/FormSection.tsx");
-// EXTERNAL MODULE: ./src/components/DataGrid/DataGrid.tsx + 19 modules
+// EXTERNAL MODULE: ./src/components/DataGrid/DataGrid.tsx + 21 modules
 var DataGrid = __webpack_require__("./src/components/DataGrid/DataGrid.tsx");
 // EXTERNAL MODULE: ./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx + 3 modules
 var DataGridRow = __webpack_require__("./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx");

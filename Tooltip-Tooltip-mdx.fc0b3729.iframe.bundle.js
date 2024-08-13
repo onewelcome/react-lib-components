@@ -312,20 +312,13 @@ Tooltip.parameters = {
 
 /***/ }),
 
-/***/ "./src/hooks/usePosition.ts":
+/***/ "./src/hooks/useDebouncedCallback.tsx":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  xM: () => (/* binding */ horizontal),
-  Jl: () => (/* binding */ usePosition),
-  Vd: () => (/* binding */ vertical)
-});
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__("./node_modules/react/index.js");
-;// CONCATENATED MODULE: ./src/hooks/useDebouncedCallback.tsx
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Y: () => (/* binding */ useDebouncedCallback)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -344,9 +337,9 @@ var react = __webpack_require__("./node_modules/react/index.js");
 
 
 const useDebouncedCallback = (callback, delay, dependencies) => {
-  const timeout = react.useRef();
+  const timeout = react__WEBPACK_IMPORTED_MODULE_0__.useRef();
   const comboDeps = dependencies ? [callback, delay, ...dependencies] : [callback, delay];
-  return react.useCallback(function () {
+  return react__WEBPACK_IMPORTED_MODULE_0__.useCallback(function () {
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
@@ -358,7 +351,19 @@ const useDebouncedCallback = (callback, delay, dependencies) => {
     }, delay);
   }, comboDeps);
 };
-;// CONCATENATED MODULE: ./src/hooks/usePosition.ts
+
+/***/ }),
+
+/***/ "./src/hooks/usePosition.ts":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Jl: () => (/* binding */ usePosition),
+/* harmony export */   Vd: () => (/* binding */ vertical),
+/* harmony export */   xM: () => (/* binding */ horizontal)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
+/* harmony import */ var _useDebouncedCallback__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./src/hooks/useDebouncedCallback.tsx");
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -419,7 +424,7 @@ const usePosition = function () {
     ...defaultConfigObject,
     ...providedConfigObject
   };
-  const [initialCalculationDone, setInitialCalculationDone] = (0,react.useState)(false);
+  const [initialCalculationDone, setInitialCalculationDone] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   if (configObject.transformOrigin === undefined) {
     configObject.transformOrigin = defaultConfigObject.transformOrigin;
   }
@@ -429,7 +434,7 @@ const usePosition = function () {
   if (configObject.offset === undefined) {
     configObject.offset = defaultConfigObject.offset;
   }
-  const [position, setPosition] = (0,react.useState)({
+  const [position, setPosition] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     left: 0,
     top: 0,
     right: "initial",
@@ -539,7 +544,7 @@ const usePosition = function () {
       [oppositeDirection]: "initial"
     }));
   };
-  const calculatePosition = useDebouncedCallback(() => {
+  const calculatePosition = (0,_useDebouncedCallback__WEBPACK_IMPORTED_MODULE_1__/* .useDebouncedCallback */ .Y)(() => {
     var _configObject$relativ, _configObject$element;
     if (!((_configObject$relativ = configObject.relativeElement) !== null && _configObject$relativ !== void 0 && _configObject$relativ.current) || !((_configObject$element = configObject.elementToBePositioned) !== null && _configObject$element !== void 0 && _configObject$element.current)) {
       return;

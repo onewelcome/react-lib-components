@@ -665,7 +665,7 @@ var map = {
 		9771,
 		8270,
 		4773,
-		2923,
+		900,
 		7412,
 		7650
 	],
@@ -687,7 +687,7 @@ var map = {
 		9771,
 		8270,
 		4773,
-		2923,
+		900,
 		7412,
 		7650
 	],
@@ -709,7 +709,7 @@ var map = {
 		9771,
 		8270,
 		4773,
-		2923,
+		900,
 		7412,
 		7650
 	],
@@ -1857,7 +1857,7 @@ var map = {
 		9771,
 		7822,
 		3920,
-		2923,
+		900,
 		3690
 	],
 	"./admin/MicrofrontendContainer/MicrofrontendContainer.stories": [
@@ -1877,7 +1877,7 @@ var map = {
 		9771,
 		7822,
 		3920,
-		2923,
+		900,
 		3690
 	],
 	"./admin/MicrofrontendContainer/MicrofrontendContainer.stories.tsx": [
@@ -1897,7 +1897,7 @@ var map = {
 		9771,
 		7822,
 		3920,
-		2923,
+		900,
 		3690
 	],
 	"./hooks/useBodyClick.mdx": [

@@ -522,7 +522,7 @@ const SelectComponent = (_ref, ref) => {
   }))), /*#__PURE__*/react.createElement("div", Select_extends({}, (0,helper/* filterProps */.J9)(rest, /^data-/), {
     ref: containerReference,
     onKeyDown: onArrowNavigation,
-    className: "custom-select ".concat(Select_module/* default */.A.select, " ").concat(additionalClasses.join(" "), " ").concat(className !== null && className !== void 0 ? className : "")
+    className: "custom-select ".concat(Select_module/* default */.A.select, " ").concat(additionalClasses.join(" "))
   }), searchVisible && renderSearch(), /*#__PURE__*/react.createElement("button", Select_extends({}, selectButtonProps, {
     onClick: () => {
       setExpanded(!expanded);
