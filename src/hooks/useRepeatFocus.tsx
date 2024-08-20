@@ -27,8 +27,18 @@ export const useRepeatFocus = (ref: RefObject<HTMLDivElement>) => {
     element: HTMLElement,
     position: "first" | "last"
   ): HTMLElement | null => {
-    const focusableSelectors =
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const baseSelectors = [
+      "button",
+      "[href]",
+      "input",
+      "select",
+      "textarea",
+      "[tabindex]",
+      "[contenteditable]"
+    ];
+    const focusableSelectors = baseSelectors
+      .map(selector => `${selector}:not([tabindex="-1"])`)
+      .join(", ");
     const focusableElements = element.querySelectorAll<HTMLElement>(focusableSelectors);
 
     if (position === "first") {
