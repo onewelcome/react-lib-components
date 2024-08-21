@@ -62,9 +62,16 @@
 
   .indicator {
     color: var(--greyed-out);
+    transition: transform 0.2s ease-in-out;
+    transform: rotate(0deg);
 
-    &.active {
+    &.ascending {
       color: var(--color-primary);
+    }
+
+    &.descending {
+      color: var(--color-primary);
+      transform: rotate(180deg);
     }
 
     &.hidden {

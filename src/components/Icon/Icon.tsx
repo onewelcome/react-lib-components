@@ -98,7 +98,8 @@ export enum Icons {
   FileAltIcon = "file-alt",
   AddCircle = "add-circle",
   ZoomIn = "zoom-in",
-  ZoomOut = "zoom-out"
+  ZoomOut = "zoom-out",
+  ArrowUp = "arrow-up"
 }
 
 type Tag = "span" | "div" | "i";

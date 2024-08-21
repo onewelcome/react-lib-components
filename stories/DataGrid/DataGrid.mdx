@@ -214,7 +214,8 @@ User can configure the behavior of the toolbar using that object which has the f
 
 - `columnsMetadata` - mandatory array of `DataGridColumnMetadata` which specifies what operators and defaultValues are available for a given column
 - `filterValues` - array of `Filter` objects which can be used to pass predefined filters
-- `onFilterAdd`, `onFilterEdit`, `onFilterDelete`, `onFiltersClear` - callbacks used in the filter editor
+- `onFilterAdd`, `onFilterEdit`, `onFilterDelete`, `onFiltersClear` - callbacks used in the filter editor. If user doesn't want to handle the CRUD operations on filters, they can use the `useFiltersReducer` hook, which provides all of the logic.
+- `customEditTagContent` - optional component which can be used to translate and format the filter tag in edit mode. Should take `Filter` as a prop.
 
 ```jsx
 <DataGrid

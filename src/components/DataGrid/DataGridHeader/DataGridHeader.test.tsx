@@ -100,7 +100,7 @@ describe("DataGridHeader should render", () => {
     }));
 
     const sortingIcons = dataGridHeader.querySelectorAll("[data-icon]");
-    expect(sortingIcons).toHaveLength(4);
+    expect(sortingIcons).toHaveLength(2);
     sortingIcons.forEach(icon => expect(icon).not.toHaveClass("hidden"));
   });
 
@@ -112,7 +112,7 @@ describe("DataGridHeader should render", () => {
       onSort
     }));
 
-    expect(dataGridHeader.querySelectorAll("[data-icon]:not(.hidden)")).toHaveLength(3);
+    expect(dataGridHeader.querySelectorAll("[data-icon]:not(.hidden)")).toHaveLength(2);
     const [firstNameCell, lastNameCell] = getAllByRole("columnheader");
     expect(firstNameCell).toHaveAttribute("aria-sort", "ascending");
     expect(lastNameCell).not.toHaveAttribute("aria-sort");
@@ -126,7 +126,7 @@ describe("DataGridHeader should render", () => {
       onSort
     }));
 
-    expect(dataGridHeader.querySelectorAll("[data-icon]:not(.hidden)")).toHaveLength(3);
+    expect(dataGridHeader.querySelectorAll("[data-icon]:not(.hidden)")).toHaveLength(2);
     const [firstNameCell, lastNameCell] = getAllByRole("columnheader");
     expect(firstNameCell).not.toHaveAttribute("aria-sort");
     expect(lastNameCell).toHaveAttribute("aria-sort", "descending");

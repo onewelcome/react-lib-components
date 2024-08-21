@@ -41,21 +41,16 @@ const DataGridHeaderCellComponent: ForwardRefRenderFunction<HTMLTableCellElement
   };
 
   const sortingIndicator = () => {
-    const getSortingIndicatorClasses = (direction: Direction) => {
+    const getSortingIndicatorClasses = () => {
       const sortingIndicatorClasses = [classes["indicator"]];
       activeSortDirection &&
         sortingIndicatorClasses.push(
-          activeSortDirection === direction ? classes["active"] : classes["hidden"]
+          activeSortDirection === "ASC" ? classes["ascending"] : classes["descending"]
         );
       return sortingIndicatorClasses;
     };
 
-    return (
-      <Fragment>
-        <Icon className={getSortingIndicatorClasses("ASC").join(" ")} icon={Icons.TriangleUp} />
-        <Icon className={getSortingIndicatorClasses("DESC").join(" ")} icon={Icons.TriangleDown} />
-      </Fragment>
-    );
+    return <Icon className={getSortingIndicatorClasses().join(" ")} icon={Icons.ArrowUp} />;
   };
 
   const innerContent = (

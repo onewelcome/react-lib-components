@@ -16,27 +16,17 @@
 
 import { useEffect, useState } from "react";
 import { Filter } from "./DataGridFilters/DataGridFilters.interfaces";
+import { useFiltersReducer } from "./DataGridFilters/useFiltersReducer";
 
 /**
  * @scope .
  * @scopeException stories/DataGrid/DataGrid.stories.tsx
  */
 export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | undefined) => {
-  const [filters, setFilters] = useState<Filter[]>(filterValues || []);
+  const { state, addFilter, editFilter, deleteFilter, clearFilters } =
+    useFiltersReducer(filterValues);
 
   const [gridData, setGridData] = useState(data);
-
-  const onFilterAdd = (filter: Filter) => {
-    setFilters(prev => [...prev, filter]);
-  };
-
-  const onFilterEdit = (filter: Filter) =>
-    setFilters(prev => prev.map(f => (f.id === filter.id ? filter : f)));
-
-  const onFilterDelete = (id: string) =>
-    setFilters(prev => [...prev.filter(value => value.id !== id)]);
-
-  const onFiltersClear = () => setFilters([]);
 
   const operatorPredicateMap = {
     is: (v1: string, v2: string) => v1 === v2,
@@ -47,7 +37,7 @@ export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | und
     const filteredData = data
       .map((row: T) => {
         let shouldBeDiscarded: boolean[] = [];
-        filters.forEach(filter => {
+        state.filters.forEach(filter => {
           shouldBeDiscarded = [
             ...shouldBeDiscarded,
             !filter.value.reduce((acc, val) => {
@@ -71,7 +61,14 @@ export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | und
         return val !== undefined;
       }) as T[];
     setGridData(filteredData);
-  }, [filters]);
+  }, [state.filters]);
 
-  return { onFilterAdd, onFilterEdit, onFilterDelete, onFiltersClear, gridData, filters };
+  return {
+    onFilterAdd: addFilter,
+    onFilterEdit: editFilter,
+    onFilterDelete: deleteFilter,
+    onFiltersClear: clearFilters,
+    gridData,
+    filters: state.filters
+  };
 };

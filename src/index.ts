@@ -174,6 +174,7 @@ export { DataGridDrawerItem } from "./components/DataGrid/DataGridBody/DataGridD
 export type { Props as DataGridDrawerItemProps } from "./components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
 export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
 export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
+export { useFiltersReducer } from "./components/DataGrid/DataGridFilters/useFiltersReducer";
 export { Banner } from "./components/Notifications/Banner/Banner";
 export type { Props as BannerProps } from "./components/Notifications/Banner/Banner";
 

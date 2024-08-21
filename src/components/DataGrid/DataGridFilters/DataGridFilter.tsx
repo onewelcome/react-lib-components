@@ -14,14 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, createRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 import {
   DataGridColumnMetadata,
   Filter,
   FilterEditorMode,
-  FiltersAction,
   PopoverTranslations,
   TagTranslations
 } from "./DataGridFilters.interfaces";
@@ -35,12 +34,12 @@ export type Props = {
   domRoot?: HTMLElement;
   filter?: Filter;
   columnsMetadata: DataGridColumnMetadata[];
-  dispatch: React.Dispatch<FiltersAction>;
   onFilterAdd?: (filter: Filter) => void;
   onFilterEdit?: (filter: Filter) => void;
   onFilterDelete?: (id: string) => void;
   tagTranslations?: TagTranslations;
   popoverTranslations?: PopoverTranslations;
+  customEditTagContent?: React.ReactElement;
 };
 
 export const DataGridFilter = ({
@@ -48,14 +47,17 @@ export const DataGridFilter = ({
   filter,
   domRoot,
   columnsMetadata,
-  dispatch,
   onFilterAdd,
   onFilterEdit,
   onFilterDelete,
   tagTranslations,
-  popoverTranslations
+  popoverTranslations,
+  customEditTagContent
 }: Props) => {
-  const wrappingDivRef = createRef<HTMLDivElement>();
+  const wrappingDivRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
   const [filterOpen, setFilterOpen] = useState(false);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
   const {
@@ -76,19 +78,9 @@ export const DataGridFilter = ({
   const onFilterSubmit = () => {
     if (mode === "ADD") {
       const id = generateID();
-
-      dispatch({
-        type: "add",
-        payload: { id, column, operator, value: pickedValues }
-      });
       onFilterAdd && onFilterAdd({ id, column, operator, value: pickedValues });
     } else if (mode === "EDIT" && filter) {
       const { id } = filter;
-
-      dispatch({
-        type: "edit",
-        payload: { id, column, operator, value: pickedValues }
-      });
       onFilterEdit && onFilterEdit({ id, column, operator, value: pickedValues });
     }
 
@@ -100,9 +92,8 @@ export const DataGridFilter = ({
     if (!filter) {
       return;
     }
-    const { id } = filter;
 
-    dispatch({ type: "remove", payload: { id } });
+    const { id } = filter;
     onFilterDelete && onFilterDelete(id);
 
     resetFields();
@@ -121,13 +112,18 @@ export const DataGridFilter = ({
         mode={mode}
         onFilterOpen={onFilterOpen}
         onFilterRemove={onFilterRemove}
-        triggerRef={wrappingDivRef}
+        triggerRef={triggerRef}
+        ref={wrappingDivRef}
         filter={filter}
+        translations={tagTranslations}
+        customEditTagContent={customEditTagContent}
       />
       {createPortal(
         <DataGridFilterPopover
+          popoverRef={popoverRef}
           anchorRef={wrappingDivRef}
           isOpen={filterOpen}
+          translations={popoverTranslations}
           column={column}
           columnsMetadata={columnsMetadata}
           values={values}

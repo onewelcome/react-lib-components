@@ -14,20 +14,16 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useReducer } from "react";
+import React, { Fragment } from "react";
 import { DataGridFilter } from "./DataGridFilter";
 import classes from "./DataGridToolbar.module.scss";
-import {
-  DataGridColumnMetadata,
-  Filter,
-  FiltersAction,
-  FiltersState,
-  FiltersTranslations
-} from "./DataGridFilters.interfaces";
+import { DataGridColumnMetadata, Filter, FiltersTranslations } from "./DataGridFilters.interfaces";
 import { Typography } from "../../Typography/Typography";
+import { useFiltersReducer } from "./useFiltersReducer";
 
 export interface DataGridToolbarProps {
   columnsMetadata: DataGridColumnMetadata[];
+  customEditTagContent?: React.ReactElement;
   filterValues?: Filter[];
   translations?: FiltersTranslations;
   onFilterAdd?: (filter: Filter) => void;
@@ -36,32 +32,6 @@ export interface DataGridToolbarProps {
   onFiltersClear?: () => void;
 }
 
-const filtersReducer = (state: FiltersState, action: FiltersAction): FiltersState => {
-  switch (action.type) {
-    case "add":
-      return { ...state, filters: [...state.filters, { ...action.payload }] };
-    case "edit":
-      return {
-        ...state,
-        filters: [
-          ...state.filters.map(value => {
-            if (value.id === action.payload.id) {
-              return action.payload;
-            }
-            return value;
-          })
-        ]
-      };
-    case "remove":
-      return {
-        ...state,
-        filters: [...state.filters.filter(value => value.id !== action.payload.id)]
-      };
-    case "clear":
-      return { ...state, filters: [] };
-  }
-};
-
 export const DataGridToolbar = ({
   columnsMetadata,
   filterValues,
@@ -69,9 +39,11 @@ export const DataGridToolbar = ({
   onFilterAdd,
   onFilterEdit,
   onFilterDelete,
-  onFiltersClear
+  onFiltersClear,
+  customEditTagContent
 }: DataGridToolbarProps) => {
-  const [state, dispatch] = useReducer(filtersReducer, { filters: filterValues || [] });
+  const { state, addFilter, editFilter, deleteFilter, clearFilters } =
+    useFiltersReducer(filterValues);
   const { clearButtonCaption = "Clear all filters" } = translations?.toolbar || {};
   return (
     <Fragment>
@@ -81,19 +53,28 @@ export const DataGridToolbar = ({
           key={filter.id}
           filter={filter}
           columnsMetadata={columnsMetadata}
-          dispatch={dispatch}
-          onFilterEdit={onFilterEdit}
-          onFilterDelete={onFilterDelete}
+          onFilterEdit={filter => {
+            editFilter(filter);
+            onFilterEdit && onFilterEdit(filter);
+          }}
+          onFilterDelete={id => {
+            deleteFilter(id);
+            onFilterDelete && onFilterDelete(id);
+          }}
           tagTranslations={translations?.tag}
           popoverTranslations={translations?.popover}
+          customEditTagContent={customEditTagContent}
         />
       ))}
       <div className={classes["actions-wrapper"]}>
         <DataGridFilter
           mode="ADD"
+          customEditTagContent={customEditTagContent}
           columnsMetadata={columnsMetadata}
-          dispatch={dispatch}
-          onFilterAdd={onFilterAdd}
+          onFilterAdd={filter => {
+            addFilter(filter);
+            onFilterAdd && onFilterAdd(filter);
+          }}
           tagTranslations={translations?.tag}
           popoverTranslations={translations?.popover}
         />
@@ -102,7 +83,7 @@ export const DataGridToolbar = ({
             type="button"
             className={classes["clear-button"]}
             onClick={() => {
-              dispatch({ type: "clear" });
+              clearFilters();
               onFiltersClear && onFiltersClear();
             }}
           >

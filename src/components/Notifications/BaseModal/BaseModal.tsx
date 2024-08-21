@@ -27,7 +27,7 @@ import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 import classes from "./BaseModal.module.scss";
 import { labelId, descriptionId } from "./BaseModalContext";
-import { useRepeatFocus } from "./useRepeatFocus";
+import { useRepeatFocus } from "../../../hooks/useRepeatFocus";
 
 const SCROLL_PROPERTY_NAME = "overflow";
 const SCROLL_PROPERTY_VALUE = "hidden";
