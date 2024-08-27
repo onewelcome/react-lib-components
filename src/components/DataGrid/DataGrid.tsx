@@ -40,6 +40,9 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   initialSort?: Sort;
   onSort?: OnSortFunction;
   headers: HeaderCell[];
+  /**
+   * @deprecated use the `toolbarButtons` prop instead
+   */
   actions?: {
     enableAddBtn?: boolean;
     enableColumnsBtn?: boolean;
