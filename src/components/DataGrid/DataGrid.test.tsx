@@ -25,6 +25,7 @@ import { Icon, Icons } from "../Icon/Icon";
 import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
 import userEvent from "@testing-library/user-event";
 import { useMockFilteringLogic } from "./testUtils";
+import { Button } from "../Button/Button";
 
 type DataType = { firstName: string; lastName: string; date: string };
 
@@ -658,6 +659,7 @@ const createDataGridWithSearch = (params?: (defaultParams: any) => Props<DataTyp
           debounceTime: 500,
           initialSearchValue: searchValue
         }}
+        toolbarButtons={[<Button key="1">Add item</Button>]}
         data-testid="dataGrid"
       />
     );
@@ -684,5 +686,12 @@ describe("DataGrid with search", () => {
     const highlight = await findByTestId("Daniel-mark");
 
     expect(highlight).toBeInTheDocument();
+  });
+
+  it("should render action button when provided", async () => {
+    const { dataGrid, getByText } = createDataGridWithSearch();
+
+    expect(dataGrid).toBeInTheDocument();
+    expect(getByText("Add item")).toBeInTheDocument();
   });
 });
