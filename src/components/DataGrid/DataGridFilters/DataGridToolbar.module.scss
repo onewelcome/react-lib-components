@@ -18,37 +18,55 @@
 
 .wrapper {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 0.5rem;
   width: 100%;
   padding-bottom: 1rem;
 
-  .searchbar {
-    min-width: 7rem;
-    flex-basis: 15rem;
-  }
-
-  .actions-wrapper {
+  .filter-section {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 0.5rem;
+    width: 100%;
+    padding-bottom: 1rem;
+    flex-grow: 1;
+
+    .searchbar {
+      min-width: 7rem;
+      flex-basis: 15rem;
+    }
+
+    .actions-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem;
+    }
+
+    .clear-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      @include mixins.focusVisibleOutline($outlineOffset: 0);
+
+      .caption {
+        margin: 0;
+        font-size: var(--font-size-data-grid);
+        line-height: var(--data-grid-line-height);
+        text-decoration: underline;
+        color: var(--color-primary500);
+      }
+    }
   }
 
-  .clear-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    @include mixins.focusVisibleOutline($outlineOffset: 0);
-
-    .caption {
-      margin: 0;
-      font-size: var(--font-size-data-grid);
-      line-height: var(--data-grid-line-height);
-      text-decoration: underline;
-      color: var(--color-primary500);
-    }
+  .button-section {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
   }
 }

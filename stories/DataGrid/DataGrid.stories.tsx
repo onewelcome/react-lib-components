@@ -680,3 +680,37 @@ DataGridWithSearch.args = {
   isLoading: false,
   enableMultiSorting: true
 };
+
+export const DataGridWithSearchAndButtons = SearchTemplate.bind({});
+
+DataGridWithSearchAndButtons.args = {
+  data: [
+    {
+      name: "Company 1",
+
+      id: "1",
+      type: "Stock",
+
+      description: "Lorem ipsum dolor sit amet"
+    },
+    {
+      name: "Company 2",
+      id: "2",
+      type: "Stock",
+      description: "Consectetur adipiscing elit"
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "description", headline: "Description", disableSorting: true }
+  ],
+  toolbarButtons: [
+    <Button key="1" onClick={() => alert("Add item")}>
+      Add item
+    </Button>
+  ],
+  isLoading: false,
+  enableMultiSorting: true
+};
