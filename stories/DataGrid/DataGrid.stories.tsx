@@ -213,54 +213,12 @@ DefaultDataGrid.args = {
     { name: "created", direction: "DESC" }
   ],
   onSort: sort => action(`Sort callback: ${sort}`),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: { onClick: () => action("add btn clicked") },
-    searchBtnProps: { onClick: () => action("search btn clicked") }
-  },
+
   disableContextMenuColumn: false,
   paginationProps: {
     totalElements: 2,
     currentPage: 1
   },
-  isLoading: false,
-  enableMultiSorting: true
-};
-
-export const HideColumnDataGrid = Template.bind({});
-
-HideColumnDataGrid.args = {
-  data: [
-    {
-      name: "Company 1",
-      created: new Date(2023, 0, 1),
-      id: "1",
-      type: "Stock",
-      enabled: true
-    },
-    {
-      name: "Company 2",
-      created: new Date(2023, 0, 2),
-      id: "2",
-      type: "Stock",
-      enabled: false
-    }
-  ],
-  headers: [
-    { name: "name", headline: "Name", hidden: true },
-    { name: "created", headline: "Created", hidden: true },
-    { name: "id", headline: "Identifier" },
-    { name: "type", headline: "Type", disableSorting: true },
-    { name: "enabled", headline: "Status", disableSorting: true }
-  ],
-  initialSort: [
-    { name: "name", direction: "ASC" },
-    { name: "created", direction: "DESC" }
-  ],
-  onSort: sort => action(`Sort callback: ${sort}`),
-  disableContextMenuColumn: false,
   isLoading: false,
   enableMultiSorting: true
 };
@@ -296,13 +254,6 @@ DataGridIsLoading.args = {
     { name: "created", direction: "DESC" }
   ],
   onSort: sort => action(`Sort callback: ${sort}`),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: { onClick: () => action("add btn clicked") },
-    searchBtnProps: { onClick: () => action("search btn clicked") }
-  },
   disableContextMenuColumn: false,
   paginationProps: {
     totalElements: 2,
@@ -366,13 +317,6 @@ ExpandableDataGrid.args = {
     { name: "created", direction: "DESC" }
   ],
   onSort: sort => action(`Sort callback: ${sort}`),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: { onClick: () => action("add btn clicked") },
-    searchBtnProps: { onClick: () => action("search btn clicked") }
-  },
   disableContextMenuColumn: false,
   paginationProps: {
     totalElements: 2,
@@ -428,13 +372,7 @@ HiddenContextMenuColumnDataGrid.args = {
     { name: "created", direction: "DESC" }
   ],
   onSort: sort => action(`Sort callback: ${sort}`),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: { onClick: () => action("add btn clicked") },
-    searchBtnProps: { onClick: () => action("search btn clicked") }
-  },
+
   disableContextMenuColumn: true,
   paginationProps: {
     totalElements: 2,
@@ -711,6 +649,112 @@ DataGridWithSearchAndButtons.args = {
       Add item
     </Button>
   ],
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+const ToolbarWithAllOptionsTemplate = args => {
+  const {
+    filters,
+    gridData,
+    setGridData,
+    onFilterAdd,
+    onFilterEdit,
+    onFilterDelete,
+    onFiltersClear
+  } = useMockFilteringLogic(args.data, []);
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    if (searchValue) {
+      setGridData(
+        args.data.filter(row => {
+          const values: string[] = Object.values(row);
+          const match = values.some(val => val.toLowerCase().includes(searchValue.toLowerCase()));
+          return match;
+        })
+      );
+    } else {
+      setGridData(args.data);
+    }
+  }, [searchValue]);
+
+  return (
+    <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
+      <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
+        <DataGridComponent
+          {...args}
+          data={gridData}
+          filters={{
+            columnsMetadata: [
+              { name: "name", headline: "Name", operators: ["is", "is not"] },
+              { name: "id", headline: "Id", operators: ["is", "is not"] },
+              { name: "type", headline: "Type", operators: ["is", "is not"] },
+              { name: "description", headline: "Description", operators: ["is", "is not"] }
+            ],
+            filterValues: filters,
+            onFilterAdd,
+            onFilterEdit,
+            onFilterDelete,
+            onFiltersClear
+          }}
+          search={{
+            onSearch: setSearchValue,
+            debounceTime: 500,
+            initialSearchValue: searchValue
+          }}
+          toolbarButtons={[
+            <Button
+              key="1"
+              onClick={() => alert("Add item")}
+              startIcon={<Icon icon={Icons.Plus} />}
+            >
+              Add item
+            </Button>
+          ]}
+        >
+          {({ item }: { item: DataGridItem }) => (
+            <DataGridRow key={item.id}>
+              <DataGridCell>{item.name}</DataGridCell>
+              <DataGridCell>{item.id}</DataGridCell>
+              <DataGridCell>{item.type}</DataGridCell>
+              <DataGridCell>{item.description}</DataGridCell>
+            </DataGridRow>
+          )}
+        </DataGridComponent>
+      </div>
+    </div>
+  );
+};
+
+export const ToolbarWithAllOptions = ToolbarWithAllOptionsTemplate.bind({});
+
+ToolbarWithAllOptions.args = {
+  data: [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet"
+    },
+    {
+      name: "Company 2",
+      id: "2",
+      type: "Bond",
+      description: "Consectetur adipiscing elit"
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "description", headline: "Description", disableSorting: true }
+  ],
+  search: {
+    onSearch: val => console.log(val),
+    debounceTime: 500
+  },
+
   isLoading: false,
   enableMultiSorting: true
 };

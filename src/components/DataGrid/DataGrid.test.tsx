@@ -659,7 +659,6 @@ const createDataGridWithSearch = (params?: (defaultParams: any) => Props<DataTyp
           debounceTime: 500,
           initialSearchValue: searchValue
         }}
-        toolbarButtons={[<Button key="1">Add item</Button>]}
         data-testid="dataGrid"
       />
     );
@@ -689,9 +688,24 @@ describe("DataGrid with search", () => {
   });
 
   it("should render action button when provided", async () => {
-    const { dataGrid, getByText } = createDataGridWithSearch();
+    const onClick = jest.fn();
+    const { dataGrid, getByText } = createDataGridWithSearch(prev => ({
+      ...prev,
+      toolbarButtons: [
+        <Button key="1" onClick={onClick}>
+          Add item
+        </Button>
+      ]
+    }));
 
     expect(dataGrid).toBeInTheDocument();
-    expect(getByText("Add item")).toBeInTheDocument();
+
+    const toolbarButton = getByText("Add item");
+
+    expect(toolbarButton).toBeInTheDocument();
+
+    await userEvent.click(toolbarButton);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

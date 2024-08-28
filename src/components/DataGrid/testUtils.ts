@@ -69,6 +69,7 @@ export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | und
     onFilterDelete: deleteFilter,
     onFiltersClear: clearFilters,
     gridData,
+    setGridData,
     filters: state.filters
   };
 };
