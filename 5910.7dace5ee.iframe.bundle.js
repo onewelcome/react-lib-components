@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[8270],{
+(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[5910],{
 
 /***/ "./src/components/Notifications/BaseModal/BaseModal.tsx":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67,78 +67,8 @@ var update = injectStylesIntoStyleTag_default()(BaseModal_module/* default */.A,
 
 // EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModalContext.ts
 var BaseModalContext = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalContext.ts");
-;// CONCATENATED MODULE: ./src/components/Notifications/BaseModal/useRepeatFocus.tsx
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-
-
-/**
- * @description This is a hook that will make sure that when a modal is open and the user tabs through the it,
- * the focus will be repeated and the user will not lose their entire focusable element to an element in the background
- * that is being blocked by the modal.
- */
-
-const useRepeatFocus = ref => {
-  const getFocusableElement = (element, position) => {
-    const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-    const focusableElements = element.querySelectorAll(focusableSelectors);
-    if (position === "first") {
-      return focusableElements[0] || null;
-    } else if (position === "last") {
-      return focusableElements[focusableElements.length - 1] || null;
-    }
-    return null;
-  };
-  (0,react.useEffect)(() => {
-    if (!ref.current || !open) return;
-    const lastFocusableElement = getFocusableElement(ref.current, "last");
-    const firstFocusableElement = getFocusableElement(ref.current, "first");
-    if (!lastFocusableElement || !firstFocusableElement) return;
-    const handleTabKeyPress = event => {
-      if (event.key !== "Tab") return;
-      if (event.shiftKey) {
-        if (document.activeElement === firstFocusableElement) {
-          event.preventDefault();
-          lastFocusableElement === null || lastFocusableElement === void 0 || lastFocusableElement.focus();
-        }
-      } else if (document.activeElement === lastFocusableElement) {
-        event.preventDefault();
-        firstFocusableElement === null || firstFocusableElement === void 0 || firstFocusableElement.focus();
-      }
-    };
-    lastFocusableElement.addEventListener("keydown", handleTabKeyPress);
-    firstFocusableElement.addEventListener("keydown", handleTabKeyPress);
-    return () => {
-      lastFocusableElement.removeEventListener("keydown", handleTabKeyPress);
-      firstFocusableElement.removeEventListener("keydown", handleTabKeyPress);
-    };
-  }, [ref, open]);
-};
-try {
-    // @ts-ignore
-    useRepeatFocus.displayName = "useRepeatFocus";
-    // @ts-ignore
-    useRepeatFocus.__docgenInfo = { "description": "", "displayName": "useRepeatFocus", "props": {} };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/components/Notifications/BaseModal/useRepeatFocus.tsx#useRepeatFocus"] = { docgenInfo: useRepeatFocus.__docgenInfo, name: "useRepeatFocus", path: "src/components/Notifications/BaseModal/useRepeatFocus.tsx#useRepeatFocus" };
-}
-catch (__react_docgen_typescript_loader_error) { }
+// EXTERNAL MODULE: ./src/hooks/useRepeatFocus.tsx
+var useRepeatFocus = __webpack_require__("./src/hooks/useRepeatFocus.tsx");
 ;// CONCATENATED MODULE: ./src/components/Notifications/BaseModal/BaseModal.tsx
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
@@ -222,7 +152,7 @@ const BaseModalComponent = (_ref, ref) => {
       onClose === null || onClose === void 0 || onClose();
     }
   };
-  useRepeatFocus(modalRef);
+  (0,useRepeatFocus/* useRepeatFocus */.F)(modalRef);
   (0,react.useEffect)(() => {
     if (open) {
       var _modalRef$current;
@@ -500,6 +430,88 @@ const useGetDomRoot = (passedDomRoot, relativeElement) => {
     root
   };
 };
+
+/***/ }),
+
+/***/ "./src/hooks/useRepeatFocus.tsx":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   F: () => (/* binding */ useRepeatFocus)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+/**
+ * @description This is a hook that will make sure that when a modal is open and the user tabs through the it,
+ * the focus will be repeated and the user will not lose their entire focusable element to an element in the background
+ * that is being blocked by the modal.
+ */
+
+const useRepeatFocus = ref => {
+  const getFocusableElement = (element, position) => {
+    const baseSelectors = ["button", "[href]", "input", "select", "textarea", "[tabindex]", "[contenteditable]"];
+    const focusableSelectors = baseSelectors.map(selector => "".concat(selector, ":not([tabindex=\"-1\"])")).join(", ");
+    const focusableElements = element.querySelectorAll(focusableSelectors);
+    if (position === "first") {
+      return focusableElements[0] || null;
+    } else if (position === "last") {
+      return focusableElements[focusableElements.length - 1] || null;
+    }
+    return null;
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!ref.current || !open) return;
+    const lastFocusableElement = getFocusableElement(ref.current, "last");
+    const firstFocusableElement = getFocusableElement(ref.current, "first");
+    if (!lastFocusableElement || !firstFocusableElement) return;
+    const handleTabKeyPress = event => {
+      if (event.key !== "Tab") return;
+      if (event.shiftKey) {
+        if (document.activeElement === firstFocusableElement) {
+          event.preventDefault();
+          lastFocusableElement === null || lastFocusableElement === void 0 || lastFocusableElement.focus();
+        }
+      } else if (document.activeElement === lastFocusableElement) {
+        event.preventDefault();
+        firstFocusableElement === null || firstFocusableElement === void 0 || firstFocusableElement.focus();
+      }
+    };
+    lastFocusableElement.addEventListener("keydown", handleTabKeyPress);
+    firstFocusableElement.addEventListener("keydown", handleTabKeyPress);
+    return () => {
+      lastFocusableElement.removeEventListener("keydown", handleTabKeyPress);
+      firstFocusableElement.removeEventListener("keydown", handleTabKeyPress);
+    };
+  }, [ref, open]);
+};
+try {
+    // @ts-ignore
+    useRepeatFocus.displayName = "useRepeatFocus";
+    // @ts-ignore
+    useRepeatFocus.__docgenInfo = { "description": "", "displayName": "useRepeatFocus", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/hooks/useRepeatFocus.tsx#useRepeatFocus"] = { docgenInfo: useRepeatFocus.__docgenInfo, name: "useRepeatFocus", path: "src/hooks/useRepeatFocus.tsx#useRepeatFocus" };
+}
+catch (__react_docgen_typescript_loader_error) { }
 
 /***/ }),
 

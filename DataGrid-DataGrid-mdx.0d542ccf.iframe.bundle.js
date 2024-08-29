@@ -352,7 +352,15 @@ function _createMdxContent(props) {
           children: "onFilterDelete"
         }), ", ", (0,jsx_runtime.jsx)(_components.code, {
           children: "onFiltersClear"
-        }), " - callbacks used in the filter editor"]
+        }), " - callbacks used in the filter editor. If user doesn't want to handle the CRUD operations on filters, they can use the ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "useFiltersReducer"
+        }), " hook, which provides all of the logic."]
+      }), "\n", (0,jsx_runtime.jsxs)(_components.li, {
+        children: [(0,jsx_runtime.jsx)(_components.code, {
+          children: "customEditTagContent"
+        }), " - optional component which can be used to translate and format the filter tag in edit mode. Should take ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "Filter"
+        }), " as a prop."]
       }), "\n"]
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
@@ -403,35 +411,21 @@ function _createMdxContent(props) {
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-jsx",
-        children: "<DataGrid\n   search={{\n    enable: true,\n    searchProps: {\n      onSearch,\n      debounceTime\n      searchValue\n    }\n  }}\n/>\n"
+        children: "<DataGrid\n   search={{\n      onSearch,\n      debounceTime\n      searchValue\n    }}\n/>\n"
       })
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "action-section",
       children: "Action section"
     }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
-      children: ["It's possible to show the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "Add item"
-      }), ", ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "Columns"
-      }), " and ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "Search"
-      }), " buttons."]
-    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
-      children: ["Clicking the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "Columns"
-      }), " button opens the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "Show columns"
-      }), " popup with a list of available columns whch can be toggled.\nHowever, the developer must handle the ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "Add item"
-      }), " and ", (0,jsx_runtime.jsx)(_components.code, {
-        children: "Search"
-      }), " button actions."]
-    }), "\n", (0,jsx_runtime.jsx)(_components.p, {
-      children: "Each button can be customized by providing props as in the example below."
+      children: ["In order to show action buttons in toolbar one has to pass ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "toolbarButtons"
+      }), " prop to the ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "DataGrid"
+      })]
     }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
       children: (0,jsx_runtime.jsx)(_components.code, {
         className: "language-jsx",
-        children: "<DataGrid\n  actions={{\n    enableAddBtn: true,\n    enableColumnsBtn: true,\n    enableSearchBtn: true,\n    searchBtnProps: { title: \"Zoeken\", children: \"Zoeken\", onClick }\n  }}\n/>\n"
+        children: "<DataGrid\n  toolbarButtons={[\n    <Button key=\"1\" onClick={() => alert(\"Add item\")}>\n      Add item\n    </Button>\n  ]}\n/>\n"
       })
     }), "\n", (0,jsx_runtime.jsx)(_components.h1, {
       id: "pagination",
@@ -697,11 +691,12 @@ __webpack_require__.d(__webpack_exports__, {
   DataGridWithFilters: () => (/* binding */ DataGridWithFilters),
   DataGridWithFiltersInEditMode: () => (/* binding */ DataGridWithFiltersInEditMode),
   DataGridWithSearch: () => (/* binding */ DataGridWithSearch),
+  DataGridWithSearchAndButtons: () => (/* binding */ DataGridWithSearchAndButtons),
   DefaultDataGrid: () => (/* binding */ DefaultDataGrid),
   EmptyDataGrid: () => (/* binding */ EmptyDataGrid),
   ExpandableDataGrid: () => (/* binding */ ExpandableDataGrid),
   HiddenContextMenuColumnDataGrid: () => (/* binding */ HiddenContextMenuColumnDataGrid),
-  HideColumnDataGrid: () => (/* binding */ HideColumnDataGrid),
+  ToolbarWithAllOptions: () => (/* binding */ ToolbarWithAllOptions),
   __namedExportsOrder: () => (/* binding */ __namedExportsOrder),
   "default": () => (/* binding */ DataGrid_stories)
 });
@@ -710,6 +705,8 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__("./node_modules/react/index.js");
 // EXTERNAL MODULE: ./src/components/DataGrid/DataGrid.tsx + 21 modules
 var DataGrid = __webpack_require__("./src/components/DataGrid/DataGrid.tsx");
+// EXTERNAL MODULE: ./src/components/DataGrid/DataGridFilters/useFiltersReducer.tsx
+var useFiltersReducer = __webpack_require__("./src/components/DataGrid/DataGridFilters/useFiltersReducer.tsx");
 ;// CONCATENATED MODULE: ./src/components/DataGrid/testUtils.ts
 /*
  * Copyright 2022 OneWelcome B.V.
@@ -728,19 +725,21 @@ var DataGrid = __webpack_require__("./src/components/DataGrid/DataGrid.tsx");
  */
 
 
+
+
 /**
  * @scope .
  * @scopeException stories/DataGrid/DataGrid.stories.tsx
  */
 const useMockFilteringLogic = (data, filterValues) => {
-  const [filters, setFilters] = (0,react.useState)(filterValues || []);
+  const {
+    state,
+    addFilter,
+    editFilter,
+    deleteFilter,
+    clearFilters
+  } = (0,useFiltersReducer/* useFiltersReducer */.L)(filterValues);
   const [gridData, setGridData] = (0,react.useState)(data);
-  const onFilterAdd = filter => {
-    setFilters(prev => [...prev, filter]);
-  };
-  const onFilterEdit = filter => setFilters(prev => prev.map(f => f.id === filter.id ? filter : f));
-  const onFilterDelete = id => setFilters(prev => [...prev.filter(value => value.id !== id)]);
-  const onFiltersClear = () => setFilters([]);
   const operatorPredicateMap = {
     is: (v1, v2) => v1 === v2,
     "is not": (v1, v2) => v1 !== v2
@@ -748,7 +747,7 @@ const useMockFilteringLogic = (data, filterValues) => {
   (0,react.useEffect)(() => {
     const filteredData = data.map(row => {
       let shouldBeDiscarded = [];
-      filters.forEach(filter => {
+      state.filters.forEach(filter => {
         shouldBeDiscarded = [...shouldBeDiscarded, !filter.value.reduce((acc, val) => {
           return (
             // eslint-disable-next-line  @typescript-eslint/no-explicit-any
@@ -761,14 +760,15 @@ const useMockFilteringLogic = (data, filterValues) => {
       return val !== undefined;
     });
     setGridData(filteredData);
-  }, [filters]);
+  }, [state.filters]);
   return {
-    onFilterAdd,
-    onFilterEdit,
-    onFilterDelete,
-    onFiltersClear,
+    onFilterAdd: addFilter,
+    onFilterEdit: editFilter,
+    onFilterDelete: deleteFilter,
+    onFiltersClear: clearFilters,
     gridData,
-    filters
+    setGridData,
+    filters: state.filters
   };
 };
 // EXTERNAL MODULE: ./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx + 3 modules
@@ -905,7 +905,7 @@ var dist = __webpack_require__("./node_modules/@storybook/addon-actions/dist/ind
 var test_dist = __webpack_require__("./node_modules/@storybook/test/dist/index.mjs");
 // EXTERNAL MODULE: ./.storybook/conditionalPlay.ts + 1 modules
 var conditionalPlay = __webpack_require__("./.storybook/conditionalPlay.ts");
-// EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModal.tsx + 2 modules
+// EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModal.tsx + 1 modules
 var BaseModal = __webpack_require__("./src/components/Notifications/BaseModal/BaseModal.tsx");
 // EXTERNAL MODULE: ./src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.tsx + 1 modules
 var BaseModalHeader = __webpack_require__("./src/components/Notifications/BaseModal/BaseModalHeader/BaseModalHeader.tsx");
@@ -1113,69 +1113,11 @@ DefaultDataGrid.args = {
     direction: "DESC"
   }],
   onSort: sort => (0,dist/* action */.XI)("Sort callback: ".concat(sort)),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: {
-      onClick: () => (0,dist/* action */.XI)("add btn clicked")
-    },
-    searchBtnProps: {
-      onClick: () => (0,dist/* action */.XI)("search btn clicked")
-    }
-  },
   disableContextMenuColumn: false,
   paginationProps: {
     totalElements: 2,
     currentPage: 1
   },
-  isLoading: false,
-  enableMultiSorting: true
-};
-const HideColumnDataGrid = Template.bind({});
-HideColumnDataGrid.args = {
-  data: [{
-    name: "Company 1",
-    created: new Date(2023, 0, 1),
-    id: "1",
-    type: "Stock",
-    enabled: true
-  }, {
-    name: "Company 2",
-    created: new Date(2023, 0, 2),
-    id: "2",
-    type: "Stock",
-    enabled: false
-  }],
-  headers: [{
-    name: "name",
-    headline: "Name",
-    hidden: true
-  }, {
-    name: "created",
-    headline: "Created",
-    hidden: true
-  }, {
-    name: "id",
-    headline: "Identifier"
-  }, {
-    name: "type",
-    headline: "Type",
-    disableSorting: true
-  }, {
-    name: "enabled",
-    headline: "Status",
-    disableSorting: true
-  }],
-  initialSort: [{
-    name: "name",
-    direction: "ASC"
-  }, {
-    name: "created",
-    direction: "DESC"
-  }],
-  onSort: sort => (0,dist/* action */.XI)("Sort callback: ".concat(sort)),
-  disableContextMenuColumn: false,
   isLoading: false,
   enableMultiSorting: true
 };
@@ -1220,17 +1162,6 @@ DataGridIsLoading.args = {
     direction: "DESC"
   }],
   onSort: sort => (0,dist/* action */.XI)("Sort callback: ".concat(sort)),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: {
-      onClick: () => (0,dist/* action */.XI)("add btn clicked")
-    },
-    searchBtnProps: {
-      onClick: () => (0,dist/* action */.XI)("search btn clicked")
-    }
-  },
   disableContextMenuColumn: false,
   paginationProps: {
     totalElements: 2,
@@ -1315,17 +1246,6 @@ ExpandableDataGrid.args = {
     direction: "DESC"
   }],
   onSort: sort => (0,dist/* action */.XI)("Sort callback: ".concat(sort)),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: {
-      onClick: () => (0,dist/* action */.XI)("add btn clicked")
-    },
-    searchBtnProps: {
-      onClick: () => (0,dist/* action */.XI)("search btn clicked")
-    }
-  },
   disableContextMenuColumn: false,
   paginationProps: {
     totalElements: 2,
@@ -1388,17 +1308,6 @@ HiddenContextMenuColumnDataGrid.args = {
     direction: "DESC"
   }],
   onSort: sort => (0,dist/* action */.XI)("Sort callback: ".concat(sort)),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: {
-      onClick: () => (0,dist/* action */.XI)("add btn clicked")
-    },
-    searchBtnProps: {
-      onClick: () => (0,dist/* action */.XI)("search btn clicked")
-    }
-  },
   disableContextMenuColumn: true,
   paginationProps: {
     totalElements: 2,
@@ -1670,6 +1579,155 @@ DataGridWithSearch.args = {
   isLoading: false,
   enableMultiSorting: true
 };
+const DataGridWithSearchAndButtons = SearchTemplate.bind({});
+DataGridWithSearchAndButtons.args = {
+  data: [{
+    name: "Company 1",
+    id: "1",
+    type: "Stock",
+    description: "Lorem ipsum dolor sit amet"
+  }, {
+    name: "Company 2",
+    id: "2",
+    type: "Stock",
+    description: "Consectetur adipiscing elit"
+  }],
+  headers: [{
+    name: "name",
+    headline: "Name"
+  }, {
+    name: "id",
+    headline: "Identifier"
+  }, {
+    name: "type",
+    headline: "Type",
+    disableSorting: true
+  }, {
+    name: "description",
+    headline: "Description",
+    disableSorting: true
+  }],
+  toolbarButtons: [/*#__PURE__*/react.createElement(Button/* Button */.$, {
+    key: "1",
+    onClick: () => alert("Add item")
+  }, "Add item")],
+  isLoading: false,
+  enableMultiSorting: true
+};
+const ToolbarWithAllOptionsTemplate = args => {
+  const {
+    filters,
+    gridData,
+    setGridData,
+    onFilterAdd,
+    onFilterEdit,
+    onFilterDelete,
+    onFiltersClear
+  } = useMockFilteringLogic(args.data, []);
+  const [searchValue, setSearchValue] = (0,react.useState)("");
+  (0,react.useEffect)(() => {
+    if (searchValue) {
+      setGridData(args.data.filter(row => {
+        const values = Object.values(row);
+        const match = values.some(val => val.toLowerCase().includes(searchValue.toLowerCase()));
+        return match;
+      }));
+    } else {
+      setGridData(args.data);
+    }
+  }, [searchValue]);
+  return /*#__PURE__*/react.createElement("div", {
+    style: {
+      padding: "1rem",
+      boxShadow: "0px 1px 5px 0px #01053214"
+    }
+  }, /*#__PURE__*/react.createElement("div", {
+    style: {
+      borderRadius: ".5rem",
+      backgroundColor: "#FFF"
+    }
+  }, /*#__PURE__*/react.createElement(DataGrid/* DataGrid */.z, DataGrid_stories_extends({}, args, {
+    data: gridData,
+    filters: {
+      columnsMetadata: [{
+        name: "name",
+        headline: "Name",
+        operators: ["is", "is not"]
+      }, {
+        name: "id",
+        headline: "Id",
+        operators: ["is", "is not"]
+      }, {
+        name: "type",
+        headline: "Type",
+        operators: ["is", "is not"]
+      }, {
+        name: "description",
+        headline: "Description",
+        operators: ["is", "is not"]
+      }],
+      filterValues: filters,
+      onFilterAdd,
+      onFilterEdit,
+      onFilterDelete,
+      onFiltersClear
+    },
+    search: {
+      onSearch: setSearchValue,
+      debounceTime: 500,
+      initialSearchValue: searchValue
+    },
+    toolbarButtons: [/*#__PURE__*/react.createElement(Button/* Button */.$, {
+      key: "1",
+      onClick: () => alert("Add item"),
+      startIcon: /*#__PURE__*/react.createElement(Icon/* Icon */.I, {
+        icon: Icon/* Icons */.F.Plus
+      })
+    }, "Add item")]
+  }), _ref7 => {
+    let {
+      item
+    } = _ref7;
+    return /*#__PURE__*/react.createElement(DataGridRow/* DataGridRow */.r, {
+      key: item.id
+    }, /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.name), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.id), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.type), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.description));
+  })));
+};
+const ToolbarWithAllOptions = ToolbarWithAllOptionsTemplate.bind({});
+ToolbarWithAllOptions.args = {
+  data: [{
+    name: "Company 1",
+    id: "1",
+    type: "Stock",
+    description: "Lorem ipsum dolor sit amet"
+  }, {
+    name: "Company 2",
+    id: "2",
+    type: "Bond",
+    description: "Consectetur adipiscing elit"
+  }],
+  headers: [{
+    name: "name",
+    headline: "Name"
+  }, {
+    name: "id",
+    headline: "Identifier"
+  }, {
+    name: "type",
+    headline: "Type",
+    disableSorting: true
+  }, {
+    name: "description",
+    headline: "Description",
+    disableSorting: true
+  }],
+  search: {
+    onSearch: val => console.log(val),
+    debounceTime: 500
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
 DefaultDataGrid.parameters = {
   ...DefaultDataGrid.parameters,
   docs: {
@@ -1677,16 +1735,6 @@ DefaultDataGrid.parameters = {
     source: {
       originalSource: "args => {\n  const [openModalId, setOpenModalId] = useState<string>(\"\");\n  const [modalData, setModalData] = useState<DataGridItem | null>(null);\n  const [inputValue, setInputValue] = useState(\"\");\n  const openModal = (item: DataGridItem) => {\n    setModalData(item);\n    setOpenModalId(`testModal_${item.id}`);\n  };\n  const closeModal = () => {\n    setOpenModalId(\"\");\n    setInputValue(\"\");\n    setModalData(null);\n    if (modalData) {\n      document.getElementById(`consent_menu_${modalData.id}`)?.focus();\n    }\n  };\n  return <Fragment>\n      <div style={{\n      padding: \"1rem\",\n      boxShadow: \"0px 1px 5px 0px #01053214\"\n    }}>\n        <div style={{\n        borderRadius: \".5rem\",\n        backgroundColor: \"#FFF\"\n      }}>\n          <DataGridComponent {...args}>\n            {({\n            item\n          }: {\n            item: DataGridItem;\n          }) => <DataGridRow key={item.id} expandableRowProps={{\n            enableExpandableRow: args.enableExpandableRow,\n            expandableRowContent: <Fragment>\n                      {args.expandableRowHeaders?.map(({\n                name,\n                headline\n              }) => <DataGridDrawerItem key={name} title={headline} description={item[name]} />)}\n                    </Fragment>\n          }}>\n                <DataGridCell>{item.name}</DataGridCell>\n                <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n                <DataGridCell>{item.id}</DataGridCell>\n                <DataGridCell>{item.type}</DataGridCell>\n                <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n                {!args.disableContextMenuColumn && <Fragment>\n                    <DataGridCell>\n                      <ContextMenu id={`consent_menu_${item.id}`} placement={{\n                  vertical: \"bottom\",\n                  horizontal: \"right\"\n                }} transformOrigin={{\n                  vertical: \"top\",\n                  horizontal: \"right\"\n                }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                            <Icon icon={Icons.EllipsisAlt} />\n                          </IconButton>}>\n                        <ContextMenuItem aria-haspopup={true} aria-controls={`testModal_${item.id}`} onClick={() => openModal(item)}>\n                          Item 1\n                        </ContextMenuItem>\n                        <ContextMenuItem>Item 2</ContextMenuItem>\n                        <ContextMenuItem>Item 3</ContextMenuItem>\n                      </ContextMenu>\n                    </DataGridCell>\n                  </Fragment>}\n              </DataGridRow>}\n          </DataGridComponent>\n        </div>\n      </div>\n      {modalData && <Modal open={openModalId === `testModal_${modalData.id}`} id={openModalId} onClose={closeModal}>\n          <ModalHeader id={`testmodal-header-${modalData.id}`} title={modalData.name} />\n          <ModalContent>\n            <Form id={`example-form-${modalData.id}`} onSubmit={e => {\n          e.preventDefault();\n          alert(\"Submitted form!\");\n        }}>\n              <InputWrapper label=\"Example\" name=\"example\" type=\"text\" value={inputValue} onChange={e => setInputValue(e.target.value)} />\n            </Form>\n          </ModalContent>\n          <ModalActions>\n            <Button form={`example-form-${modalData.id}`} onClick={() => {\n          closeModal();\n        }}>\n              Close\n            </Button>\n          </ModalActions>\n        </Modal>}\n    </Fragment>;\n}",
       ...DefaultDataGrid.parameters?.docs?.source
-    }
-  }
-};
-HideColumnDataGrid.parameters = {
-  ...HideColumnDataGrid.parameters,
-  docs: {
-    ...HideColumnDataGrid.parameters?.docs,
-    source: {
-      originalSource: "args => {\n  const [openModalId, setOpenModalId] = useState<string>(\"\");\n  const [modalData, setModalData] = useState<DataGridItem | null>(null);\n  const [inputValue, setInputValue] = useState(\"\");\n  const openModal = (item: DataGridItem) => {\n    setModalData(item);\n    setOpenModalId(`testModal_${item.id}`);\n  };\n  const closeModal = () => {\n    setOpenModalId(\"\");\n    setInputValue(\"\");\n    setModalData(null);\n    if (modalData) {\n      document.getElementById(`consent_menu_${modalData.id}`)?.focus();\n    }\n  };\n  return <Fragment>\n      <div style={{\n      padding: \"1rem\",\n      boxShadow: \"0px 1px 5px 0px #01053214\"\n    }}>\n        <div style={{\n        borderRadius: \".5rem\",\n        backgroundColor: \"#FFF\"\n      }}>\n          <DataGridComponent {...args}>\n            {({\n            item\n          }: {\n            item: DataGridItem;\n          }) => <DataGridRow key={item.id} expandableRowProps={{\n            enableExpandableRow: args.enableExpandableRow,\n            expandableRowContent: <Fragment>\n                      {args.expandableRowHeaders?.map(({\n                name,\n                headline\n              }) => <DataGridDrawerItem key={name} title={headline} description={item[name]} />)}\n                    </Fragment>\n          }}>\n                <DataGridCell>{item.name}</DataGridCell>\n                <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>\n                <DataGridCell>{item.id}</DataGridCell>\n                <DataGridCell>{item.type}</DataGridCell>\n                <DataGridCell>{item.enabled ? \"Active\" : \"Delisted\"}</DataGridCell>\n                {!args.disableContextMenuColumn && <Fragment>\n                    <DataGridCell>\n                      <ContextMenu id={`consent_menu_${item.id}`} placement={{\n                  vertical: \"bottom\",\n                  horizontal: \"right\"\n                }} transformOrigin={{\n                  vertical: \"top\",\n                  horizontal: \"right\"\n                }} trigger={<IconButton title={`Actions for ${item.name}`} color=\"default\">\n                            <Icon icon={Icons.EllipsisAlt} />\n                          </IconButton>}>\n                        <ContextMenuItem aria-haspopup={true} aria-controls={`testModal_${item.id}`} onClick={() => openModal(item)}>\n                          Item 1\n                        </ContextMenuItem>\n                        <ContextMenuItem>Item 2</ContextMenuItem>\n                        <ContextMenuItem>Item 3</ContextMenuItem>\n                      </ContextMenu>\n                    </DataGridCell>\n                  </Fragment>}\n              </DataGridRow>}\n          </DataGridComponent>\n        </div>\n      </div>\n      {modalData && <Modal open={openModalId === `testModal_${modalData.id}`} id={openModalId} onClose={closeModal}>\n          <ModalHeader id={`testmodal-header-${modalData.id}`} title={modalData.name} />\n          <ModalContent>\n            <Form id={`example-form-${modalData.id}`} onSubmit={e => {\n          e.preventDefault();\n          alert(\"Submitted form!\");\n        }}>\n              <InputWrapper label=\"Example\" name=\"example\" type=\"text\" value={inputValue} onChange={e => setInputValue(e.target.value)} />\n            </Form>\n          </ModalContent>\n          <ModalActions>\n            <Button form={`example-form-${modalData.id}`} onClick={() => {\n          closeModal();\n        }}>\n              Close\n            </Button>\n          </ModalActions>\n        </Modal>}\n    </Fragment>;\n}",
-      ...HideColumnDataGrid.parameters?.docs?.source
     }
   }
 };
@@ -1759,7 +1807,27 @@ DataGridWithSearch.parameters = {
       ...DataGridWithSearch.parameters?.docs?.source
     }
   }
-};;const __namedExportsOrder = ["DefaultDataGrid","HideColumnDataGrid","DataGridIsLoading","EmptyDataGrid","ExpandableDataGrid","HiddenContextMenuColumnDataGrid","DataGridWithFilters","DataGridWithFiltersInEditMode","DataGridWithSearch"];
+};
+DataGridWithSearchAndButtons.parameters = {
+  ...DataGridWithSearchAndButtons.parameters,
+  docs: {
+    ...DataGridWithSearchAndButtons.parameters?.docs,
+    source: {
+      originalSource: "args => {\n  const [searchValue, setSearchValue] = useState(\"\");\n  const [gridData, setGridData] = useState(args.data);\n  useEffect(() => {\n    if (searchValue) {\n      setGridData(args.data.filter(row => {\n        const values: string[] = Object.values(row);\n        const match = values.some(val => val.toLowerCase().includes(searchValue.toLowerCase()));\n        return match;\n      }));\n    } else {\n      setGridData(args.data);\n    }\n  }, [searchValue]);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} search={{\n        onSearch: setSearchValue,\n        debounceTime: 500,\n        initialSearchValue: searchValue\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.description}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
+      ...DataGridWithSearchAndButtons.parameters?.docs?.source
+    }
+  }
+};
+ToolbarWithAllOptions.parameters = {
+  ...ToolbarWithAllOptions.parameters,
+  docs: {
+    ...ToolbarWithAllOptions.parameters?.docs,
+    source: {
+      originalSource: "args => {\n  const {\n    filters,\n    gridData,\n    setGridData,\n    onFilterAdd,\n    onFilterEdit,\n    onFilterDelete,\n    onFiltersClear\n  } = useMockFilteringLogic(args.data, []);\n  const [searchValue, setSearchValue] = useState(\"\");\n  useEffect(() => {\n    if (searchValue) {\n      setGridData(args.data.filter(row => {\n        const values: string[] = Object.values(row);\n        const match = values.some(val => val.toLowerCase().includes(searchValue.toLowerCase()));\n        return match;\n      }));\n    } else {\n      setGridData(args.data);\n    }\n  }, [searchValue]);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} filters={{\n        columnsMetadata: [{\n          name: \"name\",\n          headline: \"Name\",\n          operators: [\"is\", \"is not\"]\n        }, {\n          name: \"id\",\n          headline: \"Id\",\n          operators: [\"is\", \"is not\"]\n        }, {\n          name: \"type\",\n          headline: \"Type\",\n          operators: [\"is\", \"is not\"]\n        }, {\n          name: \"description\",\n          headline: \"Description\",\n          operators: [\"is\", \"is not\"]\n        }],\n        filterValues: filters,\n        onFilterAdd,\n        onFilterEdit,\n        onFilterDelete,\n        onFiltersClear\n      }} search={{\n        onSearch: setSearchValue,\n        debounceTime: 500,\n        initialSearchValue: searchValue\n      }} toolbarButtons={[<Button key=\"1\" onClick={() => alert(\"Add item\")} startIcon={<Icon icon={Icons.Plus} />}>\n              Add item\n            </Button>]}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.description}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
+      ...ToolbarWithAllOptions.parameters?.docs?.source
+    }
+  }
+};;const __namedExportsOrder = ["DefaultDataGrid","DataGridIsLoading","EmptyDataGrid","ExpandableDataGrid","HiddenContextMenuColumnDataGrid","DataGridWithFilters","DataGridWithFiltersInEditMode","DataGridWithSearch","DataGridWithSearchAndButtons","ToolbarWithAllOptions"];
 try {
     // @ts-ignore
     DefaultDataGrid.displayName = "DefaultDataGrid";
@@ -1769,17 +1837,6 @@ try {
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
         STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DefaultDataGrid"] = { docgenInfo: DefaultDataGrid.__docgenInfo, name: "DefaultDataGrid", path: "stories/DataGrid/DataGrid.stories.tsx#DefaultDataGrid" };
-}
-catch (__react_docgen_typescript_loader_error) { }
-try {
-    // @ts-ignore
-    HideColumnDataGrid.displayName = "HideColumnDataGrid";
-    // @ts-ignore
-    HideColumnDataGrid.__docgenInfo = { "description": "", "displayName": "HideColumnDataGrid", "props": {} };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#HideColumnDataGrid"] = { docgenInfo: HideColumnDataGrid.__docgenInfo, name: "HideColumnDataGrid", path: "stories/DataGrid/DataGrid.stories.tsx#HideColumnDataGrid" };
 }
 catch (__react_docgen_typescript_loader_error) { }
 try {
@@ -1857,6 +1914,28 @@ try {
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
         STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DataGridWithSearch"] = { docgenInfo: DataGridWithSearch.__docgenInfo, name: "DataGridWithSearch", path: "stories/DataGrid/DataGrid.stories.tsx#DataGridWithSearch" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+try {
+    // @ts-ignore
+    DataGridWithSearchAndButtons.displayName = "DataGridWithSearchAndButtons";
+    // @ts-ignore
+    DataGridWithSearchAndButtons.__docgenInfo = { "description": "", "displayName": "DataGridWithSearchAndButtons", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DataGridWithSearchAndButtons"] = { docgenInfo: DataGridWithSearchAndButtons.__docgenInfo, name: "DataGridWithSearchAndButtons", path: "stories/DataGrid/DataGrid.stories.tsx#DataGridWithSearchAndButtons" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+try {
+    // @ts-ignore
+    ToolbarWithAllOptions.displayName = "ToolbarWithAllOptions";
+    // @ts-ignore
+    ToolbarWithAllOptions.__docgenInfo = { "description": "", "displayName": "ToolbarWithAllOptions", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#ToolbarWithAllOptions"] = { docgenInfo: ToolbarWithAllOptions.__docgenInfo, name: "ToolbarWithAllOptions", path: "stories/DataGrid/DataGrid.stories.tsx#ToolbarWithAllOptions" };
 }
 catch (__react_docgen_typescript_loader_error) { }
 
