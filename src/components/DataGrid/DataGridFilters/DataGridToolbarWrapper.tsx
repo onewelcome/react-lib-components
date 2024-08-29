@@ -14,18 +14,23 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction, ReactElement } from "react";
 import classes from "./DataGridToolbar.module.scss";
-
-type Props = ComponentPropsWithRef<"div">;
+import { Button } from "../../Button/Button";
+import { ButtonProps } from "../../..";
+interface Props extends ComponentPropsWithRef<"div"> {
+  filters?: React.JSX.Element;
+  buttons?: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
+}
 
 export const DataGridToolbarWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, ...rest },
+  { children, filters, buttons, ...rest },
   ref
 ) => {
   return (
     <div ref={ref} className={classes["wrapper"]} {...rest}>
-      {children}
+      <div className={classes["filter-section"]}>{filters}</div>
+      <div className={classes["button-section"]}>{buttons}</div>
     </div>
   );
 };

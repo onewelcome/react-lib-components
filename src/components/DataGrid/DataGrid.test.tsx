@@ -25,6 +25,7 @@ import { Icon, Icons } from "../Icon/Icon";
 import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
 import userEvent from "@testing-library/user-event";
 import { useMockFilteringLogic } from "./testUtils";
+import { Button } from "../Button/Button";
 
 type DataType = { firstName: string; lastName: string; date: string };
 
@@ -684,5 +685,27 @@ describe("DataGrid with search", () => {
     const highlight = await findByTestId("Daniel-mark");
 
     expect(highlight).toBeInTheDocument();
+  });
+
+  it("should render action button when provided", async () => {
+    const onClick = jest.fn();
+    const { dataGrid, getByText } = createDataGridWithSearch(prev => ({
+      ...prev,
+      toolbarButtons: [
+        <Button key="1" onClick={onClick}>
+          Add item
+        </Button>
+      ]
+    }));
+
+    expect(dataGrid).toBeInTheDocument();
+
+    const toolbarButton = getByText("Add item");
+
+    expect(toolbarButton).toBeInTheDocument();
+
+    await userEvent.click(toolbarButton);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

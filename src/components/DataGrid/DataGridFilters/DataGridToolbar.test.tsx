@@ -22,9 +22,10 @@ const createDataGridToolbar = (
     parameters = params(defaultParams);
   }
   const queries = render(
-    <DataGridToolbarWrapper data-testid="DataGridToolbar">
-      <DataGridToolbar {...parameters} />
-    </DataGridToolbarWrapper>
+    <DataGridToolbarWrapper
+      data-testid="DataGridToolbar"
+      filters={<DataGridToolbar {...parameters} />}
+    ></DataGridToolbarWrapper>
   );
   const DataGridToolbarComponent = queries.getByTestId("DataGridToolbar");
 

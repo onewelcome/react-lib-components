@@ -256,33 +256,24 @@ User can configure the behavior of the search using the `searchProps` object whi
 ```jsx
 <DataGrid
    search={{
-    enable: true,
-    searchProps: {
       onSearch,
       debounceTime
       searchValue
-    }
-  }}
+    }}
 />
 ```
 
 # Action section
 
-It's possible to show the `Add item`, `Columns` and `Search` buttons.
-
-Clicking the `Columns` button opens the `Show columns` popup with a list of available columns whch can be toggled.
-However, the developer must handle the `Add item` and `Search` button actions.
-
-Each button can be customized by providing props as in the example below.
+In order to show action buttons in toolbar one has to pass `toolbarButtons` prop to the `DataGrid`
 
 ```jsx
 <DataGrid
-  actions={{
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    searchBtnProps: { title: "Zoeken", children: "Zoeken", onClick }
-  }}
+  toolbarButtons={[
+    <Button key="1" onClick={() => alert("Add item")}>
+      Add item
+    </Button>
+  ]}
 />
 ```
 
