@@ -369,8 +369,11 @@
   content: "\e94d";
   @include fontProperties();
 }
-
 .icon-arrow-up:before {
   content: "\e94f";
+  @include fontProperties();
+}
+.icon-external-link:before {
+  content: "\e950";
   @include fontProperties();
 }

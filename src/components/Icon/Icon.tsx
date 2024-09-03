@@ -99,7 +99,8 @@ export enum Icons {
   AddCircle = "add-circle",
   ZoomIn = "zoom-in",
   ZoomOut = "zoom-out",
-  ArrowUp = "arrow-up"
+  ArrowUp = "arrow-up",
+  ExternalLink = "external-link"
 }
 
 type Tag = "span" | "div" | "i";
