@@ -82,7 +82,9 @@ const DataGridBodyInner = <T extends {}>(
         searchValue: searchValue,
         headers,
         spacing,
-        disableContextMenuColumn
+        disableContextMenuColumn,
+        item,
+        rowTemplate: children
       });
     });
   };

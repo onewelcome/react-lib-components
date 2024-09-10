@@ -42,6 +42,9 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
     searchBtnProps?: ButtonProps;
     searchIconBtnProps?: ButtonProps;
   };
+  nestedRowConfig?: {
+    nestedRowKey: string;
+  };
   emptyLabel?: string;
   paginationProps?: PaginationProps;
   disableContextMenuColumn?: boolean;

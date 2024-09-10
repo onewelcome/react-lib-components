@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, useState, Fragment, ForwardRefRenderFunction } from "react";
+import React, { ComponentPropsWithRef, useState, Fragment, Ref, ReactElement } from "react";
 import { HeaderCell } from "../../datagrid.interfaces";
 import classes from "./DataGridRow.module.scss";
 import { IconButton } from "../../../Button/IconButton";
@@ -23,12 +23,16 @@ import { DataGridCell } from "../DataGridCell/DataGridCell";
 import { DataGridDrawer } from "../DataGridDrawer/DataGridDrawer";
 import { generateID } from "../../../../util/helper";
 
-export interface Props extends ComponentPropsWithRef<"tr"> {
+export interface Props<T> extends ComponentPropsWithRef<"tr"> {
+  item?: T;
+  rowTemplate?: ({ item, index }: { item: T; index: number }) => ReactElement;
   headers?: HeaderCell[];
   isLoading?: boolean;
   spacing?: React.CSSProperties;
   searchValue?: string;
   disableContextMenuColumn?: boolean;
+  enableNestedRow?: boolean;
+  nestedItemsKey?: keyof T;
   expandableRowProps?: {
     enableExpandableRow: boolean;
     expandableRowContent: React.ReactNode;
@@ -38,19 +42,23 @@ export interface Props extends ComponentPropsWithRef<"tr"> {
   };
 }
 
-const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props> = (
+const DataGridRowComponent = <T extends unknown>(
   {
+    item,
     children,
     className,
+    rowTemplate,
     headers,
     searchValue,
     isLoading,
     spacing,
     expandableRowProps,
     disableContextMenuColumn,
+    enableNestedRow = true,
+    nestedItemsKey,
     ...rest
-  },
-  ref
+  }: Props<T>,
+  ref: Ref<HTMLTableRowElement>
 ) => {
   const {
     enableExpandableRow = false,
@@ -118,8 +126,26 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
           </td>
         </tr>
       )}
+
+      {enableNestedRow &&
+        rowTemplate &&
+        item &&
+        nestedItemsKey &&
+        item[nestedItemsKey] &&
+        (item[nestedItemsKey] as T[]).map((item, index) => {
+          return React.cloneElement(rowTemplate({ item, index }), {
+            searchValue: searchValue,
+            headers,
+            spacing,
+            disableContextMenuColumn,
+            item,
+            rowTemplate
+          });
+        })}
     </Fragment>
   );
 };
 
-export const DataGridRow = React.forwardRef(DataGridRowComponent);
+export const DataGridRow = React.forwardRef(DataGridRowComponent) as <T extends {}>(
+  p: Props<T> & { ref?: Ref<HTMLTableRowElement> }
+) => ReactElement;
