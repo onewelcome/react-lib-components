@@ -33,13 +33,12 @@ interface CSSProperties {
   colorPrimary600?: string;
   colorPrimary700?: string;
   colorPrimary900?: string;
-  colorPrimaryLight?: string;
+  colorPrimary50?: string;
   colorBlueGrey100?: string;
   colorBlueGrey200?: string;
   colorBlueGrey300?: string;
   colorBlueGrey400?: string;
   colorBlueGrey25?: string;
-  colorBlueGrey25Transparent?: string;
   colorBlueGrey50?: string;
   colorBlueGrey500?: string;
   colorBlueGrey700?: string;
@@ -50,9 +49,6 @@ interface CSSProperties {
   colorGreen500?: string;
   colorGreen600?: string;
   colorGreen700?: string;
-  colorLightBlue500?: string;
-  colorLightBlue600?: string;
-  colorShadowBlue?: string;
   colorOrange100?: string;
   colorOrange500?: string;
   colorOrange600?: string;
@@ -116,7 +112,6 @@ interface CSSProperties {
   inputHelperTextColor?: string;
   inputHoverBackgroundColor?: string;
   inputDisabledBackgroundColor?: string;
-  dragBackgroundColor?: string;
   dragBorderStyle?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
@@ -226,9 +221,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorPrimary600: "#030F77",
     colorPrimary700: "#020B59",
     colorPrimary900: "#01041E",
-    colorPrimaryLight: "#E6E7F4",
+    colorPrimary50: "#E6E7F4",
     colorBlueGrey25: "#F7F7F9",
-    colorBlueGrey25Transparent: "rgba(247, 247, 249, .8)",
     colorBlueGrey50: "#EEEFF3",
     colorBlueGrey100: "#DEDEE6",
     colorBlueGrey200: "#BCBECE",
@@ -243,8 +237,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorGreen500: "#178244",
     colorGreen600: "#126836",
     colorGreen700: "#0E4E29",
-    colorLightBlue500: "#00BCDD",
-    colorLightBlue600: "#0096B1",
     colorOrange100: "#FFE0B2",
     colorOrange500: "#E07900",
     colorOrange600: "#B36100",
@@ -257,7 +249,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorBlack100: "#000000",
     colorBlack20: "rgba(0, 0, 0, 0.2)",
     colorBlack10: "rgba(0, 0, 0, 0.1)",
-    colorShadowBlue: "#7078C3",
     colorWhite: "#FFFFFF",
     colorFocus: "var(--color-primary300)",
     colorPrimary: "var(--color-primary500)",
@@ -315,7 +306,6 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputHelperTextColor: "var(--color-blue-grey500)",
     inputHoverBackgroundColor: "var(--default-hover-color)",
     inputDisabledBackgroundColor: "var(--input-hover-background-color)",
-    dragBackgroundColor: "var(--color-blue-grey25-transparent)",
     dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--light)",
