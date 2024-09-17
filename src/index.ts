@@ -16,6 +16,7 @@
 
 /* Components */
 export { BaseStyling } from "./components/_BaseStyling_/BaseStyling";
+export type { Props as BaseStylingProps } from "./components/_BaseStyling_/BaseStyling";
 export { Button } from "./components/Button/Button";
 export type { Props as ButtonProps } from "./components/Button/Button";
 export { Breadcrumbs } from "./components/Breadcrumbs/Breadcrumbs";

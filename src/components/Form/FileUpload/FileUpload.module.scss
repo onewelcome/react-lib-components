@@ -86,7 +86,7 @@
       border: var(--file-upload-border-width) var(--drag-drop-border-style)
         var(--color-blue-grey500);
       border-radius: var(--input-border-radius);
-      background-color: var(--color-primary-light);
+      background-color: var(--color-primary50);
 
       @include transition(all, 0.2s, ease-in-out);
       &::before {
@@ -99,7 +99,7 @@
     }
 
     &:hover .outline {
-      background-color: var(--color-primary-light);
+      background-color: var(--color-primary50);
     }
 
     & .file-select {
