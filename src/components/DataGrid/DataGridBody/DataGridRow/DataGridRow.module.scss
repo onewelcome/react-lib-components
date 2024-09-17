@@ -13,6 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+$nesting-limit: 10;
 
 .row {
   position: relative;
@@ -22,28 +23,111 @@
     background-color: var(--data-grid-row-hover-background-color);
   }
 
-  @mixin borderAfter {
+  @mixin borderAfter($i) {
     content: "";
     position: absolute;
-    width: 100%;
-    left: 0;
+
+    @if $i > 0 {
+      width: calc(100% - calc(2.25rem + $i * 1.75rem));
+      left: calc(2.25rem + $i * 1.75rem);
+    } @else {
+      width: calc(100% - 2.25rem);
+      left: 2.25rem;
+    }
     bottom: 0;
     border-bottom: 1px solid var(--light-grey-border);
   }
 
-  &.border {
-    &:not(:last-child)::after {
-      @include borderAfter();
+  @mixin border-x {
+    @for $i from 0 through $nesting-limit {
+      &.border-#{$i} {
+        &:not(:last-child)::after {
+          @include borderAfter($i);
+        }
+      }
     }
   }
 
+  @include border-x();
+
   &.border-drawer {
     &:not(:last-child):not(:nth-last-child(2))::after {
-      @include borderAfter();
+      @include borderAfter(0);
     }
   }
 }
 
 .expand-button-cell {
   padding: 0;
+}
+
+@mixin offset-left {
+  @for $i from 0 through $nesting-limit {
+    &.offset-left-#{$i} {
+      left: $i * 40px;
+    }
+  }
+}
+
+.connector {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 52px;
+
+  @include offset-left();
+
+  &.vertical {
+    &::before {
+      position: absolute;
+      content: "";
+      left: 50%;
+      height: 100%;
+      width: 1px;
+      background-color: var(--light-grey-border);
+    }
+  }
+
+  &.t-shape {
+    &::before {
+      position: absolute;
+      content: "";
+      left: 50%;
+      height: 52px;
+      width: 1px;
+      background-color: var(--light-grey-border);
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 50%;
+      height: 1px;
+      width: 100%;
+      background-color: var(--light-grey-border);
+    }
+  }
+
+  &.line {
+    &::before {
+      position: absolute;
+      content: "";
+      left: 50%;
+      height: 50%;
+      width: 1px;
+      background-color: var(--light-grey-border);
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 50%;
+      height: 1px;
+      width: 100%;
+      background-color: var(--light-grey-border);
+    }
+  }
 }

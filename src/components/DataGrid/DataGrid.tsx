@@ -43,7 +43,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
     searchIconBtnProps?: ButtonProps;
   };
   nestedRowConfig?: {
-    nestedRowKey: string;
+    nestedItemsKey?: keyof T;
   };
   emptyLabel?: string;
   paginationProps?: PaginationProps;
@@ -65,6 +65,7 @@ const DataGridInner = <T extends {}>(
     headers,
     actions = {},
     paginationProps,
+    nestedRowConfig,
     disableContextMenuColumn,
     enableExpandableRow,
     filters,
@@ -169,6 +170,7 @@ const DataGridInner = <T extends {}>(
             headers={internalHeaders}
             isLoading={isLoading}
             disableContextMenuColumn={disableContextMenuColumn}
+            nestedRowConfig={nestedRowConfig}
             emptyLabel={emptyLabel}
             spacing={styleWithSpacing}
             searchValue={search?.initialSearchValue}

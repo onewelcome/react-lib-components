@@ -705,6 +705,7 @@ const NestedRowsTemplate = args => {
         <DataGridComponent
           {...args}
           data={gridData}
+          nestedRowConfig={{ nestedItemsKey: "nestedItems" }}
           search={{
             onSearch: setSearchValue,
             debounceTime: 500,
@@ -745,13 +746,36 @@ DataGridWithNestedRows.args = {
               name: "Company 10",
               id: "10",
               type: "Stock",
+              description: "Lorem ipsum dolor sit amet",
+              nestedItems: [
+                {
+                  name: "Company 11",
+                  id: "11",
+                  type: "Stock",
+                  description: "Lorem ipsum dolor sit amet",
+                  nestedItems: [
+                    {
+                      name: "Company 13",
+                      id: "13",
+                      type: "Stock",
+                      description: "Lorem ipsum dolor sit amet"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: "Company 101",
+              id: "101",
+              type: "Stock",
               description: "Lorem ipsum dolor sit amet"
             }
           ]
         },
+
         {
-          name: "Company 5",
-          id: "5",
+          name: "Company 101",
+          id: "101",
           type: "Stock",
           description: "Lorem ipsum dolor sit amet"
         }
@@ -772,6 +796,49 @@ DataGridWithNestedRows.args = {
       ]
     }
   ],
+
+  // data: [
+  //   {
+  //     name: "Company 1",
+  //     id: "1",
+  //     type: "Stock",
+  //     description: "Lorem ipsum dolor sit amet",
+  //     nestedItems: [
+  //       {
+  //         name: "Company 2",
+  //         id: "2",
+  //         type: "Stock",
+  //         description: "Lorem ipsum dolor sit amet",
+  //         nestedItems: [
+  //           {
+  //             name: "Company 4",
+  //             id: "4",
+  //             type: "Stock",
+  //             description: "Lorem ipsum dolor sit amet"
+  //           },
+  //           {
+  //             name: "Company 5",
+  //             id: "5",
+  //             type: "Stock",
+  //             description: "Lorem ipsum dolor sit amet"
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         name: "Company 3",
+  //         id: "3",
+  //         type: "Stock",
+  //         description: "Lorem ipsum dolor sit amet"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     name: "Company 6",
+  //     id: "6",
+  //     type: "Stock",
+  //     description: "Consectetur adipiscing elit"
+  //   }
+  // ],
 
   headers: [
     { name: "name", headline: "Name" },
