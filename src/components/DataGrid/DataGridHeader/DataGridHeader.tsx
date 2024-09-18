@@ -107,6 +107,8 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
   return (
     <thead {...rest} ref={ref}>
       <tr className={classes["row"]}>
+        <td style={{ paddingRight: spacing?.paddingRight }}></td>
+        <td style={{ paddingRight: spacing?.paddingRight }}></td>
         {enableExpandableRow && (
           <td style={{ paddingRight: spacing?.paddingRight }} aria-label="expandable row"></td>
         )}

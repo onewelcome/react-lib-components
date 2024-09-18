@@ -75,6 +75,7 @@ const DataGridRowComponent = <T extends unknown>(
     expandableRowContent
   } = expandableRowProps || {};
   const [isRowExpanded, setIsRowExpanded] = useState(false);
+
   const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
     if (child) {
       const cellWithSpacing = React.cloneElement(child, {
@@ -143,7 +144,7 @@ const DataGridRowComponent = <T extends unknown>(
   };
 
   const renderRecurrentRow = () => {
-    if (rowTemplate && item && nestedItemsKey && item[nestedItemsKey]) {
+    if (rowTemplate && item && nestedItemsKey && item[nestedItemsKey] && isRowExpanded) {
       // console.log(indentationLevel, item, indentationLevels);
 
       const nestedItemsArray: T[] = item[nestedItemsKey] as T[];
@@ -183,13 +184,16 @@ const DataGridRowComponent = <T extends unknown>(
     <Fragment>
       <tr {...rest} ref={ref} className={classNames.join(" ")}>
         {indentationLevel > 0 && <td>{renderNestedRowConnectors()}</td>}
+        {/* {indentationLevel === 0 && <td style={{ width: "1px" }} />} */}
+        {/* {indentationLevel > 0 && <>{renderNestedRowConnectors()}</>} */}
+
         {(enableExpandableRow || enableNestedRow) && (
           <DataGridCell
             className={classes["expand-button-cell"]}
             onClick={() => setIsRowExpanded(!isRowExpanded)}
             style={{
               width: "1px",
-              paddingLeft: `${indentationLevel ? `${indentationLevel * 1}` : 1}rem`
+              paddingLeft: `${indentationLevel ? `${33 + (indentationLevel - 1) * 66}` : 49}px`
             }}
           >
             <IconButton
@@ -218,39 +222,7 @@ const DataGridRowComponent = <T extends unknown>(
           </td>
         </tr>
       )}
-
       {enableNestedRow && renderRecurrentRow()}
-
-      {/* {enableNestedRow &&
-        rowTemplate &&
-        item &&
-        nestedItemsKey &&
-        item[nestedItemsKey] &&
-        (item[nestedItemsKey] as T[]).map((item, index) => {
-          return React.cloneElement(rowTemplate({ item, index }), {
-            searchValue: searchValue,
-            headers,
-            spacing,
-            disableContextMenuColumn,
-            nestedItemsKey,
-            indentationLevel: indentationLevel + 1,
-            indentationLevels:
-              indentationLevels && (item[nestedItemsKey] as T[])
-                ? [
-                    ...indentationLevels,
-                    {
-                      level: indentationLevel + 1,
-                      isLastChild: index + 1 === (item[nestedItemsKey] as T[]).length
-                    }
-                  ]
-                : [{ level: indentationLevel + 1 }],
-            item,
-            rowTemplate,
-            isLastChild: (item[nestedItemsKey] as T[])
-              ? index + 1 === (item[nestedItemsKey] as T[]).length
-              : false
-          });
-        })} */}
     </Fragment>
   );
 };

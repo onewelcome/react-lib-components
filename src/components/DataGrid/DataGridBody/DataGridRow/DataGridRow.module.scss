@@ -28,11 +28,11 @@ $nesting-limit: 10;
     position: absolute;
 
     @if $i > 0 {
-      width: calc(100% - calc(2.25rem + $i * 1.75rem));
-      left: calc(2.25rem + $i * 1.75rem);
+      width: calc(100% - calc(3.0625rem + $i * 4.125rem));
+      left: calc(3.0625rem + $i * 4.125rem);
     } @else {
-      width: calc(100% - 2.25rem);
-      left: 2.25rem;
+      width: calc(100% - 3.0625rem);
+      left: 3.0625rem;
     }
     bottom: 0;
     border-bottom: 1px solid var(--light-grey-border);
@@ -64,7 +64,7 @@ $nesting-limit: 10;
 @mixin offset-left {
   @for $i from 0 through $nesting-limit {
     &.offset-left-#{$i} {
-      left: $i * 40px;
+      left: $i * 66px;
     }
   }
 }
@@ -73,7 +73,7 @@ $nesting-limit: 10;
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
+  width: 49px;
   height: 52px;
 
   @include offset-left();
