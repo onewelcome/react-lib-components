@@ -16,6 +16,8 @@
 
 @use "../../../../mixins.module.scss";
 
+@include mixins.searchInputPointer("search");
+
 input {
   &.floating-label {
     padding-top: 1rem;
