@@ -58,7 +58,7 @@ const DataGridRowComponent = <T extends unknown>(
     spacing,
     expandableRowProps,
     disableContextMenuColumn,
-    enableNestedRow = true,
+    enableNestedRow,
     indentationLevel = 0,
     indentationLevels,
     isLastChild,
@@ -75,22 +75,6 @@ const DataGridRowComponent = <T extends unknown>(
     expandableRowContent
   } = expandableRowProps || {};
   const [isRowExpanded, setIsRowExpanded] = useState(false);
-
-  const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
-    if (child) {
-      const cellWithSpacing = React.cloneElement(child, {
-        searchValue,
-        spacing: spacing,
-        cellIndex: index,
-        columnLength: headers?.length,
-        disableContextMenuColumn
-      });
-
-      const visible = headers && headers.length > index ? !headers[index].hidden : true;
-      return visible && cellWithSpacing;
-    }
-    return null;
-  });
 
   const classNames = [classes["row"]];
   className && classNames.push(className);
@@ -109,20 +93,9 @@ const DataGridRowComponent = <T extends unknown>(
     return null;
   };
 
-  // if (item && (item as any).id === "3") {
-  //   console.log(indentationLevels);
-  // }
-
   const renderNestedRowConnector = (level: number, isLastChild: boolean, levelsLength: number) => {
-    // const variant =
     if (level === levelsLength) {
-      // console.log("here - ostatni poziom");
-      // if (item && (item as any).id === "3") {
-      //   console.log(level, isLastChild);
-      // }
       const variant = isLastChild ? "line" : "t-shape";
-
-      // console.log("variant", variant);
 
       return (
         <div
@@ -130,7 +103,6 @@ const DataGridRowComponent = <T extends unknown>(
         />
       );
     } else {
-      // console.log("here - nie ostatni");
       if (!isLastChild) {
         return (
           <div
@@ -139,22 +111,19 @@ const DataGridRowComponent = <T extends unknown>(
         );
       }
     }
-    // console.log("nic");
     return null;
   };
 
   const renderRecurrentRow = () => {
     if (rowTemplate && item && nestedItemsKey && item[nestedItemsKey] && isRowExpanded) {
-      // console.log(indentationLevel, item, indentationLevels);
-
       const nestedItemsArray: T[] = item[nestedItemsKey] as T[];
       return nestedItemsArray.map((item, index) => {
-        // console.log(item, index, nestedItemsArray.length, index + 1 === nestedItemsArray.length);
         return React.cloneElement(rowTemplate({ item, index }), {
           searchValue: searchValue,
           headers,
           spacing,
           disableContextMenuColumn,
+          enableNestedRow,
           nestedItemsKey,
           indentationLevel: indentationLevel + 1,
           indentationLevels:
@@ -180,14 +149,62 @@ const DataGridRowComponent = <T extends unknown>(
     }
   };
 
+  const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
+    const hasNestedChildren = item && nestedItemsKey && item[nestedItemsKey];
+    if (child) {
+      const cellWithSpacing = React.cloneElement(child, {
+        searchValue,
+        spacing: spacing
+          ? {
+              ...spacing,
+              paddingLeft:
+                index === 0
+                  ? `${indentationLevel ? `${(!hasNestedChildren ? 46 : 0) + indentationLevel * 68}` : 4}px`
+                  : spacing.paddingLeft
+            }
+          : {
+              paddingLeft:
+                index === 0
+                  ? `${indentationLevel ? `${(!hasNestedChildren ? 46 : 0) + indentationLevel * 68}` : 4}px`
+                  : ""
+            },
+        cellIndex: index,
+        columnLength: headers?.length,
+        disableContextMenuColumn,
+        prefixElement:
+          enableNestedRow && index === 0 ? (
+            <>
+              {hasNestedChildren ? (
+                <IconButton
+                  id={expandButtonId}
+                  title={expandButtonTitle}
+                  aria-expanded={isRowExpanded}
+                  aria-controls={drawerId}
+                  onClick={() => setIsRowExpanded(!isRowExpanded)}
+                >
+                  <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
+                </IconButton>
+              ) : null}
+
+              {renderNestedRowConnectors()}
+            </>
+          ) : null
+      });
+
+      const visible = headers && headers.length > index ? !headers[index].hidden : true;
+      return visible && cellWithSpacing;
+    }
+    return null;
+  });
+
   return (
     <Fragment>
       <tr {...rest} ref={ref} className={classNames.join(" ")}>
-        {indentationLevel > 0 && <td>{renderNestedRowConnectors()}</td>}
-        {/* {indentationLevel === 0 && <td style={{ width: "1px" }} />} */}
+        {/* {indentationLevel > 0 && <td>{renderNestedRowConnectors()}</td>}
+        {indentationLevel === 0 && <td style={{ width: "1px" }} />} */}
         {/* {indentationLevel > 0 && <>{renderNestedRowConnectors()}</>} */}
 
-        {(enableExpandableRow || enableNestedRow) && (
+        {enableExpandableRow && (
           <DataGridCell
             className={classes["expand-button-cell"]}
             onClick={() => setIsRowExpanded(!isRowExpanded)}

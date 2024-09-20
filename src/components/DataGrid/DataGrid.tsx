@@ -162,6 +162,7 @@ const DataGridInner = <T extends {}>(
             onSort={onSort}
             disableContextMenuColumn={disableContextMenuColumn}
             enableExpandableRow={enableExpandableRow}
+            enableNestedRows={!!nestedRowConfig}
             enableMultiSorting={enableMultiSorting}
             spacing={styleWithSpacing}
           />

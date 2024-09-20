@@ -24,6 +24,7 @@ export interface Props extends ComponentPropsWithRef<"thead"> {
   initialSort?: Sort;
   onSort?: OnSortFunction;
   enableExpandableRow?: boolean;
+  enableNestedRows?: boolean;
   disableContextMenuColumn?: boolean;
   enableMultiSorting?: boolean;
   spacing?: React.CSSProperties;
@@ -38,6 +39,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
     headers,
     disableContextMenuColumn,
     enableExpandableRow,
+    enableNestedRows,
     enableMultiSorting,
     spacing,
     ...rest
@@ -107,8 +109,8 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
   return (
     <thead {...rest} ref={ref}>
       <tr className={classes["row"]}>
-        <td style={{ paddingRight: spacing?.paddingRight }}></td>
-        <td style={{ paddingRight: spacing?.paddingRight }}></td>
+        {/* <td style={{ paddingRight: spacing?.paddingRight, width: "1px" }}></td>
+        <td style={{ paddingRight: spacing?.paddingRight, width: "1px" }}></td> */}
         {enableExpandableRow && (
           <td style={{ paddingRight: spacing?.paddingRight }} aria-label="expandable row"></td>
         )}
