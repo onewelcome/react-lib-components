@@ -16,7 +16,7 @@
 
 @use "../../../mixins.module.scss";
 
-@include mixins.searchInputPointer("search", ".wrappers");
+@include mixins.searchInputPointer("search", ".wrapper");
 
 .wrapper {
   display: flex;
