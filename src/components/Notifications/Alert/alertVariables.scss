@@ -13,45 +13,5 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-@use "../../../../mixins.module.scss";
-@use "../../../../variables.scss";
-@use "../alertVariables.scss";
 
-.alerts {
-  position: fixed;
-  z-index: variables.$alert-z-index;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  @include mixins.transition(height, 0.2s, ease-in-out);
-
-  &.bottom {
-    bottom: 3.5rem;
-  }
-
-  &.top {
-    top: 3.5rem;
-  }
-
-  &.start {
-    left: 0;
-  }
-
-  &.center {
-    left: 0;
-  }
-
-  &.end {
-    right: 0;
-  }
-}
-
-@media only screen and (min-width: 37.5em) {
-  .alerts {
-    width: initial;
-
-    &.center {
-      left: calc(50% - (alertVariables.$alert-item-width / 2));
-    }
-  }
-}
+$alert-item-width: 25rem;

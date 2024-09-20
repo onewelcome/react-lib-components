@@ -15,6 +15,7 @@
  */
 
 @use "../../../../mixins.module.scss";
+@use "../alertVariables.scss";
 
 .alert {
   padding: 1rem 0.875rem;
@@ -224,6 +225,7 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
     margin-bottom: 0;
+    word-break: break-word;
   }
 
   .actions {
@@ -272,6 +274,6 @@
 @media only screen and (min-width: 37.5em) {
   .alert {
     width: min-content;
-    min-width: 25rem;
+    min-width: alertVariables.$alert-item-width;
   }
 }
