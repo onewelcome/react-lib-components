@@ -46,7 +46,7 @@ export interface Props<T> extends ComponentPropsWithRef<"tr"> {
   };
 }
 
-const DataGridRowComponent = <T extends unknown>(
+const DataGridRowComponent = <T,>(
   {
     item,
     children,
@@ -77,12 +77,14 @@ const DataGridRowComponent = <T extends unknown>(
   const [isRowExpanded, setIsRowExpanded] = useState(false);
 
   const classNames = [classes["row"]];
+  const rowBorderClass = enableNestedRow
+    ? classNames.push(classes[`border-${indentationLevel}`])
+    : classNames.push(classes[`border`]);
+
   className && classNames.push(className);
   enableExpandableRow
     ? !isRowExpanded && classNames.push(classes["border-drawer"])
-    : enableNestedRow
-      ? classNames.push(classes[`border-${indentationLevel}`])
-      : classNames.push(classes[`border`]);
+    : rowBorderClass;
   isLoading && classNames.push(classes["loading"]);
 
   const renderNestedRowConnectors = () => {
@@ -96,22 +98,16 @@ const DataGridRowComponent = <T extends unknown>(
   };
 
   const renderNestedRowConnector = (level: number, isLastChild: boolean, levelsLength: number) => {
+    const offsetLeftClass = classes[`offset-left-${level - 1}`];
+
     if (level === levelsLength) {
       const variant = isLastChild ? "line" : "t-shape";
 
+      return <div className={`${classes["connector"]} ${classes[variant]} ${offsetLeftClass}`} />;
+    } else if (!isLastChild) {
       return (
-        <div
-          className={`${classes["connector"]} ${classes[variant]} ${classes[`offset-left-${level - 1}`]}`}
-        />
+        <div className={`${classes["connector"]} ${classes["vertical"]}  ${offsetLeftClass}}`} />
       );
-    } else {
-      if (!isLastChild) {
-        return (
-          <div
-            className={`${classes["connector"]} ${classes["vertical"]} ${classes[`offset-left-${level - 1}`]}`}
-          />
-        );
-      }
     }
     return null;
   };
@@ -153,25 +149,26 @@ const DataGridRowComponent = <T extends unknown>(
 
   const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
     const hasNestedChildren = item && nestedItemsKey && item[nestedItemsKey];
+    const nestedChildOffset = !hasNestedChildren ? 46 : 0;
+    const nestedChildIndentation = `${nestedChildOffset + indentationLevel * 68}`;
+    const childIndentation = `${indentationLevel ? nestedChildIndentation : 4}px`;
+
+    const getNestedChildSpacing = (spacing: React.CSSProperties | undefined) => {
+      if (spacing) {
+        return {
+          ...spacing,
+          paddingLeft: index === 0 ? childIndentation : spacing.paddingLeft
+        };
+      }
+      return {
+        paddingLeft: index === 0 ? childIndentation : ""
+      };
+    };
+
     if (child) {
       const cellWithSpacing = React.cloneElement(child, {
         searchValue,
-        spacing: enableNestedRow
-          ? spacing
-            ? {
-                ...spacing,
-                paddingLeft:
-                  enableNestedRow && index === 0
-                    ? `${indentationLevel ? `${(!hasNestedChildren ? 46 : 0) + indentationLevel * 68}` : 4}px`
-                    : spacing.paddingLeft
-              }
-            : {
-                paddingLeft:
-                  index === 0
-                    ? `${indentationLevel ? `${(!hasNestedChildren ? 46 : 0) + indentationLevel * 68}` : 4}px`
-                    : ""
-              }
-          : spacing,
+        spacing: enableNestedRow ? getNestedChildSpacing(spacing) : spacing,
         cellIndex: index,
         columnLength: headers?.length,
         disableContextMenuColumn,
@@ -183,7 +180,6 @@ const DataGridRowComponent = <T extends unknown>(
                   id={expandButtonId}
                   title={expandButtonTitle}
                   aria-expanded={isRowExpanded}
-                  aria-controls={drawerId}
                   onClick={() => setIsRowExpanded(!isRowExpanded)}
                 >
                   <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
