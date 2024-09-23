@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-$nesting-limit: 10;
+$nesting-limit: 5;
 
 .row {
   position: relative;
@@ -23,11 +23,14 @@ $nesting-limit: 10;
     background-color: var(--data-grid-row-hover-background-color);
   }
 
-  @mixin borderAfter($i) {
+  @mixin borderAfter($i, $no-offset: false) {
     content: "";
     position: absolute;
 
-    @if $i > 0 {
+    @if $no-offset {
+      width: 100%;
+      left: 0;
+    } @else if $i > 0 {
       width: calc(100% - calc(3.0625rem + $i * 4.125rem));
       left: calc(3.0625rem + $i * 4.125rem);
     } @else {
@@ -50,9 +53,15 @@ $nesting-limit: 10;
 
   @include border-x();
 
+  &.border {
+    &:not(:last-child)::after {
+      @include borderAfter(0, true);
+    }
+  }
+
   &.border-drawer {
     &:not(:last-child):not(:nth-last-child(2))::after {
-      @include borderAfter(0);
+      @include borderAfter(0, true);
     }
   }
 }
@@ -64,7 +73,7 @@ $nesting-limit: 10;
 @mixin offset-left {
   @for $i from 0 through $nesting-limit {
     &.offset-left-#{$i} {
-      left: $i * 66px;
+      left: $i * 4.125rem;
     }
   }
 }
@@ -73,8 +82,8 @@ $nesting-limit: 10;
   position: absolute;
   top: 0;
   left: 0;
-  width: 46px;
-  height: 52px;
+  width: 2.875rem;
+  height: 3.25rem;
 
   @include offset-left();
 
@@ -84,7 +93,7 @@ $nesting-limit: 10;
       content: "";
       left: 50%;
       height: 100%;
-      width: 1px;
+      width: 0.0625rem;
       background-color: var(--light-grey-border);
     }
   }
@@ -94,8 +103,8 @@ $nesting-limit: 10;
       position: absolute;
       content: "";
       left: 50%;
-      height: 52px;
-      width: 1px;
+      height: 3.25rem;
+      width: 0.0625rem;
       background-color: var(--light-grey-border);
     }
 
@@ -104,7 +113,7 @@ $nesting-limit: 10;
       content: "";
       top: 50%;
       left: 50%;
-      height: 1px;
+      height: 0.0625rem;
       width: 100%;
       background-color: var(--light-grey-border);
     }

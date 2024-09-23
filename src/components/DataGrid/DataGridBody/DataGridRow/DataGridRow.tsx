@@ -80,7 +80,9 @@ const DataGridRowComponent = <T extends unknown>(
   className && classNames.push(className);
   enableExpandableRow
     ? !isRowExpanded && classNames.push(classes["border-drawer"])
-    : classNames.push(classes[`border-${indentationLevel}`]);
+    : enableNestedRow
+      ? classNames.push(classes[`border-${indentationLevel}`])
+      : classNames.push(classes[`border`]);
   isLoading && classNames.push(classes["loading"]);
 
   const renderNestedRowConnectors = () => {
@@ -154,20 +156,22 @@ const DataGridRowComponent = <T extends unknown>(
     if (child) {
       const cellWithSpacing = React.cloneElement(child, {
         searchValue,
-        spacing: spacing
-          ? {
-              ...spacing,
-              paddingLeft:
-                index === 0
-                  ? `${indentationLevel ? `${(!hasNestedChildren ? 46 : 0) + indentationLevel * 68}` : 4}px`
-                  : spacing.paddingLeft
-            }
-          : {
-              paddingLeft:
-                index === 0
-                  ? `${indentationLevel ? `${(!hasNestedChildren ? 46 : 0) + indentationLevel * 68}` : 4}px`
-                  : ""
-            },
+        spacing: enableNestedRow
+          ? spacing
+            ? {
+                ...spacing,
+                paddingLeft:
+                  enableNestedRow && index === 0
+                    ? `${indentationLevel ? `${(!hasNestedChildren ? 46 : 0) + indentationLevel * 68}` : 4}px`
+                    : spacing.paddingLeft
+              }
+            : {
+                paddingLeft:
+                  index === 0
+                    ? `${indentationLevel ? `${(!hasNestedChildren ? 46 : 0) + indentationLevel * 68}` : 4}px`
+                    : ""
+              }
+          : spacing,
         cellIndex: index,
         columnLength: headers?.length,
         disableContextMenuColumn,
@@ -200,17 +204,12 @@ const DataGridRowComponent = <T extends unknown>(
   return (
     <Fragment>
       <tr {...rest} ref={ref} className={classNames.join(" ")}>
-        {/* {indentationLevel > 0 && <td>{renderNestedRowConnectors()}</td>}
-        {indentationLevel === 0 && <td style={{ width: "1px" }} />} */}
-        {/* {indentationLevel > 0 && <>{renderNestedRowConnectors()}</>} */}
-
         {enableExpandableRow && (
           <DataGridCell
             className={classes["expand-button-cell"]}
             onClick={() => setIsRowExpanded(!isRowExpanded)}
             style={{
-              width: "1px",
-              paddingLeft: `${indentationLevel ? `${33 + (indentationLevel - 1) * 66}` : 49}px`
+              width: "1px"
             }}
           >
             <IconButton
