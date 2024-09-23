@@ -165,30 +165,34 @@ const DataGridRowComponent = <T,>(
       };
     };
 
+    const childSpacing = enableNestedRow ? getNestedChildSpacing(spacing) : spacing;
+
+    const prefixElement =
+      enableNestedRow && index === 0 ? (
+        <>
+          {hasNestedChildren ? (
+            <IconButton
+              id={expandButtonId}
+              title={expandButtonTitle}
+              aria-expanded={isRowExpanded}
+              onClick={() => setIsRowExpanded(!isRowExpanded)}
+            >
+              <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
+            </IconButton>
+          ) : null}
+
+          {renderNestedRowConnectors()}
+        </>
+      ) : null;
+
     if (child) {
       const cellWithSpacing = React.cloneElement(child, {
         searchValue,
-        spacing: enableNestedRow ? getNestedChildSpacing(spacing) : spacing,
+        spacing: childSpacing,
         cellIndex: index,
         columnLength: headers?.length,
         disableContextMenuColumn,
-        prefixElement:
-          enableNestedRow && index === 0 ? (
-            <>
-              {hasNestedChildren ? (
-                <IconButton
-                  id={expandButtonId}
-                  title={expandButtonTitle}
-                  aria-expanded={isRowExpanded}
-                  onClick={() => setIsRowExpanded(!isRowExpanded)}
-                >
-                  <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
-                </IconButton>
-              ) : null}
-
-              {renderNestedRowConnectors()}
-            </>
-          ) : null
+        prefixElement
       });
 
       const visible = headers && headers.length > index ? !headers[index].hidden : true;
