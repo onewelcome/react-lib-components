@@ -14,8 +14,15 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ReactElement, Ref, useEffect, useState } from "react";
-import { Props as ButtonProps } from "../Button/Button";
+import React, {
+  ComponentPropsWithRef,
+  Fragment,
+  ReactElement,
+  Ref,
+  useEffect,
+  useState
+} from "react";
+import { Button, Props as ButtonProps } from "../Button/Button";
 import classes from "./DataGrid.module.scss";
 import { DataGridHeader } from "./DataGridHeader/DataGridHeader";
 import { DataGridActions } from "./DataGridActions/DataGridActions";
@@ -33,6 +40,9 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   initialSort?: Sort;
   onSort?: OnSortFunction;
   headers: HeaderCell[];
+  /**
+   * @deprecated use the `toolbarButtons` prop instead
+   */
   actions?: {
     enableAddBtn?: boolean;
     enableColumnsBtn?: boolean;
@@ -51,6 +61,9 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   enableExpandableRow?: boolean;
   filters?: DataGridToolbarProps;
   search?: DataGridSearchbarProps;
+  toolbarButtons?:
+    | ReactElement<ButtonProps, typeof Button>
+    | ReactElement<ButtonProps, typeof Button>[];
   isLoading?: boolean;
   enableMultiSorting?: boolean;
   spacing?: Spacing;
@@ -70,6 +83,7 @@ const DataGridInner = <T extends {}>(
     enableExpandableRow,
     filters,
     search,
+    toolbarButtons,
     isLoading,
     enableMultiSorting,
     emptyLabel,
@@ -137,11 +151,16 @@ const DataGridInner = <T extends {}>(
         paddingBottom: styleWithSpacing?.paddingBottom
       }}
     >
-      {filters || search ? (
-        <DataGridToolbarWrapper>
-          {search && <DataGridSearchbar {...search} />}
-          {filters && <DataGridToolbar {...filters} />}
-        </DataGridToolbarWrapper>
+      {filters || search || toolbarButtons ? (
+        <DataGridToolbarWrapper
+          filters={
+            <Fragment>
+              {search && <DataGridSearchbar {...search} />}
+              {filters && <DataGridToolbar {...filters} />}
+            </Fragment>
+          }
+          buttons={toolbarButtons}
+        />
       ) : (
         <DataGridActions
           {...actions}

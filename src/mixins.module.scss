@@ -312,3 +312,15 @@
   border-color: $border-color;
   padding-left: calc(1rem - var(--alert-border-width));
 }
+
+@mixin searchInputPointer($inputType, $selector) {
+  @if $selector {
+    #{$selector} {
+      @if $inputType == "search" {
+        input[type="search"]::-webkit-search-cancel-button {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
