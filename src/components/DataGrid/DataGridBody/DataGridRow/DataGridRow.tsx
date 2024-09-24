@@ -149,6 +149,18 @@ const DataGridRowComponent = <T,>(
     }
   };
 
+  const getPrefixButton = (hasNestedChildren: boolean) =>
+    hasNestedChildren ? (
+      <IconButton
+        id={expandButtonId}
+        title={expandButtonTitle}
+        aria-expanded={isRowExpanded}
+        onClick={() => setIsRowExpanded(!isRowExpanded)}
+      >
+        <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
+      </IconButton>
+    ) : null;
+
   const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
     const hasNestedChildren = item && nestedItemsKey && item[nestedItemsKey];
     const nestedChildOffset = !hasNestedChildren ? 46 : 0;
@@ -184,7 +196,7 @@ const DataGridRowComponent = <T,>(
     const prefixElement =
       enableNestedRow && index === 0 ? (
         <>
-          {prefixButton}
+          {getPrefixButton(!!hasNestedChildren)}
           {renderNestedRowConnectors()}
         </>
       ) : null;

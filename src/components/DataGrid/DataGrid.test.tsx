@@ -713,7 +713,15 @@ const paramsWithNestedRows: Props<WithNestedRowsDataType> = {
           name: "Company 3",
           id: "3",
           type: "Stock",
-          description: "Lorem ipsum dolor sit amet"
+          description: "Lorem ipsum dolor sit amet",
+          nestedItems: [
+            {
+              name: "Company 5",
+              id: "5",
+              type: "Stock",
+              description: "Lorem ipsum dolor sit amet"
+            }
+          ]
         },
         {
           name: "Company 4",
@@ -780,11 +788,12 @@ const createDataGridWithNestedRows = (
 
 describe("DataGrid with nested rows", () => {
   it("should render offset nested rows with connectors", async () => {
-    const { getByTitle, getByText, debug } = createDataGridWithNestedRows();
+    const { getByTitle, getByText } = createDataGridWithNestedRows();
 
     await userEvent.click(getByTitle("Expand row"));
 
     expect(getByText("Company 3")).toBeInTheDocument();
+
     const connector = within(getByText("Company 3").parentElement as HTMLElement).getByTestId(
       "dataGridRowConnector"
     );
@@ -796,5 +805,16 @@ describe("DataGrid with nested rows", () => {
     );
 
     expect(secondConnector).toHaveClass("connector line offset-left-0");
+
+    await userEvent.click(
+      within(getByText("Company 3").parentElement as HTMLElement).getByTitle("Expand row")
+    );
+
+    const nestedConnectors = within(
+      getByText("Company 5").parentElement as HTMLElement
+    ).getAllByTestId("dataGridRowConnector");
+
+    expect(nestedConnectors[0]).toHaveClass("connector vertical offset-left-0");
+    expect(nestedConnectors[1]).toHaveClass("connector line offset-left-1");
   });
 });
