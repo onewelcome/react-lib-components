@@ -182,17 +182,6 @@ const DataGridRowComponent = <T,>(
 
     const childSpacing = enableNestedRow ? getNestedChildSpacing(spacing) : spacing;
 
-    const prefixButton = hasNestedChildren ? (
-      <IconButton
-        id={expandButtonId}
-        title={expandButtonTitle}
-        aria-expanded={isRowExpanded}
-        onClick={() => setIsRowExpanded(!isRowExpanded)}
-      >
-        <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
-      </IconButton>
-    ) : null;
-
     const prefixElement =
       enableNestedRow && index === 0 ? (
         <>
