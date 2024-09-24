@@ -78,13 +78,13 @@ const DataGridRowComponent = <T,>(
 
   const classNames = [classes["row"]];
   const rowBorderClass = enableNestedRow
-    ? classNames.push(classes[`border-${indentationLevel}`])
-    : classNames.push(classes[`border`]);
+    ? classes[`border-${indentationLevel}`]
+    : classes[`border`];
 
   className && classNames.push(className);
   enableExpandableRow
     ? !isRowExpanded && classNames.push(classes["border-drawer"])
-    : rowBorderClass;
+    : classNames.push(rowBorderClass);
   isLoading && classNames.push(classes["loading"]);
 
   const renderNestedRowConnectors = () => {
@@ -103,10 +103,18 @@ const DataGridRowComponent = <T,>(
     if (level === levelsLength) {
       const variant = isLastChild ? "line" : "t-shape";
 
-      return <div className={`${classes["connector"]} ${classes[variant]} ${offsetLeftClass}`} />;
+      return (
+        <div
+          data-testid="dataGridRowConnector"
+          className={`${classes["connector"]} ${classes[variant]} ${offsetLeftClass}`}
+        />
+      );
     } else if (!isLastChild) {
       return (
-        <div className={`${classes["connector"]} ${classes["vertical"]}  ${offsetLeftClass}}`} />
+        <div
+          data-testid="dataGridRowConnector"
+          className={`${classes["connector"]} ${classes["vertical"]}  ${offsetLeftClass}`}
+        />
       );
     }
     return null;
@@ -115,6 +123,11 @@ const DataGridRowComponent = <T,>(
   const renderRecurrentRow = () => {
     if (rowTemplate && item && nestedItemsKey && item[nestedItemsKey] && isRowExpanded) {
       const nestedItemsArray: T[] = item[nestedItemsKey] as T[];
+      const getIndentationLevel = (index: number) => ({
+        level: indentationLevel + 1,
+        isLastChild: index + 1 === nestedItemsArray.length
+      });
+
       return nestedItemsArray.map((item, index) => {
         return React.cloneElement(rowTemplate({ item, index }), {
           searchValue: searchValue,
@@ -126,19 +139,8 @@ const DataGridRowComponent = <T,>(
           indentationLevel: indentationLevel + 1,
           indentationLevels:
             indentationLevels && nestedItemsArray
-              ? [
-                  ...indentationLevels,
-                  {
-                    level: indentationLevel + 1,
-                    isLastChild: index + 1 === nestedItemsArray.length
-                  }
-                ]
-              : [
-                  {
-                    level: indentationLevel + 1,
-                    isLastChild: index + 1 === nestedItemsArray.length
-                  }
-                ],
+              ? [...indentationLevels, getIndentationLevel(index)]
+              : [getIndentationLevel(index)],
           item,
           rowTemplate,
           isLastChild: nestedItemsArray ? index + 1 === nestedItemsArray.length : false
@@ -151,7 +153,8 @@ const DataGridRowComponent = <T,>(
     const hasNestedChildren = item && nestedItemsKey && item[nestedItemsKey];
     const nestedChildOffset = !hasNestedChildren ? 46 : 0;
     const nestedChildIndentation = `${nestedChildOffset + indentationLevel * 68}`;
-    const childIndentation = `${indentationLevel ? nestedChildIndentation : 4}px`;
+    const notIndentedWithNoChildrenOffset = indentationLevel === 0 && !hasNestedChildren ? 50 : 4;
+    const childIndentation = `${indentationLevel ? nestedChildIndentation : notIndentedWithNoChildrenOffset}px`;
 
     const getNestedChildSpacing = (spacing: React.CSSProperties | undefined) => {
       if (spacing) {
@@ -167,20 +170,21 @@ const DataGridRowComponent = <T,>(
 
     const childSpacing = enableNestedRow ? getNestedChildSpacing(spacing) : spacing;
 
+    const prefixButton = hasNestedChildren ? (
+      <IconButton
+        id={expandButtonId}
+        title={expandButtonTitle}
+        aria-expanded={isRowExpanded}
+        onClick={() => setIsRowExpanded(!isRowExpanded)}
+      >
+        <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
+      </IconButton>
+    ) : null;
+
     const prefixElement =
       enableNestedRow && index === 0 ? (
         <>
-          {hasNestedChildren ? (
-            <IconButton
-              id={expandButtonId}
-              title={expandButtonTitle}
-              aria-expanded={isRowExpanded}
-              onClick={() => setIsRowExpanded(!isRowExpanded)}
-            >
-              <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
-            </IconButton>
-          ) : null}
-
+          {prefixButton}
           {renderNestedRowConnectors()}
         </>
       ) : null;

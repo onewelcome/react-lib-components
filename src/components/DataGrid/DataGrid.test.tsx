@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { DataGrid, Props } from "./DataGrid";
-import { getAllByRole, render, queryAllByRole, getByRole, waitFor } from "@testing-library/react";
+import { getAllByRole, render, queryAllByRole, getByRole, within } from "@testing-library/react";
 import { DataGridRow } from "./DataGridBody/DataGridRow/DataGridRow";
 import { DataGridCell } from "./DataGridBody/DataGridCell/DataGridCell";
 import { ContextMenu } from "../ContextMenu/ContextMenu";
@@ -684,5 +684,117 @@ describe("DataGrid with search", () => {
     const highlight = await findByTestId("Daniel-mark");
 
     expect(highlight).toBeInTheDocument();
+  });
+});
+
+type WithNestedRowsDataType = {
+  name: string;
+  id: string;
+  type: string;
+  description: string;
+  nestedItems?: WithNestedRowsDataType[];
+};
+
+const paramsWithNestedRows: Props<WithNestedRowsDataType> = {
+  children: ({ item }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{item.type}</DataGridCell>
+    </DataGridRow>
+  ),
+  data: [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet",
+      nestedItems: [
+        {
+          name: "Company 3",
+          id: "3",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
+        },
+        {
+          name: "Company 4",
+          id: "4",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
+        }
+      ]
+    },
+    {
+      name: "Company 2",
+      id: "2",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet"
+    }
+  ],
+  filters: {
+    filterValues: [],
+    columnsMetadata: [
+      { name: "name", headline: "Name", operators: ["is", "is not"] },
+      { name: "type", headline: "Type", operators: ["is", "is not"] }
+    ],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
+  },
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "type", headline: "Type", disableSorting: true }
+  ],
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+const createDataGridWithNestedRows = (
+  params?: (defaultParams: any) => Props<WithNestedRowsDataType>
+) => {
+  let parameters = paramsWithNestedRows;
+  if (params) {
+    parameters = params(paramsWithNestedRows);
+  }
+
+  const DataGridWithNestedRows = () => {
+    return (
+      parameters.filters && (
+        <DataGrid
+          {...parameters}
+          nestedRowConfig={{ nestedItemsKey: "nestedItems" }}
+          data-testid="dataGrid"
+        />
+      )
+    );
+  };
+
+  const queries = render(<DataGridWithNestedRows />);
+  const dataGrid = queries.getByTestId("dataGrid");
+
+  return {
+    ...queries,
+    dataGrid
+  };
+};
+
+describe("DataGrid with nested rows", () => {
+  it("should render offset nested rows with connectors", async () => {
+    const { getByTitle, getByText, debug } = createDataGridWithNestedRows();
+
+    await userEvent.click(getByTitle("Expand row"));
+
+    expect(getByText("Company 3")).toBeInTheDocument();
+    const connector = within(getByText("Company 3").parentElement as HTMLElement).getByTestId(
+      "dataGridRowConnector"
+    );
+
+    expect(connector).toHaveClass("connector t-shape offset-left-0");
+
+    const secondConnector = within(getByText("Company 4").parentElement as HTMLElement).getByTestId(
+      "dataGridRowConnector"
+    );
+
+    expect(secondConnector).toHaveClass("connector line offset-left-0");
   });
 });
