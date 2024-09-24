@@ -177,6 +177,51 @@ const expandableRowHeaders= [
 </DataGrid>
 ```
 
+### Nested rows
+
+In order to enable nested rows, user has to simply provide `nestedItemsKey` inside of `nestedRowConfig` prop (see the example below).
+
+```jsx
+  const data = [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet",
+      nestedItems: [
+        {
+          name: "Company 3",
+          id: "3",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet",
+        },
+        {
+          name: "Company 101",
+          id: "101",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
+        }
+      ]
+    },
+  ]
+
+  return(
+    <DataGridComponent
+        {...args}
+        data={data}
+        nestedRowConfig={{ nestedItemsKey: "nestedItems" }}
+      >
+        {({ item }: { item: DataGridItem }) => (
+          <DataGridRow key={item.id}>
+            <DataGridCell>{item.name}</DataGridCell>
+            <DataGridCell>{item.id}</DataGridCell>
+            <DataGridCell>{item.type}</DataGridCell>
+            <DataGridCell>{item.description}</DataGridCell>
+          </DataGridRow>
+        )}
+  </DataGridComponent>)
+```
+
 ### Disabling context menu column
 
 To disable context menu column set the `disableContextMenuColumn` property to `true`.

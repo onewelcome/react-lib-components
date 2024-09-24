@@ -682,35 +682,13 @@ DataGridWithSearch.args = {
 };
 
 const NestedRowsTemplate = args => {
-  const [searchValue, setSearchValue] = useState("");
-  const [gridData, setGridData] = useState(args.data);
-
-  useEffect(() => {
-    if (searchValue) {
-      setGridData(
-        args.data.filter(row => {
-          const values: string[] = Object.values(row);
-          const match = values.some(val => val.toLowerCase().includes(searchValue.toLowerCase()));
-          return match;
-        })
-      );
-    } else {
-      setGridData(args.data);
-    }
-  }, [searchValue]);
-
   return (
     <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
       <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
         <DataGridComponent
           {...args}
-          data={gridData}
+          data={args.data}
           nestedRowConfig={{ nestedItemsKey: "nestedItems" }}
-          search={{
-            onSearch: setSearchValue,
-            debounceTime: 500,
-            initialSearchValue: searchValue
-          }}
         >
           {({ item }: { item: DataGridItem }) => (
             <DataGridRow key={item.id}>
@@ -729,194 +707,6 @@ const NestedRowsTemplate = args => {
 export const DataGridWithNestedRows = NestedRowsTemplate.bind({});
 
 DataGridWithNestedRows.args = {
-  // data: [
-  //   {
-  //     name: "Company 1",
-  //     id: "1",
-  //     type: "Stock",
-  //     description: "Lorem ipsum dolor sit amet",
-  //     nestedItems: [
-  //       {
-  //         name: "Company 3",
-  //         id: "3",
-  //         type: "Stock",
-  //         description: "Lorem ipsum dolor sit amet",
-  //         nestedItems: [
-  //           {
-  //             name: "Company 10",
-  //             id: "10",
-  //             type: "Stock",
-  //             description: "Lorem ipsum dolor sit amet",
-  //             nestedItems: [
-  //               {
-  //                 name: "Company 11",
-  //                 id: "11",
-  //                 type: "Stock",
-  //                 description: "Lorem ipsum dolor sit amet",
-  //                 nestedItems: [
-  //                   {
-  //                     name: "Company 13",
-  //                     id: "13",
-  //                     type: "Stock",
-  //                     description: "Lorem ipsum dolor sit amet",
-  //                     nestedItems: [
-  //                       {
-  //                         name: "Company 13",
-  //                         id: "13",
-  //                         type: "Stock",
-  //                         description: "Lorem ipsum dolor sit amet"
-  //                       }
-  //                     ]
-  //                   }
-  //                 ]
-  //               }
-  //             ]
-  //           }
-  //         ]
-  //       }
-  //     ]
-  //   }
-  // ],
-
-  //clements
-  // data: [
-  //   {
-  //     name: "Company 1",
-  //     id: "1",
-  //     type: "Stock",
-  //     description: "Lorem ipsum dolor sit amet",
-  //     nestedItems: [
-  //       {
-  //         name: "Company 3",
-  //         id: "3",
-  //         type: "Stock",
-  //         description: "Lorem ipsum dolor sit amet"
-  //       },
-  //       {
-  //         name: "Company 4",
-  //         id: "4",
-  //         type: "Stock",
-  //         description: "Lorem ipsum dolor sit amet",
-  //         nestedItems: [
-  //           {
-  //             name: "Company 3",
-  //             id: "3",
-  //             type: "Stock",
-  //             description: "Lorem ipsum dolor sit amet",
-  //             nestedItems: [
-  //               {
-  //                 name: "Company 3",
-  //                 id: "3",
-  //                 type: "Stock",
-  //                 description: "Lorem ipsum dolor sit amet"
-  //               },
-  //               {
-  //                 name: "Company 13",
-  //                 id: "13",
-  //                 type: "Stock",
-  //                 description: "Lorem ipsum dolor sit amet"
-  //               }
-  //             ]
-  //           },
-  //           {
-  //             name: "Company 13",
-  //             id: "13",
-  //             type: "Stock",
-  //             description: "Lorem ipsum dolor sit amet"
-  //           }
-  //         ]
-  //       },
-  //       {
-  //         name: "Company 3",
-  //         id: "3",
-  //         type: "Stock",
-  //         description: "Lorem ipsum dolor sit amet",
-  //         nestedItems: [
-  //           {
-  //             name: "Company 3",
-  //             id: "3",
-  //             type: "Stock",
-  //             description: "Lorem ipsum dolor sit amet"
-  //           },
-  //           {
-  //             name: "Company 13",
-  //             id: "13",
-  //             type: "Stock",
-  //             description: "Lorem ipsum dolor sit amet"
-  //           }
-  //         ]
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     name: "Company 13",
-  //     id: "13",
-  //     type: "Stock",
-  //     description: "Lorem ipsum dolor sit amet"
-  //   }
-  // ],
-
-  // data: [
-  //   {
-  //     name: "Company 1",
-  //     id: "1",
-  //     type: "Stock",
-  //     description: "Lorem ipsum dolor sit amet",
-  //     nestedItems: [
-  //       {
-  //         name: "Company 3",
-  //         id: "3",
-  //         type: "Stock",
-  //         description: "Lorem ipsum dolor sit amet",
-  //         nestedItems: [
-  //           {
-  //             name: "Company 10",
-  //             id: "10",
-  //             type: "Stock",
-  //             description: "Lorem ipsum dolor sit amet",
-  //             nestedItems: [
-  //               {
-  //                 name: "Company 11",
-  //                 id: "11",
-  //                 type: "Stock",
-  //                 description: "Lorem ipsum dolor sit amet",
-  //                 nestedItems: [
-  //                   {
-  //                     name: "Company 13",
-  //                     id: "13",
-  //                     type: "Stock",
-  //                     description: "Lorem ipsum dolor sit amet",
-  //                     nestedItems: [
-  //                       {
-  //                         name: "Company 13",
-  //                         id: "13",
-  //                         type: "Stock",
-  //                         description: "Lorem ipsum dolor sit amet"
-  //                       }
-  //                     ]
-  //                   }
-  //                 ]
-  //               }
-  //             ]
-  //           }
-  //         ]
-  //       },
-  //       {
-  //         name: "Company 13",
-  //         id: "13",
-  //         type: "Stock",
-  //         description: "Lorem ipsum dolor sit amet"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     name: "Company 13",
-  //     id: "13",
-  //     type: "Stock",
-  //     description: "Lorem ipsum dolor sit amet"
-  //   }
-  // ],
-
   data: [
     {
       name: "Company 1",
@@ -980,66 +770,35 @@ DataGridWithNestedRows.args = {
           id: "4",
           type: "Stock",
           description: "Lorem ipsum dolor sit amet"
+        },
+        {
+          name: "Company 8",
+          id: "8",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
+        },
+        {
+          name: "Company 9",
+          id: "9",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
         }
       ]
+    },
+    {
+      name: "Company 3",
+      id: "3",
+      type: "Stock",
+      description: "Consectetur adipiscing elit"
     }
   ],
-
-  // data: [
-  //   {
-  //     name: "Company 1",
-  //     id: "1",
-  //     type: "Stock",
-  //     description: "Lorem ipsum dolor sit amet",
-  //     nestedItems: [
-  //       {
-  //         name: "Company 2",
-  //         id: "2",
-  //         type: "Stock",
-  //         description: "Lorem ipsum dolor sit amet",
-  //         nestedItems: [
-  //           {
-  //             name: "Company 4",
-  //             id: "4",
-  //             type: "Stock",
-  //             description: "Lorem ipsum dolor sit amet"
-  //           },
-  //           {
-  //             name: "Company 5",
-  //             id: "5",
-  //             type: "Stock",
-  //             description: "Lorem ipsum dolor sit amet"
-  //           }
-  //         ]
-  //       },
-  //       {
-  //         name: "Company 3",
-  //         id: "3",
-  //         type: "Stock",
-  //         description: "Lorem ipsum dolor sit amet"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     name: "Company 6",
-  //     id: "6",
-  //     type: "Stock",
-  //     description: "Consectetur adipiscing elit"
-  //   }
-  // ],
-
   headers: [
     { name: "name", headline: "Name" },
     { name: "id", headline: "Identifier" },
     { name: "type", headline: "Type", disableSorting: true },
     { name: "description", headline: "Description", disableSorting: true }
   ],
-  search: {
-    onSearch: val => console.log(val),
-    debounceTime: 500
-  },
   disableContextMenuColumn: true,
-
   isLoading: false,
   enableMultiSorting: true
 };
