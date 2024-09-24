@@ -57,6 +57,7 @@ export interface DataGridColumnMetadata {
   headline: string;
   operators?: string[];
   defaultValues?: string[];
+  disableAddNew?: boolean;
 }
 
 export interface PopoverTranslations {
