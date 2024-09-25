@@ -9,7 +9,7 @@ const defaultParams: DataGridToolbarProps = {
     { name: "name", headline: "Name" },
     { name: "created", headline: "Created", operators: ["before", "after", "between"] },
     { name: "id", headline: "Identifier" },
-    { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"] },
+    { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"], disableAddNew: true },
     { name: "enabled", headline: "Status" }
   ]
 };
@@ -94,8 +94,8 @@ describe("DataGridToolbar should render", () => {
     expect(valueSelect).toBeDefined();
 
     await userEvent.click(columnSelect);
-    await userEvent.click(getByText("Type"));
-    expect(columnSelect).toHaveTextContent("Type");
+    await userEvent.click(getByText("Status"));
+    expect(columnSelect).toHaveTextContent("Status");
 
     await userEvent.click(operatorSelect);
     await userEvent.click(getByText("contains"));
@@ -103,7 +103,7 @@ describe("DataGridToolbar should render", () => {
 
     await userEvent.click(valueSelect);
     const multiSelectInput = getByRole("combobox");
-    await userEvent.type(multiSelectInput, "yesterday");
+    await userEvent.type(multiSelectInput, "Disabled");
     const multiSelectButton = getByText("create new", { exact: false });
     await userEvent.click(multiSelectButton);
 
@@ -117,6 +117,69 @@ describe("DataGridToolbar should render", () => {
     expect(secondColumnSelect).toHaveTextContent("Name");
     expect(secondOperatorSelect).toHaveTextContent("is");
     expect(secondValueSelect).toHaveTextContent("");
+  });
+
+  it("should show 'create new' button by default", async () => {
+    const { getByText, getByLabelText, getByRole } = createDataGridToolbar();
+
+    const addFilterButton = getByText("Add filter");
+    expect(addFilterButton).toBeDefined();
+
+    await userEvent.click(addFilterButton);
+
+    const columnSelect = getByLabelText("Filter by");
+    const operatorSelect = getByLabelText("Operator");
+    const valueSelect = getByLabelText("Value");
+
+    expect(columnSelect).toBeDefined();
+    expect(operatorSelect).toBeDefined();
+    expect(valueSelect).toBeDefined();
+
+    await userEvent.click(columnSelect);
+    await userEvent.click(getByText("Status"));
+    expect(columnSelect).toHaveTextContent("Status");
+
+    await userEvent.click(operatorSelect);
+    await userEvent.click(getByText("contains"));
+    expect(operatorSelect).toHaveTextContent("contains");
+
+    await userEvent.click(valueSelect);
+    const multiSelectInput = getByRole("combobox");
+    await userEvent.type(multiSelectInput, "StatusXY");
+    const multiSelectButton = getByText("create new", { exact: false });
+    expect(multiSelectButton).toBeVisible();
+    await userEvent.click(multiSelectButton);
+  });
+
+  it("should not show 'create new' button if disabled in metadata", async () => {
+    const { getByText, getByLabelText, getByRole } = createDataGridToolbar();
+
+    const addFilterButton = getByText("Add filter");
+    expect(addFilterButton).toBeDefined();
+
+    await userEvent.click(addFilterButton);
+
+    const columnSelect = getByLabelText("Filter by");
+    const operatorSelect = getByLabelText("Operator");
+    const valueSelect = getByLabelText("Value");
+
+    expect(columnSelect).toBeDefined();
+    expect(operatorSelect).toBeDefined();
+    expect(valueSelect).toBeDefined();
+
+    await userEvent.click(columnSelect);
+    await userEvent.click(getByText("Type"));
+    expect(columnSelect).toHaveTextContent("Type");
+
+    await userEvent.click(operatorSelect);
+    await userEvent.click(getByText("contains"));
+    expect(operatorSelect).toHaveTextContent("contains");
+
+    await userEvent.click(valueSelect);
+    const multiSelectInput = getByRole("combobox");
+    await userEvent.type(multiSelectInput, "Disabled");
+
+    expect(() => getByText("create new", { exact: false })).toThrow();
   });
 
   it("should allow to edit an existing filter", async () => {
