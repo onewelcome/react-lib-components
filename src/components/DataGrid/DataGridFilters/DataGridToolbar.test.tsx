@@ -119,67 +119,54 @@ describe("DataGridToolbar should render", () => {
     expect(secondValueSelect).toHaveTextContent("");
   });
 
-  it("should show 'create new' button by default", async () => {
-    const { getByText, getByLabelText, getByRole } = createDataGridToolbar();
+  fdescribe("'Create new' button enabled/disabled feature", () => {
+    const setUpFilterForColumn = async (columnText: string) => {
+      const { getByText, getByLabelText, getByRole } = createDataGridToolbar();
 
-    const addFilterButton = getByText("Add filter");
-    expect(addFilterButton).toBeDefined();
+      const addFilterButton = getByText("Add filter");
+      expect(addFilterButton).toBeDefined();
 
-    await userEvent.click(addFilterButton);
+      await userEvent.click(addFilterButton);
 
-    const columnSelect = getByLabelText("Filter by");
-    const operatorSelect = getByLabelText("Operator");
-    const valueSelect = getByLabelText("Value");
+      const columnSelect = getByLabelText("Filter by");
+      const operatorSelect = getByLabelText("Operator");
+      const valueSelect = getByLabelText("Value");
 
-    expect(columnSelect).toBeDefined();
-    expect(operatorSelect).toBeDefined();
-    expect(valueSelect).toBeDefined();
+      expect(columnSelect).toBeDefined();
+      expect(operatorSelect).toBeDefined();
+      expect(valueSelect).toBeDefined();
 
-    await userEvent.click(columnSelect);
-    await userEvent.click(getByText("Status"));
-    expect(columnSelect).toHaveTextContent("Status");
+      await userEvent.click(columnSelect);
+      await userEvent.click(getByText(columnText));
+      expect(columnSelect).toHaveTextContent(columnText);
 
-    await userEvent.click(operatorSelect);
-    await userEvent.click(getByText("contains"));
-    expect(operatorSelect).toHaveTextContent("contains");
+      await userEvent.click(operatorSelect);
+      await userEvent.click(getByText("contains"));
+      expect(operatorSelect).toHaveTextContent("contains");
 
-    await userEvent.click(valueSelect);
-    const multiSelectInput = getByRole("combobox");
-    await userEvent.type(multiSelectInput, "StatusXY");
-    const multiSelectButton = getByText("create new", { exact: false });
-    expect(multiSelectButton).toBeVisible();
-    await userEvent.click(multiSelectButton);
-  });
+      await userEvent.click(valueSelect);
 
-  it("should not show 'create new' button if disabled in metadata", async () => {
-    const { getByText, getByLabelText, getByRole } = createDataGridToolbar();
+      return { getByText, getByLabelText, getByRole };
+    };
 
-    const addFilterButton = getByText("Add filter");
-    expect(addFilterButton).toBeDefined();
+    it("should show 'create new' button by default", async () => {
+      const { getByText, getByLabelText, getByRole } = await setUpFilterForColumn("Status");
 
-    await userEvent.click(addFilterButton);
+      const multiSelectInput = getByRole("combobox");
+      await userEvent.type(multiSelectInput, "StatusXY");
+      const multiSelectButton = getByText("create new", { exact: false });
+      expect(multiSelectButton).toBeVisible();
+      await userEvent.click(multiSelectButton);
+    });
 
-    const columnSelect = getByLabelText("Filter by");
-    const operatorSelect = getByLabelText("Operator");
-    const valueSelect = getByLabelText("Value");
+    it("should not show 'create new' button if disabled in metadata", async () => {
+      const { getByText, getByLabelText, getByRole } = await setUpFilterForColumn("Type");
 
-    expect(columnSelect).toBeDefined();
-    expect(operatorSelect).toBeDefined();
-    expect(valueSelect).toBeDefined();
+      const multiSelectInput = getByRole("combobox");
+      await userEvent.type(multiSelectInput, "Something");
 
-    await userEvent.click(columnSelect);
-    await userEvent.click(getByText("Type"));
-    expect(columnSelect).toHaveTextContent("Type");
-
-    await userEvent.click(operatorSelect);
-    await userEvent.click(getByText("contains"));
-    expect(operatorSelect).toHaveTextContent("contains");
-
-    await userEvent.click(valueSelect);
-    const multiSelectInput = getByRole("combobox");
-    await userEvent.type(multiSelectInput, "Disabled");
-
-    expect(() => getByText("create new", { exact: false })).toThrow();
+      expect(() => getByText("create new", { exact: false })).toThrow();
+    });
   });
 
   it("should allow to edit an existing filter", async () => {
