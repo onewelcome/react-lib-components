@@ -16,7 +16,7 @@ const CustomTagContent = ({ filter }: { filter: Filter }) => {
 
   return (
     <Fragment>
-      {column} {operator} {value.length > 0 && <b>{value[0]}</b>}
+      {column} {operator} {value.length > 0 && <b>{value[0].value}</b>}
       {value.length >= 2 && (
         <>
           lub <b> {value.length - 1} innych</b>
@@ -62,7 +62,12 @@ describe("DataGridFilterTag", () => {
     const { getByText } = createDataGridFilterTag(prev => ({
       ...prev,
       mode: "EDIT",
-      filter: { id: "test", column: "name", operator: "is", value: ["test"] }
+      filter: {
+        id: "test",
+        column: "name",
+        operator: "is",
+        value: [{ key: "test", value: "test" }]
+      }
     }));
 
     expect(getByText(/name/)).toBeDefined();
@@ -75,7 +80,12 @@ describe("DataGridFilterTag", () => {
     const { getByText } = createDataGridFilterTag(prev => ({
       ...prev,
       mode: "EDIT",
-      filter: { id: "test", column: "name", operator: "is", value: ["test", "test2"] }
+      filter: {
+        id: "test",
+        column: "name",
+        operator: "is",
+        value: [{ key: "test", value: "test" }]
+      }
     }));
 
     expect(getByText(/name/)).toBeDefined();
@@ -89,10 +99,20 @@ describe("DataGridFilterTag", () => {
     const { getByText } = createDataGridFilterTag(prev => ({
       ...prev,
       mode: "EDIT",
-      filter: { id: "test", column: "name", operator: "is", value: ["test", "test2"] },
+      filter: {
+        id: "test",
+        column: "name",
+        operator: "is",
+        value: [{ key: "test", value: "test" }]
+      },
       customEditTagContent: (
         <CustomTagContent
-          filter={{ id: "test", column: "name", operator: "is", value: ["test", "test2"] }}
+          filter={{
+            id: "test",
+            column: "name",
+            operator: "is",
+            value: [{ key: "test", value: "test" }]
+          }}
         />
       )
     }));
@@ -112,7 +132,15 @@ describe("DataGridFilterTag", () => {
       onFilterOpen: onOpen,
       onFilterRemove: onRemove,
       mode: "EDIT",
-      filter: { id: "test", column: "name", operator: "is", value: ["test", "test2"] }
+      filter: {
+        id: "test",
+        column: "name",
+        operator: "is",
+        value: [
+          { key: "test", value: "test" },
+          { key: "test2", value: "test2" }
+        ]
+      }
     }));
 
     await userEvent.click(getByText(/name/));

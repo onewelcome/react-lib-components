@@ -45,7 +45,7 @@ export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | und
                 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
                 (operatorPredicateMap[filter.operator as keyof typeof operatorPredicateMap] as any)(
                   row[filter.column as keyof typeof row],
-                  val
+                  val.value
                 ) && acc
               );
             }, true)

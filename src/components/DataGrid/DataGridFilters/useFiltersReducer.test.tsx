@@ -50,7 +50,7 @@ describe("useFiltersReducer", () => {
           id: "1",
           column: "test",
           operator: "is",
-          value: ["test"]
+          value: [{ key: "test", value: "test" }]
         }
       ])
     );
@@ -62,7 +62,7 @@ describe("useFiltersReducer", () => {
         id: "1",
         column: "test",
         operator: "is not",
-        value: ["test"]
+        value: [{ key: "test", value: "test" }]
       })
     );
 
@@ -80,7 +80,7 @@ describe("useFiltersReducer", () => {
           id: "1",
           column: "test",
           operator: "is",
-          value: ["test"]
+          value: [{ key: "test", value: "test" }]
         }
       ])
     );
@@ -103,13 +103,13 @@ describe("useFiltersReducer", () => {
           id: "1",
           column: "test",
           operator: "is",
-          value: ["test"]
+          value: [{ key: "test", value: "test" }]
         },
         {
           id: "2",
           column: "test",
           operator: "is",
-          value: ["test"]
+          value: [{ key: "test", value: "test" }]
         }
       ])
     );

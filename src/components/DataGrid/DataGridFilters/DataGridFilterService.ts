@@ -29,11 +29,14 @@ export const useDataGridFilter = (
   const [column, setColumn] = useState("");
   const [operator, setOperator] = useState("");
   const [operators, setOperators] = useState<string[]>(Object.values(DefaultOperators));
-  const [values, setValues] = useState<string[]>([]);
-  const [pickedValues, setPickedValues] = useState<string[]>([]);
+  const [values, setValues] = useState<{ key: string; value: string }[]>([]);
+  const [pickedValues, setPickedValues] = useState<{ key: string; value: string }[]>([]);
 
   //user can extend the list of picked values with custom ones. We need to make sure that the default list includes the user created values.
-  const mergeCustomValuesWithPredefined = (values: string[], pickedValues: string[]) => {
+  const mergeCustomValuesWithPredefined = (
+    values: { key: string; value: string }[],
+    pickedValues: { key: string; value: string }[]
+  ) => {
     return Array.from(new Set([...values, ...pickedValues]));
   };
 

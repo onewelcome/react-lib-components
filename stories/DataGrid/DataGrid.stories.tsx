@@ -437,7 +437,15 @@ DataGridWithFilters.args = {
     filterValues: [],
     columnsMetadata: [
       { name: "name", headline: "Name", operators: ["is", "is not"] },
-      { name: "type", headline: "Type", operators: ["is", "is not"] }
+      {
+        name: "type",
+        headline: "Type",
+        operators: ["is", "is not"],
+        defaultValues: [
+          { key: "bnd", value: "Bond" },
+          { key: "stk", value: "Stock" }
+        ]
+      }
     ],
     onFilterAdd: filter => console.log(filter),
     onFilterEdit: filter => console.log(filter),

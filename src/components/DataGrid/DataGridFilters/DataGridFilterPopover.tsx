@@ -35,8 +35,8 @@ export type Props = {
   isOpen: boolean;
   column: string;
   columnsMetadata: DataGridColumnMetadata[];
-  values: string[];
-  pickedValues: string[];
+  values: { key: string; value: string }[];
+  pickedValues: { key: string; value: string }[];
   operator: string;
   operators: string[];
   onFilterSubmit: () => void;
@@ -45,8 +45,8 @@ export type Props = {
   setColumn: (column: React.SetStateAction<string>) => void;
   setOperator: (operator: React.SetStateAction<string>) => void;
   setOperators: (operators: React.SetStateAction<string[]>) => void;
-  setValues: (values: React.SetStateAction<string[]>) => void;
-  setPickedValues: (pickedValues: React.SetStateAction<string[]>) => void;
+  setValues: (values: React.SetStateAction<{ key: string; value: string }[]>) => void;
+  setPickedValues: (pickedValues: React.SetStateAction<{ key: string; value: string }[]>) => void;
   translations?: PopoverTranslations;
 };
 
@@ -144,12 +144,12 @@ export const DataGridFilterPopover = ({
           <MultiSelectWrapper
             label={valueSelectLabel}
             name={"value"}
-            value={pickedValues}
+            value={pickedValues.map(kv => kv.value)}
             onChange={e =>
               setPickedValues(
                 [...Array.from(e.target.options)]
                   .filter(option => option.selected)
-                  .map(option => option.value)
+                  .map(option => values.find(kv => kv.value === option.value)!)
               )
             }
             selectProps={{
@@ -157,8 +157,8 @@ export const DataGridFilterPopover = ({
                 label: addNewValueLabel,
                 onAddNew: value => {
                   if (value) {
-                    setValues(prev => [...prev, value]);
-                    setPickedValues(prev => [...prev, value]);
+                    setValues(prev => [...prev, { key: value, value: value }]);
+                    setPickedValues(prev => [...prev, { key: value, value: value }]);
                   }
                 },
                 btnProps: { title: addNewValueButtonTitle, type: "button" }
@@ -169,9 +169,9 @@ export const DataGridFilterPopover = ({
               }
             }}
           >
-            {values.map(value => (
-              <MultiOption key={value} value={value}>
-                {value}
+            {values.map(kv => (
+              <MultiOption key={kv.key} value={kv.value}>
+                {kv.value}
               </MultiOption>
             ))}
           </MultiSelectWrapper>

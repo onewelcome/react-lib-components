@@ -36,7 +36,7 @@ const EditTagContent = ({ filter }: { filter: Filter }) => {
 
   return (
     <Fragment>
-      {column} {operator} {value.length > 0 && <b>{value[0]}</b>}
+      {column} {operator} {value.length > 0 && <b>{value[0].value}</b>}
       {value.length >= 2 && (
         <>
           or <b> {value.length - 1} other</b>

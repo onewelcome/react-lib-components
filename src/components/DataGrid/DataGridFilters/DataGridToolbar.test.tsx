@@ -9,7 +9,14 @@ const defaultParams: DataGridToolbarProps = {
     { name: "name", headline: "Name" },
     { name: "created", headline: "Created", operators: ["before", "after", "between"] },
     { name: "id", headline: "Identifier" },
-    { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"] },
+    {
+      name: "type",
+      headline: "Type",
+      defaultValues: [
+        { key: "Stock", value: "Stock" },
+        { key: "Bond", value: "Bond" }
+      ]
+    },
     { name: "enabled", headline: "Status" }
   ]
 };
@@ -123,7 +130,14 @@ describe("DataGridToolbar should render", () => {
     const { getByText, getAllByText, getAllByLabelText, getByRole } = createDataGridToolbar(
       prev => ({
         ...prev,
-        filterValues: [{ id: "test", column: "name", operator: "is", value: ["test"] }]
+        filterValues: [
+          {
+            id: "test",
+            column: "name",
+            operator: "is",
+            value: [{ key: "test", value: "test" }]
+          }
+        ]
       })
     );
 
@@ -161,7 +175,14 @@ describe("DataGridToolbar should render", () => {
   it("should allow to remove given filter when user presses the remove button", async () => {
     const { getByText, queryByText } = createDataGridToolbar(prev => ({
       ...prev,
-      filterValues: [{ id: "test", column: "name", operator: "is", value: ["test"] }]
+      filterValues: [
+        {
+          id: "test",
+          column: "name",
+          operator: "is",
+          value: [{ key: "test", value: "test" }]
+        }
+      ]
     }));
 
     expect(getByText(/name/)).toBeDefined();
@@ -179,8 +200,18 @@ describe("DataGridToolbar should render", () => {
     const { getByText, queryByText } = createDataGridToolbar(prev => ({
       ...prev,
       filterValues: [
-        { id: "test", column: "name", operator: "is", value: ["test"] },
-        { id: "test2", column: "created", operator: "after", value: ["yesterday"] }
+        {
+          id: "test",
+          column: "name",
+          operator: "is",
+          value: [{ key: "test", value: "test" }]
+        },
+        {
+          id: "test2",
+          column: "created",
+          operator: "after",
+          value: [{ key: "yesterday", value: "yesterday" }]
+        }
       ]
     }));
 

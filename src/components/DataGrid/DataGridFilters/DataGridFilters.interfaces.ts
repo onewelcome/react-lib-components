@@ -18,7 +18,7 @@ export interface Filter {
   id: string;
   column: string;
   operator: string;
-  value: string[];
+  value: { key: string; value: string }[];
 }
 
 export type FiltersAction =
@@ -56,7 +56,7 @@ export interface DataGridColumnMetadata {
   name: string;
   headline: string;
   operators?: string[];
-  defaultValues?: string[];
+  defaultValues?: { key: string; value: string }[];
 }
 
 export interface PopoverTranslations {
