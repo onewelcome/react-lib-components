@@ -46,9 +46,9 @@ export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | und
                 (operatorPredicateMap[filter.operator as keyof typeof operatorPredicateMap] as any)(
                   row[filter.column as keyof typeof row],
                   val.value
-                ) && acc
+                ) || acc
               );
-            }, true)
+            }, false)
           ];
         });
 
