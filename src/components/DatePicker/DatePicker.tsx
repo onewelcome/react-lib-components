@@ -31,10 +31,11 @@ export const DatePicker: ForwardRefRenderFunction<HTMLDivElement, Props> = ({
   const getCustomClassNamesMapping = (
     customClasses: Record<string, string>
   ): Partial<ClassNames> => {
+    const CLASSNAME_PREFIX = "rdp-";
     const dayPickerClassNames: Partial<ClassNames> = {};
 
     Object.keys(customClasses).forEach(key => {
-      const classKey = key.replace("rdp-", "") as keyof ClassNames;
+      const classKey = key.replace(CLASSNAME_PREFIX, "") as keyof ClassNames;
       dayPickerClassNames[classKey] = customClasses[key];
     });
 

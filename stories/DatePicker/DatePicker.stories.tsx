@@ -15,15 +15,15 @@
  */
 
 import { Meta, StoryFn } from "@storybook/react";
-import { DatePicker } from "../../src/components/DatePicker/DatePicker";
+import { DatePicker as DatePickerComponent } from "../../src/components/DatePicker/DatePicker";
 import React, { Fragment, useState } from "react";
 import DatePickerDocumentation from "./DatePicker.mdx";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 
 const meta: Meta = {
-  title: "components/DatePicker/DatePicker",
-  component: DatePicker,
+  title: "components/Inputs/DatePicker",
+  component: DatePickerComponent,
   parameters: {
     docs: {
       page: DatePickerDocumentation
@@ -38,22 +38,22 @@ const Template: StoryFn<{}> = args => {
 
   return (
     <Fragment>
-      <DatePicker
+      <DatePickerComponent
         data-testid="date-picker"
         selected={inputValue}
         onSelectHandler={value => {
           setInputValue(value);
         }}
         {...args}
-      ></DatePicker>
+      ></DatePickerComponent>
       <p>{inputValue && inputValue.toDateString()}</p>
     </Fragment>
   );
 };
 
-export const DatePickerTemplate = Template.bind({});
+export const DatePicker = Template.bind({});
 
-DatePickerTemplate.play = conditionalPlay(async ({ canvasElement }) => {
+DatePicker.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => {
