@@ -18,6 +18,8 @@ import { Meta, StoryFn } from "@storybook/react";
 import { DatePicker } from "../../src/components/DatePicker/DatePicker";
 import React, { Fragment, useState } from "react";
 import DatePickerDocumentation from "./DatePicker.mdx";
+import { conditionalPlay } from "../../.storybook/conditionalPlay";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 
 const meta: Meta = {
   title: "components/DatePicker/DatePicker",
@@ -37,9 +39,9 @@ const Template: StoryFn<{}> = args => {
   return (
     <Fragment>
       <DatePicker
+        data-testid={"date-picker"}
         selected={inputValue}
         onSelectHandler={value => {
-          console.log(value);
           setInputValue(value);
         }}
         {...args}
@@ -50,3 +52,17 @@ const Template: StoryFn<{}> = args => {
 };
 
 export const DatePickerTemplate = Template.bind({});
+
+DatePickerTemplate.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const datePicker = canvas.getByTestId("date-picker");
+
+  await waitFor(() => expect(datePicker).toBeDefined);
+
+  const dayOfTheMonth = canvas.getByText("19");
+
+  await waitFor(() => expect(dayOfTheMonth).toBeDefined);
+  await userEvent.click(dayOfTheMonth);
+
+  await expect(dayOfTheMonth.parentElement).toHaveAttribute("data-selected", "true");
+});

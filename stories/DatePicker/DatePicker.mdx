@@ -1,6 +1,24 @@
-import { Meta, Subtitle } from "@storybook/blocks";
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
 import * as DatePickerStories from "./DatePicker.stories.tsx";
 
 <Meta of={DatePickerStories} />
 <Title />
 <Subtitle />
+
+The DatePicker component is a flexible, easy-to-use date selection tool that provides users with an intuitive interface to choose dates.
+It is based on the [react-day-picker](https://daypicker.dev/).
+
+<Canvas>
+  <Story of={DatePickerStories.DatePickerTemplate} />
+</Canvas>
+
+# Features
+
+Currently, we support only a `single` selection mode with a set of limited, fixed options. However, you can pass additional props directly to the underlying `DayPicker` component, giving you access to its full range of features.
+Please note that when using these extended features, our custom styles will _not_ automatically apply, so you may need to add your own styles for consistency.
+
+We utilize [custom class names feature](https://daypicker.dev/docs/styling#custom-class-names) to keep the consistency and all the benefits or css modules.
+
+# Props
+
+<ArgTypes />
