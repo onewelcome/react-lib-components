@@ -39,7 +39,7 @@ const Template: StoryFn<{}> = args => {
   return (
     <Fragment>
       <DatePicker
-        data-testid={"date-picker"}
+        data-testid="date-picker"
         selected={inputValue}
         onSelectHandler={value => {
           setInputValue(value);
@@ -55,9 +55,11 @@ export const DatePickerTemplate = Template.bind({});
 
 DatePickerTemplate.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const datePicker = canvas.getByTestId("date-picker");
 
-  await waitFor(() => expect(datePicker).toBeDefined);
+  await waitFor(() => {
+    const datePicker = canvas.getByTestId("date-picker");
+    expect(datePicker).toBeDefined();
+  });
 
   const dayOfTheMonth = canvas.getByText("19");
 
