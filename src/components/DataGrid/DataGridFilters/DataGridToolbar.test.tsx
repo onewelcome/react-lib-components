@@ -119,9 +119,9 @@ describe("DataGridToolbar should render", () => {
     expect(secondValueSelect).toHaveTextContent("");
   });
 
-  fdescribe("'Create new' button enabled/disabled feature", () => {
+  describe("'Create new' button enabled/disabled feature", () => {
     const setUpFilterForColumn = async (columnText: string) => {
-      const { getByText, getByLabelText, getByRole } = createDataGridToolbar();
+      const { getByText, getByLabelText, getByRole, queryByText } = createDataGridToolbar();
 
       const addFilterButton = getByText("Add filter");
       expect(addFilterButton).toBeDefined();
@@ -146,11 +146,11 @@ describe("DataGridToolbar should render", () => {
 
       await userEvent.click(valueSelect);
 
-      return { getByText, getByLabelText, getByRole };
+      return { getByText, getByLabelText, getByRole, queryByText };
     };
 
     it("should show 'create new' button by default", async () => {
-      const { getByText, getByLabelText, getByRole } = await setUpFilterForColumn("Status");
+      const { getByText, getByRole } = await setUpFilterForColumn("Status");
 
       const multiSelectInput = getByRole("combobox");
       await userEvent.type(multiSelectInput, "StatusXY");
@@ -160,12 +160,12 @@ describe("DataGridToolbar should render", () => {
     });
 
     it("should not show 'create new' button if disabled in metadata", async () => {
-      const { getByText, getByLabelText, getByRole } = await setUpFilterForColumn("Type");
+      const { getByRole, queryByText } = await setUpFilterForColumn("Type");
 
       const multiSelectInput = getByRole("combobox");
       await userEvent.type(multiSelectInput, "Something");
 
-      expect(() => getByText("create new", { exact: false })).toThrow();
+      expect(queryByText("create new")).not.toBeInTheDocument();
     });
   });
 
