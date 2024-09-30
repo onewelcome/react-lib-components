@@ -22,21 +22,22 @@ import { Icon, Icons } from "../../../Icon/Icon";
 import { DataGridCell } from "../DataGridCell/DataGridCell";
 import { DataGridDrawer } from "../DataGridDrawer/DataGridDrawer";
 import { generateID } from "../../../../util/helper";
+import { useNestedRow } from "./useNestedRow";
 
 export interface Props<T> extends ComponentPropsWithRef<"tr"> {
   item?: T;
-  indentationLevel?: number;
-  indentationLevels?: { level: number; isLastChild: boolean }[];
-  rowTemplate?: ({ item, index }: { item: T; index: number }) => ReactElement;
   headers?: HeaderCell[];
   isLoading?: boolean;
   spacing?: React.CSSProperties;
   searchValue?: string;
   disableContextMenuColumn?: boolean;
-  enableNestedRow?: boolean;
-  isLastRootAncestor?: boolean;
-  isLastChild?: boolean;
-  nestedItemsKey?: keyof T;
+  nestedRowProps?: {
+    rowTemplate?: ({ item, index }: { item: T; index: number }) => ReactElement;
+    indentationLevel?: number;
+    indentationLevels?: { level: number; isLastChild: boolean }[];
+    enableNestedRow?: boolean;
+    nestedItemsKey?: keyof T;
+  };
   expandableRowProps?: {
     enableExpandableRow: boolean;
     expandableRowContent: React.ReactNode;
@@ -51,18 +52,13 @@ const DataGridRowComponent = <T,>(
     item,
     children,
     className,
-    rowTemplate,
     headers,
     searchValue,
     isLoading,
     spacing,
     expandableRowProps,
     disableContextMenuColumn,
-    enableNestedRow,
-    indentationLevel = 0,
-    indentationLevels,
-    isLastChild,
-    nestedItemsKey,
+    nestedRowProps,
     ...rest
   }: Props<T>,
   ref: Ref<HTMLTableRowElement>
@@ -74,7 +70,30 @@ const DataGridRowComponent = <T,>(
     drawerId = `ID-${generateID()}`,
     expandableRowContent
   } = expandableRowProps || {};
+  const {
+    indentationLevels,
+    indentationLevel = 0,
+    nestedItemsKey,
+    enableNestedRow,
+    rowTemplate
+  } = nestedRowProps || {};
   const [isRowExpanded, setIsRowExpanded] = useState(false);
+  const { renderNestedRowConnectors, renderNestedRow, getNestedChildSpacing, hasNestedChildren } =
+    useNestedRow({
+      indentationLevels,
+      indentationLevel,
+      item,
+      nestedItemsKey,
+      rowTemplate,
+      isRowExpanded,
+      enableNestedRow,
+      rowProps: {
+        searchValue,
+        headers,
+        spacing,
+        disableContextMenuColumn
+      }
+    });
 
   const classNames = [classes["row"]];
   const rowBorderClass = enableNestedRow
@@ -86,68 +105,6 @@ const DataGridRowComponent = <T,>(
     ? !isRowExpanded && classNames.push(classes["border-drawer"])
     : classNames.push(rowBorderClass);
   isLoading && classNames.push(classes["loading"]);
-
-  const renderNestedRowConnectors = () => {
-    if (indentationLevels) {
-      return indentationLevels.map(({ level, isLastChild }) =>
-        renderNestedRowConnector(level, isLastChild, indentationLevels.length)
-      );
-    }
-
-    return null;
-  };
-
-  const renderNestedRowConnector = (level: number, isLastChild: boolean, levelsLength: number) => {
-    const offsetLeftClass = classes[`offset-left-${level - 1}`];
-
-    if (level === levelsLength) {
-      const variant = isLastChild ? "line" : "t-shape";
-
-      return (
-        <div
-          data-testid="dataGridRowConnector"
-          className={`${classes["connector"]} ${classes[variant]} ${offsetLeftClass}`}
-        />
-      );
-    } else if (!isLastChild) {
-      return (
-        <div
-          data-testid="dataGridRowConnector"
-          className={`${classes["connector"]} ${classes["vertical"]}  ${offsetLeftClass}`}
-        />
-      );
-    }
-    return null;
-  };
-
-  const renderRecurrentRow = () => {
-    if (rowTemplate && item && nestedItemsKey && item[nestedItemsKey] && isRowExpanded) {
-      const nestedItemsArray: T[] = item[nestedItemsKey] as T[];
-      const getIndentationLevel = (index: number) => ({
-        level: indentationLevel + 1,
-        isLastChild: index + 1 === nestedItemsArray.length
-      });
-
-      return nestedItemsArray.map((item, index) => {
-        return React.cloneElement(rowTemplate({ item, index }), {
-          searchValue: searchValue,
-          headers,
-          spacing,
-          disableContextMenuColumn,
-          enableNestedRow,
-          nestedItemsKey,
-          indentationLevel: indentationLevel + 1,
-          indentationLevels:
-            indentationLevels && nestedItemsArray
-              ? [...indentationLevels, getIndentationLevel(index)]
-              : [getIndentationLevel(index)],
-          item,
-          rowTemplate,
-          isLastChild: nestedItemsArray ? index + 1 === nestedItemsArray.length : false
-        });
-      });
-    }
-  };
 
   const getPrefixButton = (hasNestedChildren: boolean) =>
     hasNestedChildren ? (
@@ -162,25 +119,7 @@ const DataGridRowComponent = <T,>(
     ) : null;
 
   const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
-    const hasNestedChildren = item && nestedItemsKey && item[nestedItemsKey];
-    const nestedChildOffset = !hasNestedChildren ? 46 : 0;
-    const nestedChildIndentation = `${nestedChildOffset + indentationLevel * 68}`;
-    const notIndentedWithNoChildrenOffset = indentationLevel === 0 && !hasNestedChildren ? 50 : 4;
-    const childIndentation = `${indentationLevel ? nestedChildIndentation : notIndentedWithNoChildrenOffset}px`;
-
-    const getNestedChildSpacing = (spacing: React.CSSProperties | undefined) => {
-      if (spacing) {
-        return {
-          ...spacing,
-          paddingLeft: index === 0 ? childIndentation : spacing.paddingLeft
-        };
-      }
-      return {
-        paddingLeft: index === 0 ? childIndentation : ""
-      };
-    };
-
-    const childSpacing = enableNestedRow ? getNestedChildSpacing(spacing) : spacing;
+    const childSpacing = enableNestedRow ? getNestedChildSpacing(spacing, index) : spacing;
 
     const prefixElement =
       enableNestedRow && index === 0 ? (
@@ -243,7 +182,7 @@ const DataGridRowComponent = <T,>(
           </td>
         </tr>
       )}
-      {enableNestedRow && renderRecurrentRow()}
+      {enableNestedRow && renderNestedRow()}
     </Fragment>
   );
 };

@@ -88,10 +88,12 @@ const DataGridBodyInner = <T extends {}>(
         spacing,
         item,
         disableContextMenuColumn,
-        enableNestedRow: !!nestedRowConfig,
-        nestedItemsKey: nestedRowConfig?.nestedItemsKey,
-        rowTemplate: children,
-        isLastChild: index + 1 === data.length
+        nestedRowProps: {
+          rowTemplate: children,
+          enableNestedRow: !!nestedRowConfig,
+          nestedItemsKey: nestedRowConfig?.nestedItemsKey,
+          isLastChild: index + 1 === data.length
+        }
       });
     });
   };

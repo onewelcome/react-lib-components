@@ -690,8 +690,8 @@ DataGridWithNestedRows.args = {
         },
 
         {
-          name: "Company 101",
-          id: "101",
+          name: "Company 102",
+          id: "102",
           type: "Stock",
           description: "Lorem ipsum dolor sit amet"
         }
@@ -724,8 +724,8 @@ DataGridWithNestedRows.args = {
       ]
     },
     {
-      name: "Company 3",
-      id: "3",
+      name: "Company 20",
+      id: "20",
       type: "Stock",
       description: "Consectetur adipiscing elit"
     }

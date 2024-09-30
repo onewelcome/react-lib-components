@@ -94,7 +94,7 @@ $nesting-limit: 6;
       left: 50%;
       height: 100%;
       width: 0.0625rem;
-      background-color: var(--light-grey-border);
+      background-color: var(--color-blue-grey200);
     }
   }
 
@@ -105,7 +105,7 @@ $nesting-limit: 6;
       left: 50%;
       height: 3.25rem;
       width: 0.0625rem;
-      background-color: var(--light-grey-border);
+      background-color: var(--color-blue-grey200);
     }
 
     &::after {
@@ -115,7 +115,7 @@ $nesting-limit: 6;
       left: 50%;
       height: 0.0625rem;
       width: 100%;
-      background-color: var(--light-grey-border);
+      background-color: var(--color-blue-grey200);
     }
   }
 
@@ -126,7 +126,7 @@ $nesting-limit: 6;
       left: 50%;
       height: 50%;
       width: 1px;
-      background-color: var(--light-grey-border);
+      background-color: var(--color-blue-grey200);
     }
 
     &::after {
@@ -136,7 +136,7 @@ $nesting-limit: 6;
       left: 50%;
       height: 1px;
       width: 100%;
-      background-color: var(--light-grey-border);
+      background-color: var(--color-blue-grey200);
     }
   }
 }
