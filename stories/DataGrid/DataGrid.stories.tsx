@@ -429,8 +429,13 @@ DataGridWithFilters.args = {
     },
     {
       id: "3",
-      name: "Company 1",
+      name: "Company 3",
       type: "Bond"
+    },
+    {
+      id: "4",
+      name: "Company 4",
+      type: "Limited"
     }
   ],
   filters: {
@@ -443,7 +448,8 @@ DataGridWithFilters.args = {
         operators: ["is", "is not"],
         defaultValues: [
           { key: "bnd", value: "Bond" },
-          { key: "stk", value: "Stock" }
+          { key: "stk", value: "Stock" },
+          { key: "ltd", value: "Limited liability" }
         ]
       }
     ],

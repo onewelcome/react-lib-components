@@ -33,22 +33,28 @@ export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | und
     "is not": (v1: string, v2: string) => v1 !== v2
   };
 
+  function reduceConjunction<T>(arr: T[], fn: (v: T) => boolean) {
+    return arr.reduce((acc, val) => fn(val) && acc, true);
+  }
+  function reduceDisjunction<T>(arr: T[], fn: (v: T) => boolean) {
+    return arr.reduce((acc, val) => fn(val) || acc, false);
+  }
+
   useEffect(() => {
     const filteredData = data
       .map((row: T) => {
         let shouldBeDiscarded: boolean[] = [];
         state.filters.forEach(filter => {
+          const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
           shouldBeDiscarded = [
             ...shouldBeDiscarded,
-            !filter.value.reduce((acc, val) => {
-              return (
-                // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-                (operatorPredicateMap[filter.operator as keyof typeof operatorPredicateMap] as any)(
-                  row[filter.column as keyof typeof row],
-                  val.value
-                ) || acc
-              );
-            }, false)
+            !reduce(filter.value, val =>
+              // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+              (operatorPredicateMap[filter.operator as keyof typeof operatorPredicateMap] as any)(
+                row[filter.column as keyof typeof row],
+                val.value
+              )
+            )
           ];
         });
 
