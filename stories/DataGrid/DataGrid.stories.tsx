@@ -647,6 +647,8 @@ export const DataGridWithNestedRows = NestedRowsTemplate.bind({});
 DataGridWithNestedRows.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
+  await waitFor(() => expect(canvas.getAllByTitle("Expand row").length).toBeGreaterThanOrEqual(1));
+
   await userEvent.click(canvas.getAllByTitle("Expand row")[1]);
   await userEvent.click(canvas.getAllByTitle("Expand row")[0]);
   await userEvent.click(canvas.getAllByTitle("Expand row")[1]);
