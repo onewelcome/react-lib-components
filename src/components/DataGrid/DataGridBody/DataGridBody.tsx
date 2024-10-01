@@ -24,6 +24,9 @@ import { Typography } from "../../Typography/Typography";
 export interface Props<T> extends Omit<ComponentPropsWithRef<"tbody">, "children"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
   data?: T[];
+  nestedRowConfig?: {
+    nestedItemsKey?: keyof T;
+  };
   headers: HeaderCell[];
   isLoading?: boolean;
   disableContextMenuColumn?: boolean;
@@ -39,6 +42,7 @@ const DataGridBodyInner = <T extends {}>(
     children,
     data,
     headers,
+    nestedRowConfig,
     isLoading,
     disableContextMenuColumn,
     emptyLabel,
@@ -82,7 +86,14 @@ const DataGridBodyInner = <T extends {}>(
         searchValue: searchValue,
         headers,
         spacing,
-        disableContextMenuColumn
+        item,
+        disableContextMenuColumn,
+        nestedRowProps: {
+          rowTemplate: children,
+          enableNestedRow: !!nestedRowConfig,
+          nestedItemsKey: nestedRowConfig?.nestedItemsKey,
+          isLastChild: index + 1 === data.length
+        }
       });
     });
   };

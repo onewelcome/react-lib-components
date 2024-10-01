@@ -52,6 +52,9 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
     searchBtnProps?: ButtonProps;
     searchIconBtnProps?: ButtonProps;
   };
+  nestedRowConfig?: {
+    nestedItemsKey?: keyof T;
+  };
   emptyLabel?: string;
   paginationProps?: PaginationProps;
   disableContextMenuColumn?: boolean;
@@ -75,6 +78,7 @@ const DataGridInner = <T extends {}>(
     headers,
     actions = {},
     paginationProps,
+    nestedRowConfig,
     disableContextMenuColumn,
     enableExpandableRow,
     filters,
@@ -177,6 +181,7 @@ const DataGridInner = <T extends {}>(
             onSort={onSort}
             disableContextMenuColumn={disableContextMenuColumn}
             enableExpandableRow={enableExpandableRow}
+            enableNestedRows={!!nestedRowConfig}
             enableMultiSorting={enableMultiSorting}
             spacing={styleWithSpacing}
           />
@@ -185,6 +190,7 @@ const DataGridInner = <T extends {}>(
             headers={internalHeaders}
             isLoading={isLoading}
             disableContextMenuColumn={disableContextMenuColumn}
+            nestedRowConfig={nestedRowConfig}
             emptyLabel={emptyLabel}
             spacing={styleWithSpacing}
             searchValue={search?.initialSearchValue}

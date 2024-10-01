@@ -13,6 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+$nesting-limit: 6;
 
 .row {
   position: relative;
@@ -22,28 +23,120 @@
     background-color: var(--data-grid-row-hover-background-color);
   }
 
-  @mixin borderAfter {
+  @mixin borderAfter($i, $no-offset: false) {
     content: "";
     position: absolute;
-    width: 100%;
-    left: 0;
+
+    @if $no-offset {
+      width: 100%;
+      left: 0;
+    } @else if $i > 0 {
+      width: calc(100% - calc(3.0625rem + $i * 4.125rem));
+      left: calc(3.0625rem + $i * 4.125rem);
+    } @else {
+      width: calc(100% - 3.0625rem);
+      left: 3.0625rem;
+    }
     bottom: 0;
     border-bottom: 1px solid var(--light-grey-border);
   }
 
+  @mixin border-x {
+    @for $i from 0 through $nesting-limit {
+      &.border-#{$i} {
+        &:not(:last-child)::after {
+          @include borderAfter($i);
+        }
+      }
+    }
+  }
+
+  @include border-x();
+
   &.border {
     &:not(:last-child)::after {
-      @include borderAfter();
+      @include borderAfter(0, true);
     }
   }
 
   &.border-drawer {
     &:not(:last-child):not(:nth-last-child(2))::after {
-      @include borderAfter();
+      @include borderAfter(0, true);
     }
   }
 }
 
 .expand-button-cell {
   padding: 0;
+}
+
+@mixin offset-left {
+  @for $i from 0 through $nesting-limit {
+    &.offset-left-#{$i} {
+      left: $i * 4.125rem;
+    }
+  }
+}
+
+.connector {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.875rem;
+  height: 3.25rem;
+
+  @include offset-left();
+
+  &.vertical {
+    &::before {
+      position: absolute;
+      content: "";
+      left: 50%;
+      height: 100%;
+      width: 0.0625rem;
+      background-color: var(--color-blue-grey200);
+    }
+  }
+
+  &.t-shape {
+    &::before {
+      position: absolute;
+      content: "";
+      left: 50%;
+      height: 3.25rem;
+      width: 0.0625rem;
+      background-color: var(--color-blue-grey200);
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 50%;
+      height: 0.0625rem;
+      width: 100%;
+      background-color: var(--color-blue-grey200);
+    }
+  }
+
+  &.line {
+    &::before {
+      position: absolute;
+      content: "";
+      left: 50%;
+      height: 50%;
+      width: 1px;
+      background-color: var(--color-blue-grey200);
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 50%;
+      height: 1px;
+      width: 100%;
+      background-color: var(--color-blue-grey200);
+    }
+  }
 }

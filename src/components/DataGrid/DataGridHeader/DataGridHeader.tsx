@@ -24,6 +24,7 @@ export interface Props extends ComponentPropsWithRef<"thead"> {
   initialSort?: Sort;
   onSort?: OnSortFunction;
   enableExpandableRow?: boolean;
+  enableNestedRows?: boolean;
   disableContextMenuColumn?: boolean;
   enableMultiSorting?: boolean;
   spacing?: React.CSSProperties;
@@ -38,6 +39,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
     headers,
     disableContextMenuColumn,
     enableExpandableRow,
+    enableNestedRows,
     enableMultiSorting,
     spacing,
     ...rest
