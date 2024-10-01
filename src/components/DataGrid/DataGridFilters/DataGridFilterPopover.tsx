@@ -144,12 +144,12 @@ export const DataGridFilterPopover = ({
           <MultiSelectWrapper
             label={valueSelectLabel}
             name={"value"}
-            value={pickedValues.map(kv => kv.value)}
+            value={pickedValues.map(kv => kv.key)}
             onChange={e =>
               setPickedValues(
                 [...Array.from(e.target.options)]
                   .filter(option => option.selected)
-                  .map(option => values.find(kv => kv.value === option.value)!)
+                  .map(option => values.find(kv => kv.key === option.value)!)
               )
             }
             selectProps={{
@@ -157,8 +157,9 @@ export const DataGridFilterPopover = ({
                 label: addNewValueLabel,
                 onAddNew: value => {
                   if (value) {
-                    setValues(prev => [...prev, { key: value, value: value }]);
-                    setPickedValues(prev => [...prev, { key: value, value: value }]);
+                    const newValue = { key: value, value: value };
+                    setValues(prev => [...prev, newValue]);
+                    setPickedValues(prev => [...prev, newValue]);
                   }
                 },
                 btnProps: { title: addNewValueButtonTitle, type: "button" }
@@ -170,7 +171,7 @@ export const DataGridFilterPopover = ({
             }}
           >
             {values.map(kv => (
-              <MultiOption key={kv.key} value={kv.value}>
+              <MultiOption key={kv.key} value={kv.key}>
                 {kv.value}
               </MultiOption>
             ))}
