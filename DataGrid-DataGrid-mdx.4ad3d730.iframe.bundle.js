@@ -273,6 +273,20 @@ function _createMdxContent(props) {
         children: "const expandableRowHeaders= [\n    { name: \"description\", headline: \"Description\" },\n    { name: \"metadata\", headline: \"Metadata\" }\n  ];\n\n<DataGrid\n  headers={[\n    { name: 'index', headline: '#' },\n    { name: 'name', headline: 'Name' },\n    { name: 'number', headline: 'Random number' },\n  ]}\n  enableExpandableRow={true}\n  data={[...]}\n  spacing={{ paddingLeft: 4, paddingRight: 8 }}\n>\n  {({ item, index }) => (\n    <DataGridRow\n      key={item.id}\n      expandableRowProps= {{\n        enableExpandableRow:true,\n        expandableRowContent: (\n          <Fragment>\n            {expandableRowHeaders?.map(({ name, headline }) => (\n              <DataGridDrawerItem key={name} title={headline} description={item[name]} />\n            ))}\n          </Fragment>),\n        }\n      }\n\n    >\n      <DataGridCell>{index + 1}</DataGridCell>\n      <DataGridCell>{item.name}</DataGridCell>\n      <DataGridCell>{Math.random()}</DataGridCell>\n      <DataGridCell>\n        <ContextMenu ... />\n      </DataGridCell>\n    </DataGridRow>\n  )}\n</DataGrid>\n"
       })
     }), "\n", (0,jsx_runtime.jsx)(_components.h3, {
+      id: "nested-rows",
+      children: "Nested rows"
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["In order to enable nested rows, user has to simply provide ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "nestedItemsKey"
+      }), " inside of ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "nestedRowConfig"
+      }), " prop (see the example below)."]
+    }), "\n", (0,jsx_runtime.jsx)(_components.pre, {
+      children: (0,jsx_runtime.jsx)(_components.code, {
+        className: "language-jsx",
+        children: "  const data = [\n    {\n      name: \"Company 1\",\n      id: \"1\",\n      type: \"Stock\",\n      description: \"Lorem ipsum dolor sit amet\",\n      nestedItems: [\n        {\n          name: \"Company 3\",\n          id: \"3\",\n          type: \"Stock\",\n          description: \"Lorem ipsum dolor sit amet\",\n        },\n        {\n          name: \"Company 101\",\n          id: \"101\",\n          type: \"Stock\",\n          description: \"Lorem ipsum dolor sit amet\"\n        }\n      ]\n    },\n  ]\n\n  return(\n    <DataGridComponent\n        {...args}\n        data={data}\n        nestedRowConfig={{ nestedItemsKey: \"nestedItems\" }}\n      >\n        {({ item }: { item: DataGridItem }) => (\n          <DataGridRow key={item.id}>\n            <DataGridCell>{item.name}</DataGridCell>\n            <DataGridCell>{item.id}</DataGridCell>\n            <DataGridCell>{item.type}</DataGridCell>\n            <DataGridCell>{item.description}</DataGridCell>\n          </DataGridRow>\n        )}\n  </DataGridComponent>)\n"
+      })
+    }), "\n", (0,jsx_runtime.jsx)(_components.h3, {
       id: "disabling-context-menu-column",
       children: "Disabling context menu column"
     }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
@@ -690,6 +704,7 @@ __webpack_require__.d(__webpack_exports__, {
   DataGridIsLoading: () => (/* binding */ DataGridIsLoading),
   DataGridWithFilters: () => (/* binding */ DataGridWithFilters),
   DataGridWithFiltersInEditMode: () => (/* binding */ DataGridWithFiltersInEditMode),
+  DataGridWithNestedRows: () => (/* binding */ DataGridWithNestedRows),
   DataGridWithSearch: () => (/* binding */ DataGridWithSearch),
   DataGridWithSearchAndButtons: () => (/* binding */ DataGridWithSearchAndButtons),
   DefaultDataGrid: () => (/* binding */ DefaultDataGrid),
@@ -771,7 +786,7 @@ const useMockFilteringLogic = (data, filterValues) => {
     filters: state.filters
   };
 };
-// EXTERNAL MODULE: ./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx + 3 modules
+// EXTERNAL MODULE: ./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx + 4 modules
 var DataGridRow = __webpack_require__("./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx");
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__("./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
@@ -1378,7 +1393,9 @@ DataGridWithFilters.args = {
     }, {
       name: "type",
       headline: "Type",
-      operators: ["is", "is not"]
+      operators: ["is", "is not"],
+      defaultValues: ["Stock", "Bond"],
+      disableAddNew: true
     }],
     onFilterAdd: filter => console.log(filter),
     onFilterEdit: filter => console.log(filter),
@@ -1579,6 +1596,130 @@ DataGridWithSearch.args = {
   isLoading: false,
   enableMultiSorting: true
 };
+const NestedRowsTemplate = args => {
+  return /*#__PURE__*/react.createElement("div", {
+    style: {
+      padding: "1rem",
+      boxShadow: "0px 1px 5px 0px #01053214"
+    }
+  }, /*#__PURE__*/react.createElement("div", {
+    style: {
+      borderRadius: ".5rem",
+      backgroundColor: "#FFF"
+    }
+  }, /*#__PURE__*/react.createElement(DataGrid/* DataGrid */.z, DataGrid_stories_extends({}, args, {
+    data: args.data,
+    nestedRowConfig: {
+      nestedItemsKey: "nestedItems"
+    }
+  }), _ref7 => {
+    let {
+      item
+    } = _ref7;
+    return /*#__PURE__*/react.createElement(DataGridRow/* DataGridRow */.r, {
+      key: item.id
+    }, /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.name), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.id), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.type), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.description));
+  })));
+};
+const DataGridWithNestedRows = NestedRowsTemplate.bind({});
+DataGridWithNestedRows.play = (0,conditionalPlay/* conditionalPlay */.h)(async _ref8 => {
+  let {
+    canvasElement
+  } = _ref8;
+  const canvas = (0,test_dist/* within */.ux)(canvasElement);
+  await (0,test_dist/* waitFor */.fm)(() => (0,test_dist/* expect */.E3)(canvas.getAllByTitle("Expand row").length).toBeGreaterThanOrEqual(1));
+  await test_dist/* userEvent */.Q4.click(canvas.getAllByTitle("Expand row")[1]);
+  await test_dist/* userEvent */.Q4.click(canvas.getAllByTitle("Expand row")[0]);
+  await test_dist/* userEvent */.Q4.click(canvas.getAllByTitle("Expand row")[1]);
+  await test_dist/* userEvent */.Q4.click(canvas.getAllByTitle("Expand row")[2]);
+  await test_dist/* userEvent */.Q4.click(canvas.getAllByTitle("Expand row")[3]);
+});
+DataGridWithNestedRows.args = {
+  data: [{
+    name: "Company 1",
+    id: "1",
+    type: "Stock",
+    description: "Lorem ipsum dolor sit amet",
+    nestedItems: [{
+      name: "Company 3",
+      id: "3",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet",
+      nestedItems: [{
+        name: "Company 10",
+        id: "10",
+        type: "Stock",
+        description: "Lorem ipsum dolor sit amet",
+        nestedItems: [{
+          name: "Company 11",
+          id: "11",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet",
+          nestedItems: [{
+            name: "Company 13",
+            id: "13",
+            type: "Stock",
+            description: "Lorem ipsum dolor sit amet"
+          }]
+        }]
+      }, {
+        name: "Company 101",
+        id: "101",
+        type: "Stock",
+        description: "Lorem ipsum dolor sit amet"
+      }]
+    }, {
+      name: "Company 102",
+      id: "102",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet"
+    }]
+  }, {
+    name: "Company 2",
+    id: "2",
+    type: "Stock",
+    description: "Consectetur adipiscing elit",
+    nestedItems: [{
+      name: "Company 4",
+      id: "4",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet"
+    }, {
+      name: "Company 8",
+      id: "8",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet"
+    }, {
+      name: "Company 9",
+      id: "9",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet"
+    }]
+  }, {
+    name: "Company 20",
+    id: "20",
+    type: "Stock",
+    description: "Consectetur adipiscing elit"
+  }],
+  headers: [{
+    name: "name",
+    headline: "Name"
+  }, {
+    name: "id",
+    headline: "Identifier"
+  }, {
+    name: "type",
+    headline: "Type",
+    disableSorting: true
+  }, {
+    name: "description",
+    headline: "Description",
+    disableSorting: true
+  }],
+  disableContextMenuColumn: true,
+  isLoading: false,
+  enableMultiSorting: true
+};
 const DataGridWithSearchAndButtons = SearchTemplate.bind({});
 DataGridWithSearchAndButtons.args = {
   data: [{
@@ -1684,10 +1825,10 @@ const ToolbarWithAllOptionsTemplate = args => {
         icon: Icon/* Icons */.F.Plus
       })
     }, "Add item")]
-  }), _ref7 => {
+  }), _ref9 => {
     let {
       item
-    } = _ref7;
+    } = _ref9;
     return /*#__PURE__*/react.createElement(DataGridRow/* DataGridRow */.r, {
       key: item.id
     }, /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.name), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.id), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.type), /*#__PURE__*/react.createElement(DataGridCell/* DataGridCell */.N, null, item.description));
@@ -1808,6 +1949,16 @@ DataGridWithSearch.parameters = {
     }
   }
 };
+DataGridWithNestedRows.parameters = {
+  ...DataGridWithNestedRows.parameters,
+  docs: {
+    ...DataGridWithNestedRows.parameters?.docs,
+    source: {
+      originalSource: "args => {\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={args.data} nestedRowConfig={{\n        nestedItemsKey: \"nestedItems\"\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.id}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n              <DataGridCell>{item.description}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
+      ...DataGridWithNestedRows.parameters?.docs?.source
+    }
+  }
+};
 DataGridWithSearchAndButtons.parameters = {
   ...DataGridWithSearchAndButtons.parameters,
   docs: {
@@ -1827,7 +1978,7 @@ ToolbarWithAllOptions.parameters = {
       ...ToolbarWithAllOptions.parameters?.docs?.source
     }
   }
-};;const __namedExportsOrder = ["DefaultDataGrid","DataGridIsLoading","EmptyDataGrid","ExpandableDataGrid","HiddenContextMenuColumnDataGrid","DataGridWithFilters","DataGridWithFiltersInEditMode","DataGridWithSearch","DataGridWithSearchAndButtons","ToolbarWithAllOptions"];
+};;const __namedExportsOrder = ["DefaultDataGrid","DataGridIsLoading","EmptyDataGrid","ExpandableDataGrid","HiddenContextMenuColumnDataGrid","DataGridWithFilters","DataGridWithFiltersInEditMode","DataGridWithSearch","DataGridWithNestedRows","DataGridWithSearchAndButtons","ToolbarWithAllOptions"];
 try {
     // @ts-ignore
     DefaultDataGrid.displayName = "DefaultDataGrid";
@@ -1914,6 +2065,17 @@ try {
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
         STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DataGridWithSearch"] = { docgenInfo: DataGridWithSearch.__docgenInfo, name: "DataGridWithSearch", path: "stories/DataGrid/DataGrid.stories.tsx#DataGridWithSearch" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+try {
+    // @ts-ignore
+    DataGridWithNestedRows.displayName = "DataGridWithNestedRows";
+    // @ts-ignore
+    DataGridWithNestedRows.__docgenInfo = { "description": "", "displayName": "DataGridWithNestedRows", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DataGridWithNestedRows"] = { docgenInfo: DataGridWithNestedRows.__docgenInfo, name: "DataGridWithNestedRows", path: "stories/DataGrid/DataGrid.stories.tsx#DataGridWithNestedRows" };
 }
 catch (__react_docgen_typescript_loader_error) { }
 try {

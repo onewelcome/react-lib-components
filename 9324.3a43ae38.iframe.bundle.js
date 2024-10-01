@@ -333,11 +333,9 @@ var PARAM_KEY="backgrounds";var{document: preview_document,window: preview_windo
 /***/ }),
 
 /***/ "./node_modules/@storybook/addon-essentials/dist/highlight/preview.mjs":
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "__STORYBOOK_MODULE_GLOBAL__"
 var external_STORYBOOK_MODULE_GLOBAL_ = __webpack_require__("@storybook/global");
@@ -28297,8 +28295,7 @@ function lexer(str) {
 function parse(str, options) {
     if (options === void 0) { options = {}; }
     var tokens = lexer(str);
-    var _a = options.prefixes, prefixes = _a === void 0 ? "./" : _a;
-    var defaultPattern = "[^".concat(escapeString(options.delimiter || "/#?"), "]+?");
+    var _a = options.prefixes, prefixes = _a === void 0 ? "./" : _a, _b = options.delimiter, delimiter = _b === void 0 ? "/#?" : _b;
     var result = [];
     var key = 0;
     var i = 0;
@@ -28322,6 +28319,24 @@ function parse(str, options) {
         }
         return result;
     };
+    var isSafe = function (value) {
+        for (var _i = 0, delimiter_1 = delimiter; _i < delimiter_1.length; _i++) {
+            var char = delimiter_1[_i];
+            if (value.indexOf(char) > -1)
+                return true;
+        }
+        return false;
+    };
+    var safePattern = function (prefix) {
+        var prev = result[result.length - 1];
+        var prevText = prefix || (prev && typeof prev === "string" ? prev : "");
+        if (prev && !prevText) {
+            throw new TypeError("Must have text between two parameters, missing text after \"".concat(prev.name, "\""));
+        }
+        if (!prevText || isSafe(prevText))
+            return "[^".concat(escapeString(delimiter), "]+?");
+        return "(?:(?!".concat(escapeString(prevText), ")[^").concat(escapeString(delimiter), "])+?");
+    };
     while (i < tokens.length) {
         var char = tryConsume("CHAR");
         var name = tryConsume("NAME");
@@ -28340,7 +28355,7 @@ function parse(str, options) {
                 name: name || key++,
                 prefix: prefix,
                 suffix: "",
-                pattern: pattern || defaultPattern,
+                pattern: pattern || safePattern(prefix),
                 modifier: tryConsume("MODIFIER") || "",
             });
             continue;
@@ -28363,7 +28378,7 @@ function parse(str, options) {
             mustConsume("CLOSE");
             result.push({
                 name: name_1 || (pattern_1 ? key++ : ""),
-                pattern: name_1 && !pattern_1 ? defaultPattern : pattern_1,
+                pattern: name_1 && !pattern_1 ? safePattern(prefix) : pattern_1,
                 prefix: prefix,
                 suffix: suffix,
                 modifier: tryConsume("MODIFIER") || "",
@@ -28556,11 +28571,9 @@ function tokensToRegexp(tokens, keys, options) {
                 }
                 else {
                     if (token.modifier === "+" || token.modifier === "*") {
-                        route += "((?:".concat(token.pattern, ")").concat(token.modifier, ")");
+                        throw new TypeError("Can not repeat \"".concat(token.name, "\" without a prefix and suffix"));
                     }
-                    else {
-                        route += "(".concat(token.pattern, ")").concat(token.modifier);
-                    }
+                    route += "(".concat(token.pattern, ")").concat(token.modifier);
                 }
             }
             else {

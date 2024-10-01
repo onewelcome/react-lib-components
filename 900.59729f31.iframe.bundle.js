@@ -240,6 +240,7 @@ const DataGridHeaderComponent = (_ref, ref) => {
     headers,
     disableContextMenuColumn,
     enableExpandableRow,
+    enableNestedRows,
     enableMultiSorting,
     spacing,
     ...rest
@@ -318,7 +319,7 @@ try {
     // @ts-ignore
     DataGridHeader.displayName = "DataGridHeader";
     // @ts-ignore
-    DataGridHeader.__docgenInfo = { "description": "", "displayName": "DataGridHeader", "props": { "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "CSSProperties" } }, "initialSort": { "defaultValue": null, "description": "", "name": "initialSort", "required": false, "type": { "name": "Sort" } }, "onSort": { "defaultValue": null, "description": "", "name": "onSort", "required": false, "type": { "name": "OnSortFunction" } }, "headers": { "defaultValue": null, "description": "", "name": "headers", "required": true, "type": { "name": "HeaderCell[]" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "enableExpandableRow": { "defaultValue": null, "description": "", "name": "enableExpandableRow", "required": false, "type": { "name": "boolean" } }, "enableMultiSorting": { "defaultValue": null, "description": "", "name": "enableMultiSorting", "required": false, "type": { "name": "boolean" } } } };
+    DataGridHeader.__docgenInfo = { "description": "", "displayName": "DataGridHeader", "props": { "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "CSSProperties" } }, "initialSort": { "defaultValue": null, "description": "", "name": "initialSort", "required": false, "type": { "name": "Sort" } }, "onSort": { "defaultValue": null, "description": "", "name": "onSort", "required": false, "type": { "name": "OnSortFunction" } }, "headers": { "defaultValue": null, "description": "", "name": "headers", "required": true, "type": { "name": "HeaderCell[]" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "enableExpandableRow": { "defaultValue": null, "description": "", "name": "enableExpandableRow", "required": false, "type": { "name": "boolean" } }, "enableMultiSorting": { "defaultValue": null, "description": "", "name": "enableMultiSorting", "required": false, "type": { "name": "boolean" } }, "enableNestedRows": { "defaultValue": null, "description": "", "name": "enableNestedRows", "required": false, "type": { "name": "boolean" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -626,7 +627,7 @@ try {
 catch (__react_docgen_typescript_loader_error) { }
 // EXTERNAL MODULE: ./src/components/DataGrid/DataGridBody/DataGridCell/DataGridCell.tsx + 1 modules
 var DataGridCell = __webpack_require__("./src/components/DataGrid/DataGridBody/DataGridCell/DataGridCell.tsx");
-// EXTERNAL MODULE: ./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx + 3 modules
+// EXTERNAL MODULE: ./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx + 4 modules
 var DataGridRow = __webpack_require__("./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx");
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[15].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGridBody/DataGridBody.module.scss
 var DataGridBody_module = __webpack_require__("./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[15].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/DataGrid/DataGridBody/DataGridBody.module.scss");
@@ -694,6 +695,7 @@ const DataGridBodyInner = (_ref, ref) => {
     children,
     data,
     headers,
+    nestedRowConfig,
     isLoading,
     disableContextMenuColumn,
     emptyLabel,
@@ -732,7 +734,14 @@ const DataGridBodyInner = (_ref, ref) => {
         searchValue: searchValue,
         headers,
         spacing,
-        disableContextMenuColumn
+        item,
+        disableContextMenuColumn,
+        nestedRowProps: {
+          rowTemplate: children,
+          enableNestedRow: !!nestedRowConfig,
+          nestedItemsKey: nestedRowConfig === null || nestedRowConfig === void 0 ? void 0 : nestedRowConfig.nestedItemsKey,
+          isLastChild: index + 1 === data.length
+        }
       });
     });
   };
@@ -745,7 +754,7 @@ try {
     // @ts-ignore
     DataGridBody.displayName = "DataGridBody";
     // @ts-ignore
-    DataGridBody.__docgenInfo = { "description": "", "displayName": "DataGridBody", "props": { "data": { "defaultValue": null, "description": "", "name": "data", "required": false, "type": { "name": "T[]" } }, "headers": { "defaultValue": null, "description": "", "name": "headers", "required": true, "type": { "name": "HeaderCell[]" } }, "isLoading": { "defaultValue": null, "description": "", "name": "isLoading", "required": false, "type": { "name": "boolean" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "searchValue": { "defaultValue": null, "description": "", "name": "searchValue", "required": false, "type": { "name": "string" } }, "emptyLabel": { "defaultValue": null, "description": "", "name": "emptyLabel", "required": false, "type": { "name": "string" } }, "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "CSSProperties" } }, "ref": { "defaultValue": null, "description": "", "name": "ref", "required": false, "type": { "name": "((instance: HTMLTableSectionElement | null) => void) | RefObject<HTMLTableSectionElement> | null" } } } };
+    DataGridBody.__docgenInfo = { "description": "", "displayName": "DataGridBody", "props": { "data": { "defaultValue": null, "description": "", "name": "data", "required": false, "type": { "name": "T[]" } }, "nestedRowConfig": { "defaultValue": null, "description": "", "name": "nestedRowConfig", "required": false, "type": { "name": "{ nestedItemsKey?: keyof T; }" } }, "headers": { "defaultValue": null, "description": "", "name": "headers", "required": true, "type": { "name": "HeaderCell[]" } }, "isLoading": { "defaultValue": null, "description": "", "name": "isLoading", "required": false, "type": { "name": "boolean" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "searchValue": { "defaultValue": null, "description": "", "name": "searchValue", "required": false, "type": { "name": "string" } }, "emptyLabel": { "defaultValue": null, "description": "", "name": "emptyLabel", "required": false, "type": { "name": "string" } }, "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "CSSProperties" } }, "ref": { "defaultValue": null, "description": "", "name": "ref", "required": false, "type": { "name": "((instance: HTMLTableSectionElement | null) => void) | RefObject<HTMLTableSectionElement> | null" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -994,6 +1003,13 @@ const DataGridFilterPopover = _ref => {
       (_popoverRef$current = popoverRef.current) === null || _popoverRef$current === void 0 || _popoverRef$current.focus();
     }
   }, [isOpen]);
+  const columnMetadata = columnsMetadata.find(_ref2 => {
+    let {
+      name
+    } = _ref2;
+    return name === column;
+  });
+  const disableAddNew = columnMetadata === null || columnMetadata === void 0 ? void 0 : columnMetadata.disableAddNew;
   return /*#__PURE__*/react.createElement(Popover/* Popover */.A, {
     tabIndex: -1,
     anchorEl: anchorRef,
@@ -1017,10 +1033,10 @@ const DataGridFilterPopover = _ref => {
     name: "column",
     onChange: e => {
       setColumn(e.target.value);
-      const columnMetadata = columnsMetadata.find(_ref2 => {
+      const columnMetadata = columnsMetadata.find(_ref3 => {
         let {
           name
-        } = _ref2;
+        } = _ref3;
         return name === e.target.value;
       });
       if (columnMetadata !== null && columnMetadata !== void 0 && columnMetadata.operators) {
@@ -1038,11 +1054,11 @@ const DataGridFilterPopover = _ref => {
         setValues([]);
       }
     }
-  }, columnsMetadata.map(_ref3 => {
+  }, columnsMetadata.map(_ref4 => {
     let {
       name,
       headline
-    } = _ref3;
+    } = _ref4;
     return /*#__PURE__*/react.createElement(Option/* Option */.c, {
       className: DataGridFilters_DataGridFilter_module["column-select-option"],
       key: name,
@@ -1062,7 +1078,7 @@ const DataGridFilterPopover = _ref => {
     value: pickedValues,
     onChange: e => setPickedValues([...Array.from(e.target.options)].filter(option => option.selected).map(option => option.value)),
     selectProps: {
-      addNew: {
+      addNew: disableAddNew ? undefined : {
         label: addNewValueLabel,
         onAddNew: value => {
           if (value) {
@@ -1653,6 +1669,7 @@ const DataGridInner = (_ref, ref) => {
     headers,
     actions = {},
     paginationProps,
+    nestedRowConfig,
     disableContextMenuColumn,
     enableExpandableRow,
     filters,
@@ -1731,6 +1748,7 @@ const DataGridInner = (_ref, ref) => {
     onSort: onSort,
     disableContextMenuColumn: disableContextMenuColumn,
     enableExpandableRow: enableExpandableRow,
+    enableNestedRows: !!nestedRowConfig,
     enableMultiSorting: enableMultiSorting,
     spacing: styleWithSpacing
   }), /*#__PURE__*/react.createElement(DataGridBody, {
@@ -1738,6 +1756,7 @@ const DataGridInner = (_ref, ref) => {
     headers: internalHeaders,
     isLoading: isLoading,
     disableContextMenuColumn: disableContextMenuColumn,
+    nestedRowConfig: nestedRowConfig,
     emptyLabel: emptyLabel,
     spacing: styleWithSpacing,
     searchValue: search === null || search === void 0 ? void 0 : search.initialSearchValue
@@ -1755,7 +1774,7 @@ try {
     // @ts-ignore
     DataGrid.displayName = "DataGrid";
     // @ts-ignore
-    DataGrid.__docgenInfo = { "description": "", "displayName": "DataGrid", "props": { "data": { "defaultValue": null, "description": "", "name": "data", "required": false, "type": { "name": "T[]" } }, "initialSort": { "defaultValue": null, "description": "", "name": "initialSort", "required": false, "type": { "name": "Sort" } }, "onSort": { "defaultValue": null, "description": "", "name": "onSort", "required": false, "type": { "name": "OnSortFunction" } }, "headers": { "defaultValue": null, "description": "", "name": "headers", "required": true, "type": { "name": "HeaderCell[]" } }, "actions": { "defaultValue": { value: "{}" }, "description": "@deprecated use the `toolbarButtons` prop instead", "name": "actions", "required": false, "type": { "name": "{ enableAddBtn?: boolean; enableColumnsBtn?: boolean; enableSearchBtn?: boolean | undefined; addBtnProps?: Props | undefined; columnsBtnProps?: Props | undefined; searchBtnProps?: Props | undefined; searchIconBtnProps?: Props | undefined; } | undefined" } }, "emptyLabel": { "defaultValue": null, "description": "", "name": "emptyLabel", "required": false, "type": { "name": "string" } }, "paginationProps": { "defaultValue": null, "description": "", "name": "paginationProps", "required": false, "type": { "name": "Props" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "enableExpandableRow": { "defaultValue": null, "description": "", "name": "enableExpandableRow", "required": false, "type": { "name": "boolean" } }, "filters": { "defaultValue": null, "description": "", "name": "filters", "required": false, "type": { "name": "DataGridToolbarProps" } }, "search": { "defaultValue": null, "description": "", "name": "search", "required": false, "type": { "name": "DataGridSearchbarProps" } }, "toolbarButtons": { "defaultValue": null, "description": "", "name": "toolbarButtons", "required": false, "type": { "name": "ReactElement<Props, ForwardRefExoticComponent<Omit<Props, \"ref\"> & RefAttributes<HTMLButtonElement>>> | ReactElement<...>[]" } }, "isLoading": { "defaultValue": null, "description": "", "name": "isLoading", "required": false, "type": { "name": "boolean" } }, "enableMultiSorting": { "defaultValue": null, "description": "", "name": "enableMultiSorting", "required": false, "type": { "name": "boolean" } }, "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "Spacing" } }, "ref": { "defaultValue": null, "description": "", "name": "ref", "required": false, "type": { "name": "((instance: HTMLDivElement | null) => void) | RefObject<HTMLDivElement> | null" } } } };
+    DataGrid.__docgenInfo = { "description": "", "displayName": "DataGrid", "props": { "data": { "defaultValue": null, "description": "", "name": "data", "required": false, "type": { "name": "T[]" } }, "initialSort": { "defaultValue": null, "description": "", "name": "initialSort", "required": false, "type": { "name": "Sort" } }, "onSort": { "defaultValue": null, "description": "", "name": "onSort", "required": false, "type": { "name": "OnSortFunction" } }, "headers": { "defaultValue": null, "description": "", "name": "headers", "required": true, "type": { "name": "HeaderCell[]" } }, "actions": { "defaultValue": { value: "{}" }, "description": "@deprecated use the `toolbarButtons` prop instead", "name": "actions", "required": false, "type": { "name": "{ enableAddBtn?: boolean; enableColumnsBtn?: boolean; enableSearchBtn?: boolean | undefined; addBtnProps?: Props | undefined; columnsBtnProps?: Props | undefined; searchBtnProps?: Props | undefined; searchIconBtnProps?: Props | undefined; } | undefined" } }, "nestedRowConfig": { "defaultValue": null, "description": "", "name": "nestedRowConfig", "required": false, "type": { "name": "{ nestedItemsKey?: keyof T; }" } }, "emptyLabel": { "defaultValue": null, "description": "", "name": "emptyLabel", "required": false, "type": { "name": "string" } }, "paginationProps": { "defaultValue": null, "description": "", "name": "paginationProps", "required": false, "type": { "name": "Props" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "enableExpandableRow": { "defaultValue": null, "description": "", "name": "enableExpandableRow", "required": false, "type": { "name": "boolean" } }, "filters": { "defaultValue": null, "description": "", "name": "filters", "required": false, "type": { "name": "DataGridToolbarProps" } }, "search": { "defaultValue": null, "description": "", "name": "search", "required": false, "type": { "name": "DataGridSearchbarProps" } }, "toolbarButtons": { "defaultValue": null, "description": "", "name": "toolbarButtons", "required": false, "type": { "name": "ReactElement<Props, ForwardRefExoticComponent<Omit<Props, \"ref\"> & RefAttributes<HTMLButtonElement>>> | ReactElement<...>[]" } }, "isLoading": { "defaultValue": null, "description": "", "name": "isLoading", "required": false, "type": { "name": "boolean" } }, "enableMultiSorting": { "defaultValue": null, "description": "", "name": "enableMultiSorting", "required": false, "type": { "name": "boolean" } }, "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "Spacing" } }, "ref": { "defaultValue": null, "description": "", "name": "ref", "required": false, "type": { "name": "((instance: HTMLDivElement | null) => void) | RefObject<HTMLDivElement> | null" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -1860,6 +1879,7 @@ const DataGridCellComponent = (_ref, ref) => {
     className,
     isLoading,
     spacing,
+    prefixElement,
     searchValue,
     cellIndex,
     columnLength,
@@ -1903,7 +1923,20 @@ const DataGridCellComponent = (_ref, ref) => {
       ...cellStyle
     },
     className: "".concat(DataGridCell_DataGridCell_module["cell"], " ").concat(className !== null && className !== void 0 ? className : "")
-  }), isLoading && /*#__PURE__*/react.createElement("div", {
+  }), prefixElement ? /*#__PURE__*/react.createElement("div", {
+    className: DataGridCell_DataGridCell_module["content-wrapper"]
+  }, prefixElement, isLoading && /*#__PURE__*/react.createElement("div", {
+    className: DataGridCell_DataGridCell_module["loading"],
+    "aria-busy": "true",
+    "aria-live": "polite"
+  }), !isLoading && /*#__PURE__*/react.createElement(Typography/* Typography */.o, {
+    className: DataGridCell_DataGridCell_module["text"],
+    variant: "body",
+    tag: "span",
+    spacing: {
+      marginBottom: 0
+    }
+  }, renderContent())) : /*#__PURE__*/react.createElement(react.Fragment, null, isLoading && /*#__PURE__*/react.createElement("div", {
     className: DataGridCell_DataGridCell_module["loading"],
     "aria-busy": "true",
     "aria-live": "polite"
@@ -1911,14 +1944,14 @@ const DataGridCellComponent = (_ref, ref) => {
     className: DataGridCell_DataGridCell_module["text"],
     variant: "body",
     tag: "span"
-  }, renderContent()));
+  }, renderContent())));
 };
 const DataGridCell = /*#__PURE__*/react.forwardRef(DataGridCellComponent);
 try {
     // @ts-ignore
     DataGridCell.displayName = "DataGridCell";
     // @ts-ignore
-    DataGridCell.__docgenInfo = { "description": "", "displayName": "DataGridCell", "props": { "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "CSSProperties" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "isLoading": { "defaultValue": null, "description": "", "name": "isLoading", "required": false, "type": { "name": "boolean" } }, "searchValue": { "defaultValue": null, "description": "", "name": "searchValue", "required": false, "type": { "name": "string" } }, "cellIndex": { "defaultValue": null, "description": "", "name": "cellIndex", "required": false, "type": { "name": "number" } }, "columnLength": { "defaultValue": null, "description": "", "name": "columnLength", "required": false, "type": { "name": "number" } } } };
+    DataGridCell.__docgenInfo = { "description": "", "displayName": "DataGridCell", "props": { "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "CSSProperties" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "isLoading": { "defaultValue": null, "description": "", "name": "isLoading", "required": false, "type": { "name": "boolean" } }, "prefixElement": { "defaultValue": null, "description": "", "name": "prefixElement", "required": false, "type": { "name": "ReactElement<any, string | JSXElementConstructor<any>>" } }, "searchValue": { "defaultValue": null, "description": "", "name": "searchValue", "required": false, "type": { "name": "string" } }, "cellIndex": { "defaultValue": null, "description": "", "name": "cellIndex", "required": false, "type": { "name": "number" } }, "columnLength": { "defaultValue": null, "description": "", "name": "columnLength", "required": false, "type": { "name": "number" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -2076,6 +2109,136 @@ try {
 catch (__react_docgen_typescript_loader_error) { }
 // EXTERNAL MODULE: ./src/util/helper.tsx
 var helper = __webpack_require__("./src/util/helper.tsx");
+;// CONCATENATED MODULE: ./src/components/DataGrid/DataGridBody/DataGridRow/useNestedRow.tsx
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+const useNestedRow = _ref => {
+  let {
+    indentationLevels,
+    item,
+    nestedItemsKey,
+    rowTemplate,
+    isRowExpanded,
+    indentationLevel,
+    enableNestedRow,
+    rowProps: {
+      searchValue,
+      headers,
+      spacing,
+      disableContextMenuColumn
+    }
+  } = _ref;
+  const hasNestedChildren = item && nestedItemsKey && item[nestedItemsKey];
+  const getNestedChildSpacing = (spacing, index) => {
+    const expandButtonWidth = 46;
+    const nestedChildOffset = !hasNestedChildren ? expandButtonWidth : 0;
+    const connectorWidth = 68;
+    const nestedChildIndentation = "".concat(nestedChildOffset + indentationLevel * connectorWidth);
+    const gap = 4;
+    const notIndentedWithNoChildrenOffset = indentationLevel === 0 && !hasNestedChildren ? expandButtonWidth + gap : gap;
+    const childIndentation = "".concat(indentationLevel ? nestedChildIndentation : notIndentedWithNoChildrenOffset, "px");
+    if (spacing) {
+      return {
+        ...spacing,
+        paddingLeft: index === 0 ? childIndentation : spacing.paddingLeft
+      };
+    }
+    return {
+      paddingLeft: index === 0 ? childIndentation : ""
+    };
+  };
+  const renderNestedRowConnectors = () => {
+    if (indentationLevels) {
+      return indentationLevels.map(_ref2 => {
+        let {
+          level,
+          isLastChild
+        } = _ref2;
+        return renderNestedRowConnector(level, isLastChild, indentationLevels.length);
+      });
+    }
+    return null;
+  };
+  const renderNestedRowConnector = (level, isLastChild, levelsLength) => {
+    const offsetLeftClass = DataGridRow_DataGridRow_module["offset-left-".concat(level - 1)];
+    if (level === levelsLength) {
+      const variant = isLastChild ? "line" : "t-shape";
+      return /*#__PURE__*/react.createElement("div", {
+        key: level,
+        "data-testid": "dataGridRowConnector",
+        className: "".concat(DataGridRow_DataGridRow_module["connector"], " ").concat(DataGridRow_DataGridRow_module[variant], " ").concat(offsetLeftClass)
+      });
+    } else if (!isLastChild) {
+      return /*#__PURE__*/react.createElement("div", {
+        key: level,
+        "data-testid": "dataGridRowConnector",
+        className: "".concat(DataGridRow_DataGridRow_module["connector"], " ").concat(DataGridRow_DataGridRow_module["vertical"], "  ").concat(offsetLeftClass)
+      });
+    }
+    return null;
+  };
+  const renderNestedRow = () => {
+    if (rowTemplate && item && nestedItemsKey && item[nestedItemsKey] && isRowExpanded) {
+      const nestedItemsArray = item[nestedItemsKey];
+      const getIndentationLevel = index => ({
+        level: indentationLevel + 1,
+        isLastChild: index + 1 === nestedItemsArray.length
+      });
+      return nestedItemsArray.map((item, index) => {
+        return /*#__PURE__*/react.cloneElement(rowTemplate({
+          item,
+          index
+        }), {
+          searchValue,
+          headers,
+          spacing,
+          disableContextMenuColumn,
+          item,
+          nestedRowProps: {
+            rowTemplate,
+            enableNestedRow,
+            nestedItemsKey,
+            indentationLevel: indentationLevel + 1,
+            indentationLevels: indentationLevels && nestedItemsArray ? [...indentationLevels, getIndentationLevel(index)] : [getIndentationLevel(index)]
+          }
+        });
+      });
+    }
+  };
+  return {
+    renderNestedRow,
+    renderNestedRowConnectors,
+    getNestedChildSpacing,
+    hasNestedChildren
+  };
+};
+try {
+    // @ts-ignore
+    useNestedRow.displayName = "useNestedRow";
+    // @ts-ignore
+    useNestedRow.__docgenInfo = { "description": "", "displayName": "useNestedRow", "props": { "indentationLevels": { "defaultValue": null, "description": "", "name": "indentationLevels", "required": false, "type": { "name": "{ level: number; isLastChild: boolean; }[]" } }, "item": { "defaultValue": null, "description": "", "name": "item", "required": false, "type": { "name": "T" } }, "nestedItemsKey": { "defaultValue": null, "description": "", "name": "nestedItemsKey", "required": false, "type": { "name": "string | number | symbol" } }, "rowTemplate": { "defaultValue": null, "description": "", "name": "rowTemplate", "required": false, "type": { "name": "(({ item, index }: { item: T; index: number; }) => ReactElement<any, string | JSXElementConstructor<any>>)" } }, "isRowExpanded": { "defaultValue": null, "description": "", "name": "isRowExpanded", "required": false, "type": { "name": "boolean" } }, "indentationLevel": { "defaultValue": null, "description": "", "name": "indentationLevel", "required": true, "type": { "name": "number" } }, "enableNestedRow": { "defaultValue": null, "description": "", "name": "enableNestedRow", "required": false, "type": { "name": "boolean" } }, "rowProps": { "defaultValue": null, "description": "", "name": "rowProps", "required": true, "type": { "name": "{ searchValue?: string | undefined; headers?: HeaderCell[] | undefined; spacing?: CSSProperties | undefined; disableContextMenuColumn?: boolean | undefined; }" } } } };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/DataGrid/DataGridBody/DataGridRow/useNestedRow.tsx#useNestedRow"] = { docgenInfo: useNestedRow.__docgenInfo, name: "useNestedRow", path: "src/components/DataGrid/DataGridBody/DataGridRow/useNestedRow.tsx#useNestedRow" };
+}
+catch (__react_docgen_typescript_loader_error) { }
 ;// CONCATENATED MODULE: ./src/components/DataGrid/DataGridBody/DataGridRow/DataGridRow.tsx
 function DataGridRow_extends() {
   return DataGridRow_extends = Object.assign ? Object.assign.bind() : function (n) {
@@ -2109,8 +2272,10 @@ function DataGridRow_extends() {
 
 
 
+
 const DataGridRowComponent = (_ref, ref) => {
   let {
+    item,
     children,
     className,
     headers,
@@ -2119,6 +2284,7 @@ const DataGridRowComponent = (_ref, ref) => {
     spacing,
     expandableRowProps,
     disableContextMenuColumn,
+    nestedRowProps,
     ...rest
   } = _ref;
   const {
@@ -2128,25 +2294,65 @@ const DataGridRowComponent = (_ref, ref) => {
     drawerId = "ID-".concat((0,helper/* generateID */.ni)()),
     expandableRowContent
   } = expandableRowProps || {};
+  const {
+    indentationLevels,
+    indentationLevel = 0,
+    nestedItemsKey,
+    enableNestedRow,
+    rowTemplate
+  } = nestedRowProps || {};
   const [isRowExpanded, setIsRowExpanded] = (0,react.useState)(false);
+  const {
+    renderNestedRowConnectors,
+    renderNestedRow,
+    getNestedChildSpacing,
+    hasNestedChildren
+  } = useNestedRow({
+    indentationLevels,
+    indentationLevel,
+    item,
+    nestedItemsKey,
+    rowTemplate,
+    isRowExpanded,
+    enableNestedRow,
+    rowProps: {
+      searchValue,
+      headers,
+      spacing,
+      disableContextMenuColumn
+    }
+  });
+  const classNames = [DataGridRow_DataGridRow_module["row"]];
+  const rowBorderClass = enableNestedRow ? DataGridRow_DataGridRow_module["border-".concat(indentationLevel)] : DataGridRow_DataGridRow_module["border"];
+  className && classNames.push(className);
+  enableExpandableRow ? !isRowExpanded && classNames.push(DataGridRow_DataGridRow_module["border-drawer"]) : classNames.push(rowBorderClass);
+  isLoading && classNames.push(DataGridRow_DataGridRow_module["loading"]);
+  const getPrefixButton = hasNestedChildren => hasNestedChildren ? /*#__PURE__*/react.createElement(IconButton/* IconButton */.K, {
+    id: expandButtonId,
+    title: expandButtonTitle,
+    "aria-expanded": isRowExpanded,
+    onClick: () => setIsRowExpanded(!isRowExpanded)
+  }, /*#__PURE__*/react.createElement(Icon/* Icon */.I, {
+    size: "0.75rem",
+    icon: isRowExpanded ? Icon/* Icons */.F.ChevronUp : Icon/* Icons */.F.ChevronDown
+  })) : null;
   const visibleCells = react.Children.map(children, (child, index) => {
+    const childSpacing = enableNestedRow ? getNestedChildSpacing(spacing, index) : spacing;
+    const prefixElement = enableNestedRow && index === 0 ? /*#__PURE__*/react.createElement(react.Fragment, null, getPrefixButton(!!hasNestedChildren), renderNestedRowConnectors()) : null;
     if (child) {
       const cellWithSpacing = /*#__PURE__*/react.cloneElement(child, {
         searchValue,
-        spacing: spacing,
+        spacing: childSpacing,
         cellIndex: index,
         columnLength: headers === null || headers === void 0 ? void 0 : headers.length,
-        disableContextMenuColumn
+        disableContextMenuColumn,
+        prefixElement
       });
       const visible = headers && headers.length > index ? !headers[index].hidden : true;
       return visible && cellWithSpacing;
     }
     return null;
   });
-  const classNames = [DataGridRow_DataGridRow_module["row"]];
-  className && classNames.push(className);
-  enableExpandableRow ? !isRowExpanded && classNames.push(DataGridRow_DataGridRow_module["border-drawer"]) : classNames.push(DataGridRow_DataGridRow_module["border"]);
-  isLoading && classNames.push(DataGridRow_DataGridRow_module["loading"]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("tr", DataGridRow_extends({}, rest, {
     ref: ref,
     className: classNames.join(" ")
@@ -2173,14 +2379,14 @@ const DataGridRowComponent = (_ref, ref) => {
     role: "region",
     "aria-labelledby": expandButtonId,
     isExpanded: isRowExpanded
-  }, expandableRowContent))));
+  }, expandableRowContent))), enableNestedRow && renderNestedRow());
 };
 const DataGridRow = /*#__PURE__*/react.forwardRef(DataGridRowComponent);
 try {
     // @ts-ignore
     DataGridRow.displayName = "DataGridRow";
     // @ts-ignore
-    DataGridRow.__docgenInfo = { "description": "", "displayName": "DataGridRow", "props": { "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "CSSProperties" } }, "headers": { "defaultValue": null, "description": "", "name": "headers", "required": false, "type": { "name": "HeaderCell[]" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "isLoading": { "defaultValue": null, "description": "", "name": "isLoading", "required": false, "type": { "name": "boolean" } }, "searchValue": { "defaultValue": null, "description": "", "name": "searchValue", "required": false, "type": { "name": "string" } }, "expandableRowProps": { "defaultValue": null, "description": "", "name": "expandableRowProps", "required": false, "type": { "name": "{ enableExpandableRow: boolean; expandableRowContent: ReactNode; expandButtonTitle?: string; expandButtonId?: string; drawerId?: string | undefined; } | undefined" } } } };
+    DataGridRow.__docgenInfo = { "description": "", "displayName": "DataGridRow", "props": { "item": { "defaultValue": null, "description": "", "name": "item", "required": false, "type": { "name": "{}" } }, "headers": { "defaultValue": null, "description": "", "name": "headers", "required": false, "type": { "name": "HeaderCell[]" } }, "isLoading": { "defaultValue": null, "description": "", "name": "isLoading", "required": false, "type": { "name": "boolean" } }, "spacing": { "defaultValue": null, "description": "", "name": "spacing", "required": false, "type": { "name": "CSSProperties" } }, "searchValue": { "defaultValue": null, "description": "", "name": "searchValue", "required": false, "type": { "name": "string" } }, "disableContextMenuColumn": { "defaultValue": null, "description": "", "name": "disableContextMenuColumn", "required": false, "type": { "name": "boolean" } }, "nestedRowProps": { "defaultValue": null, "description": "", "name": "nestedRowProps", "required": false, "type": { "name": "{ rowTemplate?: (({ item, index }: { item: T; index: number; }) => ReactElement<any, string | JSXElementConstructor<any>>); indentationLevel?: number; indentationLevels?: { ...; }[] | undefined; enableNestedRow?: boolean | undefined; nestedItemsKey?: keyof T | undefined; } | undefined" } }, "expandableRowProps": { "defaultValue": null, "description": "", "name": "expandableRowProps", "required": false, "type": { "name": "{ enableExpandableRow: boolean; expandableRowContent: ReactNode; expandButtonTitle?: string; expandButtonId?: string; drawerId?: string | undefined; } | undefined" } }, "ref": { "defaultValue": null, "description": "", "name": "ref", "required": false, "type": { "name": "((instance: HTMLTableRowElement | null) => void) | RefObject<HTMLTableRowElement> | null" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -2365,7 +2571,7 @@ try {
     // @ts-ignore
     MultiOption.displayName = "MultiOption";
     // @ts-ignore
-    MultiOption.__docgenInfo = { "description": "", "displayName": "MultiOption", "props": { "label": { "defaultValue": null, "description": "", "name": "label", "required": false, "type": { "name": "string" } }, "disabled": { "defaultValue": null, "description": "", "name": "disabled", "required": false, "type": { "name": "boolean" } }, "value": { "defaultValue": null, "description": "", "name": "value", "required": true, "type": { "name": "string" } }, "isSelected": { "defaultValue": null, "description": "", "name": "isSelected", "required": false, "type": { "name": "boolean" } }, "disableDefaultSelectedStyle": { "defaultValue": null, "description": "", "name": "disableDefaultSelectedStyle", "required": false, "type": { "name": "boolean" } }, "selectOpened": { "defaultValue": null, "description": "", "name": "selectOpened", "required": false, "type": { "name": "boolean" } }, "hasFocus": { "defaultValue": null, "description": "", "name": "hasFocus", "required": false, "type": { "name": "boolean" } }, "shouldClick": { "defaultValue": null, "description": "", "name": "shouldClick", "required": false, "type": { "name": "boolean" } }, "isSearching": { "defaultValue": null, "description": "", "name": "isSearching", "required": false, "type": { "name": "boolean" } }, "childIndex": { "defaultValue": null, "description": "", "name": "childIndex", "required": false, "type": { "name": "number" } }, "onOptionSelect": { "defaultValue": null, "description": "", "name": "onOptionSelect", "required": false, "type": { "name": "((ref: RefObject<HTMLLIElement>) => void)" } }, "onFocusChange": { "defaultValue": null, "description": "", "name": "onFocusChange", "required": false, "type": { "name": "((childIndex: number) => void)" } }, "isAddBtnFocused": { "defaultValue": null, "description": "", "name": "isAddBtnFocused", "required": false, "type": { "name": "boolean" } }, "fixed": { "defaultValue": null, "description": "", "name": "fixed", "required": false, "type": { "name": "boolean" } } } };
+    MultiOption.__docgenInfo = { "description": "", "displayName": "MultiOption", "props": { "label": { "defaultValue": null, "description": "", "name": "label", "required": false, "type": { "name": "string" } }, "disabled": { "defaultValue": null, "description": "", "name": "disabled", "required": false, "type": { "name": "boolean" } }, "value": { "defaultValue": null, "description": "", "name": "value", "required": true, "type": { "name": "string" } }, "fixed": { "defaultValue": null, "description": "", "name": "fixed", "required": false, "type": { "name": "boolean" } }, "isSelected": { "defaultValue": null, "description": "", "name": "isSelected", "required": false, "type": { "name": "boolean" } }, "disableDefaultSelectedStyle": { "defaultValue": null, "description": "", "name": "disableDefaultSelectedStyle", "required": false, "type": { "name": "boolean" } }, "selectOpened": { "defaultValue": null, "description": "", "name": "selectOpened", "required": false, "type": { "name": "boolean" } }, "hasFocus": { "defaultValue": null, "description": "", "name": "hasFocus", "required": false, "type": { "name": "boolean" } }, "shouldClick": { "defaultValue": null, "description": "", "name": "shouldClick", "required": false, "type": { "name": "boolean" } }, "isSearching": { "defaultValue": null, "description": "", "name": "isSearching", "required": false, "type": { "name": "boolean" } }, "childIndex": { "defaultValue": null, "description": "", "name": "childIndex", "required": false, "type": { "name": "number" } }, "onOptionSelect": { "defaultValue": null, "description": "", "name": "onOptionSelect", "required": false, "type": { "name": "((ref: RefObject<HTMLLIElement>) => void)" } }, "onFocusChange": { "defaultValue": null, "description": "", "name": "onFocusChange", "required": false, "type": { "name": "((childIndex: number) => void)" } }, "isAddBtnFocused": { "defaultValue": null, "description": "", "name": "isAddBtnFocused", "required": false, "type": { "name": "boolean" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -3112,7 +3318,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*!
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */.DataGridCell-module__sr-only--m4Gw0{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.DataGridCell-module__hidden--xDE0u{display:none}.DataGridCell-module__slide-in--eitgo{animation:DataGridCell-module__slide-in--eitgo .5s forwards}@media(prefers-reduced-motion: reduce){.DataGridCell-module__slide-in--eitgo{animation-duration:.1ms}}.DataGridCell-module__slide-out--rDEpJ{animation:DataGridCell-module__slide-out--rDEpJ .5s forwards}@media(prefers-reduced-motion: reduce){.DataGridCell-module__slide-out--rDEpJ{animation-duration:.1ms}}@keyframes DataGridCell-module__slide-in--eitgo{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes DataGridCell-module__slide-out--rDEpJ{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}.DataGridCell-module__cell--Jl9oP{height:2.75rem;padding:.25rem 1rem}.DataGridCell-module__cell--Jl9oP:first-child{padding-left:1rem}.DataGridCell-module__cell--Jl9oP:last-child{padding-right:1rem}.DataGridCell-module__cell--Jl9oP .DataGridCell-module__text--O4N7u{font-size:var(--font-size-data-grid);line-height:var(--data-grid-line-height)}.DataGridCell-module__cell--Jl9oP .DataGridCell-module__loading--JCe7Q{position:relative;overflow:hidden;background-color:var(--skeleton-background-color);border-radius:.5rem;height:1.25rem;margin:.625rem 0}.DataGridCell-module__cell--Jl9oP .DataGridCell-module__loading--JCe7Q::after{position:absolute;top:0;right:0;bottom:0;left:0;transform:translateX(-100%);background-image:linear-gradient(90deg, rgba(var(--skeleton-animation-color-rgb), 0) 0, rgba(var(--skeleton-animation-color-rgb), 0.2) 20%, rgba(var(--skeleton-animation-color-rgb), 0.5) 60%, rgba(var(--skeleton-animation-color-rgb), 0));content:"";animation:DataGridCell-module__shimmer--RZa6q 2s infinite}@media(prefers-reduced-motion: reduce){.DataGridCell-module__cell--Jl9oP .DataGridCell-module__loading--JCe7Q::after{animation:none}}@keyframes DataGridCell-module__shimmer--RZa6q{100%{transform:translateX(100%)}}@media only screen and (min-width: 50em){.DataGridCell-module__cell--Jl9oP:first-child{padding-left:1.25rem}.DataGridCell-module__cell--Jl9oP:last-child{padding-right:1.25rem}}`, ""]);
+ */.DataGridCell-module__sr-only--m4Gw0{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.DataGridCell-module__hidden--xDE0u{display:none}.DataGridCell-module__slide-in--eitgo{animation:DataGridCell-module__slide-in--eitgo .5s forwards}@media(prefers-reduced-motion: reduce){.DataGridCell-module__slide-in--eitgo{animation-duration:.1ms}}.DataGridCell-module__slide-out--rDEpJ{animation:DataGridCell-module__slide-out--rDEpJ .5s forwards}@media(prefers-reduced-motion: reduce){.DataGridCell-module__slide-out--rDEpJ{animation-duration:.1ms}}@keyframes DataGridCell-module__slide-in--eitgo{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes DataGridCell-module__slide-out--rDEpJ{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}.DataGridCell-module__cell--Jl9oP{height:2.75rem;padding:.25rem 1rem}.DataGridCell-module__cell--Jl9oP:first-child{padding-left:1rem}.DataGridCell-module__cell--Jl9oP:last-child{padding-right:1rem}.DataGridCell-module__cell--Jl9oP .DataGridCell-module__content-wrapper--USIFS{display:flex;align-items:center;gap:6px}.DataGridCell-module__cell--Jl9oP .DataGridCell-module__text--O4N7u{font-size:var(--font-size-data-grid);line-height:var(--data-grid-line-height)}.DataGridCell-module__cell--Jl9oP .DataGridCell-module__loading--JCe7Q{position:relative;overflow:hidden;background-color:var(--skeleton-background-color);border-radius:.5rem;height:1.25rem;margin:.625rem 0}.DataGridCell-module__cell--Jl9oP .DataGridCell-module__loading--JCe7Q::after{position:absolute;top:0;right:0;bottom:0;left:0;transform:translateX(-100%);background-image:linear-gradient(90deg, rgba(var(--skeleton-animation-color-rgb), 0) 0, rgba(var(--skeleton-animation-color-rgb), 0.2) 20%, rgba(var(--skeleton-animation-color-rgb), 0.5) 60%, rgba(var(--skeleton-animation-color-rgb), 0));content:"";animation:DataGridCell-module__shimmer--RZa6q 2s infinite}@media(prefers-reduced-motion: reduce){.DataGridCell-module__cell--Jl9oP .DataGridCell-module__loading--JCe7Q::after{animation:none}}@keyframes DataGridCell-module__shimmer--RZa6q{100%{transform:translateX(100%)}}@media only screen and (min-width: 50em){.DataGridCell-module__cell--Jl9oP:first-child{padding-left:1.25rem}.DataGridCell-module__cell--Jl9oP:last-child{padding-right:1.25rem}}`, ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"sr-only": `DataGridCell-module__sr-only--m4Gw0`,
@@ -3120,6 +3326,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 	"slide-in": `DataGridCell-module__slide-in--eitgo`,
 	"slide-out": `DataGridCell-module__slide-out--rDEpJ`,
 	"cell": `DataGridCell-module__cell--Jl9oP`,
+	"content-wrapper": `DataGridCell-module__content-wrapper--USIFS`,
 	"text": `DataGridCell-module__text--O4N7u`,
 	"loading": `DataGridCell-module__loading--JCe7Q`,
 	"shimmer": `DataGridCell-module__shimmer--RZa6q`
@@ -3186,14 +3393,32 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*!
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */.DataGridRow-module__row--hrOp_{position:relative;background-color:var(--data-grid-row-background-color)}.DataGridRow-module__row--hrOp_:not(.DataGridRow-module__loading--XPmxE):hover{background-color:var(--data-grid-row-hover-background-color)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border--Fu4Mc:not(:last-child)::after{content:"";position:absolute;width:100%;left:0;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border-drawer--hKAFg:not(:last-child):not(:nth-last-child(2))::after{content:"";position:absolute;width:100%;left:0;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__expand-button-cell--rYCqM{padding:0}`, ""]);
+ */.DataGridRow-module__row--hrOp_{position:relative;background-color:var(--data-grid-row-background-color)}.DataGridRow-module__row--hrOp_:not(.DataGridRow-module__loading--XPmxE):hover{background-color:var(--data-grid-row-hover-background-color)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border-0--HZoWz:not(:last-child)::after{content:"";position:absolute;width:calc(100% - 3.0625rem);left:3.0625rem;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border-1--pcpyO:not(:last-child)::after{content:"";position:absolute;width:calc(100% - 7.1875rem);left:7.1875rem;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border-2--XGJ0n:not(:last-child)::after{content:"";position:absolute;width:calc(100% - 11.3125rem);left:11.3125rem;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border-3--w9Gqa:not(:last-child)::after{content:"";position:absolute;width:calc(100% - 15.4375rem);left:15.4375rem;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border-4--xZjYK:not(:last-child)::after{content:"";position:absolute;width:calc(100% - 19.5625rem);left:19.5625rem;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border-5--Tz6ZN:not(:last-child)::after{content:"";position:absolute;width:calc(100% - 23.6875rem);left:23.6875rem;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border-6--cnGAN:not(:last-child)::after{content:"";position:absolute;width:calc(100% - 27.8125rem);left:27.8125rem;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border--Fu4Mc:not(:last-child)::after{content:"";position:absolute;width:100%;left:0;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__row--hrOp_.DataGridRow-module__border-drawer--hKAFg:not(:last-child):not(:nth-last-child(2))::after{content:"";position:absolute;width:100%;left:0;bottom:0;border-bottom:1px solid var(--light-grey-border)}.DataGridRow-module__expand-button-cell--rYCqM{padding:0}.DataGridRow-module__connector--_VXQd{position:absolute;top:0;left:0;width:2.875rem;height:3.25rem}.DataGridRow-module__connector--_VXQd.DataGridRow-module__offset-left-0--Q6UVb{left:0rem}.DataGridRow-module__connector--_VXQd.DataGridRow-module__offset-left-1--A34Bo{left:4.125rem}.DataGridRow-module__connector--_VXQd.DataGridRow-module__offset-left-2--ty2nd{left:8.25rem}.DataGridRow-module__connector--_VXQd.DataGridRow-module__offset-left-3--nB4O8{left:12.375rem}.DataGridRow-module__connector--_VXQd.DataGridRow-module__offset-left-4--xqPXI{left:16.5rem}.DataGridRow-module__connector--_VXQd.DataGridRow-module__offset-left-5--XePkj{left:20.625rem}.DataGridRow-module__connector--_VXQd.DataGridRow-module__offset-left-6--TiAjT{left:24.75rem}.DataGridRow-module__connector--_VXQd.DataGridRow-module__vertical--FabA4::before{position:absolute;content:"";left:50%;height:100%;width:.0625rem;background-color:var(--color-blue-grey200)}.DataGridRow-module__connector--_VXQd.DataGridRow-module__t-shape--BDWQd::before{position:absolute;content:"";left:50%;height:3.25rem;width:.0625rem;background-color:var(--color-blue-grey200)}.DataGridRow-module__connector--_VXQd.DataGridRow-module__t-shape--BDWQd::after{position:absolute;content:"";top:50%;left:50%;height:.0625rem;width:100%;background-color:var(--color-blue-grey200)}.DataGridRow-module__connector--_VXQd.DataGridRow-module__line--Ur43v::before{position:absolute;content:"";left:50%;height:50%;width:1px;background-color:var(--color-blue-grey200)}.DataGridRow-module__connector--_VXQd.DataGridRow-module__line--Ur43v::after{position:absolute;content:"";top:50%;left:50%;height:1px;width:100%;background-color:var(--color-blue-grey200)}`, ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"row": `DataGridRow-module__row--hrOp_`,
 	"loading": `DataGridRow-module__loading--XPmxE`,
+	"border-0": `DataGridRow-module__border-0--HZoWz`,
+	"border-1": `DataGridRow-module__border-1--pcpyO`,
+	"border-2": `DataGridRow-module__border-2--XGJ0n`,
+	"border-3": `DataGridRow-module__border-3--w9Gqa`,
+	"border-4": `DataGridRow-module__border-4--xZjYK`,
+	"border-5": `DataGridRow-module__border-5--Tz6ZN`,
+	"border-6": `DataGridRow-module__border-6--cnGAN`,
 	"border": `DataGridRow-module__border--Fu4Mc`,
 	"border-drawer": `DataGridRow-module__border-drawer--hKAFg`,
-	"expand-button-cell": `DataGridRow-module__expand-button-cell--rYCqM`
+	"expand-button-cell": `DataGridRow-module__expand-button-cell--rYCqM`,
+	"connector": `DataGridRow-module__connector--_VXQd`,
+	"offset-left-0": `DataGridRow-module__offset-left-0--Q6UVb`,
+	"offset-left-1": `DataGridRow-module__offset-left-1--A34Bo`,
+	"offset-left-2": `DataGridRow-module__offset-left-2--ty2nd`,
+	"offset-left-3": `DataGridRow-module__offset-left-3--nB4O8`,
+	"offset-left-4": `DataGridRow-module__offset-left-4--xqPXI`,
+	"offset-left-5": `DataGridRow-module__offset-left-5--XePkj`,
+	"offset-left-6": `DataGridRow-module__offset-left-6--TiAjT`,
+	"vertical": `DataGridRow-module__vertical--FabA4`,
+	"t-shape": `DataGridRow-module__t-shape--BDWQd`,
+	"line": `DataGridRow-module__line--Ur43v`
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3309,7 +3534,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*!
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */.DataGridToolbar-module__sr-only--CdhTE{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.DataGridToolbar-module__hidden--yWxUl{display:none}.DataGridToolbar-module__slide-in--XbWMl{animation:DataGridToolbar-module__slide-in--XbWMl .5s forwards}@media(prefers-reduced-motion: reduce){.DataGridToolbar-module__slide-in--XbWMl{animation-duration:.1ms}}.DataGridToolbar-module__slide-out--ymXiW{animation:DataGridToolbar-module__slide-out--ymXiW .5s forwards}@media(prefers-reduced-motion: reduce){.DataGridToolbar-module__slide-out--ymXiW{animation-duration:.1ms}}@keyframes DataGridToolbar-module__slide-in--XbWMl{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes DataGridToolbar-module__slide-out--ymXiW{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}.DataGridToolbar-module__wrapper--isayR{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;width:100%;padding-bottom:1rem}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1{display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:.5rem;width:100%;flex-grow:1}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__searchbar--ntcEt{min-width:7rem;flex-basis:15rem}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__actions-wrapper--G68wB{display:flex;align-items:center;justify-content:flex-start;gap:.5rem}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__clear-button--zZQXD{background:none;border:none;cursor:pointer}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__clear-button--zZQXD:focus-visible{outline:.125rem solid var(--color-focus);outline-offset:0;border-radius:var(--focus-border-radius)}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__clear-button--zZQXD .DataGridToolbar-module__caption--gzutO{margin:0;font-size:var(--font-size-data-grid);line-height:var(--data-grid-line-height);text-decoration:underline;color:var(--color-primary500)}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__button-section--abGYe{flex-shrink:0;display:flex;justify-content:center;align-items:center;gap:.5rem}`, ""]);
+ */.DataGridToolbar-module__sr-only--CdhTE{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.DataGridToolbar-module__hidden--yWxUl{display:none}.DataGridToolbar-module__slide-in--XbWMl{animation:DataGridToolbar-module__slide-in--XbWMl .5s forwards}@media(prefers-reduced-motion: reduce){.DataGridToolbar-module__slide-in--XbWMl{animation-duration:.1ms}}.DataGridToolbar-module__slide-out--ymXiW{animation:DataGridToolbar-module__slide-out--ymXiW .5s forwards}@media(prefers-reduced-motion: reduce){.DataGridToolbar-module__slide-out--ymXiW{animation-duration:.1ms}}@keyframes DataGridToolbar-module__slide-in--XbWMl{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes DataGridToolbar-module__slide-out--ymXiW{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}.DataGridToolbar-module__wrapper--isayR input[type=search]::-webkit-search-cancel-button{cursor:pointer}.DataGridToolbar-module__wrapper--isayR{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;width:100%;padding-bottom:1rem}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1{display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:.5rem;width:100%;flex-grow:1}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__searchbar--ntcEt{min-width:7rem;flex-basis:15rem}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__actions-wrapper--G68wB{display:flex;align-items:center;justify-content:flex-start;gap:.5rem}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__clear-button--zZQXD{background:none;border:none;cursor:pointer}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__clear-button--zZQXD:focus-visible{outline:.125rem solid var(--color-focus);outline-offset:0;border-radius:var(--focus-border-radius)}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__filter-section--zvYH1 .DataGridToolbar-module__clear-button--zZQXD .DataGridToolbar-module__caption--gzutO{margin:0;font-size:var(--font-size-data-grid);line-height:var(--data-grid-line-height);text-decoration:underline;color:var(--color-primary500)}.DataGridToolbar-module__wrapper--isayR .DataGridToolbar-module__button-section--abGYe{flex-shrink:0;display:flex;justify-content:center;align-items:center;gap:.5rem}`, ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"sr-only": `DataGridToolbar-module__sr-only--CdhTE`,
