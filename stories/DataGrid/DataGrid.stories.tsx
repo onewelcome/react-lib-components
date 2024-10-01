@@ -31,7 +31,7 @@ import {
 } from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within, getByTitle } from "@storybook/test";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 import { Modal } from "../../src/components/Notifications/Modal/Modal";
 import { ModalHeader } from "../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
@@ -643,6 +643,16 @@ const NestedRowsTemplate = args => {
 };
 
 export const DataGridWithNestedRows = NestedRowsTemplate.bind({});
+
+DataGridWithNestedRows.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await userEvent.click(canvas.getAllByTitle("Expand row")[1]);
+  await userEvent.click(canvas.getAllByTitle("Expand row")[0]);
+  await userEvent.click(canvas.getAllByTitle("Expand row")[1]);
+  await userEvent.click(canvas.getAllByTitle("Expand row")[2]);
+  await userEvent.click(canvas.getAllByTitle("Expand row")[3]);
+});
 
 DataGridWithNestedRows.args = {
   data: [
