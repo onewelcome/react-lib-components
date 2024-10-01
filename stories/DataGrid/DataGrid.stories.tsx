@@ -31,7 +31,7 @@ import {
 } from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
-import { expect, userEvent, waitFor, within, getByTitle } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 import { Modal } from "../../src/components/Notifications/Modal/Modal";
 import { ModalHeader } from "../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
