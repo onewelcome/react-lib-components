@@ -26,7 +26,10 @@ const meta: Meta = {
   component: DatePickerComponent,
   parameters: {
     docs: {
-      page: DatePickerDocumentation
+      page: DatePickerDocumentation,
+      source: {
+        type: "code"
+      }
     }
   }
 };
@@ -40,10 +43,8 @@ const Template: StoryFn<{}> = args => {
     <Fragment>
       <DatePickerComponent
         data-testid="date-picker"
-        selected={inputValue}
-        onSelectHandler={value => {
-          setInputValue(value);
-        }}
+        value={inputValue}
+        onSelect={setInputValue}
         {...args}
       ></DatePickerComponent>
       <p>{inputValue && inputValue.toDateString()}</p>
@@ -63,7 +64,7 @@ DatePicker.play = conditionalPlay(async ({ canvasElement }) => {
 
   const dayOfTheMonth = canvas.getByText("19");
 
-  await waitFor(() => expect(dayOfTheMonth).toBeDefined);
+  await waitFor(() => expect(dayOfTheMonth).toBeDefined());
   await userEvent.click(dayOfTheMonth);
 
   await expect(dayOfTheMonth.parentElement).toHaveAttribute("data-selected", "true");

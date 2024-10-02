@@ -20,7 +20,8 @@
   styling of the upcoming features.
  */
 
-@import "../../variables.scss";
+@use "../../variables.scss";
+@use "src/mixins.module";
 
 .rdp-root {
   --rdp-accent-color: var(--color-blue-grey500);
@@ -29,12 +30,14 @@
   --rdp-day-height: 2rem;
   --rdp-day-width: 2rem;
 
-  --rdp-day_button-border-radius: 2px; /* The border radius of the day cells. */
-  --rdp-day_button-border: 2px solid transparent; /* The border of the day cells. */
+  --rdp-day_button-border-radius: var(
+    --button-border-radius
+  ); /* The border radius of the day cells. */
+  --rdp-day_button-border: var(--button-border-radius) solid transparent; /* The border of the day cells. */
   --rdp-day_button-height: var(--rdp-day-width); /* The height of the day cells. */
   --rdp-day_button-width: var(--rdp-day-height); /* The width of the day cells. */
 
-  --rdp-selected-border: 2px solid var(--color-primary); /* The border of the selected days. */
+  --rdp-selected-border: var(--button-border-radius) solid var(--color-primary); /* The border of the selected days. */
   --rdp-disabled-opacity: 0.5; /* The opacity of the disabled days. */
   --rdp-outside-opacity: 0.75; /* The opacity of the days outside the current month. */
   --rdp-today-color: var(--rdp-accent-color); /* The color of the today's date. */
@@ -44,8 +47,8 @@
   --rdp-months-gap: 2rem; /* The gap between the months in the multi-month view. */
 
   --rdp-nav_button-disabled-opacity: 0.5; /* The opacity of the disabled navigation buttons. */
-  --rdp-nav_button-height: 12px;
-  --rdp-nav_button-width: 12px;
+  --rdp-nav_button-height: 0.75rem;
+  --rdp-nav_button-width: 0.75rem;
   --rdp-nav-height: 2.75rem; /* The height of the navigation bar. */
 
   --rdp-range_middle-background-color: var(
@@ -74,8 +77,10 @@
     --rdp-accent-color
   ); /* The background color of the date when at the end of the selected range. */
 
-  --rdp-week_number-border-radius: 2px; /* The border radius of the week number. */
-  --rdp-week_number-border: 2px solid transparent; /* The border of the week number. */
+  --rdp-week_number-border-radius: var(
+    --button-border-radius
+  ); /* The border radius of the week number. */
+  --rdp-week_number-border: var(--button-border-radius) solid transparent; /* The border of the week number. */
   --rdp-week_number-height: var(--rdp-day-height); /* The height of the week number cells. */
   --rdp-week_number-opacity: 0.75; /* The opacity of the week number. */
   --rdp-week_number-width: var(--rdp-day-width); /* The width of the week number cells. */
@@ -94,7 +99,7 @@
 .rdp-root {
   position: relative;
   box-sizing: border-box;
-  font-size: 12px;
+  @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, 1rem);
 }
 
 .rdp-root * {
@@ -106,6 +111,7 @@
   height: var(--rdp-day-height);
   border: none;
   text-align: center;
+  padding: 0;
 }
 
 .rdp-day_button {
@@ -149,8 +155,6 @@
   cursor: pointer;
   font: inherit;
   color: inherit;
-  -moz-appearance: none;
-  -webkit-appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -162,7 +166,7 @@
 }
 
 .rdp-button_previous {
-  margin-right: 8px;
+  margin-right: 0.5rem;
 }
 
 .rdp-button_next:disabled,
@@ -220,8 +224,8 @@
 }
 
 .rdp-years_dropdown + .rdp-caption_label .rdp-chevron {
-  margin-left: 4px;
-  width: 14px;
+  margin-left: 0.25rem;
+  width: 0.875rem;
 }
 
 .rdp-dropdown_root[data-disabled="true"] .rdp-chevron {
@@ -260,10 +264,10 @@
 .rdp-weekday {
   padding: var(--rdp-weekday-padding);
   text-align: var(--rdp-weekday-text-align);
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--color-blue-grey400);
-  height: 32px;
-  width: 32px;
+  height: var(--rdp-day-height);
+  width: var(--rdp-day-width);
   font-weight: 400;
 }
 
@@ -284,13 +288,13 @@
 .rdp-selected {
   color: white;
   background-color: var(--color-primary);
-  border-radius: 2px;
+  border-radius: var(--button-border-radius);
 }
 
 .rdp-selected.rdp-outside {
   color: white;
   background-color: var(--color-primary);
-  border-radius: 2px;
+  border-radius: var(--button-border-radius);
 }
 
 .rdp-selected .rdp-day_button {
@@ -325,7 +329,6 @@
 
 .rdp-range_middle .rdp-day_button {
   border-color: transparent;
-  border: unset;
   border-radius: unset;
   color: var(--rdp-range_middle-color);
 }

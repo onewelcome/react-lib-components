@@ -9,8 +9,26 @@ The DatePicker component is a flexible, easy-to-use date selection tool that pro
 It is based on the [react-day-picker](https://daypicker.dev/).
 
 <Canvas>
-  <Story of={DatePickerStories.DatePickerTemplate} />
+  <Story of={DatePickerStories.DatePicker} />
 </Canvas>
+
+# Example
+
+```tsx
+import { Fragment, useState } from "react";
+import { DatePicker } from "./DatePicker";
+
+const YourComponent = () => {
+  const [inputValue, setInputValue] = useState<Date>();
+
+  return (
+    <Fragment>
+      <DatePicker value={inputValue} onSelect={setInputValue}></DatePicker>
+      <p>{inputValue && inputValue.toDateString()}</p>
+    </Fragment>
+  );
+};
+```
 
 # Features
 

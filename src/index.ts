@@ -176,8 +176,14 @@ export type { Props as DataGridDrawerItemProps } from "./components/DataGrid/Dat
 export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
 export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
 export { useFiltersReducer } from "./components/DataGrid/DataGridFilters/useFiltersReducer";
+
+/** Banner */
 export { Banner } from "./components/Notifications/Banner/Banner";
 export type { Props as BannerProps } from "./components/Notifications/Banner/Banner";
+
+/** DatePicker */
+export { DatePicker } from "./components/DatePicker/DatePicker";
+export type { Props as DatePickerProps } from "./components/DatePicker/DatePicker";
 
 /** Admin */
 export { MicrofrontendContainer } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";

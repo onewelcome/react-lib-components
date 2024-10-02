@@ -14,49 +14,48 @@
  *    limitations under the License.
  */
 
-@mixin fontProperties($fontFamily, $fontSize, $fontWeight, $lineHeight) {
-  font-family: $fontFamily;
-  font-size: $fontSize;
-  font-style: normal;
-  font-variant: normal;
-  line-height: $lineHeight;
-  font-weight: $fontWeight;
-  text-transform: none;
-  letter-spacing: 0;
-  color: var(--default);
-  margin: 0 0 1rem 0;
-}
+@use "src/mixins.module";
 
 .typography_style_ {
   &h1 {
-    @include fontProperties(var(--font-family), var(--font-size-h1), 700, 1.2);
+    @include mixins.fontProperties(var(--font-family), var(--font-size-h1), 700, 1.2);
   }
 
   &h2 {
-    @include fontProperties(var(--font-family), var(--font-size-h2), 700, 1.42857);
+    @include mixins.fontProperties(var(--font-family), var(--font-size-h2), 700, 1.42857);
   }
 
   &h3 {
-    @include fontProperties(var(--font-family), var(--font-size-h3), 500, 1.16666);
+    @include mixins.fontProperties(var(--font-family), var(--font-size-h3), 500, 1.16666);
   }
 
   &h4 {
-    @include fontProperties(var(--font-family), var(--font-size-h4), 500, 1.2);
+    @include mixins.fontProperties(var(--font-family), var(--font-size-h4), 500, 1.2);
   }
 
   &body {
-    @include fontProperties(var(--font-family), var(--font-size), 400, var(--default-line-height));
+    @include mixins.fontProperties(
+      var(--font-family),
+      var(--font-size),
+      400,
+      var(--default-line-height)
+    );
   }
 
   &body-bold {
-    @include fontProperties(var(--font-family), var(--font-size), 700, var(--default-line-height));
+    @include mixins.fontProperties(
+      var(--font-family),
+      var(--font-size),
+      700,
+      var(--default-line-height)
+    );
   }
 
   &sub-text {
-    @include fontProperties(var(--font-family), var(--font-size-sub), 400, 1rem);
+    @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, 1rem);
   }
 
   &code {
-    @include fontProperties(var(--font-family-code), var(--font-size-code), 400, 1.5);
+    @include mixins.fontProperties(var(--font-family-code), var(--font-size-code), 400, 1.5);
   }
 }

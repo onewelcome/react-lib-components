@@ -22,7 +22,7 @@ import { userEvent } from "@storybook/test";
 const mockSubmitHandler = jest.fn();
 
 const renderDatePicker = () => {
-  return render(<DatePicker data-testid={"datepicker"} onSelectHandler={mockSubmitHandler} />);
+  return render(<DatePicker data-testid={"datepicker"} onSelect={mockSubmitHandler} />);
 };
 
 describe("<DatePicker>", () => {

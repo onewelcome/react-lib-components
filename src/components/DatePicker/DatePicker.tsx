@@ -19,15 +19,12 @@ import { ClassNames, DayPicker, OnSelectHandler } from "react-day-picker";
 import classes from "./DatePicker.module.scss";
 
 export interface Props {
-  onSelectHandler: OnSelectHandler<Date>;
-  selected?: Date;
+  onSelect: OnSelectHandler<Date | undefined>;
+  value?: Date | undefined;
+  required?: boolean;
 }
 
-export const DatePicker: ForwardRefRenderFunction<HTMLDivElement, Props> = ({
-  onSelectHandler,
-  selected,
-  ...rest
-}: Props) => {
+export const DatePicker = ({ onSelect, value, required, ...rest }: Props) => {
   const getCustomClassNamesMapping = (
     customClasses: Record<string, string>
   ): Partial<ClassNames> => {
@@ -48,10 +45,10 @@ export const DatePicker: ForwardRefRenderFunction<HTMLDivElement, Props> = ({
       mode="single"
       captionLayout="dropdown-years"
       weekStartsOn={1}
-      onSelect={onSelectHandler}
-      selected={selected}
-      required={true}
+      onSelect={onSelect}
+      selected={value}
       classNames={getCustomClassNamesMapping(classes)}
+      required={required}
       {...rest}
     ></DayPicker>
   );

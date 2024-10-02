@@ -324,3 +324,16 @@
     }
   }
 }
+
+@mixin fontProperties($fontFamily, $fontSize, $fontWeight, $lineHeight) {
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  font-style: normal;
+  font-variant: normal;
+  line-height: $lineHeight;
+  font-weight: $fontWeight;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--default);
+  margin: 0 0 1rem 0;
+}
