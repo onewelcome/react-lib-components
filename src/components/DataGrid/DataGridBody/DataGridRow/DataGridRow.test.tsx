@@ -21,7 +21,7 @@ import { DataGridCell } from "../DataGridCell/DataGridCell";
 import { DataGridDrawerItem } from "../DataGridDrawer/DataGridDrawerItem";
 import userEvent from "@testing-library/user-event";
 
-const defaultParams: Props = {
+const defaultParams: Props<any> = {
   children: [<DataGridCell>1</DataGridCell>, <DataGridCell>2</DataGridCell>],
   headers: [
     { name: "firstName", headline: "first name" },
@@ -29,8 +29,8 @@ const defaultParams: Props = {
   ]
 };
 
-const createDataGridRow = (params?: (defaultParams: Props) => Props) => {
-  let parameters: Props = defaultParams;
+const createDataGridRow = (params?: (defaultParams: Props<any>) => Props<any>) => {
+  let parameters: Props<any> = defaultParams;
   if (params) {
     parameters = params(defaultParams);
   }

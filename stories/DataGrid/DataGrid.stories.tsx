@@ -437,7 +437,13 @@ DataGridWithFilters.args = {
     filterValues: [],
     columnsMetadata: [
       { name: "name", headline: "Name", operators: ["is", "is not"] },
-      { name: "type", headline: "Type", operators: ["is", "is not"] }
+      {
+        name: "type",
+        headline: "Type",
+        operators: ["is", "is not"],
+        defaultValues: ["Stock", "Bond"],
+        disableAddNew: true
+      }
     ],
     onFilterAdd: filter => console.log(filter),
     onFilterEdit: filter => console.log(filter),
@@ -615,6 +621,140 @@ DataGridWithSearch.args = {
     debounceTime: 500
   },
 
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+const NestedRowsTemplate = args => {
+  return (
+    <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
+      <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
+        <DataGridComponent
+          {...args}
+          data={args.data}
+          nestedRowConfig={{ nestedItemsKey: "nestedItems" }}
+        >
+          {({ item }: { item: DataGridItem }) => (
+            <DataGridRow key={item.id}>
+              <DataGridCell>{item.name}</DataGridCell>
+              <DataGridCell>{item.id}</DataGridCell>
+              <DataGridCell>{item.type}</DataGridCell>
+              <DataGridCell>{item.description}</DataGridCell>
+            </DataGridRow>
+          )}
+        </DataGridComponent>
+      </div>
+    </div>
+  );
+};
+
+export const DataGridWithNestedRows = NestedRowsTemplate.bind({});
+
+DataGridWithNestedRows.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getAllByTitle("Expand row").length).toBeGreaterThanOrEqual(1));
+
+  await userEvent.click(canvas.getAllByTitle("Expand row")[1]);
+  await userEvent.click(canvas.getAllByTitle("Expand row")[0]);
+  await userEvent.click(canvas.getAllByTitle("Expand row")[1]);
+  await userEvent.click(canvas.getAllByTitle("Expand row")[2]);
+  await userEvent.click(canvas.getAllByTitle("Expand row")[3]);
+});
+
+DataGridWithNestedRows.args = {
+  data: [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet",
+      nestedItems: [
+        {
+          name: "Company 3",
+          id: "3",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet",
+          nestedItems: [
+            {
+              name: "Company 10",
+              id: "10",
+              type: "Stock",
+              description: "Lorem ipsum dolor sit amet",
+              nestedItems: [
+                {
+                  name: "Company 11",
+                  id: "11",
+                  type: "Stock",
+                  description: "Lorem ipsum dolor sit amet",
+                  nestedItems: [
+                    {
+                      name: "Company 13",
+                      id: "13",
+                      type: "Stock",
+                      description: "Lorem ipsum dolor sit amet"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: "Company 101",
+              id: "101",
+              type: "Stock",
+              description: "Lorem ipsum dolor sit amet"
+            }
+          ]
+        },
+
+        {
+          name: "Company 102",
+          id: "102",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
+        }
+      ]
+    },
+    {
+      name: "Company 2",
+      id: "2",
+      type: "Stock",
+      description: "Consectetur adipiscing elit",
+      nestedItems: [
+        {
+          name: "Company 4",
+          id: "4",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
+        },
+        {
+          name: "Company 8",
+          id: "8",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
+        },
+        {
+          name: "Company 9",
+          id: "9",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
+        }
+      ]
+    },
+    {
+      name: "Company 20",
+      id: "20",
+      type: "Stock",
+      description: "Consectetur adipiscing elit"
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "description", headline: "Description", disableSorting: true }
+  ],
+  disableContextMenuColumn: true,
   isLoading: false,
   enableMultiSorting: true
 };
