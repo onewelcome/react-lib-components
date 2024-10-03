@@ -22,7 +22,7 @@ import * as locales from "date-fns/locale";
 export interface Props extends ComponentPropsWithoutRef<any> {
   onSelect: (date: Date | DateRange | undefined) => void;
   mode: "single" | "range";
-  value?: Date | DateRange | undefined;
+  value: Date | DateRange | undefined;
   required?: boolean;
   locale?: keyof typeof locales;
 }

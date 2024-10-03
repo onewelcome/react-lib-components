@@ -23,7 +23,12 @@ const mockSelectFunction = jest.fn();
 
 const renderDatePicker = (mode: "single" | "range") => {
   return render(
-    <DatePicker mode={mode} data-testid={"datepicker"} onSelect={mockSelectFunction} />
+    <DatePicker
+      mode={mode}
+      data-testid={"datepicker"}
+      value={undefined}
+      onSelect={mockSelectFunction}
+    />
   );
 };
 
