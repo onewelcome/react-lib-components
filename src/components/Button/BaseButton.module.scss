@@ -17,12 +17,15 @@
 @use "../../mixins.module.scss";
 
 .button {
-  @include mixins.buttonBase();
   position: relative;
 
   .content-hidden {
     visibility: hidden;
     display: flex;
+  }
+
+  & {
+    @include mixins.buttonBase();
   }
 }
 

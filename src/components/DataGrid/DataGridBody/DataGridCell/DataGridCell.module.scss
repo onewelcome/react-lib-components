@@ -34,10 +34,11 @@
   }
 
   .loading {
-    @include mixins.skeletonLoading();
     border-radius: 0.5rem;
     height: 1.25rem;
     margin: 0.625rem 0;
+
+    @include mixins.skeletonLoading();
   }
 }
 

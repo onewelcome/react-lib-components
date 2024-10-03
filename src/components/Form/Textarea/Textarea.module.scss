@@ -56,7 +56,6 @@
   box-sizing: border-box;
   border: 0;
   border-radius: var(--input-border-radius);
-  @include mixins.transition(all, 0.2s, ease-in-out);
   font-family: var(--font-family);
   font-size: var(--form-control-font-size);
   color: var(--color-blue-grey900);
@@ -74,11 +73,14 @@
     color: var(--greyed-out);
   }
 
-  @include mixins.browserOutlineDisabled();
+  & {
+    @include mixins.transition(all, 0.2s, ease-in-out);
+    @include mixins.browserOutlineDisabled();
+  }
 }
-
-@include mixins.outline();
 
 .error {
   border-color: var(--error);
 }
+
+@include mixins.outline();

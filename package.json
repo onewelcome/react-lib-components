@@ -83,7 +83,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.13",
     "@types/mdx": "^2.0.13",
-    "@types/react": "^18.3.10",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
@@ -123,9 +123,9 @@
     "remark-gfm": "^4.0.0",
     "rollup": "^4.18.1",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.77.8",
+    "sass": "1.77.8",
     "sass-loader": "^14.2.1",
-    "size-limit": "^11.1.5",
+    "size-limit": "^11.1.6",
     "storybook": "^8.1.11",
     "storybook-addon-mock": "^5.0.0",
     "storybook-addon-pseudo-states": "^3.1.1",
@@ -133,5 +133,8 @@
     "ts-jest": "^29.1.5",
     "tslib": "^2.6.3",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "react-day-picker": "^9.1.3"
   }
 }

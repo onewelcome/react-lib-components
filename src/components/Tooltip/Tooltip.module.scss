@@ -150,8 +150,8 @@
 .tooltip-wrapper {
   .icon {
     margin-left: 0.5rem;
-    @include mixins.transition(all, 0.2s, ease-in-out);
     color: var(--greyed-out);
+    @include mixins.transition(all, 0.2s, ease-in-out);
 
     &:hover {
       color: var(--default);

@@ -22,11 +22,12 @@ $listItemHeight: 2.5rem;
 .select {
   position: relative;
   box-sizing: border-box;
-  @include mixins.transition(all, 0.2s, ease-in-out);
   border: 0;
   border-radius: var(--input-border-radius);
   background-color: var(--input-background-color);
   font-size: var(--form-control-font-size);
+
+  @include mixins.transition(all, 0.2s, ease-in-out);
 
   [data-display] {
     color: var(--color-default);
@@ -66,6 +67,7 @@ $listItemHeight: 2.5rem;
     border-width: var(--input-border-width);
     border-radius: var(--input-border-radius);
     font-size: var(--form-control-font-size);
+
     @include mixins.transition(all, 0.2s, ease-in-out);
 
     &:focus {
@@ -149,7 +151,6 @@ $listItemHeight: 2.5rem;
         outline: none;
 
         &::before {
-          @include mixins.focusVisibleOutline($outlineOffset: 0, $selectors: null);
           content: "";
           position: absolute;
           top: 0;
@@ -158,6 +159,8 @@ $listItemHeight: 2.5rem;
           width: calc(100% - 0.25rem);
           opacity: 1;
           z-index: calc(variables.$popover-z-index + 1);
+
+          @include mixins.focusVisibleOutline($outlineOffset: 0, $selectors: null);
         }
       }
 
