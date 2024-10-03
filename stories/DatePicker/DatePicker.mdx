@@ -23,7 +23,7 @@ const YourComponent = () => {
 
   return (
     <Fragment>
-      <DatePicker value={inputValue} onSelect={setInputValue}></DatePicker>
+      <DatePicker value={inputValue} onSelect={setInputValue} locale="enGB"></DatePicker>
       <p>{inputValue && inputValue.toDateString()}</p>
     </Fragment>
   );
@@ -32,10 +32,14 @@ const YourComponent = () => {
 
 # Features
 
-Currently, we support only a `single` selection mode with a set of limited, fixed options. However, you can pass additional props directly to the underlying `DayPicker` component, giving you access to its full range of features.
-Please note that when using these extended features, our custom styles will _not_ automatically apply, so you may need to add your own styles for consistency.
+Currently, we support `single` and `range` selection modes with a set of limited, fixed options.
 
-We utilize [custom class names feature](https://daypicker.dev/docs/styling#custom-class-names) to keep the consistency and all the benefits or css modules.
+It's possible to pass `locale` key. This way you can have the DatePicker translated and its style will match the standard look'n'feel for the given country code.
+Internally, the calendar uses `date-fns/locale` package.
+
+You can pass properties down to the original DayPicker component, however, you do it on your own risk and there is no guarantee it will work / look properly.
+
+We utilize [custom class names feature](https://daypicker.dev/docs/styling#custom-class-names) to keep the consistency and all the benefits or css modules. Because of that it is difficult to override the default plugin styles.
 
 # Props
 

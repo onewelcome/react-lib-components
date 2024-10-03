@@ -50,6 +50,7 @@ const Template: StoryFn<{}> = args => {
           setInputValue(date as Date);
         }}
         locale="enGB"
+        defaultMonth={new Date(1994, 3)}
         {...args}
       />
       <p>{inputValue?.toDateString()}</p>
@@ -67,7 +68,7 @@ DatePicker.play = conditionalPlay(async ({ canvasElement }) => {
     expect(datePicker).toBeDefined();
   });
 
-  const dayOfTheMonth = canvas.getByText("19");
+  const dayOfTheMonth = canvas.getByText("10");
 
   await waitFor(() => expect(dayOfTheMonth).toBeDefined());
   await userEvent.click(dayOfTheMonth);
@@ -87,6 +88,7 @@ const TemplateRange: StoryFn<{}> = args => {
         onSelect={date => {
           setInputValue(date as DateRange);
         }}
+        defaultMonth={new Date(1994, 3)}
         {...args}
       />
       <p>{inputValue?.from?.toDateString()}</p>
@@ -96,3 +98,28 @@ const TemplateRange: StoryFn<{}> = args => {
 };
 
 export const DatePickerRange = TemplateRange.bind({});
+
+DatePickerRange.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => {
+    const datePicker = canvas.getByTestId("date-picker");
+    expect(datePicker).toBeDefined();
+    const specifiedDate = canvas.queryByText("April");
+    expect(specifiedDate).toBeDefined();
+  });
+
+  await waitFor(async () => {
+    const startingDay = canvas.getByText("15");
+    const finishingDay = canvas.getByText("20");
+
+    await waitFor(() => expect(startingDay).toBeDefined());
+    await userEvent.click(startingDay);
+
+    await waitFor(() => expect(finishingDay).toBeDefined());
+    await userEvent.click(finishingDay);
+
+    await expect(startingDay.parentElement).toHaveAttribute("data-selected", "true");
+    await expect(finishingDay.parentElement).toHaveAttribute("data-selected", "true");
+  });
+});
