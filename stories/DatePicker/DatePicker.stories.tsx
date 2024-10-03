@@ -20,6 +20,7 @@ import React, { Fragment, useState } from "react";
 import DatePickerDocumentation from "./DatePicker.mdx";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { DateRange } from "react-day-picker";
 
 const meta: Meta = {
   title: "components/Inputs/DatePicker",
@@ -44,10 +45,14 @@ const Template: StoryFn<{}> = args => {
       <DatePickerComponent
         data-testid="date-picker"
         value={inputValue}
-        onSelect={setInputValue}
+        mode="single"
+        onSelect={date => {
+          setInputValue(date as Date);
+        }}
+        locale="enGB"
         {...args}
-      ></DatePickerComponent>
-      <p>{inputValue && inputValue.toDateString()}</p>
+      />
+      <p>{inputValue?.toDateString()}</p>
     </Fragment>
   );
 };
@@ -69,3 +74,25 @@ DatePicker.play = conditionalPlay(async ({ canvasElement }) => {
 
   await expect(dayOfTheMonth.parentElement).toHaveAttribute("data-selected", "true");
 });
+
+const TemplateRange: StoryFn<{}> = args => {
+  const [inputValue, setInputValue] = useState<DateRange>();
+
+  return (
+    <Fragment>
+      <DatePickerComponent
+        data-testid="date-picker"
+        value={inputValue}
+        mode="range"
+        onSelect={date => {
+          setInputValue(date as DateRange);
+        }}
+        {...args}
+      />
+      <p>{inputValue?.from?.toDateString()}</p>
+      <p>{inputValue?.to?.toDateString()}</p>
+    </Fragment>
+  );
+};
+
+export const DatePickerRange = TemplateRange.bind({});

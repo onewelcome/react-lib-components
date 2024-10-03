@@ -25,7 +25,7 @@
 
 .rdp-root {
   --rdp-accent-color: var(--color-blue-grey500);
-  --rdp-accent-background-color: #f0f0ff;
+  --rdp-accent-background-color: var(--color-primary50);
 
   --rdp-day-height: 2rem;
   --rdp-day-width: 2rem;
@@ -40,7 +40,7 @@
   --rdp-selected-border: var(--button-border-radius) solid var(--color-primary); /* The border of the selected days. */
   --rdp-disabled-opacity: 0.5; /* The opacity of the disabled days. */
   --rdp-outside-opacity: 0.75; /* The opacity of the days outside the current month. */
-  --rdp-today-color: var(--rdp-accent-color); /* The color of the today's date. */
+  --rdp-today-color: var(--color-primary);
 
   --rdp-dropdown-gap: 0.5rem; /* The gap between the dropdowns used in the month captons. */
 
@@ -55,27 +55,15 @@
     --rdp-accent-background-color
   ); /* The color of the background for days in the middle of a range. */
   --rdp-range_middle-foreground-color: white; /* The font for days in the middle of a range. */
-  --rdp-range_middle-color: inherit; /* The color of the range text. */
+  --rdp-range_middle-color: black;
 
   --rdp-range_start-color: white; /* The color of the range text. */
-  --rdp-range_start-background: linear-gradient(
-    var(--rdp-gradient-direction),
-    transparent 50%,
-    var(--rdp-range_middle-background-color) 50%
-  ); /* Used for the background of the start of the selected range. */
-  --rdp-range_start-date-background-color: var(
-    --rdp-accent-color
-  ); /* The background color of the date when at the start of the selected range. */
+  --rdp-range_start-background: var(--color-primary);
+  --rdp-range_start-date-background-color: var(--color-primary);
 
-  --rdp-range_end-background: linear-gradient(
-    var(--rdp-gradient-direction),
-    var(--rdp-range_middle-background-color) 50%,
-    transparent 50%
-  ); /* Used for the background of the end of the selected range. */
+  --rdp-range_end-background: var(--color-primary);
   --rdp-range_end-color: white; /* The color of the range text. */
-  --rdp-range_end-date-background-color: var(
-    --rdp-accent-color
-  ); /* The background color of the date when at the end of the selected range. */
+  --rdp-range_end-date-background-color: var(--color-primary);
 
   --rdp-week_number-border-radius: var(
     --button-border-radius
@@ -129,6 +117,12 @@
   height: var(--rdp-day_button-height);
   border: var(--rdp-day_button-border);
   border-radius: var(--rdp-day_button-border-radius);
+
+  &:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--color-focus);
+    outline-offset: -2px;
+  }
 }
 
 .rdp-day_button:disabled {
@@ -163,6 +157,11 @@
 
   width: var(--rdp-nav_button-width);
   height: var(--rdp-nav_button-height);
+
+  &:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--color-focus);
+  }
 }
 
 .rdp-button_previous {
@@ -223,6 +222,13 @@
   align-items: center;
 }
 
+.rdp-years_dropdown {
+  &:focus-visible + .rdp-caption_label .rdp-chevron {
+    border-radius: 2px;
+    outline: 2px solid var(--color-focus);
+  }
+}
+
 .rdp-years_dropdown + .rdp-caption_label .rdp-chevron {
   margin-left: 0.25rem;
   width: 0.875rem;
@@ -280,7 +286,6 @@
   text-align: var(--rdp-weeknumber-text-align);
 }
 
-/* DAY MODIFIERS */
 .rdp-today:not(.rdp-outside) {
   color: var(--rdp-today-color);
 }
@@ -291,10 +296,8 @@
   border-radius: var(--button-border-radius);
 }
 
-.rdp-selected.rdp-outside {
-  color: white;
-  background-color: var(--color-primary);
-  border-radius: var(--button-border-radius);
+.rdp-selected.rdp-outside.rdp-range_middle .rdp-day_button {
+  color: var(--color-blue-grey400);
 }
 
 .rdp-selected .rdp-day_button {
@@ -325,11 +328,15 @@
 
 .rdp-range_middle {
   background-color: var(--rdp-range_middle-background-color);
+  border-radius: 0;
+
+  &:focus-visible {
+    border-radius: 2px;
+  }
 }
 
 .rdp-range_middle .rdp-day_button {
   border-color: transparent;
-  border-radius: unset;
   color: var(--rdp-range_middle-color);
 }
 

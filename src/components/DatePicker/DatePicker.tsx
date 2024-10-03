@@ -14,42 +14,70 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction } from "react";
-import { ClassNames, DayPicker, OnSelectHandler } from "react-day-picker";
+import React, { ComponentPropsWithoutRef, Fragment, useEffect, useState } from "react";
+import { ClassNames, DateRange, DayPicker, Locale, PropsBase } from "react-day-picker";
 import classes from "./DatePicker.module.scss";
+import * as locales from "date-fns/locale";
 
-export interface Props {
-  onSelect: OnSelectHandler<Date | undefined>;
-  value?: Date | undefined;
+export interface Props extends ComponentPropsWithoutRef<any> {
+  onSelect: (date: Date | DateRange | undefined) => void;
+  mode: "single" | "range";
+  value?: Date | DateRange | undefined;
   required?: boolean;
+  locale?: keyof typeof locales;
 }
 
-export const DatePicker = ({ onSelect, value, required, ...rest }: Props) => {
-  const getCustomClassNamesMapping = (
-    customClasses: Record<string, string>
-  ): Partial<ClassNames> => {
+export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }: Props) => {
+  const [dayPickerLocale, setDayPickerLocale] = useState<Locale>(locales.enGB);
+
+  useEffect(() => {
+    try {
+      const selectedLocale = locales[locale!];
+      setDayPickerLocale(selectedLocale);
+    } catch (e) {
+      setDayPickerLocale(locales.enGB);
+    }
+  }, [locale]);
+
+  const getCustomClassNamesMapping = (): Partial<ClassNames> => {
     const CLASSNAME_PREFIX = "rdp-";
     const dayPickerClassNames: Partial<ClassNames> = {};
 
-    Object.keys(customClasses).forEach(key => {
+    Object.keys(classes).forEach(key => {
       const classKey = key.replace(CLASSNAME_PREFIX, "") as keyof ClassNames;
-      dayPickerClassNames[classKey] = customClasses[key];
+      dayPickerClassNames[classKey] = classes[key];
     });
 
     return dayPickerClassNames;
   };
 
+  const commonProps: PropsBase = {
+    showOutsideDays: true,
+    captionLayout: "dropdown-years",
+    required: required,
+    classNames: getCustomClassNamesMapping(),
+    locale: dayPickerLocale
+  };
+
   return (
-    <DayPicker
-      showOutsideDays={true}
-      mode="single"
-      captionLayout="dropdown-years"
-      weekStartsOn={1}
-      onSelect={onSelect}
-      selected={value}
-      classNames={getCustomClassNamesMapping(classes)}
-      required={required}
-      {...rest}
-    ></DayPicker>
+    <Fragment>
+      {mode === "single" ? (
+        <DayPicker
+          {...rest}
+          {...commonProps}
+          mode={mode}
+          onSelect={onSelect}
+          selected={value as Date | undefined}
+        ></DayPicker>
+      ) : (
+        <DayPicker
+          {...rest}
+          {...commonProps}
+          mode={mode}
+          onSelect={onSelect}
+          selected={value as DateRange | undefined}
+        />
+      )}
+    </Fragment>
   );
 };

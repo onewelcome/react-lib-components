@@ -14,34 +14,44 @@
  *    limitations under the License.
  */
 
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import { DatePicker } from "./DatePicker";
 import React from "react";
 import { userEvent } from "@storybook/test";
 
-const mockSubmitHandler = jest.fn();
+const mockSelectFunction = jest.fn();
 
-const renderDatePicker = () => {
-  return render(<DatePicker data-testid={"datepicker"} onSelect={mockSubmitHandler} />);
+const renderDatePicker = (mode: "single" | "range") => {
+  return render(
+    <DatePicker mode={mode} data-testid={"datepicker"} onSelect={mockSelectFunction} />
+  );
 };
 
 describe("<DatePicker>", () => {
-  test("should render", () => {
-    const { findByTestId } = renderDatePicker();
+  test("should render DatePicker in single mode", () => {
+    const { findByTestId } = renderDatePicker("single");
 
     const renderedDatePicker = findByTestId("datepicker");
 
     expect(renderedDatePicker).toBeDefined();
   });
+  test("should render DatePicker in range mode", async () => {
+    const { findByTestId } = renderDatePicker("range");
 
-  test("should call onSubmitHandler when clicking on a specific date", async () => {
-    const { findByText } = renderDatePicker();
+    const renderedDatePicker = await findByTestId("datepicker");
+
+    expect(renderedDatePicker).toBeDefined();
+    expect(renderedDatePicker.getAttribute("data-mode")).toBe("range");
+  });
+
+  test("should call onSelect when clicking on a specific date", async () => {
+    const { findByText } = renderDatePicker("single");
 
     const dayElement = await findByText("19");
 
     expect(dayElement).toBeDefined();
 
     await userEvent.click(dayElement);
-    expect(mockSubmitHandler).toHaveBeenCalledTimes(1);
+    expect(mockSelectFunction).toHaveBeenCalledTimes(1);
   });
 });
