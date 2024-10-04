@@ -15,7 +15,10 @@
  */
 
 import { Meta, StoryFn } from "@storybook/react";
-import { DatePicker as DatePickerComponent } from "../../src/components/DatePicker/DatePicker";
+import {
+  DatePicker as DatePickerComponent,
+  Props
+} from "../../src/components/DatePicker/DatePicker";
 import React, { Fragment, useState } from "react";
 import DatePickerDocumentation from "./DatePicker.mdx";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
@@ -32,17 +35,26 @@ const meta: Meta = {
         type: "code"
       }
     }
+  },
+  argTypes: {
+    mode: {
+      control: false,
+      table: {
+        disable: false
+      }
+    }
   }
 };
 
 export default meta;
 
-const Template: StoryFn<{}> = args => {
+const Template: StoryFn<Props> = args => {
   const [inputValue, setInputValue] = useState<Date>();
 
   return (
     <Fragment>
       <DatePickerComponent
+        {...args}
         data-testid="date-picker"
         value={inputValue}
         mode="single"
@@ -51,7 +63,6 @@ const Template: StoryFn<{}> = args => {
         }}
         locale="enGB"
         defaultMonth={new Date(1994, 3)}
-        {...args}
       />
       <p>{inputValue?.toDateString()}</p>
     </Fragment>
@@ -76,20 +87,20 @@ DatePicker.play = conditionalPlay(async ({ canvasElement }) => {
   await expect(dayOfTheMonth.parentElement).toHaveAttribute("data-selected", "true");
 });
 
-const TemplateRange: StoryFn<{}> = args => {
+const TemplateRange: StoryFn<Props> = args => {
   const [inputValue, setInputValue] = useState<DateRange>();
 
   return (
     <Fragment>
       <DatePickerComponent
+        {...args}
+        mode="range"
         data-testid="date-picker"
         value={inputValue}
-        mode="range"
         onSelect={date => {
           setInputValue(date as DateRange);
         }}
         defaultMonth={new Date(1994, 3)}
-        {...args}
       />
       <p>{inputValue?.from?.toDateString()}</p>
       <p>{inputValue?.to?.toDateString()}</p>
