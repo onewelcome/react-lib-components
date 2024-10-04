@@ -30,12 +30,13 @@ input {
 
 .input-wrapper {
   [data-icon]:before {
-    @include mixins.transition(all, 0.2s, ease-in-out);
     transform: translateY(0px);
     font-size: 1.125rem;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include mixins.transition(all, 0.2s, ease-in-out);
   }
 
   [data-prefix],

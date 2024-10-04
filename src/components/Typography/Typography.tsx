@@ -57,8 +57,8 @@ export interface Props extends ComponentPropsWithRef<any> {
   align?: "left" | "center" | "right";
 }
 
-const TypographyComponent: ForwardRefRenderFunction<any, Props> = (
-  { children, variant, tag, style, spacing, align, className = "", ...rest }: Props,
+const TypographyComponent: ForwardRefRenderFunction<any, Omit<Props, "ref">> = (
+  { children, variant, tag, style, spacing, align, className = "", ...rest },
   ref
 ) => {
   if (!validVariants.includes(variant)) {

@@ -22,8 +22,9 @@
   box-sizing: border-box;
   padding: 0 0 2rem;
   background-color: var(--light);
-  @include mixins.transition(box-shadow, 0.2s, ease-in-out);
   font-family: var(--font-family);
+
+  @include mixins.transition(box-shadow, 0.2s, ease-in-out);
 
   &:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
@@ -71,18 +72,20 @@
 
     .image {
       margin-top: 2.5rem;
-      @include mixins.skeletonLoading();
       border-radius: 0.5rem;
       width: 3rem;
       height: 3rem;
+
+      @include mixins.skeletonLoading();
     }
 
     .title {
-      @include mixins.skeletonLoading();
       color: transparent;
       display: inline-block;
       width: 70%;
       border-radius: 0.5rem;
+
+      @include mixins.skeletonLoading();
     }
   }
 }

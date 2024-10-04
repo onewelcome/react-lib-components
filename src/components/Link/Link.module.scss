@@ -88,9 +88,9 @@
 }
 
 .button {
-  @include mixins.buttonBase("link");
-
   text-decoration: none;
+
+  @include mixins.buttonBase("link");
 
   &.fill {
     @include mixins.button("fill", "link");

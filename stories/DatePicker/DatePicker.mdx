@@ -1,0 +1,46 @@
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as DatePickerStories from "./DatePicker.stories.tsx";
+
+<Meta of={DatePickerStories} />
+<Title />
+<Subtitle />
+
+The DatePicker component is a flexible, easy-to-use date selection tool that provides users with an intuitive interface to choose dates.
+It is based on the [react-day-picker](https://daypicker.dev/).
+
+<Canvas>
+  <Story of={DatePickerStories.DatePicker} />
+</Canvas>
+
+# Example
+
+```tsx
+import { Fragment, useState } from "react";
+import { DatePicker } from "./DatePicker";
+
+const YourComponent = () => {
+  const [inputValue, setInputValue] = useState<Date>();
+
+  return (
+    <Fragment>
+      <DatePicker value={inputValue} onSelect={setInputValue} locale="enGB"></DatePicker>
+      <p>{inputValue && inputValue.toDateString()}</p>
+    </Fragment>
+  );
+};
+```
+
+# Features
+
+Currently, we support `single` and `range` selection modes with a set of limited, fixed options.
+
+It's possible to pass `locale` key. This way you can have the DatePicker translated and its style will match the standard look'n'feel for the given country code.
+Internally, the calendar uses `date-fns/locale` package.
+
+You can pass properties down to the original DayPicker component, however, you do it on your own risk and there is no guarantee it will work / look properly.
+
+We utilize [custom class names feature](https://daypicker.dev/docs/styling#custom-class-names) to keep the consistency and all the benefits or css modules. Because of that it is difficult to override the default plugin styles.
+
+# Props
+
+<ArgTypes />
