@@ -47,7 +47,7 @@
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16",
-    "react-day-picker": ">=9"
+    "react-day-picker": "^9.1.3"
   },
   "engines": {
     "node": ">=16"
@@ -134,8 +134,5 @@
     "ts-jest": "^29.1.5",
     "tslib": "^2.6.3",
     "typescript": "^5.5.4"
-  },
-  "dependencies": {
-    "react-day-picker": "^9.1.3"
   }
 }

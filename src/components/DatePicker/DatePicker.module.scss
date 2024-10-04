@@ -100,11 +100,7 @@
   border: var(--button-border-radius) solid transparent;
   border-radius: var(--button-border-radius);
 
-  &:focus-visible {
-    border-radius: 2px;
-    outline: 2px solid var(--color-focus);
-    outline-offset: -2px;
-  }
+  @include mixins.focusVisibleOutline($outlineOffset: -2px);
 }
 
 .rdp-day_button:disabled {
@@ -140,10 +136,7 @@
   width: var(--rdp-nav_button-width);
   height: var(--rdp-nav_button-height);
 
-  &:focus-visible {
-    border-radius: 2px;
-    outline: 2px solid var(--color-focus);
-  }
+  @include mixins.focusVisibleOutline($outlineOffset: 2px);
 }
 
 .rdp-button_previous {
@@ -206,8 +199,7 @@
 
 .rdp-years_dropdown {
   &:focus-visible + .rdp-caption_label .rdp-chevron {
-    border-radius: 2px;
-    outline: 2px solid var(--color-focus);
+    @include mixins.focusVisibleOutline($selectors: null, $outlineOffset: 0);
   }
 }
 
@@ -313,7 +305,7 @@
   border-radius: 0;
 
   &:focus-visible {
-    border-radius: 2px;
+    border-radius: var(--focus-border-radius);
   }
 }
 
