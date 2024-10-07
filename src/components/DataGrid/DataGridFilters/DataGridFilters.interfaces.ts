@@ -83,3 +83,19 @@ export interface FiltersTranslations {
   tag?: TagTranslations;
   popover?: PopoverTranslations;
 }
+
+export interface KeyValuePair<TKey = string, TValue = string> {
+  key: TKey;
+  value: TValue;
+}
+
+export interface FilterWithKeys {
+  id: string;
+  column: string;
+  operator: string;
+  keys: string[];
+}
+
+export interface DataSource<T extends { [k: string]: string }> {
+  loadData(filters?: (Filter | FilterWithKeys)[]): Promise<T[]>;
+}

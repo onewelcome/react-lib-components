@@ -15,7 +15,12 @@
  */
 
 import { useEffect, useState } from "react";
-import { Filter } from "./DataGridFilters/DataGridFilters.interfaces";
+import {
+  DataSource,
+  Filter,
+  FilterWithKeys,
+  KeyValuePair
+} from "./DataGridFilters/DataGridFilters.interfaces";
 import { useFiltersReducer } from "./DataGridFilters/useFiltersReducer";
 
 type OperatorPredicateMap<TOperator extends string> = {
@@ -82,19 +87,7 @@ export const useMockFilteringLogic = <T extends { [k: string]: string }>(
   };
 };
 
-export interface KeyValuePair<TKey = string, TValue = string> {
-  key: TKey;
-  value: TValue;
-}
-
-export interface FilterWithKeys {
-  id: string;
-  column: string;
-  operator: string;
-  keys: string[];
-}
-
-class MockDataSource<T extends { [k: string]: string }> {
+export class MockDataSource<T extends { [k: string]: string }> implements DataSource<T> {
   constructor(
     public data: T[],
     public keyedColumnDefinitons?: { [columnName: string]: KeyValuePair[] }
@@ -125,9 +118,10 @@ class MockDataSource<T extends { [k: string]: string }> {
             ];
           } else {
             const filterWithKeys = filter as FilterWithKeys;
+            const getKey = (val: string) => keyedColumnDefinition.find(kv => kv.value === val)!.key;
             shouldBeDiscarded = [
               ...shouldBeDiscarded,
-              !reduce(filterWithKeys.keys, val => operatorPredicate(row[filter.column], val))
+              !reduce(filterWithKeys.keys, k => operatorPredicate(getKey(row[filter.column]), k))
             ];
           }
         });
@@ -148,15 +142,14 @@ class MockDataSource<T extends { [k: string]: string }> {
  * @scopeException stories/DataGrid/DataGrid.stories.tsx
  */
 export const useMockFilteringLogic2 = <T extends { [k: string]: string }>(
-  data: T[],
+  dataSource: DataSource<T>,
   filterValues: Filter[] | undefined
 ) => {
   const { state, addFilter, editFilter, deleteFilter, clearFilters } =
     useFiltersReducer(filterValues);
 
+  const data: T[] = [];
   const [gridData, setGridData] = useState(data);
-
-  const dataSource = new MockDataSource(data);
 
   useEffect(() => {
     void (async () => {
