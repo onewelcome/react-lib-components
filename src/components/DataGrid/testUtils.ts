@@ -18,37 +18,45 @@ import { useEffect, useState } from "react";
 import { Filter } from "./DataGridFilters/DataGridFilters.interfaces";
 import { useFiltersReducer } from "./DataGridFilters/useFiltersReducer";
 
+type OperatorPredicateMap<TOperator extends string> = {
+  [op in TOperator]: (v1: string, v2: string) => boolean;
+};
+
+const operatorPredicateMap: OperatorPredicateMap<string> = {
+  is: (v1, v2) => v1 === v2,
+  "is not": (v1, v2) => v1 !== v2
+};
+
+function reduceConjunction<T>(arr: T[], fn: (v: T) => boolean) {
+  return arr.reduce((acc, val) => fn(val) && acc, true);
+}
+function reduceDisjunction<T>(arr: T[], fn: (v: T) => boolean) {
+  return arr.reduce((acc, val) => fn(val) || acc, false);
+}
+
 /**
  * @scope .
  * @scopeException stories/DataGrid/DataGrid.stories.tsx
  */
-export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | undefined) => {
+export const useMockFilteringLogic = <T extends { [k: string]: string }>(
+  data: T[],
+  filterValues: Filter[] | undefined
+) => {
   const { state, addFilter, editFilter, deleteFilter, clearFilters } =
     useFiltersReducer(filterValues);
 
   const [gridData, setGridData] = useState(data);
-
-  const operatorPredicateMap = {
-    is: (v1: string, v2: string) => v1 === v2,
-    "is not": (v1: string, v2: string) => v1 !== v2
-  };
 
   useEffect(() => {
     const filteredData = data
       .map((row: T) => {
         let shouldBeDiscarded: boolean[] = [];
         state.filters.forEach(filter => {
+          const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
+          const operatorPredicate = operatorPredicateMap[filter.operator];
           shouldBeDiscarded = [
             ...shouldBeDiscarded,
-            !filter.value.reduce((acc, val) => {
-              return (
-                // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-                (operatorPredicateMap[filter.operator as keyof typeof operatorPredicateMap] as any)(
-                  row[filter.column as keyof typeof row],
-                  val
-                ) && acc
-              );
-            }, true)
+            !reduce(filter.value, val => operatorPredicate(row[filter.column], val))
           ];
         });
 
@@ -86,7 +94,7 @@ export interface FilterWithKeys {
   keys: string[];
 }
 
-class MockDataSource<T> {
+class MockDataSource<T extends { [k: string]: string }> {
   constructor(
     public data: T[],
     public keyedColumnDefinitons?: { [columnName: string]: KeyValuePair[] }
@@ -101,48 +109,25 @@ class MockDataSource<T> {
       return this.data;
     }
 
-    const operatorPredicateMap = {
-      is: (v1: string, v2: string) => v1 === v2,
-      "is not": (v1: string, v2: string) => v1 !== v2
-    };
-
-    function reduceConjunction<T>(arr: T[], fn: (v: T) => boolean) {
-      return arr.reduce((acc, val) => fn(val) && acc, true);
-    }
-    function reduceDisjunction<T>(arr: T[], fn: (v: T) => boolean) {
-      return arr.reduce((acc, val) => fn(val) || acc, false);
-    }
-
     return this.data
       .map((row: T) => {
         let shouldBeDiscarded: boolean[] = [];
         filters.forEach(filter => {
           const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
+          const operatorPredicate = operatorPredicateMap[filter.operator];
 
           const keyedColumnDefinition = this._keyedColumnDefinitons[filter.column];
           if (!keyedColumnDefinition) {
             const filterWithValues = filter as Filter;
             shouldBeDiscarded = [
               ...shouldBeDiscarded,
-              !reduce(filterWithValues.value, val =>
-                // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-                (operatorPredicateMap[filter.operator as keyof typeof operatorPredicateMap] as any)(
-                  row[filterWithValues.column as keyof typeof row],
-                  val
-                )
-              )
+              !reduce(filterWithValues.value, val => operatorPredicate(row[filter.column], val))
             ];
           } else {
             const filterWithKeys = filter as FilterWithKeys;
             shouldBeDiscarded = [
               ...shouldBeDiscarded,
-              !reduce(filterWithKeys.keys, val =>
-                // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-                (operatorPredicateMap[filter.operator as keyof typeof operatorPredicateMap] as any)(
-                  row[filterWithKeys.column as keyof typeof row],
-                  keyedColumnDefinition.find(kv => kv.value === val)!.key
-                )
-              )
+              !reduce(filterWithKeys.keys, val => operatorPredicate(row[filter.column], val))
             ];
           }
         });
@@ -162,7 +147,10 @@ class MockDataSource<T> {
  * @scope .
  * @scopeException stories/DataGrid/DataGrid.stories.tsx
  */
-export const useMockFilteringLogic2 = <T>(data: T[], filterValues: Filter[] | undefined) => {
+export const useMockFilteringLogic2 = <T extends { [k: string]: string }>(
+  data: T[],
+  filterValues: Filter[] | undefined
+) => {
   const { state, addFilter, editFilter, deleteFilter, clearFilters } =
     useFiltersReducer(filterValues);
 
