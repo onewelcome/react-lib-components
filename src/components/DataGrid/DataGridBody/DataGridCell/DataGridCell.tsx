@@ -25,6 +25,7 @@ import classes from "./DataGridCell.module.scss";
 
 export interface Props extends ComponentPropsWithRef<"td"> {
   children?: ReactElement | string | number;
+  prefixElement?: ReactElement;
   isLoading?: boolean;
   spacing?: React.CSSProperties;
   searchValue?: string;
@@ -39,6 +40,7 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
     className,
     isLoading,
     spacing,
+    prefixElement,
     searchValue,
     cellIndex,
     columnLength,
@@ -91,11 +93,34 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
       style={{ ...rest.style, ...cellStyle }}
       className={`${classes["cell"]} ${className ?? ""}`}
     >
-      {isLoading && <div className={classes["loading"]} aria-busy="true" aria-live="polite"></div>}
-      {!isLoading && (
-        <Typography className={classes["text"]} variant="body" tag="span">
-          {renderContent()}
-        </Typography>
+      {prefixElement ? (
+        <div className={classes["content-wrapper"]}>
+          {prefixElement}
+          {isLoading && (
+            <div className={classes["loading"]} aria-busy="true" aria-live="polite"></div>
+          )}
+          {!isLoading && (
+            <Typography
+              className={classes["text"]}
+              variant="body"
+              tag="span"
+              spacing={{ marginBottom: 0 }}
+            >
+              {renderContent()}
+            </Typography>
+          )}
+        </div>
+      ) : (
+        <>
+          {isLoading && (
+            <div className={classes["loading"]} aria-busy="true" aria-live="polite"></div>
+          )}
+          {!isLoading && (
+            <Typography className={classes["text"]} variant="body" tag="span">
+              {renderContent()}
+            </Typography>
+          )}
+        </>
       )}
     </td>
   );

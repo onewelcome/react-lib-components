@@ -28,8 +28,8 @@
     top: 1.3125rem;
     left: variables.$form-element-horizontal-padding-mobile;
     transform-origin: left top;
-    @include mixins.transition(all, 0.2s, ease-in-out);
     pointer-events: none;
+    @include mixins.transition(all, 0.2s, ease-in-out);
 
     &.error {
       color: var(--error);

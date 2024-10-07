@@ -28,16 +28,23 @@
     padding-right: 1rem;
   }
 
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
   .text {
     font-size: var(--font-size-data-grid);
     line-height: var(--data-grid-line-height);
   }
 
   .loading {
-    @include mixins.skeletonLoading();
     border-radius: 0.5rem;
     height: 1.25rem;
     margin: 0.625rem 0;
+
+    @include mixins.skeletonLoading();
   }
 }
 

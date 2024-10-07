@@ -87,6 +87,9 @@ export const DataGridFilterPopover = ({
     }
   }, [isOpen]);
 
+  const columnMetadata = columnsMetadata.find(({ name }) => name === column);
+  const disableAddNew = columnMetadata?.disableAddNew;
+
   return (
     <Popover
       tabIndex={-1}
@@ -153,16 +156,18 @@ export const DataGridFilterPopover = ({
               )
             }
             selectProps={{
-              addNew: {
-                label: addNewValueLabel,
-                onAddNew: value => {
-                  if (value) {
-                    setValues(prev => [...prev, value]);
-                    setPickedValues(prev => [...prev, value]);
-                  }
-                },
-                btnProps: { title: addNewValueButtonTitle, type: "button" }
-              },
+              addNew: disableAddNew
+                ? undefined
+                : {
+                    label: addNewValueLabel,
+                    onAddNew: value => {
+                      if (value) {
+                        setValues(prev => [...prev, value]);
+                        setPickedValues(prev => [...prev, value]);
+                      }
+                    },
+                    btnProps: { title: addNewValueButtonTitle, type: "button" }
+                  },
               search: {
                 enabled: true,
                 renderThreshold: 0

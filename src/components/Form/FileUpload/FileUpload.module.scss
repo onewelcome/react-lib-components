@@ -32,7 +32,6 @@
     font-weight: 400;
   }
 
-  @include transition(all, 0.2s, ease-in-out);
   &.error {
     span[data-icon-status],
     .file-upload-title {
@@ -70,6 +69,10 @@
   .file-upload-title-mandatory {
     color: var(--color-red500);
   }
+
+  & {
+    @include transition(all, 0.2s, ease-in-out);
+  }
 }
 
 .upload-button-wrapper {
@@ -89,6 +92,7 @@
       background-color: var(--color-primary50);
 
       @include transition(all, 0.2s, ease-in-out);
+
       &::before {
         content: "Drop here";
         text-align: center;

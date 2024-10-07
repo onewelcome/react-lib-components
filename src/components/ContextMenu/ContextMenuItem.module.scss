@@ -36,7 +36,6 @@
       outline: none;
 
       &::after {
-        @include mixins.focusVisibleOutline($outlineOffset: 0, $selectors: null);
         content: "";
         position: absolute;
         top: 0;
@@ -44,6 +43,7 @@
         height: 100%;
         width: 100%;
         z-index: calc(variables.$popover-z-index + 1);
+        @include mixins.focusVisibleOutline($outlineOffset: 0, $selectors: null);
       }
     }
 
@@ -56,6 +56,8 @@
     }
 
     &.active {
+      color: var(--color-primary);
+
       &::before {
         content: "";
         position: absolute;
@@ -66,8 +68,6 @@
         border-bottom-right-radius: 0.125rem;
         border-left: 0.25rem solid var(--color-primary);
       }
-
-      color: var(--color-primary);
     }
   }
 }

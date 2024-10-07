@@ -134,9 +134,10 @@ $borderRadius: 2.5rem;
   background-color: var(--toggle-background-color);
   border-radius: $borderRadius;
   position: relative;
-  @include mixins.transition(background-color, 0.2s, ease-in-out);
   display: block;
   pointer-events: none;
+
+  @include mixins.transition(background-color, 0.2s, ease-in-out);
 
   &:before {
     content: "";

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, useState, Fragment, ForwardRefRenderFunction } from "react";
+import React, { ComponentPropsWithRef, useState, Fragment, Ref, ReactElement } from "react";
 import { HeaderCell } from "../../datagrid.interfaces";
 import classes from "./DataGridRow.module.scss";
 import { IconButton } from "../../../Button/IconButton";
@@ -22,13 +22,22 @@ import { Icon, Icons } from "../../../Icon/Icon";
 import { DataGridCell } from "../DataGridCell/DataGridCell";
 import { DataGridDrawer } from "../DataGridDrawer/DataGridDrawer";
 import { generateID } from "../../../../util/helper";
+import { useNestedRow } from "./useNestedRow";
 
-export interface Props extends ComponentPropsWithRef<"tr"> {
+export interface Props<T> extends ComponentPropsWithRef<"tr"> {
+  item?: T;
   headers?: HeaderCell[];
   isLoading?: boolean;
   spacing?: React.CSSProperties;
   searchValue?: string;
   disableContextMenuColumn?: boolean;
+  nestedRowProps?: {
+    rowTemplate?: ({ item, index }: { item: T; index: number }) => ReactElement;
+    indentationLevel?: number;
+    indentationLevels?: { level: number; isLastChild: boolean }[];
+    enableNestedRow?: boolean;
+    nestedItemsKey?: keyof T;
+  };
   expandableRowProps?: {
     enableExpandableRow: boolean;
     expandableRowContent: React.ReactNode;
@@ -38,8 +47,9 @@ export interface Props extends ComponentPropsWithRef<"tr"> {
   };
 }
 
-const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props> = (
+const DataGridRowComponent = <T,>(
   {
+    item,
     children,
     className,
     headers,
@@ -48,9 +58,10 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
     spacing,
     expandableRowProps,
     disableContextMenuColumn,
+    nestedRowProps,
     ...rest
-  },
-  ref
+  }: Props<T>,
+  ref: Ref<HTMLTableRowElement>
 ) => {
   const {
     enableExpandableRow = false,
@@ -59,15 +70,73 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
     drawerId = `ID-${generateID()}`,
     expandableRowContent
   } = expandableRowProps || {};
+  const {
+    indentationLevels,
+    indentationLevel = 0,
+    nestedItemsKey,
+    enableNestedRow,
+    rowTemplate
+  } = nestedRowProps || {};
   const [isRowExpanded, setIsRowExpanded] = useState(false);
+  const { renderNestedRowConnectors, renderNestedRow, getNestedChildSpacing, hasNestedChildren } =
+    useNestedRow({
+      indentationLevels,
+      indentationLevel,
+      item,
+      nestedItemsKey,
+      rowTemplate,
+      isRowExpanded,
+      enableNestedRow,
+      rowProps: {
+        searchValue,
+        headers,
+        spacing,
+        disableContextMenuColumn
+      }
+    });
+
+  const classNames = [classes["row"]];
+  const rowBorderClass = enableNestedRow
+    ? classes[`border-${indentationLevel}`]
+    : classes[`border`];
+
+  className && classNames.push(className);
+  enableExpandableRow
+    ? !isRowExpanded && classNames.push(classes["border-drawer"])
+    : classNames.push(rowBorderClass);
+  isLoading && classNames.push(classes["loading"]);
+
+  const getPrefixButton = (hasNestedChildren: boolean) =>
+    hasNestedChildren ? (
+      <IconButton
+        id={expandButtonId}
+        title={expandButtonTitle}
+        aria-expanded={isRowExpanded}
+        onClick={() => setIsRowExpanded(!isRowExpanded)}
+      >
+        <Icon size="0.75rem" icon={isRowExpanded ? Icons.ChevronUp : Icons.ChevronDown} />
+      </IconButton>
+    ) : null;
+
   const visibleCells = React.Children.map(children as React.ReactElement[], (child, index) => {
+    const childSpacing = enableNestedRow ? getNestedChildSpacing(spacing, index) : spacing;
+
+    const prefixElement =
+      enableNestedRow && index === 0 ? (
+        <>
+          {getPrefixButton(!!hasNestedChildren)}
+          {renderNestedRowConnectors()}
+        </>
+      ) : null;
+
     if (child) {
       const cellWithSpacing = React.cloneElement(child, {
         searchValue,
-        spacing: spacing,
+        spacing: childSpacing,
         cellIndex: index,
         columnLength: headers?.length,
-        disableContextMenuColumn
+        disableContextMenuColumn,
+        prefixElement
       });
 
       const visible = headers && headers.length > index ? !headers[index].hidden : true;
@@ -76,13 +145,6 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
     return null;
   });
 
-  const classNames = [classes["row"]];
-  className && classNames.push(className);
-  enableExpandableRow
-    ? !isRowExpanded && classNames.push(classes["border-drawer"])
-    : classNames.push(classes["border"]);
-  isLoading && classNames.push(classes["loading"]);
-
   return (
     <Fragment>
       <tr {...rest} ref={ref} className={classNames.join(" ")}>
@@ -90,7 +152,9 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
           <DataGridCell
             className={classes["expand-button-cell"]}
             onClick={() => setIsRowExpanded(!isRowExpanded)}
-            style={{ width: "1px" }}
+            style={{
+              width: "1px"
+            }}
           >
             <IconButton
               id={expandButtonId}
@@ -118,8 +182,11 @@ const DataGridRowComponent: ForwardRefRenderFunction<HTMLTableRowElement, Props>
           </td>
         </tr>
       )}
+      {enableNestedRow && renderNestedRow()}
     </Fragment>
   );
 };
 
-export const DataGridRow = React.forwardRef(DataGridRowComponent);
+export const DataGridRow = React.forwardRef(DataGridRowComponent) as <T extends {}>(
+  p: Props<T> & { ref?: Ref<HTMLTableRowElement> }
+) => ReactElement;

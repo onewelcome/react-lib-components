@@ -165,7 +165,7 @@ describe("ref should work", () => {
         }
       }, [ref]);
 
-      return <Typography variant="body" data-ref="testing" ref={ref} />;
+      return <Typography variant="body" data-ref="testing" ref={ref} children="Kingdom Come!" />;
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
