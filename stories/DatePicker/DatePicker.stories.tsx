@@ -126,11 +126,10 @@ DatePickerRange.play = conditionalPlay(async ({ canvasElement }) => {
 
     await waitFor(() => expect(startingDay).toBeDefined());
     await userEvent.click(startingDay);
+    await expect(startingDay.parentElement).toHaveAttribute("data-selected", "true");
 
     await waitFor(() => expect(finishingDay).toBeDefined());
     await userEvent.click(finishingDay);
-
-    await expect(startingDay.parentElement).toHaveAttribute("data-selected", "true");
     await expect(finishingDay.parentElement).toHaveAttribute("data-selected", "true");
   });
 });

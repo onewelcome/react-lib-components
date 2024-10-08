@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-@use "../datagrid-mixins.module.scss";
+@use "../datagridMixins.module.scss";
 
 .row {
   height: 3.1875rem;
@@ -22,7 +22,7 @@
   border-top: 2px solid var(--light-grey-border);
 
   &::after {
-    @include datagrid-mixins.borderAfter(0, true);
+    @include datagridMixins.borderAfter(0, true);
   }
 }
 
