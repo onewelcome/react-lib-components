@@ -38,13 +38,13 @@ $nesting-limit: 6;
       left: 3.0625rem;
     }
     bottom: 0;
-    border-bottom: 1px solid var(--light-grey-border);
+    border-bottom: 2px solid var(--light-grey-border);
   }
 
   @mixin border-x {
     @for $i from 0 through $nesting-limit {
       &.border-#{$i} {
-        &:not(:last-child)::after {
+        &::after {
           @include borderAfter($i);
         }
       }
@@ -54,13 +54,13 @@ $nesting-limit: 6;
   @include border-x();
 
   &.border {
-    &:not(:last-child)::after {
+    &::after {
       @include borderAfter(0, true);
     }
   }
 
   &.border-drawer {
-    &:not(:last-child):not(:nth-last-child(2))::after {
+    &:not(:nth-last-child(2))::after {
       @include borderAfter(0, true);
     }
   }

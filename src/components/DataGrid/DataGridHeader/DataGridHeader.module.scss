@@ -15,17 +15,31 @@
  */
 
 .row {
-  height: 2.5rem;
+  height: 3.1875rem;
+  background-color: var(--color-blue-grey25);
+  position: relative;
+  border-top: 2px solid var(--light-grey-border);
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    border-bottom: 2px solid var(--light-grey-border);
+    width: 100%;
+    left: 0;
+  }
+}
+
+thead::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  border-bottom: 2px solid var(--light-grey-border);
+  width: 100%;
+  left: 0;
 }
 
 .context-menu {
   width: 4.125rem;
   box-sizing: border-box;
-}
-
-@media only screen and (min-width: 50em) {
-  .thead::after {
-    width: calc(100% - 2.5rem);
-    left: 1.25rem;
-  }
 }
