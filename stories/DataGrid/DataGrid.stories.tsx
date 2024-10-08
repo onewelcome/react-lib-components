@@ -17,11 +17,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
-import {
-  MockDataSource,
-  useDataSourceFilteringLogic,
-  useMockFilteringLogic
-} from "../../src/components/DataGrid/testUtils";
+import { MockDataSource, useMockFilteringLogic } from "../../src/components/DataGrid/testUtils";
 import {
   Button,
   ContextMenu,
@@ -29,10 +25,10 @@ import {
   DataGridCell,
   DataGridDrawerItem,
   DataGridRow,
-  FilterKeyMapper,
   Icon,
   IconButton,
-  Icons
+  Icons,
+  useDataSourceFilteringLogic
 } from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
@@ -44,6 +40,7 @@ import { ModalContent } from "../../src/components/Notifications/Modal/ModalCont
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
+import { KeyedColumnDefs } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
 
 interface DataGridItem {
   name: string;
@@ -389,7 +386,7 @@ HiddenContextMenuColumnDataGrid.args = {
 
 const DataGridWithFiltersTemplate = args => {
   const { filters, gridData, onFilterAdd, onFilterEdit, onFilterDelete, onFiltersClear } =
-    useDataSourceFilteringLogic(args.dataSource, args.filters.filterValues);
+    useDataSourceFilteringLogic(args.dataSource, args.filters.filterValues, args.keyedColumnDefs);
   return (
     <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
       <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
@@ -419,25 +416,36 @@ const DataGridWithFiltersTemplate = args => {
 
 export const DataGridWithFilters = DataGridWithFiltersTemplate.bind({});
 
-DataGridWithFilters.args = {
-  dataSource: new MockDataSource([
-    {
-      id: "1",
-      name: "Company 1",
-      type: "Stock"
-    },
+const keyedColumnDefs: KeyedColumnDefs = {
+  type: [
+    { key: "bnd", value: "Bond" },
+    { key: "stk", value: "Stock" }
+  ]
+};
 
-    {
-      id: "2",
-      name: "Company 2",
-      type: "Bond"
-    },
-    {
-      id: "3",
-      name: "Company 3",
-      type: "Bond"
-    }
-  ]),
+DataGridWithFilters.args = {
+  dataSource: new MockDataSource(
+    [
+      {
+        id: "1",
+        name: "Company 1",
+        type: "Stock"
+      },
+
+      {
+        id: "2",
+        name: "Company 2",
+        type: "Bond"
+      },
+      {
+        id: "3",
+        name: "Company 3",
+        type: "Bond"
+      }
+    ],
+    keyedColumnDefs
+  ),
+  keyedColumnDefs,
   filters: {
     filterValues: [],
     columnsMetadata: [
@@ -446,7 +454,7 @@ DataGridWithFilters.args = {
         name: "type",
         headline: "Type",
         operators: ["is", "is not"],
-        defaultValues: ["Stock", "Bond"],
+        defaultValues: keyedColumnDefs.type.map(kv => kv.value),
         disableAddNew: true
       }
     ],
@@ -551,80 +559,6 @@ DataGridWithFiltersInEditMode.play = conditionalPlay(async ({ canvasElement }) =
     expect(filterSelect[0]).toBeVisible();
   });
 });
-
-export const DataGridWithKeyedFilters = DataGridWithFiltersTemplate.bind({});
-const typeKvPairs = [
-  { key: "bnd", value: "Bond" },
-  { key: "stk", value: "Stock" }
-];
-const filterKeyMapper = new FilterKeyMapper();
-filterKeyMapper.setFilterKvPairs("type", typeKvPairs);
-
-DataGridWithKeyedFilters.args = {
-  dataSource: new MockDataSource(
-    [
-      {
-        id: "1",
-        name: "Company 1",
-        type: "Stock"
-      },
-
-      {
-        id: "2",
-        name: "Company 2",
-        type: "Bond"
-      },
-      {
-        id: "3",
-        name: "Company 3",
-        type: "Bond"
-      }
-    ],
-    {
-      type: typeKvPairs
-    }
-  ),
-  filters: {
-    filterValues: [],
-    columnsMetadata: [
-      { name: "name", headline: "Name", operators: ["is", "is not"] },
-      {
-        name: "type",
-        headline: "Type",
-        operators: ["is", "is not"],
-        defaultValues: filterKeyMapper.getValues("type"),
-        disableAddNew: true
-      }
-    ],
-    onFilterAdd: filter => console.log(filter),
-    onFilterEdit: filter => console.log(filter),
-    onFilterDelete: id => console.log(id),
-    onFiltersClear: () => console.log("clear")
-  },
-  headers: [
-    { name: "name", headline: "Name" },
-    { name: "type", headline: "Type", disableSorting: true }
-  ],
-  initialSort: [
-    { name: "name", direction: "ASC" },
-    { name: "created", direction: "DESC" }
-  ],
-  onSort: sort => action(`Sort callback: ${sort}`),
-  actions: {
-    enableAddBtn: true,
-    enableColumnsBtn: true,
-    enableSearchBtn: true,
-    addBtnProps: { onClick: () => action("add btn clicked") },
-    searchBtnProps: { onClick: () => action("search btn clicked") }
-  },
-  disableContextMenuColumn: false,
-  paginationProps: {
-    totalElements: 2,
-    currentPage: 1
-  },
-  isLoading: false,
-  enableMultiSorting: true
-};
 
 const SearchTemplate = args => {
   const [searchValue, setSearchValue] = useState("");

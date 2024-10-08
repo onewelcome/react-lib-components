@@ -37,10 +37,11 @@ export const useDataSourceFilteringLogic = <T extends { [k: string]: string }>(
 
   useEffect(() => {
     void (async () => {
-      const d = await dataSource.loadData(convertFilters(state.filters));
+      const filters = convertFilters(state.filters);
+      const d = await dataSource.loadData(filters);
       setGridData(d);
     })();
-  }, [state.filters]);
+  }, [state.filters, keyedColumnDefs]);
 
   return {
     onFilterAdd: addFilter,
@@ -52,11 +53,14 @@ export const useDataSourceFilteringLogic = <T extends { [k: string]: string }>(
     filters: state.filters
   };
 
-  function convertFilters(filters: Filter[]): (Filter | FilterWithKeys)[] | undefined {
+  function convertFilters(filters: Filter[]): (Filter | FilterWithKeys)[] {
     return filters.map(filter => {
       const columnDef = keyedColumnDefs_[filter.column];
-      if (columnDef) {
-        return { ...filter, keys: [] }; //TODO
+      if (columnDef != undefined) {
+        return {
+          ...filter,
+          keys: filter.value.map(v => columnDef.find(kv => kv.value === v)!.key)
+        };
       } else {
         return filter;
       }

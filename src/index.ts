@@ -175,9 +175,14 @@ export { DataGridDrawerItem } from "./components/DataGrid/DataGridBody/DataGridD
 export type { Props as DataGridDrawerItemProps } from "./components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
 export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
 export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
-export { Filter as DataGridFilter } from "./components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
-export { FilterKeyMapper } from "./components/DataGrid/DataGridFilters/FilterKeyMapper";
 export { useFiltersReducer } from "./components/DataGrid/DataGridFilters/useFiltersReducer";
+export {
+  Filter,
+  FilterWithKeys,
+  KeyValuePair,
+  KeyedColumnDefs
+} from "./components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
+export { useDataSourceFilteringLogic } from "./components/DataGrid/DataGridFilters/useDataSourceFilteringLogic";
 
 /** Banner */
 export { Banner } from "./components/Notifications/Banner/Banner";
