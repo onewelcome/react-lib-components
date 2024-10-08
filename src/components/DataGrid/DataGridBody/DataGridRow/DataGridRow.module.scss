@@ -13,6 +13,8 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+@use "../../datagrid-mixins.module.scss";
+
 $nesting-limit: 6;
 
 .row {
@@ -23,29 +25,11 @@ $nesting-limit: 6;
     background-color: var(--data-grid-row-hover-background-color);
   }
 
-  @mixin borderAfter($i, $no-offset: false) {
-    content: "";
-    position: absolute;
-
-    @if $no-offset {
-      width: 100%;
-      left: 0;
-    } @else if $i > 0 {
-      width: calc(100% - calc(3.0625rem + $i * 4.125rem));
-      left: calc(3.0625rem + $i * 4.125rem);
-    } @else {
-      width: calc(100% - 3.0625rem);
-      left: 3.0625rem;
-    }
-    bottom: 0;
-    border-bottom: 2px solid var(--light-grey-border);
-  }
-
   @mixin border-x {
     @for $i from 0 through $nesting-limit {
       &.border-#{$i} {
         &::after {
-          @include borderAfter($i);
+          @include datagrid-mixins.borderAfter($i);
         }
       }
     }
@@ -55,13 +39,13 @@ $nesting-limit: 6;
 
   &.border {
     &::after {
-      @include borderAfter(0, true);
+      @include datagrid-mixins.borderAfter(0, true);
     }
   }
 
   &.border-drawer {
     &:not(:nth-last-child(2))::after {
-      @include borderAfter(0, true);
+      @include datagrid-mixins.borderAfter(0, true);
     }
   }
 }
