@@ -17,7 +17,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
-import { MockDataSource, useMockFilteringLogic } from "../../src/components/DataGrid/testUtils";
+import { createMockLoadData, useMockFilteringLogic } from "../../src/components/DataGrid/testUtils";
 import {
   Button,
   ContextMenu,
@@ -424,7 +424,7 @@ const keyedColumnDefs: KeyedColumnDefs = {
 };
 
 DataGridWithFilters.args = {
-  dataSource: new MockDataSource(
+  dataSource: createMockLoadData(
     [
       {
         id: "1",
@@ -491,7 +491,7 @@ DataGridWithFilters.args = {
 export const DataGridWithFiltersInEditMode = DataGridWithFiltersTemplate.bind({});
 
 DataGridWithFiltersInEditMode.args = {
-  dataSource: new MockDataSource([
+  dataSource: createMockLoadData([
     {
       id: "1",
       name: "Company 1",

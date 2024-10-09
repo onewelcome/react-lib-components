@@ -98,6 +98,6 @@ export interface FilterWithKeys {
 
 export type KeyedColumnDefs = { [columnName: string]: KeyValuePair[] };
 
-export interface DataSource<T extends { [k: string]: string }> {
-  loadData(filters?: (Filter | FilterWithKeys)[]): Promise<T[]>;
-}
+export type LoadData<T extends { [k: string]: string }> = (
+  filters?: (Filter | FilterWithKeys)[]
+) => Promise<T[]>;

@@ -15,7 +15,7 @@
  */
 
 import { useState, useEffect } from "react";
-import { DataSource, Filter, FilterWithKeys, KeyedColumnDefs } from "./DataGridFilters.interfaces";
+import { LoadData, Filter, FilterWithKeys, KeyedColumnDefs } from "./DataGridFilters.interfaces";
 import { useFiltersReducer } from "./useFiltersReducer";
 
 /**
@@ -24,7 +24,7 @@ import { useFiltersReducer } from "./useFiltersReducer";
  */
 
 export const useDataSourceFilteringLogic = <T extends { [k: string]: string }>(
-  dataSource: DataSource<T>,
+  loadData: LoadData<T>,
   filterValues?: Filter[],
   keyedColumnDefs?: KeyedColumnDefs
 ) => {
@@ -38,7 +38,7 @@ export const useDataSourceFilteringLogic = <T extends { [k: string]: string }>(
   useEffect(() => {
     void (async () => {
       const filters = convertFilters(state.filters);
-      const d = await dataSource.loadData(filters);
+      const d = await loadData(filters);
       setGridData(d);
     })();
   }, [state.filters, keyedColumnDefs]);

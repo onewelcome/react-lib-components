@@ -16,7 +16,6 @@
 
 import { useEffect, useState } from "react";
 import {
-  DataSource,
   Filter,
   FilterWithKeys,
   KeyedColumnDefs
@@ -87,29 +86,25 @@ export const useMockFilteringLogic = <T extends { [k: string]: string }>(
   };
 };
 
-export class MockDataSource<T extends { [k: string]: string }> implements DataSource<T> {
-  constructor(
-    public data: T[],
-    public keyedColumnDefinitons?: KeyedColumnDefs
-  ) {
-    this._keyedColumnDefinitons = keyedColumnDefinitons || {};
-  }
+export function createMockLoadData<T extends { [k: string]: string }>(
+  data: T[],
+  keyedColumnDefinitons?: KeyedColumnDefs
+): (filters: (Filter | FilterWithKeys)[]) => Promise<T[]> {
+  const _keyedColumnDefinitons = keyedColumnDefinitons || {};
 
-  private _keyedColumnDefinitons: KeyedColumnDefs;
-
-  async loadData(filters?: (Filter | FilterWithKeys)[]): Promise<T[]> {
+  return async (filters: (Filter | FilterWithKeys)[]) => {
     if (filters == undefined) {
-      return this.data;
+      return data;
     }
 
-    return this.data
+    return data
       .map((row: T) => {
         let shouldBeDiscarded: boolean[] = [];
         filters.forEach(filter => {
           const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
           const operatorPredicate = operatorPredicateMap[filter.operator];
 
-          const keyedColumnDefinition = this._keyedColumnDefinitons[filter.column];
+          const keyedColumnDefinition = _keyedColumnDefinitons[filter.column];
           if (!keyedColumnDefinition) {
             const filterWithValues = filter as Filter;
             const values = filterWithValues.value;
@@ -149,5 +144,5 @@ export class MockDataSource<T extends { [k: string]: string }> implements DataSo
       .filter(val => {
         return val !== undefined;
       }) as T[];
-  }
+  };
 }
