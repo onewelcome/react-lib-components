@@ -13,20 +13,21 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-@use "../dataGridMixins.module";
 
-.row {
-  height: 3.25rem;
-  background-color: var(--color-blue-grey25);
-  position: relative;
-  border-top: 2px solid var(--light-grey-border);
+@mixin borderAfter($i, $no-offset: false) {
+  content: "";
+  position: absolute;
 
-  &::after {
-    @include dataGridMixins.borderAfter(0, true);
+  @if $no-offset {
+    width: 100%;
+    left: 0;
+  } @else if $i > 0 {
+    width: calc(100% - calc(3.0625rem + $i * 4.125rem));
+    left: calc(3.0625rem + $i * 4.125rem);
+  } @else {
+    width: calc(100% - 3.0625rem);
+    left: 3.0625rem;
   }
-}
-
-.context-menu {
-  width: 4.125rem;
-  box-sizing: border-box;
+  bottom: 0;
+  border-bottom: 2px solid var(--light-grey-border);
 }
