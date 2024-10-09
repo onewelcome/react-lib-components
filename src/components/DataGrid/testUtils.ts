@@ -48,26 +48,9 @@ export const useMockFilteringLogic = <T extends { [k: string]: string }>(
   const [gridData, setGridData] = useState(data);
 
   useEffect(() => {
-    const filteredData = data
-      .map((row: T) => {
-        let shouldBeDiscarded: boolean[] = [];
-        state.filters.forEach(filter => {
-          const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
-          const operatorPredicate = operatorPredicateMap[filter.operator];
-          shouldBeDiscarded = [
-            ...shouldBeDiscarded,
-            !reduce(filter.value, val => operatorPredicate(row[filter.column], val))
-          ];
-        });
-
-        return shouldBeDiscarded.length > 0 &&
-          shouldBeDiscarded.reduce((acc, val) => acc || val, false)
-          ? undefined
-          : row;
-      })
-      .filter(val => {
-        return val !== undefined;
-      }) as T[];
+    const filteredData = data.map(filterRow).filter(val => {
+      return val !== undefined;
+    });
     setGridData(filteredData);
   }, [state.filters]);
 
@@ -80,4 +63,20 @@ export const useMockFilteringLogic = <T extends { [k: string]: string }>(
     setGridData,
     filters: state.filters
   };
+
+  function filterRow(row: T) {
+    let shouldBeDiscarded: boolean[] = [];
+    state.filters.forEach(filter => {
+      const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
+      const operatorPredicate = operatorPredicateMap[filter.operator];
+      shouldBeDiscarded = [
+        ...shouldBeDiscarded,
+        !reduce(filter.value, val => operatorPredicate(row[filter.column], val))
+      ];
+    });
+
+    return shouldBeDiscarded.length > 0 && shouldBeDiscarded.reduce((acc, val) => acc || val, false)
+      ? undefined
+      : row;
+  }
 };
