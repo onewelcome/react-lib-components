@@ -15,12 +15,7 @@
  */
 
 import { useEffect, useState } from "react";
-import {
-  DataSource,
-  Filter,
-  FilterWithKeys,
-  KeyValuePair
-} from "./DataGridFilters/DataGridFilters.interfaces";
+import { Filter } from "./DataGridFilters/DataGridFilters.interfaces";
 import { useFiltersReducer } from "./DataGridFilters/useFiltersReducer";
 
 type OperatorPredicateMap<TOperator extends string> = {
@@ -74,88 +69,6 @@ export const useMockFilteringLogic = <T extends { [k: string]: string }>(
         return val !== undefined;
       }) as T[];
     setGridData(filteredData);
-  }, [state.filters]);
-
-  return {
-    onFilterAdd: addFilter,
-    onFilterEdit: editFilter,
-    onFilterDelete: deleteFilter,
-    onFiltersClear: clearFilters,
-    gridData,
-    setGridData,
-    filters: state.filters
-  };
-};
-
-export class MockDataSource<T extends { [k: string]: string }> implements DataSource<T> {
-  constructor(
-    public data: T[],
-    public keyedColumnDefinitons?: { [columnName: string]: KeyValuePair[] }
-  ) {
-    this._keyedColumnDefinitons = keyedColumnDefinitons || {};
-  }
-
-  private _keyedColumnDefinitons: { [columnName: string]: KeyValuePair[] };
-
-  async loadData(filters?: (Filter | FilterWithKeys)[]): Promise<T[]> {
-    if (filters == undefined) {
-      return this.data;
-    }
-
-    return this.data
-      .map((row: T) => {
-        let shouldBeDiscarded: boolean[] = [];
-        filters.forEach(filter => {
-          const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
-          const operatorPredicate = operatorPredicateMap[filter.operator];
-
-          const keyedColumnDefinition = this._keyedColumnDefinitons[filter.column];
-          if (!keyedColumnDefinition) {
-            const filterWithValues = filter as Filter;
-            shouldBeDiscarded = [
-              ...shouldBeDiscarded,
-              !reduce(filterWithValues.value, val => operatorPredicate(row[filter.column], val))
-            ];
-          } else {
-            const filterWithKeys = filter as FilterWithKeys;
-            const getKey = (val: string) => keyedColumnDefinition.find(kv => kv.value === val)!.key;
-            shouldBeDiscarded = [
-              ...shouldBeDiscarded,
-              !reduce(filterWithKeys.keys, k => operatorPredicate(getKey(row[filter.column]), k))
-            ];
-          }
-        });
-
-        return shouldBeDiscarded.length > 0 &&
-          shouldBeDiscarded.reduce((acc, val) => acc || val, false)
-          ? undefined
-          : row;
-      })
-      .filter(val => {
-        return val !== undefined;
-      }) as T[];
-  }
-}
-
-/**
- * @scope .
- * @scopeException stories/DataGrid/DataGrid.stories.tsx
- */
-export const useMockFilteringLogic2 = <T extends { [k: string]: string }>(
-  dataSource: DataSource<T>,
-  filterValues: Filter[] | undefined
-) => {
-  const { state, addFilter, editFilter, deleteFilter, clearFilters } =
-    useFiltersReducer(filterValues);
-
-  const data: T[] = [];
-  const [gridData, setGridData] = useState(data);
-
-  useEffect(() => {
-    void (async () => {
-      const d = await dataSource.loadData(state.filters);
-      setGridData(d);
-    })();
   }, [state.filters]);
 
   return {
