@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-@use "../../datagridMixins.module.scss";
+@use "../../dataGridMixins.module";
 
 $nesting-limit: 6;
 
@@ -29,7 +29,7 @@ $nesting-limit: 6;
     @for $i from 0 through $nesting-limit {
       &.border-#{$i} {
         &::after {
-          @include datagridMixins.borderAfter($i);
+          @include dataGridMixins.borderAfter($i);
         }
       }
     }
@@ -39,13 +39,13 @@ $nesting-limit: 6;
 
   &.border {
     &::after {
-      @include datagridMixins.borderAfter(0, true);
+      @include dataGridMixins.borderAfter(0, true);
     }
   }
 
   &.border-drawer {
     &:not(:nth-last-child(2))::after {
-      @include datagridMixins.borderAfter(0, true);
+      @include dataGridMixins.borderAfter(0, true);
     }
   }
 }

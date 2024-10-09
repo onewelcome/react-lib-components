@@ -13,16 +13,16 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-@use "../datagridMixins.module.scss";
+@use "../dataGridMixins.module";
 
 .row {
-  height: 3.1875rem;
+  height: 3.25rem;
   background-color: var(--color-blue-grey25);
   position: relative;
   border-top: 2px solid var(--light-grey-border);
 
   &::after {
-    @include datagridMixins.borderAfter(0, true);
+    @include dataGridMixins.borderAfter(0, true);
   }
 }
 
