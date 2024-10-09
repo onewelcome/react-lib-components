@@ -286,6 +286,42 @@ User can configure the behavior of the toolbar using that object which has the f
 />
 ```
 
+## Filtering by keys/IDs
+
+There is an utility class, `FilterKeyMapper`, to help in case the consumer application uses key-value pairs for data grid
+filter's defaultValues and the filtering must be done on keys, not on the values (e.g. by UserID, not UserName in the
+API/DB).
+
+Example:
+
+```js
+
+  // instantiate the key map for filtering
+  const filterKeyMapper = new FilterKeyMapper();
+
+  // when the filter default values are populated
+  useEffect(() => {
+    if (apiReceivedFilter?.length) {
+      apiReceivedFilter.forEach(async (item) => {
+        if (!item.defaultValues?.length && item.url) {
+          try {
+            const apiResponse = await getApiData(item.url);
+            const kvPairs = apiResponse.data;
+            // we store the UserID and UserName records as key-value pairs
+            filterKeyMapper.setColumnKvPairs(item.name, kvPairs);
+  ...
+  // when the DataGrid filter changes, use the collected key mappings in the filtering logic
+  useEffect(() => {
+    if (activeFilter || searchText) {
+      // API filters the data based on user ID's (keys)
+      const filterWithKeys = activeFilter.map(f => {
+        return { ...f, keys: filterKeyMapper.getKeysForValues(f.column, f.value) };
+      });
+      loadDataFromApi(filterWithKeys, searchText).then(users => {
+        if (users.totalElements <= 500) {
+          setData(users.content);
+```
+
 # Search section
 
 To show searchbar one has to pass `search` prop to the `DataGrid`.
