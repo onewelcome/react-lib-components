@@ -14,4 +14,68 @@
  *    limitations under the License.
  */
 
-//TODO
+import { FilterKeyMapper } from "./FilterKeyMapper";
+
+describe("FilterKeyMapper", () => {
+  const kvPairs1 = [
+    { key: "k1", value: "v1" },
+    { key: "k2", value: "v2" },
+    { key: "k3", value: "v3" }
+  ];
+  const kvPairs2 = [
+    { key: "K1", value: "V1" },
+    { key: "K2", value: "V2" },
+    { key: "K3", value: "V3" }
+  ];
+
+  let m: FilterKeyMapper;
+  beforeEach(() => {
+    m = new FilterKeyMapper();
+  });
+
+  it("should be initially empty", () => {
+    expect(m.columnKvPairs.size).toEqual(0);
+  });
+
+  describe("with setting kv-pairs", () => {
+    beforeEach(() => {
+      m.setColumnKvPairs("col1", kvPairs1);
+      m.setColumnKvPairs("col2", kvPairs2);
+    });
+
+    it("should contain the kv-pairs", () => {
+      expect(m.columnKvPairs.size).toEqual(2);
+      expect(m.columnKvPairs.get("col1")).toEqual(kvPairs1);
+      expect(m.columnKvPairs.get("col2")).toEqual(kvPairs2);
+    });
+
+    it("should provide values", () => {
+      expect(m.getValues("col1")).toEqual(["v1", "v2", "v3"]);
+      expect(m.getValues("col2")).toEqual(["V1", "V2", "V3"]);
+    });
+
+    it("should provide values", () => {
+      expect(m.getKeysForValues("col1", ["v1", "v3"])).toEqual(["k1", "k3"]);
+      expect(m.getKeysForValues("col2", ["V1", "V3"])).toEqual(["K1", "K3"]);
+    });
+
+    describe("error scenarios", () => {
+      it("should raise error on wrong column for getValues", () => {
+        expect(() => m.getKvPairs("col3")).toThrow("Column 'col3' not found in FilterKeyMapper");
+      });
+      it("should raise error on wrong column for getValues", () => {
+        expect(() => m.getValues("col3")).toThrow("Column 'col3' not found in FilterKeyMapper");
+      });
+      it("should raise error on wrong column for getKeys", () => {
+        expect(() => m.getKeysForValues("col3", ["v1"])).toThrow(
+          "Column 'col3' not found in FilterKeyMapper"
+        );
+      });
+      it("should raise error on wrong value for getKeysForValues", () => {
+        expect(() => m.getKeysForValues("col1", ["V1"])).toThrow(
+          "Column 'col1' in FilterKeyMapper does not contain value 'V1'"
+        );
+      });
+    });
+  });
+});

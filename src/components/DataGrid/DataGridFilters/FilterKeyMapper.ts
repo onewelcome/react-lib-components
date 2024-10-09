@@ -14,20 +14,35 @@
  *    limitations under the License.
  */
 
+import { KeyValuePair } from "./DataGridFilters.interfaces";
+
 export class FilterKeyMapper {
-  filterKvPairs = new Map<string, { key: string; value: string }[]>();
+  columnKvPairs = new Map<string, { key: string; value: string }[]>();
 
-  getKeysForValues(filterName: string, values: string[]): string[] {
-    const kvPairs = this.filterKvPairs.get(filterName);
-    return values.map(v => kvPairs?.find(kv => kv.value === v)?.key).filter(k => k !== undefined);
+  setColumnKvPairs(columnName: string, kvPairs: { key: string; value: string }[]) {
+    this.columnKvPairs.set(columnName, kvPairs);
   }
 
-  getValues(filterName: string): string[] {
-    const kvPairs = this.filterKvPairs.get(filterName);
-    return kvPairs?.map(kv => kv.value) || [];
+  getValues(columnName: string): string[] {
+    return this.getKvPairs(columnName).map(kv => kv.value);
   }
 
-  setFilterKvPairs(filterName: string, kvPairs: { key: string; value: string }[]) {
-    this.filterKvPairs.set(filterName, kvPairs);
+  getKeysForValues(columnName: string, values: string[]): string[] {
+    const kvPairs = this.getKvPairs(columnName);
+    return values.map(v => {
+      const kv = kvPairs?.find(kv => kv.value === v);
+      if (kv == undefined) {
+        throw new Error(`Column '${columnName}' in FilterKeyMapper does not contain value '${v}'`);
+      }
+      return kv.key;
+    });
+  }
+
+  getKvPairs(columnName: string): KeyValuePair[] {
+    const kvPairs = this.columnKvPairs.get(columnName);
+    if (kvPairs == undefined) {
+      throw new Error(`Column '${columnName}' not found in ${FilterKeyMapper.name}`);
+    }
+    return kvPairs;
   }
 }
