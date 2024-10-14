@@ -1,0 +1,18 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as SideSheetStories from "./SideSheet.stories.tsx";
+
+<Meta of={SideSheetStories} />
+<Title />
+<Subtitle />
+
+SideSheet is an extension of the basic `Modal` component. The only difference between these two is a purely visual one: `SideSheet` slides into the right side of viewport, and has no visible backdrop.
+
+# Examples
+
+<Canvas>
+  <Story of={SideSheetStories.SideSheet} />
+</Canvas>
+
+# Props
+
+<ArgTypes />
