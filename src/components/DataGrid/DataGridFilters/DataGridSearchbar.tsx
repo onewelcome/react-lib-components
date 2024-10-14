@@ -18,7 +18,8 @@ import React, { useState, useEffect } from "react";
 import { InputWrapper } from "../../Form/Wrapper/InputWrapper/InputWrapper";
 import { Icon, Icons } from "../../Icon/Icon";
 import classes from "./DataGridToolbar.module.scss";
-import { InputWrapperProps, useDebouncedCallback } from "../../..";
+import { Props as InputWrapperProps } from "../../Form/Wrapper/InputWrapper/InputWrapper";
+import { useDebouncedCallback } from "../../../hooks/useDebouncedCallback";
 
 export interface DataGridSearchbarProps {
   onSearch: (value: string) => void;
