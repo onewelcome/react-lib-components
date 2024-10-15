@@ -51,7 +51,13 @@ const Template: StoryFn<Props> = args => {
   return (
     <Fragment>
       <Button onClick={onToggle}>{!open ? "Open" : "Close"} modal</Button>
-      <SideSheetComponent {...args} id="slide-in-modal" open={open} onClose={onClose}>
+      <SideSheetComponent
+        {...args}
+        id="slide-in-modal"
+        open={open}
+        onClose={onClose}
+        handleProps={{ onOpen, onClose }}
+      >
         <SideSheetHeader
           id={"modal-header"}
           title={"Modal header"}
@@ -62,118 +68,6 @@ const Template: StoryFn<Props> = args => {
           id={`modal-description`}
           disableAutoFocus={args["content.disableAutoFocus"]}
         >
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
-          <InputWrapper
-            type="text"
-            label="Name"
-            name="Name"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-          />
           <InputWrapper
             type="text"
             label="Name"

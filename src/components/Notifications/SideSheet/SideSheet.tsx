@@ -24,9 +24,18 @@ import React, {
 } from "react";
 import { Props as ModalProps, Modal } from "../Modal/Modal";
 import classes from "./SideSheet.module.scss";
+import { IconButton } from "../../Button/IconButton";
+import { Icon, Icons } from "../../Icon/Icon";
 
-const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, ModalProps> = (
-  { children, id, open, ...rest }: ModalProps,
+export interface Props extends ModalProps {
+  handleProps?: {
+    onOpen: () => void;
+    onClose: () => void;
+  };
+}
+
+const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { children, id, open, handleProps, ...rest }: Props,
   ref
 ) => {
   const [classHideOnTransition, setClassHideOnTransition] = useState<string>("hide");
@@ -50,24 +59,48 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, ModalProps> =
   }, [open]);
 
   return (
-    <Modal
-      {...rest}
-      id={id}
-      open={controlledOpen}
-      className={`${classes["slide-in-modal"]} ${open ? classes["visible"] : ""} ${
-        !open ? classes[classHideOnTransition] : ""
-      }`}
-      containerProps={{ className: classes["container"] }}
-      backdropProps={{ id: classes["backdrop-slide"] }}
-      hideBackdrop={true}
-      onTransitionEnd={onTransitionEnd}
-      ref={ref ?? containerRef}
-    >
-      {children}
-    </Modal>
+    <>
+      {handleProps && !open && (
+        <div className={classes["collapsed-sheet"]}>
+          <div className={classes["handle"]}>
+            <IconButton
+              style={{ width: "1rem", height: "1rem" }}
+              className={classes["handle-button"]}
+              onClick={() => handleProps.onOpen()}
+              title="handle"
+            >
+              <Icon className={classes["handle-icon"]} icon={Icons.SideSheetHandle} />
+            </IconButton>
+          </div>
+        </div>
+      )}
+      <Modal
+        {...rest}
+        id={id}
+        open={controlledOpen}
+        className={`${classes["slide-in-modal"]} ${open ? classes["visible"] : ""} ${
+          !open ? classes[classHideOnTransition] : ""
+        }`}
+        containerProps={{ className: classes["container"] }}
+        hideBackdrop={true}
+        onTransitionEnd={onTransitionEnd}
+        ref={ref ?? containerRef}
+      >
+        {handleProps && (
+          <div className={classes["handle"]}>
+            <IconButton
+              style={{ width: "1rem", height: "1rem" }}
+              title="handle"
+              onClick={() => handleProps.onClose()}
+            >
+              <Icon className={classes["handle-icon"]} icon={Icons.SideSheetHandle} />
+            </IconButton>
+          </div>
+        )}
+        {children}
+      </Modal>
+    </>
   );
 };
-
-export type { Props } from "../Modal/Modal";
 
 export const SideSheet = React.forwardRef(SideSheetComponent);

@@ -25,7 +25,7 @@
   left: auto;
   visibility: visible;
 
-  transform: translate(120%);
+  transform: translate(calc(100% - 0.5rem));
   @include mixins.transition(transform, 0.5s, ease-in-out);
 
   &.hide {
@@ -42,8 +42,44 @@
   }
 }
 
-#backdrop-slide {
-  background-color: transparent;
+.handle {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 13.25rem;
+  left: -24px;
+  width: 24px;
+  height: 40px;
+  padding: 8px 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-color: var(--modal-background-color);
+  box-shadow:
+    -4px 4px 5px 0px #01053214,
+    -4px 3px 14px 0px #0105320a,
+    -4px 8px 10px 0px #0105320a;
+}
+
+.handle-button {
+  transform: rotateY(180deg);
+}
+
+.handle-icon {
+  font-size: 0.9rem;
+}
+
+.collapsed-sheet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100vh;
+  background-color: var(--modal-background-color);
+  box-shadow:
+    0px 4px 5px 0px #01053214,
+    0px 3px 14px 0px #0105320a,
+    0px 8px 10px 0px #0105320a;
 }
 
 @media only screen and (min-width: 50rem) {
@@ -53,9 +89,9 @@
     height: 100%;
     max-height: unset;
     border-radius: 0;
-    box-shadow: 0 1.875rem 3.125rem var(--modal-shadow-color);
-    box-shadow: 0px 4px 5px 0px #01053214;
-    box-shadow: 0px 3px 14px 0px #0105320a;
-    box-shadow: 0px 8px 10px 0px #0105320a;
+    box-shadow:
+      0px 4px 5px 0px #01053214,
+      0px 3px 14px 0px #0105320a,
+      0px 8px 10px 0px #0105320a;
   }
 }

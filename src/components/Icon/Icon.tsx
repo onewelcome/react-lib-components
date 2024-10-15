@@ -100,7 +100,8 @@ export enum Icons {
   ZoomIn = "zoom-in",
   ZoomOut = "zoom-out",
   ArrowUp = "arrow-up",
-  ExternalLink = "external-link"
+  ExternalLink = "external-link",
+  SideSheetHandle = "sidesheet-handle"
 }
 
 type Tag = "span" | "div" | "i";
