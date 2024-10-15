@@ -15,8 +15,7 @@
  */
 
 import React from "react";
-import { BaseModalContent } from "../../BaseModal/BaseModalContent/BaseModalContent";
-import { Props } from "../../BaseModal/BaseModalContent/BaseModalContent";
+import { BaseModalContent, Props } from "../../BaseModal/BaseModalContent/BaseModalContent";
 import classes from "./SideSheetContent.module.scss";
 
 export const SideSheetContent: React.FC<Props> = ({ className, ...rest }) => (

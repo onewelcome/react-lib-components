@@ -17,12 +17,14 @@
 @use "../../../mixins.module.scss";
 
 .slide-in-modal {
-  justify-content: flex-end;
-  min-width: 400px;
-  max-width: 640px;
-  width: fit-content;
   right: 0;
   left: auto;
+
+  justify-content: flex-end;
+
+  min-width: 25rem;
+  max-width: 40rem;
+  width: fit-content;
   visibility: visible;
 
   transform: translate(calc(100% - 0.5rem));
@@ -44,42 +46,40 @@
 
 .handle {
   position: absolute;
+  top: 13.25rem;
+  left: -1.5rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 13.25rem;
-  left: -24px;
-  width: 24px;
+
+  width: 1.5rem;
   height: 40px;
-  padding: 8px 0;
+  padding: 0.5rem 0;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
   background-color: var(--modal-background-color);
   box-shadow:
-    -4px 4px 5px 0px #01053214,
-    -4px 3px 14px 0px #0105320a,
-    -4px 8px 10px 0px #0105320a;
+    -4px 4px 5px 0px var(--side-sheet-shadow-color-one),
+    -4px 3px 14px 0px var(--side-sheet-shadow-color-two),
+    -4px 8px 10px 0px var(--side-sheet-shadow-color-two);
 }
 
 .handle-button {
   transform: rotateY(180deg);
 }
 
-.handle-icon {
-  font-size: 0.9rem;
-}
-
 .collapsed-sheet {
   position: absolute;
   top: 0;
   right: 0;
-  width: 8px;
+  width: 0.5rem;
   height: 100vh;
   background-color: var(--modal-background-color);
   box-shadow:
-    0px 4px 5px 0px #01053214,
-    0px 3px 14px 0px #0105320a,
-    0px 8px 10px 0px #0105320a;
+    0px 4px 5px 0px var(--side-sheet-shadow-color-one),
+    0px 3px 14px 0px var(--side-sheet-shadow-color-two),
+    0px 8px 10px 0px var(--side-sheet-shadow-color-two);
 }
 
 @media only screen and (min-width: 50rem) {
@@ -90,8 +90,8 @@
     max-height: unset;
     border-radius: 0;
     box-shadow:
-      0px 4px 5px 0px #01053214,
-      0px 3px 14px 0px #0105320a,
-      0px 8px 10px 0px #0105320a;
+      0px 4px 5px 0px var(--side-sheet-shadow-color-one),
+      0px 3px 14px 0px var(--side-sheet-shadow-color-two),
+      0px 8px 10px 0px var(--side-sheet-shadow-color-two);
   }
 }

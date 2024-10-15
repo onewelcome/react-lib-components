@@ -31,6 +31,7 @@ export interface Props extends ModalProps {
   handleProps?: {
     onOpen: () => void;
     onClose: () => void;
+    title?: string;
   };
 }
 
@@ -41,6 +42,7 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const [classHideOnTransition, setClassHideOnTransition] = useState<string>("hide");
   const [controlledOpen, setControlledOpen] = useState(false);
   const containerRef = useRef(null);
+  const handleTitle = handleProps?.title || "Side sheet handle";
 
   const onTransitionEnd: TransitionEventHandler<HTMLDivElement> = useCallback(
     e => {
@@ -66,10 +68,10 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             <IconButton
               style={{ width: "1rem", height: "1rem" }}
               className={classes["handle-button"]}
-              onClick={() => handleProps.onOpen()}
-              title="handle"
+              onClick={handleProps.onOpen}
+              title={handleTitle}
             >
-              <Icon className={classes["handle-icon"]} icon={Icons.SideSheetHandle} />
+              <Icon size="0.9rem" icon={Icons.SideSheetHandle} />
             </IconButton>
           </div>
         </div>
@@ -90,10 +92,10 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           <div className={classes["handle"]}>
             <IconButton
               style={{ width: "1rem", height: "1rem" }}
-              title="handle"
-              onClick={() => handleProps.onClose()}
+              title={handleTitle}
+              onClick={handleProps.onClose}
             >
-              <Icon className={classes["handle-icon"]} icon={Icons.SideSheetHandle} />
+              <Icon size="0.9rem" icon={Icons.SideSheetHandle} />
             </IconButton>
           </div>
         )}

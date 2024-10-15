@@ -16,8 +16,9 @@
 
 import React, { useEffect, useRef } from "react";
 import { SideSheet } from "./SideSheet";
-import { Props } from "../Modal/Modal";
-import { render, fireEvent } from "@testing-library/react";
+import { Props } from "../SideSheet/SideSheet";
+import { render, fireEvent, getByTitle } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 const defaultParams: Props = {
   id: "",
@@ -60,6 +61,34 @@ describe("SideSheet should render", () => {
     fireEvent.transitionEnd(SideSheetComponent);
 
     expect(SideSheetComponent).toHaveClass("hide");
+  });
+
+  it("renders side sheet handle", async () => {
+    const onOpen = jest.fn();
+    const onClose = jest.fn();
+
+    const { SideSheetComponent, getByTitle, rerender } = createSideSheet(props => ({
+      ...defaultParams,
+      handleProps: { onOpen, onClose, title: "handle" }
+    }));
+
+    expect(SideSheetComponent).toHaveClass("hide");
+    expect(getByTitle("handle")).toBeInTheDocument();
+
+    await userEvent.click(getByTitle("handle"));
+
+    expect(onOpen).toHaveBeenCalled();
+
+    rerender(
+      <SideSheet {...defaultParams} open handleProps={{ onOpen, onClose, title: "handle" }} />
+    );
+    fireEvent.transitionEnd(SideSheetComponent);
+
+    expect(getByTitle("handle")).toBeInTheDocument();
+
+    await userEvent.click(getByTitle("handle"));
+
+    expect(onClose).toHaveBeenCalled();
   });
 });
 

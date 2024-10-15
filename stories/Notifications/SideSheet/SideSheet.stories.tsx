@@ -27,7 +27,7 @@ import { SideSheetContent } from "../../../src/components/Notifications/SideShee
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import { within, userEvent, waitFor, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
-import { ModalActions } from "../../../src/components/Notifications/SideSheet/SideSheetActions/SideSheetActions";
+import { SideSheetActions } from "../../../src/components/Notifications/SideSheet/SideSheetActions/SideSheetActions";
 
 const meta: Meta = {
   title: "components/Utils/SideSheet",
@@ -76,12 +76,12 @@ const Template: StoryFn<Props> = args => {
             onChange={e => setInputValue(e.target.value)}
           />
         </SideSheetContent>
-        <ModalActions className={args["actions.className"]} cancelAction={{ label: "Cancel" }}>
+        <SideSheetActions className={args["actions.className"]} cancelAction={{ label: "Cancel" }}>
           <Button variant="outline">Example</Button>
           <Button form="modalForm" type="submit">
             Save
           </Button>
-        </ModalActions>
+        </SideSheetActions>
       </SideSheetComponent>
     </Fragment>
   );

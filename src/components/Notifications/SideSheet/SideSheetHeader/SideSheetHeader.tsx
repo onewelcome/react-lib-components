@@ -15,8 +15,7 @@
  */
 
 import React from "react";
-import { BaseModalHeader } from "../../BaseModal/BaseModalHeader/BaseModalHeader";
-import { Props } from "../../BaseModal/BaseModalHeader/BaseModalHeader";
+import { BaseModalHeader, Props } from "../../BaseModal/BaseModalHeader/BaseModalHeader";
 import classes from "./SideSheetHeader.module.scss";
 
 export const SideSheetHeader: React.FC<Props> = ({ className, ...rest }) => (

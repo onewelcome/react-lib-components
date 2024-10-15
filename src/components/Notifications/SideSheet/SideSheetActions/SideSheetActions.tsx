@@ -14,5 +14,5 @@
  *    limitations under the License.
  */
 
-export { BaseModalActions as ModalActions } from "../../BaseModal/BaseModalActions/BaseModalActions";
+export { BaseModalActions as SideSheetActions } from "../../BaseModal/BaseModalActions/BaseModalActions";
 export type { Props } from "../../BaseModal/BaseModalActions/BaseModalActions";
