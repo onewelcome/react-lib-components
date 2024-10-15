@@ -104,6 +104,14 @@ export type {
 } from "./components/Notifications/NotificationProvider/notification.interfaces";
 export { SlideInModal } from "./components/Notifications/SlideInModal/SlideInModal";
 export type { Props as SlideInModalProps } from "./components/Notifications/SlideInModal/SlideInModal";
+export { SideSheet } from "./components/Notifications/SideSheet/SideSheet";
+export type { Props as SideSheetProps } from "./components/Notifications/SideSheet/SideSheet";
+export { SideSheetActions } from "./components/Notifications/SideSheet/SideSheetActions/SideSheetActions";
+export type { Props as SideSheetActionsProps } from "./components/Notifications/SideSheet/SideSheetActions/SideSheetActions";
+export { SideSheetContent } from "./components/Notifications/SideSheet/SideSheetContent/SideSheetContent";
+export type { Props as SideSheetContentProps } from "./components/Notifications/SideSheet/SideSheetContent/SideSheetContent";
+export { SideSheetHeader } from "./components/Notifications/SideSheet/SideSheetHeader/SideSheetHeader";
+export type { Props as SideSheetHeaderProps } from "./components/Notifications/SideSheet/SideSheetHeader/SideSheetHeader";
 
 /** Form components */
 export { Checkbox } from "./components/Form/Checkbox/Checkbox";

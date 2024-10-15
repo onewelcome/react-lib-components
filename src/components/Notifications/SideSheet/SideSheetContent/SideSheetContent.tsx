@@ -21,3 +21,5 @@ import classes from "./SideSheetContent.module.scss";
 export const SideSheetContent: React.FC<Props> = ({ className, ...rest }) => (
   <BaseModalContent {...rest} className={`${classes["side-sheet-content"]} ${className}`} />
 );
+
+export { Props } from "../../BaseModal/BaseModalContent/BaseModalContent";

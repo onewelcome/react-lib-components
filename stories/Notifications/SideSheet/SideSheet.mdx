@@ -5,7 +5,11 @@ import * as SideSheetStories from "./SideSheet.stories.tsx";
 <Title />
 <Subtitle />
 
-SideSheet is an extension of the basic `Modal` component. The only difference between these two is a purely visual one: `SideSheet` slides into the right side of viewport, and has no visible backdrop.
+SideSheet is an extension of the basic `Modal` component. `SideSheet` can be used to display additional information without interrupting user flow. It takes all of the `Modal` component props with the addition of `handleProps` which can be used to configure the `SideSheet` handle button. It consists of:
+
+- `onOpen` - callback that should be called when `SideSheet` opens
+- `onClose` - callback that should be called when `SideSheet` closes
+- `title` - accessible handle button name
 
 # Examples
 

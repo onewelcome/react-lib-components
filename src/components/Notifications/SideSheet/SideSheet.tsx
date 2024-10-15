@@ -42,7 +42,7 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const [classHideOnTransition, setClassHideOnTransition] = useState<string>("hide");
   const [controlledOpen, setControlledOpen] = useState(false);
   const containerRef = useRef(null);
-  const handleTitle = handleProps?.title || "Side sheet handle";
+  const handleTitle = handleProps?.title ?? "Side sheet handle";
 
   const onTransitionEnd: TransitionEventHandler<HTMLDivElement> = useCallback(
     e => {
