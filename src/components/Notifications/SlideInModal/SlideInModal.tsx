@@ -25,6 +25,9 @@ import React, {
 import { Props as ModalProps, Modal } from "../Modal/Modal";
 import classes from "./SlideInModal.module.scss";
 
+/**
+ * @deprecated use the new `SideSheet` component
+ */
 const SlideInModalComponent: ForwardRefRenderFunction<HTMLDivElement, ModalProps> = (
   { children, id, open, ...rest }: ModalProps,
   ref

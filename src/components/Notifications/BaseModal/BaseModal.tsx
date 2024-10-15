@@ -44,6 +44,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   describedby?: string;
   disableEscapeKeyDown?: boolean;
   disableBackdrop?: boolean;
+  hideBackdrop?: boolean;
   forceContainerOpen?: boolean;
   zIndex?: number;
   domRoot?: HTMLElement;
@@ -84,6 +85,7 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     describedby,
     disableEscapeKeyDown = false,
     disableBackdrop = false,
+    hideBackdrop = false,
     forceContainerOpen = false,
     zIndex,
     domRoot,
@@ -141,12 +143,14 @@ const BaseModalComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           onKeyDown={handleEscKeyPress}
           style={{ zIndex }}
         >
-          <div
-            {...backdropProps}
-            aria-hidden={true}
-            className={`${classes["backdrop"]} ${backdropProps?.className ?? ""}`}
-            onClick={handleBackdropClick}
-          ></div>
+          {!hideBackdrop ? (
+            <div
+              {...backdropProps}
+              aria-hidden={true}
+              className={`${classes["backdrop"]} ${backdropProps?.className ?? ""}`}
+              onClick={handleBackdropClick}
+            ></div>
+          ) : null}
           {forceContainerOpen ? (
             <div
               {...containerProps}
