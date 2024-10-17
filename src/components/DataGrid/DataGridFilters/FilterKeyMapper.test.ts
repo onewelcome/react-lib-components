@@ -54,19 +54,19 @@ describe("FilterKeyMapper", () => {
       expect(m.getValues("col2")).toEqual(["V1", "V2", "V3"]);
     });
 
-    it("should provide values", () => {
+    it("should provide keys for values", () => {
       expect(m.getKeysForValues("col1", ["v1", "v3"])).toEqual(["k1", "k3"]);
       expect(m.getKeysForValues("col2", ["V1", "V3"])).toEqual(["K1", "K3"]);
     });
 
     describe("error scenarios", () => {
-      it("should raise error on wrong column for getValues", () => {
+      it("should raise error on wrong column for getKvPairs", () => {
         expect(() => m.getKvPairs("col3")).toThrow("Column 'col3' not found in FilterKeyMapper");
       });
       it("should raise error on wrong column for getValues", () => {
         expect(() => m.getValues("col3")).toThrow("Column 'col3' not found in FilterKeyMapper");
       });
-      it("should raise error on wrong column for getKeys", () => {
+      it("should raise error on wrong column for getKeysForValues", () => {
         expect(() => m.getKeysForValues("col3", ["v1"])).toThrow(
           "Column 'col3' not found in FilterKeyMapper"
         );
