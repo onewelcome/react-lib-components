@@ -23,16 +23,17 @@ import { Typography } from "../../../Typography/Typography";
 export interface Props extends ComponentPropsWithRef<"div"> {
   id: string;
   title: string;
+  description?: string;
   children?: React.ReactNode;
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const BaseModalHeaderComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { id, title, children, onClose, ...rest }: Props,
+  { id, title, children, onClose, description, className, ...rest }: Props,
   ref
 ) => {
   return (
-    <div {...rest} ref={ref} className={classes["header"]}>
+    <div {...rest} ref={ref} className={`${classes["header"]} ${className}`}>
       <div className={classes["headline"]}>
         <div className={classes["title-wrapper"]}>
           <Typography
@@ -44,6 +45,17 @@ const BaseModalHeaderComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
           >
             {title}
           </Typography>
+          {description && (
+            <Typography
+              id={id}
+              className={classes["title"]}
+              tag="span"
+              spacing={{ marginBottom: 0 }}
+              variant="body"
+            >
+              {description}
+            </Typography>
+          )}
         </div>
         <IconButton onClick={onClose} className={classes["closeBtn"]} title="close modal">
           <Icon icon={Icons.Times} />

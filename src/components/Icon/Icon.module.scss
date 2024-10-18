@@ -377,3 +377,8 @@
   content: "\e950";
   @include fontProperties();
 }
+
+.icon-sidesheet-handle:before {
+  content: "\e951";
+  @include fontProperties();
+}
