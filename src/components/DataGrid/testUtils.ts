@@ -18,48 +18,39 @@ import { useEffect, useState } from "react";
 import { Filter } from "./DataGridFilters/DataGridFilters.interfaces";
 import { useFiltersReducer } from "./DataGridFilters/useFiltersReducer";
 
+type OperatorPredicateMap<TOperator extends string> = {
+  [op in TOperator]: (v1: string, v2: string) => boolean;
+};
+
+const operatorPredicateMap: OperatorPredicateMap<string> = {
+  is: (v1, v2) => v1 === v2,
+  "is not": (v1, v2) => v1 !== v2
+};
+
+function reduceConjunction<T>(arr: T[], fn: (v: T) => boolean) {
+  return arr.reduce((acc, val) => fn(val) && acc, true);
+}
+function reduceDisjunction<T>(arr: T[], fn: (v: T) => boolean) {
+  return arr.reduce((acc, val) => fn(val) || acc, false);
+}
+
 /**
  * @scope .
  * @scopeException stories/DataGrid/DataGrid.stories.tsx
  */
-export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | undefined) => {
+export const useMockFilteringLogic = <T extends { [k: string]: string }>(
+  data: T[],
+  filterValues: Filter[] | undefined
+) => {
   const { state, addFilter, editFilter, deleteFilter, clearFilters } =
     useFiltersReducer(filterValues);
 
   const [gridData, setGridData] = useState(data);
 
-  const operatorPredicateMap = {
-    is: (v1: string, v2: string) => v1 === v2,
-    "is not": (v1: string, v2: string) => v1 !== v2
-  };
-
   useEffect(() => {
-    const filteredData = data
-      .map((row: T) => {
-        let shouldBeDiscarded: boolean[] = [];
-        state.filters.forEach(filter => {
-          shouldBeDiscarded = [
-            ...shouldBeDiscarded,
-            !filter.value.reduce((acc, val) => {
-              return (
-                // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-                (operatorPredicateMap[filter.operator as keyof typeof operatorPredicateMap] as any)(
-                  row[filter.column as keyof typeof row],
-                  val
-                ) && acc
-              );
-            }, true)
-          ];
-        });
-
-        return shouldBeDiscarded.length > 0 &&
-          shouldBeDiscarded.reduce((acc, val) => acc || val, false)
-          ? undefined
-          : row;
-      })
-      .filter(val => {
-        return val !== undefined;
-      }) as T[];
+    const filteredData = data.map(filterRow).filter(val => {
+      return val !== undefined;
+    });
     setGridData(filteredData);
   }, [state.filters]);
 
@@ -72,4 +63,20 @@ export const useMockFilteringLogic = <T>(data: T[], filterValues: Filter[] | und
     setGridData,
     filters: state.filters
   };
+
+  function filterRow(row: T) {
+    let shouldBeDiscarded: boolean[] = [];
+    state.filters.forEach(filter => {
+      const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
+      const operatorPredicate = operatorPredicateMap[filter.operator];
+      shouldBeDiscarded = [
+        ...shouldBeDiscarded,
+        !reduce(filter.value, val => operatorPredicate(row[filter.column], val))
+      ];
+    });
+
+    return shouldBeDiscarded.length > 0 && shouldBeDiscarded.reduce((acc, val) => acc || val, false)
+      ? undefined
+      : row;
+  }
 };
