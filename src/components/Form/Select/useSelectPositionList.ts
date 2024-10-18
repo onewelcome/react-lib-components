@@ -52,7 +52,7 @@ export const useSelectPositionList = ({
       window.innerHeight - containerReference.current.getBoundingClientRect().top;
 
     // Set position as if there's more space on the bottom
-    let position: Position = { top: "2.75rem", bottom: "initial" };
+    let position: Position = { top: "initial" /*xx*/, bottom: "initial" };
 
     // Set the position of the select
     if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
@@ -87,14 +87,16 @@ export const useSelectPositionList = ({
         : containerReference.current.getBoundingClientRect().top - 16;
 
     if (listHeight && availableSpace < listHeight + addNewButtonHeightWithMargin) {
-      const maxHeightObject = {
-        wrapper: `${availableSpace}px`,
-        list:
-          addNewButtonHeightWithMargin > 0
-            ? `${availableSpace - addNewButtonHeightWithMargin}px`
-            : "none"
-      };
-      setOptionsListMaxHeight(maxHeightObject);
+      //xx
+
+      // const maxHeightObject = {
+      //   wrapper: `${availableSpace}px`,
+      //   list:
+      //     addNewButtonHeightWithMargin > 0
+      //       ? `${availableSpace - addNewButtonHeightWithMargin}px`
+      //       : "none"
+      // };
+      // setOptionsListMaxHeight(maxHeightObject);
       setOpacity(100);
       return;
     }

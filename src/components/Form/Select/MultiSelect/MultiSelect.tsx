@@ -350,27 +350,29 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           </div>
           <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </div>
-        <div
-          ref={optionListReference}
-          className={`list-wrapper ${classes["list-wrapper"]}`}
-          style={{
-            display: expanded ? "block" : "none",
-            opacity: opacity,
-            maxHeight: optionsListMaxHeight.wrapper,
-            pointerEvents: expanded ? "auto" : "none",
-            ...listPosition
-          }}
-        >
-          <ul
-            id={getListboxId(multiSelectId.current)}
-            className={addNewBtnOptionsContainerClassName}
-            role="listbox"
-            aria-multiselectable="true"
-            style={{ maxHeight: optionsListMaxHeight.list }}
+        <div>
+          <div
+            ref={optionListReference}
+            className={`list-wrapper ${classes["list-wrapper"]}`}
+            style={{
+              display: expanded ? "block" : "none",
+              opacity: opacity,
+              maxHeight: optionsListMaxHeight.wrapper,
+              pointerEvents: expanded ? "auto" : "none",
+              ...listPosition
+            }}
           >
-            {renderOptions()}
-          </ul>
-          {renderAddNew()}
+            <ul
+              id={getListboxId(multiSelectId.current)}
+              className={addNewBtnOptionsContainerClassName}
+              role="listbox"
+              aria-multiselectable="true"
+              style={{ maxHeight: optionsListMaxHeight.list }}
+            >
+              {renderOptions()}
+            </ul>
+            {renderAddNew()}
+          </div>
         </div>
       </div>
     </Fragment>
