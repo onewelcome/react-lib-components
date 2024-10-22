@@ -28,7 +28,7 @@ import { IconButton } from "../../Button/IconButton";
 import { Icon, Icons } from "../../Icon/Icon";
 
 export interface Props extends ModalProps {
-  handleProps?: {
+  handleButtonProps?: {
     onOpen: () => void;
     onClose: () => void;
     title?: string;
@@ -36,13 +36,13 @@ export interface Props extends ModalProps {
 }
 
 const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, id, open, handleProps, ...rest }: Props,
+  { children, id, open, handleButtonProps, ...rest }: Props,
   ref
 ) => {
   const [classHideOnTransition, setClassHideOnTransition] = useState<string>("hide");
   const [controlledOpen, setControlledOpen] = useState(false);
   const containerRef = useRef(null);
-  const handleTitle = handleProps?.title ?? "Side sheet handle";
+  const handleTitle = handleButtonProps?.title ?? "Side sheet handle";
 
   const onTransitionEnd: TransitionEventHandler<HTMLDivElement> = useCallback(
     e => {
@@ -62,13 +62,13 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   return (
     <>
-      {handleProps && !open && (
+      {handleButtonProps && !open && (
         <div className={classes["collapsed-sheet"]}>
           <div className={classes["handle"]}>
             <IconButton
               style={{ width: "1rem", height: "1rem" }}
               className={classes["handle-button"]}
-              onClick={handleProps.onOpen}
+              onClick={handleButtonProps.onOpen}
               title={handleTitle}
             >
               <Icon size="0.9rem" icon={Icons.SideSheetHandle} />
@@ -88,12 +88,12 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         onTransitionEnd={onTransitionEnd}
         ref={ref ?? containerRef}
       >
-        {handleProps && (
+        {handleButtonProps && (
           <div className={classes["handle"]}>
             <IconButton
               style={{ width: "1rem", height: "1rem" }}
               title={handleTitle}
-              onClick={handleProps.onClose}
+              onClick={handleButtonProps.onClose}
             >
               <Icon size="0.9rem" icon={Icons.SideSheetHandle} />
             </IconButton>

@@ -40,14 +40,37 @@ const createSideSheet = (params?: (defaultParams: Props) => Props) => {
   };
 };
 
-describe("SideSheet should render", () => {
-  it("renders without crashing", () => {
+const createSideSheetWithBackground = (
+  buttonCallback: () => void,
+  params?: (defaultParams: Props) => Props
+) => {
+  let parameters: Props = defaultParams;
+  if (params) {
+    parameters = params(defaultParams);
+  }
+
+  const queries = render(
+    <div>
+      <button onClick={buttonCallback}>Background button</button>
+      <SideSheet {...parameters} data-testid="SideSheet" open />
+    </div>
+  );
+  const SideSheetComponentWithBackground = queries.getByTestId("SideSheet");
+
+  return {
+    ...queries,
+    SideSheetComponentWithBackground
+  };
+};
+
+describe("SideSheet", () => {
+  it("should render without crashing", () => {
     const { SideSheetComponent } = createSideSheet();
 
     expect(SideSheetComponent).toBeDefined();
   });
 
-  it("makes modal content's container visible after opening transition ends", () => {
+  it("should make modal content's container visible after opening transition ends", () => {
     const { SideSheetComponent, rerender } = createSideSheet();
 
     expect(SideSheetComponent).toHaveClass("hide");
@@ -63,13 +86,13 @@ describe("SideSheet should render", () => {
     expect(SideSheetComponent).toHaveClass("hide");
   });
 
-  it("renders side sheet handle", async () => {
+  it("should render side sheet handle", async () => {
     const onOpen = jest.fn();
     const onClose = jest.fn();
 
     const { SideSheetComponent, getByTitle, rerender } = createSideSheet(props => ({
       ...defaultParams,
-      handleProps: { onOpen, onClose, title: "handle" }
+      handleButtonProps: { onOpen, onClose, title: "handle" }
     }));
 
     expect(SideSheetComponent).toHaveClass("hide");
@@ -80,7 +103,7 @@ describe("SideSheet should render", () => {
     expect(onOpen).toHaveBeenCalled();
 
     rerender(
-      <SideSheet {...defaultParams} open handleProps={{ onOpen, onClose, title: "handle" }} />
+      <SideSheet {...defaultParams} open handleButtonProps={{ onOpen, onClose, title: "handle" }} />
     );
     fireEvent.transitionEnd(SideSheetComponent);
 
@@ -90,9 +113,29 @@ describe("SideSheet should render", () => {
 
     expect(onClose).toHaveBeenCalled();
   });
+
+  it("should allow interacting with background elements", async () => {
+    const onOpen = jest.fn();
+    const onClose = jest.fn();
+    const onButtonClick = jest.fn();
+
+    const { SideSheetComponentWithBackground, getByTitle, getByText, rerender } =
+      createSideSheetWithBackground(onButtonClick, props => ({
+        ...defaultParams,
+        handleButtonProps: { onOpen, onClose, title: "handle" }
+      }));
+
+    expect(SideSheetComponentWithBackground).toHaveClass("visible");
+    expect(getByTitle("handle")).toBeInTheDocument();
+
+    await userEvent.click(getByText("Background button"));
+
+    expect(onButtonClick).toHaveBeenCalled();
+    expect(SideSheetComponentWithBackground).toHaveClass("visible");
+  });
 });
 
-describe("ref should work", () => {
+describe("ref", () => {
   it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
       propagateRef

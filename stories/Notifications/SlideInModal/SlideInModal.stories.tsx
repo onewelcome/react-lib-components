@@ -29,7 +29,7 @@ import { within, userEvent, waitFor, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 
 const meta: Meta = {
-  title: "components/Utils/SlideInModal",
+  title: "components/Utils/SlideInModal (deprecated)",
   component: SlideInModalComponent,
   parameters: {
     docs: {

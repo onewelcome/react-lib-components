@@ -104,6 +104,8 @@ export type {
 } from "./components/Notifications/NotificationProvider/notification.interfaces";
 export { SlideInModal } from "./components/Notifications/SlideInModal/SlideInModal";
 export type { Props as SlideInModalProps } from "./components/Notifications/SlideInModal/SlideInModal";
+
+/** SideSheet */
 export { SideSheet } from "./components/Notifications/SideSheet/SideSheet";
 export type { Props as SideSheetProps } from "./components/Notifications/SideSheet/SideSheet";
 export { SideSheetActions } from "./components/Notifications/SideSheet/SideSheetActions/SideSheetActions";

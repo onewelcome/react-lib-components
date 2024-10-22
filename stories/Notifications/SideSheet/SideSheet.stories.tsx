@@ -56,7 +56,7 @@ const Template: StoryFn<Props> = args => {
         id="slide-in-modal"
         open={open}
         onClose={onClose}
-        handleProps={{ onOpen, onClose }}
+        handleButtonProps={{ onOpen, onClose }}
       >
         <SideSheetHeader
           id={"modal-header"}
