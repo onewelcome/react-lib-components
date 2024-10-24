@@ -160,9 +160,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       const isAtLeastOneMb = maxFileSizeInBytes >= 1024 * 1024;
 
       if (isAtLeastOneMb) {
-        sizeMessage = `${(maxFileSizeInBytes / (1024 * 1024)).toFixed(2)}MB`;
+        sizeMessage = `${parseFloat((maxFileSizeInBytes / (1024 * 1024)).toFixed(2))}MB`;
       } else {
-        sizeMessage = `${(maxFileSizeInBytes / 1024).toFixed(2)}KB`;
+        sizeMessage = `${parseFloat((maxFileSizeInBytes / 1024).toFixed(2))}KB`;
       }
 
       result.error =

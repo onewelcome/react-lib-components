@@ -16,22 +16,27 @@
 
 import { FileType } from "../components/Form/FileUpload/FileUpload";
 import { useEffect, useState } from "react";
-import { getValueByPath, isJsonString } from "../util/helper";
+import { isJsonString } from "../util/helper";
 
+export type UploadResponseStatus = XMLHttpRequest["status"];
+export type UploadResponseJson = Record<string, unknown>;
 export interface UploadResponseType {
   fileList: FileType[];
-  status: XMLHttpRequest["status"];
+  status: UploadResponseStatus;
+  responseJson: UploadResponseJson;
+}
+export interface OnErrorMessageMapperType {
+  responseStatus: UploadResponseStatus;
+  responseJson: UploadResponseJson;
 }
 export interface UseUploadFileCallback {
   onComplete?: (response: UploadResponseType) => void;
-  onProgress?: Function;
+  onProgress?: (fileName: string, progress: number) => void;
+  onErrorMessageMapper?: (args: OnErrorMessageMapperType) => string | undefined;
 }
-
 export interface UploadFileRequestParams {
   url: string;
   headers?: Headers;
-  responseErrorPath?: string;
-  networkErrorText?: string;
   withCredentials?: boolean;
 }
 
@@ -40,9 +45,9 @@ export const useUploadFile = (
   request: UploadFileRequestParams,
   callbacks?: UseUploadFileCallback
 ) => {
-  const { url, headers, withCredentials, networkErrorText, responseErrorPath } = request;
+  const { url, headers, withCredentials } = request;
 
-  const { onComplete, onProgress } = callbacks ?? {};
+  const { onComplete, onProgress, onErrorMessageMapper } = callbacks ?? {};
 
   const [uploadingFiles, setUploadingFiles] = useState<FileType[]>([]);
   const [updatedFiles, setUpdatedFiles] = useState<FileType[]>([...files]);
@@ -71,28 +76,24 @@ export const useUploadFile = (
   };
 
   const getFileStatus = (
-    requestStatus: XMLHttpRequest["status"],
-    responseText: XMLHttpRequest["responseText"]
+    responseStatus: UploadResponseStatus,
+    responseJson: UploadResponseJson
   ) => {
     let fileStatus: FileType["status"] = undefined;
     let error = "";
-    const response = responseText && isJsonString(responseText) && JSON.parse(responseText);
-    if (requestStatus >= 200 && requestStatus < 400) {
+    if (responseStatus >= 200 && responseStatus < 400) {
       fileStatus = "completed";
-    } else if (requestStatus === 0) {
+    } else if (responseStatus === 0) {
       fileStatus = "retry";
       error =
-        networkErrorText ?? "Network error. Check internet connection and retry uploading the file";
-    } else if (requestStatus >= 400 && requestStatus < 500) {
+        onErrorMessageMapper?.({ responseStatus, responseJson }) ??
+        "Network error. Check internet connection and retry uploading the file";
+    } else if (responseStatus >= 400 && responseStatus < 500) {
       fileStatus = "error";
-      error =
-        responseErrorPath && response ? getValueByPath(response, responseErrorPath) : "Bad request";
-    } else if (requestStatus >= 500) {
+      error = onErrorMessageMapper?.({ responseStatus, responseJson }) ?? "Bad request";
+    } else if (responseStatus >= 500) {
       fileStatus = "error";
-      error =
-        responseErrorPath && response
-          ? getValueByPath(response, responseErrorPath)
-          : "Server Error";
+      error = onErrorMessageMapper?.({ responseStatus, responseJson }) ?? "Server Error";
     }
     return { fileStatus, error };
   };
@@ -100,10 +101,11 @@ export const useUploadFile = (
   const handleOnComplete = (xhr: XMLHttpRequest, fileName: string) => {
     const { status, readyState, responseText } = xhr;
     if (readyState === xhr.DONE) {
-      const { fileStatus, error } = getFileStatus(status, responseText);
+      const responseJson = responseText && isJsonString(responseText) && JSON.parse(responseText);
+      const { fileStatus, error } = getFileStatus(status, responseJson);
       const updatedList = getUpdatedList(fileName, fileStatus, undefined, error);
       setUpdatedFiles(updatedList);
-      const response = { fileList: updatedList, status };
+      const response = { fileList: updatedList, status, responseJson };
       setUploadingFiles(prevState => prevState.filter(selected => selected.name === fileName));
       onComplete?.(response);
     }
@@ -113,9 +115,9 @@ export const useUploadFile = (
     const xhr = new XMLHttpRequest();
     xhr.upload.addEventListener("progress", e => recordProgress(e, file.name));
     xhr.addEventListener("readystatechange", () => handleOnComplete(xhr, file.name));
-    headers?.forEach((value, key) => xhr.setRequestHeader(key, value));
     withCredentials && (xhr.withCredentials = true);
     xhr.open("POST", url, true);
+    headers?.forEach((value, key) => xhr.setRequestHeader(key, value));
     const formData = new FormData();
     formData.append("file", file.data as File);
     formData.append("name", file.name);

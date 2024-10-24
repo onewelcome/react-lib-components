@@ -23,7 +23,6 @@ import {
   remToPx,
   throttle,
   areArraysDifferent,
-  getValueByPath,
   isEqual,
   isJsonString,
   deepMerge
@@ -243,24 +242,6 @@ describe("areArraysDifferent works as expected", () => {
 
     const result = areArraysDifferent(arr1, arr2, "name");
     expect(result).toBe(true);
-  });
-});
-
-describe("return correct values from getValueByPath", () => {
-  it("should return the correct value form a multi layered object", () => {
-    const val = "test";
-    const obj = {
-      firstNode: {
-        secondNode: {
-          thirdNode: {
-            val
-          }
-        }
-      }
-    };
-
-    const result = getValueByPath(obj, "firstNode.secondNode.thirdNode.val");
-    expect(result).toBe(val);
   });
 });
 
