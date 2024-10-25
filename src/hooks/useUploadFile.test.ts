@@ -1,7 +1,6 @@
-import { useUploadFile } from "./useUploadFile";
+import { OnErrorMessageMapperType, useUploadFile } from "./useUploadFile";
 import { renderHook } from "@testing-library/react";
 import { waitFor } from "@testing-library/react";
-import { FileType } from "../components/Form/FileUpload/FileUpload";
 
 const DONE = 4;
 
@@ -50,25 +49,26 @@ const setupXhrEnvironment = (mockParams: mockRequestParams) => {
   return mock;
 };
 
-const expectReadyStateInfo = async (
-  files: FileType[],
-  mock: ReturnType<typeof mockXhrRequest>,
-  response: { code: number; body: { message: string } }
-) => {
-  const { result } = renderHook(() => useUploadFile(files, { ...requestInfo }));
-
-  expect(mock.addEventListener).toHaveBeenCalled();
-  const [[, readystatechange]] = mock.addEventListener.mock.calls;
-  await waitFor(() => readystatechange());
-  const currentFile = result.current.updatedFiles[0];
-  expect(currentFile.status).toEqual("error");
-  expect(currentFile.error).toEqual(response.body.message);
-};
-
 describe("it should perform upload", () => {
   it("should register the correct progress", async () => {
     const mock = setupXhrEnvironment([200]);
     const { result } = renderHook(() => useUploadFile([file], requestInfo));
+    expect(result.current).toBeDefined();
+    expect(mock.upload.addEventListener).toHaveBeenCalled();
+    const [[, progress]] = mock.upload.addEventListener.mock.calls;
+    await waitFor(() => progress(progressData));
+
+    const targetFile = result.current.updatedFiles[0];
+    expect(targetFile.name).toEqual(file.name);
+    expect(targetFile.progress).toEqual(12);
+  });
+
+  it("should handle uploading with headers", async () => {
+    const mock = setupXhrEnvironment([200]);
+    const headers = new Headers({ Authorization: "Auth1234" });
+
+    const { result } = renderHook(() => useUploadFile([file], { ...requestInfo, headers }));
+
     expect(result.current).toBeDefined();
     expect(mock.upload.addEventListener).toHaveBeenCalled();
     const [[, progress]] = mock.upload.addEventListener.mock.calls;
@@ -98,8 +98,7 @@ describe("it should perform upload", () => {
   });
 
   it("should contain a file with status of error", async () => {
-    const response = { code: 404, body: { message: "Error test" } };
-    const mock = setupXhrEnvironment([404, DONE, JSON.stringify(response)]);
+    const mock = setupXhrEnvironment([404, DONE]);
     const files3 = [
       {
         name: "test3.txt",
@@ -108,7 +107,14 @@ describe("it should perform upload", () => {
         type: ""
       }
     ];
-    await expectReadyStateInfo(files3, mock, response);
+
+    const { result } = renderHook(() => useUploadFile(files3, { ...requestInfo }));
+
+    expect(mock.addEventListener).toHaveBeenCalled();
+    const [[, readystatechange]] = mock.addEventListener.mock.calls;
+    await waitFor(() => readystatechange());
+    const currentFile = result.current.updatedFiles[0];
+    expect(currentFile.status).toEqual("error");
   });
 
   it("should contain a file with status of server error", async () => {
@@ -122,7 +128,14 @@ describe("it should perform upload", () => {
         type: ""
       }
     ];
-    await expectReadyStateInfo(files6, mock, response);
+
+    const { result } = renderHook(() => useUploadFile(files6, { ...requestInfo }));
+
+    expect(mock.addEventListener).toHaveBeenCalled();
+    const [[, readystatechange]] = mock.addEventListener.mock.calls;
+    await waitFor(() => readystatechange());
+    const currentFile = result.current.updatedFiles[0];
+    expect(currentFile.status).toEqual("error");
   });
 
   it("should contain a file with status of success", async () => {
@@ -149,7 +162,9 @@ describe("should return data according to the parameters", () => {
   it("should call custom callbacks", async () => {
     const onComplete = jest.fn();
     const onProgress = jest.fn();
-    const mock = setupXhrEnvironment([200, DONE]);
+    const status = 200;
+    const response = { id: "bada55e5-f00d-babe-b00b-cafe5eedf00d" };
+    const mock = setupXhrEnvironment([status, DONE, JSON.stringify(response)]);
     const files4 = [
       {
         name: "test4.txt",
@@ -158,7 +173,9 @@ describe("should return data according to the parameters", () => {
         type: ""
       }
     ];
-    renderHook(() => useUploadFile(files4, requestInfo, { onProgress, onComplete }));
+    const { result } = renderHook(() =>
+      useUploadFile(files4, requestInfo, { onProgress, onComplete })
+    );
 
     const [[, progress]] = mock.upload.addEventListener.mock.calls;
     await waitFor(() => progress(progressData));
@@ -167,28 +184,62 @@ describe("should return data according to the parameters", () => {
     await waitFor(() => readystatechange());
 
     expect(mock.addEventListener).toHaveBeenCalled();
-    expect(onComplete).toHaveBeenCalled();
-    expect(onComplete).toHaveBeenCalled();
+    expect(onComplete).toHaveBeenCalledWith({
+      fileList: result.current.updatedFiles,
+      status,
+      responseJson: response
+    });
+    expect(onProgress).toHaveBeenCalledWith(files4[0].name, 12);
   });
 
-  it("should add the correct error message", async () => {
-    const mock = setupXhrEnvironment([0, DONE]);
-    const files5 = [
-      {
-        name: "test5.txt",
-        data: new File([""], "test5.txt"),
-        size: 5,
-        type: ""
-      }
-    ];
-    const { result } = renderHook(() => useUploadFile(files5, { ...requestInfo }));
-    const [[, readystatechange]] = mock.addEventListener.mock.calls;
-    await waitFor(() => readystatechange());
+  it.each`
+    responseStatus | responseJson                                      | expectedErrorMessage                                                       | useCustomMapper
+    ${400}         | ${{ message: "Invalid file" }}                    | ${"Custom bad request message"}                                            | ${true}
+    ${500}         | ${{ message: "Server failed" }}                   | ${"Custom server error message"}                                           | ${true}
+    ${501}         | ${{ message: "Take error from the response" }}    | ${"Custom error based on response"}                                        | ${true}
+    ${0}           | ${{}}                                             | ${"Network error. Check internet connection and retry uploading the file"} | ${false}
+    ${400}         | ${{}}                                             | ${"Bad request"}                                                           | ${false}
+    ${404}         | ${{}}                                             | ${"Bad request"}                                                           | ${false}
+    ${500}         | ${{}}                                             | ${"Server Error"}                                                          | ${false}
+    ${200}         | ${{ id: "bada55e5-f00d-4d00-babe-b00bf00dface" }} | ${""}                                                                      | ${false}
+  `(
+    "should handle error message for status $responseStatus with/without onErrorMessageMapper callback",
+    async ({ responseStatus, responseJson, expectedErrorMessage, useCustomMapper }) => {
+      const mock = setupXhrEnvironment([responseStatus, DONE]);
+      mock.responseText = JSON.stringify(responseJson);
+      const errorMessageMapper = ({
+        responseStatus,
+        responseJson
+      }: OnErrorMessageMapperType): string | undefined => {
+        if (responseStatus === 400) {
+          return "Custom bad request message";
+        } else if (responseStatus === 500) {
+          return "Custom server error message";
+        } else if (responseJson.message === "Take error from the response") {
+          return "Custom error based on response";
+        }
+      };
+      const onErrorMessageMapper = useCustomMapper ? errorMessageMapper : undefined;
+      const files5 = [
+        {
+          name: "test5.txt",
+          data: new File([""], "test5.txt"),
+          size: 5,
+          type: ""
+        }
+      ];
 
-    expect(mock.addEventListener).toHaveBeenCalled();
-    const file = result.current.updatedFiles[0];
-    // expect(file.error).toEqual(error);
-  });
+      const { result } = renderHook(() =>
+        useUploadFile(files5, { ...requestInfo }, { onErrorMessageMapper })
+      );
+      const [[, readystatechange]] = mock.addEventListener.mock.calls;
+      await waitFor(() => readystatechange());
+
+      expect(mock.addEventListener).toHaveBeenCalled();
+      const file = result.current.updatedFiles[0];
+      expect(file.error).toEqual(expectedErrorMessage);
+    }
+  );
 });
 
 describe("useFileUpload hook should not fire when url and array of files is not present", () => {
