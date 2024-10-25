@@ -27,7 +27,7 @@ import classes from "./SideSheet.module.scss";
 import { IconButton } from "../../Button/IconButton";
 import { Icon, Icons } from "../../Icon/Icon";
 
-export interface Props extends ModalProps {
+export interface Props extends Omit<ModalProps, "hideBackdrop" | "disableBackdrop"> {
   handleButtonProps?: {
     onOpen: () => void;
     onClose: () => void;
@@ -43,6 +43,12 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const [controlledOpen, setControlledOpen] = useState(false);
   const containerRef = useRef(null);
   const handleTitle = handleButtonProps?.title ?? "Side sheet handle";
+  const handleButtonStyle = {
+    width: "1.5rem",
+    height: "3.5rem",
+    borderTopLeftRadius: "4px",
+    borderBottomLeftRadius: "4px"
+  };
 
   const onTransitionEnd: TransitionEventHandler<HTMLDivElement> = useCallback(
     e => {
@@ -66,7 +72,7 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         <div className={classes["collapsed-sheet"]}>
           <div className={classes["handle"]}>
             <IconButton
-              style={{ width: "1rem", height: "1rem" }}
+              style={handleButtonStyle}
               className={classes["handle-button"]}
               onClick={handleButtonProps.onOpen}
               title={handleTitle}
@@ -91,7 +97,7 @@ const SideSheetComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         {handleButtonProps && (
           <div className={classes["handle"]}>
             <IconButton
-              style={{ width: "1rem", height: "1rem" }}
+              style={handleButtonStyle}
               title={handleTitle}
               onClick={handleButtonProps.onClose}
             >
