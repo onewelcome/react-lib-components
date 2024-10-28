@@ -65,8 +65,17 @@ export type {
 /* Utils */
 export { useRepeater } from "./hooks/useRepeater";
 export { useFullHeightCollapse } from "./hooks/useFullHeightCollapse";
-export { usePosition, Placement } from "./hooks/usePosition";
+export { usePosition } from "./hooks/usePosition";
+export type { Placement } from "./hooks/usePosition";
 export { useDebouncedCallback } from "./hooks/useDebouncedCallback";
+export { useUploadFile } from "./hooks/useUploadFile";
+export type {
+  UploadResponseStatus,
+  UploadResponseJson,
+  UploadResponseType,
+  UseUploadFileCallback,
+  UploadFileRequestParams
+} from "./hooks/useUploadFile";
 export { generateID, debounce, throttle } from "./util/helper";
 
 /* Notifications */
@@ -149,8 +158,12 @@ export { TextareaWrapper } from "./components/Form/Wrapper/TextareaWrapper/Texta
 export type { Props as TextareaWrapperProps } from "./components/Form/Wrapper/TextareaWrapper/TextareaWrapper";
 export { SelectWrapper } from "./components/Form/Wrapper/SelectWrapper/SelectWrapper";
 export type { Props as SelectWrapperProps } from "./components/Form/Wrapper/SelectWrapper/SelectWrapper";
+
+/* FileUpload */
 export { FileUpload } from "./components/Form/FileUpload/FileUpload";
-export type { Props as FileUploadProps } from "./components/Form/FileUpload/FileUpload";
+export type { Props as FileUploadProps, FileType } from "./components/Form/FileUpload/FileUpload";
+export { FILE_ACTION, ACTION_STATUS } from "./components/Form/FileUpload/FileItem/FileItem";
+
 export { MultiSelectWrapper } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 export type { Props as MultiSelectWrapperProps } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 export { ContentHeader } from "./components/Layout/ContentHeader/ContentHeader";

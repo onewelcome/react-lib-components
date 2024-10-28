@@ -195,7 +195,9 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           />
         )}
         <Icon icon={icons.fileIcon} className={classes["file-icon"]} />
-        <span className={classes["friendly-name"]}>{friendlyName}</span>.<span>{extension}</span>
+        <span className={classes["friendly-name"]}>
+          {friendlyName}.{extension}
+        </span>
       </Typography>
     );
   };

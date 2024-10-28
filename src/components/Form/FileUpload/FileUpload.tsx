@@ -28,6 +28,7 @@ import { Props as InputProps } from "../Input/Input";
 import { Typography } from "../../Typography/Typography";
 import classes from "./FileUpload.module.scss";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
+import { Label } from "../Label/Label";
 
 type FileUploadType = Omit<InputProps, "onDrop" | "type" | "onChange" | "suffix" | "prefix">;
 export type FileType = Omit<FileConfig, "onRequestedFileAction"> &
@@ -105,6 +106,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   }
   disabled && dropzoneContainerClassNames.push(classes["disabled"]);
   success && !error && dropzoneClassNames.push(classes["success"]);
+  const inputId = `input-${name}`;
+  const labelClasses = [classes["file-upload-title"]];
+  isRequired && labelClasses.push(classes["required"]);
 
   const getFileList = (files: FileList | null): FileType[] => {
     let savedFiles = fileList ? [...fileList] : [];
@@ -160,9 +164,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       const isAtLeastOneMb = maxFileSizeInBytes >= 1024 * 1024;
 
       if (isAtLeastOneMb) {
-        sizeMessage = `${(maxFileSizeInBytes / (1024 * 1024)).toFixed(2)}MB`;
+        sizeMessage = `${parseFloat((maxFileSizeInBytes / (1024 * 1024)).toFixed(2))}MB`;
       } else {
-        sizeMessage = `${(maxFileSizeInBytes / 1024).toFixed(2)}KB`;
+        sizeMessage = `${parseFloat((maxFileSizeInBytes / 1024).toFixed(2))}KB`;
       }
 
       result.error =
@@ -228,11 +232,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     <div className={classes["file-upload-wrapper"]} {...wrapperProps}>
       <div className={classes["dropzone-wrapper"]}>
         <div className={dropzoneClassNames.join(" ")}>
-          <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
-            {title}{" "}
-            {isRequired && <span className={classes["file-upload-title-mandatory"]}>*</span>}
-          </Typography>
-
+          <Label ref={labelRef} className={`${labelClasses.join(" ")}`} htmlFor={inputId}>
+            {title}
+          </Label>
           {fileList?.length > 0 && (
             <ul className={classes["file-list"]}>
               {fileList.map(({ name, status, progress, error }) => (
@@ -271,6 +273,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                     ref={ref}
                     aria-labelledby={labeledBy}
                     type="file"
+                    id={inputId}
                     name={name}
                     multiple={multiple}
                     disabled={disabled}
