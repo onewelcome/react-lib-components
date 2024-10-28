@@ -52,12 +52,13 @@ const setupXhrEnvironment = (mockParams: mockRequestParams) => {
 describe("it should perform upload", () => {
   it("should register the correct progress", async () => {
     const mock = setupXhrEnvironment([200]);
-    const { result } = renderHook(() => useUploadFile([file], requestInfo));
+
+    const { result } = renderHook(() => useUploadFile([{ ...file }], requestInfo));
+
     expect(result.current).toBeDefined();
     expect(mock.upload.addEventListener).toHaveBeenCalled();
     const [[, progress]] = mock.upload.addEventListener.mock.calls;
     await waitFor(() => progress(progressData));
-
     const targetFile = result.current.updatedFiles[0];
     expect(targetFile.name).toEqual(file.name);
     expect(targetFile.progress).toEqual(12);
@@ -67,13 +68,12 @@ describe("it should perform upload", () => {
     const mock = setupXhrEnvironment([200]);
     const headers = new Headers({ Authorization: "Auth1234" });
 
-    const { result } = renderHook(() => useUploadFile([file], { ...requestInfo, headers }));
+    const { result } = renderHook(() => useUploadFile([{ ...file }], { ...requestInfo, headers }));
 
     expect(result.current).toBeDefined();
     expect(mock.upload.addEventListener).toHaveBeenCalled();
     const [[, progress]] = mock.upload.addEventListener.mock.calls;
     await waitFor(() => progress(progressData));
-
     const targetFile = result.current.updatedFiles[0];
     expect(targetFile.name).toEqual(file.name);
     expect(targetFile.progress).toEqual(12);
