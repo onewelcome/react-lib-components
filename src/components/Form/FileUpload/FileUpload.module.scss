@@ -33,6 +33,7 @@
     line-height: var(--default-line-height);
     color: var(--color-blue-grey900);
     font-weight: 400;
+    display: block;
 
     &.required {
       &:after {

@@ -106,6 +106,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   }
   disabled && dropzoneContainerClassNames.push(classes["disabled"]);
   success && !error && dropzoneClassNames.push(classes["success"]);
+  const inputId = `input-${name}`;
+  const labelClasses = [classes["file-upload-title"]];
+  isRequired && labelClasses.push(classes["required"]);
 
   const getFileList = (files: FileList | null): FileType[] => {
     let savedFiles = fileList ? [...fileList] : [];
@@ -225,20 +228,17 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     setDragActive(false);
   };
 
-  const labelClasses = [classes["file-upload-title"]];
-  isRequired && labelClasses.push(classes["required"]);
-
   return (
     <div className={classes["file-upload-wrapper"]} {...wrapperProps}>
       <div className={classes["dropzone-wrapper"]}>
         <div className={dropzoneClassNames.join(" ")}>
-          <Label ref={labelRef} className={`${labelClasses.join(" ")}`} htmlFor={name}>
+          <Label ref={labelRef} className={`${labelClasses.join(" ")}`} htmlFor={inputId}>
             {title}
           </Label>
           {fileList?.length > 0 && (
             <ul className={classes["file-list"]}>
               {fileList.map(({ name, status, progress, error }) => (
-                <li key={name} className={status} id={`fileitem-${name}`}>
+                <li key={name} className={status} id={name}>
                   <FileItem
                     name={name}
                     key={`${name}_${status}`}
@@ -273,7 +273,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                     ref={ref}
                     aria-labelledby={labeledBy}
                     type="file"
-                    id={name}
+                    id={inputId}
                     name={name}
                     multiple={multiple}
                     disabled={disabled}
