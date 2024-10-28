@@ -180,7 +180,7 @@ describe("File Upload should display items based on file list", () => {
       "file-upload-10"
     );
 
-    const fileEl = container.querySelector(`#${file.name}`);
+    const fileEl = container.querySelector(`#fileitem-${file.name}`);
     expect(fileEl).toBeDefined();
     expect(fileEl).toHaveClass(file.status as string);
   });

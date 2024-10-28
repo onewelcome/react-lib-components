@@ -28,8 +28,18 @@
 
   .file-upload-title {
     margin: 0 0 0.25rem 0;
-    font-size: 0.875rem;
+    font-family: var(--font-family);
+    font-size: var(--form-control-font-size);
+    line-height: var(--default-line-height);
+    color: var(--color-blue-grey900);
     font-weight: 400;
+
+    &.required {
+      &:after {
+        content: " *";
+        color: var(--error);
+      }
+    }
   }
 
   &.error {
@@ -64,10 +74,6 @@
     position: absolute;
     top: auto;
     right: 2rem;
-  }
-
-  .file-upload-title-mandatory {
-    color: var(--color-red500);
   }
 
   & {

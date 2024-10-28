@@ -28,6 +28,7 @@ import { Props as InputProps } from "../Input/Input";
 import { Typography } from "../../Typography/Typography";
 import classes from "./FileUpload.module.scss";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
+import { Label } from "../Label/Label";
 
 type FileUploadType = Omit<InputProps, "onDrop" | "type" | "onChange" | "suffix" | "prefix">;
 export type FileType = Omit<FileConfig, "onRequestedFileAction"> &
@@ -224,19 +225,20 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     setDragActive(false);
   };
 
+  const labelClasses = [classes["file-upload-title"]];
+  isRequired && labelClasses.push(classes["required"]);
+
   return (
     <div className={classes["file-upload-wrapper"]} {...wrapperProps}>
       <div className={classes["dropzone-wrapper"]}>
         <div className={dropzoneClassNames.join(" ")}>
-          <Typography variant="body-bold" className={classes["file-upload-title"]} ref={labelRef}>
-            {title}{" "}
-            {isRequired && <span className={classes["file-upload-title-mandatory"]}>*</span>}
-          </Typography>
-
+          <Label ref={labelRef} className={`${labelClasses.join(" ")}`} htmlFor={name}>
+            {title}
+          </Label>
           {fileList?.length > 0 && (
             <ul className={classes["file-list"]}>
               {fileList.map(({ name, status, progress, error }) => (
-                <li key={name} className={status} id={name}>
+                <li key={name} className={status} id={`fileitem-${name}`}>
                   <FileItem
                     name={name}
                     key={`${name}_${status}`}
@@ -271,6 +273,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                     ref={ref}
                     aria-labelledby={labeledBy}
                     type="file"
+                    id={name}
                     name={name}
                     multiple={multiple}
                     disabled={disabled}
