@@ -292,6 +292,35 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     setShouldClick(false);
   };
 
+  const optionsElement = (
+    <div style={{ position: "relative" }}>
+      <div
+        ref={optionListReference}
+        className={`list-wrapper ${classes["list-wrapper"]}`}
+        style={{
+          display: expanded ? "block" : "none",
+          opacity: opacity,
+          maxHeight: optionsListMaxHeight.wrapper,
+          pointerEvents: expanded ? "auto" : "none",
+          ...listPosition
+        }}
+      >
+        <ul
+          id={getListboxId(multiSelectId.current)}
+          className={addNewBtnOptionsContainerClassName}
+          role="listbox"
+          aria-multiselectable="true"
+          style={{ maxHeight: optionsListMaxHeight.list }}
+        >
+          {renderOptions()}
+        </ul>
+        {renderAddNew()}
+      </div>
+    </div>
+  );
+
+  const optionsAreAbove = listPosition.bottom != "initial"; //xx
+
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
     <Fragment>
@@ -317,6 +346,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
         onKeyDown={onArrowNavigation}
         className={`custom-select ${classes.select} ${additionalClasses.join(" ")}`}
       >
+        {optionsAreAbove ? optionsElement : undefined}
         <div
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
           style={{ display: "flex" }}
@@ -350,30 +380,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           </div>
           <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </div>
-        <div>
-          <div
-            ref={optionListReference}
-            className={`list-wrapper ${classes["list-wrapper"]}`}
-            style={{
-              display: expanded ? "block" : "none",
-              opacity: opacity,
-              maxHeight: optionsListMaxHeight.wrapper,
-              pointerEvents: expanded ? "auto" : "none",
-              ...listPosition
-            }}
-          >
-            <ul
-              id={getListboxId(multiSelectId.current)}
-              className={addNewBtnOptionsContainerClassName}
-              role="listbox"
-              aria-multiselectable="true"
-              style={{ maxHeight: optionsListMaxHeight.list }}
-            >
-              {renderOptions()}
-            </ul>
-            {renderAddNew()}
-          </div>
-        </div>
+        {optionsAreAbove ? undefined : optionsElement}
       </div>
     </Fragment>
   );

@@ -60,30 +60,38 @@ export default meta;
 const Template: StoryFn<Props> = args => {
   const [pickedOptions, setPickedOptions] = useState<string[]>(["option1"]);
   const [newOptions, setNewOptions] = useState<string[]>();
+  const rows: React.JSX.Element[] = [];
+  for (let i = 1; i < 20; i++) {
+    rows.push(<li>{i}</li>);
+  }
   return (
-    <MultiSelectWrapperComponent
-      {...args}
-      value={pickedOptions}
-      onChange={e => {
-        setPickedOptions(
-          Array.from(e.target.options)
-            .filter(option => option.selected)
-            .map(option => option.value)
-        );
-      }}
-    >
-      <MultiOption value="option1" fixed>
-        Option 1
-      </MultiOption>
-      <MultiOption value="option2">Option 2</MultiOption>
-      <MultiOption value="option3">Option 3</MultiOption>
-      <MultiOption value="option4">Option 4</MultiOption>
-      <MultiOption value="option5">Option 5</MultiOption>
-      <MultiOption value="option6">Option 6</MultiOption>
-      <MultiOption value="option7">Option 7</MultiOption>
-      <MultiOption value="option8">Option 8</MultiOption>
-      <MultiOption value="option9">Option 9</MultiOption>
-    </MultiSelectWrapperComponent>
+    <div>
+      <ul>{rows}</ul>
+
+      <MultiSelectWrapperComponent
+        {...args}
+        value={pickedOptions}
+        onChange={e => {
+          setPickedOptions(
+            Array.from(e.target.options)
+              .filter(option => option.selected)
+              .map(option => option.value)
+          );
+        }}
+      >
+        <MultiOption value="option1" fixed>
+          Option 1
+        </MultiOption>
+        <MultiOption value="option2">Option 2</MultiOption>
+        <MultiOption value="option3">Option 3</MultiOption>
+        <MultiOption value="option4">Option 4</MultiOption>
+        <MultiOption value="option5">Option 5</MultiOption>
+        <MultiOption value="option6">Option 6</MultiOption>
+        <MultiOption value="option7">Option 7</MultiOption>
+        <MultiOption value="option8">Option 8</MultiOption>
+        <MultiOption value="option9">Option 9 xx</MultiOption>
+      </MultiSelectWrapperComponent>
+    </div>
   );
 };
 

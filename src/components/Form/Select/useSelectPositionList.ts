@@ -56,7 +56,7 @@ export const useSelectPositionList = ({
 
     // Set the position of the select
     if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
-      position = { top: "initial", bottom: "2.75rem" };
+      position = { top: "initial", bottom: "0.05rem" };
     }
 
     setListPosition(position);
