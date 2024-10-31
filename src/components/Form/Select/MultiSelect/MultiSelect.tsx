@@ -30,7 +30,7 @@ import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon
 import readyclasses from "../../../../readyclasses.module.scss";
 import { escapeRegExp, filterProps, generateID } from "../../../../util/helper";
 import { Icon, Icons } from "../../../Icon/Icon";
-import { MultiSelectProps } from "../Select.interfaces";
+import { MultiSelectProps, Position } from "../Select.interfaces";
 import { useAddNewBtn } from "../useAddNewBtn";
 import { useSelectPositionList } from "../useSelectPositionList";
 import { SelectButton } from "./SelectButton";
@@ -274,7 +274,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
     () => {
       setExpanded(false);
-      setListPosition({ top: 0, bottom: "initial" });
+      setListPosition(Position.Below);
       setOpacity(0);
     },
     expanded
@@ -302,7 +302,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           opacity: opacity,
           maxHeight: optionsListMaxHeight.wrapper,
           pointerEvents: expanded ? "auto" : "none",
-          ...listPosition
+          bottom: listPosition === Position.Above ? "0px" : "initial"
         }}
       >
         <ul
@@ -318,8 +318,6 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
       </div>
     </div>
   );
-
-  const optionsAreAbove = listPosition.bottom != "initial"; //xx
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
@@ -346,7 +344,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
         onKeyDown={onArrowNavigation}
         className={`custom-select ${classes.select} ${additionalClasses.join(" ")}`}
       >
-        {optionsAreAbove ? optionsElement : undefined}
+        {listPosition === Position.Above ? optionsElement : undefined}
         <div
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
           style={{ display: "flex" }}
@@ -380,7 +378,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           </div>
           <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </div>
-        {optionsAreAbove ? undefined : optionsElement}
+        {listPosition === Position.Below ? optionsElement : undefined}
       </div>
     </Fragment>
   );

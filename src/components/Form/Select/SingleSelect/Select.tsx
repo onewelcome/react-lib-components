@@ -30,7 +30,7 @@ import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon
 import readyclasses from "../../../../readyclasses.module.scss";
 import { filterProps } from "../../../../util/helper";
 import { Icon, Icons } from "../../../Icon/Icon";
-import { SingleSelectProps } from "../Select.interfaces";
+import { Position, SingleSelectProps } from "../Select.interfaces";
 import { useSelectPositionList } from "../useSelectPositionList";
 import { useAddNewBtn } from "../useAddNewBtn";
 import { useSearch } from "./useSearch";
@@ -205,7 +205,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
     () => {
       setExpanded(false);
-      setListPosition({ top: 0, bottom: "initial" });
+      setListPosition(Position.Below);
       setOpacity(0);
     },
     expanded
@@ -218,9 +218,35 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   className && additionalClasses.push(className);
   success && additionalClasses.push(classes.success);
 
+  const optionsElement = (
+    <div style={{ position: "relative" }}>
+      <div
+        ref={optionListReference}
+        className={`list-wrapper ${classes["list-wrapper"]}`}
+        style={{
+          display: expanded ? "block" : "none",
+          opacity: opacity,
+          maxHeight: optionsListMaxHeight.wrapper,
+          pointerEvents: expanded ? "auto" : "none",
+          bottom: listPosition === Position.Above ? "0px" : "initial"
+        }}
+      >
+        <ul
+          className={addNewBtnOptionsContainerClassName}
+          role="listbox"
+          style={{ maxHeight: optionsListMaxHeight.list }}
+        >
+          {renderOptions()}
+        </ul>
+        {renderAddNew()}
+      </div>
+    </div>
+  );
+
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
     <Fragment>
+      {listPosition === Position.Above ? optionsElement : undefined}
       <select
         {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}
@@ -266,27 +292,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           </div>
           <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </button>
-
-        <div
-          ref={optionListReference}
-          className={`list-wrapper ${classes["list-wrapper"]}`}
-          style={{
-            display: expanded ? "block" : "none",
-            opacity: opacity,
-            maxHeight: optionsListMaxHeight.wrapper,
-            pointerEvents: expanded ? "auto" : "none",
-            ...listPosition
-          }}
-        >
-          <ul
-            className={addNewBtnOptionsContainerClassName}
-            role="listbox"
-            style={{ maxHeight: optionsListMaxHeight.list }}
-          >
-            {renderOptions()}
-          </ul>
-          {renderAddNew()}
-        </div>
+        {listPosition === Position.Below ? optionsElement : undefined}
       </div>
     </Fragment>
   );
