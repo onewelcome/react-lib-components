@@ -85,7 +85,7 @@ const Template: StoryFn<Props> = args => {
         <MultiOption value="option6">Option 6</MultiOption>
         <MultiOption value="option7">Option 7</MultiOption>
         <MultiOption value="option8">Option 8</MultiOption>
-        <MultiOption value="option9">Option 9 xx</MultiOption>
+        <MultiOption value="option9">Option 9</MultiOption>
       </MultiSelectWrapperComponent>
     </div>
   );

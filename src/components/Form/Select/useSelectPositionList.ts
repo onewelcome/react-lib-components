@@ -87,16 +87,14 @@ export const useSelectPositionList = ({
         : containerReference.current.getBoundingClientRect().top - 16;
 
     if (listHeight && availableSpace < listHeight + addNewButtonHeightWithMargin) {
-      //xx
-
-      // const maxHeightObject = {
-      //   wrapper: `${availableSpace}px`,
-      //   list:
-      //     addNewButtonHeightWithMargin > 0
-      //       ? `${availableSpace - addNewButtonHeightWithMargin}px`
-      //       : "none"
-      // };
-      // setOptionsListMaxHeight(maxHeightObject);
+      const maxHeightObject = {
+        wrapper: `${availableSpace}px`,
+        list:
+          addNewButtonHeightWithMargin > 0
+            ? `${availableSpace - addNewButtonHeightWithMargin}px`
+            : "none"
+      };
+      setOptionsListMaxHeight(maxHeightObject);
       setOpacity(100);
       return;
     }
