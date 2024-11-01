@@ -218,35 +218,9 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   className && additionalClasses.push(className);
   success && additionalClasses.push(classes.success);
 
-  const optionsElement = (
-    <div style={{ position: "relative" }}>
-      <div
-        ref={optionListReference}
-        className={`list-wrapper ${classes["list-wrapper"]}`}
-        style={{
-          display: expanded ? "block" : "none",
-          opacity: opacity,
-          maxHeight: optionsListMaxHeight.wrapper,
-          pointerEvents: expanded ? "auto" : "none",
-          bottom: listPosition === Position.Above ? "0px" : "initial"
-        }}
-      >
-        <ul
-          className={addNewBtnOptionsContainerClassName}
-          role="listbox"
-          style={{ maxHeight: optionsListMaxHeight.list }}
-        >
-          {renderOptions()}
-        </ul>
-        {renderAddNew()}
-      </div>
-    </div>
-  );
-
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
     <Fragment>
-      {listPosition === Position.Above ? optionsElement : undefined}
       <select
         {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}
@@ -292,7 +266,28 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           </div>
           <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </button>
-        {listPosition === Position.Below ? optionsElement : undefined}
+        <div style={{ position: "relative" }}>
+          <div
+            ref={optionListReference}
+            className={`list-wrapper ${classes["list-wrapper"]}`}
+            style={{
+              display: expanded ? "block" : "none",
+              opacity: opacity,
+              maxHeight: optionsListMaxHeight.wrapper,
+              pointerEvents: expanded ? "auto" : "none",
+              bottom: listPosition === Position.Above ? "2.75rem" : "initial"
+            }}
+          >
+            <ul
+              className={addNewBtnOptionsContainerClassName}
+              role="listbox"
+              style={{ maxHeight: optionsListMaxHeight.list }}
+            >
+              {renderOptions()}
+            </ul>
+            {renderAddNew()}
+          </div>
+        </div>
       </div>
     </Fragment>
   );

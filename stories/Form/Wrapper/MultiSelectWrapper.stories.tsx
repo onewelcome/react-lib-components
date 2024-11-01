@@ -61,14 +61,9 @@ const Template: StoryFn<Props> = args => {
   const [pickedOptions, setPickedOptions] = useState<string[]>(["option1"]);
   const [newOptions, setNewOptions] = useState<string[]>();
 
-  const rows: React.JSX.Element[] = [];
-  for (let i = 1; i < 12; i++) {
-    rows.push(<li>{i}</li>);
-  }
-
   return (
     <div>
-      <ul style={{ backgroundColor: "#888" }}>{rows}</ul>
+      <div style={{ height: "16rem" }}></div>
       <MultiSelectWrapperComponent
         {...args}
         value={pickedOptions}

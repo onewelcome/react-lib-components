@@ -60,14 +60,9 @@ export default meta;
 const Template: StoryFn<Props> = args => {
   const [pickedOption, setPickedOption] = useState<string>("option1");
 
-  const rows: React.JSX.Element[] = [];
-  for (let i = 1; i < 12; i++) {
-    rows.push(<li>dummy content to make space above the select for options {i}</li>);
-  }
-
   return (
     <div>
-      <ul style={{ backgroundColor: "#888" }}>{rows}</ul>
+      <div style={{ height: "16rem" }}></div>
       <SelectWrapperComponent
         {...args}
         onChange={e => setPickedOption(e.target.value)}
