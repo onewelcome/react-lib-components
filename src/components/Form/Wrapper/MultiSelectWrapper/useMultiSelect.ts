@@ -16,49 +16,37 @@
 
 export const useMultiSelect = (
   allOptions: string[],
-  setAllOptions: (options: string[]) => void,
   pickedOptions: string[],
-
-  //TODO replace by setPickedOptions ?
-  onOptionAdded: (optionsAdded: string) => void,
-  onOptionRemoved: (optionsRemoved: string) => void,
-
+  onOptionAdded: (newOption: string) => void,
+  onOptionRemoved: (removedOption: string) => void,
   onAddNew: (newOption: string) => void
 ) => {
-  const handleOptionChange = (
-    e: React.FormEvent<HTMLSelectElement>,
-    obsoletePickedOptions: string[]
-  ) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const htmlOptions = (e.nativeEvent.target as unknown as any).options as HTMLOptionsCollection;
+  const handleOptionChange = (e: React.FormEvent<HTMLSelectElement>) => {
+    const htmlOptions = (e.nativeEvent.target as unknown as { options: HTMLOptionsCollection })
+      .options;
 
-    const newPickedOptions = [...obsoletePickedOptions];
     Array.from(htmlOptions).forEach(option => {
       const selected = option.selected;
-      const exists = newPickedOptions.includes(option.value);
+      const exists = pickedOptions.includes(option.value);
 
       const shouldAdd = !exists && selected;
       const shouldRemove = exists && !selected;
 
       if (shouldAdd) {
         onOptionAdded(option.value);
-        // newPickedOptions.push(option.value);
       } else if (shouldRemove) {
         onOptionRemoved(option.value);
-        // newPickedOptions = newPickedOptions.filter(value => value !== option.value);
       }
     });
-    return newPickedOptions;
   };
 
   const onAddNewWrapper = (value: string) => {
-    //trim, check if value is unique within allOptions, call onAddNew
     const trimmedValue = value.trim();
-    if (trimmedValue.length == 0) {
+    if (trimmedValue.length == 0 || allOptions.includes(trimmedValue)) {
       return;
     }
-    setAllOptions([...allOptions, trimmedValue]);
     onOptionAdded(trimmedValue);
+    onAddNew(trimmedValue);
   };
 
   return {

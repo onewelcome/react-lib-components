@@ -26,6 +26,7 @@ import { within, userEvent, waitFor, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { BoundFunctions } from "@testing-library/dom/types/get-queries-for-element";
 import { queries } from "@testing-library/dom";
+import { useMultiSelect } from "../../../src";
 
 const meta: Meta = {
   title: "components/Inputs/MultiSelect (Wrapper)",
@@ -243,3 +244,54 @@ const AddNewTemplate: StoryFn<Props> = args => {
 };
 
 export const MultiSelectAddNewWrapper = AddNewTemplate.bind({});
+
+const UseMultiSelectTemplate: StoryFn<Props> = args => {
+  const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
+
+  const { handleOptionChange, onAddNew } = useMultiSelect(
+    allOptions,
+    pickedOptions,
+    addedOption => {
+      setPickedOptions([...pickedOptions, addedOption]);
+    },
+    removedOption => {
+      setPickedOptions(pickedOptions.filter(value => value !== removedOption));
+      const isInInitialOptions = initialOptions.includes(removedOption);
+      if (!isInInitialOptions) {
+        setAllOptions(allOptions.filter(value => value !== removedOption));
+      }
+    },
+    newValue => {
+      console.log("new value added", newValue);
+    }
+  );
+
+  return (
+    <MultiSelectWrapperComponent
+      {...args}
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      selectProps={{
+        addNew: {
+          label: "Create new",
+          onAddNew,
+          btnProps: { title: "Add new select option" }
+        },
+        search: {
+          enabled: true,
+          searchPlaceholder: "Search or add new option (Enter)"
+        }
+      }}
+    >
+      {allOptions.map(option => (
+        <MultiOption key={option} value={option}>
+          {option}
+        </MultiOption>
+      ))}
+    </MultiSelectWrapperComponent>
+  );
+};
+
+export const MultiSelectUseUtilFuncWrapper = UseMultiSelectTemplate.bind({});

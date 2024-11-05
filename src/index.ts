@@ -153,6 +153,7 @@ export { FileUpload } from "./components/Form/FileUpload/FileUpload";
 export type { Props as FileUploadProps } from "./components/Form/FileUpload/FileUpload";
 export { MultiSelectWrapper } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 export type { Props as MultiSelectWrapperProps } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
+export { useMultiSelect } from "./components/Form/Wrapper/MultiSelectWrapper/useMultiSelect";
 export { ContentHeader } from "./components/Layout/ContentHeader/ContentHeader";
 export type { Props as ContentHeaderProps } from "./components/Layout/ContentHeader/ContentHeader";
 export { FormStepper } from "./components/Layout/FormPage/FormWithStepper/FormStepper/FormStepper";
