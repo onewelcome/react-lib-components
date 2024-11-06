@@ -251,22 +251,24 @@ const UseMultiSelectTemplate: StoryFn<Props> = args => {
   const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
 
   const { handleOptionChange, onAddNew } = useMultiSelect(
+    initialOptions,
     allOptions,
+    setAllOptions,
     pickedOptions,
-    setPickedOptions,
-    newValue => {
-      setAllOptions([...allOptions, newValue]);
-    },
+    setPickedOptions
+    // newValue => {
+    //   setAllOptions([...allOptions, newValue]);
+    // },
     // addedOption => {
     //   setPickedOptions([...pickedOptions, addedOption]);
     // },
-    removedOption => {
-      // setPickedOptions(pickedOptions.filter(value => value !== removedOption));
-      const isInInitialOptions = initialOptions.includes(removedOption);
-      if (!isInInitialOptions) {
-        setAllOptions(allOptions.filter(value => value !== removedOption));
-      }
-    }
+    // removedOption => {
+    //   // setPickedOptions(pickedOptions.filter(value => value !== removedOption));
+    //   const isInInitialOptions = initialOptions.includes(removedOption);
+    //   if (!isInInitialOptions) {
+    //     setAllOptions(allOptions.filter(value => value !== removedOption));
+    //   }
+    // }
   );
 
   return (

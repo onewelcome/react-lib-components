@@ -15,7 +15,9 @@
  */
 
 export const useMultiSelect = (
+  initialOptions: string[],
   allOptions: string[],
+  setAllOptions: (options: string[]) => void = _ => {},
   pickedOptions: string[],
   setPickedOptions: (options: string[]) => void = _ => {},
   onAddNew: (newOption: string) => void = _ => {},
@@ -41,6 +43,11 @@ export const useMultiSelect = (
         const index = newPickedOptions.indexOf(option.value);
         newPickedOptions.splice(index, 1);
         onOptionRemoved(option.value);
+
+        const isInInitialOptions = initialOptions.includes(option.value);
+        if (!isInInitialOptions) {
+          setAllOptions(allOptions.filter(value => value !== option.value));
+        }
       }
     });
     setPickedOptions(newPickedOptions);
@@ -51,6 +58,10 @@ export const useMultiSelect = (
     if (trimmedValue.length == 0 || allOptions.includes(trimmedValue)) {
       return;
     }
+    setAllOptions([...allOptions, trimmedValue]);
+    setPickedOptions([...pickedOptions, trimmedValue]);
+
+    //TODO following probably not working:
     onOptionAdded(trimmedValue);
     onAddNew(trimmedValue);
   };
