@@ -17,14 +17,16 @@
 export const useMultiSelect = (
   allOptions: string[],
   pickedOptions: string[],
-  onOptionAdded: (newOption: string) => void,
-  onOptionRemoved: (removedOption: string) => void,
-  onAddNew: (newOption: string) => void
+  setPickedOptions: (options: string[]) => void = _ => {},
+  onAddNew: (newOption: string) => void = _ => {},
+  onOptionAdded: (newOption: string) => void = _ => {},
+  onOptionRemoved: (removedOption: string) => void = _ => {}
 ) => {
   const handleOptionChange = (e: React.FormEvent<HTMLSelectElement>) => {
     const htmlOptions = (e.nativeEvent.target as unknown as { options: HTMLOptionsCollection })
       .options;
 
+    const newPickedOptions = [...pickedOptions];
     Array.from(htmlOptions).forEach(option => {
       const selected = option.selected;
       const exists = pickedOptions.includes(option.value);
@@ -33,11 +35,15 @@ export const useMultiSelect = (
       const shouldRemove = exists && !selected;
 
       if (shouldAdd) {
+        newPickedOptions.push(option.value);
         onOptionAdded(option.value);
       } else if (shouldRemove) {
+        const index = newPickedOptions.indexOf(option.value);
+        newPickedOptions.splice(index, 1);
         onOptionRemoved(option.value);
       }
     });
+    setPickedOptions(newPickedOptions);
   };
 
   const onAddNewWrapper = (value: string) => {

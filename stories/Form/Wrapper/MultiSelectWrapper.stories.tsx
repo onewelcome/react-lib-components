@@ -253,18 +253,19 @@ const UseMultiSelectTemplate: StoryFn<Props> = args => {
   const { handleOptionChange, onAddNew } = useMultiSelect(
     allOptions,
     pickedOptions,
-    addedOption => {
-      setPickedOptions([...pickedOptions, addedOption]);
+    setPickedOptions,
+    newValue => {
+      setAllOptions([...allOptions, newValue]);
     },
+    // addedOption => {
+    //   setPickedOptions([...pickedOptions, addedOption]);
+    // },
     removedOption => {
-      setPickedOptions(pickedOptions.filter(value => value !== removedOption));
+      // setPickedOptions(pickedOptions.filter(value => value !== removedOption));
       const isInInitialOptions = initialOptions.includes(removedOption);
       if (!isInInitialOptions) {
         setAllOptions(allOptions.filter(value => value !== removedOption));
       }
-    },
-    newValue => {
-      console.log("new value added", newValue);
     }
   );
 
