@@ -250,7 +250,7 @@ const UseMultiSelectTemplate: StoryFn<Props> = args => {
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
   const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
 
-  const { handleOptionChange, onAddNew } = useMultiSelect(
+  const { handleOptionChange, onAddNew } = useMultiSelect({
     initialOptions,
     allOptions,
     setAllOptions,
@@ -269,7 +269,7 @@ const UseMultiSelectTemplate: StoryFn<Props> = args => {
     //     setAllOptions(allOptions.filter(value => value !== removedOption));
     //   }
     // }
-  );
+  });
 
   return (
     <MultiSelectWrapperComponent

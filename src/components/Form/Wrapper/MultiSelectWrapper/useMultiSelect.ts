@@ -14,16 +14,32 @@
  *    limitations under the License.
  */
 
-export const useMultiSelect = (
-  initialOptions: string[],
-  allOptions: string[],
-  setAllOptions: (options: string[]) => void = _ => {},
-  pickedOptions: string[],
-  setPickedOptions: (options: string[]) => void = _ => {},
-  onAddNew: (newOption: string) => void = _ => {},
-  onOptionAdded: (newOption: string) => void = _ => {},
-  onOptionRemoved: (removedOption: string) => void = _ => {}
-) => {
+interface UseMultiSelectArgs {
+  initialOptions?: string[];
+  allOptions?: string[];
+  setAllOptions?: (options: string[]) => void;
+  pickedOptions: string[];
+  setPickedOptions: (options: string[]) => void;
+  onAddNew?: (newOption: string) => void;
+  // onOptionAdded: (newOption: string) => void = _ => {},
+  // onOptionRemoved: (removedOption: string) => void = _ => {}
+}
+
+interface UseMultiSelectResult {
+  handleOptionChange: (e: React.FormEvent<HTMLSelectElement>) => void;
+  onAddNew: (newValue: string) => void;
+}
+
+type UseMultiSelect = (args: UseMultiSelectArgs) => UseMultiSelectResult;
+
+export const useMultiSelect: UseMultiSelect = (args: UseMultiSelectArgs) => {
+  const initialOptions = args.initialOptions;
+  const allOptions = args.allOptions || args.pickedOptions;
+  const setAllOptions = args.setAllOptions || args.setPickedOptions;
+  const pickedOptions = args.pickedOptions;
+  const setPickedOptions = args.setPickedOptions;
+  const onAddNew = args.onAddNew;
+
   const handleOptionChange = (e: React.FormEvent<HTMLSelectElement>) => {
     const htmlOptions = (e.nativeEvent.target as unknown as { options: HTMLOptionsCollection })
       .options;
@@ -38,15 +54,17 @@ export const useMultiSelect = (
 
       if (shouldAdd) {
         newPickedOptions.push(option.value);
-        onOptionAdded(option.value);
+        // onOptionAdded(option.value);
       } else if (shouldRemove) {
         const index = newPickedOptions.indexOf(option.value);
         newPickedOptions.splice(index, 1);
-        onOptionRemoved(option.value);
+        // onOptionRemoved(option.value);
 
-        const isInInitialOptions = initialOptions.includes(option.value);
-        if (!isInInitialOptions) {
-          setAllOptions(allOptions.filter(value => value !== option.value));
+        if (initialOptions) {
+          const isInInitialOptions = initialOptions.includes(option.value);
+          if (!isInInitialOptions) {
+            setAllOptions(allOptions.filter(value => value !== option.value));
+          }
         }
       }
     });
@@ -58,12 +76,14 @@ export const useMultiSelect = (
     if (trimmedValue.length == 0 || allOptions.includes(trimmedValue)) {
       return;
     }
+
     setAllOptions([...allOptions, trimmedValue]);
     setPickedOptions([...pickedOptions, trimmedValue]);
 
-    //TODO following probably not working:
-    onOptionAdded(trimmedValue);
-    onAddNew(trimmedValue);
+    // onOptionAdded(trimmedValue);
+    if (onAddNew) {
+      onAddNew(trimmedValue);
+    }
   };
 
   return {
