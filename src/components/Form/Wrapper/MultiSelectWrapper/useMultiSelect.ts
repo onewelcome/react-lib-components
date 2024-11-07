@@ -19,10 +19,8 @@ interface UseMultiSelectArgs {
   allOptions?: string[];
   setAllOptions?: (options: string[]) => void;
   pickedOptions: string[];
-  setPickedOptions: (options: string[]) => void;
+  setPickedOptions?: (options: string[]) => void;
   onAddNew?: (newOption: string) => void;
-  // onOptionAdded: (newOption: string) => void = _ => {},
-  // onOptionRemoved: (removedOption: string) => void = _ => {}
 }
 
 interface UseMultiSelectResult {
@@ -35,9 +33,9 @@ type UseMultiSelect = (args: UseMultiSelectArgs) => UseMultiSelectResult;
 export const useMultiSelect: UseMultiSelect = (args: UseMultiSelectArgs) => {
   const initialOptions = args.initialOptions;
   const allOptions = args.allOptions || args.pickedOptions;
-  const setAllOptions = args.setAllOptions || args.setPickedOptions;
+  const setPickedOptions = args.setPickedOptions || (_ => {});
+  const setAllOptions = args.setAllOptions || setPickedOptions;
   const pickedOptions = args.pickedOptions;
-  const setPickedOptions = args.setPickedOptions;
   const onAddNew = args.onAddNew;
 
   const handleOptionChange = (e: React.FormEvent<HTMLSelectElement>) => {
@@ -54,11 +52,9 @@ export const useMultiSelect: UseMultiSelect = (args: UseMultiSelectArgs) => {
 
       if (shouldAdd) {
         newPickedOptions.push(option.value);
-        // onOptionAdded(option.value);
       } else if (shouldRemove) {
         const index = newPickedOptions.indexOf(option.value);
         newPickedOptions.splice(index, 1);
-        // onOptionRemoved(option.value);
 
         if (initialOptions) {
           const isInInitialOptions = initialOptions.includes(option.value);
@@ -80,7 +76,6 @@ export const useMultiSelect: UseMultiSelect = (args: UseMultiSelectArgs) => {
     setAllOptions([...allOptions, trimmedValue]);
     setPickedOptions([...pickedOptions, trimmedValue]);
 
-    // onOptionAdded(trimmedValue);
     if (onAddNew) {
       onAddNew(trimmedValue);
     }
