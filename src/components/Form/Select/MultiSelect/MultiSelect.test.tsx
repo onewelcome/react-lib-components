@@ -239,11 +239,11 @@ describe("List expansion", () => {
   });
 
   it("should expand upwards", async () => {
-    const { select, button, dropdownWrapper } = createMultiSelect();
+    const queries = createMultiSelect();
 
     Object.defineProperty(window, "innerHeight", { value: 500, writable: true });
 
-    select.getBoundingClientRect = () => ({
+    queries.select.getBoundingClientRect = () => ({
       x: 50,
       y: 50,
       width: 500,
@@ -255,11 +255,17 @@ describe("List expansion", () => {
       toJSON: () => jest.fn()
     });
 
-    if (button) {
-      await userEvent.click(button);
-    }
+    await userEvent.click(queries.button);
 
-    expect(dropdownWrapper).toHaveStyle({ bottom: "2.75rem" });
+    const customSelect = queries.container.querySelector(".custom-select")!;
+    const firstChild = customSelect.children[0];
+    const secondChild = customSelect.children[1];
+
+    expect(firstChild).toHaveClass("list-wrapper-container");
+    expect(secondChild).toHaveClass("custom-select expanded");
+
+    const dropdownWrapper = queries.select.querySelector(".list-wrapper");
+    expect(dropdownWrapper).toHaveStyle({ bottom: "0px" });
   });
 
   it("should expand downwards with a max height set", async () => {

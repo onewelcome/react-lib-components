@@ -56,8 +56,8 @@ export type SingleSelectProps = SelectProps<string>;
 export type MultiSelectProps = SelectProps<string[]>;
 
 export enum Position {
-  Above,
-  Below
+  Above = "Above",
+  Below = "Below"
 }
 
 export interface UseArrowNavigationParams {

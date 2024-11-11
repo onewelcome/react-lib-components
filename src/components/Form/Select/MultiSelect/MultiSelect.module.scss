@@ -96,6 +96,10 @@ $listItemHeight: 2.5rem;
     }
   }
 
+  .list-wrapper-container {
+    position: relative;
+  }
+
   .list-wrapper {
     border-color: var(--light-grey-border);
     border-style: var(--input-border-style);
