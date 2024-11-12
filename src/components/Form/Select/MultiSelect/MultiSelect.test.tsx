@@ -239,11 +239,11 @@ describe("List expansion", () => {
   });
 
   it("should expand upwards", async () => {
-    const queries = createMultiSelect();
+    const { select, button, container } = createMultiSelect();
 
     Object.defineProperty(window, "innerHeight", { value: 500, writable: true });
 
-    queries.select.getBoundingClientRect = () => ({
+    select.getBoundingClientRect = () => ({
       x: 50,
       y: 50,
       width: 500,
@@ -255,21 +255,19 @@ describe("List expansion", () => {
       toJSON: () => jest.fn()
     });
 
-    await userEvent.click(queries.button);
+    await userEvent.click(button);
 
-    const customSelect = queries.container.querySelector(".custom-select")!;
-    const firstChild = customSelect.children[0];
-    const secondChild = customSelect.children[1];
+    const customSelect = container.querySelector(".custom-select")!;
 
-    expect(firstChild).toHaveClass("list-wrapper-container");
-    expect(secondChild).toHaveClass("custom-select expanded");
+    expect(customSelect.children[0]).toHaveClass("list-wrapper-container");
+    expect(customSelect.children[1]).toHaveClass("custom-select expanded");
 
-    const dropdownWrapper = queries.select.querySelector(".list-wrapper");
-    expect(dropdownWrapper).toHaveStyle({ bottom: "0px" });
+    const dropdownWrapper2 = select.querySelector(".list-wrapper");
+    expect(dropdownWrapper2).toHaveStyle({ bottom: "0px" });
   });
 
   it("should expand downwards with a max height set", async () => {
-    const { select, getByRole, dropdownWrapper, debug } = createMultiSelect();
+    const { select, getByRole, dropdownWrapper, container } = createMultiSelect();
 
     dropdownWrapper!.getBoundingClientRect = () => ({
       x: 50,
@@ -301,8 +299,15 @@ describe("List expansion", () => {
 
     const button = getByRole("button");
     await userEvent.click(button);
-    expect(dropdownWrapper).toHaveStyle({ maxHeight: "434px" });
-    expect(dropdownWrapper).toHaveStyle({ top: "2.75rem" });
+
+    const customSelect = container.querySelector(".custom-select")!;
+
+    expect(customSelect.children[0]).toHaveClass("custom-select expanded");
+    expect(customSelect.children[1]).toHaveClass("list-wrapper-container");
+
+    const dropdownWrapper2 = select.querySelector<HTMLDivElement>(".list-wrapper")!;
+    expect(dropdownWrapper2).toHaveStyle({ maxHeight: "434px" });
+    expect(dropdownWrapper2).toHaveStyle({ bottom: "initial" });
   });
 });
 
