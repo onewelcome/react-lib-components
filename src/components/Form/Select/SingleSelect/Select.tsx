@@ -266,7 +266,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           </div>
           <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </button>
-        <div style={{ position: "relative" }}>
+        <div className="list-wrapper-container">
           <div
             ref={optionListReference}
             className={`list-wrapper ${classes["list-wrapper"]}`}

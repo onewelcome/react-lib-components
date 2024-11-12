@@ -63,32 +63,29 @@ const Template: StoryFn<Props> = args => {
   const [newOptions, setNewOptions] = useState<string[]>();
 
   return (
-    <div>
-      <div style={{ height: "16rem" }}></div>
-      <MultiSelectWrapperComponent
-        {...args}
-        value={pickedOptions}
-        onChange={e => {
-          setPickedOptions(
-            Array.from(e.target.options)
-              .filter(option => option.selected)
-              .map(option => option.value)
-          );
-        }}
-      >
-        <MultiOption value="option1" fixed>
-          Option 1
-        </MultiOption>
-        <MultiOption value="option2">Option 2</MultiOption>
-        <MultiOption value="option3">Option 3</MultiOption>
-        <MultiOption value="option4">Option 4</MultiOption>
-        <MultiOption value="option5">Option 5</MultiOption>
-        <MultiOption value="option6">Option 6</MultiOption>
-        <MultiOption value="option7">Option 7</MultiOption>
-        <MultiOption value="option8">Option 8</MultiOption>
-        <MultiOption value="option9">Option 9</MultiOption>
-      </MultiSelectWrapperComponent>
-    </div>
+    <MultiSelectWrapperComponent
+      {...args}
+      value={pickedOptions}
+      onChange={e => {
+        setPickedOptions(
+          Array.from(e.target.options)
+            .filter(option => option.selected)
+            .map(option => option.value)
+        );
+      }}
+    >
+      <MultiOption value="option1" fixed>
+        Option 1
+      </MultiOption>
+      <MultiOption value="option2">Option 2</MultiOption>
+      <MultiOption value="option3">Option 3</MultiOption>
+      <MultiOption value="option4">Option 4</MultiOption>
+      <MultiOption value="option5">Option 5</MultiOption>
+      <MultiOption value="option6">Option 6</MultiOption>
+      <MultiOption value="option7">Option 7</MultiOption>
+      <MultiOption value="option8">Option 8</MultiOption>
+      <MultiOption value="option9">Option 9</MultiOption>
+    </MultiSelectWrapperComponent>
   );
 };
 
@@ -179,14 +176,14 @@ MultiSelectWrapperRequired.args = {
   required: true
 };
 
-export const MultiSelectWrapperUseBasic = (args => {
-  const [pickedOptions, setPickedOptions] = useState<string[]>([]);
+const MultiSelectWrapperUseBasicTemplate = args => {
   const [allOptions, setAllOptions] = useState<string[]>([
     "Option 1",
     "Option 2",
     "Option 3",
     "Option 4"
   ]);
+  const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
 
   const { handleOptionChange } = useMultiSelect({
     allOptions,
@@ -196,24 +193,44 @@ export const MultiSelectWrapperUseBasic = (args => {
   });
 
   return (
-    <MultiSelectWrapperComponent
-      {...args}
-      value={pickedOptions}
-      onChange={handleOptionChange}
-      selectProps={{
-        search: {
-          enabled: true
-        }
-      }}
-    >
-      {allOptions.map(option => (
-        <MultiOption key={option} value={option}>
-          {option}
-        </MultiOption>
-      ))}
-    </MultiSelectWrapperComponent>
+    <div style={args.stickToBottom ? { position: "absolute", bottom: 8, left: 8, right: 8 } : {}}>
+      <MultiSelectWrapperComponent
+        {...args}
+        value={pickedOptions}
+        onChange={handleOptionChange}
+        selectProps={{
+          search: args.search
+        }}
+      >
+        {allOptions.map(option => (
+          <MultiOption key={option} value={option}>
+            {option}
+          </MultiOption>
+        ))}
+      </MultiSelectWrapperComponent>
+      {!args.stickToBottom ? <div style={{ height: "7rem" }}></div> : undefined}
+    </div>
   );
-}).bind({});
+};
+
+export const MultiSelectWrapperUseBasic = MultiSelectWrapperUseBasicTemplate.bind(
+  {},
+  {
+    search: { enabled: false }
+  }
+);
+export const MultiSelectWrapperUseBasicWithSearch = MultiSelectWrapperUseBasicTemplate.bind(
+  {},
+  {
+    search: { enabled: true }
+  }
+);
+export const MultiSelectWrapperUseBasicExpandUpwards = MultiSelectWrapperUseBasicTemplate.bind(
+  {},
+  {
+    stickToBottom: true
+  }
+);
 
 export const MultiSelectWrapperUseWithAddNew = (args => {
   const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
@@ -229,28 +246,27 @@ export const MultiSelectWrapperUseWithAddNew = (args => {
   });
 
   return (
-    <MultiSelectWrapperComponent
-      {...args}
-      value={pickedOptions}
-      onChange={handleOptionChange}
-      selectProps={{
-        addNew: {
-          label: "Create new",
-          onAddNew,
-          btnProps: { title: "Add new select option" }
-        },
-        search: {
-          enabled: true,
-          searchPlaceholder: "Search or add new option (Enter)"
-        }
-      }}
-    >
-      {allOptions.map(option => (
-        <MultiOption key={option} value={option}>
-          {option}
-        </MultiOption>
-      ))}
-    </MultiSelectWrapperComponent>
+    <div>
+      <MultiSelectWrapperComponent
+        {...args}
+        value={pickedOptions}
+        onChange={handleOptionChange}
+        selectProps={{
+          addNew: { label: "Create new", onAddNew, btnProps: { title: "Add new select option" } },
+          search: {
+            enabled: true,
+            searchPlaceholder: "Search or add new option (Enter)"
+          }
+        }}
+      >
+        {allOptions.map(option => (
+          <MultiOption key={option} value={option}>
+            {option}
+          </MultiOption>
+        ))}
+      </MultiSelectWrapperComponent>
+      <div style={{ height: "7rem" }}></div>
+    </div>
   );
 }).bind({});
 

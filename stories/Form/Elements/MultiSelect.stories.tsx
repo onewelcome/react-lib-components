@@ -22,6 +22,7 @@ import { MultiOption } from "../../../src/components/Form/Select/MultiSelect/Mul
 import { MultiSelectProps } from "../../../src/components/Form/Select/Select.interfaces";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { userEvent, waitFor, within, expect } from "@storybook/test";
+import { useMultiSelect } from "../../../src";
 
 const generateOptions = count => {
   return Array.from({ length: count }, (_, index) => (
@@ -155,3 +156,123 @@ MultiSelectWithAddNew.play = conditionalPlay(async ({ canvasElement }) => {
 
   await userEvent.click(select);
 });
+
+const MultiSelectUseBasicTemplate = args => {
+  const [allOptions, setAllOptions] = useState<string[]>([
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4"
+  ]);
+  const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
+
+  const { handleOptionChange } = useMultiSelect({
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <div style={args.stickToBottom ? { position: "absolute", bottom: 8, left: 8, right: 8 } : {}}>
+      <MultiSelectComponent
+        value={pickedOptions}
+        onChange={handleOptionChange}
+        search={args.search}
+      >
+        {allOptions.map(option => (
+          <MultiOption key={option} value={option}>
+            {option}
+          </MultiOption>
+        ))}
+      </MultiSelectComponent>
+      {!args.stickToBottom ? <div style={{ height: "7rem" }}></div> : undefined}
+    </div>
+  );
+};
+
+export const MultiSelectUseBasic = MultiSelectUseBasicTemplate.bind(
+  {},
+  {
+    search: { enabled: false }
+  }
+);
+export const MultiSelectUseBasicWithSearch = MultiSelectUseBasicTemplate.bind(
+  {},
+  {
+    search: { enabled: true }
+  }
+);
+export const MultiSelectUseBasicExpandUpwards = MultiSelectUseBasicTemplate.bind(
+  {},
+  {
+    stickToBottom: true
+  }
+);
+
+export const MultiSelectUseWithAddNew = (args => {
+  const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
+
+  const { handleOptionChange, onAddNew } = useMultiSelect({
+    initialOptions,
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <div>
+      <MultiSelectComponent
+        value={pickedOptions}
+        onChange={handleOptionChange}
+        addNew={{ label: "Create new", onAddNew, btnProps: { title: "Add new select option" } }}
+        search={{
+          enabled: true,
+          searchPlaceholder: "Search or add new option (Enter)"
+        }}
+      >
+        {allOptions.map(option => (
+          <MultiOption key={option} value={option}>
+            {option}
+          </MultiOption>
+        ))}
+      </MultiSelectComponent>
+      <div style={{ height: "7rem" }}></div>
+    </div>
+  );
+}).bind({});
+
+export const MultiSelectUseAsEditableList = (args => {
+  const items = ["Item 1", "Item 2", "Item 3"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>(items);
+
+  const { handleOptionChange, onAddNew } = useMultiSelect({
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <MultiSelectComponent
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      addNew={{
+        label: "Create new",
+        onAddNew,
+        btnProps: { title: "Add new list item" }
+      }}
+      search={{
+        enabled: true,
+        searchPlaceholder: "Add new list item (Enter)"
+      }}
+    >
+      {pickedOptions.map(option => (
+        <MultiOption key={option} value={option}>
+          {option}
+        </MultiOption>
+      ))}
+    </MultiSelectComponent>
+  );
+}).bind({});

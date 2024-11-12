@@ -25,40 +25,50 @@ A code example of how you can configure a `MultiSelectWrapper` within a React co
 
 ```jsx
 const ExampleComponent = () => {
-  const [pickedOptions, setPickedOptions] = useState<string[]>(["option1"]);
+  const [allOptions, setAllOptions] = useState<string[]>([
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4"
+  ]);
+  const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
+
+  const { handleOptionChange } = useMultiSelect({
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
 
   return (
-    <MultiSelectWrapper
-      label="Example multi select wrapper"
-      name="Example multi select"
-      helperText="Example helper text"
-      error={false}
-      errorMessage="This is an error message"
-      required={true}
-      value={pickedOptions}
-      onChange={event => {
-        setPickedOptions(
-          Array.from(event.target.options).filter(option => option.selected).map(option => option.value)
-        );
-      }}
-      selectProps={{
-        search: {
-          enabled: false
-        }
-      }}
-    >
-      <MultiOption value="option1">Option 1</MultiOption>
-      <MultiOption value="option2">Option 2</MultiOption>
-      <MultiOption value="option3">Option 3</MultiOption>
-      <MultiOption value="option4">Option 4</MultiOption>
-    </MultiSelectWrapper>
+    <div style={args.stickToBottom ? { position: "absolute", bottom: 8, left: 8, right: 8 } : {}}>
+      <MultiSelectWrapperComponent
+        label="Example multi select wrapper"
+        name="Example multi select"
+        helperText="Example helper text"
+        error={false}
+        errorMessage="This is an error message"
+        required={true}
+        value={pickedOptions}
+        onChange={handleOptionChange}
+        selectProps={{
+          search: args.search
+        }}
+      >
+        {allOptions.map(option => (
+          <MultiOption key={option} value={option}>
+            {option}
+          </MultiOption>
+        ))}
+      </MultiSelectWrapperComponent>
+      {!args.stickToBottom ? <div style={{ height: "7rem" }}></div> : undefined}
+    </div>
   );
 };
+
 ```
 
-<Canvas>
-  <Story of={MultiSelectWrapperStories.MultiSelectWrapper} />
-</Canvas>
+<Canvas of={MultiSelectWrapperStories.MultiSelectWrapperUseBasic}></Canvas>
 
 A code example of a fully functional `MultiSelectWrapper` with the add new button and search enabled:
 
@@ -68,50 +78,22 @@ const ExampleComponent = () => {
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
   const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
 
-  const handleOptionChange = (options: HTMLOptionsCollection) => {
-    let newPickedOptions = [...pickedOptions];
-    let newAllOptions = [...allOptions];
-    Array.from(options).forEach(option => {
-      const selected = option.selected;
-      const exists = newPickedOptions.includes(option.value);
-
-      const shouldAdd = !exists && selected;
-      const shouldRemove = exists && !selected;
-
-      if (shouldAdd) {
-        newPickedOptions.push(option.value);
-      } else if (shouldRemove) {
-        newPickedOptions = newPickedOptions.filter(value => value !== option.value);
-        const isInInitialOptions = initialOptions.includes(option.value);
-        if (!isInInitialOptions) {
-          newAllOptions = newAllOptions.filter(value => value !== option.value);
-        }
-      }
-    });
-    return { newPickedOptions, newAllOptions };
-  };
+  const { handleOptionChange, onAddNew } = useMultiSelect({
+    initialOptions,
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
 
   return (
     <MultiSelectWrapperComponent
-      {...args}
+      label="Example multi select wrapper - with add new and search"
+      name="Example multi select"
       value={pickedOptions}
-      onChange={e => {
-        const { newPickedOptions, newAllOptions } = handleOptionChange(e.target.options);
-        setPickedOptions(newPickedOptions);
-        setAllOptions(newAllOptions);
-      }}
+      onChange={handleOptionChange}
       selectProps={{
-        addNew: {
-          label: "Create new",
-          onAddNew: value => {
-            const trimmedValue = value.trim();
-            const getValuesWithValueIfUnique = (value: string) => (values: string[]) =>
-              values.includes(value) ? values : [...values, value];
-            trimmedValue && setAllOptions(getValuesWithValueIfUnique(trimmedValue));
-            trimmedValue && setPickedOptions(getValuesWithValueIfUnique(trimmedValue));
-          },
-          btnProps: { title: "Add new select option" }
-        },
+        addNew: { label: "Create new", onAddNew, btnProps: { title: "Add new select option" } },
         search: {
           enabled: true,
           searchPlaceholder: "Search or add new option (Enter)"
@@ -128,9 +110,49 @@ const ExampleComponent = () => {
 }
 ```
 
-<Canvas>
-  <Story of={MultiSelectWrapperStories.MultiSelectAddNewWrapper} />
-</Canvas>
+<Canvas of={MultiSelectWrapperStories.MultiSelectWrapperUseWithAddNew} />
+
+A code example of a fully functional `MultiSelectWrapper` used as an editable list
+
+```jsx
+const ExampleComponent = () => {
+  const items = ["Item 1", "Item 2", "Item 3"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>(items);
+
+  const { handleOptionChange, onAddNew } = useMultiSelect({
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <MultiSelectWrapperComponent
+      label="Example multi select wrapper - editable list"
+      name="Example multi select"
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      selectProps={{
+        addNew: {
+          label: "Create new",
+          onAddNew,
+          btnProps: { title: "Add new list item" }
+        },
+        search: {
+          enabled: true,
+          searchPlaceholder: "Add new list item (Enter)"
+        }
+      }}
+    >
+      {pickedOptions.map(option => (
+        <MultiOption key={option} value={option}>
+          {option}
+        </MultiOption>
+      ))}
+    </MultiSelectWrapperComponent>
+  );
+}
+```
+
+<Canvas of={MultiSelectWrapperStories.MultiSelectWrapperUseAsEditableList} />
 
 # Props
 

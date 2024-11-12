@@ -293,7 +293,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   };
 
   const optionsElement = (
-    <div className="list-wrapper-container">
+    <div className={`list-wrapper-container ${classes["list-wrapper-container"]}`}>
       <div
         ref={optionListReference}
         className={`list-wrapper ${classes["list-wrapper"]}`}
