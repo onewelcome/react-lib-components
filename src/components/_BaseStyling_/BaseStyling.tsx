@@ -116,6 +116,8 @@ interface CSSProperties {
   modalShadowColor?: string;
   modalBackgroundColor?: string;
   modalBackdropColor?: string;
+  sideSheetShadowColorOne?: string;
+  sideSheetShadowColorTwo?: string;
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
 
@@ -310,6 +312,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--light)",
     modalBackdropColor: "var(--default)",
+    sideSheetShadowColorOne: "#01053214",
+    sideSheetShadowColorTwo: "#0105320a",
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
 

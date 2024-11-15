@@ -83,3 +83,8 @@ export interface FiltersTranslations {
   tag?: TagTranslations;
   popover?: PopoverTranslations;
 }
+
+export interface KeyValuePair<TKey = string, TValue = string> {
+  key: TKey;
+  value: TValue;
+}

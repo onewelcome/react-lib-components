@@ -173,12 +173,6 @@ export const areArraysDifferent = (
   }
 };
 
-export const getValueByPath = (obj: { [key: string]: any }, path: string): any => {
-  return path.split(".").reduce((res, prop) => {
-    return res[prop];
-  }, obj);
-};
-
 /** Source: https://stackoverflow.com/a/42769683/5084110 */
 export const remToPx = (rem: number): number => {
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);

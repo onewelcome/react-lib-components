@@ -17,23 +17,24 @@
 import React, { Fragment, useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import {
-  SlideInModal as SlideInModalComponent,
+  SideSheet as SideSheetComponent,
   Props
-} from "../../../src/components/Notifications/SlideInModal/SlideInModal";
-import SlideInModalDocumentation from "./SlideInModal.mdx";
+} from "../../../src/components/Notifications/SideSheet/SideSheet";
+import SideSheetDocumentation from "./SideSheet.mdx";
 import { Button } from "../../../src/components/Button/Button";
-import { ModalHeader } from "../../../src/components/Notifications/Modal/ModalHeader/ModalHeader";
-import { ModalContent } from "../../../src/components/Notifications/Modal/ModalContent/ModalContent";
+import { SideSheetHeader } from "../../../src/components/Notifications/SideSheet/SideSheetHeader/SideSheetHeader";
+import { SideSheetContent } from "../../../src/components/Notifications/SideSheet/SideSheetContent/SideSheetContent";
 import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
 import { within, userEvent, waitFor, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
+import { SideSheetActions } from "../../../src/components/Notifications/SideSheet/SideSheetActions/SideSheetActions";
 
 const meta: Meta = {
-  title: "components/Utils/SlideInModal (deprecated)",
-  component: SlideInModalComponent,
+  title: "components/Utils/SideSheet",
+  component: SideSheetComponent,
   parameters: {
     docs: {
-      page: SlideInModalDocumentation
+      page: SideSheetDocumentation
     }
   }
 };
@@ -43,15 +44,30 @@ export default meta;
 const Template: StoryFn<Props> = args => {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const onToggle = () => setOpen(!open);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
 
   return (
     <Fragment>
-      <Button onClick={onOpen}>Open modal</Button>
-      <SlideInModalComponent {...args} id="slide-in-modal" open={open} onClose={onClose}>
-        <ModalHeader id={"modal-header"} title={"Modal header"} onClose={onClose} />
-        <ModalContent id={`modal-description`} disableAutoFocus={args["content.disableAutoFocus"]}>
+      <Button onClick={onToggle}>{!open ? "Open" : "Close"} modal</Button>
+      <SideSheetComponent
+        {...args}
+        id="slide-in-modal"
+        open={open}
+        onClose={onClose}
+        handleButtonProps={{ onOpen, onClose }}
+      >
+        <SideSheetHeader
+          id={"modal-header"}
+          title={"Modal header"}
+          description={"Modal description"}
+          onClose={onClose}
+        />
+        <SideSheetContent
+          id={`modal-description`}
+          disableAutoFocus={args["content.disableAutoFocus"]}
+        >
           <InputWrapper
             type="text"
             label="Name"
@@ -59,15 +75,21 @@ const Template: StoryFn<Props> = args => {
             value={inputValue}
             onChange={e => setInputValue(e.target.value)}
           />
-        </ModalContent>
-      </SlideInModalComponent>
+        </SideSheetContent>
+        <SideSheetActions className={args["actions.className"]} cancelAction={{ label: "Cancel" }}>
+          <Button variant="outline">Example</Button>
+          <Button form="modalForm" type="submit">
+            Save
+          </Button>
+        </SideSheetActions>
+      </SideSheetComponent>
     </Fragment>
   );
 };
 
-export const SlideInModal = Template.bind({});
+export const SideSheet = Template.bind({});
 
-SlideInModal.play = conditionalPlay(async ({ canvasElement }) => {
+SideSheet.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() => expect(canvas.queryByText("Open modal")).not.toBeNull());

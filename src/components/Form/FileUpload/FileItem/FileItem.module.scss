@@ -87,7 +87,7 @@
       align-items: center;
 
       .progress-bar {
-        height: 3rem;
+        min-height: 3rem;
         width: 100%;
         background: transparent;
 
@@ -119,9 +119,9 @@
     font-size: 0.875rem;
 
     .friendly-name {
-      overflow: hidden;
+      overflow-wrap: anywhere;
       text-overflow: ellipsis;
-      white-space: nowrap;
+      text-wrap: wrap;
     }
 
     &.error {
@@ -169,6 +169,9 @@
     display: block;
     margin: 0.3125rem 1.75rem;
     padding: 0;
+    overflow-wrap: anywhere;
+    text-overflow: ellipsis;
+    text-wrap: wrap;
   }
 
   .error,

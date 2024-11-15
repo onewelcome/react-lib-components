@@ -65,8 +65,17 @@ export type {
 /* Utils */
 export { useRepeater } from "./hooks/useRepeater";
 export { useFullHeightCollapse } from "./hooks/useFullHeightCollapse";
-export { usePosition, Placement } from "./hooks/usePosition";
+export { usePosition } from "./hooks/usePosition";
+export type { Placement } from "./hooks/usePosition";
 export { useDebouncedCallback } from "./hooks/useDebouncedCallback";
+export { useUploadFile } from "./hooks/useUploadFile";
+export type {
+  UploadResponseStatus,
+  UploadResponseJson,
+  UploadResponseType,
+  UseUploadFileCallback,
+  UploadFileRequestParams
+} from "./hooks/useUploadFile";
 export { generateID, debounce, throttle } from "./util/helper";
 
 /* Notifications */
@@ -104,6 +113,16 @@ export type {
 } from "./components/Notifications/NotificationProvider/notification.interfaces";
 export { SlideInModal } from "./components/Notifications/SlideInModal/SlideInModal";
 export type { Props as SlideInModalProps } from "./components/Notifications/SlideInModal/SlideInModal";
+
+/** SideSheet */
+export { SideSheet } from "./components/Notifications/SideSheet/SideSheet";
+export type { Props as SideSheetProps } from "./components/Notifications/SideSheet/SideSheet";
+export { SideSheetActions } from "./components/Notifications/SideSheet/SideSheetActions/SideSheetActions";
+export type { Props as SideSheetActionsProps } from "./components/Notifications/SideSheet/SideSheetActions/SideSheetActions";
+export { SideSheetContent } from "./components/Notifications/SideSheet/SideSheetContent/SideSheetContent";
+export type { Props as SideSheetContentProps } from "./components/Notifications/SideSheet/SideSheetContent/SideSheetContent";
+export { SideSheetHeader } from "./components/Notifications/SideSheet/SideSheetHeader/SideSheetHeader";
+export type { Props as SideSheetHeaderProps } from "./components/Notifications/SideSheet/SideSheetHeader/SideSheetHeader";
 
 /** Form components */
 export { Checkbox } from "./components/Form/Checkbox/Checkbox";
@@ -149,8 +168,12 @@ export { TextareaWrapper } from "./components/Form/Wrapper/TextareaWrapper/Texta
 export type { Props as TextareaWrapperProps } from "./components/Form/Wrapper/TextareaWrapper/TextareaWrapper";
 export { SelectWrapper } from "./components/Form/Wrapper/SelectWrapper/SelectWrapper";
 export type { Props as SelectWrapperProps } from "./components/Form/Wrapper/SelectWrapper/SelectWrapper";
+
+/* FileUpload */
 export { FileUpload } from "./components/Form/FileUpload/FileUpload";
-export type { Props as FileUploadProps } from "./components/Form/FileUpload/FileUpload";
+export type { Props as FileUploadProps, FileType } from "./components/Form/FileUpload/FileUpload";
+export { FILE_ACTION, ACTION_STATUS } from "./components/Form/FileUpload/FileItem/FileItem";
+
 export { MultiSelectWrapper } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 export type { Props as MultiSelectWrapperProps } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 export { useMultiSelect } from "./components/Form/Wrapper/MultiSelectWrapper/useMultiSelect";
@@ -176,6 +199,8 @@ export { DataGridDrawerItem } from "./components/DataGrid/DataGridBody/DataGridD
 export type { Props as DataGridDrawerItemProps } from "./components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
 export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
 export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
+export { Filter } from "./components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
+export { FilterKeyMapper } from "./components/DataGrid/DataGridFilters/FilterKeyMapper";
 export { useFiltersReducer } from "./components/DataGrid/DataGridFilters/useFiltersReducer";
 
 /** Banner */
