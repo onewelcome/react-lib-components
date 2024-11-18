@@ -28,6 +28,7 @@ import readyclasses from "../../../readyclasses.module.scss";
 import { FormElement } from "../form.interfaces";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
 import { MergeElementProps } from "../../../interfaces";
+import { withReadOnly } from "../../withReadOnly";
 
 export const dateTypes = ["date", "time", "datetime-local"] as const;
 
@@ -149,4 +150,4 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   );
 };
 
-export const Input = React.forwardRef(InputComponent);
+export const Input = withReadOnly(React.forwardRef(InputComponent));

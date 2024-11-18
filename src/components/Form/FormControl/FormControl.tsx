@@ -16,6 +16,7 @@
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import classes from "./FormControl.module.scss";
+import { withReadOnly } from "../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   children?: ReactElement | ReactElement[] | null;
@@ -59,4 +60,4 @@ const FormControlComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   );
 };
 
-export const FormControl = React.forwardRef(FormControlComponent);
+export const FormControl = withReadOnly(React.forwardRef(FormControlComponent));

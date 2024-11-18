@@ -20,6 +20,7 @@ import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { Select } from "../../Select/SingleSelect/Select";
 import { useWrapper } from "../../../../hooks/useWrapper";
 import { SingleSelectProps } from "../../Select/Select.interfaces";
+import { withReadOnly } from "../../../withReadOnly";
 
 interface PartialSelectProps extends Partial<SingleSelectProps> {}
 
@@ -81,4 +82,4 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
   );
 };
 
-export const SelectWrapper = React.forwardRef(SelectWrapperComponent);
+export const SelectWrapper = withReadOnly(React.forwardRef(SelectWrapperComponent));

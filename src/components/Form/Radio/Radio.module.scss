@@ -143,3 +143,16 @@
   color: var(--disabled);
   pointer-events: none;
 }
+
+// Read Only Mode Styling ONLY
+[data-readonlyview="true"] {
+  & .radio-wrapper {
+    & .disabled {
+      color: var(--color-blue-grey900);
+      outline: 1px solid var(--color-blue-grey100);
+      outline-offset: -1px;
+      outline-style: auto;
+    }
+  }
+}
+// Read Only Mode Styling ONLY = ENDS =

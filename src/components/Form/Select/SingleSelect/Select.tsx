@@ -35,6 +35,7 @@ import { useSelectPositionList } from "../useSelectPositionList";
 import { useAddNewBtn } from "../useAddNewBtn";
 import { useSearch } from "./useSearch";
 import { useArrowNavigation } from "./useArrowNavigation";
+import { withReadOnly } from "../../../withReadOnly";
 
 const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {
@@ -291,4 +292,4 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     </Fragment>
   );
 };
-export const Select = React.forwardRef(SelectComponent);
+export const Select = withReadOnly(React.forwardRef(SelectComponent));

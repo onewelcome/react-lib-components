@@ -19,6 +19,7 @@ import classes from "./TextareaWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { Textarea, Props as TextareaProps } from "../../Textarea/Textarea";
 import { useWrapper } from "../../../../hooks/useWrapper";
+import { withReadOnly } from "../../../withReadOnly";
 
 export interface Props
   extends Omit<
@@ -122,4 +123,4 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   );
 };
 
-export const TextareaWrapper = React.forwardRef(TextareaWrapperComponent);
+export const TextareaWrapper = withReadOnly(React.forwardRef(TextareaWrapperComponent));

@@ -61,4 +61,24 @@ input {
     cursor: not-allowed;
     color: var(--greyed-out);
   }
+
+  &[data-readonlyview="true"] {
+    & label {
+      color: var(--color-blue-grey900);
+    }
+
+    & input {
+      color: var(--color-blue-grey900);
+    }
+
+    & div.disabled {
+      span {
+        background-color: transparent;
+        border-color: var(--color-blue-grey100);
+      }
+
+      background-color: transparent;
+      color: var(--color-blue-grey900);
+    }
+  }
 }

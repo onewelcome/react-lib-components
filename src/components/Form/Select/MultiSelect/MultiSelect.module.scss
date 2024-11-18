@@ -255,3 +255,32 @@ $listItemHeight: 2.5rem;
     }
   }
 }
+
+// Read Only Mode Styling ONLY
+[data-readonlyview="true"] {
+  & .disabled {
+    &.custom-select {
+      color: var(--color-blue-grey900);
+      border-color: var(--color-blue-grey100);
+      background-color: var(--color-white);
+    }
+
+    & .disabled {
+      background-color: var(--color-white);
+      color: var(--color-blue-grey900);
+      border-color: var(--color-blue-grey100);
+    }
+
+    &.error,
+    &.success {
+      & .status {
+        visibility: visible;
+      }
+    }
+
+    & .status {
+      visibility: hidden;
+    }
+  }
+}
+// Read Only Mode Styling ONLY = ENDS =

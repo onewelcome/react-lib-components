@@ -37,6 +37,7 @@ import { SelectButton } from "./SelectButton";
 import { Display, SelectedOptions } from "./SelectedOptions";
 import { useArrowNavigation } from "./useArrowNavigation";
 import { useSearch } from "./useSearch";
+import { withReadOnly } from "../../../withReadOnly";
 
 const getOptionId = (multiSelectId: string, optionIndex: number) =>
   `${multiSelectId}_option${optionIndex}`;
@@ -377,4 +378,4 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   );
 };
 
-export const MultiSelect = React.forwardRef(MultiSelectComponent);
+export const MultiSelect = withReadOnly(React.forwardRef(MultiSelectComponent));

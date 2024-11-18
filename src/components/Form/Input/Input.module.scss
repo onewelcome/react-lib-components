@@ -117,6 +117,24 @@
     color: var(--greyed-out);
   }
 
+  // Read Only Mode Styling ONLY
+  &[data-readonlyview="true"] {
+    color: var(--color-blue-grey900);
+    & .Input-module {
+      border-color: var(--color-blue-grey100);
+    }
+    & + span {
+      //For Raw Input
+      &.disabled {
+        color: var(--color-blue-grey900);
+        border-color: var(--color-blue-grey100);
+        background-color: var(--color-white);
+      }
+    }
+  }
+
+  // Read Only Mode Styling ONLY == ENDS ===
+
   &.shrink-width-for-date-icon {
     width: auto;
   }

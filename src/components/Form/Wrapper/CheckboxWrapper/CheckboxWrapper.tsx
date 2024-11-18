@@ -25,6 +25,7 @@ import { useWrapper } from "../../../../hooks/useWrapper";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { Icons } from "../../../Icon/Icon";
 import { Fieldset, Props as FieldsetProps } from "../../../Form/Fieldset/Fieldset";
+import { withReadOnly } from "../../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"div">, Omit<WrapperProps, "success"> {
   children: ReactElement[] | ReactElement;
@@ -83,4 +84,4 @@ const CheckboxWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
 /**
  * @deprecated
  */
-export const CheckboxWrapper = React.forwardRef(CheckboxWrapperComponent);
+export const CheckboxWrapper = withReadOnly(React.forwardRef(CheckboxWrapperComponent));

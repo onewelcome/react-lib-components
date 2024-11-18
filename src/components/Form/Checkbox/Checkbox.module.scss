@@ -133,3 +133,27 @@
 .indeterminate {
   color: var(--color-primary);
 }
+
+// Read Only Mode Styling ONLY
+[data-readonlyview="true"] {
+  & label {
+    border-color: var(--color-blue-grey100);
+    color: var(--color-blue-grey900);
+    background-color: transparent;
+  }
+
+  & .checkbox-wrapper {
+    & span {
+      outline-color: var(--color-blue-grey100);
+
+      &.checkmark {
+        &.disabled {
+          background-color: var(--color-blue-grey900);
+          color: var(--color-white);
+          border-color: var(--color-blue-grey100);
+        }
+      }
+    }
+  }
+}
+// Read Only Mode Styling ONLY = ENDS =

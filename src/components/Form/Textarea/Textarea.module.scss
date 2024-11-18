@@ -84,3 +84,23 @@
 }
 
 @include mixins.outline();
+
+// Read Only Mode Styling ONLY
+[data-readonlyview="true"] {
+  & .disabled {
+    & textarea {
+      &[disabled] {
+        border-color: var(--color-blue-grey100);
+        color: var(--color-blue-grey900);
+        background-color: transparent;
+      }
+    }
+    & span {
+      &.disabled {
+        background-color: var(--color-white);
+        border-color: var(--color-blue-grey100);
+      }
+    }
+  }
+}
+// Read Only Mode Styling ONLY = ENDS =

@@ -19,6 +19,7 @@ import { Input, Type, Props as InputProps } from "../../Input/Input";
 import classes from "./InputWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { useWrapper } from "../../../../hooks/useWrapper";
+import { withReadOnly } from "../../../withReadOnly";
 
 interface PartialInputProps extends Partial<InputProps> {}
 
@@ -116,4 +117,4 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   );
 };
 
-export const InputWrapper = React.forwardRef(InputWrapperComponent);
+export const InputWrapper = withReadOnly(React.forwardRef(InputWrapperComponent));
