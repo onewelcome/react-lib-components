@@ -1,0 +1,26 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as SpinnerStories from "./Spinner.stories.tsx";
+
+<Meta of={SpinnerStories} />
+<Title />
+<Subtitle />
+
+The `Spinner` component can be used to show the user that he has to wait until something gets done.
+
+# Examples
+
+Spinner with default size and borderWidth:
+
+```jsx
+<Spinner />
+```
+
+TODO this story renders correctly at first but then in a fraction of second shows error "Storybook preview hooks can only be called inside decorators and story functions":
+
+<Canvas>
+  <Story of={SpinnerStories.SpinnerDefault} />
+</Canvas>
+
+# Props
+
+<ArgTypes />{" "}
