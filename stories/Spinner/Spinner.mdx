@@ -15,11 +15,15 @@ Spinner with default size and borderWidth:
 <Spinner />
 ```
 
-TODO this story renders correctly at first but then in a fraction of second shows error "Storybook preview hooks can only be called inside decorators and story functions":
+<Canvas of={SpinnerStories.SpinnerDefault} />
 
-<Canvas>
-  <Story of={SpinnerStories.SpinnerDefault} />
-</Canvas>
+Spinner with custom size:
+
+```jsx
+<Spinner size={50} borderWidth={4} />
+```
+
+<Canvas of={SpinnerStories.SpinnerBigAndThick} />
 
 # Props
 
