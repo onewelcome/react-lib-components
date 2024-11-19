@@ -22,35 +22,40 @@ export interface SpinnerProps extends React.SVGProps<SVGSVGElement> {
   thickness?: number;
 }
 
-export const Spinner: React.FC<SpinnerProps> = ({ size = 32, thickness = 2, ...props }) => (
-  <svg
-    {...props}
-    className={classes["spinner"]}
-    width={size}
-    height={size}
-    viewBox={`0 0 ${size} ${size}`}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle
-      cx={size / 2}
-      cy={size / 2}
-      r={(size - thickness) / 2}
-      stroke="var(--orbit-color)"
-      strokeWidth={thickness}
+export const Spinner: React.FC<SpinnerProps> = ({ size = 32, thickness, ...props }) => {
+  if (!thickness) {
+    thickness = size / 16;
+  }
+  return (
+    <svg
+      {...props}
+      className={classes["spinner"]}
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
       fill="none"
-    ></circle>
-    <circle
-      className={classes["arch"]}
-      cx={size / 2}
-      cy={size / 2}
-      r={(size - thickness) / 2}
-      stroke="var(--arch-color)"
-      strokeWidth={thickness}
-      strokeLinecap="round"
-      fill="none"
-      strokeDasharray={`${size}`}
-      transform="rotate(-90 25 25)"
-    />
-  </svg>
-);
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={(size - thickness) / 2}
+        stroke="var(--orbit-color)"
+        strokeWidth={thickness}
+        fill="none"
+      ></circle>
+      <circle
+        className={classes["arch"]}
+        cx={size / 2}
+        cy={size / 2}
+        r={(size - thickness) / 2}
+        stroke="var(--arch-color)"
+        strokeWidth={thickness}
+        strokeLinecap="round"
+        fill="none"
+        strokeDasharray={`${size}`}
+        transform="rotate(-90 25 25)"
+      />
+    </svg>
+  );
+};
