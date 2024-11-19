@@ -34,12 +34,7 @@ export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P
       // Recursive function to add data-readonlyview to all child elements
       const addReadOnlyAttribute = (childNodes: ReactNode): ReactNode => {
         return React.Children.map(childNodes, child => {
-          // eslint-disable-next-line no-console
-          console.log("We got now children to play with them--->", children);
-
-          // Check if the child is a valid React element
           if (React.isValidElement(child)) {
-            // Clone the element and add the data-readOnlyEnabled attribute
             return React.cloneElement(child, { readonlyview: readOnlyView } as Record<string, any>);
           }
           return child;

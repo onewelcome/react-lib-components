@@ -247,24 +247,29 @@ $listItemHeight: 2.5rem;
 // Read Only Mode Styling ONLY
 [data-readonlyview="true"] {
   background-color: transparent;
+
   div.disabled {
     background-color: transparent;
   }
+
   & button[type="button"] {
     &.disabled {
       background-color: var(--color-white);
       color: var(--color-blue-grey900);
       border-color: var(--color-blue-grey100);
+
       & .selected {
         color: var(--color-blue-grey900);
       }
     }
+
     &.error,
     &.success {
       & .status {
         visibility: visible;
       }
     }
+
     & .status {
       visibility: hidden;
     }

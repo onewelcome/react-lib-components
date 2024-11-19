@@ -120,9 +120,11 @@
   // Read Only Mode Styling ONLY
   &[data-readonlyview="true"] {
     color: var(--color-blue-grey900);
+
     & .Input-module {
       border-color: var(--color-blue-grey100);
     }
+
     & + span {
       //For Raw Input
       &.disabled {
@@ -132,7 +134,6 @@
       }
     }
   }
-
   // Read Only Mode Styling ONLY == ENDS ===
 
   &.shrink-width-for-date-icon {
