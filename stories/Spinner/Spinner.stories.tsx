@@ -10,16 +10,6 @@ const meta: Meta = {
     docs: {
       page: SpinnerDocumentation
     }
-  },
-  args: {
-    size: undefined,
-    borderWidth: undefined
-  },
-  argTypes: {
-    size: {
-      type: "number",
-      control: false
-    }
   }
 };
 
@@ -28,4 +18,4 @@ export default meta;
 const Template: StoryFn<SpinnerProps> = args => <Spinner {...args} />;
 
 export const SpinnerDefault = Template.bind({});
-export const SpinnerBigAndThick = Template.bind({}, { size: 400, borderWidth: 20 });
+export const SpinnerBigAndThick = Template.bind({}, { size: 400, thickness: 20 });

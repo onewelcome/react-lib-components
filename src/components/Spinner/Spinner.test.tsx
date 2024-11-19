@@ -20,7 +20,7 @@ describe("Spinner Component", () => {
   });
 
   it("should render with custom props", () => {
-    const { container } = render(<Spinner size={50} borderWidth={4} />);
+    const { container } = render(<Spinner size={50} thickness={4} />);
     const svgElement = container.querySelector("svg");
     expect(svgElement).toBeInTheDocument();
 
