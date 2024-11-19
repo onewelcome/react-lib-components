@@ -26,7 +26,7 @@ export const Spinner: React.FC<SpinnerProps> = ({ size = 32, borderWidth = 2, ..
     {...props}
     width={size}
     height={size}
-    viewBox="0 0 50 50"
+    viewBox={`0 0 ${size} ${size}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={
@@ -54,23 +54,23 @@ export const Spinner: React.FC<SpinnerProps> = ({ size = 32, borderWidth = 2, ..
       `}
     </style>
     <circle
-      cx="25"
-      cy="25"
-      r="20"
+      cx={size / 2}
+      cy={size / 2}
+      r={(size - borderWidth) / 2}
       stroke="var(--orbit-color)"
       strokeWidth={borderWidth}
       fill="none"
     ></circle>
     <circle
       className="arch"
-      cx="25"
-      cy="25"
-      r="20"
+      cx={size / 2}
+      cy={size / 2}
+      r={(size - borderWidth) / 2}
       stroke="var(--arch-color)"
       strokeWidth={borderWidth}
       strokeLinecap="round"
       fill="none"
-      strokeDasharray="31.4 62.8"
+      strokeDasharray={`${size}`}
       transform="rotate(-90 25 25)"
     />
   </svg>

@@ -28,4 +28,4 @@ export default meta;
 const Template: StoryFn<SpinnerProps> = args => <Spinner {...args} />;
 
 export const SpinnerDefault = Template.bind({});
-export const SpinnerBigAndThick = Template.bind({}, { size: 50, borderWidth: 4 });
+export const SpinnerBigAndThick = Template.bind({}, { size: 400, borderWidth: 20 });
