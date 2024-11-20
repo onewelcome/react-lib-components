@@ -15,7 +15,7 @@ describe("withReadOnly", () => {
 
   it("should disable the input when readOnlyView is true", () => {
     const WrappedComponent = withReadOnly(TestComponent);
-    const { getByRole } = render(<WrappedComponent readOnlyView={true} disabled={false} />);
+    const { getByRole } = render(<WrappedComponent readOnlyView={true} />);
 
     const inputElement = getByRole("textbox");
     expect(inputElement).toBeDisabled();
@@ -23,7 +23,7 @@ describe("withReadOnly", () => {
 
   it("should not disable the input when readOnlyView is false", () => {
     const WrappedComponent = withReadOnly(TestComponent);
-    const { getByRole } = render(<WrappedComponent readOnlyView={false} disabled={false} />);
+    const { getByRole } = render(<WrappedComponent readOnlyView={false} />);
 
     const inputElement = getByRole("textbox");
     expect(inputElement).not.toBeDisabled();
@@ -31,7 +31,7 @@ describe("withReadOnly", () => {
 
   it("should not require the input when readOnlyView is true", () => {
     const WrappedComponent = withReadOnly(TestComponent);
-    const { getByRole } = render(<WrappedComponent readOnlyView={true} required={true} />);
+    const { getByRole } = render(<WrappedComponent readOnlyView={true} />);
 
     const inputElement = getByRole("textbox");
     expect(inputElement).not.toBeRequired();
