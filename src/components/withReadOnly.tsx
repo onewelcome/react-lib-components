@@ -29,7 +29,7 @@ function getDisplayName<P>(WrappedComponent: ComponentType<P>) {
 export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P>) => {
   const WithReadOnlyComponent = React.forwardRef(
     (props: PropsWithChildren<P & WithReadOnlyProps>, ref: ForwardedRef<any>) => {
-      const { readOnlyView, required, disabled, children, ...restProps } = props;
+      const { readOnlyView = false, required, disabled, children, ...restProps } = props;
 
       // Recursive function to add data-readonlyview to all child elements
       const addReadOnlyAttribute = (childNodes: ReactNode): ReactNode => {
