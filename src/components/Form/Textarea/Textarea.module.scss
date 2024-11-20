@@ -48,6 +48,24 @@
   }
 
   @include mixins.outlineStates();
+  // Read Only Mode Styling ONLY
+  div[data-readonlyview="true"] {
+    min-height: 4rem;
+    border: 1px solid var(--color-blue-grey100);
+    color: var(--color-blue-grey900);
+    background-color: var(--color-white);
+    padding: 0.625rem 1.5625rem 0.625rem 0.625rem;
+    font-family: var(--font-family);
+    font-size: var(--form-control-font-size);
+    color: var(--color-blue-grey900);
+    position: relative;
+
+    & ~ span.disabled {
+      background-color: transparent;
+      border: 1px solid var(--color-blue-grey100);
+    }
+  }
+  // Read Only Mode Styling ONLY = ENDS =
 }
 
 .textarea {
@@ -84,24 +102,3 @@
 }
 
 @include mixins.outline();
-
-// Read Only Mode Styling ONLY
-[data-readonlyview="true"] {
-  & .disabled {
-    & textarea {
-      &[disabled] {
-        border-color: var(--color-blue-grey100);
-        color: var(--color-blue-grey900);
-        background-color: transparent;
-      }
-    }
-
-    & span {
-      &.disabled {
-        background-color: var(--color-white);
-        border-color: var(--color-blue-grey100);
-      }
-    }
-  }
-}
-// Read Only Mode Styling ONLY = ENDS =

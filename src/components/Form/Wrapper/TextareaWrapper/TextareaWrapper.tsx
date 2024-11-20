@@ -20,6 +20,7 @@ import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { Textarea, Props as TextareaProps } from "../../Textarea/Textarea";
 import { useWrapper } from "../../../../hooks/useWrapper";
 import { withReadOnly } from "../../../withReadOnly";
+import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 
 export interface Props
   extends Omit<
@@ -68,25 +69,23 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   disabled && wrapperClasses.push(classes["disabled"]);
   error && wrapperClasses.push(classes["error"]);
 
-  return (
-    <Wrapper
-      {...rest}
-      ref={ref}
-      disabled={disabled}
-      labelProps={{
-        id: labelId,
-        className: `${classes["textarea-label"]} ${wrapperClasses.join(" ")}`
-      }}
-      name={name}
-      label={label}
-      helperId={helperId}
-      helperProps={{
-        ...helperProps,
-        className: classes["textarea-helper-text"]
-      }}
-      error={error}
-      errorId={errorId}
-    >
+  const icon = useDetermineStatusIcon({ success, error });
+
+  const getChildren = () => {
+    if (rest["data-readonlyview"]) {
+      return (
+        <div
+          aria-labelledby={label && labelId}
+          aria-describedby={error ? errorId : helperId}
+          id={name}
+          className={`readOnlyWrapper ${error ? "error" : success ? "success" : ""}`}
+        >
+          {icon}
+          {value}
+        </div>
+      );
+    }
+    return (
       <Textarea
         {...textareaProps}
         error={error}
@@ -119,6 +118,29 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
           className: `${wrapperClasses.join(" ")} ${classes["textarea-wrapper"]}`
         }}
       />
+    );
+  };
+
+  return (
+    <Wrapper
+      {...rest}
+      ref={ref}
+      disabled={disabled}
+      labelProps={{
+        id: labelId,
+        className: `${classes["textarea-label"]} ${wrapperClasses.join(" ")}`
+      }}
+      name={name}
+      label={label}
+      helperId={helperId}
+      helperProps={{
+        ...helperProps,
+        className: classes["textarea-helper-text"]
+      }}
+      error={error}
+      errorId={errorId}
+    >
+      {getChildren()}
     </Wrapper>
   );
 };

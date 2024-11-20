@@ -125,7 +125,7 @@
       border-color: var(--color-blue-grey100);
     }
 
-    & + span {
+    & ~ span {
       //For Raw Input
       &.disabled {
         color: var(--color-blue-grey900);
