@@ -23,7 +23,7 @@ export interface WithReadOnlyProps {
 }
 
 function getDisplayName<P>(WrappedComponent: ComponentType<P>) {
-  return WrappedComponent.displayName || WrappedComponent.name || "Component";
+  return WrappedComponent.displayName ?? WrappedComponent.name ?? "Component";
 }
 
 export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P>) => {
@@ -52,7 +52,7 @@ export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P
           {...(restProps as P)}
           data-readonlyview={readOnlyView}
           required={readOnlyView ? false : required}
-          disabled={readOnlyView ? readOnlyView : disabled}
+          disabled={readOnlyView || disabled}
         >
           {children && addReadOnlyAttribute(children)}
         </WrappedComponent>

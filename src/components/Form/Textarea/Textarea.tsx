@@ -57,7 +57,7 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
       return (
         <div
           data-readonlyview={true}
-          className={`readOnlyWrapper ${error ? "error" : success ? "success" : ""}`}
+          className={`readOnlyWrapper ${error ? "error" : ""} ${success ? "success" : ""}`}
         >
           {value}
         </div>
