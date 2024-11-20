@@ -176,7 +176,7 @@ export { FILE_ACTION, ACTION_STATUS } from "./components/Form/FileUpload/FileIte
 
 export { MultiSelectWrapper } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
 export type { Props as MultiSelectWrapperProps } from "./components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper";
-export { useMultiSelect } from "./components/Form/Wrapper/MultiSelectWrapper/useMultiSelect";
+export { useMultiSelect } from "./components/Form/Select/MultiSelect/useMultiSelect";
 export { ContentHeader } from "./components/Layout/ContentHeader/ContentHeader";
 export type { Props as ContentHeaderProps } from "./components/Layout/ContentHeader/ContentHeader";
 export { FormStepper } from "./components/Layout/FormPage/FormWithStepper/FormStepper/FormStepper";

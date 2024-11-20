@@ -14,6 +14,9 @@
  *    limitations under the License.
  */
 
+import React from "react";
+import { MultiOption } from "./MultiOption";
+
 interface UseMultiSelectArgs {
   initialOptions?: string[];
   allOptions?: string[];
@@ -26,6 +29,7 @@ interface UseMultiSelectArgs {
 interface UseMultiSelectResult {
   handleOptionChange: (e: React.FormEvent<HTMLSelectElement>) => void;
   onAddNew: (newValue: string) => void;
+  optionElements: React.JSX.Element[];
 }
 
 type UseMultiSelect = (args: UseMultiSelectArgs) => UseMultiSelectResult;
@@ -81,8 +85,15 @@ export const useMultiSelect: UseMultiSelect = (args: UseMultiSelectArgs) => {
     }
   };
 
+  const optionElements = allOptions.map(option => (
+    <MultiOption key={option} value={option}>
+      {option}
+    </MultiOption>
+  ));
+
   return {
     handleOptionChange,
-    onAddNew: onAddNewWrapper
+    onAddNew: onAddNewWrapper,
+    optionElements
   };
 };

@@ -72,7 +72,7 @@ const Template = args => {
   ]);
   const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
 
-  const { handleOptionChange } = useMultiSelect({
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
     allOptions,
     setAllOptions,
     pickedOptions,
@@ -86,11 +86,7 @@ const Template = args => {
         onChange={handleOptionChange}
         search={args.search}
       >
-        {allOptions.map(option => (
-          <MultiOption key={option} value={option}>
-            {option}
-          </MultiOption>
-        ))}
+        {optionElements}
       </MultiSelectComponent>
       {!args.stickToBottom ? <div style={{ height: "7rem" }}></div> : undefined}
     </div>
@@ -120,7 +116,7 @@ export const MultiSelectWithAddNewTemplate = args => {
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
   const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
 
-  const { handleOptionChange, onAddNew } = useMultiSelect({
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
     initialOptions,
     allOptions,
     setAllOptions,
