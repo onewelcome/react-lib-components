@@ -213,24 +213,20 @@ const MultiSelectWrapperUseBasicTemplate = args => {
   );
 };
 
-export const MultiSelectWrapperUseBasic = MultiSelectWrapperUseBasicTemplate.bind(
-  {},
-  {
-    search: { enabled: false }
-  }
-);
-export const MultiSelectWrapperUseBasicWithSearch = MultiSelectWrapperUseBasicTemplate.bind(
-  {},
-  {
-    search: { enabled: true }
-  }
-);
-export const MultiSelectWrapperUseBasicExpandUpwards = MultiSelectWrapperUseBasicTemplate.bind(
-  {},
-  {
-    stickToBottom: true
-  }
-);
+export const MultiSelectWrapperUseBasic = MultiSelectWrapperUseBasicTemplate.bind({});
+MultiSelectWrapperUseBasic.args = {
+  search: { enabled: false }
+};
+
+export const MultiSelectWrapperUseBasicWithSearch = MultiSelectWrapperUseBasicTemplate.bind({});
+MultiSelectWrapperUseBasicWithSearch.args = {
+  search: { enabled: true }
+};
+
+export const MultiSelectWrapperUseBasicExpandUpwards = MultiSelectWrapperUseBasicTemplate.bind({});
+MultiSelectWrapperUseBasicExpandUpwards.args = {
+  stickToBottom: true
+};
 
 export const MultiSelectWrapperUseWithAddNew = (args => {
   const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];

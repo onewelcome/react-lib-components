@@ -41,28 +41,25 @@ const ExampleComponent = () => {
   });
 
   return (
-    <div style={args.stickToBottom ? { position: "absolute", bottom: 8, left: 8, right: 8 } : {}}>
-      <MultiSelectWrapperComponent
-        label="Example multi select wrapper"
-        name="Example multi select"
-        helperText="Example helper text"
-        error={false}
-        errorMessage="This is an error message"
-        required={true}
-        value={pickedOptions}
-        onChange={handleOptionChange}
-        selectProps={{
-          search: args.search
-        }}
-      >
-        {allOptions.map(option => (
-          <MultiOption key={option} value={option}>
-            {option}
-          </MultiOption>
-        ))}
-      </MultiSelectWrapperComponent>
-      {!args.stickToBottom ? <div style={{ height: "7rem" }}></div> : undefined}
-    </div>
+    <MultiSelectWrapperComponent
+      label="Example multi select wrapper"
+      name="Example multi select"
+      helperText="Example helper text"
+      error={false}
+      errorMessage="This is an error message"
+      required={true}
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      selectProps={{
+        search: args.search
+      }}
+    >
+      {allOptions.map(option => (
+        <MultiOption key={option} value={option}>
+          {option}
+        </MultiOption>
+      ))}
+    </MultiSelectWrapperComponent>
   );
 };
 
@@ -70,7 +67,7 @@ const ExampleComponent = () => {
 
 <Canvas of={MultiSelectWrapperStories.MultiSelectWrapperUseBasic}></Canvas>
 
-A code example of a fully functional `MultiSelectWrapper` with the add new button and search enabled:
+A code example of `MultiSelectWrapper` with the add new button and search enabled:
 
 ```jsx
 const ExampleComponent = () => {
@@ -112,7 +109,7 @@ const ExampleComponent = () => {
 
 <Canvas of={MultiSelectWrapperStories.MultiSelectWrapperUseWithAddNew} />
 
-A code example of a fully functional `MultiSelectWrapper` used as an editable list
+A code example of `MultiSelectWrapper` used as an editable list
 
 ```jsx
 const ExampleComponent = () => {
