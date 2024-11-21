@@ -26,6 +26,7 @@ import { ContextMenuItem } from "../../ContextMenu/ContextMenuItem";
 import { IconButton } from "../../Button/IconButton";
 import { Icon, Icons } from "../../Icon/Icon";
 import { Typography } from "../../Typography/Typography";
+import { getMonthName, getYearFromDate } from "./DateTimeService";
 
 type Props = {
   popoverRef: React.RefObject<HTMLDivElement>;
@@ -81,13 +82,13 @@ export const DataGridDateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props)
                 name={""}
                 type={"text"}
                 value={""}
-                inputProps={{ style: { height: "2rem" } }}
+                inputProps={{ style: { height: "2rem" }, placeholder: "yyyy-mm-dd hh:mm:ss" }}
                 className={classes["input"]}
               />
               <InputWrapper
                 style={{ marginTop: 0 }}
                 className={classes["input"]}
-                inputProps={{ style: { height: "2rem" } }}
+                inputProps={{ style: { height: "2rem" }, placeholder: "yyyy-mm-dd hh:mm:ss" }}
                 label={"To"}
                 name={""}
                 type={"text"}
@@ -101,19 +102,19 @@ export const DataGridDateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props)
                 }}
                 mode={"range"}
                 components={{
-                  Nav: () => (
+                  Nav: ({ onNextClick, onPreviousClick }) => (
                     <div className={classes["nav"]}>
-                      <IconButton className={classes["prev-button"]}>
+                      <IconButton onClick={onPreviousClick} className={classes["prev-button"]}>
                         <Icon size="0.75rem" icon={Icons.ChevronLeft} />
                       </IconButton>
-                      <IconButton className={classes["next-button"]}>
+                      <IconButton onClick={onNextClick} className={classes["next-button"]}>
                         <Icon size="0.75rem" icon={Icons.ChevronRight} />
                       </IconButton>
                     </div>
                   ),
                   MonthCaption: ({ calendarMonth }) => (
                     <Typography className={classes["month-caption"]} variant="body">
-                      November
+                      {getMonthName(calendarMonth.date)} {getYearFromDate(calendarMonth.date)}
                     </Typography>
                   )
                 }}
