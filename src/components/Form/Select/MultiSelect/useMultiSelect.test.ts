@@ -15,35 +15,42 @@
  */
 
 import { useMultiSelect } from "./useMultiSelect";
+import { act, renderHook } from "@testing-library/react";
 
 describe("useMutiSelect", () => {
   it("should handle basic usage scenario", () => {
     const allOptions = ["A", "B", "C", "D"];
-    let newAllOptions: string[] = ["not called"];
+    let newAllOptions = ["not called"];
     const pickedOptions = ["B", "C"];
-    let newPickedOptions: string[] = ["not called"];
+    let newPickedOptions = ["not called"];
 
-    const result = useMultiSelect({
-      allOptions,
-      setAllOptions: newOptions => (newAllOptions = newOptions),
-      pickedOptions,
-      setPickedOptions: newOptions => (newPickedOptions = newOptions)
-    });
+    const { result } = renderHook(() =>
+      useMultiSelect({
+        allOptions,
+        setAllOptions: newOptions => (newAllOptions = newOptions),
+        pickedOptions,
+        setPickedOptions: newOptions => (newPickedOptions = newOptions)
+      })
+    );
 
     const { event, selectElement } = prepareOptionSelection(
       allOptions,
-      (optionValue: string) => pickedOptions.includes(optionValue) || optionValue == "D"
+      optionValue => pickedOptions.includes(optionValue) || optionValue === "D"
     );
 
-    result.handleOptionChange(event);
+    act(() => {
+      result.current.handleOptionChange(event);
+    });
 
     expect(newPickedOptions).toEqual(["B", "C", "D"]);
     expect(newAllOptions).toEqual(["not called"]);
 
     // unpick an option
-
     selectElement.options.item(2)!.selected = false;
-    result.handleOptionChange(event);
+
+    act(() => {
+      result.current.handleOptionChange(event);
+    });
 
     expect(newPickedOptions).toEqual(["B", "D"]);
     expect(newAllOptions).toEqual(["not called"]);
@@ -51,39 +58,47 @@ describe("useMutiSelect", () => {
 
   it("should handle creation of custom option and its deletion", () => {
     const allOptions = ["A", "B", "C", "D"];
-    let newAllOptions: string[] = ["not called"];
+    let newAllOptions = ["not called"];
     const pickedOptions = ["B", "C"];
-    let newPickedOptions: string[] = ["not called"];
+    let newPickedOptions = ["not called"];
 
-    let result = useMultiSelect({
-      initialOptions: allOptions, // this automates removal of the custom option
-      allOptions,
-      setAllOptions: newOptions => (newAllOptions = newOptions),
-      pickedOptions,
-      setPickedOptions: newOptions => (newPickedOptions = newOptions)
+    let { result } = renderHook(() =>
+      useMultiSelect({
+        initialOptions: allOptions, // this automates removal of the custom option
+        allOptions,
+        setAllOptions: newOptions => (newAllOptions = newOptions),
+        pickedOptions,
+        setPickedOptions: newOptions => (newPickedOptions = newOptions)
+      })
+    );
+
+    act(() => {
+      result.current.onAddNew("E");
     });
-
-    result.onAddNew("E");
 
     expect(newPickedOptions).toEqual(["B", "C", "E"]);
     expect(newAllOptions).toEqual(["A", "B", "C", "D", "E"]);
 
     // next render after the custom option was added
 
-    result = useMultiSelect({
-      initialOptions: allOptions, // this automates removal of the custom option
-      allOptions: newAllOptions,
-      setAllOptions: newOptions => (newAllOptions = newOptions),
-      pickedOptions: newPickedOptions,
-      setPickedOptions: newOptions => (newPickedOptions = newOptions)
-    });
+    ({ result } = renderHook(() =>
+      useMultiSelect({
+        initialOptions: allOptions, // this automates removal of the custom option
+        allOptions: newAllOptions,
+        setAllOptions: newOptions => (newAllOptions = newOptions),
+        pickedOptions: newPickedOptions,
+        setPickedOptions: newOptions => (newPickedOptions = newOptions)
+      })
+    ));
 
     const { event } = prepareOptionSelection(
       newAllOptions,
-      (optionValue: string) => newPickedOptions.includes(optionValue) && optionValue != "E"
+      optionValue => newPickedOptions.includes(optionValue) && optionValue !== "E"
     );
 
-    result.handleOptionChange(event);
+    act(() => {
+      result.current.handleOptionChange(event);
+    });
 
     expect(newPickedOptions).toEqual(["B", "C"]);
 
@@ -93,38 +108,46 @@ describe("useMutiSelect", () => {
 
   it("should handle editable-list scenario", () => {
     const pickedOptions = ["A", "B"];
-    let newPickedOptions: string[] = ["not called"];
-    let newAllOptions: string[] = ["not called"];
+    let newPickedOptions = ["not called"];
+    let newAllOptions = ["not called"];
 
-    let result = useMultiSelect({
-      pickedOptions,
-      setPickedOptions: newOptions => (newPickedOptions = newOptions),
+    let { result } = renderHook(() =>
+      useMultiSelect({
+        pickedOptions,
+        setPickedOptions: newOptions => (newPickedOptions = newOptions),
 
-      // this one is not necessary for the use case, it's here only to check the behavior
-      setAllOptions: newOptions => (newAllOptions = newOptions)
+        // this one is not necessary for the use case, it's here only to check the behavior
+        setAllOptions: newOptions => (newAllOptions = newOptions)
+      })
+    );
+
+    act(() => {
+      result.current.onAddNew("C");
     });
-
-    result.onAddNew("C");
 
     expect(newPickedOptions).toEqual(["A", "B", "C"]);
     expect(newAllOptions).toEqual(["A", "B", "C"]);
 
     // next render after the custom option was added
 
-    result = useMultiSelect({
-      pickedOptions: newPickedOptions,
-      setPickedOptions: newOptions => (newPickedOptions = newOptions),
+    ({ result } = renderHook(() =>
+      useMultiSelect({
+        pickedOptions: newPickedOptions,
+        setPickedOptions: newOptions => (newPickedOptions = newOptions),
 
-      // this one is not necessary for the use case, it's here only to check the behavior
-      setAllOptions: newOptions => (newAllOptions = newOptions)
-    });
+        // this one is not necessary for the use case, it's here only to check the behavior
+        setAllOptions: newOptions => (newAllOptions = newOptions)
+      })
+    ));
 
     const { event } = prepareOptionSelection(
       newAllOptions,
-      (optionValue: string) => newPickedOptions.includes(optionValue) && optionValue != "A"
+      optionValue => newPickedOptions.includes(optionValue) && optionValue !== "A"
     );
 
-    result.handleOptionChange(event);
+    act(() => {
+      result.current.handleOptionChange(event);
+    });
 
     expect(newPickedOptions).toEqual(["B", "C"]);
     expect(newAllOptions).toEqual(["A", "B", "C"]);
