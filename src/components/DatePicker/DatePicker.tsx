@@ -15,7 +15,14 @@
  */
 
 import React, { ComponentPropsWithoutRef, Fragment, useEffect, useState } from "react";
-import { ClassNames, DateRange, DayPicker, Locale, PropsBase } from "react-day-picker";
+import {
+  ClassNames,
+  DateRange,
+  DayPicker,
+  Locale,
+  PropsBase,
+  CustomComponents
+} from "react-day-picker";
 import classes from "./DatePicker.module.scss";
 import * as locales from "date-fns/locale";
 
@@ -25,6 +32,9 @@ export interface Props extends ComponentPropsWithoutRef<any> {
   value: Date | DateRange | undefined;
   required?: boolean;
   locale?: keyof typeof locales;
+  numberOfMonths?: number;
+  components?: Partial<CustomComponents>;
+  disabled?: boolean;
 }
 
 export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }: Props) => {

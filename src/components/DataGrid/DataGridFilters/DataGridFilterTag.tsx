@@ -65,6 +65,7 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
   const { addButtonCaption = "Add filter" } = translations || {};
   const shouldRenderAddTag = mode === "ADD";
   const shouldRenderEditTag = mode === "EDIT" && filter;
+  const shouldRenderAddDateTag = mode === "ADD_DATE";
 
   return (
     <div {...rest} ref={ref} className={classes["filter-wrapper"]}>
@@ -90,6 +91,14 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
               <EditTagContent filter={filter} />
             )}
           </Typography>
+        )}
+        {shouldRenderAddDateTag && (
+          <Fragment>
+            <Icon icon={Icons.Calendar} />
+            <Typography variant="body" className={classes["caption"]}>
+              Date is last 30 seconds
+            </Typography>
+          </Fragment>
         )}
       </button>
       {shouldRenderEditTag && (
