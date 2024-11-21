@@ -34,14 +34,14 @@ interface UseMultiSelectResult {
 
 type UseMultiSelect = (args: UseMultiSelectArgs) => UseMultiSelectResult;
 
-export const useMultiSelect: UseMultiSelect = (args: UseMultiSelectArgs) => {
-  const initialOptions = args.initialOptions;
-  const allOptions = args.allOptions || args.pickedOptions;
-  const setPickedOptions = args.setPickedOptions || (_ => {});
-  const setAllOptions = args.setAllOptions || setPickedOptions;
-  const pickedOptions = args.pickedOptions;
-  const onAddNew = args.onAddNew;
-
+export const useMultiSelect: UseMultiSelect = ({
+  initialOptions,
+  pickedOptions,
+  allOptions = pickedOptions,
+  setPickedOptions,
+  setAllOptions = setPickedOptions,
+  onAddNew
+}) => {
   const handleOptionChange = (e: React.FormEvent<HTMLSelectElement>) => {
     const htmlOptions = (e.nativeEvent.target as unknown as { options: HTMLOptionsCollection })
       .options;
@@ -61,28 +61,25 @@ export const useMultiSelect: UseMultiSelect = (args: UseMultiSelectArgs) => {
         newPickedOptions.splice(index, 1);
 
         if (initialOptions) {
-          const isInInitialOptions = initialOptions.includes(option.value);
-          if (!isInInitialOptions) {
-            setAllOptions(allOptions.filter(value => value !== option.value));
+          if (!initialOptions.includes(option.value)) {
+            setAllOptions?.(allOptions.filter(value => value !== option.value));
           }
         }
       }
     });
-    setPickedOptions(newPickedOptions);
+    setPickedOptions?.(newPickedOptions);
   };
 
   const onAddNewWrapper = (value: string) => {
     const trimmedValue = value.trim();
-    if (trimmedValue.length == 0 || allOptions.includes(trimmedValue)) {
+    if (trimmedValue.length === 0 || allOptions.includes(trimmedValue)) {
       return;
     }
 
-    setAllOptions([...allOptions, trimmedValue]);
-    setPickedOptions([...pickedOptions, trimmedValue]);
+    setAllOptions?.([...allOptions, trimmedValue]);
+    setPickedOptions?.([...pickedOptions, trimmedValue]);
 
-    if (onAddNew) {
-      onAddNew(trimmedValue);
-    }
+    onAddNew?.(trimmedValue);
   };
 
   const optionElements = allOptions.map(option => (

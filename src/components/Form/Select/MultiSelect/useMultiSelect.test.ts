@@ -91,7 +91,7 @@ describe("useMutiSelect", () => {
     expect(newAllOptions).toEqual(["A", "B", "C", "D"]);
   });
 
-  it("should handle editable-list scenario from identity-broker-ui", () => {
+  it("should handle editable-list scenario", () => {
     const pickedOptions = ["A", "B"];
     let newPickedOptions: string[] = ["not called"];
     let newAllOptions: string[] = ["not called"];

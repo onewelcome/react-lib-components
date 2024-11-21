@@ -262,8 +262,8 @@ describe("List expansion", () => {
     expect(customSelect.children[0]).toHaveClass("list-wrapper-container");
     expect(customSelect.children[1]).toHaveClass("custom-select expanded");
 
-    const dropdownWrapper2 = select.querySelector(".list-wrapper");
-    expect(dropdownWrapper2).toHaveStyle({ bottom: "0px" });
+    const dropdownWrapper = select.querySelector(".list-wrapper");
+    expect(dropdownWrapper).toHaveStyle({ bottom: "0px" });
   });
 
   it("should expand downwards with a max height set", async () => {
