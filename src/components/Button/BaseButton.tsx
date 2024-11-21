@@ -16,7 +16,7 @@
 
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, Fragment } from "react";
 import classes from "./BaseButton.module.scss";
-import { Spinner } from "./Spinner";
+import { ButtonSpinner } from "./Spinner";
 
 export interface Props extends ComponentPropsWithRef<"button"> {
   type?: "submit" | "button" | "reset";
@@ -49,7 +49,7 @@ const BaseButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = 
       {loading ? (
         <Fragment>
           <div className={classes["content-hidden"]}>{children}</div>
-          <Spinner className={classes["spinner"]} />
+          <ButtonSpinner className={classes["spinner"]} />
         </Fragment>
       ) : (
         children

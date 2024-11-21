@@ -16,7 +16,7 @@
 
 import React from "react";
 
-export const Spinner: React.FC<React.SVGProps<SVGSVGElement>> = props => (
+export const ButtonSpinner: React.FC<React.SVGProps<SVGSVGElement>> = props => (
   <svg
     {...props}
     width="24"
