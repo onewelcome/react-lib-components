@@ -171,3 +171,35 @@ describe("TextarenaWrapper should be interactive", () => {
     expect(onMouseLeaveHandler).toHaveBeenCalled();
   });
 });
+
+describe("Verify read only view", () => {
+  const userText = "This is random textarea dummy text";
+  const createTextareaWrapper = (params?: (defaultParams: Props) => Props) => {
+    let parameters: Props = defaultParams;
+    if (params) {
+      parameters = params(defaultParams);
+    }
+    const queries = render(
+      <TextareaWrapper {...parameters} value={userText} data-testid="textareawrapper" />
+    );
+    const textareawrapper = queries.getByTestId("textareawrapper");
+
+    return {
+      ...queries,
+      textareawrapper
+    };
+  };
+
+  it("should render readOnly view when readOnlyView is enabled", async () => {
+    const customParams = (): Props => ({
+      ...defaultParams,
+      readOnlyView: true
+    });
+
+    const { getByTestId, getByText } = createTextareaWrapper(customParams);
+    const readOnlyElement = getByTestId("textareawrapper");
+
+    expect(readOnlyElement.getAttribute("data-readonlyview")).toBeTruthy();
+    expect(getByText(userText)).not.toBeNull();
+  });
+});

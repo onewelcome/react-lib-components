@@ -37,6 +37,7 @@ export interface Props
   onMouseEnter?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
   success?: boolean;
+  readOnlyView?: boolean;
 }
 
 const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (

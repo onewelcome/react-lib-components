@@ -22,6 +22,7 @@ import { withReadOnly } from "../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"textarea">, FormElement {
   wrapperProps?: ComponentPropsWithRef<"div">;
+  readOnlyView?: boolean;
 }
 
 const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = (
