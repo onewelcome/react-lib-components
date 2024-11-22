@@ -15,18 +15,17 @@
  */
 
 import React from "react";
-import { Popover } from "../../Popover/Popover";
-import classes from "./DataGridDateTimePicker.module.scss";
-import contextMenuItemClasses from "../../ContextMenu/ContextMenuItem.module.scss";
-import { Button } from "../../Button/Button";
-import { InputWrapper } from "../../Form/Wrapper/InputWrapper/InputWrapper";
-import { DatePicker } from "../../DatePicker/DatePicker";
+import { Popover } from "../../../Popover/Popover";
+import classes from "./DateTimePicker.module.scss";
+import { Button } from "../../../Button/Button";
+import { InputWrapper } from "../../../Form/Wrapper/InputWrapper/InputWrapper";
+import { DatePicker } from "../../../DatePicker/DatePicker";
 import { DateRange } from "react-day-picker";
-import { ContextMenuItem } from "../../ContextMenu/ContextMenuItem";
-import { IconButton } from "../../Button/IconButton";
-import { Icon, Icons } from "../../Icon/Icon";
-import { Typography } from "../../Typography/Typography";
+import { IconButton } from "../../../Button/IconButton";
+import { Icon, Icons } from "../../../Icon/Icon";
+import { Typography } from "../../../Typography/Typography";
 import { getMonthName, getYearFromDate } from "./DateTimeService";
+import { SideMenu } from "./SideMenu";
 
 type Props = {
   popoverRef: React.RefObject<HTMLDivElement>;
@@ -34,16 +33,7 @@ type Props = {
   isOpen: boolean;
 };
 
-const contextMenuItems = [
-  { name: "Last 30 seconds" },
-  { name: "Last 1 minute" },
-  { name: "Last 5 minutes" },
-  { name: "Last 1 hour" },
-  { name: "Last 24 hours" },
-  { name: "Custom" }
-];
-
-export const DataGridDateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
+export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
   return (
     <Popover
       tabIndex={-1}
@@ -56,23 +46,7 @@ export const DataGridDateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props)
       <div className={classes["popover"]}>
         <div className={classes["content-wrapper"]}>
           <div className={classes["aside"]}>
-            <ul className={classes["aside-menu"]}>
-              {contextMenuItems.map(item => (
-                <li
-                  key={item.name}
-                  role="none"
-                  className={`${contextMenuItemClasses["context-menu-item"]} ${classes["aside-menu-item"]}`}
-                >
-                  <button
-                    role="menuitem"
-                    style={{ height: "2rem" }}
-                    // className={false ? contextMenuItemClasses["active"] : undefined}
-                  >
-                    {item.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <SideMenu />
           </div>
           <div className={classes["controls"]}>
             <div className={classes["controls-panel"]}>

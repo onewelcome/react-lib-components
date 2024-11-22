@@ -17,7 +17,7 @@
 import React, { Fragment, useRef } from "react";
 import { DataGridFilterTag } from "./DataGridFilterTag";
 import { createPortal } from "react-dom";
-import { DataGridDateTimePicker } from "./DataGridDateTimePicker";
+import { DateTimePicker } from "./DateTimePicker/DateTimePicker";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
 
 type Props = {
@@ -44,7 +44,7 @@ export const DataGridDateFilter = ({ domRoot }: Props) => {
         }}
       />
       {createPortal(
-        <DataGridDateTimePicker popoverRef={popoverRef} anchorRef={wrappingDivRef} isOpen={true} />,
+        <DateTimePicker popoverRef={popoverRef} anchorRef={wrappingDivRef} isOpen={true} />,
         root
       )}
     </Fragment>
