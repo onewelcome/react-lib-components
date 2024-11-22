@@ -16,6 +16,7 @@
 
 import { useMultiSelect } from "./useMultiSelect";
 import { act, renderHook } from "@testing-library/react";
+import { MultiOption } from "./MultiOption";
 
 describe("useMutiSelect", () => {
   it("should handle basic usage scenario", () => {
@@ -151,6 +152,32 @@ describe("useMutiSelect", () => {
 
     expect(newPickedOptions).toEqual(["B", "C"]);
     expect(newAllOptions).toEqual(["A", "B", "C"]);
+  });
+
+  it("should generate option elements", () => {
+    const allOptions = ["A", "B"];
+    const pickedOptions: string[] = [];
+
+    const { result } = renderHook(() =>
+      useMultiSelect({
+        allOptions,
+        pickedOptions
+      })
+    );
+
+    const optionElements = result.current.optionElements as any[];
+
+    expect(optionElements).toHaveLength(2);
+    expect({ type: optionElements[0].type, ...optionElements[0].props }).toMatchObject({
+      type: MultiOption,
+      value: "A",
+      children: "A"
+    });
+    expect({ type: optionElements[1].type, ...optionElements[1].props }).toMatchObject({
+      type: MultiOption,
+      value: "B",
+      children: "B"
+    });
   });
 });
 
