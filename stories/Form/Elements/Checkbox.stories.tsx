@@ -164,3 +164,35 @@ CheckboxStates.decorators = [
     );
   }
 ];
+
+export const CheckboxWithReadOnlyMode = Template.bind({});
+
+const readOnlyCheckboxStates = [
+  { checked: false, error: false, disabled: false, indeterminate: false },
+  { checked: true, error: false, disabled: false, indeterminate: false },
+  { checked: false, error: false, disabled: false, indeterminate: false },
+  { checked: false, error: false, disabled: false, indeterminate: false }
+];
+
+CheckboxWithReadOnlyMode.decorators = [
+  () => {
+    return (
+      <>
+        {readOnlyCheckboxStates.map((states, index) => (
+          <Checkbox
+            key={index}
+            disabled={states.disabled}
+            checked={states.checked}
+            error={states.error}
+            errorMessage={"Oh no!"}
+            indeterminate={states.indeterminate}
+            name="checkbox"
+            readOnlyView={true}
+          >
+            Label
+          </Checkbox>
+        ))}
+      </>
+    );
+  }
+];

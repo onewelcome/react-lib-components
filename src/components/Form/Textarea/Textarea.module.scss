@@ -48,7 +48,6 @@
   }
 
   @include mixins.outlineStates();
-  // Read Only Mode Styling ONLY
   div[data-readonlyview="true"] {
     min-height: 4rem;
     border: 1px solid var(--color-blue-grey100);
@@ -64,7 +63,6 @@
       border: 1px solid var(--color-blue-grey100);
     }
   }
-  // Read Only Mode Styling ONLY = ENDS =
 }
 
 .textarea {

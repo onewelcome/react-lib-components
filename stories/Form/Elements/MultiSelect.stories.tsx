@@ -155,3 +155,12 @@ MultiSelectWithAddNew.play = conditionalPlay(async ({ canvasElement }) => {
 
   await userEvent.click(select);
 });
+
+export const MultiSelectWithReadOnlyMode = Template.bind({});
+
+MultiSelectWithReadOnlyMode.args = {
+  name: "Example multi select",
+  search: { enabled: false },
+  children: generateOptions(6),
+  readOnlyView: true
+};

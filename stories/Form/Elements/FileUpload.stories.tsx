@@ -200,3 +200,41 @@ FileUploadComponentWithServerInteraction.parameters = {
     }
   ]
 };
+
+export const FileUploadComponentWithReadOnlyMode = Template.bind({});
+
+FileUploadComponentWithReadOnlyMode.args = {
+  accept: ".mp4, .jpg, .jpeg",
+  multiple: true,
+  dragAndDropText: "Drag and drop or",
+  title: "Label",
+  subText: "Caption",
+  helperText: "This is helper text",
+  fileList: files,
+  url: "http://localhost:4000/upload",
+  invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
+  noMultipleFileDropErrorMessage: "You can upload only a single file.",
+  downloadFileLink: "http://localhost:4000/download.link",
+  readOnlyView: true
+};
+
+FileUploadComponentWithReadOnlyMode.parameters = {
+  mockAddonConfigs: {
+    globalMockData: [],
+    ignoreQueryParams: true,
+    refreshStoryOnUpdate: true,
+    disableUsingOriginal: false,
+    disable: false
+  },
+  mockData: [
+    {
+      url: "http://localhost:4000/upload",
+      method: "POST",
+      status: 201,
+      body: {},
+      response: {
+        message: "This is default response message."
+      }
+    }
+  ]
+};

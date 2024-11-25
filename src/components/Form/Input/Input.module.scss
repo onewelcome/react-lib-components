@@ -117,7 +117,6 @@
     color: var(--greyed-out);
   }
 
-  // Read Only Mode Styling ONLY
   &[data-readonlyview="true"] {
     color: var(--color-blue-grey900);
 
@@ -134,7 +133,6 @@
       }
     }
   }
-  // Read Only Mode Styling ONLY == ENDS ===
 
   &.shrink-width-for-date-icon {
     width: auto;

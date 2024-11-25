@@ -37,6 +37,9 @@ input {
     justify-content: center;
 
     @include mixins.transition(all, 0.2s, ease-in-out);
+    &[data-readonlyview="true"] {
+      padding: auto;
+    }
   }
 
   [data-prefix],
@@ -62,7 +65,6 @@ input {
     color: var(--greyed-out);
   }
 
-  // Read Only Mode Styling ONLY
   &[data-readonlyview="true"] {
     & label {
       color: var(--color-blue-grey900);
@@ -73,14 +75,13 @@ input {
     }
 
     & div.disabled {
+      background-color: transparent;
+      color: var(--color-blue-grey900);
+
       span {
         background-color: transparent;
         border-color: var(--color-blue-grey100);
       }
-
-      background-color: transparent;
-      color: var(--color-blue-grey900);
     }
   }
-  // Read Only Mode Styling ONLY == ENDS ==
 }

@@ -204,3 +204,11 @@ FormControl.args = {
   grid: 3,
   align: "center"
 };
+
+export const FormControlWithReadOnlyMode = Template.bind({});
+
+FormControlWithReadOnlyMode.args = {
+  grid: 3,
+  align: "center",
+  readOnlyView: true
+};

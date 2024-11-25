@@ -10,30 +10,3 @@
   line-height: 2rem;
   color: var(--color-primary500);
 }
-
-// Readonly View Styling Only
-[data-readonlyview="true"] {
-  & label {
-    color: var(--color-blue-grey900);
-  }
-
-  & input {
-    color: var(--color-blue-grey900);
-  }
-
-  span {
-    background-color: var(--color-white);
-    border-color: var(--color-blue-grey100);
-  }
-
-  & .disabled {
-    span {
-      background-color: transparent;
-      border-color: var(--color-blue-grey100);
-    }
-
-    background-color: transparent;
-    color: var(--color-blue-grey900);
-  }
-}
-// Readonly View Styling Only === Ends ===

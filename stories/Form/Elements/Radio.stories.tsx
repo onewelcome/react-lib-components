@@ -125,3 +125,33 @@ RadioStates.decorators = [
     );
   }
 ];
+
+export const RadioWithReadOnlyMode = Template.bind({});
+
+const readOnlyRadioStates = [
+  { checked: false, error: false, disabled: false },
+  { checked: true, error: false, disabled: false }
+];
+
+RadioWithReadOnlyMode.decorators = [
+  () => {
+    return (
+      <>
+        {readOnlyRadioStates.map((states, index) => (
+          <RadioComponent
+            key={index}
+            helperText="Example helper text"
+            value="example-radio"
+            checked={states.checked}
+            disabled={states.disabled}
+            error={states.error}
+            errorMessage={"Oh crap!"}
+            readOnlyView={true}
+          >
+            Label
+          </RadioComponent>
+        ))}
+      </>
+    );
+  }
+];

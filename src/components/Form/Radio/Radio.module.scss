@@ -144,7 +144,6 @@
   pointer-events: none;
 }
 
-// Read Only Mode Styling ONLY
 [data-readonlyview="true"] {
   & .radio-wrapper {
     & .disabled {
@@ -155,4 +154,9 @@
     }
   }
 }
-// Read Only Mode Styling ONLY = ENDS =
+
+input[data-readonlyview="true"]:disabled {
+  & + span.disabled {
+    color: var(--color-blue-grey900);
+  }
+}

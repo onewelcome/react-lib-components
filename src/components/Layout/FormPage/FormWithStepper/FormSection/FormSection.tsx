@@ -17,7 +17,6 @@
 import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
 import classes from "./FormSection.module.scss";
 import { Typography } from "../../../../Typography/Typography";
-import { withReadOnly } from "../../../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   header?: string;
@@ -51,4 +50,4 @@ export const FormSectionComponent: ForwardRefRenderFunction<HTMLDivElement, Prop
   );
 };
 
-export const FormSection = withReadOnly(React.forwardRef(FormSectionComponent));
+export const FormSection = React.forwardRef(FormSectionComponent);

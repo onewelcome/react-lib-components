@@ -129,3 +129,11 @@ SelectWithAddNew.play = conditionalPlay(async ({ canvasElement }) => {
 
   await userEvent.click(select);
 });
+
+export const SelectWithReadOnlyMode = Template.bind({});
+
+SelectWithReadOnlyMode.args = {
+  name: "Example select",
+  readOnlyView: true,
+  children: generateOptions(6)
+};

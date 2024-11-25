@@ -95,3 +95,10 @@ RadioWrapperDisabled.args = {
   value: "",
   disabled: true
 };
+
+export const RadioWrapperWithReadOnlyMode = Template.bind({});
+
+RadioWrapperWithReadOnlyMode.args = {
+  ...RadioWrapper.args,
+  readOnlyView: true
+};

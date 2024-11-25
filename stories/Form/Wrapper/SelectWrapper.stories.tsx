@@ -157,3 +157,10 @@ SelectWrapperRequired.args = {
   ...defaultArgs,
   required: true
 };
+
+export const SelectWrapperWithReadOnlyMode = Template.bind({});
+
+SelectWrapperWithReadOnlyMode.args = {
+  ...defaultArgs,
+  readOnlyView: true
+};

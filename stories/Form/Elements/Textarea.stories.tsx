@@ -50,3 +50,10 @@ const Template: StoryFn<Props> = args => <TextareaComponent {...args} />;
 export const Textarea = Template.bind({});
 
 Textarea.args = {};
+
+export const TextareaWithReadOnlyMode = Template.bind({});
+
+TextareaWithReadOnlyMode.args = {
+  value: "This is example text for textarea.",
+  readOnlyView: true
+};
