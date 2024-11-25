@@ -33,7 +33,7 @@ const ExampleComponent = () => {
   ]);
   const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
 
-  const { handleOptionChange } = useMultiSelect({
+  const { handleOptionChange, optionElements } = useMultiSelect({
     allOptions,
     setAllOptions,
     pickedOptions,
@@ -51,14 +51,10 @@ const ExampleComponent = () => {
       value={pickedOptions}
       onChange={handleOptionChange}
       selectProps={{
-        search: args.search
+        search: { enabled: false }
       }}
     >
-      {allOptions.map(option => (
-        <MultiOption key={option} value={option}>
-          {option}
-        </MultiOption>
-      ))}
+      {optionElements}
     </MultiSelectWrapperComponent>
   );
 };
@@ -75,7 +71,7 @@ const ExampleComponent = () => {
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
   const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
 
-  const { handleOptionChange, onAddNew } = useMultiSelect({
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
     initialOptions,
     allOptions,
     setAllOptions,
@@ -97,11 +93,7 @@ const ExampleComponent = () => {
         }
       }}
     >
-      {allOptions.map(option => (
-        <MultiOption key={option} value={option}>
-          {option}
-        </MultiOption>
-      ))}
+      {optionElements}
     </MultiSelectWrapperComponent>
   );
 }
@@ -116,7 +108,7 @@ const ExampleComponent = () => {
   const items = ["Item 1", "Item 2", "Item 3"];
   const [pickedOptions, setPickedOptions] = useState<string[]>(items);
 
-  const { handleOptionChange, onAddNew } = useMultiSelect({
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
     pickedOptions,
     setPickedOptions
   });
@@ -139,11 +131,7 @@ const ExampleComponent = () => {
         }
       }}
     >
-      {pickedOptions.map(option => (
-        <MultiOption key={option} value={option}>
-          {option}
-        </MultiOption>
-      ))}
+      {optionElements}
     </MultiSelectWrapperComponent>
   );
 }

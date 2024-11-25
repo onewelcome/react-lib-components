@@ -1,0 +1,89 @@
+import { Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as MultiSelectStories from "../Form/Elements/MultiSelect.stories.tsx";
+
+<Meta
+  title="Hooks/useMultiSelect"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true }
+    }
+  }}
+/>
+
+# useMultiSelect
+
+The `useMultiSelect` hook simplifies use of the [MultiSelect](?path=/docs/components-inputs-raw-multiselect--docs) component (and also [MultiSelectWrapper](?path=/docs/components-inputs-multiselect-wrapper--docs) component) and helps to reduce amount of boilerplate code needed to make various scenarios of MultiSelect usage working.
+
+For the basic usage (**#1**), it allows you to pass your option data (`allOptions`) and picked options (`pickedOptions`) together with `setPickedOptions` functions, and based on those it provides you with a handler for the `onChange` event, while taking care about calling your `setPickedOptions`. It also generates the list of `<MultiOption>` elements for you.
+
+In an advanced scenario (**#2**) it allow you to automatically handle `MultiSelect`'s `onAddNew` functionality, where it not only adds the new option, but it also takes care about removing such a custom option from the the list of all options when the user unpicks it.
+
+A specific scenario (**#3**) is also supported, where `MultiSelect` is used as an editable list of string values - the user can add or delete options, but they cannot select them from a wider list.
+
+## Parameters
+
+Parameters are given in form of an object with following properties:
+
+- `allOptions` is a string array of all options to choose from.
+  - _(mandatory for scenarios #1 and #2, not mandatory for scenario #3, where the user doesn't really pick from a list of options; istead they only change the picked options)_
+- `pickedOptions` is a string array of currently picked options.
+  - _(mandatory)_
+- `setPickedOptions` is a `set` function for your picked options. It gets called when the user picks or unpicks an option.
+  - _(optional)_
+- `onAddNew` gets called when the user adds a new option (for scenarios #2 and #3) - the hook takes care of deduplication and trimming the user value from unwanted extra spaces. However, you don't have to use this to update your option arrays, the hook takes care of it itself.
+  - _(optional)_
+- `setAllOptions` is a `set` function for your array of all options. The array of all options can be changed when the user adds a new option. If `initialOptions` is specified, setAllOptions is called also when the user deletes an option they previously added (an option which is in `allOptions` but is not in `initialOptions`).
+- `initialOptions` is an array of options you see as initial, not added by the user, thus not to be deleted by the user. Serves only to allow automatic deletion of custom options - see `setAllOptions`. Without it specified, the custom user options won't be deleted when they are unpicked.
+  - _(optional)_
+
+## Result
+
+Result is an object with the following properties:
+
+- `handleOptionChange` is an event handler you can pass to `MultiSelect`'s `onChange` property. This handler takes care of calling `setPickedOptions`, `setAllOptions` and `onAddNew` which you specified in the parameters
+- `onAddNew` is a function you can pass to `MultiSelect`'s `addNew.onAddNew` property. It takes care of calling `setPickedOptions`, `setAllOptions` when the user adds a new option
+- `optionElements` is an array of `MultiOption` elements which contain values based on `allOptions`. You can use it instead of listing the options manually:
+  ```
+  <MultiSelect ...>
+    {optionElements}
+  </MultiSelect>
+  ```
+
+# Example
+
+This is an example of scenario #2 - the user can add and delete custom options.
+
+```jsx
+const ExampleComponent = () => {
+  const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
+
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
+    initialOptions,
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <MultiSelect
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      addNew={{ label: "Create new", onAddNew, btnProps: { title: "Add new select option" } }}
+      search={{
+        enabled: true,
+        searchPlaceholder: "Search or add new option (Enter)"
+      }}
+    >
+      {optionElements}
+    </MultiSelect>
+  );
+};
+```
+
+<Canvas of={MultiSelectStories.MultiSelectWithAddNewAndSearch} />
+
+For more examples, please see [MultiSelect](?path=/docs/components-inputs-raw-multiselect--docs) component documentation.

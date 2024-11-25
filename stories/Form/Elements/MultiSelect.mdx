@@ -47,6 +47,7 @@ The `MultiSelect` component supports keyboard navigation and was prepared to spe
 An example of how a `MultiSelect` component can be built using `useMultiSelect`:
 
 ```jsx
+const ExampleComponent = () => {
   const [allOptions, setAllOptions] = useState<string[]>([
     "Option 1",
     "Option 2",
@@ -55,7 +56,7 @@ An example of how a `MultiSelect` component can be built using `useMultiSelect`:
   ]);
   const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
 
-  const { handleOptionChange } = useMultiSelect({
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
     allOptions,
     setAllOptions,
     pickedOptions,
@@ -63,17 +64,18 @@ An example of how a `MultiSelect` component can be built using `useMultiSelect`:
   });
 
   return (
-    <MultiSelectComponent value={pickedOptions} onChange={handleOptionChange} name="Example select element">
-      {allOptions.map(option => (
-        <MultiOption key={option} value={option}>
-          {option}
-        </MultiOption>
-      ))}
-    </MultiSelectComponent>
+    <MultiSelect
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      search={{ enabled: false }}
+    >
+      {optionElements}
+    </MultiSelect>
   );
+};
 ```
 
-<Canvas of={MultiSelectStories.MultiSelect} />
+<Canvas of={MultiSelectStories.MultiSelectWithoutSearch} />
 
 A code example of `MultiSelectComponent` with the add new button and search enabled:
 
@@ -83,7 +85,7 @@ const ExampleComponent = () => {
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
   const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
 
-  const { handleOptionChange, onAddNew } = useMultiSelect({
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
     initialOptions,
     allOptions,
     setAllOptions,
@@ -92,7 +94,7 @@ const ExampleComponent = () => {
   });
 
   return (
-    <MultiSelectComponent
+    <MultiSelect
       value={pickedOptions}
       onChange={handleOptionChange}
       addNew={{ label: "Create new", onAddNew, btnProps: { title: "Add new select option" } }}
@@ -101,17 +103,13 @@ const ExampleComponent = () => {
         searchPlaceholder: "Search or add new option (Enter)"
       }}
     >
-      {allOptions.map(option => (
-        <MultiOption key={option} value={option}>
-          {option}
-        </MultiOption>
-      ))}
-    </MultiSelectComponent>
+      {optionElements}
+    </MultiSelect>
   );
-}
+};
 ```
 
-<Canvas of={MultiSelectStories.MultiSelectWithAddNew} />
+<Canvas of={MultiSelectStories.MultiSelectWithAddNewAndSearch} />
 
 A code example of `MultiSelectComponent` used as an editable list
 
@@ -126,7 +124,7 @@ const ExampleComponent = () => {
   });
 
   return (
-    <MultiSelectComponent
+    <MultiSelect
       value={pickedOptions}
       onChange={handleOptionChange}
       addNew={{
@@ -144,7 +142,7 @@ const ExampleComponent = () => {
           {option}
         </MultiOption>
       ))}
-    </MultiSelectComponent>
+    </MultiSelect>
   );
 }
 ```

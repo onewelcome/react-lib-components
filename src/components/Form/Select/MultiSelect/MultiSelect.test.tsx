@@ -15,7 +15,7 @@
  */
 
 import React, { useEffect, useRef } from "react";
-import { MultiSelect as MultiSelectComponent } from "./MultiSelect";
+import { MultiSelect, MultiSelect as MultiSelectComponent } from "./MultiSelect";
 import { render } from "@testing-library/react";
 import { MultiOption } from "./MultiOption";
 import userEvent from "@testing-library/user-event";
@@ -54,7 +54,7 @@ export const createMultiSelect = (
   if (params) {
     parameters = params(defaultParams);
   }
-  const queries = render(<MultiSelectComponent {...parameters} data-testid="multiselect" />);
+  const queries = render(<MultiSelect {...parameters} data-testid="multiselect" />);
   const select = queries.getByTestId("multiselect");
   const button = queries.getByTestId("select-button");
   const list = select.querySelector('ul[role="listbox"]');
@@ -163,7 +163,7 @@ describe("ref should work", () => {
         }
       }, [ref]);
 
-      return <MultiSelectComponent {...defaultParams} data-ref="testing" ref={ref} />;
+      return <MultiSelect {...defaultParams} data-ref="testing" ref={ref} />;
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {

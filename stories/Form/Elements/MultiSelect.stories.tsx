@@ -15,11 +15,12 @@
  */
 
 import React, { useState } from "react";
-import { Meta, StoryFn } from "@storybook/react";
-import { MultiSelect as MultiSelectComponent } from "../../../src/components/Form/Select/MultiSelect/MultiSelect";
+import { Meta } from "@storybook/react";
+import {
+  MultiSelect,
+  MultiSelect as MultiSelectComponent
+} from "../../../src/components/Form/Select/MultiSelect/MultiSelect";
 import MultiSelectDocumentation from "./MultiSelect.mdx";
-import { MultiOption } from "../../../src/components/Form/Select/MultiSelect/MultiOption";
-import { MultiSelectProps } from "../../../src/components/Form/Select/Select.interfaces";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { userEvent, waitFor, within, expect } from "@storybook/test";
 import { useMultiSelect } from "../../../src";
@@ -81,23 +82,19 @@ const Template = args => {
 
   return (
     <div style={args.stickToBottom ? { position: "absolute", bottom: 8, left: 8, right: 8 } : {}}>
-      <MultiSelectComponent
-        value={pickedOptions}
-        onChange={handleOptionChange}
-        search={args.search}
-      >
+      <MultiSelect value={pickedOptions} onChange={handleOptionChange} search={args.search}>
         {optionElements}
-      </MultiSelectComponent>
+      </MultiSelect>
       {!args.stickToBottom ? <div style={{ height: "7rem" }}></div> : undefined}
     </div>
   );
 };
 
-export const MultiSelect = Template.bind({});
-MultiSelect.args = {
+export const MultiSelectWithoutSearch = Template.bind({});
+MultiSelectWithoutSearch.args = {
   search: { enabled: false }
 };
-MultiSelect.play = playExpand;
+MultiSelectWithoutSearch.play = playExpand;
 
 export const MultiSelectWithSearchOptions = Template.bind({});
 MultiSelectWithSearchOptions.args = {
@@ -105,13 +102,13 @@ MultiSelectWithSearchOptions.args = {
 };
 MultiSelectWithSearchOptions.play = playExpand;
 
-export const MultiSelectUseBasicExpandUpwards = Template.bind({});
-MultiSelectUseBasicExpandUpwards.args = {
+export const MultiSelectExpandUpwards = Template.bind({});
+MultiSelectExpandUpwards.args = {
   stickToBottom: true
 };
-MultiSelectUseBasicExpandUpwards.play = playExpand;
+MultiSelectExpandUpwards.play = playExpand;
 
-export const MultiSelectWithAddNewTemplate = args => {
+const TemplateWithAddNew = args => {
   const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
   const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
@@ -126,33 +123,32 @@ export const MultiSelectWithAddNewTemplate = args => {
 
   return (
     <div>
-      <MultiSelectComponent
+      <MultiSelect
         value={pickedOptions}
         onChange={handleOptionChange}
         addNew={{ label: "Create new", onAddNew, btnProps: { title: "Add new select option" } }}
         search={{
-          enabled: args.searchEnabled
+          enabled: args.searchEnabled,
+          searchPlaceholder: args.searchPlaceholder
         }}
       >
-        {allOptions.map(option => (
-          <MultiOption key={option} value={option}>
-            {option}
-          </MultiOption>
-        ))}
-      </MultiSelectComponent>
+        {optionElements}
+      </MultiSelect>
       <div style={{ height: "7rem" }}></div>
     </div>
   );
 };
-export const MultiSelectWithAddNew = MultiSelectWithAddNewTemplate.bind({});
+
+export const MultiSelectWithAddNew = TemplateWithAddNew.bind({});
 MultiSelectWithAddNew.args = {
   searchEnabled: false
 };
 MultiSelectWithAddNew.play = playExpand;
 
-export const MultiSelectWithAddNewAndSearch = MultiSelectWithAddNewTemplate.bind({});
+export const MultiSelectWithAddNewAndSearch = TemplateWithAddNew.bind({});
 MultiSelectWithAddNewAndSearch.args = {
-  searchEnabled: false
+  searchPlaceholder: "Search or add new option (Enter)",
+  searchEnabled: true
 };
 MultiSelectWithAddNewAndSearch.play = playExpand;
 
@@ -160,13 +156,13 @@ export const MultiSelectAsEditableList = (args => {
   const items = ["Item 1", "Item 2", "Item 3"];
   const [pickedOptions, setPickedOptions] = useState<string[]>(items);
 
-  const { handleOptionChange, onAddNew } = useMultiSelect({
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
     pickedOptions,
     setPickedOptions
   });
 
   return (
-    <MultiSelectComponent
+    <MultiSelect
       value={pickedOptions}
       onChange={handleOptionChange}
       addNew={{
@@ -179,12 +175,8 @@ export const MultiSelectAsEditableList = (args => {
         searchPlaceholder: "Add new list item (Enter)"
       }}
     >
-      {pickedOptions.map(option => (
-        <MultiOption key={option} value={option}>
-          {option}
-        </MultiOption>
-      ))}
-    </MultiSelectComponent>
+      {optionElements}
+    </MultiSelect>
   );
 }).bind({});
 MultiSelectAsEditableList.play = playExpand;
