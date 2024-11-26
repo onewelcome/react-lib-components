@@ -26,7 +26,8 @@ import { Icon, Icons } from "../../../Icon/Icon";
 import { Typography } from "../../../Typography/Typography";
 import { formatInputDate, getMonthName, getYearFromDate } from "./DateTimeService";
 import { SideMenu } from "./SideMenu";
-import { parse } from "date-fns";
+import { addSeconds, parse } from "date-fns";
+import { generateID } from "../../../../util/helper";
 
 type Props = {
   popoverRef: React.RefObject<HTMLDivElement>;
@@ -34,16 +35,54 @@ type Props = {
   isOpen: boolean;
 };
 
+export type SideMenuItem = {
+  id: string;
+  name: string;
+  rangeSeconds?: number;
+};
+
+const CUSTOM_ID = "CUSTOM";
+
+const sideMenuItems: SideMenuItem[] = [
+  { id: generateID(), name: "Last 30 seconds", rangeSeconds: 30 },
+  { id: generateID(), name: "Last 1 minute", rangeSeconds: 60 },
+  { id: generateID(), name: "Last 5 minutes", rangeSeconds: 300 },
+  { id: generateID(), name: "Last 1 hour", rangeSeconds: 3600 },
+  { id: generateID(), name: "Last 24 hours", rangeSeconds: 86400 },
+  { id: CUSTOM_ID, name: "Custom" }
+];
+
 export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
   const [selectedDate, setSelectedDate] = useState<DateRange>();
   const [fromDateText, setFromDateText] = useState("");
   const [toDateText, setToDateText] = useState("");
+  const [selectedSideMenuItem, setSelectedSideMenuItem] = useState(sideMenuItems[0].id);
 
   const parseDate = (date: string) => {
     const dateText = parse(date, "yyyy-MM-dd HH:mm:ss", new Date());
-
     return dateText;
   };
+
+  useEffect(() => {
+    if (selectedSideMenuItem !== CUSTOM_ID) {
+      const foundItem = sideMenuItems.find(item => item.id === selectedSideMenuItem);
+
+      if (!foundItem) {
+        return;
+      }
+
+      if (foundItem.rangeSeconds) {
+        const fromDate = addSeconds(new Date(), -foundItem.rangeSeconds);
+        const toDate = new Date();
+
+        setSelectedDate({ from: fromDate, to: toDate });
+        setFromDateText(formatInputDate(fromDate));
+        setToDateText(formatInputDate(toDate));
+      }
+    }
+  }, [selectedSideMenuItem]);
+
+  const disableInputs = selectedSideMenuItem !== CUSTOM_ID;
 
   return (
     <Popover
@@ -57,7 +96,11 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
       <div className={classes["popover"]}>
         <div className={classes["content-wrapper"]}>
           <div className={classes["aside"]}>
-            <SideMenu />
+            <SideMenu
+              sideMenuItems={sideMenuItems}
+              selectedItemId={selectedSideMenuItem}
+              onSelectedItem={setSelectedSideMenuItem}
+            />
           </div>
           <div className={classes["controls"]}>
             <div className={classes["controls-panel"]}>
@@ -67,6 +110,7 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
                 name={""}
                 type={"text"}
                 value={fromDateText}
+                disabled={disableInputs}
                 onBlur={e => {
                   setSelectedDate(prev => ({ ...prev, from: parseDate(e.target.value) }));
                 }}
@@ -79,6 +123,7 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
                 className={classes["input"]}
                 inputProps={{ style: { height: "2rem" }, placeholder: "yyyy-mm-dd hh:mm:ss" }}
                 label={"To"}
+                disabled={disableInputs}
                 value={toDateText}
                 onChange={e => setToDateText(e.target.value)}
                 onBlur={e =>
@@ -91,17 +136,33 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
             <div className={classes["controls-panel"]}>
               <DatePicker
                 onSelect={(date: Date | DateRange | undefined): void => {
-                  setSelectedDate(date as DateRange);
+                  if (date) {
+                    setSelectedDate(date as DateRange);
+                    const fromDate = (date as DateRange).from;
+                    const toDate = (date as DateRange).to;
+
+                    fromDate && setFromDateText(formatInputDate(fromDate));
+                    toDate && setToDateText(formatInputDate(toDate));
+                  }
                 }}
                 value={selectedDate}
+                disabled={disableInputs}
                 mode={"range"}
                 components={{
                   Nav: ({ onNextClick, onPreviousClick }) => (
                     <div className={classes["nav"]}>
-                      <IconButton onClick={onPreviousClick} className={classes["prev-button"]}>
+                      <IconButton
+                        onClick={onPreviousClick}
+                        className={classes["prev-button"]}
+                        disabled={disableInputs}
+                      >
                         <Icon size="0.75rem" icon={Icons.ChevronLeft} />
                       </IconButton>
-                      <IconButton onClick={onNextClick} className={classes["next-button"]}>
+                      <IconButton
+                        onClick={onNextClick}
+                        className={classes["next-button"]}
+                        disabled={disableInputs}
+                      >
                         <Icon size="0.75rem" icon={Icons.ChevronRight} />
                       </IconButton>
                     </div>

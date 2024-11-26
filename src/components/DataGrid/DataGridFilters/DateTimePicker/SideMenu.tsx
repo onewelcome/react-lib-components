@@ -17,31 +17,28 @@
 import React from "react";
 import classes from "./DateTimePicker.module.scss";
 import contextMenuItemClasses from "../../../ContextMenu/ContextMenuItem.module.scss";
+import { SideMenuItem } from "./DateTimePicker";
 
-type Props = {};
+type Props = {
+  sideMenuItems: SideMenuItem[];
+  selectedItemId: string;
+  onSelectedItem: (id: string) => void;
+};
 
-const contextMenuItems = [
-  { name: "Last 30 seconds" },
-  { name: "Last 1 minute" },
-  { name: "Last 5 minutes" },
-  { name: "Last 1 hour" },
-  { name: "Last 24 hours" },
-  { name: "Custom" }
-];
-
-export const SideMenu = (props: Props) => {
+export const SideMenu = ({ sideMenuItems, selectedItemId, onSelectedItem }: Props) => {
   return (
     <ul className={classes["aside-menu"]}>
-      {contextMenuItems.map(item => (
+      {sideMenuItems.map(item => (
         <li
-          key={item.name}
+          key={item.id}
           role="none"
           className={`${contextMenuItemClasses["context-menu-item"]} ${classes["aside-menu-item"]}`}
         >
           <button
             role="menuitem"
             style={{ height: "2rem" }}
-            // className={false ? contextMenuItemClasses["active"] : undefined}
+            className={selectedItemId === item.id ? contextMenuItemClasses["active"] : undefined}
+            onClick={() => onSelectedItem(item.id)}
           >
             {item.name}
           </button>

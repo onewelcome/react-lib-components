@@ -20,4 +20,4 @@ export const getMonthName = (date: Date, locale?: Locale) => format(date, "MMMM"
 
 export const getYearFromDate = (date: Date) => format(date, "yyyy");
 
-export const formatInputDate = (date: Date) => format(date, "yyyy-MM-dd hh:mm:ss");
+export const formatInputDate = (date: Date) => format(date, "yyyy-MM-dd HH:mm:ss");
