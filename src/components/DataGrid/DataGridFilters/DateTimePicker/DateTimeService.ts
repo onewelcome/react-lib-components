@@ -19,3 +19,5 @@ import { format, Locale } from "date-fns";
 export const getMonthName = (date: Date, locale?: Locale) => format(date, "MMMM", { locale });
 
 export const getYearFromDate = (date: Date) => format(date, "yyyy");
+
+export const formatInputDate = (date: Date) => format(date, "yyyy-MM-dd hh:mm:ss");

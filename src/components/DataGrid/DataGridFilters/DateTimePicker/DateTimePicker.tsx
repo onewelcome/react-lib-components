@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Popover } from "../../../Popover/Popover";
 import classes from "./DateTimePicker.module.scss";
 import { Button } from "../../../Button/Button";
@@ -24,8 +24,9 @@ import { DateRange } from "react-day-picker";
 import { IconButton } from "../../../Button/IconButton";
 import { Icon, Icons } from "../../../Icon/Icon";
 import { Typography } from "../../../Typography/Typography";
-import { getMonthName, getYearFromDate } from "./DateTimeService";
+import { formatInputDate, getMonthName, getYearFromDate } from "./DateTimeService";
 import { SideMenu } from "./SideMenu";
+import { parse } from "date-fns";
 
 type Props = {
   popoverRef: React.RefObject<HTMLDivElement>;
@@ -34,6 +35,16 @@ type Props = {
 };
 
 export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
+  const [selectedDate, setSelectedDate] = useState<DateRange>();
+  const [fromDateText, setFromDateText] = useState("");
+  const [toDateText, setToDateText] = useState("");
+
+  const parseDate = (date: string) => {
+    const dateText = parse(date, "yyyy-MM-dd HH:mm:ss", new Date());
+
+    return dateText;
+  };
+
   return (
     <Popover
       tabIndex={-1}
@@ -55,7 +66,11 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
                 label={"From"}
                 name={""}
                 type={"text"}
-                value={""}
+                value={fromDateText}
+                onBlur={e => {
+                  setSelectedDate(prev => ({ ...prev, from: parseDate(e.target.value) }));
+                }}
+                onChange={e => setFromDateText(e.target.value)}
                 inputProps={{ style: { height: "2rem" }, placeholder: "yyyy-mm-dd hh:mm:ss" }}
                 className={classes["input"]}
               />
@@ -64,16 +79,21 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
                 className={classes["input"]}
                 inputProps={{ style: { height: "2rem" }, placeholder: "yyyy-mm-dd hh:mm:ss" }}
                 label={"To"}
+                value={toDateText}
+                onChange={e => setToDateText(e.target.value)}
+                onBlur={e =>
+                  setSelectedDate(prev => ({ from: prev?.from, to: parseDate(e.target.value) }))
+                }
                 name={""}
                 type={"text"}
-                value={""}
               />
             </div>
             <div className={classes["controls-panel"]}>
               <DatePicker
-                onSelect={function (date: Date | DateRange | undefined): void {
-                  throw new Error("Function not implemented.");
+                onSelect={(date: Date | DateRange | undefined): void => {
+                  setSelectedDate(date as DateRange);
                 }}
+                value={selectedDate}
                 mode={"range"}
                 components={{
                   Nav: ({ onNextClick, onPreviousClick }) => (
@@ -92,7 +112,6 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
                     </Typography>
                   )
                 }}
-                value={undefined}
                 numberOfMonths={2}
               />
             </div>
