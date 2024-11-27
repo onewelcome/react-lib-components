@@ -64,8 +64,14 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
   };
 
   useEffect(() => {
-    if (selectedSideMenuItem !== CUSTOM_ID) {
-      const foundItem = sideMenuItems.find(item => item.id === selectedSideMenuItem);
+    onSideMenuItemSelect(selectedSideMenuItem);
+  }, []);
+
+  const onSideMenuItemSelect = (itemId: string) => {
+    setSelectedSideMenuItem(itemId);
+
+    if (itemId !== CUSTOM_ID) {
+      const foundItem = sideMenuItems.find(item => item.id === itemId);
 
       if (!foundItem) {
         return;
@@ -80,7 +86,7 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
         setToDateText(formatInputDate(toDate));
       }
     }
-  }, [selectedSideMenuItem]);
+  };
 
   const disableInputs = selectedSideMenuItem !== CUSTOM_ID;
 
@@ -99,7 +105,7 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
             <SideMenu
               sideMenuItems={sideMenuItems}
               selectedItemId={selectedSideMenuItem}
-              onSelectedItem={setSelectedSideMenuItem}
+              onItemSelect={onSideMenuItemSelect}
             />
           </div>
           <div className={classes["controls"]}>
@@ -110,7 +116,6 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
                 name={""}
                 type={"text"}
                 value={fromDateText}
-                disabled={disableInputs}
                 onBlur={e => {
                   setSelectedDate(prev => ({ ...prev, from: parseDate(e.target.value) }));
                 }}
@@ -123,7 +128,6 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
                 className={classes["input"]}
                 inputProps={{ style: { height: "2rem" }, placeholder: "yyyy-mm-dd hh:mm:ss" }}
                 label={"To"}
-                disabled={disableInputs}
                 value={toDateText}
                 onChange={e => setToDateText(e.target.value)}
                 onBlur={e =>

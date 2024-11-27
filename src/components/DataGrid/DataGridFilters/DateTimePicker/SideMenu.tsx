@@ -22,10 +22,10 @@ import { SideMenuItem } from "./DateTimePicker";
 type Props = {
   sideMenuItems: SideMenuItem[];
   selectedItemId: string;
-  onSelectedItem: (id: string) => void;
+  onItemSelect: (id: string) => void;
 };
 
-export const SideMenu = ({ sideMenuItems, selectedItemId, onSelectedItem }: Props) => {
+export const SideMenu = ({ sideMenuItems, selectedItemId, onItemSelect }: Props) => {
   return (
     <ul className={classes["aside-menu"]}>
       {sideMenuItems.map(item => (
@@ -38,7 +38,7 @@ export const SideMenu = ({ sideMenuItems, selectedItemId, onSelectedItem }: Prop
             role="menuitem"
             style={{ height: "2rem" }}
             className={selectedItemId === item.id ? contextMenuItemClasses["active"] : undefined}
-            onClick={() => onSelectedItem(item.id)}
+            onClick={() => onItemSelect(item.id)}
           >
             {item.name}
           </button>
