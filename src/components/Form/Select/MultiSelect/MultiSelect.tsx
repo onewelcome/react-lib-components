@@ -270,8 +270,17 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     syncSelectedOption(value);
   }, [value]);
 
+  const myElementRef = useRef<HTMLDivElement>(null);
+
   useBodyClick(
-    (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
+    (event: MouseEvent) => {
+      const myElement = myElementRef?.current;
+      if (!myElement) {
+        return false;
+      }
+      const clickedInsideMyElement = myElement.contains(event.target as Node);
+      return !clickedInsideMyElement && expanded;
+    },
     () => {
       setExpanded(false);
       setListPosition(Position.Below);
@@ -321,7 +330,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
-    <Fragment>
+    <div ref={myElementRef}>
       <select
         {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}
@@ -380,7 +389,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
         </div>
         {listPosition === Position.Below ? optionsElement : undefined}
       </div>
-    </Fragment>
+    </div>
   );
 };
 

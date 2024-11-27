@@ -201,8 +201,17 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     syncDisplayValue(value);
   }, [value]);
 
+  const myElementRef = useRef<HTMLDivElement>(null);
+
   useBodyClick(
-    (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
+    (event: MouseEvent) => {
+      const myElement = myElementRef?.current;
+      if (!myElement) {
+        return false;
+      }
+      const clickedInsideMyElement = myElement.contains(event.target as Node);
+      return !clickedInsideMyElement && expanded;
+    },
     () => {
       setExpanded(false);
       setListPosition(Position.Below);
@@ -220,7 +229,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
-    <Fragment>
+    <div ref={myElementRef}>
       <select
         {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}
@@ -289,7 +298,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           </div>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 export const Select = React.forwardRef(SelectComponent);

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Select as SelectComponent } from "../../../src/components/Form/Select/SingleSelect/Select";
 import { Option, SingleSelectProps } from "../../../src";
@@ -129,3 +129,21 @@ SelectWithAddNew.play = conditionalPlay(async ({ canvasElement }) => {
 
   await userEvent.click(select);
 });
+
+export const SelectClosesWhenAnotherSelectClicked: StoryFn<void> = (() => {
+  const options1 = generateOptions(3);
+  const options2 = generateOptions(3);
+  const Box = ({ children }) => (
+    <div style={{ width: "14rem", display: "inline-block" }}>{children}</div>
+  );
+  return (
+    <div>
+      <Box>
+        <SelectComponent value="option1" children={options1}></SelectComponent>
+      </Box>
+      <Box>
+        <SelectComponent value="option1" children={options2}></SelectComponent>
+      </Box>
+    </div>
+  );
+}).bind({});

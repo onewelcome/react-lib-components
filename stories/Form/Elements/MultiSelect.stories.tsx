@@ -15,7 +15,7 @@
  */
 
 import React, { useState } from "react";
-import { Meta } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import {
   MultiSelect,
   MultiSelect as MultiSelectComponent
@@ -23,7 +23,7 @@ import {
 import MultiSelectDocumentation from "./MultiSelect.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { userEvent, waitFor, within, expect } from "@storybook/test";
-import { useMultiSelect } from "../../../src";
+import { MultiOption, useMultiSelect } from "../../../src";
 
 const playExpand = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -180,3 +180,30 @@ export const MultiSelectAsEditableList = (args => {
   );
 }).bind({});
 MultiSelectAsEditableList.play = playExpand;
+
+export const MultiSelectClosesWhenAnotherMultiSelectClicked: StoryFn<void> = (() => {
+  const generateOptions = options =>
+    Array.from({ length: options }, (_, index) => {
+      const option = `Option ${index}`;
+      return (
+        <MultiOption key={option} value={option}>
+          {option}
+        </MultiOption>
+      );
+    });
+  const options1 = generateOptions(3);
+  const options2 = generateOptions(3);
+  const Box = ({ children }) => (
+    <div style={{ width: "14rem", display: "inline-block" }}>{children}</div>
+  );
+  return (
+    <div>
+      <Box>
+        <MultiSelect value={["Option 1"]} children={options1}></MultiSelect>
+      </Box>
+      <Box>
+        <MultiSelect value={["Option 1"]} children={options2}></MultiSelect>
+      </Box>
+    </div>
+  );
+}).bind({});
