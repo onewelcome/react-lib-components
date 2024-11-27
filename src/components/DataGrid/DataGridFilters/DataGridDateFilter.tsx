@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { DataGridFilterTag } from "./DataGridFilterTag";
 import { createPortal } from "react-dom";
 import { DateTimePicker } from "./DateTimePicker/DateTimePicker";
@@ -29,6 +29,7 @@ export const DataGridDateFilter = ({ domRoot }: Props) => {
   const popoverRef = useRef<HTMLDivElement>(null);
   const wrappingDivRef = useRef<HTMLDivElement>(null);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Fragment>
@@ -39,12 +40,15 @@ export const DataGridDateFilter = ({ domRoot }: Props) => {
         onFilterRemove={function (): void {
           throw new Error("Function not implemented.");
         }}
-        onFilterOpen={function (): void {
-          throw new Error("Function not implemented.");
-        }}
+        onFilterOpen={() => setIsOpen(true)}
       />
       {createPortal(
-        <DateTimePicker popoverRef={popoverRef} anchorRef={wrappingDivRef} isOpen={true} />,
+        <DateTimePicker
+          popoverRef={popoverRef}
+          anchorRef={wrappingDivRef}
+          isOpen={isOpen}
+          setPickerOpen={setIsOpen}
+        />,
         root
       )}
     </Fragment>

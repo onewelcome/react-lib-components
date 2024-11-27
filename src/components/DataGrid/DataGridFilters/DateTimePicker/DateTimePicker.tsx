@@ -28,11 +28,13 @@ import { formatInputDate, getMonthName, getYearFromDate } from "./DateTimeServic
 import { SideMenu } from "./SideMenu";
 import { addSeconds, parse } from "date-fns";
 import { generateID } from "../../../../util/helper";
+import { useRepeatFocus } from "../../../../hooks/useRepeatFocus";
 
 type Props = {
   popoverRef: React.RefObject<HTMLDivElement>;
   anchorRef?: React.RefObject<HTMLDivElement>;
   isOpen: boolean;
+  setPickerOpen: (open: boolean) => void;
 };
 
 export type SideMenuItem = {
@@ -52,11 +54,19 @@ const sideMenuItems: SideMenuItem[] = [
   { id: CUSTOM_ID, name: "Custom" }
 ];
 
-export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
+export const DateTimePicker = ({ anchorRef, popoverRef, isOpen, setPickerOpen }: Props) => {
   const [selectedDate, setSelectedDate] = useState<DateRange>();
   const [fromDateText, setFromDateText] = useState("");
   const [toDateText, setToDateText] = useState("");
   const [selectedSideMenuItem, setSelectedSideMenuItem] = useState(sideMenuItems[0].id);
+
+  useRepeatFocus(popoverRef);
+
+  useEffect(() => {
+    if (isOpen) {
+      popoverRef.current?.focus();
+    }
+  }, [isOpen]);
 
   const parseDate = (date: string) => {
     const dateText = parse(date, "yyyy-MM-dd HH:mm:ss", new Date());
@@ -183,7 +193,14 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen }: Props) => {
           </div>
         </div>
         <div className={classes["actions"]}>
-          <Button variant="text">Cancel</Button>
+          <Button
+            variant="text"
+            onClick={() => {
+              setPickerOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
           <Button>Apply</Button>
         </div>
       </div>
