@@ -34,3 +34,14 @@ export const useBodyClick = (
     };
   }, [dependingStateVariable]);
 };
+
+export const clickOutsideChecker = (myElementRef: React.RefObject<HTMLElement>) => {
+  return (event: MouseEvent) => {
+    const myElement = myElementRef?.current;
+    if (!myElement) {
+      return false;
+    }
+    const clickedInsideMyElement = myElement.contains(event.target as Node);
+    return !clickedInsideMyElement;
+  };
+};

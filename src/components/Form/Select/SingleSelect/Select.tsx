@@ -25,7 +25,7 @@ import React, {
   useRef,
   useState
 } from "react";
-import { useBodyClick } from "../../../../hooks/useBodyClick";
+import { clickOutsideChecker, useBodyClick } from "../../../../hooks/useBodyClick";
 import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 import readyclasses from "../../../../readyclasses.module.scss";
 import { filterProps } from "../../../../util/helper";
@@ -204,15 +204,11 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   const myElementRef = useRef<HTMLDivElement>(null);
 
   useBodyClick(
-    (event: MouseEvent) => {
-      const myElement = myElementRef?.current;
-      if (!myElement) {
-        return false;
-      }
-      const clickedInsideMyElement = myElement.contains(event.target as Node);
-      return !clickedInsideMyElement && expanded;
-    },
+    clickOutsideChecker(myElementRef),
     () => {
+      if (!expanded) {
+        return;
+      }
       setExpanded(false);
       setListPosition(Position.Below);
       setOpacity(0);
