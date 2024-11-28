@@ -63,7 +63,7 @@ describe("useMutiSelect", () => {
     const pickedOptions = ["B", "C"];
     let newPickedOptions = ["not called"];
 
-    let { result } = renderHook(() =>
+    let { result, rerender } = renderHook(() =>
       useMultiSelect({
         initialOptions: allOptions, // this automates removal of the custom option
         allOptions,

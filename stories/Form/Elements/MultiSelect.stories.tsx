@@ -16,10 +16,7 @@
 
 import React, { useState } from "react";
 import { Meta } from "@storybook/react";
-import {
-  MultiSelect,
-  MultiSelect as MultiSelectComponent
-} from "../../../src/components/Form/Select/MultiSelect/MultiSelect";
+import { MultiSelect } from "../../../src/components/Form/Select/MultiSelect/MultiSelect";
 import MultiSelectDocumentation from "./MultiSelect.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { userEvent, waitFor, within, expect } from "@storybook/test";
@@ -34,7 +31,7 @@ const playExpand = conditionalPlay(async ({ canvasElement }) => {
 
 const meta: Meta = {
   title: "components/Inputs/Raw/MultiSelect",
-  component: MultiSelectComponent,
+  component: MultiSelect,
   parameters: {
     docs: {
       page: MultiSelectDocumentation

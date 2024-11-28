@@ -17,7 +17,7 @@
 import React from "react";
 import { MultiOption } from "./MultiOption";
 
-interface UseMultiSelectArgs {
+export interface UseMultiSelectArgs {
   initialOptions?: string[];
   allOptions?: string[];
   setAllOptions?: (options: string[]) => void;
@@ -26,13 +26,13 @@ interface UseMultiSelectArgs {
   onAddNew?: (newOption: string) => void;
 }
 
-interface UseMultiSelectResult {
+export interface UseMultiSelectResult {
   handleOptionChange: (e: React.FormEvent<HTMLSelectElement>) => void;
   onAddNew: (newValue: string) => void;
   optionElements: React.JSX.Element[];
 }
 
-type UseMultiSelect = (args: UseMultiSelectArgs) => UseMultiSelectResult;
+export type UseMultiSelect = (args: UseMultiSelectArgs) => UseMultiSelectResult;
 
 export const useMultiSelect: UseMultiSelect = ({
   initialOptions,
@@ -60,10 +60,8 @@ export const useMultiSelect: UseMultiSelect = ({
         const index = newPickedOptions.indexOf(option.value);
         newPickedOptions.splice(index, 1);
 
-        if (initialOptions) {
-          if (!initialOptions.includes(option.value)) {
-            setAllOptions?.(allOptions.filter(value => value !== option.value));
-          }
+        if (initialOptions && !initialOptions.includes(option.value)) {
+          setAllOptions?.(allOptions.filter(value => value !== option.value));
         }
       }
     });
