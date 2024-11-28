@@ -277,7 +277,7 @@ describe("List expansion", () => {
     expect(dropdownWrapper).toHaveStyle({ bottom: "initial" });
 
     const dropdownRect = dropdownWrapper!.getBoundingClientRect();
-    expect(dropdownRect.bottom).toBeGreaterThan(selectTop + selectHeight / 2);
+    expect(dropdownRect.top).toBeGreaterThan(selectTop + selectHeight / 2);
   });
 });
 
