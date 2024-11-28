@@ -59,8 +59,13 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen, setPickerOpen }:
   const [fromDateText, setFromDateText] = useState("");
   const [toDateText, setToDateText] = useState("");
   const [selectedSideMenuItem, setSelectedSideMenuItem] = useState(sideMenuItems[0].id);
+  const [fromDateError, setFromDateError] = useState("");
+  const [toDateError, setToDateError] = useState("");
+  const validationRegex =
+    /(\d{4})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) ([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])/;
 
-  useRepeatFocus(popoverRef);
+  const dateFormatError = "The format must be yyyy-mm-dd hh:mm:ss";
+  const validateInput = (text: string) => validationRegex.test(text);
 
   useEffect(() => {
     if (isOpen) {
@@ -74,8 +79,8 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen, setPickerOpen }:
   };
 
   useEffect(() => {
-    onSideMenuItemSelect(selectedSideMenuItem);
-  }, []);
+    isOpen && onSideMenuItemSelect(selectedSideMenuItem);
+  }, [isOpen]);
 
   const onSideMenuItemSelect = (itemId: string) => {
     setSelectedSideMenuItem(itemId);
@@ -121,28 +126,44 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen, setPickerOpen }:
           <div className={classes["controls"]}>
             <div className={classes["controls-panel"]}>
               <InputWrapper
-                style={{ marginTop: 0 }}
+                style={{ marginTop: 0, maxWidth: "224px" }}
                 label={"From"}
                 name={""}
+                error={!!fromDateError}
+                errorMessage={fromDateError}
                 type={"text"}
                 value={fromDateText}
                 onBlur={e => {
+                  if (!validateInput(e.target.value)) {
+                    setFromDateError(dateFormatError);
+                    return;
+                  }
+
                   setSelectedDate(prev => ({ ...prev, from: parseDate(e.target.value) }));
+                  setFromDateError("");
                 }}
                 onChange={e => setFromDateText(e.target.value)}
                 inputProps={{ style: { height: "2rem" }, placeholder: "yyyy-mm-dd hh:mm:ss" }}
                 className={classes["input"]}
               />
               <InputWrapper
-                style={{ marginTop: 0 }}
+                style={{ marginTop: 0, maxWidth: "224px" }}
                 className={classes["input"]}
                 inputProps={{ style: { height: "2rem" }, placeholder: "yyyy-mm-dd hh:mm:ss" }}
                 label={"To"}
                 value={toDateText}
+                error={!!toDateError}
+                errorMessage={toDateError}
                 onChange={e => setToDateText(e.target.value)}
-                onBlur={e =>
-                  setSelectedDate(prev => ({ from: prev?.from, to: parseDate(e.target.value) }))
-                }
+                onBlur={e => {
+                  if (!validateInput(e.target.value)) {
+                    setToDateError(dateFormatError);
+                    return;
+                  }
+
+                  setSelectedDate(prev => ({ from: prev?.from, to: parseDate(e.target.value) }));
+                  setToDateError("");
+                }}
                 name={""}
                 type={"text"}
               />
