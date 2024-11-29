@@ -179,6 +179,33 @@ describe("useMutiSelect", () => {
       children: "B"
     });
   });
+
+  it("should handle add new without value from search (search disabled, addNew enabled, so no value provided)", () => {
+    const allOptions = ["A", "B", "C", "D"];
+    let newAllOptions = ["not called"];
+    const pickedOptions = ["B", "C"];
+    let newPickedOptions = ["not called"];
+    const onAddNew = jest.fn();
+
+    const { result } = renderHook(() =>
+      useMultiSelect({
+        allOptions,
+        setAllOptions: newOptions => (newAllOptions = newOptions),
+        pickedOptions,
+        setPickedOptions: newOptions => (newPickedOptions = newOptions),
+        onAddNew
+      })
+    );
+
+    act(() => {
+      result.current.onAddNew("");
+    });
+
+    expect(onAddNew).toHaveBeenCalledWith("");
+
+    expect(newPickedOptions).toEqual(["not called"]);
+    expect(newAllOptions).toEqual(["not called"]);
+  });
 });
 
 function prepareOptionSelection(

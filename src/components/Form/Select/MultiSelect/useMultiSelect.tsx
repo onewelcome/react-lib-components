@@ -69,6 +69,10 @@ export const useMultiSelect: UseMultiSelect = ({
   };
 
   const onAddNewWrapper = (value: string) => {
+    if (value == undefined || value.length === 0) {
+      onAddNew?.("");
+    }
+
     const trimmedValue = value.trim();
     if (trimmedValue.length === 0 || allOptions.includes(trimmedValue)) {
       return;
