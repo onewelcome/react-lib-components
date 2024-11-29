@@ -225,7 +225,7 @@ function prepareOptionSelection(
   });
 
   const event = {
-    nativeEvent: { target: { options: selectElement.options } }
+    currentTarget: { options: selectElement.options }
   } as unknown as React.FormEvent<HTMLSelectElement>;
   return { event, selectElement };
 }

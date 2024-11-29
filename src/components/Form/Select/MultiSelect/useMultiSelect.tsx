@@ -43,8 +43,13 @@ export const useMultiSelect: UseMultiSelect = ({
   onAddNew
 }) => {
   const handleOptionChange = (e: React.FormEvent<HTMLSelectElement>) => {
-    const htmlOptions = (e.nativeEvent.target as unknown as { options: HTMLOptionsCollection })
-      .options;
+    if (!e.currentTarget) {
+      throw new Error(
+        "useMultiSelect's onChange event handler detected that the currentTarget of the event is not present. This may be due to calling the handler asynchronously. Please make sure currentTarget is present in the event by making a copy of the event synchronously at the time it occurs."
+      );
+    }
+
+    const htmlOptions = e.currentTarget.options;
 
     const newPickedOptions = [...pickedOptions];
     Array.from(htmlOptions).forEach(option => {
