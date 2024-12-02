@@ -76,6 +76,7 @@ export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }:
           {...rest}
           {...commonProps}
           mode={mode}
+          endMonth={new Date(3000, 12)}
           onSelect={onSelect}
           selected={value as Date | undefined}
         ></DayPicker>
@@ -84,6 +85,7 @@ export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }:
           {...rest}
           {...commonProps}
           mode={mode}
+          endMonth={new Date(3000, 12)}
           onSelect={onSelect}
           selected={value as DateRange | undefined}
         />

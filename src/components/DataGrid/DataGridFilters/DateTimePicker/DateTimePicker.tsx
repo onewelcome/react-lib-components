@@ -28,12 +28,12 @@ import { formatInputDate, getMonthName, getYearFromDate } from "./DateTimeServic
 import { SideMenu } from "./SideMenu";
 import { addSeconds, parse } from "date-fns";
 import { generateID } from "../../../../util/helper";
-import { useRepeatFocus } from "../../../../hooks/useRepeatFocus";
 
 type Props = {
   popoverRef: React.RefObject<HTMLDivElement>;
   anchorRef?: React.RefObject<HTMLDivElement>;
   isOpen: boolean;
+  onTagCaptionChange: (value: string) => void;
   setPickerOpen: (open: boolean) => void;
 };
 
@@ -54,7 +54,13 @@ const sideMenuItems: SideMenuItem[] = [
   { id: CUSTOM_ID, name: "Custom" }
 ];
 
-export const DateTimePicker = ({ anchorRef, popoverRef, isOpen, setPickerOpen }: Props) => {
+export const DateTimePicker = ({
+  anchorRef,
+  popoverRef,
+  isOpen,
+  setPickerOpen,
+  onTagCaptionChange
+}: Props) => {
   const [selectedDate, setSelectedDate] = useState<DateRange>();
   const [fromDateText, setFromDateText] = useState("");
   const [toDateText, setToDateText] = useState("");
@@ -84,10 +90,10 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen, setPickerOpen }:
 
   const onSideMenuItemSelect = (itemId: string) => {
     setSelectedSideMenuItem(itemId);
+    const foundItem = sideMenuItems.find(item => item.id === itemId);
+    foundItem && onTagCaptionChange(foundItem.name);
 
     if (itemId !== CUSTOM_ID) {
-      const foundItem = sideMenuItems.find(item => item.id === itemId);
-
       if (!foundItem) {
         return;
       }
@@ -131,6 +137,9 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen, setPickerOpen }:
                 name={""}
                 error={!!fromDateError}
                 errorMessage={fromDateError}
+                helperProps={{
+                  style: { fontSize: "0.625rem" }
+                }}
                 type={"text"}
                 value={fromDateText}
                 onBlur={e => {
@@ -154,6 +163,9 @@ export const DateTimePicker = ({ anchorRef, popoverRef, isOpen, setPickerOpen }:
                 value={toDateText}
                 error={!!toDateError}
                 errorMessage={toDateError}
+                helperProps={{
+                  style: { fontSize: "0.625rem" }
+                }}
                 onChange={e => setToDateText(e.target.value)}
                 onBlur={e => {
                   if (!validateInput(e.target.value)) {

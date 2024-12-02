@@ -29,6 +29,7 @@ export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
   onFilterRemove: () => void;
   onFilterOpen: () => void;
   translations?: TagTranslations;
+  dateTagCaption?: string;
 }
 
 const EditTagContent = ({ filter }: { filter: Filter }) => {
@@ -57,6 +58,7 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
     onFilterRemove,
     onFilterOpen,
     translations,
+    dateTagCaption,
     customEditTagContent,
     ...rest
   }: DataGridFilterTagProps,
@@ -96,7 +98,7 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
           <Fragment>
             <Icon icon={Icons.Calendar} />
             <Typography variant="body" className={classes["caption"]}>
-              Date is last 30 seconds
+              Date is <b>{dateTagCaption}</b>
             </Typography>
           </Fragment>
         )}

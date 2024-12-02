@@ -30,12 +30,14 @@ export const DataGridDateFilter = ({ domRoot }: Props) => {
   const wrappingDivRef = useRef<HTMLDivElement>(null);
   const { root } = useGetDomRoot(domRoot, wrappingDivRef);
   const [isOpen, setIsOpen] = useState(false);
+  const [tagCaption, setTagCaption] = useState("Last 30 seconds");
 
   return (
     <Fragment>
       <DataGridFilterTag
         triggerRef={triggerRef}
         ref={wrappingDivRef}
+        dateTagCaption={tagCaption}
         mode={"ADD_DATE"}
         onFilterRemove={function (): void {
           throw new Error("Function not implemented.");
@@ -45,6 +47,7 @@ export const DataGridDateFilter = ({ domRoot }: Props) => {
       {createPortal(
         <DateTimePicker
           popoverRef={popoverRef}
+          onTagCaptionChange={setTagCaption}
           anchorRef={wrappingDivRef}
           isOpen={isOpen}
           setPickerOpen={setIsOpen}
