@@ -46,6 +46,9 @@ const getConditionalProps = (
   } else {
     props = { ...props, helperText: helperText };
   }
+  if (type) {
+    props = { ...props, type: type };
+  }
 
   return {
     ...props
