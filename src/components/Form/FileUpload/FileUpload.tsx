@@ -270,7 +270,11 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             onDrop={e => !disabled && handleOnDrop(e)}
           >
             <div className={classes["file-select"]}>
-              <Typography variant="body" className={"drag-and-drop-text"}>
+              <Typography
+                variant="body"
+                className={"drag-and-drop-text"}
+                tabIndex={readOnlyView ? 0 : -1}
+              >
                 {readOnlyView ? readOnlyViewMessage : dragAndDropText}
               </Typography>
 
