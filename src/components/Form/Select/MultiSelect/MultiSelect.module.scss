@@ -258,8 +258,8 @@ $listItemHeight: 2.5rem;
 
 [data-readonlyview="true"] {
   & .custom-select {
-    color: var(--color-blue-grey900);
-    border-color: var(--color-blue-grey100);
+    color: var(--read-only-text-color);
+    border-color: var(--read-only-border-color);
     background-color: var(--color-white);
 
     &.error,
@@ -280,8 +280,8 @@ $listItemHeight: 2.5rem;
 
   &:hover:not(.disabled):not(.expanded):not(.error) {
     .custom-select:not(:focus) {
-      color: var(--color-blue-grey900);
-      border-color: var(--color-blue-grey100);
+      color: var(--read-only-text-color);
+      border-color: var(--read-only-border-color);
       background-color: var(--color-white);
     }
   }

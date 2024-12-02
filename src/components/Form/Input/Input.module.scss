@@ -96,14 +96,14 @@
   }
 
   &[data-readonlyview="true"] {
-    color: var(--color-blue-grey900);
+    color: var(--read-only-text-color);
 
     & .Input-module {
       border-color: var(--read-only-border-color);
     }
 
     & span.outline {
-      color: var(--color-blue-grey900);
+      color: var(--read-only-text-color);
       border-color: var(--read-only-border-color);
       background-color: var(--color-white);
 
@@ -114,7 +114,7 @@
 
     &:hover {
       & .outline {
-        color: var(--color-blue-grey900);
+        color: var(--read-only-text-color);
         background-color: var(--color-white);
         border-color: var(--read-only-border-color);
       }

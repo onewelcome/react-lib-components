@@ -137,7 +137,7 @@
 [data-readonlyview="true"] {
   & label {
     border-color: var(--read-only-border-color);
-    color: var(--color-blue-grey900);
+    color: var(--read-only-text-color);
     background-color: transparent;
     user-select: text;
   }

@@ -146,10 +146,10 @@
 
 [data-readonlyview="true"] {
   & .radio-wrapper {
-    color: var(--color-blue-grey900);
+    color: var(--read-only-text-color);
 
     & span.input {
-      color: var(--color-blue-grey900);
+      color: var(--read-only-text-color);
       cursor: not-allowed;
 
       &:before {
@@ -168,7 +168,7 @@
 input[type="radio"] {
   &[data-readonlyview="true"] {
     & ~ span.input {
-      color: var(--color-blue-grey900);
+      color: var(--read-only-text-color);
       cursor: not-allowed;
 
       &:before {

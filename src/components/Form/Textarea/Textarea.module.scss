@@ -52,7 +52,7 @@
   div[data-readonlyview="true"] {
     min-height: 4rem;
     border: 1px solid var(--color-blue-grey100);
-    color: var(--color-blue-grey900);
+    color: var(--read-only-text-color);
     background-color: var(--color-white);
     padding: 0.625rem 1.5625rem 0.625rem 0.625rem;
     font-family: var(--font-family);

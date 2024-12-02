@@ -68,9 +68,7 @@
 
 [data-readonlyview="true"] {
   & label {
-    &.disabled {
-      color: var(--color-blue-grey900);
-    }
+    color: var(--read-only-text-color);
   }
 }
 

@@ -37,6 +37,7 @@ input {
     justify-content: center;
 
     @include mixins.transition(all, 0.2s, ease-in-out);
+
     &[data-readonlyview="true"] {
       padding: auto;
     }
@@ -67,20 +68,20 @@ input {
 
   &[data-readonlyview="true"] {
     & label {
-      color: var(--color-blue-grey900);
+      color: var(--read-only-text-color);
     }
 
     & input {
-      color: var(--color-blue-grey900);
+      color: var(--read-only-text-color);
     }
 
     & div.disabled {
       background-color: transparent;
-      color: var(--color-blue-grey900);
+      color: var(--read-only-text-color);
 
       span {
         background-color: transparent;
-        border-color: var(--color-blue-grey100);
+        border-color: var(--read-only-border-color);
       }
     }
   }

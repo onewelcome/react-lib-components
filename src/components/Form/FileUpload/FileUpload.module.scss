@@ -111,7 +111,7 @@
     }
   }
 
-  &[data-readonlyview="true"]:not(.file-list) {
+  &[data-readonlyview="true"]:not(:has(.file-list)) {
     .upload-button-wrapper {
       min-height: 4.5rem;
 
@@ -119,7 +119,7 @@
         border: 0;
 
         & p {
-          color: var(--color-blue-grey900);
+          color: var(--read-only-text-color);
         }
       }
 

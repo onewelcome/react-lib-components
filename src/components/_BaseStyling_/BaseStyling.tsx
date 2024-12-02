@@ -209,6 +209,7 @@ interface CSSProperties {
   dragDropBorderStyle?: string;
   fontSizeDataGrid?: string;
   readOnlyBorderColor?: string;
+  readOnlyTextColor?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -406,7 +407,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeCode: "1rem",
     formControlFontSize: "0.875rem", //FIXME: UCL-395
     fontSizeDataGrid: "0.875rem", //FIXME: UCL-395
-    readOnlyBorderColor: "var(--color-blue-grey100)"
+    readOnlyBorderColor: "var(--color-blue-grey100)",
+    readOnlyTextColor: "var(--color-blue-grey900)"
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

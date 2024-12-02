@@ -164,17 +164,17 @@ $listItemHeight: 2.5rem;
 
     & button[type="button"] {
       background-color: var(--color-white);
-      color: var(--color-blue-grey900);
+      color: var(--read-only-text-color);
       border-color: var(--read-only-border-color);
 
       & .selected {
-        color: var(--color-blue-grey900);
+        color: var(--read-only-text-color);
       }
 
       &.error,
       &.success {
         border-color: var(--read-only-border-color);
-        color: var(--color-blue-grey900);
+        color: var(--read-only-text-color);
 
         & .status {
           visibility: visible;
@@ -288,7 +288,7 @@ $listItemHeight: 2.5rem;
 
       &.error {
         border-color: var(--read-only-border-color);
-        color: var(--color-blue-grey900);
+        color: var(--read-only-text-color);
       }
     }
   }
