@@ -76,6 +76,7 @@ export const useMultiSelect: UseMultiSelect = ({
   const onAddNewWrapper = (value: string) => {
     if (value == undefined || value.length === 0) {
       onAddNew?.("");
+      return;
     }
 
     const trimmedValue = value.trim();
