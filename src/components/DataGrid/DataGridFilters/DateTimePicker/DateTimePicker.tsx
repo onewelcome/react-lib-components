@@ -137,6 +137,7 @@ export const DateTimePicker = ({
                 name={""}
                 error={!!fromDateError}
                 errorMessage={fromDateError}
+                errorMessageProps={{ className: classes["error-message"] }}
                 helperProps={{
                   style: { fontSize: "0.625rem" }
                 }}

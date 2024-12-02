@@ -37,6 +37,7 @@ export interface WrapperProps extends Omit<FormElement, "success"> {
   errorMessage?: string;
   helperText?: string;
   helperProps?: HelperProps;
+  errorMessageProps?: ComponentPropsWithRef<"span">;
   label?: string;
   name: string;
   required?: boolean;
@@ -52,6 +53,7 @@ const WrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     errorId,
     errorMessageIcon,
     errorMessageIconPosition,
+    errorMessageProps,
     helperText,
     helperId,
     required,
@@ -89,6 +91,7 @@ const WrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         errorId={errorId}
         errorMessageIcon={errorMessageIcon}
         errorMessageIconPosition={errorMessageIconPosition}
+        errorMessageProps={errorMessageProps}
         helperText={helperText}
         helperId={helperId}
         helperProps={helperProps}

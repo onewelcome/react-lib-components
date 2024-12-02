@@ -28,6 +28,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   errorMessageIconPosition?: "before" | "after";
   errorMessage?: string;
   errorId?: string;
+  errorMessageProps?: ComponentPropsWithRef<"span">;
   helperText?: string;
   helperId?: string;
   helperProps?: HelperProps;
@@ -43,6 +44,7 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     errorId,
     errorMessageIcon,
     errorMessageIconPosition = "before",
+    errorMessageProps,
     helperText,
     helperId,
     helperProps,
@@ -74,7 +76,10 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             </FormHelperText>
           )}
           {error && errorMessage && (
-            <span className={classes["error-message"]}>
+            <span
+              {...errorMessageProps}
+              className={`${classes["error-message"]} ${errorMessageProps?.className ? errorMessageProps.className : ""}`}
+            >
               <span id={errorId} className={classes.message}>
                 {errorMessageIcon && errorMessageIconPosition === "before" && (
                   <Icon
