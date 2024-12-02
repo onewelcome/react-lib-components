@@ -27,6 +27,6 @@ export class MockDOMRect implements DOMRect {
   ) {}
 
   toJSON() {
-    return Object.assign({}, this);
+    return { ...this };
   }
 }

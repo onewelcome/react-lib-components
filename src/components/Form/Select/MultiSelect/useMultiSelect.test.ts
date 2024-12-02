@@ -57,54 +57,68 @@ describe("useMutiSelect", () => {
     expect(newAllOptions).toEqual(["not called"]);
   });
 
-  it("should handle creation of custom option and its deletion", () => {
-    const allOptions = ["A", "B", "C", "D"];
-    let newAllOptions = ["not called"];
-    const pickedOptions = ["B", "C"];
-    let newPickedOptions = ["not called"];
+  describe("custom option handling", () => {
+    it("should handle creation of custom option E", () => {
+      //given
+      const allOptions = ["A", "B", "C", "D"];
+      const initialOptions = [...allOptions];
+      const pickedOptions = ["B", "C"];
+      const setAllOptionsMock = jest.fn();
+      const setPickedOptions = jest.fn();
+      const { result } = renderHook(() =>
+        useMultiSelect({
+          initialOptions,
+          allOptions,
+          pickedOptions,
+          setAllOptions: setAllOptionsMock,
+          setPickedOptions: setPickedOptions
+        })
+      );
 
-    let { result, rerender } = renderHook(() =>
-      useMultiSelect({
-        initialOptions: allOptions, // this automates removal of the custom option
-        allOptions,
-        setAllOptions: newOptions => (newAllOptions = newOptions),
-        pickedOptions,
-        setPickedOptions: newOptions => (newPickedOptions = newOptions)
-      })
-    );
+      //when
+      act(() => {
+        result.current.onAddNew("E");
+      });
 
-    act(() => {
-      result.current.onAddNew("E");
+      //then
+      const expectedPickedOptionsWithNewE = ["B", "C", "E"];
+      expect(setPickedOptions).toHaveBeenCalledWith(expectedPickedOptionsWithNewE);
+      const expectedAllOptionsWithNewE = ["A", "B", "C", "D", "E"];
+      expect(setAllOptionsMock).toHaveBeenCalledWith(expectedAllOptionsWithNewE);
     });
 
-    expect(newPickedOptions).toEqual(["B", "C", "E"]);
-    expect(newAllOptions).toEqual(["A", "B", "C", "D", "E"]);
+    it("should handle deletion of custom added option E", () => {
+      //given
+      const allOptions = ["A", "B", "C", "D", "E"];
+      const initialOptions = ["A", "B", "C", "D"];
+      const pickedOptions = ["B", "C", "E"];
+      const setAllOptionsMock = jest.fn();
+      const setPickedOptions = jest.fn();
+      const { result } = renderHook(() =>
+        useMultiSelect({
+          initialOptions,
+          allOptions,
+          pickedOptions,
+          setAllOptions: setAllOptionsMock,
+          setPickedOptions: setPickedOptions
+        })
+      );
 
-    // next render after the custom option was added
+      //when
+      act(() => {
+        const { event: eventForOptionRemoval } = prepareOptionSelection(
+          allOptions,
+          optionValue => pickedOptions.includes(optionValue) && optionValue !== "E"
+        );
+        result.current.handleOptionChange(eventForOptionRemoval);
+      });
 
-    ({ result } = renderHook(() =>
-      useMultiSelect({
-        initialOptions: allOptions, // this automates removal of the custom option
-        allOptions: newAllOptions,
-        setAllOptions: newOptions => (newAllOptions = newOptions),
-        pickedOptions: newPickedOptions,
-        setPickedOptions: newOptions => (newPickedOptions = newOptions)
-      })
-    ));
-
-    const { event } = prepareOptionSelection(
-      newAllOptions,
-      optionValue => newPickedOptions.includes(optionValue) && optionValue !== "E"
-    );
-
-    act(() => {
-      result.current.handleOptionChange(event);
+      //then
+      const expectedPickedOptionsWithoutE = ["B", "C"];
+      expect(setPickedOptions).toHaveBeenCalledWith(expectedPickedOptionsWithoutE);
+      const expectedAllOptionsWithoutE = ["A", "B", "C", "D"];
+      expect(setAllOptionsMock).toHaveBeenCalledWith(expectedAllOptionsWithoutE);
     });
-
-    expect(newPickedOptions).toEqual(["B", "C"]);
-
-    // custom option removed also from all options
-    expect(newAllOptions).toEqual(["A", "B", "C", "D"]);
   });
 
   it("should handle editable-list scenario", () => {
