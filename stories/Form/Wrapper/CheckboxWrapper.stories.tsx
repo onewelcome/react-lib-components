@@ -267,7 +267,5 @@ CheckboxesWithReadOnlyMode.args = {
     noPadding: false,
     noBackground: false
   },
-  error: true,
-  errorMessage: "Please check all the boxes",
   readOnlyView: true
 };

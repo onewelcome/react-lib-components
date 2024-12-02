@@ -87,6 +87,7 @@
         display: none;
       }
     }
+
     ul {
       li {
         p {
@@ -109,21 +110,24 @@
       }
     }
   }
+
   &[data-readonlyview="true"]:not(.file-list) {
     .upload-button-wrapper {
-      &.disabled {
-        min-height: 4.5rem;
-        & .file-select {
-          border: 0;
-          & p {
-            color: var(--color-blue-grey900);
-          }
-        }
-        & .file-upload-btn {
-          display: none;
+      min-height: 4.5rem;
+
+      & .file-select {
+        border: 0;
+
+        & p {
+          color: var(--color-blue-grey900);
         }
       }
+
+      & .file-upload-btn {
+        display: none;
+      }
     }
+
     .required {
       &:after {
         display: none;

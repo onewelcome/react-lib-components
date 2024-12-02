@@ -208,6 +208,7 @@ interface CSSProperties {
   fileUploadBorderWidth?: string;
   dragDropBorderStyle?: string;
   fontSizeDataGrid?: string;
+  readOnlyBorderColor?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -404,7 +405,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
     formControlFontSize: "0.875rem", //FIXME: UCL-395
-    fontSizeDataGrid: "0.875rem" //FIXME: UCL-395
+    fontSizeDataGrid: "0.875rem", //FIXME: UCL-395
+    readOnlyBorderColor: "var(--color-blue-grey100)"
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

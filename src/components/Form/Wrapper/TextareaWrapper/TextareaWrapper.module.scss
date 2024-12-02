@@ -56,11 +56,11 @@
 }
 
 [data-readonlyview="true"] {
-  & ~ span.error.disabled {
+  & ~ span.error {
     background-color: var(--color-white);
   }
 
-  & div[disabled] {
+  & label + div:not(:has(input)) {
     min-height: 4rem;
     border: 1px solid var(--color-blue-grey100);
     color: var(--color-blue-grey900);

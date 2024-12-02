@@ -14,17 +14,42 @@
  *    limitations under the License.
  */
 
-import React, { ComponentType, ForwardedRef, ReactNode, PropsWithChildren } from "react";
+import React, { ComponentType, ForwardedRef, PropsWithChildren } from "react";
+import { Input } from "./Form/Input/Input";
 
 export interface WithReadOnlyProps {
   readOnlyView?: boolean;
   required?: boolean;
-  disabled?: boolean;
   helperText?: string;
+  type?: string;
 }
 
 const getDisplayName = <P,>(WrappedComponent: ComponentType<P>) => {
   return WrappedComponent.displayName ?? WrappedComponent.name ?? "Component";
+};
+
+const getConditionalProps = (
+  readOnlyView: boolean,
+  type: string,
+  helperText: string | undefined
+) => {
+  let props = {};
+  if (readOnlyView) {
+    if (type !== "text") {
+      props = {
+        style: { ...props, pointerEvents: "none", userSelect: "text" }
+      };
+    }
+  }
+  if (readOnlyView && helperText) {
+    props = { ...props, helperText: "" };
+  } else {
+    props = { ...props, helperText: helperText };
+  }
+
+  return {
+    ...props
+  };
 };
 
 export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P>) => {
@@ -33,9 +58,9 @@ export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P
       const {
         readOnlyView = false,
         required,
-        disabled,
         children,
         helperText,
+        type = "",
         ...restProps
       } = props;
 
@@ -44,9 +69,9 @@ export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P
           ref={ref}
           {...(restProps as P)}
           data-readonlyview={readOnlyView}
+          aria-readonly={readOnlyView}
           required={readOnlyView ? false : required}
-          disabled={readOnlyView || disabled}
-          helperText={readOnlyView ? "" : helperText}
+          {...getConditionalProps(readOnlyView, type, helperText)}
         >
           {children}
         </WrappedComponent>

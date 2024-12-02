@@ -52,6 +52,7 @@ export type Props = MergeElementProps<
     type: Type;
     suffix?: ReactNode;
     prefix?: ReactNode;
+    readOnlyView?: boolean;
   }
 >;
 
@@ -70,6 +71,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     disabled,
     onFocus,
     onBlur,
+    readOnlyView,
     ...rest
   }: Props,
   ref: Ref<HTMLInputElement>
@@ -107,13 +109,16 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   success && wrapperClasses.push(classes["success"]);
 
   const icon = useDetermineStatusIcon({ success, error });
+  const readOnlyMode = rest["data-readonlyview"] as boolean;
 
   return (
     <div
       ref={inputWrapperRef}
       {...wrapperProps}
       style={{ ...style }}
+      data-readonlyview={readOnlyMode}
       className={`${classes["input-wrapper"]} ${wrapperClasses.join(" ")}`}
+      tabIndex={readOnlyMode ? 0 : -1}
     >
       {prefix && (
         <div data-prefix className={classes["prefix"]}>
@@ -123,6 +128,8 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       <input
         {...rest}
         ref={ref}
+        aria-readonly={readOnlyMode}
+        readOnly={readOnlyMode}
         onFocus={event => {
           setFocus(true);
           onFocus?.(event);
@@ -137,6 +144,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         disabled={disabled}
         className={inputClassNames.join(" ")}
         spellCheck={rest.spellCheck ?? false}
+        tabIndex={readOnlyMode ? -1 : 0}
       />
       {icon}
       {suffix && (

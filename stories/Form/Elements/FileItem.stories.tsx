@@ -81,5 +81,7 @@ export const FileItemReadOnly = Template.bind({});
 
 FileItemReadOnly.args = {
   name: "test.txt",
-  status: "readonly"
+  status: "completed",
+  downloadFileLink: "https://www.test.com/download",
+  readOnlyView: true
 };

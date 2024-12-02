@@ -48,6 +48,7 @@
   }
 
   @include mixins.outlineStates();
+
   div[data-readonlyview="true"] {
     min-height: 4rem;
     border: 1px solid var(--color-blue-grey100);
@@ -58,9 +59,8 @@
     font-size: var(--form-control-font-size);
     position: relative;
 
-    & ~ span.disabled {
-      background-color: transparent;
-      border: 1px solid var(--color-blue-grey100);
+    & ~ span.outline {
+      display: none;
     }
   }
 }

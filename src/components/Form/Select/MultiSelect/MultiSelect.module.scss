@@ -257,28 +257,36 @@ $listItemHeight: 2.5rem;
 }
 
 [data-readonlyview="true"] {
-  & .disabled {
-    &.custom-select {
-      color: var(--color-blue-grey900);
-      border-color: var(--color-blue-grey100);
-      background-color: var(--color-white);
-    }
-
-    & .disabled {
-      background-color: var(--color-white);
-      color: var(--color-blue-grey900);
-      border-color: var(--color-blue-grey100);
-    }
+  & .custom-select {
+    color: var(--color-blue-grey900);
+    border-color: var(--color-blue-grey100);
+    background-color: var(--color-white);
 
     &.error,
     &.success {
-      & .status {
-        visibility: visible;
-      }
+      border-color: var(--read-only-border-color);
     }
 
-    & .status {
+    button {
+      pointer-events: none;
+    }
+  }
+
+  & .status {
+    .chevron-icon {
       visibility: hidden;
     }
+  }
+
+  &:hover:not(.disabled):not(.expanded):not(.error) {
+    .custom-select:not(:focus) {
+      color: var(--color-blue-grey900);
+      border-color: var(--color-blue-grey100);
+      background-color: var(--color-white);
+    }
+  }
+
+  .list-wrapper {
+    visibility: hidden;
   }
 }

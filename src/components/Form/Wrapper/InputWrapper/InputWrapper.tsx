@@ -64,7 +64,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   inputProps?.wrapperProps?.className &&
     inputWrapperClasses.push(inputProps?.wrapperProps?.className);
   disabled && inputWrapperClasses.push(classes["disabled"]);
-
+  const readValue = rest["data-readonlyview"] as boolean;
   return (
     <Wrapper
       {...rest}
@@ -89,6 +89,7 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         {...inputProps}
         prefix={prefix}
         suffix={suffix}
+        readOnlyView={readValue}
         wrapperProps={{
           className: inputWrapperClasses.join(" ")
         }}

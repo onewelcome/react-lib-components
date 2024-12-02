@@ -94,6 +94,32 @@
   [data-icon-status="error"] {
     color: var(--error);
   }
+
+  &[data-readonlyview="true"] {
+    color: var(--color-blue-grey900);
+
+    & .Input-module {
+      border-color: var(--read-only-border-color);
+    }
+
+    & span.outline {
+      color: var(--color-blue-grey900);
+      border-color: var(--read-only-border-color);
+      background-color: var(--color-white);
+
+      &.focus {
+        border-color: var(--read-only-border-color);
+      }
+    }
+
+    &:hover {
+      & .outline {
+        color: var(--color-blue-grey900);
+        background-color: var(--color-white);
+        border-color: var(--read-only-border-color);
+      }
+    }
+  }
 }
 
 .input {
@@ -115,23 +141,6 @@
   &:disabled {
     cursor: not-allowed;
     color: var(--greyed-out);
-  }
-
-  &[data-readonlyview="true"] {
-    color: var(--color-blue-grey900);
-
-    & .Input-module {
-      border-color: var(--color-blue-grey100);
-    }
-
-    & ~ span {
-      //For Raw Input
-      &.disabled {
-        color: var(--color-blue-grey900);
-        border-color: var(--color-blue-grey100);
-        background-color: var(--color-white);
-      }
-    }
   }
 
   &.shrink-width-for-date-icon {

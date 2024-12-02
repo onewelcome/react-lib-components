@@ -58,6 +58,7 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
       return (
         <div
           data-readonlyview={true}
+          tabIndex={0}
           className={`${error ? "error" : ""} ${success ? "success" : ""}`}
         >
           {value}

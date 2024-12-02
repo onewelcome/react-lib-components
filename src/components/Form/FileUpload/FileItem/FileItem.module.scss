@@ -186,4 +186,20 @@
   .file-subtitle {
     margin-left: 0;
   }
+
+  &[data-readonlyview="true"] {
+    & .file-list-container {
+      & p {
+        & span {
+          &:before {
+            color: var(--font-family);
+          }
+        }
+      }
+
+      & button {
+        visibility: hidden;
+      }
+    }
+  }
 }
