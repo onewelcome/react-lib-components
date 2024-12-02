@@ -161,7 +161,8 @@ describe("useMutiSelect", () => {
     const { result } = renderHook(() =>
       useMultiSelect({
         allOptions,
-        pickedOptions
+        pickedOptions,
+        setPickedOptions: _ => {}
       })
     );
 

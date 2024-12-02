@@ -30,7 +30,7 @@ Parameters are given in form of an object with following properties:
 - `pickedOptions` is a string array of the currently picked options.
   - _(mandatory)_
 - `setPickedOptions` is a `set` function for your picked options. It gets called when the user picks or unpicks an option.
-  - _(optional)_
+  - _(mandatory)_
 - `onAddNew` gets called when the user adds a new option (for scenarios #2 and #3) - the hook takes care of deduplication and trimming the user value from unwanted extra spaces. However, you don't have to use this to update your option arrays, the hook takes care of it itself.
   - _(optional)_
 - `setAllOptions` is a `set` function for your array of all options. The array of all options can be changed when the user adds a new option. If `initialOptions` is specified, setAllOptions is called also when the user deletes an option they previously added (an option which is in `allOptions` but is not in `initialOptions`).

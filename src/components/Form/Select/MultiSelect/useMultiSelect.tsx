@@ -22,7 +22,7 @@ export interface UseMultiSelectArgs {
   allOptions?: string[];
   setAllOptions?: (options: string[]) => void;
   pickedOptions: string[];
-  setPickedOptions?: (options: string[]) => void;
+  setPickedOptions: (options: string[]) => void;
   onAddNew?: (newOption: string) => void;
 }
 
@@ -70,7 +70,7 @@ export const useMultiSelect: UseMultiSelect = ({
         }
       }
     });
-    setPickedOptions?.(newPickedOptions);
+    setPickedOptions(newPickedOptions);
   };
 
   const onAddNewWrapper = (value: string) => {
@@ -85,7 +85,7 @@ export const useMultiSelect: UseMultiSelect = ({
     }
 
     setAllOptions?.([...allOptions, trimmedValue]);
-    setPickedOptions?.([...pickedOptions, trimmedValue]);
+    setPickedOptions([...pickedOptions, trimmedValue]);
 
     onAddNew?.(trimmedValue);
   };
