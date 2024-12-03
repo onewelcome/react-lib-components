@@ -405,10 +405,10 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
-    formControlFontSize: "0.875rem", //FIXME: UCL-395
-    fontSizeDataGrid: "0.875rem", //FIXME: UCL-395
     readOnlyBorderColor: "var(--color-blue-grey100)",
-    readOnlyTextColor: "var(--color-blue-grey900)"
+    readOnlyTextColor: "var(--color-blue-grey900)",
+    formControlFontSize: "0.875rem", //FIXME: UCL-395
+    fontSizeDataGrid: "0.875rem" //FIXME: UCL-395
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */
