@@ -264,17 +264,22 @@ function prepareOptionSelection(
   const selectElement = document.createElement("select");
   options.forEach(optionValue => {
     const optionElement = document.createElement("option");
-    optionElement.value = optionValue;
-    const selected = shouldBeSelected(optionValue);
 
-    // need to override default behavior of selected property which clears out other selections
-    Object.defineProperty(optionElement, "selected", { value: selected, writable: true });
+    optionElement.value = optionValue;
+    forceOptionSelectedPropertyConstantValue(optionElement, shouldBeSelected(optionValue));
 
     selectElement.options.add(optionElement);
   });
 
   const event = {
-    currentTarget: { options: selectElement.options }
-  } as unknown as React.FormEvent<HTMLSelectElement>;
+    target: { options: selectElement.options }
+  } as unknown as React.ChangeEvent<HTMLSelectElement>;
   return { event };
+}
+
+function forceOptionSelectedPropertyConstantValue(
+  optionElement: HTMLOptionElement,
+  selected: boolean
+) {
+  Object.defineProperty(optionElement, "selected", { value: selected, writable: true });
 }
