@@ -80,6 +80,7 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
           setFocus(false);
           onBlur?.(event);
         }}
+        value={value}
       />
     );
   };

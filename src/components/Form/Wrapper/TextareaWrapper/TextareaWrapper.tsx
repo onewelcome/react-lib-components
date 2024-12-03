@@ -72,7 +72,7 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
 
   const icon = useDetermineStatusIcon({ success, error });
 
-  const getChildren = () => {
+  const renderChildren = () => {
     if (rest["data-readonlyview"]) {
       return (
         <div
@@ -142,7 +142,7 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
       error={error}
       errorId={errorId}
     >
-      {getChildren()}
+      {renderChildren()}
     </Wrapper>
   );
 };
