@@ -302,7 +302,8 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           opacity: opacity,
           maxHeight: optionsListMaxHeight.wrapper,
           pointerEvents: expanded ? "auto" : "none",
-          bottom: listPosition === Position.Above ? "0px" : "initial"
+          top: listPosition === Position.Below ? "4px" : "initial",
+          bottom: listPosition === Position.Above ? "4px" : "initial"
         }}
       >
         <ul
