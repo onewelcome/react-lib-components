@@ -20,6 +20,7 @@ import classes from "./DataGridToolbar.module.scss";
 import { DataGridColumnMetadata, Filter, FiltersTranslations } from "./DataGridFilters.interfaces";
 import { Typography } from "../../Typography/Typography";
 import { useFiltersReducer } from "./useFiltersReducer";
+import { DataGridDateFilter } from "./DataGridDateFilter";
 
 export interface DataGridToolbarProps {
   columnsMetadata: DataGridColumnMetadata[];
@@ -92,6 +93,7 @@ export const DataGridToolbar = ({
             </Typography>
           </button>
         )}
+        <DataGridDateFilter />
       </div>
     </Fragment>
   );

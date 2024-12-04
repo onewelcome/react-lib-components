@@ -42,7 +42,7 @@ export type FiltersState = {
   filters: Filter[];
 };
 
-export type FilterEditorMode = "ADD" | "EDIT";
+export type FilterEditorMode = "ADD" | "EDIT" | "ADD_DATE" | "EDIT_DATE";
 
 export enum DefaultOperators {
   is = "is",
