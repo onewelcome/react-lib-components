@@ -32,7 +32,7 @@ export const useSelectPositionList = ({
     list: undefined
   });
   const [opacity, setOpacity] = useState(0); // We set opacity because otherwise if we calculate the max height you see the list full height for a split second and then it shortens.
-  const [listPosition, setListPosition] = useState<Partial<Position>>({});
+  const [listPosition, setListPosition] = useState<Position>(Position.Below);
 
   useEffect(() => {
     rePositionList();
@@ -52,11 +52,11 @@ export const useSelectPositionList = ({
       window.innerHeight - containerReference.current.getBoundingClientRect().top;
 
     // Set position as if there's more space on the bottom
-    let position: Position = { top: "2.75rem", bottom: "initial" };
+    let position = Position.Below;
 
     // Set the position of the select
     if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
-      position = { top: "initial", bottom: "2.75rem" };
+      position = Position.Above;
     }
 
     setListPosition(position);
@@ -72,7 +72,7 @@ export const useSelectPositionList = ({
       ? addBtnRef.current.getBoundingClientRect().height +
         parseInt(getComputedStyle(addBtnRef.current).marginBottom)
       : 0;
-    const transformOrigin = position.top !== "initial" ? "top" : "bottom";
+    const transformOrigin = position === Position.Below ? "top" : "bottom";
 
     if (!containerReference.current) {
       console.error(

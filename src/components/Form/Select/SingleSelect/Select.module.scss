@@ -88,6 +88,10 @@ $listItemHeight: 2.5rem;
     }
   }
 
+  .list-wrapper-container {
+    position: relative;
+  }
+
   .list-wrapper {
     border-color: var(--light-grey-border);
     border-style: var(--input-border-style);
@@ -96,7 +100,6 @@ $listItemHeight: 2.5rem;
     box-shadow: 0 8px 10px 0 #01053224;
     position: absolute;
     z-index: variables.$select-z-index;
-    top: 44px;
     left: 0;
     width: 100%;
     overflow: auto;

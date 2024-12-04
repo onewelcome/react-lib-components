@@ -44,57 +44,118 @@ The `MultiSelect` component supports keyboard navigation and was prepared to spe
 
 # Examples
 
-An example of how a `MultiSelect` component can be built using state looks as follows:
+An example of how a `MultiSelect` component can be built using `useMultiSelect`:
 
 ```jsx
 const ExampleComponent = () => {
-  const [pickedOptions, setPickedOptions] = useState<string[]>(["option1"]);
-  const [hasError, setHasError] = useState(false);
+  const [allOptions, setAllOptions] = useState<string[]>([
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4"
+  ]);
+  const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
 
-  const handleOptionChange = (options: HTMLOptionsCollection, obsoletePickedOptions: string[]) => {
-    let newPickedOptions = [...obsoletePickedOptions];
-    Array.from(options).forEach(option => {
-      const selected = option.selected;
-      const exists = newPickedOptions.includes(option.value);
-
-      const shouldAdd = !exists && selected;
-      const shouldRemove = exists && !selected;
-
-      if (shouldAdd) {
-        newPickedOptions.push(option.value);
-      } else if (shouldRemove) {
-        newPickedOptions = newPickedOptions.filter(value => value !== option.value);
-      }
-    });
-    return newPickedOptions;
-  };
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
 
   return (
     <MultiSelect
-      name="Example select element"
       value={pickedOptions}
-      onChange={e => {
-        setPickedOptions(options => handleOptionChange(e.target.options, options));
-      }}
-      error={hasError}
+      onChange={handleOptionChange}
+      search={{ enabled: false }}
     >
-      <MultiOption value="option1" fixed>Option 1</MultiOption>
-      <MultiOption value="option2">Option 2</MultiOption>
-      <MultiOption value="option3">Option 3</MultiOption>
-      <MultiOption value="option4">Option 4</MultiOption>
-      <MultiOption value="option5">Option 5</MultiOption>
+      {optionElements}
     </MultiSelect>
   );
 };
 ```
 
-The `onChange` method: if we click an `MultiOption` we receive the `event` object as a parameter in our function, which has `target` prop, which has a `options` prop. This `options` is an array contains all selected options from which you can filter out all selected values. You can see this if you go to [the Canvas tab](/story/components-feedback-tag--enabled-tag) and then click the `Actions` tab next to `Controls`. If you do not see this, press the `a` key on your keyboard. Then while on the `Actions` tab, select an option from the `Select` component in the `Canvas` and you'll see that the `onChange` function was fired. The very first object (index `0`) is the `event` object we send you. The second object we give you is the `React instance` of the `Option` component.
+<Canvas of={MultiSelectStories.MultiSelectDefault} />
 
-See below an example of a `MultiSelect` component.
+A code example of `MultiSelectComponent` with the add new button and search enabled:
 
-<Canvas>
-  <Story of={MultiSelectStories.MultiSelect} />
-</Canvas>
+```jsx
+const ExampleComponent = () => {
+  const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
+
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
+    initialOptions,
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <MultiSelect
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      addNew={{ label: "Create new", onAddNew, btnProps: { title: "Add new select option" } }}
+      search={{
+        enabled: true,
+        searchPlaceholder: "Search or add new option (Enter)"
+      }}
+    >
+      {optionElements}
+    </MultiSelect>
+  );
+};
+```
+
+<Canvas of={MultiSelectStories.MultiSelectWithAddNewAndSearch} />
+
+A code example of `MultiSelectComponent` used as an editable list
+
+```jsx
+const ExampleComponent = () => {
+  const items = ["Item 1", "Item 2", "Item 3"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>(items);
+
+  const { handleOptionChange, onAddNew } = useMultiSelect({
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <MultiSelect
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      addNew={{
+        label: "Create new",
+        onAddNew,
+        btnProps: { title: "Add new list item" }
+      }}
+      search={{
+        enabled: true,
+        searchPlaceholder: "Add new list item (Enter)"
+      }}
+    >
+      {pickedOptions.map(option => (
+        <MultiOption key={option} value={option}>
+          {option}
+        </MultiOption>
+      ))}
+    </MultiSelect>
+  );
+}
+```
+
+<Canvas of={MultiSelectStories.MultiSelectAsEditableList} />
+
+# Notes
+
+## `onChange` property of `MultiSelectComponent`
+
+if we click an `MultiOption` we receive the `event` object as a parameter in our function, which has `target` prop, which has a `options` prop. This `options` is an array contains all selected options from which you can filter out all selected values. You can see this if you go to [the Canvas tab](/story/components-feedback-tag--enabled-tag) and then click the `Actions` tab next to `Controls`. If you do not see this, press the `a` key on your keyboard. Then while on the `Actions` tab, select an option from the `Select` component in the `Canvas` and you'll see that the `onChange` function was fired. The very first object (index `0`) is the `event` object we send you. The second object we give you is the `React instance` of the `Option` component.
+
+This option should be preferrably handled automatically using handler function returned by `useMultiSelect`.
 
 # Props
 

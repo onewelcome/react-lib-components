@@ -30,7 +30,7 @@ import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon
 import readyclasses from "../../../../readyclasses.module.scss";
 import { escapeRegExp, filterProps, generateID } from "../../../../util/helper";
 import { Icon, Icons } from "../../../Icon/Icon";
-import { MultiSelectProps } from "../Select.interfaces";
+import { MultiSelectProps, Position } from "../Select.interfaces";
 import { useAddNewBtn } from "../useAddNewBtn";
 import { useSelectPositionList } from "../useSelectPositionList";
 import { SelectButton } from "./SelectButton";
@@ -274,7 +274,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
     () => {
       setExpanded(false);
-      setListPosition({ top: 0, bottom: "initial" });
+      setListPosition(Position.Below);
       setOpacity(0);
     },
     expanded
@@ -291,6 +291,34 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     setExpanded(expanded => !expanded);
     setShouldClick(false);
   };
+
+  const optionsElement = (
+    <div className={`list-wrapper-container ${classes["list-wrapper-container"]}`}>
+      <div
+        ref={optionListReference}
+        className={`list-wrapper ${classes["list-wrapper"]}`}
+        style={{
+          display: expanded ? "block" : "none",
+          opacity: opacity,
+          maxHeight: optionsListMaxHeight.wrapper,
+          pointerEvents: expanded ? "auto" : "none",
+          top: listPosition === Position.Below ? "4px" : "initial",
+          bottom: listPosition === Position.Above ? "4px" : "initial"
+        }}
+      >
+        <ul
+          id={getListboxId(multiSelectId.current)}
+          className={addNewBtnOptionsContainerClassName}
+          role="listbox"
+          aria-multiselectable="true"
+          style={{ maxHeight: optionsListMaxHeight.list }}
+        >
+          {renderOptions()}
+        </ul>
+        {renderAddNew()}
+      </div>
+    </div>
+  );
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
@@ -317,6 +345,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
         onKeyDown={onArrowNavigation}
         className={`custom-select ${classes.select} ${additionalClasses.join(" ")}`}
       >
+        {listPosition === Position.Above ? optionsElement : undefined}
         <div
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
           style={{ display: "flex" }}
@@ -350,28 +379,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
           </div>
           <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </div>
-        <div
-          ref={optionListReference}
-          className={`list-wrapper ${classes["list-wrapper"]}`}
-          style={{
-            display: expanded ? "block" : "none",
-            opacity: opacity,
-            maxHeight: optionsListMaxHeight.wrapper,
-            pointerEvents: expanded ? "auto" : "none",
-            ...listPosition
-          }}
-        >
-          <ul
-            id={getListboxId(multiSelectId.current)}
-            className={addNewBtnOptionsContainerClassName}
-            role="listbox"
-            aria-multiselectable="true"
-            style={{ maxHeight: optionsListMaxHeight.list }}
-          >
-            {renderOptions()}
-          </ul>
-          {renderAddNew()}
-        </div>
+        {listPosition === Position.Below ? optionsElement : undefined}
       </div>
     </Fragment>
   );

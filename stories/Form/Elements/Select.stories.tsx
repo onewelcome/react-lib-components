@@ -98,7 +98,10 @@ export const SelectWithAddNewAndSearch = Template.bind({});
 
 SelectWithAddNewAndSearch.args = {
   name: "Example select",
-  addNew: { label: "Create new", onAddNew: () => alert("YO!") },
+  addNew: {
+    label: "Create new",
+    onAddNew: newOption => alert(`Triggered onAddNew("${newOption}")`)
+  },
   children: generateOptions(11)
 };
 
@@ -116,7 +119,10 @@ export const SelectWithAddNew = Template.bind({});
 
 SelectWithAddNew.args = {
   name: "Example select",
-  addNew: { label: "Create new", onAddNew: () => alert("YO!") },
+  addNew: {
+    label: "Create new",
+    onAddNew: newOption => alert(`Triggered onAddNew("${newOption}")`)
+  },
   children: generateOptions(3)
 };
 

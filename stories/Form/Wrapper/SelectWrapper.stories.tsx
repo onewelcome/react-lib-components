@@ -59,6 +59,7 @@ export default meta;
 
 const Template: StoryFn<Props> = args => {
   const [pickedOption, setPickedOption] = useState<string>("option1");
+
   return (
     <SelectWrapperComponent
       {...args}
