@@ -377,8 +377,15 @@
   content: "\e950";
   @include fontProperties();
 }
-
 .icon-sidesheet-handle:before {
   content: "\e951";
+  @include fontProperties();
+}
+.icon-pending-circle:before {
+  content: "\e952";
+  @include fontProperties();
+}
+.icon-minus-circle:before {
+  content: "\e953";
   @include fontProperties();
 }
