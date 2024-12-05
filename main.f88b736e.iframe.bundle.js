@@ -1711,6 +1711,21 @@ var map = {
 		3797,
 		6436
 	],
+	"./Spinner/Spinner.mdx": [
+		"./stories/Spinner/Spinner.mdx",
+		3797,
+		4228
+	],
+	"./Spinner/Spinner.stories": [
+		"./stories/Spinner/Spinner.stories.tsx",
+		3797,
+		4228
+	],
+	"./Spinner/Spinner.stories.tsx": [
+		"./stories/Spinner/Spinner.stories.tsx",
+		3797,
+		4228
+	],
 	"./Stepper/Stepper.mdx": [
 		"./stories/Stepper/Stepper.mdx",
 		3797,

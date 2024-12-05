@@ -469,7 +469,7 @@ function _extends() {
  */
 
 
-const Spinner = props => /*#__PURE__*/react.createElement("svg", _extends({}, props, {
+const ButtonSpinner = props => /*#__PURE__*/react.createElement("svg", _extends({}, props, {
   width: "24",
   height: "24",
   viewBox: "0 0 24 24",
@@ -481,13 +481,13 @@ const Spinner = props => /*#__PURE__*/react.createElement("svg", _extends({}, pr
 }));
 try {
     // @ts-ignore
-    Spinner.displayName = "Spinner";
+    ButtonSpinner.displayName = "ButtonSpinner";
     // @ts-ignore
-    Spinner.__docgenInfo = { "description": "", "displayName": "Spinner", "props": {} };
+    ButtonSpinner.__docgenInfo = { "description": "", "displayName": "ButtonSpinner", "props": {} };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/components/Button/Spinner.tsx#Spinner"] = { docgenInfo: Spinner.__docgenInfo, name: "Spinner", path: "src/components/Button/Spinner.tsx#Spinner" };
+        STORYBOOK_REACT_CLASSES["src/components/Button/Spinner.tsx#ButtonSpinner"] = { docgenInfo: ButtonSpinner.__docgenInfo, name: "ButtonSpinner", path: "src/components/Button/Spinner.tsx#ButtonSpinner" };
 }
 catch (__react_docgen_typescript_loader_error) { }
 ;// CONCATENATED MODULE: ./src/components/Button/BaseButton.tsx
@@ -538,7 +538,7 @@ const BaseButtonComponent = (_ref, ref) => {
     className: "".concat(Button_BaseButton_module.button, " ").concat(loading ? Button_BaseButton_module.loading : "", " ").concat(className ? className : "")
   }), loading ? /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
     className: Button_BaseButton_module["content-hidden"]
-  }, children), /*#__PURE__*/react.createElement(Spinner, {
+  }, children), /*#__PURE__*/react.createElement(ButtonSpinner, {
     className: Button_BaseButton_module["spinner"]
   })) : children);
 };

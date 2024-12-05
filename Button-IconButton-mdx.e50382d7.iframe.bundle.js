@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[9660],{
+(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[2653],{
 
 /***/ "./node_modules/@mdx-js/react/lib/index.js":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -97,6 +97,163 @@ function MDXProvider(properties) {
 
 /***/ }),
 
+/***/ "./stories/Button/IconButton.mdx":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MDXContent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _home_circleci_project_node_modules_storybook_addon_docs_dist_shims_mdx_react_shim_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./node_modules/@mdx-js/react/lib/index.js");
+/* harmony import */ var _storybook_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("./node_modules/@storybook/blocks/dist/index.mjs");
+/* harmony import */ var _IconButton_stories_tsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("./stories/Button/IconButton.stories.tsx");
+
+
+
+
+
+
+
+function _createMdxContent(props) {
+  const _components = {
+    a: "a",
+    code: "code",
+    h1: "h1",
+    p: "p",
+    pre: "pre",
+    ...(0,_home_circleci_project_node_modules_storybook_addon_docs_dist_shims_mdx_react_shim_mjs__WEBPACK_IMPORTED_MODULE_2__/* .useMDXComponents */ .R)(),
+    ...props.components
+  };
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+    children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Meta */ .W8, {
+      of: _IconButton_stories_tsx__WEBPACK_IMPORTED_MODULE_4__
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Title */ .hE, {}), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Subtitle */ .Pd, {}), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
+      children: ["The ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "IconButton"
+      }), " is used to display a button with only an icon, no visible label. However, there is a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "title"
+      }), " prop that is mandatory to fill in for accessibility. This way screenreaders know what the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "IconButton"
+      }), " is for."]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
+      children: ["An example reason of using an ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "IconButton"
+      }), " instead of a regular ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "Button"
+      }), " component is when combining it with a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "ContextMenu"
+      }), " component. For this, you can see the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.a, {
+        href: "/story/stories-ui-tiles--tiles",
+        children: "Tiles component"
+      }), ". The ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "IconButton"
+      }), " is used in the top right of every tile\nin order to display a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "ContextMenu"
+      }), "."]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h1, {
+      id: "examples",
+      children: "Examples"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.pre, {
+      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        className: "language-jsx",
+        children: "<IconButton title=\"Open calendar\" color=\"primary\">\n  <Icon icon={Icons.Calendar} />\n</IconButton>\n"
+      })
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Canvas */ .Hl, {
+      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Story */ .gG, {
+        of: _IconButton_stories_tsx__WEBPACK_IMPORTED_MODULE_4__.IconButton
+      })
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h1, {
+      id: "props",
+      children: "Props"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .ArgTypes */ .ov, {})]
+  });
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = {
+    ...(0,_home_circleci_project_node_modules_storybook_addon_docs_dist_shims_mdx_react_shim_mjs__WEBPACK_IMPORTED_MODULE_2__/* .useMDXComponents */ .R)(),
+    ...props.components
+  };
+  return MDXLayout ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(MDXLayout, {
+    ...props,
+    children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_createMdxContent, {
+      ...props
+    })
+  }) : _createMdxContent(props);
+}
+
+
+/***/ }),
+
+/***/ "./stories/Button/IconButton.stories.tsx":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IconButton: () => (/* binding */ IconButton),
+/* harmony export */   __namedExportsOrder: () => (/* binding */ __namedExportsOrder),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
+/* harmony import */ var _src_components_Button_IconButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./src/components/Button/IconButton.tsx");
+/* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("./src/components/Icon/Icon.tsx");
+/* harmony import */ var _IconButton_mdx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./stories/Button/IconButton.mdx");
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+
+
+const meta = {
+  title: "components/Inputs/IconButton",
+  component: _src_components_Button_IconButton__WEBPACK_IMPORTED_MODULE_1__/* .IconButton */ .K,
+  parameters: {
+    docs: {
+      page: _IconButton_mdx__WEBPACK_IMPORTED_MODULE_2__["default"]
+    }
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (meta);
+const Template = args => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_components_Button_IconButton__WEBPACK_IMPORTED_MODULE_1__/* .IconButton */ .K, args, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src__WEBPACK_IMPORTED_MODULE_3__/* .Icon */ .I, {
+  icon: _src__WEBPACK_IMPORTED_MODULE_3__/* .Icons */ .F.Calendar
+}));
+const IconButton = Template.bind({});
+IconButton.args = {
+  color: "primary",
+  variant: "text",
+  iconSize: "m",
+  type: "button",
+  title: "components/Calendar"
+};
+IconButton.storyName = "IconButton";
+IconButton.parameters = {
+  ...IconButton.parameters,
+  docs: {
+    ...IconButton.parameters?.docs,
+    source: {
+      originalSource: "args => <IconButtonComponent {...args}>\n    <Icon icon={Icons.Calendar} />\n  </IconButtonComponent>",
+      ...IconButton.parameters?.docs?.source
+    }
+  }
+};;const __namedExportsOrder = ["IconButton"];
+
+/***/ }),
+
 /***/ "./src/components/Button/BaseButton.tsx":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -182,7 +339,7 @@ function _extends() {
  */
 
 
-const Spinner = props => /*#__PURE__*/react.createElement("svg", _extends({}, props, {
+const ButtonSpinner = props => /*#__PURE__*/react.createElement("svg", _extends({}, props, {
   width: "24",
   height: "24",
   viewBox: "0 0 24 24",
@@ -194,13 +351,13 @@ const Spinner = props => /*#__PURE__*/react.createElement("svg", _extends({}, pr
 }));
 try {
     // @ts-ignore
-    Spinner.displayName = "Spinner";
+    ButtonSpinner.displayName = "ButtonSpinner";
     // @ts-ignore
-    Spinner.__docgenInfo = { "description": "", "displayName": "Spinner", "props": {} };
+    ButtonSpinner.__docgenInfo = { "description": "", "displayName": "ButtonSpinner", "props": {} };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/components/Button/Spinner.tsx#Spinner"] = { docgenInfo: Spinner.__docgenInfo, name: "Spinner", path: "src/components/Button/Spinner.tsx#Spinner" };
+        STORYBOOK_REACT_CLASSES["src/components/Button/Spinner.tsx#ButtonSpinner"] = { docgenInfo: ButtonSpinner.__docgenInfo, name: "ButtonSpinner", path: "src/components/Button/Spinner.tsx#ButtonSpinner" };
 }
 catch (__react_docgen_typescript_loader_error) { }
 ;// CONCATENATED MODULE: ./src/components/Button/BaseButton.tsx
@@ -251,7 +408,7 @@ const BaseButtonComponent = (_ref, ref) => {
     className: "".concat(Button_BaseButton_module.button, " ").concat(loading ? Button_BaseButton_module.loading : "", " ").concat(className ? className : "")
   }), loading ? /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
     className: Button_BaseButton_module["content-hidden"]
-  }, children), /*#__PURE__*/react.createElement(Spinner, {
+  }, children), /*#__PURE__*/react.createElement(ButtonSpinner, {
     className: Button_BaseButton_module["spinner"]
   })) : children);
 };
@@ -265,429 +422,6 @@ try {
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
         STORYBOOK_REACT_CLASSES["src/components/Button/BaseButton.tsx#BaseButton"] = { docgenInfo: BaseButton.__docgenInfo, name: "BaseButton", path: "src/components/Button/BaseButton.tsx#BaseButton" };
-}
-catch (__react_docgen_typescript_loader_error) { }
-
-/***/ }),
-
-/***/ "./src/components/Tiles/Tile.tsx":
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  F: () => (/* binding */ Tile)
-});
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__("./node_modules/react/index.js");
-// EXTERNAL MODULE: ./src/components/Icon/Icon.tsx + 1 modules
-var Icon = __webpack_require__("./src/components/Icon/Icon.tsx");
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__("./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
-var styleDomAPI = __webpack_require__("./node_modules/style-loader/dist/runtime/styleDomAPI.js");
-var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
-var insertBySelector = __webpack_require__("./node_modules/style-loader/dist/runtime/insertBySelector.js");
-var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-var setAttributesWithoutAttributes = __webpack_require__("./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
-var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
-var insertStyleElement = __webpack_require__("./node_modules/style-loader/dist/runtime/insertStyleElement.js");
-var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
-var styleTagTransform = __webpack_require__("./node_modules/style-loader/dist/runtime/styleTagTransform.js");
-var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[15].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Tiles/Tile.module.scss
-var Tile_module = __webpack_require__("./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[15].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Tiles/Tile.module.scss");
-;// CONCATENATED MODULE: ./src/components/Tiles/Tile.module.scss
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (styleTagTransform_default());
-options.setAttributes = (setAttributesWithoutAttributes_default());
-options.insert = insertBySelector_default().bind(null, "head");
-options.domAPI = (styleDomAPI_default());
-options.insertStyleElement = (insertStyleElement_default());
-
-var update = injectStylesIntoStyleTag_default()(Tile_module/* default */.A, options);
-
-
-
-
-       /* harmony default export */ const Tiles_Tile_module = (Tile_module/* default */.A && Tile_module/* default */.A.locals ? Tile_module/* default */.A.locals : undefined);
-
-// EXTERNAL MODULE: ./src/readyclasses.module.scss
-var readyclasses_module = __webpack_require__("./src/readyclasses.module.scss");
-// EXTERNAL MODULE: ./src/util/helper.tsx
-var helper = __webpack_require__("./src/util/helper.tsx");
-;// CONCATENATED MODULE: ./src/components/Tiles/Tile.tsx
-function _extends() {
-  return _extends = Object.assign ? Object.assign.bind() : function (n) {
-    for (var e = 1; e < arguments.length; e++) {
-      var t = arguments[e];
-      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
-    }
-    return n;
-  }, _extends.apply(null, arguments);
-}
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-
-
-
-
-
-const TileComponent = (_ref, ref) => {
-  let {
-    title,
-    imageProps,
-    enabled,
-    className,
-    loading,
-    tileAction,
-    ...rest
-  } = _ref;
-  const [tileDescriptionID] = (0,react.useState)((0,helper/* generateID */.ni)(20));
-  if (!title) {
-    throw new Error("Please make sure to pass a title prop to your Tile component.");
-  }
-  const statusMessage = () => {
-    if (enabled) {
-      return "Status: enabled";
-    }
-    return "Status: disabled";
-  };
-  return /*#__PURE__*/react.createElement("article", _extends({}, rest, {
-    tabIndex: 0,
-    "aria-labelledby": tileDescriptionID,
-    ref: ref,
-    className: "".concat(Tiles_Tile_module["tile"], " ").concat(loading ? Tiles_Tile_module["loading"] : "")
-  }), /*#__PURE__*/react.createElement("header", {
-    style: {
-      justifyContent: enabled === undefined ? "flex-end" : "space-between"
-    }
-  }, enabled === true && /*#__PURE__*/react.createElement(Icon/* Icon */.I, {
-    color: "var(--success)",
-    icon: Icon/* Icons */.F.Checkmark,
-    className: "".concat(Tiles_Tile_module["icon"], " ").concat(className !== null && className !== void 0 ? className : "")
-  }), enabled === false && /*#__PURE__*/react.createElement(Icon/* Icon */.I, {
-    color: "var(--greyed-out)",
-    icon: Icon/* Icons */.F.Forbidden,
-    className: "".concat(Tiles_Tile_module["icon"], " ").concat(className !== null && className !== void 0 ? className : "")
-  }), enabled !== undefined && /*#__PURE__*/react.createElement("span", {
-    id: tileDescriptionID,
-    className: readyclasses_module/* default */.A["sr-only"]
-  }, "".concat(title, ". ").concat(statusMessage())), tileAction !== null && tileAction !== void 0 ? tileAction : null), /*#__PURE__*/react.createElement("div", {
-    className: Tiles_Tile_module["content"]
-  }, imageProps && imageProps.src.length > 0 && /*#__PURE__*/react.createElement("figure", {
-    className: Tiles_Tile_module["image"]
-  }, !loading && /*#__PURE__*/react.createElement("img", _extends({}, imageProps, {
-    alt: ""
-  }))), (!imageProps || imageProps.src.length === 0) && /*#__PURE__*/react.createElement(Icon/* Icon */.I, {
-    className: Tiles_Tile_module["placeholder"],
-    icon: Icon/* Icons */.F.Image
-  }), /*#__PURE__*/react.createElement("span", {
-    className: Tiles_Tile_module["title"]
-  }, title)));
-};
-const Tile = /*#__PURE__*/react.forwardRef(TileComponent);
-try {
-    // @ts-ignore
-    Tile.displayName = "Tile";
-    // @ts-ignore
-    Tile.__docgenInfo = { "description": "", "displayName": "Tile", "props": { "title": { "defaultValue": null, "description": "", "name": "title", "required": true, "type": { "name": "string" } }, "loading": { "defaultValue": null, "description": "", "name": "loading", "required": false, "type": { "name": "boolean" } }, "imageProps": { "defaultValue": null, "description": "", "name": "imageProps", "required": false, "type": { "name": "ImageProps" } }, "enabled": { "defaultValue": null, "description": "", "name": "enabled", "required": false, "type": { "name": "boolean" } }, "tileAction": { "defaultValue": null, "description": "", "name": "tileAction", "required": false, "type": { "name": "ReactElement<Props, string | JSXElementConstructor<any>> | ReactElement<Props, string | JSXElementConstructor<any>>" } } } };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/components/Tiles/Tile.tsx#Tile"] = { docgenInfo: Tile.__docgenInfo, name: "Tile", path: "src/components/Tiles/Tile.tsx#Tile" };
-}
-catch (__react_docgen_typescript_loader_error) { }
-
-/***/ }),
-
-/***/ "./src/hooks/useBodyClick.ts":
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   U: () => (/* binding */ useBodyClick)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-
-const useBodyClick = (checkFunction, callbackFunction, dependingStateVariable) => {
-  function bodyClickListener(event) {
-    if (checkFunction(event)) {
-      callbackFunction();
-    }
-  }
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    window.addEventListener("click", bodyClickListener);
-    return () => {
-      window.removeEventListener("click", bodyClickListener);
-    };
-  }, [dependingStateVariable]);
-};
-
-/***/ }),
-
-/***/ "./src/hooks/useGetDomRoot.ts":
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   i: () => (/* binding */ useGetDomRoot)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-
-const useGetDomRoot = (passedDomRoot, relativeElement) => {
-  const [root, setRoot] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(document.body);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (relativeElement !== null && relativeElement !== void 0 && relativeElement.current && !passedDomRoot) {
-      const closestBaseStylingWrapper = relativeElement.current.closest(".basestyling-wrapper");
-      if (closestBaseStylingWrapper) {
-        setRoot(closestBaseStylingWrapper);
-        return;
-      }
-    } else if (passedDomRoot) {
-      setRoot(passedDomRoot);
-      return;
-    }
-  }, [relativeElement]);
-  return {
-    root
-  };
-};
-
-/***/ }),
-
-/***/ "./src/util/helper.tsx":
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Eo: () => (/* binding */ isJsonString),
-/* harmony export */   GK: () => (/* binding */ areArraysDifferent),
-/* harmony export */   J9: () => (/* binding */ filterProps),
-/* harmony export */   Nt: () => (/* binding */ escapeRegExp),
-/* harmony export */   ir: () => (/* binding */ remToPx),
-/* harmony export */   ni: () => (/* binding */ generateID)
-/* harmony export */ });
-/* unused harmony exports debounce, throttle, isEqual, deepMerge */
-/*
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
-const generateID = function () {
-  let length = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 15;
-  let stringToWeaveIn = arguments.length > 1 ? arguments[1] : undefined;
-  /** We will make sure to mesh the generate id and name property together to basically create a unique ID */
-  let hashCharacters = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-  let id = "";
-
-  /** Generate an id of x characters in length */
-  for (let i = 0; i < length && id.length < length; i++) {
-    let stringCharacter = typeof stringToWeaveIn === "string" && (stringToWeaveIn === null || stringToWeaveIn === void 0 ? void 0 : stringToWeaveIn[i]) !== undefined && !/\s/.test(stringToWeaveIn[i]) ? stringToWeaveIn[i] : "";
-    id = id + stringCharacter + hashCharacters[Math.floor(Math.random() * hashCharacters.length)];
-  }
-  return id.slice(0, length);
-};
-const filterProps = function (props, regexPattern) {
-  let returnFiltered = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  if (returnFiltered) {
-    return Object.keys(props).reduce((acc, key) => {
-      if (regexPattern.test(key)) {
-        acc[key] = props[key];
-      }
-      return acc;
-    }, {});
-  } else {
-    return Object.entries(props).filter(_ref => {
-      let [key] = _ref;
-      return !regexPattern.test(key);
-    }).reduce((prevObj, currKeyValPair) => ({
-      ...prevObj,
-      [currKeyValPair[0]]: currKeyValPair[1]
-    }), {});
-  }
-};
-const debounce = (fn, delay) => {
-  let timeout;
-  return function executedFunction() {
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    const later = () => {
-      clearTimeout(timeout);
-      fn(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, delay);
-  };
-};
-const throttle = (fn, delay) => {
-  let lastTime = 0;
-  return function () {
-    let now = Date.now();
-    if (now - lastTime >= delay) {
-      fn();
-      lastTime = now;
-    }
-  };
-};
-const isEqual = (x, y) => {
-  const typesCoincide = x && y && typeof x === "object" && typeof y === "object";
-  return typesCoincide ? Object.keys(x).length === Object.keys(y).length && Object.keys(x).every(key => isEqual(x[key], y[key])) : x === y;
-};
-const areArraysDifferent = (arr1, arr2, key) => {
-  if (arr1.length !== arr2.length) {
-    return true;
-  } else {
-    const firstFilteredArray = arr1.filter(arr1Item => arr2.some(arr2Item => !isEqual(arr1Item[key], arr2Item[key])));
-    const secondFilteredArray = arr2.filter(arr2Item => arr1.some(arr1Item => !isEqual(arr1Item[key], arr2Item[key])));
-    return !!firstFilteredArray.length || !!secondFilteredArray.length;
-  }
-};
-
-/** Source: https://stackoverflow.com/a/42769683/5084110 */
-const remToPx = rem => {
-  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
-};
-const isJsonString = str => {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
-const deepMerge = (obj1, obj2) => {
-  if (!obj2) return obj1;
-  let result = {
-    ...obj1
-  };
-  for (let key in obj2) {
-    if (Object.prototype.hasOwnProperty.call(obj2, key)) {
-      if (typeof obj2[key] === "object" && obj2[key] !== null && Object.prototype.hasOwnProperty.call(obj1, key) && !Array.isArray(obj2[key])) {
-        result[key] = deepMerge(obj1[key], obj2[key]);
-      } else {
-        result[key] = obj2[key];
-      }
-    }
-  }
-  return result;
-};
-const escapeRegExp = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-try {
-    // @ts-ignore
-    filterProps.displayName = "filterProps";
-    // @ts-ignore
-    filterProps.__docgenInfo = { "description": "", "displayName": "filterProps", "props": {} };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/util/helper.tsx#filterProps"] = { docgenInfo: filterProps.__docgenInfo, name: "filterProps", path: "src/util/helper.tsx#filterProps" };
-}
-catch (__react_docgen_typescript_loader_error) { }
-try {
-    // @ts-ignore
-    remToPx.displayName = "remToPx";
-    // @ts-ignore
-    remToPx.__docgenInfo = { "description": "Source: https://stackoverflow.com/a/42769683/5084110", "displayName": "remToPx", "props": {} };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/util/helper.tsx#remToPx"] = { docgenInfo: remToPx.__docgenInfo, name: "remToPx", path: "src/util/helper.tsx#remToPx" };
-}
-catch (__react_docgen_typescript_loader_error) { }
-try {
-    // @ts-ignore
-    isJsonString.displayName = "isJsonString";
-    // @ts-ignore
-    isJsonString.__docgenInfo = { "description": "", "displayName": "isJsonString", "props": {} };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/util/helper.tsx#isJsonString"] = { docgenInfo: isJsonString.__docgenInfo, name: "isJsonString", path: "src/util/helper.tsx#isJsonString" };
-}
-catch (__react_docgen_typescript_loader_error) { }
-try {
-    // @ts-ignore
-    escapeRegExp.displayName = "escapeRegExp";
-    // @ts-ignore
-    escapeRegExp.__docgenInfo = { "description": "", "displayName": "escapeRegExp", "props": {} };
-    // @ts-ignore
-    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
-        // @ts-ignore
-        STORYBOOK_REACT_CLASSES["src/util/helper.tsx#escapeRegExp"] = { docgenInfo: escapeRegExp.__docgenInfo, name: "escapeRegExp", path: "src/util/helper.tsx#escapeRegExp" };
 }
 catch (__react_docgen_typescript_loader_error) { }
 
@@ -761,84 +495,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 	"content-hidden": `BaseButton-module__content-hidden--QNxtO`,
 	"spinner": `BaseButton-module__spinner--sHeyQ`,
 	"spin": `BaseButton-module__spin--KXAHp`
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[15].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/components/Tiles/Tile.module.scss":
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/css-loader/dist/runtime/noSourceMaps.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, `/*!
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- *//*!
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- *//*!
- * Copyright 2022 OneWelcome B.V.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */.Tile-module__sr-only--eiZm4{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}.Tile-module__hidden--R4v7g{display:none}.Tile-module__slide-in--SnQTF{animation:Tile-module__slide-in--SnQTF .5s forwards}@media(prefers-reduced-motion: reduce){.Tile-module__slide-in--SnQTF{animation-duration:.1ms}}.Tile-module__slide-out--Zl8PU{animation:Tile-module__slide-out--Zl8PU .5s forwards}@media(prefers-reduced-motion: reduce){.Tile-module__slide-out--Zl8PU{animation-duration:.1ms}}@keyframes Tile-module__slide-in--SnQTF{0%{transform:translateY(100vh)}100%{transform:translateY(0%)}}@keyframes Tile-module__slide-out--Zl8PU{0%{transform:translateY(0%)}100%{transform:translateY(100vh)}}.Tile-module__tile--RIJTT{border:1px solid var(--light-grey-border);border-radius:8px;box-sizing:border-box;padding:0 0 2rem;background-color:var(--light);font-family:var(--font-family);transition-property:box-shadow;transition-duration:.2s;transition-timing-function:ease-in-out}@media(prefers-reduced-motion: reduce){.Tile-module__tile--RIJTT{transition-duration:.1ms}}.Tile-module__tile--RIJTT:hover{box-shadow:0 3px 6px rgba(0,0,0,.29)}.Tile-module__tile--RIJTT header{display:flex;align-items:center}.Tile-module__tile--RIJTT header .Tile-module__icon--fG2eF{padding:0 1rem}.Tile-module__tile--RIJTT figure{margin:0 0 1rem;height:3rem}.Tile-module__tile--RIJTT figure img{vertical-align:top;height:3rem;width:auto}.Tile-module__tile--RIJTT .Tile-module__placeholder--U4Q4_{font-size:3rem;margin:0 0 1rem;color:var(--greyed-out)}.Tile-module__tile--RIJTT .Tile-module__content--vy6kW{display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;padding:0 1rem}.Tile-module__tile--RIJTT.Tile-module__loading--eCPGW header{display:none}.Tile-module__tile--RIJTT.Tile-module__loading--eCPGW .Tile-module__image--jnqsE{margin-top:2.5rem;border-radius:.5rem;width:3rem;height:3rem;position:relative;overflow:hidden;background-color:var(--skeleton-background-color)}.Tile-module__tile--RIJTT.Tile-module__loading--eCPGW .Tile-module__image--jnqsE::after{position:absolute;top:0;right:0;bottom:0;left:0;transform:translateX(-100%);background-image:linear-gradient(90deg, rgba(var(--skeleton-animation-color-rgb), 0) 0, rgba(var(--skeleton-animation-color-rgb), 0.2) 20%, rgba(var(--skeleton-animation-color-rgb), 0.5) 60%, rgba(var(--skeleton-animation-color-rgb), 0));content:"";animation:Tile-module__shimmer--I94Za 2s infinite}@media(prefers-reduced-motion: reduce){.Tile-module__tile--RIJTT.Tile-module__loading--eCPGW .Tile-module__image--jnqsE::after{animation:none}}@keyframes Tile-module__shimmer--I94Za{100%{transform:translateX(100%)}}.Tile-module__tile--RIJTT.Tile-module__loading--eCPGW .Tile-module__title--RJ7pB{color:rgba(0,0,0,0);display:inline-block;width:70%;border-radius:.5rem;position:relative;overflow:hidden;background-color:var(--skeleton-background-color)}.Tile-module__tile--RIJTT.Tile-module__loading--eCPGW .Tile-module__title--RJ7pB::after{position:absolute;top:0;right:0;bottom:0;left:0;transform:translateX(-100%);background-image:linear-gradient(90deg, rgba(var(--skeleton-animation-color-rgb), 0) 0, rgba(var(--skeleton-animation-color-rgb), 0.2) 20%, rgba(var(--skeleton-animation-color-rgb), 0.5) 60%, rgba(var(--skeleton-animation-color-rgb), 0));content:"";animation:Tile-module__shimmer--I94Za 2s infinite}@media(prefers-reduced-motion: reduce){.Tile-module__tile--RIJTT.Tile-module__loading--eCPGW .Tile-module__title--RJ7pB::after{animation:none}}@keyframes Tile-module__shimmer--I94Za{100%{transform:translateX(100%)}}`, ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {
-	"sr-only": `Tile-module__sr-only--eiZm4`,
-	"hidden": `Tile-module__hidden--R4v7g`,
-	"slide-in": `Tile-module__slide-in--SnQTF`,
-	"slide-out": `Tile-module__slide-out--Zl8PU`,
-	"tile": `Tile-module__tile--RIJTT`,
-	"icon": `Tile-module__icon--fG2eF`,
-	"placeholder": `Tile-module__placeholder--U4Q4_`,
-	"content": `Tile-module__content--vy6kW`,
-	"loading": `Tile-module__loading--eCPGW`,
-	"image": `Tile-module__image--jnqsE`,
-	"shimmer": `Tile-module__shimmer--I94Za`,
-	"title": `Tile-module__title--RJ7pB`
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
