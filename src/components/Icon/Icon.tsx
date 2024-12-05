@@ -101,7 +101,9 @@ export enum Icons {
   ZoomOut = "zoom-out",
   ArrowUp = "arrow-up",
   ExternalLink = "external-link",
-  SideSheetHandle = "sidesheet-handle"
+  SideSheetHandle = "sidesheet-handle",
+  PendingCircle = "pending-circle",
+  MinusCircle = "minus-circle"
 }
 
 type Tag = "span" | "div" | "i";
