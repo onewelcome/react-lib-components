@@ -123,7 +123,7 @@ describe("Success status", () => {
   });
 });
 
-describe("Verify read only view", () => {
+describe("Textarea read only view", () => {
   const userText = "This is random text entered by user in textarea";
   const createTextarea = (params?: Props) => {
     const queries = render(<Textarea data-testid="textarea" value={userText} {...params} />);

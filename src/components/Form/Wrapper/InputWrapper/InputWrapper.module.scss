@@ -74,15 +74,5 @@ input {
     & input {
       color: var(--read-only-text-color);
     }
-
-    & div.disabled {
-      background-color: transparent;
-      color: var(--read-only-text-color);
-
-      span {
-        background-color: transparent;
-        border-color: var(--read-only-border-color);
-      }
-    }
   }
 }

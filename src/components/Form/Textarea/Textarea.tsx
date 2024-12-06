@@ -53,7 +53,7 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
 
   const icon = useDetermineStatusIcon({ success, error });
 
-  const getChildren = () => {
+  const renderTextarea = () => {
     if (rest["data-readonlyview"]) {
       return (
         <div
@@ -87,7 +87,7 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
 
   return (
     <div {...wrapperProps} className={wrapperClasses.join(" ")}>
-      {getChildren()}
+      {renderTextarea()}
       {icon}
       <span className={outlineClasses.join(" ")}></span>
     </div>

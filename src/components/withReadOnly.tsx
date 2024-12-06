@@ -34,11 +34,9 @@ const getConditionalProps = (
 ) => {
   let props = {};
   if (readOnlyView) {
-    if (type !== "text") {
-      props = {
-        style: { ...props, pointerEvents: "none", userSelect: "text" }
-      };
-    }
+    props = {
+      style: { ...props, pointerEvents: "none", userSelect: "text" }
+    };
   }
   if (readOnlyView && helperText) {
     props = { ...props, helperText: "" };

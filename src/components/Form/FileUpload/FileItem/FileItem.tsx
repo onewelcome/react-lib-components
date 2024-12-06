@@ -215,7 +215,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     );
   };
 
-  const restProps = () => {
+  const restPropsWithoutPointerEvents = () => {
     let props = rest;
     delete rest?.style?.pointerEvents;
     return props;
@@ -226,7 +226,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       ref={ref}
       className={classes["file-item-wrapper"]}
       aria-label={`${name}-wrapper`}
-      {...restProps()}
+      {...restPropsWithoutPointerEvents()}
     >
       <div className={classes["file-list-container"]}>
         {status !== ACTION_STATUS.UPLOADING && getUploadedFileInfo()}

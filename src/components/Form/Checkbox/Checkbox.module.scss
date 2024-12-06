@@ -149,9 +149,12 @@
       &.checkmark {
         background-color: var(--color-blue-grey900);
         color: var(--color-white);
-        outline: 1px solid var(--read-only-border-color);
-        outline-offset: -1px;
         border-radius: 2px;
+        &:before {
+          outline: 1px solid var(--read-only-border-color);
+          border-radius: 2px;
+          outline-offset: -1px;
+        }
       }
     }
   }
@@ -173,6 +176,9 @@ input[type="checkbox"] {
         color: var(--color-white);
         border: 1px solid var(--read-only-border-color);
         border-radius: 3px;
+        &:before {
+          color: var(--color-white);
+        }
       }
     }
 
@@ -182,9 +188,12 @@ input[type="checkbox"] {
       &.checkmark {
         background-color: var(--color-blue-grey900);
         color: var(--color-white);
-        outline: 1px solid var(--read-only-border-color);
-        outline-offset: -1px;
-        border-radius: 2px;
+        border: 0;
+        &:before {
+          outline: 1px solid var(--read-only-border-color);
+          outline-offset: -1px;
+          border-radius: 2px;
+        }
       }
     }
 

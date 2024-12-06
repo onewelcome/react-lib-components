@@ -187,6 +187,12 @@ $listItemHeight: 2.5rem;
         }
       }
     }
+    & .list-wrapper {
+      visibility: hidden;
+      & ul {
+        display: none;
+      }
+    }
   }
 }
 
@@ -289,6 +295,14 @@ $listItemHeight: 2.5rem;
       &.error {
         border-color: var(--read-only-border-color);
         color: var(--read-only-text-color);
+      }
+    }
+
+    & .list-wrapper {
+      visibility: hidden;
+
+      & ul {
+        display: none;
       }
     }
   }

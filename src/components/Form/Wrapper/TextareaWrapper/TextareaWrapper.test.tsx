@@ -172,7 +172,7 @@ describe("TextarenaWrapper should be interactive", () => {
   });
 });
 
-describe("Verify read only view", () => {
+describe("TextareaWrapper read only view", () => {
   const userText = "This is random textarea dummy text";
   const createTextareaWrapper = (params?: (defaultParams: Props) => Props) => {
     let parameters: Props = defaultParams;
