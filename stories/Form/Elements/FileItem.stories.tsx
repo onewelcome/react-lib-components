@@ -58,7 +58,7 @@ export const FileItemCompleted = Template.bind({});
 FileItemCompleted.args = {
   name: "test.txt",
   status: "completed",
-  downloadFileLink: "https://www.test.com/download"
+  downloadFileLink: "https://google.com"
 };
 
 export const FileItemError = Template.bind({});
@@ -81,5 +81,7 @@ export const FileItemReadOnly = Template.bind({});
 
 FileItemReadOnly.args = {
   name: "test.txt",
-  status: "readonly"
+  status: "completed",
+  downloadFileLink: "https://google.com",
+  readOnlyView: true
 };

@@ -80,6 +80,58 @@
   & {
     @include transition(all, 0.2s, ease-in-out);
   }
+
+  &[data-readonlyview="true"]:has(.file-list) {
+    .required {
+      &:after {
+        display: none;
+      }
+    }
+
+    ul {
+      li {
+        p {
+          span[data-icon] {
+            &:before {
+              color: var(--color-blue-grey900);
+            }
+          }
+        }
+
+        button {
+          visibility: hidden;
+        }
+      }
+    }
+
+    .upload-button-wrapper {
+      display: none;
+    }
+  }
+
+  &[data-readonlyview="true"]:not(:has(.file-list)) {
+    .upload-button-wrapper {
+      min-height: 4.5rem;
+
+      & .file-select {
+        border: 0;
+
+        & p {
+          color: var(--read-only-text-color);
+        }
+      }
+
+      & .file-upload-btn {
+        display: none;
+      }
+    }
+
+    .required {
+      &:after {
+        display: none;
+      }
+    }
+  }
 }
 
 .upload-button-wrapper {
@@ -88,7 +140,6 @@
 
   &.drag-active {
     .outline {
-      pointer-events: none;
       position: absolute;
       margin: 0;
       padding: 0;
@@ -132,6 +183,11 @@
     color: var(--error);
     display: block;
   }
+}
+
+.file-selector-helper-text {
+  color: var(--greyed-out);
+  display: block;
 }
 
 .file-select {

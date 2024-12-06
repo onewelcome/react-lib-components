@@ -35,6 +35,7 @@ import { useSelectPositionList } from "../useSelectPositionList";
 import { useAddNewBtn } from "../useAddNewBtn";
 import { useSearch } from "./useSearch";
 import { useArrowNavigation } from "./useArrowNavigation";
+import { withReadOnly } from "../../../withReadOnly";
 
 const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {
@@ -54,6 +55,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     onChange,
     addNew,
     search,
+    isReadOnlyView,
     ...rest
   }: SingleSelectProps,
   ref
@@ -245,7 +247,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
         <button
           {...selectButtonProps}
           onClick={() => {
-            setExpanded(!expanded);
+            setExpanded(isReadOnlyView || rest["data-readonlyview"] ? false : !expanded);
           }}
           ref={customSelectButtonRef}
           type="button"
@@ -291,4 +293,4 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     </Fragment>
   );
 };
-export const Select = React.forwardRef(SelectComponent);
+export const Select = withReadOnly(React.forwardRef(SelectComponent));

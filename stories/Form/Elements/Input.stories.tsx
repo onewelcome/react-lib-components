@@ -64,6 +64,9 @@ const meta: Meta = {
     },
     success: {
       control: "boolean"
+    },
+    readOnlyView: {
+      control: "boolean"
     }
   }
 };
@@ -84,4 +87,14 @@ export const Input = Template.bind({});
 Input.args = {
   type: "text",
   name: "input"
+};
+
+export const InputInReadOnlyMode = Template.bind({});
+
+InputInReadOnlyMode.storyName = "Input In Read-only Mode";
+InputInReadOnlyMode.args = {
+  type: "text",
+  name: "input",
+  value: "Example text",
+  readOnlyView: true
 };

@@ -29,6 +29,7 @@ import { Typography } from "../../Typography/Typography";
 import classes from "./FileUpload.module.scss";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
 import { Label } from "../Label/Label";
+import { withReadOnly } from "../../withReadOnly";
 
 type FileUploadType = Omit<InputProps, "onDrop" | "type" | "onChange" | "suffix" | "prefix">;
 export type FileType = Omit<FileConfig, "onRequestedFileAction"> &
@@ -43,6 +44,9 @@ export interface Props extends FileUploadType {
   maxFileSizeInBytes?: number;
   selectButtonText?: string;
   dragAndDropText?: string;
+  /**
+   * @deprecated use the `helperText` prop instead
+   */
   subText?: string;
   onDragOver?: DragEventHandler;
   onDragEnter?: DragEventHandler;
@@ -54,6 +58,8 @@ export interface Props extends FileUploadType {
   isRequired?: boolean;
   invalidDropErrorMessage?: string;
   noMultipleFileDropErrorMessage?: string;
+  readOnlyViewMessage?: string;
+  helperText?: string;
 }
 
 const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
@@ -71,11 +77,12 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onChange,
     dragAndDropText = "Drag and drop or",
     selectButtonText = "Browse file",
+    readOnlyViewMessage = "No file uploaded",
     onDragOver,
     onDragLeave,
     wrapperProps,
     onDrop,
-    subText,
+    subText, // @deprecated
     onRequestedFileAction,
     exceedingMaxSizeErrorText,
     fileList,
@@ -83,6 +90,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     isRequired = true,
     invalidDropErrorMessage = "Invalid file format. Supported formats are: $accept.",
     noMultipleFileDropErrorMessage = "You can upload only a single file.",
+    helperText,
     ...rest
   }: Props,
   ref
@@ -92,12 +100,15 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const [errorMsg, setErrorMsg] = useState("");
   const [inputError, setInputError] = useState(false);
   const icon = useDetermineStatusIcon({ success, error });
+  let helperTextProp: string;
   let dropzoneClassNames = [classes["file-dropzone"]];
   let dropzoneContainerClassNames = [classes["upload-button-wrapper"]];
   let subTextClass = [classes["file-selector-sub-text"]];
+  let helperTextClass = [classes["file-selector-helper-text"]];
   let errorTextClass = [classes["file-selector-sub-text"]];
   dragActive && dropzoneContainerClassNames.push(classes["drag-active"]);
   const hasError = inputError || error || errorMsg;
+  const readOnlyView = rest["data-readonlyview"];
   if (hasError) {
     const errorClass = classes["error"];
     dropzoneClassNames.push(errorClass);
@@ -228,10 +239,16 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     setDragActive(false);
   };
 
+  if (subText) {
+    helperTextProp = subText;
+  } else {
+    helperTextProp = helperText || "";
+  }
+
   return (
     <div className={classes["file-upload-wrapper"]} {...wrapperProps}>
       <div className={classes["dropzone-wrapper"]}>
-        <div className={dropzoneClassNames.join(" ")}>
+        <div className={dropzoneClassNames.join(" ")} data-readonlyview={readOnlyView}>
           <Label ref={labelRef} className={`${labelClasses.join(" ")}`} htmlFor={inputId}>
             {title}
           </Label>
@@ -260,8 +277,12 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             onDrop={e => !disabled && handleOnDrop(e)}
           >
             <div className={classes["file-select"]}>
-              <Typography variant="body" className={"drag-and-drop-text"}>
-                {dragAndDropText}
+              <Typography
+                variant="body"
+                className={"drag-and-drop-text"}
+                tabIndex={readOnlyView ? 0 : -1}
+              >
+                {readOnlyView ? readOnlyViewMessage : dragAndDropText}
               </Typography>
 
               <div className={classes["file-upload-btn"]}>
@@ -293,9 +314,10 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             {errorMsg}
           </Typography>
         )}
-        {subText && (
+        {helperTextProp && (
           <Typography variant={"sub-text"} className={subTextClass.join(" ")}>
-            {subText}
+            {/* @deprecated */}
+            {helperTextProp}
           </Typography>
         )}
       </div>
@@ -303,4 +325,4 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   );
 };
 
-export const FileUpload = React.forwardRef(FileUploadComponent);
+export const FileUpload = withReadOnly(React.forwardRef(FileUploadComponent));
