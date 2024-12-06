@@ -165,7 +165,8 @@ CheckboxStates.decorators = [
   }
 ];
 
-export const CheckboxWithReadOnlyMode = Template.bind({});
+export const CheckboxInReadOnlyMode = Template.bind({});
+CheckboxInReadOnlyMode.storyName = "Checkbox In Read-only Mode";
 
 const readOnlyCheckboxStates = [
   { checked: false, error: false, disabled: false, indeterminate: false },
@@ -173,8 +174,7 @@ const readOnlyCheckboxStates = [
   { checked: false, error: false, disabled: false, indeterminate: false },
   { checked: false, error: false, disabled: false, indeterminate: false }
 ];
-
-CheckboxWithReadOnlyMode.decorators = [
+CheckboxInReadOnlyMode.decorators = [
   () => {
     return (
       <>

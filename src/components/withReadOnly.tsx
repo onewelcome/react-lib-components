@@ -27,29 +27,23 @@ const getDisplayName = <P,>(WrappedComponent: ComponentType<P>) => {
   return WrappedComponent.displayName ?? WrappedComponent.name ?? "Component";
 };
 
-const getConditionalProps = (
-  readOnlyView: boolean,
-  type: string,
-  helperText: string | undefined
-) => {
-  let props = {};
+const getConditionalProps = (readOnlyView: boolean, type: string, helperText?: string) => {
+  const props: Record<string, any> = {};
+
   if (readOnlyView) {
-    props = {
-      style: { ...props, pointerEvents: "none", userSelect: "text" }
-    };
-  }
-  if (readOnlyView && helperText) {
-    props = { ...props, helperText: "" };
+    props.style = { pointerEvents: "none", userSelect: "text" };
+    if (helperText) {
+      props.helperText = "";
+    }
   } else {
-    props = { ...props, helperText: helperText };
-  }
-  if (type) {
-    props = { ...props, type: type };
+    props.helperText = helperText;
   }
 
-  return {
-    ...props
-  };
+  if (type) {
+    props.type = type;
+  }
+
+  return props;
 };
 
 export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P>) => {

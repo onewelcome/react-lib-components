@@ -75,6 +75,7 @@ const MultiSelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Prop
         onChange={onChange}
         placeholder={placeholder}
         className={`${selectProps?.className ?? ""}`}
+        isReadOnlyView={!!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}
       </MultiSelect>

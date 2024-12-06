@@ -75,6 +75,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         onChange={onChange}
         placeholder={placeholder}
         className={`${selectProps?.className ?? ""}`}
+        isReadOnlyView={!!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}
       </Select>

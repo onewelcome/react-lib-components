@@ -63,6 +63,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     onChange,
     addNew,
     search = { enabled: true, renderThreshold: 0, searchPlaceholder: "Search item" },
+    isReadOnlyView,
     ...rest
   }: MultiSelectProps,
   ref
@@ -289,6 +290,9 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   success && additionalClasses.push(classes.success);
 
   const onSelectButtonClick = () => {
+    if (rest["data-readonlyview"] || isReadOnlyView) {
+      return;
+    }
     setExpanded(expanded => !expanded);
     setShouldClick(false);
   };

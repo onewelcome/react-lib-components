@@ -51,9 +51,10 @@ export const Textarea = Template.bind({});
 
 Textarea.args = {};
 
-export const TextareaWithReadOnlyMode = Template.bind({});
+export const TextareaInReadOnlyMode = Template.bind({});
 
-TextareaWithReadOnlyMode.args = {
+TextareaInReadOnlyMode.storyName = "Textarea In Read-only Mode";
+TextareaInReadOnlyMode.args = {
   value: "This is example text for textarea.",
   readOnlyView: true
 };

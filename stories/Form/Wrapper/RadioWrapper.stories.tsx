@@ -96,9 +96,10 @@ RadioWrapperDisabled.args = {
   disabled: true
 };
 
-export const RadioWrapperWithReadOnlyMode = Template.bind({});
+export const RadioWrapperInReadOnlyMode = Template.bind({});
 
-RadioWrapperWithReadOnlyMode.args = {
+RadioWrapperInReadOnlyMode.storyName = "Radio Wrapper In Read-only Mode";
+RadioWrapperInReadOnlyMode.args = {
   ...RadioWrapper.args,
   readOnlyView: true
 };

@@ -80,7 +80,7 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
           aria-describedby={error ? errorId : helperId}
           id={name}
           tabIndex={0}
-          className={`${error ? "error" : ""} ${success ? "success" : ""}`}
+          className={`${error ? classes["error"] : ""} ${success ? classes["success"] : ""}`}
         >
           {icon}
           {value}

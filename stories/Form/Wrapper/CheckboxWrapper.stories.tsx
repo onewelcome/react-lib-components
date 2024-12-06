@@ -255,9 +255,10 @@ NestedCheckboxes.args = {
   helperText: "Helpertext for the group"
 };
 
-export const CheckboxesWithReadOnlyMode = CheckboxesTemplate.bind({});
+export const CheckboxesInReadOnlyMode = CheckboxesTemplate.bind({});
 
-CheckboxesWithReadOnlyMode.args = {
+CheckboxesInReadOnlyMode.storyName = "Checkboxes In Read-only Mode";
+CheckboxesInReadOnlyMode.args = {
   name: "Example checkboxes",
   fieldsetProps: {
     legend: "Example fieldset legend",

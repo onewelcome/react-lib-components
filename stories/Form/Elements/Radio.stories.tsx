@@ -126,14 +126,15 @@ RadioStates.decorators = [
   }
 ];
 
-export const RadioWithReadOnlyMode = Template.bind({});
+export const RadioInReadOnlyMode = Template.bind({});
 
+RadioInReadOnlyMode.storyName = "Radio Component In Read-only Mode";
 const readOnlyRadioStates = [
   { checked: false, error: false, disabled: false },
   { checked: true, error: false, disabled: false }
 ];
 
-RadioWithReadOnlyMode.decorators = [
+RadioInReadOnlyMode.decorators = [
   () => {
     return (
       <>

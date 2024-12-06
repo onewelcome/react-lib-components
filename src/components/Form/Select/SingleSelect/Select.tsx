@@ -55,6 +55,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     onChange,
     addNew,
     search,
+    isReadOnlyView,
     ...rest
   }: SingleSelectProps,
   ref
@@ -246,7 +247,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
         <button
           {...selectButtonProps}
           onClick={() => {
-            setExpanded(!expanded);
+            setExpanded(isReadOnlyView || rest["data-readonlyview"] ? false : !expanded);
           }}
           ref={customSelectButtonRef}
           type="button"

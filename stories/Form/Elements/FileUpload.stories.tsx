@@ -201,9 +201,10 @@ FileUploadComponentWithServerInteraction.parameters = {
   ]
 };
 
-export const FileUploadComponentWithReadOnlyMode = Template.bind({});
+export const FileUploadComponentInReadOnlyMode = Template.bind({});
+FileUploadComponentInReadOnlyMode.storyName = "File Upload Component In Read-only Mode";
 
-FileUploadComponentWithReadOnlyMode.args = {
+FileUploadComponentInReadOnlyMode.args = {
   accept: ".mp4, .jpg, .jpeg",
   multiple: true,
   dragAndDropText: "Drag and drop or",
@@ -218,7 +219,7 @@ FileUploadComponentWithReadOnlyMode.args = {
   readOnlyView: true
 };
 
-FileUploadComponentWithReadOnlyMode.parameters = {
+FileUploadComponentInReadOnlyMode.parameters = {
   mockAddonConfigs: {
     globalMockData: [],
     ignoreQueryParams: true,

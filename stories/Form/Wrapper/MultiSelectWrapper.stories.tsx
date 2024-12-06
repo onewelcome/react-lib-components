@@ -240,8 +240,9 @@ const AddNewTemplate: StoryFn<Props> = args => {
 
 export const MultiSelectAddNewWrapper = AddNewTemplate.bind({});
 
-export const MultiSelectWrapperWithReadOnlyMode = Template.bind({});
+export const MultiSelectWrapperInReadOnlyMode = Template.bind({});
 
-MultiSelectWrapperWithReadOnlyMode.args = {
+MultiSelectWrapperInReadOnlyMode.storyName = "Multi Select Wrapper In Read-only Mode";
+MultiSelectWrapperInReadOnlyMode.args = {
   readOnlyView: true
 };

@@ -89,9 +89,10 @@ Input.args = {
   name: "input"
 };
 
-export const InputWithReadOnlyMode = Template.bind({});
+export const InputInReadOnlyMode = Template.bind({});
 
-InputWithReadOnlyMode.args = {
+InputInReadOnlyMode.storyName = "Input In Read-only Mode";
+InputInReadOnlyMode.args = {
   type: "text",
   name: "input",
   value: "Example text",

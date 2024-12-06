@@ -205,9 +205,10 @@ InputWrapperRequired.args = {
   required: true
 };
 
-export const InputWrapperWithReadOnlyMode = Template.bind({});
+export const InputWrapperInReadOnlyMode = Template.bind({});
 
-InputWrapperWithReadOnlyMode.args = {
+InputWrapperInReadOnlyMode.storyName = "Input Wrapper In Read-only Mode";
+InputWrapperInReadOnlyMode.args = {
   label: "Example label",
   type: "text",
   name: "Example name",

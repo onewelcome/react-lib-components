@@ -28,4 +28,22 @@ describe("withReadOnly", () => {
     const inputElement = getByRole("textbox");
     expect(inputElement).toBeRequired();
   });
+
+  it("should return props with style and empty helperText when readOnlyView is true", () => {
+    const WrappedComponent = withReadOnly(TestComponent);
+    const { getByRole } = render(<WrappedComponent readOnlyView={true} helperText="random text" />);
+    const inputElement = getByRole("textbox");
+
+    expect(inputElement).toHaveStyle("pointer-events: none");
+    expect(inputElement).toHaveStyle("user-select: text");
+    expect(inputElement).toHaveAttribute("helperText", "");
+  });
+
+  it("should return props with component type when type is defined", () => {
+    const WrappedComponent = withReadOnly(TestComponent);
+    const { getByRole } = render(<WrappedComponent readOnlyView={true} type="text" />);
+    const inputElement = getByRole("textbox");
+
+    expect(inputElement).toHaveAttribute("type", "text");
+  });
 });
