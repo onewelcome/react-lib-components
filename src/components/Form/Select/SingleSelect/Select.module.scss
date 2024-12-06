@@ -297,13 +297,5 @@ $listItemHeight: 2.5rem;
         color: var(--read-only-text-color);
       }
     }
-
-    & .list-wrapper {
-      visibility: hidden;
-
-      & ul {
-        display: none;
-      }
-    }
   }
 }

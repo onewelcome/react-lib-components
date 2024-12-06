@@ -137,6 +137,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   };
 
   const customSelectButtonRef = useRef<HTMLButtonElement>(null);
+  const readOnlyView = !!rest["data-readonlyview"] || isReadOnlyView;
   const { onArrowNavigation } = useArrowNavigation({
     expanded,
     setExpanded,
@@ -146,7 +147,8 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     addBtnRef,
     searchInputRef,
     customSelectButtonRef,
-    onClose: resetSearchState
+    onClose: resetSearchState,
+    isReadOnlyView: readOnlyView
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =

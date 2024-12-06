@@ -24,6 +24,7 @@ interface UseArrowNavigationParams {
   searchInputRef: React.RefObject<HTMLInputElement>;
   customSelectButtonRef: React.RefObject<HTMLButtonElement>;
   onClose: () => void;
+  isReadOnlyView?: boolean;
 }
 
 /** @scope .*/
@@ -36,9 +37,13 @@ export const useArrowNavigation = ({
   addBtnRef,
   searchInputRef,
   customSelectButtonRef,
-  onClose
+  onClose,
+  isReadOnlyView = false
 }: UseArrowNavigationParams) => {
   const onArrowNavigation = (event: React.KeyboardEvent) => {
+    if (isReadOnlyView) {
+      return;
+    }
     const codesToPreventDefault = ["ArrowDown", "ArrowUp", "Escape", "End", "Home"];
     const hasAddBtn = !!addBtnRef?.current;
     const childrenCountWithAddButton = childrenCount + (hasAddBtn ? 1 : 0);
