@@ -156,7 +156,9 @@ export const DateTimePicker = ({
               onItemSelect={onSideMenuItemSelect}
             />
           </div>
-          <div className={classes["controls"]}>
+          <div
+            className={`${classes["controls"]} ${toDateError || fromDateError ? classes["has-error"] : ""}`}
+          >
             <div className={classes["controls-panel"]}>
               <DateTimePickerInputSection
                 from={from}
