@@ -51,6 +51,8 @@ export { ProgressBar } from "./components/ProgressBar/ProgressBar";
 export type { Props as ProgressBarProps } from "./components/ProgressBar/ProgressBar";
 export { Skeleton } from "./components/Skeleton/Skeleton";
 export type { Props as SkeletonProps } from "./components/Skeleton/Skeleton";
+export { Spinner } from "./components/Spinner/Spinner";
+export type { SpinnerProps } from "./components/Spinner/Spinner";
 export { Stepper } from "./components/Stepper/Stepper";
 export type { Props as StepperProps } from "./components/Stepper/Stepper";
 export type { Props as StepProps } from "./components/Stepper/Step";

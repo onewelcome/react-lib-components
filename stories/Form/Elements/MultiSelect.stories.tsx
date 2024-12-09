@@ -15,7 +15,7 @@
  */
 
 import React, { useState } from "react";
-import { Meta } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { MultiSelect } from "../../../src/components/Form/Select/MultiSelect/MultiSelect";
 import MultiSelectDocumentation from "./MultiSelect.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
