@@ -55,10 +55,10 @@ export interface SelectProps<V extends string | readonly string[] | undefined>
 export type SingleSelectProps = SelectProps<string>;
 export type MultiSelectProps = SelectProps<string[]>;
 
-export type Position = {
-  top: number | `${number}rem` | "initial";
-  bottom: number | `${number}rem` | "initial";
-};
+export enum Position {
+  Above = "Above",
+  Below = "Below"
+}
 
 export interface UseArrowNavigationParams {
   expanded: boolean;

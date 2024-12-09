@@ -15,11 +15,12 @@
  */
 
 import React, { useEffect, useRef } from "react";
-import { MultiSelect as MultiSelectComponent } from "./MultiSelect";
+import { MultiSelect } from "./MultiSelect";
 import { render } from "@testing-library/react";
 import { MultiOption } from "./MultiOption";
 import userEvent from "@testing-library/user-event";
 import { MultiSelectProps } from "../Select.interfaces";
+import { MockDOMRect } from "../../../../util/unitTestUtils";
 
 const defaultParams: MultiSelectProps = {
   name: "Example select",
@@ -54,7 +55,7 @@ export const createMultiSelect = (
   if (params) {
     parameters = params(defaultParams);
   }
-  const queries = render(<MultiSelectComponent {...parameters} data-testid="multiselect" />);
+  const queries = render(<MultiSelect {...parameters} data-testid="multiselect" />);
   const select = queries.getByTestId("multiselect");
   const button = queries.getByTestId("select-button");
   const list = select.querySelector('ul[role="listbox"]');
@@ -163,7 +164,7 @@ describe("ref should work", () => {
         }
       }, [ref]);
 
-      return <MultiSelectComponent {...defaultParams} data-ref="testing" ref={ref} />;
+      return <MultiSelect {...defaultParams} data-ref="testing" ref={ref} />;
     };
 
     const refCheck = (ref: React.RefObject<HTMLElement>) => {
@@ -239,64 +240,46 @@ describe("List expansion", () => {
   });
 
   it("should expand upwards", async () => {
-    const { select, button, dropdownWrapper } = createMultiSelect();
+    const { select, button } = createMultiSelect();
+
+    const selectTop = 300;
+    const selectHeight = 50;
 
     Object.defineProperty(window, "innerHeight", { value: 500, writable: true });
+    select.getBoundingClientRect = () => new MockDOMRect(50, selectTop, 500, selectHeight);
 
-    select.getBoundingClientRect = () => ({
-      x: 50,
-      y: 50,
-      width: 500,
-      height: 50,
-      top: 250,
-      left: 250,
-      right: 750,
-      bottom: 750,
-      toJSON: () => jest.fn()
-    });
+    await userEvent.click(button);
 
-    if (button) {
-      await userEvent.click(button);
-    }
-
-    expect(dropdownWrapper).toHaveStyle({ bottom: "2.75rem" });
+    const dropdownWrapper = select.querySelector(".list-wrapper");
+    expect(dropdownWrapper).toHaveStyle({ top: "initial" });
+    expect(dropdownWrapper).toHaveStyle({ bottom: "4px" });
+    const dropdownRect = dropdownWrapper!.getBoundingClientRect();
+    expect(dropdownRect.bottom).toBeLessThan(selectTop + selectHeight / 2);
   });
 
   it("should expand downwards with a max height set", async () => {
-    const { select, getByRole, dropdownWrapper, debug } = createMultiSelect();
+    const { select, getByRole, dropdownWrapper: initialDropdownWrapper } = createMultiSelect();
 
-    dropdownWrapper!.getBoundingClientRect = () => ({
-      x: 50,
-      y: 50,
-      width: 500,
-      height: 600,
-      top: 10,
-      left: 250,
-      right: 750,
-      bottom: 50,
-      toJSON: () => jest.fn()
-    });
+    initialDropdownWrapper!.getBoundingClientRect = () => new MockDOMRect(50, 50, 500, 600);
+
+    const selectTop = 10;
+    const selectHeight = 40;
 
     Object.defineProperty(window, "innerHeight", { value: 500, writable: true });
-
-    select.getBoundingClientRect = () => ({
-      x: 50,
-      y: 50,
-      width: 500,
-      height: 40,
-      top: 10,
-      left: 250,
-      right: 750,
-      bottom: 50,
-      toJSON: () => jest.fn()
-    });
+    select.getBoundingClientRect = () => new MockDOMRect(50, selectTop, 500, selectHeight);
 
     await userEvent.click(document.body);
 
     const button = getByRole("button");
     await userEvent.click(button);
+
+    const dropdownWrapper = select.querySelector(".list-wrapper")!;
+    expect(dropdownWrapper).toHaveStyle({ top: "4px" });
+    expect(dropdownWrapper).toHaveStyle({ bottom: "initial" });
     expect(dropdownWrapper).toHaveStyle({ maxHeight: "434px" });
-    expect(dropdownWrapper).toHaveStyle({ top: "2.75rem" });
+
+    const dropdownRect = dropdownWrapper!.getBoundingClientRect();
+    expect(dropdownRect.top).toBeGreaterThan(selectTop + selectHeight / 2);
   });
 });
 
