@@ -24,6 +24,7 @@ import {
   FormSelectorWrapper,
   Props as FormSelectorWrapperProps
 } from "../FormSelectorWrapper/FormSelectorWrapper";
+import { withReadOnly } from "../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector, "success"> {
   children: string;
@@ -127,4 +128,4 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   );
 };
 
-export const Radio = React.forwardRef(RadioComponent);
+export const Radio = withReadOnly(React.forwardRef(RadioComponent));

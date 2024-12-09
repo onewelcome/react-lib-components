@@ -16,13 +16,15 @@
 
 import React, { useEffect, useState } from "react";
 import { FormControl as FormControlComponent } from "../../../src/components/Form/FormControl/FormControl";
-import { Form } from "../../../src/components/Form/Form";
-import { RadioWrapper } from "../../../src/components/Form/Wrapper/RadioWrapper/RadioWrapper";
-import { Checkbox } from "../../../src/components/Form/Checkbox/Checkbox";
-import { CheckboxWrapper } from "../../../src/components/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
-import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
-import { Radio } from "../../../src/components/Form/Radio/Radio";
-import { Fieldset } from "../../../src/components/Form/Fieldset/Fieldset";
+import {
+  Checkbox,
+  CheckboxWrapper,
+  Fieldset,
+  Form,
+  InputWrapper,
+  Radio,
+  RadioWrapper
+} from "../../../src";
 
 interface Props {
   index?: number;
@@ -30,10 +32,7 @@ interface Props {
 }
 
 export const FormControlExample = ({ index, updateStepStatus }: Props) => {
-  const [selectValue, setSelectValue] = useState("option1");
-  const [prefix, setPrefix] = useState("mr");
   const [preferredMobileDevice, setPreferredMobileDevice] = useState("mobile");
-  const [newsletter, setNewsletter] = useState(true);
   const [dirtyData, setDirtyData] = useState(false);
   const [electronics, setElectronics] = useState({
     indeterminate: false,
@@ -44,22 +43,6 @@ export const FormControlExample = ({ index, updateStepStatus }: Props) => {
   });
   const defaultInputValue = "";
   const [inputValue, setInputValue] = useState(defaultInputValue);
-
-  const onSelectChange = event => {
-    setSelectValue(event.target.value);
-  };
-
-  const prefixChangeHandler = event => {
-    setPrefix(event.target.value);
-  };
-
-  const prefixClearHandler = () => {
-    setPrefix("");
-  };
-
-  const onNewsletterChangeHandler = () => {
-    setNewsletter(!newsletter);
-  };
 
   useEffect(() => {
     if (!electronics.tv && !electronics.mobile && !electronics.laptop) {

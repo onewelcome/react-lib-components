@@ -204,3 +204,18 @@ InputWrapperRequired.args = {
   value: "example value",
   required: true
 };
+
+export const InputWrapperInReadOnlyMode = Template.bind({});
+
+InputWrapperInReadOnlyMode.storyName = "Input Wrapper In Read-only Mode";
+InputWrapperInReadOnlyMode.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  onChange: () => {},
+  errorMessage: "This is an error message",
+  error: false,
+  value: "example value",
+  readOnlyView: true
+};
