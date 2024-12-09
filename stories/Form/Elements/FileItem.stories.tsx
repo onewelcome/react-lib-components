@@ -79,6 +79,8 @@ FileItemProgress.args = {
 
 export const FileItemReadOnly = Template.bind({});
 
+FileItemReadOnly.storyName = "File Item In Read-only Mode";
+
 FileItemReadOnly.args = {
   name: "test.txt",
   status: "completed",

@@ -161,6 +161,7 @@ SelectWrapperRequired.args = {
 export const SelectWrapperInReadOnlyMode = Template.bind({});
 
 SelectWrapperInReadOnlyMode.storyName = "Select Wrapper In Read-only Mode";
+
 SelectWrapperInReadOnlyMode.args = {
   ...defaultArgs,
   readOnlyView: true

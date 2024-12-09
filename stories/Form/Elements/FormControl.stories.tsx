@@ -20,13 +20,15 @@ import {
   FormControl as FormControlComponent,
   Props
 } from "../../../src/components/Form/FormControl/FormControl";
-import { Form } from "../../../src/components/Form/Form";
-import { RadioWrapper } from "../../../src/components/Form/Wrapper/RadioWrapper/RadioWrapper";
-import { Checkbox } from "../../../src/components/Form/Checkbox/Checkbox";
-import { CheckboxWrapper } from "../../../src/components/Form/Wrapper/CheckboxWrapper/CheckboxWrapper";
-import { InputWrapper } from "../../../src/components/Form/Wrapper/InputWrapper/InputWrapper";
-import { Radio } from "../../../src/components/Form/Radio/Radio";
-import { Fieldset } from "../../../src/components/Form/Fieldset/Fieldset";
+import {
+  Checkbox,
+  CheckboxWrapper,
+  Fieldset,
+  Form,
+  InputWrapper,
+  Radio,
+  RadioWrapper
+} from "../../../src";
 import FormControlDocumentation from "./FormControl.mdx";
 
 const meta: Meta = {
@@ -58,10 +60,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: StoryFn<Props> = args => {
-  const [selectValue, setSelectValue] = useState("option1");
-  const [prefix, setPrefix] = useState("mr");
   const [preferredMobileDevice, setPreferredMobileDevice] = useState("mobile");
-  const [newsletter, setNewsletter] = useState(true);
   const [electronics, setElectronics] = useState({
     indeterminate: false,
     checked: false,
@@ -70,22 +69,6 @@ const Template: StoryFn<Props> = args => {
     laptop: false
   });
   const [inputValue, setInputValue] = useState("");
-
-  const onSelectChange = event => {
-    setSelectValue(event.target.value);
-  };
-
-  const prefixChangeHandler = event => {
-    setPrefix(event.target.value);
-  };
-
-  const prefixClearHandler = () => {
-    setPrefix("");
-  };
-
-  const onNewsletterChangeHandler = () => {
-    setNewsletter(!newsletter);
-  };
 
   useEffect(() => {
     if (!electronics.tv && !electronics.mobile && !electronics.laptop) {
@@ -206,6 +189,8 @@ FormControl.args = {
 };
 
 export const FormControlInReadOnlyMode = Template.bind({});
+
+FormControlInReadOnlyMode.storyName = "Form Control In Read-only Mode";
 
 FormControlInReadOnlyMode.args = {
   grid: 3,
