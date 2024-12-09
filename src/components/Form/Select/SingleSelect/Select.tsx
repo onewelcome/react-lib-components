@@ -275,7 +275,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
               opacity: opacity,
               maxHeight: optionsListMaxHeight.wrapper,
               pointerEvents: expanded ? "auto" : "none",
-              bottom: listPosition === Position.Above ? "2.75rem" : "initial"
+              bottom: listPosition === Position.Above ? "2.95rem" : "initial",
+              marginTop: "1px"
             }}
           >
             <ul
