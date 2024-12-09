@@ -187,13 +187,3 @@ FormControl.args = {
   grid: 3,
   align: "center"
 };
-
-export const FormControlInReadOnlyMode = Template.bind({});
-
-FormControlInReadOnlyMode.storyName = "Form Control In Read-only Mode";
-
-FormControlInReadOnlyMode.args = {
-  grid: 3,
-  align: "center",
-  readOnlyView: true
-};
