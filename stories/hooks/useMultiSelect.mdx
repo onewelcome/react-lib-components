@@ -17,7 +17,7 @@ The `useMultiSelect` hook simplifies use of the [MultiSelect](?path=/docs/compon
 
 For the basic usage (**#1**), it allows you to pass your option data (`allOptions`) and picked options (`pickedOptions`) together with `setPickedOptions` functions, and based on those it provides you with a handler for the `onChange` event, while taking care about calling your `setPickedOptions`. It also generates the list of `<MultiOption>` elements for you.
 
-In an advanced scenario (**#2**) it allows you to automatically handle `MultiSelect`'s `onAddNew` functionality, where it not only adds the new option, but it also takes care about removing such a custom option from the the list of all options when the user unpicks it.
+In an advanced scenario (**#2**) it allows you to automatically handle `MultiSelect`'s `onAddNew` functionality, where it not only adds the new option, but it also takes care about removing such a custom option from the list of all options when the user unpicks it.
 
 A specific scenario (**#3**) is also supported, where `MultiSelect` is used as an editable list of string values - the user can add or delete options, but they cannot select them from a wider list.
 
@@ -26,11 +26,11 @@ A specific scenario (**#3**) is also supported, where `MultiSelect` is used as a
 Parameters are given in form of an object with following properties:
 
 - `allOptions` is a string array of all options to choose from.
-  - _(mandatory for scenarios #1 and #2, not mandatory for scenario #3, where the user doesn't really pick from a list of options; istead they only change the picked options)_
+  - _(mandatory for scenarios #1 and #2, not mandatory for scenario #3, where the user doesn't really pick from a list of options; instead they only change the picked options)_
 - `pickedOptions` is a string array of the currently picked options.
   - _(mandatory)_
 - `setPickedOptions` is a `set` function for your picked options. It gets called when the user picks or unpicks an option.
-  - _(optional)_
+  - _(mandatory)_
 - `onAddNew` gets called when the user adds a new option (for scenarios #2 and #3) - the hook takes care of deduplication and trimming the user value from unwanted extra spaces. However, you don't have to use this to update your option arrays, the hook takes care of it itself.
   - _(optional)_
 - `setAllOptions` is a `set` function for your array of all options. The array of all options can be changed when the user adds a new option. If `initialOptions` is specified, setAllOptions is called also when the user deletes an option they previously added (an option which is in `allOptions` but is not in `initialOptions`).

@@ -61,36 +61,33 @@ const Template: StoryFn<Props> = args => {
   const [pickedOption, setPickedOption] = useState<string>("option1");
 
   return (
-    <div>
-      <div style={{ height: "16rem" }}></div>
-      <SelectWrapperComponent
-        {...args}
-        onChange={e => setPickedOption(e.target.value)}
-        value={pickedOption}
-        selectProps={{
-          addNew: {
-            label: "Create new",
-            onAddNew: value => {
-              window.alert(`This callback is yours to control. Value passed: ${value}`);
-            },
-            btnProps: { title: "Add new select option" }
-          }
-        }}
-      >
-        <Option value="option1">Option 1</Option>
-        <Option value="option2">Option 2</Option>
-        <Option value="option3">Option 3</Option>
-        <Option value="option4">Option 4</Option>
-        <Option value="option5">Option 5</Option>
-        <Option value="option6">Option 6</Option>
-        <Option value="option7">Option 7</Option>
-        <Option value="option8">Option 8</Option>
-        <Option value="option9">Option 9</Option>
-        <Option value="option10">Option 10</Option>
-        <Option value="option11">Option 11</Option>
-        <Option value="option12">Option 12</Option>
-      </SelectWrapperComponent>
-    </div>
+    <SelectWrapperComponent
+      {...args}
+      onChange={e => setPickedOption(e.target.value)}
+      value={pickedOption}
+      selectProps={{
+        addNew: {
+          label: "Create new",
+          onAddNew: value => {
+            window.alert(`This callback is yours to control. Value passed: ${value}`);
+          },
+          btnProps: { title: "Add new select option" }
+        }
+      }}
+    >
+      <Option value="option1">Option 1</Option>
+      <Option value="option2">Option 2</Option>
+      <Option value="option3">Option 3</Option>
+      <Option value="option4">Option 4</Option>
+      <Option value="option5">Option 5</Option>
+      <Option value="option6">Option 6</Option>
+      <Option value="option7">Option 7</Option>
+      <Option value="option8">Option 8</Option>
+      <Option value="option9">Option 9</Option>
+      <Option value="option10">Option 10</Option>
+      <Option value="option11">Option 11</Option>
+      <Option value="option12">Option 12</Option>
+    </SelectWrapperComponent>
   );
 };
 

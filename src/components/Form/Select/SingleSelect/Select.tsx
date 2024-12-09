@@ -256,7 +256,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           type="button"
           name={name}
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
-          style={{ display: expanded && searchVisible ? "none" : "initial" }}
+          style={{ display: expanded && searchVisible ? "none" : "block" }}
           disabled={disabled}
           aria-disabled={disabled}
           aria-invalid={error}
@@ -280,7 +280,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
               opacity: opacity,
               maxHeight: optionsListMaxHeight.wrapper,
               pointerEvents: expanded ? "auto" : "none",
-              bottom: listPosition === Position.Above ? "2.75rem" : "initial"
+              bottom: listPosition === Position.Above ? "2.85rem" : "initial",
+              marginTop: "4px"
             }}
           >
             <ul

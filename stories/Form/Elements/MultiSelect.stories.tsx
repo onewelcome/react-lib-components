@@ -15,11 +15,8 @@
  */
 
 import React, { useState } from "react";
-import { Meta, StoryFn } from "@storybook/react";
-import {
-  MultiSelect,
-  MultiSelect as MultiSelectComponent
-} from "../../../src/components/Form/Select/MultiSelect/MultiSelect";
+import { Meta } from "@storybook/react";
+import { MultiSelect } from "../../../src/components/Form/Select/MultiSelect/MultiSelect";
 import MultiSelectDocumentation from "./MultiSelect.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { userEvent, waitFor, within, expect } from "@storybook/test";
@@ -34,7 +31,7 @@ const playExpand = conditionalPlay(async ({ canvasElement }) => {
 
 const meta: Meta = {
   title: "components/Inputs/Raw/MultiSelect",
-  component: MultiSelectComponent,
+  component: MultiSelect,
   parameters: {
     docs: {
       page: MultiSelectDocumentation
@@ -71,7 +68,7 @@ const Template = args => {
     "Option 3",
     "Option 4"
   ]);
-  const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
+  const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1", "Option 2"]);
 
   const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
     allOptions,
@@ -90,17 +87,14 @@ const Template = args => {
   );
 };
 
+export const MultiSelectDefault = Template.bind({});
+MultiSelectDefault.storyName = "Multi Select";
+
 export const MultiSelectWithoutSearch = Template.bind({});
 MultiSelectWithoutSearch.args = {
   search: { enabled: false }
 };
 MultiSelectWithoutSearch.play = playExpand;
-
-export const MultiSelectWithSearchOptions = Template.bind({});
-MultiSelectWithSearchOptions.args = {
-  search: { enabled: true }
-};
-MultiSelectWithSearchOptions.play = playExpand;
 
 export const MultiSelectExpandUpwards = Template.bind({});
 MultiSelectExpandUpwards.args = {
@@ -110,7 +104,7 @@ MultiSelectExpandUpwards.play = playExpand;
 
 const TemplateWithAddNew = args => {
   const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
-  const [pickedOptions, setPickedOptions] = useState<string[]>([]);
+  const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1", "Option 2"]);
   const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
 
   const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
@@ -118,7 +112,8 @@ const TemplateWithAddNew = args => {
     allOptions,
     setAllOptions,
     pickedOptions,
-    setPickedOptions
+    setPickedOptions,
+    onAddNew: args.onAddNew
   });
 
   return (
@@ -126,7 +121,11 @@ const TemplateWithAddNew = args => {
       <MultiSelect
         value={pickedOptions}
         onChange={handleOptionChange}
-        addNew={{ label: "Create new", onAddNew, btnProps: { title: "Add new select option" } }}
+        addNew={{
+          label: "Create new",
+          onAddNew,
+          btnProps: { title: "Add new select option" }
+        }}
         search={{
           enabled: args.searchEnabled,
           searchPlaceholder: args.searchPlaceholder
@@ -141,7 +140,8 @@ const TemplateWithAddNew = args => {
 
 export const MultiSelectWithAddNew = TemplateWithAddNew.bind({});
 MultiSelectWithAddNew.args = {
-  searchEnabled: false
+  searchEnabled: false,
+  onAddNew: newOption => alert(`Triggered onAddNew("${newOption}")`)
 };
 MultiSelectWithAddNew.play = playExpand;
 

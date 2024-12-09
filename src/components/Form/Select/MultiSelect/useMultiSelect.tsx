@@ -17,22 +17,22 @@
 import React from "react";
 import { MultiOption } from "./MultiOption";
 
-interface UseMultiSelectArgs {
+export interface UseMultiSelectArgs {
   initialOptions?: string[];
   allOptions?: string[];
   setAllOptions?: (options: string[]) => void;
   pickedOptions: string[];
-  setPickedOptions?: (options: string[]) => void;
+  setPickedOptions: (options: string[]) => void;
   onAddNew?: (newOption: string) => void;
 }
 
-interface UseMultiSelectResult {
-  handleOptionChange: (e: React.FormEvent<HTMLSelectElement>) => void;
+export interface UseMultiSelectResult {
+  handleOptionChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onAddNew: (newValue: string) => void;
   optionElements: React.JSX.Element[];
 }
 
-type UseMultiSelect = (args: UseMultiSelectArgs) => UseMultiSelectResult;
+export type UseMultiSelect = (args: UseMultiSelectArgs) => UseMultiSelectResult;
 
 export const useMultiSelect: UseMultiSelect = ({
   initialOptions,
@@ -42,9 +42,8 @@ export const useMultiSelect: UseMultiSelect = ({
   setAllOptions = setPickedOptions,
   onAddNew
 }) => {
-  const handleOptionChange = (e: React.FormEvent<HTMLSelectElement>) => {
-    const htmlOptions = (e.nativeEvent.target as unknown as { options: HTMLOptionsCollection })
-      .options;
+  const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const htmlOptions = e.target.options;
 
     const newPickedOptions = [...pickedOptions];
     Array.from(htmlOptions).forEach(option => {
@@ -60,24 +59,27 @@ export const useMultiSelect: UseMultiSelect = ({
         const index = newPickedOptions.indexOf(option.value);
         newPickedOptions.splice(index, 1);
 
-        if (initialOptions) {
-          if (!initialOptions.includes(option.value)) {
-            setAllOptions?.(allOptions.filter(value => value !== option.value));
-          }
+        if (initialOptions && !initialOptions.includes(option.value)) {
+          setAllOptions?.(allOptions.filter(value => value !== option.value));
         }
       }
     });
-    setPickedOptions?.(newPickedOptions);
+    setPickedOptions(newPickedOptions);
   };
 
   const onAddNewWrapper = (value: string) => {
+    if (value == undefined || value.length === 0) {
+      onAddNew?.("");
+      return;
+    }
+
     const trimmedValue = value.trim();
     if (trimmedValue.length === 0 || allOptions.includes(trimmedValue)) {
       return;
     }
 
     setAllOptions?.([...allOptions, trimmedValue]);
-    setPickedOptions?.([...pickedOptions, trimmedValue]);
+    setPickedOptions([...pickedOptions, trimmedValue]);
 
     onAddNew?.(trimmedValue);
   };
