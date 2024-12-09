@@ -251,7 +251,8 @@ describe("List expansion", () => {
     await userEvent.click(button);
 
     const dropdownWrapper = select.querySelector(".list-wrapper");
-    expect(dropdownWrapper).toHaveStyle({ bottom: "0px" });
+    expect(dropdownWrapper).toHaveStyle({ top: "initial" });
+    expect(dropdownWrapper).toHaveStyle({ bottom: "4px" });
     const dropdownRect = dropdownWrapper!.getBoundingClientRect();
     expect(dropdownRect.bottom).toBeLessThan(selectTop + selectHeight / 2);
   });
@@ -273,8 +274,9 @@ describe("List expansion", () => {
     await userEvent.click(button);
 
     const dropdownWrapper = select.querySelector(".list-wrapper")!;
-    expect(dropdownWrapper).toHaveStyle({ maxHeight: "434px" });
+    expect(dropdownWrapper).toHaveStyle({ top: "4px" });
     expect(dropdownWrapper).toHaveStyle({ bottom: "initial" });
+    expect(dropdownWrapper).toHaveStyle({ maxHeight: "434px" });
 
     const dropdownRect = dropdownWrapper!.getBoundingClientRect();
     expect(dropdownRect.top).toBeGreaterThan(selectTop + selectHeight / 2);
