@@ -23,6 +23,8 @@ export interface WithReadOnlyProps {
   type?: string;
 }
 
+const componentsWithKeyEventsToPrevent: string[] = ["CheckboxWrapper"];
+
 const getDisplayName = <P,>(WrappedComponent: ComponentType<P>) => {
   return WrappedComponent.displayName ?? WrappedComponent.name ?? "Component";
 };
@@ -47,6 +49,37 @@ const getConditionalProps = (readOnlyView: boolean, type: string, helperText?: s
 };
 
 export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P>) => {
+  const preventKeyUpAndKeyDownHandlerForSpecificComponents = (readOnlyView: boolean) => {
+    const preventSubmissionKeys = (e: KeyboardEvent) => {
+      const isEnterOrSpace = (e: KeyboardEvent) => e.key === "Enter" || e.key === " ";
+      if (isEnterOrSpace(e)) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    };
+
+    if (
+      readOnlyView &&
+      componentsWithKeyEventsToPrevent.includes(
+        WrappedComponent.displayName || WrappedComponent.name
+      )
+    ) {
+      const props: Record<string, any> = {};
+
+      props.onKeyUp = (e: KeyboardEvent) => {
+        preventSubmissionKeys(e);
+      };
+
+      props.onKeyDown = (e: KeyboardEvent) => {
+        preventSubmissionKeys(e);
+      };
+
+      return props;
+    }
+
+    return {};
+  };
+
   const WithReadOnlyComponent = React.forwardRef(
     (props: PropsWithChildren<P & WithReadOnlyProps>, ref: ForwardedRef<any>) => {
       const {
@@ -66,6 +99,7 @@ export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P
           aria-readonly={readOnlyView}
           required={readOnlyView ? false : required}
           {...getConditionalProps(readOnlyView, type, helperText)}
+          {...preventKeyUpAndKeyDownHandlerForSpecificComponents(readOnlyView)}
         >
           {children}
         </WrappedComponent>

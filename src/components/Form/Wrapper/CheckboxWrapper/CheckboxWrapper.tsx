@@ -81,7 +81,9 @@ const CheckboxWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   );
 };
 
+const ForwardedCheckboxWrapper = React.forwardRef(CheckboxWrapperComponent);
+ForwardedCheckboxWrapper.displayName = "CheckboxWrapper";
 /**
  * @deprecated
  */
-export const CheckboxWrapper = withReadOnly(React.forwardRef(CheckboxWrapperComponent));
+export const CheckboxWrapper = withReadOnly(ForwardedCheckboxWrapper);

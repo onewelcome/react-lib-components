@@ -90,7 +90,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     isRequired = true,
     invalidDropErrorMessage = "Invalid file format. Supported formats are: $accept.",
     noMultipleFileDropErrorMessage = "You can upload only a single file.",
-    helperText,
+    helperText = subText,
     ...rest
   }: Props,
   ref
@@ -100,11 +100,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const [errorMsg, setErrorMsg] = useState("");
   const [inputError, setInputError] = useState(false);
   const icon = useDetermineStatusIcon({ success, error });
-  let helperTextProp: string;
   let dropzoneClassNames = [classes["file-dropzone"]];
   let dropzoneContainerClassNames = [classes["upload-button-wrapper"]];
   let subTextClass = [classes["file-selector-sub-text"]];
-  let helperTextClass = [classes["file-selector-helper-text"]];
   let errorTextClass = [classes["file-selector-sub-text"]];
   dragActive && dropzoneContainerClassNames.push(classes["drag-active"]);
   const hasError = inputError || error || errorMsg;
@@ -239,12 +237,6 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     setDragActive(false);
   };
 
-  if (subText) {
-    helperTextProp = subText;
-  } else {
-    helperTextProp = helperText || "";
-  }
-
   return (
     <div className={classes["file-upload-wrapper"]} {...wrapperProps}>
       <div className={classes["dropzone-wrapper"]}>
@@ -314,10 +306,9 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             {errorMsg}
           </Typography>
         )}
-        {helperTextProp && (
+        {helperText && (
           <Typography variant={"sub-text"} className={subTextClass.join(" ")}>
-            {/* @deprecated */}
-            {helperTextProp}
+            {helperText}
           </Typography>
         )}
       </div>
