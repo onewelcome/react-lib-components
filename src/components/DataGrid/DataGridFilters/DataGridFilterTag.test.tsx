@@ -104,6 +104,18 @@ describe("DataGridFilterTag", () => {
     expect(getByText(/1 innych/)).toBeDefined();
   });
 
+  it("should render DataGridFilterTag in date picker mode", () => {
+    const { getByText } = createDataGridFilterTag(prev => ({
+      ...prev,
+      mode: "ADD_DATE",
+      dateTagCaption: "Custom"
+    }));
+
+    expect(getByText(/Date/)).toBeDefined();
+    expect(getByText(/is/)).toBeDefined();
+    expect(getByText(/Custom/)).toBeDefined();
+  });
+
   it("should fire provided callbacks", async () => {
     const onOpen = jest.fn();
     const onRemove = jest.fn();
