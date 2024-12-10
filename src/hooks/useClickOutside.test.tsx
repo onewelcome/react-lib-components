@@ -14,30 +14,32 @@
  *    limitations under the License.
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { useClickOutside } from "./useClickOutside";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("function should be executed", () => {
   it("should execute", async () => {
-    const clickHandler = jest.fn();
-    const validateFunction = jest.fn(() => true);
+    //given
+    const button1Clicked = jest.fn();
+    const button2Clicked = jest.fn();
+    const outsideClicked = jest.fn();
 
     const Component = () => {
-      const [variable, setVariable] = useState(true);
-      const [variable2, setvariable2] = useState(true);
-      // TODO useClickOutside(validateFunction, clickHandler, [variable, variable2]);
+      const myElementRef = useRef<HTMLButtonElement>(null);
+
+      useClickOutside(myElementRef, outsideClicked, []);
 
       return (
-        <Fragment>
-          <button data-testid="button1" onClick={() => setVariable(!variable)}>
-            Test
+        <div data-testid="container">
+          <button ref={myElementRef} data-testid="button1" onClick={() => button1Clicked()}>
+            button1
           </button>
-          <button data-testid="button2" onClick={() => setvariable2(!variable2)}>
-            Test
+          <button data-testid="button2" onClick={() => button2Clicked()}>
+            button2
           </button>
-        </Fragment>
+        </div>
       );
     };
 
@@ -45,11 +47,30 @@ describe("function should be executed", () => {
 
     const button1 = getByTestId("button1");
     const button2 = getByTestId("button2");
+    const container = getByTestId("container");
 
+    //when
     await userEvent.click(button1);
+
+    //then
+    expect(button1Clicked).toHaveBeenCalledTimes(1);
+    expect(button2Clicked).toHaveBeenCalledTimes(0);
+    expect(outsideClicked).toHaveBeenCalledTimes(0);
+
+    //when
+    await userEvent.click(container);
+
+    //then
+    expect(button1Clicked).toHaveBeenCalledTimes(1);
+    expect(button2Clicked).toHaveBeenCalledTimes(0);
+    expect(outsideClicked).toHaveBeenCalledTimes(1);
+
+    //when
     await userEvent.click(button2);
 
-    expect(clickHandler).toHaveBeenCalledTimes(2);
-    expect(validateFunction).toHaveBeenCalledTimes(2);
+    //then
+    expect(button1Clicked).toHaveBeenCalledTimes(1);
+    expect(button2Clicked).toHaveBeenCalledTimes(1);
+    expect(outsideClicked).toHaveBeenCalledTimes(2);
   });
 });

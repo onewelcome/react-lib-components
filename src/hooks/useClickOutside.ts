@@ -18,18 +18,18 @@ import { useEffect } from "react";
 
 export const useClickOutside = (
   myElementRef: React.RefObject<HTMLElement>,
-  callbackFunction: (...args: unknown[]) => unknown,
+  onClickOutside: (event: MouseEvent) => void,
   dependingStateVariable: React.ComponentState | React.ComponentState[]
 ) => {
   function eventListener(event: MouseEvent) {
     const myElement = myElementRef?.current;
     if (!myElement) {
-      return false;
+      return;
     }
     const clickedInsideMyElement = myElement.contains(event.target as Node);
 
     if (!clickedInsideMyElement) {
-      callbackFunction();
+      onClickOutside(event);
     }
   }
   useEffect(() => {
