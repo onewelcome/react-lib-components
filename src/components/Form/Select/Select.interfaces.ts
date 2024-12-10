@@ -73,6 +73,7 @@ export interface UseArrowNavigationParams {
   searchInputRef: React.RefObject<HTMLInputElement>;
   addBtnRef?: React.RefObject<HTMLButtonElement>;
   renderThreshold: number;
+  isReadOnlyView: boolean;
 }
 
 export interface UseSelectPositionListParams {

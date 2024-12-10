@@ -115,7 +115,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     setShouldClick,
     searchInputRef,
     addBtnRef,
-    renderThreshold: searchThreshold
+    renderThreshold: searchThreshold,
+    isReadOnlyView: isReadOnlyView || !!rest["data-readonlyview"]
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
