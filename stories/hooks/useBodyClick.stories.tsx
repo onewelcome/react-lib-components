@@ -57,6 +57,7 @@ const ExampleModalTemplate: StoryFn = () => {
         </button>
         <div
           ref={myElementRef}
+          className="modalclass"
           style={{ display: open ? "block" : "none", backgroundColor: "#ff8" }}
         >
           fake modal dialog
