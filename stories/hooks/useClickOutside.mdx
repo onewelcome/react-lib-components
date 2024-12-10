@@ -45,20 +45,20 @@ const ExampleComponent = () => {
 
   useClickOutside(myElementRef, () => {
     setOutsideButton1ClickCount(outsideButton1ClickCount + 1);
-  }, []);
+  });
 
   return (
     <Fragment>
-      <button
+      <Button
         ref={myElementRef}
         data-testid="button1"
         onClick={() => setButton1ClickCount(button1ClickCount + 1)}
       >
         button1 clicked {button1ClickCount} times
-      </button>
-      <button data-testid="button2" onClick={() => setButton2ClickCount(button2ClickCount + 1)}>
+      </Button>
+      <Button data-testid="button2" onClick={() => setButton2ClickCount(button2ClickCount + 1)}>
         button2 clicked {button2ClickCount} times
-      </button>
+      </Button>
       outside of button1 clicked {outsideButton1ClickCount} times
     </Fragment>
   );

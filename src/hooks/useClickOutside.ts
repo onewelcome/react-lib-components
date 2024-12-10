@@ -33,10 +33,10 @@ export const useClickOutside = (
     }
   }
   useEffect(() => {
-    window.addEventListener("click", eventListener);
+    setTimeout(() => window.addEventListener("click", eventListener));
 
     return () => {
-      window.removeEventListener("click", eventListener);
+      setTimeout(() => window.removeEventListener("click", eventListener));
     };
   }, dependencies);
 };
