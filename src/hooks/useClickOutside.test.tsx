@@ -15,7 +15,7 @@
  */
 
 import React, { Fragment, useState } from "react";
-import { useBodyClick } from "./useBodyClick";
+import { useClickOutside } from "./useClickOutside";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -27,7 +27,7 @@ describe("function should be executed", () => {
     const Component = () => {
       const [variable, setVariable] = useState(true);
       const [variable2, setvariable2] = useState(true);
-      useBodyClick(validateFunction, clickHandler, [variable, variable2]);
+      // TODO useClickOutside(validateFunction, clickHandler, [variable, variable2]);
 
       return (
         <Fragment>

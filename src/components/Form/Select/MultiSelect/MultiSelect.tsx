@@ -25,7 +25,7 @@ import React, {
   useRef,
   useState
 } from "react";
-import { clickOutsideChecker, useBodyClick } from "../../../../hooks/useBodyClick";
+import { useClickOutside } from "../../../../hooks/useClickOutside";
 import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 import readyclasses from "../../../../readyclasses.module.scss";
 import { escapeRegExp, filterProps, generateID } from "../../../../util/helper";
@@ -272,8 +272,8 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 
   const myElementRef = useRef<HTMLDivElement>(null);
 
-  useBodyClick(
-    clickOutsideChecker(myElementRef),
+  useClickOutside(
+    myElementRef,
     () => {
       if (!expanded) {
         return;

@@ -31,7 +31,7 @@ import { Props as IconButtonProps } from "../Button/IconButton";
 import { Popover, Props as PopoverProps } from "../Popover/Popover";
 import { Placement, Offset } from "../../hooks/usePosition";
 import classes from "./ContextMenu.module.scss";
-import { useBodyClick } from "../../hooks/useBodyClick";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import { Props as ContextMenuItemProps } from "./ContextMenuItem";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../hooks/useGetDomRoot";
@@ -110,16 +110,12 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     setShouldClick
   });
 
-  useBodyClick(
-    event => {
-      return (
-        showContextMenu &&
-        anchorEl.current !== event.target &&
-        anchorEl.current !== (event.target as HTMLElement).parentElement
-      );
-    },
+  useClickOutside(
+    anchorEl,
     () => {
-      setShowContextMenu(false);
+      if (showContextMenu) {
+        setShowContextMenu(false);
+      }
     },
     showContextMenu
   );

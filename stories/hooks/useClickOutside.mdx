@@ -1,7 +1,7 @@
 import { Meta } from "@storybook/blocks";
 
 <Meta
-  title="Hooks/useBodyClick"
+  title="Hooks/useClickOutside"
   parameters={{
     viewMode: "docs",
     previewTabs: {
@@ -10,15 +10,17 @@ import { Meta } from "@storybook/blocks";
   }}
 />
 
-# useBodyClick
+# useClickOutside
+
+TODO element arg
 
 This hook is especially built for components or features that need to execute an action whenever the user clicks somewhere on the webpage.
 An example is a modal window that is open. If you click next to the modal window (on the content **behind** the modal), it usually indicates that you want to close the modal.
-In order to do this, you can use the `useBodyClick` hook to quickly and efficiently apply an event listener to the body to check for this event.
+In order to do this, you can use the `useClickOutside` hook to quickly and efficiently apply an event listener to the body to check for this event.
 
 ## Arguments
 
-The `useBodyClick` function accepts three arguments, the check function, the callback function, and the depending state variable.
+The `useClickOutside` function accepts three arguments, the check function, the callback function, and the depending state variable.
 
 ### Check function
 
@@ -62,7 +64,7 @@ If we put all of the examples together we would get something like this:
 const ExampleComponent = () => {
   const [open, setOpen] = useState(false);
 
-  useBodyClick(
+  useClickOutside(
     (event: MouseEvent) =>
       (!event.target.classList.contains("modalclass") || !event.target.closest(".modalclass")) &&
       open,

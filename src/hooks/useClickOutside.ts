@@ -16,32 +16,27 @@
 
 import { useEffect } from "react";
 
-export const useBodyClick = (
-  checkFunction: (event: MouseEvent) => boolean,
+export const useClickOutside = (
+  myElementRef: React.RefObject<HTMLElement>,
   callbackFunction: (...args: unknown[]) => unknown,
   dependingStateVariable: React.ComponentState | React.ComponentState[]
 ) => {
-  function bodyClickListener(event: MouseEvent) {
-    if (checkFunction(event)) {
-      callbackFunction();
-    }
-  }
-  useEffect(() => {
-    window.addEventListener("click", bodyClickListener);
-
-    return () => {
-      window.removeEventListener("click", bodyClickListener);
-    };
-  }, [dependingStateVariable]);
-};
-
-export const clickOutsideChecker = (myElementRef: React.RefObject<HTMLElement>) => {
-  return (event: MouseEvent) => {
+  function eventListener(event: MouseEvent) {
     const myElement = myElementRef?.current;
     if (!myElement) {
       return false;
     }
     const clickedInsideMyElement = myElement.contains(event.target as Node);
-    return !clickedInsideMyElement;
-  };
+
+    if (!clickedInsideMyElement) {
+      callbackFunction();
+    }
+  }
+  useEffect(() => {
+    window.addEventListener("click", eventListener);
+
+    return () => {
+      window.removeEventListener("click", eventListener);
+    };
+  }, [dependingStateVariable]);
 };
