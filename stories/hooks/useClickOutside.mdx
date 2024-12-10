@@ -1,0 +1,68 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import * as useClickOutsideStories from "./useClickOutside.stories.tsx";
+
+<Meta
+  title="Hooks/useClickOutside"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true }
+    }
+  }}
+/>
+
+# useClickOutside
+
+This hook is especially built for components or features that need to execute an action whenever the user clicks somewhere on the webpage outside of some specific element.
+An example is a modal window that is open. If you click next to the modal window (on the content **behind** the modal), it usually indicates that you want to close the modal.
+In order to do this, you can use the `useClickOutside` hook to quickly and efficiently apply an event listener to the body to check for this event.
+
+## Arguments
+
+The `useClickOutside` function accepts three arguments, first two mandatory (\*):
+
+- `myElementRef` (\*) - the element outside of which we detect clicking
+- `onClickOutside` (\*) - callback function called when click outside of the element occurs
+  This function is entirely up to you. In our modal example, it is probably as some sort of `open` property that is set to `true` or `false` to indicate that the modal needs to be shown or not.
+  The callback function in our case could be to set the state variable linked to the `open` property to `false`.
+- dependencies - Whenever our component gets rendered and rerendered, we want to prevent that our internal mouse event listener gets added and removed too many times. It's the same as `useEffect`s dependency list. For example, when you use this hook to close a modal dialog, you would specify `[open]` with `open` being a state variable indicating whether the modal is open or not.
+
+## Complete example
+
+The following example shows behavior of the hook:
+
+- when you click button1, its counter increases
+- when you click outside both button1 and button 2, the "outside" counter increases
+- when you click button2, both its counter and the "outside" counter increases
+
+```jsx
+const ExampleComponent = () => {
+  const [button1ClickCount, setButton1ClickCount] = useState(0);
+  const [button2ClickCount, setButton2ClickCount] = useState(0);
+  const [outsideButton1ClickCount, setOutsideButton1ClickCount] = useState(0);
+
+  const myElementRef = useRef < HTMLButtonElement > null;
+
+  useClickOutside(myElementRef, () => {
+    setOutsideButton1ClickCount(outsideButton1ClickCount + 1);
+  });
+
+  return (
+    <Fragment>
+      <Button
+        ref={myElementRef}
+        data-testid="button1"
+        onClick={() => setButton1ClickCount(button1ClickCount + 1)}
+      >
+        button1 clicked {button1ClickCount} times
+      </Button>
+      <Button data-testid="button2" onClick={() => setButton2ClickCount(button2ClickCount + 1)}>
+        button2 clicked {button2ClickCount} times
+      </Button>
+      outside of button1 clicked {outsideButton1ClickCount} times
+    </Fragment>
+  );
+};
+```
+
+<Canvas of={useClickOutsideStories.Example} />
