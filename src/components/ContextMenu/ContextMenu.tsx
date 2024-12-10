@@ -110,15 +110,11 @@ const ContextMenuComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     setShouldClick
   });
 
-  useClickOutside(
-    anchorEl,
-    () => {
-      if (showContextMenu) {
-        setShowContextMenu(false);
-      }
-    },
-    showContextMenu
-  );
+  useClickOutside(anchorEl, () => {
+    if (showContextMenu) {
+      setShowContextMenu(false);
+    }
+  }, [showContextMenu]);
 
   useFocusAnchorElement(
     anchorEl,

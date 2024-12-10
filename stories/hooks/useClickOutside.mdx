@@ -19,22 +19,13 @@ In order to do this, you can use the `useClickOutside` hook to quickly and effic
 
 ## Arguments
 
-The `useClickOutside` function accepts three arguments:
+The `useClickOutside` function accepts three arguments, first two mandatory (\*):
 
-- `myElementRef` - the element outside of which we detect clicking
-- `onClickOutside` - callback function called when click outside of the element occurs
+- `myElementRef` (\*) - the element outside of which we detect clicking
+- `onClickOutside` (\*) - callback function called when click outside of the element occurs
   This function is entirely up to you. In our modal example, it is probably as some sort of `open` property that is set to `true` or `false` to indicate that the modal needs to be shown or not.
   The callback function in our case could be to set the state variable linked to the `open` property to `false`.
-
-  Example callback function:
-
-  ```js
-  setOpen(false);
-  ```
-
-- dependingStateVariable - Whenever our component gets rendered and rerendered, we want to prevent that our `window.addEventListener` gets added more than once. After all,
-  if we add it more times, that could lead to some massive issues. That's why we add a depending state variable that indicates when we
-  need to add or remove the event listener. In the case of our modal example, this is the `open` state. Think of it like a `useEffect`s dependency array.
+- dependencies - Whenever our component gets rendered and rerendered, we want to prevent that our internal mouse event listener gets added and removed too many times. It's the same as `useEffect`s dependency list. For example, when you use this hook to close a modal dialog, you would specify `[open]` with `open` being a state variable indicating whether the modal is open or not.
 
 ## Complete example
 

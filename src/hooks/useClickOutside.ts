@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-import { useEffect } from "react";
+import { DependencyList, useEffect } from "react";
 
 export const useClickOutside = (
   myElementRef: React.RefObject<HTMLElement>,
   onClickOutside: (event: MouseEvent) => void,
-  dependingStateVariable: React.ComponentState | React.ComponentState[]
+  dependencies?: DependencyList
 ) => {
   function eventListener(event: MouseEvent) {
     const myElement = myElementRef?.current;
@@ -38,5 +38,5 @@ export const useClickOutside = (
     return () => {
       window.removeEventListener("click", eventListener);
     };
-  }, [dependingStateVariable]);
+  }, dependencies);
 };

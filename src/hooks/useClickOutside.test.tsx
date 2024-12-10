@@ -29,7 +29,7 @@ describe("function should be executed", () => {
     const Component = () => {
       const myElementRef = useRef<HTMLButtonElement>(null);
 
-      useClickOutside(myElementRef, outsideClicked, []);
+      useClickOutside(myElementRef, outsideClicked);
 
       return (
         <div data-testid="container">

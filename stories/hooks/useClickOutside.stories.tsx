@@ -43,7 +43,7 @@ const ExampleTemplate: StoryFn = () => {
 
     useClickOutside(myElementRef, () => {
       setOutsideButton1ClickCount(outsideButton1ClickCount + 1);
-    }, []);
+    });
 
     return (
       <Fragment>
@@ -67,3 +67,37 @@ const ExampleTemplate: StoryFn = () => {
 
 export const Example = ExampleTemplate.bind({});
 Example.args = {};
+
+const ExampleModalTemplate: StoryFn = () => {
+  const ExampleComponent = () => {
+    const [open, setOpen] = useState(false);
+
+    const myElementRef = useRef<HTMLDivElement>(null);
+
+    //TODO makes button click not working
+    useClickOutside(myElementRef, () => {
+      if (open) {
+        setOpen(false);
+      }
+    }, [open]);
+
+    return (
+      <Fragment>
+        <button data-testid="button1" onClick={() => setOpen(true)}>
+          open modal
+        </button>
+        <div
+          ref={myElementRef}
+          style={{ display: open ? "block" : "none", backgroundColor: "#ff8" }}
+        >
+          fake modal dialog
+        </div>
+      </Fragment>
+    );
+  };
+
+  return <ExampleComponent></ExampleComponent>;
+};
+
+export const ExampleModal = ExampleModalTemplate.bind({});
+ExampleModal.args = {};

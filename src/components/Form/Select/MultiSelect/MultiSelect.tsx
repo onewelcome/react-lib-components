@@ -272,18 +272,14 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 
   const myElementRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(
-    myElementRef,
-    () => {
-      if (!expanded) {
-        return;
-      }
-      setExpanded(false);
-      setListPosition(Position.Below);
-      setOpacity(0);
-    },
-    expanded
-  );
+  useClickOutside(myElementRef, () => {
+    if (!expanded) {
+      return;
+    }
+    setExpanded(false);
+    setListPosition(Position.Below);
+    setOpacity(0);
+  }, [expanded]);
 
   const additionalClasses = [];
   expanded && additionalClasses.push(classes.expanded);
