@@ -63,6 +63,7 @@
     padding: 2rem 2rem 0 2rem;
 
     &.has-error {
+      //left it in px - height + margin of the error text span in the input wrapper
       gap: calc(2rem - 15.5681px);
     }
   }

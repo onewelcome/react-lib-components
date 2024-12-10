@@ -93,7 +93,7 @@ export const DataGridToolbar = ({
             </Typography>
           </button>
         )}
-        <DataGridDateFilter />
+        {/* <DataGridDateFilter /> */}
       </div>
     </Fragment>
   );
