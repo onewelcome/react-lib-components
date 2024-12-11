@@ -206,7 +206,7 @@ export const DateTimePicker = ({
       transformOrigin={{ horizontal: "left", vertical: "top" }}
     >
       {isOpen && (
-        <div tabIndex={!isOpen ? -1 : 0} className={classes["popover"]}>
+        <div className={classes["popover"]}>
           <div className={classes["content-wrapper"]}>
             <div className={classes["aside"]}>
               <SideMenu

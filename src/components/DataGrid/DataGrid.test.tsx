@@ -26,8 +26,7 @@ import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
 import userEvent from "@testing-library/user-event";
 import { useMockFilteringByDateLogic, useMockFilteringLogic } from "./testUtils";
 import { Button } from "../Button/Button";
-import { THIRTY_SECONDS } from "./DataGridFilters/DateTimePicker/DateTimeService";
-import { de } from "date-fns/locale";
+import { THIRTY_SECONDS, formatInputDate } from "./DataGridFilters/DateTimePicker/DateTimeService";
 
 type DataType = { firstName: string; lastName: string; date: string };
 
@@ -816,7 +815,7 @@ const createDataGridWithDateFilter = (
 
 describe("DataGrid with date filter", () => {
   it("should render data grid with default date filter", async () => {
-    const { dataGrid, getAllByRole, debug } = createDataGridWithDateFilter();
+    const { dataGrid, getAllByRole } = createDataGridWithDateFilter();
 
     expect(dataGrid).toBeInTheDocument();
 
@@ -855,5 +854,45 @@ describe("DataGrid with date filter", () => {
     await userEvent.click(getByText("Apply"));
 
     expect(getAllByRole("row")).toHaveLength(6);
+  });
+
+  it("should allow typing the custom dates with error handling", async () => {
+    const { dataGrid, getByRole, getByText, getAllByText, getByLabelText, getAllByRole } =
+      createDataGridWithDateFilter();
+
+    expect(dataGrid).toBeInTheDocument();
+
+    const dateFilterButton = getByRole("button");
+
+    expect(dateFilterButton).toBeInTheDocument();
+
+    await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Custom"));
+
+    let fromInput = getByLabelText("From");
+    let toInput = getByLabelText("To");
+
+    await userEvent.clear(fromInput);
+    await userEvent.type(fromInput, formatInputDate(new Date(Date.now() - 1000 * 99000)));
+
+    await userEvent.clear(toInput);
+    await userEvent.type(toInput, formatInputDate(new Date()));
+
+    await userEvent.click(getByText("Apply"));
+
+    expect(getAllByRole("row")).toHaveLength(6);
+
+    await userEvent.click(dateFilterButton);
+
+    fromInput = getByLabelText("From");
+    toInput = getByLabelText("To");
+
+    await userEvent.clear(fromInput);
+    await userEvent.type(fromInput, "not a date");
+
+    await userEvent.clear(toInput);
+    await userEvent.type(toInput, "not a date[Tab]");
+
+    expect(getAllByText("The format must be yyyy-mm-dd hh:mm:ss")).toHaveLength(2);
   });
 });
