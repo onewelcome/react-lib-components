@@ -46,9 +46,6 @@ export const DataGridDateFilter = ({
         ref={wrappingDivRef}
         dateTagCaption={tagCaption}
         mode={"ADD_DATE"}
-        onFilterRemove={function (): void {
-          throw new Error("Function not implemented.");
-        }}
         onFilterOpen={() => setIsOpen(true)}
       />
       {createPortal(

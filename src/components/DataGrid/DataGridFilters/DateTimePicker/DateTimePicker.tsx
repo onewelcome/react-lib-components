@@ -131,15 +131,26 @@ export const DateTimePicker = ({
 
       setSelectedPredefinedRange(dateFilterValue.type);
 
-      setSelectedDate({
-        from: dateFilterValue?.fromDate ? new Date(dateFilterValue?.fromDate) : undefined,
-        to: dateFilterValue?.toDate ? new Date(dateFilterValue?.toDate) : undefined
-      });
+      if (foundItem?.rangeSeconds && dateFilterValue.type !== CUSTOM_DATE_RANGE) {
+        const fromDate = addSeconds(new Date(), -foundItem.rangeSeconds);
+        const toDate = new Date();
+
+        setFromDateText(formatInputDate(fromDate));
+        setToDateText(formatInputDate(toDate));
+        setSelectedDate({ from: fromDate, to: toDate });
+
+        return;
+      }
 
       dateFilterValue.fromDate &&
         setFromDateText(formatInputDate(new Date(dateFilterValue.fromDate)));
 
       dateFilterValue.toDate && setToDateText(formatInputDate(new Date(dateFilterValue.toDate)));
+
+      setSelectedDate({
+        from: dateFilterValue?.fromDate ? new Date(dateFilterValue?.fromDate) : undefined,
+        to: dateFilterValue?.toDate ? new Date(dateFilterValue?.toDate) : undefined
+      });
     }
   }, [dateFilterValue]);
 

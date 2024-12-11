@@ -42,7 +42,10 @@ import { ModalContent } from "../../src/components/Notifications/Modal/ModalCont
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
-import { CUSTOM_DATE_RANGE } from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
+import {
+  CUSTOM_DATE_RANGE,
+  THIRTY_SECONDS
+} from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
 
 interface DataGridItem {
   name: string;
@@ -905,9 +908,9 @@ ToolbarWithAllOptions.args = {
 
 const DataGridDatePickerTemplate = args => {
   const [dateFilterValue, setDateFilterValue] = useState({
-    type: CUSTOM_DATE_RANGE,
-    toDate: "2024-12-29T23:00:00.000Z",
-    fromDate: "2024-12-09T23:00:00.000Z"
+    type: THIRTY_SECONDS,
+    toDate: new Date().toISOString(),
+    fromDate: new Date(Date.now() - 1000 * 30).toISOString()
   });
 
   const { gridData } = useMockFilteringByDateLogic(args.data, "created", dateFilterValue);
