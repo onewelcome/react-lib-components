@@ -209,5 +209,5 @@ export const MultiSelectInReadOnlyMode = (args => {
     </MultiSelect>
   );
 }).bind({});
+
 MultiSelectInReadOnlyMode.storyName = "Multi Select Component In Read-only Mode";
-MultiSelectInReadOnlyMode.play = playExpand;
