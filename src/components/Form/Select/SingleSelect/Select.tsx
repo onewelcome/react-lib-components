@@ -30,7 +30,7 @@ import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon
 import readyclasses from "../../../../readyclasses.module.scss";
 import { filterProps } from "../../../../util/helper";
 import { Icon, Icons } from "../../../Icon/Icon";
-import { SingleSelectProps } from "../Select.interfaces";
+import { Position, SingleSelectProps } from "../Select.interfaces";
 import { useSelectPositionList } from "../useSelectPositionList";
 import { useAddNewBtn } from "../useAddNewBtn";
 import { useSearch } from "./useSearch";
@@ -208,7 +208,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
     () => {
       setExpanded(false);
-      setListPosition({ top: 0, bottom: "initial" });
+      setListPosition(Position.Below);
       setOpacity(0);
     },
     expanded
@@ -254,7 +254,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           type="button"
           name={name}
           className={`${classes["custom-select"]} ${additionalClasses.join(" ")} `}
-          style={{ display: expanded && searchVisible ? "none" : "initial" }}
+          style={{ display: expanded && searchVisible ? "none" : "block" }}
           disabled={disabled}
           aria-disabled={disabled}
           aria-invalid={error}
@@ -269,26 +269,28 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           </div>
           <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
         </button>
-
-        <div
-          ref={optionListReference}
-          className={`list-wrapper ${classes["list-wrapper"]}`}
-          style={{
-            display: expanded ? "block" : "none",
-            opacity: opacity,
-            maxHeight: optionsListMaxHeight.wrapper,
-            pointerEvents: expanded ? "auto" : "none",
-            ...listPosition
-          }}
-        >
-          <ul
-            className={addNewBtnOptionsContainerClassName}
-            role="listbox"
-            style={{ maxHeight: optionsListMaxHeight.list }}
+        <div className="list-wrapper-container">
+          <div
+            ref={optionListReference}
+            className={`list-wrapper ${classes["list-wrapper"]}`}
+            style={{
+              display: expanded ? "block" : "none",
+              opacity: opacity,
+              maxHeight: optionsListMaxHeight.wrapper,
+              pointerEvents: expanded ? "auto" : "none",
+              bottom: listPosition === Position.Above ? "2.85rem" : "initial",
+              marginTop: "4px"
+            }}
           >
-            {renderOptions()}
-          </ul>
-          {renderAddNew()}
+            <ul
+              className={addNewBtnOptionsContainerClassName}
+              role="listbox"
+              style={{ maxHeight: optionsListMaxHeight.list }}
+            >
+              {renderOptions()}
+            </ul>
+            {renderAddNew()}
+          </div>
         </div>
       </div>
     </Fragment>

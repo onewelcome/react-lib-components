@@ -26,6 +26,7 @@ import { within, userEvent, waitFor, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { BoundFunctions } from "@testing-library/dom/types/get-queries-for-element";
 import { queries } from "@testing-library/dom";
+import { useMultiSelect } from "../../../src";
 
 const meta: Meta = {
   title: "components/Inputs/MultiSelect (Wrapper)",
@@ -60,6 +61,7 @@ export default meta;
 const Template: StoryFn<Props> = args => {
   const [pickedOptions, setPickedOptions] = useState<string[]>(["option1"]);
   const [newOptions, setNewOptions] = useState<string[]>();
+
   return (
     <MultiSelectWrapperComponent
       {...args}
@@ -174,74 +176,115 @@ MultiSelectWrapperRequired.args = {
   required: true
 };
 
-const AddNewTemplate: StoryFn<Props> = args => {
+const TemplateWithUseMultiSelect = args => {
+  const [allOptions, setAllOptions] = useState<string[]>([
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4"
+  ]);
+  const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
+
+  const { handleOptionChange, optionElements } = useMultiSelect({
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <div>
+      <MultiSelectWrapperComponent
+        {...args}
+        value={pickedOptions}
+        onChange={handleOptionChange}
+        selectProps={{
+          search: args.search
+        }}
+      >
+        {optionElements}
+      </MultiSelectWrapperComponent>
+      <div style={{ height: "7rem" }}></div>
+    </div>
+  );
+};
+
+export const MultiSelectWrapperUseBasic = TemplateWithUseMultiSelect.bind({});
+MultiSelectWrapperUseBasic.args = {
+  search: { enabled: false }
+};
+
+export const MultiSelectWrapperUseBasicWithSearch = TemplateWithUseMultiSelect.bind({});
+MultiSelectWrapperUseBasicWithSearch.args = {
+  search: { enabled: true }
+};
+
+export const MultiSelectWrapperUseWithAddNew = (args => {
   const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
   const [pickedOptions, setPickedOptions] = useState<string[]>([]);
   const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
 
-  const handleOptionChange = (options: HTMLOptionsCollection) => {
-    let newPickedOptions = [...pickedOptions];
-    let newAllOptions = [...allOptions];
-    Array.from(options).forEach(option => {
-      const selected = option.selected;
-      const exists = newPickedOptions.includes(option.value);
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
+    initialOptions,
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
 
-      const shouldAdd = !exists && selected;
-      const shouldRemove = exists && !selected;
+  return (
+    <div>
+      <MultiSelectWrapperComponent
+        {...args}
+        value={pickedOptions}
+        onChange={handleOptionChange}
+        selectProps={{
+          addNew: { label: "Create new", onAddNew, btnProps: { title: "Add new select option" } },
+          search: {
+            enabled: true,
+            searchPlaceholder: "Search or add new option (Enter)"
+          }
+        }}
+      >
+        {optionElements}
+      </MultiSelectWrapperComponent>
+      <div style={{ height: "7rem" }}></div>
+    </div>
+  );
+}).bind({});
 
-      if (shouldAdd) {
-        newPickedOptions.push(option.value);
-      } else if (shouldRemove) {
-        newPickedOptions = newPickedOptions.filter(value => value !== option.value);
-        const isInInitialOptions = initialOptions.includes(option.value);
-        if (!isInInitialOptions) {
-          newAllOptions = newAllOptions.filter(value => value !== option.value);
-        }
-      }
-    });
-    return { newPickedOptions, newAllOptions };
-  };
+export const MultiSelectWrapperUseAsEditableList = (args => {
+  const items = ["Item 1", "Item 2", "Item 3"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>(items);
+
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
+    pickedOptions,
+    setPickedOptions
+  });
 
   return (
     <MultiSelectWrapperComponent
       {...args}
       value={pickedOptions}
-      onChange={e => {
-        const { newPickedOptions, newAllOptions } = handleOptionChange(e.target.options);
-        setPickedOptions(newPickedOptions);
-        setAllOptions(newAllOptions);
-      }}
+      onChange={handleOptionChange}
       selectProps={{
         addNew: {
           label: "Create new",
-          onAddNew: value => {
-            const trimmedValue = value.trim();
-            const getValuesWithValueIfUnique = (value: string) => (values: string[]) =>
-              values.includes(value) ? values : [...values, value];
-            trimmedValue && setAllOptions(getValuesWithValueIfUnique(trimmedValue));
-            trimmedValue && setPickedOptions(getValuesWithValueIfUnique(trimmedValue));
-          },
-          btnProps: { title: "Add new select option" }
+          onAddNew,
+          btnProps: { title: "Add new list item" }
         },
         search: {
           enabled: true,
-          searchPlaceholder: "Search or add new option (Enter)"
+          searchPlaceholder: "Add new list item (Enter)"
         }
       }}
     >
-      {allOptions.map(option => (
-        <MultiOption key={option} value={option}>
-          {option}
-        </MultiOption>
-      ))}
+      {optionElements}
     </MultiSelectWrapperComponent>
   );
-};
-
-export const MultiSelectAddNewWrapper = AddNewTemplate.bind({});
+}).bind({});
 
 export const MultiSelectWrapperInReadOnlyMode = Template.bind({});
-
 MultiSelectWrapperInReadOnlyMode.storyName = "Multi Select Wrapper In Read-only Mode";
 MultiSelectWrapperInReadOnlyMode.args = {
   readOnlyView: true
