@@ -33,6 +33,7 @@ import { addSeconds } from "date-fns";
 import { DateTimePickerInputSection } from "./DateTimePickerInputSection";
 import { DateTimePickerCalendarSection } from "./DateTimePickerCalendarSection";
 import { DateTimeFilter } from "../DataGridFilters.interfaces";
+import { useRepeatFocus } from "../../../../hooks/useRepeatFocus";
 
 export type DateTimePickerTranslations = {
   errors: {
@@ -113,6 +114,7 @@ export const DateTimePicker = ({
   const [toDateText, setToDateText] = useState("");
   const [fromDateError, setFromDateError] = useState("");
   const [toDateError, setToDateError] = useState("");
+  useRepeatFocus(popoverRef);
 
   const disableDateRangePickers = selectedPredefinedRange !== CUSTOM_DATE_RANGE;
 
@@ -203,57 +205,59 @@ export const DateTimePicker = ({
       placement={{ horizontal: "left", vertical: "bottom" }}
       transformOrigin={{ horizontal: "left", vertical: "top" }}
     >
-      <div className={classes["popover"]}>
-        <div className={classes["content-wrapper"]}>
-          <div className={classes["aside"]}>
-            <SideMenu
-              sideMenuItems={sideMenuItems}
-              selectedItemId={selectedPredefinedRange}
-              onItemSelect={onSideMenuItemSelect}
-            />
-          </div>
-          <div
-            className={`${classes["controls"]} ${toDateError ?? fromDateError ? classes["has-error"] : ""}`}
-          >
-            <div className={classes["controls-panel"]}>
-              <DateTimePickerInputSection
-                from={from}
-                to={to}
-                dateInputPlaceholder={dateInputPlaceholder}
-                dateFormatError={dateFormatError}
-                fromDateText={fromDateText}
-                toDateText={toDateText}
-                fromDateError={fromDateError}
-                toDateError={toDateError}
-                setSelectedDate={setSelectedDate}
-                setFromDateText={setFromDateText}
-                setToDateText={setToDateText}
-                setFromDateError={setFromDateError}
-                setToDateError={setToDateError}
+      {isOpen && (
+        <div tabIndex={!isOpen ? -1 : 0} className={classes["popover"]}>
+          <div className={classes["content-wrapper"]}>
+            <div className={classes["aside"]}>
+              <SideMenu
+                sideMenuItems={sideMenuItems}
+                selectedItemId={selectedPredefinedRange}
+                onItemSelect={onSideMenuItemSelect}
               />
             </div>
-            <div className={classes["controls-panel"]}>
-              <DateTimePickerCalendarSection
-                previousMonth={previousMonth}
-                nextMonth={nextMonth}
-                selectedDate={selectedDate}
-                disableDateRangePickers={disableDateRangePickers}
-                setSelectedDate={setSelectedDate}
-                setFromDateText={setFromDateText}
-                setFromDateError={setFromDateError}
-                setToDateText={setToDateText}
-                setToDateError={setToDateError}
-              />
+            <div
+              className={`${classes["controls"]} ${toDateError ?? fromDateError ? classes["has-error"] : ""}`}
+            >
+              <div className={classes["controls-panel"]}>
+                <DateTimePickerInputSection
+                  from={from}
+                  to={to}
+                  dateInputPlaceholder={dateInputPlaceholder}
+                  dateFormatError={dateFormatError}
+                  fromDateText={fromDateText}
+                  toDateText={toDateText}
+                  fromDateError={fromDateError}
+                  toDateError={toDateError}
+                  setSelectedDate={setSelectedDate}
+                  setFromDateText={setFromDateText}
+                  setToDateText={setToDateText}
+                  setFromDateError={setFromDateError}
+                  setToDateError={setToDateError}
+                />
+              </div>
+              <div className={classes["controls-panel"]}>
+                <DateTimePickerCalendarSection
+                  previousMonth={previousMonth}
+                  nextMonth={nextMonth}
+                  selectedDate={selectedDate}
+                  disableDateRangePickers={disableDateRangePickers}
+                  setSelectedDate={setSelectedDate}
+                  setFromDateText={setFromDateText}
+                  setFromDateError={setFromDateError}
+                  setToDateText={setToDateText}
+                  setToDateError={setToDateError}
+                />
+              </div>
             </div>
           </div>
+          <div className={classes["actions"]}>
+            <Button variant="text" onClick={closeDateTimePicker}>
+              {cancel}
+            </Button>
+            <Button onClick={saveDateTimePicker}>{apply}</Button>
+          </div>
         </div>
-        <div className={classes["actions"]}>
-          <Button variant="text" onClick={closeDateTimePicker}>
-            {cancel}
-          </Button>
-          <Button onClick={saveDateTimePicker}>{apply}</Button>
-        </div>
-      </div>
+      )}
     </Popover>
   );
 };

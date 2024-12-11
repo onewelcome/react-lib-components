@@ -24,8 +24,10 @@ import { IconButton } from "../Button/IconButton";
 import { Icon, Icons } from "../Icon/Icon";
 import { ContextMenuItem } from "../ContextMenu/ContextMenuItem";
 import userEvent from "@testing-library/user-event";
-import { useMockFilteringLogic } from "./testUtils";
+import { useMockFilteringByDateLogic, useMockFilteringLogic } from "./testUtils";
 import { Button } from "../Button/Button";
+import { THIRTY_SECONDS } from "./DataGridFilters/DateTimePicker/DateTimeService";
+import { de } from "date-fns/locale";
 
 type DataType = { firstName: string; lastName: string; date: string };
 
@@ -710,39 +712,148 @@ describe("DataGrid with search", () => {
   });
 });
 
+type WithDateFilterDataType = { id: string; name: string; type: string; created: Date };
+
+const paramsWithDateFilter: Props<WithDateFilterDataType> = {
+  children: ({ item }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{item.type}</DataGridCell>
+      <DataGridCell>{item.created.toISOString()}</DataGridCell>
+    </DataGridRow>
+  ),
+  data: [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      created: new Date()
+    },
+    {
+      name: "Company 2",
+      id: "2",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 50)
+    },
+    {
+      name: "Company 3",
+      id: "3",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 270)
+    },
+    {
+      name: "Company 4",
+      id: "4",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 3400)
+    },
+    {
+      name: "Company 5",
+      id: "5",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 86000)
+    },
+    {
+      name: "Company 6",
+      id: "6",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 99000)
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "created", headline: "Created", disableSorting: true }
+  ],
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+const createDataGridWithDateFilter = (
+  params?: (defaultParams: any) => Props<WithDateFilterDataType>
+) => {
+  let parameters = paramsWithDateFilter;
+  if (params) {
+    parameters = params(paramsWithDateFilter);
+  }
+
+  const DataGridWithDateFilter = () => {
+    const [dateFilterValue, setDateFilterValue] = useState({
+      type: THIRTY_SECONDS,
+      toDate: new Date().toISOString(),
+      fromDate: new Date(Date.now() - 1000 * 30).toISOString()
+    });
+
+    const { gridData } = useMockFilteringByDateLogic(
+      parameters.data ?? [],
+      "created",
+      dateFilterValue
+    );
+
+    return (
+      <DataGrid
+        {...parameters}
+        data={gridData}
+        filters={{
+          dateFilterValue: dateFilterValue,
+          onDateFilterValueChange: val => {
+            setDateFilterValue(val);
+          }
+        }}
+        data-testid="dataGrid"
+      />
+    );
+  };
+
+  const queries = render(<DataGridWithDateFilter />);
+  const dataGrid = queries.getByTestId("dataGrid");
+
+  return {
+    ...queries,
+    dataGrid
+  };
+};
+
 describe("DataGrid with date filter", () => {
-  it("should highlight matching values", async () => {
-    const { dataGrid, getByPlaceholderText, findByTestId } = createDataGridWithSearch();
+  it("should render data grid with default date filter", async () => {
+    const { dataGrid, getAllByRole, debug } = createDataGridWithDateFilter();
 
     expect(dataGrid).toBeInTheDocument();
-    expect(getByPlaceholderText("Search items")).toBeInTheDocument();
 
-    await userEvent.type(getByPlaceholderText("Search items"), "Daniel");
-
-    const highlight = await findByTestId("Daniel-mark");
-
-    expect(highlight).toBeInTheDocument();
+    expect(getAllByRole("row")).toHaveLength(2);
   });
 
-  it("should render action button when provided", async () => {
-    const onClick = jest.fn();
-    const { dataGrid, getByText } = createDataGridWithSearch(prev => ({
-      ...prev,
-      toolbarButtons: [
-        <Button key="1" onClick={onClick}>
-          Add item
-        </Button>
-      ]
-    }));
+  it("should allow changing the date filters", async () => {
+    const { dataGrid, getByRole, getByText, getAllByRole } = createDataGridWithDateFilter();
 
     expect(dataGrid).toBeInTheDocument();
 
-    const toolbarButton = getByText("Add item");
+    const dateFilterButton = getByRole("button");
 
-    expect(toolbarButton).toBeInTheDocument();
+    expect(dateFilterButton).toBeInTheDocument();
 
-    await userEvent.click(toolbarButton);
+    await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Last 1 minute"));
+    await userEvent.click(getByText("Apply"));
 
-    expect(onClick).toHaveBeenCalled();
+    expect(getAllByRole("row")).toHaveLength(3);
+
+    await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Last 5 minutes"));
+    await userEvent.click(getByText("Apply"));
+
+    expect(getAllByRole("row")).toHaveLength(4);
+
+    await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Last 1 hour"));
+    await userEvent.click(getByText("Apply"));
+
+    expect(getAllByRole("row")).toHaveLength(5);
+
+    await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Last 24 hours"));
+    await userEvent.click(getByText("Apply"));
+
+    expect(getAllByRole("row")).toHaveLength(6);
   });
 });

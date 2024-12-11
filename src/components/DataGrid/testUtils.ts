@@ -82,14 +82,14 @@ export const useMockFilteringLogic = <T extends { [k: string]: string }>(
   };
 };
 
-export const useMockFilteringByDateLogic = <T extends { [k: string]: string }>(
+export const useMockFilteringByDateLogic = <T extends { [k: string]: string | Date }>(
   data: T[],
   dateFieldKey: string,
   filterValue: DateTimeFilter | undefined
 ) => {
   const [gridData, setGridData] = useState(data);
 
-  const filterRowByDateRange = (date: string, fromDate: string, toDate: string): boolean => {
+  const filterRowByDateRange = (date: string | Date, fromDate: string, toDate: string): boolean => {
     return isWithinInterval(new Date(date), {
       start: new Date(fromDate),
       end: new Date(toDate)
