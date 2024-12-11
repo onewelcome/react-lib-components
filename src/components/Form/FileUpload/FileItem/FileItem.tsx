@@ -22,6 +22,7 @@ import { ProgressBar } from "../../../ProgressBar/ProgressBar";
 import { FileType } from "../FileUpload";
 import { Button } from "../../../Button/Button";
 import { Link } from "../../../Link/Link";
+import { withReadOnly } from "../../../withReadOnly";
 export type UploadProgress = "uploading" | "completed" | "error" | "readonly" | "retry";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
@@ -62,7 +63,8 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     progress,
     downloadFileLink,
     totalPercentage,
-    onRequestedFileAction
+    onRequestedFileAction,
+    ...rest
   }: Props,
   ref
 ) => {
@@ -213,8 +215,20 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     );
   };
 
+  const restPropsWithoutPointerEvents = () => {
+    let props = rest;
+    delete rest?.style?.pointerEvents;
+    return props;
+  };
+
   return (
-    <div ref={ref} className={classes["file-item-wrapper"]} aria-label={`${name}-wrapper`}>
+    <div
+      ref={ref}
+      className={classes["file-item-wrapper"]}
+      aria-label={`${name}-wrapper`}
+      tabIndex={0}
+      {...restPropsWithoutPointerEvents()}
+    >
       <div className={classes["file-list-container"]}>
         {status !== ACTION_STATUS.UPLOADING && getUploadedFileInfo()}
 
@@ -240,4 +254,4 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   );
 };
 
-export const FileItem = React.forwardRef(FileItemComponent);
+export const FileItem = withReadOnly(React.forwardRef(FileItemComponent));

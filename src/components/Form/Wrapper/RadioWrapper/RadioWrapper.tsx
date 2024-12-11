@@ -25,6 +25,7 @@ import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { useWrapper } from "../../../../hooks/useWrapper";
 import { Icons } from "../../../Icon/Icon";
 import { Fieldset, Props as FieldsetProps } from "../../../Form/Fieldset/Fieldset";
+import { withReadOnly } from "../../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"div">, WrapperProps {
   children: ReactElement | ReactElement[];
@@ -49,6 +50,7 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   const { errorId, helperId } = useWrapper();
+  const readOnlyView = !!rest["data-readonlyview"];
 
   useEffect(() => {
     if (fieldsetProps.legend === undefined) {
@@ -59,17 +61,20 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }, []);
 
   const renderChildren = () =>
-    React.Children.map(children, child =>
-      React.cloneElement(child, {
-        parentErrorId: errorId,
-        error: error,
-        checked: child.props.value === value,
-        name: name,
-        parentHelperId: helperText ? helperId : false,
-        onChange: onChange,
-        disabled: child.props.disabled !== undefined ? child.props.disabled : disabled
-      })
-    );
+    React.Children.map(children, child => {
+      if (!readOnlyView || child.props.value === value) {
+        return React.cloneElement(child, {
+          parentErrorId: errorId,
+          error: error,
+          checked: child.props.value === value,
+          name: name,
+          parentHelperId: helperText ? helperId : false,
+          onChange: onChange,
+          disabled: child.props.disabled !== undefined ? child.props.disabled : disabled
+        });
+      }
+      return null;
+    });
 
   return (
     <Fieldset {...fieldsetProps} disabled={disabled}>
@@ -96,4 +101,4 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   );
 };
 
-export const RadioWrapper = React.forwardRef(RadioWrapperComponent);
+export const RadioWrapper = withReadOnly(React.forwardRef(RadioWrapperComponent));

@@ -208,6 +208,8 @@ interface CSSProperties {
   fileUploadBorderWidth?: string;
   dragDropBorderStyle?: string;
   fontSizeDataGrid?: string;
+  readOnlyBorderColor?: string;
+  readOnlyTextColor?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -403,6 +405,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH4: "1.25rem",
     fontSizeSub: ".75rem",
     fontSizeCode: "1rem",
+    readOnlyBorderColor: "var(--color-blue-grey100)",
+    readOnlyTextColor: "var(--color-blue-grey900)",
     formControlFontSize: "0.875rem", //FIXME: UCL-395
     fontSizeDataGrid: "0.875rem" //FIXME: UCL-395
   };

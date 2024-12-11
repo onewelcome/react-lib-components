@@ -30,6 +30,7 @@ import {
   Props as FormSelectorWrapperProps
 } from "../FormSelectorWrapper/FormSelectorWrapper";
 import { FormSelector } from "../form.interfaces";
+import { withReadOnly } from "../../withReadOnly";
 
 const isToggle = (children: ReactNode) => !!(children as ReactElement)?.props?.["data-toggle"];
 
@@ -182,4 +183,4 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   );
 };
 
-export const Checkbox = React.forwardRef(CheckboxComponent);
+export const Checkbox = withReadOnly(React.forwardRef(CheckboxComponent));

@@ -283,3 +283,9 @@ export const MultiSelectWrapperUseAsEditableList = (args => {
     </MultiSelectWrapperComponent>
   );
 }).bind({});
+
+export const MultiSelectWrapperInReadOnlyMode = Template.bind({});
+MultiSelectWrapperInReadOnlyMode.storyName = "Multi Select Wrapper In Read-only Mode";
+MultiSelectWrapperInReadOnlyMode.args = {
+  readOnlyView: true
+};

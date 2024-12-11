@@ -28,7 +28,8 @@ export const useArrowNavigation = ({
   setShouldClick,
   searchInputRef,
   addBtnRef,
-  renderThreshold
+  renderThreshold,
+  isReadOnlyView
 }: UseArrowNavigationParams) => {
   const onArrowNavigation = (event: React.KeyboardEvent) => {
     const codesToPreventDefault = [
@@ -52,6 +53,10 @@ export const useArrowNavigation = ({
     ];
 
     const isAddBtnFocused = addBtnRef?.current === document.activeElement;
+
+    if (isReadOnlyView) {
+      return;
+    }
 
     if (expanded) {
       codesToPreventDefault.push("Tab");

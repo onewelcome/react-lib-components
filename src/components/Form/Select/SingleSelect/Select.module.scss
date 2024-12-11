@@ -160,6 +160,43 @@ $listItemHeight: 2.5rem;
       }
     }
   }
+
+  &[data-readonlyview="true"] {
+    user-select: text;
+    pointer-events: none;
+
+    & button[type="button"] {
+      background-color: var(--color-white);
+      color: var(--read-only-text-color);
+      border-color: var(--read-only-border-color);
+
+      & .selected {
+        color: var(--read-only-text-color);
+      }
+
+      &.error,
+      &.success {
+        border-color: var(--read-only-border-color);
+        color: var(--read-only-text-color);
+
+        & .status {
+          visibility: visible;
+        }
+      }
+
+      & .status {
+        & .chevron-icon {
+          visibility: hidden;
+        }
+      }
+    }
+    & .list-wrapper {
+      visibility: hidden;
+      & ul {
+        display: none;
+      }
+    }
+  }
 }
 
 .selected-option {
@@ -242,6 +279,25 @@ $listItemHeight: 2.5rem;
       button:focus:not(.error) {
         padding: 0
           calc(variables.$form-element-horizontal-padding-desktop - var(--input-border-width-focus));
+      }
+    }
+  }
+}
+
+[data-readonlyview="true"] {
+  [data-readonlyview] {
+    & button {
+      border-color: var(--read-only-border-color);
+
+      & .status {
+        & .chevron-icon {
+          visibility: hidden;
+        }
+      }
+
+      &.error {
+        border-color: var(--read-only-border-color);
+        color: var(--read-only-text-color);
       }
     }
   }

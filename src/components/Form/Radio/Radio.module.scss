@@ -143,3 +143,49 @@
   color: var(--disabled);
   pointer-events: none;
 }
+
+[data-readonlyview="true"] {
+  & .radio-wrapper {
+    color: var(--read-only-text-color);
+
+    & span.input {
+      color: var(--read-only-text-color);
+      cursor: not-allowed;
+
+      &:before {
+        outline: 1px solid var(--read-only-border-color);
+        outline-offset: -1px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  label {
+    user-select: text;
+  }
+}
+
+input[type="radio"] {
+  &[data-readonlyview="true"] {
+    & ~ span.input {
+      color: var(--read-only-text-color);
+      cursor: not-allowed;
+
+      &:before {
+        outline: 1px solid var(--read-only-border-color);
+        outline-offset: -1px;
+        border-radius: 50%;
+      }
+    }
+
+    & ~ label {
+      user-select: text;
+      pointer-events: none;
+    }
+
+    & :focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
+    }
+  }
+}
