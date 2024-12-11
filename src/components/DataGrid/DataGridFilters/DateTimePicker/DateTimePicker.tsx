@@ -32,7 +32,7 @@ import { SideMenu } from "./SideMenu";
 import { addSeconds } from "date-fns";
 import { DateTimePickerInputSection } from "./DateTimePickerInputSection";
 import { DateTimePickerCalendarSection } from "./DateTimePickerCalendarSection";
-import { DateTimeFilter } from "../DataGridFilters.interfaces";
+import { DateTimeFilter, DateTimeFilterType } from "../DataGridFilters.interfaces";
 import { useRepeatFocus } from "../../../../hooks/useRepeatFocus";
 
 export type DateTimePickerTranslations = {
@@ -60,7 +60,7 @@ export type Props = {
 };
 
 export type SideMenuItem = {
-  id: string;
+  id: DateTimeFilterType;
   name: string;
   rangeSeconds?: number;
 };
@@ -109,7 +109,9 @@ export const DateTimePicker = ({
     from: dateFilterValue?.fromDate ? new Date(dateFilterValue?.fromDate) : undefined,
     to: dateFilterValue?.toDate ? new Date(dateFilterValue?.toDate) : undefined
   });
-  const [selectedPredefinedRange, setSelectedPredefinedRange] = useState(sideMenuItems[0].id);
+  const [selectedPredefinedRange, setSelectedPredefinedRange] = useState<DateTimeFilterType>(
+    sideMenuItems[0].id
+  );
   const [fromDateText, setFromDateText] = useState("");
   const [toDateText, setToDateText] = useState("");
   const [fromDateError, setFromDateError] = useState("");
@@ -161,7 +163,7 @@ export const DateTimePicker = ({
     }
   }, [isOpen, dateFilterValue]);
 
-  const onSideMenuItemSelect = (itemId: string) => {
+  const onSideMenuItemSelect = (itemId: DateTimeFilterType) => {
     setSelectedPredefinedRange(itemId);
     const foundItem = sideMenuItems.find(item => item.id === itemId);
     foundItem && onTagCaptionChange(foundItem.name);

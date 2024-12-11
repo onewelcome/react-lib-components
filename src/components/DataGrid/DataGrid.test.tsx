@@ -27,6 +27,7 @@ import userEvent from "@testing-library/user-event";
 import { useMockFilteringByDateLogic, useMockFilteringLogic } from "./testUtils";
 import { Button } from "../Button/Button";
 import { THIRTY_SECONDS, formatInputDate } from "./DataGridFilters/DateTimePicker/DateTimeService";
+import { DateTimeFilter } from "./DataGridFilters/DataGridFilters.interfaces";
 
 type DataType = { firstName: string; lastName: string; date: string };
 
@@ -777,7 +778,7 @@ const createDataGridWithDateFilter = (
   }
 
   const DataGridWithDateFilter = () => {
-    const [dateFilterValue, setDateFilterValue] = useState({
+    const [dateFilterValue, setDateFilterValue] = useState<DateTimeFilter>({
       type: THIRTY_SECONDS,
       toDate: new Date().toISOString(),
       fromDate: new Date(Date.now() - 1000 * 30).toISOString()

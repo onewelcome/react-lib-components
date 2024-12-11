@@ -89,8 +89,16 @@ export interface KeyValuePair<TKey = string, TValue = string> {
   value: TValue;
 }
 
+export type DateTimeFilterType =
+  | "THIRTY_SECONDS"
+  | "ONE_MINUTE"
+  | "FIVE_MINUTES"
+  | "ONE_HOUR"
+  | "TWENTY_FOUR_HOURS"
+  | "CUSTOM";
+
 export interface DateTimeFilter {
   fromDate: string;
   toDate: string;
-  type: string;
+  type: DateTimeFilterType;
 }

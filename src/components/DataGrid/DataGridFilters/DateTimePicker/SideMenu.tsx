@@ -18,11 +18,12 @@ import React from "react";
 import classes from "./DateTimePicker.module.scss";
 import contextMenuItemClasses from "../../../ContextMenu/ContextMenuItem.module.scss";
 import { SideMenuItem } from "./DateTimePicker";
+import { DateTimeFilterType } from "../DataGridFilters.interfaces";
 
 type Props = {
   sideMenuItems: SideMenuItem[];
   selectedItemId: string;
-  onItemSelect: (id: string) => void;
+  onItemSelect: (id: DateTimeFilterType) => void;
 };
 
 export const SideMenu = ({ sideMenuItems, selectedItemId, onItemSelect }: Props) => {

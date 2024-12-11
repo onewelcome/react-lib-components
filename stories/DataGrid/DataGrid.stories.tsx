@@ -46,6 +46,7 @@ import {
   CUSTOM_DATE_RANGE,
   THIRTY_SECONDS
 } from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
+import { DateTimeFilter } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
 
 interface DataGridItem {
   name: string;
@@ -907,7 +908,7 @@ ToolbarWithAllOptions.args = {
 };
 
 const DataGridDatePickerTemplate = args => {
-  const [dateFilterValue, setDateFilterValue] = useState({
+  const [dateFilterValue, setDateFilterValue] = useState<DateTimeFilter>({
     type: THIRTY_SECONDS,
     toDate: new Date().toISOString(),
     fromDate: new Date(Date.now() - 1000 * 30).toISOString()
