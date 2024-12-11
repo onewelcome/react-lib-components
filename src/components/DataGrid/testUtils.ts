@@ -15,8 +15,9 @@
  */
 
 import { useEffect, useState } from "react";
-import { Filter } from "./DataGridFilters/DataGridFilters.interfaces";
+import { DateTimeFilter, Filter } from "./DataGridFilters/DataGridFilters.interfaces";
 import { useFiltersReducer } from "./DataGridFilters/useFiltersReducer";
+import { isWithinInterval } from "date-fns";
 
 type OperatorPredicateMap<TOperator extends string> = {
   [op in TOperator]: (v1: string, v2: string) => boolean;
@@ -47,6 +48,22 @@ export const useMockFilteringLogic = <T extends { [k: string]: string }>(
 
   const [gridData, setGridData] = useState(data);
 
+  const filterRow = (row: T) => {
+    let shouldBeDiscarded: boolean[] = [];
+    state.filters.forEach(filter => {
+      const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
+      const operatorPredicate = operatorPredicateMap[filter.operator];
+      shouldBeDiscarded = [
+        ...shouldBeDiscarded,
+        !reduce(filter.value, val => operatorPredicate(row[filter.column], val))
+      ];
+    });
+
+    return shouldBeDiscarded.length > 0 && shouldBeDiscarded.reduce((acc, val) => acc || val, false)
+      ? undefined
+      : row;
+  };
+
   useEffect(() => {
     const filteredData = data.map(filterRow).filter(val => {
       return val !== undefined;
@@ -63,20 +80,36 @@ export const useMockFilteringLogic = <T extends { [k: string]: string }>(
     setGridData,
     filters: state.filters
   };
+};
 
-  function filterRow(row: T) {
-    let shouldBeDiscarded: boolean[] = [];
-    state.filters.forEach(filter => {
-      const reduce = filter.operator == "is" ? reduceDisjunction : reduceConjunction;
-      const operatorPredicate = operatorPredicateMap[filter.operator];
-      shouldBeDiscarded = [
-        ...shouldBeDiscarded,
-        !reduce(filter.value, val => operatorPredicate(row[filter.column], val))
-      ];
+export const useMockFilteringByDateLogic = <T extends { [k: string]: string }>(
+  data: T[],
+  dateFieldKey: string,
+  filterValue: DateTimeFilter | undefined
+) => {
+  const [gridData, setGridData] = useState(data);
+
+  const filterRowByDateRange = (date: string, fromDate: string, toDate: string): boolean => {
+    return isWithinInterval(new Date(date), {
+      start: new Date(fromDate),
+      end: new Date(toDate)
     });
+  };
 
-    return shouldBeDiscarded.length > 0 && shouldBeDiscarded.reduce((acc, val) => acc || val, false)
-      ? undefined
-      : row;
-  }
+  useEffect(() => {
+    if (filterValue) {
+      const fromDate = filterValue.fromDate;
+      const toDate = filterValue.toDate;
+
+      const filteredData = data.filter(item =>
+        filterRowByDateRange(item[dateFieldKey], fromDate, toDate)
+      );
+      setGridData(filteredData);
+    }
+  }, [filterValue, data]);
+
+  return {
+    gridData,
+    setGridData
+  };
 };

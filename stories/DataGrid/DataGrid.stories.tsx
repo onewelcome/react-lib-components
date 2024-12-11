@@ -17,7 +17,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
-import { useMockFilteringLogic } from "../../src/components/DataGrid/testUtils";
+import {
+  useMockFilteringByDateLogic,
+  useMockFilteringLogic
+} from "../../src/components/DataGrid/testUtils";
 import {
   Button,
   ContextMenu,
@@ -906,17 +909,19 @@ const DataGridDatePickerTemplate = args => {
     toDate: "2024-12-29T23:00:00.000Z",
     fromDate: "2024-12-09T23:00:00.000Z"
   });
+
+  const { gridData } = useMockFilteringByDateLogic(args.data, "created", dateFilterValue);
+
   return (
     <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
       <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
         <DataGridComponent
           {...args}
-          data={args.data}
+          data={gridData}
           filters={{
             dateFilterValue: dateFilterValue,
             onDateFilterValueChange: val => {
               setDateFilterValue(val);
-              console.log(val);
             }
           }}
         >
@@ -925,7 +930,7 @@ const DataGridDatePickerTemplate = args => {
               <DataGridCell>{item.name}</DataGridCell>
               <DataGridCell>{item.id}</DataGridCell>
               <DataGridCell>{item.type}</DataGridCell>
-              <DataGridCell>{item.created.toISOString()}</DataGridCell>
+              <DataGridCell>{item.created.toString()}</DataGridCell>
             </DataGridRow>
           )}
         </DataGridComponent>
@@ -948,7 +953,31 @@ DataGridDatePicker.args = {
       name: "Company 2",
       id: "2",
       type: "Bond",
-      created: new Date()
+      created: new Date(Date.now() - 1000 * 50)
+    },
+    {
+      name: "Company 3",
+      id: "3",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 270)
+    },
+    {
+      name: "Company 4",
+      id: "4",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 3400)
+    },
+    {
+      name: "Company 5",
+      id: "5",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 86000)
+    },
+    {
+      name: "Company 6",
+      id: "6",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 99000)
     }
   ],
   headers: [
