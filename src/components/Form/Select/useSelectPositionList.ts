@@ -43,19 +43,21 @@ export const useSelectPositionList = ({
       return;
     }
 
+    const listHeight = optionListReference.current?.getBoundingClientRect().height;
+
     // Check whether there is more space above or below the select
     // Check space between the bottom of select and top of viewport
-    const spaceOnTopOfSelect = containerReference.current.getBoundingClientRect().bottom;
+    const spaceOnTopOfSelect = containerReference.current.getBoundingClientRect().top;
 
     // Check space between the top of the select and bottom of viewport
     const spaceOnBottomOfSelect =
-      window.innerHeight - containerReference.current.getBoundingClientRect().top;
+      window.innerHeight - containerReference.current.getBoundingClientRect().bottom;
 
     // Set position as if there's more space on the bottom
     let position = Position.Below;
 
     // Set the position of the select
-    if (spaceOnTopOfSelect > spaceOnBottomOfSelect) {
+    if (listHeight > spaceOnBottomOfSelect && spaceOnTopOfSelect > spaceOnBottomOfSelect) {
       position = Position.Above;
     }
 
