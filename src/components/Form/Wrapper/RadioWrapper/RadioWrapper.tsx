@@ -50,7 +50,7 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   const { errorId, helperId } = useWrapper();
-  const readOnlyView = !!rest["data-readonlyview"] as boolean;
+  const readOnlyView = !!rest["data-readonlyview"];
 
   useEffect(() => {
     if (fieldsetProps.legend === undefined) {

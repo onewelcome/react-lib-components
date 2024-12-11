@@ -24,7 +24,7 @@
   [data-icon-status="success"],
   [data-icon-status="error"] {
     position: absolute;
-    right: 1.25rem;
+    right: 0.1rem;
     z-index: 1;
     top: 0.85rem;
     font-size: 1.25rem;
@@ -54,10 +54,11 @@
     border: 1px solid var(--color-blue-grey100);
     color: var(--read-only-text-color);
     background-color: var(--color-white);
-    padding: 0.625rem 1.5625rem 0.625rem 0.625rem;
+    padding: 0.5rem 0.75rem;
     font-family: var(--font-family);
     font-size: var(--form-control-font-size);
     position: relative;
+    border-radius: 0.125rem;
 
     & ~ span.outline {
       display: none;
