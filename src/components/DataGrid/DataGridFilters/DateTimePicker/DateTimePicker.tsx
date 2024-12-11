@@ -30,7 +30,6 @@ import {
 } from "./DateTimeService";
 import { SideMenu } from "./SideMenu";
 import { addSeconds } from "date-fns";
-import { generateID } from "../../../../util/helper";
 import { DateTimePickerInputSection } from "./DateTimePickerInputSection";
 import { DateTimePickerCalendarSection } from "./DateTimePickerCalendarSection";
 import { DateTimeFilter } from "../DataGridFilters.interfaces";
@@ -188,8 +187,8 @@ export const DateTimePicker = ({
   const saveDateTimePicker = () => {
     onDateFilterValueChange &&
       onDateFilterValueChange({
-        toDate: selectedDate.to?.toISOString() || "",
-        fromDate: selectedDate.from?.toISOString() || "",
+        toDate: selectedDate.to?.toISOString() ?? "",
+        fromDate: selectedDate.from?.toISOString() ?? "",
         type: selectedPredefinedRange
       });
     setPickerOpen(false);
@@ -214,7 +213,7 @@ export const DateTimePicker = ({
             />
           </div>
           <div
-            className={`${classes["controls"]} ${toDateError || fromDateError ? classes["has-error"] : ""}`}
+            className={`${classes["controls"]} ${toDateError ?? fromDateError ? classes["has-error"] : ""}`}
           >
             <div className={classes["controls-panel"]}>
               <DateTimePickerInputSection

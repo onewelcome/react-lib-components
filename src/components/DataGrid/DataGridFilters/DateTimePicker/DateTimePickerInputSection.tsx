@@ -58,7 +58,7 @@ export const DateTimePickerInputSection = ({
   };
 
   const validationRegex =
-    /(\d{4})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) ([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])/;
+    /(\d{4})-(0[1-9]|1[012])-(0[1-9]|[12]\d|3[01]) ([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)/;
   const validateInput = (text: string) => validationRegex.test(text);
 
   const onInputBlur =
