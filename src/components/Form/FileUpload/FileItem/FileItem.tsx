@@ -226,6 +226,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       ref={ref}
       className={classes["file-item-wrapper"]}
       aria-label={`${name}-wrapper`}
+      tabIndex={0}
       {...restPropsWithoutPointerEvents()}
     >
       <div className={classes["file-list-container"]}>
