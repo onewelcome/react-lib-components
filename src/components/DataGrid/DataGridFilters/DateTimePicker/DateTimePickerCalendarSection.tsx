@@ -28,7 +28,7 @@ type Props = {
   nextMonth: string;
   selectedDate: DateRange | undefined;
   disableDateRangePickers: boolean;
-  setSelectedDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
+  setSelectedDate: React.Dispatch<React.SetStateAction<DateRange>>;
   setFromDateText: React.Dispatch<React.SetStateAction<string>>;
   setToDateText: React.Dispatch<React.SetStateAction<string>>;
   setFromDateError: React.Dispatch<React.SetStateAction<string>>;

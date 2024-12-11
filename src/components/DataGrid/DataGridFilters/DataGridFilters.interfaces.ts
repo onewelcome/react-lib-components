@@ -88,3 +88,9 @@ export interface KeyValuePair<TKey = string, TValue = string> {
   key: TKey;
   value: TValue;
 }
+
+export interface DateTimeFilter {
+  fromDate: string;
+  toDate: string;
+  type: string;
+}

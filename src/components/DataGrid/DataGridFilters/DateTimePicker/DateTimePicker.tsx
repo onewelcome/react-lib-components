@@ -19,12 +19,21 @@ import { Popover } from "../../../Popover/Popover";
 import classes from "./DateTimePicker.module.scss";
 import { Button } from "../../../Button/Button";
 import { DateRange } from "react-day-picker";
-import { formatInputDate } from "./DateTimeService";
+import {
+  CUSTOM_DATE_RANGE,
+  FIVE_MINUTES,
+  ONE_HOUR,
+  ONE_MINUTE,
+  THIRTY_SECONDS,
+  TWENTY_FOUR_HOURS,
+  formatInputDate
+} from "./DateTimeService";
 import { SideMenu } from "./SideMenu";
 import { addSeconds } from "date-fns";
 import { generateID } from "../../../../util/helper";
 import { DateTimePickerInputSection } from "./DateTimePickerInputSection";
 import { DateTimePickerCalendarSection } from "./DateTimePickerCalendarSection";
+import { DateTimeFilter } from "../DataGridFilters.interfaces";
 
 export type DateTimePickerTranslations = {
   errors: {
@@ -46,6 +55,8 @@ export type Props = {
   onTagCaptionChange: (value: string) => void;
   setPickerOpen: (open: boolean) => void;
   translations?: DateTimePickerTranslations;
+  dateFilterValue?: DateTimeFilter;
+  onDateFilterValueChange?: (dateTimeFilter: DateTimeFilter) => void;
 };
 
 export type SideMenuItem = {
@@ -54,15 +65,13 @@ export type SideMenuItem = {
   rangeSeconds?: number;
 };
 
-const CUSTOM_DATE_RANGE_ID = generateID();
-
 const sideMenuItems: SideMenuItem[] = [
-  { id: generateID(), name: "Last 30 seconds", rangeSeconds: 30 },
-  { id: generateID(), name: "Last 1 minute", rangeSeconds: 60 },
-  { id: generateID(), name: "Last 5 minutes", rangeSeconds: 300 },
-  { id: generateID(), name: "Last 1 hour", rangeSeconds: 3600 },
-  { id: generateID(), name: "Last 24 hours", rangeSeconds: 86400 },
-  { id: CUSTOM_DATE_RANGE_ID, name: "Custom" }
+  { id: THIRTY_SECONDS, name: "Last 30 seconds", rangeSeconds: 30 },
+  { id: ONE_MINUTE, name: "Last 1 minute", rangeSeconds: 60 },
+  { id: FIVE_MINUTES, name: "Last 5 minutes", rangeSeconds: 300 },
+  { id: ONE_HOUR, name: "Last 1 hour", rangeSeconds: 3600 },
+  { id: TWENTY_FOUR_HOURS, name: "Last 24 hours", rangeSeconds: 86400 },
+  { id: CUSTOM_DATE_RANGE, name: "Custom" }
 ];
 
 export const DateTimePicker = ({
@@ -82,7 +91,9 @@ export const DateTimePicker = ({
     cancel: "Cancel",
     apply: "Apply",
     dateInputPlaceholder: "yyyy-mm-dd hh:mm:ss"
-  }
+  },
+  dateFilterValue,
+  onDateFilterValueChange
 }: Props) => {
   const {
     errors: { dateFormatError },
@@ -94,18 +105,17 @@ export const DateTimePicker = ({
     apply,
     dateInputPlaceholder
   } = translations;
-  const [selectedDate, setSelectedDate] = useState<DateRange>();
+  const [selectedDate, setSelectedDate] = useState<DateRange>({
+    from: dateFilterValue?.fromDate ? new Date(dateFilterValue?.fromDate) : undefined,
+    to: dateFilterValue?.toDate ? new Date(dateFilterValue?.toDate) : undefined
+  });
   const [selectedPredefinedRange, setSelectedPredefinedRange] = useState(sideMenuItems[0].id);
   const [fromDateText, setFromDateText] = useState("");
   const [toDateText, setToDateText] = useState("");
   const [fromDateError, setFromDateError] = useState("");
   const [toDateError, setToDateError] = useState("");
 
-  const disableDateRangePickers = selectedPredefinedRange !== CUSTOM_DATE_RANGE_ID;
-
-  const closeDateTimePicker = () => {
-    setPickerOpen(false);
-  };
+  const disableDateRangePickers = selectedPredefinedRange !== CUSTOM_DATE_RANGE;
 
   useEffect(() => {
     if (isOpen) {
@@ -114,15 +124,37 @@ export const DateTimePicker = ({
   }, [isOpen]);
 
   useEffect(() => {
-    isOpen && onSideMenuItemSelect(selectedPredefinedRange);
-  }, [isOpen]);
+    if (dateFilterValue) {
+      const foundItem = sideMenuItems.find(item => item.id === dateFilterValue.type);
+
+      foundItem && onTagCaptionChange(foundItem.name);
+
+      setSelectedPredefinedRange(dateFilterValue.type);
+
+      setSelectedDate({
+        from: dateFilterValue?.fromDate ? new Date(dateFilterValue?.fromDate) : undefined,
+        to: dateFilterValue?.toDate ? new Date(dateFilterValue?.toDate) : undefined
+      });
+
+      dateFilterValue.fromDate &&
+        setFromDateText(formatInputDate(new Date(dateFilterValue.fromDate)));
+
+      dateFilterValue.toDate && setToDateText(formatInputDate(new Date(dateFilterValue.toDate)));
+    }
+  }, [dateFilterValue]);
+
+  useEffect(() => {
+    if (!dateFilterValue) {
+      isOpen && onSideMenuItemSelect(selectedPredefinedRange);
+    }
+  }, [isOpen, dateFilterValue]);
 
   const onSideMenuItemSelect = (itemId: string) => {
     setSelectedPredefinedRange(itemId);
     const foundItem = sideMenuItems.find(item => item.id === itemId);
     foundItem && onTagCaptionChange(foundItem.name);
 
-    if (itemId !== CUSTOM_DATE_RANGE_ID) {
+    if (itemId !== CUSTOM_DATE_RANGE) {
       if (!foundItem) {
         return;
       }
@@ -136,6 +168,20 @@ export const DateTimePicker = ({
         setToDateText(formatInputDate(toDate));
       }
     }
+  };
+
+  const closeDateTimePicker = () => {
+    setPickerOpen(false);
+  };
+
+  const saveDateTimePicker = () => {
+    onDateFilterValueChange &&
+      onDateFilterValueChange({
+        toDate: selectedDate.to?.toISOString() || "",
+        fromDate: selectedDate.from?.toISOString() || "",
+        type: selectedPredefinedRange
+      });
+    setPickerOpen(false);
   };
 
   return (
@@ -195,7 +241,7 @@ export const DateTimePicker = ({
           <Button variant="text" onClick={closeDateTimePicker}>
             {cancel}
           </Button>
-          <Button>{apply}</Button>
+          <Button onClick={saveDateTimePicker}>{apply}</Button>
         </div>
       </div>
     </Popover>

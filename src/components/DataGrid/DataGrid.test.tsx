@@ -709,3 +709,40 @@ describe("DataGrid with search", () => {
     expect(onClick).toHaveBeenCalled();
   });
 });
+
+describe("DataGrid with date filter", () => {
+  it("should highlight matching values", async () => {
+    const { dataGrid, getByPlaceholderText, findByTestId } = createDataGridWithSearch();
+
+    expect(dataGrid).toBeInTheDocument();
+    expect(getByPlaceholderText("Search items")).toBeInTheDocument();
+
+    await userEvent.type(getByPlaceholderText("Search items"), "Daniel");
+
+    const highlight = await findByTestId("Daniel-mark");
+
+    expect(highlight).toBeInTheDocument();
+  });
+
+  it("should render action button when provided", async () => {
+    const onClick = jest.fn();
+    const { dataGrid, getByText } = createDataGridWithSearch(prev => ({
+      ...prev,
+      toolbarButtons: [
+        <Button key="1" onClick={onClick}>
+          Add item
+        </Button>
+      ]
+    }));
+
+    expect(dataGrid).toBeInTheDocument();
+
+    const toolbarButton = getByText("Add item");
+
+    expect(toolbarButton).toBeInTheDocument();
+
+    await userEvent.click(toolbarButton);
+
+    expect(onClick).toHaveBeenCalled();
+  });
+});

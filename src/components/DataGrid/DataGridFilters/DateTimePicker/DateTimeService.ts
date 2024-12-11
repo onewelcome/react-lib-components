@@ -16,6 +16,13 @@
 
 import { format, Locale } from "date-fns";
 
+export const THIRTY_SECONDS = "THIRTY_SECONDS";
+export const ONE_MINUTE = "ONE_MINUTE";
+export const FIVE_MINUTES = "FIVE_MINUTES";
+export const ONE_HOUR = "ONE_HOUR";
+export const TWENTY_FOUR_HOURS = "TWENTY_FOUR_HOURS";
+export const CUSTOM_DATE_RANGE = "CUSTOM";
+
 export const getMonthName = (date: Date, locale?: Locale) => format(date, "MMMM", { locale });
 
 export const getYearFromDate = (date: Date) => format(date, "yyyy");

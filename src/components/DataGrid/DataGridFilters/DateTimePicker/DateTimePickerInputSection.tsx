@@ -29,7 +29,7 @@ export type Props = {
   toDateText: string;
   fromDateError: string;
   toDateError: string;
-  setSelectedDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
+  setSelectedDate: React.Dispatch<React.SetStateAction<DateRange>>;
   setFromDateText: React.Dispatch<React.SetStateAction<string>>;
   setToDateText: React.Dispatch<React.SetStateAction<string>>;
   setFromDateError: React.Dispatch<React.SetStateAction<string>>;

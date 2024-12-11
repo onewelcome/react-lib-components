@@ -19,12 +19,19 @@ import { DataGridFilterTag } from "./DataGridFilterTag";
 import { createPortal } from "react-dom";
 import { DateTimePicker } from "./DateTimePicker/DateTimePicker";
 import { useGetDomRoot } from "../../../hooks/useGetDomRoot";
+import { DateTimeFilter } from "./DataGridFilters.interfaces";
 
 type Props = {
   domRoot?: HTMLElement;
+  dateFilterValue?: DateTimeFilter;
+  onDateFilterValueChange?: (dateTimeFilter: DateTimeFilter) => void;
 };
 
-export const DataGridDateFilter = ({ domRoot }: Props) => {
+export const DataGridDateFilter = ({
+  domRoot,
+  dateFilterValue,
+  onDateFilterValueChange
+}: Props) => {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
   const wrappingDivRef = useRef<HTMLDivElement>(null);
@@ -51,6 +58,8 @@ export const DataGridDateFilter = ({ domRoot }: Props) => {
           anchorRef={wrappingDivRef}
           isOpen={isOpen}
           setPickerOpen={setIsOpen}
+          dateFilterValue={dateFilterValue}
+          onDateFilterValueChange={onDateFilterValueChange}
         />,
         root
       )}

@@ -26,7 +26,7 @@ export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
   triggerRef: React.Ref<HTMLButtonElement>;
   filter?: Filter;
   mode: FilterEditorMode;
-  onFilterRemove: () => void;
+  onFilterRemove?: () => void;
   onFilterOpen: () => void;
   translations?: TagTranslations;
   dateTagCaption?: string;

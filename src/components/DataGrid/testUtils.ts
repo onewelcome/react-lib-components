@@ -50,7 +50,7 @@ export const useMockFilteringLogic = <T extends { [k: string]: string }>(
   useEffect(() => {
     const filteredData = data.map(filterRow).filter(val => {
       return val !== undefined;
-    });
+    }) as T[];
     setGridData(filteredData);
   }, [state.filters]);
 

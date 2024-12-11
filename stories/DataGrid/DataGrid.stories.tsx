@@ -39,6 +39,7 @@ import { ModalContent } from "../../src/components/Notifications/Modal/ModalCont
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
+import { CUSTOM_DATE_RANGE } from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
 
 interface DataGridItem {
   name: string;
@@ -895,6 +896,67 @@ ToolbarWithAllOptions.args = {
     debounceTime: 500
   },
 
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+const DataGridDatePickerTemplate = args => {
+  const [dateFilterValue, setDateFilterValue] = useState({
+    type: CUSTOM_DATE_RANGE,
+    toDate: "2024-12-29T23:00:00.000Z",
+    fromDate: "2024-12-09T23:00:00.000Z"
+  });
+  return (
+    <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
+      <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
+        <DataGridComponent
+          {...args}
+          data={args.data}
+          filters={{
+            dateFilterValue: dateFilterValue,
+            onDateFilterValueChange: val => {
+              setDateFilterValue(val);
+              console.log(val);
+            }
+          }}
+        >
+          {({ item }: { item: DataGridItem }) => (
+            <DataGridRow key={item.id}>
+              <DataGridCell>{item.name}</DataGridCell>
+              <DataGridCell>{item.id}</DataGridCell>
+              <DataGridCell>{item.type}</DataGridCell>
+              <DataGridCell>{item.created.toISOString()}</DataGridCell>
+            </DataGridRow>
+          )}
+        </DataGridComponent>
+      </div>
+    </div>
+  );
+};
+
+export const DataGridDatePicker = DataGridDatePickerTemplate.bind({});
+
+DataGridDatePicker.args = {
+  data: [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      created: new Date()
+    },
+    {
+      name: "Company 2",
+      id: "2",
+      type: "Bond",
+      created: new Date()
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "created", headline: "Created", disableSorting: true }
+  ],
   isLoading: false,
   enableMultiSorting: true
 };
