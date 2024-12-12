@@ -32,6 +32,7 @@ import { FormHelperText } from "../FormHelperText/FormHelperText";
 import { InputWrapper } from "../Wrapper/InputWrapper/InputWrapper";
 import { SelectWrapper } from "../Wrapper/SelectWrapper/SelectWrapper";
 import { TextareaWrapper } from "../Wrapper/TextareaWrapper/TextareaWrapper";
+import { withReadOnly } from "../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"fieldset"> {
   children?: ReactElement | ReactElement[];
@@ -123,4 +124,4 @@ const FieldsetComponent: ForwardRefRenderFunction<HTMLFieldSetElement, Props> = 
   );
 };
 
-export const Fieldset = React.forwardRef(FieldsetComponent);
+export const Fieldset = withReadOnly(React.forwardRef(FieldsetComponent));

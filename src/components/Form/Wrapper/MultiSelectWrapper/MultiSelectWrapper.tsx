@@ -20,6 +20,7 @@ import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { useWrapper } from "../../../../hooks/useWrapper";
 import { MultiSelect } from "../../Select/MultiSelect/MultiSelect";
 import { MultiSelectProps } from "../../Select/Select.interfaces";
+import { withReadOnly } from "../../../withReadOnly";
 
 interface PartialSelectProps extends Partial<MultiSelectProps> {}
 
@@ -74,6 +75,7 @@ const MultiSelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Prop
         onChange={onChange}
         placeholder={placeholder}
         className={`${selectProps?.className ?? ""}`}
+        isReadOnlyView={!!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}
       </MultiSelect>
@@ -81,4 +83,4 @@ const MultiSelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Prop
   );
 };
 
-export const MultiSelectWrapper = React.forwardRef(MultiSelectWrapperComponent);
+export const MultiSelectWrapper = withReadOnly(React.forwardRef(MultiSelectWrapperComponent));

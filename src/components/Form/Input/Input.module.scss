@@ -94,6 +94,32 @@
   [data-icon-status="error"] {
     color: var(--error);
   }
+
+  &[data-readonlyview="true"] {
+    color: var(--read-only-text-color);
+
+    & .Input-module {
+      border-color: var(--read-only-border-color);
+    }
+
+    & span.outline {
+      color: var(--read-only-text-color);
+      border-color: var(--read-only-border-color);
+      background-color: var(--color-white);
+
+      &.focus {
+        border-color: var(--read-only-border-color);
+      }
+    }
+
+    &:hover {
+      & .outline {
+        color: var(--read-only-text-color);
+        background-color: var(--color-white);
+        border-color: var(--read-only-border-color);
+      }
+    }
+  }
 }
 
 .input {

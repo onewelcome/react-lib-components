@@ -20,7 +20,7 @@ import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const createTextarea = (params?: Props) => {
-  const queries = render(<Textarea data-testid="textarea" {...params} />);
+  const queries = render(<Textarea data-testid="textarea" readOnlyView={false} {...params} />);
   const textarea = queries.getByRole("textbox");
 
   return {
@@ -120,5 +120,24 @@ describe("Success status", () => {
     const { textarea } = createTextarea({ success: true });
     const icon = textarea.parentElement?.querySelector(".icon-checkmark-circle-alt");
     expect(icon).toBeDefined();
+  });
+});
+
+describe("Textarea read only view", () => {
+  const userText = "This is random text entered by user in textarea";
+  const createTextarea = (params?: Props) => {
+    const queries = render(<Textarea data-testid="textarea" value={userText} {...params} />);
+
+    return {
+      ...queries
+    };
+  };
+
+  it("should render readOnly div instead textarea", async () => {
+    const { getByText } = createTextarea({ readOnlyView: true });
+    const readOnlyElement = getByText(userText);
+
+    expect(readOnlyElement.getAttribute("data-readonlyview")).toBeTruthy();
+    expect(readOnlyElement.innerHTML).toStrictEqual(userText);
   });
 });

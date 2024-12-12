@@ -18,9 +18,11 @@ import React, { ForwardRefRenderFunction, ComponentPropsWithRef, useState } from
 import classes from "./Textarea.module.scss";
 import { FormElement } from "../form.interfaces";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
+import { withReadOnly } from "../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"textarea">, FormElement {
   wrapperProps?: ComponentPropsWithRef<"div">;
+  readOnlyView?: boolean;
 }
 
 const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = (
@@ -33,6 +35,7 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
     wrapperProps,
     onFocus,
     onBlur,
+    value,
     ...rest
   }: Props,
   ref
@@ -50,8 +53,19 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
 
   const icon = useDetermineStatusIcon({ success, error });
 
-  return (
-    <div {...wrapperProps} className={wrapperClasses.join(" ")}>
+  const renderTextarea = () => {
+    if (rest["data-readonlyview"]) {
+      return (
+        <div
+          data-readonlyview={true}
+          tabIndex={0}
+          className={`${error ? classes["error"] : ""} ${success ? classes["success"] : ""}`}
+        >
+          {value}
+        </div>
+      );
+    }
+    return (
       <textarea
         {...rest}
         ref={ref}
@@ -66,11 +80,18 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
           setFocus(false);
           onBlur?.(event);
         }}
+        value={value}
       />
+    );
+  };
+
+  return (
+    <div {...wrapperProps} className={wrapperClasses.join(" ")}>
+      {renderTextarea()}
       {icon}
       <span className={outlineClasses.join(" ")}></span>
     </div>
   );
 };
 
-export const Textarea = React.forwardRef(TextareaComponent);
+export const Textarea = withReadOnly(React.forwardRef(TextareaComponent));

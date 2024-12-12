@@ -90,3 +90,11 @@ TextareaWrapperRequired.args = {
   ...defaultArgs,
   required: true
 };
+
+export const TextareaWrapperInReadOnlyMode = Template.bind({});
+
+TextareaWrapperInReadOnlyMode.storyName = "Textarea Wrapper In Read-only Mode";
+TextareaWrapperInReadOnlyMode.args = {
+  ...defaultArgs,
+  readOnlyView: true
+};

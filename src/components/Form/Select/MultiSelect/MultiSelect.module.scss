@@ -258,3 +258,34 @@ $listItemHeight: 2.5rem;
     }
   }
 }
+
+[data-readonlyview="true"] {
+  & .custom-select {
+    color: var(--read-only-text-color);
+    border-color: var(--read-only-border-color);
+    background-color: var(--color-white);
+
+    &.error,
+    &.success {
+      border-color: var(--read-only-border-color);
+    }
+
+    button {
+      pointer-events: none;
+    }
+  }
+
+  & .status {
+    .chevron-icon {
+      visibility: hidden;
+    }
+  }
+
+  &:hover:not(.disabled):not(.expanded):not(.error) {
+    .custom-select:not(:focus) {
+      color: var(--read-only-text-color);
+      border-color: var(--read-only-border-color);
+      background-color: var(--color-white);
+    }
+  }
+}
