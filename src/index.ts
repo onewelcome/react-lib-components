@@ -66,7 +66,7 @@ export type {
 
 /* Utils */
 export { useRepeater } from "./hooks/useRepeater";
-export * from "./hooks/useClickOutside";
+export { useClickOutside } from "./hooks/useClickOutside";
 export { useFullHeightCollapse } from "./hooks/useFullHeightCollapse";
 export { usePosition } from "./hooks/usePosition";
 export type { Placement } from "./hooks/usePosition";

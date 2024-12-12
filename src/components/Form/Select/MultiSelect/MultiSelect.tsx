@@ -18,7 +18,6 @@ import classes from "./MultiSelect.module.scss";
 
 import React, {
   ForwardRefRenderFunction,
-  Fragment,
   ReactElement,
   createRef,
   useEffect,
