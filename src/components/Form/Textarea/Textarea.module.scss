@@ -24,7 +24,7 @@
   [data-icon-status="success"],
   [data-icon-status="error"] {
     position: absolute;
-    right: 0.1rem;
+    right: 1.25rem;
     z-index: 1;
     top: 0.85rem;
     font-size: 1.25rem;
@@ -63,6 +63,10 @@
     & ~ span.outline {
       display: none;
     }
+
+    &:has(~ [data-icon-status]) {
+      padding-right: 2.5rem;
+    }
   }
 }
 
@@ -92,6 +96,10 @@
   & {
     @include mixins.transition(all, 0.2s, ease-in-out);
     @include mixins.browserOutlineDisabled();
+  }
+
+  &:has(~ [data-icon-status]) {
+    padding-right: 2.5rem;
   }
 }
 

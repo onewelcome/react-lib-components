@@ -48,6 +48,10 @@
     &:focus:not(:disabled) {
       outline: none;
     }
+
+    &:has([data-icon-status]) {
+      padding-right: 2.5rem;
+    }
   }
 }
 
@@ -73,7 +77,7 @@
 
     & [data-icon-status] {
       position: absolute;
-      right: 0.1rem;
+      right: 1.25rem;
       top: 0.8rem;
       font-size: 1.125rem;
       height: 1.25rem;
@@ -86,6 +90,10 @@
 
     & [data-icon-status="success"] {
       color: var(--success);
+    }
+
+    &:has([data-icon-status]) {
+      padding-right: 2.5rem;
     }
   }
 }
