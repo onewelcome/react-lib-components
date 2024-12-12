@@ -181,6 +181,37 @@ export const MultiSelectAsEditableList = (args => {
 }).bind({});
 MultiSelectAsEditableList.play = playExpand;
 
+export const MultiSelectInReadOnlyMode = (args => {
+  const items = ["Item 1", "Item 2", "Item 3"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>(items);
+
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <MultiSelect
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      readOnlyView={true}
+      addNew={{
+        label: "Create new",
+        onAddNew,
+        btnProps: { title: "Add new list item" }
+      }}
+      search={{
+        enabled: true,
+        searchPlaceholder: "Add new list item (Enter)"
+      }}
+    >
+      {optionElements}
+    </MultiSelect>
+  );
+}).bind({});
+
+MultiSelectInReadOnlyMode.storyName = "Multi Select Component In Read-only Mode";
+
 export const MultiSelectClosesWhenAnotherMultiSelectClicked: StoryFn<void> = (() => {
   const generateOptions = options =>
     Array.from({ length: options }, (_, index) => {

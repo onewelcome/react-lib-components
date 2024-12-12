@@ -50,6 +50,7 @@ export interface SelectProps<V extends string | readonly string[] | undefined>
   noResultsLabel?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
   addNew?: AddNewProps;
+  isReadOnlyView?: boolean;
 }
 
 export type SingleSelectProps = SelectProps<string>;
@@ -72,6 +73,7 @@ export interface UseArrowNavigationParams {
   searchInputRef: React.RefObject<HTMLInputElement>;
   addBtnRef?: React.RefObject<HTMLButtonElement>;
   renderThreshold: number;
+  isReadOnlyView?: boolean;
 }
 
 export interface UseSelectPositionListParams {

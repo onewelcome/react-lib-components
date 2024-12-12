@@ -254,3 +254,19 @@ NestedCheckboxes.args = {
   errorMessage: "Please check all the boxes",
   helperText: "Helpertext for the group"
 };
+
+export const CheckboxesInReadOnlyMode = CheckboxesTemplate.bind({});
+
+CheckboxesInReadOnlyMode.storyName = "Checkboxes In Read-only Mode";
+CheckboxesInReadOnlyMode.args = {
+  name: "Example checkboxes",
+  fieldsetProps: {
+    legend: "Example fieldset legend",
+    legendStyle: "h1",
+    hideLegend: false,
+    background: "#FFF",
+    noPadding: false,
+    noBackground: false
+  },
+  readOnlyView: true
+};

@@ -48,6 +48,26 @@
   }
 
   @include mixins.outlineStates();
+
+  div[data-readonlyview="true"] {
+    min-height: 4rem;
+    border: 1px solid var(--color-blue-grey100);
+    color: var(--read-only-text-color);
+    background-color: var(--color-white);
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-family);
+    font-size: var(--form-control-font-size);
+    position: relative;
+    border-radius: 0.125rem;
+
+    & ~ span.outline {
+      display: none;
+    }
+
+    &:has(~ [data-icon-status]) {
+      padding-right: 2.5rem;
+    }
+  }
 }
 
 .textarea {
@@ -76,6 +96,10 @@
   & {
     @include mixins.transition(all, 0.2s, ease-in-out);
     @include mixins.browserOutlineDisabled();
+  }
+
+  &:has(~ [data-icon-status]) {
+    padding-right: 2.5rem;
   }
 }
 

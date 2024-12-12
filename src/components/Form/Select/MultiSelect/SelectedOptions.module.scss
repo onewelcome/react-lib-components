@@ -29,3 +29,11 @@
     cursor: pointer;
   }
 }
+
+[data-readonlyview="true"] {
+  .tag {
+    .remove-btn {
+      display: none;
+    }
+  }
+}

@@ -37,6 +37,7 @@ import { SelectButton } from "./SelectButton";
 import { Display, SelectedOptions } from "./SelectedOptions";
 import { useArrowNavigation } from "./useArrowNavigation";
 import { useSearch } from "./useSearch";
+import { withReadOnly } from "../../../withReadOnly";
 
 const getOptionId = (multiSelectId: string, optionIndex: number) =>
   `${multiSelectId}_option${optionIndex}`;
@@ -62,6 +63,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     onChange,
     addNew,
     search = { enabled: true, renderThreshold: 0, searchPlaceholder: "Search item" },
+    isReadOnlyView,
     ...rest
   }: MultiSelectProps,
   ref
@@ -135,6 +137,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   };
 
   const customSelectButtonRef = useRef<HTMLButtonElement>(null);
+  const readOnlyView = !!rest["data-readonlyview"] || isReadOnlyView;
   const { onArrowNavigation } = useArrowNavigation({
     expanded,
     setExpanded,
@@ -144,7 +147,8 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     addBtnRef,
     searchInputRef,
     customSelectButtonRef,
-    onClose: resetSearchState
+    onClose: resetSearchState,
+    isReadOnlyView: readOnlyView
   });
 
   const { listPosition, opacity, optionsListMaxHeight, setListPosition, setOpacity } =
@@ -289,6 +293,9 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   success && additionalClasses.push(classes.success);
 
   const onSelectButtonClick = () => {
+    if (rest["data-readonlyview"] || isReadOnlyView) {
+      return;
+    }
     setExpanded(expanded => !expanded);
     setShouldClick(false);
   };
@@ -386,4 +393,4 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   );
 };
 
-export const MultiSelect = React.forwardRef(MultiSelectComponent);
+export const MultiSelect = withReadOnly(React.forwardRef(MultiSelectComponent));

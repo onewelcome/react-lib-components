@@ -48,9 +48,52 @@
     &:focus:not(:disabled) {
       outline: none;
     }
+
+    &:has([data-icon-status]) {
+      padding-right: 2.5rem;
+    }
   }
 }
 
 .textarea-helper-text {
   margin-top: 0.14rem;
+}
+
+[data-readonlyview="true"] {
+  & ~ span.error {
+    background-color: var(--color-white);
+  }
+
+  & label + div:not(:has(input)) {
+    min-height: 4rem;
+    border: 1px solid var(--color-blue-grey100);
+    color: var(--read-only-text-color);
+    background-color: var(--color-white);
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-family);
+    font-size: var(--form-control-font-size);
+    position: relative;
+    border-radius: 0.125rem;
+
+    & [data-icon-status] {
+      position: absolute;
+      right: 1.25rem;
+      top: 0.8rem;
+      font-size: 1.125rem;
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+
+    & [data-icon-status="error"] {
+      color: var(--error);
+    }
+
+    & [data-icon-status="success"] {
+      color: var(--success);
+    }
+
+    &:has([data-icon-status]) {
+      padding-right: 2.5rem;
+    }
+  }
 }

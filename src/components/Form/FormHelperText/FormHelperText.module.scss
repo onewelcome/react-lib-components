@@ -26,3 +26,7 @@ div.disabled {
 div.error {
   color: var(--error);
 }
+
+[data-readonlyview="true"] div.form-helper-text {
+  display: none;
+}

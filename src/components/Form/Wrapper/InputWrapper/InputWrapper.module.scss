@@ -37,6 +37,10 @@ input {
     justify-content: center;
 
     @include mixins.transition(all, 0.2s, ease-in-out);
+
+    &[data-readonlyview="true"] {
+      padding: auto;
+    }
   }
 
   [data-prefix],
@@ -60,5 +64,15 @@ input {
     background-color: var(--disabled);
     cursor: not-allowed;
     color: var(--greyed-out);
+  }
+
+  &[data-readonlyview="true"] {
+    & label {
+      color: var(--read-only-text-color);
+    }
+
+    & input {
+      color: var(--read-only-text-color);
+    }
   }
 }

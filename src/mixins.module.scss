@@ -195,6 +195,12 @@
   $borderRadius: var(--input-border-radius),
   $backgroundColor: ""
 ) {
+  [data-readonlyview="true"] {
+    .outline {
+      border-color: var(--read-only-border-color);
+    }
+  }
+
   .outline {
     pointer-events: none;
     position: absolute;

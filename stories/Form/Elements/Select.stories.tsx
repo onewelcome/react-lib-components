@@ -136,6 +136,15 @@ SelectWithAddNew.play = conditionalPlay(async ({ canvasElement }) => {
   await userEvent.click(select);
 });
 
+export const SelectInReadOnlyMode = Template.bind({});
+
+SelectInReadOnlyMode.storyName = "Select Component In Read-only Mode";
+SelectInReadOnlyMode.args = {
+  name: "Example select",
+  readOnlyView: true,
+  children: generateOptions(6)
+};
+
 export const SelectClosesWhenAnotherSelectClicked: StoryFn<void> = (() => {
   const options1 = generateOptions(3);
   const options2 = generateOptions(3);

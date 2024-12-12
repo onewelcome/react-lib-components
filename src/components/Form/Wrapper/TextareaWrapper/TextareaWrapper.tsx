@@ -19,6 +19,8 @@ import classes from "./TextareaWrapper.module.scss";
 import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { Textarea, Props as TextareaProps } from "../../Textarea/Textarea";
 import { useWrapper } from "../../../../hooks/useWrapper";
+import { withReadOnly } from "../../../withReadOnly";
+import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 
 export interface Props
   extends Omit<
@@ -35,6 +37,7 @@ export interface Props
   onMouseEnter?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
   success?: boolean;
+  readOnlyView?: boolean;
 }
 
 const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -67,25 +70,24 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   disabled && wrapperClasses.push(classes["disabled"]);
   error && wrapperClasses.push(classes["error"]);
 
-  return (
-    <Wrapper
-      {...rest}
-      ref={ref}
-      disabled={disabled}
-      labelProps={{
-        id: labelId,
-        className: `${classes["textarea-label"]} ${wrapperClasses.join(" ")}`
-      }}
-      name={name}
-      label={label}
-      helperId={helperId}
-      helperProps={{
-        ...helperProps,
-        className: classes["textarea-helper-text"]
-      }}
-      error={error}
-      errorId={errorId}
-    >
+  const icon = useDetermineStatusIcon({ success, error });
+
+  const getTextareaWrapper = () => {
+    if (rest["data-readonlyview"]) {
+      return (
+        <div
+          aria-labelledby={label && labelId}
+          aria-describedby={error ? errorId : helperId}
+          id={name}
+          tabIndex={0}
+          className={`${error ? classes["error"] : ""} ${success ? classes["success"] : ""}`}
+        >
+          {icon}
+          {value}
+        </div>
+      );
+    }
+    return (
       <Textarea
         {...textareaProps}
         error={error}
@@ -118,8 +120,31 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
           className: `${wrapperClasses.join(" ")} ${classes["textarea-wrapper"]}`
         }}
       />
+    );
+  };
+
+  return (
+    <Wrapper
+      {...rest}
+      ref={ref}
+      disabled={disabled}
+      labelProps={{
+        id: labelId,
+        className: `${classes["textarea-label"]} ${wrapperClasses.join(" ")}`
+      }}
+      name={name}
+      label={label}
+      helperId={helperId}
+      helperProps={{
+        ...helperProps,
+        className: classes["textarea-helper-text"]
+      }}
+      error={error}
+      errorId={errorId}
+    >
+      {getTextareaWrapper()}
     </Wrapper>
   );
 };
 
-export const TextareaWrapper = React.forwardRef(TextareaWrapperComponent);
+export const TextareaWrapper = withReadOnly(React.forwardRef(TextareaWrapperComponent));

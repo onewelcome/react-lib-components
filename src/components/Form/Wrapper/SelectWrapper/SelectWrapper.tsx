@@ -20,6 +20,7 @@ import { Wrapper, WrapperProps } from "../Wrapper/Wrapper";
 import { Select } from "../../Select/SingleSelect/Select";
 import { useWrapper } from "../../../../hooks/useWrapper";
 import { SingleSelectProps } from "../../Select/Select.interfaces";
+import { withReadOnly } from "../../../withReadOnly";
 
 interface PartialSelectProps extends Partial<SingleSelectProps> {}
 
@@ -74,6 +75,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         onChange={onChange}
         placeholder={placeholder}
         className={`${selectProps?.className ?? ""}`}
+        isReadOnlyView={!!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}
       </Select>
@@ -81,4 +83,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
   );
 };
 
-export const SelectWrapper = React.forwardRef(SelectWrapperComponent);
+const forwardedSelectWrapper = React.forwardRef(SelectWrapperComponent);
+forwardedSelectWrapper.displayName = "SelectWrapper";
+
+export const SelectWrapper = withReadOnly(forwardedSelectWrapper);
