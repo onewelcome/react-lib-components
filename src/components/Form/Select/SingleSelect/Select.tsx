@@ -19,7 +19,6 @@ import classes from "./Select.module.scss";
 import React, {
   createRef,
   ForwardRefRenderFunction,
-  Fragment,
   ReactElement,
   useEffect,
   useRef,
