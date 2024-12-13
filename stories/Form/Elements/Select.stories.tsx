@@ -149,7 +149,7 @@ export const SelectClosesWhenAnotherSelectClicked: StoryFn<void> = (() => {
   const options1 = generateOptions(3);
   const options2 = generateOptions(3);
   const Box = ({ children }) => (
-    <div style={{ width: "14rem", display: "inline-block" }}>{children}</div>
+    <div style={{ width: "18rem", display: "inline-block" }}>{children}</div>
   );
   return (
     <div>
