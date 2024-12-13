@@ -14,23 +14,29 @@
  *    limitations under the License.
  */
 
-import { useEffect } from "react";
+import { DependencyList, useEffect } from "react";
 
-export const useBodyClick = (
-  checkFunction: (event: MouseEvent) => boolean,
-  callbackFunction: (...args: unknown[]) => unknown,
-  dependingStateVariable: React.ComponentState | React.ComponentState[]
+export const useClickOutside = (
+  myElementRef: React.RefObject<HTMLElement>,
+  onClickOutside: (event: MouseEvent) => void,
+  dependencies?: DependencyList
 ) => {
-  function bodyClickListener(event: MouseEvent) {
-    if (checkFunction(event)) {
-      callbackFunction();
+  function eventListener(event: MouseEvent) {
+    const myElement = myElementRef?.current;
+    if (!myElement) {
+      return;
+    }
+    const clickedInsideMyElement = myElement.contains(event.target as Node);
+
+    if (!clickedInsideMyElement) {
+      onClickOutside(event);
     }
   }
   useEffect(() => {
-    window.addEventListener("click", bodyClickListener);
+    setTimeout(() => window.addEventListener("click", eventListener));
 
     return () => {
-      window.removeEventListener("click", bodyClickListener);
+      setTimeout(() => window.removeEventListener("click", eventListener));
     };
-  }, [dependingStateVariable]);
+  }, dependencies);
 };

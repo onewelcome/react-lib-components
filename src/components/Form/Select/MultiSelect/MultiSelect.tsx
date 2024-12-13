@@ -18,14 +18,13 @@ import classes from "./MultiSelect.module.scss";
 
 import React, {
   ForwardRefRenderFunction,
-  Fragment,
   ReactElement,
   createRef,
   useEffect,
   useRef,
   useState
 } from "react";
-import { useBodyClick } from "../../../../hooks/useBodyClick";
+import { useClickOutside } from "../../../../hooks/useClickOutside";
 import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 import readyclasses from "../../../../readyclasses.module.scss";
 import { escapeRegExp, filterProps, generateID } from "../../../../util/helper";
@@ -274,15 +273,16 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
     syncSelectedOption(value);
   }, [value]);
 
-  useBodyClick(
-    (event: MouseEvent) => !(event.target as Element).closest(".custom-select") && expanded,
-    () => {
-      setExpanded(false);
-      setListPosition(Position.Below);
-      setOpacity(0);
-    },
-    expanded
-  );
+  const myElementRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(myElementRef, () => {
+    if (!expanded) {
+      return;
+    }
+    setExpanded(false);
+    setListPosition(Position.Below);
+    setOpacity(0);
+  }, [expanded]);
 
   const additionalClasses = [];
   expanded && additionalClasses.push(classes.expanded);
@@ -329,7 +329,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
-    <Fragment>
+    <div ref={myElementRef}>
       <select
         {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}
@@ -388,7 +388,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
         </div>
         {listPosition === Position.Below ? optionsElement : undefined}
       </div>
-    </Fragment>
+    </div>
   );
 };
 
