@@ -239,10 +239,38 @@ describe("List expansion", () => {
     turnOnScrollToFunctionSupportInTest();
   });
 
-  it("should expand upwards", async () => {
-    const { select, button } = createMultiSelect();
+  it("should expand downwards if the dropdown still fits, even though there is more space above", async () => {
+    const { select, button, dropdownWrapper: initialDropdownWrapper } = createMultiSelect();
 
-    const selectTop = 300;
+    const dropdownHeight = 50;
+    initialDropdownWrapper!.getBoundingClientRect = () =>
+      new MockDOMRect(50, 450, 500, dropdownHeight);
+
+    const selectTop = 400;
+    const selectHeight = 50;
+
+    Object.defineProperty(window, "innerHeight", { value: 500, writable: true });
+    select.getBoundingClientRect = () => new MockDOMRect(50, selectTop, 500, selectHeight);
+
+    await userEvent.click(button);
+
+    const dropdownWrapper = select.querySelector(".list-wrapper");
+    expect(dropdownWrapper).toHaveStyle({ top: "4px" });
+    expect(dropdownWrapper).toHaveStyle({ bottom: "initial" });
+    expect(dropdownWrapper).toHaveStyle({ maxHeight: undefined });
+
+    const dropdownRect = dropdownWrapper!.getBoundingClientRect();
+    expect(dropdownRect.top).toBeGreaterThan(selectTop + selectHeight / 2);
+  });
+
+  it("should expand upwards when the dropdown does not fit by 1px and there is more space above", async () => {
+    const { select, button, dropdownWrapper: initialDropdownWrapper } = createMultiSelect();
+
+    const dropdownHeight = 51;
+    initialDropdownWrapper!.getBoundingClientRect = () =>
+      new MockDOMRect(50, 450, 500, dropdownHeight);
+
+    const selectTop = 400;
     const selectHeight = 50;
 
     Object.defineProperty(window, "innerHeight", { value: 500, writable: true });
@@ -253,6 +281,7 @@ describe("List expansion", () => {
     const dropdownWrapper = select.querySelector(".list-wrapper");
     expect(dropdownWrapper).toHaveStyle({ top: "initial" });
     expect(dropdownWrapper).toHaveStyle({ bottom: "4px" });
+
     const dropdownRect = dropdownWrapper!.getBoundingClientRect();
     expect(dropdownRect.bottom).toBeLessThan(selectTop + selectHeight / 2);
   });
