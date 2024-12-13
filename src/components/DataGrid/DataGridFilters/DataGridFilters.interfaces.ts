@@ -72,6 +72,9 @@ export interface PopoverTranslations {
 
 export interface TagTranslations {
   addButtonCaption?: string;
+  or?: string;
+  other?: string;
+  dateIs?: string;
 }
 
 export interface ToolbarTranslations {

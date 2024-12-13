@@ -32,7 +32,7 @@ export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
   dateTagCaption?: string;
 }
 
-const EditTagContent = ({ filter }: { filter: Filter }) => {
+const EditTagContent = ({ filter, or, other }: { filter: Filter; or: string; other: string }) => {
   const { column, operator, value } = filter;
 
   return (
@@ -40,7 +40,11 @@ const EditTagContent = ({ filter }: { filter: Filter }) => {
       {column} {operator} {value.length > 0 && <b>{value[0]}</b>}
       {value.length >= 2 && (
         <>
-          or <b> {value.length - 1} other</b>
+          {" "}
+          {or}{" "}
+          <b>
+            {value.length - 1} {other}
+          </b>
         </>
       )}
     </Fragment>
@@ -64,7 +68,12 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
   }: DataGridFilterTagProps,
   ref
 ) => {
-  const { addButtonCaption = "Add filter" } = translations || {};
+  const {
+    addButtonCaption = "Add filter",
+    or = "or",
+    other = "other",
+    dateIs = "Date is"
+  } = translations || {};
   const shouldRenderAddTag = mode === "ADD";
   const shouldRenderEditTag = mode === "EDIT" && filter;
   const shouldRenderAddDateTag = mode === "ADD_DATE";
@@ -90,7 +99,7 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
             {customEditTagContent ? (
               React.cloneElement(customEditTagContent, { filter })
             ) : (
-              <EditTagContent filter={filter} />
+              <EditTagContent filter={filter} or={or} other={other} />
             )}
           </Typography>
         )}
@@ -98,7 +107,7 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
           <Fragment>
             <Icon icon={Icons.Calendar} />
             <Typography variant="body" className={classes["caption"]}>
-              Date is <b>{dateTagCaption}</b>
+              {dateIs} <b>{dateTagCaption}</b>
             </Typography>
           </Fragment>
         )}

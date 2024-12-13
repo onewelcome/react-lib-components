@@ -58,7 +58,7 @@ export const DateTimePickerInputSection = ({
   };
 
   const validationRegex =
-    /(\d{4})-(0[1-9]|1[012])-(0[1-9]|[12]\d|3[01]) ([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)/;
+    /^(\d{4})-(0[1-9]|1[012])-(0[1-9]|[12]\d|3[01]) ([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)$/;
   const validateInput = (text: string) => validationRegex.test(text);
 
   const onInputBlur =
@@ -85,16 +85,15 @@ export const DateTimePickerInputSection = ({
   return (
     <Fragment>
       <InputWrapper
-        style={{ marginTop: 0, maxWidth: "224px" }}
         label={from}
-        name={"fromDate"}
+        name="fromDate"
         error={!!fromDateError}
         errorMessage={fromDateError}
         errorMessageProps={{ className: classes["error-message"] }}
         helperProps={{
           style: { fontSize: "0.625rem" }
         }}
-        type={"text"}
+        type="text"
         value={fromDateText}
         onBlur={onFromInputBlur}
         onChange={e => setFromDateText(e.target.value)}
@@ -102,7 +101,6 @@ export const DateTimePickerInputSection = ({
         className={classes["input"]}
       />
       <InputWrapper
-        style={{ marginTop: 0, maxWidth: "224px" }}
         className={classes["input"]}
         inputProps={{ style: { height: "2rem" }, placeholder: dateInputPlaceholder }}
         label={to}
@@ -115,8 +113,8 @@ export const DateTimePickerInputSection = ({
         }}
         onChange={e => setToDateText(e.target.value)}
         onBlur={onToInputBlur}
-        name={"toDate"}
-        type={"text"}
+        name="toDate"
+        type="text"
       />
     </Fragment>
   );

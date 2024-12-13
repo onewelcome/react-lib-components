@@ -819,7 +819,6 @@ describe("DataGrid with date filter", () => {
     const { dataGrid, getAllByRole } = createDataGridWithDateFilter();
 
     expect(dataGrid).toBeInTheDocument();
-
     expect(getAllByRole("row")).toHaveLength(2);
   });
 
@@ -857,8 +856,8 @@ describe("DataGrid with date filter", () => {
     expect(getAllByRole("row")).toHaveLength(6);
   });
 
-  it("should allow typing the custom dates with error handling", async () => {
-    const { dataGrid, getByRole, getByText, getAllByText, getByLabelText, getAllByRole } =
+  it("should allow typing the custom dates", async () => {
+    const { dataGrid, getByRole, getByText, getByLabelText, getAllByRole } =
       createDataGridWithDateFilter();
 
     expect(dataGrid).toBeInTheDocument();
@@ -882,11 +881,25 @@ describe("DataGrid with date filter", () => {
     await userEvent.click(getByText("Apply"));
 
     expect(getAllByRole("row")).toHaveLength(6);
+  });
+
+  it("should display errors on invalid input values", async () => {
+    const { dataGrid, getByRole, getByText, getAllByText, queryAllByText, getByLabelText } =
+      createDataGridWithDateFilter();
+
+    const errorText = "The format must be yyyy-mm-dd hh:mm:ss";
+
+    expect(dataGrid).toBeInTheDocument();
+
+    const dateFilterButton = getByRole("button");
+
+    expect(dateFilterButton).toBeInTheDocument();
 
     await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Custom"));
 
-    fromInput = getByLabelText("From");
-    toInput = getByLabelText("To");
+    let fromInput = getByLabelText("From");
+    let toInput = getByLabelText("To");
 
     await userEvent.clear(fromInput);
     await userEvent.type(fromInput, "not a date");
@@ -894,6 +907,66 @@ describe("DataGrid with date filter", () => {
     await userEvent.clear(toInput);
     await userEvent.type(toInput, "not a date[Tab]");
 
-    expect(getAllByText("The format must be yyyy-mm-dd hh:mm:ss")).toHaveLength(2);
+    expect(getAllByText(errorText)).toHaveLength(2);
+
+    //empty date input
+    await userEvent.clear(fromInput);
+    await userEvent.clear(toInput);
+
+    expect(getAllByText(errorText)).toHaveLength(2);
+
+    //clears errors when valid input is provided
+    await userEvent.clear(fromInput);
+    await userEvent.type(fromInput, "2024-12-13 12:00:00");
+
+    await userEvent.clear(toInput);
+    await userEvent.type(toInput, "2024-12-13 13:00:00[Tab]");
+
+    expect(queryAllByText(errorText)).toHaveLength(0);
+
+    //doesn't allow appending random characters in the beginning of date
+    await userEvent.clear(fromInput);
+    await userEvent.type(fromInput, "a2024-12-13 12:00:00");
+
+    await userEvent.clear(toInput);
+    await userEvent.type(toInput, "a2024-12-13 13:00:00[Tab]");
+
+    expect(queryAllByText(errorText)).toHaveLength(2);
+
+    //doesn't allow appending random characters in the end of date
+    await userEvent.clear(fromInput);
+    await userEvent.type(fromInput, "2024-12-13 12:00:00a");
+
+    await userEvent.clear(toInput);
+    await userEvent.type(toInput, "2024-12-13 13:00:00a[Tab]");
+
+    expect(queryAllByText(errorText)).toHaveLength(2);
+
+    //doesn't allow shorthand date formats
+    await userEvent.clear(fromInput);
+    await userEvent.type(fromInput, "2024-12-1 12:00:00");
+
+    await userEvent.clear(toInput);
+    await userEvent.type(toInput, "2024-12-13 1:1:1[Tab]");
+
+    expect(queryAllByText(errorText)).toHaveLength(2);
+
+    //doesn't allow to skip the hour part
+    await userEvent.clear(fromInput);
+    await userEvent.type(fromInput, "2024-12-13");
+
+    await userEvent.clear(toInput);
+    await userEvent.type(toInput, "2024-12-13[Tab]");
+
+    expect(queryAllByText(errorText)).toHaveLength(2);
+
+    //doesn't allow to skip the date part
+    await userEvent.clear(fromInput);
+    await userEvent.type(fromInput, "12:00:00");
+
+    await userEvent.clear(toInput);
+    await userEvent.type(toInput, "13:00:00[Tab]");
+
+    expect(queryAllByText(errorText)).toHaveLength(2);
   });
 });

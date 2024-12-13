@@ -993,3 +993,69 @@ DataGridDatePicker.args = {
   isLoading: false,
   enableMultiSorting: true
 };
+
+export const DataGridDatePickerOpened = DataGridDatePickerTemplate.bind({});
+
+DataGridDatePickerOpened.args = {
+  data: [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      created: new Date()
+    },
+    {
+      name: "Company 2",
+      id: "2",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 50)
+    },
+    {
+      name: "Company 3",
+      id: "3",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 270)
+    },
+    {
+      name: "Company 4",
+      id: "4",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 3400)
+    },
+    {
+      name: "Company 5",
+      id: "5",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 86000)
+    },
+    {
+      name: "Company 6",
+      id: "6",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 99000)
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "created", headline: "Created", disableSorting: true }
+  ],
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+DataGridDatePickerOpened.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button")).toBeInTheDocument());
+
+  const openDatePickerButton = await canvas.getByRole("button");
+
+  await userEvent.click(openDatePickerButton);
+
+  await waitFor(() => {
+    const sideBarItem = canvas.queryByText("Custom");
+    expect(sideBarItem).toBeVisible();
+  });
+});

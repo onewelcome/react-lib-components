@@ -39,6 +39,8 @@ export interface Props extends ComponentPropsWithoutRef<any> {
 
 export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }: Props) => {
   const [dayPickerLocale, setDayPickerLocale] = useState<Locale>(locales.enGB);
+  //we have to specify the endMonth value. Otherwise the date range picker doesn't let us to navigate between years
+  const endMonth = new Date(3000, 12);
 
   useEffect(() => {
     try {
@@ -76,7 +78,7 @@ export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }:
           {...rest}
           {...commonProps}
           mode={mode}
-          endMonth={new Date(3000, 12)}
+          endMonth={endMonth}
           onSelect={onSelect}
           selected={value as Date | undefined}
         ></DayPicker>
@@ -85,7 +87,7 @@ export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }:
           {...rest}
           {...commonProps}
           mode={mode}
-          endMonth={new Date(3000, 12)}
+          endMonth={endMonth}
           onSelect={onSelect}
           selected={value as DateRange | undefined}
         />

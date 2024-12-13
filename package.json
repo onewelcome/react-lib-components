@@ -45,6 +45,7 @@
     "storybook": "storybook dev -p 6006"
   },
   "peerDependencies": {
+    "date-fns": "^4.1.0",
     "react": ">=16",
     "react-day-picker": "^9.4.1",
     "react-dom": ">=16"
@@ -134,8 +135,5 @@
     "ts-jest": "^29.1.5",
     "tslib": "^2.6.3",
     "typescript": "^5.5.3"
-  },
-  "dependencies": {
-    "date-fns": "^4.1.0"
   }
 }

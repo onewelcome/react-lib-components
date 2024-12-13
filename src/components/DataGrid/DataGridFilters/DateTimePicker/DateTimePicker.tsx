@@ -65,6 +65,8 @@ export type SideMenuItem = {
   rangeSeconds?: number;
 };
 
+export const dateFormat = "yyyy-mm-dd hh:mm:ss";
+
 const sideMenuItems: SideMenuItem[] = [
   { id: THIRTY_SECONDS, name: "Last 30 seconds", rangeSeconds: 30 },
   { id: ONE_MINUTE, name: "Last 1 minute", rangeSeconds: 60 },
@@ -82,7 +84,7 @@ export const DateTimePicker = ({
   onTagCaptionChange,
   translations = {
     errors: {
-      dateFormatError: "The format must be yyyy-mm-dd hh:mm:ss"
+      dateFormatError: `The format must be ${dateFormat}`
     },
     previousMonth: "Previous month",
     nextMonth: "Next month",
@@ -90,7 +92,7 @@ export const DateTimePicker = ({
     to: "To",
     cancel: "Cancel",
     apply: "Apply",
-    dateInputPlaceholder: "yyyy-mm-dd hh:mm:ss"
+    dateInputPlaceholder: dateFormat
   },
   dateFilterValue,
   onDateFilterValueChange
