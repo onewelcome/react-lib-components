@@ -908,14 +908,58 @@ describe("DataGrid with date filter", () => {
     await userEvent.type(toInput, "not a date[Tab]");
 
     expect(getAllByText(errorText)).toHaveLength(2);
+  });
+
+  it("should display errors on empty input", async () => {
+    const { dataGrid, getByRole, getByText, getAllByText, queryAllByText, getByLabelText } =
+      createDataGridWithDateFilter();
+
+    const errorText = "The format must be yyyy-mm-dd hh:mm:ss";
+
+    expect(dataGrid).toBeInTheDocument();
+
+    const dateFilterButton = getByRole("button");
+
+    expect(dateFilterButton).toBeInTheDocument();
+
+    await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Custom"));
+
+    let fromInput = getByLabelText("From");
+    let toInput = getByLabelText("To");
 
     //empty date input
     await userEvent.clear(fromInput);
     await userEvent.clear(toInput);
+    await userEvent.type(toInput, "[Tab]");
+
+    expect(getAllByText(errorText)).toHaveLength(2);
+  });
+
+  it("should clear errors on when valid data is provided", async () => {
+    const { dataGrid, getByRole, getByText, getAllByText, queryAllByText, getByLabelText } =
+      createDataGridWithDateFilter();
+
+    const errorText = "The format must be yyyy-mm-dd hh:mm:ss";
+
+    expect(dataGrid).toBeInTheDocument();
+
+    const dateFilterButton = getByRole("button");
+
+    expect(dateFilterButton).toBeInTheDocument();
+
+    await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Custom"));
+
+    let fromInput = getByLabelText("From");
+    let toInput = getByLabelText("To");
+
+    await userEvent.clear(fromInput);
+    await userEvent.clear(toInput);
+    await userEvent.type(toInput, "[Tab]");
 
     expect(getAllByText(errorText)).toHaveLength(2);
 
-    //clears errors when valid input is provided
     await userEvent.clear(fromInput);
     await userEvent.type(fromInput, "2024-12-13 12:00:00");
 
@@ -923,8 +967,26 @@ describe("DataGrid with date filter", () => {
     await userEvent.type(toInput, "2024-12-13 13:00:00[Tab]");
 
     expect(queryAllByText(errorText)).toHaveLength(0);
+  });
 
-    //doesn't allow appending random characters in the beginning of date
+  it("should disallow appending random characters at the beginning and end of date", async () => {
+    const { dataGrid, getByRole, getByText, queryAllByText, getByLabelText } =
+      createDataGridWithDateFilter();
+
+    const errorText = "The format must be yyyy-mm-dd hh:mm:ss";
+
+    expect(dataGrid).toBeInTheDocument();
+
+    const dateFilterButton = getByRole("button");
+
+    expect(dateFilterButton).toBeInTheDocument();
+
+    await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Custom"));
+
+    let fromInput = getByLabelText("From");
+    let toInput = getByLabelText("To");
+
     await userEvent.clear(fromInput);
     await userEvent.type(fromInput, "a2024-12-13 12:00:00");
 
@@ -933,7 +995,6 @@ describe("DataGrid with date filter", () => {
 
     expect(queryAllByText(errorText)).toHaveLength(2);
 
-    //doesn't allow appending random characters in the end of date
     await userEvent.clear(fromInput);
     await userEvent.type(fromInput, "2024-12-13 12:00:00a");
 
@@ -941,8 +1002,26 @@ describe("DataGrid with date filter", () => {
     await userEvent.type(toInput, "2024-12-13 13:00:00a[Tab]");
 
     expect(queryAllByText(errorText)).toHaveLength(2);
+  });
 
-    //doesn't allow shorthand date formats
+  it("should disallow shorthand date and time formats", async () => {
+    const { dataGrid, getByRole, getByText, queryAllByText, getByLabelText } =
+      createDataGridWithDateFilter();
+
+    const errorText = "The format must be yyyy-mm-dd hh:mm:ss";
+
+    expect(dataGrid).toBeInTheDocument();
+
+    const dateFilterButton = getByRole("button");
+
+    expect(dateFilterButton).toBeInTheDocument();
+
+    await userEvent.click(dateFilterButton);
+    await userEvent.click(getByText("Custom"));
+
+    let fromInput = getByLabelText("From");
+    let toInput = getByLabelText("To");
+
     await userEvent.clear(fromInput);
     await userEvent.type(fromInput, "2024-12-1 12:00:00");
 
@@ -951,7 +1030,6 @@ describe("DataGrid with date filter", () => {
 
     expect(queryAllByText(errorText)).toHaveLength(2);
 
-    //doesn't allow to skip the hour part
     await userEvent.clear(fromInput);
     await userEvent.type(fromInput, "2024-12-13");
 
@@ -960,7 +1038,6 @@ describe("DataGrid with date filter", () => {
 
     expect(queryAllByText(errorText)).toHaveLength(2);
 
-    //doesn't allow to skip the date part
     await userEvent.clear(fromInput);
     await userEvent.type(fromInput, "12:00:00");
 
