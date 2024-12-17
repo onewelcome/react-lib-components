@@ -75,6 +75,10 @@
     & > * {
       flex-grow: 1;
     }
+
+    &.set-height {
+      min-height: 17.5rem;
+    }
   }
 
   .actions {

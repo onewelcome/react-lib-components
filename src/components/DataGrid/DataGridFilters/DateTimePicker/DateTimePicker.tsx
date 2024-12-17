@@ -220,7 +220,7 @@ export const DateTimePicker = ({
               />
             </div>
             <div
-              className={`${classes["controls"]} ${toDateError ?? fromDateError ? classes["has-error"] : ""}`}
+              className={`${classes["controls"]} ${toDateError || fromDateError ? classes["has-error"] : ""}`}
             >
               <div className={classes["controls-panel"]}>
                 <DateTimePickerInputSection
@@ -239,7 +239,7 @@ export const DateTimePicker = ({
                   setToDateError={setToDateError}
                 />
               </div>
-              <div className={classes["controls-panel"]}>
+              <div className={`${classes["controls-panel"]} ${classes["set-height"]}`}>
                 <DateTimePickerCalendarSection
                   previousMonth={previousMonth}
                   nextMonth={nextMonth}
