@@ -32,13 +32,14 @@ const ButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
     startIcon = false,
     endIcon = false,
     className,
+    hidden,
     ...rest
   },
   ref
 ) => {
   const additionalClasses = [];
 
-  if (startIcon || endIcon) {
+  if (!hidden && (startIcon || endIcon)) {
     additionalClasses.push(classes["has-icon"]);
   }
 
@@ -57,6 +58,7 @@ const ButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
   return (
     <BaseButton
       {...rest}
+      hidden={hidden}
       ref={ref}
       className={`${classes[color]} ${classes[variant]} ${additionalClasses.join(" ")}`}
     >

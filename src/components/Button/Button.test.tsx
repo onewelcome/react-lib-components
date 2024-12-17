@@ -39,14 +39,6 @@ const createButton = (params?: (defaultParams: Props) => Props) => {
   };
 };
 
-describe("Button should render", () => {
-  it("renders without crashing", () => {
-    const { button } = createButton();
-
-    expect(button).toBeDefined();
-  });
-});
-
 describe("ref should work", () => {
   it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
     const ExampleComponent = ({
@@ -73,11 +65,21 @@ describe("ref should work", () => {
   });
 });
 
-describe("Button should render", () => {
-  it("renders without crashing", () => {
+describe("Button", () => {
+  it("should render without crashing", () => {
     const { button } = createButton();
 
     expect(button).toBeDefined();
+  });
+
+  it("should not be rendered when hidden attribute is used", () => {
+    const { button, queryByRole } = createButton(defaultParams => ({
+      ...defaultParams,
+      hidden: true
+    }));
+
+    expect(queryByRole("button")).toBeNull();
+    expect(queryByRole("button", { hidden: true })).toBeDefined();
   });
 });
 
@@ -146,5 +148,17 @@ describe("Button contains an icon", () => {
     expect(button.classList.contains("has-icon")).toBe(true);
     expect(button.lastElementChild?.nodeName).toBe("I");
     expect(button.querySelector("span")!.innerHTML).toBe("button content");
+  });
+
+  it("Should not be rendered when hidden attribute is used", () => {
+    const { button, queryByRole } = createButton(defaultParams => ({
+      ...defaultParams,
+      hidden: true,
+      endIcon: <Icon icon={Icons.Calendar} />,
+      startIcon: <Icon icon={Icons.Calendar} />
+    }));
+
+    expect(queryByRole("button")).toBeNull();
+    expect(queryByRole("button", { hidden: true })).toBeDefined();
   });
 });

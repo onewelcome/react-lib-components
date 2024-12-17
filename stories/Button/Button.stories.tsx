@@ -50,6 +50,7 @@ const Template: StoryFn<Props> = args => {
   return (
     <Button
       {...args}
+      hidden={true}
       title="This is a button"
       startIcon={args?.startIcon && <Icon icon={args?.startIcon as Icons} />}
       endIcon={args?.endIcon && <Icon icon={args?.endIcon as Icons} />}
@@ -68,7 +69,10 @@ SingleButton.args = {
 
 export const ButtonStates = Template.bind({});
 
-type ButtonStorybookProps = Pick<ButtonProps, "color" | "variant" | "disabled" | "loading"> & {
+type ButtonStorybookProps = Pick<
+  ButtonProps,
+  "color" | "variant" | "disabled" | "loading" | "hidden"
+> & {
   endIcon?: boolean;
   startIcon?: boolean;
   event?: "hover" | "active" | "focus";
@@ -148,6 +152,17 @@ const uniqueButtonStates: Array<ButtonStorybookProps> = [
     color: "primary",
     variant: "fill",
     endIcon: true
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    startIcon: true,
+    hidden: true
+  },
+  {
+    color: "primary",
+    variant: "fill",
+    hidden: true
   }
 ];
 
@@ -164,24 +179,23 @@ ButtonStates.decorators = [
           gridTemplateColumns: "auto auto auto auto"
         }}
       >
-        {mainButtonStates.map((states, index) => (
-          <div style={{ marginBottom: "10px" }} key={index}>
-            <Button
-              id={states.event}
-              disabled={states.disabled}
-              color={states.color}
-              variant={states.variant}
-              type={states.type}
-              endIcon={states.endIcon ? <Icon icon={Icons.Calendar} /> : false}
-              startIcon={states.startIcon ? <Icon icon={Icons.Calendar} /> : false}
-              loading={states.loading}
-            >
-              {`${states.color} ${states.variant} ${states.disabled ? "disabled" : ""} ${
-                states.event !== undefined ? states.event : ""
-              }`}
-            </Button>
-          </div>
-        ))}
+        {mainButtonStates.map((states, index) => {
+          const { event, startIcon, endIcon, ...props } = states;
+          return (
+            <div style={{ marginBottom: "10px" }} key={index}>
+              <Button
+                {...props}
+                id={event}
+                endIcon={endIcon ? <Icon icon={Icons.Calendar} /> : false}
+                startIcon={startIcon ? <Icon icon={Icons.Calendar} /> : false}
+              >
+                {`${states.color} ${states.variant} ${states.disabled ? "disabled" : ""} ${
+                  states.event !== undefined ? states.event : ""
+                }${states.hidden ? "hidden" : ""} `}
+              </Button>
+            </div>
+          );
+        })}
       </div>
     );
   }
