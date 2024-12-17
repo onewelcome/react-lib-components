@@ -50,6 +50,9 @@
     "react-day-picker": "^9.4.1",
     "react-dom": ">=16"
   },
+  "overrides": {
+    "cross-spawn": ">=7.0.5"
+  },
   "engines": {
     "node": ">=16"
   },
