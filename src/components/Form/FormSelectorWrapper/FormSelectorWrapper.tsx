@@ -64,7 +64,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
       }`}
     >
       <div {...containerProps}>{children}</div>
-      {(error || helperText || helperProps?.children) && (
+      {(errorMessage || helperText || helperProps?.children) && (
         <FormHelperText
           {...helperProps}
           ref={helperRef}
@@ -73,7 +73,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
             error ? classes["error"] : ""
           }`}
         >
-          {error ? (
+          {error && errorMessage ? (
             <span className={classes["error-message"]} id={errorId}>
               {errorMessage}
             </span>

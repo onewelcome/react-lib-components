@@ -202,6 +202,6 @@ export const CheckboxWithErrorWithoutHelperProps = Template.bind({});
 CheckboxWithErrorWithoutHelperProps.args = {
   children: "Example",
   error: true,
-  errorMessage: "Error",
+  errorMessage: "Error message",
   name: "Checkbox"
 };
