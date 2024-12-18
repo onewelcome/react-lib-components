@@ -64,7 +64,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
       }`}
     >
       <div {...containerProps}>{children}</div>
-      {(helperText || helperProps?.children) && (
+      {(error || helperText || helperProps?.children) && (
         <FormHelperText
           {...helperProps}
           ref={helperRef}

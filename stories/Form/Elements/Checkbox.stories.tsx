@@ -196,3 +196,12 @@ CheckboxInReadOnlyMode.decorators = [
     );
   }
 ];
+
+export const CheckboxWithErrorWithoutHelperProps = Template.bind({});
+
+CheckboxWithErrorWithoutHelperProps.args = {
+  children: "Example",
+  error: true,
+  errorMessage: "Error",
+  name: "Checkbox"
+};
