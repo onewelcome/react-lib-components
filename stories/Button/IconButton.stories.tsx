@@ -33,7 +33,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: StoryFn<Props> = args => (
-  <IconButtonComponent {...args}>
+  <IconButtonComponent {...args} hidden={true}>
     <Icon icon={Icons.Calendar} />
   </IconButtonComponent>
 );

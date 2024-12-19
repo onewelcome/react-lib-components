@@ -50,7 +50,6 @@ const Template: StoryFn<Props> = args => {
   return (
     <Button
       {...args}
-      hidden={true}
       title="This is a button"
       startIcon={args?.startIcon && <Icon icon={args?.startIcon as Icons} />}
       endIcon={args?.endIcon && <Icon icon={args?.endIcon as Icons} />}

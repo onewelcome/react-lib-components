@@ -73,7 +73,7 @@ describe("Button", () => {
   });
 
   it("should not be rendered when hidden attribute is used", () => {
-    const { button, queryByRole } = createButton(defaultParams => ({
+    const { queryByRole } = createButton(defaultParams => ({
       ...defaultParams,
       hidden: true
     }));
