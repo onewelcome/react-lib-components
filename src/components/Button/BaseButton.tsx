@@ -26,7 +26,7 @@ export interface Props extends ComponentPropsWithRef<"button"> {
 }
 
 const BaseButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { children, type = "button", className, loading, disabled, ...rest },
+  { children, type = "button", className, loading, disabled, hidden, ...rest },
   ref
 ) => {
   const validTypes = ["submit", "button", "reset"];
@@ -36,15 +36,18 @@ const BaseButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = 
       `You have entered an invalid button type. Expected 'submit', 'button' or 'reset' got ${type}`
     );
 
+  const buttonClasses = [classes.button];
+  loading && buttonClasses.push(classes.loading);
+  className && buttonClasses.push(className);
+
   return (
     <button
       {...rest}
       disabled={isDisabled}
       ref={ref}
       type={type}
-      className={`${classes.button} ${loading ? classes.loading : ""} ${
-        className ? className : ""
-      }`}
+      hidden={hidden}
+      className={hidden ? "" : buttonClasses.join(" ")}
     >
       {loading ? (
         <Fragment>

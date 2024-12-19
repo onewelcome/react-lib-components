@@ -39,95 +39,105 @@ const createBaseButton = (params?: (defaultParams: Props) => Props) => {
   };
 };
 
-describe("BaseButton should render", () => {
-  it("renders without crashing", () => {
+describe("BaseButton", () => {
+  it("should render without crashing", () => {
     const { baseButton } = createBaseButton();
 
     expect(baseButton).toBeDefined();
     expect(baseButton).toHaveTextContent("baseButton content");
   });
-});
 
-describe("On click handler", () => {
-  it("executes the onclick handler", async () => {
-    const onClickHandler = jest.fn();
-    const { baseButton } = createBaseButton(defaultParams => ({
+  it("should not be rendered when hidden attribute is used", () => {
+    const { queryByRole } = createBaseButton(defaultParams => ({
       ...defaultParams,
-      onClick: onClickHandler
+      hidden: true
     }));
 
-    await userEvent.click(baseButton);
-
-    expect(onClickHandler).toBeCalled();
-  });
-});
-
-describe("Properties of the button", () => {
-  it("should be disabled, function should not have been called", async () => {
-    const onClickHandler = jest.fn();
-    const { baseButton } = createBaseButton(defaultParams => ({
-      ...defaultParams,
-      disabled: true,
-      onClick: onClickHandler
-    }));
-
-    await userEvent.click(baseButton);
-    expect(onClickHandler).toHaveBeenCalledTimes(0);
+    expect(queryByRole("button")).toBeNull();
+    expect(queryByRole("button", { hidden: true })).toBeDefined();
   });
 
-  it("when loading onClick function should not have been called", async () => {
-    const onClickHandler = jest.fn();
-    const { baseButton } = createBaseButton(defaultParams => ({
-      ...defaultParams,
-      loading: true,
-      onClick: onClickHandler
-    }));
+  describe("On click handler", () => {
+    it("executes the onclick handler", async () => {
+      const onClickHandler = jest.fn();
+      const { baseButton } = createBaseButton(defaultParams => ({
+        ...defaultParams,
+        onClick: onClickHandler
+      }));
 
-    await userEvent.click(baseButton);
-    expect(onClickHandler).toHaveBeenCalledTimes(0);
+      await userEvent.click(baseButton);
+
+      expect(onClickHandler).toBeCalled();
+    });
   });
 
-  it('should have the class "TESTING"', () => {
-    const { baseButton } = createBaseButton(defaultParams => ({
-      ...defaultParams,
-      className: "TESTING"
-    }));
+  describe("Properties of the button", () => {
+    it("should be disabled, function should not have been called", async () => {
+      const onClickHandler = jest.fn();
+      const { baseButton } = createBaseButton(defaultParams => ({
+        ...defaultParams,
+        disabled: true,
+        onClick: onClickHandler
+      }));
 
-    expect(baseButton).toHaveClass("TESTING");
+      await userEvent.click(baseButton);
+      expect(onClickHandler).toHaveBeenCalledTimes(0);
+    });
+
+    it("when loading onClick function should not have been called", async () => {
+      const onClickHandler = jest.fn();
+      const { baseButton } = createBaseButton(defaultParams => ({
+        ...defaultParams,
+        loading: true,
+        onClick: onClickHandler
+      }));
+
+      await userEvent.click(baseButton);
+      expect(onClickHandler).toHaveBeenCalledTimes(0);
+    });
+
+    it('should have the class "TESTING"', () => {
+      const { baseButton } = createBaseButton(defaultParams => ({
+        ...defaultParams,
+        className: "TESTING"
+      }));
+
+      expect(baseButton).toHaveClass("TESTING");
+    });
+
+    it('should have a "name" property with the value "button"', () => {
+      const { baseButton } = createBaseButton(defaultParams => ({
+        ...defaultParams,
+        name: "button"
+      }));
+
+      expect(baseButton).toHaveAttribute("name", "button");
+    });
   });
 
-  it('should have a "name" property with the value "button"', () => {
-    const { baseButton } = createBaseButton(defaultParams => ({
-      ...defaultParams,
-      name: "button"
-    }));
+  describe("ref should work", () => {
+    it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
+      const ExampleComponent = ({
+        propagateRef
+      }: {
+        propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
+      }) => {
+        const ref = useRef(null);
 
-    expect(baseButton).toHaveAttribute("name", "button");
-  });
-});
+        useEffect(() => {
+          if (ref.current) {
+            propagateRef && propagateRef(ref);
+          }
+        }, [ref]);
 
-describe("ref should work", () => {
-  it("should give back the proper data prop, this also checks if the component propagates ...rest properly", () => {
-    const ExampleComponent = ({
-      propagateRef
-    }: {
-      propagateRef?: (ref: React.RefObject<HTMLElement>) => void;
-    }) => {
-      const ref = useRef(null);
+        return <BaseButton {...defaultParams} data-ref="testing" ref={ref} />;
+      };
 
-      useEffect(() => {
-        if (ref.current) {
-          propagateRef && propagateRef(ref);
-        }
-      }, [ref]);
+      const refCheck = (ref: React.RefObject<HTMLElement>) => {
+        expect(ref.current).toHaveAttribute("data-ref", "testing");
+      };
 
-      return <BaseButton {...defaultParams} data-ref="testing" ref={ref} />;
-    };
-
-    const refCheck = (ref: React.RefObject<HTMLElement>) => {
-      expect(ref.current).toHaveAttribute("data-ref", "testing");
-    };
-
-    render(<ExampleComponent propagateRef={refCheck} />);
+      render(<ExampleComponent propagateRef={refCheck} />);
+    });
   });
 });
