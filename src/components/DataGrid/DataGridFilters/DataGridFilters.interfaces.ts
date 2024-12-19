@@ -42,7 +42,7 @@ export type FiltersState = {
   filters: Filter[];
 };
 
-export type FilterEditorMode = "ADD" | "EDIT";
+export type FilterEditorMode = "ADD" | "EDIT" | "ADD_DATE";
 
 export enum DefaultOperators {
   is = "is",
@@ -72,6 +72,9 @@ export interface PopoverTranslations {
 
 export interface TagTranslations {
   addButtonCaption?: string;
+  or?: string;
+  other?: string;
+  dateIs?: string;
 }
 
 export interface ToolbarTranslations {
@@ -87,4 +90,18 @@ export interface FiltersTranslations {
 export interface KeyValuePair<TKey = string, TValue = string> {
   key: TKey;
   value: TValue;
+}
+
+export type DateTimeFilterType =
+  | "THIRTY_SECONDS"
+  | "ONE_MINUTE"
+  | "FIVE_MINUTES"
+  | "ONE_HOUR"
+  | "TWENTY_FOUR_HOURS"
+  | "CUSTOM";
+
+export interface DateTimeFilter {
+  fromDate: string;
+  toDate: string;
+  type: DateTimeFilterType;
 }

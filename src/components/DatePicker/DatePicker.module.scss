@@ -38,16 +38,16 @@
   --rdp-nav_button-width: 0.75rem;
   --rdp-nav-height: 2.75rem;
 
-  --rdp-range_middle-background-color: var(--color-primary50);
+  --rdp-range_middle-background-color: var(--color-blue-grey100);
   --rdp-range_middle-color: black;
 
-  --rdp-range_start-color: white;
-  --rdp-range_start-background: var(--color-primary);
-  --rdp-range_start-date-background-color: var(--color-primary);
+  --rdp-range_start-color: var(--color-blue-grey25);
+  --rdp-range_start-background: var(--color-blue-grey500);
+  --rdp-range_start-date-background-color: var(--color-blue-grey500);
 
-  --rdp-range_end-background: var(--color-primary);
-  --rdp-range_end-color: white;
-  --rdp-range_end-date-background-color: var(--color-primary);
+  --rdp-range_end-background: var(--color-blue-grey500);
+  --rdp-range_end-color: var(--color-blue-grey25);
+  --rdp-range_end-date-background-color: var(--color-blue-grey500);
 
   --rdp-week_number-border-radius: var(--button-border-radius);
   --rdp-week_number-border: var(--button-border-radius) solid transparent;
@@ -261,7 +261,30 @@
 }
 
 .rdp-today:not(.rdp-outside) {
-  color: var(--color-primary);
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 67%;
+    left: calc(50% - 0.125rem);
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-blue-grey900);
+  }
+
+  &.rdp-range_end {
+    &::after {
+      background-color: var(--color-blue-grey25);
+    }
+  }
+
+  &.rdp-range_start {
+    &::after {
+      background-color: var(--color-blue-grey25);
+    }
+  }
 }
 
 .rdp-selected {
@@ -275,7 +298,7 @@
 }
 
 .rdp-selected .rdp-day_button {
-  border: var(--button-border-radius) solid var(--color-primary);
+  border: var(--button-border-radius) solid var(--color-blue-grey500);
 }
 
 .rdp-outside {

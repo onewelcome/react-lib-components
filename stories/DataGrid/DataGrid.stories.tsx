@@ -17,7 +17,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Meta } from "@storybook/react";
 import { DataGrid as DataGridComponent } from "../../src/components/DataGrid/DataGrid";
-import { useMockFilteringLogic } from "../../src/components/DataGrid/testUtils";
+import {
+  useMockFilteringByDateLogic,
+  useMockFilteringLogic
+} from "../../src/components/DataGrid/testUtils";
 import {
   Button,
   ContextMenu,
@@ -39,6 +42,11 @@ import { ModalContent } from "../../src/components/Notifications/Modal/ModalCont
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
+import {
+  CUSTOM_DATE_RANGE,
+  THIRTY_SECONDS
+} from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
+import { DateTimeFilter } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
 
 interface DataGridItem {
   name: string;
@@ -898,3 +906,156 @@ ToolbarWithAllOptions.args = {
   isLoading: false,
   enableMultiSorting: true
 };
+
+const DataGridDatePickerTemplate = args => {
+  const [dateFilterValue, setDateFilterValue] = useState<DateTimeFilter>({
+    type: THIRTY_SECONDS,
+    toDate: new Date().toISOString(),
+    fromDate: new Date(Date.now() - 1000 * 30).toISOString()
+  });
+
+  const { gridData } = useMockFilteringByDateLogic(args.data, "created", dateFilterValue);
+
+  return (
+    <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
+      <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
+        <DataGridComponent
+          {...args}
+          data={gridData}
+          filters={{
+            dateFilterValue: dateFilterValue,
+            onDateFilterValueChange: val => {
+              setDateFilterValue(val);
+            }
+          }}
+        >
+          {({ item }: { item: DataGridItem }) => (
+            <DataGridRow key={item.id}>
+              <DataGridCell>{item.name}</DataGridCell>
+              <DataGridCell>{item.id}</DataGridCell>
+              <DataGridCell>{item.type}</DataGridCell>
+              <DataGridCell>{item.created.toString()}</DataGridCell>
+            </DataGridRow>
+          )}
+        </DataGridComponent>
+      </div>
+    </div>
+  );
+};
+
+export const DataGridDatePicker = DataGridDatePickerTemplate.bind({});
+
+DataGridDatePicker.args = {
+  data: [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      created: new Date()
+    },
+    {
+      name: "Company 2",
+      id: "2",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 50)
+    },
+    {
+      name: "Company 3",
+      id: "3",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 270)
+    },
+    {
+      name: "Company 4",
+      id: "4",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 3400)
+    },
+    {
+      name: "Company 5",
+      id: "5",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 86000)
+    },
+    {
+      name: "Company 6",
+      id: "6",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 99000)
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "created", headline: "Created", disableSorting: true }
+  ],
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+export const DataGridDatePickerOpened = DataGridDatePickerTemplate.bind({});
+
+DataGridDatePickerOpened.args = {
+  data: [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      created: new Date()
+    },
+    {
+      name: "Company 2",
+      id: "2",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 50)
+    },
+    {
+      name: "Company 3",
+      id: "3",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 270)
+    },
+    {
+      name: "Company 4",
+      id: "4",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 3400)
+    },
+    {
+      name: "Company 5",
+      id: "5",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 86000)
+    },
+    {
+      name: "Company 6",
+      id: "6",
+      type: "Bond",
+      created: new Date(Date.now() - 1000 * 99000)
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "created", headline: "Created", disableSorting: true }
+  ],
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+DataGridDatePickerOpened.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button")).toBeInTheDocument());
+
+  const openDatePickerButton = await canvas.getByRole("button");
+
+  await userEvent.click(openDatePickerButton);
+
+  await waitFor(() => {
+    const sideBarItem = canvas.queryByText("Custom");
+    expect(sideBarItem).toBeVisible();
+  });
+});

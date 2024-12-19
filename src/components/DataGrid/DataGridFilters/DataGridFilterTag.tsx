@@ -26,12 +26,13 @@ export interface DataGridFilterTagProps extends ComponentPropsWithRef<"div"> {
   triggerRef: React.Ref<HTMLButtonElement>;
   filter?: Filter;
   mode: FilterEditorMode;
-  onFilterRemove: () => void;
+  onFilterRemove?: () => void;
   onFilterOpen: () => void;
   translations?: TagTranslations;
+  dateTagCaption?: string;
 }
 
-const EditTagContent = ({ filter }: { filter: Filter }) => {
+const EditTagContent = ({ filter, or, other }: { filter: Filter; or: string; other: string }) => {
   const { column, operator, value } = filter;
 
   return (
@@ -39,7 +40,11 @@ const EditTagContent = ({ filter }: { filter: Filter }) => {
       {column} {operator} {value.length > 0 && <b>{value[0]}</b>}
       {value.length >= 2 && (
         <>
-          or <b> {value.length - 1} other</b>
+          {" "}
+          {or}{" "}
+          <b>
+            {value.length - 1} {other}
+          </b>
         </>
       )}
     </Fragment>
@@ -57,14 +62,21 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
     onFilterRemove,
     onFilterOpen,
     translations,
+    dateTagCaption,
     customEditTagContent,
     ...rest
   }: DataGridFilterTagProps,
   ref
 ) => {
-  const { addButtonCaption = "Add filter" } = translations || {};
+  const {
+    addButtonCaption = "Add filter",
+    or = "or",
+    other = "other",
+    dateIs = "Date is"
+  } = translations || {};
   const shouldRenderAddTag = mode === "ADD";
   const shouldRenderEditTag = mode === "EDIT" && filter;
+  const shouldRenderAddDateTag = mode === "ADD_DATE";
 
   return (
     <div {...rest} ref={ref} className={classes["filter-wrapper"]}>
@@ -87,9 +99,17 @@ export const DataGridFilterTagComponent: ForwardRefRenderFunction<
             {customEditTagContent ? (
               React.cloneElement(customEditTagContent, { filter })
             ) : (
-              <EditTagContent filter={filter} />
+              <EditTagContent filter={filter} or={or} other={other} />
             )}
           </Typography>
+        )}
+        {shouldRenderAddDateTag && (
+          <Fragment>
+            <Icon icon={Icons.Calendar} />
+            <Typography variant="body" className={classes["caption"]}>
+              {dateIs} <b>{dateTagCaption}</b>
+            </Typography>
+          </Fragment>
         )}
       </button>
       {shouldRenderEditTag && (

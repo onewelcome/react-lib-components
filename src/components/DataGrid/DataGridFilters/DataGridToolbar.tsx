@@ -17,13 +17,21 @@
 import React, { Fragment } from "react";
 import { DataGridFilter } from "./DataGridFilter";
 import classes from "./DataGridToolbar.module.scss";
-import { DataGridColumnMetadata, Filter, FiltersTranslations } from "./DataGridFilters.interfaces";
+import {
+  DataGridColumnMetadata,
+  DateTimeFilter,
+  Filter,
+  FiltersTranslations
+} from "./DataGridFilters.interfaces";
 import { Typography } from "../../Typography/Typography";
 import { useFiltersReducer } from "./useFiltersReducer";
+import { DataGridDateFilter } from "./DataGridDateFilter";
 
 export interface DataGridToolbarProps {
-  columnsMetadata: DataGridColumnMetadata[];
+  columnsMetadata?: DataGridColumnMetadata[];
   customEditTagContent?: React.ReactElement;
+  dateFilterValue?: DateTimeFilter;
+  onDateFilterValueChange?: (dateTimeFilter: DateTimeFilter) => void;
   filterValues?: Filter[];
   translations?: FiltersTranslations;
   onFilterAdd?: (filter: Filter) => void;
@@ -39,6 +47,8 @@ export const DataGridToolbar = ({
   onFilterAdd,
   onFilterEdit,
   onFilterDelete,
+  dateFilterValue,
+  onDateFilterValueChange,
   onFiltersClear,
   customEditTagContent
 }: DataGridToolbarProps) => {
@@ -47,38 +57,41 @@ export const DataGridToolbar = ({
   const { clearButtonCaption = "Clear all filters" } = translations?.toolbar || {};
   return (
     <Fragment>
-      {state.filters.map(filter => (
-        <DataGridFilter
-          mode="EDIT"
-          key={filter.id}
-          filter={filter}
-          columnsMetadata={columnsMetadata}
-          onFilterEdit={filter => {
-            editFilter(filter);
-            onFilterEdit && onFilterEdit(filter);
-          }}
-          onFilterDelete={id => {
-            deleteFilter(id);
-            onFilterDelete && onFilterDelete(id);
-          }}
-          tagTranslations={translations?.tag}
-          popoverTranslations={translations?.popover}
-          customEditTagContent={customEditTagContent}
-        />
-      ))}
+      {columnsMetadata &&
+        state.filters.map(filter => (
+          <DataGridFilter
+            mode="EDIT"
+            key={filter.id}
+            filter={filter}
+            columnsMetadata={columnsMetadata}
+            onFilterEdit={filter => {
+              editFilter(filter);
+              onFilterEdit && onFilterEdit(filter);
+            }}
+            onFilterDelete={id => {
+              deleteFilter(id);
+              onFilterDelete && onFilterDelete(id);
+            }}
+            tagTranslations={translations?.tag}
+            popoverTranslations={translations?.popover}
+            customEditTagContent={customEditTagContent}
+          />
+        ))}
       <div className={classes["actions-wrapper"]}>
-        <DataGridFilter
-          mode="ADD"
-          customEditTagContent={customEditTagContent}
-          columnsMetadata={columnsMetadata}
-          onFilterAdd={filter => {
-            addFilter(filter);
-            onFilterAdd && onFilterAdd(filter);
-          }}
-          tagTranslations={translations?.tag}
-          popoverTranslations={translations?.popover}
-        />
-        {state.filters.length >= 1 && (
+        {columnsMetadata && (
+          <DataGridFilter
+            mode="ADD"
+            customEditTagContent={customEditTagContent}
+            columnsMetadata={columnsMetadata}
+            onFilterAdd={filter => {
+              addFilter(filter);
+              onFilterAdd && onFilterAdd(filter);
+            }}
+            tagTranslations={translations?.tag}
+            popoverTranslations={translations?.popover}
+          />
+        )}
+        {columnsMetadata && state.filters.length >= 1 && (
           <button
             type="button"
             className={classes["clear-button"]}
@@ -91,6 +104,13 @@ export const DataGridToolbar = ({
               {clearButtonCaption}
             </Typography>
           </button>
+        )}
+
+        {dateFilterValue && (
+          <DataGridDateFilter
+            dateFilterValue={dateFilterValue}
+            onDateFilterValueChange={onDateFilterValueChange}
+          />
         )}
       </div>
     </Fragment>

@@ -15,7 +15,14 @@
  */
 
 import React, { ComponentPropsWithoutRef, Fragment, useEffect, useState } from "react";
-import { ClassNames, DateRange, DayPicker, Locale, PropsBase } from "react-day-picker";
+import {
+  ClassNames,
+  DateRange,
+  DayPicker,
+  Locale,
+  PropsBase,
+  CustomComponents
+} from "react-day-picker";
 import classes from "./DatePicker.module.scss";
 import * as locales from "date-fns/locale";
 
@@ -25,10 +32,15 @@ export interface Props extends ComponentPropsWithoutRef<any> {
   value: Date | DateRange | undefined;
   required?: boolean;
   locale?: keyof typeof locales;
+  numberOfMonths?: number;
+  components?: Partial<CustomComponents>;
+  disabled?: boolean;
 }
 
 export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }: Props) => {
   const [dayPickerLocale, setDayPickerLocale] = useState<Locale>(locales.enGB);
+  //we have to specify the endMonth value. Otherwise the date range picker doesn't let us to navigate between years
+  const endMonth = new Date(3000, 12);
 
   useEffect(() => {
     try {
@@ -66,6 +78,7 @@ export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }:
           {...rest}
           {...commonProps}
           mode={mode}
+          endMonth={endMonth}
           onSelect={onSelect}
           selected={value as Date | undefined}
         ></DayPicker>
@@ -74,6 +87,7 @@ export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }:
           {...rest}
           {...commonProps}
           mode={mode}
+          endMonth={endMonth}
           onSelect={onSelect}
           selected={value as DateRange | undefined}
         />
