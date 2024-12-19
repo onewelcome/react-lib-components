@@ -141,7 +141,8 @@ describe("Checkbox should have proper attributes", () => {
 
   it("should have the error state enabled", () => {
     const { checkbox, container, getByTestId } = createCheckbox(defaultParams => ({
-      ...defaultParams,
+      name: defaultParams.name,
+      onChange: defaultParams.onChange,
       error: true,
       errorMessage: "This is an error",
       formSelectorWrapperProps: { "data-testid": "checkbox-wrapper" }
