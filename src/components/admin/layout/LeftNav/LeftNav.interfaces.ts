@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,25 +14,11 @@
  *    limitations under the License.
  */
 
-$form-element-horizontal-padding-mobile: 0.5rem;
-$form-element-horizontal-padding-desktop: 0.5rem;
-$form-element-vertical-padding-mobile: 0.625rem;
-$form-element-vertical-padding-desktop: 0.625rem;
-
-$popover-z-index: 100;
-$select-z-index: 11;
-$toggle-z-index: 10;
-$modal-z-index: 10;
-$snackbar-z-index: 20;
-$alert-z-index: 20;
-
-/** Breakpoints **/
-$small: 30em; // 480px
-$medium: 50em; // 800px
-$large: 90em; //1440px
-
-$breakpoints: (
-  "small": $small,
-  "medium": $medium,
-  "large": $large
-) !default;
+export interface MenuItem {
+  key: string;
+  path?: string;
+  active?: boolean;
+  title: string;
+  iconComponent?: React.FunctionComponent;
+  items?: MenuItem[];
+}
