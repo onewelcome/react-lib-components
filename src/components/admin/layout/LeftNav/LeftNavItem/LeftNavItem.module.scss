@@ -1,0 +1,196 @@
+.menu-button {
+  background-color: transparent;
+  border: 0;
+  font-family: var(--font-family);
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: inherit;
+    }
+  }
+}
+
+.menu-link {
+  text-decoration: none;
+}
+
+.menu-button-wrapper {
+  > .menu-button + ul > .menu-button-wrapper,
+  > .menu-button + ul > a {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+
+  &.expanded {
+    > .menu-button + ul > .menu-button-wrapper,
+    > .menu-button + ul > li {
+      opacity: 0;
+      animation-name: item-fade-in;
+      animation-duration: 250ms;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  $maxElementsOnOneSubLevel: 20;
+  &.expanded {
+    > .menu-button + ul > .menu-button-wrapper,
+    > .menu-button + ul > li {
+      @for $i from 1 to $maxElementsOnOneSubLevel {
+        &:nth-child(#{$i}) {
+          animation-delay: (100ms * ($i - 1));
+        }
+      }
+    }
+  }
+}
+
+.menu-list {
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  overflow: hidden;
+  list-style: none;
+  max-height: 100000px; /* because transition does not work on 'height:auto', we use 'max-height' with very large value to just run transition */
+  transition: max-height 0.15s ease-in-out;
+
+  .menu-item-text-wrapper {
+    padding-left: 2rem;
+  }
+
+  a,
+  button {
+    &:focus-visible {
+      outline-offset: -0.0625rem;
+    }
+  }
+}
+
+.menu-item {
+  box-sizing: border-box;
+  color: var(--color-blue-grey900);
+  padding: 1.125rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  line-height: 1.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  transition: all 0.15s ease-in-out;
+
+  &:focus-visible {
+    outline-offset: -0.0625rem;
+  }
+
+  .menu-item-text-wrapper {
+    display: flex;
+  }
+
+  & &-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    width: 1.5rem;
+    margin-right: 0.5rem;
+  }
+
+  &-text {
+    display: flex;
+    align-items: center;
+  }
+
+  &-expand-icon {
+    color: var(--color-blue-grey900);
+    font-size: 0.75rem;
+    transition: all 0.15s ease-in-out;
+  }
+
+  &.expanded .menu-item-expand-icon {
+    transform: rotate(180deg);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  &:hover {
+    background-color: var(--color-blue-grey50);
+  }
+
+  &:focus,
+  &:active {
+    color: inherit;
+    background-color: var(--color-blue-grey100);
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background-color: var(--color-blue-grey25);
+    color: var(--color-blue-grey400);
+  }
+}
+
+.menu-list-item {
+  position: relative;
+
+  .menu-item {
+    padding: 0.75rem 1rem;
+  }
+
+  a.menu-item-active {
+    background-color: var(--color-primary50);
+
+    &:hover {
+      background-color: var(--color-blue-grey50);
+    }
+
+    &:focus,
+    &:active {
+      background-color: var(--color-blue-grey100);
+    }
+
+    &:before {
+      content: "";
+      height: 100%;
+      position: absolute;
+      left: 0;
+      z-index: 2;
+      border-top-right-radius: 0.125rem;
+      border-bottom-right-radius: 0.125rem;
+      border-left: 0.25rem solid var(--color-primary500);
+    }
+
+    .menu-item-text {
+      font-weight: 700;
+    }
+  }
+
+  button.menu-item-active {
+    .menu-item-text {
+      font-weight: 700;
+    }
+  }
+}
+
+@keyframes item-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+
+  80% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
