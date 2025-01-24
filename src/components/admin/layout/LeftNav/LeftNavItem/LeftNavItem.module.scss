@@ -26,6 +26,7 @@
     transform: translateY(-60px);
   }
 
+  $maxElementsOnOneSubLevel: 20;
   &.expanded {
     > .menu-button + ul > .menu-button-wrapper,
     > .menu-button + ul > li {
@@ -33,13 +34,7 @@
       animation-name: item-fade-in;
       animation-duration: 250ms;
       animation-fill-mode: forwards;
-    }
-  }
 
-  $maxElementsOnOneSubLevel: 20;
-  &.expanded {
-    > .menu-button + ul > .menu-button-wrapper,
-    > .menu-button + ul > li {
       @for $i from 1 to $maxElementsOnOneSubLevel {
         &:nth-child(#{$i}) {
           animation-delay: (100ms * ($i - 1));
