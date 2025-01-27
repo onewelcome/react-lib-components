@@ -27,11 +27,12 @@ import { LeftNavItem } from "./LeftNavItem/LeftNavItem";
 export interface Props extends ComponentPropsWithRef<"nav"> {
   isSideMenuOpen?: boolean;
   items: MenuItem[];
+  navigate: (path: string) => void;
   marginTop?: string;
 }
 
 const LeftNavComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { isSideMenuOpen, items, marginTop, ...rest },
+  { isSideMenuOpen, items, navigate, marginTop, ...rest },
   ref
 ) => {
   const [isSideNavbarVisible, setIsSideNavbarVisible] = useState(isSideMenuOpen);
@@ -46,7 +47,7 @@ const LeftNavComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
     }
 
     return items.map(item => {
-      return <LeftNavItem key={item.key} item={item} navigate={() => {}} />;
+      return <LeftNavItem key={item.key} item={item} navigate={navigate} />;
     });
   };
 

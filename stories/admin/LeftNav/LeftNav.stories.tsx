@@ -16,7 +16,7 @@
 
 import { Meta, StoryFn } from "@storybook/react";
 
-import React, { Fragment, ReactElement, useState } from "react";
+import React, { Fragment, ReactElement, ReactNode, useEffect, useState } from "react";
 import {
   Button,
   ButtonProps,
@@ -30,7 +30,8 @@ import {
 } from "../../../src";
 import LeftNavDocumentation from "./LeftNav.mdx";
 import { MenuItem } from "../../../src/components/admin/layout/LeftNav/LeftNav.interfaces";
-import { MemoryRouter } from "react-router";
+import { MemoryRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router";
+import classes from "./LeftNav.module.scss";
 
 const meta: Meta = {
   title: "admin/Layout/LeftNav",
@@ -71,100 +72,141 @@ const formButtonList: ReactElement<ButtonProps, typeof Button>[] = [
   </Button>
 ];
 
-const boxShadow = {
-  boxShadow: "0px 1px 5px 0px #01053214"
-};
-
-const centerText = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
-
 const items: MenuItem[] = [
   {
     key: "menu1",
     title: "Menu Item 1",
-    path: "/configuration/test",
-    active: true,
+    path: "/configuration/menu1",
     iconComponent: <Icon icon={Icons.UploadOutline} />
   },
   {
     key: "menu2",
     title: "Menu Item 2",
-    path: "/configuration/test",
+    path: "/configuration/menu2",
     disabled: true,
     iconComponent: <Icon icon={Icons.Trash} />
   },
   {
     key: "menu3",
     title: "Menu Item 3",
-    path: "/configuration/test",
+    path: "/configuration/menu3",
     iconComponent: <Icon icon={Icons.FileAltIcon} />,
     items: [
       {
         key: "menu3.1",
         title: "Sub Menu Item 3.1",
-        path: "/configuration/test",
-        active: true
+        path: "/configuration/menu31"
       },
       {
         key: "menu3.2",
         title: "Sub Menu Item 3.2",
-        path: "/configuration/test"
+        path: "/configuration/menu32"
       },
       {
         key: "menu3.3",
         title: "Sub Menu Item 3.3",
-        path: "/configuration/test"
+        path: "/configuration/menu33"
       },
       {
         key: "menu3.4",
         title: "Sub Menu Item 3.4",
-        path: "/configuration/test",
+        path: "/configuration/menu34",
         disabled: true,
         items: [
           {
             key: "menu3.4.1",
             title: "Sub Menu Item 3.4.1 multi line",
-            path: "/configuration/test"
+            path: "/configuration/menu341"
           },
           {
             key: "menu3.4.2",
             title: "Sub Menu Item 3.4.2",
-            path: "/configuration/test"
+            path: "/configuration/menu342"
           }
         ]
       }
     ]
   },
-  { key: "menu4", title: "Menu Item 4", path: "/configuration/test" },
-  { key: "menu5", title: "Menu Item 5", path: "/configuration/test" }
+  { key: "menu4", title: "Menu Item 4", path: "/configuration/menu4" },
+  { key: "menu5", title: "Menu Item 5", path: "/configuration/menu5" }
 ];
+
+const extractRoutes = (menuItems: MenuItem[]): MenuItem[] => {
+  const routes: MenuItem[] = [];
+  menuItems.forEach(item => {
+    if (item.path) {
+      routes.push(item);
+    }
+    if (item.items) {
+      routes.push(...extractRoutes(item.items));
+    }
+  });
+  return routes;
+};
+
+const generateRedirects = (menuItems: MenuItem[]): ReactNode[] => {
+  const redirects: ReactNode[] = [];
+  menuItems.forEach(item => {
+    if (item.items && item.items.length > 0) {
+      redirects.push(
+        <Route
+          key={`${item.key}-redirect`}
+          path={item.path}
+          element={<Navigate to={item.items[0].path!} />}
+        />
+      );
+      redirects.push(...generateRedirects(item.items));
+    }
+  });
+  return redirects;
+};
+
+const setActiveItem = (menuItems: MenuItem[], path: string) => {
+  menuItems.forEach(item => {
+    if (item.path === path) {
+      item.active = true;
+    } else {
+      item.active = false;
+    }
+    if (item.items && item.items.length > 0) {
+      setActiveItem(item.items, path);
+    }
+  });
+};
+
+const routes = extractRoutes(items);
+const redirects = generateRedirects(items);
+
+const TemplateWithRouterWrapper: StoryFn<Props> = args => {
+  return (
+    <MemoryRouter>
+      <Template {...args} />
+    </MemoryRouter>
+  );
+};
 
 const Template: StoryFn<Props> = args => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+  const [localItems, setLocalItems] = useState(items);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const newItems = [...localItems];
+    setActiveItem(newItems, location.pathname);
+    setLocalItems(newItems);
+  }, [location]);
+
   return (
-    <MemoryRouter>
-      <div
-        style={{
-          height: "3rem",
-          ...boxShadow,
-          display: "flex",
-          alignItems: "center",
-          position: "sticky",
-          top: "1rem",
-          backgroundColor: "white",
-          zIndex: 1
-        }}
-      >
+    <Fragment>
+      <div className={classes["top-nav"]}>
         <IconButton
+          className={classes["menu-icon"]}
           aria-controls="sidemenu"
           data-testid="sidemenu-btn"
           aria-expanded={isSideMenuOpen}
           title={isSideMenuOpen ? "Hide menu" : "Show menu"}
           color="default"
-          style={{ flexShrink: 0, marginLeft: "0.75rem", marginRight: "1rem" }}
           onClick={() => setIsSideMenuOpen(state => !state)}
         >
           {isSideMenuOpen ? <Icon icon={Icons.Times} /> : <Icon icon={Icons.Hamburger} />}
@@ -172,14 +214,14 @@ const Template: StoryFn<Props> = args => {
         LOGO
       </div>
       <div>
-        <LeftNav items={items} />
-        <div style={{ marginLeft: "16rem" }}>
+        <LeftNav items={localItems} isSideMenuOpen={isSideMenuOpen} navigate={navigate} />
+        <div className={classes["content"]}>
           <MicrofrontendContainer
             header={
               <ContentHeader
                 buttons={formButtonList}
-                title={"Example title"}
-                subtitle={"This is a subtitle, you can put a short message here"}
+                title="Example title"
+                subtitle="This is a subtitle, you can put a short message here"
               >
                 If you need more place to write some explanation to your user, this is the place you
                 can do it. Have fun!
@@ -187,7 +229,19 @@ const Template: StoryFn<Props> = args => {
             }
             {...args}
           >
-            <div style={{ backgroundColor: "#F7F7F9", width: "100%", ...boxShadow, ...centerText }}>
+            <div className={classes["inner"]}>
+              <Routes>
+                {redirects}
+                {routes.map(route => (
+                  <Route
+                    key={route.key}
+                    path={route.path}
+                    element={<span>{route.title} Content</span>}
+                  />
+                ))}
+                <Route path="*" element={<Navigate to={routes[0]?.path || "/"} />} />
+              </Routes>
+              <br />
               Some content
               <br />
               Some content
@@ -250,11 +304,11 @@ const Template: StoryFn<Props> = args => {
           </MicrofrontendContainer>
         </div>
       </div>
-    </MemoryRouter>
+    </Fragment>
   );
 };
 
-export const DefaultLeftNav = Template.bind({});
+export const DefaultLeftNav = TemplateWithRouterWrapper.bind({});
 DefaultLeftNav.storyName = "LeftNav";
 
 export default meta;

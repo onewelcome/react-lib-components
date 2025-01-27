@@ -18,7 +18,8 @@ import React, { HTMLProps, MouseEvent, useEffect, useRef, useState } from "react
 import classes from "./LeftNavItem.module.scss";
 import { Link as RouterLink } from "react-router-dom";
 import { MenuItem } from "../LeftNav.interfaces";
-import { Icon, Icons, Link } from "../../../../..";
+import { Icon, Icons } from "../../../../Icon/Icon";
+import { Link } from "../../../../Link/Link";
 
 export interface Props extends HTMLProps<HTMLButtonElement | HTMLAnchorElement> {
   item: MenuItem;
