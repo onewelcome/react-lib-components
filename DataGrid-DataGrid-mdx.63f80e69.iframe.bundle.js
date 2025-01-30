@@ -2073,27 +2073,27 @@ DataGridDatePicker.args = {
     name: "Company 2",
     id: "2",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 50)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 50)
   }, {
     name: "Company 3",
     id: "3",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 270)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 270)
   }, {
     name: "Company 4",
     id: "4",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 3400)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 3400)
   }, {
     name: "Company 5",
     id: "5",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 86000)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 86000)
   }, {
     name: "Company 6",
     id: "6",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 99000)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 99000)
   }],
   headers: [{
     name: "name",
@@ -2124,27 +2124,27 @@ DataGridDatePickerOpened.args = {
     name: "Company 2",
     id: "2",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 50)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 50)
   }, {
     name: "Company 3",
     id: "3",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 270)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 270)
   }, {
     name: "Company 4",
     id: "4",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 3400)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 3400)
   }, {
     name: "Company 5",
     id: "5",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 86000)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 86000)
   }, {
     name: "Company 6",
     id: "6",
     type: "Bond",
-    created: new Date(Date.now() - 1000 * 99000)
+    created: new Date(Date.parse("Fri Mar 24 2023") - 1000 * 99000)
   }],
   headers: [{
     name: "name",
