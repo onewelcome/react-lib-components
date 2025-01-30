@@ -19,8 +19,18 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import postcss from "rollup-plugin-postcss";
 import postcssUrl from "postcss-url";
-import terser from '@rollup/plugin-terser';
+import terser from "@rollup/plugin-terser";
 import path from "path";
+
+const generateRandomSalt = (length: number = 5): string => {
+  const possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let salt = "";
+  for (let i = 0; i < length; i++) {
+    salt += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+  }
+  return salt;
+};
+const randomSalt = generateRandomSalt();
 
 const packageJson = require("./package.json");
 
@@ -29,7 +39,9 @@ const baseConfig = {
     resolve(),
     commonjs(),
     postcss({
-      modules: true,
+      modules: {
+        generateScopedName: (name, filename, css) => `_${name}_${randomSalt}`
+      },
       inject: true,
       minimize: true,
       sourceMap: true,
