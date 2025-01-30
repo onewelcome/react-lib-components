@@ -22,6 +22,8 @@ import postcssUrl from "postcss-url";
 import terser from "@rollup/plugin-terser";
 import path from "path";
 
+const packageJson = require("./package.json");
+
 const generateRandomSalt = (length = 5) => {
   const possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let salt = "";
@@ -32,15 +34,16 @@ const generateRandomSalt = (length = 5) => {
 };
 const randomSalt = generateRandomSalt();
 
-const packageJson = require("./package.json");
-
 const baseConfig = {
   plugins: [
     resolve(),
     commonjs(),
     postcss({
       modules: {
-        generateScopedName: (name, filename, css) => `_${name}_${randomSalt}`
+        generateScopedName: (name, filename) => {
+          const filenameWithoutExt = path.basename(filename).split(".")[0];
+          return `${filenameWithoutExt}_${name}_${randomSalt}`;
+        }
       },
       inject: true,
       minimize: true,
