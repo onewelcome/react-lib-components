@@ -22,7 +22,7 @@ import postcssUrl from "postcss-url";
 import terser from "@rollup/plugin-terser";
 import path from "path";
 
-const generateRandomSalt = (length: number = 5): string => {
+const generateRandomSalt = (length = 5) => {
   const possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let salt = "";
   for (let i = 0; i < length; i++) {
