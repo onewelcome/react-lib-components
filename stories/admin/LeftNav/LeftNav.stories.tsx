@@ -105,13 +105,25 @@ const items: MenuItem[] = [
       {
         key: "menu3.3",
         title: "Sub Menu Item 3.3",
-        path: "/configuration/menu33"
+        path: "/configuration/menu33",
+        items: [
+          {
+            key: "menu3.3.1",
+            title: "Sub Menu Item 3.3.1 multi line",
+            path: "/configuration/menu331"
+          },
+          {
+            key: "menu3.3.2",
+            title: "Sub Menu Item 3.3.2",
+            path: "/configuration/menu332"
+          }
+        ]
       },
       {
         key: "menu3.4",
         title: "Sub Menu Item 3.4",
         path: "/configuration/menu34",
-        disabled: true,
+        // disabled: true,
         items: [
           {
             key: "menu3.4.1",
@@ -163,11 +175,7 @@ const generateRedirects = (menuItems: MenuItem[]): ReactNode[] => {
 
 const setActiveItem = (menuItems: MenuItem[], path: string) => {
   menuItems.forEach(item => {
-    if (item.path === path) {
-      item.active = true;
-    } else {
-      item.active = false;
-    }
+    item.active = item.path === path;
     if (item.items && item.items.length > 0) {
       setActiveItem(item.items, path);
     }

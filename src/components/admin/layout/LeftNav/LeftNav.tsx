@@ -23,6 +23,7 @@ import React, {
 import classes from "./LeftNav.module.scss";
 import { MenuItem } from "./LeftNav.interfaces";
 import { LeftNavItem } from "./LeftNavItem/LeftNavItem";
+import { useRefItems } from "./useRefItems";
 
 export interface Props extends ComponentPropsWithRef<"nav"> {
   isSideMenuOpen?: boolean;
@@ -36,6 +37,7 @@ const LeftNavComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
   ref
 ) => {
   const [isSideNavbarVisible, setIsSideNavbarVisible] = useState(isSideMenuOpen);
+  const refItems = useRefItems({ items });
 
   const onSideNavbarTransitionEnd: React.TransitionEventHandler<HTMLUListElement> = () => {
     setIsSideNavbarVisible(isSideMenuOpen);
@@ -47,7 +49,15 @@ const LeftNavComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
     }
 
     return items.map(item => {
-      return <LeftNavItem key={item.key} item={item} navigate={navigate} />;
+      return (
+        <LeftNavItem
+          ref={el => refItems.addElementReference(el, item.key)}
+          key={item.key}
+          item={item}
+          navigate={navigate}
+          refItems={refItems}
+        />
+      );
     });
   };
 

@@ -14,27 +14,38 @@
  *    limitations under the License.
  */
 
-import React, { HTMLProps, MouseEvent, useEffect, useRef, useState } from "react";
+import React, {
+  ForwardRefRenderFunction,
+  HTMLProps,
+  MouseEvent,
+  Ref,
+  useEffect,
+  useState
+} from "react";
 import classes from "./LeftNavItem.module.scss";
 import { Link as RouterLink } from "react-router-dom";
 import { MenuItem } from "../LeftNav.interfaces";
 import { Icon, Icons } from "../../../../Icon/Icon";
 import { Link } from "../../../../Link/Link";
+import { useKeyboardNavigation } from "./useKeyboardNavigation";
+import { UseRefItemsReturnType } from "../useRefItems";
 
 export interface Props extends HTMLProps<HTMLButtonElement | HTMLAnchorElement> {
   item: MenuItem;
   navigate: (path: string) => void;
-  previousButtonRef?: React.RefObject<HTMLButtonElement>;
+  refItems: UseRefItemsReturnType;
   closeParentList?: () => void;
 }
 
-export const LeftNavItem = ({ item, navigate, previousButtonRef, closeParentList }: Props) => {
+const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
+  { item, navigate, refItems, closeParentList },
+  ref
+) => {
   const [expanded, setExpanded] = useState(false);
-  const listRef = useRef(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const linkRef = useRef<HTMLAnchorElement>(null);
   const shouldBeButton = !!(item.items?.length ?? 0 >= 1);
   const isActiveParent = shouldBeButton ? !!item.items?.find(menuItem => menuItem.active) : false;
+
+  const { onKeyPressNavigation } = useKeyboardNavigation({ refItems, item, closeParentList });
 
   const onButtonClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
     if ((event.target as Element).nodeName === "A" && item.path) {
@@ -86,8 +97,8 @@ export const LeftNavItem = ({ item, navigate, previousButtonRef, closeParentList
         aria-controls={item.key}
         data-testid={`tab-btn-${item.key}`}
         aria-expanded={expanded}
-        ref={buttonRef}
-        // onKeyDown={determineKeyboardAction}
+        ref={ref as Ref<HTMLButtonElement>}
+        onKeyDown={onKeyPressNavigation}
         onClick={onButtonClickHandler}
         className={buttonClasses.join(" ")}
         disabled={item.disabled}
@@ -112,20 +123,20 @@ export const LeftNavItem = ({ item, navigate, previousButtonRef, closeParentList
       </button>
       <ul
         id={item.key}
-        ref={listRef}
         style={{ maxHeight: expanded ? undefined : 0 }}
         className={classes["menu-list"]}
       >
         {!item.disabled &&
           item.items?.map(item => (
             <LeftNavItem
+              ref={el => refItems.addElementReference(el, item.key)}
               key={item.key}
-              previousButtonRef={buttonRef}
               closeParentList={() => setExpanded(false)}
-              // onKeyUp={determineKeyboardAction}
+              onKeyUp={onKeyPressNavigation}
               tabIndex={expanded ? 0 : -1}
               item={item}
               navigate={navigate}
+              refItems={refItems}
             >
               {item.title}
             </LeftNavItem>
@@ -136,15 +147,13 @@ export const LeftNavItem = ({ item, navigate, previousButtonRef, closeParentList
     <li className={menuLinkWrapperClasses.join(" ")} data-testid={`${item.key}`}>
       {item.path?.match(/^https?:\/\//) ? (
         <Link
-          ref={linkRef}
-          // onKeyDown={e => {
-          //   determineKeyboardAction(e);
-          // }}
+          ref={ref as Ref<HTMLAnchorElement>}
+          onKeyDown={onKeyPressNavigation}
           // onClick={dispatchCloseMobileMenu}
           data-testid={item.key}
           aria-current={item.active ? "page" : false}
           className={menuItemLinkClasses.join(" ")}
-          to={item.path || ""}
+          to={item.path ?? ""}
           type="external"
           disabled={item.disabled}
         >
@@ -156,10 +165,8 @@ export const LeftNavItem = ({ item, navigate, previousButtonRef, closeParentList
         </Link>
       ) : (
         <RouterLink
-          ref={linkRef}
-          // onKeyDown={e => {
-          //   determineKeyboardAction(e);
-          // }}
+          ref={ref as Ref<HTMLAnchorElement>}
+          onKeyDown={onKeyPressNavigation}
           // onClick={() => {
           //   changeCategory && publishChangeCategory();
           //   dispatchCloseMobileMenu();
@@ -167,7 +174,7 @@ export const LeftNavItem = ({ item, navigate, previousButtonRef, closeParentList
           // }}
           aria-current={item.active ? "page" : false}
           className={menuItemLinkClasses.join(" ")}
-          to={item.path || ""}
+          to={item.path ?? ""}
           tabIndex={item.disabled ? -1 : undefined}
         >
           <div className={classes["menu-item-text-wrapper"]}>
@@ -180,3 +187,5 @@ export const LeftNavItem = ({ item, navigate, previousButtonRef, closeParentList
     </li>
   );
 };
+
+export const LeftNavItem = React.forwardRef(LeftNavItemComponent);
