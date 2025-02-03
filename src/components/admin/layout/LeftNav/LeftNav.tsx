@@ -29,11 +29,12 @@ export interface Props extends ComponentPropsWithRef<"nav"> {
   isSideMenuOpen?: boolean;
   items: MenuItem[];
   navigate: (path: string) => void;
+  onItemClick: (path?: string, button?: boolean) => void;
   marginTop?: string;
 }
 
 const LeftNavComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { isSideMenuOpen, items, navigate, marginTop, ...rest },
+  { isSideMenuOpen, items, navigate, onItemClick, marginTop, ...rest },
   ref
 ) => {
   const [isSideNavbarVisible, setIsSideNavbarVisible] = useState(isSideMenuOpen);
@@ -55,6 +56,7 @@ const LeftNavComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
           key={item.key}
           item={item}
           navigate={navigate}
+          onItemClick={onItemClick}
           refItems={refItems}
         />
       );

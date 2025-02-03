@@ -42,7 +42,7 @@ export const useKeyboardNavigation = ({ refItems, item, closeParentList }: Props
       e.stopPropagation();
       refItems.getNextElementOnSameLevel(item.key)?.focus();
     }
-    if (e.code === "Space" || e.code === "ArrowRight") {
+    if (e.code === "Space" || e.code === "ArrowRight" || e.code === "Enter") {
       e.stopPropagation();
       e.preventDefault();
       e.currentTarget.click();

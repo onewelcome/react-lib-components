@@ -33,12 +33,13 @@ import { UseRefItemsReturnType } from "../useRefItems";
 export interface Props extends HTMLProps<HTMLButtonElement | HTMLAnchorElement> {
   item: MenuItem;
   navigate: (path: string) => void;
+  onItemClick: (path?: string, button?: boolean) => void;
   refItems: UseRefItemsReturnType;
   closeParentList?: () => void;
 }
 
 const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { item, navigate, refItems, closeParentList },
+  { item, navigate, onItemClick, refItems, tabIndex, closeParentList },
   ref
 ) => {
   const [expanded, setExpanded] = useState(false);
@@ -51,6 +52,7 @@ const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
     if ((event.target as Element).nodeName === "A" && item.path) {
       event.preventDefault();
       navigate(item.path);
+      onItemClick(item.path, true);
     } else {
       setExpanded(!expanded);
     }
@@ -102,6 +104,7 @@ const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
         onClick={onButtonClickHandler}
         className={buttonClasses.join(" ")}
         disabled={item.disabled}
+        tabIndex={tabIndex}
       >
         <div className={classes["menu-item-text-wrapper"]}>
           {item.iconComponent &&
@@ -111,7 +114,7 @@ const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
               to={item.path}
               aria-current={item.active ? "page" : false}
               className={classes["menu-item-text"]}
-              tabIndex={item.disabled ? -1 : undefined}
+              tabIndex={item.disabled ? -1 : tabIndex}
             >
               {item.title}
             </RouterLink>
@@ -136,6 +139,7 @@ const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
               tabIndex={expanded ? 0 : -1}
               item={item}
               navigate={navigate}
+              onItemClick={onItemClick}
               refItems={refItems}
             >
               {item.title}
@@ -149,13 +153,14 @@ const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
         <Link
           ref={ref as Ref<HTMLAnchorElement>}
           onKeyDown={onKeyPressNavigation}
-          // onClick={dispatchCloseMobileMenu}
+          onClick={() => onItemClick(item.path)}
           data-testid={item.key}
           aria-current={item.active ? "page" : false}
           className={menuItemLinkClasses.join(" ")}
           to={item.path ?? ""}
           type="external"
           disabled={item.disabled}
+          tabIndex={tabIndex}
         >
           <div className={classes["menu-item-text-wrapper"]}>
             {item.iconComponent &&
@@ -167,15 +172,11 @@ const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
         <RouterLink
           ref={ref as Ref<HTMLAnchorElement>}
           onKeyDown={onKeyPressNavigation}
-          // onClick={() => {
-          //   changeCategory && publishChangeCategory();
-          //   dispatchCloseMobileMenu();
-          //   publishRouteChange({ path: item.path, microfrontend: item.microFrontendName });
-          // }}
+          onClick={() => onItemClick(item.path)}
           aria-current={item.active ? "page" : false}
           className={menuItemLinkClasses.join(" ")}
           to={item.path ?? ""}
-          tabIndex={item.disabled ? -1 : undefined}
+          tabIndex={item.disabled ? -1 : tabIndex}
         >
           <div className={classes["menu-item-text-wrapper"]}>
             {item.iconComponent &&

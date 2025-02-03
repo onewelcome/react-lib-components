@@ -199,6 +199,10 @@ const Template: StoryFn<Props> = args => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const handleSideMenuClose = () => {
+    setIsSideMenuOpen(false);
+  };
+
   useEffect(() => {
     const newItems = [...localItems];
     setActiveItem(newItems, location.pathname);
@@ -222,7 +226,12 @@ const Template: StoryFn<Props> = args => {
         LOGO
       </div>
       <div>
-        <LeftNav items={localItems} isSideMenuOpen={isSideMenuOpen} navigate={navigate} />
+        <LeftNav
+          items={localItems}
+          isSideMenuOpen={isSideMenuOpen}
+          navigate={navigate}
+          onItemClick={handleSideMenuClose}
+        />
         <div className={classes["content"]}>
           <MicrofrontendContainer
             header={
