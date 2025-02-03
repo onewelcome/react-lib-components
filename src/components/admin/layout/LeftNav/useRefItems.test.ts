@@ -259,5 +259,96 @@ describe("useRefItems()", () => {
         key31: { item: items[2]?.items?.[0], level: 1, prev: items[2], next: undefined }
       });
     });
+
+    it("when items have many disabled items", () => {
+      const items: MenuItem[] = [
+        {
+          key: "key1",
+          title: "title1"
+        },
+        {
+          key: "key2",
+          title: "title2",
+          disabled: true
+        },
+        {
+          key: "key3",
+          title: "title3",
+          items: [
+            { key: "key31", title: "title3.1" },
+            { key: "key32", title: "title3.2" },
+            {
+              key: "key33",
+              title: "title3.3",
+              items: [
+                {
+                  key: "key331",
+                  title: "title3.3.1",
+
+                  items: [
+                    { key: "key3311", title: "title3.3.1.1", disabled: true },
+                    { key: "key3312", title: "title3.3.1.2" }
+                  ]
+                },
+                { key: "key332", title: "title3.3.2", disabled: true }
+              ]
+            }
+          ]
+        },
+        {
+          key: "key4",
+          title: "title4",
+          disabled: true
+        },
+        {
+          key: "key5",
+          title: "title5",
+          disabled: true
+        },
+        {
+          key: "key6",
+          title: "title6"
+        }
+      ];
+
+      const { result } = renderHook(() => useRefItems({ items }));
+
+      const itemMap = result.current.getItemMap();
+      expect(itemMap).toStrictEqual({
+        key1: { item: items[0], level: 0, prev: undefined, next: items[2] },
+        key3: { item: items[2], level: 0, prev: items[0], next: items[2]?.items?.[0] },
+        key31: { item: items[2]?.items?.[0], level: 1, prev: items[2], next: items[2]?.items?.[1] },
+        key32: {
+          item: items[2]?.items?.[1],
+          level: 1,
+          prev: items[2]?.items?.[0],
+          next: items[2]?.items?.[2]
+        },
+        key33: {
+          item: items[2]?.items?.[2],
+          level: 1,
+          prev: items[2]?.items?.[1],
+          next: items[2]?.items?.[2]?.items?.[0]
+        },
+        key331: {
+          item: items[2]?.items?.[2]?.items?.[0],
+          level: 2,
+          prev: items[2]?.items?.[2],
+          next: items[2]?.items?.[2]?.items?.[0]?.items?.[1]
+        },
+        key3312: {
+          item: items[2]?.items?.[2]?.items?.[0]?.items?.[1],
+          level: 3,
+          prev: items[2]?.items?.[2]?.items?.[0],
+          next: items[5]
+        },
+        key6: {
+          item: items[5],
+          level: 0,
+          prev: items[2]?.items?.[2]?.items?.[0]?.items?.[1],
+          next: undefined
+        }
+      });
+    });
   });
 });

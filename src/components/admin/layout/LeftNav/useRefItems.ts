@@ -53,21 +53,22 @@ export const useRefItems = ({ items }: Props) => {
   ): { lastItem?: MenuItem } => {
     let currentPreviousItem: MenuItem | undefined = prevItem,
       currentNextItem: MenuItem | undefined = nextItem;
-    items?.forEach((currentItem, index) => {
-      const isLast = index === items.length - 1;
+    const nonDisabledItems = items?.filter(item => !item.disabled);
+    nonDisabledItems?.forEach((currentItem, index) => {
+      const isLast = index === nonDisabledItems.length - 1;
       if (!isLast) {
-        currentNextItem = items[index + 1];
+        currentNextItem = nonDisabledItems[index + 1];
       } else {
         currentNextItem = nextItem;
       }
 
-      const hasChildren = currentItem?.items !== undefined;
+      const hasChildren = currentItem.items?.filter(item => !item.disabled) !== undefined;
       if (hasChildren) {
         itemsMap[currentItem.key] = {
           item: currentItem,
           level,
           prev: currentPreviousItem,
-          next: currentItem?.items?.[0]
+          next: currentItem?.items?.filter(item => !item.disabled)[0]
         };
         currentPreviousItem = currentItem;
         const { lastItem } = createRecursiveLinkedMap(
