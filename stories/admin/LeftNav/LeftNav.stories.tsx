@@ -123,7 +123,7 @@ const items: MenuItem[] = [
         key: "menu3.4",
         title: "Sub Menu Item 3.4",
         path: "/configuration/menu34",
-        // disabled: true,
+        disabled: true,
         items: [
           {
             key: "menu3.4.1",

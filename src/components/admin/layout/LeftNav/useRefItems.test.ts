@@ -14,9 +14,10 @@
  *    limitations under the License.
  */
 
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { useRefItems } from "./useRefItems";
 import { MenuItem } from "./LeftNav.interfaces";
+import { createElement } from "react";
 
 describe("useRefItems()", () => {
   describe("should create linked map", () => {
@@ -349,6 +350,244 @@ describe("useRefItems()", () => {
           next: undefined
         }
       });
+    });
+  });
+
+  describe("should get next element", () => {
+    it("when items have only root lvl items", () => {
+      const items: MenuItem[] = [
+        { key: "key1", title: "title1" },
+        { key: "key2", title: "title2" },
+        { key: "key3", title: "title3" }
+      ];
+      const key2ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key2ItemEl, "key2");
+      });
+
+      const nextElement = result.current.getNextElement("key1");
+
+      expect(nextElement).toEqual(key2ItemEl);
+    });
+
+    it("when items have an item with children with two elements as first element of the list with one disabled element", () => {
+      //given
+      const items: MenuItem[] = [
+        {
+          key: "key1",
+          title: "title1"
+        },
+        {
+          key: "key2",
+          title: "title2",
+          items: [
+            { key: "key21", title: "title2.1" },
+            { key: "key22", title: "title2.2", disabled: true },
+            { key: "key23", title: "title2.3" }
+          ]
+        },
+        { key: "key3", title: "title3" }
+      ];
+      const key21ItemEl = createElement("a") as unknown as HTMLElement;
+      const key23ItemEl = createElement("a") as unknown as HTMLElement;
+      const key3ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key21ItemEl, "key21");
+        result.current.addElementReference(key23ItemEl, "key23");
+        result.current.addElementReference(key3ItemEl, "key3");
+      });
+      //when
+      let nextElement = result.current.getNextElement("key2");
+      //then
+      expect(nextElement).toEqual(key21ItemEl);
+      //when
+      nextElement = result.current.getNextElement("key21");
+      //then
+      expect(nextElement).toEqual(key23ItemEl);
+      //when
+      nextElement = result.current.getNextElement("key23");
+      //then
+      expect(nextElement).toEqual(key3ItemEl);
+    });
+  });
+
+  describe("should get prev element on the same level", () => {
+    it("when items have only root lvl items", () => {
+      const items: MenuItem[] = [
+        { key: "key1", title: "title1" },
+        { key: "key2", title: "title2" },
+        { key: "key3", title: "title3" }
+      ];
+      const key2ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key2ItemEl, "key2");
+      });
+
+      const prevElement = result.current.getPrevElementOnSameLevel("key3");
+
+      expect(prevElement).toEqual(key2ItemEl);
+    });
+
+    it("when items have an item with children with two elements as first element of the list with one disabled element", () => {
+      //given
+      const items: MenuItem[] = [
+        {
+          key: "key1",
+          title: "title1"
+        },
+        {
+          key: "key2",
+          title: "title2",
+          items: [
+            { key: "key21", title: "title2.1" },
+            { key: "key22", title: "title2.2", disabled: true },
+            { key: "key23", title: "title2.3" }
+          ]
+        },
+        { key: "key3", title: "title3" }
+      ];
+      const key2ItemEl = createElement("a") as unknown as HTMLElement;
+      const key21ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key2ItemEl, "key2");
+        result.current.addElementReference(key21ItemEl, "key21");
+      });
+      //when
+      let prevElement = result.current.getPrevElementOnSameLevel("key3");
+      //then
+      expect(prevElement).toEqual(key2ItemEl);
+      //when
+      prevElement = result.current.getPrevElementOnSameLevel("key21");
+      //then
+      expect(prevElement).toBeUndefined();
+      //when
+      prevElement = result.current.getPrevElementOnSameLevel("key23");
+      //then
+      expect(prevElement).toEqual(key21ItemEl);
+    });
+  });
+
+  describe("should get next element on the same level", () => {
+    it("when items have only root lvl items", () => {
+      const items: MenuItem[] = [
+        { key: "key1", title: "title1" },
+        { key: "key2", title: "title2" },
+        { key: "key3", title: "title3" }
+      ];
+      const key2ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key2ItemEl, "key2");
+      });
+
+      const nextElement = result.current.getNextElementOnSameLevel("key1");
+
+      expect(nextElement).toEqual(key2ItemEl);
+    });
+
+    it("when items have an item with children with two elements as first element of the list with one disabled element", () => {
+      //given
+      const items: MenuItem[] = [
+        {
+          key: "key1",
+          title: "title1"
+        },
+        {
+          key: "key2",
+          title: "title2",
+          items: [
+            { key: "key21", title: "title2.1" },
+            { key: "key22", title: "title2.2", disabled: true },
+            { key: "key23", title: "title2.3" }
+          ]
+        },
+        { key: "key3", title: "title3" }
+      ];
+      const key21ItemEl = createElement("a") as unknown as HTMLElement;
+      const key23ItemEl = createElement("a") as unknown as HTMLElement;
+      const key3ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key21ItemEl, "key21");
+        result.current.addElementReference(key23ItemEl, "key23");
+        result.current.addElementReference(key3ItemEl, "key3");
+      });
+      //when
+      let nextElement = result.current.getNextElementOnSameLevel("key2");
+      //then
+      expect(nextElement).toEqual(key3ItemEl);
+      //when
+      nextElement = result.current.getNextElementOnSameLevel("key21");
+      //then
+      expect(nextElement).toEqual(key23ItemEl);
+      //when
+      nextElement = result.current.getNextElementOnSameLevel("key23");
+      //then
+      expect(nextElement).toBeUndefined();
+    });
+  });
+
+  describe("should get parent element", () => {
+    it("when items have only root lvl items", () => {
+      const items: MenuItem[] = [
+        { key: "key1", title: "title1" },
+        { key: "key2", title: "title2" },
+        { key: "key3", title: "title3" }
+      ];
+      const key1ItemEl = createElement("a") as unknown as HTMLElement;
+      const key2ItemEl = createElement("a") as unknown as HTMLElement;
+      const key3ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key1ItemEl, "key1");
+        result.current.addElementReference(key2ItemEl, "key2");
+        result.current.addElementReference(key3ItemEl, "key3");
+      });
+
+      const parentElement = result.current.getParentElement("key1");
+
+      expect(parentElement).toBeUndefined();
+    });
+
+    it("when items have an item with children with two elements as first element of the list with one disabled element", () => {
+      //given
+      const items: MenuItem[] = [
+        {
+          key: "key1",
+          title: "title1"
+        },
+        {
+          key: "key2",
+          title: "title2",
+          items: [
+            { key: "key21", title: "title2.1" },
+            { key: "key22", title: "title2.2", disabled: true },
+            { key: "key23", title: "title2.3" }
+          ]
+        },
+        { key: "key3", title: "title3" }
+      ];
+      const key2ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key2ItemEl, "key2");
+      });
+      //when
+      let parentElement = result.current.getParentElement("key21");
+      //then
+      expect(parentElement).toEqual(key2ItemEl);
+      //when
+      parentElement = result.current.getParentElement("key23");
+      //then
+      expect(parentElement).toEqual(key2ItemEl);
+      //when
+      parentElement = result.current.getParentElement("key2");
+      //then
+      expect(parentElement).toBeUndefined();
     });
   });
 });

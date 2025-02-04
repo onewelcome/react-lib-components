@@ -49,12 +49,20 @@ const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
   const { onKeyPressNavigation } = useKeyboardNavigation({ refItems, item, closeParentList });
 
   const onButtonClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
-    if ((event.target as Element).nodeName === "A" && item.path) {
+    if ((event.target as Element).nodeName === "A" && item.path && !item.disabled) {
       event.preventDefault();
       navigate(item.path);
       onItemClick(item.path, true);
     } else {
       setExpanded(!expanded);
+    }
+  };
+
+  const onLinkClickHandler = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (item.disabled) {
+      event.preventDefault();
+    } else {
+      onItemClick(item.path);
     }
   };
 
@@ -153,9 +161,10 @@ const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
         <Link
           ref={ref as Ref<HTMLAnchorElement>}
           onKeyDown={onKeyPressNavigation}
-          onClick={() => onItemClick(item.path)}
+          onClick={onLinkClickHandler}
           data-testid={item.key}
           aria-current={item.active ? "page" : false}
+          aria-disabled={item.disabled}
           className={menuItemLinkClasses.join(" ")}
           to={item.path ?? ""}
           type="external"
@@ -172,8 +181,9 @@ const LeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
         <RouterLink
           ref={ref as Ref<HTMLAnchorElement>}
           onKeyDown={onKeyPressNavigation}
-          onClick={() => onItemClick(item.path)}
+          onClick={onLinkClickHandler}
           aria-current={item.active ? "page" : false}
+          aria-disabled={item.disabled}
           className={menuItemLinkClasses.join(" ")}
           to={item.path ?? ""}
           tabIndex={item.disabled ? -1 : tabIndex}
