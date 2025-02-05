@@ -1,13 +1,351 @@
-import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
 import * as LeftNavStories from "./LeftNav.stories.tsx";
 
 <Meta of={LeftNavStories} />
 <Title />
-<Subtitle />. # Example
+<Subtitle />
 
-<Canvas>
-  <Story of={LeftNavStories.DefaultLeftNav} />
-</Canvas>
+# **!EXPERIMENTAL COMPONENT! – API may change without warning!**
+
+The `<LeftNav />` component is a vertical navigation menu designed for sidebars. It supports nested menu items, disabled elements, and custom icons.
+
+## Features
+
+- Supports nested menu items
+- Customizable icons via props
+- Keyboard-accessible navigation
+
+### Nested Items
+
+The `<LeftNav />` component supports nested items. By design, it supports only one level of nesting,
+however it can render multiple levels of nesting (might not be aligned with a future design).
+Rendered subitems are indented more to the right.
+
+### Icons
+
+Each item can have an icon displayed before the item label. The icon should be delivered as a React component,
+meaning developers have the freedom to choose what kind of prefix component they want to display.
+The icon is specified inside the item object (see examples below).
+
+**Note:** Remember to memoize your items to avoid recreating icon components.
+
+### Accessibility
+
+The component is fully accessible, supporting keyboard navigation and screen readers.
+Use the arrow keys to navigate the structure. Alternatively, use `Space`, `Enter`, and `Escape`, or even `Tab` and `Shift+Tab` to navigate through it.
+As a developer, you can also adjust the way focus moves after pressing an item.
+
+**Note:** If you work with MacOS' VoiceOver, use `option` key with arrows to navigate, otherwise you wouldn't be able to jump between menu items.
+
+## Usage
+
+The `<LeftNav />` was written in a way that it relies on incoming props, keeping only the state of open submenus and supporting accessibility.
+That means you, as a developer, are responsible for setting the proper state of items.
+
+Tracking the active item is done by setting an `active` flag on the active item.
+However, the component properly styles parent elements of the active subitem, and only the item that corresponds to the active page should have the `active` flag set to `true`.
+
+The same applies to the `disabled` flag. If the parent element has it set, all its children will be disabled as well.
+
+The `<LeftNav />` requires `react-router`. The edge links are rendered using `react-router`'s `<Link />` component.
+
+The `<LeftNav />` calls two callback methods on different conditions:
+
+- `navigate(path: string)` - Called directly when the user presses a parent element (button) to align with the behavior of `react-router`'s `<Link />` component.
+- `onItemClick(path: string, button: boolean)` - Called when pressing parent elements (button) or edge links (link).
+
+# Examples
+
+## Basic
+
+A basic example of using the `<LeftNav />` component:
+
+<Canvas of={LeftNavStories.BasicLeftNav} />
+
+## Nested items
+
+An example with nested items:
+
+<Canvas of={LeftNavStories.NestedItemsLeftNav} />
+
+An example with disabled items:
+
+<Canvas of={LeftNavStories.DisabledItemsLeftNav} />
+
+Advance example with `react-router` and collapsing menu for mobile view:
+
+```tsx
+import {
+  Button,
+  ButtonProps,
+  ContentHeader,
+  Icon,
+  IconButton,
+  Icons,
+  MicrofrontendContainer,
+  LeftNav,
+  LeftNavProps
+} from "@onewelcome/react-lib-components";
+
+const items: MenuItem[] = [
+  {
+    key: "menu1",
+    title: "Menu Item 1",
+    path: "/configuration/menu1",
+    iconComponent: <Icon icon={Icons.UploadOutline} />
+  },
+  {
+    key: "menu2",
+    title: "Menu Item 2",
+    path: "/configuration/menu2",
+    disabled: true,
+    iconComponent: <Icon icon={Icons.Trash} />
+  },
+  {
+    key: "menu3",
+    title: "Menu Item 3",
+    path: "/configuration/menu3",
+    iconComponent: <Icon icon={Icons.FileAltIcon} />,
+    items: [
+      {
+        key: "menu3.1",
+        title: "Sub Menu Item 3.1",
+        path: "/configuration/menu31"
+      },
+      {
+        key: "menu3.2",
+        title: "Sub Menu Item 3.2",
+        path: "/configuration/menu32"
+      },
+      {
+        key: "menu3.3",
+        title: "Sub Menu Item 3.3",
+        path: "/configuration/menu33",
+        items: [
+          {
+            key: "menu3.3.1",
+            title: "Sub Menu Item 3.3.1 multi line",
+            path: "/configuration/menu331"
+          },
+          {
+            key: "menu3.3.2",
+            title: "Sub Menu Item 3.3.2",
+            path: "/configuration/menu332"
+          }
+        ]
+      },
+      {
+        key: "menu3.4",
+        title: "Sub Menu Item 3.4",
+        path: "/configuration/menu34",
+        disabled: true,
+        items: [
+          {
+            key: "menu3.4.1",
+            title: "Sub Menu Item 3.4.1 multi line",
+            path: "/configuration/menu341"
+          },
+          {
+            key: "menu3.4.2",
+            title: "Sub Menu Item 3.4.2",
+            path: "/configuration/menu342"
+          }
+        ]
+      }
+    ]
+  },
+  { key: "menu4", title: "Menu Item 4", path: "/configuration/menu4" },
+  { key: "menu5", title: "Menu Item 5", path: "/configuration/menu5" }
+];
+
+const extractRoutes = (menuItems: MenuItem[]): MenuItem[] => {
+  const routes: MenuItem[] = [];
+  menuItems.forEach(item => {
+    if (item.path) {
+      routes.push(item);
+    }
+    if (item.items) {
+      routes.push(...extractRoutes(item.items));
+    }
+  });
+  return routes;
+};
+
+const generateRedirects = (menuItems: MenuItem[]): ReactNode[] => {
+  const redirects: ReactNode[] = [];
+  menuItems.forEach(item => {
+    if (item.items && item.items.length > 0) {
+      redirects.push(
+        <Route
+          key={`${item.key}-redirect`}
+          path={item.path}
+          element={<Navigate to={item.items[0].path!} />}
+        />
+      );
+      redirects.push(...generateRedirects(item.items));
+    }
+  });
+  return redirects;
+};
+
+const setActiveItem = (menuItems: MenuItem[], path: string) => {
+  menuItems.forEach(item => {
+    item.active = item.path === path;
+    if (item.items && item.items.length > 0) {
+      setActiveItem(item.items, path);
+    }
+  });
+};
+
+const routes = extractRoutes(items);
+const redirects = generateRedirects(items);
+
+const App = () => {
+  return (
+    <MemoryRouter>
+      <IndexPage />
+    </MemoryRouter>
+  );
+};
+
+const IndexPage = () => {
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+  const [localItems, setLocalItems] = useState(items);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSideMenuClose = () => {
+    setIsSideMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const newItems = [...localItems];
+    setActiveItem(newItems, location.pathname);
+    setLocalItems(newItems);
+  }, [location]);
+
+  return (
+    <Fragment>
+      <div className={classes["top-nav"]}>
+        <IconButton
+          className={classes["menu-icon"]}
+          aria-controls="sidemenu"
+          data-testid="sidemenu-btn"
+          aria-expanded={isSideMenuOpen}
+          title={isSideMenuOpen ? "Hide menu" : "Show menu"}
+          color="default"
+          onClick={() => setIsSideMenuOpen(state => !state)}
+        >
+          {isSideMenuOpen ? <Icon icon={Icons.Times} /> : <Icon icon={Icons.Hamburger} />}
+        </IconButton>
+        LOGO
+      </div>
+      <div>
+        <LeftNav
+          items={localItems}
+          isSideMenuOpen={isSideMenuOpen}
+          navigate={navigate}
+          onItemClick={handleSideMenuClose}
+        />
+        <div className={classes["content"]}>
+          <MicrofrontendContainer
+            header={
+              <ContentHeader
+                title="Example title"
+                subtitle="This is a subtitle, you can put a short message here"
+              >
+                If you need more place to write some explanation to your user, this is the place you
+                can do it. Have fun!
+              </ContentHeader>
+            }
+            {...args}
+          >
+            <div className={classes["inner"]}>
+              <Routes>
+                {redirects}
+                {routes.map(route => (
+                  <Route
+                    key={route.key}
+                    path={route.path}
+                    element={<span>{route.title} Content</span>}
+                  />
+                ))}
+                <Route path="*" element={<Navigate to={routes[0]?.path || "/"} />} />
+              </Routes>
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+              Some content
+              <br />
+            </div>
+          </MicrofrontendContainer>
+        </div>
+      </div>
+    </Fragment>
+  );
+};
+```
+
+<Canvas
+  layout="fullscreen"
+  of={LeftNavStories.AdvancedLeftNav}
+  sourceState="none"
+  className="storybook-extended-preview-static-left-nav"
+/>
 
 # Props
 

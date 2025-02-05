@@ -36,19 +36,6 @@ import classes from "./LeftNav.module.scss";
 const meta: Meta = {
   title: "admin/Layout/LeftNav",
   component: LeftNav,
-  argTypes: {
-    children: {
-      control: false
-    },
-    contentMargins: {
-      description:
-        "Specifies if the content (children) element should have the default margins added.\n"
-    },
-    contentMaxWidth: {
-      description:
-        "Specifies if the content (children) element should have the default max-width added.\n"
-    }
-  },
   parameters: {
     docs: {
       page: LeftNavDocumentation
@@ -185,15 +172,15 @@ const setActiveItem = (menuItems: MenuItem[], path: string) => {
 const routes = extractRoutes(items);
 const redirects = generateRedirects(items);
 
-const TemplateWithRouterWrapper: StoryFn<Props> = args => {
+const ExtendedTemplateWithRouterWrapper: StoryFn<Props> = args => {
   return (
     <MemoryRouter>
-      <Template {...args} />
+      <ExtendedVersionTemplate {...args} />
     </MemoryRouter>
   );
 };
 
-const Template: StoryFn<Props> = args => {
+const ExtendedVersionTemplate: StoryFn<Props> = args => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [localItems, setLocalItems] = useState(items);
   const navigate = useNavigate();
@@ -325,7 +312,61 @@ const Template: StoryFn<Props> = args => {
   );
 };
 
-export const DefaultLeftNav = TemplateWithRouterWrapper.bind({});
-DefaultLeftNav.storyName = "LeftNav";
+export const AdvancedLeftNav = ExtendedTemplateWithRouterWrapper.bind({});
+AdvancedLeftNav.storyName = "Advanced LeftNav";
+
+const Template: StoryFn<Props> = args => {
+  return (
+    <MemoryRouter>
+      <LeftNav className={classes["storybook-preview-static-left-nav"]} {...args} />
+    </MemoryRouter>
+  );
+};
+
+export const BasicLeftNav = Template.bind({});
+BasicLeftNav.args = {
+  items: [
+    { key: "home", title: "Home", path: "/" },
+    { key: "about", title: "About", path: "/about" },
+    { key: "setting", title: "Settings", path: "/settings" }
+  ]
+} as Props;
+BasicLeftNav.storyName = "Basic LeftNav";
+
+export const NestedItemsLeftNav = Template.bind({});
+NestedItemsLeftNav.args = {
+  items: [
+    { key: "home", title: "Home", path: "/" },
+    { key: "about", title: "About", path: "/about" },
+    {
+      key: "setting",
+      title: "Settings",
+      path: "/settings",
+      iconComponent: <Icon icon={Icons.UploadOutline} />,
+      items: [
+        { key: "profile", title: "Profile", path: "/settings/profile" },
+        { key: "security", title: "Security", path: "/settings/security" }
+      ]
+    }
+  ]
+} as Props;
+NestedItemsLeftNav.storyName = "Nested LeftNav items";
+
+export const DisabledItemsLeftNav = Template.bind({});
+DisabledItemsLeftNav.args = {
+  items: [
+    { key: "home", title: "Home", path: "/", disabled: true },
+    {
+      key: "setting",
+      title: "Settings",
+      path: "/settings",
+      items: [
+        { key: "profile", title: "Profile", path: "/settings/profile", disabled: true },
+        { key: "security", title: "Security", path: "/settings/security" }
+      ]
+    }
+  ]
+} as Props;
+DisabledItemsLeftNav.storyName = "Disabled LeftNav items";
 
 export default meta;

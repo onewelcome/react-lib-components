@@ -82,6 +82,18 @@ describe("<LeftNav />", () => {
     expect(getByRole("link", { name: "Sub Menu Item 3.1" })).toBeDefined();
   });
 
+  test("should render external link", () => {
+    const path = "https://onewelcome.com/external-link-example";
+
+    const { getByRole } = renderLeftNav({
+      items: [{ key: "menu1", title: "Menu Item 1", path }]
+    });
+
+    const menuItem = getByRole("link", { name: "Menu Item 1" });
+    expect(menuItem).toBeDefined();
+    expect(menuItem).toHaveAttribute("href", path);
+  });
+
   describe("interacts via mouse", () => {
     test("should allow to interact with menu items via mouse", async () => {
       //when
