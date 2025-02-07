@@ -531,6 +531,122 @@ describe("useRefItems()", () => {
     });
   });
 
+  describe("should get first element on the same level", () => {
+    it("when items have only root lvl items", () => {
+      const items: MenuItem[] = [
+        { key: "key1", title: "title1" },
+        { key: "key2", title: "title2" },
+        { key: "key3", title: "title3" }
+      ];
+      const key1ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key1ItemEl, "key1");
+      });
+
+      const firstElement = result.current.getFirstElementOnSameLevel("key3");
+
+      expect(firstElement).toEqual(key1ItemEl);
+    });
+
+    it("when items have an item with children with two elements as first element of the list with one disabled element", () => {
+      //given
+      const items: MenuItem[] = [
+        {
+          key: "key1",
+          title: "title1"
+        },
+        {
+          key: "key2",
+          title: "title2",
+          items: [
+            { key: "key21", title: "title2.1" },
+            { key: "key22", title: "title2.2", disabled: true },
+            { key: "key23", title: "title2.3" }
+          ]
+        },
+        { key: "key3", title: "title3" }
+      ];
+      const key1ItemEl = createElement("a") as unknown as HTMLElement;
+      const key21ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key1ItemEl, "key1");
+        result.current.addElementReference(key21ItemEl, "key21");
+      });
+      //when
+      let firstElement = result.current.getFirstElementOnSameLevel("key3");
+      //then
+      expect(firstElement).toEqual(key1ItemEl);
+      //when
+      firstElement = result.current.getFirstElementOnSameLevel("key21");
+      //then
+      expect(firstElement).toBeUndefined();
+      //when
+      firstElement = result.current.getFirstElementOnSameLevel("key23");
+      //then
+      expect(firstElement).toEqual(key21ItemEl);
+    });
+  });
+
+  describe("should get last element on the same level", () => {
+    it("when items have only root lvl items", () => {
+      const items: MenuItem[] = [
+        { key: "key1", title: "title1" },
+        { key: "key2", title: "title2" },
+        { key: "key3", title: "title3" }
+      ];
+      const key3ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key3ItemEl, "key3");
+      });
+
+      const lastElement = result.current.getLastElementOnSameLevel("key1");
+
+      expect(lastElement).toEqual(key3ItemEl);
+    });
+
+    it("when items have an item with children with two elements as first element of the list with one disabled element", () => {
+      //given
+      const items: MenuItem[] = [
+        {
+          key: "key1",
+          title: "title1"
+        },
+        {
+          key: "key2",
+          title: "title2",
+          items: [
+            { key: "key21", title: "title2.1" },
+            { key: "key22", title: "title2.2", disabled: true },
+            { key: "key23", title: "title2.3" }
+          ]
+        },
+        { key: "key3", title: "title3" }
+      ];
+      const key3ItemEl = createElement("a") as unknown as HTMLElement;
+      const key23ItemEl = createElement("a") as unknown as HTMLElement;
+      const { result } = renderHook(() => useRefItems({ items }));
+      act(() => {
+        result.current.addElementReference(key3ItemEl, "key3");
+        result.current.addElementReference(key23ItemEl, "key23");
+      });
+      //when
+      let lastElement = result.current.getLastElementOnSameLevel("key1");
+      //then
+      expect(lastElement).toEqual(key3ItemEl);
+      //when
+      lastElement = result.current.getLastElementOnSameLevel("key23");
+      //then
+      expect(lastElement).toBeUndefined();
+      //when
+      lastElement = result.current.getLastElementOnSameLevel("key21");
+      //then
+      expect(lastElement).toEqual(key23ItemEl);
+    });
+  });
+
   describe("should get parent element", () => {
     it("when items have only root lvl items", () => {
       const items: MenuItem[] = [

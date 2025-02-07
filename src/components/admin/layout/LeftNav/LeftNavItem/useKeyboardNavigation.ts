@@ -42,6 +42,16 @@ export const useKeyboardNavigation = ({ refItems, item, closeParentList }: Props
       e.stopPropagation();
       refItems.getNextElementOnSameLevel(item.key)?.focus();
     }
+    if (e.code === "Home") {
+      e.preventDefault();
+      e.stopPropagation();
+      refItems.getFirstElementOnSameLevel(item.key)?.focus();
+    }
+    if (e.code === "End") {
+      e.preventDefault();
+      e.stopPropagation();
+      refItems.getLastElementOnSameLevel(item.key)?.focus();
+    }
     if (e.code === "Space" || e.code === "ArrowRight" || e.code === "Enter") {
       e.stopPropagation();
       e.preventDefault();

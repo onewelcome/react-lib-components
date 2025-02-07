@@ -52,6 +52,8 @@ const renderLeftNavItem = (params?: Partial<LeftNavItemProps>) => {
           getNextElement: jest.fn(),
           getNextElementOnSameLevel: jest.fn(),
           getPrevElementOnSameLevel: jest.fn(),
+          getFirstElementOnSameLevel: jest.fn(),
+          getLastElementOnSameLevel: jest.fn(),
           getParentElement: jest.fn(),
           getItemMap: jest.fn()
         }}

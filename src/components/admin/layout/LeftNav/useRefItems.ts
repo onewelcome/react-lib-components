@@ -38,6 +38,10 @@ export const useRefItems = ({ items }: Props) => {
     createLinkedMap(items);
   }, [items]);
 
+  /**
+   * Creates linked list of provided menu items.
+   * Disabled items are filtered out.
+   */
   const createLinkedMap = (menuItems: MenuItem[]) => {
     const map: Record<string, LinkedMapValue> = {};
     createRecursiveLinkedMap(map, 0, menuItems);
@@ -100,6 +104,11 @@ export const useRefItems = ({ items }: Props) => {
     }
   };
 
+  /**
+   * Get next element that is rendered. It could be nested element
+   * @param currentKey key of item
+   * @returns element or undefined if element does not exists or current element is the last element on that level
+   */
   const getNextElement = (currentKey: string, whenHavingChildren: boolean = false) => {
     const currentItem = itemsMap.current?.[currentKey];
     if (whenHavingChildren && !currentItem.item.items) {
@@ -109,6 +118,11 @@ export const useRefItems = ({ items }: Props) => {
     return nextKey ? navRefs.current?.[nextKey] : undefined;
   };
 
+  /**
+   * Get next element on the same level as currentKey param
+   * @param currentKey key of item
+   * @returns element or undefined if element does not exists or current element is the last element on that level
+   */
   const getNextElementOnSameLevel = (currentKey: string) => {
     const currentItem = itemsMap.current?.[currentKey];
     const currentLevel = currentItem.level;
@@ -120,6 +134,11 @@ export const useRefItems = ({ items }: Props) => {
     return nextItem?.item.key ? navRefs.current?.[nextItem?.item.key] : undefined;
   };
 
+  /**
+   * Get previous element on the same level as currentKey param
+   * @param currentKey key of item
+   * @returns element or undefined if element does not exists or current element is the first element on that level
+   */
   const getPrevElementOnSameLevel = (currentKey: string) => {
     const currentItem = itemsMap.current?.[currentKey];
     const currentLevel = currentItem.level;
@@ -128,6 +147,58 @@ export const useRefItems = ({ items }: Props) => {
       desiredLevel: currentLevel
     });
     return prevItem?.item.key ? navRefs.current?.[prevItem?.item.key] : undefined;
+  };
+
+  /**
+   * Get first element on the same level as currentKey param
+   * @param currentKey key of item
+   * @returns element or undefined if element does not exists or current element is the first element on that level
+   */
+  const getFirstElementOnSameLevel = (currentKey: string) => {
+    const currentItem = itemsMap.current?.[currentKey];
+    const currentLevel = currentItem.level;
+    const prevItem = _traversePrevElements({
+      currentItem,
+      desiredLevel: currentLevel
+    });
+    const prevItemKey = prevItem?.item.key;
+    if (prevItemKey) {
+      const hasNextPrevElement = !!_traversePrevElements({
+        currentItem: itemsMap.current?.[prevItemKey],
+        desiredLevel: currentLevel
+      });
+      if (hasNextPrevElement) {
+        return getFirstElementOnSameLevel(prevItemKey);
+      }
+      return navRefs.current?.[prevItemKey];
+    }
+  };
+
+  /**
+   * Get last element on the same level as currentKey param
+   * @param currentKey key of item
+   * @returns element or undefined if element does not exists or current element is the last element on that level
+   */
+  const getLastElementOnSameLevel = (currentKey: string) => {
+    const currentItem = itemsMap.current?.[currentKey];
+    const currentLevel = currentItem.level;
+    const nextItem = _traverseNextElements({
+      currentItem,
+      desiredLevel: currentLevel,
+      currentLevel
+    });
+    const nextItemKey = nextItem?.item.key;
+    if (nextItemKey) {
+      const hasNextNextElement = !!_traverseNextElements({
+        currentItem: itemsMap.current?.[nextItemKey],
+        desiredLevel: currentLevel,
+        currentLevel
+      });
+      if (hasNextNextElement) {
+        return getLastElementOnSameLevel(nextItemKey);
+      }
+      return navRefs.current?.[nextItemKey];
+    }
   };
 
   const getParentElement = (currentKey: string) => {
@@ -201,6 +272,8 @@ export const useRefItems = ({ items }: Props) => {
     getNextElement,
     getNextElementOnSameLevel,
     getPrevElementOnSameLevel,
+    getFirstElementOnSameLevel,
+    getLastElementOnSameLevel,
     getParentElement,
     getItemMap: () => itemsMap.current
   };

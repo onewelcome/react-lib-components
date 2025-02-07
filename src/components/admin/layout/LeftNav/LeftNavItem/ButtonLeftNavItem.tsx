@@ -41,7 +41,7 @@ export interface Props extends HTMLProps<HTMLElement> {
 }
 
 const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { item, navigate, onItemClick, refItems, NestedComponent, tabIndex, closeParentList },
+  { item, navigate, onItemClick, refItems, NestedComponent, closeParentList },
   ref
 ) => {
   const [expanded, setExpanded] = useState(false);
@@ -93,7 +93,7 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
         onClick={onButtonClickHandler}
         className={buttonClasses.join(" ")}
         disabled={item.disabled}
-        tabIndex={tabIndex}
+        tabIndex={item.disabled ? -1 : item.active ? 0 : -1}
       >
         <div className={classes["menu-item-text-wrapper"]}>
           {item.iconComponent &&
@@ -103,7 +103,7 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
               to={item.path}
               aria-current={item.active ? "page" : false}
               className={classes["menu-item-text"]}
-              tabIndex={item.disabled ? -1 : tabIndex}
+              tabIndex={-1}
             >
               {item.title}
             </RouterLink>
@@ -125,7 +125,6 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
               key={item.key}
               closeParentList={() => setExpanded(false)}
               onKeyUp={onKeyPressNavigation}
-              tabIndex={expanded ? 0 : -1}
               item={item}
               navigate={navigate}
               onItemClick={onItemClick}

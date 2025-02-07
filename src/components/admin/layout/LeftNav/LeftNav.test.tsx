@@ -257,53 +257,20 @@ describe("<LeftNav />", () => {
       }
     );
 
-    it("should allow to traverse and interact with menu items via tab, and enter and escape keys", async () => {
-      //when
-      const { getByRole } = renderLeftNav();
+    it("should focus out on clicking tab and focus in the last selected element on focus in", async () => {
+      //given
+      const itemsWithFirstActive = [...items];
+      itemsWithFirstActive[0].active = true;
+      const { getByRole } = renderLeftNav({ items: itemsWithFirstActive });
       getByRole("link", { name: "Menu Item 1" }).focus();
-      await userEvent.tab();
-      //then
-      expect(getByRole("button", { name: "Menu Item 3" })).toHaveFocus();
-      //when
-      await userEvent.tab();
-      //then
-      expect(getByRole("link", { name: "Menu Item 3" })).toHaveFocus();
-      //when
-      await userEvent.tab();
-      expect(getByRole("link", { name: "Menu Item 4" })).toHaveFocus();
-      //when
-      await userEvent.tab({ shift: true });
-      //then
-      expect(getByRole("link", { name: "Menu Item 3" })).toHaveFocus();
-      //when
-      await userEvent.keyboard("[enter]");
-      //then
-      expect(getByRole("link", { name: "Sub Menu Item 3.1" })).toHaveFocus();
-      expect(mockOnItemClick).toHaveBeenCalledTimes(0);
-      //when
-      await userEvent.tab();
-      //then
-      expect(getByRole("link", { name: "Menu Item 4" })).toHaveFocus();
-      //when
-      await userEvent.tab({ shift: true });
-      //then
-      expect(getByRole("link", { name: "Sub Menu Item 3.1" })).toHaveFocus();
-      //when
-      await userEvent.keyboard("{escape}");
-      //then
-      expect(getByRole("button", { name: "Menu Item 3" })).toHaveFocus();
-      //when
-      await userEvent.tab();
-      //then
-      expect(getByRole("link", { name: "Menu Item 3" })).toHaveFocus();
-      //when
-      await userEvent.tab();
-      //then
-      expect(getByRole("link", { name: "Menu Item 4" })).toHaveFocus();
       //when
       await userEvent.tab();
       //then
       expect(document.body).toHaveFocus();
+      //when
+      await userEvent.tab({ shift: true });
+      //then
+      expect(getByRole("link", { name: "Menu Item 1" })).toHaveFocus();
     });
   });
 });

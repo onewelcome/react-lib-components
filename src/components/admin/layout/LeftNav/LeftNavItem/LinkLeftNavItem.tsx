@@ -30,7 +30,7 @@ export interface Props extends HTMLProps<HTMLElement> {
 }
 
 const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { item, onItemClick, refItems, tabIndex, closeParentList },
+  { item, onItemClick, refItems, closeParentList },
   ref
 ) => {
   const { onKeyPressNavigation } = useKeyboardNavigation({ refItems, item, closeParentList });
@@ -70,7 +70,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
           to={item.path ?? ""}
           type="external"
           disabled={item.disabled}
-          tabIndex={tabIndex}
+          tabIndex={item.disabled ? -1 : item.active ? 0 : -1}
         >
           <div className={classes["menu-item-text-wrapper"]}>
             {item.iconComponent &&
@@ -87,7 +87,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
           aria-disabled={item.disabled}
           className={menuItemLinkClasses.join(" ")}
           to={item.path ?? ""}
-          tabIndex={item.disabled ? -1 : tabIndex}
+          tabIndex={item.disabled ? -1 : item.active ? 0 : -1}
         >
           <div className={classes["menu-item-text-wrapper"]}>
             {item.iconComponent &&
