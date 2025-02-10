@@ -81,6 +81,8 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
   };
 
   const { buttonClasses, buttonWrapperClasses } = getStylingClasses();
+  const tabIndexActive = item.active ? 0 : -1;
+  const tabIndex = item.disabled ? -1 : tabIndexActive;
 
   return (
     <li className={buttonWrapperClasses.join(" ")} data-testid={item.key}>
@@ -93,7 +95,7 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
         onClick={onButtonClickHandler}
         className={buttonClasses.join(" ")}
         disabled={item.disabled}
-        tabIndex={item.disabled ? -1 : item.active ? 0 : -1}
+        tabIndex={tabIndex}
       >
         <div className={classes["menu-item-text-wrapper"]}>
           {item.iconComponent &&

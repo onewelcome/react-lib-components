@@ -55,6 +55,8 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
   };
 
   const { menuItemLinkClasses, menuLinkWrapperClasses } = getStylingClasses();
+  const tabIndexActive = item.active ? 0 : -1;
+  const tabIndex = item.disabled ? -1 : tabIndexActive;
 
   return (
     <li className={menuLinkWrapperClasses.join(" ")} data-testid={`${item.key}`}>
@@ -70,7 +72,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
           to={item.path ?? ""}
           type="external"
           disabled={item.disabled}
-          tabIndex={item.disabled ? -1 : item.active ? 0 : -1}
+          tabIndex={tabIndex}
         >
           <div className={classes["menu-item-text-wrapper"]}>
             {item.iconComponent &&
@@ -87,7 +89,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
           aria-disabled={item.disabled}
           className={menuItemLinkClasses.join(" ")}
           to={item.path ?? ""}
-          tabIndex={item.disabled ? -1 : item.active ? 0 : -1}
+          tabIndex={tabIndex}
         >
           <div className={classes["menu-item-text-wrapper"]}>
             {item.iconComponent &&
