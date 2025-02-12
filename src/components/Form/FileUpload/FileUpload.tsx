@@ -55,6 +55,7 @@ export interface Props extends FileUploadType {
   onChange?: (e: FileType[]) => void;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
   downloadFileLink?: string;
+  onDownloadFile?: () => void;
   isRequired?: boolean;
   invalidDropErrorMessage?: string;
   noMultipleFileDropErrorMessage?: string;
@@ -86,6 +87,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onRequestedFileAction,
     exceedingMaxSizeErrorText,
     fileList,
+    onDownloadFile,
     downloadFileLink,
     isRequired = true,
     invalidDropErrorMessage = "Invalid file format. Supported formats are: $accept.",
@@ -255,6 +257,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                     progress={progress}
                     error={error}
                     downloadFileLink={downloadFileLink}
+                    onDownloadFile={onDownloadFile}
                     onRequestedFileAction={onRequestedFileAction}
                   />
                 </li>
