@@ -35,18 +35,20 @@ export default meta;
 const Template: StoryFn<Props> = args => {
   return (
     <IdPButtonComponent
-      iconUrl={"https://img.icons8.com/?size=100&id=60984&format=png&color=000000"}
-      backgroundColor={"magenta"}
+      iconUrl="http://localhost:8089/icons/steam.png"
+      backgroundColor="white"
+      textColor="black"
+      borderColor="black"
       {...args}
+      onClick={() => {
+        alert("Invalid token");
+      }}
     >
-      This is a button
+      Log in with Steam
     </IdPButtonComponent>
   );
 };
 
 export const IdentityProviderButton = Template.bind({});
 
-IdentityProviderButton.args = {
-  color: "primary",
-  variant: "fill"
-};
+IdentityProviderButton.args = {};

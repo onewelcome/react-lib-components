@@ -14,28 +14,43 @@
  *    limitations under the License.
  */
 
-import React, { ForwardRefRenderFunction } from "react";
-import { BaseButton, Props as BaseButtonProps } from "./BaseButton";
+import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
+import { BaseButton } from "./BaseButton";
 import classes from "./IdentityProviderButton.module.scss";
 
-interface Props extends BaseButtonProps {
+interface Props extends Omit<ComponentPropsWithRef<"button">, "color"> {
   iconUrl: string;
   backgroundColor: string;
+  textColor?: string;
+  borderColor?: string;
+  imgAltText?: string;
 }
 
 export const IdentityProviderButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = ({
   children,
   iconUrl,
   backgroundColor,
+  textColor,
+  imgAltText,
+  borderColor,
   ...rest
 }) => {
   return (
     <BaseButton
-      style={{ backgroundColor: backgroundColor }}
+      style={{
+        backgroundColor: backgroundColor,
+        color: textColor ?? "white",
+        borderColor: borderColor ?? "transparent"
+      }}
       className={classes["idp-button"]}
       {...rest}
     >
-      <img height={24} width={24} src={iconUrl} />
+      <img
+        height={24}
+        width={24}
+        src={iconUrl}
+        alt={imgAltText ? imgAltText : "Identity Provider icon"}
+      />
       {children}
     </BaseButton>
   );
