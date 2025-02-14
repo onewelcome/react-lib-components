@@ -18,10 +18,10 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Props } from "../../src/components/Button/Button";
 import ButtonsDocumentation from "./IdentityProviderButton.mdx";
-import { IdentityProviderButton as IdPButtonComponent } from "../../src/components/Button/IdentityProviderButton";
+import { IdentityProviderButton as IdPButtonComponent } from "../../src/components/miscellaneous/IdentityProviderButton";
 
 const meta: Meta = {
-  title: "components/Inputs/IdentityProviderButton",
+  title: "miscellaneous/Inputs/IdentityProviderButton",
   component: IdPButtonComponent,
   parameters: {
     docs: {
@@ -33,18 +33,17 @@ const meta: Meta = {
 export default meta;
 
 const Template: StoryFn<Props> = args => {
+  const idpType = "SAML";
   return (
     <IdPButtonComponent
-      iconUrl="http://localhost:8089/icons/steam.png"
-      backgroundColor="white"
-      textColor="black"
-      borderColor="black"
       {...args}
       onClick={() => {
         alert("Invalid token");
       }}
+      iconUrl={"SAML.svg"}
+      idpType="SAML"
     >
-      Log in with Steam
+      {`Log in with ${idpType}`}
     </IdPButtonComponent>
   );
 };

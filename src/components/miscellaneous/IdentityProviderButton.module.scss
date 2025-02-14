@@ -14,15 +14,18 @@
  *    limitations under the License.
  */
 
-@use "../../mixins.module.scss";
+@use "../../mixins.module";
 
 .idp-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   width: 100%;
-  gap: 8px;
 
-  color: white;
+  &--with-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin-top: -2px;
+    margin-bottom: -2px;
+  }
 }

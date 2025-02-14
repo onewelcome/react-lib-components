@@ -14,44 +14,42 @@
  *    limitations under the License.
  */
 
-import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
-import { BaseButton } from "./BaseButton";
+import React, { ComponentPropsWithRef, CSSProperties, ForwardRefRenderFunction } from "react";
 import classes from "./IdentityProviderButton.module.scss";
+import { Button } from "../Button/Button";
 
-interface Props extends Omit<ComponentPropsWithRef<"button">, "color"> {
-  iconUrl: string;
-  backgroundColor: string;
-  textColor?: string;
-  borderColor?: string;
+export interface Props extends Omit<ComponentPropsWithRef<"button">, "color"> {
+  iconUrl?: string;
   imgAltText?: string;
+  idpType: string;
+  style?: CSSProperties;
 }
 
 export const IdentityProviderButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = ({
   children,
   iconUrl,
-  backgroundColor,
-  textColor,
   imgAltText,
-  borderColor,
+  style,
+  idpType,
   ...rest
 }) => {
   return (
-    <BaseButton
-      style={{
-        backgroundColor: backgroundColor,
-        color: textColor ?? "white",
-        borderColor: borderColor ?? "transparent"
-      }}
+    <Button
+      style={style}
+      color="primary"
+      variant="fill"
       className={classes["idp-button"]}
       {...rest}
     >
-      <img
-        height={24}
-        width={24}
-        src={iconUrl}
-        alt={imgAltText ? imgAltText : "Identity Provider icon"}
-      />
-      {children}
-    </BaseButton>
+      <span className={classes["idp-button--with-icon"]}>
+        <img
+          height={24}
+          width={24}
+          src={iconUrl ? iconUrl : `/ui-resources-static/common/icons/${idpType}.svg`}
+          alt={imgAltText ? imgAltText : "Identity Provider icon"}
+        />
+        {children}
+      </span>
+    </Button>
   );
 };
