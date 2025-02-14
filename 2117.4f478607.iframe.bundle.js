@@ -130,6 +130,7 @@ const FileItemComponent = (_ref, ref) => {
     status,
     error,
     progress,
+    onDownloadFile,
     downloadFileLink,
     totalPercentage,
     onRequestedFileAction,
@@ -210,7 +211,7 @@ const FileItemComponent = (_ref, ref) => {
       type: "button",
       variant: "text",
       onClick: () => icon && onRequestedFileAction && onRequestedFileAction(icon.action, name)
-    }, icon.action !== FILE_ACTION.ABORT ? icon.action : ""), icon.action === FILE_ACTION.DOWNLOAD && downloadFileLink && /*#__PURE__*/react.createElement(Link/* Link */.N, {
+    }, icon.action !== FILE_ACTION.ABORT ? icon.action : ""), icon.action === FILE_ACTION.DOWNLOAD && downloadFileLink && !onDownloadFile && /*#__PURE__*/react.createElement(Link/* Link */.N, {
       color: "primary",
       display: "link",
       to: downloadFileLink,
@@ -222,6 +223,12 @@ const FileItemComponent = (_ref, ref) => {
         title: icon.action,
         icon: icon.type
       })
+    }, icon.action), icon.action === FILE_ACTION.DOWNLOAD && onDownloadFile && /*#__PURE__*/react.createElement(Button/* Button */.$, {
+      color: "primary",
+      onClick: onDownloadFile,
+      type: "button",
+      variant: "text",
+      startIcon: getStartIcon(icon)
     }, icon.action)));
   };
   const getUploadedFileInfo = () => {
@@ -274,7 +281,7 @@ try {
     // @ts-ignore
     FileItem.displayName = "FileItem";
     // @ts-ignore
-    FileItem.__docgenInfo = { "description": "", "displayName": "FileItem", "props": { "name": { "defaultValue": null, "description": "", "name": "name", "required": true, "type": { "name": "string" } }, "progress": { "defaultValue": null, "description": "", "name": "progress", "required": false, "type": { "name": "number" } }, "status": { "defaultValue": null, "description": "", "name": "status", "required": false, "type": { "name": "enum", "value": [{ "value": "\"completed\"" }, { "value": "\"error\"" }, { "value": "\"uploading\"" }, { "value": "\"readonly\"" }, { "value": "\"retry\"" }] } }, "type": { "defaultValue": null, "description": "", "name": "type", "required": false, "type": { "name": "string" } }, "error": { "defaultValue": null, "description": "", "name": "error", "required": false, "type": { "name": "string" } }, "helperText": { "defaultValue": null, "description": "", "name": "helperText", "required": false, "type": { "name": "string" } }, "required": { "defaultValue": null, "description": "", "name": "required", "required": false, "type": { "name": "boolean" } }, "readOnlyView": { "defaultValue": null, "description": "", "name": "readOnlyView", "required": false, "type": { "name": "boolean" } }, "onRequestedFileAction": { "defaultValue": null, "description": "", "name": "onRequestedFileAction", "required": false, "type": { "name": "((action: FILE_ACTION, name: string) => void)" } }, "downloadFileLink": { "defaultValue": null, "description": "", "name": "downloadFileLink", "required": false, "type": { "name": "string" } }, "totalPercentage": { "defaultValue": null, "description": "", "name": "totalPercentage", "required": false, "type": { "name": "number" } } } };
+    FileItem.__docgenInfo = { "description": "", "displayName": "FileItem", "props": { "name": { "defaultValue": null, "description": "", "name": "name", "required": true, "type": { "name": "string" } }, "progress": { "defaultValue": null, "description": "", "name": "progress", "required": false, "type": { "name": "number" } }, "status": { "defaultValue": null, "description": "", "name": "status", "required": false, "type": { "name": "enum", "value": [{ "value": "\"completed\"" }, { "value": "\"error\"" }, { "value": "\"uploading\"" }, { "value": "\"readonly\"" }, { "value": "\"retry\"" }] } }, "type": { "defaultValue": null, "description": "", "name": "type", "required": false, "type": { "name": "string" } }, "error": { "defaultValue": null, "description": "", "name": "error", "required": false, "type": { "name": "string" } }, "helperText": { "defaultValue": null, "description": "", "name": "helperText", "required": false, "type": { "name": "string" } }, "required": { "defaultValue": null, "description": "", "name": "required", "required": false, "type": { "name": "boolean" } }, "readOnlyView": { "defaultValue": null, "description": "", "name": "readOnlyView", "required": false, "type": { "name": "boolean" } }, "onRequestedFileAction": { "defaultValue": null, "description": "", "name": "onRequestedFileAction", "required": false, "type": { "name": "((action: FILE_ACTION, name: string) => void)" } }, "downloadFileLink": { "defaultValue": null, "description": "", "name": "downloadFileLink", "required": false, "type": { "name": "string" } }, "onDownloadFile": { "defaultValue": null, "description": "", "name": "onDownloadFile", "required": false, "type": { "name": "(() => void)" } }, "totalPercentage": { "defaultValue": null, "description": "", "name": "totalPercentage", "required": false, "type": { "name": "number" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
