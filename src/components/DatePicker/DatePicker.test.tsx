@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { act, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { DatePicker } from "./DatePicker";
 import React from "react";
 import { userEvent } from "@storybook/test";

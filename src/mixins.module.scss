@@ -15,6 +15,7 @@
  */
 
 @use "./readyclasses.module.scss";
+@use "./variables.scss";
 
 @mixin button($variant: "text", $type: "default") {
   $disabledSelector: if($type == "link", ".disabled", ":disabled");
@@ -342,4 +343,36 @@
   letter-spacing: 0;
   color: var(--default);
   margin: 0 0 1rem 0;
+}
+
+@mixin breakpoint($minOrMax, $breakpoint) {
+  // If the key exists in the map
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    @if ($minOrMax == "min") {
+      @media screen and (min-width: #{inspect(map-get(variables.$breakpoints, $breakpoint))}) {
+        @content;
+      }
+    } @else if ($minOrMax == "max") {
+      @media screen and (max-width: #{inspect(map-get(variables.$breakpoints, $breakpoint))}) {
+        @content;
+      }
+    } @else {
+      @warn "First argument should 'min' or 'max'";
+    }
+  }
+
+  // If the key doesn't exist in the map
+  @else {
+    @if ($minOrMax == "min") {
+      @media screen and (min-width: $breakpoint) {
+        @content;
+      }
+    } @else if ($minOrMax == "max") {
+      @media screen and (max-width: $breakpoint) {
+        @content;
+      }
+    } @else {
+      @warn "First argument should 'min' or 'max'";
+    }
+  }
 }

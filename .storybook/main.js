@@ -28,7 +28,8 @@ module.exports = {
     "storybook-addon-pseudo-states",
     "@storybook/addon-webpack5-compiler-babel",
     "@chromatic-com/storybook",
-    "storybook-addon-mock"
+    "storybook-addon-mock",
+    "@storybook/addon-styling-webpack"
   ],
   webpackFinal: async (config, { configType }) => {
     config.devtool = configType === "PRODUCTION" ? false : "eval-source-map";
