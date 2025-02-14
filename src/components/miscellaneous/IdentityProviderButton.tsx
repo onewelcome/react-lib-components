@@ -45,8 +45,8 @@ export const IdentityProviderButton: ForwardRefRenderFunction<HTMLButtonElement,
         <img
           height={24}
           width={24}
-          src={iconUrl ? iconUrl : `/ui-resources-static/common/icons/${idpType}.svg`}
-          alt={imgAltText ? imgAltText : "Identity Provider icon"}
+          src={iconUrl || `/ui-resources-static/common/icons/${idpType}.svg`}
+          alt={imgAltText || "Identity Provider icon"}
         />
         {children}
       </span>
