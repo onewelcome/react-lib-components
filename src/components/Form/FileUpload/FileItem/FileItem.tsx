@@ -31,6 +31,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   progress?: number;
   error?: string;
   downloadFileLink?: string;
+  onDownloadFile?: () => void;
   totalPercentage?: number;
   onRequestedFileAction?: (action: FILE_ACTION, name: FileType["name"]) => void;
 }
@@ -61,6 +62,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     status,
     error,
     progress,
+    onDownloadFile,
     downloadFileLink,
     totalPercentage,
     onRequestedFileAction,
@@ -160,7 +162,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           </Button>
         )}
 
-        {icon.action === FILE_ACTION.DOWNLOAD && downloadFileLink && (
+        {icon.action === FILE_ACTION.DOWNLOAD && downloadFileLink && !onDownloadFile && (
           <Link
             color="primary"
             display="link"
@@ -178,6 +180,18 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           >
             {icon.action}
           </Link>
+        )}
+
+        {icon.action === FILE_ACTION.DOWNLOAD && onDownloadFile && (
+          <Button
+            color="primary"
+            onClick={onDownloadFile}
+            type="button"
+            variant="text"
+            startIcon={getStartIcon(icon)}
+          >
+            {icon.action}
+          </Button>
         )}
       </Fragment>
     ));

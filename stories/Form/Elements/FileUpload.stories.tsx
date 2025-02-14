@@ -177,7 +177,8 @@ FileUploadComponentWithServerInteraction.args = {
   url: "http://localhost:4000/upload",
   invalidDropErrorMessage: "Invalid file format. Supported formats are: $accept.",
   noMultipleFileDropErrorMessage: "You can upload only a single file.",
-  downloadFileLink: "http://localhost:4000/download.link"
+  downloadFileLink: "http://localhost:4000/download.link",
+  onDownloadFile: () => console.log("on download")
 };
 
 FileUploadComponentWithServerInteraction.parameters = {
