@@ -18,24 +18,44 @@ import React, { ComponentPropsWithRef, CSSProperties, ForwardRefRenderFunction }
 import classes from "./IdentityProviderButton.module.scss";
 import { Button } from "../Button/Button";
 
+export interface SupportedCustomizationKeys {
+  backgroundColor: string;
+  focusBorderColor: string;
+  focusBackgroundColor: string;
+  hoverBackgroundColor: string;
+  pressedBackgroundColor: string;
+  textColor: string;
+  borderColor: string;
+}
+
 export interface Props extends Omit<ComponentPropsWithRef<"button">, "color"> {
   iconUrl?: string;
   imgAltText?: string;
   idpType: string;
-  style?: CSSProperties;
+  customization?: SupportedCustomizationKeys;
 }
 
 export const IdentityProviderButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = ({
   children,
   iconUrl,
   imgAltText,
-  style,
   idpType,
+  customization,
   ...rest
 }) => {
   return (
     <Button
-      style={style}
+      style={
+        {
+          "--button-primary-default-color": customization?.backgroundColor ?? "#FFFFFF",
+          borderColor: customization?.borderColor ?? "#000000",
+          "--button-fill-text-color": customization?.textColor ?? "#000000",
+          "--color-focus": customization?.focusBorderColor ?? "#CCCCCC",
+          "--button-primary-focused-color": customization?.focusBackgroundColor ?? "#FFFFFF",
+          "--button-primary-hover-color": customization?.hoverBackgroundColor ?? "#CCCCCC",
+          "--button-primary-pressed-color": customization?.pressedBackgroundColor ?? "#999999"
+        } as CSSProperties
+      }
       color="primary"
       variant="fill"
       className={classes["idp-button"]}

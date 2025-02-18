@@ -48,6 +48,20 @@ const Template: StoryFn<Props> = args => {
   );
 };
 
-export const IdentityProviderButton = Template.bind({});
+export const DefaultIdentityProviderButton = Template.bind({});
 
-IdentityProviderButton.args = {};
+DefaultIdentityProviderButton.args = {};
+
+export const CustomIdentityProviderButton = Template.bind({});
+
+CustomIdentityProviderButton.args = {
+  customization: {
+    backgroundColor: "#383A4B",
+    textColor: "#FFFFFF",
+    borderColor: "#383A4B",
+    focusBackgroundColor: "#2E2F3D",
+    pressedBackgroundColor: "#21222C",
+    focusBorderColor: "#7C7F9D",
+    hoverBackgroundColor: "#2E2F3D"
+  }
+};
