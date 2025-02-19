@@ -18,7 +18,7 @@
 @use "../alertVariables.scss";
 
 .alert {
-  padding: 1rem 0.875rem;
+  padding: 1rem var(--alert-font-size);
   border-radius: var(--alert-border-radius);
   display: flex;
   gap: 0.5rem;
@@ -178,7 +178,7 @@
     border: 0;
 
     span {
-      font-size: 0.875rem;
+      font-size: var(--alert-font-size);
     }
 
     &:not(:disabled):hover,
@@ -193,7 +193,7 @@
 
   .icon {
     color: var(--alert-text-color);
-    font-size: 1rem;
+    font-size: var(--font-size);
     height: 1.25rem;
     display: inline-flex;
     align-items: center;
@@ -203,7 +203,7 @@
   .title {
     color: var(--alert-text-color);
     flex: 1;
-    font-size: 0.875rem;
+    font-size: var(--alert-font-size);
     line-height: 1.25rem;
     margin-bottom: 0.25rem;
     display: block;
@@ -222,8 +222,8 @@
 
   .content {
     color: var(--alert-text-color);
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: var(--alert-font-size);
+    line-height: 1.25rem; //TODO needs to be adjusted to relative number; also seems redundant in many places, default is 1.5
     margin-bottom: 0;
     word-break: break-word;
   }
@@ -238,7 +238,7 @@
     border-style: var(--button-border-style);
     border-radius: var(--button-border-radius);
     white-space: nowrap;
-    font-size: 0.875rem;
+    font-size: var(--alert-font-size);
     line-height: var(--button-font-size);
     font-weight: 400;
     margin: -0.5rem 0;

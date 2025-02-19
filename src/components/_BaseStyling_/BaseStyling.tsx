@@ -21,7 +21,7 @@
 
 import React, { HTMLAttributes, ReactElement, useEffect, useRef, useState } from "react";
 
-interface CSSProperties {
+export interface CSSProperties {
   colorFocus?: string;
   colorPrimary?: string;
   colorSuccess?: string;
@@ -112,6 +112,7 @@ interface CSSProperties {
   inputHelperTextColor?: string;
   inputHoverBackgroundColor?: string;
   inputDisabledBackgroundColor?: string;
+  inputFontSize?: string;
   dragBorderStyle?: string;
   modalShadowColor?: string;
   modalBackgroundColor?: string;
@@ -121,6 +122,7 @@ interface CSSProperties {
   skeletonBackgroundColor?: string;
   skeletonAnimationColorRgb?: string;
 
+  alertFontSize?: string;
   alertTextColor?: string;
   alertTextInvertedColor?: string;
 
@@ -310,6 +312,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputHelperTextColor: "var(--color-blue-grey500)",
     inputHoverBackgroundColor: "var(--default-hover-color)",
     inputDisabledBackgroundColor: "var(--input-hover-background-color)",
+    inputFontSize: "1rem",
     dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--light)",
@@ -319,6 +322,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     skeletonBackgroundColor: "var(--disabled)",
     skeletonAnimationColorRgb: "255, 255, 255",
 
+    alertFontSize: "0.875rem",
     alertTextColor: "var(--default)",
     alertTextInvertedColor: "var(--light)",
 

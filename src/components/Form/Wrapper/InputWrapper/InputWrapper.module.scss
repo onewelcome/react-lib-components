@@ -45,7 +45,7 @@ input {
 
   [data-prefix],
   [data-suffix] {
-    font-size: var(--form-control-font-size);
+    font-size: var(--input-font-size);
   }
 
   [data-prefix] + input {
