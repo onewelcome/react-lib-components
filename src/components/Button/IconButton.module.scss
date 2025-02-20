@@ -42,7 +42,7 @@
 
   &.button-m {
     width: calc(2.5 * var(--font-size));
-    height: calc(2.5rem * var(--font-size));
+    height: calc(2.5 * var(--font-size));
 
     span {
       font-size: var(--font-size);
@@ -50,8 +50,8 @@
   }
 
   &.button-l {
-    width: calc(3.125rem * var(--font-size));
-    height: calc(3.125rem * var(--font-size));
+    width: calc(3.125 * var(--font-size));
+    height: calc(3.125 * var(--font-size));
 
     span {
       font-size: calc(1.375 * var(--font-size));
