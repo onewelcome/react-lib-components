@@ -23,6 +23,6 @@
 }
 
 .checkbox-wrapper-error [data-icon] {
-  font-size: 1.375rem;
+  font-size: calc(1.375 * var(--font-size));
   vertical-align: bottom;
 }

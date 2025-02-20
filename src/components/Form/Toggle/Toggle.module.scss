@@ -157,7 +157,7 @@ $borderRadius: 2.5rem;
     content: "\e927";
     font-family: "icomoon";
     position: absolute;
-    font-size: 0.4375rem;
+    font-size: calc(0.4375 * var(--font-size));
     top: 47%;
     left: 0.4rem;
     transform: translateY(-50%) translateX(0);

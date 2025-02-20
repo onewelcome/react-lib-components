@@ -19,6 +19,6 @@
   overflow-y: auto;
   flex: 1;
   outline: none;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: var(--modal-content-font-size);
+  line-height: 1.43;
 }

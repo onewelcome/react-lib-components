@@ -69,7 +69,7 @@
 .rdp-root {
   position: relative;
   box-sizing: border-box;
-  @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, 1rem);
+  @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, 1.33);
 }
 
 .rdp-root * {
@@ -244,7 +244,7 @@
 .rdp-weekday {
   padding: var(--rdp-weekday-padding);
   text-align: var(--rdp-weekday-text-align);
-  font-size: 0.625rem;
+  font-size: var(--font-size-small);
   color: var(--color-blue-grey400);
   height: var(--rdp-day-height);
   width: var(--rdp-day-width);

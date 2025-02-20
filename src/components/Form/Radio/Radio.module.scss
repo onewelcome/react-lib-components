@@ -38,7 +38,7 @@
 
 .error-icon {
   margin-right: 0.5rem;
-  font-size: 1.25rem;
+  font-size: var(--font-size-big);
 }
 
 .radio-container {
@@ -124,7 +124,7 @@
 }
 
 .input {
-  font-size: 1.25rem;
+  font-size: var(--font-size-big);
   width: 1.25rem;
   height: 1.25rem;
   z-index: 1;

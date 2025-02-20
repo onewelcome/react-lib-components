@@ -31,7 +31,7 @@ input {
 .input-wrapper {
   [data-icon]:before {
     transform: translateY(0px);
-    font-size: 1.125rem;
+    font-size: var(--icon-font-big);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -287,7 +287,7 @@
   color: var(--stepper-label-color);
   font-family: var(--font-family);
   font-size: var(--font-size-form-label);
-  line-height: 1.25rem;
+  line-height: 1.43;
 
   @include mixins.focusVisibleOutline($outlineOffset: "1px");
 }
@@ -296,6 +296,6 @@
   display: block;
   color: var(--stepper-caption-color);
   font-family: var(--font-family);
-  font-size: 0.75rem;
-  line-height: 1rem;
+  font-size: var(--font-size-sub);
+  line-height: 1.33;
 }

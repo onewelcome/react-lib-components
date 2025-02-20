@@ -71,7 +71,7 @@
   }
 
   span[data-icon-status] {
-    font-size: 1.25rem;
+    font-size: var(--font-size-big);
     position: absolute;
     top: auto;
     right: 2rem;
@@ -199,7 +199,7 @@
   padding: 1.25rem;
 
   [class*="file"] {
-    font-size: 1.25rem;
+    font-size: var(--font-size-big);
     margin-left: 0.5rem;
   }
 

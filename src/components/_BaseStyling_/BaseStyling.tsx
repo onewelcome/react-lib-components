@@ -117,6 +117,7 @@ export interface CSSProperties {
   modalShadowColor?: string;
   modalBackgroundColor?: string;
   modalBackdropColor?: string;
+  modalContentFontSize?: string;
   sideSheetShadowColorOne?: string;
   sideSheetShadowColorTwo?: string;
   skeletonBackgroundColor?: string;
@@ -187,6 +188,7 @@ export interface CSSProperties {
   tooltipBackgroundColor?: string;
   contextMenuHoverColor?: string;
   contextMenuPressedColor?: string;
+  contextMenuFontSize?: string;
   default?: string;
   success?: string;
   error?: string;
@@ -205,6 +207,8 @@ export interface CSSProperties {
   fontSizeH3?: string;
   fontSizeH4?: string;
   fontSizeSub?: string;
+  fontSizeSmall?: string;
+  fontSizeBig?: string;
   fontSizeCode?: string;
   formControlFontSize?: string;
   fileUploadBorderWidth?: string;
@@ -212,6 +216,7 @@ export interface CSSProperties {
   fontSizeDataGrid?: string;
   readOnlyBorderColor?: string;
   readOnlyTextColor?: string;
+  iconFontBig?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -317,6 +322,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--light)",
     modalBackdropColor: "var(--default)",
+    modalContentFontSize: "0.875rem",
     sideSheetShadowColorOne: "#01053214",
     sideSheetShadowColorTwo: "#0105320a",
     skeletonBackgroundColor: "var(--disabled)",
@@ -390,6 +396,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     tooltipBackgroundColor: "var(--default)",
     contextMenuHoverColor: "var(--default-hover-color)",
     contextMenuPressedColor: "var(--default-pressed-color)",
+    contextMenuFontSize: "0.875rem",
     default: "var(--color-blue-grey900)",
     success: "var(--color-green500)",
     error: "var(--color-red500)",
@@ -407,12 +414,15 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeH2: "1.625rem",
     fontSizeH3: "1.5rem",
     fontSizeH4: "1.25rem",
-    fontSizeSub: ".75rem",
+    fontSizeSub: "0.75rem",
+    fontSizeSmall: "0.625rem",
+    fontSizeBig: "1.25rem",
     fontSizeCode: "1rem",
     readOnlyBorderColor: "var(--color-blue-grey100)",
     readOnlyTextColor: "var(--color-blue-grey900)",
     formControlFontSize: "0.875rem", //FIXME: UCL-395
-    fontSizeDataGrid: "0.875rem" //FIXME: UCL-395
+    fontSizeDataGrid: "0.875rem", //FIXME: UCL-395
+    iconFontBig: "1.125rem"
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

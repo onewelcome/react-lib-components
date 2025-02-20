@@ -18,7 +18,7 @@
 @use "../alertVariables.scss";
 
 .alert {
-  padding: 1rem var(--alert-font-size);
+  padding: 1rem 0.875rem;
   border-radius: var(--alert-border-radius);
   display: flex;
   gap: 0.5rem;
@@ -204,7 +204,7 @@
     color: var(--alert-text-color);
     flex: 1;
     font-size: var(--alert-font-size);
-    line-height: 1.25rem;
+    line-height: 1.43;
     margin-bottom: 0.25rem;
     display: block;
   }
@@ -223,7 +223,7 @@
   .content {
     color: var(--alert-text-color);
     font-size: var(--alert-font-size);
-    line-height: 1.25rem; //TODO needs to be adjusted to relative number; also seems redundant in many places, default is 1.5
+    line-height: 1.43;
     margin-bottom: 0;
     word-break: break-word;
   }
@@ -239,7 +239,7 @@
     border-radius: var(--button-border-radius);
     white-space: nowrap;
     font-size: var(--alert-font-size);
-    line-height: var(--button-font-size);
+    line-height: 1;
     font-weight: 400;
     margin: -0.5rem 0;
     padding: 0.625rem 1.25rem;

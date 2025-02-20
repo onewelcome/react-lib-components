@@ -63,7 +63,7 @@
       align-items: center;
 
       button span:before {
-        font-size: 0.75rem;
+        font-size: var(--font-size-sub);
       }
     }
   }
