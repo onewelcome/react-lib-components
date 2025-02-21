@@ -37,6 +37,6 @@
   @include mixins.focusVisibleOutline($outlineOffset: 0);
 
   .icon {
-    font-size: 0.625rem;
+    font-size: var(--font-size-small);
   }
 }

@@ -47,11 +47,11 @@
     align-items: center;
     justify-content: center;
 
-    width: 1.5rem;
+    width: calc(1.5 * var(--font-size));
     margin-right: 0.25rem;
 
     span {
-      font-size: 1rem;
+      font-size: var(--font-size);
     }
   }
 }

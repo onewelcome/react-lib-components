@@ -14,10 +14,8 @@
  *    limitations under the License.
  */
 
-$tagFontSize: 0.75rem;
-
 .tag {
-  font-size: $tagFontSize;
+  font-size: var(--font-size-sub);
   padding: 0.25rem 0.75rem;
   border: none;
   border-radius: 3.125rem;

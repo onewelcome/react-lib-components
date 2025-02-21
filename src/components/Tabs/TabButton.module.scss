@@ -55,7 +55,7 @@
   }
 
   &.has-icon {
-    gap: 0.25rem;
+    gap: calc(0.25 * var(--font-size));
     display: inline-flex;
     align-items: center;
 
@@ -65,8 +65,8 @@
 
     span[data-icon] {
       display: inline-block;
-      font-size: 1.25rem;
-      width: 1.25rem;
+      font-size: var(--font-size-big);
+      width: var(--font-size-big);
     }
 
     &.top-icon,

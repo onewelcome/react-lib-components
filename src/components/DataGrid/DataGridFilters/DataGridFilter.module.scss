@@ -67,7 +67,7 @@
   }
 
   .remove-icon {
-    font-size: 0.6rem;
+    font-size: calc(0.6 * var(--font-size));
   }
 }
 

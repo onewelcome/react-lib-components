@@ -9,6 +9,7 @@
     justify-content: center;
     flex-direction: row;
     width: 100%;
+    margin-left: calc(0.5 * var(--font-size));
 
     &.text-bottom {
       gap: 0;
