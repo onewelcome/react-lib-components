@@ -268,7 +268,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorDanger: "var(--color-red500)",
     defaultPressedColor: "var(--color-blue-grey100)",
     defaultHoverColor: "var(--color-blue-grey25)",
-    defaultLineHeight: "1.5", //FIXME: UCL-395
+    defaultLineHeight: "1.5",
     dataGridLineHeight: "1.25",
     defaultBorderRadius: "0.25rem",
     focusBorderRadius: "0.125rem",
@@ -408,8 +408,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     light: "var(--color-white)",
     fontFamily: "Roboto, sans-serif",
     fontFamilyCode: "'Roboto Mono', monospace",
-    fontSizeFormLabel: "0.875rem", //FIXME: UCL-395
-    fontSize: "1rem", //FIXME: UCL-395
+    fontSizeFormLabel: "0.875rem",
+    fontSize: "1rem",
     fontSizeH1: "2.5rem",
     fontSizeH2: "1.625rem",
     fontSizeH3: "1.5rem",
@@ -420,8 +420,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     fontSizeCode: "1rem",
     readOnlyBorderColor: "var(--color-blue-grey100)",
     readOnlyTextColor: "var(--color-blue-grey900)",
-    formControlFontSize: "0.875rem", //FIXME: UCL-395
-    fontSizeDataGrid: "0.875rem", //FIXME: UCL-395
+    formControlFontSize: "0.875rem",
+    fontSizeDataGrid: "0.875rem",
     iconFontBig: "1.125rem"
   };
 
