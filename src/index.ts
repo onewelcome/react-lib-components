@@ -217,3 +217,9 @@ export type { Props as DatePickerProps } from "./components/DatePicker/DatePicke
 /** Admin */
 export { MicrofrontendContainer } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
 export type { Props as MicrofrontendContainerProps } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
+
+/**
+ * Miscellaneous
+ */
+export { IdentityProviderButton } from "./components/miscellaneous/IdentityProviderButton";
+export type { Props as IdentityProviderButtonProps } from "./components/miscellaneous/IdentityProviderButton";
