@@ -18,6 +18,14 @@
   &-background-color {
     background-color: var(--color-blue-grey25);
   }
+
+  & button.back-arrow {
+    width: 16px;
+    height: 16px;
+    display: block;
+
+    gap: 0.5rem;
+  }
 }
 
 .hide-text {
@@ -29,11 +37,35 @@
   font-weight: 500;
   color: var(--color-blue-grey900);
   line-height: 3.125rem;
+  display: flex;
+  align-items: center;
+
+  div {
+    vertical-align: middle;
+    align-self: center;
+    margin-left: 0.5rem;
+
+    &:first-child {
+      margin-left: 1rem;
+    }
+  }
+
+  & button.back-arrow {
+    margin-right: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }
 
 .header-subtitle {
   color: var(--color-blue-grey400);
   font-weight: 500;
+}
+
+.back-text {
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 0.5rem;
 }
 
 .buttons-wrapper {

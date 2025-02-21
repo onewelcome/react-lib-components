@@ -5,7 +5,15 @@ import {
 } from "../../src/components/Layout/ContentHeader/ContentHeader";
 import ContentHeaderDocumentation from "./ContentHeader.mdx";
 import React, { Fragment, ReactElement, useState } from "react";
-import { Button, ButtonProps, Icon, Icons } from "../../src";
+import {
+  Button,
+  ButtonProps,
+  FormSection,
+  Icon,
+  Icons,
+  Tag,
+  useFullHeightCollapse
+} from "../../src";
 
 import {
   FormStepper,
@@ -16,12 +24,11 @@ import {
   FormWithStepper,
   Props as FormWithStepperProps
 } from "../../src/components/Layout/FormPage/FormWithStepper/FormWithStepper";
-import { FormSection } from "../../src";
 import { FormControlExample } from "../Form/Examples/FormControlExample";
 import { StepStatus } from "../../src/components/Stepper/Step";
-import { useFullHeightCollapse } from "../../src/hooks/useFullHeightCollapse";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
-import { userEvent, waitFor, within, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { BrowserRouter } from "react-router-dom";
 
 const contentButtonList: ReactElement<ButtonProps, typeof Button>[] = [
   <Button key="1" onClick={() => alert("Cancel button clicked.")} variant="text">
@@ -62,7 +69,11 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: StoryFn<Props> = args => <ContentHeaderComponent {...args} />;
+const Template: StoryFn<Props> = args => (
+  <BrowserRouter>
+    <ContentHeaderComponent {...args} />
+  </BrowserRouter>
+);
 
 export const ContentHeader = Template.bind({});
 
@@ -75,10 +86,10 @@ ContentHeaderWithSubtitle.args = {
     </Fragment>
   ),
   subtitle: "Explore Stories, One Page at a Time",
-  buttons: contentButtonList.slice(0, 2)
+  buttons: contentButtonList.slice(0, 2),
+  navigation: { type: "back-button" },
+  tags: [<Tag variant="enabled">Active</Tag>, <Tag variant="disabled">Default</Tag>]
 };
-
-//--- ContentHeader Collapse Example ----//
 
 const initialStepperState: FormStepProps[] = [
   {

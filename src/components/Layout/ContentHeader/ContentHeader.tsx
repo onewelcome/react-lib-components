@@ -19,12 +19,18 @@ import { Button, Props as ButtonProps } from "../../Button/Button";
 import { Typography } from "../../Typography/Typography";
 
 import classes from "./ContentHeader.module.scss";
+import { IconButton } from "../../Button/IconButton";
+import { Icon, Icons } from "../../Icon/Icon";
+import { useNavigate } from "react-router-dom";
+import { Tag, Props as TagProps } from "../../Tag/Tag";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
   subtitle?: string;
   buttons?: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
   collapsed?: boolean;
+  navigation?: { type: "back-button"; displayText?: string };
+  tags?: ReactElement<TagProps, typeof Tag> | ReactElement<TagProps, typeof Tag>[];
 }
 
 export const ContentHeaderComponent = ({
@@ -33,8 +39,12 @@ export const ContentHeaderComponent = ({
   buttons,
   collapsed,
   subtitle,
+  navigation,
+  tags,
   ...rest
 }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <div className={classes["header-background-color"]}>
       <div
@@ -42,20 +52,45 @@ export const ContentHeaderComponent = ({
         {...rest}
       >
         <div>
+          {navigation && !collapsed && (
+            <IconButton
+              onClick={() => {
+                navigate(-1);
+              }}
+              className={classes["back-arrow"]}
+              iconSize="s"
+            >
+              <Icon icon={Icons.ArrowLeft} />
+              <span className={classes["back-text"]}>
+                {navigation.displayText ? navigation.displayText : "Back"}
+              </span>
+            </IconButton>
+          )}
           <Typography className={classes["header-text"]} variant={"h1"}>
+            {navigation && collapsed && (
+              <IconButton
+                onClick={() => {
+                  navigate(-1);
+                }}
+                className={classes["back-arrow"]}
+              >
+                <Icon icon={Icons.ArrowLeft} />
+              </IconButton>
+            )}
             {title}
+            {tags && tags}
           </Typography>
           {subtitle && (
             <Typography
               className={`${classes["header-subtitle"]} ${collapsed ? classes["hide-text"] : ""}`}
-              variant={"h4"}
+              variant="h4"
             >
               {subtitle}
             </Typography>
           )}
           <Typography
             className={`${collapsed ? classes["hide-text"] : ""}`}
-            variant={"body"}
+            variant="body"
             spacing={{ margin: 0 }}
           >
             {children}
