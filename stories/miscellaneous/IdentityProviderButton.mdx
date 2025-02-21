@@ -1,0 +1,25 @@
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as ButtonStories from "./IdentityProviderButton.stories.tsx";
+
+<Meta of={ButtonStories} />
+<Title />
+<Subtitle />
+
+The `<DefaultIdentityProviderButton/>` component is a special variant of `<Button/>`. It was created to simplify adding Identity Provider
+buttons. It's designed to be used in conjunction with `react-lib-components-theme-adapter` that is capable of generating a full
+customization palette for a specific IdP type.
+
+When `iconUrl` is not provided, the component automatically fallbacks to a default one that is set up in `theme-common-content-service`.
+For this to work the correct `idpType` must be passed. It's currently a simple string to avoid extra work when adding new IdP types.
+
+## Why not reuse Button?
+
+Buttons API is slightly different. It allows the use of only a predefined list of icons where we need to support passing a URL to the icon resource.
+
+<Canvas>
+  <Story of={ButtonStories.DefaultIdentityProviderButton} />
+</Canvas>
+
+# Props
+
+<ArgTypes />
