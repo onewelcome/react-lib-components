@@ -121,8 +121,8 @@
 .step-wrapper {
   pointer-events: none; //turn off pointer-events beside .label and .step where we turn it on
   display: grid;
-  gap: 0.5rem;
-  grid-template-columns: 1.875rem 1fr;
+  gap: calc(0.5 * var(--font-size));
+  grid-template-columns: calc(1.875 * var(--font-size)) 1fr;
   grid-template-rows: auto 1fr;
   background-color: transparent;
   border: 0;
@@ -130,7 +130,7 @@
   margin: 0;
 
   &.horizontal {
-    grid-template-columns: 1.875rem auto 1fr;
+    grid-template-columns: calc(1.875 * var(--font-size)) auto 1fr;
     grid-template-rows: auto 1fr;
     align-items: start;
     width: 100%;
@@ -142,7 +142,7 @@
       width: 100%;
       min-width: 1rem;
       border-radius: 2px;
-      margin-top: 0.8125rem;
+      margin-top: calc(0.8125 * var(--font-size));
     }
 
     .label {
@@ -167,9 +167,8 @@
       }
 
       .stepper-line {
-        margin-right: -1.125rem;
-        margin-left: -1.125rem;
-        width: calc(100% + 2.25rem);
+        margin-right: calc(-1.125 * var(--font-size));
+        margin-left: calc(-1.125 * var(--font-size));
       }
 
       .label-inner-wrapper {
@@ -207,7 +206,7 @@
       flex: 1;
       margin-left: 0.4375rem;
       margin-right: -1rem;
-      margin-top: 0.5625rem;
+      margin-top: calc(0.6825 * var(--font-size));
     }
   }
 
@@ -261,8 +260,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: calc(1.75 * var(--font-size));
+  height: calc(1.75 * var(--font-size));
   border: 2px solid var(--stepper-waiting-color);
   border-radius: 50%;
   font-size: var(--font-size-form-label);

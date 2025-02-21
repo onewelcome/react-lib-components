@@ -23,7 +23,7 @@
 
 .helper-text {
   margin-top: 0.25rem;
-  margin-left: 1.75rem;
+  margin-left: calc(1.75 * var(--font-size));
 }
 
 .error-message {

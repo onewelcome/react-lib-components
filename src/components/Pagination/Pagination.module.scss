@@ -28,14 +28,14 @@
   }
 
   .form-element {
-    height: 2.5rem;
+    height: calc(2.5 * var(--font-size));
 
     .search-input-wrapper {
       width: 2.75rem;
     }
 
     button {
-      min-height: 2.5rem;
+      min-height: calc(2.5 * var(--font-size));
     }
   }
 
@@ -109,7 +109,7 @@
     margin: 0 0.25rem;
 
     button {
-      min-width: 3.75rem;
+      min-width: calc(3.75 * var(--font-size));
       padding: 0;
 
       div[data-display] {
@@ -125,7 +125,7 @@
 
 .current-page-select {
   button {
-    min-width: 3.75rem;
+    min-width: calc(3.75 * var(--font-size));
     padding: 0;
 
     div[data-display] {

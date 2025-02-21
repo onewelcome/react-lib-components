@@ -194,7 +194,7 @@
   .icon {
     color: var(--alert-text-color);
     font-size: var(--font-size);
-    height: 1.25rem;
+    height: var(--font-size-big);
     display: inline-flex;
     align-items: center;
     align-self: flex-start;
