@@ -43,19 +43,30 @@ export const IdentityProviderButton: ForwardRefRenderFunction<HTMLButtonElement,
   customization,
   ...rest
 }) => {
+  const DEFAULT_BACKGROUND_COLOR = "#FFFFFF";
+  const DEFAULT_BORDER_COLOR = "#000000";
+  const DEFAULT_TEXT_COLOR = "#000000";
+  const DEFAULT_FOCUS_OUTLINE_COLOR = "var(--color-black50)";
+  const DEFAULT_HOVER_COLOR = "var(--color-black10)";
+  const DEFAULT_PRESSED_COLOR = "var(--color-black20)";
+
+  const generateCSSProperties = () => {
+    return {
+      "--button-primary-default-color": customization?.backgroundColor ?? DEFAULT_BACKGROUND_COLOR,
+      borderColor: customization?.borderColor ?? DEFAULT_BORDER_COLOR,
+      "--button-fill-text-color": customization?.textColor ?? DEFAULT_TEXT_COLOR,
+      "--color-focus": customization?.focusBorderColor ?? DEFAULT_FOCUS_OUTLINE_COLOR,
+      "--button-primary-focused-color":
+        customization?.focusBackgroundColor ?? DEFAULT_BACKGROUND_COLOR,
+      "--button-primary-hover-color": customization?.hoverBackgroundColor ?? DEFAULT_HOVER_COLOR,
+      "--button-primary-pressed-color":
+        customization?.pressedBackgroundColor ?? DEFAULT_PRESSED_COLOR
+    } as CSSProperties;
+  };
+
   return (
     <Button
-      style={
-        {
-          "--button-primary-default-color": customization?.backgroundColor ?? "#FFFFFF",
-          borderColor: customization?.borderColor ?? "#000000",
-          "--button-fill-text-color": customization?.textColor ?? "#000000",
-          "--color-focus": customization?.focusBorderColor ?? "#CCCCCC",
-          "--button-primary-focused-color": customization?.focusBackgroundColor ?? "#FFFFFF",
-          "--button-primary-hover-color": customization?.hoverBackgroundColor ?? "#CCCCCC",
-          "--button-primary-pressed-color": customization?.pressedBackgroundColor ?? "#999999"
-        } as CSSProperties
-      }
+      style={generateCSSProperties()}
       color="primary"
       variant="fill"
       className={classes["idp-button"]}

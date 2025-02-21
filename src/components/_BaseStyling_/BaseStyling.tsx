@@ -60,6 +60,7 @@ interface CSSProperties {
   colorRed700?: string;
   colorWhite?: string;
   colorBlack100?: string;
+  colorBlack50?: string;
   colorBlack20?: string;
   colorBlack10?: string;
   defaultPressedColor?: string;
@@ -251,6 +252,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorRed600: "#B31800",
     colorRed700: "#861200",
     colorBlack100: "#000000",
+    colorBlack50: "rgba(0, 0, 0, 0.5)",
     colorBlack20: "rgba(0, 0, 0, 0.2)",
     colorBlack10: "rgba(0, 0, 0, 0.1)",
     colorWhite: "#FFFFFF",

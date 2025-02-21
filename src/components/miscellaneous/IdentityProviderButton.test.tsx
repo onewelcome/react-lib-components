@@ -20,6 +20,8 @@ import userEvent from "@testing-library/user-event";
 import { IdentityProviderButton } from "./IdentityProviderButton";
 import { Props } from "./IdentityProviderButton";
 
+const UI_RESOURCES_COMMON_ICONS_PREFIX_URL = "/ui-resources-static/common/icons";
+
 const defaultParams: Props = { idpType: "SAML" };
 
 const createBaseButton = (params?: (defaultParams: Props) => Props) => {
@@ -92,7 +94,7 @@ describe("BaseButton", () => {
 
       expect(identityProviderButton.querySelector("img")).toHaveAttribute(
         "src",
-        "/ui-resources-static/common/icons/OIDC.svg"
+        `${UI_RESOURCES_COMMON_ICONS_PREFIX_URL}/OIDC.svg`
       );
     });
 
@@ -104,21 +106,20 @@ describe("BaseButton", () => {
 
       expect(identityProviderButton.querySelector("img")).toHaveAttribute(
         "src",
-        "/ui-resources-static/common/icons/OIDC.svg"
+        `${UI_RESOURCES_COMMON_ICONS_PREFIX_URL}/OIDC.svg`
       );
     });
 
     it('should not fallback to default URL when iconUrl is passed"', () => {
+      const iconUrl = "/resources/michal/tu/byl.jpg";
+
       const { identityProviderButton } = createBaseButton(defaultParams => ({
         ...defaultParams,
         idpType: "OIDC",
-        iconUrl: "/resources/michal/tu/byl.jpg"
+        iconUrl: iconUrl
       }));
 
-      expect(identityProviderButton.querySelector("img")).toHaveAttribute(
-        "src",
-        "/resources/michal/tu/byl.jpg"
-      );
+      expect(identityProviderButton.querySelector("img")).toHaveAttribute("src", iconUrl);
     });
   });
 
