@@ -15,6 +15,7 @@
  */
 
 @use "../../../mixins.module.scss";
+@import "../../../functions";
 
 .filter-wrapper {
   display: flex;
@@ -67,7 +68,7 @@
   }
 
   .remove-icon {
-    font-size: calc(0.6 * var(--font-size));
+    font-size: relativeToBaseFontSize(0.6);
   }
 }
 

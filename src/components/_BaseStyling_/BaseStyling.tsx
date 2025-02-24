@@ -317,7 +317,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     inputHelperTextColor: "var(--color-blue-grey500)",
     inputHoverBackgroundColor: "var(--default-hover-color)",
     inputDisabledBackgroundColor: "var(--input-hover-background-color)",
-    inputFontSize: "1rem",
+    inputFontSize: "0.875rem",
     dragBorderStyle: "solid",
     modalShadowColor: "rgba(0, 0, 0, 0.16)",
     modalBackgroundColor: "var(--light)",

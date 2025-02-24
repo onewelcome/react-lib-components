@@ -14,6 +14,8 @@
  *    limitations under the License.
  */
 
+@import "../../../functions";
+
 .error input + span {
   outline: var(--error) solid 1px;
   outline-offset: -1px;
@@ -23,7 +25,7 @@
 
 .helper-text {
   margin-top: 0.25rem;
-  margin-left: calc(1.75 * var(--font-size));
+  margin-left: relativeToBaseFontSize(1.75);
 }
 
 .error-message {

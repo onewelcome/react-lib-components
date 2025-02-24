@@ -15,6 +15,7 @@
  */
 
 @use "../../mixins.module.scss";
+@import "../../functions";
 
 .fill {
   @include mixins.button("fill");
@@ -47,7 +48,7 @@
     align-items: center;
     justify-content: center;
 
-    width: calc(1.5 * var(--font-size));
+    width: relativeToBaseFontSize(1.5);
     margin-right: 0.25rem;
 
     span {

@@ -22,10 +22,11 @@
 
 @use "../../variables.scss";
 @use "src/mixins.module";
+@import "../../functions";
 
 .rdp-root {
-  --rdp-day-height: calc(2 * var(--font-size));
-  --rdp-day-width: calc(2 * var(--font-size));
+  --rdp-day-height: relativeToBaseFontSize(2);
+  --rdp-day-width: relativeToBaseFontSize(2);
 
   --rdp-disabled-opacity: 0.5;
   --rdp-outside-opacity: 0.75;

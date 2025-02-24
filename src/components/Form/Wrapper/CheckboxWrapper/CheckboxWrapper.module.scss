@@ -14,6 +14,8 @@
  *    limitations under the License.
  */
 
+@import "../../../../functions";
+
 .checkbox-wrapper-helper {
   margin-top: 1.25rem;
 }
@@ -23,6 +25,6 @@
 }
 
 .checkbox-wrapper-error [data-icon] {
-  font-size: calc(1.375 * var(--font-size));
+  font-size: relativeToBaseFontSize(1.375);
   vertical-align: bottom;
 }

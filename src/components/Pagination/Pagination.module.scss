@@ -14,6 +14,8 @@
  *    limitations under the License.
  */
 
+@import "../../functions";
+
 .pagination-wrapper {
   font-family: var(--font-family);
   font-size: var(--font-size-data-grid);
@@ -28,14 +30,14 @@
   }
 
   .form-element {
-    height: calc(2.5 * var(--font-size));
+    height: relativeToBaseFontSize(2.5);
 
     .search-input-wrapper {
       width: 2.75rem;
     }
 
     button {
-      min-height: calc(2.5 * var(--font-size));
+      min-height: relativeToBaseFontSize(2.5);
     }
   }
 
@@ -109,7 +111,7 @@
     margin: 0 0.25rem;
 
     button {
-      min-width: calc(3.75 * var(--font-size));
+      min-width: relativeToBaseFontSize(3.75);
       padding: 0;
 
       div[data-display] {
@@ -125,7 +127,7 @@
 
 .current-page-select {
   button {
-    min-width: calc(3.75 * var(--font-size));
+    min-width: relativeToBaseFontSize(3.75);
     padding: 0;
 
     div[data-display] {

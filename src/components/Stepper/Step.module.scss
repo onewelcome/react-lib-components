@@ -15,6 +15,7 @@
  */
 
 @use "../../mixins.module.scss";
+@import "../../functions";
 
 @mixin stepState($status: "waiting") {
   & .step {
@@ -121,8 +122,8 @@
 .step-wrapper {
   pointer-events: none; //turn off pointer-events beside .label and .step where we turn it on
   display: grid;
-  gap: calc(0.5 * var(--font-size));
-  grid-template-columns: calc(1.875 * var(--font-size)) 1fr;
+  gap: relativeToBaseFontSize(0.5);
+  grid-template-columns: relativeToBaseFontSize(1.875) 1fr;
   grid-template-rows: auto 1fr;
   background-color: transparent;
   border: 0;
@@ -130,7 +131,7 @@
   margin: 0;
 
   &.horizontal {
-    grid-template-columns: calc(1.875 * var(--font-size)) auto 1fr;
+    grid-template-columns: relativeToBaseFontSize(1.875) auto 1fr;
     grid-template-rows: auto 1fr;
     align-items: start;
     width: 100%;
@@ -142,7 +143,7 @@
       width: 100%;
       min-width: 1rem;
       border-radius: 2px;
-      margin-top: calc(0.8125 * var(--font-size));
+      margin-top: relativeToBaseFontSize(0.8125);
     }
 
     .label {
@@ -167,8 +168,8 @@
       }
 
       .stepper-line {
-        margin-right: calc(-1.125 * var(--font-size));
-        margin-left: calc(-1.125 * var(--font-size));
+        margin-right: relativeToBaseFontSize(-1.125);
+        margin-left: relativeToBaseFontSize(-1.125);
       }
 
       .label-inner-wrapper {
@@ -206,7 +207,7 @@
       flex: 1;
       margin-left: 0.4375rem;
       margin-right: -1rem;
-      margin-top: calc(0.6825 * var(--font-size));
+      margin-top: relativeToBaseFontSize(0.6825);
     }
   }
 
@@ -260,8 +261,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(1.75 * var(--font-size));
-  height: calc(1.75 * var(--font-size));
+  width: relativeToBaseFontSize(1.75);
+  height: relativeToBaseFontSize(1.75);
   border: 2px solid var(--stepper-waiting-color);
   border-radius: 50%;
   font-size: var(--font-size-form-label);
