@@ -170,6 +170,7 @@
       .stepper-line {
         margin-right: relativeToBaseFontSize(-1.125);
         margin-left: relativeToBaseFontSize(-1.125);
+        width: calc(100% + relativeToBaseFontSize(2.25));
       }
 
       .label-inner-wrapper {
@@ -207,7 +208,7 @@
       flex: 1;
       margin-left: 0.4375rem;
       margin-right: -1rem;
-      margin-top: relativeToBaseFontSize(0.6825);
+      margin-top: relativeToBaseFontSize(0.5625);
     }
   }
 
