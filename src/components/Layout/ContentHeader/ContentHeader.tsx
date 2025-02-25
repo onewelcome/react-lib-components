@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { HTMLAttributes, ReactElement } from "react";
+import React, { HTMLAttributes, ReactElement, useMemo } from "react";
 import { Button, Props as ButtonProps } from "../../Button/Button";
 import { Typography } from "../../Typography/Typography";
 
@@ -26,11 +26,17 @@ import { Tag, Props as TagProps } from "../../Tag/Tag";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
+  /**
+   * @deprecated pass text as children
+   */
   subtitle?: string;
   buttons?: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
   collapsed?: boolean;
   navigation?: { type: "back-button"; displayText?: string };
-  tags?: ReactElement<TagProps, typeof Tag> | ReactElement<TagProps, typeof Tag>[];
+  tags?: ReactElement<TagProps, typeof Tag>[];
+  error?: boolean;
+  errorMessage?: string;
+  errorTagText?: string;
 }
 
 export const ContentHeaderComponent = ({
@@ -41,9 +47,25 @@ export const ContentHeaderComponent = ({
   subtitle,
   navigation,
   tags,
+  error,
+  errorMessage,
+  errorTagText,
   ...rest
 }: Props) => {
   const navigate = useNavigate();
+
+  const errorTag = (
+    <Tag icon={Icons.Forbidden} backgroundColor="var(--color-red50)" color="var(--color-red900)">
+      {errorTagText || "Blocked"}
+    </Tag>
+  );
+
+  const renderTags = useMemo(() => {
+    if (error && collapsed) {
+      return [errorTag, ...(tags ?? []).filter(tag => tag.props.variant !== "enabled")];
+    }
+    return tags ?? [];
+  }, [tags, error, collapsed]);
 
   return (
     <div className={classes["header-background-color"]}>
@@ -78,9 +100,9 @@ export const ContentHeaderComponent = ({
               </IconButton>
             )}
             {title}
-            {tags && tags}
+            {renderTags}
           </Typography>
-          {subtitle && (
+          {subtitle && !error && (
             <Typography
               className={`${classes["header-subtitle"]} ${collapsed ? classes["hide-text"] : ""}`}
               variant="h4"
@@ -93,7 +115,14 @@ export const ContentHeaderComponent = ({
             variant="body"
             spacing={{ margin: 0 }}
           >
-            {children}
+            {error ? (
+              <>
+                {errorTag}
+                <span className={classes["error-text"]}>{errorMessage}</span>
+              </>
+            ) : (
+              children
+            )}
           </Typography>
         </div>
         {buttons && <div className={classes["buttons-wrapper"]}>{buttons}</div>}
