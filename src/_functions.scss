@@ -14,23 +14,6 @@
  *    limitations under the License.
  */
 
-@import "../../functions";
-
-.stepper {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: flex-start;
-  width: auto;
-  flex-direction: column;
-
-  &.horizontal {
-    justify-content: center;
-    flex-direction: row;
-    width: 100%;
-    margin-left: relativeToBaseFontSize(0.5);
-
-    &.text-bottom {
-      gap: 0;
-    }
-  }
+@function relativeToBaseFontSize($ratio) {
+  @return calc($ratio * var(--font-size));
 }
