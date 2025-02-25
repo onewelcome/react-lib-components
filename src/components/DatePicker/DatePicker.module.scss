@@ -25,8 +25,8 @@
 @import "../../functions";
 
 .rdp-root {
-  --rdp-day-height: relativeToBaseFontSize(2);
-  --rdp-day-width: relativeToBaseFontSize(2);
+  --rdp-day-height: calc(2 * var(--font-size));
+  --rdp-day-width: calc(2 * var(--font-size));
 
   --rdp-disabled-opacity: 0.5;
   --rdp-outside-opacity: 0.75;
