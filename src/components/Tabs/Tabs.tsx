@@ -70,8 +70,12 @@ const TabsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     const totalAmountOfTabs = [children].flat().length;
-    if (!usingKeyboardNavigation) setUsingKeyboardNavigation(true);
-    if (totalAmountOfTabs === 1) return;
+    if (!usingKeyboardNavigation) {
+      setUsingKeyboardNavigation(true);
+    }
+    if (totalAmountOfTabs === 1) {
+      return;
+    }
 
     switch (e.key) {
       case "ArrowRight":

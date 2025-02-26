@@ -69,6 +69,7 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       return;
     }
     /** We have to clone the native event we got here and change the "target" property to the value. Otherwise, this regular event has "on" as it's event.target.value, which is useless. */
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     const nativeEvent: any = event.nativeEvent || event;
     const clonedEvent = new nativeEvent.constructor(nativeEvent.type, nativeEvent);
 

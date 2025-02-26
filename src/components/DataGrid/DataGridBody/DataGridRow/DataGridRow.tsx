@@ -187,6 +187,6 @@ const DataGridRowComponent = <T,>(
   );
 };
 
-export const DataGridRow = React.forwardRef(DataGridRowComponent) as <T extends {}>(
+export const DataGridRow = React.forwardRef(DataGridRowComponent) as <T extends object>(
   p: Props<T> & { ref?: Ref<HTMLTableRowElement> }
 ) => ReactElement;

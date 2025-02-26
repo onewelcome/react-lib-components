@@ -66,7 +66,7 @@ const OptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
 ) => {
   const defaultOptionId = useRef(generateID(20));
   const optionId = id ?? defaultOptionId.current;
-  let innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
+  const innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
 
   const additionalClasses = [];
   className && additionalClasses.push(className);

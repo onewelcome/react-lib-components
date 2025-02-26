@@ -72,7 +72,9 @@ const PaginationComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   const calculateAmountOfPages = () => {
-    if (!totalElements) return 1;
+    if (!totalElements) {
+      return 1;
+    }
 
     if (Math.ceil(totalElements / pageSize) < 1) {
       return 1;
