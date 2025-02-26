@@ -105,7 +105,7 @@ export const ContentHeaderComponent = ({
                 <Icon icon={Icons.ArrowLeft} />
               </IconButton>
             )}
-            <TextEllipsis>{title}</TextEllipsis>
+            <TextEllipsis data-testid={"content-header-title"}>{title}</TextEllipsis>
             <span className={classes["header-tags"]}>
               {renderTags.map((tag, index) => (
                 <React.Fragment key={tag.key || index}>{tag}</React.Fragment>

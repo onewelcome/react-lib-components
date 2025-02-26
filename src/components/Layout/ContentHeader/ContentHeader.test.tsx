@@ -56,12 +56,17 @@ describe("<ContentHeader />", () => {
   });
 
   it("should have the correct values and attributes", () => {
-    const { getByTestId, getByText } = createContentHeader();
+    const { getByTestId } = createContentHeader();
 
     expect(getByTestId("contentHeaderChildren")).toHaveTextContent(
       "Content Header sample description"
     );
-    expect(getByText(defaultParams.title)).toBeInTheDocument();
+
+    const title = getByTestId("content-header-title");
+    expect(title).toBeDefined();
+    expect(title.querySelector(":not([aria-hidden])")).toHaveTextContent(
+      "Content Header sample Title"
+    );
 
     const button1 = getByTestId("button1");
 
