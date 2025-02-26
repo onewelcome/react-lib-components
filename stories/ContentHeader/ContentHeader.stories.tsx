@@ -28,7 +28,7 @@ import { FormControlExample } from "../Form/Examples/FormControlExample";
 import { StepStatus } from "../../src/components/Stepper/Step";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 
 const contentButtonList: ReactElement<ButtonProps, typeof Button>[] = [
   <Button key="1" onClick={() => alert("Cancel button clicked.")} variant="text">
@@ -49,6 +49,13 @@ const contentButtonList: ReactElement<ButtonProps, typeof Button>[] = [
 const meta: Meta = {
   title: "Components/Layout/ContentHeader",
   component: ContentHeaderComponent,
+  decorators: [
+    Story => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    )
+  ],
   parameters: {
     docs: {
       page: ContentHeaderDocumentation
@@ -69,26 +76,56 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: StoryFn<Props> = args => (
-  <BrowserRouter>
-    <ContentHeaderComponent {...args} />
-  </BrowserRouter>
-);
+const Template: StoryFn<Props> = args => {
+  const navigate = useNavigate();
+  return <ContentHeaderComponent navigation={{ navigateFN: navigate }} {...args} />;
+};
 
 export const ContentHeader = Template.bind({});
 
-export const ContentHeaderWithSubtitle = Template.bind({});
+ContentHeader.args = {
+  navigation: undefined
+};
 
-ContentHeaderWithSubtitle.args = {
+export const ContentHeaderWithTags = Template.bind({});
+
+ContentHeaderWithTags.args = {
   children: (
     <Fragment>
       Content <i>Description</i>
     </Fragment>
   ),
-  subtitle: "Explore Stories, One Page at a Time",
   buttons: contentButtonList.slice(0, 2),
-  navigation: { type: "back-button" },
   tags: [<Tag variant="enabled">Active</Tag>, <Tag variant="disabled">Default</Tag>]
+};
+
+export const ContentHeaderWithError = Template.bind({});
+
+ContentHeaderWithError.args = {
+  children: (
+    <Fragment>
+      Content <i>Description</i>
+    </Fragment>
+  ),
+  buttons: contentButtonList.slice(0, 2),
+  tags: [<Tag variant="enabled">Active</Tag>, <Tag variant="disabled">Default</Tag>],
+  error: true,
+  errorMessage: "Oh no! Michał has left the company :("
+};
+
+export const CollapsedContentHeaderWithError = Template.bind({});
+
+CollapsedContentHeaderWithError.args = {
+  children: (
+    <Fragment>
+      Content <i>Description</i>
+    </Fragment>
+  ),
+  buttons: contentButtonList.slice(0, 2),
+  tags: [<Tag variant="enabled">Active</Tag>, <Tag variant="disabled">Default</Tag>],
+  error: true,
+  errorMessage: "Oh no! Michał has left the company :(",
+  collapsed: true
 };
 
 const initialStepperState: FormStepProps[] = [

@@ -21,8 +21,14 @@ import { Typography } from "../../Typography/Typography";
 import classes from "./ContentHeader.module.scss";
 import { IconButton } from "../../Button/IconButton";
 import { Icon, Icons } from "../../Icon/Icon";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 import { Tag, Props as TagProps } from "../../Tag/Tag";
+import { TextEllipsis } from "../../TextEllipsis/TextEllipsis";
+
+export interface ContentHeaderNavigationProps {
+  displayText?: string;
+  navigateFN: NavigateFunction;
+}
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -32,7 +38,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   subtitle?: string;
   buttons?: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
   collapsed?: boolean;
-  navigation?: { type: "back-button"; displayText?: string };
+  navigation?: ContentHeaderNavigationProps;
   tags?: ReactElement<TagProps, typeof Tag>[];
   error?: boolean;
   errorMessage?: string;
@@ -52,8 +58,6 @@ export const ContentHeaderComponent = ({
   errorTagText,
   ...rest
 }: Props) => {
-  const navigate = useNavigate();
-
   const errorTag = (
     <Tag icon={Icons.Forbidden} backgroundColor="var(--color-red50)" color="var(--color-red900)">
       {errorTagText || "Blocked"}
@@ -63,6 +67,8 @@ export const ContentHeaderComponent = ({
   const renderTags = useMemo(() => {
     if (error && collapsed) {
       return [errorTag, ...(tags ?? []).filter(tag => tag.props.variant !== "enabled")];
+    } else if (error) {
+      return (tags ?? []).filter(tag => tag.props.variant !== "enabled");
     }
     return tags ?? [];
   }, [tags, error, collapsed]);
@@ -77,7 +83,7 @@ export const ContentHeaderComponent = ({
           {navigation && !collapsed && (
             <IconButton
               onClick={() => {
-                navigate(-1);
+                navigation.navigateFN(-1);
               }}
               className={classes["back-arrow"]}
               iconSize="s"
@@ -92,15 +98,19 @@ export const ContentHeaderComponent = ({
             {navigation && collapsed && (
               <IconButton
                 onClick={() => {
-                  navigate(-1);
+                  navigation.navigateFN(-1);
                 }}
                 className={classes["back-arrow"]}
               >
                 <Icon icon={Icons.ArrowLeft} />
               </IconButton>
             )}
-            {title}
-            {renderTags}
+            <TextEllipsis>{title}</TextEllipsis>
+            <span className={classes["header-tags"]}>
+              {renderTags.map((tag, index) => (
+                <React.Fragment key={tag.key || index}>{tag}</React.Fragment>
+              ))}
+            </span>
           </Typography>
           {subtitle && !error && (
             <Typography

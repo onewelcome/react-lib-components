@@ -5,11 +5,13 @@ import * as ContentHeaderStories from "./ContentHeader.stories.tsx";
 <Title />
 <Subtitle />
 
-The `ContentHeader` component will be used as a wrapper component for header of a form. Its root element is the default HTML `div` tag and thus also accepts all of its HTML attributes. You should use this component whenever you want to create a `ContentHeader`.
+The `ContentHeader` component serves as the header for a page and is designed to be flexible and customizable.
+It helps streamline common UI patterns, such as displaying a back button, showing a global page error, or incorporating additional contextual elements like action buttons.
+This makes it easier to maintain consistency across different pages while reducing repetitive code.
 
 # Examples
 
-The `ContentHeader` component is a wrapper componet for creating the header of a form. See the code snippet below that showcases how you can use it.
+See the code snippet below that showcases how you can use it.
 
 ```jsx
 
@@ -38,4 +40,4 @@ const buttons: ReactElement<ButtonProps, typeof Button>[] = [
 
 # Props
 
-<ArgTypes />{" "}
+<ArgTypes />
