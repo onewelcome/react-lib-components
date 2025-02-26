@@ -23,7 +23,6 @@ import {
   remToPx,
   throttle,
   areArraysDifferent,
-  isEqual,
   isJsonString,
   deepMerge
 } from "./helper";
@@ -242,76 +241,6 @@ describe("areArraysDifferent works as expected", () => {
 
     const result = areArraysDifferent(arr1, arr2, "name");
     expect(result).toBe(true);
-  });
-});
-
-describe("verifies if isEqual returns the correct value", () => {
-  it("should return true for equal values objects", () => {
-    const obj1 = {
-      name1: "test1",
-      name2: {
-        val: "test2"
-      }
-    };
-
-    const obj2 = {
-      name1: "test1",
-      name2: {
-        val: "test2"
-      }
-    };
-
-    const res = isEqual(obj1, obj2);
-    expect(res).toBe(true);
-  });
-
-  it("should return false for unequal values objects", () => {
-    const obj1 = {
-      name1: "test1",
-      name2: {
-        val: "test2"
-      }
-    };
-
-    const obj2 = {
-      name1: "test1"
-    };
-
-    const res = isEqual(obj1, obj2);
-    expect(res).toBe(false);
-  });
-
-  it("should return false for falsy values", () => {
-    const obj1 = {
-      name1: "test1",
-      name2: {
-        val: "test2"
-      }
-    };
-    const obj2 = null;
-
-    const res = isEqual(obj1, obj2);
-    expect(res).toBe(false);
-  });
-
-  it("should return false for different types", () => {
-    const obj1 = [
-      {
-        name1: "test1",
-        name2: {
-          val: "test2"
-        }
-      }
-    ];
-    const obj2 = {
-      name1: "test1",
-      name2: {
-        val: "test2"
-      }
-    };
-
-    const res = isEqual(obj1, obj2);
-    expect(res).toBe(false);
   });
 });
 

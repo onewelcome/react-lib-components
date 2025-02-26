@@ -67,6 +67,7 @@ export const useSearch = ({
   const renderSearch = () => {
     return (
       <input
+        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
         {...((search?.searchInputProps as any) ?? {})}
         ref={searchInputRef}
         value={filter}

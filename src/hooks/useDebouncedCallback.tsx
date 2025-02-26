@@ -16,10 +16,12 @@
 
 import React from "react";
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types */
 export const useDebouncedCallback = (callback: Function, delay: number, dependencies?: any[]) => {
   const timeout = React.useRef<ReturnType<typeof setTimeout>>();
   const comboDeps = dependencies ? [callback, delay, ...dependencies] : [callback, delay];
 
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   return React.useCallback((...args: any[]) => {
     if (timeout.current != null) {
       clearTimeout(timeout.current);

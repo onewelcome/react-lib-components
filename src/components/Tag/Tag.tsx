@@ -63,7 +63,7 @@ const TagComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   return (
     <div
       {...rest}
-      ref={ref as any}
+      ref={ref}
       className={`${tagClasses.join(" ")} ${rest.className ?? ""}`}
       style={{ backgroundColor, color }}
     >

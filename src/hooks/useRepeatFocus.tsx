@@ -51,15 +51,21 @@ export const useRepeatFocus = (ref: RefObject<HTMLDivElement>) => {
   };
 
   useEffect(() => {
-    if (!ref.current || !open) return;
+    if (!ref.current || !open) {
+      return;
+    }
 
     const lastFocusableElement = getFocusableElement(ref.current, "last");
     const firstFocusableElement = getFocusableElement(ref.current, "first");
 
-    if (!lastFocusableElement || !firstFocusableElement) return;
+    if (!lastFocusableElement || !firstFocusableElement) {
+      return;
+    }
 
     const handleTabKeyPress = (event: KeyboardEvent) => {
-      if (event.key !== "Tab") return;
+      if (event.key !== "Tab") {
+        return;
+      }
 
       if (event.shiftKey) {
         if (document.activeElement === firstFocusableElement) {

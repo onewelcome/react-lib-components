@@ -69,7 +69,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   spacing?: Spacing;
 }
 
-const DataGridInner = <T extends {}>(
+const DataGridInner = <T extends object>(
   {
     children,
     data,
@@ -214,6 +214,6 @@ const DataGridInner = <T extends {}>(
   );
 };
 
-export const DataGrid = React.forwardRef(DataGridInner) as <T extends {}>(
+export const DataGrid = React.forwardRef(DataGridInner) as <T extends object>(
   p: Props<T> & { ref?: Ref<HTMLDivElement> }
 ) => ReactElement;

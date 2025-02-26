@@ -81,7 +81,7 @@ const DataGridHeaderComponent: ForwardRefRenderFunction<HTMLTableSectionElement,
       return null;
     }
 
-    let headerStyle: React.CSSProperties = {
+    const headerStyle: React.CSSProperties = {
       textAlign: header.align ?? "left"
     };
 

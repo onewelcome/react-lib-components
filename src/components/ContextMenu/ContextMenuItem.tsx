@@ -54,7 +54,7 @@ const ContextMenuItemComponent: ForwardRefRenderFunction<HTMLButtonElement, Prop
   }: Props,
   ref
 ) => {
-  let innerButtonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
+  const innerButtonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
 
   useEffect(() => {
     if (isSelected && innerButtonRef.current && shouldClick) {

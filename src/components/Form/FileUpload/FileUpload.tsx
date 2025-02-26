@@ -33,6 +33,7 @@ import { withReadOnly } from "../../withReadOnly";
 
 type FileUploadType = Omit<InputProps, "onDrop" | "type" | "onChange" | "suffix" | "prefix">;
 export type FileType = Omit<FileConfig, "onRequestedFileAction"> &
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   Pick<File, "size" | "type"> & { data?: any };
 
 export interface Props extends FileUploadType {
@@ -102,10 +103,10 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const [errorMsg, setErrorMsg] = useState("");
   const [inputError, setInputError] = useState(false);
   const icon = useDetermineStatusIcon({ success, error });
-  let dropzoneClassNames = [classes["file-dropzone"]];
-  let dropzoneContainerClassNames = [classes["upload-button-wrapper"]];
-  let subTextClass = [classes["file-selector-sub-text"]];
-  let errorTextClass = [classes["file-selector-sub-text"]];
+  const dropzoneClassNames = [classes["file-dropzone"]];
+  const dropzoneContainerClassNames = [classes["upload-button-wrapper"]];
+  const subTextClass = [classes["file-selector-sub-text"]];
+  const errorTextClass = [classes["file-selector-sub-text"]];
   dragActive && dropzoneContainerClassNames.push(classes["drag-active"]);
   const hasError = inputError || error || errorMsg;
   const readOnlyView = rest["data-readonlyview"];
@@ -148,7 +149,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    let files = getFileList(e.target.files);
+    const files = getFileList(e.target.files);
     const isFileValid = files.length && verifyExtensionValidity(files[files.length - 1]);
     if (isFileValid) {
       setErrorMsg("");

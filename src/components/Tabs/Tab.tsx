@@ -19,6 +19,7 @@ import classes from "./Tab.module.scss";
 
 export interface Props extends Omit<HTMLProps<HTMLDivElement>, "children"> {
   title: string;
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   children?: any;
   tabActive?: boolean;
   icon?: React.ReactNode;

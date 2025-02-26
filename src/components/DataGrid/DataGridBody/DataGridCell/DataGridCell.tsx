@@ -49,7 +49,7 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
   }: Props,
   ref
 ) => {
-  let cellStyle: React.CSSProperties = {};
+  const cellStyle: React.CSSProperties = {};
 
   if (cellIndex === 0) {
     cellStyle.paddingLeft = spacing?.paddingLeft;
@@ -72,7 +72,9 @@ const DataGridCellComponent: ForwardRefRenderFunction<HTMLTableCellElement, Prop
 
       const parts = children.split(matchingSequence?.[0] ?? "");
       return parts.map((part, i) => {
-        if (i === parts.length - 1) return <Fragment key={`${part}-${i}`}>{part}</Fragment>;
+        if (i === parts.length - 1) {
+          return <Fragment key={`${part}-${i}`}>{part}</Fragment>;
+        }
 
         return (
           <Fragment key={`${part}-${i}`}>

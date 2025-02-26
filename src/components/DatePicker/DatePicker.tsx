@@ -26,6 +26,7 @@ import {
 import classes from "./DatePicker.module.scss";
 import * as locales from "date-fns/locale";
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export interface Props extends ComponentPropsWithoutRef<any> {
   onSelect: (date: Date | DateRange | undefined) => void;
   mode: "single" | "range";
@@ -39,7 +40,7 @@ export interface Props extends ComponentPropsWithoutRef<any> {
 
 export const DatePicker = ({ onSelect, value, required, mode, locale, ...rest }: Props) => {
   const [dayPickerLocale, setDayPickerLocale] = useState<Locale>(locales.enGB);
-  //we have to specify the endMonth value. Otherwise the date range picker doesn't let us to navigate between years
+  //we have to specify the endMonth value. Otherwise, the date range picker doesn't let us navigate between years
   const endMonth = new Date(3000, 12);
 
   useEffect(() => {

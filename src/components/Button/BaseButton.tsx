@@ -31,10 +31,11 @@ const BaseButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = 
 ) => {
   const validTypes = ["submit", "button", "reset"];
   const isDisabled = disabled ?? loading;
-  if (!validTypes.includes(type))
+  if (!validTypes.includes(type)) {
     throw new Error(
       `You have entered an invalid button type. Expected 'submit', 'button' or 'reset' got ${type}`
     );
+  }
 
   const buttonClasses = [classes.button];
   loading && buttonClasses.push(classes.loading);

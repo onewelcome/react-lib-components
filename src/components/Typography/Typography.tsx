@@ -49,6 +49,7 @@ type Tags =
   | "ins"
   | "blockquote";
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export interface Props extends ComponentPropsWithRef<any> {
   children: ReactNode;
   variant: Variant;
@@ -57,7 +58,7 @@ export interface Props extends ComponentPropsWithRef<any> {
   align?: "left" | "center" | "right";
 }
 
-const TypographyComponent: ForwardRefRenderFunction<any, Omit<Props, "ref">> = (
+const TypographyComponent: ForwardRefRenderFunction<unknown, Omit<Props, "ref">> = (
   { children, variant, tag, style, spacing, align, className = "", ...rest },
   ref
 ) => {
@@ -93,7 +94,7 @@ const TypographyComponent: ForwardRefRenderFunction<any, Omit<Props, "ref">> = (
     }
   }
 
-  let TagName = tag;
+  const TagName = tag;
 
   return (
     <TagName

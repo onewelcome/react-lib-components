@@ -27,7 +27,7 @@ const MultiOptionComponent: ForwardRefRenderFunction<HTMLLIElement, Props> = (
   { fixed: _fixed, hasFocus, className, ...rest }: Props,
   ref
 ) => {
-  let innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
+  const innerOptionRef = (ref as RefObject<HTMLLIElement>) || createRef<HTMLLIElement>();
 
   const additionalClasses = [];
   className && additionalClasses.push(className);
