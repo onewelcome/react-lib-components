@@ -19,8 +19,7 @@ module.exports = {
     browser: true,
     es2021: true,
     "jest/globals": true,
-    node: true,
-    "cypress/globals": true
+    node: true
   },
   extends: [
     "@onewelcome/eslint-config-shared-codestyle",
@@ -37,7 +36,7 @@ module.exports = {
     sourceType: "module",
     project: ["tsconfig.json"]
   },
-  plugins: ["react", "@typescript-eslint", "jest", "cypress", "react-hooks", "license-header"],
+  plugins: ["react", "@typescript-eslint", "jest", "react-hooks", "license-header"],
   ignorePatterns: [
     "dist/",
     "stories/types.d.ts",
