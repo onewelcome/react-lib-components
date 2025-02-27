@@ -61,7 +61,7 @@ const renderLeftNav = (params?: Partial<Props>) => {
       <LeftNav
         isSideMenuOpen={true}
         items={items}
-        data-testid={"left-nav"}
+        data-testid="left-nav"
         navigate={mockNavigate}
         onItemClick={mockOnItemClick}
         {...params}

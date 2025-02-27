@@ -44,7 +44,7 @@ const renderLeftNavItem = (params?: Partial<LeftNavItemProps>) => {
     return (
       <LeftNavItem
         item={item}
-        data-testid={"left-nav-item"}
+        data-testid="left-nav-item"
         navigate={mockNavigate}
         onItemClick={mockOnItemClick}
         refItems={{

@@ -70,7 +70,6 @@ const items: MenuItem[] = [
     key: "menu2",
     title: "Menu Item 2",
     path: "/configuration/menu2",
-    disabled: true,
     iconComponent: <Icon icon={Icons.Trash} />
   },
   {
@@ -92,42 +91,27 @@ const items: MenuItem[] = [
       {
         key: "menu3.3",
         title: "Sub Menu Item 3.3",
-        path: "/configuration/menu33",
-        items: [
-          {
-            key: "menu3.3.1",
-            title: "Sub Menu Item 3.3.1 multi line",
-            path: "/configuration/menu331"
-          },
-          {
-            key: "menu3.3.2",
-            title: "Sub Menu Item 3.3.2",
-            path: "/configuration/menu332"
-          }
-        ]
+        path: "/configuration/menu33"
       },
       {
         key: "menu3.4",
         title: "Sub Menu Item 3.4",
-        path: "/configuration/menu34",
-        disabled: true,
-        items: [
-          {
-            key: "menu3.4.1",
-            title: "Sub Menu Item 3.4.1 multi line",
-            path: "/configuration/menu341"
-          },
-          {
-            key: "menu3.4.2",
-            title: "Sub Menu Item 3.4.2",
-            path: "/configuration/menu342"
-          }
-        ]
+        path: "/configuration/menu34"
       }
     ]
   },
-  { key: "menu4", title: "Menu Item 4", path: "/configuration/menu4" },
-  { key: "menu5", title: "Menu Item 5", path: "/configuration/menu5" }
+  {
+    key: "menu4",
+    title: "Menu Item 4",
+    path: "/configuration/menu4",
+    iconComponent: <Icon icon={Icons.SaveOutline} />
+  },
+  {
+    key: "menu5",
+    title: "Menu Item 5",
+    path: "/configuration/menu5",
+    iconComponent: <Icon icon={Icons.Warning} />
+  }
 ];
 
 const extractRoutes = (menuItems: MenuItem[]): MenuItem[] => {
@@ -326,9 +310,14 @@ const Template: StoryFn<Props> = args => {
 export const BasicLeftNav = Template.bind({});
 BasicLeftNav.args = {
   items: [
-    { key: "home", title: "Home", path: "/" },
-    { key: "about", title: "About", path: "/about" },
-    { key: "setting", title: "Settings", path: "/settings" }
+    { key: "home", title: "Home", path: "/", iconComponent: <Icon icon={Icons.MinusCircle} /> },
+    { key: "about", title: "About", path: "/about", iconComponent: <Icon icon={Icons.InfoBell} /> },
+    {
+      key: "setting",
+      title: "Settings",
+      path: "/settings",
+      iconComponent: <Icon icon={Icons.SaveOutline} />
+    }
   ]
 } as Props;
 BasicLeftNav.storyName = "Basic LeftNav";
@@ -336,13 +325,13 @@ BasicLeftNav.storyName = "Basic LeftNav";
 export const NestedItemsLeftNav = Template.bind({});
 NestedItemsLeftNav.args = {
   items: [
-    { key: "home", title: "Home", path: "/" },
-    { key: "about", title: "About", path: "/about" },
+    { key: "home", title: "Home", path: "/", iconComponent: <Icon icon={Icons.MinusCircle} /> },
+    { key: "about", title: "About", path: "/about", iconComponent: <Icon icon={Icons.InfoBell} /> },
     {
       key: "setting",
       title: "Settings",
       path: "/settings",
-      iconComponent: <Icon icon={Icons.UploadOutline} />,
+      iconComponent: <Icon icon={Icons.SaveOutline} />,
       items: [
         { key: "profile", title: "Profile", path: "/settings/profile" },
         { key: "security", title: "Security", path: "/settings/security" }
@@ -351,22 +340,5 @@ NestedItemsLeftNav.args = {
   ]
 } as Props;
 NestedItemsLeftNav.storyName = "Nested LeftNav items";
-
-export const DisabledItemsLeftNav = Template.bind({});
-DisabledItemsLeftNav.args = {
-  items: [
-    { key: "home", title: "Home", path: "/", disabled: true },
-    {
-      key: "setting",
-      title: "Settings",
-      path: "/settings",
-      items: [
-        { key: "profile", title: "Profile", path: "/settings/profile", disabled: true },
-        { key: "security", title: "Security", path: "/settings/security" }
-      ]
-    }
-  ]
-} as Props;
-DisabledItemsLeftNav.storyName = "Disabled LeftNav items";
 
 export default meta;

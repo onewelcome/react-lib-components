@@ -49,7 +49,8 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
   const { onKeyPressNavigation } = useKeyboardNavigation({ refItems, item, closeParentList });
 
   const onButtonClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
-    if ((event.target as Element).nodeName === "A" && item.path && !item.disabled) {
+    const aTagElement = (event.target as Element).nodeName === "A";
+    if (aTagElement && item.path && !item.disabled) {
       event.preventDefault();
       navigate(item.path);
       onItemClick(item.path, true);

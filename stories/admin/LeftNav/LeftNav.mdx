@@ -7,7 +7,7 @@ import * as LeftNavStories from "./LeftNav.stories.tsx";
 
 # **!EXPERIMENTAL COMPONENT! – API may change without warning!**
 
-The `<LeftNav />` component is a vertical navigation menu designed for sidebars. It supports nested menu items, disabled elements, and custom icons.
+The `<LeftNav />` component is a vertical navigation menu designed for sidebars. It supports nested menu items and custom icons.
 
 ## Features
 
@@ -45,8 +45,6 @@ That means you, as a developer, are responsible for setting the proper state of 
 Tracking the active item is done by setting an `active` flag on the active item.
 However, the component properly styles parent elements of the active subitem, and only the item that corresponds to the active page should have the `active` flag set to `true`.
 
-The same applies to the `disabled` flag. If the parent element has it set, all its children will be disabled as well.
-
 The `<LeftNav />` requires `react-router`. The edge links are rendered using `react-router`'s `<Link />` component.
 
 The `<LeftNav />` calls two callback methods on different conditions:
@@ -67,10 +65,6 @@ A basic example of using the `<LeftNav />` component:
 An example with nested items:
 
 <Canvas of={LeftNavStories.NestedItemsLeftNav} />
-
-An example with disabled items:
-
-<Canvas of={LeftNavStories.DisabledItemsLeftNav} />
 
 Advance example with `react-router` and collapsing menu for mobile view:
 
@@ -98,7 +92,6 @@ const items: MenuItem[] = [
     key: "menu2",
     title: "Menu Item 2",
     path: "/configuration/menu2",
-    disabled: true,
     iconComponent: <Icon icon={Icons.Trash} />
   },
   {
@@ -120,42 +113,27 @@ const items: MenuItem[] = [
       {
         key: "menu3.3",
         title: "Sub Menu Item 3.3",
-        path: "/configuration/menu33",
-        items: [
-          {
-            key: "menu3.3.1",
-            title: "Sub Menu Item 3.3.1 multi line",
-            path: "/configuration/menu331"
-          },
-          {
-            key: "menu3.3.2",
-            title: "Sub Menu Item 3.3.2",
-            path: "/configuration/menu332"
-          }
-        ]
+        path: "/configuration/menu33"
       },
       {
         key: "menu3.4",
         title: "Sub Menu Item 3.4",
-        path: "/configuration/menu34",
-        disabled: true,
-        items: [
-          {
-            key: "menu3.4.1",
-            title: "Sub Menu Item 3.4.1 multi line",
-            path: "/configuration/menu341"
-          },
-          {
-            key: "menu3.4.2",
-            title: "Sub Menu Item 3.4.2",
-            path: "/configuration/menu342"
-          }
-        ]
+        path: "/configuration/menu34"
       }
     ]
   },
-  { key: "menu4", title: "Menu Item 4", path: "/configuration/menu4" },
-  { key: "menu5", title: "Menu Item 5", path: "/configuration/menu5" }
+  {
+    key: "menu4",
+    title: "Menu Item 4",
+    path: "/configuration/menu4",
+    iconComponent: <Icon icon={Icons.SaveOutline} />
+  },
+  {
+    key: "menu5",
+    title: "Menu Item 5",
+    path: "/configuration/menu5",
+    iconComponent: <Icon icon={Icons.Warning} />
+  }
 ];
 
 const extractRoutes = (menuItems: MenuItem[]): MenuItem[] => {

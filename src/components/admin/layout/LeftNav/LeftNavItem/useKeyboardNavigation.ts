@@ -26,7 +26,7 @@ interface Props {
 
 export const useKeyboardNavigation = ({ refItems, item, closeParentList }: Props) => {
   const onKeyPressNavigation = (e: KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>) => {
-    if (e.code === "Escape" || e.code === "ArrowLeft") {
+    if (e.code === "Escape") {
       e.preventDefault();
       e.stopPropagation();
       closeParentList?.();
@@ -52,7 +52,7 @@ export const useKeyboardNavigation = ({ refItems, item, closeParentList }: Props
       e.stopPropagation();
       refItems.getLastElementOnSameLevel(item.key)?.focus();
     }
-    if (e.code === "Space" || e.code === "ArrowRight" || e.code === "Enter") {
+    if (e.code === "Space" || e.code === "Enter") {
       e.stopPropagation();
       e.preventDefault();
       e.currentTarget.click();

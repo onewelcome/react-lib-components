@@ -20,6 +20,9 @@ export interface MenuItem {
   key: string;
   path?: string;
   active?: boolean;
+  /**
+   * @deprecated it can be removed in next release
+   */
   disabled?: boolean;
   title: string;
   iconComponent?: ReactElement;
