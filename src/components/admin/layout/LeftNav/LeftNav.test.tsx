@@ -195,9 +195,7 @@ describe("<LeftNav />", () => {
         }
         case "escape":
         case "arrowdown":
-        case "arrowup":
-        case "arrowright":
-        case "arrowleft": {
+        case "arrowup": {
           return userEvent.keyboard(`{${actionKey}}`);
         }
         default:
@@ -206,9 +204,8 @@ describe("<LeftNav />", () => {
     };
 
     test.each([
-      ["arrowdown", "arrowup", "arrowright", "arrowleft"],
-      ["arrowdown", "arrowup", "space", "escape"],
-      ["arrowdown", "arrowup", "enter", "arrowleft"]
+      ["arrowdown", "arrowup", "enter", "escape"],
+      ["arrowdown", "arrowup", "space", "escape"]
     ])(
       "should allow to traverse and interact with menu items via %s, and %s, and %s and %s keys",
       async (moveNextKey: string, movePrevKey: string, moveInKey: string, moveOutKey: string) => {
@@ -233,7 +230,7 @@ describe("<LeftNav />", () => {
         await doKeyboardAction(moveInKey);
         //then
         expect(getByRole("link", { name: "Sub Menu Item 3.1" })).toHaveFocus();
-        expect(mockOnItemClick).toHaveBeenCalledTimes(0);
+        expect(mockOnItemClick).toHaveBeenCalledTimes(1);
         //when
         await doKeyboardAction(moveNextKey);
         //then

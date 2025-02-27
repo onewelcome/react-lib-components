@@ -108,6 +108,11 @@
     display: flex;
   }
 
+  .menu-item-expand-icon {
+    padding: 0.375rem;
+    margin: -0.375rem;
+  }
+
   & &-icon {
     display: flex;
     align-items: center;

@@ -40,6 +40,8 @@ export interface Props extends HTMLProps<HTMLElement> {
   closeParentList?: () => void;
 }
 
+const chevronIconDataKey = { attributeKey: "chevron-icon", objectKey: "chevronIcon" };
+
 const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
   { item, navigate, onItemClick, refItems, NestedComponent, closeParentList },
   ref
@@ -49,14 +51,16 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
   const { onKeyPressNavigation } = useKeyboardNavigation({ refItems, item, closeParentList });
 
   const onButtonClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
-    const aTagElement = (event.target as Element).nodeName === "A";
-    if (aTagElement && item.path && !item.disabled) {
+    const isChevronIcon = !!(event.target as HTMLElement).dataset[chevronIconDataKey.objectKey];
+    if (!isChevronIcon && item.path && !item.disabled) {
       event.preventDefault();
       navigate(item.path);
       onItemClick(item.path, true);
-    } else {
-      setExpanded(!expanded);
     }
+  };
+
+  const onExpandIconClickHandler = () => {
+    setExpanded(expanded => !expanded);
   };
 
   const openParentWithActiveElement = () => {
@@ -114,7 +118,12 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
             <span className={classes["menu-item-text"]}>{item.title}</span>
           )}
         </div>
-        <Icon className={classes["menu-item-expand-icon"]} icon={Icons.ChevronDown} />
+        <Icon
+          onClick={onExpandIconClickHandler}
+          className={classes["menu-item-expand-icon"]}
+          icon={Icons.ChevronDown}
+          {...{ [`data-${chevronIconDataKey.attributeKey}`]: "true" }}
+        />
       </button>
       <ul
         id={item.key}
