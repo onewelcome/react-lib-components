@@ -1,7 +1,7 @@
 import React from "react";
 import { FILE_ACTION, FileItem, Props } from "./FileItem";
 import { render } from "@testing-library/react";
-import user from "@testing-library/user-event";
+import user, { userEvent } from "@testing-library/user-event";
 
 const defaultParams: Props = {
   name: "Test.txt"
@@ -130,6 +130,23 @@ describe("<FileItem />", () => {
       expect(actionIcons[0]).toHaveAttribute("title", FILE_ACTION.DELETE);
       expect(actionIcons[1]).toHaveClass("icon-download-file-outline");
       expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.DOWNLOAD);
+    });
+
+    it("should show Download option and fire a custom callback", async () => {
+      const onDownloadFile = jest.fn();
+      const { actionIcons, title, errorIcon, getByText } = createFileItem(defaultParams => ({
+        ...defaultParams,
+        status: "completed",
+        downloadFileLink: "https://test.com/download",
+        onDownloadFile
+      }));
+
+      expect(actionIcons[1]).toHaveClass("icon-download-file-outline");
+      expect(actionIcons[1]).toHaveAttribute("title", FILE_ACTION.DOWNLOAD);
+
+      await userEvent.click(getByText("download"));
+
+      expect(onDownloadFile).toHaveBeenCalled();
     });
 
     it("should not display Download action for successfully uploaded file when download link not available", () => {
