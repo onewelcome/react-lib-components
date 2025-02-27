@@ -138,6 +138,7 @@
 
     .stepper-line {
       background-color: var(--stepper-line-color);
+
       min-height: auto;
       height: 2px;
       width: 100%;
@@ -148,6 +149,7 @@
 
     .label {
       margin-top: 0.25rem;
+      position: relative;
     }
 
     &.text-bottom {
@@ -205,10 +207,10 @@
 
     .stepper-line-extender {
       display: block;
+      opacity: 0;
       flex: 1;
-      margin-left: 0.4375rem;
+      margin-left: 0;
       margin-right: -1rem;
-      margin-top: relativeToBaseFontSize(0.5625);
     }
   }
 
@@ -295,6 +297,11 @@
 
 .caption {
   display: block;
+
+  // this is to extract the caption from the flow not to take step's space, so that the line reached the actual step button
+  position: absolute;
+  width: 150%;
+
   color: var(--stepper-caption-color);
   font-family: var(--font-family);
   font-size: var(--font-size-sub);
