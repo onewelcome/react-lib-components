@@ -20,7 +20,7 @@ import userEvent from "@testing-library/user-event";
 import { IdentityProviderButton } from "./IdentityProviderButton";
 import { Props } from "./IdentityProviderButton";
 
-const UI_RESOURCES_COMMON_ICONS_PREFIX_URL = "/ui-resources-static/common/icons";
+const UI_RESOURCES_COMMON_ICONS_PREFIX_URL = "/ui-resources-static/common/idb/icons";
 
 const defaultParams: Props = { idpType: "SAML" };
 
