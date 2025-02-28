@@ -23,7 +23,7 @@ module.exports = {
   moduleNameMapper: {
     "^.+\\.(css|scss)$": "identity-obj-proxy"
   },
-  modulePathIgnorePatterns: ["/cypress", ".yalc"],
+  modulePathIgnorePatterns: [".yalc"],
   testResultsProcessor: "jest-sonar-reporter",
   resetMocks: true,
   testEnvironment: "jest-environment-jsdom",

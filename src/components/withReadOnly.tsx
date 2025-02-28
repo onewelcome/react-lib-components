@@ -30,7 +30,7 @@ const getDisplayName = <P,>(WrappedComponent: ComponentType<P>) => {
 };
 
 const getConditionalProps = (readOnlyView: boolean, type: string, helperText?: string) => {
-  const props: Record<string, any> = {};
+  const props: Record<string, unknown> = {};
 
   if (readOnlyView) {
     props.style = { pointerEvents: "none", userSelect: "text" };
@@ -64,7 +64,7 @@ export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P
         WrappedComponent.displayName || WrappedComponent.name
       )
     ) {
-      const props: Record<string, any> = {};
+      const props: Record<string, unknown> = {};
 
       props.onKeyUp = (e: KeyboardEvent) => {
         preventSubmissionKeys(e);
@@ -81,7 +81,7 @@ export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P
   };
 
   const WithReadOnlyComponent = React.forwardRef(
-    (props: PropsWithChildren<P & WithReadOnlyProps>, ref: ForwardedRef<any>) => {
+    (props: PropsWithChildren<P & WithReadOnlyProps>, ref: ForwardedRef<unknown>) => {
       const {
         readOnlyView = false,
         required,

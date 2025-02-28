@@ -14,11 +14,13 @@
  *    limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 type KeyValuePair = { [key: string]: unknown };
 
 export const generateID = (length = 15, stringToWeaveIn?: string) => {
   /** We will make sure to mesh the generate id and name property together to basically create a unique ID */
-  let hashCharacters = [
+  const hashCharacters = [
     "1",
     "2",
     "3",
@@ -87,7 +89,7 @@ export const generateID = (length = 15, stringToWeaveIn?: string) => {
 
   /** Generate an id of x characters in length */
   for (let i = 0; i < length && id.length < length; i++) {
-    let stringCharacter =
+    const stringCharacter =
       typeof stringToWeaveIn === "string" &&
       stringToWeaveIn?.[i] !== undefined &&
       !/\s/.test(stringToWeaveIn[i])
@@ -137,7 +139,7 @@ export const throttle = (fn: (...args: unknown[]) => unknown, delay: number) => 
   let lastTime = 0;
 
   return function () {
-    let now = Date.now();
+    const now = Date.now();
 
     if (now - lastTime >= delay) {
       fn();
@@ -146,7 +148,7 @@ export const throttle = (fn: (...args: unknown[]) => unknown, delay: number) => 
   };
 };
 
-export const isEqual = (x: any, y: any): boolean => {
+const isEqual = (x: any, y: any): boolean => {
   const typesCoincide = x && y && typeof x === "object" && typeof y === "object";
   return typesCoincide
     ? Object.keys(x).length === Object.keys(y).length &&
@@ -189,12 +191,14 @@ export const isJsonString = (str: any) => {
 
 type ObjectType = { [key: string]: any };
 
-export const deepMerge = <T extends {}>(obj1: ObjectType, obj2: ObjectType | false): T => {
-  if (!obj2) return obj1 as T;
+export const deepMerge = <T extends object>(obj1: ObjectType, obj2: ObjectType | false): T => {
+  if (!obj2) {
+    return obj1 as T;
+  }
 
-  let result: ObjectType = { ...obj1 };
+  const result: ObjectType = { ...obj1 };
 
-  for (let key in obj2) {
+  for (const key in obj2) {
     if (Object.prototype.hasOwnProperty.call(obj2, key)) {
       if (
         typeof obj2[key] === "object" &&

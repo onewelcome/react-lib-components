@@ -230,7 +230,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   };
 
   const restPropsWithoutPointerEvents = () => {
-    let props = rest;
+    const props = rest;
     delete rest?.style?.pointerEvents;
     return props;
   };

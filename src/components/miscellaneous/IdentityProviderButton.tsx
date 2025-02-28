@@ -33,6 +33,7 @@ export interface Props extends Omit<ComponentPropsWithRef<"button">, "color"> {
   imgAltText?: string;
   idpType: string;
   customization?: SupportedCustomizationKeys;
+  loading?: boolean;
 }
 
 export const IdentityProviderButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = ({
@@ -41,6 +42,7 @@ export const IdentityProviderButton: ForwardRefRenderFunction<HTMLButtonElement,
   imgAltText,
   idpType,
   customization,
+  loading,
   ...rest
 }) => {
   const DEFAULT_BACKGROUND_COLOR = "#FFFFFF";
@@ -70,13 +72,14 @@ export const IdentityProviderButton: ForwardRefRenderFunction<HTMLButtonElement,
       color="primary"
       variant="fill"
       className={classes["idp-button"]}
+      loading={loading}
       {...rest}
     >
       <span className={classes["idp-button--with-icon"]}>
         <img
           height={24}
           width={24}
-          src={iconUrl || `/ui-resources-static/common/icons/${idpType}.svg`}
+          src={iconUrl || `/ui-resources-static/common/idb/icons/${idpType}.svg`}
           alt={imgAltText || "Identity Provider icon"}
         />
         {children}
