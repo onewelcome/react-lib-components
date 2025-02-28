@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 @use "../../../mixins.module.scss";
-@import "../../../functions";
+@use "src/functions" as *;
 
 .checkbox-wrapper {
   position: relative;

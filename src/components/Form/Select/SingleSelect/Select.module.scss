@@ -16,7 +16,7 @@
 
 @use "src/mixins.module";
 @use "src/variables";
-@import "src/functions";
+@use "src/functions" as *;
 
 $listItemHeight: 2.5rem;
 

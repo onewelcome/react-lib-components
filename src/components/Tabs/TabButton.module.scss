@@ -15,7 +15,7 @@
  */
 
 @use "../../mixins.module.scss";
-@import "../../functions";
+@use "src/functions" as *;
 
 .tabbutton {
   color: var(--tab-text-color);

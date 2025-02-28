@@ -15,7 +15,7 @@
  */
 
 @use "../../../mixins.module.scss";
-@import "../../../functions";
+@use "src/functions" as *;
 
 .filter-wrapper {
   display: flex;

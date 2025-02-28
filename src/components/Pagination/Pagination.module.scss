@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@import "../../functions";
+@use "src/functions" as *;
 
 .pagination-wrapper {
   font-family: var(--font-family);

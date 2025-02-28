@@ -15,7 +15,7 @@
  */
 
 @use "../../../mixins.module.scss";
-@import "src/functions";
+@use "src/functions" as *;
 
 .slide-in-modal {
   right: 0;

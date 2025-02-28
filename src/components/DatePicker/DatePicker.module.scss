@@ -22,7 +22,6 @@
 
 @use "../../variables.scss";
 @use "src/mixins.module";
-@import "../../functions";
 
 .rdp-root {
   --rdp-day-height: calc(2 * var(--font-size));
@@ -70,7 +69,7 @@
 .rdp-root {
   position: relative;
   box-sizing: border-box;
-  @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, 1.33);
+  @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, var(--font-size));
 }
 
 .rdp-root * {
