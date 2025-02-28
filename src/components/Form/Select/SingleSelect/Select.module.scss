@@ -16,6 +16,7 @@
 
 @use "src/mixins.module";
 @use "src/variables";
+@import "src/functions";
 
 $listItemHeight: 2.5rem;
 
@@ -59,7 +60,7 @@ $listItemHeight: 2.5rem;
   .custom-select {
     position: relative;
     width: 100%;
-    min-height: calc(2.875rem - (2 * var(--input-border-width)));
+    min-height: calc(relativeToBaseFontSize(2.875) - (2 * var(--input-border-width)));
     padding: 0 calc(variables.$form-element-horizontal-padding-mobile - var(--input-border-width));
     background-color: transparent;
     border-color: var(--color-blue-grey500);

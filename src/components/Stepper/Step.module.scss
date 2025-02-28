@@ -149,7 +149,6 @@
 
     .label {
       margin-top: 0.25rem;
-      position: relative;
     }
 
     &.text-bottom {
@@ -172,7 +171,6 @@
       .stepper-line {
         margin-right: relativeToBaseFontSize(-1.125);
         margin-left: relativeToBaseFontSize(-1.125);
-        width: calc(100% + relativeToBaseFontSize(2.25));
       }
 
       .label-inner-wrapper {
@@ -297,11 +295,6 @@
 
 .caption {
   display: block;
-
-  // this is to extract the caption from the flow not to take step's space, so that the line reached the actual step button
-  position: absolute;
-  width: 150%;
-
   color: var(--stepper-caption-color);
   font-family: var(--font-family);
   font-size: var(--font-size-sub);

@@ -15,6 +15,7 @@
  */
 
 @use "../../../mixins.module.scss";
+@import "src/functions";
 
 .slide-in-modal {
   right: 0;
@@ -48,7 +49,7 @@
 .handle {
   position: absolute;
   top: 13.25rem;
-  left: -1.5rem;
+  left: relativeToBaseFontSize(-1.5);
 
   display: flex;
   align-items: center;
