@@ -15,7 +15,7 @@
  */
 @use "src/mixins.module";
 @use "src/variables";
-@use "src/functions";
+@import "src/functions";
 
 ul.has-sibling {
   padding-bottom: 2px;
