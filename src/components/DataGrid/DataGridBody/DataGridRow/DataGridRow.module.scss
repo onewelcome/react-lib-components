@@ -14,6 +14,7 @@
  *    limitations under the License.
  */
 @use "../../dataGridMixins.module";
+@use "src/functions" as *;
 
 $nesting-limit: 6;
 
@@ -67,7 +68,7 @@ $nesting-limit: 6;
   top: 0;
   left: 0;
   width: 2.875rem;
-  height: 3.25rem;
+  height: relativeToBaseFontSize(3.25);
 
   @include offset-left();
 
@@ -87,7 +88,7 @@ $nesting-limit: 6;
       position: absolute;
       content: "";
       left: 50%;
-      height: 3.25rem;
+      height: relativeToBaseFontSize(3.25);
       width: 0.0625rem;
       background-color: var(--color-blue-grey200);
     }

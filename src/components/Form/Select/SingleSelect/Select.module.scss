@@ -16,6 +16,7 @@
 
 @use "src/mixins.module";
 @use "src/variables";
+@use "src/functions" as *;
 
 $listItemHeight: 2.5rem;
 
@@ -59,7 +60,7 @@ $listItemHeight: 2.5rem;
   .custom-select {
     position: relative;
     width: 100%;
-    min-height: calc(2.875rem - (2 * var(--input-border-width)));
+    min-height: calc(relativeToBaseFontSize(2.875) - (2 * var(--input-border-width)));
     padding: 0 calc(variables.$form-element-horizontal-padding-mobile - var(--input-border-width));
     background-color: transparent;
     border-color: var(--color-blue-grey500);
@@ -123,7 +124,7 @@ $listItemHeight: 2.5rem;
       font-size: var(--form-control-font-size);
       margin: 0;
       position: relative;
-      line-height: 1.25rem;
+      line-height: 1.43;
       box-sizing: border-box;
       min-height: $listItemHeight;
       cursor: pointer;
@@ -228,17 +229,17 @@ $listItemHeight: 2.5rem;
 
   [data-icon-status="success"] {
     color: var(--success);
-    font-size: 1.25rem;
+    font-size: var(--font-size-big);
   }
 
   [data-icon-status="error"] {
     color: var(--error);
-    font-size: 1.25rem;
+    font-size: var(--font-size-big);
   }
 
   .chevron-icon {
     color: var(--default);
-    font-size: 0.625rem;
+    font-size: var(--font-size-small);
   }
 
   * + * {

@@ -14,6 +14,8 @@
  *    limitations under the License.
  */
 
+@use "src/functions" as *;
+
 .radio-wrapper {
   position: relative;
 
@@ -38,7 +40,7 @@
 
 .error-icon {
   margin-right: 0.5rem;
-  font-size: 1.25rem;
+  font-size: var(--font-size-big);
 }
 
 .radio-container {
@@ -46,7 +48,7 @@
 
   label {
     display: inline-block;
-    margin-left: 0.5rem;
+    margin-left: relativeToBaseFontSize(0.5);
     user-select: none;
     font-size: var(--font-size-form-label);
     font-family: var(--font-family);
@@ -64,14 +66,14 @@
   left: 0;
   opacity: 0;
   margin: 0;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: var(--font-size-big);
+  height: var(--font-size-big);
   z-index: 2;
 
   & + span[data-icon="true"]:before {
     display: block;
-    width: 20px;
-    height: 20px;
+    width: var(--font-size-big);
+    height: var(--font-size-big);
   }
 
   &:checked + * {
@@ -124,9 +126,9 @@
 }
 
 .input {
-  font-size: 1.25rem;
-  width: 1.25rem;
-  height: 1.25rem;
+  font-size: var(--font-size-big);
+  width: var(--font-size-big);
+  height: var(--font-size-big);
   z-index: 1;
   border-radius: 100%;
 

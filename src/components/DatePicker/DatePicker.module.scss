@@ -24,8 +24,8 @@
 @use "src/mixins.module";
 
 .rdp-root {
-  --rdp-day-height: 2rem;
-  --rdp-day-width: 2rem;
+  --rdp-day-height: calc(2 * var(--font-size));
+  --rdp-day-width: calc(2 * var(--font-size));
 
   --rdp-disabled-opacity: 0.5;
   --rdp-outside-opacity: 0.75;
@@ -34,8 +34,8 @@
   --rdp-months-gap: 2rem;
 
   --rdp-nav_button-disabled-opacity: 0.5;
-  --rdp-nav_button-height: 0.75rem;
-  --rdp-nav_button-width: 0.75rem;
+  --rdp-nav_button-height: var(--font-size-sub);
+  --rdp-nav_button-width: var(--font-size-sub);
   --rdp-nav-height: 2.75rem;
 
   --rdp-range_middle-background-color: var(--color-blue-grey100);
@@ -69,7 +69,7 @@
 .rdp-root {
   position: relative;
   box-sizing: border-box;
-  @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, 1rem);
+  @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, var(--font-size));
 }
 
 .rdp-root * {
@@ -116,6 +116,10 @@
 
   white-space: nowrap;
   border: 0;
+
+  svg {
+    transform: scale(var(--font-size));
+  }
 }
 
 .rdp-button_next,
@@ -244,7 +248,7 @@
 .rdp-weekday {
   padding: var(--rdp-weekday-padding);
   text-align: var(--rdp-weekday-text-align);
-  font-size: 0.625rem;
+  font-size: var(--font-size-small);
   color: var(--color-blue-grey400);
   height: var(--rdp-day-height);
   width: var(--rdp-day-width);
