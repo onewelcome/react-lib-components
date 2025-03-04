@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@import "../../../mixins.module.scss";
+@use "../../../mixins.module.scss" as *;
 
 .file-upload-wrapper {
   display: flex;
