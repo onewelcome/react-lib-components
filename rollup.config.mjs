@@ -21,6 +21,7 @@ import postcss from "rollup-plugin-postcss";
 import postcssUrl from "postcss-url";
 import terser from "@rollup/plugin-terser";
 import path from "path";
+import sass from "sass";
 
 const packageJson = require("./package.json");
 
@@ -39,6 +40,15 @@ const baseConfig = {
     resolve(),
     commonjs(),
     postcss({
+      use: [
+        [
+          "sass",
+          {
+            implementation: sass,
+            silenceDeprecations: ["legacy-js-api"] // TODO remove this silencer with fix of UCL-585
+          }
+        ]
+      ],
       modules: {
         generateScopedName: (name, filename) => {
           const filenameWithoutExt = path.basename(filename).split(".")[0];
