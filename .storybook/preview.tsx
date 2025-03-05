@@ -45,3 +45,4 @@ const Preview = story => {
 };
 
 export const decorators = [story => Preview(story)];
+export const tags = ["autodocs"];

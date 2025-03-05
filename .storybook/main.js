@@ -77,9 +77,7 @@ module.exports = {
     reactDocgen: "react-docgen-typescript"
   },
   staticDirs: ["../public"],
-  docs: {
-    autodocs: true
-  },
+  docs: {},
   framework: {
     name: "@storybook/react-webpack5",
     options: {}
