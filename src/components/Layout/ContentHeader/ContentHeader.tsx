@@ -64,13 +64,15 @@ export const ContentHeaderComponent = ({
     </Tag>
   );
 
+  const getTags = () => tags ?? [];
+
   const renderTags = useMemo(() => {
     if (error && collapsed) {
-      return [errorTag, ...(tags ?? []).filter(tag => tag.props.variant !== "enabled")];
+      return [errorTag, ...getTags().filter(tag => tag.props.variant !== "enabled")];
     } else if (error) {
-      return (tags ?? []).filter(tag => tag.props.variant !== "enabled");
+      return getTags().filter(tag => tag.props.variant !== "enabled");
     }
-    return tags ?? [];
+    return getTags();
   }, [tags, error, collapsed]);
 
   return (
