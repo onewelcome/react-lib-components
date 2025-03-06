@@ -14,17 +14,35 @@
  *    limitations under the License.
  */
 
-import React, { HTMLAttributes, ReactElement } from "react";
+import React, { HTMLAttributes, ReactElement, useMemo } from "react";
 import { Button, Props as ButtonProps } from "../../Button/Button";
 import { Typography } from "../../Typography/Typography";
 
 import classes from "./ContentHeader.module.scss";
+import { IconButton } from "../../Button/IconButton";
+import { Icon, Icons } from "../../Icon/Icon";
+import { NavigateFunction } from "react-router-dom";
+import { Tag, Props as TagProps } from "../../Tag/Tag";
+import { TextEllipsis } from "../../TextEllipsis/TextEllipsis";
+
+export interface ContentHeaderNavigationProps {
+  displayText?: string;
+  navigateFN: NavigateFunction;
+}
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
+  /**
+   * @deprecated pass text as children
+   */
   subtitle?: string;
   buttons?: ReactElement<ButtonProps, typeof Button> | ReactElement<ButtonProps, typeof Button>[];
   collapsed?: boolean;
+  navigation?: ContentHeaderNavigationProps;
+  tags?: ReactElement<TagProps, typeof Tag>[];
+  error?: boolean;
+  errorMessage?: string;
+  errorTagText?: string;
 }
 
 export const ContentHeaderComponent = ({
@@ -33,8 +51,30 @@ export const ContentHeaderComponent = ({
   buttons,
   collapsed,
   subtitle,
+  navigation,
+  tags,
+  error,
+  errorMessage,
+  errorTagText,
   ...rest
 }: Props) => {
+  const errorTag = (
+    <Tag icon={Icons.Forbidden} backgroundColor="var(--color-red50)" color="var(--color-red900)">
+      {errorTagText || "Blocked"}
+    </Tag>
+  );
+
+  const getTags = () => tags ?? [];
+
+  const renderTags = useMemo(() => {
+    if (error && collapsed) {
+      return [errorTag, ...getTags().filter(tag => tag.props.variant !== "enabled")];
+    } else if (error) {
+      return getTags().filter(tag => tag.props.variant !== "enabled");
+    }
+    return getTags();
+  }, [tags, error, collapsed]);
+
   return (
     <div className={classes["header-background-color"]}>
       <div
@@ -42,23 +82,59 @@ export const ContentHeaderComponent = ({
         {...rest}
       >
         <div>
+          {navigation && !collapsed && (
+            <IconButton
+              onClick={() => {
+                navigation.navigateFN(-1);
+              }}
+              className={classes["back-arrow"]}
+              iconSize="s"
+            >
+              <Icon icon={Icons.ArrowLeft} />
+              <span className={classes["back-text"]}>
+                {navigation.displayText ? navigation.displayText : "Back"}
+              </span>
+            </IconButton>
+          )}
           <Typography className={classes["header-text"]} variant={"h1"}>
-            {title}
+            {navigation && collapsed && (
+              <IconButton
+                onClick={() => {
+                  navigation.navigateFN(-1);
+                }}
+                className={classes["back-arrow"]}
+              >
+                <Icon icon={Icons.ArrowLeft} />
+              </IconButton>
+            )}
+            <TextEllipsis data-testid={"content-header-title"}>{title}</TextEllipsis>
+            <span className={classes["header-tags"]}>
+              {renderTags.map((tag, index) => (
+                <React.Fragment key={tag.key || index}>{tag}</React.Fragment>
+              ))}
+            </span>
           </Typography>
-          {subtitle && (
+          {subtitle && !error && (
             <Typography
               className={`${classes["header-subtitle"]} ${collapsed ? classes["hide-text"] : ""}`}
-              variant={"h4"}
+              variant="h4"
             >
               {subtitle}
             </Typography>
           )}
           <Typography
             className={`${collapsed ? classes["hide-text"] : ""}`}
-            variant={"body"}
+            variant="body"
             spacing={{ margin: 0 }}
           >
-            {children}
+            {error ? (
+              <>
+                {errorTag}
+                <span className={classes["error-text"]}>{errorMessage}</span>
+              </>
+            ) : (
+              children
+            )}
           </Typography>
         </div>
         {buttons && <div className={classes["buttons-wrapper"]}>{buttons}</div>}

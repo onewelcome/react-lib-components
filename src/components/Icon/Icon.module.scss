@@ -373,6 +373,10 @@
   content: "\e94f";
   @include fontProperties();
 }
+.icon-arrow-left:before {
+  content: "\e954";
+  @include fontProperties();
+}
 .icon-external-link:before {
   content: "\e950";
   @include fontProperties();

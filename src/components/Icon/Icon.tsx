@@ -100,6 +100,7 @@ export enum Icons {
   ZoomIn = "zoom-in",
   ZoomOut = "zoom-out",
   ArrowUp = "arrow-up",
+  ArrowLeft = "arrow-left",
   ExternalLink = "external-link",
   SideSheetHandle = "sidesheet-handle",
   PendingCircle = "pending-circle",
