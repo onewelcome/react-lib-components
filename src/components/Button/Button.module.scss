@@ -15,7 +15,7 @@
  */
 
 @use "../../mixins.module.scss";
-@use "src/functions" as *;
+@use "../../functions" as *;
 
 .fill {
   @include mixins.button("fill");

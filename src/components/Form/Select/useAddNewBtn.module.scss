@@ -13,9 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-@use "src/mixins.module";
-@use "src/variables";
-@use "src/functions" as *;
+@use "../../../mixins.module";
+@use "../../../variables";
+@use "../../../functions" as *;
 
 ul.has-sibling {
   padding-bottom: 2px;

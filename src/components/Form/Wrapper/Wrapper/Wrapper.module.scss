@@ -14,8 +14,8 @@
  *    limitations under the License.
  */
 
-@use "src/mixins.module";
-@use "src/variables";
+@use "../../../../mixins.module";
+@use "../../../../variables";
 
 .floating-wrapper {
   position: relative;
