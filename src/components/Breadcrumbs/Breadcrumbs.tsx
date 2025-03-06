@@ -39,7 +39,7 @@ const BreadcrumbsComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const items = React.Children.map(children, (child, index) => {
     const isLastElement = Array.isArray(children) ? index === children.length - 1 : true;
     const isFirstElement = Array.isArray(children) && index === 0;
-    let item = React.cloneElement(child, {
+    const item = React.cloneElement(child, {
       className: classes["breadcrumb-link"],
       ...(isFirstElement
         ? {

@@ -15,7 +15,10 @@
  */
 
 /* Components */
-export { BaseStyling } from "./components/_BaseStyling_/BaseStyling";
+export {
+  BaseStyling,
+  CSSProperties as BaseStylingCSSProperties
+} from "./components/_BaseStyling_/BaseStyling";
 export type { Props as BaseStylingProps } from "./components/_BaseStyling_/BaseStyling";
 export { Button } from "./components/Button/Button";
 export type { Props as ButtonProps } from "./components/Button/Button";
@@ -217,3 +220,9 @@ export type { Props as DatePickerProps } from "./components/DatePicker/DatePicke
 /** Admin */
 export { MicrofrontendContainer } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
 export type { Props as MicrofrontendContainerProps } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
+
+/**
+ * Miscellaneous
+ */
+export { IdentityProviderButton } from "./components/miscellaneous/IdentityProviderButton";
+export type { Props as IdentityProviderButtonProps } from "./components/miscellaneous/IdentityProviderButton";

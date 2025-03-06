@@ -35,7 +35,7 @@ const TabButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
   { children, tabActive, focused, title, fluid, icon, iconPosition, className, ...rest }: Props,
   ref
 ) => {
-  let buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
+  const buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>();
 
   useEffect(() => {
     if (focused && buttonRef.current) {

@@ -22,7 +22,7 @@
   @include transition(all, 0.2s, ease-in-out);
 
   [class*="icon"] {
-    font-size: 1.25rem;
+    font-size: var(--font-size-big);
   }
 
   & .file-list-container {
@@ -41,7 +41,7 @@
         margin-left: 0.5rem;
 
         span {
-          font-size: 0.875rem;
+          font-size: var(--button-font-size);
           text-transform: capitalize;
         }
       }
@@ -59,14 +59,14 @@
         span.action-icon {
           display: flex;
           justify-content: center;
-          width: 1.5rem;
+          width: calc(1.71 * var(--button-font-size));
           margin-right: 0.25rem;
-          font-size: 0.875rem;
+          font-size: var(--button-font-size);
           padding-left: 0;
         }
 
         span {
-          font-size: 0.875rem;
+          font-size: var(--button-font-size);
           text-transform: capitalize;
         }
 
@@ -97,7 +97,7 @@
         }
 
         p {
-          font-size: 0.875rem;
+          font-size: var(--button-font-size);
         }
       }
     }
@@ -116,7 +116,7 @@
     margin: 0;
     display: flex;
     align-items: center;
-    font-size: 0.875rem;
+    font-size: var(--form-control-font-size);
 
     .friendly-name {
       overflow-wrap: anywhere;

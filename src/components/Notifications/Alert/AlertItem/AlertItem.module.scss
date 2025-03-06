@@ -178,7 +178,7 @@
     border: 0;
 
     span {
-      font-size: 0.875rem;
+      font-size: var(--alert-font-size);
     }
 
     &:not(:disabled):hover,
@@ -193,8 +193,8 @@
 
   .icon {
     color: var(--alert-text-color);
-    font-size: 1rem;
-    height: 1.25rem;
+    font-size: var(--font-size);
+    height: var(--font-size-big);
     display: inline-flex;
     align-items: center;
     align-self: flex-start;
@@ -203,8 +203,8 @@
   .title {
     color: var(--alert-text-color);
     flex: 1;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: var(--alert-font-size);
+    line-height: 1.43;
     margin-bottom: 0.25rem;
     display: block;
   }
@@ -222,8 +222,8 @@
 
   .content {
     color: var(--alert-text-color);
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: var(--alert-font-size);
+    line-height: 1.43;
     margin-bottom: 0;
     word-break: break-word;
   }
@@ -238,8 +238,8 @@
     border-style: var(--button-border-style);
     border-radius: var(--button-border-radius);
     white-space: nowrap;
-    font-size: 0.875rem;
-    line-height: var(--button-font-size);
+    font-size: var(--alert-font-size);
+    line-height: 1;
     font-weight: 400;
     margin: -0.5rem 0;
     padding: 0.625rem 1.25rem;

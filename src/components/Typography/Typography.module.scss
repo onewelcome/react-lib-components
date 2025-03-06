@@ -52,7 +52,7 @@
   }
 
   &sub-text {
-    @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, 1rem);
+    @include mixins.fontProperties(var(--font-family), var(--font-size-sub), 400, var(--font-size));
   }
 
   &code {

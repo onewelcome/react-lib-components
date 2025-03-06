@@ -38,7 +38,7 @@
   line-height: 1;
 
   &-icon > [data-icon] {
-    font-size: 1.25rem;
+    font-size: var(--font-size-big);
   }
 }
 

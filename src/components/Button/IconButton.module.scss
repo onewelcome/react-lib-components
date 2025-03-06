@@ -15,6 +15,7 @@
  */
 
 @use "../../mixins.module.scss";
+@use "src/functions" as *;
 
 .icon-button {
   border: var(--button-border-width) var(--button-border-style) transparent;
@@ -32,29 +33,29 @@
 
   /** Sizes **/
   &.button-s {
-    width: 1.875rem;
-    height: 1.875rem;
+    width: relativeToBaseFontSize(1.875);
+    height: relativeToBaseFontSize(1.875);
 
     span {
-      font-size: 0.75rem;
+      font-size: relativeToBaseFontSize(0.75);
     }
   }
 
   &.button-m {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: relativeToBaseFontSize(2.5);
+    height: relativeToBaseFontSize(2.5);
 
     span {
-      font-size: 1rem;
+      font-size: var(--font-size);
     }
   }
 
   &.button-l {
-    width: 3.125rem;
-    height: 3.125rem;
+    width: relativeToBaseFontSize(3.125);
+    height: relativeToBaseFontSize(3.125);
 
     span {
-      font-size: 1.375rem;
+      font-size: relativeToBaseFontSize(1.375);
     }
   }
 

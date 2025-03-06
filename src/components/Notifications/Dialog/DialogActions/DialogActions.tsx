@@ -22,6 +22,7 @@ import {
 } from "../../BaseModal/BaseModalActions/BaseModalActions";
 import classes from "./DialogActions.module.scss";
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export interface Props extends ComponentPropsWithRef<any>, BaseModalActionsProps {
   cancelAction?: CancelAction;
 }

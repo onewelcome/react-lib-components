@@ -27,7 +27,10 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   cancelAction?: CancelAction;
   contentLabel: string;
   titleLabel: string;
+
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   [dataAttribute: DataAttributeKey]: any;
+
   onKeepEditing: () => void;
   onDiscardChanges: () => void;
 }

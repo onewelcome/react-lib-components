@@ -13,7 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 @use "../../mixins.module.scss";
+@use "src/functions" as *;
 
 .tabbutton {
   color: var(--tab-text-color);
@@ -55,7 +57,7 @@
   }
 
   &.has-icon {
-    gap: 0.25rem;
+    gap: relativeToBaseFontSize(0.25);
     display: inline-flex;
     align-items: center;
 
@@ -65,8 +67,8 @@
 
     span[data-icon] {
       display: inline-block;
-      font-size: 1.25rem;
-      width: 1.25rem;
+      font-size: var(--font-size-big);
+      width: var(--font-size-big);
     }
 
     &.top-icon,

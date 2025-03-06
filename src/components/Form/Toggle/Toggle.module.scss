@@ -16,6 +16,7 @@
 
 @use "../../../mixins.module.scss";
 @use "../../../variables.scss";
+@use "src/functions" as *;
 
 $borderRadius: 2.5rem;
 
@@ -128,9 +129,9 @@ $borderRadius: 2.5rem;
 }
 
 .toggle {
-  width: 2rem;
-  min-width: 2rem;
-  height: 1.25rem;
+  width: relativeToBaseFontSize(2);
+  min-width: relativeToBaseFontSize(2);
+  height: var(--font-size-big);
   background-color: var(--toggle-background-color);
   border-radius: $borderRadius;
   position: relative;
@@ -141,15 +142,15 @@ $borderRadius: 2.5rem;
 
   &:before {
     content: "";
-    width: 1rem;
-    height: 1rem;
+    width: var(--font-size);
+    height: var(--font-size);
     border-radius: 50%;
     display: block;
     background-color: var(--light);
     position: absolute;
     top: 50%;
     transform: translateY(-50%) translateX(0);
-    left: 0.125rem;
+    left: relativeToBaseFontSize(0.125);
     @include mixins.transition(transform, 0.2s, ease-in-out);
   }
 
@@ -157,9 +158,9 @@ $borderRadius: 2.5rem;
     content: "\e927";
     font-family: "icomoon";
     position: absolute;
-    font-size: 0.4375rem;
+    font-size: relativeToBaseFontSize(0.4375);
     top: 47%;
-    left: 0.4rem;
+    left: relativeToBaseFontSize(0.4);
     transform: translateY(-50%) translateX(0);
     color: var(--color-primary);
     @include mixins.transition(transform, 0.2s, ease-in-out);
@@ -169,7 +170,7 @@ $borderRadius: 2.5rem;
     background-color: var(--color-primary);
 
     &:before {
-      transform: translateY(-50%) translateX(calc(100% - 0.25rem));
+      transform: translateY(-50%) translateX(calc(100% - 0.25 * var(--font-size)));
     }
 
     &:after {
@@ -196,7 +197,7 @@ $borderRadius: 2.5rem;
   }
 
   input {
-    width: 2rem;
+    width: relativeToBaseFontSize(2);
   }
 
   input ~ [data-icon][aria-hidden] {

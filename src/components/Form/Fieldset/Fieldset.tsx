@@ -69,9 +69,10 @@ const FieldsetComponent: ForwardRefRenderFunction<HTMLFieldSetElement, Props> = 
     }
 
     /* All right, so the issue is that whenever we try to add disabled prop to a component that doesn't accept it,
-        React will throw an error. However, it might occur that we want a component inside Fieldset because of aesthetic purposes
-        (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
-        So instead we supply an array of components that we want to add the disabled prop to and check if child.type equals one of these. */
+            React will throw an error. However, it might occur that we want a component inside Fieldset because of aesthetic purposes
+            (fieldset applies a sort of container with white background and if we want to display it inside of this container... then yea).
+            So instead we supply an array of components that we want to add the disabled prop to and check if child.type equals one of these. */
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     const allowedComponents: React.ComponentPropsWithRef<any>[] = [
       Input,
       Select,

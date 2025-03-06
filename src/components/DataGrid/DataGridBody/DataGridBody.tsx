@@ -37,7 +37,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"tbody">, "children
 
 const skeletonLoadingRows = 9;
 
-const DataGridBodyInner = <T extends {}>(
+const DataGridBodyInner = <T extends object>(
   {
     children,
     data,
@@ -105,6 +105,6 @@ const DataGridBodyInner = <T extends {}>(
   );
 };
 
-export const DataGridBody = React.forwardRef(DataGridBodyInner) as <T extends {}>(
+export const DataGridBody = React.forwardRef(DataGridBodyInner) as <T extends object>(
   p: Props<T> & { ref?: Ref<HTMLTableSectionElement> }
 ) => ReactElement;
