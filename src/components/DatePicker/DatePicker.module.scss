@@ -21,7 +21,7 @@
  */
 
 @use "../../variables.scss";
-@use "src/mixins.module";
+@use "../../mixins.module";
 
 .rdp-root {
   --rdp-day-height: calc(2 * var(--font-size));

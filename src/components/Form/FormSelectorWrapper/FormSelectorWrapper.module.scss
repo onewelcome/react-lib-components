@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@use "src/functions" as *;
+@use "../../../functions" as *;
 
 .error input + span {
   outline: var(--error) solid 1px;
