@@ -127,6 +127,7 @@
     "rimraf": "^6.0.1",
     "rollup": "^4.18.0",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-sass": "^1.15.2",
     "sass": "1.85.1",
     "sass-loader": "^16.0.5",
     "size-limit": "^11.1.4",

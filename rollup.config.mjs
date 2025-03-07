@@ -17,11 +17,10 @@
 import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import postcss from "rollup-plugin-postcss";
-import postcssUrl from "postcss-url";
 import terser from "@rollup/plugin-terser";
 import path from "path";
-import sass from "sass";
+import fs from "fs";
+import sass from "rollup-plugin-sass";
 
 const packageJson = require("./package.json");
 
@@ -35,37 +34,122 @@ const generateRandomSalt = (length = 5) => {
 };
 const randomSalt = generateRandomSalt();
 
+const generateScopedName = (name, filename) => {
+  const filenameWithoutExt = path.basename(filename).split(".")[0];
+  return `${filenameWithoutExt}_${name}_${randomSalt}`;
+};
+
+function transformClassNames(css, filePath, classMap) {
+  return css.replace(/\.([\w\-]+)/g, (_, className) => {
+    const scopedName = generateScopedName(className, filePath);
+    classMap[className] = scopedName;
+    return `.${scopedName}`;
+  });
+}
+
+const resolveFontUrls = (css, filePath) => {
+  return css.replace(/url\(["']?(.*?)(\?.*?)?["']?\)/g, (match, fontPath, queryParams) => {
+    if (fontPath.startsWith("http") || fontPath.startsWith("data:")) {
+      return match;
+    }
+
+    const fontAbsolutePath = path.resolve(path.dirname(filePath), fontPath);
+    if (fs.existsSync(fontAbsolutePath)) {
+      const fontBase64 = fs.readFileSync(fontAbsolutePath).toString("base64");
+      const mimeType = fontPath.endsWith(".eot")
+        ? "application/vnd.ms-fontobject"
+        : fontPath.endsWith(".woff2")
+          ? "font/woff2"
+          : fontPath.endsWith(".woff")
+            ? "font/woff"
+            : fontPath.endsWith(".ttf")
+              ? "font/ttf"
+              : fontPath.endsWith(".otf")
+                ? "font/otf"
+                : "application/octet-stream";
+
+      const transformed = `url("data:${mimeType};base64,${fontBase64}")`;
+      return transformed;
+    }
+
+    return `url('${fontPath}')`;
+  });
+};
+
+const resolveAssetUrls = (css, filePath) => {
+  return css.replace(/url\(["']?(.*?)["']?\)/g, (match, assetPath) => {
+    if (assetPath.startsWith("http") || assetPath.startsWith("data:")) {
+      return match;
+    }
+
+    const assetAbsolutePath = path.resolve(path.dirname(filePath), assetPath);
+    if (fs.existsSync(assetAbsolutePath)) {
+      const assetBase64 = fs.readFileSync(assetAbsolutePath).toString("base64");
+      const mimeType = assetPath.endsWith(".svg")
+        ? "image/svg+xml"
+        : assetPath.endsWith(".png")
+          ? "image/png"
+          : assetPath.endsWith(".jpg") || assetPath.endsWith(".jpeg")
+            ? "image/jpeg"
+            : "application/octet-stream";
+
+      const transformed = `url("data:${mimeType};base64,${assetBase64}")`;
+      return transformed;
+    }
+
+    return match;
+  });
+};
+
 const baseConfig = {
   plugins: [
     resolve(),
     commonjs(),
-    postcss({
-      use: [
-        [
-          "sass",
-          {
-            implementation: sass,
-            silenceDeprecations: ["legacy-js-api"] // TODO remove this silencer with fix of UCL-585
-          }
-        ]
-      ],
-      modules: {
-        generateScopedName: (name, filename) => {
-          const filenameWithoutExt = path.basename(filename).split(".")[0];
-          return `${filenameWithoutExt}_${name}_${randomSalt}`;
-        }
+    sass({
+      api: "modern",
+      options: {
+        sourceMap: true //TODO does not seem to produce source maps
       },
-      inject: true,
-      minimize: true,
-      sourceMap: true,
-      plugins: [
-        postcssUrl({
-          url: "inline",
-          encodeType: "base64",
-          maxSize: Infinity
-        })
-      ]
+      processor: (css, filePath) => {
+        const classMap = {};
+
+        css = resolveFontUrls(css, filePath);
+        css = resolveAssetUrls(css, filePath);
+        css = transformClassNames(css, filePath, classMap);
+
+        return {
+          css,
+          content: classMap
+        };
+      }
     }),
+    // postcss({
+    //   use: [
+    //     [
+    //       "sass",
+    //       {
+    //         implementation: sass
+    //         // silenceDeprecations: ["legacy-js-api"] // TODO remove this silencer with fix of UCL-585
+    //       }
+    //     ]
+    //   ],
+    //   modules: {
+    //     generateScopedName: (name, filename) => {
+    //       const filenameWithoutExt = path.basename(filename).split(".")[0];
+    //       return `${filenameWithoutExt}_${name}_${randomSalt}`;
+    //     }
+    //   },
+    //   inject: true,
+    //   minimize: true,
+    //   sourceMap: true,
+    //   plugins: [
+    //     postcssUrl({
+    //       url: "inline",
+    //       encodeType: "base64",
+    //       maxSize: Infinity
+    //     })
+    //   ]
+    // }),
     {
       name: "Replace node_modules with dependency",
       generateBundle: (options, bundle) => {
