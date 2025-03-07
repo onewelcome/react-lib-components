@@ -13,8 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-@use "../../../../mixins.module.scss";
-@import "../../../../mixins.module.scss";
+@use "../../../../mixins.module.scss" as *;
 
 .file-item-wrapper {
   padding: 0;
@@ -76,7 +75,7 @@
         }
 
         &:focus {
-          @include mixins.focusVisibleOutline($outlineOffset: 2px, $selectors: null);
+          @include focusVisibleOutline($outlineOffset: 2px, $selectors: null);
         }
       }
     }
