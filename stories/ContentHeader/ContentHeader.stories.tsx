@@ -110,7 +110,7 @@ ContentHeaderWithError.args = {
   buttons: contentButtonList.slice(0, 2),
   tags: [<Tag variant="enabled">Active</Tag>, <Tag variant="disabled">Default</Tag>],
   error: true,
-  errorMessage: "Oh no! Michał has left the company :("
+  errorMessage: "Error message"
 };
 
 export const CollapsedContentHeaderWithError = Template.bind({});
@@ -124,7 +124,7 @@ CollapsedContentHeaderWithError.args = {
   buttons: contentButtonList.slice(0, 2),
   tags: [<Tag variant="enabled">Active</Tag>, <Tag variant="disabled">Default</Tag>],
   error: true,
-  errorMessage: "Oh no! Michał has left the company :(",
+  errorMessage: "Error message",
   collapsed: true
 };
 
