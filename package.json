@@ -75,6 +75,7 @@
     "@storybook/addon-essentials": "~8.1.11",
     "@storybook/addon-interactions": "~8.1.11",
     "@storybook/addon-links": "~8.1.11",
+    "@storybook/addon-styling-webpack": "^1.0.1",
     "@storybook/addon-webpack5-compiler-babel": "~3.0.3",
     "@storybook/blocks": "~8.1.11",
     "@storybook/components": "~8.1.11",

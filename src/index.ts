@@ -220,6 +220,8 @@ export type { Props as DatePickerProps } from "./components/DatePicker/DatePicke
 /** Admin */
 export { MicrofrontendContainer } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
 export type { Props as MicrofrontendContainerProps } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
+export { LeftNav } from "./components/admin/layout/LeftNav/LeftNav";
+export type { Props as LeftNavProps } from "./components/admin/layout/LeftNav/LeftNav";
 
 /**
  * Miscellaneous

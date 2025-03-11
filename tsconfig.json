@@ -12,6 +12,6 @@
     "isolatedModules": false,
     "plugins": [{"name": "eslint-plugin-export-scope"}]
   },
-  "include": ["src", "stories/utils", "**/.scope.ts"],
+  "include": ["src", "stories/utils", "**/.scope.ts", "./stories/types.d.ts"],
   "exclude": ["node_modules", "dist", "example"]
 }
