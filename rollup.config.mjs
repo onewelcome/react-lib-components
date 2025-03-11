@@ -26,8 +26,11 @@ import postcss from "postcss";
 import cssModules from "postcss-modules";
 import postcssUrl from "postcss-url";
 import autoprefixer from "autoprefixer";
+import virtual from "@rollup/plugin-virtual";
 
 const packageJson = require("./package.json");
+
+const cssModulesMap = new Map();
 
 const baseConfig = {
   plugins: [
@@ -69,25 +72,36 @@ const baseConfig = {
         const jsFilename = filePath.replace(".scss", ".scss.js");
 
         // Generate JS module as a virtual Rollup module
-        const jsContent = `
+        // const jsContent = `
+        //   import styleInject from 'style-inject';
+        //   const css = ${JSON.stringify(result.css)};
+        //   styleInject(css);
+        //   export default ${JSON.stringify(classMap)};
+        // `;
+
+        // fs.writeFileSync(jsFilename, jsContent, "utf-8");
+        // console.log("xx a", jsFilename);
+        // console.log("xx a1", result);
+
+        const virtualModule = `/*xx 1*/
           import styleInject from 'style-inject';
-          const css = ${JSON.stringify(result.css)};
-          styleInject(css);
+          import cssText from '${filePath.replace(".scss", ".css")}';
+          styleInject(cssText);
           export default ${JSON.stringify(classMap)};
         `;
 
-        // fs.writeFileSync(jsFilename, jsContent, "utf-8");
-        console.log("xx a", jsFilename);
+        // Store the virtual module for Rollup to use
+        cssModulesMap.set(filePath, virtualModule);
 
         return {
-          css: "/*xx 0*/" + jsContent,
-          cssModules: classMap,
-          code: jsContent, //xx
+          css: "/*xx 0*/" + result.css,
+          cssModules: classMap
           // Optional: write JS module file
-          map: result.map ? result.map.toString() : undefined
+          // map: result.map ? result.map.toString() : undefined
         };
       }
     }),
+    // virtual(cssModulesMap),
 
     /* rollup-plugin-sass with hand made transformations */
     // sass({

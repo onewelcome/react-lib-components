@@ -69,6 +69,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@rollup/plugin-virtual": "^3.0.2",
     "@storybook/addon-a11y": "~8.6.3",
     "@storybook/addon-actions": "~8.6.3",
     "@storybook/addon-docs": "~8.6.3",
