@@ -19,110 +19,105 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import terser from "@rollup/plugin-terser";
 import path from "path";
+
 import fs from "fs";
 import sass from "rollup-plugin-sass";
+import postcss from "postcss";
+import cssModules from "postcss-modules";
+import postcssUrl from "postcss-url";
+import autoprefixer from "autoprefixer";
 
 const packageJson = require("./package.json");
-
-const generateRandomSalt = (length = 5) => {
-  const possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let salt = "";
-  for (let i = 0; i < length; i++) {
-    salt += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
-  }
-  return salt;
-};
-const randomSalt = generateRandomSalt();
-
-const generateScopedName = (name, filename) => {
-  const filenameWithoutExt = path.basename(filename).split(".")[0];
-  return `${filenameWithoutExt}_${name}_${randomSalt}`;
-};
-
-function transformClassNames(css, filePath, classMap) {
-  return css.replace(/\.([\w\-]+)/g, (_, className) => {
-    const scopedName = generateScopedName(className, filePath);
-    classMap[className] = scopedName;
-    return `.${scopedName}`;
-  });
-}
-
-const resolveFontUrls = (css, filePath) => {
-  return css.replace(/url\(["']?(.*?)(\?.*?)?["']?\)/g, (match, fontPath, queryParams) => {
-    if (fontPath.startsWith("http") || fontPath.startsWith("data:")) {
-      return match;
-    }
-
-    const fontAbsolutePath = path.resolve(path.dirname(filePath), fontPath);
-    if (fs.existsSync(fontAbsolutePath)) {
-      const fontBase64 = fs.readFileSync(fontAbsolutePath).toString("base64");
-      const mimeType = fontPath.endsWith(".eot")
-        ? "application/vnd.ms-fontobject"
-        : fontPath.endsWith(".woff2")
-          ? "font/woff2"
-          : fontPath.endsWith(".woff")
-            ? "font/woff"
-            : fontPath.endsWith(".ttf")
-              ? "font/ttf"
-              : fontPath.endsWith(".otf")
-                ? "font/otf"
-                : "application/octet-stream";
-
-      const transformed = `url("data:${mimeType};base64,${fontBase64}")`;
-      return transformed;
-    }
-
-    return `url('${fontPath}')`;
-  });
-};
-
-const resolveAssetUrls = (css, filePath) => {
-  return css.replace(/url\(["']?(.*?)["']?\)/g, (match, assetPath) => {
-    if (assetPath.startsWith("http") || assetPath.startsWith("data:")) {
-      return match;
-    }
-
-    const assetAbsolutePath = path.resolve(path.dirname(filePath), assetPath);
-    if (fs.existsSync(assetAbsolutePath)) {
-      const assetBase64 = fs.readFileSync(assetAbsolutePath).toString("base64");
-      const mimeType = assetPath.endsWith(".svg")
-        ? "image/svg+xml"
-        : assetPath.endsWith(".png")
-          ? "image/png"
-          : assetPath.endsWith(".jpg") || assetPath.endsWith(".jpeg")
-            ? "image/jpeg"
-            : "application/octet-stream";
-
-      const transformed = `url("data:${mimeType};base64,${assetBase64}")`;
-      return transformed;
-    }
-
-    return match;
-  });
-};
 
 const baseConfig = {
   plugins: [
     resolve(),
     commonjs(),
+
+    /* rollup-plugin-sass with postcss */
     sass({
       api: "modern",
       options: {
-        sourceMap: true //TODO does not seem to produce source maps
+        sourceMap: true
       },
-      processor: (css, filePath) => {
-        const classMap = {};
+      processor: async (css, filePath) => {
+        let classMap = {};
 
-        css = resolveFontUrls(css, filePath);
-        css = resolveAssetUrls(css, filePath);
-        css = transformClassNames(css, filePath, classMap);
+        // Process with PostCSS
+        const result = await postcss([
+          // Handle CSS modules and export class names
+          cssModules({
+            getJSON: (cssFileName, json) => {
+              classMap = json;
+            },
+            generateScopedName: "[name]_[local]_[hash:base64:5]"
+          }),
+          // Convert URLs to data URLs
+          postcssUrl({
+            url: "inline", // Convert to data URLs
+            maxSize: 10, // Only inline files under 10kb
+            fallback: "copy" // Copy larger files
+          }),
+          // Add vendor prefixes
+          autoprefixer()
+        ]).process(css, {
+          from: filePath,
+          to: path.basename(filePath).replace(".scss", ".css")
+        });
+
+        // // Generate a JS module exporting the CSS classes
+        const jsFilename = filePath.replace(".scss", ".scss.js");
+
+        // Generate JS module as a virtual Rollup module
+        const jsContent = `
+          import styleInject from 'style-inject';
+          const css = ${JSON.stringify(result.css)};
+          styleInject(css);
+          export default ${JSON.stringify(classMap)};
+        `;
+
+        // fs.writeFileSync(jsFilename, jsContent, "utf-8");
+        console.log("xx a", jsFilename);
 
         return {
-          css,
-          content: classMap
+          css: "/*xx 0*/" + jsContent,
+          cssModules: classMap,
+          code: jsContent, //xx
+          // Optional: write JS module file
+          map: result.map ? result.map.toString() : undefined
         };
       }
     }),
+
+    /* rollup-plugin-sass with hand made transformations */
+    // sass({
+    //   api: "modern",
+    //   options: {
+    //     sourceMap: true //TODO does not seem to produce source maps
+    //   },
+    //   processor: (css, filePath) => {
+    //     const classMap = {};
+
+    //     css = resolveFontUrls(css, filePath);
+    //     css = resolveAssetUrls(css, filePath);
+    //     css = transformClassNames(css, filePath, classMap);
+
+    //     return {
+    //       css: "/*xx 1*/" + css,
+    //       cssModules: classMap
+    //     };
+    //   }
+    // }),
+
+    // /* rollup-plugin-styles - 3 years without updata */
+    // styles({
+    //   mode: "inject", // Enables automatic style injection
+    //   modules: true, // Enables CSS Modules
+    //   sourceMap: true, // Generates source maps
+    //   minimize: true // Minifies CSS
+    // }),
+
+    // /* rollup-plugin-postcss - 4 years without updata */
     // postcss({
     //   use: [
     //     [
