@@ -53,11 +53,13 @@ export interface CSSProperties {
   colorOrange500?: string;
   colorOrange600?: string;
   colorOrange700?: string;
+  colorRed50?: string;
   colorRed100?: string;
   colorRed200?: string;
   colorRed500?: string;
   colorRed600?: string;
   colorRed700?: string;
+  colorRed900?: string;
   colorWhite?: string;
   colorBlack100?: string;
   colorBlack50?: string;
@@ -253,11 +255,13 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorOrange500: "#E07900",
     colorOrange600: "#B36100",
     colorOrange700: "#864900",
+    colorRed50: "#F9D2CC",
     colorRed100: "#FFCDD2",
     colorRed200: "#F3A599",
     colorRed500: "#E01E00",
     colorRed600: "#B31800",
     colorRed700: "#861200",
+    colorRed900: "#2D0600",
     colorBlack100: "#000000",
     colorBlack50: "rgba(0, 0, 0, 0.5)",
     colorBlack20: "rgba(0, 0, 0, 0.2)",

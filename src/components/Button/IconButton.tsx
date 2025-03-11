@@ -28,13 +28,17 @@ export interface Props extends BaseButtonProps {
 }
 
 export const IconButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { children, color = "primary", variant = "text", iconSize = "m", title, className, ...rest },
+  {
+    children,
+    color = "primary",
+    variant = "text",
+    iconSize = "m",
+    title = "Icon button",
+    className,
+    ...rest
+  },
   ref
 ) => {
-  if (!title) {
-    console.error("Please make sure to specify a 'title' prop to your IconButton component! ");
-  }
-
   const iconButtonClasses = [
     classes["icon-button"],
     classes[variant],
