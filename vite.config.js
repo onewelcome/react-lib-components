@@ -4,7 +4,8 @@ import postcss from "postcss";
 import autoprefixer from "autoprefixer";
 import postcssUrl from "postcss-url";
 import CleanCSS from "clean-css";
-import fs from "fs/promises";
+import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   build: {
@@ -15,12 +16,20 @@ export default defineConfig({
       fileName: format => `my-library.${format}.js`
     },
     rollupOptions: {
-      external: ["react", "vue"] // Mark dependencies as external
+      external: ["react", "vue"], // Avoid bundling dependencies
+      preserveModules: true, // Keeps module structure in dist
+      preserveModulesRoot: "src", // Keeps clean paths in dist
+      output: {
+        sourcemap: true, // ✅ Generates .map files for debugging
+        entryFileNames: "[name].[format].js",
+        chunkFileNames: "[name].[format].js",
+        assetFileNames: "[name].[ext]"
+      }
     }
   },
   css: {
     modules: {
-      generateScopedName: "[name]__[local]__[hash:base64:5]" // Custom CSS Module naming
+      generateScopedName: "[name]__[local]__[hash:base64:5]" // Scoped class naming
     },
     postcss: {
       plugins: [
@@ -30,39 +39,43 @@ export default defineConfig({
     }
   },
   plugins: [
-    {
-      name: "vite-sass-postcss-style-inject",
-      async transform(code, id) {
-        if (!id.endsWith(".module.scss")) return null; // Only process SCSS modules
+    cssInjectedByJsPlugin(),
+    dts({
+      outputDir: "dist/types", // ✅ Generates .d.ts files
+      entryRoot: "src", // Ensures correct paths
+      skipDiagnostics: false, // Ensures type checking
+      logDiagnostics: true
+    })
+    //   {
+    //     name: "vite-sass-postcss-style-inject",
+    //     async transform(code, id) {
+    //       if (!id.endsWith(".module.scss")) return null; // Only process SCSS modules
 
-        try {
-          // Read and compile SCSS to CSS using Dart Sass
-          const compiledCss = sass.compile(id).css;
+    //       try {
+    //         // Compile SCSS to CSS using Dart Sass
+    //         const compiledCss = sass.compile(id, { style: "expanded" }).css;
 
-          // Process CSS with PostCSS (Autoprefixer + URL Transformations)
-          const result = await postcss([
-            autoprefixer(),
-            postcssUrl({ url: "inline", maxSize: 10 }) // Convert small assets to Data URLs
-          ]).process(compiledCss, { from: undefined });
+    //         // Process CSS with PostCSS (Autoprefixer + URL Transformations)
+    //         const result = await postcss([
+    //           autoprefixer(),
+    //           postcssUrl({ url: "inline", maxSize: 10 }) // Convert small assets to Data URLs
+    //         ]).process(compiledCss, { from: id });
 
-          // Minify CSS
-          const minifiedCSS = new CleanCSS().minify(result.css).styles;
+    //         // Minify CSS for better performance
+    //         const minifiedCSS = result.css; //xx new CleanCSS().minify(result.css).styles;
 
-          // Extract CSS module class mappings (if available)
-          const classMap = result.messages[0]?.exportTokens || {};
-
-          // Generate a JS module that injects styles dynamically & exports class names
-          return `
-            import styleInject from 'style-inject';
-            const css = ${JSON.stringify(minifiedCSS)};
-            styleInject(css);
-            export default ${JSON.stringify(classMap)};
-          `;
-        } catch (error) {
-          console.error(`Error processing SCSS file: ${id}`, error);
-          throw error;
-        }
-      }
-    }
+    //         // Inject the CSS into JavaScript and export transformed class names
+    //         return `
+    //           import styleInject from 'style-inject';
+    //           const css = ${JSON.stringify(minifiedCSS)};
+    //           styleInject(css);
+    //           export default ${JSON.stringify(result.messages[0]?.exportTokens || {})};
+    //         `;
+    //       } catch (error) {
+    //         console.error(`Error processing SCSS file: ${id}`, error);
+    //         throw error;
+    //       }
+    //     }
+    //   }
   ]
 });
