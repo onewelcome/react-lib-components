@@ -42,7 +42,8 @@ module.exports = {
     "stories/types.d.ts",
     "setupTests.ts",
     "webpack.config.ts",
-    "!.scope.ts"
+    "!.scope.ts",
+    "*.config.*"
   ],
   rules: { "license-header/header": ["error", "copyright.txt"] },
   overrides: [
