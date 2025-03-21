@@ -55,11 +55,7 @@
   }
 }
 
-.textarea-helper-text {
-  margin-top: 0.14rem;
-}
-
-[data-readonlyview="true"] {
+.wrapper[data-readonlyview="true"] {
   & ~ span.error {
     background-color: var(--color-white);
   }
@@ -96,4 +92,8 @@
       padding-right: 2.5rem;
     }
   }
+}
+
+.textarea-helper-text {
+  margin-top: 0.14rem;
 }
