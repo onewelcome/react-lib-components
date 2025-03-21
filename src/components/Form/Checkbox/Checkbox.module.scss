@@ -165,8 +165,7 @@
   }
 }
 
-input[type="checkbox"] {
-  //TODO ?
+.checkbox-container input[type="checkbox"] {
   &[data-readonlyview="true"] {
     & ~ span {
       &:before {

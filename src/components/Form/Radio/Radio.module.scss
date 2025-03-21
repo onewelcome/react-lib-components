@@ -165,8 +165,7 @@
   }
 }
 
-input[type="radio"] {
-  //TODO ?
+.radio-container input[type="radio"] {
   &[data-readonlyview="true"] {
     & ~ span.input {
       color: var(--read-only-text-color);
