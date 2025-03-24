@@ -29,6 +29,7 @@ import { FormElement } from "../form.interfaces";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
 import { MergeElementProps } from "../../../interfaces";
 import { withReadOnly } from "../../withReadOnly";
+import { filterProps } from "../../../util/helper";
 
 export const dateTypes = ["date", "time", "datetime-local"] as const;
 
@@ -126,7 +127,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         </div>
       )}
       <input
-        {...rest}
+        {...filterProps(rest, /^helperText/, false)}
         ref={ref}
         aria-readonly={readOnlyMode}
         readOnly={readOnlyMode}
