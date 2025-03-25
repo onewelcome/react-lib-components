@@ -325,7 +325,7 @@ describe("upload action", () => {
     expect(errorMessage.innerHTML).toStrictEqual("You can upload only a single file.");
   });
 
-  it("doesn't upload a file two times", async () => {
+  it("should allow upload of the same file again (e.g. after deletion from file items)", async () => {
     const onChange = jest.fn();
     const { component } = createComponent(
       defaultParams => ({
@@ -353,7 +353,7 @@ describe("upload action", () => {
         user.upload(component, file);
       });
     });
-    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledTimes(2);
   });
 
   it("doesn't allows files to be dropped according to the accepted file types", async () => {
