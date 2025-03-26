@@ -154,6 +154,7 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
 
     if (isFileValid) {
       setErrorMsg("");
+      e.target.value = "";
       onChange?.(files);
     }
   };
@@ -295,7 +296,6 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                     accept={accept}
                     onChange={onInputChange}
                     spellCheck={false}
-                    value=""
                   />
                 </Button>
               </div>
