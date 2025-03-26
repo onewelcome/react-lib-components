@@ -151,10 +151,12 @@ const FileUploadComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     e.stopPropagation();
     const files = getFileList(e.target.files);
     const isFileValid = files.length && verifyExtensionValidity(files[files.length - 1]);
+
     if (isFileValid) {
       setErrorMsg("");
+      e.target.value = "";
+      onChange?.(files);
     }
-    isFileValid && onChange?.(files);
   };
 
   const verifyExtensionValidity = (file: FileType) => {
