@@ -127,6 +127,7 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
     <Wrapper
       {...rest}
       ref={ref}
+      className={classes["wrapper"]}
       disabled={disabled}
       labelProps={{
         id: labelId,
