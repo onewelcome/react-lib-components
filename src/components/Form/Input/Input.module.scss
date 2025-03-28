@@ -25,7 +25,7 @@
   border: 0;
   border-radius: var(--input-border-radius);
   background-color: var(--input-background-color);
-  padding: 0 variables.$form-element-horizontal-padding-mobile;
+  padding: 0 relativeToBaseFontSize(0.5); //TODO was variables.$form-element-horizontal-padding-mobile;
   @include mixins.transition(all, 0.2s, ease-in-out);
 
   // General autofill styles
@@ -70,7 +70,7 @@
   [data-icon-status="success"],
   [data-icon-status="error"] {
     height: 100%;
-    width: 1.25rem;
+    width: relativeToBaseFontSize(1.25);
     box-sizing: border-box;
     font-size: var(--icon-font-big);
     display: flex;
@@ -80,8 +80,8 @@
 
     &:before {
       font-size: var(--icon-font-big);
-      height: 1.25rem;
-      width: 1.25rem;
+      height: relativeToBaseFontSize(1.25);
+      width: relativeToBaseFontSize(1.25);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -157,14 +157,14 @@
 @include mixins.outline;
 
 .error input {
-  padding-right: 1.25rem;
+  padding-right: relativeToBaseFontSize(1.25);
 
   &.remove-extra-indent {
     padding-right: 0;
   }
 }
 .success input {
-  padding-right: 1.25rem;
+  padding-right: relativeToBaseFontSize(1.25);
 }
 
 .input-wrapper [data-prefix],
@@ -177,6 +177,6 @@
 
 @media only screen and (min-width: 30em) {
   .input-wrapper {
-    padding: 0 variables.$form-element-horizontal-padding-desktop;
+    padding: 0 relativeToBaseFontSize(0.5); //TODO was variables.$form-element-horizontal-padding-desktop;
   }
 }

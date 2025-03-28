@@ -45,7 +45,11 @@ $listItemHeight: 2.5rem;
     button:focus:not(.error) {
       border: var(--input-border-width-focus) solid var(--color-focus);
       padding: 0
-        calc(variables.$form-element-horizontal-padding-mobile - var(--input-border-width-focus));
+        calc(
+          relativeToBaseFontSize(0.5) /*TODO was variables.$form-element-horizontal-padding-mobile*/ - var(
+              --input-border-width-focus
+            )
+        );
     }
   }
 
@@ -61,7 +65,12 @@ $listItemHeight: 2.5rem;
     position: relative;
     width: 100%;
     min-height: calc(relativeToBaseFontSize(2.875) - (2 * var(--input-border-width)));
-    padding: 0 calc(variables.$form-element-horizontal-padding-mobile - var(--input-border-width));
+    padding: 0
+      calc(
+        relativeToBaseFontSize(0.5) /*TODO was variables.$form-element-horizontal-padding-mobile*/ - var(
+            --input-border-width
+          )
+      );
     background-color: transparent;
     border-color: var(--color-blue-grey500);
     border-style: var(--input-border-style);
@@ -273,13 +282,23 @@ $listItemHeight: 2.5rem;
   .select {
     .custom-select {
       padding: 0
-        calc(variables.$form-element-horizontal-padding-desktop - var(--input-border-width));
+        calc(
+          relativeToBaseFontSize(0.5)
+            /*TODO was variables.$form-element-horizontal-padding-desktop*/ - var(
+              --input-border-width
+            )
+        );
     }
 
     &:not(.expanded) {
       button:focus:not(.error) {
         padding: 0
-          calc(variables.$form-element-horizontal-padding-desktop - var(--input-border-width-focus));
+          calc(
+            relativeToBaseFontSize(0.5)
+              /*TODO was variables.$form-element-horizontal-padding-desktop*/ - var(
+                --input-border-width-focus
+              )
+          );
       }
     }
   }

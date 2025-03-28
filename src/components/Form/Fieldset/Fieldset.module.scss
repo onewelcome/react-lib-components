@@ -15,10 +15,12 @@
  */
 
 @use "src/variables";
+@use "../../../functions" as *;
 
 .fieldset {
   border: 0;
-  padding: variables.$form-element-horizontal-padding-mobile;
+  padding: relativeToBaseFontSize(0.5)
+    /*TODO was variables.$form-element-horizontal-padding-mobile*/;
   border-radius: 0.5rem;
   margin: 0;
 
@@ -43,6 +45,7 @@
 }
 @media only screen and (min-width: 30em) {
   .fieldset {
-    padding: variables.$form-element-horizontal-padding-desktop;
+    padding: relativeToBaseFontSize(0.5)
+      /*TODO was variables.$form-element-horizontal-padding-desktop*/;
   }
 }
