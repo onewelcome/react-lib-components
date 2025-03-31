@@ -72,8 +72,8 @@
 }
 
 .textarea {
-  padding: relativeToBaseFontSize(0.5)
-    /*TODO was variables.$form-element-horizontal-padding-mobile*/ relativeToBaseFontSize(0.5)
+  padding: relativeToBaseFontSize(0.625)
+    /*TODO was variables.$form-element-vertical-padding-mobile*/ relativeToBaseFontSize(0.5)
     /*TODO was variables.$form-element-horizontal-padding-mobile*/;
   box-sizing: border-box;
   border: 0;
