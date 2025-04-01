@@ -137,7 +137,7 @@
   color: var(--color-primary);
 }
 
-[data-readonlyview="true"] {
+[data-readonlyview="true"] .checkbox-wrapper {
   & label {
     border-color: var(--read-only-border-color);
     color: var(--read-only-text-color);
@@ -145,19 +145,17 @@
     user-select: text;
   }
 
-  & .checkbox-wrapper {
-    & span {
-      color: var(--color-blue-grey100);
+  & span {
+    color: var(--color-blue-grey100);
 
-      &.checkmark {
-        background-color: var(--color-blue-grey900);
-        color: var(--color-white);
+    &.checkmark {
+      background-color: var(--color-blue-grey900);
+      color: var(--color-white);
+      border-radius: 2px;
+      &:before {
+        outline: 1px solid var(--read-only-border-color);
         border-radius: 2px;
-        &:before {
-          outline: 1px solid var(--read-only-border-color);
-          border-radius: 2px;
-          outline-offset: -1px;
-        }
+        outline-offset: -1px;
       }
     }
   }
@@ -167,7 +165,7 @@
   }
 }
 
-input[type="checkbox"] {
+.checkbox-container input[type="checkbox"] {
   &[data-readonlyview="true"] {
     & ~ span {
       &:before {
