@@ -25,7 +25,7 @@
   border: 0;
   border-radius: var(--input-border-radius);
   background-color: var(--input-background-color);
-  padding: 0 relativeToBaseFontSize(0.5); //TODO was variables.$form-element-horizontal-padding-mobile;
+  padding: 0 relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-mobile);
   @include mixins.transition(all, 0.2s, ease-in-out);
 
   // General autofill styles
@@ -177,6 +177,6 @@
 
 @media only screen and (min-width: 30em) {
   .input-wrapper {
-    padding: 0 relativeToBaseFontSize(0.5); //TODO was variables.$form-element-horizontal-padding-desktop;
+    padding: 0 relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-desktop);
   }
 }

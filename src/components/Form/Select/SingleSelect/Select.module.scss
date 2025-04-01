@@ -46,7 +46,7 @@ $listItemHeight: 2.5rem;
       border: var(--input-border-width-focus) solid var(--color-focus);
       padding: 0
         calc(
-          relativeToBaseFontSize(0.5) /*TODO was variables.$form-element-horizontal-padding-mobile*/ - var(
+          relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-mobile) - var(
               --input-border-width-focus
             )
         );
@@ -67,7 +67,7 @@ $listItemHeight: 2.5rem;
     min-height: calc(relativeToBaseFontSize(2.875) - (2 * var(--input-border-width)));
     padding: 0
       calc(
-        relativeToBaseFontSize(0.5) /*TODO was variables.$form-element-horizontal-padding-mobile*/ - var(
+        relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-mobile) - var(
             --input-border-width
           )
       );
@@ -283,8 +283,7 @@ $listItemHeight: 2.5rem;
     .custom-select {
       padding: 0
         calc(
-          relativeToBaseFontSize(0.5)
-            /*TODO was variables.$form-element-horizontal-padding-desktop*/ - var(
+          relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-desktop) - var(
               --input-border-width
             )
         );
@@ -294,8 +293,7 @@ $listItemHeight: 2.5rem;
       button:focus:not(.error) {
         padding: 0
           calc(
-            relativeToBaseFontSize(0.5)
-              /*TODO was variables.$form-element-horizontal-padding-desktop*/ - var(
+            relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-desktop) - var(
                 --input-border-width-focus
               )
           );

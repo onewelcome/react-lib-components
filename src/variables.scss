@@ -14,10 +14,10 @@
  *    limitations under the License.
  */
 
-$form-element-horizontal-padding-mobile: 0.5rem;
-$form-element-horizontal-padding-desktop: 0.5rem;
-$form-element-vertical-padding-mobile: 0.625rem;
-$form-element-vertical-padding-desktop: 0.625rem;
+$form-element-horizontal-padding-ratio-mobile: 0.5;
+$form-element-horizontal-padding-ratio-desktop: 0.5;
+$form-element-vertical-padding-ratio-mobile: 0.625;
+$form-element-vertical-padding-ratio-desktop: 0.625;
 
 $popover-z-index: 100;
 $select-z-index: 11;

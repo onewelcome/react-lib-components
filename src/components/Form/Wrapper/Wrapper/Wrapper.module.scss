@@ -27,7 +27,7 @@
     position: absolute;
     z-index: 2;
     top: 1.3125rem;
-    left: relativeToBaseFontSize(0.5) /*TODO was variables.$form-element-horizontal-padding-mobile*/;
+    left: relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-mobile);
     transform-origin: left top;
     pointer-events: none;
     @include mixins.transition(all, 0.2s, ease-in-out);
@@ -76,8 +76,7 @@
 @media only screen and (min-width: 30em) {
   .floating-wrapper {
     .floating-label {
-      left: relativeToBaseFontSize(0.5)
-        /*TODO was variables.$form-element-horizontal-padding-mobile*/;
+      left: relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-mobile);
     }
   }
 }
