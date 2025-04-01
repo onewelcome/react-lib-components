@@ -16,6 +16,7 @@
 
 @use "./readyclasses.module.scss";
 @use "./variables.scss";
+@use "./functions" as *;
 
 @mixin button($variant: "text", $type: "default") {
   $disabledSelector: if($type == "link", ".disabled", ":disabled");
@@ -140,8 +141,8 @@
     }
 
     position: relative;
-    outline: 2px solid var(--color-focus);
-    outline-offset: 2px;
+    outline: relativeToBaseFontSize(0.125) solid var(--color-focus);
+    outline-offset: relativeToBaseFontSize(0.125);
     z-index: 2;
   }
 
@@ -173,8 +174,8 @@
   font-size: var(--button-font-size);
   line-height: 1;
   margin: 0;
-  padding: 0.5rem 0.75rem;
-  min-height: 2.5rem;
+  padding: relativeToBaseFontSize(0.5) relativeToBaseFontSize(0.75);
+  min-height: relativeToBaseFontSize(2.5);
   cursor: pointer;
 
   font-family: var(--font-family);
@@ -296,8 +297,8 @@
 
 @mixin focusVisibleOutline(
   $color: var(--color-focus),
-  $outlineWidth: 0.125rem,
-  $outlineOffset: 0.125rem,
+  $outlineWidth: relativeToBaseFontSize(0.125),
+  $outlineOffset: relativeToBaseFontSize(0.125),
   $selectors: "&:focus-visible"
 ) {
   @if $selectors {
@@ -317,7 +318,7 @@
   border-style: none none none solid;
   border-width: var(--alert-border-width);
   border-color: $border-color;
-  padding-left: calc(1rem - var(--alert-border-width));
+  padding-left: calc(relativeToBaseFontSize(1) - var(--alert-border-width));
 }
 
 @mixin searchInputPointer($inputType, $selector) {
@@ -342,7 +343,7 @@
   text-transform: none;
   letter-spacing: 0;
   color: var(--default);
-  margin: 0 0 1rem 0;
+  margin: 0 0 relativeToBaseFontSize(1) 0;
 }
 
 @mixin breakpoint($minOrMax, $breakpoint) {

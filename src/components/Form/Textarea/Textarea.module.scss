@@ -15,6 +15,7 @@
  */
 
 @use "../../../mixins.module.scss";
+@use "../../../functions" as *;
 @use "src/variables";
 
 .textarea-wrapper {
@@ -71,8 +72,8 @@
 }
 
 .textarea {
-  padding: variables.$form-element-vertical-padding-mobile
-    variables.$form-element-horizontal-padding-mobile;
+  padding: relativeToBaseFontSize(variables.$form-element-vertical-padding-ratio-mobile)
+    relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-mobile);
   box-sizing: border-box;
   border: 0;
   border-radius: var(--input-border-radius);
