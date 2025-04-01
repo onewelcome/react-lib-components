@@ -56,6 +56,7 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
     onMouseLeave,
     disabled,
     success,
+    className,
     ...rest
   }: Props,
   ref
@@ -127,7 +128,7 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
     <Wrapper
       {...rest}
       ref={ref}
-      className={classes["wrapper"]}
+      className={`${classes["wrapper"]} ${className ?? ""}`}
       disabled={disabled}
       labelProps={{
         id: labelId,
