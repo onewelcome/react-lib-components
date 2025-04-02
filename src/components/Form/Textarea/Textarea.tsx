@@ -19,6 +19,7 @@ import classes from "./Textarea.module.scss";
 import { FormElement } from "../form.interfaces";
 import { useDetermineStatusIcon } from "../../../hooks/useDetermineStatusIcon";
 import { withReadOnly } from "../../withReadOnly";
+import { filterProps } from "../../../util/helper";
 
 export interface Props extends ComponentPropsWithRef<"textarea">, FormElement {
   wrapperProps?: ComponentPropsWithRef<"div">;
@@ -67,7 +68,7 @@ const TextareaComponent: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = 
     }
     return (
       <textarea
-        {...rest}
+        {...filterProps(rest, /^helperText/, false)}
         ref={ref}
         rows={rows}
         className={`${error ? classes["error"] : ""} ${classes["textarea"]} ${className ?? ""}`}
