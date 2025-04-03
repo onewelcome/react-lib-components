@@ -1,0 +1,27 @@
+@use "src/variables";
+
+.formField {
+  width: variables.$formFieldWidth;
+}
+
+.disableBody {
+  margin-bottom: -0.25rem;
+  color: grey;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center; /* Vertically aligns checkbox and asterisk */
+}
+
+.flexContainer .asterisk {
+  margin-left: 5px; /* Space between checkbox and asterisk */
+  &:after {
+    content: " *";
+    color: var(--error);
+  }
+}
+
+.groupLabel {
+  color: variables.$colorPrimary500;
+}

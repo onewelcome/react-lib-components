@@ -48,7 +48,9 @@
     "date-fns": "^4.1.0",
     "react": ">=16",
     "react-day-picker": "^9.4.1",
-    "react-dom": ">=16"
+    "react-dom": ">=16",
+    "formik": "^2.2.9",
+    "yup": "^1.2.0"
   },
   "overrides": {
     "cross-spawn": ">=7.0.5"
