@@ -47,7 +47,7 @@ const getSchemaNameWithControl = (control: ControlType): Yup.AnySchema => {
   return Yup.string();
 };
 const generateYupSchema = (fields: Field[]) => {
-  let schema = fields.reduce(createYupSchema, {});
+  const schema = fields.reduce(createYupSchema, {});
   return Yup.object().shape(schema);
 };
 
