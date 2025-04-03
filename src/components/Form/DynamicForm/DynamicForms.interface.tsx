@@ -44,7 +44,7 @@ export interface Field {
   controlType: ControlType;
   defaultValue?: string | string[] | boolean;
   possibleValues?: string | string[] | KeyValue[];
-  inputType?: InputType; // "text" | "email" | "file" | "number" | "password" | "search" | "tel" | "url" | "hidden" | (typeof dateTypes)[number];
+  inputType?: InputType;
   isEditable?: boolean;
   isArray?: boolean;
   isComplex?: boolean;

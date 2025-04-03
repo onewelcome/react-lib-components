@@ -41,12 +41,10 @@ const createYupSchema = (schema: { [key: string]: Yup.AnySchema }, config: Field
 };
 
 const getSchemaNameWithControl = (control: ControlType): Yup.AnySchema => {
-  switch (control) {
-    case "checkbox":
-      return Yup.boolean();
-    default:
-      return Yup.string();
+  if (control === "checkbox") {
+    return Yup.boolean();
   }
+  return Yup.string();
 };
 const generateYupSchema = (fields: Field[]) => {
   let schema = fields.reduce(createYupSchema, {});

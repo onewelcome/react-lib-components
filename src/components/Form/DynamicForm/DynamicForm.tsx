@@ -140,9 +140,7 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
   // Used this method to created the Textbox ...
   const getTextBox = (field: Field) => {
     return (
-      <>
-        <InputWrapper type={field.inputType ? field.inputType : "text"} {...getInputProps(field)} />
-      </>
+      <InputWrapper type={field.inputType ? field.inputType : "text"} {...getInputProps(field)} />
     );
   };
 
@@ -167,7 +165,7 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
 
     return {
       ...commonProps,
-      required: field.isRequired ? field.isRequired : false,
+      required: field.isRequired ?? false,
       readOnlyView: !(field.isEditable ?? true),
       value: values?.[field.id],
       onChange: (event: any) => handleChange?.(event),
@@ -189,13 +187,7 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
       case "label": {
         return <label>{field.id}</label>;
       }
-      case "button": {
-        return (
-          <Button type={field.controlType} value={field.label}>
-            {field.label}
-          </Button>
-        );
-      }
+      case "button":
       case "submit": {
         return (
           <Button type={field.controlType} value={field.label}>
