@@ -29,11 +29,12 @@ import { Field, KeyValue } from "./DynamicForms.interface";
 import classes from "./DynamicFormElements.module.scss";
 import { castToBoolean } from "../../../util/helper";
 import { DynamicFormikArray } from "./DynamicFormikArray";
-import { FormikErrors } from "formik";
+import { FormikErrors, FormikTouched } from "formik";
 import { withReadOnly } from "../../withReadOnly";
 
 type FormikChangeHandler = React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLDivElement>;
 type FormikBlurHandler = React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLDivElement>;
+type FormValues = Record<string, unknown | string | number | boolean>;
 
 export interface Props extends ComponentPropsWithRef<"form"> {
   formControls: Field[];
@@ -42,19 +43,19 @@ export interface Props extends ComponentPropsWithRef<"form"> {
 }
 
 export interface FormikAlias {
-  touched?: any;
-  values?: any;
-  errors?: any;
+  touched?: FormikTouched<FormValues | undefined>;
+  values?: FormValues;
+  errors?: FormikErrors<FormValues | undefined>;
   setFieldTouched: (
     field: string,
     isTouched?: boolean,
     shouldValidate?: boolean
-  ) => Promise<void | FormikErrors<any>>;
+  ) => Promise<void | FormikErrors<FormValues>>;
   setFieldValue: (
     field: string,
-    value: any,
+    value: FormValues,
     shouldValidate?: boolean
-  ) => Promise<void | FormikErrors<unknown>>;
+  ) => Promise<void | FormikErrors<FormValues>>;
   handleChange?: (event: FormikChangeHandler) => void;
   handleBlur?: (event: FormikBlurHandler) => void;
 }
@@ -123,13 +124,15 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
   // Used this method to create the checkbox List ...
   const getCheckbox = (field: Field) => {
     const commonProps = getCommonProps(field);
-
+    const fieldValue = values?.[field.id];
     return (
       <span className={classes.flexContainer}>
         <Checkbox
           {...commonProps}
           data-testid={getMappedFormikKey(field)}
-          checked={castToBoolean(values?.[field.id])}
+          checked={castToBoolean(
+            typeof fieldValue === "boolean" || typeof fieldValue === "string" ? fieldValue : false
+          )}
           onChange={event => onChange(commonProps.name, !values?.[field.id])}
           disabled={!(field.isEditable ?? true)}
         />
@@ -158,7 +161,7 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
       label: field.label,
       name: key,
       "data-testid": key,
-      error: touched?.[field.id] && errors?.[field.id],
+      error: !!(touched?.[field.id] && errors?.[field.id]),
       errorMessage: errors?.[field.id]
     };
   };
@@ -170,7 +173,7 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
       ...commonProps,
       required: field.isRequired ?? false,
       readOnlyView: !(field.isEditable ?? true),
-      value: values?.[field.id],
+      value: String(values?.[field.id] ?? ""),
       onChange: (event: FormikChangeHandler) => handleChange?.(event),
       onBlur: (event: FormikBlurHandler) => handleBlur?.(event)
     };
@@ -204,6 +207,9 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
   };
 
   const getArrayLikeStructure = (field: Field) => {
+    const fieldTouched = touched?.[field.id];
+    const fieldError = errors?.[field.id];
+    const fieldValue = values?.[field.id];
     if (field.subAttributes?.length && field.isArray) {
       return (
         <>
@@ -215,9 +221,18 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
             formControls={[field]}
             formikAlias={{
               ...formikAlias,
-              errors: errors?.[field.id],
-              touched: touched?.[field.id],
-              values: values?.[field.id]
+              errors:
+                typeof fieldError === "object" && fieldError !== null
+                  ? (fieldError as FormikErrors<FormValues>)
+                  : undefined,
+              touched:
+                typeof fieldTouched === "object" && fieldTouched !== null
+                  ? (fieldTouched as FormikTouched<FormValues>)
+                  : undefined,
+              values:
+                typeof fieldValue === "object" && fieldValue !== null
+                  ? (fieldValue as FormValues)
+                  : undefined
             }}
           ></DynamicFormikArray>
         </>
@@ -227,6 +242,9 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
   };
 
   const getComplexStructure = (field: Field) => {
+    const fieldTouched = touched?.[field.id];
+    const fieldError = errors?.[field.id];
+    const fieldValue = values?.[field.id];
     if (field.subAttributes?.length && !field.isArray) {
       return (
         <>
@@ -238,9 +256,18 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
             formControls={field.subAttributes ?? []}
             formikAlias={{
               ...formikAlias,
-              errors: errors?.[field.id],
-              touched: touched?.[field.id],
-              values: values?.[field.id]
+              errors:
+                typeof fieldError === "object" && fieldError !== null
+                  ? (fieldError as FormikErrors<FormValues>)
+                  : undefined,
+              touched:
+                typeof fieldTouched === "object" && fieldTouched !== null
+                  ? (fieldTouched as FormikTouched<FormValues>)
+                  : undefined,
+              values:
+                typeof fieldValue === "object" && fieldValue !== null
+                  ? (fieldValue as FormValues)
+                  : undefined
             }}
           ></DynamicFormElements>
         </>

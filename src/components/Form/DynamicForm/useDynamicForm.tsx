@@ -18,7 +18,7 @@ import * as Yup from "yup";
 import { ControlType, Field } from "./DynamicForms.interface";
 
 type NestedObject = {
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 const createYupSchema = (schema: { [key: string]: Yup.AnySchema }, config: Field) => {
@@ -53,7 +53,7 @@ const generateYupSchema = (fields: Field[]) => {
 
 export interface UseDynamicFormikProps {
   formControls: Field[];
-  userInfo: any;
+  userInfo: unknown;
 }
 
 export const useDynamicForm = ({ formControls, userInfo }: UseDynamicFormikProps) => {

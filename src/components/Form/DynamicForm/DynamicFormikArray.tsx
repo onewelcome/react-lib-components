@@ -31,7 +31,7 @@ export const DynamicFormikArray = ({ formControls, parentFieldId, formikAlias }:
             {() => (
               <>
                 {Array.isArray(values) &&
-                  values?.map((f: any, index: number) => {
+                  values?.map((f: unknown, index: number) => {
                     return (
                       <div key={`${index}${parentFieldId}`}>
                         <DynamicForm
@@ -39,9 +39,12 @@ export const DynamicFormikArray = ({ formControls, parentFieldId, formikAlias }:
                           formControls={field.subAttributes ?? []}
                           formikAlias={{
                             ...formikAlias,
-                            errors: errors?.[index],
-                            touched: touched?.[index],
-                            values: values?.[index]
+                            errors:
+                              typeof errors?.[index] === "object" ? errors?.[index] : undefined,
+                            touched:
+                              typeof touched?.[index] === "object" ? touched?.[index] : undefined,
+                            values:
+                              typeof values?.[index] === "object" ? values?.[index] : undefined
                           }}
                           // index={index}
                         />

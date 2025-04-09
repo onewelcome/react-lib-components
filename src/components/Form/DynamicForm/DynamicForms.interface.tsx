@@ -23,7 +23,7 @@ export interface KeyValue {
 
 export interface Validation {
   type: "min" | "max" | "matches" | "email" | "required"; // more supported validation type needs to be added here
-  value: any;
+  value: unknown;
   message: string;
 }
 
