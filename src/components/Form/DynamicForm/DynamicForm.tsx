@@ -3,8 +3,8 @@
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
- *
  *    You may obtain a copy of the License at
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
  *
  *    Unless required by applicable law or agreed to in writing, software
@@ -51,9 +51,13 @@ export interface FormikAlias {
     field: string,
     value: any,
     shouldValidate?: boolean
-  ) => Promise<void | FormikErrors<any>>;
-  handleChange?: (event: React.ChangeEvent<any>) => void;
-  handleBlur?: (event: React.FocusEvent<any>) => void;
+  ) => Promise<void | FormikErrors<unknown>>;
+  handleChange?: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLDivElement>
+  ) => void;
+  handleBlur?: (
+    event: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLDivElement>
+  ) => void;
 }
 
 const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
@@ -68,7 +72,7 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
     setFieldValue(key, val);
   };
 
-  const handleSelectChange = (event: any, field: Field) => {
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>, field: Field) => {
     onChange(getMappedFormikKey(field), event.target.value);
   };
 
@@ -77,7 +81,7 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
     return (
       <SelectWrapper
         {...getInputProps(field)}
-        onChange={(event: any) => {
+        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
           handleSelectChange(event, field);
         }}
       >
@@ -168,8 +172,10 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
       required: field.isRequired ?? false,
       readOnlyView: !(field.isEditable ?? true),
       value: values?.[field.id],
-      onChange: (event: any) => handleChange?.(event),
-      onBlur: (event: any) => handleBlur?.(event)
+      onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLDivElement>) =>
+        handleChange?.(event),
+      onBlur: (event: React.FocusEvent<HTMLSelectElement | HTMLInputElement | HTMLDivElement>) =>
+        handleBlur?.(event)
     };
   };
 
