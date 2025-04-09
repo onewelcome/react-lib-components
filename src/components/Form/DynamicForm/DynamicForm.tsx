@@ -32,6 +32,9 @@ import { DynamicFormikArray } from "./DynamicFormikArray";
 import { FormikErrors } from "formik";
 import { withReadOnly } from "../../withReadOnly";
 
+type FormikChangeHandler = React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLDivElement>;
+type FormikBlurHandler = React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLDivElement>;
+
 export interface Props extends ComponentPropsWithRef<"form"> {
   formControls: Field[];
   formikAlias: FormikAlias;
@@ -52,12 +55,8 @@ export interface FormikAlias {
     value: any,
     shouldValidate?: boolean
   ) => Promise<void | FormikErrors<unknown>>;
-  handleChange?: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLDivElement>
-  ) => void;
-  handleBlur?: (
-    event: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLDivElement>
-  ) => void;
+  handleChange?: (event: FormikChangeHandler) => void;
+  handleBlur?: (event: FormikBlurHandler) => void;
 }
 
 const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
@@ -172,10 +171,8 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
       required: field.isRequired ?? false,
       readOnlyView: !(field.isEditable ?? true),
       value: values?.[field.id],
-      onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLDivElement>) =>
-        handleChange?.(event),
-      onBlur: (event: React.FocusEvent<HTMLSelectElement | HTMLInputElement | HTMLDivElement>) =>
-        handleBlur?.(event)
+      onChange: (event: FormikChangeHandler) => handleChange?.(event),
+      onBlur: (event: FormikBlurHandler) => handleBlur?.(event)
     };
   };
 
