@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
+/* tslint:disable:no-any */
 import React, { ComponentPropsWithRef, ForwardRefRenderFunction } from "react";
 import {
   InputWrapper,
@@ -268,3 +268,4 @@ const DynamicFormElements: ForwardRefRenderFunction<HTMLFormElement, Props> = ({
 };
 
 export const DynamicForm = withReadOnly(React.forwardRef(DynamicFormElements));
+/* tslint:enable:no-any */

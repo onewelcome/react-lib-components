@@ -14,11 +14,12 @@
  *    limitations under the License.
  */
 
+/* tslint:disable:no-any */
 import * as Yup from "yup";
 import { ControlType, Field } from "./DynamicForms.interface";
 
-type NestedObject = {
-  [key: string]: any;
+export type NestedObject = {
+  [key: string]: unknown;
 };
 
 const createYupSchema = (schema: { [key: string]: Yup.AnySchema }, config: Field) => {
@@ -33,6 +34,7 @@ const createYupSchema = (schema: { [key: string]: Yup.AnySchema }, config: Field
   } else {
     validations.forEach(validation => {
       const { type, value, message } = validation;
+      // tslint:disable-next-line:no-any
       validator = (validator as any)[type](value, message);
     });
     schema[id] = validator;
@@ -53,7 +55,7 @@ const generateYupSchema = (fields: Field[]) => {
 
 export interface UseDynamicFormikProps {
   formControls: Field[];
-  userInfo: any;
+  userInfo: NestedObject;
 }
 
 export const useDynamicForm = ({ formControls, userInfo }: UseDynamicFormikProps) => {
@@ -88,3 +90,4 @@ export const useDynamicForm = ({ formControls, userInfo }: UseDynamicFormikProps
     validateOnMount: false
   };
 };
+/* tslint:enable:no-any */

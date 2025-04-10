@@ -14,6 +14,7 @@
  *    limitations under the License.
  */
 
+/* tslint:disable:no-any */
 import { FieldArray } from "formik";
 import React from "react";
 import { DynamicForm, Props } from "./DynamicForm";
@@ -57,3 +58,4 @@ export const DynamicFormikArray = ({ formControls, parentFieldId, formikAlias }:
     </>
   );
 };
+/* tslint:enable:no-any */

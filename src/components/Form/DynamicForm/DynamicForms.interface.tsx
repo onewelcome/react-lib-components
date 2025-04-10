@@ -14,6 +14,7 @@
  *    limitations under the License.
  */
 
+/* tslint:disable:no-any */
 import { InputType } from "@onewelcome/react-lib-components";
 
 export interface KeyValue {
@@ -50,3 +51,4 @@ export interface Field {
   isComplex?: boolean;
   subAttributes?: Field[];
 }
+/* tslint:enable:no-any */
