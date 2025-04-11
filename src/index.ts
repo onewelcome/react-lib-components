@@ -135,6 +135,8 @@ export { Checkbox } from "./components/Form/Checkbox/Checkbox";
 export type { Props as CheckboxProps } from "./components/Form/Checkbox/Checkbox";
 export { Fieldset } from "./components/Form/Fieldset/Fieldset";
 export type { Props as FieldsetProps } from "./components/Form/Fieldset/Fieldset";
+export { DynamicFormElements } from "./components/Form/DynamicForm/DynamicFormElements";
+export type { DynamicFormElementProps } from "./components/Form/DynamicForm/DynamicFormElements";
 export { Form } from "./components/Form/Form";
 export type { Props as FormProps } from "./components/Form/Form";
 export { FormControl } from "./components/Form/FormControl/FormControl";
