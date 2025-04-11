@@ -15,20 +15,18 @@
  */
 
 import React from "react";
-import {
-  InputWrapper,
-  Radio,
-  RadioWrapper,
-  SelectWrapper,
-  Option,
-  Checkbox,
-  Button,
-  Typography
-} from "@onewelcome/react-lib-components";
 import { DynamicValue, Field, KeyValue } from "./DynamicForms.interface";
 import classes from "./DynamicFormElements.module.scss";
 import { castToBoolean } from "../../../util/helper";
 import { getArrayLikeStructure } from "./DynamicFormikArray";
+import { SelectWrapper } from "../Wrapper/SelectWrapper/SelectWrapper";
+import { Option } from "../Select/SingleSelect/Option";
+import { RadioWrapper } from "../Wrapper/RadioWrapper/RadioWrapper";
+import { Radio } from "../Radio/Radio";
+import { Checkbox } from "../Checkbox/Checkbox";
+import { InputWrapper } from "../Wrapper/InputWrapper/InputWrapper";
+import { Button } from "../../Button/Button";
+import { Typography } from "../../Typography/Typography";
 
 type ChangeEvent = React.ChangeEvent<HTMLSelectElement | HTMLDivElement | HTMLInputElement>;
 type FocusEvent = React.FocusEvent<HTMLSelectElement | HTMLDivElement | HTMLInputElement>;

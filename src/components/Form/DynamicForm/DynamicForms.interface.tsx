@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { InputType } from "@onewelcome/react-lib-components";
+import { InputType } from "../../..";
 
 export interface KeyValue {
   key: string;

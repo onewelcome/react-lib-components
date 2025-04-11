@@ -19,7 +19,7 @@ import { DynamicFormElementProps, DynamicFormElements, FormikAlias } from "./Dyn
 import { DynamicValue, Field } from "./DynamicForms.interface";
 import classes from "./DynamicFormikArray.module.scss";
 import styles from "./DynamicFormElements.module.scss";
-import { Typography } from "@onewelcome/react-lib-components";
+import { Typography } from "../../Typography/Typography";
 
 export function getArrayLikeStructure(
   field: Field,
