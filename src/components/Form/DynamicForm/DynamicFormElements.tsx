@@ -137,11 +137,7 @@ export const DynamicFormElements = ({
 
   // Used this method to created the Textbox ...
   const getTextBox = (field: Field) => {
-    return (
-      <>
-        <InputWrapper type={field.inputType ? field.inputType : "text"} {...getInputProps(field)} />
-      </>
-    );
+    return <InputWrapper type={field.inputType ?? "text"} {...getInputProps(field)} />;
   };
 
   const getMappedFormikKey = (field: Field) => {
@@ -165,7 +161,7 @@ export const DynamicFormElements = ({
 
     return {
       ...commonProps,
-      required: field.isRequired ? field.isRequired : false,
+      required: field.isRequired ?? false,
       readOnlyView: !(field.isEditable ?? true),
       value: values?.[field.id] as string,
       onChange: (event: ChangeEvent) => handleChange?.(event),
@@ -187,13 +183,7 @@ export const DynamicFormElements = ({
       case "label": {
         return <label>{field.id}</label>;
       }
-      case "button": {
-        return (
-          <Button type={field.controlType} value={field.label}>
-            {field.label}
-          </Button>
-        );
-      }
+      case "button":
       case "submit": {
         return (
           <Button type={field.controlType} value={field.label}>
