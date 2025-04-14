@@ -124,7 +124,7 @@ export const DynamicFormElements = ({
         <Checkbox
           {...commonProps}
           data-testid={getMappedFormikKey(field)}
-          checked={castToBoolean(values?.[field.id])}
+          checked={castToBoolean(values?.[field.id] as string | boolean)}
           onChange={event => onChange(commonProps.name, !values?.[field.id])}
           disabled={!(field.isEditable ?? true)}
         />
@@ -155,8 +155,8 @@ export const DynamicFormElements = ({
       label: field.label,
       name: key,
       "data-testid": key,
-      error: touched?.[field.id] && errors?.[field.id],
-      errorMessage: errors?.[field.id]
+      error: (touched?.[field.id] && errors?.[field.id]) as boolean,
+      errorMessage: errors?.[field.id] as string
     };
   };
 
@@ -167,7 +167,7 @@ export const DynamicFormElements = ({
       ...commonProps,
       required: field.isRequired ? field.isRequired : false,
       readOnlyView: !(field.isEditable ?? true),
-      value: values?.[field.id],
+      value: values?.[field.id] as string,
       onChange: (event: ChangeEvent) => handleChange?.(event),
       onBlur: (event: FocusEvent) => handleBlur?.(event)
     };
@@ -218,9 +218,9 @@ export const DynamicFormElements = ({
             formControls={field.subAttributes ?? []}
             formikAlias={{
               ...formikAlias,
-              errors: errors?.[field.id],
-              touched: touched?.[field.id],
-              values: values?.[field.id]
+              errors: errors?.[field.id] as DynamicValue,
+              touched: touched?.[field.id] as DynamicValue,
+              values: values?.[field.id] as DynamicValue
             }}
           ></DynamicFormElements>
         </>

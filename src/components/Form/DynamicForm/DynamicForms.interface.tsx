@@ -27,7 +27,7 @@ export interface Validation {
   message: string;
 }
 
-export type DynamicValue = Record<string, any> | undefined;
+export type DynamicValue = Record<string, unknown> | undefined;
 
 export type ControlType =
   | "textbox"

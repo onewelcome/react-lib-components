@@ -40,9 +40,9 @@ export function getArrayLikeStructure(
           formControls={[field]}
           formikAlias={{
             ...formikAlias,
-            errors: errors?.[field.id],
-            touched: touched?.[field.id],
-            values: values?.[field.id]
+            errors: errors?.[field.id] as DynamicValue,
+            touched: touched?.[field.id] as DynamicValue,
+            values: values?.[field.id] as DynamicValue
           }}
         ></DynamicFormikArray>
       </>
@@ -72,8 +72,8 @@ export const DynamicFormikArray = ({
                       formControls={field.subAttributes ?? []}
                       formikAlias={{
                         ...formikAlias,
-                        errors: errors?.[index],
-                        touched: touched?.[index],
+                        errors: errors?.[index] as DynamicValue,
+                        touched: touched?.[index] as DynamicValue,
                         values: values?.[index]
                       }}
                       // index={index}
