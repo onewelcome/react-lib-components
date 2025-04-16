@@ -15,48 +15,16 @@
  */
 
 import React from "react";
-import { DynamicFormElementProps, DynamicFormElements, FormikAlias } from "./DynamicFormElements";
+import { DynamicFormElementProps, DynamicFormElements } from "./DynamicFormElements";
 import { DynamicValue, Field } from "./DynamicForms.interface";
-import classes from "./DynamicFormikArray.module.scss";
-import styles from "./DynamicFormElements.module.scss";
-import { Typography } from "../../Typography/Typography";
+import classes from "./DynamicFormArray.module.scss";
 
-export function getArrayLikeStructure(
-  field: Field,
-  parentFieldId: string | undefined,
-  formikAlias: FormikAlias,
-  errors: DynamicValue,
-  touched: DynamicValue,
-  values: DynamicValue
-) {
-  if (field.subAttributes?.length && field.isArray) {
-    return (
-      <>
-        <Typography variant="h3" className={styles.groupLabel}>
-          {field.label}
-        </Typography>
-        <DynamicFormikArray
-          parentFieldId={parentFieldId}
-          formControls={[field]}
-          formikAlias={{
-            ...formikAlias,
-            errors: errors?.[field.id] as DynamicValue,
-            touched: touched?.[field.id] as DynamicValue,
-            values: values?.[field.id] as DynamicValue
-          }}
-        ></DynamicFormikArray>
-      </>
-    );
-  }
-  return <></>;
-}
-
-export const DynamicFormikArray = ({
+export const DynamicFormArray = ({
   formControls,
   parentFieldId,
-  formikAlias
+  formAlias
 }: DynamicFormElementProps) => {
-  const { errors, touched, values } = formikAlias;
+  const { errors, touched, values } = formAlias;
   return (
     <>
       {formControls.map((field: Field, ind: number) => {
@@ -70,8 +38,8 @@ export const DynamicFormikArray = ({
                     <DynamicFormElements
                       parentFieldId={`${key}[${index}]`}
                       formControls={field.subAttributes ?? []}
-                      formikAlias={{
-                        ...formikAlias,
+                      formAlias={{
+                        ...formAlias,
                         errors: errors?.[index] as DynamicValue,
                         touched: touched?.[index] as DynamicValue,
                         values: values?.[index]

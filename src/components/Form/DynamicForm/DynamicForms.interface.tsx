@@ -40,7 +40,7 @@ export type ControlType =
 
 export interface Field {
   isRequired?: boolean; // To show * on the label
-  id: string; // Map into the Formik
+  id: string; // Map into the Form
   label: string; // Control label text
   validations?: Validation[];
   controlType: ControlType;

@@ -18,7 +18,6 @@ import React from "react";
 import { DynamicValue, Field, KeyValue } from "./DynamicForms.interface";
 import classes from "./DynamicFormElements.module.scss";
 import { castToBoolean } from "../../../util/helper";
-import { getArrayLikeStructure } from "./DynamicFormikArray";
 import { SelectWrapper } from "../Wrapper/SelectWrapper/SelectWrapper";
 import { Option } from "../Select/SingleSelect/Option";
 import { RadioWrapper } from "../Wrapper/RadioWrapper/RadioWrapper";
@@ -33,11 +32,11 @@ type FocusEvent = React.FocusEvent<HTMLSelectElement | HTMLDivElement | HTMLInpu
 
 export interface DynamicFormElementProps {
   formControls: Field[];
-  formikAlias: FormikAlias;
+  formAlias: FormAlias;
   parentFieldId?: string;
 }
 
-export interface FormikAlias {
+export interface FormAlias {
   touched?: DynamicValue;
   values?: DynamicValue;
   errors?: DynamicValue;
@@ -57,18 +56,18 @@ export interface FormikAlias {
 
 export const DynamicFormElements = ({
   formControls,
-  formikAlias,
+  formAlias,
   parentFieldId
 }: DynamicFormElementProps) => {
   const { errors, touched, values, handleChange, handleBlur, setFieldTouched, setFieldValue } =
-    formikAlias;
+    formAlias;
   const onChange = async (key: string, val: string | number | boolean): Promise<void> => {
     await setFieldTouched(key, true);
     await setFieldValue(key, val);
   };
 
   const handleSelectChange = async (event: React.ChangeEvent<HTMLSelectElement>, field: Field) => {
-    await onChange(getMappedFormikKey(field), event.target.value);
+    await onChange(getMappedFormKey(field), event.target.value);
   };
   // Used this method to creating the dropdown...
   const getDropDown = (field: Field) => {
@@ -123,7 +122,7 @@ export const DynamicFormElements = ({
       <span className={classes.flexContainer}>
         <Checkbox
           {...commonProps}
-          data-testid={getMappedFormikKey(field)}
+          data-testid={getMappedFormKey(field)}
           checked={castToBoolean(values?.[field.id] as string | boolean)}
           onChange={event => onChange(commonProps.name, !values?.[field.id])}
           disabled={!(field.isEditable ?? true)}
@@ -140,12 +139,12 @@ export const DynamicFormElements = ({
     return <InputWrapper type={field.inputType ?? "text"} {...getInputProps(field)} />;
   };
 
-  const getMappedFormikKey = (field: Field) => {
+  const getMappedFormKey = (field: Field) => {
     return parentFieldId ? `${parentFieldId}.${field.id}` : field.id;
   };
 
   const getCommonProps = (field: Field) => {
-    const key = getMappedFormikKey(field);
+    const key = getMappedFormKey(field);
 
     return {
       label: field.label,
@@ -204,10 +203,10 @@ export const DynamicFormElements = ({
             {field.label}
           </Typography>
           <DynamicFormElements
-            parentFieldId={getMappedFormikKey(field)}
+            parentFieldId={getMappedFormKey(field)}
             formControls={field.subAttributes ?? []}
-            formikAlias={{
-              ...formikAlias,
+            formAlias={{
+              ...formAlias,
               errors: errors?.[field.id] as DynamicValue,
               touched: touched?.[field.id] as DynamicValue,
               values: values?.[field.id] as DynamicValue
@@ -230,8 +229,6 @@ export const DynamicFormElements = ({
             </div>
           )}
           {field.isComplex && getComplexStructure(field)}
-          {field.isArray &&
-            getArrayLikeStructure(field, parentFieldId, formikAlias, errors, touched, values)}
         </>
       ))}
     </>
