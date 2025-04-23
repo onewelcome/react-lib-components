@@ -23,6 +23,7 @@ import {
   FocusEvent
 } from "./DynamicForms.interface";
 import classes from "./DynamicFormElements.module.scss";
+import styles from "./DynamicFormArray.module.scss";
 import { castToBoolean } from "../../../util/helper";
 import { SelectWrapper } from "../Wrapper/SelectWrapper/SelectWrapper";
 import { Option } from "../Select/SingleSelect/Option";
@@ -38,6 +39,42 @@ export interface DynamicFormElementProps {
   formAlias: FormAlias;
   parentFieldId?: string;
 }
+
+const DynamicFormArray = ({ formControls, parentFieldId, formAlias }: DynamicFormElementProps) => {
+  const { errors, touched, values: arrayItems } = formAlias;
+
+  return (
+    <>
+      {formControls.map((field: DynamicFormField, index: number) => {
+        const key = parentFieldId ? `${parentFieldId}.${field.id}` : field.id;
+
+        return (
+          <>
+            {Array.isArray(arrayItems) &&
+              arrayItems?.map((item: Record<string, string>, index: number) => {
+                return (
+                  <div key={`${index}${parentFieldId}`}>
+                    <DynamicFormElements
+                      parentFieldId={`${key}[${index}]`}
+                      formControls={field.subAttributes ?? []}
+                      formAlias={{
+                        ...formAlias,
+                        errors: errors?.[index] as Record<string, unknown> | undefined,
+                        touched: touched?.[index] as Record<string, unknown> | undefined,
+                        values: item
+                      }}
+                      // index={index}
+                    />
+                    <hr className={classes.separator}></hr>
+                  </div>
+                );
+              })}
+          </>
+        );
+      })}
+    </>
+  );
+};
 
 export const DynamicFormElements = ({
   formControls,
@@ -168,9 +205,6 @@ export const DynamicFormElements = ({
       case "checkbox": {
         return getCheckbox(field);
       }
-      case "label": {
-        return <label>{field.id}</label>;
-      }
       case "button":
       case "submit": {
         return (
@@ -182,6 +216,30 @@ export const DynamicFormElements = ({
       default:
         return getTextBox(field);
     }
+  };
+
+  const getArrayLikeStructure = (field: DynamicFormField) => {
+    if (field.subAttributes?.length && field.isArray) {
+      return (
+        <>
+          <Typography variant="h3" className={styles.groupLabel}>
+            {field.label}
+          </Typography>
+          <DynamicFormArray
+            parentFieldId={parentFieldId}
+            formControls={[field]}
+            formAlias={{
+              ...formAlias,
+              errors: errors?.[field.id] as Record<string, unknown> | undefined,
+              touched: touched?.[field.id] as Record<string, unknown> | undefined,
+              values: values?.[field.id] as Record<string, unknown> | undefined
+            }}
+          ></DynamicFormArray>
+        </>
+      );
+    }
+
+    return <></>;
   };
 
   const getComplexStructure = (field: DynamicFormField) => {
@@ -218,6 +276,7 @@ export const DynamicFormElements = ({
             </div>
           )}
           {field.isComplex && getComplexStructure(field)}
+          {field.isArray && getArrayLikeStructure(field)}
         </>
       ))}
     </>
