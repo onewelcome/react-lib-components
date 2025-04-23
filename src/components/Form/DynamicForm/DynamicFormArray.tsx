@@ -16,7 +16,7 @@
 
 import React from "react";
 import { DynamicFormElementProps, DynamicFormElements } from "./DynamicFormElements";
-import { DynamicValue, Field } from "./DynamicForms.interface";
+import { DynamicFormField } from "./DynamicForms.interface";
 import classes from "./DynamicFormArray.module.scss";
 
 export const DynamicFormArray = ({
@@ -24,15 +24,17 @@ export const DynamicFormArray = ({
   parentFieldId,
   formAlias
 }: DynamicFormElementProps) => {
-  const { errors, touched, values } = formAlias;
+  const { errors, touched, values: arrayItems } = formAlias;
+
   return (
     <>
-      {formControls.map((field: Field, ind: number) => {
+      {formControls.map((field: DynamicFormField, index: number) => {
         const key = parentFieldId ? `${parentFieldId}.${field.id}` : field.id;
+
         return (
           <>
-            {Array.isArray(values) &&
-              values?.map((f: unknown, index: number) => {
+            {Array.isArray(arrayItems) &&
+              arrayItems?.map((item: Record<string, string>, index: number) => {
                 return (
                   <div key={`${index}${parentFieldId}`}>
                     <DynamicFormElements
@@ -40,9 +42,9 @@ export const DynamicFormArray = ({
                       formControls={field.subAttributes ?? []}
                       formAlias={{
                         ...formAlias,
-                        errors: errors?.[index] as DynamicValue,
-                        touched: touched?.[index] as DynamicValue,
-                        values: values?.[index]
+                        errors: errors?.[index] as Record<string, unknown> | undefined,
+                        touched: touched?.[index] as Record<string, unknown> | undefined,
+                        values: item
                       }}
                       // index={index}
                     />

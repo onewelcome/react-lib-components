@@ -137,7 +137,7 @@ export { Fieldset } from "./components/Form/Fieldset/Fieldset";
 export type { Props as FieldsetProps } from "./components/Form/Fieldset/Fieldset";
 export { DynamicForm } from "./components/Form/DynamicForm/DynamicForm";
 export type { DynamicFormElementProps } from "./components/Form/DynamicForm/DynamicFormElements";
-export type { Field } from "./components/Form/DynamicForm/DynamicForms.interface";
+export type { DynamicFormField } from "./components/Form/DynamicForm/DynamicForms.interface";
 export { Form } from "./components/Form/Form";
 export type { Props as FormProps } from "./components/Form/Form";
 export { FormControl } from "./components/Form/FormControl/FormControl";

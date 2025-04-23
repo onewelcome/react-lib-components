@@ -17,7 +17,7 @@
 import React from "react";
 import { DynamicFormElementProps, DynamicFormElements } from "./DynamicFormElements";
 import { Typography } from "../../Typography/Typography";
-import { DynamicValue, Field } from "./DynamicForms.interface";
+import { DynamicFormField } from "./DynamicForms.interface";
 import { DynamicFormArray } from "./DynamicFormArray";
 import styles from "./DynamicFormElements.module.scss";
 
@@ -27,7 +27,8 @@ export const DynamicForm = ({
   parentFieldId
 }: DynamicFormElementProps) => {
   const { errors, touched, values } = formAlias;
-  function getArrayLikeStructure(field: Field) {
+
+  const getArrayLikeStructure = (field: DynamicFormField) => {
     if (field.subAttributes?.length && field.isArray) {
       return (
         <>
@@ -39,16 +40,18 @@ export const DynamicForm = ({
             formControls={[field]}
             formAlias={{
               ...formAlias,
-              errors: errors?.[field.id] as DynamicValue,
-              touched: touched?.[field.id] as DynamicValue,
-              values: values?.[field.id] as DynamicValue
+              errors: errors?.[field.id] as Record<string, unknown> | undefined,
+              touched: touched?.[field.id] as Record<string, unknown> | undefined,
+              values: values?.[field.id] as Record<string, unknown> | undefined
             }}
           ></DynamicFormArray>
         </>
       );
     }
+
     return <></>;
-  }
+  };
+
   return (
     <>
       <DynamicFormElements
@@ -56,7 +59,7 @@ export const DynamicForm = ({
         formAlias={formAlias}
         parentFieldId={parentFieldId}
       />
-      {formControls.map((field: Field) => (
+      {formControls.map((field: DynamicFormField) => (
         <>{field.isArray && getArrayLikeStructure(field)}</>
       ))}
     </>

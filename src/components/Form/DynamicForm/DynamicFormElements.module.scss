@@ -12,13 +12,12 @@
 .flexContainer {
   display: flex;
   align-items: center; /* Vertically aligns checkbox and asterisk */
-}
-
-.flexContainer .asterisk {
-  margin-left: 5px; /* Space between checkbox and asterisk */
-  &:after {
-    content: " *";
-    color: var(--error);
+  & .asterisk {
+    margin-left: 5px; /* Space between checkbox and asterisk */
+    &:after {
+      content: " *";
+      color: var(--error);
+    }
   }
 }
 

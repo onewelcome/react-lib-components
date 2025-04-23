@@ -15,7 +15,13 @@
  */
 
 import React from "react";
-import { DynamicValue, Field, KeyValue } from "./DynamicForms.interface";
+import {
+  DynamicFormField,
+  KeyValue,
+  FormAlias,
+  ChangeEvent,
+  FocusEvent
+} from "./DynamicForms.interface";
 import classes from "./DynamicFormElements.module.scss";
 import { castToBoolean } from "../../../util/helper";
 import { SelectWrapper } from "../Wrapper/SelectWrapper/SelectWrapper";
@@ -27,31 +33,10 @@ import { InputWrapper } from "../Wrapper/InputWrapper/InputWrapper";
 import { Button } from "../../Button/Button";
 import { Typography } from "../../Typography/Typography";
 
-type ChangeEvent = React.ChangeEvent<HTMLSelectElement | HTMLDivElement | HTMLInputElement>;
-type FocusEvent = React.FocusEvent<HTMLSelectElement | HTMLDivElement | HTMLInputElement>;
-
 export interface DynamicFormElementProps {
-  formControls: Field[];
+  formControls: DynamicFormField[];
   formAlias: FormAlias;
   parentFieldId?: string;
-}
-
-export interface FormAlias {
-  touched?: DynamicValue;
-  values?: DynamicValue;
-  errors?: DynamicValue;
-  setFieldTouched: (
-    field: string,
-    isTouched?: boolean,
-    shouldValidate?: boolean
-  ) => Promise<void | Record<string, unknown>>;
-  setFieldValue: (
-    field: string,
-    value: unknown,
-    shouldValidate?: boolean
-  ) => Promise<void | Record<string, unknown>>;
-  handleChange?: (event: ChangeEvent) => void;
-  handleBlur?: (event: FocusEvent) => void;
 }
 
 export const DynamicFormElements = ({
@@ -66,11 +51,15 @@ export const DynamicFormElements = ({
     await setFieldValue(key, val);
   };
 
-  const handleSelectChange = async (event: React.ChangeEvent<HTMLSelectElement>, field: Field) => {
+  const handleSelectChange = async (
+    event: React.ChangeEvent<HTMLSelectElement>,
+    field: DynamicFormField
+  ) => {
     await onChange(getMappedFormKey(field), event.target.value);
   };
+
   // Used this method to creating the dropdown...
-  const getDropDown = (field: Field) => {
+  const getDropDown = (field: DynamicFormField) => {
     return (
       <SelectWrapper
         {...getInputProps(field)}
@@ -95,7 +84,7 @@ export const DynamicFormElements = ({
   };
 
   // Used this method to create the Radio List...
-  const getRadio = (field: Field) => {
+  const getRadio = (field: DynamicFormField) => {
     return (
       <RadioWrapper
         fieldsetProps={{
@@ -115,7 +104,7 @@ export const DynamicFormElements = ({
   };
 
   // Used this method to create the checkbox List ...
-  const getCheckbox = (field: Field) => {
+  const getCheckbox = (field: DynamicFormField) => {
     const commonProps = getCommonProps(field);
 
     return (
@@ -135,15 +124,15 @@ export const DynamicFormElements = ({
   };
 
   // Used this method to created the Textbox ...
-  const getTextBox = (field: Field) => {
+  const getTextBox = (field: DynamicFormField) => {
     return <InputWrapper type={field.inputType ?? "text"} {...getInputProps(field)} />;
   };
 
-  const getMappedFormKey = (field: Field) => {
+  const getMappedFormKey = (field: DynamicFormField) => {
     return parentFieldId ? `${parentFieldId}.${field.id}` : field.id;
   };
 
-  const getCommonProps = (field: Field) => {
+  const getCommonProps = (field: DynamicFormField) => {
     const key = getMappedFormKey(field);
 
     return {
@@ -155,7 +144,7 @@ export const DynamicFormElements = ({
     };
   };
 
-  const getInputProps = (field: Field) => {
+  const getInputProps = (field: DynamicFormField) => {
     const commonProps = getCommonProps(field);
 
     return {
@@ -168,7 +157,7 @@ export const DynamicFormElements = ({
     };
   };
 
-  const getControl = (field: Field) => {
+  const getControl = (field: DynamicFormField) => {
     switch (field.controlType) {
       case "select": {
         return getDropDown(field);
@@ -195,7 +184,7 @@ export const DynamicFormElements = ({
     }
   };
 
-  const getComplexStructure = (field: Field) => {
+  const getComplexStructure = (field: DynamicFormField) => {
     if (field.subAttributes?.length && !field.isArray) {
       return (
         <>
@@ -207,9 +196,9 @@ export const DynamicFormElements = ({
             formControls={field.subAttributes ?? []}
             formAlias={{
               ...formAlias,
-              errors: errors?.[field.id] as DynamicValue,
-              touched: touched?.[field.id] as DynamicValue,
-              values: values?.[field.id] as DynamicValue
+              errors: errors?.[field.id] as Record<string, unknown> | undefined,
+              touched: touched?.[field.id] as Record<string, unknown> | undefined,
+              values: values?.[field.id] as Record<string, unknown> | undefined
             }}
           ></DynamicFormElements>
         </>

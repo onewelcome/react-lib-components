@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { InputType } from "../../..";
+import { InputType } from "../../../index";
 
 export interface KeyValue {
   key: string;
@@ -27,8 +27,6 @@ export interface Validation {
   message: string;
 }
 
-export type DynamicValue = Record<string, unknown> | undefined;
-
 export type ControlType =
   | "textbox"
   | "select"
@@ -38,9 +36,9 @@ export type ControlType =
   | "button"
   | "submit";
 
-export interface Field {
-  isRequired?: boolean; // To show * on the label
-  id: string; // Map into the Form
+export interface DynamicFormField {
+  isRequired?: boolean;
+  id: string;
   label: string; // Control label text
   validations?: Validation[];
   controlType: ControlType;
@@ -50,5 +48,27 @@ export interface Field {
   isEditable?: boolean;
   isArray?: boolean;
   isComplex?: boolean;
-  subAttributes?: Field[];
+  subAttributes?: DynamicFormField[];
 }
+
+export interface FormAlias {
+  touched?: Record<string, unknown> | undefined;
+  values?: Record<string, unknown> | undefined;
+  errors?: Record<string, unknown> | undefined;
+  setFieldTouched: (
+    field: string,
+    isTouched?: boolean,
+    shouldValidate?: boolean
+  ) => Promise<void | Record<string, unknown>>;
+  setFieldValue: (
+    field: string,
+    value: unknown,
+    shouldValidate?: boolean
+  ) => Promise<void | Record<string, unknown>>;
+  handleChange?: (event: ChangeEvent) => void;
+  handleBlur?: (event: FocusEvent) => void;
+}
+
+export type ChangeEvent = React.ChangeEvent<HTMLSelectElement | HTMLDivElement | HTMLInputElement>;
+
+export type FocusEvent = React.FocusEvent<HTMLSelectElement | HTMLDivElement | HTMLInputElement>;
