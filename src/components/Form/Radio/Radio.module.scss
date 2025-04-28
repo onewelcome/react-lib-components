@@ -146,19 +146,17 @@
   pointer-events: none;
 }
 
-[data-readonlyview="true"] {
-  & .radio-wrapper {
+[data-readonlyview="true"] .radio-wrapper {
+  color: var(--read-only-text-color);
+
+  & span.input {
     color: var(--read-only-text-color);
+    cursor: not-allowed;
 
-    & span.input {
-      color: var(--read-only-text-color);
-      cursor: not-allowed;
-
-      &:before {
-        outline: 1px solid var(--read-only-border-color);
-        outline-offset: -1px;
-        border-radius: 50%;
-      }
+    &:before {
+      outline: 1px solid var(--read-only-border-color);
+      outline-offset: -1px;
+      border-radius: 50%;
     }
   }
 
@@ -167,7 +165,7 @@
   }
 }
 
-input[type="radio"] {
+.radio-container input[type="radio"] {
   &[data-readonlyview="true"] {
     & ~ span.input {
       color: var(--read-only-text-color);

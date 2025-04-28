@@ -302,7 +302,7 @@ $listItemHeight: 2.5rem;
   }
 }
 
-[data-readonlyview="true"] {
+[data-readonlyview="true"] .root {
   [data-readonlyview] {
     & button {
       border-color: var(--read-only-border-color);
