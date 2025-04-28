@@ -106,7 +106,7 @@ export const useUploadFile = (
       const updatedList = getUpdatedList(fileName, fileStatus, undefined, error);
       setUpdatedFiles(updatedList);
       const response = { fileList: updatedList, status, responseJson };
-      setUploadingFiles(prevState => prevState.filter(selected => selected.name === fileName));
+      setUploadingFiles(prevState => prevState.filter(selected => selected.name !== fileName));
       onComplete?.(response);
     }
   };
