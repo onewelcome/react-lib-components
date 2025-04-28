@@ -457,8 +457,9 @@ const FileUploadComponent = (_ref, ref) => {
     const isFileValid = files.length && verifyExtensionValidity(files[files.length - 1]);
     if (isFileValid) {
       setErrorMsg("");
+      e.target.value = "";
+      onChange?.(files);
     }
-    isFileValid && onChange?.(files);
   };
   const verifyExtensionValidity = file => {
     const extension = file.name.split(".").pop();
@@ -716,7 +717,7 @@ const useUploadFile = (files, request, callbacks) => {
         status,
         responseJson
       };
-      setUploadingFiles(prevState => prevState.filter(selected => selected.name === fileName));
+      setUploadingFiles(prevState => prevState.filter(selected => selected.name !== fileName));
       onComplete?.(response);
     }
   };

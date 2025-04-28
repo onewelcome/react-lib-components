@@ -516,7 +516,8 @@ const SelectComponent = (_ref, ref) => {
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return /*#__PURE__*/react.createElement("div", {
-    ref: myElementRef
+    ref: myElementRef,
+    className: Select_module/* default */.A["root"]
   }, /*#__PURE__*/react.createElement("select", Select_extends({}, (0,helper/* filterProps */.J9)(rest, /^data-/, false), {
     tabIndex: -1,
     "aria-hidden": "true",

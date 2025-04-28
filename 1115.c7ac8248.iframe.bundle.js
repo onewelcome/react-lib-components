@@ -280,6 +280,7 @@ const TextareaWrapperComponent = (_ref, ref) => {
     onMouseLeave,
     disabled,
     success,
+    className,
     ...rest
   } = _ref;
   const {
@@ -343,6 +344,7 @@ const TextareaWrapperComponent = (_ref, ref) => {
   };
   return /*#__PURE__*/react.createElement(Wrapper/* Wrapper */.m, _extends({}, rest, {
     ref: ref,
+    className: `${TextareaWrapper_TextareaWrapper_module["wrapper"]} ${className ?? ""}`,
     disabled: disabled,
     labelProps: {
       id: labelId,
@@ -563,7 +565,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*!
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */.TextareaWrapper-module__textarea-wrapper--KnRsR:after{content:"";display:block;width:95%;background-color:var(--light);position:absolute;z-index:0;left:1px;top:1px;border-radius:var(--input-border-radius) var(--input-border-radius) 0 0;transition-property:all;transition-duration:.15s;transition-timing-function:ease-in-out}@media(prefers-reduced-motion: reduce){.TextareaWrapper-module__textarea-wrapper--KnRsR:after{transition-duration:.1ms}}.TextareaWrapper-module__textarea-wrapper--KnRsR.TextareaWrapper-module__disabled--uBVQ5:after{background-color:var(--disabled)}.TextareaWrapper-module__textarea-wrapper--KnRsR.TextareaWrapper-module__focus--Spgc_:after{left:2px;top:2px}.TextareaWrapper-module__textarea-wrapper--KnRsR .TextareaWrapper-module__textarea--Ch7F1:active:not(:disabled){border-color:var(--color-primary)}.TextareaWrapper-module__textarea-wrapper--KnRsR .TextareaWrapper-module__textarea--Ch7F1:focus:not(:disabled){outline:none}.TextareaWrapper-module__textarea-wrapper--KnRsR .TextareaWrapper-module__textarea--Ch7F1:has([data-icon-status]){padding-right:2.5rem}.TextareaWrapper-module__textarea-helper-text--ec4be{margin-top:.14rem}[data-readonlyview=true]~span.TextareaWrapper-module__error--hG0wT{background-color:var(--color-white)}[data-readonlyview=true] label+div:not(:has(input)){min-height:4rem;border:1px solid var(--color-blue-grey100);color:var(--read-only-text-color);background-color:var(--color-white);padding:.5rem .75rem;font-family:var(--font-family);font-size:var(--form-control-font-size);position:relative;border-radius:.125rem}[data-readonlyview=true] label+div:not(:has(input)) [data-icon-status]{position:absolute;right:1.25rem;top:.8rem;font-size:var(--icon-font-big);height:1.25rem;width:1.25rem}[data-readonlyview=true] label+div:not(:has(input)) [data-icon-status=error]{color:var(--error)}[data-readonlyview=true] label+div:not(:has(input)) [data-icon-status=success]{color:var(--success)}[data-readonlyview=true] label+div:not(:has(input)):has([data-icon-status]){padding-right:2.5rem}`, ""]);
+ */.TextareaWrapper-module__textarea-wrapper--KnRsR:after{content:"";display:block;width:95%;background-color:var(--light);position:absolute;z-index:0;left:1px;top:1px;border-radius:var(--input-border-radius) var(--input-border-radius) 0 0;transition-property:all;transition-duration:.15s;transition-timing-function:ease-in-out}@media(prefers-reduced-motion: reduce){.TextareaWrapper-module__textarea-wrapper--KnRsR:after{transition-duration:.1ms}}.TextareaWrapper-module__textarea-wrapper--KnRsR.TextareaWrapper-module__disabled--uBVQ5:after{background-color:var(--disabled)}.TextareaWrapper-module__textarea-wrapper--KnRsR.TextareaWrapper-module__focus--Spgc_:after{left:2px;top:2px}.TextareaWrapper-module__textarea-wrapper--KnRsR .TextareaWrapper-module__textarea--Ch7F1:active:not(:disabled){border-color:var(--color-primary)}.TextareaWrapper-module__textarea-wrapper--KnRsR .TextareaWrapper-module__textarea--Ch7F1:focus:not(:disabled){outline:none}.TextareaWrapper-module__textarea-wrapper--KnRsR .TextareaWrapper-module__textarea--Ch7F1:has([data-icon-status]){padding-right:2.5rem}.TextareaWrapper-module__wrapper--IfQDi[data-readonlyview=true]~span.TextareaWrapper-module__error--hG0wT{background-color:var(--color-white)}.TextareaWrapper-module__wrapper--IfQDi[data-readonlyview=true] label+div:not(:has(input)){min-height:4rem;border:1px solid var(--color-blue-grey100);color:var(--read-only-text-color);background-color:var(--color-white);padding:.5rem .75rem;font-family:var(--font-family);font-size:var(--form-control-font-size);position:relative;border-radius:.125rem}.TextareaWrapper-module__wrapper--IfQDi[data-readonlyview=true] label+div:not(:has(input)) [data-icon-status]{position:absolute;right:1.25rem;top:.8rem;font-size:var(--icon-font-big);height:1.25rem;width:1.25rem}.TextareaWrapper-module__wrapper--IfQDi[data-readonlyview=true] label+div:not(:has(input)) [data-icon-status=error]{color:var(--error)}.TextareaWrapper-module__wrapper--IfQDi[data-readonlyview=true] label+div:not(:has(input)) [data-icon-status=success]{color:var(--success)}.TextareaWrapper-module__wrapper--IfQDi[data-readonlyview=true] label+div:not(:has(input)):has([data-icon-status]){padding-right:2.5rem}.TextareaWrapper-module__textarea-helper-text--ec4be{margin-top:.14rem}`, ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"sr-only": `TextareaWrapper-module__sr-only--AUiiC`,
@@ -574,8 +576,9 @@ ___CSS_LOADER_EXPORT___.locals = {
 	"disabled": `TextareaWrapper-module__disabled--uBVQ5`,
 	"focus": `TextareaWrapper-module__focus--Spgc_`,
 	"textarea": `TextareaWrapper-module__textarea--Ch7F1`,
-	"textarea-helper-text": `TextareaWrapper-module__textarea-helper-text--ec4be`,
-	"error": `TextareaWrapper-module__error--hG0wT`
+	"wrapper": `TextareaWrapper-module__wrapper--IfQDi`,
+	"error": `TextareaWrapper-module__error--hG0wT`,
+	"textarea-helper-text": `TextareaWrapper-module__textarea-helper-text--ec4be`
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
