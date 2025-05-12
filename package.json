@@ -48,7 +48,8 @@
     "date-fns": "^4.1.0",
     "react": ">=16",
     "react-day-picker": "^9.4.1",
-    "react-dom": ">=16"
+    "react-dom": ">=16",
+    "react-router-dom": ">=6"
   },
   "overrides": {
     "cross-spawn": ">=7.0.5"
