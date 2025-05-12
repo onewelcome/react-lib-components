@@ -30,7 +30,8 @@ import {
 } from "../../../src";
 import LeftNavDocumentation from "./LeftNav.mdx";
 import { MenuItem } from "../../../src/components/admin/layout/LeftNav/LeftNav.interfaces";
-import { MemoryRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router";
+import { MemoryRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import classes from "./LeftNav.module.scss";
 
 const meta: Meta = {
@@ -201,6 +202,7 @@ const ExtendedVersionTemplate: StoryFn<Props> = args => {
           items={localItems}
           isSideMenuOpen={isSideMenuOpen}
           navigate={navigate}
+          RouterLinkComponent={RouterLink}
           onItemClick={handleSideMenuClose}
         />
         <div className={classes["content"]}>

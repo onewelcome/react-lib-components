@@ -16,8 +16,7 @@
 
 import React, { ForwardRefRenderFunction, HTMLProps, MouseEvent, Ref } from "react";
 import classes from "./LeftNavItem.module.scss";
-import { Link as RouterLink } from "react-router-dom";
-import { MenuItem } from "../LeftNav.interfaces";
+import { MenuItem, RouterLinkComponent } from "../LeftNav.interfaces";
 import { Link } from "../../../../Link/Link";
 import { useKeyboardNavigation } from "./useKeyboardNavigation";
 import { UseRefItemsReturnType } from "../useRefItems";
@@ -27,10 +26,11 @@ export interface Props extends HTMLProps<HTMLElement> {
   onItemClick: (path?: string, button?: boolean) => void;
   refItems: UseRefItemsReturnType;
   closeParentList?: () => void;
+  RouterLinkComponent: RouterLinkComponent;
 }
 
 const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { item, onItemClick, refItems, closeParentList },
+  { item, onItemClick, refItems, closeParentList, RouterLinkComponent },
   ref
 ) => {
   const { onKeyPressNavigation } = useKeyboardNavigation({ refItems, item, closeParentList });
@@ -81,7 +81,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
           </div>
         </Link>
       ) : (
-        <RouterLink
+        <RouterLinkComponent
           ref={ref as Ref<HTMLAnchorElement>}
           onKeyDown={onKeyPressNavigation}
           onClick={onLinkClickHandler}
@@ -96,7 +96,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
               React.cloneElement(item.iconComponent, { className: classes["menu-item-icon"] })}
             <span className={classes["menu-item-text"]}>{item.title}</span>
           </div>
-        </RouterLink>
+        </RouterLinkComponent>
       )}
     </li>
   );

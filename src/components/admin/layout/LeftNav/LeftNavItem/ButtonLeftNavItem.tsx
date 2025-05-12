@@ -24,8 +24,7 @@ import React, {
   useState
 } from "react";
 import classes from "./LeftNavItem.module.scss";
-import { Link as RouterLink } from "react-router-dom";
-import { MenuItem } from "../LeftNav.interfaces";
+import { MenuItem, RouterLinkComponent } from "../LeftNav.interfaces";
 import { Icon, Icons } from "../../../../Icon/Icon";
 import { useKeyboardNavigation } from "./useKeyboardNavigation";
 import { UseRefItemsReturnType } from "../useRefItems";
@@ -38,12 +37,13 @@ export interface Props extends HTMLProps<HTMLElement> {
   refItems: UseRefItemsReturnType;
   NestedComponent: ForwardRefExoticComponent<LeftNavItemProps>;
   closeParentList?: () => void;
+  RouterLinkComponent: RouterLinkComponent;
 }
 
 const chevronIconDataKey = { attributeKey: "chevron-icon", objectKey: "chevronIcon" };
 
 const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { item, navigate, onItemClick, refItems, NestedComponent, closeParentList },
+  { item, navigate, onItemClick, refItems, NestedComponent, closeParentList, RouterLinkComponent },
   ref
 ) => {
   const [expanded, setExpanded] = useState(false);
@@ -106,14 +106,14 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
           {item.iconComponent &&
             React.cloneElement(item.iconComponent, { className: classes["menu-item-icon"] })}
           {item.path ? (
-            <RouterLink
+            <RouterLinkComponent
               to={item.path}
               aria-current={item.active ? "page" : false}
               className={classes["menu-item-text"]}
               tabIndex={-1}
             >
               {item.title}
-            </RouterLink>
+            </RouterLinkComponent>
           ) : (
             <span className={classes["menu-item-text"]}>{item.title}</span>
           )}
@@ -141,6 +141,7 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
               navigate={navigate}
               onItemClick={onItemClick}
               refItems={refItems}
+              RouterLinkComponent={RouterLinkComponent}
             >
               {item.title}
             </NestedComponent>

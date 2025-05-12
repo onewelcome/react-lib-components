@@ -18,7 +18,7 @@ import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { useEffect } from "react";
-import { MemoryRouter, useLocation } from "react-router-dom";
+import { Link, MemoryRouter, useLocation } from "react-router-dom";
 import { Icon, Icons } from "../../../../Icon/Icon";
 import { MenuItem } from "../LeftNav.interfaces";
 import { LeftNavItem } from "./LeftNavItem";
@@ -57,6 +57,7 @@ const renderLeftNavItem = (params?: Partial<LeftNavItemProps>) => {
           getParentElement: jest.fn(),
           getItemMap: jest.fn()
         }}
+        RouterLinkComponent={Link}
         {...params}
       />
     );
