@@ -216,4 +216,8 @@ export const deepMerge = <T extends object>(obj1: ObjectType, obj2: ObjectType |
   return result as T;
 };
 
+export const castToBoolean = (value: string | boolean): boolean => {
+  return typeof value === "boolean" ? value : value?.toLowerCase() === "true";
+};
+
 export const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

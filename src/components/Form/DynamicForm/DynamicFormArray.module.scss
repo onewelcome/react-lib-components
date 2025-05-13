@@ -1,0 +1,6 @@
+@use "src/variables";
+
+.separator {
+  width: variables.$formFieldWidth;
+  margin-left: 0px;
+}
