@@ -15,7 +15,6 @@
  */
 
 import { ReactElement } from "react";
-import { Link as RouterLink } from "react-router-dom";
 
 export interface MenuItem {
   key: string;
@@ -29,5 +28,3 @@ export interface MenuItem {
   iconComponent?: ReactElement;
   items?: MenuItem[];
 }
-
-export type RouterLinkComponent = typeof RouterLink;

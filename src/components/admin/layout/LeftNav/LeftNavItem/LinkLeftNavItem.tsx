@@ -16,30 +16,30 @@
 
 import React, { ForwardRefRenderFunction, HTMLProps, MouseEvent, Ref } from "react";
 import classes from "./LeftNavItem.module.scss";
-import { MenuItem, RouterLinkComponent } from "../LeftNav.interfaces";
+import { MenuItem } from "../LeftNav.interfaces";
 import { Link } from "../../../../Link/Link";
 import { useKeyboardNavigation } from "./useKeyboardNavigation";
 import { UseRefItemsReturnType } from "../useRefItems";
 
 export interface Props extends HTMLProps<HTMLElement> {
   item: MenuItem;
+  navigate: (path: string) => void;
   onItemClick: (path?: string, button?: boolean) => void;
   refItems: UseRefItemsReturnType;
   closeParentList?: () => void;
-  RouterLinkComponent: RouterLinkComponent;
 }
 
 const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { item, onItemClick, refItems, closeParentList, RouterLinkComponent },
+  { item, onItemClick, refItems, closeParentList, navigate },
   ref
 ) => {
   const { onKeyPressNavigation } = useKeyboardNavigation({ refItems, item, closeParentList });
 
   const onLinkClickHandler = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (item.disabled) {
-      event.preventDefault();
-    } else {
+    event.preventDefault();
+    if (!item.disabled) {
       onItemClick(item.path);
+      item.path && navigate(item.path);
     }
   };
 
@@ -81,14 +81,14 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
           </div>
         </Link>
       ) : (
-        <RouterLinkComponent
+        <a
           ref={ref as Ref<HTMLAnchorElement>}
           onKeyDown={onKeyPressNavigation}
           onClick={onLinkClickHandler}
           aria-current={item.active ? "page" : false}
           aria-disabled={item.disabled}
           className={menuItemLinkClasses.join(" ")}
-          to={item.path ?? ""}
+          href={item.path ?? ""}
           tabIndex={tabIndex}
         >
           <div className={classes["menu-item-text-wrapper"]}>
@@ -96,7 +96,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
               React.cloneElement(item.iconComponent, { className: classes["menu-item-icon"] })}
             <span className={classes["menu-item-text"]}>{item.title}</span>
           </div>
-        </RouterLinkComponent>
+        </a>
       )}
     </li>
   );

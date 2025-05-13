@@ -15,7 +15,7 @@
  */
 
 import { HTMLProps } from "react";
-import { MenuItem, RouterLinkComponent } from "../LeftNav.interfaces";
+import { MenuItem } from "../LeftNav.interfaces";
 import { UseRefItemsReturnType } from "../useRefItems";
 
 export interface LeftNavItemProps extends HTMLProps<HTMLElement> {
@@ -24,5 +24,4 @@ export interface LeftNavItemProps extends HTMLProps<HTMLElement> {
   onItemClick: (path?: string, button?: boolean) => void;
   refItems: UseRefItemsReturnType;
   closeParentList?: () => void;
-  RouterLinkComponent: RouterLinkComponent;
 }

@@ -18,7 +18,7 @@ import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { Link, MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import { Icon, Icons } from "../../../Icon/Icon";
 import { LeftNav, Props } from "./LeftNav";
 import { MenuItem } from "./LeftNav.interfaces";
@@ -64,7 +64,6 @@ const renderLeftNav = (params?: Partial<Props>) => {
         data-testid="left-nav"
         navigate={mockNavigate}
         onItemClick={mockOnItemClick}
-        RouterLinkComponent={Link}
         {...params}
       />
     </MemoryRouter>

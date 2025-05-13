@@ -21,7 +21,7 @@ import React, {
   useState
 } from "react";
 import classes from "./LeftNav.module.scss";
-import { MenuItem, RouterLinkComponent } from "./LeftNav.interfaces";
+import { MenuItem } from "./LeftNav.interfaces";
 import { LeftNavItem } from "./LeftNavItem/LeftNavItem";
 import { useRefItems } from "./useRefItems";
 
@@ -29,13 +29,12 @@ export interface Props extends ComponentPropsWithRef<"nav"> {
   isSideMenuOpen?: boolean;
   items: MenuItem[];
   navigate: (path: string) => void;
-  RouterLinkComponent: RouterLinkComponent;
   onItemClick: (path?: string, button?: boolean) => void;
   marginTop?: string;
 }
 
 const LeftNavComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { isSideMenuOpen, items, navigate, onItemClick, marginTop, RouterLinkComponent, ...rest },
+  { isSideMenuOpen, items, navigate, onItemClick, marginTop, ...rest },
   ref
 ) => {
   const [isSideNavbarVisible, setIsSideNavbarVisible] = useState(isSideMenuOpen);
@@ -53,7 +52,6 @@ const LeftNavComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
     return items.map(item => {
       return (
         <LeftNavItem
-          RouterLinkComponent={RouterLinkComponent}
           ref={el => refItems.addElementReference(el, item.key)}
           key={item.key}
           item={item}

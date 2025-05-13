@@ -24,7 +24,7 @@ import React, {
   useState
 } from "react";
 import classes from "./LeftNavItem.module.scss";
-import { MenuItem, RouterLinkComponent } from "../LeftNav.interfaces";
+import { MenuItem } from "../LeftNav.interfaces";
 import { Icon, Icons } from "../../../../Icon/Icon";
 import { useKeyboardNavigation } from "./useKeyboardNavigation";
 import { UseRefItemsReturnType } from "../useRefItems";
@@ -37,13 +37,12 @@ export interface Props extends HTMLProps<HTMLElement> {
   refItems: UseRefItemsReturnType;
   NestedComponent: ForwardRefExoticComponent<LeftNavItemProps>;
   closeParentList?: () => void;
-  RouterLinkComponent: RouterLinkComponent;
 }
 
 const chevronIconDataKey = { attributeKey: "chevron-icon", objectKey: "chevronIcon" };
 
 const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { item, navigate, onItemClick, refItems, NestedComponent, closeParentList, RouterLinkComponent },
+  { item, navigate, onItemClick, refItems, NestedComponent, closeParentList },
   ref
 ) => {
   const [expanded, setExpanded] = useState(false);
@@ -57,6 +56,10 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
       navigate(item.path);
       onItemClick(item.path, true);
     }
+  };
+
+  const onLinkClickHandler = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
   };
 
   const onExpandIconClickHandler = () => {
@@ -106,14 +109,15 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
           {item.iconComponent &&
             React.cloneElement(item.iconComponent, { className: classes["menu-item-icon"] })}
           {item.path ? (
-            <RouterLinkComponent
-              to={item.path}
+            <a
+              href={item.path}
               aria-current={item.active ? "page" : false}
               className={classes["menu-item-text"]}
+              onClick={onLinkClickHandler}
               tabIndex={-1}
             >
               {item.title}
-            </RouterLinkComponent>
+            </a>
           ) : (
             <span className={classes["menu-item-text"]}>{item.title}</span>
           )}
@@ -141,7 +145,6 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
               navigate={navigate}
               onItemClick={onItemClick}
               refItems={refItems}
-              RouterLinkComponent={RouterLinkComponent}
             >
               {item.title}
             </NestedComponent>
