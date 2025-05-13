@@ -16,7 +16,6 @@
 
 import React, { ForwardRefRenderFunction, HTMLProps, MouseEvent, Ref } from "react";
 import classes from "./LeftNavItem.module.scss";
-import { Link as RouterLink } from "react-router-dom";
 import { MenuItem } from "../LeftNav.interfaces";
 import { Link } from "../../../../Link/Link";
 import { useKeyboardNavigation } from "./useKeyboardNavigation";
@@ -24,21 +23,30 @@ import { UseRefItemsReturnType } from "../useRefItems";
 
 export interface Props extends HTMLProps<HTMLElement> {
   item: MenuItem;
+  navigate: (path: string) => void;
   onItemClick: (path?: string, button?: boolean) => void;
   refItems: UseRefItemsReturnType;
   closeParentList?: () => void;
 }
 
 const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { item, onItemClick, refItems, closeParentList },
+  { item, onItemClick, refItems, closeParentList, navigate },
   ref
 ) => {
   const { onKeyPressNavigation } = useKeyboardNavigation({ refItems, item, closeParentList });
+
+  const isRouterLink = !item.path?.match(/^https?:\/\//);
 
   const onLinkClickHandler = (event: MouseEvent<HTMLAnchorElement>) => {
     if (item.disabled) {
       event.preventDefault();
     } else {
+      if (isRouterLink) {
+        event.preventDefault();
+        if (item.path) {
+          navigate(item.path);
+        }
+      }
       onItemClick(item.path);
     }
   };
@@ -60,44 +68,25 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
 
   return (
     <li className={menuLinkWrapperClasses.join(" ")} data-testid={`${item.key}`}>
-      {item.path?.match(/^https?:\/\//) ? (
-        <Link
-          ref={ref as Ref<HTMLAnchorElement>}
-          onKeyDown={onKeyPressNavigation}
-          onClick={onLinkClickHandler}
-          data-testid={item.key}
-          aria-current={item.active ? "page" : false}
-          aria-disabled={item.disabled}
-          className={menuItemLinkClasses.join(" ")}
-          to={item.path ?? ""}
-          type="external"
-          disabled={item.disabled}
-          tabIndex={tabIndex}
-        >
-          <div className={classes["menu-item-text-wrapper"]}>
-            {item.iconComponent &&
-              React.cloneElement(item.iconComponent, { className: classes["menu-item-icon"] })}
-            <span className={classes["menu-item-text"]}>{item.title}</span>
-          </div>
-        </Link>
-      ) : (
-        <RouterLink
-          ref={ref as Ref<HTMLAnchorElement>}
-          onKeyDown={onKeyPressNavigation}
-          onClick={onLinkClickHandler}
-          aria-current={item.active ? "page" : false}
-          aria-disabled={item.disabled}
-          className={menuItemLinkClasses.join(" ")}
-          to={item.path ?? ""}
-          tabIndex={tabIndex}
-        >
-          <div className={classes["menu-item-text-wrapper"]}>
-            {item.iconComponent &&
-              React.cloneElement(item.iconComponent, { className: classes["menu-item-icon"] })}
-            <span className={classes["menu-item-text"]}>{item.title}</span>
-          </div>
-        </RouterLink>
-      )}
+      <Link
+        ref={ref as Ref<HTMLAnchorElement>}
+        onKeyDown={onKeyPressNavigation}
+        onClick={onLinkClickHandler}
+        data-testid={item.key}
+        aria-current={item.active ? "page" : false}
+        aria-disabled={item.disabled}
+        className={menuItemLinkClasses.join(" ")}
+        to={item.path ?? ""}
+        type="external"
+        disabled={item.disabled}
+        tabIndex={tabIndex}
+      >
+        <div className={classes["menu-item-text-wrapper"]}>
+          {item.iconComponent &&
+            React.cloneElement(item.iconComponent, { className: classes["menu-item-icon"] })}
+          <span className={classes["menu-item-text"]}>{item.title}</span>
+        </div>
+      </Link>
     </li>
   );
 };
