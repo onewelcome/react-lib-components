@@ -29,7 +29,7 @@ export interface Props extends ComponentPropsWithRef<"nav"> {
   isSideMenuOpen?: boolean;
   items: MenuItem[];
   navigate: (path: string) => void;
-  onItemClick: (path?: string, button?: boolean) => void;
+  onItemClick?: (path?: string, button?: boolean) => void;
   marginTop?: string;
 }
 

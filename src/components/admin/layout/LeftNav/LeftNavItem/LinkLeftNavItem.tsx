@@ -24,7 +24,7 @@ import { UseRefItemsReturnType } from "../useRefItems";
 export interface Props extends HTMLProps<HTMLElement> {
   item: MenuItem;
   navigate: (path: string) => void;
-  onItemClick: (path?: string, button?: boolean) => void;
+  onItemClick?: (path?: string, button?: boolean) => void;
   refItems: UseRefItemsReturnType;
   closeParentList?: () => void;
 }
@@ -38,7 +38,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
   const onLinkClickHandler = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     if (!item.disabled) {
-      onItemClick(item.path);
+      onItemClick?.(item.path);
       item.path && navigate(item.path);
     }
   };
@@ -65,7 +65,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
           ref={ref as Ref<HTMLAnchorElement>}
           onKeyDown={onKeyPressNavigation}
           onClick={onLinkClickHandler}
-          data-testid={item.key}
+          data-testid={`left-nav-item-${item.key}`}
           aria-current={item.active ? "page" : false}
           aria-disabled={item.disabled}
           className={menuItemLinkClasses.join(" ")}
@@ -85,6 +85,7 @@ const LinkLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> = (
           ref={ref as Ref<HTMLAnchorElement>}
           onKeyDown={onKeyPressNavigation}
           onClick={onLinkClickHandler}
+          data-testid={`left-nav-item-${item.key}`}
           aria-current={item.active ? "page" : false}
           aria-disabled={item.disabled}
           className={menuItemLinkClasses.join(" ")}

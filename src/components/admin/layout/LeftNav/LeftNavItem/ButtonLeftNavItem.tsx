@@ -33,7 +33,7 @@ import { LeftNavItemProps } from "./LeftNavItem.interface";
 export interface Props extends HTMLProps<HTMLElement> {
   item: MenuItem;
   navigate: (path: string) => void;
-  onItemClick: (path?: string, button?: boolean) => void;
+  onItemClick?: (path?: string, button?: boolean) => void;
   refItems: UseRefItemsReturnType;
   NestedComponent: ForwardRefExoticComponent<LeftNavItemProps>;
   closeParentList?: () => void;
@@ -53,8 +53,11 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
     const isChevronIcon = !!(event.target as HTMLElement).dataset[chevronIconDataKey.objectKey];
     if (!isChevronIcon && item.path && !item.disabled) {
       event.preventDefault();
-      navigate(item.path);
-      onItemClick(item.path, true);
+      setExpanded(expanded => !expanded);
+      if (!expanded) {
+        navigate(item.path);
+        onItemClick?.(item.path, true);
+      }
     }
   };
 
@@ -96,7 +99,7 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
     <li className={buttonWrapperClasses.join(" ")} data-testid={item.key}>
       <button
         aria-controls={item.key}
-        data-testid={`tab-btn-${item.key}`}
+        data-testid={`left-nav-item-${item.key}`}
         aria-expanded={expanded}
         ref={ref as Ref<HTMLButtonElement>}
         onKeyDown={onKeyPressNavigation}
