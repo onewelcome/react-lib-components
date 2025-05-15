@@ -53,11 +53,8 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
     const isChevronIcon = !!(event.target as HTMLElement).dataset[chevronIconDataKey.objectKey];
     if (!isChevronIcon && item.path && !item.disabled) {
       event.preventDefault();
-      setExpanded(expanded => !expanded);
-      if (!expanded) {
-        navigate(item.path);
-        onItemClick?.(item.path, true);
-      }
+      navigate(item.path);
+      onItemClick?.(item.path, true);
     }
   };
 
