@@ -202,7 +202,6 @@ const ExtendedVersionTemplate: StoryFn<Props> = args => {
           items={localItems}
           isSideMenuOpen={isSideMenuOpen}
           navigate={navigate}
-          RouterLinkComponent={RouterLink}
           onItemClick={handleSideMenuClose}
         />
         <div className={classes["content"]}>
