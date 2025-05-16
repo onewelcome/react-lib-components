@@ -21,7 +21,7 @@ import { UseRefItemsReturnType } from "../useRefItems";
 export interface LeftNavItemProps extends HTMLProps<HTMLElement> {
   item: MenuItem;
   navigate: (path: string) => void;
-  onItemClick: (path?: string, button?: boolean) => void;
+  onItemClick?: (path?: string, button?: boolean) => void;
   refItems: UseRefItemsReturnType;
   closeParentList?: () => void;
 }

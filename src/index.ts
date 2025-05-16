@@ -220,6 +220,7 @@ export { MicrofrontendContainer } from "./components/admin/layout/MicrofrontendC
 export type { Props as MicrofrontendContainerProps } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
 export { LeftNav } from "./components/admin/layout/LeftNav/LeftNav";
 export type { Props as LeftNavProps } from "./components/admin/layout/LeftNav/LeftNav";
+export type { MenuItem as LeftNavMenuItem } from "./components/admin/layout/LeftNav/LeftNav.interfaces";
 
 /**
  * Miscellaneous

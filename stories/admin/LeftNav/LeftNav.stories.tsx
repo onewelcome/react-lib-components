@@ -30,7 +30,8 @@ import {
 } from "../../../src";
 import LeftNavDocumentation from "./LeftNav.mdx";
 import { MenuItem } from "../../../src/components/admin/layout/LeftNav/LeftNav.interfaces";
-import { MemoryRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router";
+import { MemoryRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import classes from "./LeftNav.module.scss";
 
 const meta: Meta = {
