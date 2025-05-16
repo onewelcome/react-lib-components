@@ -73,7 +73,7 @@ describe("<LeftNavItem />", () => {
   test("should render without crashing", () => {
     const { findByTestId, getByRole } = renderLeftNavItem();
 
-    const renderedLeftNavItem = findByTestId("left-nav-item");
+    const renderedLeftNavItem = findByTestId("left-nav-item-menu1");
     expect(renderedLeftNavItem).toBeDefined();
     expect(getByRole("link", { name: "Menu Item 1" })).toBeDefined();
   });

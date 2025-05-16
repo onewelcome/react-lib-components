@@ -24,7 +24,6 @@ import React, {
   useState
 } from "react";
 import classes from "./LeftNavItem.module.scss";
-import { Link as RouterLink } from "react-router-dom";
 import { MenuItem } from "../LeftNav.interfaces";
 import { Icon, Icons } from "../../../../Icon/Icon";
 import { useKeyboardNavigation } from "./useKeyboardNavigation";
@@ -34,7 +33,7 @@ import { LeftNavItemProps } from "./LeftNavItem.interface";
 export interface Props extends HTMLProps<HTMLElement> {
   item: MenuItem;
   navigate: (path: string) => void;
-  onItemClick: (path?: string, button?: boolean) => void;
+  onItemClick?: (path?: string, button?: boolean) => void;
   refItems: UseRefItemsReturnType;
   NestedComponent: ForwardRefExoticComponent<LeftNavItemProps>;
   closeParentList?: () => void;
@@ -55,8 +54,12 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
     if (!isChevronIcon && item.path && !item.disabled) {
       event.preventDefault();
       navigate(item.path);
-      onItemClick(item.path, true);
+      onItemClick?.(item.path, true);
     }
+  };
+
+  const onLinkClickHandler = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
   };
 
   const onExpandIconClickHandler = () => {
@@ -93,7 +96,7 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
     <li className={buttonWrapperClasses.join(" ")} data-testid={item.key}>
       <button
         aria-controls={item.key}
-        data-testid={`tab-btn-${item.key}`}
+        data-testid={`left-nav-item-${item.key}`}
         aria-expanded={expanded}
         ref={ref as Ref<HTMLButtonElement>}
         onKeyDown={onKeyPressNavigation}
@@ -106,14 +109,15 @@ const ButtonLeftNavItemComponent: ForwardRefRenderFunction<HTMLElement, Props> =
           {item.iconComponent &&
             React.cloneElement(item.iconComponent, { className: classes["menu-item-icon"] })}
           {item.path ? (
-            <RouterLink
-              to={item.path}
+            <a
+              href={item.path}
               aria-current={item.active ? "page" : false}
               className={classes["menu-item-text"]}
+              onClick={onLinkClickHandler}
               tabIndex={-1}
             >
               {item.title}
-            </RouterLink>
+            </a>
           ) : (
             <span className={classes["menu-item-text"]}>{item.title}</span>
           )}
