@@ -50,9 +50,7 @@ The DataGrid header is generated based on provided `headers` props, and the body
 </DataGrid>
 ```
 
-<Canvas>
-  <Story of={DataGridStories.DefaultDataGrid} />
-</Canvas>
+<Canvas of={DataGridStories.DefaultDataGrid} />
 
 ## Table header
 
@@ -77,9 +75,7 @@ In the example below, the `Created` & `Identifier` columns are hidden. Sorting i
 />
 ```
 
-<Canvas>
-  <Story of={DataGridStories.HideColumnDataGrid} />
-</Canvas>
+<Canvas of={DataGridStories.HideColumnDataGrid} />
 
 ### Sorting
 
@@ -235,9 +231,7 @@ It renders 9 rows with skeleton loading animation in all defined cells.
 <DataGrid isLoading />
 ```
 
-<Canvas>
-  <Story of={DataGridStories.DataGridIsLoading} />
-</Canvas>
+<Canvas of={DataGridStories.DataGridIsLoading} />
 
 ### Showing empty table message
 
@@ -248,9 +242,7 @@ Text will be displayed only if the `data` property is empty, and `isLoading` is 
 <DataGrid emptyLabel="There are no vegetables within the current selection" data={undefined} />
 ```
 
-<Canvas>
-  <Story of={DataGridStories.EmptyDataGrid} />
-</Canvas>
+<Canvas of={DataGridStories.EmptyDataGrid} />
 
 # Filters section
 
@@ -383,9 +375,7 @@ An example can be found below:
 
 # Full example
 
-<Canvas>
-  <Story of={DataGridStories.DefaultDataGrid} />
-</Canvas>
+<Canvas of={DataGridStories.DefaultDataGrid} />
 
 # Props
 
