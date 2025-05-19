@@ -112,30 +112,28 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
       children: ["The ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
         children: "<LeftNav />"
-      }), " requires ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "react-router"
-      }), ". The edge links are rendered using ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "react-router"
-      }), "'s ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "<Link />"
-      }), " component."]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
-      children: ["The ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "<LeftNav />"
       }), " calls two callback methods on different conditions:"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.ul, {
       children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.li, {
-        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.strong, {
+          children: "mandatory"
+        }), " ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
           children: "navigate(path: string)"
-        }), " - Called directly when the user presses a parent element (button) to align with the behavior of ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-          children: "react-router"
-        }), "'s ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-          children: "<Link />"
-        }), " component."]
+        }), " - Called directly when the user presses a parent element (button) to unfold the items and when the user presses a leaf link which is not a HTTP/S link.", "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.ul, {
+          children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.li, {
+            children: ["Usually it is implemented using React router's ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+              children: "navigate"
+            }), " function obtained by ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+              children: "const navigate = useNavigate()"
+            }), "."]
+          }), "\n"]
+        }), "\n"]
       }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.li, {
-        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.strong, {
+          children: "optional"
+        }), " ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
           children: "onItemClick(path: string, button: boolean)"
-        }), " - Called when pressing parent elements (button) or edge links (link)."]
+        }), " - Called when pressing parent elements (button) or leaf links (link)."]
       }), "\n"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h1, {
       id: "examples",
@@ -211,7 +209,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("./src/components/admin/layout/MicrofrontendContainer/MicrofrontendContainer.tsx");
 /* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("./src/components/Layout/ContentHeader/ContentHeader.tsx");
 /* harmony import */ var _LeftNav_mdx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("./stories/admin/LeftNav/LeftNav.mdx");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("./node_modules/react-router/dist/index.js");
 /* harmony import */ var _LeftNav_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./stories/admin/LeftNav/LeftNav.module.scss");
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
@@ -338,10 +336,10 @@ const generateRedirects = menuItems => {
   const redirects = [];
   menuItems.forEach(item => {
     if (item.items && item.items.length > 0) {
-      redirects.push(/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_6__/* .Route */ .qh, {
+      redirects.push(/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Route */ .qh, {
         key: `${item.key}-redirect`,
         path: item.path,
-        element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_6__/* .Navigate */ .C5, {
+        element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Navigate */ .C5, {
           to: item.items[0].path
         })
       }));
@@ -361,13 +359,13 @@ const setActiveItem = (menuItems, path) => {
 const routes = extractRoutes(items);
 const redirects = generateRedirects(items);
 const ExtendedTemplateWithRouterWrapper = args => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_6__/* .MemoryRouter */ .fS, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ExtendedVersionTemplate, args));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .MemoryRouter */ .fS, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ExtendedVersionTemplate, args));
 };
 const ExtendedVersionTemplate = args => {
   const [isSideMenuOpen, setIsSideMenuOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [localItems, setLocalItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(items);
-  const navigate = (0,react_router__WEBPACK_IMPORTED_MODULE_6__/* .useNavigate */ .Zp)();
-  const location = (0,react_router__WEBPACK_IMPORTED_MODULE_6__/* .useLocation */ .zy)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .useNavigate */ .Zp)();
+  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .useLocation */ .zy)();
   const handleSideMenuClose = () => {
     setIsSideMenuOpen(false);
   };
@@ -405,13 +403,13 @@ const ExtendedVersionTemplate = args => {
     }, "If you need more place to write some explanation to your user, this is the place you can do it. Have fun!")
   }, args), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: _LeftNav_module_scss__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A["inner"]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_6__/* .Routes */ .BV, null, redirects, routes.map(route => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_6__/* .Route */ .qh, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Routes */ .BV, null, redirects, routes.map(route => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Route */ .qh, {
     key: route.key,
     path: route.path,
     element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, route.title, " Content")
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_6__/* .Route */ .qh, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Route */ .qh, {
     path: "*",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_6__/* .Navigate */ .C5, {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Navigate */ .C5, {
       to: routes[0]?.path || "/"
     })
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Some content", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null))))));
@@ -419,7 +417,7 @@ const ExtendedVersionTemplate = args => {
 const AdvancedLeftNav = ExtendedTemplateWithRouterWrapper.bind({});
 AdvancedLeftNav.storyName = "Advanced LeftNav";
 const Template = args => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_6__/* .MemoryRouter */ .fS, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src__WEBPACK_IMPORTED_MODULE_2__/* .LeftNav */ .$, _extends({
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .MemoryRouter */ .fS, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src__WEBPACK_IMPORTED_MODULE_2__/* .LeftNav */ .$, _extends({
     className: _LeftNav_module_scss__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A["storybook-preview-static-left-nav"]
   }, args)));
 };
@@ -1392,8 +1390,6 @@ var LeftNavItem_module_update = injectStylesIntoStyleTag_default()(LeftNavItem_m
 
        /* harmony default export */ const LeftNavItem_LeftNavItem_module = (LeftNavItem_module/* default */.A && LeftNavItem_module/* default */.A.locals ? LeftNavItem_module/* default */.A.locals : undefined);
 
-// EXTERNAL MODULE: ./node_modules/react-router-dom/dist/index.js
-var dist = __webpack_require__("./node_modules/react-router-dom/dist/index.js");
 // EXTERNAL MODULE: ./src/components/Icon/Icon.tsx + 1 modules
 var Icon = __webpack_require__("./src/components/Icon/Icon.tsx");
 ;// CONCATENATED MODULE: ./src/components/admin/layout/LeftNav/LeftNavItem/useKeyboardNavigation.ts
@@ -1478,7 +1474,6 @@ const useKeyboardNavigation = _ref => {
 
 
 
-
 const chevronIconDataKey = {
   attributeKey: "chevron-icon",
   objectKey: "chevronIcon"
@@ -1506,8 +1501,11 @@ const ButtonLeftNavItemComponent = (_ref, ref) => {
     if (!isChevronIcon && item.path && !item.disabled) {
       event.preventDefault();
       navigate(item.path);
-      onItemClick(item.path, true);
+      onItemClick?.(item.path, true);
     }
+  };
+  const onLinkClickHandler = event => {
+    event.preventDefault();
   };
   const onExpandIconClickHandler = () => {
     setExpanded(expanded => !expanded);
@@ -1542,7 +1540,7 @@ const ButtonLeftNavItemComponent = (_ref, ref) => {
     "data-testid": item.key
   }, /*#__PURE__*/react.createElement("button", {
     "aria-controls": item.key,
-    "data-testid": `tab-btn-${item.key}`,
+    "data-testid": `left-nav-item-${item.key}`,
     "aria-expanded": expanded,
     ref: ref,
     onKeyDown: onKeyPressNavigation,
@@ -1554,10 +1552,11 @@ const ButtonLeftNavItemComponent = (_ref, ref) => {
     className: LeftNavItem_LeftNavItem_module["menu-item-text-wrapper"]
   }, item.iconComponent && /*#__PURE__*/react.cloneElement(item.iconComponent, {
     className: LeftNavItem_LeftNavItem_module["menu-item-icon"]
-  }), item.path ? /*#__PURE__*/react.createElement(dist/* Link */.N_, {
-    to: item.path,
+  }), item.path ? /*#__PURE__*/react.createElement("a", {
+    href: item.path,
     "aria-current": item.active ? "page" : false,
     className: LeftNavItem_LeftNavItem_module["menu-item-text"],
+    onClick: onLinkClickHandler,
     tabIndex: -1
   }, item.title) : /*#__PURE__*/react.createElement("span", {
     className: LeftNavItem_LeftNavItem_module["menu-item-text"]
@@ -1588,7 +1587,7 @@ try {
     // @ts-ignore
     ButtonLeftNavItem.displayName = "ButtonLeftNavItem";
     // @ts-ignore
-    ButtonLeftNavItem.__docgenInfo = { "description": "", "displayName": "ButtonLeftNavItem", "props": { "navigate": { "defaultValue": null, "description": "", "name": "navigate", "required": true, "type": { "name": "(path: string) => void" } }, "onItemClick": { "defaultValue": null, "description": "", "name": "onItemClick", "required": true, "type": { "name": "(path?: string | undefined, button?: boolean | undefined) => void" } }, "item": { "defaultValue": null, "description": "", "name": "item", "required": true, "type": { "name": "MenuItem" } }, "refItems": { "defaultValue": null, "description": "", "name": "refItems", "required": true, "type": { "name": "{ addElementReference: (el: HTMLElement | null, key: string) => void; getNextElement: (currentKey: string, whenHavingChildren?: boolean) => HTMLElement | undefined; ... 5 more ...; getItemMap: () => Record<...>; }" } }, "closeParentList": { "defaultValue": null, "description": "", "name": "closeParentList", "required": false, "type": { "name": "(() => void)" } }, "NestedComponent": { "defaultValue": null, "description": "", "name": "NestedComponent", "required": true, "type": { "name": "ForwardRefExoticComponent<LeftNavItemProps>" } } } };
+    ButtonLeftNavItem.__docgenInfo = { "description": "", "displayName": "ButtonLeftNavItem", "props": { "navigate": { "defaultValue": null, "description": "", "name": "navigate", "required": true, "type": { "name": "(path: string) => void" } }, "onItemClick": { "defaultValue": null, "description": "", "name": "onItemClick", "required": false, "type": { "name": "((path?: string, button?: boolean) => void) | undefined" } }, "item": { "defaultValue": null, "description": "", "name": "item", "required": true, "type": { "name": "MenuItem" } }, "refItems": { "defaultValue": null, "description": "", "name": "refItems", "required": true, "type": { "name": "{ addElementReference: (el: HTMLElement | null, key: string) => void; getNextElement: (currentKey: string, whenHavingChildren?: boolean) => HTMLElement | undefined; ... 5 more ...; getItemMap: () => Record<...>; }" } }, "closeParentList": { "defaultValue": null, "description": "", "name": "closeParentList", "required": false, "type": { "name": "(() => void)" } }, "NestedComponent": { "defaultValue": null, "description": "", "name": "NestedComponent", "required": true, "type": { "name": "ForwardRefExoticComponent<LeftNavItemProps>" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -1618,13 +1617,13 @@ var Link = __webpack_require__("./src/components/Link/Link.tsx");
 
 
 
-
 const LinkLeftNavItemComponent = (_ref, ref) => {
   let {
     item,
     onItemClick,
     refItems,
-    closeParentList
+    closeParentList,
+    navigate
   } = _ref;
   const {
     onKeyPressNavigation
@@ -1634,10 +1633,10 @@ const LinkLeftNavItemComponent = (_ref, ref) => {
     closeParentList
   });
   const onLinkClickHandler = event => {
-    if (item.disabled) {
-      event.preventDefault();
-    } else {
-      onItemClick(item.path);
+    event.preventDefault();
+    if (!item.disabled) {
+      onItemClick?.(item.path);
+      item.path && navigate(item.path);
     }
   };
   const getStylingClasses = () => {
@@ -1663,7 +1662,7 @@ const LinkLeftNavItemComponent = (_ref, ref) => {
     ref: ref,
     onKeyDown: onKeyPressNavigation,
     onClick: onLinkClickHandler,
-    "data-testid": item.key,
+    "data-testid": `left-nav-item-${item.key}`,
     "aria-current": item.active ? "page" : false,
     "aria-disabled": item.disabled,
     className: menuItemLinkClasses.join(" "),
@@ -1677,14 +1676,15 @@ const LinkLeftNavItemComponent = (_ref, ref) => {
     className: LeftNavItem_LeftNavItem_module["menu-item-icon"]
   }), /*#__PURE__*/react.createElement("span", {
     className: LeftNavItem_LeftNavItem_module["menu-item-text"]
-  }, item.title))) : /*#__PURE__*/react.createElement(dist/* Link */.N_, {
+  }, item.title))) : /*#__PURE__*/react.createElement("a", {
     ref: ref,
     onKeyDown: onKeyPressNavigation,
     onClick: onLinkClickHandler,
+    "data-testid": `left-nav-item-${item.key}`,
     "aria-current": item.active ? "page" : false,
     "aria-disabled": item.disabled,
     className: menuItemLinkClasses.join(" "),
-    to: item.path ?? "",
+    href: item.path ?? "",
     tabIndex: tabIndex
   }, /*#__PURE__*/react.createElement("div", {
     className: LeftNavItem_LeftNavItem_module["menu-item-text-wrapper"]
@@ -1699,7 +1699,7 @@ try {
     // @ts-ignore
     LinkLeftNavItem.displayName = "LinkLeftNavItem";
     // @ts-ignore
-    LinkLeftNavItem.__docgenInfo = { "description": "", "displayName": "LinkLeftNavItem", "props": { "onItemClick": { "defaultValue": null, "description": "", "name": "onItemClick", "required": true, "type": { "name": "(path?: string | undefined, button?: boolean | undefined) => void" } }, "item": { "defaultValue": null, "description": "", "name": "item", "required": true, "type": { "name": "MenuItem" } }, "refItems": { "defaultValue": null, "description": "", "name": "refItems", "required": true, "type": { "name": "{ addElementReference: (el: HTMLElement | null, key: string) => void; getNextElement: (currentKey: string, whenHavingChildren?: boolean) => HTMLElement | undefined; ... 5 more ...; getItemMap: () => Record<...>; }" } }, "closeParentList": { "defaultValue": null, "description": "", "name": "closeParentList", "required": false, "type": { "name": "(() => void)" } } } };
+    LinkLeftNavItem.__docgenInfo = { "description": "", "displayName": "LinkLeftNavItem", "props": { "navigate": { "defaultValue": null, "description": "", "name": "navigate", "required": true, "type": { "name": "(path: string) => void" } }, "onItemClick": { "defaultValue": null, "description": "", "name": "onItemClick", "required": false, "type": { "name": "((path?: string, button?: boolean) => void) | undefined" } }, "item": { "defaultValue": null, "description": "", "name": "item", "required": true, "type": { "name": "MenuItem" } }, "refItems": { "defaultValue": null, "description": "", "name": "refItems", "required": true, "type": { "name": "{ addElementReference: (el: HTMLElement | null, key: string) => void; getNextElement: (currentKey: string, whenHavingChildren?: boolean) => HTMLElement | undefined; ... 5 more ...; getItemMap: () => Record<...>; }" } }, "closeParentList": { "defaultValue": null, "description": "", "name": "closeParentList", "required": false, "type": { "name": "(() => void)" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -1749,7 +1749,7 @@ try {
     // @ts-ignore
     LeftNavItem.displayName = "LeftNavItem";
     // @ts-ignore
-    LeftNavItem.__docgenInfo = { "description": "", "displayName": "LeftNavItem", "props": { "navigate": { "defaultValue": null, "description": "", "name": "navigate", "required": true, "type": { "name": "(path: string) => void" } }, "onItemClick": { "defaultValue": null, "description": "", "name": "onItemClick", "required": true, "type": { "name": "(path?: string | undefined, button?: boolean | undefined) => void" } }, "item": { "defaultValue": null, "description": "", "name": "item", "required": true, "type": { "name": "MenuItem" } }, "refItems": { "defaultValue": null, "description": "", "name": "refItems", "required": true, "type": { "name": "{ addElementReference: (el: HTMLElement | null, key: string) => void; getNextElement: (currentKey: string, whenHavingChildren?: boolean) => HTMLElement | undefined; ... 5 more ...; getItemMap: () => Record<...>; }" } }, "closeParentList": { "defaultValue": null, "description": "", "name": "closeParentList", "required": false, "type": { "name": "(() => void)" } } } };
+    LeftNavItem.__docgenInfo = { "description": "", "displayName": "LeftNavItem", "props": { "navigate": { "defaultValue": null, "description": "", "name": "navigate", "required": true, "type": { "name": "(path: string) => void" } }, "onItemClick": { "defaultValue": null, "description": "", "name": "onItemClick", "required": false, "type": { "name": "((path?: string, button?: boolean) => void) | undefined" } }, "item": { "defaultValue": null, "description": "", "name": "item", "required": true, "type": { "name": "MenuItem" } }, "refItems": { "defaultValue": null, "description": "", "name": "refItems", "required": true, "type": { "name": "{ addElementReference: (el: HTMLElement | null, key: string) => void; getNextElement: (currentKey: string, whenHavingChildren?: boolean) => HTMLElement | undefined; ... 5 more ...; getItemMap: () => Record<...>; }" } }, "closeParentList": { "defaultValue": null, "description": "", "name": "closeParentList", "required": false, "type": { "name": "(() => void)" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -2084,7 +2084,7 @@ try {
     // @ts-ignore
     LeftNav.displayName = "LeftNav";
     // @ts-ignore
-    LeftNav.__docgenInfo = { "description": "", "displayName": "LeftNav", "props": { "isSideMenuOpen": { "defaultValue": null, "description": "", "name": "isSideMenuOpen", "required": false, "type": { "name": "boolean" } }, "items": { "defaultValue": null, "description": "", "name": "items", "required": true, "type": { "name": "MenuItem[]" } }, "navigate": { "defaultValue": null, "description": "", "name": "navigate", "required": true, "type": { "name": "(path: string) => void" } }, "onItemClick": { "defaultValue": null, "description": "", "name": "onItemClick", "required": true, "type": { "name": "(path?: string | undefined, button?: boolean | undefined) => void" } }, "marginTop": { "defaultValue": null, "description": "", "name": "marginTop", "required": false, "type": { "name": "string" } } } };
+    LeftNav.__docgenInfo = { "description": "", "displayName": "LeftNav", "props": { "isSideMenuOpen": { "defaultValue": null, "description": "", "name": "isSideMenuOpen", "required": false, "type": { "name": "boolean" } }, "items": { "defaultValue": null, "description": "", "name": "items", "required": true, "type": { "name": "MenuItem[]" } }, "navigate": { "defaultValue": null, "description": "", "name": "navigate", "required": true, "type": { "name": "(path: string) => void" } }, "onItemClick": { "defaultValue": null, "description": "", "name": "onItemClick", "required": false, "type": { "name": "((path?: string, button?: boolean) => void) | undefined" } }, "marginTop": { "defaultValue": null, "description": "", "name": "marginTop", "required": false, "type": { "name": "string" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
