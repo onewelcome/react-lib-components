@@ -22,4 +22,4 @@ export const SideSheetContent: React.FC<Props> = ({ className, ...rest }) => (
   <BaseModalContent {...rest} className={`${classes["side-sheet-content"]} ${className}`} />
 );
 
-export { Props } from "../../BaseModal/BaseModalContent/BaseModalContent";
+export type { Props } from "../../BaseModal/BaseModalContent/BaseModalContent";
