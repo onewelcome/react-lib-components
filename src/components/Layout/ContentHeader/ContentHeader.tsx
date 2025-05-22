@@ -59,7 +59,7 @@ export const ContentHeaderComponent = ({
   ...rest
 }: Props) => {
   const errorTag = (
-    <Tag icon={Icons.Forbidden} backgroundColor="var(--color-red50)" color="var(--color-red900)">
+    <Tag icon={Icons.Forbidden} backgroundColor="var(--color-red100)" color="var(--color-red900)">
       {errorTagText || "Blocked"}
     </Tag>
   );
