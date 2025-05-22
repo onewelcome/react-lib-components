@@ -121,6 +121,34 @@ describe("BaseButton", () => {
 
       expect(identityProviderButton.querySelector("img")).toHaveAttribute("src", iconUrl);
     });
+
+    it('should set the alt text on IDP icon"', () => {
+      const iconUrl = "/resources/michal/tu/byl.jpg";
+
+      const { getByRole, getByAltText } = createBaseButton(defaultParams => ({
+        ...defaultParams,
+        idpType: "OIDC",
+        iconUrl: iconUrl,
+        imgAltText: "OIDC"
+      }));
+
+      expect(getByAltText("OIDC")).toBeInTheDocument();
+      expect(getByRole("img")).toBeInTheDocument();
+    });
+
+    it('should aria hide icon if no alt text is provided"', async () => {
+      const iconUrl = "/resources/michal/tu/byl.jpg";
+
+      const { queryByRole, getByAltText } = createBaseButton(defaultParams => ({
+        ...defaultParams,
+        idpType: "OIDC",
+        iconUrl: iconUrl
+      }));
+
+      expect(getByAltText("Identity Provider icon")).toBeInTheDocument();
+      const img = await queryByRole("img");
+      expect(img).toBeNull();
+    });
   });
 
   describe("ref should work", () => {

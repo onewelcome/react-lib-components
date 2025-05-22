@@ -79,6 +79,7 @@ export const IdentityProviderButton: ForwardRefRenderFunction<HTMLButtonElement,
         <img
           height={24}
           width={24}
+          aria-hidden={!imgAltText}
           src={iconUrl || `/ui-resources-static/common/idb/icons/${idpType}.svg`}
           alt={imgAltText || "Identity Provider icon"}
         />
