@@ -23,6 +23,7 @@ import { FileType } from "../FileUpload";
 import { Button } from "../../../Button/Button";
 import { Link } from "../../../Link/Link";
 import { withReadOnly } from "../../../withReadOnly";
+import { filterProps } from "../../../../util/helper";
 export type UploadProgress = "uploading" | "completed" | "error" | "readonly" | "retry";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
@@ -241,7 +242,7 @@ const FileItemComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       className={classes["file-item-wrapper"]}
       aria-label={`${name}-wrapper`}
       tabIndex={0}
-      {...restPropsWithoutPointerEvents()}
+      {...filterProps(restPropsWithoutPointerEvents(), /^helperText/, false)}
     >
       <div className={classes["file-list-container"]}>
         {status !== ACTION_STATUS.UPLOADING && getUploadedFileInfo()}

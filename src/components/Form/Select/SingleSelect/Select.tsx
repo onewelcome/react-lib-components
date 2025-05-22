@@ -225,7 +225,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   return (
     <div ref={myElementRef} className={classes["root"]}>
       <select
-        {...filterProps(rest, /^data-/, false)}
+        {...filterProps(rest, /^(data-|helperText)/, false)}
         tabIndex={-1}
         aria-hidden="true"
         ref={nativeSelect}
