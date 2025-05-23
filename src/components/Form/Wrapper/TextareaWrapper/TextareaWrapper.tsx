@@ -149,4 +149,6 @@ const TextareaWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
   );
 };
 
-export const TextareaWrapper = withReadOnly(React.forwardRef(TextareaWrapperComponent));
+export const TextareaWrapper = withReadOnly(React.forwardRef(TextareaWrapperComponent), {
+  isWrapperComponent: true
+});

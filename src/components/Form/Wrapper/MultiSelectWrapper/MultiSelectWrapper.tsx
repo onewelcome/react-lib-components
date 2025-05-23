@@ -83,4 +83,6 @@ const MultiSelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Prop
   );
 };
 
-export const MultiSelectWrapper = withReadOnly(React.forwardRef(MultiSelectWrapperComponent));
+export const MultiSelectWrapper = withReadOnly(React.forwardRef(MultiSelectWrapperComponent), {
+  isWrapperComponent: true
+});
