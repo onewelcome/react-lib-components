@@ -120,4 +120,6 @@ const InputWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   );
 };
 
-export const InputWrapper = withReadOnly(React.forwardRef(InputWrapperComponent));
+export const InputWrapper = withReadOnly(React.forwardRef(InputWrapperComponent), {
+  isWrapperComponent: true
+});

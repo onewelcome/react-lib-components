@@ -48,7 +48,16 @@ const getConditionalProps = (readOnlyView: boolean, type: string, helperText?: s
   return props;
 };
 
-export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P>) => {
+type WithReadOnlyOptions = {
+  isWrapperComponent: boolean;
+};
+
+export const withReadOnly = <P extends object>(
+  WrappedComponent: ComponentType<P>,
+  options?: WithReadOnlyOptions
+) => {
+  const { isWrapperComponent } = options || {};
+
   const preventKeyUpAndKeyDownHandlerForSpecificComponents = (readOnlyView: boolean) => {
     const preventSubmissionKeys = (e: KeyboardEvent) => {
       const isEnterOrSpace = (e: KeyboardEvent) => e.key === "Enter" || e.key === " ";
@@ -95,8 +104,8 @@ export const withReadOnly = <P extends object>(WrappedComponent: ComponentType<P
         <WrappedComponent
           ref={ref}
           {...(restProps as P)}
-          data-readonlyview={readOnlyView}
-          aria-readonly={readOnlyView}
+          data-readonlyview={readOnlyView ? readOnlyView : undefined}
+          aria-readonly={isWrapperComponent ? undefined : readOnlyView}
           required={readOnlyView ? false : required}
           {...getConditionalProps(readOnlyView, type, helperText)}
           {...preventKeyUpAndKeyDownHandlerForSpecificComponents(readOnlyView)}

@@ -46,4 +46,15 @@ describe("withReadOnly", () => {
 
     expect(inputElement).toHaveAttribute("type", "text");
   });
+
+  it("should not set aria-readonly on wrapper component", () => {
+    const WrappedComponent = withReadOnly(TestComponent, { isWrapperComponent: true });
+    const { debug, getByRole } = render(<WrappedComponent readOnlyView={true} />);
+
+    const wrappedComponent = getByRole("textbox");
+
+    debug(wrappedComponent);
+
+    expect(wrappedComponent.getAttribute("aria-readonly")).toBeNull();
+  });
 });
