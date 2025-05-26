@@ -34,21 +34,23 @@ export interface CSSProperties {
   colorPrimary700?: string;
   colorPrimary900?: string;
   colorPrimary50?: string;
+  colorBlueGrey25?: string;
+  colorBlueGrey50?: string;
   colorBlueGrey100?: string;
   colorBlueGrey200?: string;
   colorBlueGrey300?: string;
   colorBlueGrey400?: string;
-  colorBlueGrey25?: string;
-  colorBlueGrey50?: string;
   colorBlueGrey500?: string;
   colorBlueGrey700?: string;
   colorBlueGrey800?: string;
   colorBlueGrey900?: string;
+  colorGreen50?: string;
   colorGreen100?: string;
   colorGreen200?: string;
   colorGreen500?: string;
   colorGreen600?: string;
   colorGreen700?: string;
+  colorOrange50?: string;
   colorOrange100?: string;
   colorOrange500?: string;
   colorOrange600?: string;
@@ -246,16 +248,18 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     colorBlueGrey700: "#383A4B",
     colorBlueGrey800: "#252733",
     colorBlueGrey900: "#131319",
+    colorGreen50: "#E8F3ED",
     colorGreen100: "#D1E6DA",
     colorGreen200: "#A2CDB4",
     colorGreen500: "#178244",
     colorGreen600: "#126836",
     colorGreen700: "#0E4E29",
+    colorOrange50: "#FCF2E6",
     colorOrange100: "#FFE0B2",
     colorOrange500: "#E07900",
     colorOrange600: "#B36100",
     colorOrange700: "#864900",
-    colorRed50: "#F9D2CC",
+    colorRed50: "#FCE9E6",
     colorRed100: "#FFCDD2",
     colorRed200: "#F3A599",
     colorRed500: "#E01E00",
@@ -341,16 +345,16 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     alertNeutralBackgroundColor: "var(--color-blue-grey50)",
     alertNeutralInvertedColor: "var(--color-blue-grey500)",
 
-    alertInfoBackgroundColor: "var(--color-primary100)",
+    alertInfoBackgroundColor: "var(--color-primary50)",
     alertInfoInvertedColor: "var(--color-primary500)",
 
-    alertSuccessBackgroundColor: "var(--color-green100)",
+    alertSuccessBackgroundColor: "var(--color-green50)",
     alertSuccessInvertedColor: "var(--color-green500)",
 
-    alertErrorBackgroundColor: "var(--color-red100)",
+    alertErrorBackgroundColor: "var(--color-red50)",
     alertErrorInvertedColor: "var(--color-red500)",
 
-    alertWarningBackgroundColor: "var(--color-orange100)",
+    alertWarningBackgroundColor: "var(--color-orange50)",
     alertWarningInvertedColor: "var(--color-orange500)",
 
     alertBorderWidth: "4px",
