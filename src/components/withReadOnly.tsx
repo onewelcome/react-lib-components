@@ -104,7 +104,7 @@ export const withReadOnly = <P extends object>(
         <WrappedComponent
           ref={ref}
           {...(restProps as P)}
-          data-readonlyview={readOnlyView || undefined}
+          data-readonlyview={readOnlyView}
           aria-readonly={isWrapperComponent ? undefined : readOnlyView}
           required={readOnlyView ? false : required}
           {...getConditionalProps(readOnlyView, type, helperText)}
