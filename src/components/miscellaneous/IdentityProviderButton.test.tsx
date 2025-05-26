@@ -77,7 +77,7 @@ describe("BaseButton", () => {
       expect(onClickHandler).toHaveBeenCalledTimes(0);
     });
 
-    it('should have the class "TESTING"', () => {
+    it("should have the class TESTING", () => {
       const { identityProviderButton } = createBaseButton(defaultParams => ({
         ...defaultParams,
         className: "TESTING"
@@ -86,7 +86,7 @@ describe("BaseButton", () => {
       expect(identityProviderButton).toHaveClass("TESTING");
     });
 
-    it('should fallback to default URL when iconUrl is not passed based on idpType"', () => {
+    it("should fallback to default URL when iconUrl is not passed based on idpType", () => {
       const { identityProviderButton } = createBaseButton(defaultParams => ({
         ...defaultParams,
         idpType: "OIDC"
@@ -98,7 +98,7 @@ describe("BaseButton", () => {
       );
     });
 
-    it('should fallback to default URL when iconUrl is not passed based on idpType"', () => {
+    it("should fallback to default URL when iconUrl is not passed based on idpType", () => {
       const { identityProviderButton } = createBaseButton(defaultParams => ({
         ...defaultParams,
         idpType: "OIDC"
@@ -110,7 +110,7 @@ describe("BaseButton", () => {
       );
     });
 
-    it('should not fallback to default URL when iconUrl is passed"', () => {
+    it("should not fallback to default URL when iconUrl is passed", () => {
       const iconUrl = "/resources/michal/tu/byl.jpg";
 
       const { identityProviderButton } = createBaseButton(defaultParams => ({
@@ -122,7 +122,7 @@ describe("BaseButton", () => {
       expect(identityProviderButton.querySelector("img")).toHaveAttribute("src", iconUrl);
     });
 
-    it('should set the alt text on IDP icon"', () => {
+    it("should set the alt text on IDP icon", () => {
       const iconUrl = "/resources/michal/tu/byl.jpg";
 
       const { getByRole, getByAltText } = createBaseButton(defaultParams => ({
@@ -136,7 +136,7 @@ describe("BaseButton", () => {
       expect(getByRole("img")).toBeInTheDocument();
     });
 
-    it('should aria hide icon if no alt text is provided"', async () => {
+    it("should aria hide icon if no alt text is provided", async () => {
       const iconUrl = "/resources/michal/tu/byl.jpg";
 
       const { queryByRole, getByAltText } = createBaseButton(defaultParams => ({
