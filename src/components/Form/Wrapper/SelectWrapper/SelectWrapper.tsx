@@ -86,4 +86,4 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
 const forwardedSelectWrapper = React.forwardRef(SelectWrapperComponent);
 forwardedSelectWrapper.displayName = "SelectWrapper";
 
-export const SelectWrapper = withReadOnly(forwardedSelectWrapper);
+export const SelectWrapper = withReadOnly(forwardedSelectWrapper, { isWrapperComponent: true });
