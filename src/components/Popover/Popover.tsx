@@ -108,7 +108,7 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
       const isAnchorOffscreen =
         showPopover &&
-        (Number(top) < 0 ||
+        (Number(top) < 10 ||
           Number(left) < 0 ||
           Number(right) < 0 ||
           Number(bottom) < 0 ||
