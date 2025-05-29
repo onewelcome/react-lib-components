@@ -111,6 +111,14 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
   const configObject = { ...defaultConfigObject, ...providedConfigObject };
   const [initialCalculationDone, setInitialCalculationDone] = useState(false);
 
+  const getViewportProperties = (property: "width" | "height") => {
+    if (window.visualViewport) {
+      return property === "width" ? window.visualViewport.width : window.visualViewport.height;
+    }
+
+    return property === "width" ? window.innerWidth : window.innerHeight;
+  };
+
   if (configObject.transformOrigin === undefined) {
     configObject.transformOrigin = defaultConfigObject.transformOrigin;
   }
@@ -149,36 +157,36 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
     if (
       (transformOrigin[requestedReturnValue] === "left" &&
-        returnValue > window.innerWidth - elDimensions.width) ||
+        returnValue > getViewportProperties("width") - elDimensions.width) ||
       (transformOrigin[requestedReturnValue] === "center" &&
         requestedReturnValue === "horizontal" &&
-        returnValue > window.innerWidth - elDimensions.width)
+        returnValue > getViewportProperties("width") - elDimensions.width)
     ) {
-      returnValue = window.innerWidth - elDimensions.width;
+      returnValue = getViewportProperties("width") - elDimensions.width;
     }
 
     if (
       (transformOrigin[requestedReturnValue] === "top" &&
-        returnValue > window.innerHeight - elDimensions.height) ||
+        returnValue > getViewportProperties("height") - elDimensions.height) ||
       (transformOrigin[requestedReturnValue] === "center" &&
         requestedReturnValue === "vertical" &&
-        returnValue > window.innerHeight - elDimensions.height)
+        returnValue > getViewportProperties("height") - elDimensions.height)
     ) {
-      returnValue = window.innerHeight - elDimensions.height;
+      returnValue = getViewportProperties("height") - elDimensions.height;
     }
 
     if (
       transformOrigin[requestedReturnValue] === "right" &&
-      returnValue > window.innerWidth - elDimensions.width
+      returnValue > getViewportProperties("width") - elDimensions.width
     ) {
-      returnValue = window.innerWidth - elDimensions.width;
+      returnValue = getViewportProperties("width") - elDimensions.width;
     }
 
     if (
       transformOrigin[requestedReturnValue] === "bottom" &&
-      returnValue > window.innerHeight - elDimensions.height
+      returnValue > getViewportProperties("height") - elDimensions.height
     ) {
-      returnValue = window.innerHeight - elDimensions.height;
+      returnValue = getViewportProperties("height") - elDimensions.height;
     }
 
     return returnValue;
@@ -190,8 +198,12 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     transformOrigin: Placement
   ) => {
     let returnValue = value;
+    // console.log("configObject", configObject);
+    // console.log("requestedReturnValue", requestedReturnValue);
+    // console.log("transformOrigin", transformOrigin);
     if (
-      (requestedReturnValue === "horizontal" && configObject.offset?.left !== 0) ||
+      (requestedReturnValue === "horizontal" &&
+        (configObject.offset?.left !== 0 || window.visualViewport?.offsetLeft !== 0)) ||
       (requestedReturnValue === "horizontal" && configObject.offset?.right !== 0)
     ) {
       if (
@@ -200,16 +212,27 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       ) {
         returnValue += configObject.offset?.left!;
         returnValue -= configObject.offset?.right!;
+
+        if (window.visualViewport) {
+          returnValue += window.visualViewport?.offsetLeft;
+          // console.log("here left", returnValue);
+        }
       }
 
       if (transformOrigin[requestedReturnValue] === "right") {
         returnValue -= configObject.offset?.left!;
         returnValue += configObject.offset?.right!;
+
+        if (window.visualViewport) {
+          returnValue -= window.visualViewport?.offsetLeft;
+          // console.log("here right", returnValue);
+        }
       }
     }
 
     if (
-      (requestedReturnValue === "vertical" && configObject.offset?.top !== 0) ||
+      (requestedReturnValue === "vertical" &&
+        (configObject.offset?.top !== 0 || window.visualViewport?.offsetTop !== 0)) ||
       (requestedReturnValue === "vertical" && configObject.offset?.bottom !== 0)
     ) {
       if (
@@ -218,11 +241,21 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       ) {
         returnValue += configObject.offset?.top!;
         returnValue -= configObject.offset?.bottom!;
+
+        if (window.visualViewport) {
+          returnValue += window.visualViewport?.offsetTop;
+          // console.log("here top", returnValue);
+        }
       }
 
       if (transformOrigin[requestedReturnValue] === "bottom") {
         returnValue -= configObject.offset?.top!;
         returnValue += configObject.offset?.bottom!;
+
+        if (window.visualViewport) {
+          returnValue -= window.visualViewport?.offsetTop;
+          // console.log("here bottom", returnValue);
+        }
       }
     }
 
@@ -252,7 +285,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       transformOrigin[requestedReturnValue] === "bottom"
     ) {
       value =
-        window[requestedReturnValue === "horizontal" ? "innerWidth" : "innerHeight"] -
+        getViewportProperties(requestedReturnValue === "horizontal" ? "width" : "height") -
         relEl[placementOriginDefinition];
     }
 
@@ -298,13 +331,24 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       requestedReturnValue,
       transformOrigin
     );
-
-    return _fixPossibleViewportOverflow(
-      valueWithOffset,
-      transformOrigin,
-      requestedReturnValue,
-      elDimensions
+    // eslint-disable-next-line no-console
+    console.log(
+      "with fixed offset",
+      _fixPossibleViewportOverflow(
+        valueWithOffset,
+        transformOrigin,
+        requestedReturnValue,
+        elDimensions
+      )
     );
+    // console.log(placement, " with offset ", valueWithOffset);
+    return valueWithOffset;
+    // return _fixPossibleViewportOverflow(
+    //   valueWithOffset,
+    //   transformOrigin,
+    //   requestedReturnValue,
+    //   elDimensions
+    // );
   };
 
   const _calculatePlacement = (relEl: DomRectObject, elDimensions: Dimensions, axis: Axis) => {
@@ -353,7 +397,25 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       width: (configObject.elementToBePositioned!.current as HTMLElement).offsetWidth
     };
 
-    /** We want to add a center (horizontal and vertical) property to the DOMRect object. Since it's a special object we can't modify so we clone it and add it. */
+    // console.log(relativeElRect);
+
+    // console.log("visualOffsetX", visualOffsetX);
+    // console.log("visualOffsetY", visualOffsetY);
+
+    // const clonedRelEl = {
+    //   top: relativeElRect.top + visualOffsetY,
+    //   right: relativeElRect.right + visualOffsetX,
+    //   left: relativeElRect.left + visualOffsetX,
+    //   bottom: relativeElRect.bottom + visualOffsetY,
+    //   center: 0,
+    //   centerv: relativeElRect.top + relativeElRect.height / 2 + visualOffsetY,
+    //   centerh: relativeElRect.left + relativeElRect.width / 2 + visualOffsetX,
+    //   width: relativeElRect.width,
+    //   height: relativeElRect.height,
+    //   x: relativeElRect.x + visualOffsetX,
+    //   y: relativeElRect.y + visualOffsetY
+    // };
+
     const clonedRelEl = {
       top: relativeElRect.top,
       right: relativeElRect.right,
@@ -370,6 +432,8 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "horizontal");
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "vertical");
+
+    // console.log("element ", position);
 
     if (!initialCalculationDone) {
       setInitialCalculationDone(true);
