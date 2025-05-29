@@ -108,6 +108,7 @@
     color: $defaultColor;
   } @else if $variant == "fill" {
     background-color: $defaultColor;
+    color: $defaultColor;
     border-color: $defaultColor;
   }
 
