@@ -138,6 +138,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     bottom: "initial"
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _fixPossibleViewportOverflow = (
     value: number,
     transformOrigin: Placement,
@@ -198,9 +199,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     transformOrigin: Placement
   ) => {
     let returnValue = value;
-    // console.log("configObject", configObject);
-    // console.log("requestedReturnValue", requestedReturnValue);
-    // console.log("transformOrigin", transformOrigin);
     if (
       (requestedReturnValue === "horizontal" &&
         (configObject.offset?.left !== 0 || window.visualViewport?.offsetLeft !== 0)) ||
@@ -215,7 +213,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
         if (window.visualViewport) {
           returnValue += window.visualViewport?.offsetLeft;
-          // console.log("here left", returnValue);
         }
       }
 
@@ -225,7 +222,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
         if (window.visualViewport) {
           returnValue -= window.visualViewport?.offsetLeft;
-          // console.log("here right", returnValue);
         }
       }
     }
@@ -244,7 +240,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
         if (window.visualViewport) {
           returnValue += window.visualViewport?.offsetTop;
-          // console.log("here top", returnValue);
         }
       }
 
@@ -254,7 +249,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
         if (window.visualViewport) {
           returnValue -= window.visualViewport?.offsetTop;
-          // console.log("here bottom", returnValue);
         }
       }
     }
@@ -331,24 +325,8 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       requestedReturnValue,
       transformOrigin
     );
-    // eslint-disable-next-line no-console
-    console.log(
-      "with fixed offset",
-      _fixPossibleViewportOverflow(
-        valueWithOffset,
-        transformOrigin,
-        requestedReturnValue,
-        elDimensions
-      )
-    );
-    // console.log(placement, " with offset ", valueWithOffset);
+
     return valueWithOffset;
-    // return _fixPossibleViewportOverflow(
-    //   valueWithOffset,
-    //   transformOrigin,
-    //   requestedReturnValue,
-    //   elDimensions
-    // );
   };
 
   const _calculatePlacement = (relEl: DomRectObject, elDimensions: Dimensions, axis: Axis) => {
@@ -397,25 +375,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       width: (configObject.elementToBePositioned!.current as HTMLElement).offsetWidth
     };
 
-    // console.log(relativeElRect);
-
-    // console.log("visualOffsetX", visualOffsetX);
-    // console.log("visualOffsetY", visualOffsetY);
-
-    // const clonedRelEl = {
-    //   top: relativeElRect.top + visualOffsetY,
-    //   right: relativeElRect.right + visualOffsetX,
-    //   left: relativeElRect.left + visualOffsetX,
-    //   bottom: relativeElRect.bottom + visualOffsetY,
-    //   center: 0,
-    //   centerv: relativeElRect.top + relativeElRect.height / 2 + visualOffsetY,
-    //   centerh: relativeElRect.left + relativeElRect.width / 2 + visualOffsetX,
-    //   width: relativeElRect.width,
-    //   height: relativeElRect.height,
-    //   x: relativeElRect.x + visualOffsetX,
-    //   y: relativeElRect.y + visualOffsetY
-    // };
-
     const clonedRelEl = {
       top: relativeElRect.top,
       right: relativeElRect.right,
@@ -432,8 +391,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "horizontal");
     _calculatePlacement(clonedRelEl, elementToBePositionedDimensions, "vertical");
-
-    // console.log("element ", position);
 
     if (!initialCalculationDone) {
       setInitialCalculationDone(true);
