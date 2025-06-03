@@ -193,64 +193,34 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     return returnValue;
   };
 
-  const _applyOffsetToPlacementValue = (
-    value: number,
-    requestedReturnValue: Axis,
-    transformOrigin: Placement
-  ) => {
+  const _applyOffsetToPlacementValue = (value: number, axis: Axis, origin: Placement) => {
+    const offset = configObject.offset;
+
+    const viewportOffset =
+      axis === "horizontal"
+        ? window.visualViewport?.offsetLeft || 0
+        : window.visualViewport?.offsetTop || 0;
+
+    const offsetStart = axis === "horizontal" ? offset?.left || 0 : offset?.top || 0;
+    const offsetEnd = axis === "horizontal" ? offset?.right || 0 : offset?.bottom || 0;
+
     let returnValue = value;
-    if (
-      (requestedReturnValue === "horizontal" &&
-        (configObject.offset?.left !== 0 || window.visualViewport?.offsetLeft !== 0)) ||
-      (requestedReturnValue === "horizontal" && configObject.offset?.right !== 0)
-    ) {
-      if (
-        transformOrigin[requestedReturnValue] === "left" ||
-        transformOrigin[requestedReturnValue] === "center"
-      ) {
-        returnValue += configObject.offset?.left!;
-        returnValue -= configObject.offset?.right!;
 
-        if (window.visualViewport) {
-          returnValue += window.visualViewport?.offsetLeft;
-        }
-      }
-
-      if (transformOrigin[requestedReturnValue] === "right") {
-        returnValue -= configObject.offset?.left!;
-        returnValue += configObject.offset?.right!;
-
-        if (window.visualViewport) {
-          returnValue -= window.visualViewport?.offsetLeft;
-        }
-      }
+    const hasOffset = offsetStart || viewportOffset || offsetEnd;
+    if (!hasOffset) {
+      return returnValue;
     }
 
-    if (
-      (requestedReturnValue === "vertical" &&
-        (configObject.offset?.top !== 0 || window.visualViewport?.offsetTop !== 0)) ||
-      (requestedReturnValue === "vertical" && configObject.offset?.bottom !== 0)
-    ) {
-      if (
-        transformOrigin[requestedReturnValue] === "top" ||
-        transformOrigin[requestedReturnValue] === "center"
-      ) {
-        returnValue += configObject.offset?.top!;
-        returnValue -= configObject.offset?.bottom!;
+    const originValue = origin[axis];
 
-        if (window.visualViewport) {
-          returnValue += window.visualViewport?.offsetTop;
-        }
-      }
+    const isStartOrCenter =
+      originValue === "top" || originValue === "left" || originValue === "center";
+    const isEnd = originValue === "right" || originValue === "bottom";
 
-      if (transformOrigin[requestedReturnValue] === "bottom") {
-        returnValue -= configObject.offset?.top!;
-        returnValue += configObject.offset?.bottom!;
-
-        if (window.visualViewport) {
-          returnValue -= window.visualViewport?.offsetTop;
-        }
-      }
+    if (isStartOrCenter) {
+      returnValue += offsetStart - offsetEnd + viewportOffset;
+    } else if (isEnd) {
+      returnValue -= offsetStart + offsetEnd - viewportOffset;
     }
 
     return returnValue;

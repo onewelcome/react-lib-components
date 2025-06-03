@@ -115,8 +115,6 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           anchorTop < 0 ||
           anchorBottom > window.innerHeight);
 
-      // console.log("mm taaaa", isAnchorOffscreen);
-
       if (isAnchorOffscreen) {
         onAnchorOutOfView?.();
       }
