@@ -220,7 +220,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     if (isStartOrCenter) {
       returnValue += offsetStart - offsetEnd + viewportOffset;
     } else if (isEnd) {
-      returnValue -= offsetStart + offsetEnd - viewportOffset;
+      returnValue -= offsetStart - offsetEnd - viewportOffset;
     }
 
     return returnValue;
