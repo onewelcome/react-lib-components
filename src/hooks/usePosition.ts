@@ -198,11 +198,11 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
     const viewportOffset =
       axis === "horizontal"
-        ? window.visualViewport?.offsetLeft || 0
-        : window.visualViewport?.offsetTop || 0;
+        ? window.visualViewport?.offsetLeft ?? 0
+        : window.visualViewport?.offsetTop ?? 0;
 
-    const offsetStart = axis === "horizontal" ? offset?.left || 0 : offset?.top || 0;
-    const offsetEnd = axis === "horizontal" ? offset?.right || 0 : offset?.bottom || 0;
+    const offsetStart = axis === "horizontal" ? offset?.left ?? 0 : offset?.top ?? 0;
+    const offsetEnd = axis === "horizontal" ? offset?.right ?? 0 : offset?.bottom ?? 0;
 
     let returnValue = value;
 
