@@ -86,12 +86,12 @@ const PopoverComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       return;
     }
 
-    window.addEventListener("resize", calculatePosition);
-    window.addEventListener("scroll", calculatePosition);
+    window.visualViewport?.addEventListener("scroll", calculatePosition);
+    window.visualViewport?.addEventListener("resize", calculatePosition);
 
     return () => {
-      window.removeEventListener("resize", calculatePosition);
-      window.removeEventListener("scroll", calculatePosition);
+      window.visualViewport?.removeEventListener("scroll", calculatePosition);
+      window.visualViewport?.removeEventListener("resize", calculatePosition);
     };
   }, [showPopover]);
 
