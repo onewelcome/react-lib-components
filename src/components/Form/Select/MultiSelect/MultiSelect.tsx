@@ -331,7 +331,7 @@ const MultiSelectComponent: ForwardRefRenderFunction<HTMLSelectElement, MultiSel
   return (
     <div ref={myElementRef}>
       <select
-        {...filterProps(rest, /^data-/, false)}
+        {...filterProps(rest, /^(data-|helperText)/, false)}
         tabIndex={-1}
         multiple={true}
         aria-hidden="true"

@@ -33,6 +33,7 @@ import { InputWrapper } from "../Wrapper/InputWrapper/InputWrapper";
 import { SelectWrapper } from "../Wrapper/SelectWrapper/SelectWrapper";
 import { TextareaWrapper } from "../Wrapper/TextareaWrapper/TextareaWrapper";
 import { withReadOnly } from "../../withReadOnly";
+import { filterProps } from "../../../util/helper";
 
 export interface Props extends ComponentPropsWithRef<"fieldset"> {
   children?: ReactElement | ReactElement[];
@@ -103,7 +104,7 @@ const FieldsetComponent: ForwardRefRenderFunction<HTMLFieldSetElement, Props> = 
 
   return (
     <fieldset
-      {...rest}
+      {...filterProps(rest, /^helperText/, false)}
       ref={ref}
       disabled={disabled}
       style={{ backgroundColor: background, ...rest.style }}
