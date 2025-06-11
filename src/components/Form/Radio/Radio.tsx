@@ -27,7 +27,7 @@ import {
 import { withReadOnly } from "../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector, "success"> {
-  children: string;
+  children: string | React.ReactNode;
   value: string;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
   helperProps?: HelperProps;

@@ -45,11 +45,11 @@
 
 .radio-container {
   display: flex;
+  align-items: center;
 
   label {
     display: inline-block;
     margin-left: relativeToBaseFontSize(0.5);
-    user-select: none;
     font-size: var(--font-size-form-label);
     font-family: var(--font-family);
     margin-top: 0.15rem;
