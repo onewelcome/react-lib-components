@@ -81,6 +81,8 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onChange?.(clonedEvent);
   };
 
+  const customLabel = typeof children !== "string";
+
   const nativeInputClasses = [classes["native-input"]];
   const checkedRadioClasses = [classes["input"], classes["radio"]];
   const uncheckedRadioClasses = [classes["input"], classes["circle"]];
@@ -122,7 +124,11 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       {checked && <Icon className={checkedRadioClasses.join(" ")} icon={Icons.Radio} />}
       {!checked && <Icon className={uncheckedRadioClasses.join(" ")} icon={Icons.Circle} />}
 
-      <label onClick={onChangeHandler} htmlFor={`${identifier}-radio`}>
+      <label
+        className={customLabel ? classes["no-margin-top"] : ""}
+        onClick={onChangeHandler}
+        htmlFor={`${identifier}-radio`}
+      >
         {children}
       </label>
     </FormSelectorWrapper>

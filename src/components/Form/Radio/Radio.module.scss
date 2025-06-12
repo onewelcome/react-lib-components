@@ -45,7 +45,6 @@
 
 .radio-container {
   display: flex;
-  align-items: center;
 
   label {
     display: inline-block;
@@ -53,6 +52,10 @@
     font-size: var(--font-size-form-label);
     font-family: var(--font-family);
     margin-top: 0.15rem;
+
+    &.no-margin-top {
+      margin-top: 0;
+    }
 
     .disabled & {
       cursor: not-allowed;
