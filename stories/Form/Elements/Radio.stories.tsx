@@ -17,7 +17,7 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Props, Radio as RadioComponent } from "../../../src/components/Form/Radio/Radio";
-import { Fieldset } from "../../../src";
+import { Fieldset, Link, Typography } from "../../../src";
 import RadioDocumentation from "./Radio.mdx";
 
 const meta: Meta = {
@@ -156,3 +156,75 @@ RadioInReadOnlyMode.decorators = [
     );
   }
 ];
+
+const ComposableTemplate: StoryFn<Props> = args => (
+  <Fieldset legend="Composable radio button" legendStyle={"body-bold"}>
+    <RadioComponent
+      {...args}
+      helperText="Example helpertext"
+      errorMessage="Example error message"
+      value="example-radio"
+    >
+      Label
+    </RadioComponent>
+
+    <RadioComponent
+      {...args}
+      helperText="Example helpertext"
+      errorMessage="Example error message"
+      value="example-radio"
+    >
+      <Typography variant="h3" spacing={{ margin: 0 }}>
+        {" "}
+        Typography
+      </Typography>
+    </RadioComponent>
+    <RadioComponent
+      {...args}
+      helperText="Example helpertext"
+      errorMessage="Example error message"
+      value="example-radio"
+    >
+      <div
+        style={{
+          width: "8.25rem",
+          height: "3.125rem",
+          border: "1px dotted",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        Custom element
+      </div>
+    </RadioComponent>
+    <RadioComponent
+      {...args}
+      helperText="Example helpertext"
+      errorMessage="Example error message"
+      value="example-radio"
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "0.25rem"
+        }}
+      >
+        <img height={24} width={24} src={`SAML.svg`} alt={"Identity Provider icon"} /> SAML
+      </div>
+    </RadioComponent>
+
+    <RadioComponent
+      {...args}
+      helperText="Example helpertext"
+      errorMessage="Example error message"
+      value="example-radio"
+    >
+      <Link to={"https://google.com"}>Google.com</Link>
+    </RadioComponent>
+  </Fieldset>
+);
+
+export const ComposableRadio = ComposableTemplate.bind({});
