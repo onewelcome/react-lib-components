@@ -246,7 +246,7 @@ const getConditionalProps = (readOnlyView, type, helperText) => {
     if (helperText) {
       props.helperText = "";
     }
-  } else {
+  } else if (helperText) {
     props.helperText = helperText;
   }
   if (type) {

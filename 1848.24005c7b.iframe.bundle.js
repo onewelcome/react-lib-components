@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[8765],{
+(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[1848,5646],{
 
 /***/ "./node_modules/@mdx-js/react/lib/index.js":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -97,143 +97,82 @@ function MDXProvider(properties) {
 
 /***/ }),
 
-/***/ "./stories/Form/Wrapper/TextareaWrapper.mdx":
+/***/ "./.storybook/conditionalPlay.ts":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ MDXContent)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _home_circleci_project_node_modules_storybook_addon_docs_dist_shims_mdx_react_shim_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./node_modules/@mdx-js/react/lib/index.js");
-/* harmony import */ var _storybook_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("./node_modules/@storybook/blocks/dist/index.mjs");
-/* harmony import */ var _TextareaWrapper_stories_tsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("./stories/Form/Wrapper/TextareaWrapper.stories.tsx");
 
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  h: () => (/* binding */ conditionalPlay)
+});
 
+;// CONCATENATED MODULE: ./node_modules/chromatic/isChromatic.mjs
+/* eslint-env browser */
 
-
-
-
-
-function _createMdxContent(props) {
-  const _components = {
-    code: "code",
-    h1: "h1",
-    h2: "h2",
-    p: "p",
-    pre: "pre",
-    ...(0,_home_circleci_project_node_modules_storybook_addon_docs_dist_shims_mdx_react_shim_mjs__WEBPACK_IMPORTED_MODULE_2__/* .useMDXComponents */ .R)(),
-    ...props.components
-  };
-  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-    children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Meta */ .W8, {
-      of: _TextareaWrapper_stories_tsx__WEBPACK_IMPORTED_MODULE_4__
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Title */ .hE, {}), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Subtitle */ .Pd, {}), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
-      children: ["The ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "TextareaWrapper"
-      }), " component has been created to make your life easier as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least 2 attributes. It needs a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "name"
-      }), " and a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "value"
-      }), " (which should be linked to a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "useState"
-      }), " variable)."]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
-      children: ["You can use the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "onChange"
-      }), " event to update the linked ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "useState"
-      }), " variable whenever the user types something inside of the rendered ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "textarea"
-      }), "."]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h2, {
-      id: "it-takes-care-of-proper-accessibility",
-      children: "It takes care of proper accessibility"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
-      children: ["The ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "TextareaWrapper"
-      }), " accepts a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "name"
-      }), ", ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "helperText"
-      }), " and ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "errorMessage"
-      }), " prop. Based on the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "error"
-      }), " prop (set to true or false) it will make sure to set its ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "aria-describedby"
-      }), " value to the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "id"
-      }), " of the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "errorMessage"
-      }), " or ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "helperText"
-      }), "."]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.h2, {
-      id: "customize-textarea-html-element",
-      children: ["Customize ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "textarea"
-      }), " HTML element"]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
-      children: ["You can change anything pertaining to the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "textarea"
-      }), " element that's rendered by passing a configuration object to ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "textareaProps"
-      }), ". An example is shown below."]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h1, {
-      id: "examples",
-      children: "Examples"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
-      children: ["A code example of how you can configure a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        children: "TextareaWrapper"
-      }), " within a React component:"]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
-        className: "language-jsx",
-        children: "const ExampleComponent = () => {\n  const [textareaValue, setTextareaValue] = useState(\"\");\n\n  return (\n    <TextareaWrapper\n      label=\"Example textarea\"\n      name=\"Textarea\"\n      helperText=\"Example textarea helpertext\"\n      errorMessage=\"Textarea error message\"\n      onChange={e => setTextareaValue(e.target.value)}\n      textareaProps={{\n        rows: 50\n      }}\n      error={error}\n      value={textareaValue}\n    />\n  );\n};\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .Canvas */ .Hl, {
-      of: _TextareaWrapper_stories_tsx__WEBPACK_IMPORTED_MODULE_4__.TextareaWrapper
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h1, {
-      id: "props",
-      children: "Props"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_storybook_blocks__WEBPACK_IMPORTED_MODULE_3__/* .ArgTypes */ .ov, {})]
-  });
-}
-function MDXContent(props = {}) {
-  const {wrapper: MDXLayout} = {
-    ...(0,_home_circleci_project_node_modules_storybook_addon_docs_dist_shims_mdx_react_shim_mjs__WEBPACK_IMPORTED_MODULE_2__/* .useMDXComponents */ .R)(),
-    ...props.components
-  };
-  return MDXLayout ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(MDXLayout, {
-    ...props,
-    children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_createMdxContent, {
-      ...props
-    })
-  }) : _createMdxContent(props);
+function isChromatic(windowArgument) {
+  const windowToCheck = windowArgument || (typeof window !== 'undefined' && window);
+  return !!(
+    windowToCheck &&
+    (/Chromatic/.test(windowToCheck.navigator.userAgent) ||
+      /chromatic=true/.test(windowToCheck.location.href))
+  );
 }
 
+;// CONCATENATED MODULE: ./.storybook/conditionalPlay.ts
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+/**
+ * To improve our visual tests, we need to display various states of our components. This often requires simulating user actions.
+ * In Storybook, visiting the desired component automatically triggers the play function, which can be confusing for those not familiar with the tool.
+ * To address this, we've wrapped the original play function, so it only runs when Chromatic is active or when in development mode.
+ * @param playFunction
+ */
+const conditionalPlay = playFunction => {
+  const isDevMode = "production" === "development";
+  if (isChromatic() || isDevMode) {
+    return async context => {
+      await playFunction(context);
+    };
+  }
+  return async () => {};
+};
 
 /***/ }),
 
-/***/ "./stories/Form/Wrapper/TextareaWrapper.stories.tsx":
+/***/ "./src/components/Form/Select/MultiSelect/MultiOption.tsx":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-__webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TextareaWrapper: () => (/* binding */ TextareaWrapper),
-/* harmony export */   TextareaWrapperDisabled: () => (/* binding */ TextareaWrapperDisabled),
-/* harmony export */   TextareaWrapperError: () => (/* binding */ TextareaWrapperError),
-/* harmony export */   TextareaWrapperInReadOnlyMode: () => (/* binding */ TextareaWrapperInReadOnlyMode),
-/* harmony export */   TextareaWrapperRequired: () => (/* binding */ TextareaWrapperRequired),
-/* harmony export */   TextareaWrapperSuccess: () => (/* binding */ TextareaWrapperSuccess),
-/* harmony export */   __namedExportsOrder: () => (/* binding */ __namedExportsOrder),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   n: () => (/* binding */ MultiOption)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
-/* harmony import */ var _src_components_Form_Wrapper_TextareaWrapper_TextareaWrapper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./src/components/Form/Wrapper/TextareaWrapper/TextareaWrapper.tsx");
-/* harmony import */ var _TextareaWrapper_mdx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./stories/Form/Wrapper/TextareaWrapper.mdx");
+/* harmony import */ var _SingleSelect_Option__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./src/components/Form/Select/SingleSelect/Option.tsx");
+/* harmony import */ var _MultiSelect_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./src/components/Form/Select/MultiSelect/MultiSelect.module.scss");
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -253,130 +192,251 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const meta = {
-  title: "components/Inputs/Textarea (Wrapper)",
-  component: _src_components_Form_Wrapper_TextareaWrapper_TextareaWrapper__WEBPACK_IMPORTED_MODULE_1__/* .TextareaWrapper */ .u,
-  parameters: {
-    docs: {
-      page: _TextareaWrapper_mdx__WEBPACK_IMPORTED_MODULE_2__["default"]
+const MultiOptionComponent = (_ref, ref) => {
+  let {
+    fixed: _fixed,
+    hasFocus,
+    className,
+    ...rest
+  } = _ref;
+  const innerOptionRef = ref || /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createRef)();
+  const additionalClasses = [];
+  className && additionalClasses.push(className);
+  hasFocus && additionalClasses.push(_MultiSelect_module_scss__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A["focus"]);
+  const scrollToSelectedElement = element => {
+    const listbox = element.parentElement;
+    const listboxWrapper = element.parentElement?.parentElement;
+    const isListboxWrapperScrollable = !!listboxWrapper?.style.maxHeight;
+    if (isListboxWrapperScrollable) {
+      listboxWrapper?.scrollTo && listboxWrapper?.scrollTo(0, element.offsetTop - (listboxWrapper?.offsetHeight ?? 1) / 2);
     }
-  },
-  argTypes: {
-    required: {
-      control: "boolean"
+    listbox?.scrollTo && listbox?.scrollTo(0, element.offsetTop - (listbox?.offsetHeight ?? 1) / 2);
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (innerOptionRef.current && hasFocus) {
+      scrollToSelectedElement(innerOptionRef.current);
+    }
+  }, [hasFocus, innerOptionRef]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleSelect_Option__WEBPACK_IMPORTED_MODULE_2__/* .Option */ .c, _extends({
+    ref: innerOptionRef,
+    isSelected: hasFocus,
+    disableDefaultSelectedStyle: true,
+    className: additionalClasses.join(" "),
+    "aria-disabled": false
+  }, rest));
+};
+const MultiOption = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(MultiOptionComponent);
+try {
+    // @ts-ignore
+    MultiOption.displayName = "MultiOption";
+    // @ts-ignore
+    MultiOption.__docgenInfo = { "description": "", "displayName": "MultiOption", "props": { "label": { "defaultValue": null, "description": "", "name": "label", "required": false, "type": { "name": "string" } }, "disabled": { "defaultValue": null, "description": "", "name": "disabled", "required": false, "type": { "name": "boolean" } }, "value": { "defaultValue": null, "description": "", "name": "value", "required": true, "type": { "name": "string" } }, "fixed": { "defaultValue": null, "description": "", "name": "fixed", "required": false, "type": { "name": "boolean" } }, "hasFocus": { "defaultValue": null, "description": "", "name": "hasFocus", "required": false, "type": { "name": "boolean" } }, "isSelected": { "defaultValue": null, "description": "", "name": "isSelected", "required": false, "type": { "name": "boolean" } }, "childIndex": { "defaultValue": null, "description": "", "name": "childIndex", "required": false, "type": { "name": "number" } }, "shouldClick": { "defaultValue": null, "description": "", "name": "shouldClick", "required": false, "type": { "name": "boolean" } }, "onFocusChange": { "defaultValue": null, "description": "", "name": "onFocusChange", "required": false, "type": { "name": "((childIndex: number) => void)" } }, "disableDefaultSelectedStyle": { "defaultValue": null, "description": "", "name": "disableDefaultSelectedStyle", "required": false, "type": { "name": "boolean" } }, "selectOpened": { "defaultValue": null, "description": "", "name": "selectOpened", "required": false, "type": { "name": "boolean" } }, "isSearching": { "defaultValue": null, "description": "", "name": "isSearching", "required": false, "type": { "name": "boolean" } }, "onOptionSelect": { "defaultValue": null, "description": "", "name": "onOptionSelect", "required": false, "type": { "name": "((ref: RefObject<HTMLLIElement>) => void)" } }, "isAddBtnFocused": { "defaultValue": null, "description": "", "name": "isAddBtnFocused", "required": false, "type": { "name": "boolean" } } } };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Form/Select/MultiSelect/MultiOption.tsx#MultiOption"] = { docgenInfo: MultiOption.__docgenInfo, name: "MultiOption", path: "src/components/Form/Select/MultiSelect/MultiOption.tsx#MultiOption" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+
+/***/ }),
+
+/***/ "./src/components/Form/Select/MultiSelect/useMultiSelect.tsx":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   L: () => (/* binding */ useMultiSelect)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
+/* harmony import */ var _MultiOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./src/components/Form/Select/MultiSelect/MultiOption.tsx");
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+const useMultiSelect = _ref => {
+  let {
+    initialOptions,
+    pickedOptions,
+    allOptions = pickedOptions,
+    setPickedOptions,
+    setAllOptions = setPickedOptions,
+    onAddNew
+  } = _ref;
+  const handleOptionChange = e => {
+    const htmlOptions = e.target.options;
+    const newPickedOptions = [...pickedOptions];
+    Array.from(htmlOptions).forEach(option => {
+      const selected = option.selected;
+      const exists = pickedOptions.includes(option.value);
+      const shouldAdd = !exists && selected;
+      const shouldRemove = exists && !selected;
+      if (shouldAdd) {
+        newPickedOptions.push(option.value);
+      } else if (shouldRemove) {
+        const index = newPickedOptions.indexOf(option.value);
+        newPickedOptions.splice(index, 1);
+        if (initialOptions && !initialOptions.includes(option.value)) {
+          setAllOptions?.(allOptions.filter(value => value !== option.value));
+        }
+      }
+    });
+    setPickedOptions(newPickedOptions);
+  };
+  const onAddNewWrapper = value => {
+    if (value == undefined || value.length === 0) {
+      onAddNew?.("");
+      return;
+    }
+    const trimmedValue = value.trim();
+    if (trimmedValue.length === 0 || allOptions.includes(trimmedValue)) {
+      return;
+    }
+    setAllOptions?.([...allOptions, trimmedValue]);
+    setPickedOptions([...pickedOptions, trimmedValue]);
+    onAddNew?.(trimmedValue);
+  };
+  const optionElements = allOptions.map(option => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MultiOption__WEBPACK_IMPORTED_MODULE_1__/* .MultiOption */ .n, {
+    key: option,
+    value: option
+  }, option));
+  return {
+    handleOptionChange,
+    onAddNew: onAddNewWrapper,
+    optionElements
+  };
+};
+try {
+    // @ts-ignore
+    useMultiSelect.displayName = "useMultiSelect";
+    // @ts-ignore
+    useMultiSelect.__docgenInfo = { "description": "", "displayName": "useMultiSelect", "props": { "initialOptions": { "defaultValue": null, "description": "", "name": "initialOptions", "required": false, "type": { "name": "string[]" } }, "allOptions": { "defaultValue": null, "description": "", "name": "allOptions", "required": false, "type": { "name": "string[]" } }, "setAllOptions": { "defaultValue": null, "description": "", "name": "setAllOptions", "required": false, "type": { "name": "((options: string[]) => void)" } }, "pickedOptions": { "defaultValue": null, "description": "", "name": "pickedOptions", "required": true, "type": { "name": "string[]" } }, "setPickedOptions": { "defaultValue": null, "description": "", "name": "setPickedOptions", "required": true, "type": { "name": "(options: string[]) => void" } }, "onAddNew": { "defaultValue": null, "description": "", "name": "onAddNew", "required": false, "type": { "name": "((newOption: string) => void)" } } } };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Form/Select/MultiSelect/useMultiSelect.tsx#useMultiSelect"] = { docgenInfo: useMultiSelect.__docgenInfo, name: "useMultiSelect", path: "src/components/Form/Select/MultiSelect/useMultiSelect.tsx#useMultiSelect" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+
+/***/ }),
+
+/***/ "./src/components/Form/Select/SingleSelect/Option.tsx":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (/* binding */ Option)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/react/index.js");
+/* harmony import */ var _Select_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./src/components/Form/Select/SingleSelect/Select.module.scss");
+/* harmony import */ var _util_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./src/util/helper.tsx");
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+
+
+
+const OptionComponent = (_ref, ref) => {
+  let {
+    id,
+    children,
+    className,
+    isSelected = false,
+    disableDefaultSelectedStyle,
+    shouldClick,
+    hasFocus,
+    selectOpened,
+    isSearching,
+    childIndex,
+    onOptionSelect,
+    onFocusChange,
+    disabled,
+    value,
+    isAddBtnFocused,
+    ...rest
+  } = _ref;
+  const defaultOptionId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)((0,_util_helper__WEBPACK_IMPORTED_MODULE_2__/* .generateID */ .ni)(20));
+  const optionId = id ?? defaultOptionId.current;
+  const innerOptionRef = ref || /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createRef)();
+  const additionalClasses = [];
+  className && additionalClasses.push(className);
+  isSelected && !disableDefaultSelectedStyle && additionalClasses.push(_Select_module_scss__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A["selected-option"]);
+  disabled && additionalClasses.push(_Select_module_scss__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A["disabled"]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (isSelected && innerOptionRef.current && shouldClick) {
+      innerOptionRef.current.click();
+    }
+  }, [isSelected, shouldClick]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (innerOptionRef.current && hasFocus && selectOpened && !isSearching && !isAddBtnFocused) {
+      onFocusChange && childIndex && onFocusChange(childIndex);
+      innerOptionRef.current.focus();
+    }
+  }, [hasFocus, innerOptionRef, selectOpened, isSearching]);
+  const onSelectHandler = () => onOptionSelect?.(innerOptionRef);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", _extends({}, rest, {
+    id: optionId,
+    ref: innerOptionRef,
+    "data-value": value,
+    className: additionalClasses.join(" "),
+    onClick: onSelectHandler,
+    onKeyDown: event => {
+      if (event.code === "Enter") {
+        event.stopPropagation();
+        event.preventDefault();
+        onSelectHandler();
+      }
     },
-    disabled: {
-      control: "boolean"
-    },
-    success: {
-      control: "boolean"
-    }
-  }
+    "aria-selected": isSelected,
+    role: "option",
+    tabIndex: disabled ? -1 : 0
+  }), children);
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (meta);
-const defaultArgs = {
-  error: false,
-  success: false,
-  value: "Example value",
-  onChange: () => {},
-  label: "Example textarea",
-  name: "Textarea",
-  helperText: "Example textarea helpertext",
-  errorMessage: "This is an error message"
-};
-const Template = args => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_components_Form_Wrapper_TextareaWrapper_TextareaWrapper__WEBPACK_IMPORTED_MODULE_1__/* .TextareaWrapper */ .u, args);
-const TextareaWrapper = Template.bind({});
-TextareaWrapper.args = {
-  ...defaultArgs
-};
-const TextareaWrapperError = Template.bind({});
-TextareaWrapperError.args = {
-  ...defaultArgs,
-  error: true
-};
-const TextareaWrapperSuccess = Template.bind({});
-TextareaWrapperSuccess.args = {
-  ...defaultArgs,
-  success: true
-};
-const TextareaWrapperDisabled = Template.bind({});
-TextareaWrapperDisabled.args = {
-  ...defaultArgs,
-  disabled: true
-};
-const TextareaWrapperRequired = Template.bind({});
-TextareaWrapperRequired.args = {
-  ...defaultArgs,
-  required: true
-};
-const TextareaWrapperInReadOnlyMode = Template.bind({});
-TextareaWrapperInReadOnlyMode.storyName = "Textarea Wrapper In Read-only Mode";
-TextareaWrapperInReadOnlyMode.args = {
-  ...defaultArgs,
-  readOnlyView: true
-};
-;
-const __namedExportsOrder = ["TextareaWrapper", "TextareaWrapperError", "TextareaWrapperSuccess", "TextareaWrapperDisabled", "TextareaWrapperRequired", "TextareaWrapperInReadOnlyMode"];
-TextareaWrapper.parameters = {
-  ...TextareaWrapper.parameters,
-  docs: {
-    ...TextareaWrapper.parameters?.docs,
-    source: {
-      originalSource: "args => <TextareaWrapperComponent {...args} />",
-      ...TextareaWrapper.parameters?.docs?.source
-    }
-  }
-};
-TextareaWrapperError.parameters = {
-  ...TextareaWrapperError.parameters,
-  docs: {
-    ...TextareaWrapperError.parameters?.docs,
-    source: {
-      originalSource: "args => <TextareaWrapperComponent {...args} />",
-      ...TextareaWrapperError.parameters?.docs?.source
-    }
-  }
-};
-TextareaWrapperSuccess.parameters = {
-  ...TextareaWrapperSuccess.parameters,
-  docs: {
-    ...TextareaWrapperSuccess.parameters?.docs,
-    source: {
-      originalSource: "args => <TextareaWrapperComponent {...args} />",
-      ...TextareaWrapperSuccess.parameters?.docs?.source
-    }
-  }
-};
-TextareaWrapperDisabled.parameters = {
-  ...TextareaWrapperDisabled.parameters,
-  docs: {
-    ...TextareaWrapperDisabled.parameters?.docs,
-    source: {
-      originalSource: "args => <TextareaWrapperComponent {...args} />",
-      ...TextareaWrapperDisabled.parameters?.docs?.source
-    }
-  }
-};
-TextareaWrapperRequired.parameters = {
-  ...TextareaWrapperRequired.parameters,
-  docs: {
-    ...TextareaWrapperRequired.parameters?.docs,
-    source: {
-      originalSource: "args => <TextareaWrapperComponent {...args} />",
-      ...TextareaWrapperRequired.parameters?.docs?.source
-    }
-  }
-};
-TextareaWrapperInReadOnlyMode.parameters = {
-  ...TextareaWrapperInReadOnlyMode.parameters,
-  docs: {
-    ...TextareaWrapperInReadOnlyMode.parameters?.docs,
-    source: {
-      originalSource: "args => <TextareaWrapperComponent {...args} />",
-      ...TextareaWrapperInReadOnlyMode.parameters?.docs?.source
-    }
-  }
-};
+const Option = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(OptionComponent);
+try {
+    // @ts-ignore
+    Option.displayName = "Option";
+    // @ts-ignore
+    Option.__docgenInfo = { "description": "", "displayName": "Option", "props": { "label": { "defaultValue": null, "description": "", "name": "label", "required": false, "type": { "name": "string" } }, "disabled": { "defaultValue": null, "description": "", "name": "disabled", "required": false, "type": { "name": "boolean" } }, "value": { "defaultValue": null, "description": "", "name": "value", "required": true, "type": { "name": "string" } }, "hasFocus": { "defaultValue": null, "description": "", "name": "hasFocus", "required": false, "type": { "name": "boolean" } }, "isSelected": { "defaultValue": { value: "false" }, "description": "", "name": "isSelected", "required": false, "type": { "name": "boolean" } }, "childIndex": { "defaultValue": null, "description": "", "name": "childIndex", "required": false, "type": { "name": "number" } }, "shouldClick": { "defaultValue": null, "description": "", "name": "shouldClick", "required": false, "type": { "name": "boolean" } }, "onFocusChange": { "defaultValue": null, "description": "", "name": "onFocusChange", "required": false, "type": { "name": "((childIndex: number) => void)" } }, "disableDefaultSelectedStyle": { "defaultValue": null, "description": "", "name": "disableDefaultSelectedStyle", "required": false, "type": { "name": "boolean" } }, "selectOpened": { "defaultValue": null, "description": "", "name": "selectOpened", "required": false, "type": { "name": "boolean" } }, "isSearching": { "defaultValue": null, "description": "", "name": "isSearching", "required": false, "type": { "name": "boolean" } }, "onOptionSelect": { "defaultValue": null, "description": "", "name": "onOptionSelect", "required": false, "type": { "name": "((ref: RefObject<HTMLLIElement>) => void)" } }, "isAddBtnFocused": { "defaultValue": null, "description": "", "name": "isAddBtnFocused", "required": false, "type": { "name": "boolean" } } } };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/Form/Select/SingleSelect/Option.tsx#Option"] = { docgenInfo: Option.__docgenInfo, name: "Option", path: "src/components/Form/Select/SingleSelect/Option.tsx#Option" };
+}
+catch (__react_docgen_typescript_loader_error) { }
 
 /***/ }),
 
@@ -427,7 +487,7 @@ const getConditionalProps = (readOnlyView, type, helperText) => {
     if (helperText) {
       props.helperText = "";
     }
-  } else {
+  } else if (helperText) {
     props.helperText = helperText;
   }
   if (type) {
