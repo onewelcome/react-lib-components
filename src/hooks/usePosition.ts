@@ -111,6 +111,14 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
   const configObject = { ...defaultConfigObject, ...providedConfigObject };
   const [initialCalculationDone, setInitialCalculationDone] = useState(false);
 
+  const getViewportProperties = (property: "width" | "height") => {
+    if (window.visualViewport) {
+      return property === "width" ? window.visualViewport.width : window.visualViewport.height;
+    }
+
+    return property === "width" ? window.innerWidth : window.innerHeight;
+  };
+
   if (configObject.transformOrigin === undefined) {
     configObject.transformOrigin = defaultConfigObject.transformOrigin;
   }
@@ -130,6 +138,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
     bottom: "initial"
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _fixPossibleViewportOverflow = (
     value: number,
     transformOrigin: Placement,
@@ -149,81 +158,69 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
 
     if (
       (transformOrigin[requestedReturnValue] === "left" &&
-        returnValue > window.innerWidth - elDimensions.width) ||
+        returnValue > getViewportProperties("width") - elDimensions.width) ||
       (transformOrigin[requestedReturnValue] === "center" &&
         requestedReturnValue === "horizontal" &&
-        returnValue > window.innerWidth - elDimensions.width)
+        returnValue > getViewportProperties("width") - elDimensions.width)
     ) {
-      returnValue = window.innerWidth - elDimensions.width;
+      returnValue = getViewportProperties("width") - elDimensions.width;
     }
 
     if (
       (transformOrigin[requestedReturnValue] === "top" &&
-        returnValue > window.innerHeight - elDimensions.height) ||
+        returnValue > getViewportProperties("height") - elDimensions.height) ||
       (transformOrigin[requestedReturnValue] === "center" &&
         requestedReturnValue === "vertical" &&
-        returnValue > window.innerHeight - elDimensions.height)
+        returnValue > getViewportProperties("height") - elDimensions.height)
     ) {
-      returnValue = window.innerHeight - elDimensions.height;
+      returnValue = getViewportProperties("height") - elDimensions.height;
     }
 
     if (
       transformOrigin[requestedReturnValue] === "right" &&
-      returnValue > window.innerWidth - elDimensions.width
+      returnValue > getViewportProperties("width") - elDimensions.width
     ) {
-      returnValue = window.innerWidth - elDimensions.width;
+      returnValue = getViewportProperties("width") - elDimensions.width;
     }
 
     if (
       transformOrigin[requestedReturnValue] === "bottom" &&
-      returnValue > window.innerHeight - elDimensions.height
+      returnValue > getViewportProperties("height") - elDimensions.height
     ) {
-      returnValue = window.innerHeight - elDimensions.height;
+      returnValue = getViewportProperties("height") - elDimensions.height;
     }
 
     return returnValue;
   };
 
-  const _applyOffsetToPlacementValue = (
-    value: number,
-    requestedReturnValue: Axis,
-    transformOrigin: Placement
-  ) => {
-    let returnValue = value;
-    if (
-      (requestedReturnValue === "horizontal" && configObject.offset?.left !== 0) ||
-      (requestedReturnValue === "horizontal" && configObject.offset?.right !== 0)
-    ) {
-      if (
-        transformOrigin[requestedReturnValue] === "left" ||
-        transformOrigin[requestedReturnValue] === "center"
-      ) {
-        returnValue += configObject.offset?.left!;
-        returnValue -= configObject.offset?.right!;
-      }
+  const _applyOffsetToPlacementValue = (value: number, axis: Axis, origin: Placement) => {
+    const offset = configObject.offset;
 
-      if (transformOrigin[requestedReturnValue] === "right") {
-        returnValue -= configObject.offset?.left!;
-        returnValue += configObject.offset?.right!;
-      }
+    const viewportOffset =
+      axis === "horizontal"
+        ? window.visualViewport?.offsetLeft ?? 0
+        : window.visualViewport?.offsetTop ?? 0;
+
+    const offsetStart = axis === "horizontal" ? offset?.left ?? 0 : offset?.top ?? 0;
+    const offsetEnd = axis === "horizontal" ? offset?.right ?? 0 : offset?.bottom ?? 0;
+
+    let returnValue = value;
+
+    const hasOffset = offsetStart || viewportOffset || offsetEnd;
+    if (!hasOffset) {
+      return returnValue;
     }
 
-    if (
-      (requestedReturnValue === "vertical" && configObject.offset?.top !== 0) ||
-      (requestedReturnValue === "vertical" && configObject.offset?.bottom !== 0)
-    ) {
-      if (
-        transformOrigin[requestedReturnValue] === "top" ||
-        transformOrigin[requestedReturnValue] === "center"
-      ) {
-        returnValue += configObject.offset?.top!;
-        returnValue -= configObject.offset?.bottom!;
-      }
+    const originValue = origin[axis];
 
-      if (transformOrigin[requestedReturnValue] === "bottom") {
-        returnValue -= configObject.offset?.top!;
-        returnValue += configObject.offset?.bottom!;
-      }
+    const isStartOrCenter =
+      originValue === "top" || originValue === "left" || originValue === "center";
+    const isEnd = originValue === "right" || originValue === "bottom";
+
+    if (isStartOrCenter) {
+      returnValue += offsetStart - offsetEnd + viewportOffset;
+    } else if (isEnd) {
+      returnValue -= offsetStart - offsetEnd - viewportOffset;
     }
 
     return returnValue;
@@ -252,7 +249,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       transformOrigin[requestedReturnValue] === "bottom"
     ) {
       value =
-        window[requestedReturnValue === "horizontal" ? "innerWidth" : "innerHeight"] -
+        getViewportProperties(requestedReturnValue === "horizontal" ? "width" : "height") -
         relEl[placementOriginDefinition];
     }
 
@@ -299,12 +296,7 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       transformOrigin
     );
 
-    return _fixPossibleViewportOverflow(
-      valueWithOffset,
-      transformOrigin,
-      requestedReturnValue,
-      elDimensions
-    );
+    return valueWithOffset;
   };
 
   const _calculatePlacement = (relEl: DomRectObject, elDimensions: Dimensions, axis: Axis) => {
@@ -353,7 +345,6 @@ export const usePosition = (providedConfigObject: ConfigObject = defaultConfigOb
       width: (configObject.elementToBePositioned!.current as HTMLElement).offsetWidth
     };
 
-    /** We want to add a center (horizontal and vertical) property to the DOMRect object. Since it's a special object we can't modify so we clone it and add it. */
     const clonedRelEl = {
       top: relativeElRect.top,
       right: relativeElRect.right,
