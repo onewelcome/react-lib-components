@@ -64,6 +64,7 @@ export const DataGridToolbar = ({
             key={filter.id}
             filter={filter}
             columnsMetadata={columnsMetadata}
+            filterState={state}
             onFilterEdit={filter => {
               editFilter(filter);
               onFilterEdit && onFilterEdit(filter);
@@ -83,6 +84,7 @@ export const DataGridToolbar = ({
             mode="ADD"
             customEditTagContent={customEditTagContent}
             columnsMetadata={columnsMetadata}
+            filterState={state}
             onFilterAdd={filter => {
               addFilter(filter);
               onFilterAdd && onFilterAdd(filter);

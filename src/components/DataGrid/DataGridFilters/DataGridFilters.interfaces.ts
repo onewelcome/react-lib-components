@@ -58,6 +58,7 @@ export interface DataGridColumnMetadata {
   operators?: string[];
   defaultValues?: string[];
   disableAddNew?: boolean;
+  allowSingleFilterOnly?: boolean;
 }
 
 export interface PopoverTranslations {

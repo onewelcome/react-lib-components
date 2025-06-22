@@ -483,7 +483,8 @@ DataGridWithFilters.args = {
         headline: "Type",
         operators: ["is", "is not"],
         defaultValues: ["Stock", "Bond"],
-        disableAddNew: true
+        disableAddNew: true,
+        allowSingleFilterOnly: true
       }
     ],
     onFilterAdd: filter => console.log(filter),
