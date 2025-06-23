@@ -25,7 +25,8 @@ import { Popover } from "../../Popover/Popover";
 import {
   DataGridColumnMetadata,
   DefaultOperators,
-  PopoverTranslations
+  PopoverTranslations,
+  ValueSelectType
 } from "./DataGridFilters.interfaces";
 import { useRepeatFocus } from "../../../hooks/useRepeatFocus";
 
@@ -89,6 +90,7 @@ export const DataGridFilterPopover = ({
 
   const columnMetadata = columnsMetadata.find(({ name }) => name === column);
   const disableAddNew = columnMetadata?.disableAddNew;
+  const valueSelectType = columnMetadata?.valueSelectType;
 
   return (
     <Popover
@@ -144,42 +146,82 @@ export const DataGridFilterPopover = ({
               </Option>
             ))}
           </SelectWrapper>
-          <MultiSelectWrapper
-            label={valueSelectLabel}
-            name={"value"}
-            value={pickedValues}
-            onChange={e =>
-              setPickedValues(
-                [...Array.from(e.target.options)]
-                  .filter(option => option.selected)
-                  .map(option => option.value)
-              )
-            }
-            selectProps={{
-              addNew: disableAddNew
-                ? undefined
-                : {
-                    label: addNewValueLabel,
-                    onAddNew: value => {
-                      if (value) {
-                        setValues(prev => [...prev, value]);
-                        setPickedValues(prev => [...prev, value]);
-                      }
-                    },
-                    btnProps: { title: addNewValueButtonTitle, type: "button" }
-                  },
-              search: {
-                enabled: true,
-                renderThreshold: 0
+          {valueSelectType === ValueSelectType.single && (
+            <SelectWrapper
+              label={valueSelectLabel}
+              name={"value"}
+              value={pickedValues[0]}
+              onChange={e =>
+                setPickedValues(
+                  [...Array.from(e.target.options)]
+                    .filter(option => option.selected)
+                    .map(option => option.value)
+                )
               }
-            }}
-          >
-            {values.map(value => (
-              <MultiOption key={value} value={value}>
-                {value}
-              </MultiOption>
-            ))}
-          </MultiSelectWrapper>
+              selectProps={{
+                addNew: disableAddNew
+                  ? undefined
+                  : {
+                      label: addNewValueLabel,
+                      onAddNew: value => {
+                        if (value) {
+                          setValues(prev => [...prev, value]);
+                          setPickedValues(prev => [...prev, value]);
+                        }
+                      },
+                      btnProps: { title: addNewValueButtonTitle, type: "button" }
+                    },
+                search: {
+                  enabled: true,
+                  renderThreshold: 0
+                }
+              }}
+            >
+              {values.map(value => (
+                <Option key={value} value={value}>
+                  {value}
+                </Option>
+              ))}
+            </SelectWrapper>
+          )}
+          {(!valueSelectType || valueSelectType === ValueSelectType.multi) && (
+            <MultiSelectWrapper
+              label={valueSelectLabel}
+              name={"value"}
+              value={pickedValues}
+              onChange={e =>
+                setPickedValues(
+                  [...Array.from(e.target.options)]
+                    .filter(option => option.selected)
+                    .map(option => option.value)
+                )
+              }
+              selectProps={{
+                addNew: disableAddNew
+                  ? undefined
+                  : {
+                      label: addNewValueLabel,
+                      onAddNew: value => {
+                        if (value) {
+                          setValues(prev => [...prev, value]);
+                          setPickedValues(prev => [...prev, value]);
+                        }
+                      },
+                      btnProps: { title: addNewValueButtonTitle, type: "button" }
+                    },
+                search: {
+                  enabled: true,
+                  renderThreshold: 0
+                }
+              }}
+            >
+              {values.map(value => (
+                <MultiOption key={value} value={value}>
+                  {value}
+                </MultiOption>
+              ))}
+            </MultiSelectWrapper>
+          )}
         </div>
         <div className={classes["actions"]}>
           <Button onClick={onFilterSubmit}>{submitButtonTitle}</Button>

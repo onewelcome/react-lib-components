@@ -43,7 +43,10 @@ import { ModalActions } from "../../src/components/Notifications/Modal/ModalActi
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
 import { THIRTY_SECONDS } from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
-import { DateTimeFilter } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
+import {
+  DateTimeFilter,
+  ValueSelectType
+} from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
 
 interface DataGridItem {
   name: string;
@@ -484,7 +487,8 @@ DataGridWithFilters.args = {
         operators: ["is", "is not"],
         defaultValues: ["Stock", "Bond"],
         disableAddNew: true,
-        allowSingleFilterOnly: true
+        valueSelectType: ValueSelectType.multi,
+        allowSingleFilterOnly: false
       }
     ],
     onFilterAdd: filter => console.log(filter),

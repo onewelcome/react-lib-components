@@ -59,6 +59,7 @@ export interface DataGridColumnMetadata {
   defaultValues?: string[];
   disableAddNew?: boolean;
   allowSingleFilterOnly?: boolean;
+  valueSelectType?: ValueSelectType;
 }
 
 export interface PopoverTranslations {
@@ -105,4 +106,9 @@ export interface DateTimeFilter {
   fromDate: string;
   toDate: string;
   type: DateTimeFilterType;
+}
+
+export enum ValueSelectType {
+  single = "single",
+  multi = "multi"
 }
