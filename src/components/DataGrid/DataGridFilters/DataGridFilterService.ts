@@ -50,17 +50,7 @@ export const useDataGridFilter = (
   };
 
   const initialiseFilterValues = (filter?: Filter) => {
-    const allowedColumnMetaData = columnsMetadata.filter(value => {
-      if (!value.allowSingleFilterOnly) {
-        return true;
-      }
-
-      return !filterState.filters.find(v => {
-        return mode === "ADD"
-          ? v.column == value.name
-          : v.column == value.name && v.column != filter?.column;
-      });
-    });
+    const allowedColumnMetaData = getAllowedColumnsMetadata(filter);
 
     if (mode === "ADD") {
       const firstColumnMetadata = allowedColumnMetaData[0];
@@ -99,6 +89,20 @@ export const useDataGridFilter = (
     }
 
     setAllowedColumnsMetaData(allowedColumnMetaData);
+  };
+
+  const getAllowedColumnsMetadata = (filter?: Filter) => {
+    return columnsMetadata.filter(value => {
+      if (!value.allowSingleFilterOnly) {
+        return true;
+      }
+
+      return !filterState.filters.find(v => {
+        return mode === "ADD"
+          ? v.column == value.name
+          : v.column == value.name && v.column != filter?.column;
+      });
+    });
   };
 
   return {
