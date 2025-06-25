@@ -45,6 +45,7 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     parentHelperId,
     error,
     errorMessage,
+    errorMessageProps,
     checked = false,
     formSelectorWrapperProps,
     helperProps,
@@ -101,6 +102,7 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       parentErrorId={parentErrorId}
       errorId={errorId}
       errorMessage={errorMessage}
+      errorMessageProps={errorMessageProps}
       error={error}
       disabled={disabled}
       identifier={identifier}

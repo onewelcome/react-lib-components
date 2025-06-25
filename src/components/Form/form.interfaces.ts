@@ -14,12 +14,14 @@
  *    limitations under the License.
  */
 
+import { ComponentPropsWithRef } from "react";
 import { DataAttributeKey } from "../../interfaces";
 
 /** Radios */
 export interface FormSelector extends FormElement {
   helperText?: string;
   errorMessage?: string;
+  errorMessageProps?: ComponentPropsWithRef<"span">;
   parentHelperId?: string;
   parentErrorId?: string;
 }

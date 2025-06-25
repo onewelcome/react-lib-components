@@ -51,6 +51,7 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     indeterminate,
     parentErrorId,
     errorMessage,
+    errorMessageProps,
     disabled,
     label,
     parentHelperId,
@@ -140,6 +141,7 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       parentErrorId={parentErrorId}
       errorId={errorId}
       errorMessage={errorMessage}
+      errorMessageProps={errorMessageProps}
       error={error}
       disabled={disabled}
       identifier={identifier}

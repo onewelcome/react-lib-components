@@ -59,7 +59,7 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     <div {...rest} ref={ref} className={`${classes["form-group"]} ${className ?? ""}`}>
       {children}
 
-      {(helperText || (errorMessage && error)) && (
+      {(helperText || errorMessageProps?.children || (errorMessage && error)) && (
         <div
           className={`${classes["default-helper"]} ${
             helperProps?.className ? helperProps.className : ""
@@ -75,28 +75,31 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               {helperProps?.children || helperText}
             </FormHelperText>
           )}
-          {error && errorMessage && (
-            <span
-              {...errorMessageProps}
-              className={`${classes["error-message"]} ${errorMessageProps?.className ? errorMessageProps.className : ""}`}
-            >
-              <span id={errorId} className={classes.message}>
-                {errorMessageIcon && errorMessageIconPosition === "before" && (
-                  <Icon
-                    className={`${classes["error-icon"]} ${classes["error-icon-before"]}`}
-                    icon={errorMessageIcon}
-                  />
-                )}
-                {errorMessage}
-                {errorMessageIcon && errorMessageIconPosition === "after" && (
-                  <Icon
-                    className={`${classes["error-icon"]} ${classes["error-icon-after"]}`}
-                    icon={errorMessageIcon}
-                  />
-                )}
-              </span>
-            </span>
-          )}
+          {errorMessageProps?.children
+            ? errorMessageProps.children
+            : error &&
+              errorMessage && (
+                <span
+                  {...errorMessageProps}
+                  className={`${classes["error-message"]} ${errorMessageProps?.className ? errorMessageProps.className : ""}`}
+                >
+                  <span id={errorId} className={classes.message}>
+                    {errorMessageIcon && errorMessageIconPosition === "before" && (
+                      <Icon
+                        className={`${classes["error-icon"]} ${classes["error-icon-before"]}`}
+                        icon={errorMessageIcon}
+                      />
+                    )}
+                    {errorMessage}
+                    {errorMessageIcon && errorMessageIconPosition === "after" && (
+                      <Icon
+                        className={`${classes["error-icon"]} ${classes["error-icon-after"]}`}
+                        icon={errorMessageIcon}
+                      />
+                    )}
+                  </span>
+                </span>
+              )}
         </div>
       )}
     </div>
