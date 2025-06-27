@@ -10,6 +10,11 @@ It can be done by either nesting the `Checkbox` component inside a `Form` compon
 
 Checkboxes can be either singular or nested and should be linked to a `state` variable to control the `checked` state.
 
+## Custom helper text and error message
+
+You can compose both helper text and error message out of any components you'd like. Keep in mind you will need to handle the proper styling of those custom elements. All you need to do is to pass the `children` to `helperProps` for custom `helperText`
+or `error` set to `true` along with `children` in `errorMessageProps` for custom error message.
+
 # Examples
 
 The examples below are **not** interactive, since they are **not** linked to any state variable.

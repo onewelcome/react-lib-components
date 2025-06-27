@@ -59,13 +59,18 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     <div {...rest} ref={ref} className={`${classes["form-group"]} ${className ?? ""}`}>
       {children}
 
-      {(helperText || errorMessageProps?.children || (errorMessage && error)) && (
+      {(helperText ||
+        helperProps?.children ||
+        errorMessageProps?.children ||
+        (errorMessage && error)) && (
         <div
           className={`${classes["default-helper"]} ${
             helperProps?.className ? helperProps.className : ""
           }`}
         >
-          {((helperText && !error) || (helperText && error && !errorMessage)) && (
+          {((helperText && !error) ||
+            (helperText && error && !errorMessage) ||
+            (helperProps?.children && !error)) && (
             <FormHelperText
               {...helperProps}
               className={""}

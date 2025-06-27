@@ -19,6 +19,11 @@ The `value` prop should be linked to a `useState` variable that gets updated usi
 
 See [`Select` components](?path=/docs/components-inputs-raw-select--docs#features) for more information.
 
+## Custom helper text and error message
+
+You can compose both helper text and error message out of any components you'd like. Keep in mind you will need to handle the proper styling of those custom elements. All you need to do is to pass the `children` to `helperProps` for custom `helperText`
+or `error` set to `true` along with `children` in `errorMessageProps` for custom error message.
+
 # Examples
 
 A code example of how you can configure a `SelectWrapper` within a React component:

@@ -289,3 +289,28 @@ MultiSelectWrapperInReadOnlyMode.storyName = "Multi Select Wrapper In Read-only 
 MultiSelectWrapperInReadOnlyMode.args = {
   readOnlyView: true
 };
+
+export const MultiSelectWrapperComposedHelperText = Template.bind({});
+
+MultiSelectWrapperComposedHelperText.args = {
+  helperProps: {
+    children: (
+      <span>
+        Composed helper <a href="/">text</a>
+      </span>
+    )
+  }
+};
+
+export const MultiSelectWrapperErrorText = Template.bind({});
+
+MultiSelectWrapperErrorText.args = {
+  error: true,
+  errorMessageProps: {
+    children: (
+      <span style={{ color: "var(--error)" }}>
+        Composed error <a href="/">text</a>
+      </span>
+    )
+  }
+};

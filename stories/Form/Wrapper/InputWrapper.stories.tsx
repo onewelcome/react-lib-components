@@ -219,3 +219,41 @@ InputWrapperInReadOnlyMode.args = {
   value: "example value",
   readOnlyView: true
 };
+
+export const InputWrapperComposedHelperText = Template.bind({});
+
+InputWrapperComposedHelperText.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  helperText: "This is helpertext",
+  helperProps: {
+    children: (
+      <span>
+        Composed helper <a href="/">text</a>
+      </span>
+    )
+  },
+  onChange: () => {},
+  value: "example value",
+  required: true
+};
+
+export const InputWrapperComposedErrorText = Template.bind({});
+
+InputWrapperComposedErrorText.args = {
+  label: "Example label",
+  type: "text",
+  name: "Example name",
+  error: true,
+  errorMessageProps: {
+    children: (
+      <span style={{ color: "var(--error)" }}>
+        Composed error <a href="/">text</a>
+      </span>
+    )
+  },
+  onChange: () => {},
+  value: "example value",
+  required: true
+};

@@ -11,6 +11,13 @@ For proper accessibility, it is recommended to nest the `Radio` component inside
 
 Each individual radio button can have its own `helperText` and `errorMessage`. By default, the `helperText` will be shown **if** this prop is filled in. As soon as the `error` prop is set to `true`, the `errorMessage` will be shown.
 
+## Composability
+
+## Custom helper text and error message
+
+You can compose both helper text and error message out of any components you'd like. Keep in mind you will need to handle the proper styling of those custom elements. All you need to do is to pass the `children` to `helperProps` for custom `helperText`
+or `error` set to `true` along with `children` in `errorMessageProps` for custom error message.
+
 # Examples
 
 A code example of how you could use the `Radio` component with state:

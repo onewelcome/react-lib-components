@@ -167,3 +167,28 @@ SelectWrapperInReadOnlyMode.args = {
   ...defaultArgs,
   readOnlyView: true
 };
+
+export const SelectWrapperComposedHelperText = Template.bind({});
+
+SelectWrapperComposedHelperText.args = {
+  helperProps: {
+    children: (
+      <span>
+        Composed helper <a href="/">text</a>
+      </span>
+    )
+  }
+};
+
+export const SelectWrapperComposedErrorText = Template.bind({});
+
+SelectWrapperComposedErrorText.args = {
+  error: true,
+  errorMessageProps: {
+    children: (
+      <span style={{ color: "var(--error)" }}>
+        Composed error <a href="/">text</a>
+      </span>
+    )
+  }
+};

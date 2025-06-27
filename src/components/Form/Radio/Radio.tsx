@@ -91,7 +91,6 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   disabled &&
     checkedRadioClasses.push(classes["disabled"]) &&
     uncheckedRadioClasses.push(classes["disabled"]);
-
   return (
     <FormSelectorWrapper
       {...formSelectorWrapperProps}
@@ -123,8 +122,8 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         type="radio"
       />
 
-      {checked && <Icon className={checkedRadioClasses.join(" ")} icon={Icons.Radio} />}
-      {!checked && <Icon className={uncheckedRadioClasses.join(" ")} icon={Icons.Circle} />}
+      {checked ? <Icon className={checkedRadioClasses.join(" ")} icon={Icons.Radio} /> : <></>}
+      {!checked ? <Icon className={uncheckedRadioClasses.join(" ")} icon={Icons.Circle} /> : <></>}
 
       <label
         className={customLabel ? classes["no-margin-top"] : ""}
