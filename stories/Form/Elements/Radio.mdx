@@ -13,6 +13,8 @@ Each individual radio button can have its own `helperText` and `errorMessage`. B
 
 ## Composability
 
+You can use any component you want as a `Radio` label - simply pass it as a `children` prop. Just make sure that the styling of the component matches our guidelines - `Radio` doesn't override styles of its `children`.
+
 ## Custom helper text and error message
 
 You can compose both helper text and error message out of any components you'd like. Keep in mind you will need to handle the proper styling of those custom elements. All you need to do is to pass the `children` to `helperProps` for custom `helperText`
