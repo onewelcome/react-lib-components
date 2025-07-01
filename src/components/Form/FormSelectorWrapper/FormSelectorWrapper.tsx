@@ -57,7 +57,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
 ) => {
   const helperRef = helperProps?.ref ?? createRef();
 
-  const hasHelperText = helperText || helperProps?.children;
+  const hasHelperText = helperText ?? helperProps?.children;
   const showHelperText = !error && hasHelperText;
   const showErrorText = error && (errorMessage || errorMessageProps?.children);
 

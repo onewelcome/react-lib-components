@@ -44,7 +44,7 @@ export const FormErrorText = ({
   }
 
   if (showCustomError) {
-    return <>{errorMessageProps!.children}</>;
+    return <>{errorMessageProps.children}</>;
   }
 
   if (showDefaultError) {

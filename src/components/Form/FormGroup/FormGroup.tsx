@@ -55,7 +55,7 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   const disableHelperText = helperProps?.disabled ?? disabled;
-  const hasHelperText = helperText || helperProps?.children;
+  const hasHelperText = helperText ?? helperProps?.children;
   const showHelperText = hasHelperText && (!error || (error && !errorMessage));
   const showErrorMessage = error && errorMessage && !errorMessageProps?.children;
   const hasHelperContent = showHelperText || errorMessageProps?.children || showErrorMessage;
