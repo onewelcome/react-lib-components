@@ -67,6 +67,36 @@ const ExampleComponent = () => {
 };
 ```
 
+A code example of a `Radio` with composed elements:
+
+```jsx
+const ExampleComponent = () => {
+  const [radioValue, setRadioValue] = useState("option1");
+
+  const helperTextProps = {
+    children: (
+      <div>
+        Helper text with <a href="/">link</a>
+      </div>
+    )
+  };
+
+  return(
+    <Radio
+      {...args}
+      helperText="Example helpertext"
+      helperProps={helperTextProps}
+      onChange={event => setRadioValue(event.target.value)}
+      value="bold"
+      checked={radioValue === "bold"}
+    >
+      <>
+        Label with a <b>bold part</b>{" "}
+      </>
+    </Radio>
+  )
+```
+
 <Canvas>
   <Story of={RadioStories.Radio} />
 </Canvas>

@@ -150,7 +150,7 @@ describe("Checkbox should have proper attributes", () => {
 
     expect(checkbox).toHaveAttribute(
       "aria-describedby",
-      container.querySelector(".error-message")!.id
+      container.querySelector(".error-message>span")!.id
     );
 
     expect(checkbox).toHaveAttribute("aria-invalid", "true");

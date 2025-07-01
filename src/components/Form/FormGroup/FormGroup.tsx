@@ -19,7 +19,8 @@
 import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } from "react";
 import classes from "./FormGroup.module.scss";
 import { FormHelperText, Props as HelperProps } from "../FormHelperText/FormHelperText";
-import { Icon, Icons } from "../../Icon/Icon";
+import { Icons } from "../../Icon/Icon";
+import { FormErrorText } from "../FormErrorText/FormErrorText";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   children: ReactElement[] | ReactElement | string | number[] | number;
@@ -53,24 +54,19 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }: Props,
   ref
 ) => {
-  const disableHelperText = helperProps?.disabled !== undefined ? helperProps?.disabled : disabled;
+  const disableHelperText = helperProps?.disabled ?? disabled;
+  const hasHelperText = helperText || helperProps?.children;
+  const showHelperText = hasHelperText && (!error || (error && !errorMessage));
+  const showErrorMessage = error && errorMessage && !errorMessageProps?.children;
+  const hasHelperContent = showHelperText || errorMessageProps?.children || showErrorMessage;
 
   return (
     <div {...rest} ref={ref} className={`${classes["form-group"]} ${className ?? ""}`}>
       {children}
 
-      {(helperText ||
-        helperProps?.children ||
-        errorMessageProps?.children ||
-        (errorMessage && error)) && (
-        <div
-          className={`${classes["default-helper"]} ${
-            helperProps?.className ? helperProps.className : ""
-          }`}
-        >
-          {((helperText && !error) ||
-            (helperText && error && !errorMessage) ||
-            (helperProps?.children && !error)) && (
+      {hasHelperContent && (
+        <div className={`${classes["default-helper"]} ${helperProps?.className ?? ""}`}>
+          {showHelperText && (
             <FormHelperText
               {...helperProps}
               className={""}
@@ -80,31 +76,15 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               {helperProps?.children || helperText}
             </FormHelperText>
           )}
-          {errorMessageProps?.children
-            ? errorMessageProps.children
-            : error &&
-              errorMessage && (
-                <span
-                  {...errorMessageProps}
-                  className={`${classes["error-message"]} ${errorMessageProps?.className ? errorMessageProps.className : ""}`}
-                >
-                  <span id={errorId} className={classes.message}>
-                    {errorMessageIcon && errorMessageIconPosition === "before" && (
-                      <Icon
-                        className={`${classes["error-icon"]} ${classes["error-icon-before"]}`}
-                        icon={errorMessageIcon}
-                      />
-                    )}
-                    {errorMessage}
-                    {errorMessageIcon && errorMessageIconPosition === "after" && (
-                      <Icon
-                        className={`${classes["error-icon"]} ${classes["error-icon-after"]}`}
-                        icon={errorMessageIcon}
-                      />
-                    )}
-                  </span>
-                </span>
-              )}
+
+          {error && (
+            <FormErrorText
+              error={error}
+              errorMessage={errorMessage}
+              errorMessageProps={errorMessageProps}
+              errorId={errorId}
+            />
+          )}
         </div>
       )}
     </div>
