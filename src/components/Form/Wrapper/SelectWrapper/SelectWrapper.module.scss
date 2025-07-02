@@ -25,3 +25,38 @@
 .select-helper-text {
   margin-top: 0.15rem;
 }
+
+.inlineEditing {
+  background-color: transparent;
+
+  & button.inlineEditing {
+    border: 0;
+
+    .status {
+      visibility: hidden;
+      span.chevron-icon {
+        visibility: hidden;
+      }
+    }
+
+    &:hover {
+      & button {
+        border: 0.125rem solid var(--color-focus);
+        border-radius: 0.3125rem;
+
+        & .status {
+          span.chevron-icon {
+            visibility: visible;
+          }
+        }
+      }
+
+      &:not(.disabled):not(.expanded):not(.error) {
+        button:not(:focus) {
+          border: 0;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}

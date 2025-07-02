@@ -55,6 +55,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     addNew,
     search,
     isReadOnlyView,
+    inlineEditing,
     ...rest
   }: SingleSelectProps,
   ref
@@ -221,9 +222,12 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   className && additionalClasses.push(className);
   success && additionalClasses.push(classes.success);
 
+  const inlineEditingSelect = [];
+  inlineEditing && inlineEditingSelect.push(classes.inlineEditing);
+
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
-    <div ref={myElementRef} className={classes["root"]}>
+    <div ref={myElementRef} className={`${classes["root"]} ${inlineEditingSelect.join(" ")}`}>
       <select
         {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}

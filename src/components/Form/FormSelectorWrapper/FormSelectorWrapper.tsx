@@ -24,6 +24,8 @@ import { KeyValuePair } from "../../../interfaces";
 import { FormSelector } from "../form.interfaces";
 import { FormHelperText, Props as FormHelperTextProps } from "../FormHelperText/FormHelperText";
 import classes from "./FormSelectorWrapper.module.scss";
+import { Tooltip } from "../../Tooltip/Tooltip";
+import { Icons } from "../../Icon/Icon";
 
 export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   children?: ReactNode;
@@ -33,6 +35,7 @@ export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   disabled?: boolean;
   errorId?: string;
   identifier?: string;
+  inlineEditing?: boolean;
 }
 
 const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -49,6 +52,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     parentErrorId,
     errorId,
     identifier,
+    inlineEditing,
     ...rest
   }: Props,
   ref
@@ -63,8 +67,20 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
         className ?? ""
       }`}
     >
-      <div {...containerProps}>{children}</div>
-      {(errorMessage || helperText || helperProps?.children) && (
+      <div {...containerProps}>
+        {children}
+        {inlineEditing && (errorMessage || helperText) && (
+          <Tooltip
+            label={errorMessage || helperText}
+            location="right"
+            position="center"
+            icon={Icons.InfoCircle}
+          >
+            This is the content that will be displayed when you hover over the icon.
+          </Tooltip>
+        )}
+      </div>
+      {!inlineEditing && (errorMessage || helperText || helperProps?.children) && (
         <FormHelperText
           {...helperProps}
           ref={helperRef}

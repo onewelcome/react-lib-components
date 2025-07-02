@@ -39,6 +39,8 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   title?: string;
   children: string;
   domRoot?: HTMLElement;
+  icon?: Icons;
+  iconState?: "string";
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";
   position?: "start" | "center" | "end";
@@ -126,6 +128,8 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     location = "right",
     position = "center",
     color = "black",
+    icon = Icons.InfoCircle,
+    iconState,
     ...rest
   }: Props,
   ref
@@ -213,7 +217,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           tag="div"
           onMouseEnter={() => setVisible(true)}
           onMouseLeave={() => setVisible(false)}
-          icon={Icons.InfoCircle}
+          icon={icon}
           className={classes.icon}
         />
         {createPortal(

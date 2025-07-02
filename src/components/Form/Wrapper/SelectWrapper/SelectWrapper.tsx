@@ -34,6 +34,7 @@ export interface Props
   selectProps?: PartialSelectProps;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   success?: boolean;
+  inlineEditing?: boolean;
 }
 
 const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -45,12 +46,15 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
     placeholder,
     selectProps,
     helperProps,
+    inlineEditing,
     onChange,
     ...rest
   }: Props,
   ref
 ) => {
   const { errorId, helperId, labelId } = useWrapper();
+  const inlineEditingSelect = [];
+  inlineEditing && inlineEditingSelect.push(classes.inlineEditing);
 
   return (
     <Wrapper
@@ -59,6 +63,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
       errorId={errorId}
       helperId={helperId}
       labelProps={{ id: labelId, className: classes["select-label"] }}
+      // innerClassName={`${inlineEditingSelect.join(" ")}`}
       helperProps={{
         ...helperProps,
         className: `${classes["select-helper-text"]} ${helperProps?.className ?? ""}`
@@ -74,7 +79,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         describedBy={error ? errorId : helperId}
         onChange={onChange}
         placeholder={placeholder}
-        className={`${selectProps?.className ?? ""}`}
+        className={`${selectProps?.className ?? ""} ${inlineEditingSelect.join(" ")}`}
         isReadOnlyView={!!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}

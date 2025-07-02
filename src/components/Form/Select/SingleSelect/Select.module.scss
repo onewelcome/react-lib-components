@@ -320,3 +320,53 @@ $listItemHeight: 2.5rem;
     }
   }
 }
+
+.inlineEditing {
+  & .select {
+    background-color: transparent;
+    transition: none;
+    &:not(.expanded) {
+      button:focus:not(.error) {
+        border-width: 0.125rem;
+        border-radius: 0.3125rem;
+      }
+    }
+    &:focus {
+      & button {
+        &:focus {
+          border: 0.125rem solid var(--color-focus);
+        }
+      }
+    }
+    &:hover {
+      & button {
+        border: 0.125rem solid var(--color-focus);
+        border-radius: 0.3125rem;
+        & .status {
+          span.chevron-icon {
+            visibility: visible;
+          }
+        }
+      }
+      &:not(.disabled):not(.expanded):not(.error) {
+        button:not(:focus) {
+          border: 0;
+          background-color: transparent;
+        }
+      }
+    }
+    & button {
+      border: 0;
+      & .status {
+        span.chevron-icon {
+          visibility: hidden;
+        }
+      }
+    }
+    &[data-readonlyview="true"] {
+      & button {
+        background-color: transparent;
+      }
+    }
+  }
+}
