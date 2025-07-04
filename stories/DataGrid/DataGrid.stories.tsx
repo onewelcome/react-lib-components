@@ -59,6 +59,7 @@ interface DataGridItem {
   metadata?: string;
   readonly?: boolean;
   error?: boolean;
+  success?: boolean;
   required?: boolean;
   mode?: string;
 }
@@ -1170,9 +1171,11 @@ const DataGridWithInlineEditingTemplate = args => {
     return (
       <Checkbox
         checked={enabled}
-        inlineEditing={true}
+        inlineEditing={true} // special view for inline editing only
         name={`${id}_status`}
         onClick={() => handleCheckboxChange(id)}
+        helperText={"This is dummy info text"}
+        errorMessage={isError ? "This is dummy error message" : ""}
         readOnlyView={readOnlyView} // This is for readOnly view only
         error={isError} // This is for Error State only
         required={required} // This is for Required State only
@@ -1185,6 +1188,7 @@ const DataGridWithInlineEditingTemplate = args => {
     id: string,
     readOnlyView?: boolean,
     isError?: boolean,
+    isSuccess?: boolean,
     required?: boolean
   ) => {
     return (
@@ -1198,12 +1202,13 @@ const DataGridWithInlineEditingTemplate = args => {
         }}
         readOnlyView={readOnlyView} // This is for readOnly view only
         error={isError} // This is for Error State only
+        info={true}
+        success={isSuccess}
         required={required} // This is for Required State only
+        tooltipText={`This is dummy ${isError ? "error" : "information"} tooltip`} // Tooltip text for error or info icon hover
       >
         <Option value="Stock">Stock</Option>
         <Option value="Bond">Bond</Option>
-        <Option value="Funds">Funds</Option>
-        <Option value="Other">Other</Option>
       </Select>
     );
   };
@@ -1213,6 +1218,7 @@ const DataGridWithInlineEditingTemplate = args => {
     id: string,
     readOnlyView?: boolean,
     isError?: boolean,
+    isSuccess?: boolean,
     required?: boolean
   ) => {
     return (
@@ -1226,12 +1232,11 @@ const DataGridWithInlineEditingTemplate = args => {
         }}
         readOnlyView={readOnlyView} // This is for readOnly view only
         error={isError} // This is for Error State only
+        success={!isSuccess} // This is for Success State only
         required={required} // This is for Required State only
       >
         <Option value="Online">Online</Option>
         <Option value="Offline">Offline</Option>
-        <Option value="Hybrid">Hybrid</Option>
-        <Option value="Other">Other</Option>
       </SelectWrapper>
     );
   };
@@ -1270,11 +1275,19 @@ const DataGridWithInlineEditingTemplate = args => {
                     item.id,
                     item.readonly,
                     item.error,
+                    item.success,
                     item.required
                   )}
                 </DataGridCell>
                 <DataGridCell style={{ paddingTop: 0, paddingBottom: 0 }}>
-                  {renderSelect(item.type, item.id, item.readonly, item.error, item.required)}
+                  {renderSelect(
+                    item.type,
+                    item.id,
+                    item.readonly,
+                    item.error,
+                    item.success,
+                    item.required
+                  )}
                 </DataGridCell>
                 <DataGridCell>
                   {renderCheckbox(item.enabled, item.id, item.readonly, item.error, item.required)}
@@ -1362,6 +1375,7 @@ DataGridWithInlineEditing.args = {
       mode: "Online",
       type: "Stock",
       enabled: true,
+      required: false,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       nestedItems: [
@@ -1371,7 +1385,8 @@ DataGridWithInlineEditing.args = {
           id: "10",
           mode: "Online",
           type: "Stock",
-          enabled: true,
+          enabled: false,
+          readonly: true,
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
           metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
         },
@@ -1382,6 +1397,7 @@ DataGridWithInlineEditing.args = {
           mode: "Online",
           type: "Stock",
           enabled: true,
+          readonly: true,
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
           metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
         }
@@ -1399,12 +1415,24 @@ DataGridWithInlineEditing.args = {
       error: true
     },
     {
+      name: "Success example",
+      created: new Date(2023, 0, 2),
+      id: "2",
+      mode: "Online",
+      type: "Stock",
+      enabled: false,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      success: true
+    },
+    {
       name: "Read only example",
       created: new Date(2023, 0, 3),
       id: "3",
       type: "Bond",
       mode: "Online",
       enabled: false,
+      required: false,
       readonly: true,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
@@ -1413,11 +1441,13 @@ DataGridWithInlineEditing.args = {
       name: "Required example",
       created: new Date(2023, 0, 4),
       id: "4",
-      mode: "Offline",
-      type: "Other",
+      mode: "Online",
+      type: "Stock",
+      enabled: false,
       required: true,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      error: false
     }
   ],
   headers: [

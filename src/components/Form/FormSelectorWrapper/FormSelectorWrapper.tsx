@@ -36,6 +36,7 @@ export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   errorId?: string;
   identifier?: string;
   inlineEditing?: boolean;
+  required?: boolean;
 }
 
 const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -53,11 +54,13 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     errorId,
     identifier,
     inlineEditing,
+    required = false,
     ...rest
   }: Props,
   ref
 ) => {
   const helperRef = helperProps?.ref ?? createRef();
+  const message = errorMessage || helperText;
 
   return (
     <div
@@ -69,14 +72,16 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     >
       <div {...containerProps}>
         {children}
-        {inlineEditing && (errorMessage || helperText) && (
+        {inlineEditing && required && <span className={classes["required"]}>*</span>}
+        {inlineEditing && message && (
           <Tooltip
-            label={errorMessage || helperText}
+            label=""
             location="right"
             position="center"
             icon={Icons.InfoCircle}
+            error={error}
           >
-            This is the content that will be displayed when you hover over the icon.
+            {message}
           </Tooltip>
         )}
       </div>

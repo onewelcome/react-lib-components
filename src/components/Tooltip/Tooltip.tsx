@@ -44,6 +44,8 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";
   position?: "start" | "center" | "end";
+  error?: boolean;
+  inlineEditing?: boolean;
 }
 
 interface DefaultPosition {
@@ -130,6 +132,8 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     color = "black",
     icon = Icons.InfoCircle,
     iconState,
+    error,
+    inlineEditing,
     ...rest
   }: Props,
   ref
@@ -141,6 +145,8 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const relativeElement = useRef<HTMLDivElement>(null);
   const elementToBePositioned = useRef<HTMLDivElement>(null);
+
+  const errorClass = error ? classes["error"] : "";
 
   const determinedLocation = useMemo(() => {
     if (position === "center") {
@@ -211,14 +217,16 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   return (
     <div {...rest} ref={wrappingDivRef} className={`${classes.wrapper} ${className ?? ""}`}>
       {renderChildren()}
-      <div className={`${classes["tooltip-wrapper"]}`}>
+      <div
+        className={`${classes["tooltip-wrapper"]} ${inlineEditing ? classes["inline-editing"] : ""}`}
+      >
         <Icon
           ref={relativeElement}
           tag="div"
           onMouseEnter={() => setVisible(true)}
           onMouseLeave={() => setVisible(false)}
           icon={icon}
-          className={classes.icon}
+          className={`${classes.icon} ${errorClass}`}
         />
         {createPortal(
           <div
@@ -228,7 +236,8 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               top: top,
               left: left,
               right: right,
-              bottom: bottom
+              bottom: bottom,
+              zIndex: 9
             }}
             aria-hidden={!visible}
             id={identifier}

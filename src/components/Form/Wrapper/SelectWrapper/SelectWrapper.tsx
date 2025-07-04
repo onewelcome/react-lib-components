@@ -63,7 +63,6 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
       errorId={errorId}
       helperId={helperId}
       labelProps={{ id: labelId, className: classes["select-label"] }}
-      // innerClassName={`${inlineEditingSelect.join(" ")}`}
       helperProps={{
         ...helperProps,
         className: `${classes["select-helper-text"]} ${helperProps?.className ?? ""}`
@@ -79,7 +78,8 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         describedBy={error ? errorId : helperId}
         onChange={onChange}
         placeholder={placeholder}
-        className={`${selectProps?.className ?? ""} ${inlineEditingSelect.join(" ")}`}
+        className={`${selectProps?.className ?? ""}`}
+        inlineEditing={inlineEditing}
         isReadOnlyView={!!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}

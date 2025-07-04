@@ -35,6 +35,7 @@ import { useAddNewBtn } from "../useAddNewBtn";
 import { useSearch } from "./useSearch";
 import { useArrowNavigation } from "./useArrowNavigation";
 import { withReadOnly } from "../../../withReadOnly";
+import { Tooltip } from "../../../Tooltip/Tooltip";
 
 const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {
@@ -48,6 +49,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     className,
     error = false,
     success = false,
+    info = false,
     value,
     clearLabel = "Clear selection",
     noResultsLabel = "No results found",
@@ -56,6 +58,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     search,
     isReadOnlyView,
     inlineEditing,
+    tooltipText,
     ...rest
   }: SingleSelectProps,
   ref
@@ -271,7 +274,21 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
             {!value && placeholder && <span className={classes["placeholder"]}>{placeholder}</span>}
             {value?.length > 0 && <span data-display-inner>{display}</span>}
           </div>
-          <div className={classes["status"]}>{icon || renderChevronIcon()}</div>
+          <div className={classes["status"]}>
+            {icon || renderChevronIcon()}
+            {(info || error || success) && tooltipText && inlineEditing && (
+              <Tooltip
+                label=""
+                location="right"
+                position="center"
+                icon={error ? undefined : Icons.InfoCircle}
+                error={error}
+                inlineEditing={inlineEditing}
+              >
+                {tooltipText}
+              </Tooltip>
+            )}
+          </div>
         </button>
         <div className="list-wrapper-container">
           <div

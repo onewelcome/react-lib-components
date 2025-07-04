@@ -21,6 +21,7 @@ export interface WithReadOnlyProps {
   required?: boolean;
   helperText?: string;
   type?: string;
+  inlineEditing?: boolean;
 }
 
 const componentsWithKeyEventsToPrevent: string[] = ["CheckboxWrapper"];
@@ -29,13 +30,20 @@ const getDisplayName = <P,>(WrappedComponent: ComponentType<P>) => {
   return WrappedComponent.displayName ?? WrappedComponent.name ?? "Component";
 };
 
-const getConditionalProps = (readOnlyView: boolean, type: string, helperText?: string) => {
+const getConditionalProps = (
+  readOnlyView: boolean,
+  type: string,
+  helperText?: string,
+  inlineEditing?: boolean
+) => {
   const props: Record<string, unknown> = {};
 
   if (readOnlyView) {
     props.style = { pointerEvents: "none", userSelect: "text" };
-    if (helperText) {
+    if (helperText && !inlineEditing) {
       props.helperText = "";
+    } else if (helperText && inlineEditing) {
+      props.helperText = helperText;
     }
   } else if (helperText) {
     props.helperText = helperText;
@@ -43,6 +51,10 @@ const getConditionalProps = (readOnlyView: boolean, type: string, helperText?: s
 
   if (type) {
     props.type = type;
+  }
+
+  if (inlineEditing) {
+    props.inlineEditing = inlineEditing;
   }
 
   return props;
@@ -96,6 +108,7 @@ export const withReadOnly = <P extends object>(
         required,
         children,
         helperText,
+        inlineEditing,
         type = "",
         ...restProps
       } = props;
@@ -107,7 +120,7 @@ export const withReadOnly = <P extends object>(
           data-readonlyview={readOnlyView}
           aria-readonly={isWrapperComponent ? undefined : readOnlyView}
           required={readOnlyView ? false : required}
-          {...getConditionalProps(readOnlyView, type, helperText)}
+          {...getConditionalProps(readOnlyView, type, helperText, inlineEditing)}
           {...preventKeyUpAndKeyDownHandlerForSpecificComponents(readOnlyView)}
         >
           {children}

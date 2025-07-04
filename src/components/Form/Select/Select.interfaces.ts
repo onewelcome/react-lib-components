@@ -52,6 +52,7 @@ export interface SelectProps<V extends string | readonly string[] | undefined>
   addNew?: AddNewProps;
   isReadOnlyView?: boolean;
   inlineEditing?: boolean;
+  tooltipText?: string;
 }
 
 export type SingleSelectProps = SelectProps<string>;

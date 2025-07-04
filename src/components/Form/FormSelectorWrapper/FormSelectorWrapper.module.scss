@@ -45,3 +45,7 @@
     cursor: not-allowed;
   }
 }
+
+.required {
+  color: var(--error);
+}

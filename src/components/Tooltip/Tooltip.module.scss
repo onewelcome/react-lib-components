@@ -156,6 +156,20 @@
     &:hover {
       color: var(--default);
     }
+
+    &.error {
+      color: var(--error);
+    }
+  }
+
+  &.inline-editing {
+    position: absolute;
+    right: 1.375rem;
+
+    & .error,
+    & .success {
+      opacity: 0;
+    }
   }
 }
 

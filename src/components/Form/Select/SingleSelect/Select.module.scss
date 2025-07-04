@@ -327,7 +327,7 @@ $listItemHeight: 2.5rem;
     transition: none;
     &:not(.expanded) {
       button:focus:not(.error) {
-        border-width: 0.125rem;
+        border-width: 0;
         border-radius: 0.3125rem;
       }
     }
@@ -338,10 +338,9 @@ $listItemHeight: 2.5rem;
         }
       }
     }
-    &:hover {
+    &:hover,
+    &:focus-visible {
       & button {
-        border: 0.125rem solid var(--color-focus);
-        border-radius: 0.3125rem;
         & .status {
           span.chevron-icon {
             visibility: visible;
@@ -367,6 +366,10 @@ $listItemHeight: 2.5rem;
       & button {
         background-color: transparent;
       }
+    }
+    &:focus-visible {
+      border: 0.125rem solid var(--color-focus);
+      border-radius: 0.3125rem;
     }
   }
 }
