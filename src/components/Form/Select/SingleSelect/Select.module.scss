@@ -360,6 +360,11 @@ $listItemHeight: 2.5rem;
         span.chevron-icon {
           visibility: hidden;
         }
+        span.error,
+        span.success {
+          position: absolute;
+          right: 0;
+        }
       }
     }
     &[data-readonlyview="true"] {

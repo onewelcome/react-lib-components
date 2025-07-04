@@ -275,13 +275,13 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
             {value?.length > 0 && <span data-display-inner>{display}</span>}
           </div>
           <div className={classes["status"]}>
-            {icon || renderChevronIcon()}
+            {icon || (!info && renderChevronIcon())}
             {(info || error || success) && tooltipText && inlineEditing && (
               <Tooltip
                 label=""
                 location="right"
                 position="center"
-                icon={error ? undefined : Icons.InfoCircle}
+                icon={Icons.InfoCircle}
                 error={error}
                 inlineEditing={inlineEditing}
               >

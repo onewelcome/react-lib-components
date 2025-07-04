@@ -162,15 +162,15 @@
     }
   }
 
-  &.inline-editing {
-    position: absolute;
-    right: 1.375rem;
+  // &.inline-editing {
+  //   position: absolute;
+  //   right: 1.375rem;
 
-    & .error,
-    & .success {
-      opacity: 0;
-    }
-  }
+  //   & .error,
+  //   & .success {
+  //     opacity: 1;
+  //   }
+  // }
 }
 
 .tooltip {
