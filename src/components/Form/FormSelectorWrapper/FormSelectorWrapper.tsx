@@ -79,7 +79,8 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
             location="right"
             position="center"
             icon={Icons.InfoCircle}
-            error={error}
+            iconState={error ? "error" : "info"}
+            inlineEditing={inlineEditing}
           >
             {message}
           </Tooltip>

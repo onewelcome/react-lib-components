@@ -47,6 +47,8 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
     selectProps,
     helperProps,
     inlineEditing,
+    helperText,
+    errorMessage,
     onChange,
     ...rest
   }: Props,
@@ -80,6 +82,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         placeholder={placeholder}
         className={`${selectProps?.className ?? ""}`}
         inlineEditing={inlineEditing}
+        tooltipText={helperText || errorMessage}
         isReadOnlyView={!!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}

@@ -162,15 +162,20 @@
     }
   }
 
-  // &.inline-editing {
-  //   position: absolute;
-  //   right: 1.375rem;
+  &.inline-editing {
+    position: relative;
+    right: 0;
+    z-index: 9;
 
-  //   & .error,
-  //   & .success {
-  //     opacity: 1;
-  //   }
-  // }
+    & .error,
+    & .success {
+      opacity: 0;
+    }
+    & .info {
+      color: var(--color-blue-grey900);
+      font-size: var(--font-size-big);
+    }
+  }
 }
 
 .tooltip {

@@ -40,11 +40,10 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   children: string;
   domRoot?: HTMLElement;
   icon?: Icons;
-  iconState?: "string";
+  iconState?: "info" | "error" | "success";
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";
   position?: "start" | "center" | "end";
-  error?: boolean;
   inlineEditing?: boolean;
 }
 
@@ -132,7 +131,6 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     color = "black",
     icon = Icons.InfoCircle,
     iconState,
-    error,
     inlineEditing,
     ...rest
   }: Props,
@@ -146,7 +144,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const relativeElement = useRef<HTMLDivElement>(null);
   const elementToBePositioned = useRef<HTMLDivElement>(null);
 
-  const errorClass = error ? classes["error"] : "";
+  const iconStateClass = iconState && classes[iconState];
 
   const determinedLocation = useMemo(() => {
     if (position === "center") {
@@ -226,7 +224,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           onMouseEnter={() => setVisible(true)}
           onMouseLeave={() => setVisible(false)}
           icon={icon}
-          className={`${classes.icon} ${errorClass}`}
+          className={`${classes.icon} ${iconStateClass}`}
         />
         {createPortal(
           <div

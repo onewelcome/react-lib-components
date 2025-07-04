@@ -360,8 +360,7 @@ $listItemHeight: 2.5rem;
         span.chevron-icon {
           visibility: hidden;
         }
-        span.error,
-        span.success {
+        & span {
           position: absolute;
           right: 0;
         }

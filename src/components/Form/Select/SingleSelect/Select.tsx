@@ -47,9 +47,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     describedBy,
     selectButtonProps,
     className,
-    error = false,
-    success = false,
-    info = false,
+    error,
+    success,
     value,
     clearLabel = "Clear selection",
     noResultsLabel = "No results found",
@@ -275,14 +274,14 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
             {value?.length > 0 && <span data-display-inner>{display}</span>}
           </div>
           <div className={classes["status"]}>
-            {icon || (!info && renderChevronIcon())}
-            {(info || error || success) && tooltipText && inlineEditing && (
+            {icon || ((error || success) && renderChevronIcon())}
+            {tooltipText && inlineEditing && (
               <Tooltip
                 label=""
                 location="right"
                 position="center"
                 icon={Icons.InfoCircle}
-                error={error}
+                iconState={error ? "error" : success ? "success" : "info"}
                 inlineEditing={inlineEditing}
               >
                 {tooltipText}

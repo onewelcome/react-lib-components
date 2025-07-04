@@ -1234,6 +1234,8 @@ const DataGridWithInlineEditingTemplate = args => {
         error={isError} // This is for Error State only
         success={!isSuccess} // This is for Success State only
         required={required} // This is for Required State only
+        helperText={!isError ? `This is dummy information tooltip` : undefined} // Tooltip text for error or info icon hover
+        errorMessage={isError ? `This is dummy error message tooltip` : undefined} // Tooltip text for error or info icon hover
       >
         <Option value="Online">Online</Option>
         <Option value="Offline">Offline</Option>
