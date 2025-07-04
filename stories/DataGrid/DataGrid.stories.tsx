@@ -1385,41 +1385,41 @@ export const DataGridWithInlineEditing = DataGridWithInlineEditingTemplate.bind(
 
 DataGridWithInlineEditing.args = {
   data: [
-    // {
-    //   name: "Interaction example",
-    //   created: new Date(2023, 0, 1),
-    //   id: "1",
-    //   mode: "Online",
-    //   type: "Stock",
-    //   enabled: true,
-    //   required: false,
-    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //   nestedItems: [
-    //     {
-    //       name: "Child example",
-    //       created: new Date(2023, 0, 1),
-    //       id: "10",
-    //       mode: "Online",
-    //       type: "Stock",
-    //       enabled: false,
-    //       readonly: true,
-    //       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-    //     },
-    //     {
-    //       name: "Child example",
-    //       created: new Date(2023, 0, 1),
-    //       id: "12",
-    //       mode: "Online",
-    //       type: "Stock",
-    //       enabled: true,
-    //       readonly: true,
-    //       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-    //     }
-    //   ]
-    // },
+    {
+      name: "Interaction example",
+      created: new Date(2023, 0, 1),
+      id: "1",
+      mode: "Online",
+      type: "Stock",
+      enabled: true,
+      required: false,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      nestedItems: [
+        {
+          name: "Child example",
+          created: new Date(2023, 0, 1),
+          id: "10",
+          mode: "Online",
+          type: "Stock",
+          enabled: false,
+          readonly: true,
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        },
+        {
+          name: "Child example",
+          created: new Date(2023, 0, 1),
+          id: "12",
+          mode: "Online",
+          type: "Stock",
+          enabled: true,
+          readonly: true,
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        }
+      ]
+    },
     {
       name: "Error example",
       created: new Date(2023, 0, 2),
@@ -1430,52 +1430,52 @@ DataGridWithInlineEditing.args = {
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       error: true
+    },
+    {
+      name: "Success example",
+      created: new Date(2023, 0, 3),
+      id: "3",
+      mode: "Online",
+      type: "Stock",
+      enabled: false,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      success: true
+    },
+    {
+      name: "Required example",
+      created: new Date(2023, 0, 4),
+      id: "4",
+      mode: "Online",
+      type: "Stock",
+      enabled: false,
+      required: true,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      error: false
+    },
+    {
+      name: "Read only example",
+      created: new Date(2023, 0, 5),
+      id: "5",
+      type: "Bond",
+      mode: "Offline",
+      enabled: false,
+      required: false,
+      readonly: true,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      name: "Without tooltip example",
+      created: new Date(2023, 0, 6),
+      id: "6",
+      mode: "Online",
+      type: "Stock",
+      enabled: true,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
     }
-    // {
-    //   name: "Success example",
-    //   created: new Date(2023, 0, 3),
-    //   id: "3",
-    //   mode: "Online",
-    //   type: "Stock",
-    //   enabled: false,
-    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //   success: true
-    // },
-    // {
-    //   name: "Required example",
-    //   created: new Date(2023, 0, 4),
-    //   id: "4",
-    //   mode: "Online",
-    //   type: "Stock",
-    //   enabled: false,
-    //   required: true,
-    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //   error: false
-    // },
-    // {
-    //   name: "Read only example",
-    //   created: new Date(2023, 0, 5),
-    //   id: "5",
-    //   type: "Bond",
-    //   mode: "Offline",
-    //   enabled: false,
-    //   required: false,
-    //   readonly: true,
-    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-    // },
-    // {
-    //   name: "Without tooltip example",
-    //   created: new Date(2023, 0, 6),
-    //   id: "6",
-    //   mode: "Online",
-    //   type: "Stock",
-    //   enabled: true,
-    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-    // }
   ],
   headers: [
     { name: "name", headline: "Name" },
