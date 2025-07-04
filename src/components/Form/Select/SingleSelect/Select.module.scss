@@ -226,6 +226,9 @@ $listItemHeight: 2.5rem;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+  .required {
+    color: var(--error);
+  }
 }
 
 .status {

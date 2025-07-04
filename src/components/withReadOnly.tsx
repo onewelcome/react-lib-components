@@ -43,7 +43,7 @@ const getConditionalProps = (
     if (helperText && !inlineEditing) {
       props.helperText = "";
     } else if (helperText && inlineEditing) {
-      props.helperText = helperText;
+      props.helperText = ""; // TODO: REMOVE THIS BLOCK IF ICON NO NEED TO SHOW
     }
   } else if (helperText) {
     props.helperText = helperText;

@@ -49,6 +49,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     className,
     error,
     success,
+    required,
     value,
     clearLabel = "Clear selection",
     noResultsLabel = "No results found",
@@ -272,10 +273,11 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           <div data-display className={classes["selected"]}>
             {!value && placeholder && <span className={classes["placeholder"]}>{placeholder}</span>}
             {value?.length > 0 && <span data-display-inner>{display}</span>}
+            {inlineEditing && required && <span className={classes["required"]}> *</span>}
           </div>
           <div className={classes["status"]}>
             {icon || ((error || success) && renderChevronIcon())}
-            {tooltipText && inlineEditing && (
+            {tooltipText && inlineEditing && !isReadOnlyView && (
               <Tooltip
                 label=""
                 location="right"

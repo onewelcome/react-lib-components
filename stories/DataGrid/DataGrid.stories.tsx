@@ -1162,11 +1162,13 @@ const DataGridWithInlineEditingTemplate = args => {
   };
 
   const renderCheckbox = (
+    name: string,
     enabled: boolean,
     id: string,
     readOnlyView?: boolean,
     isError?: boolean,
-    required?: boolean
+    required?: boolean,
+    isSuccess?: boolean
   ) => {
     return (
       <Checkbox
@@ -1174,16 +1176,18 @@ const DataGridWithInlineEditingTemplate = args => {
         inlineEditing={true} // special view for inline editing only
         name={`${id}_status`}
         onClick={() => handleCheckboxChange(id)}
-        helperText={"This is dummy info text"}
+        helperText={id !== "6" ? `This is dummy ${name} tooltip` : undefined}
         errorMessage={isError ? "This is dummy error message" : ""}
         readOnlyView={readOnlyView} // This is for readOnly view only
         error={isError} // This is for Error State only
         required={required} // This is for Required State only
+        success={isSuccess} // This is for Success State only
       />
     );
   };
 
   const renderSelect = (
+    name: string,
     type: string,
     id: string,
     readOnlyView?: boolean,
@@ -1200,12 +1204,12 @@ const DataGridWithInlineEditingTemplate = args => {
         onChange={e => {
           handleSelectChange(id, e.target.value);
         }}
-        readOnlyView={readOnlyView} // This is for readOnly view only
+        isReadOnlyView={readOnlyView} // This is for readOnly view only
         error={isError} // This is for Error State only
         info={true}
         success={isSuccess}
         required={required} // This is for Required State only
-        tooltipText={`This is dummy ${isError ? "error" : "information"} tooltip`} // Tooltip text for error or info icon hover
+        tooltipText={id !== "6" ? `This is dummy ${isError ? "error" : name} tooltip` : ""} // Tooltip text for error or info icon hover
       >
         <Option value="Stock">Stock</Option>
         <Option value="Bond">Bond</Option>
@@ -1214,6 +1218,7 @@ const DataGridWithInlineEditingTemplate = args => {
   };
 
   const renderSelectWrapper = (
+    name: string,
     mode: string = "Online",
     id: string,
     readOnlyView?: boolean,
@@ -1230,11 +1235,11 @@ const DataGridWithInlineEditingTemplate = args => {
         onChange={e => {
           handleSelectWrapperChange(id, e.target.value);
         }}
-        readOnlyView={readOnlyView} // This is for readOnly view only
+        isReadOnlyView={readOnlyView} // This is for readOnly view only
         error={isError} // This is for Error State only
-        success={!isSuccess} // This is for Success State only
+        success={isSuccess} // This is for Success State only
         required={required} // This is for Required State only
-        helperText={!isError ? `This is dummy information tooltip` : undefined} // Tooltip text for error or info icon hover
+        helperText={!isError && id !== "6" ? `This is dummy ${name} tooltip` : undefined} // Tooltip text for error or info icon hover
         errorMessage={isError ? `This is dummy error message tooltip` : undefined} // Tooltip text for error or info icon hover
       >
         <Option value="Online">Online</Option>
@@ -1273,6 +1278,7 @@ const DataGridWithInlineEditingTemplate = args => {
                 <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
                 <DataGridCell style={{ paddingTop: 0, paddingBottom: 0 }}>
                   {renderSelectWrapper(
+                    item.name,
                     item.mode,
                     item.id,
                     item.readonly,
@@ -1283,6 +1289,7 @@ const DataGridWithInlineEditingTemplate = args => {
                 </DataGridCell>
                 <DataGridCell style={{ paddingTop: 0, paddingBottom: 0 }}>
                   {renderSelect(
+                    item.name,
                     item.type,
                     item.id,
                     item.readonly,
@@ -1292,7 +1299,15 @@ const DataGridWithInlineEditingTemplate = args => {
                   )}
                 </DataGridCell>
                 <DataGridCell>
-                  {renderCheckbox(item.enabled, item.id, item.readonly, item.error, item.required)}
+                  {renderCheckbox(
+                    item.name,
+                    item.enabled,
+                    item.id,
+                    item.readonly,
+                    item.error,
+                    item.required,
+                    item.success
+                  )}
                 </DataGridCell>
 
                 {!args.disableContextMenuColumn && (
@@ -1370,41 +1385,41 @@ export const DataGridWithInlineEditing = DataGridWithInlineEditingTemplate.bind(
 
 DataGridWithInlineEditing.args = {
   data: [
-    {
-      name: "Interaction example",
-      created: new Date(2023, 0, 1),
-      id: "1",
-      mode: "Online",
-      type: "Stock",
-      enabled: true,
-      required: false,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      nestedItems: [
-        {
-          name: "Child example",
-          created: new Date(2023, 0, 1),
-          id: "10",
-          mode: "Online",
-          type: "Stock",
-          enabled: false,
-          readonly: true,
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-        },
-        {
-          name: "Child example",
-          created: new Date(2023, 0, 1),
-          id: "12",
-          mode: "Online",
-          type: "Stock",
-          enabled: true,
-          readonly: true,
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-        }
-      ]
-    },
+    // {
+    //   name: "Interaction example",
+    //   created: new Date(2023, 0, 1),
+    //   id: "1",
+    //   mode: "Online",
+    //   type: "Stock",
+    //   enabled: true,
+    //   required: false,
+    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //   nestedItems: [
+    //     {
+    //       name: "Child example",
+    //       created: new Date(2023, 0, 1),
+    //       id: "10",
+    //       mode: "Online",
+    //       type: "Stock",
+    //       enabled: false,
+    //       readonly: true,
+    //       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    //     },
+    //     {
+    //       name: "Child example",
+    //       created: new Date(2023, 0, 1),
+    //       id: "12",
+    //       mode: "Online",
+    //       type: "Stock",
+    //       enabled: true,
+    //       readonly: true,
+    //       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    //     }
+    //   ]
+    // },
     {
       name: "Error example",
       created: new Date(2023, 0, 2),
@@ -1415,42 +1430,52 @@ DataGridWithInlineEditing.args = {
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       error: true
-    },
-    {
-      name: "Success example",
-      created: new Date(2023, 0, 2),
-      id: "2",
-      mode: "Online",
-      type: "Stock",
-      enabled: false,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      success: true
-    },
-    {
-      name: "Read only example",
-      created: new Date(2023, 0, 3),
-      id: "3",
-      type: "Bond",
-      mode: "Online",
-      enabled: false,
-      required: false,
-      readonly: true,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-    },
-    {
-      name: "Required example",
-      created: new Date(2023, 0, 4),
-      id: "4",
-      mode: "Online",
-      type: "Stock",
-      enabled: false,
-      required: true,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      error: false
     }
+    // {
+    //   name: "Success example",
+    //   created: new Date(2023, 0, 3),
+    //   id: "3",
+    //   mode: "Online",
+    //   type: "Stock",
+    //   enabled: false,
+    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //   success: true
+    // },
+    // {
+    //   name: "Required example",
+    //   created: new Date(2023, 0, 4),
+    //   id: "4",
+    //   mode: "Online",
+    //   type: "Stock",
+    //   enabled: false,
+    //   required: true,
+    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //   error: false
+    // },
+    // {
+    //   name: "Read only example",
+    //   created: new Date(2023, 0, 5),
+    //   id: "5",
+    //   type: "Bond",
+    //   mode: "Offline",
+    //   enabled: false,
+    //   required: false,
+    //   readonly: true,
+    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    // },
+    // {
+    //   name: "Without tooltip example",
+    //   created: new Date(2023, 0, 6),
+    //   id: "6",
+    //   mode: "Online",
+    //   type: "Stock",
+    //   enabled: true,
+    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    //   metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    // }
   ],
   headers: [
     { name: "name", headline: "Name" },

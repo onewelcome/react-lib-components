@@ -47,6 +47,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     containerProps,
     helperProps,
     error,
+    success,
     disabled,
     helperText,
     errorMessage,
@@ -73,13 +74,13 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
       <div {...containerProps}>
         {children}
         {inlineEditing && required && <span className={classes["required"]}>*</span>}
-        {inlineEditing && message && (
+        {inlineEditing && message && (error || success) && (
           <Tooltip
             label=""
             location="right"
             position="center"
             icon={Icons.InfoCircle}
-            iconState={error ? "error" : "info"}
+            iconState={error ? "error" : success ? "success" : "info"}
             inlineEditing={inlineEditing}
           >
             {message}
