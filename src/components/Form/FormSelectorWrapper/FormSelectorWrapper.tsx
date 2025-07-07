@@ -24,8 +24,6 @@ import { KeyValuePair } from "../../../interfaces";
 import { FormSelector } from "../form.interfaces";
 import { FormHelperText, Props as FormHelperTextProps } from "../FormHelperText/FormHelperText";
 import classes from "./FormSelectorWrapper.module.scss";
-import { Tooltip } from "../../Tooltip/Tooltip";
-import { Icons } from "../../Icon/Icon";
 
 export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   children?: ReactNode;
@@ -61,7 +59,6 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
   ref
 ) => {
   const helperRef = helperProps?.ref ?? createRef();
-  const message = errorMessage || helperText;
 
   return (
     <div
@@ -74,18 +71,6 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
       <div {...containerProps}>
         {children}
         {inlineEditing && required && <span className={classes["required"]}>*</span>}
-        {inlineEditing && message && (error || success) && (
-          <Tooltip
-            label=""
-            location="right"
-            position="center"
-            icon={Icons.InfoCircle}
-            iconState={error ? "error" : success ? "success" : "info"}
-            inlineEditing={inlineEditing}
-          >
-            {message}
-          </Tooltip>
-        )}
       </div>
       {!inlineEditing && (errorMessage || helperText || helperProps?.children) && (
         <FormHelperText

@@ -328,6 +328,7 @@ $listItemHeight: 2.5rem;
   & .select {
     background-color: transparent;
     transition: none;
+    position: relative;
     &:not(.expanded) {
       button:focus:not(.error) {
         border-width: 0;
