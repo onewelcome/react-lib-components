@@ -21,6 +21,7 @@ import {
   DataGridColumnMetadata,
   Filter,
   FilterEditorMode,
+  FiltersState,
   PopoverTranslations,
   TagTranslations
 } from "./DataGridFilters.interfaces";
@@ -40,6 +41,7 @@ export type Props = {
   tagTranslations?: TagTranslations;
   popoverTranslations?: PopoverTranslations;
   customEditTagContent?: React.ReactElement;
+  filterState: FiltersState;
 };
 
 export const DataGridFilter = ({
@@ -52,7 +54,8 @@ export const DataGridFilter = ({
   onFilterDelete,
   tagTranslations,
   popoverTranslations,
-  customEditTagContent
+  customEditTagContent,
+  filterState
 }: Props) => {
   const wrappingDivRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -72,8 +75,9 @@ export const DataGridFilter = ({
     setValues,
     pickedValues,
     setPickedValues,
-    initialiseFilterValues
-  } = useDataGridFilter(mode, columnsMetadata);
+    initialiseFilterValues,
+    allowedColumnsMetaData
+  } = useDataGridFilter(mode, columnsMetadata, filterState);
 
   const onFilterSubmit = () => {
     if (mode === "ADD") {
@@ -125,7 +129,7 @@ export const DataGridFilter = ({
           isOpen={filterOpen}
           translations={popoverTranslations}
           column={column}
-          columnsMetadata={columnsMetadata}
+          columnsMetadata={allowedColumnsMetaData}
           values={values}
           pickedValues={pickedValues}
           operator={operator}

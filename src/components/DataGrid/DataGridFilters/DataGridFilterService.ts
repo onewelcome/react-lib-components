@@ -19,18 +19,23 @@ import {
   DataGridColumnMetadata,
   DefaultOperators,
   Filter,
-  FilterEditorMode
+  FilterEditorMode,
+  FiltersState
 } from "./DataGridFilters.interfaces";
 
 export const useDataGridFilter = (
   mode: FilterEditorMode,
-  columnsMetadata: DataGridColumnMetadata[]
+  columnsMetadata: DataGridColumnMetadata[],
+  filterState: FiltersState
 ) => {
   const [column, setColumn] = useState("");
   const [operator, setOperator] = useState("");
   const [operators, setOperators] = useState<string[]>(Object.values(DefaultOperators));
   const [values, setValues] = useState<string[]>([]);
   const [pickedValues, setPickedValues] = useState<string[]>([]);
+  const [allowedColumnsMetaData, setAllowedColumnsMetaData] = useState<DataGridColumnMetadata[]>(
+    []
+  );
 
   //user can extend the list of picked values with custom ones. We need to make sure that the default list includes the user created values.
   const mergeCustomValuesWithPredefined = (values: string[], pickedValues: string[]) => {
@@ -45,10 +50,14 @@ export const useDataGridFilter = (
   };
 
   const initialiseFilterValues = (filter?: Filter) => {
+    const allowedColumnMetaData = getAllowedColumnsMetadata(filter);
+
     if (mode === "ADD") {
-      const firstColumnMetadata = columnsMetadata[0];
+      const firstColumnMetadata = allowedColumnMetaData[0];
 
       if (!firstColumnMetadata) {
+        resetFields();
+        setAllowedColumnsMetaData([]);
         return;
       }
 
@@ -78,6 +87,22 @@ export const useDataGridFilter = (
       setPickedValues(value);
       setValues(mergeCustomValuesWithPredefined(defaultValues || [], value));
     }
+
+    setAllowedColumnsMetaData(allowedColumnMetaData);
+  };
+
+  const getAllowedColumnsMetadata = (filter?: Filter) => {
+    return columnsMetadata.filter(value => {
+      if (!value.allowSingleFilterOnly) {
+        return true;
+      }
+
+      return !filterState.filters.find(v => {
+        return mode === "ADD"
+          ? v.column == value.name
+          : v.column == value.name && v.column != filter?.column;
+      });
+    });
   };
 
   return {
@@ -92,6 +117,7 @@ export const useDataGridFilter = (
     values,
     setValues,
     pickedValues,
-    setPickedValues
+    setPickedValues,
+    allowedColumnsMetaData
   };
 };
