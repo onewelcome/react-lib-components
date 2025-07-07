@@ -39,6 +39,11 @@ export const useFiltersReducer = (filterValues: Filter[] | undefined) => {
           ...state,
           filters: [...state.filters.filter(value => value.id !== action.payload.id)]
         };
+      case "reset":
+        return {
+          ...state,
+          filters: action.payload
+        };
       case "clear":
         return { ...state, filters: [] };
     }
@@ -60,7 +65,9 @@ export const useFiltersReducer = (filterValues: Filter[] | undefined) => {
 
   const deleteFilter = (id: string) => dispatch({ type: "remove", payload: { id } });
 
+  const resetFilters = (filters: Filter[]) => dispatch({ type: "reset", payload: filters });
+
   const clearFilters = () => dispatch({ type: "clear" });
 
-  return { state, addFilter, deleteFilter, editFilter, clearFilters };
+  return { state, addFilter, deleteFilter, editFilter, resetFilters, clearFilters };
 };

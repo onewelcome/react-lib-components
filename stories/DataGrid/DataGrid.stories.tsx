@@ -431,6 +431,18 @@ const DataGridWithFiltersTemplate = args => {
     useMockFilteringLogic(args.data, args.filters.filterValues);
   return (
     <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
+      <Button
+        onClick={() =>
+          onFilterAdd({
+            id: "filter",
+            column: "test",
+            operator: "mhm",
+            value: []
+          })
+        }
+      >
+        Add new
+      </Button>
       <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
         <DataGridComponent
           {...args}
