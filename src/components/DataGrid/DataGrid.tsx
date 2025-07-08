@@ -33,7 +33,6 @@ import { Spacing, useSpacing } from "../../hooks/useSpacing";
 import { DataGridToolbar, DataGridToolbarProps } from "./DataGridFilters/DataGridToolbar";
 import { DataGridToolbarWrapper } from "./DataGridFilters/DataGridToolbarWrapper";
 import { DataGridSearchbar, DataGridSearchbarProps } from "./DataGridFilters/DataGridSearchbar";
-import { Icon, Icons } from "../Icon/Icon";
 
 export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children"> {
   children: ({ item, index }: { item: T; index: number }) => ReactElement;
@@ -68,9 +67,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   isLoading?: boolean;
   enableMultiSorting?: boolean;
   spacing?: Spacing;
-  showInlineEditingActionButtons?: boolean;
-  onGridInlineEditSave?: () => void;
-  onGridInlineEditCancel?: () => void;
+  inlineEditingActionButtons?: ReactElement | ReactElement[];
 }
 
 const DataGridInner = <T extends object>(
@@ -93,9 +90,7 @@ const DataGridInner = <T extends object>(
     emptyLabel,
     spacing,
     style,
-    showInlineEditingActionButtons,
-    onGridInlineEditSave,
-    onGridInlineEditCancel,
+    inlineEditingActionButtons,
     ...rest
   }: Props<T>,
   ref: Ref<HTMLDivElement>
@@ -218,19 +213,8 @@ const DataGridInner = <T extends object>(
         />
       )}
 
-      {showInlineEditingActionButtons && (
-        <div className={`${classes["actionButton"]}`}>
-          <Button
-            variant="fill"
-            startIcon={<Icon icon={Icons.SaveOutline} />}
-            onClick={onGridInlineEditSave}
-          >
-            Save
-          </Button>
-          <Button variant="text" onClick={onGridInlineEditCancel}>
-            Cancel
-          </Button>
-        </div>
+      {inlineEditingActionButtons && (
+        <div className={`${classes["actionButton"]}`}>{inlineEditingActionButtons}</div>
       )}
     </div>
   );

@@ -1130,6 +1130,22 @@ const DataGridWithInlineEditingTemplate = args => {
     action("onCancel")();
   };
 
+  const inlineEditingButtons = isDataChanged
+    ? [
+        <Button
+          key="save"
+          variant="fill"
+          startIcon={<Icon icon={Icons.SaveOutline} />}
+          onClick={handleSave}
+        >
+          Save
+        </Button>,
+        <Button key="cancel" variant="text" onClick={handleCancel}>
+          Cancel
+        </Button>
+      ]
+    : undefined;
+
   const openModal = (item: DataGridItem) => {
     setModalData(item);
     setOpenModalId(`testModal_${item.id}`);
@@ -1259,9 +1275,7 @@ const DataGridWithInlineEditingTemplate = args => {
           <DataGridComponent
             {...args}
             data={gridData}
-            showInlineEditingActionButtons={isDataChanged}
-            onGridInlineEditSave={handleSave}
-            onGridInlineEditCancel={handleCancel}
+            inlineEditingActionButtons={inlineEditingButtons}
             nestedRowConfig={{ nestedItemsKey: "nestedItems" }}
           >
             {({ item }: { item: DataGridItem }) => (
@@ -1404,7 +1418,7 @@ DataGridWithInlineEditing.args = {
           name: "Child example",
           created: new Date(2023, 0, 1),
           id: "10",
-          mode: "Online",
+          mode: "Offline",
           type: "Stock",
           enabled: false,
           readonly: true,
@@ -1416,7 +1430,7 @@ DataGridWithInlineEditing.args = {
           created: new Date(2023, 0, 1),
           id: "12",
           mode: "Online",
-          type: "Stock",
+          type: "Bond",
           enabled: true,
           readonly: true,
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
@@ -1428,7 +1442,7 @@ DataGridWithInlineEditing.args = {
       name: "Error example",
       created: new Date(2023, 0, 2),
       id: "2",
-      mode: "Online",
+      mode: "Offline",
       type: "Stock",
       enabled: false,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
@@ -1450,8 +1464,8 @@ DataGridWithInlineEditing.args = {
       name: "Required example",
       created: new Date(2023, 0, 4),
       id: "4",
-      mode: "Online",
-      type: "Stock",
+      mode: "Offline",
+      type: "Bond",
       enabled: false,
       required: true,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",

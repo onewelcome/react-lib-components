@@ -87,7 +87,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         placeholder={placeholder}
         className={`${selectProps?.className ?? ""}`}
         tooltipText={helperText || errorMessage}
-        isReadOnlyView={isReadOnlyView || !!rest["data-readonlyview"]}
+        isReadOnlyView={!!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}
       </Select>
