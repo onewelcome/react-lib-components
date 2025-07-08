@@ -1496,7 +1496,7 @@ DataGridWithInlineEditing.args = {
 
   disableContextMenuColumn: false,
   paginationProps: {
-    totalElements: 4,
+    totalElements: 6,
     currentPage: 1
   },
   isLoading: false,
