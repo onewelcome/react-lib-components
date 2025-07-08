@@ -65,6 +65,8 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
       {...rest}
       ref={ref}
       errorId={errorId}
+      helperText={helperText}
+      errorMessage={errorMessage}
       helperId={helperId}
       labelProps={{ id: labelId, className: classes["select-label"] }}
       helperProps={{
