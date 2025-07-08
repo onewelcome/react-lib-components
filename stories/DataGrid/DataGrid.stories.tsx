@@ -1222,7 +1222,7 @@ const DataGridWithInlineEditingTemplate = args => {
           onChange={e => {
             handleSelectChange(id, e.target.value);
           }}
-          isReadOnlyView={readOnlyView} // This is for readOnly view only
+          data-readonlyview={readOnlyView} // This is for readOnly view only
           error={isError} // This is for Error State only
           success={isSuccess}
           required={required} // This is for Required State only
@@ -1253,7 +1253,7 @@ const DataGridWithInlineEditingTemplate = args => {
           onChange={e => {
             handleSelectWrapperChange(id, e.target.value);
           }}
-          readonlyView={readOnlyView} // This is for readOnly view only
+          data-readonlyview={readOnlyView} // This is for readOnly view only
           error={isError} // This is for Error State only
           success={isSuccess} // This is for Success State only
           required={required} // This is for Required State only
