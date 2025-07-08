@@ -165,39 +165,6 @@ CheckboxStates.decorators = [
   }
 ];
 
-export const CheckboxInlineEditingStates = Template.bind({});
-
-const checkboxInlineEditingStates = [
-  { checked: false, error: false, disabled: false, indeterminate: false },
-  { checked: true, error: false, disabled: false, indeterminate: false },
-  { checked: false, error: true, disabled: false, indeterminate: false }
-];
-
-CheckboxInlineEditingStates.decorators = [
-  () => {
-    return (
-      <>
-        {checkboxInlineEditingStates.map((states, index) => (
-          <Checkbox
-            key={index}
-            disabled={states.disabled}
-            checked={states.checked}
-            error={states.error}
-            errorMessage={"Oh no!"}
-            indeterminate={states.indeterminate}
-            name="checkbox"
-            helperProps={{
-              children: "It is always nice to see a good old helper text!"
-            }}
-          >
-            Label
-          </Checkbox>
-        ))}
-      </>
-    );
-  }
-];
-
 export const CheckboxInReadOnlyMode = Template.bind({});
 CheckboxInReadOnlyMode.storyName = "Checkbox In Read-only Mode";
 
