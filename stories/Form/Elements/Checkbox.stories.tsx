@@ -185,7 +185,6 @@ CheckboxInlineEditingStates.decorators = [
             error={states.error}
             errorMessage={"Oh no!"}
             indeterminate={states.indeterminate}
-            inlineEditing={true}
             name="checkbox"
             helperProps={{
               children: "It is always nice to see a good old helper text!"

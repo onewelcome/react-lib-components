@@ -39,8 +39,6 @@ export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
-  inlineEditing?: boolean;
-  required?: boolean;
   success?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -62,7 +60,6 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     success,
     checked = false,
     formSelectorWrapperProps,
-    inlineEditing,
     required,
     onChange,
     ...rest
@@ -151,7 +148,6 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       success={success}
       disabled={disabled}
       identifier={identifier}
-      inlineEditing={inlineEditing}
       required={required}
       nestedChildren={
         typeof children === "object" && !isToggle(children) && renderNestedCheckboxes()

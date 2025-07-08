@@ -21,6 +21,7 @@ import { Select } from "../../Select/SingleSelect/Select";
 import { useWrapper } from "../../../../hooks/useWrapper";
 import { SingleSelectProps } from "../../Select/Select.interfaces";
 import { withReadOnly } from "../../../withReadOnly";
+import { useInlineEditing } from "../../../../context/InlineEditingContext";
 
 interface PartialSelectProps extends Partial<SingleSelectProps> {}
 
@@ -34,7 +35,6 @@ export interface Props
   selectProps?: PartialSelectProps;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   success?: boolean;
-  inlineEditing?: boolean;
   isReadOnlyView?: boolean;
 }
 
@@ -47,7 +47,6 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
     placeholder,
     selectProps,
     helperProps,
-    inlineEditing,
     helperText,
     errorMessage,
     required,
@@ -58,8 +57,10 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
   ref
 ) => {
   const { errorId, helperId, labelId } = useWrapper();
+
+  const isInlineEditingFromContext = useInlineEditing();
   const inlineEditingSelect = [];
-  inlineEditing && inlineEditingSelect.push(classes.inlineEditing);
+  isInlineEditingFromContext && inlineEditingSelect.push(classes.inlineEditing);
 
   return (
     <Wrapper
@@ -85,7 +86,6 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         onChange={onChange}
         placeholder={placeholder}
         className={`${selectProps?.className ?? ""}`}
-        inlineEditing={inlineEditing}
         tooltipText={helperText || errorMessage}
         isReadOnlyView={isReadOnlyView || !!rest["data-readonlyview"]}
       >

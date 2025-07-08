@@ -163,8 +163,6 @@
   }
 
   &.inline-editing {
-    position: absolute;
-    right: 0;
     z-index: 9;
 
     & .icon {

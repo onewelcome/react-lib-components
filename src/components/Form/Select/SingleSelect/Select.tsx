@@ -36,6 +36,7 @@ import { useSearch } from "./useSearch";
 import { useArrowNavigation } from "./useArrowNavigation";
 import { withReadOnly } from "../../../withReadOnly";
 import { Tooltip } from "../../../Tooltip/Tooltip";
+import { useInlineEditing } from "../../../../context/InlineEditingContext";
 
 const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {
@@ -57,7 +58,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     addNew,
     search,
     isReadOnlyView,
-    inlineEditing,
     tooltipText,
     ...rest
   }: SingleSelectProps,
@@ -95,8 +95,10 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     searchInputRef
   });
 
-  const showTooltip = inlineEditing && tooltipText;
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
+
+  const isInlineEditingFromContext = useInlineEditing();
+  const showTooltip = isInlineEditingFromContext && tooltipText;
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -227,7 +229,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   success && additionalClasses.push(classes.success);
 
   const inlineEditingSelect = [];
-  inlineEditing && inlineEditingSelect.push(classes.inlineEditing);
+  isInlineEditingFromContext && inlineEditingSelect.push(classes.inlineEditing);
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
@@ -274,7 +276,9 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           <div data-display className={classes["selected"]}>
             {!value && placeholder && <span className={classes["placeholder"]}>{placeholder}</span>}
             {value?.length > 0 && <span data-display-inner>{display}</span>}
-            {inlineEditing && required && <span className={classes["required"]}>*</span>}
+            {isInlineEditingFromContext && required && (
+              <span className={classes["required"]}>*</span>
+            )}
           </div>
           <div className={classes["status"]}>
             {!showTooltip && (icon || renderChevronIcon())}
@@ -285,7 +289,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
                 position="center"
                 icon={error ? Icons.Error : success ? Icons.CheckmarkCircleAlt : Icons.InfoCircle}
                 iconState={error ? "error" : success ? "success" : "info"}
-                inlineEditing={inlineEditing}
               >
                 {tooltipText}
               </Tooltip>

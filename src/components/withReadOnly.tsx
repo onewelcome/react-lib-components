@@ -15,13 +15,13 @@
  */
 
 import React, { ComponentType, ForwardedRef, PropsWithChildren } from "react";
+import { useInlineEditing } from "../context/InlineEditingContext";
 
 export interface WithReadOnlyProps {
   readOnlyView?: boolean;
   required?: boolean;
   helperText?: string;
   type?: string;
-  inlineEditing?: boolean;
 }
 
 const componentsWithKeyEventsToPrevent: string[] = ["CheckboxWrapper"];
@@ -34,15 +34,15 @@ const getConditionalProps = (
   readOnlyView: boolean,
   type: string,
   helperText?: string,
-  inlineEditing?: boolean
+  isInlineEditing?: boolean
 ) => {
   const props: Record<string, unknown> = {};
 
   if (readOnlyView) {
     props.style = { pointerEvents: "none", userSelect: "text" };
-    if (helperText && !inlineEditing) {
+    if (helperText && !isInlineEditing) {
       props.helperText = "";
-    } else if (helperText && inlineEditing) {
+    } else if (helperText && isInlineEditing) {
       props.helperText = helperText;
     }
   } else if (helperText) {
@@ -51,10 +51,6 @@ const getConditionalProps = (
 
   if (type) {
     props.type = type;
-  }
-
-  if (inlineEditing) {
-    props.inlineEditing = inlineEditing;
   }
 
   return props;
@@ -108,10 +104,11 @@ export const withReadOnly = <P extends object>(
         required,
         children,
         helperText,
-        inlineEditing,
         type = "",
         ...restProps
       } = props;
+
+      const isInlineEditingFromContext = useInlineEditing();
 
       return (
         <WrappedComponent
@@ -120,7 +117,7 @@ export const withReadOnly = <P extends object>(
           data-readonlyview={readOnlyView}
           aria-readonly={isWrapperComponent ? undefined : readOnlyView}
           required={readOnlyView ? false : required}
-          {...getConditionalProps(readOnlyView, type, helperText, inlineEditing)}
+          {...getConditionalProps(readOnlyView, type, helperText, isInlineEditingFromContext)}
           {...preventKeyUpAndKeyDownHandlerForSpecificComponents(readOnlyView)}
         >
           {children}

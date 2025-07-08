@@ -48,6 +48,7 @@ import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
 import { THIRTY_SECONDS } from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
 import { DateTimeFilter } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
+import { InlineEditingProvider } from "../../src/context/InlineEditingContext";
 
 interface DataGridItem {
   name: string;
@@ -1171,18 +1172,19 @@ const DataGridWithInlineEditingTemplate = args => {
     isSuccess?: boolean
   ) => {
     return (
-      <Checkbox
-        checked={enabled}
-        inlineEditing={true} // special view for inline editing only
-        name={`${id}_status`}
-        onClick={() => handleCheckboxChange(id)}
-        helperText={id !== "6" ? `This is dummy ${name} tooltip` : undefined}
-        errorMessage={isError ? "This is dummy error message" : ""}
-        readOnlyView={readOnlyView} // This is for readOnly view only
-        error={isError} // This is for Error State only
-        required={required} // This is for Required State only
-        success={isSuccess} // This is for Success State only
-      />
+      <InlineEditingProvider value={true}>
+        <Checkbox
+          checked={enabled}
+          name={`${id}_status`}
+          onClick={() => handleCheckboxChange(id)}
+          helperText={id !== "6" ? `This is dummy ${name} tooltip` : undefined}
+          errorMessage={isError ? "This is dummy error message" : ""}
+          readOnlyView={readOnlyView} // This is for readOnly view only
+          error={isError} // This is for Error State only
+          required={required} // This is for Required State only
+          success={isSuccess} // This is for Success State only
+        />
+      </InlineEditingProvider>
     );
   };
 
@@ -1196,24 +1198,25 @@ const DataGridWithInlineEditingTemplate = args => {
     required?: boolean
   ) => {
     return (
-      <Select
-        name={`${id}_${type}_select`}
-        key={`${id}_${type}_select`}
-        value={type}
-        inlineEditing={true}
-        onChange={e => {
-          handleSelectChange(id, e.target.value);
-        }}
-        isReadOnlyView={readOnlyView} // This is for readOnly view only
-        error={isError} // This is for Error State only
-        info={true}
-        success={isSuccess}
-        required={required} // This is for Required State only
-        tooltipText={id !== "6" ? `This is dummy ${isError ? "error" : name} tooltip` : ""} // Tooltip text for error or info icon hover
-      >
-        <Option value="Stock">Stock</Option>
-        <Option value="Bond">Bond</Option>
-      </Select>
+      <InlineEditingProvider value={true}>
+        <Select
+          name={`${id}_${type}_select`}
+          key={`${id}_${type}_select`}
+          value={type}
+          onChange={e => {
+            handleSelectChange(id, e.target.value);
+          }}
+          isReadOnlyView={readOnlyView} // This is for readOnly view only
+          error={isError} // This is for Error State only
+          info={true}
+          success={isSuccess}
+          required={required} // This is for Required State only
+          tooltipText={id !== "6" ? `This is dummy ${isError ? "error" : name} tooltip` : ""} // Tooltip text for error or info icon hover
+        >
+          <Option value="Stock">Stock</Option>
+          <Option value="Bond">Bond</Option>
+        </Select>
+      </InlineEditingProvider>
     );
   };
 
@@ -1227,24 +1230,25 @@ const DataGridWithInlineEditingTemplate = args => {
     required?: boolean
   ) => {
     return (
-      <SelectWrapper
-        name={`${id}_${mode}_selectWrapper`}
-        key={`${id}_${mode}_selectWrapper`}
-        value={mode}
-        inlineEditing={true}
-        onChange={e => {
-          handleSelectWrapperChange(id, e.target.value);
-        }}
-        isReadOnlyView={readOnlyView} // This is for readOnly view only
-        error={isError} // This is for Error State only
-        success={isSuccess} // This is for Success State only
-        required={required} // This is for Required State only
-        helperText={!isError && id !== "6" ? `This is dummy ${name} tooltip` : undefined} // Tooltip text for error or info icon hover
-        errorMessage={isError ? `This is dummy error message tooltip` : undefined} // Tooltip text for error or info icon hover
-      >
-        <Option value="Online">Online</Option>
-        <Option value="Offline">Offline</Option>
-      </SelectWrapper>
+      <InlineEditingProvider value={true}>
+        <SelectWrapper
+          name={`${id}_${mode}_selectWrapper`}
+          key={`${id}_${mode}_selectWrapper`}
+          value={mode}
+          onChange={e => {
+            handleSelectWrapperChange(id, e.target.value);
+          }}
+          isReadOnlyView={readOnlyView} // This is for readOnly view only
+          error={isError} // This is for Error State only
+          success={isSuccess} // This is for Success State only
+          required={required} // This is for Required State only
+          helperText={!isError && id !== "6" ? `This is dummy ${name} tooltip` : undefined} // Tooltip text for error or info icon hover
+          errorMessage={isError ? `This is dummy error message tooltip` : undefined} // Tooltip text for error or info icon hover
+        >
+          <Option value="Online">Online</Option>
+          <Option value="Offline">Offline</Option>
+        </SelectWrapper>
+      </InlineEditingProvider>
     );
   };
 

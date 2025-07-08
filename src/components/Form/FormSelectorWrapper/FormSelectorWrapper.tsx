@@ -24,6 +24,7 @@ import { KeyValuePair } from "../../../interfaces";
 import { FormSelector } from "../form.interfaces";
 import { FormHelperText, Props as FormHelperTextProps } from "../FormHelperText/FormHelperText";
 import classes from "./FormSelectorWrapper.module.scss";
+import { useInlineEditing } from "../../../context/InlineEditingContext";
 
 export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   children?: ReactNode;
@@ -33,7 +34,6 @@ export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   disabled?: boolean;
   errorId?: string;
   identifier?: string;
-  inlineEditing?: boolean;
   required?: boolean;
 }
 
@@ -52,13 +52,13 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     parentErrorId,
     errorId,
     identifier,
-    inlineEditing,
     required = false,
     ...rest
   }: Props,
   ref
 ) => {
   const helperRef = helperProps?.ref ?? createRef();
+  const isInlineEditingFromContext = useInlineEditing();
 
   return (
     <div
@@ -70,9 +70,9 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     >
       <div {...containerProps}>
         {children}
-        {inlineEditing && required && <span className={classes["required"]}>*</span>}
+        {isInlineEditingFromContext && required && <span className={classes["required"]}>*</span>}
       </div>
-      {!inlineEditing && (errorMessage || helperText || helperProps?.children) && (
+      {!isInlineEditingFromContext && (errorMessage || helperText || helperProps?.children) && (
         <FormHelperText
           {...helperProps}
           ref={helperRef}

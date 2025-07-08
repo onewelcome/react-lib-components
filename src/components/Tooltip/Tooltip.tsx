@@ -33,6 +33,7 @@ import { generateID } from "../../util/helper";
 import { Offset, Placement, usePosition } from "../../hooks/usePosition";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../hooks/useGetDomRoot";
+import { useInlineEditing } from "../../context/InlineEditingContext";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   label: ReactNode;
@@ -44,7 +45,6 @@ export interface Props extends ComponentPropsWithRef<"div"> {
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";
   position?: "start" | "center" | "end";
-  inlineEditing?: boolean;
 }
 
 interface DefaultPosition {
@@ -131,7 +131,6 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     color = "black",
     icon = Icons.InfoCircle,
     iconState,
-    inlineEditing,
     ...rest
   }: Props,
   ref
@@ -145,6 +144,8 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const elementToBePositioned = useRef<HTMLDivElement>(null);
 
   const iconStateClass = iconState && classes[iconState];
+
+  const isInlineEditingFromContext = useInlineEditing();
 
   const determinedLocation = useMemo(() => {
     if (position === "center") {
@@ -216,7 +217,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     <div {...rest} ref={wrappingDivRef} className={`${classes.wrapper} ${className ?? ""}`}>
       {renderChildren()}
       <div
-        className={`${classes["tooltip-wrapper"]} ${inlineEditing ? classes["inline-editing"] : ""}`}
+        className={`${classes["tooltip-wrapper"]} ${isInlineEditingFromContext ? classes["inline-editing"] : ""}`}
       >
         <Icon
           ref={relativeElement}
