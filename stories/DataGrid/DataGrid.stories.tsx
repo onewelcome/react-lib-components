@@ -1224,7 +1224,6 @@ const DataGridWithInlineEditingTemplate = args => {
           }}
           isReadOnlyView={readOnlyView} // This is for readOnly view only
           error={isError} // This is for Error State only
-          info={true}
           success={isSuccess}
           required={required} // This is for Required State only
           tooltipText={id !== "6" ? `This is dummy ${isError ? "error" : name} tooltip` : ""} // Tooltip text for error or info icon hover
@@ -1254,7 +1253,7 @@ const DataGridWithInlineEditingTemplate = args => {
           onChange={e => {
             handleSelectWrapperChange(id, e.target.value);
           }}
-          isReadOnlyView={readOnlyView} // This is for readOnly view only
+          readonlyView={readOnlyView} // This is for readOnly view only
           error={isError} // This is for Error State only
           success={isSuccess} // This is for Success State only
           required={required} // This is for Required State only

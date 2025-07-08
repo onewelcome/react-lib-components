@@ -35,7 +35,7 @@ export interface Props
   selectProps?: PartialSelectProps;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   success?: boolean;
-  isReadOnlyView?: boolean;
+  readonlyView?: boolean;
 }
 
 const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -50,7 +50,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
     helperText,
     errorMessage,
     required,
-    isReadOnlyView,
+    readonlyView,
     onChange,
     ...rest
   }: Props,
@@ -87,7 +87,7 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         placeholder={placeholder}
         className={`${selectProps?.className ?? ""}`}
         tooltipText={helperText || errorMessage}
-        isReadOnlyView={!!rest["data-readonlyview"]}
+        isReadOnlyView={readonlyView || !!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}
       </Select>
