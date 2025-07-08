@@ -167,13 +167,16 @@
     right: 0;
     z-index: 9;
 
-    & .error,
-    & .success {
-      opacity: 0;
-    }
-    & .info {
-      color: var(--color-blue-grey900);
+    & .icon {
       font-size: var(--font-size-big);
+      color: var(--color-blue-grey900);
+    }
+
+    & .error {
+      color: var(--error);
+    }
+    & .success {
+      color: var(--success);
     }
   }
 }

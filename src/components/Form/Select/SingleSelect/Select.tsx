@@ -95,6 +95,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     searchInputRef
   });
 
+  const showTooltip = inlineEditing && tooltipText;
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
@@ -276,13 +277,13 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
             {inlineEditing && required && <span className={classes["required"]}>*</span>}
           </div>
           <div className={classes["status"]}>
-            {icon || (!tooltipText && renderChevronIcon())}
-            {tooltipText && inlineEditing && (
+            {!showTooltip && (icon || renderChevronIcon())}
+            {showTooltip && (
               <Tooltip
                 label=""
                 location="right"
                 position="center"
-                icon={Icons.InfoCircle}
+                icon={error ? Icons.Error : success ? Icons.CheckmarkCircleAlt : Icons.InfoCircle}
                 iconState={error ? "error" : success ? "success" : "info"}
                 inlineEditing={inlineEditing}
               >
