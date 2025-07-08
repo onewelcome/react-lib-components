@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { DataGridFilter } from "./DataGridFilter";
 import classes from "./DataGridToolbar.module.scss";
 import {
@@ -52,8 +52,21 @@ export const DataGridToolbar = ({
   onFiltersClear,
   customEditTagContent
 }: DataGridToolbarProps) => {
-  const { state, addFilter, editFilter, deleteFilter, clearFilters } =
+  const { state, addFilter, editFilter, deleteFilter, resetFilters, clearFilters } =
     useFiltersReducer(filterValues);
+
+  const isFirstRenderRef = useRef(true);
+
+  useEffect(() => {
+    if (!isFirstRenderRef.current && filterValues) {
+      resetFilters(filterValues);
+    }
+  }, [filterValues]);
+
+  useEffect(() => {
+    isFirstRenderRef.current = false;
+  }, []);
+
   const { clearButtonCaption = "Clear all filters" } = translations?.toolbar || {};
   return (
     <Fragment>

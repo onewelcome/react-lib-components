@@ -35,6 +35,10 @@ export type FiltersAction =
       payload: { id: string };
     }
   | {
+      type: "reset";
+      payload: Filter[];
+    }
+  | {
       type: "clear";
     };
 
