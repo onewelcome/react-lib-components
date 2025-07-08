@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[3895],{
+(self["webpackChunk_onewelcome_react_lib_components"] = self["webpackChunk_onewelcome_react_lib_components"] || []).push([[4286],{
 
 /***/ "./src/components/DataGrid/DataGrid.tsx":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -918,13 +918,15 @@ try {
 catch (__react_docgen_typescript_loader_error) { }
 // EXTERNAL MODULE: ./src/components/Form/Select/SingleSelect/Option.tsx
 var Option = __webpack_require__("./src/components/Form/Select/SingleSelect/Option.tsx");
+// EXTERNAL MODULE: ./src/components/Form/Wrapper/SelectWrapper/SelectWrapper.tsx + 1 modules
+var SelectWrapper = __webpack_require__("./src/components/Form/Wrapper/SelectWrapper/SelectWrapper.tsx");
 // EXTERNAL MODULE: ./src/components/Form/Select/MultiSelect/MultiOption.tsx
 var MultiOption = __webpack_require__("./src/components/Form/Select/MultiSelect/MultiOption.tsx");
 // EXTERNAL MODULE: ./src/components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper.tsx + 1 modules
 var MultiSelectWrapper = __webpack_require__("./src/components/Form/Wrapper/MultiSelectWrapper/MultiSelectWrapper.tsx");
-// EXTERNAL MODULE: ./src/components/Form/Wrapper/SelectWrapper/SelectWrapper.tsx + 1 modules
-var SelectWrapper = __webpack_require__("./src/components/Form/Wrapper/SelectWrapper/SelectWrapper.tsx");
-;// CONCATENATED MODULE: ./src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces.ts
+// EXTERNAL MODULE: ./src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces.ts
+var DataGridFilters_interfaces = __webpack_require__("./src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces.ts");
+;// CONCATENATED MODULE: ./src/components/DataGrid/DataGridFilters/DataGridFilterValueSelect.tsx
 /*
  * Copyright 2022 OneWelcome B.V.
  *
@@ -941,14 +943,89 @@ var SelectWrapper = __webpack_require__("./src/components/Form/Wrapper/SelectWra
  *    limitations under the License.
  */
 
-let DefaultOperators = /*#__PURE__*/function (DefaultOperators) {
-  DefaultOperators["is"] = "is";
-  DefaultOperators["isNot"] = "is not";
-  DefaultOperators["contains"] = "contains";
-  DefaultOperators["doesNotContain"] = "does not contain";
-  DefaultOperators["isEmpty"] = "is empty";
-  return DefaultOperators;
-}({});
+
+
+
+
+
+
+const DataGridFilterValueSelect = _ref => {
+  let {
+    column,
+    columnsMetadata,
+    values,
+    pickedValues,
+    setValues,
+    setPickedValues,
+    translations
+  } = _ref;
+  const {
+    valueSelectLabel = "Value",
+    addNewValueLabel = "Create new",
+    addNewValueButtonTitle = "Add new select value"
+  } = translations || {};
+  const columnMetadata = columnsMetadata.find(_ref2 => {
+    let {
+      name
+    } = _ref2;
+    return name === column;
+  });
+  const disableAddNew = columnMetadata?.disableAddNew;
+  const valueSelectType = columnMetadata?.valueSelectType;
+  const addNewBtnProps = {
+    title: addNewValueButtonTitle,
+    type: "button"
+  };
+  const onChangeHandler = e => {
+    setPickedValues([...Array.from(e.target.options)].filter(option => option.selected).map(option => option.value));
+  };
+  const selectProps = {
+    addNew: disableAddNew ? undefined : {
+      label: addNewValueLabel,
+      onAddNew: value => {
+        if (value) {
+          setValues(prev => [...prev, value]);
+          setPickedValues(prev => [...prev, value]);
+        }
+      },
+      btnProps: addNewBtnProps
+    },
+    search: {
+      enabled: true,
+      renderThreshold: 0
+    }
+  };
+  return DataGridFilters_interfaces/* ValueSelectType */.Q.single === valueSelectType ? /*#__PURE__*/react.createElement(SelectWrapper/* SelectWrapper */.S, {
+    label: valueSelectLabel,
+    name: "value",
+    value: pickedValues[0],
+    onChange: onChangeHandler,
+    selectProps: selectProps
+  }, values.map(value => /*#__PURE__*/react.createElement(Option/* Option */.c, {
+    key: value,
+    value: value
+  }, value))) : /*#__PURE__*/react.createElement(MultiSelectWrapper/* MultiSelectWrapper */.J, {
+    label: valueSelectLabel,
+    name: "value",
+    value: pickedValues,
+    onChange: onChangeHandler,
+    selectProps: selectProps
+  }, values.map(value => /*#__PURE__*/react.createElement(MultiOption/* MultiOption */.n, {
+    key: value,
+    value: value
+  }, value)));
+};
+try {
+    // @ts-ignore
+    DataGridFilterValueSelect.displayName = "DataGridFilterValueSelect";
+    // @ts-ignore
+    DataGridFilterValueSelect.__docgenInfo = { "description": "", "displayName": "DataGridFilterValueSelect", "props": { "column": { "defaultValue": null, "description": "", "name": "column", "required": true, "type": { "name": "string" } }, "columnsMetadata": { "defaultValue": null, "description": "", "name": "columnsMetadata", "required": true, "type": { "name": "DataGridColumnMetadata[]" } }, "values": { "defaultValue": null, "description": "", "name": "values", "required": true, "type": { "name": "string[]" } }, "pickedValues": { "defaultValue": null, "description": "", "name": "pickedValues", "required": true, "type": { "name": "string[]" } }, "setValues": { "defaultValue": null, "description": "", "name": "setValues", "required": true, "type": { "name": "(values: SetStateAction<string[]>) => void" } }, "setPickedValues": { "defaultValue": null, "description": "", "name": "setPickedValues", "required": true, "type": { "name": "(pickedValues: SetStateAction<string[]>) => void" } }, "translations": { "defaultValue": null, "description": "", "name": "translations", "required": false, "type": { "name": "PopoverTranslations" } } } };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["src/components/DataGrid/DataGridFilters/DataGridFilterValueSelect.tsx#DataGridFilterValueSelect"] = { docgenInfo: DataGridFilterValueSelect.__docgenInfo, name: "DataGridFilterValueSelect", path: "src/components/DataGrid/DataGridFilters/DataGridFilterValueSelect.tsx#DataGridFilterValueSelect" };
+}
+catch (__react_docgen_typescript_loader_error) { }
 // EXTERNAL MODULE: ./src/hooks/useRepeatFocus.tsx
 var useRepeatFocus = __webpack_require__("./src/hooks/useRepeatFocus.tsx");
 ;// CONCATENATED MODULE: ./src/components/DataGrid/DataGridFilters/DataGridFilterPopover.tsx
@@ -967,7 +1044,6 @@ var useRepeatFocus = __webpack_require__("./src/hooks/useRepeatFocus.tsx");
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 
 
 
@@ -1002,9 +1078,6 @@ const DataGridFilterPopover = _ref => {
   const {
     columnSelectLabel = "Filter by",
     operatorSelectLabel = "Operator",
-    valueSelectLabel = "Value",
-    addNewValueLabel = "Create new",
-    addNewValueButtonTitle = "Add new select value",
     submitButtonTitle = "Apply",
     cancelButtonTitle = "Cancel"
   } = translations || {};
@@ -1014,13 +1087,6 @@ const DataGridFilterPopover = _ref => {
       popoverRef.current?.focus();
     }
   }, [isOpen]);
-  const columnMetadata = columnsMetadata.find(_ref2 => {
-    let {
-      name
-    } = _ref2;
-    return name === column;
-  });
-  const disableAddNew = columnMetadata?.disableAddNew;
   return /*#__PURE__*/react.createElement(Popover/* Popover */.A, {
     tabIndex: -1,
     anchorEl: anchorRef,
@@ -1044,18 +1110,18 @@ const DataGridFilterPopover = _ref => {
     name: "column",
     onChange: e => {
       setColumn(e.target.value);
-      const columnMetadata = columnsMetadata.find(_ref3 => {
+      const columnMetadata = columnsMetadata.find(_ref2 => {
         let {
           name
-        } = _ref3;
+        } = _ref2;
         return name === e.target.value;
       });
       if (columnMetadata?.operators) {
         setOperator(columnMetadata.operators[0]);
         setOperators(columnMetadata.operators);
       } else {
-        setOperator(Object.values(DefaultOperators)[0]);
-        setOperators(Object.values(DefaultOperators));
+        setOperator(Object.values(DataGridFilters_interfaces/* DefaultOperators */.x)[0]);
+        setOperators(Object.values(DataGridFilters_interfaces/* DefaultOperators */.x));
       }
       if (columnMetadata?.defaultValues) {
         setPickedValues([]);
@@ -1065,11 +1131,11 @@ const DataGridFilterPopover = _ref => {
         setValues([]);
       }
     }
-  }, columnsMetadata.map(_ref4 => {
+  }, columnsMetadata.map(_ref3 => {
     let {
       name,
       headline
-    } = _ref4;
+    } = _ref3;
     return /*#__PURE__*/react.createElement(Option/* Option */.c, {
       className: DataGridFilters_DataGridFilter_module["column-select-option"],
       key: name,
@@ -1083,34 +1149,15 @@ const DataGridFilterPopover = _ref => {
   }, operators.map(operator => /*#__PURE__*/react.createElement(Option/* Option */.c, {
     key: operator,
     value: operator
-  }, operator))), /*#__PURE__*/react.createElement(MultiSelectWrapper/* MultiSelectWrapper */.J, {
-    label: valueSelectLabel,
-    name: "value",
-    value: pickedValues,
-    onChange: e => setPickedValues([...Array.from(e.target.options)].filter(option => option.selected).map(option => option.value)),
-    selectProps: {
-      addNew: disableAddNew ? undefined : {
-        label: addNewValueLabel,
-        onAddNew: value => {
-          if (value) {
-            setValues(prev => [...prev, value]);
-            setPickedValues(prev => [...prev, value]);
-          }
-        },
-        btnProps: {
-          title: addNewValueButtonTitle,
-          type: "button"
-        }
-      },
-      search: {
-        enabled: true,
-        renderThreshold: 0
-      }
-    }
-  }, values.map(value => /*#__PURE__*/react.createElement(MultiOption/* MultiOption */.n, {
-    key: value,
-    value: value
-  }, value)))), /*#__PURE__*/react.createElement("div", {
+  }, operator))), /*#__PURE__*/react.createElement(DataGridFilterValueSelect, {
+    column: column,
+    columnsMetadata: columnsMetadata,
+    values: values,
+    pickedValues: pickedValues,
+    setValues: setValues,
+    setPickedValues: setPickedValues,
+    translations: translations
+  })), /*#__PURE__*/react.createElement("div", {
     className: DataGridFilters_DataGridFilter_module["actions"]
   }, /*#__PURE__*/react.createElement(Button/* Button */.$, {
     onClick: onFilterSubmit
@@ -1152,12 +1199,13 @@ catch (__react_docgen_typescript_loader_error) { }
 
 
 
-const useDataGridFilter = (mode, columnsMetadata) => {
+const useDataGridFilter = (mode, columnsMetadata, filterState) => {
   const [column, setColumn] = (0,react.useState)("");
   const [operator, setOperator] = (0,react.useState)("");
-  const [operators, setOperators] = (0,react.useState)(Object.values(DefaultOperators));
+  const [operators, setOperators] = (0,react.useState)(Object.values(DataGridFilters_interfaces/* DefaultOperators */.x));
   const [values, setValues] = (0,react.useState)([]);
   const [pickedValues, setPickedValues] = (0,react.useState)([]);
+  const [allowedColumnsMetaData, setAllowedColumnsMetaData] = (0,react.useState)([]);
 
   //user can extend the list of picked values with custom ones. We need to make sure that the default list includes the user created values.
   const mergeCustomValuesWithPredefined = (values, pickedValues) => {
@@ -1170,13 +1218,16 @@ const useDataGridFilter = (mode, columnsMetadata) => {
     setPickedValues([]);
   };
   const initialiseFilterValues = filter => {
+    const allowedColumnMetaData = getAllowedColumnsMetadata(filter);
     if (mode === "ADD") {
-      const firstColumnMetadata = columnsMetadata[0];
+      const firstColumnMetadata = allowedColumnMetaData[0];
       if (!firstColumnMetadata) {
+        resetFields();
+        setAllowedColumnsMetaData([]);
         return;
       }
       setColumn(firstColumnMetadata.name);
-      setOperator(firstColumnMetadata.operators ? firstColumnMetadata.operators[0] : Object.values(DefaultOperators)[0]);
+      setOperator(firstColumnMetadata.operators ? firstColumnMetadata.operators[0] : Object.values(DataGridFilters_interfaces/* DefaultOperators */.x)[0]);
       firstColumnMetadata.operators && setOperators(firstColumnMetadata.operators);
       firstColumnMetadata.defaultValues && setValues(firstColumnMetadata.defaultValues);
     }
@@ -1205,6 +1256,17 @@ const useDataGridFilter = (mode, columnsMetadata) => {
       setPickedValues(value);
       setValues(mergeCustomValuesWithPredefined(defaultValues || [], value));
     }
+    setAllowedColumnsMetaData(allowedColumnMetaData);
+  };
+  const getAllowedColumnsMetadata = filter => {
+    return columnsMetadata.filter(value => {
+      if (!value.allowSingleFilterOnly) {
+        return true;
+      }
+      return !filterState.filters.find(v => {
+        return mode === "ADD" ? v.column == value.name : v.column == value.name && v.column != filter?.column;
+      });
+    });
   };
   return {
     resetFields,
@@ -1218,7 +1280,8 @@ const useDataGridFilter = (mode, columnsMetadata) => {
     values,
     setValues,
     pickedValues,
-    setPickedValues
+    setPickedValues,
+    allowedColumnsMetaData
   };
 };
 ;// CONCATENATED MODULE: ./src/components/DataGrid/DataGridFilters/DataGridFilter.tsx
@@ -1256,7 +1319,8 @@ const DataGridFilter = _ref => {
     onFilterDelete,
     tagTranslations,
     popoverTranslations,
-    customEditTagContent
+    customEditTagContent,
+    filterState
   } = _ref;
   const wrappingDivRef = (0,react.useRef)(null);
   const triggerRef = (0,react.useRef)(null);
@@ -1277,8 +1341,9 @@ const DataGridFilter = _ref => {
     setValues,
     pickedValues,
     setPickedValues,
-    initialiseFilterValues
-  } = useDataGridFilter(mode, columnsMetadata);
+    initialiseFilterValues,
+    allowedColumnsMetaData
+  } = useDataGridFilter(mode, columnsMetadata, filterState);
   const onFilterSubmit = () => {
     if (mode === "ADD") {
       const id = (0,helper/* generateID */.ni)();
@@ -1334,7 +1399,7 @@ const DataGridFilter = _ref => {
     isOpen: filterOpen,
     translations: popoverTranslations,
     column: column,
-    columnsMetadata: columnsMetadata,
+    columnsMetadata: allowedColumnsMetaData,
     values: values,
     pickedValues: pickedValues,
     operator: operator,
@@ -1353,7 +1418,7 @@ try {
     // @ts-ignore
     DataGridFilter.displayName = "DataGridFilter";
     // @ts-ignore
-    DataGridFilter.__docgenInfo = { "description": "", "displayName": "DataGridFilter", "props": { "mode": { "defaultValue": null, "description": "", "name": "mode", "required": true, "type": { "name": "enum", "value": [{ "value": "\"ADD\"" }, { "value": "\"EDIT\"" }, { "value": "\"ADD_DATE\"" }] } }, "domRoot": { "defaultValue": null, "description": "", "name": "domRoot", "required": false, "type": { "name": "HTMLElement" } }, "filter": { "defaultValue": null, "description": "", "name": "filter", "required": false, "type": { "name": "Filter" } }, "columnsMetadata": { "defaultValue": null, "description": "", "name": "columnsMetadata", "required": true, "type": { "name": "DataGridColumnMetadata[]" } }, "onFilterAdd": { "defaultValue": null, "description": "", "name": "onFilterAdd", "required": false, "type": { "name": "((filter: Filter) => void)" } }, "onFilterEdit": { "defaultValue": null, "description": "", "name": "onFilterEdit", "required": false, "type": { "name": "((filter: Filter) => void)" } }, "onFilterDelete": { "defaultValue": null, "description": "", "name": "onFilterDelete", "required": false, "type": { "name": "((id: string) => void)" } }, "tagTranslations": { "defaultValue": null, "description": "", "name": "tagTranslations", "required": false, "type": { "name": "TagTranslations" } }, "popoverTranslations": { "defaultValue": null, "description": "", "name": "popoverTranslations", "required": false, "type": { "name": "PopoverTranslations" } }, "customEditTagContent": { "defaultValue": null, "description": "", "name": "customEditTagContent", "required": false, "type": { "name": "ReactElement<any, string | JSXElementConstructor<any>>" } } } };
+    DataGridFilter.__docgenInfo = { "description": "", "displayName": "DataGridFilter", "props": { "mode": { "defaultValue": null, "description": "", "name": "mode", "required": true, "type": { "name": "enum", "value": [{ "value": "\"ADD\"" }, { "value": "\"EDIT\"" }, { "value": "\"ADD_DATE\"" }] } }, "domRoot": { "defaultValue": null, "description": "", "name": "domRoot", "required": false, "type": { "name": "HTMLElement" } }, "filter": { "defaultValue": null, "description": "", "name": "filter", "required": false, "type": { "name": "Filter" } }, "columnsMetadata": { "defaultValue": null, "description": "", "name": "columnsMetadata", "required": true, "type": { "name": "DataGridColumnMetadata[]" } }, "onFilterAdd": { "defaultValue": null, "description": "", "name": "onFilterAdd", "required": false, "type": { "name": "((filter: Filter) => void)" } }, "onFilterEdit": { "defaultValue": null, "description": "", "name": "onFilterEdit", "required": false, "type": { "name": "((filter: Filter) => void)" } }, "onFilterDelete": { "defaultValue": null, "description": "", "name": "onFilterDelete", "required": false, "type": { "name": "((id: string) => void)" } }, "tagTranslations": { "defaultValue": null, "description": "", "name": "tagTranslations", "required": false, "type": { "name": "TagTranslations" } }, "popoverTranslations": { "defaultValue": null, "description": "", "name": "popoverTranslations", "required": false, "type": { "name": "PopoverTranslations" } }, "customEditTagContent": { "defaultValue": null, "description": "", "name": "customEditTagContent", "required": false, "type": { "name": "ReactElement<any, string | JSXElementConstructor<any>>" } }, "filterState": { "defaultValue": null, "description": "", "name": "filterState", "required": true, "type": { "name": "FiltersState" } } } };
     // @ts-ignore
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
@@ -2052,8 +2117,18 @@ const DataGridToolbar = _ref => {
     addFilter,
     editFilter,
     deleteFilter,
+    resetFilters,
     clearFilters
   } = (0,useFiltersReducer/* useFiltersReducer */.L)(filterValues);
+  const isFirstRenderRef = (0,react.useRef)(true);
+  (0,react.useEffect)(() => {
+    if (!isFirstRenderRef.current && filterValues) {
+      resetFilters(filterValues);
+    }
+  }, [filterValues]);
+  (0,react.useEffect)(() => {
+    isFirstRenderRef.current = false;
+  }, []);
   const {
     clearButtonCaption = "Clear all filters"
   } = translations?.toolbar || {};
@@ -2062,6 +2137,7 @@ const DataGridToolbar = _ref => {
     key: filter.id,
     filter: filter,
     columnsMetadata: columnsMetadata,
+    filterState: state,
     onFilterEdit: filter => {
       editFilter(filter);
       onFilterEdit && onFilterEdit(filter);
@@ -2079,6 +2155,7 @@ const DataGridToolbar = _ref => {
     mode: "ADD",
     customEditTagContent: customEditTagContent,
     columnsMetadata: columnsMetadata,
+    filterState: state,
     onFilterAdd: filter => {
       addFilter(filter);
       onFilterAdd && onFilterAdd(filter);
@@ -3030,6 +3107,45 @@ catch (__react_docgen_typescript_loader_error) { }
 
 /***/ }),
 
+/***/ "./src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces.ts":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Q: () => (/* binding */ ValueSelectType),
+/* harmony export */   x: () => (/* binding */ DefaultOperators)
+/* harmony export */ });
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+let DefaultOperators = /*#__PURE__*/function (DefaultOperators) {
+  DefaultOperators["is"] = "is";
+  DefaultOperators["isNot"] = "is not";
+  DefaultOperators["contains"] = "contains";
+  DefaultOperators["doesNotContain"] = "does not contain";
+  DefaultOperators["isEmpty"] = "is empty";
+  return DefaultOperators;
+}({});
+let ValueSelectType = /*#__PURE__*/function (ValueSelectType) {
+  ValueSelectType["single"] = "single";
+  ValueSelectType["multi"] = "multi";
+  return ValueSelectType;
+}({});
+
+/***/ }),
+
 /***/ "./src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService.ts":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -3125,6 +3241,11 @@ const useFiltersReducer = filterValues => {
           ...state,
           filters: [...state.filters.filter(value => value.id !== action.payload.id)]
         };
+      case "reset":
+        return {
+          ...state,
+          filters: action.payload
+        };
       case "clear":
         return {
           ...state,
@@ -3149,6 +3270,10 @@ const useFiltersReducer = filterValues => {
       id
     }
   });
+  const resetFilters = filters => dispatch({
+    type: "reset",
+    payload: filters
+  });
   const clearFilters = () => dispatch({
     type: "clear"
   });
@@ -3157,6 +3282,7 @@ const useFiltersReducer = filterValues => {
     addFilter,
     deleteFilter,
     editFilter,
+    resetFilters,
     clearFilters
   };
 };

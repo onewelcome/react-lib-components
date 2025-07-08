@@ -758,6 +758,8 @@ __webpack_require__.d(__webpack_exports__, {
   DataGridWithNestedRows: () => (/* binding */ DataGridWithNestedRows),
   DataGridWithSearch: () => (/* binding */ DataGridWithSearch),
   DataGridWithSearchAndButtons: () => (/* binding */ DataGridWithSearchAndButtons),
+  DataGridWithSingleSelectFilter: () => (/* binding */ DataGridWithSingleSelectFilter),
+  DataGridWithSingleValueSelectFilter: () => (/* binding */ DataGridWithSingleValueSelectFilter),
   DefaultDataGrid: () => (/* binding */ DefaultDataGrid),
   EmptyDataGrid: () => (/* binding */ EmptyDataGrid),
   ExpandableDataGrid: () => (/* binding */ ExpandableDataGrid),
@@ -1074,6 +1076,8 @@ var InputWrapper_stories = __webpack_require__("./stories/Form/Wrapper/InputWrap
 var Form_stories = __webpack_require__("./stories/Form/Form.stories.tsx");
 // EXTERNAL MODULE: ./src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService.ts
 var DateTimeService = __webpack_require__("./src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService.ts");
+// EXTERNAL MODULE: ./src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces.ts
+var DataGridFilters_interfaces = __webpack_require__("./src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces.ts");
 ;// CONCATENATED MODULE: ./stories/DataGrid/DataGrid.stories.tsx
 function DataGrid_stories_extends() {
   return DataGrid_stories_extends = Object.assign ? Object.assign.bind() : function (n) {
@@ -1099,6 +1103,7 @@ function DataGrid_stories_extends() {
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 
 
 
@@ -1584,6 +1589,149 @@ DataGridWithFilters.args = {
       operators: ["is", "is not"],
       defaultValues: ["Stock", "Bond"],
       disableAddNew: true
+    }],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
+  },
+  headers: [{
+    name: "name",
+    headline: "Name"
+  }, {
+    name: "type",
+    headline: "Type",
+    disableSorting: true
+  }],
+  initialSort: [{
+    name: "name",
+    direction: "ASC"
+  }, {
+    name: "created",
+    direction: "DESC"
+  }],
+  onSort: sort => (0,dist/* action */.XI)(`Sort callback: ${sort}`),
+  actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    addBtnProps: {
+      onClick: () => (0,dist/* action */.XI)("add btn clicked")
+    },
+    searchBtnProps: {
+      onClick: () => (0,dist/* action */.XI)("search btn clicked")
+    }
+  },
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 2,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
+const DataGridWithSingleSelectFilter = DataGridWithFiltersTemplate.bind({});
+DataGridWithSingleSelectFilter.args = {
+  data: [{
+    id: "1",
+    name: "Company 1",
+    type: "Stock"
+  }, {
+    id: "2",
+    name: "Company 2",
+    type: "Bond"
+  }, {
+    id: "3",
+    name: "Company 1",
+    type: "Bond"
+  }],
+  filters: {
+    filterValues: [],
+    columnsMetadata: [{
+      name: "name",
+      headline: "Name",
+      operators: ["is", "is not"],
+      defaultValues: ["Company 1", "Company 2"],
+      allowSingleFilterOnly: true
+    }, {
+      name: "type",
+      headline: "Type",
+      operators: ["is", "is not"],
+      defaultValues: ["Stock", "Bond"],
+      disableAddNew: true,
+      allowSingleFilterOnly: true
+    }],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
+  },
+  headers: [{
+    name: "name",
+    headline: "Name"
+  }, {
+    name: "type",
+    headline: "Type",
+    disableSorting: true
+  }],
+  initialSort: [{
+    name: "name",
+    direction: "ASC"
+  }, {
+    name: "created",
+    direction: "DESC"
+  }],
+  onSort: sort => (0,dist/* action */.XI)(`Sort callback: ${sort}`),
+  actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    addBtnProps: {
+      onClick: () => (0,dist/* action */.XI)("add btn clicked")
+    },
+    searchBtnProps: {
+      onClick: () => (0,dist/* action */.XI)("search btn clicked")
+    }
+  },
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 2,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
+const DataGridWithSingleValueSelectFilter = DataGridWithFiltersTemplate.bind({});
+DataGridWithSingleValueSelectFilter.args = {
+  data: [{
+    id: "1",
+    name: "Company 1",
+    type: "Stock"
+  }, {
+    id: "2",
+    name: "Company 2",
+    type: "Bond"
+  }, {
+    id: "3",
+    name: "Company 1",
+    type: "Bond"
+  }],
+  filters: {
+    filterValues: [],
+    columnsMetadata: [{
+      name: "name",
+      headline: "Name",
+      operators: ["is", "is not"],
+      defaultValues: ["Company 1", "Company 2"],
+      disableAddNew: true,
+      valueSelectType: DataGridFilters_interfaces/* ValueSelectType */.Q.single
+    }, {
+      name: "type",
+      headline: "Type",
+      operators: ["is", "is not"],
+      defaultValues: ["Stock", "Bond"],
+      disableAddNew: true,
+      valueSelectType: DataGridFilters_interfaces/* ValueSelectType */.Q.single
     }],
     onFilterAdd: filter => console.log(filter),
     onFilterEdit: filter => console.log(filter),
@@ -2209,7 +2357,7 @@ DataGridDatePickerOpened.play = (0,conditionalPlay/* conditionalPlay */.h)(async
   });
 });
 ;
-const __namedExportsOrder = ["DefaultDataGrid", "HideColumnDataGrid", "DataGridIsLoading", "EmptyDataGrid", "ExpandableDataGrid", "HiddenContextMenuColumnDataGrid", "DataGridWithFilters", "DataGridWithFiltersInEditMode", "DataGridWithSearch", "DataGridWithNestedRows", "DataGridWithSearchAndButtons", "ToolbarWithAllOptions", "DataGridDatePicker", "DataGridDatePickerOpened"];
+const __namedExportsOrder = ["DefaultDataGrid", "HideColumnDataGrid", "DataGridIsLoading", "EmptyDataGrid", "ExpandableDataGrid", "HiddenContextMenuColumnDataGrid", "DataGridWithFilters", "DataGridWithSingleSelectFilter", "DataGridWithSingleValueSelectFilter", "DataGridWithFiltersInEditMode", "DataGridWithSearch", "DataGridWithNestedRows", "DataGridWithSearchAndButtons", "ToolbarWithAllOptions", "DataGridDatePicker", "DataGridDatePickerOpened"];
 DefaultDataGrid.parameters = {
   ...DefaultDataGrid.parameters,
   docs: {
@@ -2277,6 +2425,26 @@ DataGridWithFilters.parameters = {
     source: {
       originalSource: "args => {\n  const {\n    filters,\n    gridData,\n    onFilterAdd,\n    onFilterEdit,\n    onFilterDelete,\n    onFiltersClear\n  } = useMockFilteringLogic(args.data, args.filters.filterValues);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} filters={{\n        ...args.filters,\n        filterValues: filters,\n        onFilterAdd,\n        onFilterEdit,\n        onFilterDelete,\n        onFiltersClear\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
       ...DataGridWithFilters.parameters?.docs?.source
+    }
+  }
+};
+DataGridWithSingleSelectFilter.parameters = {
+  ...DataGridWithSingleSelectFilter.parameters,
+  docs: {
+    ...DataGridWithSingleSelectFilter.parameters?.docs,
+    source: {
+      originalSource: "args => {\n  const {\n    filters,\n    gridData,\n    onFilterAdd,\n    onFilterEdit,\n    onFilterDelete,\n    onFiltersClear\n  } = useMockFilteringLogic(args.data, args.filters.filterValues);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} filters={{\n        ...args.filters,\n        filterValues: filters,\n        onFilterAdd,\n        onFilterEdit,\n        onFilterDelete,\n        onFiltersClear\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
+      ...DataGridWithSingleSelectFilter.parameters?.docs?.source
+    }
+  }
+};
+DataGridWithSingleValueSelectFilter.parameters = {
+  ...DataGridWithSingleValueSelectFilter.parameters,
+  docs: {
+    ...DataGridWithSingleValueSelectFilter.parameters?.docs,
+    source: {
+      originalSource: "args => {\n  const {\n    filters,\n    gridData,\n    onFilterAdd,\n    onFilterEdit,\n    onFilterDelete,\n    onFiltersClear\n  } = useMockFilteringLogic(args.data, args.filters.filterValues);\n  return <div style={{\n    padding: \"1rem\",\n    boxShadow: \"0px 1px 5px 0px #01053214\"\n  }}>\n      <div style={{\n      borderRadius: \".5rem\",\n      backgroundColor: \"#FFF\"\n    }}>\n        <DataGridComponent {...args} data={gridData} filters={{\n        ...args.filters,\n        filterValues: filters,\n        onFilterAdd,\n        onFilterEdit,\n        onFilterDelete,\n        onFiltersClear\n      }}>\n          {({\n          item\n        }: {\n          item: DataGridItem;\n        }) => <DataGridRow key={item.id}>\n              <DataGridCell>{item.name}</DataGridCell>\n              <DataGridCell>{item.type}</DataGridCell>\n            </DataGridRow>}\n        </DataGridComponent>\n      </div>\n    </div>;\n}",
+      ...DataGridWithSingleValueSelectFilter.parameters?.docs?.source
     }
   }
 };
@@ -2425,6 +2593,28 @@ try {
     if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
         // @ts-ignore
         STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DataGridWithFilters"] = { docgenInfo: DataGridWithFilters.__docgenInfo, name: "DataGridWithFilters", path: "stories/DataGrid/DataGrid.stories.tsx#DataGridWithFilters" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+try {
+    // @ts-ignore
+    DataGridWithSingleSelectFilter.displayName = "DataGridWithSingleSelectFilter";
+    // @ts-ignore
+    DataGridWithSingleSelectFilter.__docgenInfo = { "description": "", "displayName": "DataGridWithSingleSelectFilter", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DataGridWithSingleSelectFilter"] = { docgenInfo: DataGridWithSingleSelectFilter.__docgenInfo, name: "DataGridWithSingleSelectFilter", path: "stories/DataGrid/DataGrid.stories.tsx#DataGridWithSingleSelectFilter" };
+}
+catch (__react_docgen_typescript_loader_error) { }
+try {
+    // @ts-ignore
+    DataGridWithSingleValueSelectFilter.displayName = "DataGridWithSingleValueSelectFilter";
+    // @ts-ignore
+    DataGridWithSingleValueSelectFilter.__docgenInfo = { "description": "", "displayName": "DataGridWithSingleValueSelectFilter", "props": {} };
+    // @ts-ignore
+    if (typeof STORYBOOK_REACT_CLASSES !== "undefined")
+        // @ts-ignore
+        STORYBOOK_REACT_CLASSES["stories/DataGrid/DataGrid.stories.tsx#DataGridWithSingleValueSelectFilter"] = { docgenInfo: DataGridWithSingleValueSelectFilter.__docgenInfo, name: "DataGridWithSingleValueSelectFilter", path: "stories/DataGrid/DataGrid.stories.tsx#DataGridWithSingleValueSelectFilter" };
 }
 catch (__react_docgen_typescript_loader_error) { }
 try {
