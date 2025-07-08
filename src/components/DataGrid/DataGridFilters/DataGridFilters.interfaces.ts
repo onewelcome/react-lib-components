@@ -14,6 +14,15 @@
  *    limitations under the License.
  */
 
+import {
+  CUSTOM_DATE_RANGE,
+  FIVE_MINUTES,
+  ONE_HOUR,
+  ONE_MINUTE,
+  THIRTY_SECONDS,
+  TWENTY_FOUR_HOURS
+} from "./DateTimePicker/DateTimeService";
+
 export interface Filter {
   id: string;
   column: string;
@@ -95,12 +104,12 @@ export interface KeyValuePair<TKey = string, TValue = string> {
 }
 
 export type DateTimeFilterType =
-  | "THIRTY_SECONDS"
-  | "ONE_MINUTE"
-  | "FIVE_MINUTES"
-  | "ONE_HOUR"
-  | "TWENTY_FOUR_HOURS"
-  | "CUSTOM";
+  | typeof THIRTY_SECONDS
+  | typeof ONE_MINUTE
+  | typeof FIVE_MINUTES
+  | typeof ONE_HOUR
+  | typeof TWENTY_FOUR_HOURS
+  | typeof CUSTOM_DATE_RANGE;
 
 export interface DateTimeFilter {
   fromDate: string;

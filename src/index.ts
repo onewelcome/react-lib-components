@@ -203,7 +203,20 @@ export { DataGridDrawerItem } from "./components/DataGrid/DataGridBody/DataGridD
 export type { Props as DataGridDrawerItemProps } from "./components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
 export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
 export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
-export type { Filter } from "./components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
+export type {
+  Filter,
+  DateTimeFilter,
+  DateTimeFilterType
+} from "./components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
+
+export type {
+  CUSTOM_DATE_RANGE,
+  FIVE_MINUTES,
+  ONE_HOUR,
+  ONE_MINUTE,
+  THIRTY_SECONDS,
+  TWENTY_FOUR_HOURS
+} from "./components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
 export { FilterKeyMapper } from "./components/DataGrid/DataGridFilters/FilterKeyMapper";
 export { useFiltersReducer } from "./components/DataGrid/DataGridFilters/useFiltersReducer";
 
