@@ -231,8 +231,28 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   const inlineEditingSelect = [];
   isInlineEditingFromContext && inlineEditingSelect.push(classes.inlineEditing);
 
-  const tooltipIcon = error ? Icons.Error : success ? Icons.CheckmarkCircleAlt : Icons.InfoCircle;
-  const tooltipIconState = error ? "error" : success ? "success" : "info";
+  const getTooltipIcon = (error?: boolean, success?: boolean): Icons => {
+    if (error) {
+      return Icons.Error;
+    }
+    if (success) {
+      return Icons.CheckmarkCircleAlt;
+    }
+    return Icons.InfoCircle;
+  };
+
+  const getTooltipIconState = (
+    error?: boolean,
+    success?: boolean
+  ): "error" | "success" | "info" => {
+    if (error) {
+      return "error";
+    }
+    if (success) {
+      return "success";
+    }
+    return "info";
+  };
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
@@ -290,8 +310,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
                 label=""
                 location="right"
                 position="center"
-                icon={tooltipIcon}
-                iconState={tooltipIconState}
+                icon={getTooltipIcon(error, success)}
+                iconState={getTooltipIconState(error, success)}
               >
                 {tooltipText}
               </Tooltip>
