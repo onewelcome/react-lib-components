@@ -42,11 +42,11 @@ import { ModalContent } from "../../src/components/Notifications/Modal/ModalCont
 import { ModalActions } from "../../src/components/Notifications/Modal/ModalActions/ModalActions";
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
+import { THIRTY_SECONDS } from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
 import {
-  CUSTOM_DATE_RANGE,
-  THIRTY_SECONDS
-} from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
-import { DateTimeFilter } from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
+  DateTimeFilter,
+  ValueSelectType
+} from "../../src/components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
 
 interface DataGridItem {
   name: string;
@@ -227,6 +227,42 @@ DefaultDataGrid.args = {
     totalElements: 2,
     currentPage: 1
   },
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+export const HideColumnDataGrid = Template.bind({});
+
+HideColumnDataGrid.args = {
+  data: [
+    {
+      name: "Company 1",
+      created: new Date(2023, 0, 1),
+      id: "1",
+      type: "Stock",
+      enabled: true
+    },
+    {
+      name: "Company 2",
+      created: new Date(2023, 0, 2),
+      id: "2",
+      type: "Stock",
+      enabled: false
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name", hidden: true },
+    { name: "created", headline: "Created", hidden: true },
+    { name: "id", headline: "Identifier" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "enabled", headline: "Status", disableSorting: true }
+  ],
+  initialSort: [
+    { name: "name", direction: "ASC" },
+    { name: "created", direction: "DESC" }
+  ],
+  onSort: sort => action(`Sort callback: ${sort}`),
+  disableContextMenuColumn: false,
   isLoading: false,
   enableMultiSorting: true
 };
@@ -451,6 +487,147 @@ DataGridWithFilters.args = {
         operators: ["is", "is not"],
         defaultValues: ["Stock", "Bond"],
         disableAddNew: true
+      }
+    ],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
+  },
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "type", headline: "Type", disableSorting: true }
+  ],
+  initialSort: [
+    { name: "name", direction: "ASC" },
+    { name: "created", direction: "DESC" }
+  ],
+  onSort: sort => action(`Sort callback: ${sort}`),
+  actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
+  },
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 2,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+export const DataGridWithSingleSelectFilter = DataGridWithFiltersTemplate.bind({});
+
+DataGridWithSingleSelectFilter.args = {
+  data: [
+    {
+      id: "1",
+      name: "Company 1",
+      type: "Stock"
+    },
+
+    {
+      id: "2",
+      name: "Company 2",
+      type: "Bond"
+    },
+    {
+      id: "3",
+      name: "Company 1",
+      type: "Bond"
+    }
+  ],
+  filters: {
+    filterValues: [],
+    columnsMetadata: [
+      {
+        name: "name",
+        headline: "Name",
+        operators: ["is", "is not"],
+        defaultValues: ["Company 1", "Company 2"],
+        allowSingleFilterOnly: true
+      },
+      {
+        name: "type",
+        headline: "Type",
+        operators: ["is", "is not"],
+        defaultValues: ["Stock", "Bond"],
+        disableAddNew: true,
+        allowSingleFilterOnly: true
+      }
+    ],
+    onFilterAdd: filter => console.log(filter),
+    onFilterEdit: filter => console.log(filter),
+    onFilterDelete: id => console.log(id),
+    onFiltersClear: () => console.log("clear")
+  },
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "type", headline: "Type", disableSorting: true }
+  ],
+  initialSort: [
+    { name: "name", direction: "ASC" },
+    { name: "created", direction: "DESC" }
+  ],
+  onSort: sort => action(`Sort callback: ${sort}`),
+  actions: {
+    enableAddBtn: true,
+    enableColumnsBtn: true,
+    enableSearchBtn: true,
+    addBtnProps: { onClick: () => action("add btn clicked") },
+    searchBtnProps: { onClick: () => action("search btn clicked") }
+  },
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 2,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};
+
+export const DataGridWithSingleValueSelectFilter = DataGridWithFiltersTemplate.bind({});
+
+DataGridWithSingleValueSelectFilter.args = {
+  data: [
+    {
+      id: "1",
+      name: "Company 1",
+      type: "Stock"
+    },
+
+    {
+      id: "2",
+      name: "Company 2",
+      type: "Bond"
+    },
+    {
+      id: "3",
+      name: "Company 1",
+      type: "Bond"
+    }
+  ],
+  filters: {
+    filterValues: [],
+    columnsMetadata: [
+      {
+        name: "name",
+        headline: "Name",
+        operators: ["is", "is not"],
+        defaultValues: ["Company 1", "Company 2"],
+        disableAddNew: true,
+        valueSelectType: ValueSelectType.single
+      },
+      {
+        name: "type",
+        headline: "Type",
+        operators: ["is", "is not"],
+        defaultValues: ["Stock", "Bond"],
+        disableAddNew: true,
+        valueSelectType: ValueSelectType.single
       }
     ],
     onFilterAdd: filter => console.log(filter),

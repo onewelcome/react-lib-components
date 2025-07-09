@@ -20,6 +20,7 @@
 
 .table-wrapper {
   overflow-x: auto;
+  overflow-y: hidden; // hides additional vertical scroll which can be seen when using nested rows
 }
 
 .table {

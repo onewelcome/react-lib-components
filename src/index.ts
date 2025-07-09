@@ -15,11 +15,11 @@
  */
 
 /* Components */
-export {
-  BaseStyling,
+export { BaseStyling } from "./components/_BaseStyling_/BaseStyling";
+export type {
+  Props as BaseStylingProps,
   CSSProperties as BaseStylingCSSProperties
 } from "./components/_BaseStyling_/BaseStyling";
-export type { Props as BaseStylingProps } from "./components/_BaseStyling_/BaseStyling";
 export { Button } from "./components/Button/Button";
 export type { Props as ButtonProps } from "./components/Button/Button";
 export { Breadcrumbs } from "./components/Breadcrumbs/Breadcrumbs";
@@ -89,10 +89,8 @@ export { Modal } from "./components/Notifications/Modal/Modal";
 export type { Props as ModalProps } from "./components/Notifications/Modal/Modal";
 export { useAlert } from "./components/Notifications/Alert/useAlert";
 export { AlertProvider } from "./components/Notifications/Alert/AlertProvider/AlertProvider";
-export {
-  AlertItem,
-  Props as AlertItemProps
-} from "./components/Notifications/Alert/AlertItem/AlertItem";
+export { AlertItem } from "./components/Notifications/Alert/AlertItem/AlertItem";
+export type { Props as AlertItemProps } from "./components/Notifications/Alert/AlertItem/AlertItem";
 export type { Props as AlertProviderProps } from "./components/Notifications/Alert/AlertProvider/AlertProvider";
 export { Dialog } from "./components/Notifications/Dialog/Dialog";
 export type {
@@ -205,7 +203,7 @@ export { DataGridDrawerItem } from "./components/DataGrid/DataGridBody/DataGridD
 export type { Props as DataGridDrawerItemProps } from "./components/DataGrid/DataGridBody/DataGridDrawer/DataGridDrawerItem";
 export { DataGridCell } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
 export type { Props as DataGridCellProps } from "./components/DataGrid/DataGridBody/DataGridCell/DataGridCell";
-export { Filter } from "./components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
+export type { Filter } from "./components/DataGrid/DataGridFilters/DataGridFilters.interfaces";
 export { FilterKeyMapper } from "./components/DataGrid/DataGridFilters/FilterKeyMapper";
 export { useFiltersReducer } from "./components/DataGrid/DataGridFilters/useFiltersReducer";
 
@@ -222,6 +220,7 @@ export { MicrofrontendContainer } from "./components/admin/layout/MicrofrontendC
 export type { Props as MicrofrontendContainerProps } from "./components/admin/layout/MicrofrontendContainer/MicrofrontendContainer";
 export { LeftNav } from "./components/admin/layout/LeftNav/LeftNav";
 export type { Props as LeftNavProps } from "./components/admin/layout/LeftNav/LeftNav";
+export type { MenuItem as LeftNavMenuItem } from "./components/admin/layout/LeftNav/LeftNav.interfaces";
 
 /**
  * Miscellaneous

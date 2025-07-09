@@ -45,12 +45,11 @@ That means you, as a developer, are responsible for setting the proper state of 
 Tracking the active item is done by setting an `active` flag on the active item.
 However, the component properly styles parent elements of the active subitem, and only the item that corresponds to the active page should have the `active` flag set to `true`.
 
-The `<LeftNav />` requires `react-router`. The edge links are rendered using `react-router`'s `<Link />` component.
-
 The `<LeftNav />` calls two callback methods on different conditions:
 
-- `navigate(path: string)` - Called directly when the user presses a parent element (button) to align with the behavior of `react-router`'s `<Link />` component.
-- `onItemClick(path: string, button: boolean)` - Called when pressing parent elements (button) or edge links (link).
+- **mandatory** `navigate(path: string)` - Called directly when the user presses a parent element (button) to unfold the items and when the user presses a leaf link which is not a HTTP/S link.
+  - Usually it is implemented using React router's `navigate` function obtained by `const navigate = useNavigate()`.
+- **optional** `onItemClick(path: string, button: boolean)` - Called when pressing parent elements (button) or leaf links (link).
 
 # Examples
 

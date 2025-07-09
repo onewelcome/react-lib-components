@@ -104,4 +104,6 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   );
 };
 
-export const RadioWrapper = withReadOnly(React.forwardRef(RadioWrapperComponent));
+export const RadioWrapper = withReadOnly(React.forwardRef(RadioWrapperComponent), {
+  isWrapperComponent: true
+});

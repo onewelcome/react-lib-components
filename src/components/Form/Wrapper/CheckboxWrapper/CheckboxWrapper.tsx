@@ -96,4 +96,4 @@ ForwardedCheckboxWrapper.displayName = "CheckboxWrapper";
 /**
  * @deprecated
  */
-export const CheckboxWrapper = withReadOnly(ForwardedCheckboxWrapper);
+export const CheckboxWrapper = withReadOnly(ForwardedCheckboxWrapper, { isWrapperComponent: true });
