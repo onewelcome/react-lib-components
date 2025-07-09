@@ -225,6 +225,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           onMouseEnter={() => setVisible(true)}
           onMouseLeave={() => setVisible(false)}
           icon={icon}
+          data-testid="tooltip-icon"
           className={`${classes.icon} ${iconStateClass}`}
         />
         {createPortal(

@@ -16,9 +16,10 @@
 
 import React, { useEffect, useRef } from "react";
 import { SelectWrapper, Props } from "./SelectWrapper";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Option } from "../../Select/SingleSelect/Option";
 import userEvent from "@testing-library/user-event";
+import { InlineEditingProvider } from "../../../../context/InlineEditingContext";
 
 const onChangeHandler = jest.fn();
 
@@ -182,5 +183,67 @@ describe("SelectWrapper & Select have the right attributes", () => {
     await userEvent.click(option3 as Element);
 
     expect(onChangeHandler).toHaveBeenCalled();
+  });
+});
+
+describe("SelectWrapper in inlineEditing mode", () => {
+  it("should not show helpertext but show an info tooltip instead", async () => {
+    const { queryByTestId, getByTestId } = render(
+      <InlineEditingProvider value={true}>
+        <SelectWrapper {...defaultParams} />
+      </InlineEditingProvider>
+    );
+
+    const helpertext = queryByTestId("helpertext");
+    expect(helpertext).toBeNull();
+
+    const tooltipIcon = getByTestId("tooltip-icon");
+    expect(tooltipIcon).toBeInTheDocument();
+    expect(tooltipIcon).toHaveAttribute("class", "icon icon-info-circle icon info");
+
+    await userEvent.hover(tooltipIcon);
+    const tooltipContent = await screen.findByText("helpertext");
+    expect(tooltipContent).toBeInTheDocument();
+  });
+
+  it("should show a success tooltip when success is true", async () => {
+    const { queryByTestId, getByTestId } = render(
+      <InlineEditingProvider value={true}>
+        <SelectWrapper {...defaultParams} success={true} />
+      </InlineEditingProvider>
+    );
+
+    const helpertext = queryByTestId("helpertext");
+    expect(helpertext).toBeNull();
+
+    const tooltipIcon = getByTestId("tooltip-icon");
+    expect(tooltipIcon).toBeInTheDocument();
+    expect(tooltipIcon).toHaveAttribute("class", "icon icon-checkmark-circle-alt icon success");
+
+    await userEvent.hover(tooltipIcon);
+    const tooltipContent = await screen.findByText("helpertext");
+    expect(tooltipContent).toBeInTheDocument();
+  });
+
+  it("should show an error tooltip with the error message when error is true", async () => {
+    const { queryByTestId, getByTestId } = render(
+      <InlineEditingProvider value={true}>
+        <SelectWrapper {...defaultParams} error={true} />
+      </InlineEditingProvider>
+    );
+
+    const helpertext = queryByTestId("helpertext");
+    expect(helpertext).toBeNull();
+
+    const tooltipIcon = getByTestId("tooltip-icon");
+    expect(tooltipIcon).toBeInTheDocument();
+    expect(tooltipIcon).toHaveAttribute("class", "icon icon-error-circle icon error");
+
+    await userEvent.hover(tooltipIcon);
+    const tooltipContent = await screen.findByText("errormessage");
+    expect(tooltipContent).toBeInTheDocument();
+
+    const tooltipContainerClasses = tooltipContent.attributes.getNamedItem("class")?.value;
+    expect(tooltipContainerClasses).toContain("visible");
   });
 });
