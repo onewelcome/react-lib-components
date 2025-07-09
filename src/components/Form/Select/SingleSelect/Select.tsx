@@ -282,7 +282,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           </div>
           <div className={classes["status"]}>
             {!showTooltip && (icon || renderChevronIcon())}
-            {showTooltip && (
+            {showTooltip && !isReadOnlyView && (
               <Tooltip
                 label=""
                 location="right"

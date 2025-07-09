@@ -1187,14 +1187,15 @@ const DataGridWithInlineEditingTemplate = args => {
     required?: boolean,
     isSuccess?: boolean
   ) => {
+    const helperMessage = id !== "6" ? `This is dummy ${name} tooltip` : undefined;
     return (
       <InlineEditingProvider value={true}>
         <Checkbox
           checked={enabled}
           name={`${id}_status`}
           onClick={() => handleCheckboxChange(id)}
-          helperText={id !== "6" ? `This is dummy ${name} tooltip` : undefined}
-          errorMessage={isError ? "This is dummy error message" : ""}
+          helperText={helperMessage}
+          errorMessage={isError ? "This is dummy Error message tooltip example" : ""}
           readOnlyView={readOnlyView} // This is for readOnly view only
           error={isError} // This is for Error State only
           required={required} // This is for Required State only
@@ -1213,6 +1214,9 @@ const DataGridWithInlineEditingTemplate = args => {
     isSuccess?: boolean,
     required?: boolean
   ) => {
+    // Conditions are for storybook view only
+    const tooltipMessage =
+      id !== "6" && !readOnlyView ? `This is dummy ${isError ? "error" : name} tooltip` : "";
     return (
       <InlineEditingProvider value={true}>
         <Select
@@ -1222,11 +1226,11 @@ const DataGridWithInlineEditingTemplate = args => {
           onChange={e => {
             handleSelectChange(id, e.target.value);
           }}
-          data-readonlyview={readOnlyView} // This is for readOnly view only
+          readOnlyView={readOnlyView} // This is for readOnly view only
           error={isError} // This is for Error State only
           success={isSuccess}
           required={required} // This is for Required State only
-          tooltipText={id !== "6" ? `This is dummy ${isError ? "error" : name} tooltip` : ""} // Tooltip text for error or info icon hover
+          tooltipText={tooltipMessage} // Tooltip text for error or info icon hover.
         >
           <Option value="Stock">Stock</Option>
           <Option value="Bond">Bond</Option>
@@ -1244,6 +1248,7 @@ const DataGridWithInlineEditingTemplate = args => {
     isSuccess?: boolean,
     required?: boolean
   ) => {
+    const helperMessage = !isError && id !== "6" ? `This is dummy ${name} tooltip` : undefined;
     return (
       <InlineEditingProvider value={true}>
         <SelectWrapper
@@ -1253,11 +1258,11 @@ const DataGridWithInlineEditingTemplate = args => {
           onChange={e => {
             handleSelectWrapperChange(id, e.target.value);
           }}
-          data-readonlyview={readOnlyView} // This is for readOnly view only
+          readOnlyView={readOnlyView} // This is for readOnly view only
           error={isError} // This is for Error State only
           success={isSuccess} // This is for Success State only
           required={required} // This is for Required State only
-          helperText={!isError && id !== "6" ? `This is dummy ${name} tooltip` : undefined} // Tooltip text for error or info icon hover
+          helperText={helperMessage} // Tooltip text for error or info icon hover
           errorMessage={isError ? `This is dummy error message tooltip` : undefined} // Tooltip text for error or info icon hover
         >
           <Option value="Online">Online</Option>
@@ -1414,7 +1419,7 @@ DataGridWithInlineEditing.args = {
       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       nestedItems: [
         {
-          name: "Child example",
+          name: "Child read only example",
           created: new Date(2023, 0, 1),
           id: "10",
           mode: "Offline",
@@ -1425,7 +1430,7 @@ DataGridWithInlineEditing.args = {
           metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
         },
         {
-          name: "Child example",
+          name: "Child read only example",
           created: new Date(2023, 0, 1),
           id: "12",
           mode: "Online",

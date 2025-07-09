@@ -15,7 +15,6 @@
  */
 
 import React, { ComponentType, ForwardedRef, PropsWithChildren } from "react";
-import { useInlineEditing } from "../context/InlineEditingContext";
 
 export interface WithReadOnlyProps {
   readOnlyView?: boolean;
@@ -30,20 +29,13 @@ const getDisplayName = <P,>(WrappedComponent: ComponentType<P>) => {
   return WrappedComponent.displayName ?? WrappedComponent.name ?? "Component";
 };
 
-const getConditionalProps = (
-  readOnlyView: boolean,
-  type: string,
-  helperText?: string,
-  isInlineEditing?: boolean
-) => {
+const getConditionalProps = (readOnlyView: boolean, type: string, helperText?: string) => {
   const props: Record<string, unknown> = {};
 
   if (readOnlyView) {
     props.style = { pointerEvents: "none", userSelect: "text" };
-    if (helperText && !isInlineEditing) {
+    if (helperText) {
       props.helperText = "";
-    } else if (helperText && isInlineEditing) {
-      props.helperText = helperText;
     }
   } else if (helperText) {
     props.helperText = helperText;
@@ -108,8 +100,6 @@ export const withReadOnly = <P extends object>(
         ...restProps
       } = props;
 
-      const isInlineEditingFromContext = useInlineEditing();
-
       return (
         <WrappedComponent
           ref={ref}
@@ -117,7 +107,7 @@ export const withReadOnly = <P extends object>(
           data-readonlyview={readOnlyView}
           aria-readonly={isWrapperComponent ? undefined : readOnlyView}
           required={readOnlyView ? false : required}
-          {...getConditionalProps(readOnlyView, type, helperText, isInlineEditingFromContext)}
+          {...getConditionalProps(readOnlyView, type, helperText)}
           {...preventKeyUpAndKeyDownHandlerForSpecificComponents(readOnlyView)}
         >
           {children}
