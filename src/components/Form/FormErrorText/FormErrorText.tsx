@@ -36,41 +36,30 @@ export const FormErrorText = ({
   errorMessageIconPosition = "before",
   errorId
 }: FormErrorTextProps) => {
-  const showCustomError = error && errorMessageProps?.children;
-  const showDefaultError = error && errorMessage && !errorMessageProps?.children;
-
   if (!error) {
     return null;
   }
 
-  if (showCustomError) {
-    return <>{errorMessageProps.children}</>;
-  }
-
-  if (showDefaultError) {
-    return (
-      <span
-        {...errorMessageProps}
-        className={`${classes["error-message"]} ${errorMessageProps?.className ?? ""}`}
-      >
-        <span id={errorId} className={classes.message}>
-          {errorMessageIcon && errorMessageIconPosition === "before" && (
-            <Icon
-              className={`${classes["error-icon"]} ${classes["error-icon-before"]}`}
-              icon={errorMessageIcon}
-            />
-          )}
-          {errorMessage}
-          {errorMessageIcon && errorMessageIconPosition === "after" && (
-            <Icon
-              className={`${classes["error-icon"]} ${classes["error-icon-after"]}`}
-              icon={errorMessageIcon}
-            />
-          )}
-        </span>
+  return (
+    <span
+      {...errorMessageProps}
+      className={`${classes["error-message"]} ${errorMessageProps?.className ?? ""}`}
+    >
+      <span id={errorId} className={classes["message"]}>
+        {errorMessageIcon && errorMessageIconPosition === "before" && (
+          <Icon
+            className={`${classes["error-icon"]} ${classes["error-icon-before"]}`}
+            icon={errorMessageIcon}
+          />
+        )}
+        {errorMessageProps?.children || errorMessage}
+        {errorMessageIcon && errorMessageIconPosition === "after" && (
+          <Icon
+            className={`${classes["error-icon"]} ${classes["error-icon-after"]}`}
+            icon={errorMessageIcon}
+          />
+        )}
       </span>
-    );
-  }
-
-  return null;
+    </span>
+  );
 };

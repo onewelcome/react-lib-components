@@ -38,6 +38,7 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   {
     children,
     error,
+    errorMessageProps,
     name,
     helperText,
     helperProps,
@@ -87,13 +88,15 @@ const RadioWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         helperText={helperText}
         helperProps={{
           ...helperProps,
-          className: `${classes["radio-wrapper-helper"]} ${
-            error ? classes["radio-wrapper-error"] : ""
-          } ${helperProps?.className ?? ""}`
+          className: `${classes["radio-wrapper-helper"]} ${helperProps?.className ?? ""}`
         }}
         error={error}
         errorId={errorId}
         errorMessageIcon={Icons.Error}
+        errorMessageProps={{
+          ...errorMessageProps,
+          className: `${error ? classes["radio-wrapper-error"] : ""}`
+        }}
       >
         {renderChildren()}
       </Wrapper>

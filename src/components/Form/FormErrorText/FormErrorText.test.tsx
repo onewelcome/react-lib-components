@@ -48,11 +48,6 @@ describe("FormErrorText", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("should render nothing when error is true but no message or children", () => {
-    const { container } = render(<FormErrorText error />);
-    expect(container).toBeEmptyDOMElement();
-  });
-
   it("should render custom errorMessageProps.children if provided", () => {
     const { getByText } = createFormErrorText(() => ({
       error: true,

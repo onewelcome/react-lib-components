@@ -83,6 +83,8 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               errorMessage={errorMessage}
               errorMessageProps={errorMessageProps}
               errorId={errorId}
+              errorMessageIcon={errorMessageIcon}
+              errorMessageIconPosition={errorMessageIconPosition}
             />
           )}
         </div>

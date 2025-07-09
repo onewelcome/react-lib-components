@@ -101,7 +101,10 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       parentErrorId={parentErrorId}
       errorId={errorId}
       errorMessage={errorMessage}
-      errorMessageProps={errorMessageProps}
+      errorMessageProps={{
+        ...errorMessageProps,
+        className: `${errorMessageProps?.className} ${classes["error-message"]}`
+      }}
       error={error}
       disabled={disabled}
       identifier={identifier}

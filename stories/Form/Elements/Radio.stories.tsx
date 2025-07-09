@@ -160,7 +160,7 @@ RadioInReadOnlyMode.decorators = [
 //these two props had to be extracted from the template below - having them inside of the story caused re-rerendering loop
 const errorProps = {
   children: (
-    <div style={{ color: "var(--error" }}>
+    <div style={{ color: "var(--error)" }}>
       Error text with <a href="/">link</a>
     </div>
   )

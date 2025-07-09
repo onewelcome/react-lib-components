@@ -83,9 +83,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
             {...helperProps}
             ref={helperRef}
             id={identifier}
-            className={`${classes["helper-text"]} ${helperProps?.className ?? ""} ${
-              error ? classes["error"] : ""
-            }`}
+            className={`${classes["helper-text"]} ${helperProps?.className ?? ""}`}
           >
             {helperProps?.children || helperText}
           </FormHelperText>
