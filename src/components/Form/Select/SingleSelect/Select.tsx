@@ -98,8 +98,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
 
-  const isInlineEditingFromContext = useInlineEditing();
-  const showTooltip = isInlineEditingFromContext && tooltipText;
+  const inlineEditingAllowed = useInlineEditing();
+  const showTooltip = inlineEditingAllowed && tooltipText;
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -230,7 +230,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   success && additionalClasses.push(classes.success);
 
   const inlineEditingSelect = [];
-  isInlineEditingFromContext && inlineEditingSelect.push(classes.inlineEditing);
+  inlineEditingAllowed && inlineEditingSelect.push(classes.inlineEditing);
 
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
@@ -278,9 +278,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           <div data-display className={classes["selected"]}>
             {!value && placeholder && <span className={classes["placeholder"]}>{placeholder}</span>}
             {value?.length > 0 && <span data-display-inner>{display}</span>}
-            {isInlineEditingFromContext && required && (
-              <span className={classes["required"]}>*</span>
-            )}
+            {inlineEditingAllowed && required && <span className={classes["required"]}>*</span>}
           </div>
           <div className={classes["status"]}>
             {!showTooltip && (icon || renderChevronIcon())}

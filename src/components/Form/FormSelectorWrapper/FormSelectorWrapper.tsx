@@ -58,7 +58,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
   ref
 ) => {
   const helperRef = helperProps?.ref ?? createRef();
-  const isInlineEditingFromContext = useInlineEditing();
+  const inlineEditingAllowed = useInlineEditing();
 
   return (
     <div
@@ -70,9 +70,9 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     >
       <div {...containerProps}>
         {children}
-        {isInlineEditingFromContext && required && <span className={classes["required"]}>*</span>}
+        {inlineEditingAllowed && required && <span className={classes["required"]}>*</span>}
       </div>
-      {!isInlineEditingFromContext && (errorMessage || helperText || helperProps?.children) && (
+      {!inlineEditingAllowed && (errorMessage || helperText || helperProps?.children) && (
         <FormHelperText
           {...helperProps}
           ref={helperRef}
