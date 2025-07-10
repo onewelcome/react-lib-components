@@ -35,6 +35,10 @@ export type FiltersAction =
       payload: { id: string };
     }
   | {
+      type: "reset";
+      payload: Filter[];
+    }
+  | {
       type: "clear";
     };
 
@@ -58,6 +62,8 @@ export interface DataGridColumnMetadata {
   operators?: string[];
   defaultValues?: string[];
   disableAddNew?: boolean;
+  allowSingleFilterOnly?: boolean;
+  valueSelectType?: ValueSelectType;
 }
 
 export interface PopoverTranslations {
@@ -104,4 +110,9 @@ export interface DateTimeFilter {
   fromDate: string;
   toDate: string;
   type: DateTimeFilterType;
+}
+
+export enum ValueSelectType {
+  single = "single",
+  multi = "multi"
 }

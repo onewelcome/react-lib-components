@@ -10,7 +10,8 @@ const defaultParams: DataGridToolbarProps = {
     { name: "created", headline: "Created", operators: ["before", "after", "between"] },
     { name: "id", headline: "Identifier" },
     { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"], disableAddNew: true },
-    { name: "enabled", headline: "Status" }
+    { name: "enabled", headline: "Status", allowSingleFilterOnly: false },
+    { name: "active", headline: "Active", allowSingleFilterOnly: true }
   ]
 };
 
@@ -249,5 +250,47 @@ describe("DataGridToolbar should render", () => {
 
     expect(queryByText(/created/)).not.toBeInTheDocument();
     expect(queryByText(/yesterday/)).not.toBeInTheDocument();
+  });
+
+  it("should remove element from filter selection after it was selected before", async () => {
+    const { getByText, getByLabelText, queryByText } = createDataGridToolbar();
+
+    const addFilterButton = getByText("Add filter");
+    expect(addFilterButton).toBeDefined();
+
+    await userEvent.click(addFilterButton);
+    const columnSelect = getByLabelText("Filter by");
+    expect(columnSelect).toBeDefined();
+
+    await userEvent.click(columnSelect);
+    await userEvent.click(getByText("Active"));
+    expect(columnSelect).toHaveTextContent("Active");
+    await userEvent.click(getByText("Apply"));
+
+    await userEvent.click(addFilterButton);
+    await userEvent.click(columnSelect);
+
+    expect(queryByText(/Active/)).not.toBeInTheDocument();
+  });
+
+  it("should not remove element from filter selection after it was selected before", async () => {
+    const { getByText, getByLabelText } = createDataGridToolbar();
+
+    const addFilterButton = getByText("Add filter");
+    expect(addFilterButton).toBeDefined();
+
+    await userEvent.click(addFilterButton);
+    const columnSelect = getByLabelText("Filter by");
+    expect(columnSelect).toBeDefined();
+
+    await userEvent.click(columnSelect);
+    await userEvent.click(getByText("Status"));
+    expect(columnSelect).toHaveTextContent("Status");
+    await userEvent.click(getByText("Apply"));
+
+    await userEvent.click(addFilterButton);
+    await userEvent.click(columnSelect);
+    await userEvent.click(getByText("Status"));
+    expect(columnSelect).toHaveTextContent("Status");
   });
 });
