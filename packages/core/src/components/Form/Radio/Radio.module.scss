@@ -1,0 +1,191 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "src/functions" as *;
+
+.radio-wrapper {
+  position: relative;
+
+  + .radio-wrapper {
+    margin-top: 0.75rem;
+  }
+}
+
+.error {
+  color: var(--error);
+}
+
+.helper-text {
+  margin-top: 0.25rem;
+  margin-left: 1.75rem;
+}
+
+.error-message {
+  margin-top: 1.25rem;
+  display: flex;
+}
+
+.error-icon {
+  margin-right: 0.5rem;
+  font-size: var(--font-size-big);
+}
+
+.radio-container {
+  display: flex;
+
+  label {
+    display: inline-block;
+    margin-left: relativeToBaseFontSize(0.5);
+    user-select: none;
+    font-size: var(--font-size-form-label);
+    font-family: var(--font-family);
+    margin-top: 0.15rem;
+
+    .disabled & {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.native-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  margin: 0;
+  width: var(--font-size-big);
+  height: var(--font-size-big);
+  z-index: 2;
+
+  & + span[data-icon="true"]:before {
+    display: block;
+    width: var(--font-size-big);
+    height: var(--font-size-big);
+  }
+
+  &:checked + * {
+    color: var(--color-primary);
+  }
+
+  &:checked + *.disabled {
+    color: var(--disabled);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    + * {
+      border-radius: 100%;
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
+    }
+  }
+
+  &.error + * {
+    border-radius: 100%;
+  }
+
+  &.error:hover + .radio::before {
+    outline-color: var(--radio-hover-background-color);
+  }
+
+  &.error:active + .radio::before {
+    outline-color: var(--radio-pressed-background-color);
+  }
+
+  &:hover + .input.circle:not(.disabled) {
+    background-color: var(--radio-hover-background-color);
+  }
+
+  &:active + .input.circle:not(.disabled) {
+    background-color: var(--radio-pressed-background-color);
+  }
+
+  &:hover + .input.radio:not(.disabled) {
+    background-color: var(--radio-hover-background-color);
+    color: var(--radio-hover-color);
+  }
+
+  &:active + .input.radio:not(.disabled) {
+    color: var(--radio-pressed-color);
+    background-color: var(--radio-pressed-background-color);
+  }
+}
+
+.input {
+  font-size: var(--font-size-big);
+  width: var(--font-size-big);
+  height: var(--font-size-big);
+  z-index: 1;
+  border-radius: 100%;
+
+  &:active {
+    border-radius: 100%;
+  }
+
+  .disabled & {
+    color: var(--disabled);
+  }
+}
+
+.disabled {
+  color: var(--disabled);
+  pointer-events: none;
+}
+
+[data-readonlyview="true"] .radio-wrapper {
+  color: var(--read-only-text-color);
+
+  & span.input {
+    color: var(--read-only-text-color);
+    cursor: not-allowed;
+
+    &:before {
+      outline: 1px solid var(--read-only-border-color);
+      outline-offset: -1px;
+      border-radius: 50%;
+    }
+  }
+
+  label {
+    user-select: text;
+  }
+}
+
+.radio-container input[type="radio"] {
+  &[data-readonlyview="true"] {
+    & ~ span.input {
+      color: var(--read-only-text-color);
+      cursor: not-allowed;
+
+      &:before {
+        outline: 1px solid var(--read-only-border-color);
+        outline-offset: -1px;
+        border-radius: 50%;
+      }
+    }
+
+    & ~ label {
+      user-select: text;
+      pointer-events: none;
+    }
+
+    & :focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as FormHelperTextStories from "./FormHelperText.stories.tsx";
+
+<Meta of={FormHelperTextStories} />
+<Title />
+<Subtitle />
+
+The FormHelperText component is mostly used within other components of the library. All of the different `wrapper`s make use of it.
+It is also highly recommended to **not** use this component, unless you need high levels of customization. The `InputWrapper`, `SelectWrapper`, etc. all have proper accessibility features
+that are linked to their helper texts (such as `aria-describedby`), which you will have to do by yourself should you decide to use `FormHelperText` and other form elements separately.
+
+In edge cases, where you will have to create your own structure, please study the implementation of the different `wrapper`s that we've created to get proper accessibility support.
+
+The `FormHelperText` component is not complicated, it only accepts `children` and an `error` prop, which is a boolean, that gives the `FormHelperText` a red error color instead of the default.
+
+# Examples
+
+```jsx
+<FormHelperText error={false}>content</FormHelperText>
+```
+
+<Canvas of={FormHelperTextStories.FormHelperText} />
+
+# Props
+
+<ArgTypes />

@@ -1,0 +1,163 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "src/functions" as *;
+
+.pagination-wrapper {
+  font-family: var(--font-family);
+  font-size: var(--font-size-data-grid);
+  line-height: var(--data-grid-line-height);
+  color: var(--greyed-out);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .left {
+    display: flex;
+  }
+
+  .form-element {
+    height: relativeToBaseFontSize(2.5);
+
+    .search-input-wrapper {
+      width: 2.75rem;
+    }
+
+    button {
+      min-height: relativeToBaseFontSize(2.5);
+    }
+  }
+
+  .total {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      color: var(--color-blue-grey500);
+    }
+  }
+
+  .pagination {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+
+    .previous,
+    .next {
+      display: flex;
+      align-items: center;
+
+      button span:before {
+        font-size: var(--font-size-sub);
+      }
+    }
+  }
+
+  .per-page {
+    display: none;
+    align-items: center;
+
+    label {
+      font-size: var(--font-size-data-grid);
+      line-height: var(--data-grid-line-height);
+      font-weight: 500;
+      color: var(--color-blue-grey900);
+    }
+
+    + .total {
+      padding-left: 0.9375rem;
+      border-left: 1px solid var(--color-blue-grey100);
+    }
+  }
+
+  .page {
+    display: flex;
+    align-items: center;
+    flex-basis: min-content;
+    padding-right: 1rem;
+
+    &-total {
+      display: inline-block;
+      margin-left: 0.5rem;
+      white-space: nowrap;
+      font-weight: 500;
+      color: var(--color-blue-grey900);
+    }
+
+    + .previous {
+      padding-left: 0.9375rem;
+      border-left: 1px solid var(--color-blue-grey100);
+    }
+  }
+
+  .page-size-select {
+    margin: 0 0.25rem;
+
+    button {
+      min-width: relativeToBaseFontSize(3.75);
+      padding: 0;
+
+      div[data-display] {
+        left: 0.5rem;
+      }
+
+      div:not([data-display]) {
+        right: 0.5rem;
+      }
+    }
+  }
+}
+
+.current-page-select {
+  button {
+    min-width: relativeToBaseFontSize(3.75);
+    padding: 0;
+
+    div[data-display] {
+      left: 0.5rem;
+    }
+
+    div:not([data-display]) {
+      right: 0.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 30em) {
+  .pagination-wrapper {
+    flex-direction: row;
+
+    .total {
+      justify-content: flex-start;
+    }
+
+    .pagination {
+      margin-top: 0;
+      justify-content: flex-end;
+    }
+  }
+}
+
+@media screen and (min-width: 48em) {
+  .pagination-wrapper .per-page {
+    display: flex;
+    margin-right: 1rem;
+  }
+}

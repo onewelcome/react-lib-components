@@ -1,0 +1,38 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as SpinnerStories from "./Spinner.stories.tsx";
+
+<Meta of={SpinnerStories} />
+<Title />
+<Subtitle />
+
+The `Spinner` component can be used to show the user that he has to wait until something gets done.
+
+# Examples
+
+Spinner with default size and thickness:
+
+```jsx
+<Spinner />
+```
+
+<Canvas of={SpinnerStories.SpinnerDefault} />
+
+Spinner with custom size:
+
+```jsx
+<Spinner size={200} />
+```
+
+<Canvas of={SpinnerStories.SpinnerBig} />
+
+Spinner with custom size and thickness:
+
+```jsx
+<Spinner size={200} thickness={30} />
+```
+
+<Canvas of={SpinnerStories.SpinnerBigAndThick} />
+
+# Props
+
+<ArgTypes />{" "}

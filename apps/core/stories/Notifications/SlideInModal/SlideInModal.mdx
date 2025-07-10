@@ -1,0 +1,24 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as SlideInModalStories from "./SlideInModal.stories.tsx";
+
+<Meta of={SlideInModalStories} />
+
+<div style={{color: "red", fontSize: "2em", padding: "1rem", border: "2px solid red", borderRadius: "5px", backgroundColor: "pink", width: "fit-content"}}>
+  
+**This component has been deprecated. Please use [SideSheet](?path=/docs/components-utils-sidesheet--docs) component instead.**
+
+</div>
+<br />
+
+<Title />
+<Subtitle />
+
+SlideInModal is an extension of the basic `Modal` component. The only difference between these two is a purely visual one: `SlideInModal` slides into the right side of viewport, and has no visible backdrop.
+
+# Examples
+
+<Canvas of={SlideInModalStories.SlideInModal} />
+
+# Props
+
+<ArgTypes />

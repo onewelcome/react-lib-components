@@ -1,0 +1,162 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as MultiSelectStories from "./MultiSelect.stories.tsx";
+
+<Meta of={MultiSelectStories} />
+<Title />
+<Subtitle />
+
+The `MultiSelect` component does **not** use the native HTML `select` element under the hood. Because of the design, we had to opt for a different variant. However, it still works as a `select` is intended to work.
+
+This also means that not all native `select` HTML attributes are available.
+
+Other than that, the `MultiSelect` component works as you would expect. It requires you to specify options by providing `MultiOption` components that accept a `value` prop. This `value` prop will be passed to the parent `MultiSelect` component. Whenever you click on an `MultiOption`, the `onChange` event will be fired on the parent `MultiSelect` component.
+
+We automatically display a search ' Input ' field when you have a `MultiSelect` component. You don't need to do anything about this. In order to change the placeholder, you can use the `searchPlaceholder` prop on the `MultiSelect` component.
+To turn off search pass `search` prop object with `enabled` property set to `false`.
+
+# Features
+
+## Search feature
+
+Search feature is enabled by default in `MultiSelect` component.
+
+See [`Select` components](?path=/docs/components-inputs-raw-select--docs#search-feature) for more information.
+
+## Add new feature
+
+See [`Select` components](?path=/docs/components-inputs-raw-select--docs#add-new-feature) for more information.
+
+## Preselected (unremovable) options
+
+Selected options are shown as [`Tag` components](?path=/docs/components-feedback-tag--docs). To deselect option just click on remove button inside tag with the value you want to deselect.
+The `fixed` prop of `MultiOption` among with preselecting that option let you show selected option that can not be deselected. This can be used to show user that some options are preselected for chosen flow.
+
+## Keyboard navigation
+
+The `MultiSelect` component supports keyboard navigation and was prepared to speed up selecting of options.
+
+- To enter dropdown list press `Enter` or `Space`;
+- To navigate over list use `Arrow Up`, `Arrow Down`,`Home` and `End`;
+- To search (if enabled) just type your query when dropdown list is expanded;
+- To select press `Enter`;
+- To close press `Escape`;
+- To remove selected options use `Tab` and `Enter`;
+
+# Examples
+
+An example of how a `MultiSelect` component can be built using `useMultiSelect`:
+
+```jsx
+const ExampleComponent = () => {
+  const [allOptions, setAllOptions] = useState<string[]>([
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4"
+  ]);
+  const [pickedOptions, setPickedOptions] = useState<string[]>(["Option 1"]);
+
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <MultiSelect
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      search={{ enabled: false }}
+    >
+      {optionElements}
+    </MultiSelect>
+  );
+};
+```
+
+<Canvas of={MultiSelectStories.MultiSelectDefault} />
+
+A code example of `MultiSelectComponent` with the add new button and search enabled:
+
+```jsx
+const ExampleComponent = () => {
+  const initialOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState<string[]>(initialOptions);
+
+  const { handleOptionChange, onAddNew, optionElements } = useMultiSelect({
+    initialOptions,
+    allOptions,
+    setAllOptions,
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <MultiSelect
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      addNew={{ label: "Create new", onAddNew, btnProps: { title: "Add new select option" } }}
+      search={{
+        enabled: true,
+        searchPlaceholder: "Search or add new option (Enter)"
+      }}
+    >
+      {optionElements}
+    </MultiSelect>
+  );
+};
+```
+
+<Canvas of={MultiSelectStories.MultiSelectWithAddNewAndSearch} />
+
+A code example of `MultiSelectComponent` used as an editable list
+
+```jsx
+const ExampleComponent = () => {
+  const items = ["Item 1", "Item 2", "Item 3"];
+  const [pickedOptions, setPickedOptions] = useState<string[]>(items);
+
+  const { handleOptionChange, onAddNew } = useMultiSelect({
+    pickedOptions,
+    setPickedOptions
+  });
+
+  return (
+    <MultiSelect
+      value={pickedOptions}
+      onChange={handleOptionChange}
+      addNew={{
+        label: "Create new",
+        onAddNew,
+        btnProps: { title: "Add new list item" }
+      }}
+      search={{
+        enabled: true,
+        searchPlaceholder: "Add new list item (Enter)"
+      }}
+    >
+      {pickedOptions.map(option => (
+        <MultiOption key={option} value={option}>
+          {option}
+        </MultiOption>
+      ))}
+    </MultiSelect>
+  );
+}
+```
+
+<Canvas of={MultiSelectStories.MultiSelectAsEditableList} />
+
+# Notes
+
+## `onChange` property of `MultiSelectComponent`
+
+if we click an `MultiOption` we receive the `event` object as a parameter in our function, which has `target` prop, which has a `options` prop. This `options` is an array contains all selected options from which you can filter out all selected values. You can see this if you go to [the Canvas tab](/story/components-feedback-tag--enabled-tag) and then click the `Actions` tab next to `Controls`. If you do not see this, press the `a` key on your keyboard. Then while on the `Actions` tab, select an option from the `Select` component in the `Canvas` and you'll see that the `onChange` function was fired. The very first object (index `0`) is the `event` object we send you. The second object we give you is the `React instance` of the `Option` component.
+
+This option should be preferrably handled automatically using handler function returned by `useMultiSelect`.
+
+# Props
+
+<ArgTypes />

@@ -1,0 +1,21 @@
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as TilesStories from "./Tiles.stories.tsx";
+
+<Meta of={TilesStories} />
+<Title />
+<Subtitle />
+
+The `Tiles` component has been created to display a single or multiple `Tile` component. It can, and should, be utilized as a wrapper to the `Tile` component to provide a proper pre-defined grid structure.
+The maximum number of `Tile` components next to each other is three on the desktop, which scales down automatically when the window resizes to a smaller viewport.
+
+At the same time, it will allow you to enable and disable a `loading` state, showing 3 `Tile` components with Skeleton Loading.
+
+For documentation regarding individual `Tile` components, [see this page](?path=/docs/stories-ui-tiles-tile--tile).
+
+# Examples
+
+<Canvas of={TilesStories.Tiles} />
+
+# Props
+
+<ArgTypes />

@@ -1,0 +1,80 @@
+import { Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as useRepeaterStories from "./useRepeater.stories.tsx";
+
+<Meta of={useRepeaterStories} />
+<Title />
+<Subtitle />
+
+The `useRepeater` hook is written to help duplicate one or a set of component(s). It can be helpful if a user can enter one or multiple entries of the same set of fields. If you plan to use this within a `form`, then first check if the Form Management Library you're using (`formik` or `React Final Forms`) has its own implementation of a repeater!
+
+A practical example of this would be `Tags`, for example. Keywords that could be searched by a user to find the thing they're looking for.
+
+The `useRepeater` hook only requires you to pass the React Component you want to repeat. This has to be a react component and has to be passed in its component form **not** as a reference (meaning `<Componentname />` and not `Componentname`). An advantage of this, is that you can immediately pass props to that component.
+
+What `useRepeater` returns are three values:
+
+- `repeat` function
+- `remove` function
+- `repeatedComponents` array of `JSX.Element`
+
+## `repeat()`
+
+The repeat function does what its name suggests, create another instance of your component. You can, for example, create your own `Button` component, which has an `onClick` listener that executes `repeat()` whenever it's clicked on. This will add another
+instance of the component you want to repeat inside the `repeatedComponents` array.
+
+## `remove(component: JSX.Element)`
+
+The remove function also does what its name suggests, remove a component from the `repeatedComponents` array. It needs its first parameter to be a reference to the component you want to remove. If you map over the components inside the `repeatedComponents` array,
+you can create a delete button and pass the reference to that component inside the `remove()` function.
+
+## `repeatedComponents`
+
+As mentioned before the `repeatedComponents` variable is an array which contains all of the repeated components which you can loop through, by means of your choice.
+
+# Examples
+
+<Canvas of={useRepeaterStories.Repeater} />
+
+Example `ComponentToRepeat`:
+
+```JSX
+
+export interface RepeatedComponentProps {
+  onChange?: (state: { [key: string]: unknown }) => void;
+  identifier?: string;
+}
+
+const ComponentToRepeat = ({ onChange, identifier }: RepeatedComponentProps) => {
+  const [inputState, setInputState] = useState({
+    errorMessage: 'random error',
+    error: false,
+    value: '',
+    identifier: identifier,
+  });
+
+  useEffect(() => {
+    onChange(inputState);
+  }, [inputState]);
+
+  return (
+    <InputWrapper
+      helperText="Enter a tag"
+      name={`input_${inputState.identifier}`}
+      errorMessage={inputState.errorMessage}
+      type="text"
+      error={inputState.error}
+      value={inputState.value}
+      label="Enter tag name"
+      onChange={(event) => {
+        setInputState((prevState) => ({ ...prevState, value: event.target.value }));
+      }}
+    />
+  );
+};
+```
+
+As you can see in the `ComponentToRepeat` example above, we simply define an `onChange` function that we execute whenever the `inputState` changes. We also pass an `identifier` to the component so we can give the `InputWrapper` inside a unique `name` attribute (which will also be added as an `id`).
+
+If you see the code example above the code snippet (click `Show code` in the lower right corner), you see that the `return` statement contains a loop in which we `map` over the `repeatedComponents` array that we get back from the `useRepeater` hook. Then, in order to add a unique `identifier` prop, we simply use `React.cloneElement` to clone the `component` we loop over and add an `identifier` prop with a unique value that we generate with the `generateID` function.
+
+Now, whenever an `InputWrapper` component fires its `onChange` event, we get back that `inputState` that contains this `UID` and it's corresponding state. Make sure that the first element inside of your `map` function has a unique `key` property! If you loop over the `repeatedComponents` array, then each component has a unique `key` prop that you can use.

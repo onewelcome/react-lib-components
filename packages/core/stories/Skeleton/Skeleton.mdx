@@ -1,0 +1,31 @@
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as SkeletonStories from "./Skeleton.stories.tsx";
+
+<Meta of={SkeletonStories} />
+<Title />
+<Subtitle />
+
+The `Skeleton` component is used to render loading animation.
+
+It can be used to mock text, circular objects, or any rectangle by passing the `variant` property.
+
+The `height` and `width` properties are optional. The width is by default set to 100%.
+If the `height` property is not defined, it takes a `height` of the current font size.
+
+# Examples
+
+```jsx
+<Skeleton />
+<Skeleton variant="rectangle" height={50} width={100}/>
+<Typography variant="h1">
+  <Skeleton />
+</Typography>
+```
+
+<Canvas of={SkeletonStories.Skeleton} />
+<Canvas of={SkeletonStories.RectangleSkeleton} />
+<Canvas of={SkeletonStories.TypographySkeleton} />
+
+# Props
+
+<ArgTypes />

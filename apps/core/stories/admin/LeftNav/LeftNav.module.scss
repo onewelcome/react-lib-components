@@ -1,0 +1,82 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License; Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing; software
+ *    distributed under the License is distributed on an "AS IS" BASIS;
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND; either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "../../../src/mixins.module.scss";
+
+.top-nav {
+  position: sticky;
+  z-index: 1;
+  top: 1rem;
+
+  display: flex;
+  height: 3rem;
+  align-items: center;
+  padding-inline: 1.25rem;
+
+  background-color: white;
+  box-shadow: 0px 1px 5px 0px #01053214;
+
+  @include mixins.breakpoint("max", "medium") {
+    padding-inline: 0.5rem;
+  }
+
+  .menu-icon {
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+    display: none;
+
+    @include mixins.breakpoint("max", "medium") {
+      display: block;
+    }
+  }
+}
+
+.content {
+  margin-left: 15rem;
+
+  @include mixins.breakpoint("max", "medium") {
+    margin-left: 0;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    background-color: #f7f7f9;
+    box-shadow: 0px 1px 5px 0px #01053214;
+  }
+}
+
+nav.storybook-preview-static-left-nav {
+  height: 150px;
+
+  ul {
+    position: relative;
+    display: block;
+    height: fit-content;
+  }
+}
+
+:global(.storybook-extended-preview-static-left-nav) {
+  nav > ul {
+    top: 4rem;
+    position: absolute;
+    height: calc(100% - 6rem);
+  }
+}

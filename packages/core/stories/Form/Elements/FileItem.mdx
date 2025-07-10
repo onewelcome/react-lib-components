@@ -1,0 +1,39 @@
+import { ArgTypes, Meta, Subtitle, Title } from "@storybook/blocks";
+import FileItemStories from "./FileItem.stories";
+
+<Meta of={FileItemStories} />
+<Title />
+<Subtitle />
+
+File Item component was created to encapsulate the styles reserved for file items, in a file list It
+receives the following props:
+
+<ul>
+  <li>
+    <strong>name</strong> -> File Name, as is saved or selected from a file selector
+  </li>
+  <li>
+    <strong>status</strong> -> The uploading status of the file
+  </li>
+  <li>
+    <strong>progress</strong> -> The progress of the uploading file
+  </li>
+  <li>
+    <strong>error</strong> -> A text containing the error a file can contain
+  </li>
+  <li>
+    <strong>onRequestFileAction</strong> -> A callback to be used when a user clicks on an action
+    button, at the right of the file item component The callback will receive the following params:
+    <ol>
+      <li>
+        action -> represents a string with the following possible values: `delete`, `remove`,
+        `abort`, `retry`
+      </li>
+      <li>name -> file name</li>
+    </ol>
+  </li>
+</ul>
+
+# Props
+
+<ArgTypes />

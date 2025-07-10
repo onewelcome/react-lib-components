@@ -1,0 +1,379 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "./readyclasses.module.scss";
+@use "./variables.scss";
+@use "./functions" as *;
+
+@mixin button($variant: "text", $type: "default") {
+  $disabledSelector: if($type == "link", ".disabled", ":disabled");
+  font-weight: 500;
+
+  @if $variant == "text" {
+    border-color: transparent;
+    background-color: transparent;
+  } @else if $variant == "fill" {
+    &:not(#{$disabledSelector}) {
+      color: var(--button-fill-text-color);
+      @include buttonStyles(
+        var(--button-primary-default-color),
+        var(--button-primary-hover-color),
+        var(--button-primary-focused-color),
+        var(--button-primary-pressed-color),
+        $variant,
+        $type
+      );
+    }
+  } @else if $variant == "outline" {
+    background-color: var(--white);
+  }
+
+  &.primary:not(#{$disabledSelector}) {
+    @include buttonStyles(
+      var(--button-primary-default-color),
+      var(--button-primary-hover-color),
+      var(--button-primary-focused-color),
+      var(--button-primary-pressed-color),
+      $variant,
+      $type
+    );
+  }
+  &.success:not(#{$disabledSelector}) {
+    @include buttonStyles(
+      var(--button-success-default-color),
+      var(--button-success-hover-color),
+      var(--button-success-focused-color),
+      var(--button-success-pressed-color),
+      $variant,
+      $type
+    );
+  }
+  &.danger:not(#{$disabledSelector}) {
+    @include buttonStyles(
+      var(--button-danger-default-color),
+      var(--button-danger-hover-color),
+      var(--button-danger-focused-color),
+      var(--button-danger-pressed-color),
+      $variant,
+      $type
+    );
+  }
+  &.default:not(#{$disabledSelector}) {
+    @include buttonStyles(
+      var(--button-default-color),
+      var(--button-default-hover-color),
+      var(--button-default-focused-color),
+      var(--button-default-pressed-color),
+      $variant,
+      $type
+    );
+  }
+  &.warning:not(#{$disabledSelector}) {
+    @include buttonStyles(
+      var(--button-warning-default-color),
+      var(--button-warning-hover-color),
+      var(--button-warning-focused-color),
+      var(--button-warning-pressed-color),
+      $variant,
+      $type
+    );
+  }
+}
+
+@mixin buttonStyles(
+  $defaultColor: "transparent",
+  $hoverColor: "transparent",
+  $focusedColor: "transparent",
+  $pressedColor: "transparent",
+  $variant: "text",
+  $type: "default"
+) {
+  @if $variant == "text" {
+    color: $defaultColor;
+  } @else if $variant == "outline" {
+    border-color: $defaultColor;
+    color: $defaultColor;
+  } @else if $variant == "fill" {
+    background-color: $defaultColor;
+    border-color: $defaultColor;
+  }
+
+  &:hover:not(.disabled) {
+    @if $variant == "fill" {
+      background-color: $hoverColor;
+      border-color: $hoverColor;
+    } @else {
+      color: $hoverColor;
+    }
+
+    @if $variant == "text" or $variant == "outline" {
+      background-color: var(--color-black10);
+    }
+
+    @if $variant == "outline" or $variant == "fill" {
+      border-color: $hoverColor;
+    }
+  }
+
+  &:focus:not(.disabled),
+  &:focus-visible:not(.disabled) {
+    @if $variant == "fill" {
+      background-color: $focusedColor;
+    } @else {
+      color: $focusedColor;
+    }
+
+    @if $variant == "outline" or $variant == "fill" {
+      border-color: $focusedColor;
+    }
+
+    position: relative;
+    outline: relativeToBaseFontSize(0.125) solid var(--color-focus);
+    outline-offset: relativeToBaseFontSize(0.125);
+    z-index: 2;
+  }
+
+  &:active:not(.disabled) {
+    @if $variant == "fill" {
+      background-color: $pressedColor;
+      border-color: $pressedColor;
+    } @else {
+      color: $pressedColor;
+    }
+
+    @if $variant == "outline" or $variant == "fill" {
+      border-color: $pressedColor;
+    }
+
+    @if $variant == "text" or $variant == "outline" {
+      background-color: var(--color-black20);
+    }
+  }
+}
+
+@mixin buttonBase($type: "default") {
+  $transition-property: color, background-color, border-color;
+  $disabledSelector: if($type == "link", ".disabled", ":disabled");
+
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-radius: var(--button-border-radius);
+  font-size: var(--button-font-size);
+  line-height: 1;
+  margin: 0;
+  padding: relativeToBaseFontSize(0.5) relativeToBaseFontSize(0.75);
+  min-height: relativeToBaseFontSize(2.5);
+  cursor: pointer;
+
+  font-family: var(--font-family);
+
+  @include transition($transition-property, 0.2s, ease-in-out);
+
+  &#{$disabledSelector} {
+    color: var(--greyed-out);
+    cursor: not-allowed;
+    background-color: var(--disabled);
+    border-color: var(--disabled);
+  }
+}
+
+@mixin outline(
+  $color: var(--light-border-color),
+  $style: var(--input-border-style),
+  $width: var(--input-border-width),
+  $borderRadius: var(--input-border-radius),
+  $backgroundColor: ""
+) {
+  [data-readonlyview="true"] {
+    .outline {
+      border-color: var(--read-only-border-color);
+    }
+  }
+
+  .outline {
+    pointer-events: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    inset: 0;
+    border-color: $color;
+    border-style: $style;
+    border-width: $width;
+    border-radius: $borderRadius;
+    @if ($backgroundColor != "") {
+      background-color: $backgroundColor;
+    }
+    @include transition(all, 0.2s, ease-in-out);
+  }
+}
+
+@mixin outlineStates {
+  &:hover .outline {
+    border-color: var(--default);
+    background-color: var(--input-hover-background-color);
+  }
+
+  .outline.disabled {
+    border-color: var(--disabled);
+    background-color: var(--input-disabled-background-color);
+  }
+
+  .outline.error {
+    border-color: var(--error);
+  }
+
+  .outline.focus {
+    border-width: var(--input-border-width-focus);
+  }
+
+  .outline.focus:not(.error) {
+    border-color: var(--color-focus);
+  }
+}
+
+@mixin browserOutlineDisabled {
+  &:focus:not(:disabled) {
+    outline: none;
+  }
+}
+
+@mixin skeletonLoading() {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--skeleton-background-color);
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(var(--skeleton-animation-color-rgb), 0) 0,
+      rgba(var(--skeleton-animation-color-rgb), 0.2) 20%,
+      rgba(var(--skeleton-animation-color-rgb), 0.5) 60%,
+      rgba(var(--skeleton-animation-color-rgb), 0)
+    );
+    content: "";
+
+    animation: shimmer 2s infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+@mixin transition($property, $duration, $function) {
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: $function;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.1ms;
+  }
+}
+
+@mixin focusVisibleOutline(
+  $color: var(--color-focus),
+  $outlineWidth: relativeToBaseFontSize(0.125),
+  $outlineOffset: relativeToBaseFontSize(0.125),
+  $selectors: "&:focus-visible"
+) {
+  @if $selectors {
+    #{$selectors} {
+      outline: $outlineWidth solid $color;
+      outline-offset: $outlineOffset;
+      border-radius: var(--focus-border-radius);
+    }
+  } @else {
+    outline: $outlineWidth solid $color;
+    outline-offset: $outlineOffset;
+    border-radius: var(--focus-border-radius);
+  }
+}
+
+@mixin alertBorder($border-color) {
+  border-style: none none none solid;
+  border-width: var(--alert-border-width);
+  border-color: $border-color;
+  padding-left: calc(relativeToBaseFontSize(1) - var(--alert-border-width));
+}
+
+@mixin searchInputPointer($inputType, $selector) {
+  @if $selector {
+    #{$selector} {
+      @if $inputType == "search" {
+        input[type="search"]::-webkit-search-cancel-button {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@mixin fontProperties($fontFamily, $fontSize, $fontWeight, $lineHeight) {
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  font-style: normal;
+  font-variant: normal;
+  line-height: $lineHeight;
+  font-weight: $fontWeight;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--default);
+  margin: 0 0 relativeToBaseFontSize(1) 0;
+}
+
+@mixin breakpoint($minOrMax, $breakpoint) {
+  // If the key exists in the map
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    @if ($minOrMax == "min") {
+      @media screen and (min-width: #{inspect(map-get(variables.$breakpoints, $breakpoint))}) {
+        @content;
+      }
+    } @else if ($minOrMax == "max") {
+      @media screen and (max-width: #{inspect(map-get(variables.$breakpoints, $breakpoint))}) {
+        @content;
+      }
+    } @else {
+      @warn "First argument should 'min' or 'max'";
+    }
+  }
+
+  // If the key doesn't exist in the map
+  @else {
+    @if ($minOrMax == "min") {
+      @media screen and (min-width: $breakpoint) {
+        @content;
+      }
+    } @else if ($minOrMax == "max") {
+      @media screen and (max-width: $breakpoint) {
+        @content;
+      }
+    } @else {
+      @warn "First argument should 'min' or 'max'";
+    }
+  }
+}

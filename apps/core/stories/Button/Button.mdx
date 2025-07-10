@@ -1,0 +1,38 @@
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as ButtonStories from "./Button.stories.tsx";
+
+<Meta of={ButtonStories} />
+<Title />
+<Subtitle />
+
+The `Button` component is used to display a button with a label and an optional icon at the start or end.
+
+`Button` and `IconButton` are used to perform certain actions. These actions should **not** be a route change or a `link` to somewhere. It should trigger a change on the page itself such as opening a modal or submitting a `Form`.
+
+# Examples
+
+In the below code snippet you'll see how you can create the buttons displayed down below.
+
+```jsx
+<Button>
+  This is a button
+</Button>
+
+<Button variant="outline">
+  This is a button
+</Button>
+
+<Button variant="text">
+  This is a button
+</Button>
+
+<Button variant="filled" startIcon={<Icon icon={Icons.Calendar} />}>
+  This is a button
+</Button>
+```
+
+<Canvas of={ButtonStories.SingleButton} />
+
+# Props
+
+<ArgTypes />

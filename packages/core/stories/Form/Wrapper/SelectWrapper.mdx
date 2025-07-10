@@ -1,0 +1,54 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as SelectWrapperStories from "./SelectWrapper.stories.tsx";
+
+<Meta of={SelectWrapperStories} />
+<Title />
+<Subtitle />
+
+The `SelectWrapper` component has been created to make your life easier as well as make sure that accessibility is taken care of in a proper way. It requires you to pass at least 3 attributes. It needs `children` (which have to be `Option` components), a `name` and a `value` prop, which should be linked to a `useState` variable.
+
+You can use the `onChange` event to update the linked `useState` variable whenever the user selects an option.
+
+## It takes care of proper accessibility
+
+The `SelectWrapper` accepts a `name`, `helperText` and `errorMessage` prop. Based on the `error` prop (set to true or false) it will make sure to set its `aria-describedby` value to the `id` of the `errorMessage` or `helperText`.
+
+The `value` prop should be linked to a `useState` variable that gets updated using the `onChange` event.
+
+# Features
+
+See [`Select` components](?path=/docs/components-inputs-raw-select--docs#features) for more information.
+
+# Examples
+
+A code example of how you can configure a `SelectWrapper` within a React component:
+
+```jsx
+const ExampleComponent = () => {
+  const [selectValue, setSelectValue] = useState("option1");
+
+  return (
+    <SelectWrapper
+      label="Example select wrapper"
+      name="Example select"
+      helperText="Example helper text"
+      error={false}
+      errorMessage="This is an error message"
+      required={true}
+      value={selectValue}
+      onChange={event => setSelectValue(event.target.value)}
+    >
+      <Option value="option1">Option 1</Option>
+      <Option value="option2">Option 2</Option>
+      <Option value="option3">Option 3</Option>
+      <Option value="option4">Option 4</Option>
+    </SelectWrapper>
+  );
+};
+```
+
+<Canvas of={SelectWrapperStories.SelectWrapper} />
+
+# Props
+
+<ArgTypes />

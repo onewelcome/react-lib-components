@@ -1,0 +1,215 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "../../mixins.module.scss";
+
+@mixin triangle($color: #000, $size: 0.5rem, $direction, $position: "center") {
+  $directions: top, bottom, left, right;
+  @if not index($directions, $direction) {
+    @error "Invalid value `#{$direction}` for `$direction`. Must be one of: `top`, `bottom`, `left`, `right`.";
+  }
+
+  $positions: center, start, end;
+  @if not index($positions, $position) {
+    @error "Invalid value `#{$position}` for `$position`. Must be one of: `center`, `start`, `end`.";
+  }
+
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: calc($size / 2);
+  border-color: transparent;
+  border-#{$direction}-color: $color;
+  position: absolute;
+
+  @if $direction == "top" or $direction == "bottom" {
+    @if $position == "end" {
+      left: 1rem;
+      right: initial;
+    } @else if $position == "start" {
+      right: 0.75rem;
+      left: initial;
+    } @else {
+      // position == "center"
+      left: 50%;
+      right: initial;
+      transform: translateX(-50%);
+    }
+  } @else {
+    // direction == "left" or direction == "right"
+    @if $position == "end" {
+      top: 0.875rem;
+      bottom: initial;
+    } @else if $position == "start" {
+      bottom: 0.9375rem;
+      top: initial;
+    } @else {
+      // position == "center"
+      top: 50%;
+      bottom: initial;
+      transform: translateY(-50%);
+    }
+  }
+
+  @if $direction == "top" {
+    top: 100%;
+    border-bottom-width: 0;
+  } @else if $direction == "bottom" {
+    bottom: 100%;
+    border-top-width: 0;
+  } @else if $direction == "left" {
+    left: 100%;
+    border-right-width: 0;
+  } @else if $direction == "right" {
+    right: 100%;
+    border-left-width: 0;
+  }
+}
+
+@mixin triangleProperties($color) {
+  &.top {
+    &:after {
+      @include triangle($color, 0.5rem, "top", "center");
+    }
+  }
+  &.top-start {
+    &:after {
+      @include triangle($color, 0.5rem, "top", "start");
+    }
+  }
+  &.top-end {
+    &:after {
+      @include triangle($color, 0.5rem, "top", "end");
+    }
+  }
+  &.bottom {
+    &:after {
+      @include triangle($color, 0.5rem, "bottom", "center");
+    }
+  }
+  &.bottom-start {
+    &:after {
+      @include triangle($color, 0.5rem, "bottom", "start");
+    }
+  }
+  &.bottom-end {
+    &:after {
+      @include triangle($color, 0.5rem, "bottom", "end");
+    }
+  }
+  &.left {
+    &:after {
+      @include triangle($color, 0.5rem, "left", "center");
+    }
+  }
+  &.left-start {
+    &:after {
+      @include triangle($color, 0.5rem, "left", "start");
+    }
+  }
+  &.left-end {
+    &:after {
+      @include triangle($color, 0.5rem, "left", "end");
+    }
+  }
+  &.right {
+    &:after {
+      @include triangle($color, 0.5rem, "right", "center");
+    }
+  }
+  &.right-start {
+    &:after {
+      @include triangle($color, 0.5rem, "right", "start");
+    }
+  }
+  &.right-end {
+    &:after {
+      @include triangle($color, 0.5rem, "right", "end");
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.tooltip-wrapper {
+  .icon {
+    margin-left: 0.5rem;
+    color: var(--greyed-out);
+    @include mixins.transition(all, 0.2s, ease-in-out);
+
+    &:hover {
+      color: var(--default);
+    }
+  }
+}
+
+.tooltip {
+  $transition-property: opacity, transform;
+
+  position: fixed;
+  font-size: var(--font-size-sub);
+  line-height: 1.33;
+  border-radius: 0.125rem;
+  padding: 0.75rem;
+  color: var(--light);
+  max-width: 20.625rem;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: center center;
+  pointer-events: none;
+  box-shadow: 0 0.0625rem 0.3125rem 0 rgba(1, 5, 50, 0.3);
+  word-break: break-word;
+
+  @include mixins.transition($transition-property, 0.2s, ease-in-out);
+
+  &.black {
+    background-color: var(--tooltip-background-color);
+
+    @include triangleProperties(var(--tooltip-background-color));
+  }
+
+  &.blue {
+    background-color: var(--color-blue-grey500);
+
+    @include triangleProperties(var(--color-blue-grey500));
+  }
+
+  &:after {
+    content: "";
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.label {
+  &:focus-visible {
+    outline: 0.0313rem dashed var(--color-primary);
+  }
+}
+
+.tooltip-title {
+  font-weight: 500;
+  font-size: var(--font-size-form-label);
+  line-height: 1.43;
+  display: block;
+  margin-bottom: 0.25rem;
+}

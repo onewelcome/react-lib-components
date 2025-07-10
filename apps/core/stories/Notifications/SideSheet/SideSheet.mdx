@@ -1,0 +1,20 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as SideSheetStories from "./SideSheet.stories.tsx";
+
+<Meta of={SideSheetStories} />
+<Title />
+<Subtitle />
+
+SideSheet is an extension of the basic `Modal` component. `SideSheet` can be used to display additional information without interrupting user flow. It takes all of the `Modal` component props with the addition of `handleProps` which can be used to configure the `SideSheet` handle button. It consists of:
+
+- `onOpen` - callback that should be called when `SideSheet` opens
+- `onClose` - callback that should be called when `SideSheet` closes
+- `title` - accessible handle button name
+
+# Examples
+
+<Canvas of={SideSheetStories.SideSheet} />
+
+# Props
+
+<ArgTypes />

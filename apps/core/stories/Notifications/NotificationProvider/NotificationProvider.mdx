@@ -1,0 +1,86 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta
+  title="components/Utils/NotificationProvider"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true }
+    }
+  }}
+/>
+
+# NotificationProvider
+
+The `NotificationProvider` is a component that allows its children to access and manipulate a notification system. It makes use of React's context API to provide a `NotificationContext` where notifications can be added or reset.
+
+## Usage
+
+Wrap your main component (typically at the root level of your app) in the `NotificationProvider` to make the notification functionality available throughout your application.
+
+```jsx
+import { NotificationProvider } from "./NotificationProvider";
+
+const App = () => (
+  <NotificationProvider>
+    <MyComponent />
+  </NotificationProvider>
+);
+```
+
+You can now use the `useNotificationContext` hook within any child component to interact with the notification system.
+
+## useNotificationContext
+
+This custom hook provides access to the current notification state and dispatch functions to add or reset notifications. Here's how you can use it:
+
+```jsx
+import { useNotificationContext } from "./NotificationProvider";
+
+const MyComponent = () => {
+  const { addNotification, resetNotifications } = useNotificationContext();
+
+  return (
+    // Your component return goes here...
+  );
+};
+```
+
+## Example
+
+Here's a complete example of using `NotificationProvider` and `useNotificationContext`:
+
+```jsx
+import { NotificationProvider, useNotificationContext } from "./NotificationProvider";
+
+const MyComponent = () => {
+  const { addNotification, resetNotifications } = useNotificationContext();
+
+  const triggerNotification = () => {
+    addNotification({
+      status: 500,
+      title: "Server Error",
+      message: "Something went wrong!"
+    });
+  };
+
+  const triggerReset = () => {
+    resetNotifications();
+  };
+
+  return (
+    <div>
+      <button onClick={triggerNotification}>Trigger Notification</button>
+      <button onClick={triggerReset}>Trigger Reset</button>
+    </div>
+  );
+};
+
+const App = () => (
+  <NotificationProvider>
+    <MyComponent />
+  </NotificationProvider>
+);
+```
+
+In this example, clicking the first button in `MyComponent` will trigger a server error notification. Clicking the second button will reset all notifications.
