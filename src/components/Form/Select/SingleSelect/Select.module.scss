@@ -328,7 +328,6 @@ $listItemHeight: 2.5rem;
   & .select {
     background-color: transparent;
     transition: none;
-    position: relative;
     &:not(.expanded) {
       button:focus:not(.error) {
         border-width: 0;
@@ -342,8 +341,7 @@ $listItemHeight: 2.5rem;
         }
       }
     }
-    &:hover,
-    &:focus-visible {
+    &:hover {
       & button {
         & .status {
           span.chevron-icon {
@@ -360,6 +358,13 @@ $listItemHeight: 2.5rem;
     }
     & button {
       border: 0;
+      &.expanded {
+        div.status {
+          span.chevron-icon {
+            visibility: visible;
+          }
+        }
+      }
       &:focus-visible {
         outline: 0.125rem solid var(--color-focus);
         border-radius: 0.3125rem;
@@ -371,10 +376,6 @@ $listItemHeight: 2.5rem;
       & .status {
         span.chevron-icon {
           visibility: hidden;
-        }
-        & span {
-          position: absolute;
-          right: 0;
         }
       }
     }

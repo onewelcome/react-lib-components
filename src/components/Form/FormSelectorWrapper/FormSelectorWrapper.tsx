@@ -52,7 +52,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     parentErrorId,
     errorId,
     identifier,
-    required = false,
+    required,
     ...rest
   }: Props,
   ref

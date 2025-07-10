@@ -1340,10 +1340,10 @@ const DataGridWithInlineEditingTemplate = args => {
           onClick={() => handleCheckboxChange(id)}
           helperText={helperMessage}
           errorMessage={isError ? "This is dummy Error tooltip example" : ""}
-          readOnlyView={readOnlyView} // This is for readOnly view only
-          error={isError} // This is for Error State only
-          required={required} // This is for Required State only
-          success={isSuccess} // This is for Success State only
+          readOnlyView={readOnlyView} // [optional] :  This is for readOnly view only
+          error={isError} // [optional] : This is for Error State only
+          required={required} // [optional] :  This is for Required State only
+          success={isSuccess} // [optional] :  This is for Success State only
         />
       </InlineEditingProvider>
     );
@@ -1370,11 +1370,11 @@ const DataGridWithInlineEditingTemplate = args => {
           onChange={e => {
             handleSelectChange(id, e.target.value);
           }}
-          readOnlyView={readOnlyView} // This is for readOnly view only
-          error={isError} // This is for Error State only
-          success={isSuccess}
-          required={required} // This is for Required State only
-          tooltipText={tooltipMessage} // Tooltip text for error or info icon hover.
+          readOnlyView={readOnlyView} //[optional] : This is for readOnly view only
+          error={isError} //[optional] : This is for Error State only
+          success={isSuccess} //[optional] : This is for Success State only
+          required={required} //[optional] : This is for Required State only
+          tooltipText={tooltipMessage} // This text is for error|success|info icon Tooltip.
         >
           <Option value="Stock">Stock</Option>
           <Option value="Bond">Bond</Option>
@@ -1407,7 +1407,7 @@ const DataGridWithInlineEditingTemplate = args => {
           success={isSuccess} // This is for Success State only
           required={required} // This is for Required State only
           helperText={helperMessage} // Tooltip text for error or info icon hover
-          errorMessage={isError ? `This is dummy error tooltip` : undefined} // Tooltip text for error or info icon hover
+          errorMessage={isError ? "" : undefined} // Tooltip text for error or info icon hover
         >
           <Option value="Online">Online</Option>
           <Option value="Offline">Offline</Option>

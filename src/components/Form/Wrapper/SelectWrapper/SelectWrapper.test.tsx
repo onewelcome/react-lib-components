@@ -246,4 +246,26 @@ describe("SelectWrapper in inlineEditing mode", () => {
     const tooltipContainerClasses = tooltipContent.attributes.getNamedItem("class")?.value;
     expect(tooltipContainerClasses).toContain("visible");
   });
+
+  it("should show error tooltip icon but tooltip is not visible when no error text is provided", async () => {
+    const { getByTestId } = render(
+      <InlineEditingProvider value={true}>
+        <SelectWrapper
+          {...defaultParams}
+          errorMessage={undefined}
+          helperText=""
+          error={true}
+          selectProps={{ "data-testid": "select-button" }}
+        />
+      </InlineEditingProvider>
+    );
+
+    const selectButton = getByTestId("select-button");
+    const tooltipIcon = selectButton.innerHTML.includes("icon-error-circle");
+    const tooltipIcon2 = selectButton.querySelector("icon-error-circle");
+    expect(tooltipIcon).not.toBeNull();
+
+    const tooltipContainer = selectButton.innerHTML.includes("tooltip-icon");
+    expect(tooltipContainer).toBeFalsy();
+  });
 });

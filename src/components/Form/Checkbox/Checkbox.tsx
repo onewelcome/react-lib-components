@@ -163,6 +163,7 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         aria-invalid={error as boolean}
         aria-checked={indeterminate ? "mixed" : checked}
         aria-describedby={describedBy}
+        aria-required={required}
         id={`${identifier}-checkbox`}
         name={name}
         type="checkbox"
