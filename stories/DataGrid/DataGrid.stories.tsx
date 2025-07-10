@@ -1298,7 +1298,7 @@ const DataGridWithInlineEditingTemplate = args => {
               >
                 <DataGridCell>{item.name}</DataGridCell>
                 <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
-                <DataGridCell style={{ paddingTop: 0, paddingBottom: 0 }}>
+                <DataGridCell style={{ paddingTop: 0, paddingBottom: 0, width: "9rem" }}>
                   {renderSelectWrapper(
                     item.name,
                     item.mode,
@@ -1309,7 +1309,7 @@ const DataGridWithInlineEditingTemplate = args => {
                     item.required
                   )}
                 </DataGridCell>
-                <DataGridCell style={{ paddingTop: 0, paddingBottom: 0 }}>
+                <DataGridCell style={{ paddingTop: 0, paddingBottom: 0, width: "9rem" }}>
                   {renderSelect(
                     item.name,
                     item.type,
@@ -1470,7 +1470,7 @@ DataGridWithInlineEditing.args = {
       id: "4",
       mode: "Offline",
       type: "Bond",
-      enabled: false,
+      enabled: true,
       required: true,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
@@ -1504,7 +1504,7 @@ DataGridWithInlineEditing.args = {
     { name: "created", headline: "Created" },
     { name: "mode", headline: "Mode" },
     { name: "type", headline: "Type", disableSorting: true },
-    { name: "enabled", headline: "Status", disableSorting: true }
+    { name: "enabled", headline: "Active", disableSorting: true }
   ],
   initialSort: [
     { name: "name", direction: "ASC" },
