@@ -1195,7 +1195,7 @@ const DataGridWithInlineEditingTemplate = args => {
           name={`${id}_status`}
           onClick={() => handleCheckboxChange(id)}
           helperText={helperMessage}
-          errorMessage={isError ? "This is dummy Error message tooltip example" : ""}
+          errorMessage={isError ? "This is dummy Error tooltip example" : ""}
           readOnlyView={readOnlyView} // This is for readOnly view only
           error={isError} // This is for Error State only
           required={required} // This is for Required State only
@@ -1263,7 +1263,7 @@ const DataGridWithInlineEditingTemplate = args => {
           success={isSuccess} // This is for Success State only
           required={required} // This is for Required State only
           helperText={helperMessage} // Tooltip text for error or info icon hover
-          errorMessage={isError ? `This is dummy error message tooltip` : undefined} // Tooltip text for error or info icon hover
+          errorMessage={isError ? `This is dummy error tooltip` : undefined} // Tooltip text for error or info icon hover
         >
           <Option value="Online">Online</Option>
           <Option value="Offline">Offline</Option>

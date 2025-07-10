@@ -360,6 +360,14 @@ $listItemHeight: 2.5rem;
     }
     & button {
       border: 0;
+      &:focus-visible {
+        outline: 0.125rem solid var(--color-focus);
+        border-radius: 0.3125rem;
+        outline-offset: -1px;
+      }
+      &.error {
+        color: var(--color-default);
+      }
       & .status {
         span.chevron-icon {
           visibility: hidden;
@@ -374,10 +382,6 @@ $listItemHeight: 2.5rem;
       & button {
         background-color: transparent;
       }
-    }
-    &:focus-visible {
-      border: 0.125rem solid var(--color-focus);
-      border-radius: 0.3125rem;
     }
   }
 }

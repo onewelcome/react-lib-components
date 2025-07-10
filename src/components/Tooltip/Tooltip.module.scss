@@ -168,6 +168,10 @@
     & .icon {
       font-size: var(--font-size-big);
       color: var(--color-blue-grey900);
+      &:focus-visible {
+        outline: 0.125rem solid var(--color-focus);
+        border-radius: 0.3125rem;
+      }
     }
 
     & .error {
