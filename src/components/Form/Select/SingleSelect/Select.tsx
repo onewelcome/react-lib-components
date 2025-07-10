@@ -269,7 +269,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           disabled={disabled}
           aria-disabled={disabled}
           aria-invalid={error}
-          aria-required={required}
           aria-expanded={expanded}
           aria-haspopup="listbox"
           aria-labelledby={labeledBy}
