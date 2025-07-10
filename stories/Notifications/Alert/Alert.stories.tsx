@@ -30,6 +30,7 @@ import {
 } from "../../../src/components/Notifications/Alert/AlertItem/AlertItem";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { color } from "storybook/internal/theming";
 
 const meta: Meta = {
   title: "components/Feedback/Alert",
@@ -138,5 +139,97 @@ Alert.play = conditionalPlay(async ({ canvasElement }) => {
 
   await waitFor(() => expect(canvas.getByTestId("alert-container")).toBeVisible());
 });
+
+const composableWithHref = (title: string) => {
+  return (
+    <div>
+      {title} with <a href="/">link</a>
+    </div>
+  );
+};
+
+const composableWithImage = (title: string) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "0.25rem"
+      }}
+    >
+      <img height={24} width={24} src={`SAML.svg`} alt={"Identity Provider icon"} /> {title}
+    </div>
+  );
+};
+
+const composableWithText = (title: string) => {
+  return (
+    <div
+      style={{
+        color: "blue",
+        textDecoration: "line-through",
+        fontStyle: "italic"
+      }}
+    >
+      {title}
+    </div>
+  );
+};
+
+const renderNeutralsComposableTitles = () =>
+  renderComposableAlerts(composableWithHref("Neutral"), "neutral");
+const renderInformativeComposableTitle = () =>
+  renderComposableAlerts(composableWithImage("Informative"), "informative");
+const renderSuccessesComposableTitle = () =>
+  renderComposableAlerts(composableWithText("Success"), "success");
+const renderWarningsComposableTitle = () =>
+  renderComposableAlerts(renderSuccessesComposableTitle(), "warning");
+const renderErrorsComposableTitle = () =>
+  renderComposableAlerts(composableWithImage("Error"), "error", renderSuccessesComposableTitle());
+
+const renderComposableAlerts = (
+  title: React.ReactNode,
+  variant: Variant,
+  content?: React.ReactNode
+) => (
+  <div style={{ margin: "1rem" }}>
+    <AlertItem
+      title={title}
+      content={content ?? "Low emphasis"}
+      variant={variant}
+      emphasis="low"
+      id={`${variant}-low`}
+    />
+    <AlertItem
+      title={title}
+      content={content ?? "Medium emphasis (default)"}
+      variant={variant}
+      emphasis={"medium"}
+      id={`${variant}-medium`}
+    />
+    <AlertItem
+      title={title}
+      content={content ?? "High emphasis"}
+      variant={variant}
+      emphasis="high"
+      id={`${variant}-high`}
+    />
+  </div>
+);
+
+const ComposableTemplate: StoryFn = () => {
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "2rem" }}>
+      {renderNeutralsComposableTitles()}
+      {renderInformativeComposableTitle()}
+      {renderSuccessesComposableTitle()}
+      {renderWarningsComposableTitle()}
+      {renderErrorsComposableTitle()}
+    </div>
+  );
+};
+
+export const AlertVariantsComposable = ComposableTemplate.bind({});
 
 export default meta;
