@@ -1,0 +1,68 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as ModalStories from "./Modal.stories.tsx";
+
+<Meta of={ModalStories} />
+<Title />
+<Subtitle />
+
+Modals are used to present interactive or larger content - like the modal with the form. Modals contain:
+
+- header: title, close button and additional content like wizard,
+- content: what ever content to display,
+- footer: containing action buttons to interact with content and modal.
+
+Modals appear as a modal on top of the existing content.
+
+## Cancel button configuration
+
+Enhance your modal with a left-aligned cancel button by simply applying the `cancelAction` property, complete with a required `label` field.
+
+Customization is possible by adding extra properties to the `cancelAction` configuration, allowing adjustments to the button's visual style.
+
+The Modal's `onClose` method is attached to cancel button's `onClick` event.
+
+Unlike the `<Dialog />` component, where the `cancelButton` remains visible even on mobile resolutions,
+in the `<Modal />` component, the `cancelButton` **is hidden on smaller screens to preserve readability**.
+Modal closure can be accomplished by pressing the `Esc` key or by clicking outside the modal.
+
+# Examples
+
+In the below code snippet, you'll see how you can create a `Modal` with simple form.
+
+```jsx
+<Modal id="modal" open={open} onClose={onClose}>
+  <ModalHeader id="modal-label" title="Modal title" />
+  <ModalContent id="modal-description">
+    <form id="modalForm">
+      <Typography variant="body" spacing={{ margin: 0, padding: "0 5 5" }}>
+        This is simple modal.
+      </Typography>
+      <FormControl>
+        <InputWrapper
+          helperText="Helper text for this field. Description should be short and not repeat the label"
+          name="input1"
+          type="text"
+          value={value}
+          error={false}
+          label="Name"
+          onChange={e => setValue(e.target.value)}
+        />
+      </FormControl>
+    </form>
+  </ModalContent>
+  <ModalActions cancelAction={{ label: "Cancel" }}>
+    <Button variant="text" onClick={onExampleClick}>
+      Example
+    </Button>
+    <Button form="modalForm" type="submit">
+      Save
+    </Button>
+  </ModalActions>
+</Modal>
+```
+
+<Canvas of={ModalStories.Modal} />
+
+# Props
+
+<ArgTypes />

@@ -1,0 +1,65 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+.form-control {
+  font-size: var(--form-control-font-size);
+  + .form-control {
+    margin-top: 1rem;
+  }
+
+  &.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    &.center,
+    &.middle {
+      align-items: center;
+    }
+
+    &.start,
+    &.top {
+      align-items: flex-start;
+    }
+
+    &.end,
+    &.bottom {
+      align-items: flex-end;
+    }
+
+    &.stretch {
+      align-items: stretch;
+
+      > * > * {
+        box-sizing: border-box;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.column {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.col-2 {
+  flex-basis: calc(calc(100% - 1rem) / 2);
+}
+
+.col-3 {
+  flex-basis: calc(calc(100% - 2rem) / 3);
+}

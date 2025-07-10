@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "moduleResolution": "node",
+    "types": ["jest", "@testing-library/jest-dom", "node", "mdx"],
+    "jsx": "react",
+    "strict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": false,
+    "plugins": [{"name": "eslint-plugin-export-scope"}]
+  },
+  "include": ["src", "stories/utils", "**/.scope.ts", "./stories/types.d.ts"],
+  "exclude": ["node_modules", "dist", "example"]
+}

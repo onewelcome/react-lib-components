@@ -1,0 +1,95 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+@import "../../mixins.module.scss";
+
+$speed: 1.5s;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label,
+.percentage {
+  font-weight: 500;
+}
+
+.caption {
+  color: var(--color-blue-grey500);
+  line-height: var(--default-line-height);
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.progress-bar {
+  position: relative;
+  display: block;
+  height: 0.25rem;
+  width: 100%;
+  border-radius: 0.25rem;
+  background-color: var(--progress-bar-background-color);
+  overflow: hidden;
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+
+  .bar {
+    position: absolute;
+    height: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--color-primary500);
+    transition: width 0.2s ease-in-out;
+    &.loading-state {
+      width: 33.3%;
+      animation: linear $speed slide-in infinite;
+    }
+  }
+
+  .bar2 {
+    position: absolute;
+    left: -30%;
+    height: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--color-primary500);
+    opacity: 0;
+    &.loading-state {
+      width: 33.3%;
+      animation: linear $speed slide-in infinite;
+      animation-delay: calc($speed / 2);
+    }
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 1;
+    left: -50%;
+  }
+
+  100% {
+    opacity: 1;
+    left: 150%;
+  }
+}
+
+.placeholder {
+  display: none;
+
+  @media (prefers-reduced-motion: reduce) {
+    display: unset;
+  }
+}

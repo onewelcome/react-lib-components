@@ -1,0 +1,205 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+@use "../../../../mixins.module.scss";
+@import "../../../../mixins.module.scss";
+
+.file-item-wrapper {
+  padding: 0;
+  border-radius: var(--input-border-radius);
+  @include transition(all, 0.2s, ease-in-out);
+
+  [class*="icon"] {
+    font-size: var(--font-size-big);
+  }
+
+  & .file-list-container {
+    background-color: var(--color-blue-grey25);
+    padding: 0.25rem 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 2.875rem;
+
+    .action-button-wrapper {
+      margin: 0.25rem 0;
+      display: flex;
+
+      button {
+        margin-left: 0.5rem;
+
+        span {
+          font-size: var(--button-font-size);
+          text-transform: capitalize;
+        }
+      }
+
+      a {
+        padding-left: 0.75rem;
+        padding-right: 1.25rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        margin-left: 0.5rem;
+
+        span.action-icon {
+          display: flex;
+          justify-content: center;
+          width: calc(1.71 * var(--button-font-size));
+          margin-right: 0.25rem;
+          font-size: var(--button-font-size);
+          padding-left: 0;
+        }
+
+        span {
+          font-size: var(--button-font-size);
+          text-transform: capitalize;
+        }
+
+        &:hover {
+          color: var(--button-primary-hover-color);
+          background-color: var(--color-black10);
+        }
+
+        &:focus {
+          @include mixins.focusVisibleOutline($outlineOffset: 2px, $selectors: null);
+        }
+      }
+    }
+
+    .progress-with-action {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      .progress-bar {
+        min-height: 3rem;
+        width: 100%;
+        background: transparent;
+
+        > span {
+          height: 0.3rem;
+          border-radius: var(--input-border-radius);
+        }
+
+        p {
+          font-size: var(--button-font-size);
+        }
+      }
+    }
+  }
+
+  .progress-bar {
+    background-color: var(--color-black10);
+  }
+
+  span[class*="bar--"] {
+    border-radius: var(--input-border-radius);
+    height: 1rem;
+  }
+
+  .file-name {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    font-size: var(--form-control-font-size);
+
+    .friendly-name {
+      overflow-wrap: anywhere;
+      text-overflow: ellipsis;
+      text-wrap: wrap;
+    }
+
+    &.error {
+      & span {
+        &::before {
+          color: var(--error);
+        }
+      }
+    }
+  }
+
+  .action-icon {
+    margin-left: auto;
+    color: var(--color-primary);
+    cursor: pointer;
+    padding-left: 1.25rem;
+    margin-right: 1rem;
+
+    & label,
+    & a {
+      text-transform: capitalize;
+      padding-left: 0.5rem;
+      cursor: pointer;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+  }
+
+  .file-icon {
+    margin-right: 0.5rem;
+
+    &::before {
+      color: var(--color-primary500);
+    }
+
+    &.retry {
+      &::before {
+        color: var(--error);
+      }
+    }
+  }
+
+  .file-subtitle,
+  .progress-bar {
+    display: block;
+    margin: 0.3125rem 1.75rem;
+    padding: 0;
+    overflow-wrap: anywhere;
+    text-overflow: ellipsis;
+    text-wrap: wrap;
+  }
+
+  .error,
+  .retry {
+    color: var(--error);
+  }
+
+  .readonly {
+    color: var(--greyed-out);
+  }
+
+  .file-subtitle {
+    margin-left: 0;
+  }
+
+  &[data-readonlyview="true"] {
+    & .file-list-container {
+      & p {
+        & span {
+          &:before {
+            color: var(--font-family);
+          }
+        }
+      }
+
+      & button {
+        visibility: hidden;
+      }
+    }
+  }
+}

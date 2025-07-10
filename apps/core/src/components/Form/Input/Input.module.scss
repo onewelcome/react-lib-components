@@ -1,0 +1,182 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "src/mixins.module";
+@use "src/variables";
+@use "src/functions" as *;
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 0;
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-background-color);
+  padding: 0 relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-mobile);
+  @include mixins.transition(all, 0.2s, ease-in-out);
+
+  // General autofill styles
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s !important;
+
+    ~ .outline {
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: var(--input-border-radius);
+      }
+    }
+
+    // Chrome specific color
+    @media all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+      ~ .outline {
+        &:after {
+          background-color: rgb(232, 240, 254);
+        }
+      }
+    }
+
+    // Safari specific color
+    @media not all and (min-resolution: 0.001dpcm) {
+      ~ .outline {
+        &:after {
+          background-color: rgb(250, 255, 189);
+        }
+      }
+    }
+  }
+
+  @include mixins.outlineStates;
+
+  [data-icon-status="success"],
+  [data-icon-status="error"] {
+    height: 100%;
+    width: relativeToBaseFontSize(1.25);
+    box-sizing: border-box;
+    font-size: var(--icon-font-big);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+    &:before {
+      font-size: var(--icon-font-big);
+      height: relativeToBaseFontSize(1.25);
+      width: relativeToBaseFontSize(1.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  [data-icon-status="success"] {
+    color: var(--success);
+  }
+
+  [data-icon-status="error"] {
+    color: var(--error);
+  }
+
+  &[data-readonlyview="true"] {
+    color: var(--read-only-text-color);
+
+    & .Input-module {
+      border-color: var(--read-only-border-color);
+    }
+
+    & span.outline {
+      color: var(--read-only-text-color);
+      border-color: var(--read-only-border-color);
+      background-color: var(--color-white);
+
+      &.focus {
+        border-color: var(--read-only-border-color);
+      }
+    }
+
+    &:hover {
+      & .outline {
+        color: var(--read-only-text-color);
+        background-color: var(--color-white);
+        border-color: var(--read-only-border-color);
+      }
+    }
+  }
+}
+
+.input {
+  padding: 0;
+  height: relativeToBaseFontSize(2.75);
+  color: var(--color-blue-grey900);
+  font-size: var(--input-font-size);
+  font-family: var(--font-family);
+  box-sizing: border-box;
+  border: 0;
+  border-radius: var(--input-border-radius);
+  background-color: transparent;
+  z-index: 1;
+
+  &:not(.shrink-width-for-date-icon) {
+    width: 100%;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--greyed-out);
+  }
+
+  &.shrink-width-for-date-icon {
+    width: auto;
+  }
+
+  & {
+    @include mixins.transition(all, 0.2s, ease-in-out);
+    @include mixins.browserOutlineDisabled;
+  }
+}
+
+@include mixins.outline;
+
+.error input {
+  padding-right: relativeToBaseFontSize(1.25);
+
+  &.remove-extra-indent {
+    padding-right: 0;
+  }
+}
+.success input {
+  padding-right: relativeToBaseFontSize(1.25);
+}
+
+.input-wrapper [data-prefix],
+.input-wrapper [data-suffix] {
+  display: block;
+  z-index: 1;
+
+  @include mixins.transition(all, 0.2s, ease-in-out);
+}
+
+@media only screen and (min-width: 30em) {
+  .input-wrapper {
+    padding: 0 relativeToBaseFontSize(variables.$form-element-horizontal-padding-ratio-desktop);
+  }
+}
