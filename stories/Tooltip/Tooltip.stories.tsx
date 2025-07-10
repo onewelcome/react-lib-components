@@ -67,3 +67,51 @@ Tooltip.args = {
   location: "right",
   position: "center"
 };
+
+const TooltipExamplesTemplate: StoryFn<Props> = args => {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      {/* Standard string label */}
+      <TooltipComponent
+        {...args}
+        title="Basic tooltip"
+        children="This tooltip uses a simple string label."
+        label="String label example"
+        location="right"
+      />
+
+      {/* Formatted text using React node */}
+      <TooltipComponent
+        {...args}
+        title="Tooltip with formatting"
+        children="This tooltip uses a React node to add formatting to the label."
+        label={
+          <>
+            Formatted <strong>text</strong> label
+          </>
+        }
+        location="top"
+      />
+
+      {/* Example with icon */}
+      <TooltipComponent
+        {...args}
+        title="Icon integration"
+        children="This tooltip integrates an icon within the label."
+        label={
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z" />
+              <path d="M7 7h2v5H7zm0-3h2v2H7z" />
+            </svg>
+            Label with icon
+          </div>
+        }
+        location="bottom"
+      />
+    </div>
+  );
+};
+
+export const TooltipExamples = TooltipExamplesTemplate.bind({});
+TooltipExamples.storyName = "Tooltip Examples";
