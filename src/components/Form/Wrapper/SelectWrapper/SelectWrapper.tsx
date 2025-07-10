@@ -21,7 +21,6 @@ import { Select } from "../../Select/SingleSelect/Select";
 import { useWrapper } from "../../../../hooks/useWrapper";
 import { SingleSelectProps } from "../../Select/Select.interfaces";
 import { withReadOnly } from "../../../withReadOnly";
-import { useInlineEditing } from "../../../../context/InlineEditingContext";
 
 interface PartialSelectProps extends Partial<SingleSelectProps> {}
 
@@ -55,10 +54,6 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
   ref
 ) => {
   const { errorId, helperId, labelId } = useWrapper();
-
-  const isInlineEditingFromContext = useInlineEditing();
-  const inlineEditingSelect = [];
-  isInlineEditingFromContext && inlineEditingSelect.push(classes.inlineEditing);
 
   return (
     <Wrapper
