@@ -23,6 +23,7 @@ import {
 } from "../../src/components/DataGrid/testUtils";
 import {
   Button,
+  Checkbox,
   ContextMenu,
   ContextMenuItem,
   DataGridCell,
@@ -30,7 +31,10 @@ import {
   DataGridRow,
   Icon,
   IconButton,
-  Icons
+  Icons,
+  Option,
+  Select,
+  SelectWrapper
 } from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
@@ -43,6 +47,7 @@ import { ModalActions } from "../../src/components/Notifications/Modal/ModalActi
 import { InputWrapper } from "../Form/Wrapper/InputWrapper.stories";
 import { Form } from "../Form/Form.stories";
 import { THIRTY_SECONDS } from "../../src/components/DataGrid/DataGridFilters/DateTimePicker/DateTimeService";
+import { InlineEditingProvider } from "../../src/context/InlineEditingContext";
 import {
   DateTimeFilter,
   ValueSelectType
@@ -56,6 +61,11 @@ interface DataGridItem {
   enabled: boolean;
   description?: string;
   metadata?: string;
+  readonly?: boolean;
+  error?: boolean;
+  success?: boolean;
+  required?: boolean;
+  mode?: string;
 }
 
 export default {
@@ -1236,3 +1246,425 @@ DataGridDatePickerOpened.play = conditionalPlay(async ({ canvasElement }) => {
     expect(sideBarItem).toBeVisible();
   });
 });
+
+const DataGridWithInlineEditingTemplate = args => {
+  const [openModalId, setOpenModalId] = useState<string>("");
+  const [modalData, setModalData] = useState<DataGridItem | null>(null);
+  const [inputValue, setInputValue] = useState("");
+  const [gridData, setGridData] = useState<DataGridItem[]>(args.data);
+  const [isDataChanged, setIsDataChanged] = useState(false);
+
+  useEffect(() => {
+    const original = JSON.stringify(
+      args.data.map(i => ({ type: i.type, enabled: i.enabled, mode: i.mode }))
+    );
+    const current = JSON.stringify(
+      gridData.map(i => ({ type: i.type, enabled: i.enabled, mode: i.mode }))
+    );
+    setIsDataChanged(original !== current);
+  }, [gridData, args.data]);
+
+  const handleSave = () => {
+    action("onSave")(gridData);
+    alert("Data saved! Check the 'Actions' tab in Storybook.");
+  };
+
+  const handleCancel = () => {
+    setGridData(args.data);
+    action("onCancel")();
+  };
+
+  const inlineEditingButtons = isDataChanged
+    ? [
+        <Button
+          key="save"
+          variant="fill"
+          startIcon={<Icon icon={Icons.SaveOutline} />}
+          onClick={handleSave}
+        >
+          Save
+        </Button>,
+        <Button key="cancel" variant="text" onClick={handleCancel}>
+          Cancel
+        </Button>
+      ]
+    : undefined;
+
+  const openModal = (item: DataGridItem) => {
+    setModalData(item);
+    setOpenModalId(`testModal_${item.id}`);
+  };
+
+  const closeModal = () => {
+    setOpenModalId("");
+    setInputValue("");
+    setModalData(null);
+    if (modalData) {
+      document.getElementById(`consent_menu_${modalData.id}`)?.focus();
+    }
+  };
+
+  const handleCheckboxChange = (id: string) => {
+    setGridData(prevData =>
+      prevData.map(item => (item.id === id ? { ...item, enabled: !item.enabled } : item))
+    );
+  };
+
+  const handleSelectChange = (id: string, value: string) => {
+    setGridData(prevData =>
+      prevData.map(item => (item.id === id ? { ...item, type: value } : item))
+    );
+  };
+
+  const handleSelectWrapperChange = (id: string, value: string) => {
+    setGridData(prevData =>
+      prevData.map(item => (item.id === id ? { ...item, mode: value } : item))
+    );
+  };
+
+  const renderCheckbox = (
+    name: string,
+    enabled: boolean,
+    id: string,
+    readOnlyView?: boolean,
+    isError?: boolean,
+    required?: boolean,
+    isSuccess?: boolean
+  ) => {
+    const helperMessage = id !== "6" ? `This is dummy ${name} tooltip` : undefined;
+    return (
+      <InlineEditingProvider value={true}>
+        <Checkbox
+          checked={enabled}
+          name={`${id}_status`}
+          onClick={() => handleCheckboxChange(id)}
+          helperText={helperMessage}
+          errorMessage={isError ? "This is dummy Error tooltip example" : ""}
+          readOnlyView={readOnlyView} // [optional] :  This is for readOnly view only
+          error={isError} // [optional] : This is for Error State only
+          required={required} // [optional] :  This is for Required State only
+          success={isSuccess} // [optional] :  This is for Success State only
+        />
+      </InlineEditingProvider>
+    );
+  };
+
+  const renderSelect = (
+    name: string,
+    type: string,
+    id: string,
+    readOnlyView?: boolean,
+    isError?: boolean,
+    isSuccess?: boolean,
+    required?: boolean
+  ) => {
+    // Conditions are for storybook view only
+    const tooltipMessage =
+      id !== "6" && !readOnlyView ? `This is dummy ${isError ? "error" : name} tooltip` : "";
+    return (
+      <InlineEditingProvider value={true}>
+        <Select
+          name={`${id}_${type}_select`}
+          key={`${id}_${type}_select`}
+          value={type}
+          onChange={e => {
+            handleSelectChange(id, e.target.value);
+          }}
+          readOnlyView={readOnlyView} //[optional] : This is for readOnly view only
+          error={isError} //[optional] : This is for Error State only
+          success={isSuccess} //[optional] : This is for Success State only
+          required={required} //[optional] : This is for Required State only
+          tooltipText={tooltipMessage} // This text is for error|success|info icon Tooltip.
+        >
+          <Option value="Stock">Stock</Option>
+          <Option value="Bond">Bond</Option>
+        </Select>
+      </InlineEditingProvider>
+    );
+  };
+
+  const renderSelectWrapper = (
+    name: string,
+    mode: string = "Online",
+    id: string,
+    readOnlyView?: boolean,
+    isError?: boolean,
+    isSuccess?: boolean,
+    required?: boolean
+  ) => {
+    const helperMessage = !isError && id !== "6" ? `This is dummy ${name} tooltip` : undefined;
+    return (
+      <InlineEditingProvider value={true}>
+        <SelectWrapper
+          name={`${id}_${mode}_selectWrapper`}
+          key={`${id}_${mode}_selectWrapper`}
+          value={mode}
+          onChange={e => {
+            handleSelectWrapperChange(id, e.target.value);
+          }}
+          readOnlyView={readOnlyView} // This is for readOnly view only
+          error={isError} // This is for Error State only
+          success={isSuccess} // This is for Success State only
+          required={required} // This is for Required State only
+          helperText={helperMessage} // Tooltip text for error or info icon hover
+          errorMessage={isError ? "This is dummy error tooltip" : undefined} // Tooltip text for error or info icon hover
+        >
+          <Option value="Online">Online</Option>
+          <Option value="Offline">Offline</Option>
+        </SelectWrapper>
+      </InlineEditingProvider>
+    );
+  };
+
+  return (
+    <Fragment>
+      <div style={{ padding: "1rem", boxShadow: "0px 1px 5px 0px #01053214" }}>
+        <div style={{ borderRadius: ".5rem", backgroundColor: "#FFF" }}>
+          <DataGridComponent
+            {...args}
+            data={gridData}
+            inlineEditingActionButtons={inlineEditingButtons}
+            nestedRowConfig={{ nestedItemsKey: "nestedItems" }}
+          >
+            {({ item }: { item: DataGridItem }) => (
+              <DataGridRow
+                key={item.id}
+                expandableRowProps={{
+                  enableExpandableRow: args.enableExpandableRow,
+                  expandableRowContent: (
+                    <Fragment>
+                      {args.expandableRowHeaders?.map(({ name, headline }) => (
+                        <DataGridDrawerItem key={name} title={headline} description={item[name]} />
+                      ))}
+                    </Fragment>
+                  )
+                }}
+              >
+                <DataGridCell>{item.name}</DataGridCell>
+                <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
+                <DataGridCell style={{ paddingTop: 0, paddingBottom: 0, width: "9rem" }}>
+                  {renderSelectWrapper(
+                    item.name,
+                    item.mode,
+                    item.id,
+                    item.readonly,
+                    item.error,
+                    item.success,
+                    item.required
+                  )}
+                </DataGridCell>
+                <DataGridCell style={{ paddingTop: 0, paddingBottom: 0, width: "9rem" }}>
+                  {renderSelect(
+                    item.name,
+                    item.type,
+                    item.id,
+                    item.readonly,
+                    item.error,
+                    item.success,
+                    item.required
+                  )}
+                </DataGridCell>
+                <DataGridCell>
+                  {renderCheckbox(
+                    item.name,
+                    item.enabled,
+                    item.id,
+                    item.readonly,
+                    item.error,
+                    item.required,
+                    item.success
+                  )}
+                </DataGridCell>
+
+                {!args.disableContextMenuColumn && (
+                  <Fragment>
+                    <DataGridCell>
+                      <ContextMenu
+                        id={`consent_menu_${item.id}`}
+                        placement={{ vertical: "bottom", horizontal: "right" }}
+                        transformOrigin={{ vertical: "top", horizontal: "right" }}
+                        trigger={
+                          <IconButton title={`Actions for ${item.name}`} color="default">
+                            <Icon icon={Icons.EllipsisAlt} />
+                          </IconButton>
+                        }
+                      >
+                        <ContextMenuItem
+                          aria-haspopup={true}
+                          aria-controls={`testModal_${item.id}`}
+                          onClick={() => openModal(item)}
+                        >
+                          Item 1
+                        </ContextMenuItem>
+                        <ContextMenuItem>Item 2</ContextMenuItem>
+                        <ContextMenuItem>Item 3</ContextMenuItem>
+                      </ContextMenu>
+                    </DataGridCell>
+                  </Fragment>
+                )}
+              </DataGridRow>
+            )}
+          </DataGridComponent>
+        </div>
+      </div>
+      {modalData && (
+        <Modal
+          open={openModalId === `testModal_${modalData.id}`}
+          id={openModalId}
+          onClose={closeModal}
+        >
+          <ModalHeader id={`testmodal-header-${modalData.id}`} title={modalData.name} />
+          <ModalContent>
+            <Form
+              id={`example-form-${modalData.id}`}
+              onSubmit={e => {
+                e.preventDefault();
+                alert("Submitted form!");
+              }}
+            >
+              <InputWrapper
+                label="Example"
+                name="example"
+                type="text"
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
+              />
+            </Form>
+          </ModalContent>
+          <ModalActions>
+            <Button
+              form={`example-form-${modalData.id}`}
+              onClick={() => {
+                closeModal();
+              }}
+            >
+              Close
+            </Button>
+          </ModalActions>
+        </Modal>
+      )}
+    </Fragment>
+  );
+};
+
+export const DataGridWithInlineEditing = DataGridWithInlineEditingTemplate.bind({});
+
+DataGridWithInlineEditing.args = {
+  data: [
+    {
+      name: "Interaction example",
+      created: new Date(2023, 0, 1),
+      id: "1",
+      mode: "Online",
+      type: "Stock",
+      enabled: true,
+      required: false,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      nestedItems: [
+        {
+          name: "Child read only example",
+          created: new Date(2023, 0, 1),
+          id: "10",
+          mode: "Offline",
+          type: "Stock",
+          enabled: false,
+          readonly: true,
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        },
+        {
+          name: "Child read only example",
+          created: new Date(2023, 0, 1),
+          id: "12",
+          mode: "Online",
+          type: "Bond",
+          enabled: true,
+          readonly: true,
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        }
+      ]
+    },
+    {
+      name: "Error example",
+      created: new Date(2023, 0, 2),
+      id: "2",
+      mode: "Offline",
+      type: "Stock",
+      enabled: false,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      error: true
+    },
+    {
+      name: "Success example",
+      created: new Date(2023, 0, 3),
+      id: "3",
+      mode: "Online",
+      type: "Stock",
+      enabled: false,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      success: true
+    },
+    {
+      name: "Required example",
+      created: new Date(2023, 0, 4),
+      id: "4",
+      mode: "Offline",
+      type: "Bond",
+      enabled: true,
+      required: true,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      error: false
+    },
+    {
+      name: "Read only example",
+      created: new Date(2023, 0, 5),
+      id: "5",
+      type: "Bond",
+      mode: "Offline",
+      enabled: false,
+      required: false,
+      readonly: true,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      name: "Without tooltip example",
+      created: new Date(2023, 0, 6),
+      id: "6",
+      mode: "Online",
+      type: "Stock",
+      enabled: true,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    }
+  ],
+  headers: [
+    { name: "name", headline: "Name" },
+    { name: "created", headline: "Created" },
+    { name: "mode", headline: "Mode" },
+    { name: "type", headline: "Type", disableSorting: true },
+    { name: "enabled", headline: "Active", disableSorting: true }
+  ],
+  initialSort: [
+    { name: "name", direction: "ASC" },
+    { name: "created", direction: "DESC" }
+  ],
+  expandableRowHeaders: [
+    { name: "description", headline: "Description" },
+    { name: "metadata", headline: "Metadata" }
+  ],
+  onSort: sort => action(`Sort callback: ${sort}`),
+
+  disableContextMenuColumn: false,
+  paginationProps: {
+    totalElements: 6,
+    currentPage: 1
+  },
+  isLoading: false,
+  enableMultiSorting: true
+};

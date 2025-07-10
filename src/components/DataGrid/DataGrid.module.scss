@@ -35,6 +35,15 @@
   padding: 0 1rem;
 }
 
+.actionButton {
+  display: flex;
+  margin-top: 2rem;
+
+  & button {
+    margin-right: 1rem;
+  }
+}
+
 @media only screen and (min-width: 50em) {
   .pagination {
     padding: 0 1.25rem;

@@ -39,6 +39,7 @@ export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
+  success?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -56,8 +57,10 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     parentHelperId,
     className,
     error,
+    success,
     checked = false,
     formSelectorWrapperProps,
+    required,
     onChange,
     ...rest
   }: Props,
@@ -104,6 +107,7 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
               parentHelperId={parentHelperId}
               parentErrorId={parentErrorId}
               error={error}
+              success={success}
               disabled={child.props.disabled ? child.props.disabled : disabled}
             >
               {child.props.children}
@@ -141,8 +145,10 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       errorId={errorId}
       errorMessage={errorMessage}
       error={error}
+      success={success}
       disabled={disabled}
       identifier={identifier}
+      required={required}
       nestedChildren={
         typeof children === "object" && !isToggle(children) && renderNestedCheckboxes()
       }
@@ -157,6 +163,7 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         aria-invalid={error as boolean}
         aria-checked={indeterminate ? "mixed" : checked}
         aria-describedby={describedBy}
+        aria-required={required}
         id={`${identifier}-checkbox`}
         name={name}
         type="checkbox"

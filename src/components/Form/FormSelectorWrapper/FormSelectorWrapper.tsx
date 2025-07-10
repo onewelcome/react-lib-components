@@ -24,6 +24,7 @@ import { KeyValuePair } from "../../../interfaces";
 import { FormSelector } from "../form.interfaces";
 import { FormHelperText, Props as FormHelperTextProps } from "../FormHelperText/FormHelperText";
 import classes from "./FormSelectorWrapper.module.scss";
+import { useInlineEditing } from "../../../context/InlineEditingContext";
 
 export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   children?: ReactNode;
@@ -33,6 +34,7 @@ export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   disabled?: boolean;
   errorId?: string;
   identifier?: string;
+  required?: boolean;
 }
 
 const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -43,17 +45,20 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     containerProps,
     helperProps,
     error,
+    success,
     disabled,
     helperText,
     errorMessage,
     parentErrorId,
     errorId,
     identifier,
+    required,
     ...rest
   }: Props,
   ref
 ) => {
   const helperRef = helperProps?.ref ?? createRef();
+  const inlineEditingAllowed = useInlineEditing();
 
   return (
     <div
@@ -63,8 +68,11 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
         className ?? ""
       }`}
     >
-      <div {...containerProps}>{children}</div>
-      {(errorMessage || helperText || helperProps?.children) && (
+      <div {...containerProps}>
+        {children}
+        {inlineEditingAllowed && required && <span className={classes["required"]}>*</span>}
+      </div>
+      {!inlineEditingAllowed && (errorMessage || helperText || helperProps?.children) && (
         <FormHelperText
           {...helperProps}
           ref={helperRef}

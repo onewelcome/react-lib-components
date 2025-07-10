@@ -67,6 +67,7 @@ export interface Props<T> extends Omit<ComponentPropsWithRef<"div">, "children">
   isLoading?: boolean;
   enableMultiSorting?: boolean;
   spacing?: Spacing;
+  inlineEditingActionButtons?: ReactElement | ReactElement[];
 }
 
 const DataGridInner = <T extends object>(
@@ -89,6 +90,7 @@ const DataGridInner = <T extends object>(
     emptyLabel,
     spacing,
     style,
+    inlineEditingActionButtons,
     ...rest
   }: Props<T>,
   ref: Ref<HTMLDivElement>
@@ -209,6 +211,10 @@ const DataGridInner = <T extends object>(
           }}
           className={`${classes["pagination"]} ${paginationProps.className ?? ""}`}
         />
+      )}
+
+      {inlineEditingActionButtons && (
+        <div className={`${classes["actionButton"]}`}>{inlineEditingActionButtons}</div>
       )}
     </div>
   );

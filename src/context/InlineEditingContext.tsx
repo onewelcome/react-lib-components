@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,22 +14,10 @@
  *    limitations under the License.
  */
 
-.text-ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+import { createContext, useContext } from "react";
 
-.popover {
-  max-width: min(75ch, 90%);
-  padding: 0.6875rem 0.6875rem 0.6875rem 0.875rem;
-  border-radius: 0.25rem;
+const InlineEditingContext = createContext<boolean>(false);
 
-  box-shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.29);
-  white-space: pre-wrap;
-  word-wrap: break-word;
+export const InlineEditingProvider = InlineEditingContext.Provider;
 
-  transition-property: opacity;
-  transform: scale(1);
-  z-index: 1;
-}
+export const useInlineEditing = () => useContext(InlineEditingContext);

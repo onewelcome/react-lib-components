@@ -70,6 +70,7 @@
     font-size: var(--form-control-font-size);
     position: relative;
     border-radius: 0.125rem;
+    word-wrap: break-word;
 
     & [data-icon-status] {
       position: absolute;

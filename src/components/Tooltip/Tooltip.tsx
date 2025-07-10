@@ -33,12 +33,15 @@ import { generateID } from "../../util/helper";
 import { Offset, Placement, usePosition } from "../../hooks/usePosition";
 import { createPortal } from "react-dom";
 import { useGetDomRoot } from "../../hooks/useGetDomRoot";
+import { useInlineEditing } from "../../context/InlineEditingContext";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   label: ReactNode;
   title?: string;
   children: string;
   domRoot?: HTMLElement;
+  icon?: Icons;
+  iconState?: "info" | "error" | "success";
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";
   position?: "start" | "center" | "end";
@@ -126,6 +129,8 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     location = "right",
     position = "center",
     color = "black",
+    icon = Icons.InfoCircle,
+    iconState,
     ...rest
   }: Props,
   ref
@@ -137,6 +142,10 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const relativeElement = useRef<HTMLDivElement>(null);
   const elementToBePositioned = useRef<HTMLDivElement>(null);
+
+  const iconStateClass = iconState && classes[iconState];
+
+  const inlineEditingAllowed = useInlineEditing();
 
   const determinedLocation = useMemo(() => {
     if (position === "center") {
@@ -207,14 +216,17 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   return (
     <div {...rest} ref={wrappingDivRef} className={`${classes.wrapper} ${className ?? ""}`}>
       {renderChildren()}
-      <div className={`${classes["tooltip-wrapper"]}`}>
+      <div
+        className={`${classes["tooltip-wrapper"]} ${inlineEditingAllowed ? classes["inline-editing"] : ""}`}
+      >
         <Icon
           ref={relativeElement}
           tag="div"
           onMouseEnter={() => setVisible(true)}
           onMouseLeave={() => setVisible(false)}
-          icon={Icons.InfoCircle}
-          className={classes.icon}
+          icon={icon}
+          data-testid="tooltip-icon"
+          className={`${classes.icon} ${iconStateClass}`}
         />
         {createPortal(
           <div
@@ -224,7 +236,8 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               top: top,
               left: left,
               right: right,
-              bottom: bottom
+              bottom: bottom,
+              zIndex: 1
             }}
             aria-hidden={!visible}
             id={identifier}

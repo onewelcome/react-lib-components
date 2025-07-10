@@ -14,13 +14,14 @@
  *    limitations under the License.
  */
 
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Select as SelectComponent } from "../../../src/components/Form/Select/SingleSelect/Select";
 import { Option, SingleSelectProps } from "../../../src";
 import SelectDocumentation from "./Select.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { InlineEditingProvider } from "../../../src/context/InlineEditingContext";
 
 const generateOptions = (count: number) => {
   return Array.from({ length: count }, (_, index) => (
@@ -68,6 +69,18 @@ export default meta;
 
 const Template: StoryFn<SingleSelectProps> = args => {
   return <SelectComponent {...args}></SelectComponent>;
+};
+const InlineEditingTemplate: StoryFn<SingleSelectProps> = args => {
+  const [pickedOption, setPickedOption] = useState<string>("option1");
+  return (
+    <InlineEditingProvider value={true}>
+      <SelectComponent
+        {...args}
+        onChange={e => setPickedOption(e.target.value)}
+        value={pickedOption}
+      ></SelectComponent>
+    </InlineEditingProvider>
+  );
 };
 
 export const Select = Template.bind({});
@@ -162,3 +175,22 @@ export const SelectClosesWhenAnotherSelectClicked: StoryFn<void> = (() => {
     </div>
   );
 }).bind({});
+
+export const SelectWithInlineEditing = InlineEditingTemplate.bind({});
+
+SelectWithInlineEditing.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument());
+
+  const select = await canvas.getByRole("button", { expanded: false });
+
+  await userEvent.click(select);
+});
+SelectWithInlineEditing.args = {
+  name: "Inline Editing Example Select",
+  inlineEditing: true,
+  required: true,
+  tooltipText: "This is dummy tooltip example",
+  children: generateOptions(6)
+};
