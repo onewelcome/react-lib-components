@@ -37,7 +37,7 @@ import { useGetDomRoot } from "../../hooks/useGetDomRoot";
 export interface Props extends ComponentPropsWithRef<"div"> {
   label: ReactNode;
   title?: string;
-  children: string;
+  children: ReactNode;
   domRoot?: HTMLElement;
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";

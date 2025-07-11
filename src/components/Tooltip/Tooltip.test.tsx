@@ -342,6 +342,39 @@ describe("Tooltip", () => {
       expect(label).toHaveTextContent("Label");
       expect((label as HTMLElement).tagName.toLowerCase()).toBe("span");
     });
+
+    it("can also be React component", async () => {
+      const CustomLabel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+        (props, ref) => {
+          return (
+            <div ref={ref} data-testid="custom-label" {...props}>
+              Custom Component Label
+            </div>
+          );
+        }
+      );
+
+      const { tooltip, tooltipHoverDiv } = await createTooltip(p => ({
+        ...p,
+        label: <CustomLabel data-testid="original-label" />
+      }));
+
+      const label = tooltip.querySelector(".label");
+
+      // rendering checks
+      expect(label).toBeInTheDocument();
+      expect(label).toHaveTextContent("Custom Component Label");
+      expect(label).toHaveAttribute("tabindex", "0");
+      expect(label).toHaveAttribute("aria-describedby");
+      expect(label).toHaveClass("label");
+
+      await userEvent.tab();
+      (label as HTMLElement).focus();
+      expect(tooltipHoverDiv).toHaveClass("visible");
+
+      await userEvent.tab();
+      expect(tooltipHoverDiv).not.toHaveClass("visible");
+    });
   });
 
   it("Triggers visibility of the tooltip on focus and blur using keyboard", async () => {
