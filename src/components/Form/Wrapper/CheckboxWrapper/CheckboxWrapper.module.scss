@@ -20,8 +20,10 @@
   margin-top: 1.25rem;
 }
 
-.checkbox-wrapper-error span {
+.checkbox-wrapper-error {
   font-size: 1rem;
+  margin-left: 0;
+  line-height: unset;
 }
 
 .checkbox-wrapper-error [data-icon] {

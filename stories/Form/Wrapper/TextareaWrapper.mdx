@@ -17,6 +17,11 @@ The `TextareaWrapper` accepts a `name`, `helperText` and `errorMessage` prop. Ba
 
 You can change anything pertaining to the `textarea` element that's rendered by passing a configuration object to `textareaProps`. An example is shown below.
 
+## Custom helper text and error message
+
+You can compose both helper text and error message out of any components you'd like. Keep in mind you will need to handle the proper styling of those custom elements. All you need to do is to pass the `children` to `helperProps` for custom `helperText`
+or `error` set to `true` along with `children` in `errorMessageProps` for custom error message.
+
 # Examples
 
 A code example of how you can configure a `TextareaWrapper` within a React component:

@@ -24,6 +24,7 @@ import { KeyValuePair } from "../../../interfaces";
 import { FormSelector } from "../form.interfaces";
 import { FormHelperText, Props as FormHelperTextProps } from "../FormHelperText/FormHelperText";
 import classes from "./FormSelectorWrapper.module.scss";
+import { FormErrorText } from "../FormErrorText/FormErrorText";
 
 export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   children?: ReactNode;
@@ -46,6 +47,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     disabled,
     helperText,
     errorMessage,
+    errorMessageProps,
     parentErrorId,
     errorId,
     identifier,
@@ -54,6 +56,10 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
   ref
 ) => {
   const helperRef = helperProps?.ref ?? createRef();
+
+  const hasHelperText = helperText ?? helperProps?.children;
+  const showHelperText = !error && hasHelperText;
+  const showErrorText = error && (errorMessage || errorMessageProps?.children);
 
   return (
     <div
@@ -64,24 +70,24 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
       }`}
     >
       <div {...containerProps}>{children}</div>
-      {(errorMessage || helperText || helperProps?.children) && (
-        <FormHelperText
-          {...helperProps}
-          ref={helperRef}
-          id={`${identifier}`}
-          className={`${classes["helper-text"]} ${helperProps?.className ?? ""} ${
-            error ? classes["error"] : ""
-          }`}
-        >
-          {error && errorMessage ? (
-            <span className={classes["error-message"]} id={errorId}>
-              {errorMessage}
-            </span>
-          ) : (
-            helperProps?.children || helperText
-          )}
-        </FormHelperText>
-      )}
+      {(showHelperText || showErrorText) &&
+        (showErrorText ? (
+          <FormErrorText
+            error={error}
+            errorMessage={errorMessage}
+            errorMessageProps={errorMessageProps}
+            errorId={errorId}
+          />
+        ) : (
+          <FormHelperText
+            {...helperProps}
+            ref={helperRef}
+            id={identifier}
+            className={`${classes["helper-text"]} ${helperProps?.className ?? ""}`}
+          >
+            {helperProps?.children || helperText}
+          </FormHelperText>
+        ))}
       {nestedChildren}
     </div>
   );

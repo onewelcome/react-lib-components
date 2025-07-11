@@ -104,6 +104,12 @@
   }
 }
 
+.error-message {
+  margin-top: 0.25rem;
+  margin-left: relativeToBaseFontSize(1.75);
+  font-size: var(--font-size-sub);
+}
+
 .input {
   font-size: var(--font-size-big);
   width: var(--font-size-big);
