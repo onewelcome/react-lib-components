@@ -35,10 +35,11 @@ describe("AlertItem", () => {
     const { container, queryByTestId } = render(<AlertItem {...initParams} />);
 
     const titleDiv = queryByTestId("alert-title");
-    expect(titleDiv).toHaveTextContent(initParams.title!);
+    typeof initParams.title === "string" && expect(titleDiv).toHaveTextContent(initParams.title);
 
     const contentDiv = queryByTestId("alert-content");
-    expect(contentDiv).toHaveTextContent(initParams.content!);
+    typeof initParams.content === "string" &&
+      expect(contentDiv).toHaveTextContent(initParams.content);
 
     const actionsContainer = queryByTestId("alert-actions");
     expect(actionsContainer).toBeNull();
@@ -51,7 +52,7 @@ describe("AlertItem", () => {
     const titleDiv = queryByTestId("alert-title");
     expect(titleDiv).toBeNull();
     const contentDiv = queryByTestId("alert-content");
-    expect(contentDiv).toHaveTextContent(initParams.title!);
+    typeof initParams.title === "string" && expect(contentDiv).toHaveTextContent(initParams.title);
   });
 
   it("should render content if content is provided", async () => {
@@ -59,7 +60,8 @@ describe("AlertItem", () => {
     const titleDiv = queryByTestId("alert-title");
     expect(titleDiv).toBeNull();
     const contentDiv = queryByTestId("alert-content");
-    expect(contentDiv).toHaveTextContent(initParams.content!);
+    typeof initParams.content === "string" &&
+      expect(contentDiv).toHaveTextContent(initParams.content);
   });
 
   it("should clicking close button call callback function", async () => {
@@ -100,5 +102,68 @@ describe("AlertItem", () => {
     const { queryByTestId } = render(<AlertItem {...initParams} variant="error" emphasis="high" />);
     const container = queryByTestId("alert-container");
     expect(container).toHaveAttribute("aria-live", "assertive");
+  });
+
+  it("should render without crashing displaying both string content and composable title", () => {
+    const titleText = "Test Composable Title";
+    const params = {
+      ...initParams,
+      title: <div data-testid="alert-composable-title">{titleText}</div>
+    };
+    const { container, queryByTestId } = render(<AlertItem {...params} />);
+
+    const titleDiv = queryByTestId("alert-composable-title");
+    expect(titleDiv).toHaveTextContent(titleText);
+
+    const contentDiv = queryByTestId("alert-content");
+    typeof initParams.content === "string" &&
+      expect(contentDiv).toHaveTextContent(initParams.content);
+
+    const actionsContainer = queryByTestId("alert-actions");
+    expect(actionsContainer).toBeNull();
+
+    expect(getByRole(container, "button")).toBeDefined();
+  });
+
+  it("should render without crashing displaying both composable content and string title", () => {
+    const contentText = "Test Composable Content";
+    const params = {
+      ...initParams,
+      content: <div data-testid="alert-composable-content">{contentText}</div>
+    };
+    const { container, queryByTestId } = render(<AlertItem {...params} />);
+
+    const titleDiv = queryByTestId("alert-title");
+    typeof initParams.title === "string" && expect(titleDiv).toHaveTextContent(initParams.title);
+
+    const contentDiv = queryByTestId("alert-composable-content");
+    expect(contentDiv).toHaveTextContent(contentText);
+
+    const actionsContainer = queryByTestId("alert-actions");
+    expect(actionsContainer).toBeNull();
+
+    expect(getByRole(container, "button")).toBeDefined();
+  });
+
+  it("should render without crashing displaying both composable content and composable title", () => {
+    const titleText = "Test Composable Title";
+    const contentText = "Test Composable Content";
+    const params = {
+      ...initParams,
+      title: <div data-testid="alert-composable-title">{titleText}</div>,
+      content: <div data-testid="alert-composable-content">{contentText}</div>
+    };
+    const { container, queryByTestId } = render(<AlertItem {...params} />);
+
+    const titleDiv = queryByTestId("alert-composable-title");
+    expect(titleDiv).toHaveTextContent(titleText);
+
+    const contentDiv = queryByTestId("alert-composable-content");
+    expect(contentDiv).toHaveTextContent(contentText);
+
+    const actionsContainer = queryByTestId("alert-actions");
+    expect(actionsContainer).toBeNull();
+
+    expect(getByRole(container, "button")).toBeDefined();
   });
 });

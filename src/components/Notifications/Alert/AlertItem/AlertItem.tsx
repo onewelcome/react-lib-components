@@ -33,8 +33,8 @@ export type Actions = (ButtonHTMLAttributes<HTMLButtonElement> & { label: string
 
 export interface Props {
   id: string;
-  title?: string;
-  content?: string;
+  title?: string | React.ReactNode;
+  content?: string | React.ReactNode;
   duration?: number;
   emphasis?: Emphasis;
   variant?: Variant;
