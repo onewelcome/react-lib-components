@@ -18,7 +18,7 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Checkbox, Props as CheckboxProps } from "../../../src/components/Form/Checkbox/Checkbox";
 import CheckboxDocumentation from "./Checkbox.mdx";
-import { Link } from "../../../src";
+import { Link, Typography, Fieldset } from "../../../src";
 
 const meta: Meta = {
   /* fixme: currently it's impossible to add conditional exclusions: https://github.com/storybookjs/storybook/issues/18233
@@ -203,5 +203,70 @@ CheckboxWithErrorWithoutHelperProps.args = {
   children: "Example",
   error: true,
   errorMessage: "Error message",
+  name: "Checkbox"
+};
+
+const errorProps = {
+  children: (
+    <div style={{ color: "var(--error)" }}>
+      Error text with <a href="/">link</a>
+    </div>
+  )
+};
+
+const helperTextProps = {
+  children: (
+    <div>
+      Helper text with <a href="/">link</a>
+    </div>
+  )
+};
+
+const ComposableTemplate: StoryFn<CheckboxProps> = args => {
+  return (
+    <Fieldset legend="Composable Checkbox" legendStyle={"body-bold"}>
+      <Checkbox
+        name={"name 1"}
+        label={
+          <>
+            Label with a <b>bold part</b>{" "}
+          </>
+        }
+        {...args}
+      />
+      <Checkbox
+        name={"name 2"}
+        label={
+          <Typography variant="h3" spacing={{ margin: 0 }}>
+            Typography
+          </Typography>
+        }
+        {...args}
+      />
+      <Checkbox
+        name={"name 3"}
+        label={
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.25rem"
+            }}
+          >
+            <img height={24} width={24} src={`SAML.svg`} alt={"Identity Provider icon"} /> SAML
+          </div>
+        }
+        {...args}
+      />
+      <Checkbox name={"name 4"} helperProps={helperTextProps} {...args} />
+      <Checkbox name={"name 5"} error={true} errorMessageProps={errorProps} {...args} />
+    </Fieldset>
+  );
+};
+
+export const ComposableCheckbox = ComposableTemplate.bind({});
+ComposableCheckbox.args = {
+  children: "Example",
   name: "Checkbox"
 };

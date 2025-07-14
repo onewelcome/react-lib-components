@@ -35,7 +35,7 @@ import { withReadOnly } from "../../withReadOnly";
 const isToggle = (children: ReactNode) => !!(children as ReactElement)?.props?.["data-toggle"];
 
 export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector, "success"> {
-  label?: string | React.ReactElement;
+  label?: string | React.ReactNode;
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
