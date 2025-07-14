@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2022 OneWelcome B.V.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,38 +14,16 @@
  *    limitations under the License.
  */
 
-.grid-wrapper {
-  padding: 0.875rem 0;
+import React from "react";
+import { useInlineEditing } from "../../context/InlineEditingContext";
+
+export interface Props {
+  required?: boolean;
+  className: string;
 }
 
-.table-wrapper {
-  overflow-x: auto;
-  overflow-y: hidden; // hides additional vertical scroll which can be seen when using nested rows
-}
+export const RequiredSign: React.FC<Props> = ({ required, className }) => {
+  const inlineEditingAllowed = useInlineEditing();
 
-.table {
-  border-collapse: collapse;
-  padding-top: 0.5rem;
-  width: 100%;
-  position: relative;
-}
-
-.pagination {
-  margin-top: 0.875rem;
-  padding: 0 1rem;
-}
-
-.action-button {
-  display: flex;
-  margin-top: 2rem;
-
-  & button {
-    margin-right: 1rem;
-  }
-}
-
-@media only screen and (min-width: 50em) {
-  .pagination {
-    padding: 0 1.25rem;
-  }
-}
+  return inlineEditingAllowed && required ? <span className={className}> *</span> : null;
+};

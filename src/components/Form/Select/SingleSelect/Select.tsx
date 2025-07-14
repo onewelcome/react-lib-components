@@ -38,6 +38,7 @@ import { withReadOnly } from "../../../withReadOnly";
 import { Tooltip } from "../../../Tooltip/Tooltip";
 import { useInlineEditing } from "../../../../context/InlineEditingContext";
 import { getStatusIcon, getStatusState } from "../../../../utils/statusUtils";
+import { RequiredSign } from "../../../RequiredSign/RequiredSign";
 
 const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {
@@ -277,7 +278,7 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           <div data-display className={classes["selected"]}>
             {!value && placeholder && <span className={classes["placeholder"]}>{placeholder}</span>}
             {value?.length > 0 && <span data-display-inner>{display}</span>}
-            {inlineEditingAllowed && required && <span className={classes["required"]}>*</span>}
+            <RequiredSign required={required} className={classes["required"]} />
           </div>
           <div className={classes["status"]}>
             {!showTooltip && (icon || renderChevronIcon())}

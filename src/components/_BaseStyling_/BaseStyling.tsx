@@ -222,6 +222,7 @@ export interface CSSProperties {
   readOnlyBorderColor?: string;
   readOnlyTextColor?: string;
   iconFontBig?: string;
+  tooltipIndex?: string;
 }
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -388,7 +389,7 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     stepperCaptionDisabledColor: "var(--color-blue-grey400)",
     stepperCaptionErrorDisabledColor: "var(--color-red200)",
     bannerBorderRadius: "2px",
-    bannerBorderWidth: "0 0 0 4px",
+    bannerBorderWidth: "4px",
     dataGridRowBackgroundColor: "transparent",
     dataGridRowHoverBackgroundColor: "var(--default-hover-color)",
     progressBarBackgroundColor: "var(--disabled)",
@@ -432,7 +433,8 @@ export const BaseStyling = ({ children, properties = {} }: Props) => {
     readOnlyTextColor: "var(--color-blue-grey900)",
     formControlFontSize: "0.875rem",
     fontSizeDataGrid: "0.875rem",
-    iconFontBig: "1.125rem"
+    iconFontBig: "1.125rem",
+    tooltipIndex: "12"
   };
 
   /** We need a loading state, because otherwise you see the colors flash from the default to the possible overridden ones. */

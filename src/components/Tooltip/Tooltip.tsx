@@ -236,8 +236,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               top: top,
               left: left,
               right: right,
-              bottom: bottom,
-              zIndex: 1
+              bottom: bottom
             }}
             aria-hidden={!visible}
             id={identifier}

@@ -163,8 +163,6 @@
   }
 
   &.inline-editing {
-    z-index: 9;
-
     & .icon {
       font-size: var(--font-size-big);
       color: var(--color-blue-grey900);
@@ -199,6 +197,7 @@
   pointer-events: none;
   box-shadow: 0 0.0625rem 0.3125rem 0 rgba(1, 5, 50, 0.3);
   word-break: break-word;
+  z-index: var(--tooltip-index);
 
   @include mixins.transition($transition-property, 0.2s, ease-in-out);
 

@@ -25,6 +25,7 @@ import { FormSelector } from "../form.interfaces";
 import { FormHelperText, Props as FormHelperTextProps } from "../FormHelperText/FormHelperText";
 import classes from "./FormSelectorWrapper.module.scss";
 import { useInlineEditing } from "../../../context/InlineEditingContext";
+import { RequiredSign } from "../../RequiredSign/RequiredSign";
 
 export interface Props extends ComponentPropsWithRef<"div">, FormSelector {
   children?: ReactNode;
@@ -70,7 +71,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     >
       <div {...containerProps}>
         {children}
-        {inlineEditingAllowed && required && <span className={classes["required"]}>*</span>}
+        <RequiredSign required={required} className={classes["required"]} />
       </div>
       {!inlineEditingAllowed && (errorMessage || helperText || helperProps?.children) && (
         <FormHelperText

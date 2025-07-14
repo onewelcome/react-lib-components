@@ -214,7 +214,7 @@ const DataGridInner = <T extends object>(
       )}
 
       {inlineEditingActionButtons && (
-        <div className={`${classes["actionButton"]}`}>{inlineEditingActionButtons}</div>
+        <div className={`${classes["action-button"]}`}>{inlineEditingActionButtons}</div>
       )}
     </div>
   );
