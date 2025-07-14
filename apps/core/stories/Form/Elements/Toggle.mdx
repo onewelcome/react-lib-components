@@ -1,0 +1,191 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as ToggleStories from "./Toggle.stories.tsx";
+
+<Meta of={ToggleStories} />
+<Title />
+<Subtitle />
+
+The `Toggle` component inherits (nearly) everything that the `Checkbox` component has. It is a `Form` component that can be used to give the end-user a choice. We have a bunch of props that are shown in the table below like `name`, `label`, `helperProps`, `formSelectorWrapperProps`, `helperText`, `labelPosition`, `hideLabel`, `labelOverflow`, `version`, `spacing`, `checked`, `disabled` and `className`
+
+## Toggle properties
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>name</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>The name of the toggle</td>
+    </tr>
+    <tr>
+      <td>
+        <code>label</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>The label of the toggle</td>
+    </tr>
+    <tr>
+      <td>
+        <code>helperProps</code>
+      </td>
+      <td>
+        <code>object</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>Props for the helper</td>
+    </tr>
+    <tr>
+      <td>
+        <code>formSelectorWrapperProps</code>
+      </td>
+      <td>
+        <code>object</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>Props for the form selector wrapper</td>
+    </tr>
+    <tr>
+      <td>
+        <code>helperText</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>The helper text of the toggle. Won't render if helperProps are specified</td>
+    </tr>
+    <tr>
+      <td>
+        <code>labelPosition</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>The position of the label</td>
+    </tr>
+    <tr>
+      <td>
+        <code>hideLabel</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Hide the label</td>
+    </tr>
+    <tr>
+      <td>
+        <code>labelOverflow</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Hide the label overflow</td>
+    </tr>
+    <tr>
+      <td>
+        <code>version</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>The version of the toggle</td>
+    </tr>
+    <tr>
+      <td>
+        <code>spacing</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>The spacing of the toggle</td>
+    </tr>
+    <tr>
+      <td>
+        <code>checked</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Is the toggle checked</td>
+    </tr>
+    <tr>
+      <td>
+        <code>disabled</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Is the toggle disabled</td>
+    </tr>
+  </tbody>
+</table>
+
+# Examples
+
+Example code with state:
+
+```jsx
+const ExampleComponent = () => {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <Toggle name="test" onChange={() => setChecked(!checked)} checked={checked} helperText="Example helper text">
+      Example toggle
+    </Toggle>;
+  )
+};
+```
+
+Below you can find an example of the `Toggle` component. It can be controlled through the [Props table](#props) at the bottom.
+
+<Canvas of={ToggleStories.UncheckedToggle} />
+
+# Props
+
+<ArgTypes />

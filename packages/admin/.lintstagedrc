@@ -1,0 +1,8 @@
+{
+  "**.+(tsx|ts)": [
+    "npm run lint"
+  ],
+  "*.+(tsx|ts|scss|mdx)": [
+    "npm run prettier"
+  ]
+}

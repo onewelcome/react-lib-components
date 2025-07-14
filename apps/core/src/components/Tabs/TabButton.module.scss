@@ -1,0 +1,87 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "../../mixins.module.scss";
+@use "src/functions" as *;
+
+.tabbutton {
+  color: var(--tab-text-color);
+  border: 0;
+  border-radius: 0;
+  font-size: var(--font-size);
+  line-height: var(--default-line-height);
+  margin: 0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-family);
+  background-color: transparent;
+  white-space: nowrap;
+  position: relative;
+  font-weight: normal;
+  border-bottom-style: var(--tablist-border-style);
+  border-bottom-width: var(--tablist-border-width);
+  border-bottom-color: var(--tablist-border-color);
+
+  @include mixins.focusVisibleOutline($outlineOffset: 0);
+  &:where(:focus-visible) {
+    z-index: 1;
+  }
+
+  &:hover {
+    background-color: var(--tab-hover-color);
+  }
+
+  &:active {
+    background-color: var(--tab-pressed-color);
+  }
+
+  &.selected {
+    color: var(--tab-active-text-color);
+  }
+
+  &.fluid {
+    flex: 1;
+  }
+
+  &.has-icon {
+    gap: relativeToBaseFontSize(0.25);
+    display: inline-flex;
+    align-items: center;
+
+    i {
+      display: flex;
+    }
+
+    span[data-icon] {
+      display: inline-block;
+      font-size: var(--font-size-big);
+      width: var(--font-size-big);
+    }
+
+    &.top-icon,
+    &.bottom-icon {
+      flex-direction: column;
+    }
+
+    &.left-icon i {
+      order: -1;
+    }
+
+    &.top-icon i {
+      order: -1;
+    }
+  }
+}

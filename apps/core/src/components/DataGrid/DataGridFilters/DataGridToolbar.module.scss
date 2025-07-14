@@ -1,0 +1,73 @@
+/*
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "../../../mixins.module.scss";
+
+@include mixins.searchInputPointer("search", ".wrapper");
+
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  padding-bottom: 1rem;
+
+  .filter-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+    flex-grow: 1;
+
+    .searchbar {
+      min-width: 7rem;
+      flex-basis: 15rem;
+    }
+
+    .actions-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem;
+    }
+
+    .clear-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      @include mixins.focusVisibleOutline($outlineOffset: 0);
+
+      .caption {
+        margin: 0;
+        font-size: var(--font-size-data-grid);
+        line-height: var(--data-grid-line-height);
+        text-decoration: underline;
+        color: var(--color-primary500);
+      }
+    }
+  }
+
+  .button-section {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

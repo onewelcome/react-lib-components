@@ -1,0 +1,55 @@
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as TagStories from "./Tag.stories.tsx";
+
+<Meta of={TagStories} />
+<Title />
+<Subtitle />
+
+The tag component is used to display a short string describing an item or a status. Currently it has two variants:
+
+- `enabled`: a tag with the light green background and checkmark circle icon
+- `disabled`: a tag with the light gray background and forbidden icon
+
+## Usage
+
+```jsx
+import { Tag } from "@onewelcome/react-lib-components";
+
+<Tag variant="enabled">Enabled</Tag>;
+```
+
+<Canvas of={TagStories.EnabledTag} />
+
+```jsx
+import { Tag } from "@onewelcome/react-lib-components";
+
+<Tag variant="disabled">Disabled</Tag>;
+```
+
+<Canvas of={TagStories.DisabledTag} />
+
+```jsx
+import { Icons, Tag } from "@onewelcome/react-lib-components";
+
+<Tag backgroundColor="blue" icon={Icons.Bell} color="white">
+  Custom
+</Tag>;
+```
+
+<Canvas of={TagStories.CustomTag} />
+
+The backgroundColor and color props can be any color value that is valid for the CSS `background-color` and `color` properties. For example:
+
+- `red`
+- `#ff0000`
+- `rgb(255, 0, 0)`
+- `rgba(255, 0, 0, 0.5)`
+- `hsl(0, 100%, 50%)`
+- `hsla(0, 100%, 50%, 0.5)`
+- `transparent`
+
+The icon prop can be any of the icons exported by the `@onewelcome/react-lib-components` package. See the props table or the [Icons documentation](?path=/docs/components-data-display-icon--docs) for all of the different icons you can choose from.
+
+The removeButton can be set to show remove icon on the right side of the tag. Provide at least the `onRemove` callback to make it visible.
+
+<ArgTypes />

@@ -1,0 +1,97 @@
+/*!
+ * Copyright 2022 OneWelcome B.V.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+@use "../../../mixins.module.scss";
+@use "src/functions" as *;
+
+.slide-in-modal {
+  right: 0;
+  left: auto;
+
+  justify-content: flex-end;
+
+  min-width: 25rem;
+  width: 33vw;
+  max-width: 40rem;
+
+  visibility: visible;
+
+  transform: translate(calc(100% - 0.5rem));
+  @include mixins.transition(transform, 0.5s, ease-in-out);
+
+  &.hide {
+    visibility: hidden;
+  }
+
+  &.visible {
+    visibility: visible;
+    transform: translate(0%);
+
+    #backdrop-slide {
+      background-color: transparent;
+    }
+  }
+}
+
+.handle {
+  position: absolute;
+  top: 13.25rem;
+  left: relativeToBaseFontSize(-1.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.5rem;
+  height: 2.5rem;
+  padding: 0.5rem 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-color: var(--modal-background-color);
+  box-shadow:
+    -4px 4px 5px 0px var(--side-sheet-shadow-color-one),
+    -4px 3px 14px 0px var(--side-sheet-shadow-color-two),
+    -4px 8px 10px 0px var(--side-sheet-shadow-color-two);
+}
+
+.handle-button {
+  transform: rotateY(180deg);
+}
+
+.collapsed-sheet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0.5rem;
+  height: 100vh;
+  background-color: var(--modal-background-color);
+  box-shadow:
+    0px 4px 5px 0px var(--side-sheet-shadow-color-one),
+    0px 3px 14px 0px var(--side-sheet-shadow-color-two),
+    0px 8px 10px 0px var(--side-sheet-shadow-color-two);
+}
+
+.container {
+  margin-top: 0;
+  width: 50rem;
+  height: 100%;
+  max-height: unset;
+  border-radius: 0;
+  box-shadow:
+    0px 4px 5px 0px var(--side-sheet-shadow-color-one),
+    0px 3px 14px 0px var(--side-sheet-shadow-color-two),
+    0px 8px 10px 0px var(--side-sheet-shadow-color-two);
+}

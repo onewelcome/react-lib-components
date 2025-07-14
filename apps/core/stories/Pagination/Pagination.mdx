@@ -1,0 +1,59 @@
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as PaginationStories from "./Pagination.stories.tsx";
+
+<Meta of={PaginationStories} />
+<Title />
+<Subtitle />
+
+The pagination component makes the content readable by separating it into different chunks (read: pages). You, as a developer, are responsible for requesting the right content for the page that's active and for keeping track of the current page and page size.
+
+It has a few strings of text that can be translated. These are accessible through the `translate` prop; English is the default language. Please see the props table for the object interface. The `itemsPerPageLabel` and `currentPageLabel` are specifically for accessibility. Whenever the user tabs onto the `Select` component for `itemsPerPage` or the `Input` component for the `currentPage`, their respective labels will be read by the screen reader.
+
+## Using `onPageChange` and `onPageSizeChange` callbacks
+
+The Pagination component provides two important callbacks:
+
+- The `onPageChange` callback notifies you when the user changes the selected page. It receives one parameter, `pageNo`.
+  The page numbering starts at 1 to match typical human-friendly conventions.
+- The `onPageSizeChange` callback handles changes in items per page. It triggers when the user selects a new page size.
+  To ensure proper display of items for the new page size, developers should also update the `currentPage` property of the Pagination component.
+
+# Examples
+
+An example component that's using the `Pagination` component is shown below:
+
+```jsx
+const ExampleComponent = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  const onPageSizeChange = (pageSize: PageSize) => {
+    setPageSize(pageSize);
+    setCurrentPage(1);
+  };
+  const onPageChange = (pageNo: number) => {
+    setCurrentPage(pageNo);
+  };
+
+  <Pagination
+    currentPage={currentPage}
+    totalElements={totalElements}
+    pageSize={pageSize}
+    onPageChange={onPageChange}
+    onPageSizeChange={onPageSizeChange}
+    translate={{
+      totalItems: "items in total",
+      itemsPerPage: "Items per page",
+      itemsPerPageLabel: "Select how many items per page you want to see.",
+      currentPage: "of %1 pages",
+      currentPageLabel: "What page you are currently on."
+    }}
+     />
+}
+```
+
+<Canvas of={PaginationStories.Pagination} />
+
+# Props
+
+<ArgTypes />

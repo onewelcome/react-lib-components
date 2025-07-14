@@ -1,0 +1,382 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import LinkTo from "@storybook/addon-links/react";
+import * as DataGridStories from "./DataGrid.stories.tsx";
+
+<Meta of={DataGridStories} />
+<Title />
+<Subtitle />
+
+The `DataGrid` is used to represent data that have no clear graphical distinction between items. Under the hood, it's built with the default HTML `<table>` element.
+
+The `DataGrid` component shows provided data in the table. Moreover, it includes pagination and additional buttons in the action section above table header. The column button will trigger a popup to show/hide table columns.
+
+The `DataGrid` is wrapped inside `Card` component. The table is in the middle, the action section is above it, and the pagination is at the bottom.
+Table shows data based on provided data list and template. The template describes how to render each row.
+The last column of a table is used to display actions, such as a `ContextMenu` component. This menu can, for example, display an `Edit` or `Delete` option.
+The table header has support for single- & multi-sorting.
+
+The `DataGrid` utilises the `useSpacing` hook, which means you can add spacing through the `spacing` prop. This component **only accepts padding spacing**. This means: `padding`, `paddingTop`, `paddingRight`, `paddingBottom` and `paddingBottom` are supported. Any `margin` property
+that you pass into the `spacing` prop will be ignored! This is because the hover effect on each individual row needs to stretch to the entire container. If you want to add margin, you can do so by adding a `className` to `DataGrid`. Padding is complex, because it gets added
+to multiple different components and layers within `DataGrid` to get the desired effect. The default value for the `spacing` prop is: `spacing={{ padding: 4 }}`, which means it adds `1rem` of padding on each side. [See the `useSpacing` documentation for more information.](?path=/docs/hooks-usespacing--page)
+
+# Table
+
+The DataGrid header is generated based on provided `headers` props, and the body is generated through the data passed in the `data` prop. The rows will be rendered based on the rendering function passed to the `children` prop.
+
+```jsx
+<DataGrid
+  headers={[
+    { name: 'name', headline: 'Name' },
+    { name: 'created', headline: 'Created' },
+    { name: 'id', headline: 'Identifier' },
+    { name: 'type', headline: 'Type' },
+    { name: 'enabled', headline: 'Enabled' },
+  ]}
+  data={[...]}
+  spacing={{ padding: 4 }}
+>
+  {({ item }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
+      <DataGridCell>{item.id}</DataGridCell>
+      <DataGridCell>{item.type}</DataGridCell>
+      <DataGridCell>...</DataGridCell>
+      <DataGridCell>
+        <ContextMenu ... />
+      </DataGridCell>
+    </DataGridRow>
+  )}
+</DataGrid>
+```
+
+<Canvas of={DataGridStories.DefaultDataGrid} />
+
+## Table header
+
+The `headers` property is a list of header objects. These objects contain a column name (to be passed in sorting callback), a headline that is used to render header cell content,
+and optionally `hidden`, which triggers the visibility of the column, and/or `disableSorting`, which disables sorting.
+
+In the example below, the `Created` & `Identifier` columns are hidden. Sorting is possible only by the `Name` column.
+
+```jsx
+<DataGrid
+  headers={[
+    { name: 'name', headline: 'Name' },
+    { name: 'created', headline: 'Created', hidden: true },
+    { name: 'id', headline: 'Identifier', hidden: true },
+    { name: 'type', headline: 'Type', disableSorting: true },
+    { name: 'enabled', headline: 'Enabled', disableSorting: true },
+  ]}
+  data={[...]}
+  onSort={...}
+  initialSort={[ { name: 'name', direction: 'ASC' } ]}
+  spacing={{ padding: '4 8' }}
+/>
+```
+
+<Canvas of={DataGridStories.HideColumnDataGrid} />
+
+### Sorting
+
+The sorting indicators (icons) are not rendered until `onSort` callback function is set.
+By clicking the header cells the `onSort` callback is called with the parameters; 'columnName' and 'sortingDirection'.
+Each column has three different states; clicking once sets it to `ascending`, the second click sets it to `descending`, and the third one turns off sorting.
+Clicking on any of the other header cells sets the sorting direction to `ascending` for the current column - the previous one is forgotten.
+
+By default, single-column sorting is enabled. To enable multi-sorting the `enableMultiSorting` property should be set.
+By enabling multi-sorting the `onSort` callback takes an array of column names & directions pairs. It means that each column has its independent sorting state.
+Clicking on different header cells doesn't cause the previous ones to be forgotten but moves them to a higher index in the array instead.
+
+_NOTE: The order of sorting pairs reflects the sort priority._
+
+`initialSort` property consumes the initial settings for the sorting feature. To support single and multi sorting, it consumes an array of column names and directions pairs.
+
+## Table body
+
+Rows are generated based on the provided template using the `children` prop.
+The template should wrap its content in the `DataGridRow` component. Each cell should be wrapped with a `DataGridCell` component.
+The last cell of each row is reserved for item actions that can affect it, which could be editing or deleting something. The `ContextMenu` component is supposed to handle all of this.
+
+```jsx
+<DataGrid
+  headers={[
+    { name: 'index', headline: '#' },
+    { name: 'name', headline: 'Name' },
+    { name: 'number', headline: 'Random number' },
+  ]}
+  data={[...]}
+  spacing={{ paddingLeft: 4, paddingRight: 8 }}
+>
+  {({ item, index }) => (
+    <DataGridRow key={item.id}>
+      <DataGridCell>{index + 1}</DataGridCell>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{Math.random()}</DataGridCell>
+      <DataGridCell>
+        <ContextMenu ... />
+      </DataGridCell>
+    </DataGridRow>
+  )}
+</DataGrid>
+```
+
+### Expandable rows
+
+In order to enable expandable rows, user has to set `enableExpandableRow` prop to `true` and provide it both to the `DataGrid` component.
+Furthermore `DataGridRow` consumes `expandableRowPros` which is an object with following required properties:
+
+- `enableExpandableRow` - takes `boolean` value which indicates if given row should be expandable or not.
+- `expandableRowContent` - takes `ReactNode` which can be used to set what sort of content should be displayed in the row.
+  You can use the `DataGridDrawerItem` to display the data within the table expandable row. It provides all of the correct styling for the title and description
+  and allows to pass custom components via `children` so it can be used to display data other than simple text.
+
+```jsx
+const expandableRowHeaders= [
+    { name: "description", headline: "Description" },
+    { name: "metadata", headline: "Metadata" }
+  ];
+
+<DataGrid
+  headers={[
+    { name: 'index', headline: '#' },
+    { name: 'name', headline: 'Name' },
+    { name: 'number', headline: 'Random number' },
+  ]}
+  enableExpandableRow={true}
+  data={[...]}
+  spacing={{ paddingLeft: 4, paddingRight: 8 }}
+>
+  {({ item, index }) => (
+    <DataGridRow
+      key={item.id}
+      expandableRowProps= {{
+        enableExpandableRow:true,
+        expandableRowContent: (
+          <Fragment>
+            {expandableRowHeaders?.map(({ name, headline }) => (
+              <DataGridDrawerItem key={name} title={headline} description={item[name]} />
+            ))}
+          </Fragment>),
+        }
+      }
+
+    >
+      <DataGridCell>{index + 1}</DataGridCell>
+      <DataGridCell>{item.name}</DataGridCell>
+      <DataGridCell>{Math.random()}</DataGridCell>
+      <DataGridCell>
+        <ContextMenu ... />
+      </DataGridCell>
+    </DataGridRow>
+  )}
+</DataGrid>
+```
+
+### Nested rows
+
+In order to enable nested rows, user has to simply provide `nestedItemsKey` inside of `nestedRowConfig` prop (see the example below).
+
+```jsx
+  const data = [
+    {
+      name: "Company 1",
+      id: "1",
+      type: "Stock",
+      description: "Lorem ipsum dolor sit amet",
+      nestedItems: [
+        {
+          name: "Company 3",
+          id: "3",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet",
+        },
+        {
+          name: "Company 101",
+          id: "101",
+          type: "Stock",
+          description: "Lorem ipsum dolor sit amet"
+        }
+      ]
+    },
+  ]
+
+  return(
+    <DataGridComponent
+        {...args}
+        data={data}
+        nestedRowConfig={{ nestedItemsKey: "nestedItems" }}
+      >
+        {({ item }: { item: DataGridItem }) => (
+          <DataGridRow key={item.id}>
+            <DataGridCell>{item.name}</DataGridCell>
+            <DataGridCell>{item.id}</DataGridCell>
+            <DataGridCell>{item.type}</DataGridCell>
+            <DataGridCell>{item.description}</DataGridCell>
+          </DataGridRow>
+        )}
+  </DataGridComponent>)
+```
+
+### Disabling context menu column
+
+To disable context menu column set the `disableContextMenuColumn` property to `true`.
+
+### Skeleton loading animation
+
+To show a loading animation, set the `isLoading` property to `true`.
+It renders 9 rows with skeleton loading animation in all defined cells.
+
+```jsx
+<DataGrid isLoading />
+```
+
+<Canvas of={DataGridStories.DataGridIsLoading} />
+
+### Showing empty table message
+
+To show an empty table message, set the `emptyLabel` property with the text to display.
+Text will be displayed only if the `data` property is empty, and `isLoading` is set to `false`.
+
+```jsx
+<DataGrid emptyLabel="There are no vegetables within the current selection" data={undefined} />
+```
+
+<Canvas of={DataGridStories.EmptyDataGrid} />
+
+# Filters section
+
+To show filter toolbar one has to pass `filters` prop to the `DataGrid`.
+User can configure the behavior of the toolbar using that object which has the following properties:
+
+- `columnsMetadata` - array of `DataGridColumnMetadata` which specifies what operators and defaultValues are available for a given column
+- `filterValues` - array of `Filter` objects which can be used to pass predefined filters
+- `onFilterAdd`, `onFilterEdit`, `onFilterDelete`, `onFiltersClear` - callbacks used in the filter editor. If user doesn't want to handle the CRUD operations on filters, they can use the `useFiltersReducer` hook, which provides all of the logic.
+- `customEditTagContent` - optional component which can be used to translate and format the filter tag in edit mode. Should take `Filter` as a prop.
+
+```jsx
+<DataGrid
+  filters={
+    enable: true,
+    filtersProps: {
+      filterValues: [{
+        column: "name",
+        id: "vkLVWIwLEhDa2b4",
+        operator: "is",
+        value: ['test']
+      }],
+      columnsMetadata: [
+        { name: "name", headline: "Name", operators: ["is", "is not"] },
+        { name: "type", headline: "Type", defaultValues: ["Stock", "Bond"] }
+      ],
+      onFilterAdd: filter => console.log(filter),
+      onFilterEdit: filter => console.log(filter),
+      onFilterDelete: id => console.log(id),
+      onFiltersClear: () => console.log("clear")
+    }
+  }
+/>
+```
+
+Additionally users can specify a date filter using the same `filters` prop with following properties:
+
+- `dateFilterValue` - filter object of `DateTimeFilter` type with following properties:
+  - `fromDate` - `ISO 8601` formatted date specifying the beginning of the filter range.
+  - `toDate` - `ISO 8601` formatted date specifying the end of the filter range.
+  - `type` - `DateTimeFilterType` string which can take one of the following values: `THIRTY_SECONDS`, `ONE_MINUTE`, `FIVE_MINUTES`, `ONE_HOUR`, `TWENTY_FOUR_HOURS`, `CUSTOM`.
+- `onDateFilterValueChange` - function called when new date filter gets applied. It takes `DateTimeFilter` as a parameter.
+
+## Filtering by keys/IDs
+
+There is an utility class, `FilterKeyMapper`, to help in case the consumer application uses key-value pairs for data grid
+filter's defaultValues and the filtering must be done on keys, not on the values (e.g. by UserID, not UserName in the
+API/DB).
+
+Example:
+
+```js
+
+  // instantiate the key map for filtering
+  const filterKeyMapper = new FilterKeyMapper();
+
+  // when the filter default values are populated
+  useEffect(() => {
+    if (apiReceivedFilter?.length) {
+      apiReceivedFilter.forEach(async (item) => {
+        if (!item.defaultValues?.length && item.url) {
+          try {
+            const apiResponse = await getApiData(item.url);
+            const kvPairs = apiResponse.data;
+            // we store the UserID and UserName records as key-value pairs
+            filterKeyMapper.setColumnKvPairs(item.name, kvPairs);
+  ...
+  // when the DataGrid filter changes, use the collected key mappings in the filtering logic
+  useEffect(() => {
+    if (activeFilter || searchText) {
+      // API filters the data based on user ID's (keys)
+      const filterWithKeys = activeFilter.map(f => {
+        return { ...f, keys: filterKeyMapper.getKeysForValues(f.column, f.value) };
+      });
+      loadDataFromApi(filterWithKeys, searchText).then(users => {
+        if (users.totalElements <= 500) {
+          setData(users.content);
+```
+
+# Search section
+
+To show searchbar one has to pass `search` prop to the `DataGrid`.
+
+User can configure the behavior of the search using the `searchProps` object which has the following properties:
+
+- `onSearch` - callback function called when user types in searchbar
+- `debounceTime` - time in `ms` used to debounce the `onSearch` callback. When not specified the callback will fire on every `onChange` event
+- `initialSearchValue` - default search value
+- `placeholder` - placeholder value for search input
+- `inputProps` - props which can be used to configure the search input component
+
+```jsx
+<DataGrid
+   search={{
+      onSearch,
+      debounceTime
+      searchValue
+    }}
+/>
+```
+
+# Action section
+
+In order to show action buttons in toolbar one has to pass `toolbarButtons` prop to the `DataGrid`
+
+```jsx
+<DataGrid
+  toolbarButtons={[
+    <Button key="1" onClick={() => alert("Add item")}>
+      Add item
+    </Button>
+  ]}
+/>
+```
+
+# Pagination
+
+Pagination in `DataGrid` component is rendered based on the provided `paginationProps`. For more information read the <LinkTo kind="components-data-display-pagination--pagination">Pagination documentation</LinkTo>.
+
+An example can be found below:
+
+```jsx
+<DataGrid
+  paginationProps={{
+    totalElements: 105,
+    currentPage: 2
+  }}
+/>
+```
+
+# Full example
+
+<Canvas of={DataGridStories.DefaultDataGrid} />
+
+# Props
+
+<ArgTypes />

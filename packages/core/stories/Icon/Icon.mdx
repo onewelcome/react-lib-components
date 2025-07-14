@@ -1,0 +1,28 @@
+import { ArgTypes, Meta, Subtitle, Title } from "@storybook/blocks";
+import { IconGrid } from "./IconGrid.tsx";
+import IconStories from "./Icon.stories";
+
+<Meta of={IconStories} />
+<Title />
+<Subtitle />
+
+The Icon component is used in order to display all the icons from the OneWelcome design. If you miss a specific icon please contact the `SASSy` team. The way the `<Icon />` component works is by providing a prop called `icon`, which accepts the icon's name. We have created an `enum` within the `<Icon />` component that you can import in your React Component to get autocompletion. Consider the following import example:
+
+```
+import { Icon, Icons } from '@onewelcome/react-lib-components';
+
+<Icon icon={Icons.Bell} />
+```
+
+It will give you autocompletion and show you what `icons` are available.
+
+# Examples
+
+Please see the grid below. You can click on any of the buttons below the icon to copy it. Then simply paste it into your project! Make sure to have imported both `Icon` and `Icons`.
+
+<br />
+<IconGrid />
+
+# Props
+
+<ArgTypes />

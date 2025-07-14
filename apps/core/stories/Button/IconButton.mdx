@@ -1,0 +1,25 @@
+import { ArgTypes, Canvas, Meta, Story, Subtitle, Title } from "@storybook/blocks";
+import * as IconButtonStories from "./IconButton.stories.tsx";
+
+<Meta of={IconButtonStories} />
+<Title />
+<Subtitle />
+
+The `IconButton` is used to display a button with only an icon, no visible label. However, there is a `title` prop that is mandatory to fill in for accessibility. This way screenreaders know what the `IconButton` is for.
+
+An example reason of using an `IconButton` instead of a regular `Button` component is when combining it with a `ContextMenu` component. For this, you can see the [Tiles component](/story/stories-ui-tiles--tiles). The `IconButton` is used in the top right of every tile
+in order to display a `ContextMenu`.
+
+# Examples
+
+```jsx
+<IconButton title="Open calendar" color="primary">
+  <Icon icon={Icons.Calendar} />
+</IconButton>
+```
+
+<Canvas of={IconButtonStories.IconButton} />
+
+# Props
+
+<ArgTypes />

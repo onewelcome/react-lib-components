@@ -1,0 +1,37 @@
+import { Canvas, Story, Title, Subtitle, ArgTypes, Meta } from "@storybook/blocks";
+import * as TextareaStories from "./Textarea.stories.tsx";
+
+<Meta of={TextareaStories} />
+<Title />
+<Subtitle />
+
+The `Textarea` component is a `form` component based on the native `textarea` HTML element. It is wrapped by a `div` element, which can be configured through the `wrapperProps` prop if necessary.
+
+It has a built-in `error` state and `disabled` state. Both are a `boolean` and can be passed as a prop. Styling will be applied automatically.
+
+# Examples
+
+Example code with state:
+
+```jsx
+const ExampleComponent = () => {
+  const [textareaValue, setTextareaValue] = useState('');
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <Textarea
+      value={textareaValue}
+      onChange={(event) => setTextareaValue(event.target.value)}
+      error={hasError}
+    />;
+  )
+};
+```
+
+Below you'll find an example of the `Textarea` component. You can toggle states and props through the [Props table](#props) at the bottom.
+
+<Canvas of={TextareaStories.Textarea} />
+
+# Props
+
+<ArgTypes />
