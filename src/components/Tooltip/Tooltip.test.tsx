@@ -35,10 +35,10 @@ const createTooltip = async (params?: (defaultParams: Props) => Props) => {
 
   const queries = render(<Tooltip {...parameters} data-testid="tooltip" />);
   const tooltip = queries.getByTestId("tooltip");
-  const icon = tooltip.querySelector(".icon")!;
+  const icon = tooltip.querySelector(".icon");
   const tooltipHoverDiv = document.querySelector(".tooltip");
 
-  if (tooltip) {
+  if (tooltip && icon) {
     icon.getBoundingClientRect = () => ({
       x: 500,
       y: 500,
@@ -55,15 +55,22 @@ const createTooltip = async (params?: (defaultParams: Props) => Props) => {
   Object.defineProperty(tooltipHoverDiv, "offsetHeight", { configurable: true, value: 50 });
   Object.defineProperty(tooltipHoverDiv, "offsetWidth", { configurable: true, value: 200 });
 
-  const hoverIcon = async () => {
-    await userEvent.hover(icon);
+  const hoverOver = async () => {
+    if (icon) {
+      await userEvent.hover(icon);
+    } else {
+      const label = tooltip.querySelector(".label");
+      if (label) {
+        await userEvent.hover(label);
+      }
+    }
   };
 
   return {
     ...queries,
     tooltip,
     tooltipHoverDiv,
-    hoverIcon
+    hoverOver
   };
 };
 
@@ -81,13 +88,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with the default parameters", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(defaultParams => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(defaultParams => ({
         ...defaultParams,
         location: undefined,
         position: undefined
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -99,13 +106,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the right and position end", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "right",
         position: "end"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -117,13 +124,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the right and position start", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "right",
         position: "start"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -135,13 +142,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the right and position center", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "right",
         position: "center"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -153,13 +160,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the left and position end", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "left",
         position: "end"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -171,13 +178,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the left and position start", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "left",
         position: "start"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -189,13 +196,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the left and position center", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "left",
         position: "center"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -207,13 +214,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the top and position end", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "top",
         position: "end"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -225,13 +232,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the top and position start", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "top",
         position: "start"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -243,13 +250,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the top and position center", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "top",
         position: "center"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -261,13 +268,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the bottom and position end", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "bottom",
         position: "end"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -279,13 +286,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the bottom and position start", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "bottom",
         position: "start"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -297,13 +304,13 @@ describe("Tooltip", () => {
     });
 
     it("should render the tooltip with a custom location to the bottom and position center", async () => {
-      const { tooltip, tooltipHoverDiv, hoverIcon } = await createTooltip(p => ({
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
         ...p,
         location: "bottom",
         position: "center"
       }));
 
-      await hoverIcon();
+      await hoverOver();
 
       expect(tooltip).toBeInTheDocument();
       await waitFor(() =>
@@ -328,6 +335,23 @@ describe("Tooltip", () => {
       }));
 
       expect(tooltipHoverDiv).toHaveClass("blue");
+    });
+  });
+
+  describe("Children", () => {
+    it("accepts ReactNode as children", async () => {
+      const { tooltip, tooltipHoverDiv, hoverOver } = await createTooltip(p => ({
+        ...p,
+        children: <div className="custom-tooltip-content">This is a ReactNode child</div>
+      }));
+
+      await hoverOver();
+
+      expect(tooltip).toBeInTheDocument();
+      expect(tooltipHoverDiv).toHaveTextContent("This is a ReactNode child");
+      const divElement = tooltipHoverDiv?.querySelector(".custom-tooltip-content");
+      expect(divElement).toBeInTheDocument();
+      expect(divElement).toHaveTextContent("This is a ReactNode child");
     });
   });
 
@@ -375,9 +399,29 @@ describe("Tooltip", () => {
       await userEvent.tab();
       expect(tooltipHoverDiv).not.toHaveClass("visible");
     });
+
+    it("does not display info icon when label is a React element", async () => {
+      const { tooltip } = await createTooltip(p => ({
+        ...p,
+        label: <span>Custom Label Element</span>
+      }));
+
+      const icon = tooltip.querySelector(".icon");
+      expect(icon).not.toBeInTheDocument();
+    });
+
+    it("displays info icon when label is a string", async () => {
+      const { tooltip } = await createTooltip(p => ({
+        ...p,
+        label: "String Label"
+      }));
+
+      const icon = tooltip.querySelector(".icon");
+      expect(icon).toBeInTheDocument();
+    });
   });
 
-  it("Triggers visibility of the tooltip on focus and blur using keyboard", async () => {
+  it("triggers visibility of the tooltip on focus and blur using keyboard", async () => {
     const { tooltip, tooltipHoverDiv } = await createTooltip();
 
     if (!tooltipHoverDiv) {
@@ -399,7 +443,7 @@ describe("Tooltip", () => {
     expect(tooltipHoverDiv).not.toHaveClass("visible");
   });
 
-  it("Sets visible to false on escape", async () => {
+  it("sets visible to false on escape", async () => {
     const { tooltip, tooltipHoverDiv } = await createTooltip();
 
     if (!tooltipHoverDiv) {
