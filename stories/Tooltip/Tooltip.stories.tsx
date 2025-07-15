@@ -68,6 +68,36 @@ SimpleTooltip.play = conditionalPlay(async ({ canvasElement }) => {
   await userEvent.hover(infoIcon!);
 });
 
+export const WithFormattedContent = Template.bind({});
+
+WithFormattedContent.args = {
+  title: "Formatted Content",
+  children: (
+    <div>
+      This tooltip uses <strong>custom </strong>
+      <em>HTML </em>
+      <u>formatted </u> text.
+    </div>
+  ),
+  label: (
+    <span className="formatted-label">
+      <em>Hover</em> for <strong>formatted</strong> text
+    </span>
+  ),
+  location: "bottom",
+  position: "center"
+};
+
+WithFormattedContent.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const labelElement = await canvas.findByText((content, element) => {
+    return element?.classList?.contains("formatted-label") || false;
+  });
+
+  await userEvent.hover(labelElement);
+});
+
 export const WithReactComponentLabel = Template.bind({});
 
 WithReactComponentLabel.args = {
@@ -81,12 +111,8 @@ WithReactComponentLabel.args = {
 WithReactComponentLabel.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  await waitFor(() => expect(canvas.queryByText("Click for more info")).not.toBeNull());
+  await waitFor(() => expect(canvas.queryByText("React button component")).not.toBeNull());
 
-  const infoIcon = (await canvas.findByText("Click for more info"))
-    .closest("div")
-    ?.querySelector("[data-icon]");
-
-  await expect(infoIcon).not.toBeNull();
-  await userEvent.hover(infoIcon!);
+  const buttonComponent = await canvas.findByText("React button component");
+  await userEvent.hover(buttonComponent);
 });

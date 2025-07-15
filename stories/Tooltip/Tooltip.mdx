@@ -10,7 +10,9 @@ The Tooltip component provides contextual information to users about specific in
 
 ## Composing
 
-Define a `label` prop to show content alongside an info icon <Icon icon={Icons.InfoCircle} />. Label can be a React component to which the tooltip will be attached or just a string that will be rendered as a text.
+Define a `label` prop to show content to which tooltip will be appended. Label can be either a string that will be rendered as a text alongside with an info icon <Icon icon={Icons.InfoCircle} /> or a React component to which the tooltip will be attached to.
+
+The `children` prop can also be either a simple string or a ReactNode, allowing for formatted content or custom ui element within the tooltip.
 
 ## Positioning
 
@@ -36,6 +38,10 @@ For example, location="top" with position="center" places the tooltip above the 
 ## With text label
 
 <Canvas of={TooltipStories.SimpleTooltip} />
+
+## With formatted content
+
+<Canvas of={TooltipStories.WithFormattedContent} />
 
 ## Attached to React component
 
