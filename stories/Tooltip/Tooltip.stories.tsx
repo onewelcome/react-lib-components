@@ -80,7 +80,7 @@ WithFormattedContent.args = {
     </div>
   ),
   label: (
-    <span className="formatted-label">
+    <span className="formatted-label" data-testid="formatted-tooltip-label">
       <em>Hover</em> for <strong>formatted</strong> text
     </span>
   ),
@@ -91,9 +91,7 @@ WithFormattedContent.args = {
 WithFormattedContent.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  const labelElement = await canvas.findByText((content, element) => {
-    return element?.classList?.contains("formatted-label") || false;
-  });
+  const labelElement = await canvas.findByTestId("formatted-tooltip-label");
 
   await userEvent.hover(labelElement);
 });
