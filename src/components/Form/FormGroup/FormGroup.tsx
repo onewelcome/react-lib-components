@@ -54,7 +54,7 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   }: Props,
   ref
 ) => {
-  const disableHelperText = helperProps?.disabled !== undefined ? helperProps?.disabled : disabled;
+  const disableHelperText = helperProps?.disabled ?? disabled;
   const inlineEditingAllowed = useInlineEditing();
 
   return (
