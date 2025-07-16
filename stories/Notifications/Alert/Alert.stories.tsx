@@ -142,8 +142,11 @@ Alert.play = conditionalPlay(async ({ canvasElement }) => {
 
 const composableWithHref = (title: string) => {
   return (
-    <div>
-      {title} with <a href="/">link</a>
+    <div style={{ backgroundColor: "#0000001a" }}>
+      {title} with{" "}
+      <a style={{ backgroundColor: "#FFFFFF" }} href="/">
+        link
+      </a>
     </div>
   );
 };
@@ -167,9 +170,10 @@ const composableWithText = (title: string) => {
   return (
     <div
       style={{
-        color: "blue",
         textDecoration: "line-through",
-        fontStyle: "italic"
+        fontStyle: "italic",
+        backgroundColor: "#0000001a",
+        color: "#000000"
       }}
     >
       {title}
@@ -182,11 +186,19 @@ const renderNeutralsComposableTitles = () =>
 const renderInformativeComposableTitle = () =>
   renderComposableAlerts(composableWithImage("Informative"), "informative");
 const renderSuccessesComposableTitle = () =>
-  renderComposableAlerts(composableWithText("Success"), "success");
+  renderComposableAlerts(composableWithHref("Success"), "success");
 const renderWarningsComposableTitle = () =>
-  renderComposableAlerts(renderSuccessesComposableTitle(), "warning");
+  renderComposableAlerts(
+    composableWithText("Warning"),
+    "warning",
+    composableWithText("Warning Content with text")
+  );
 const renderErrorsComposableTitle = () =>
-  renderComposableAlerts(composableWithImage("Error"), "error", renderSuccessesComposableTitle());
+  renderComposableAlerts(
+    composableWithImage("Error"),
+    "error",
+    composableWithHref("Error Content")
+  );
 
 const renderComposableAlerts = (
   title: React.ReactNode,
