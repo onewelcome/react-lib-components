@@ -152,6 +152,7 @@ export type { Props as RadioProps } from "./components/Form/Radio/Radio";
 export { RadioWrapper } from "./components/Form/Wrapper/RadioWrapper/RadioWrapper";
 export type { Props as RadioWrapperProps } from "./components/Form/Wrapper/RadioWrapper/RadioWrapper";
 export { Select } from "./components/Form/Select/SingleSelect/Select";
+export { InlineSelect } from "./components/inlineEditingSelect/InlineSelect";
 export { MultiSelect } from "./components/Form/Select/MultiSelect/MultiSelect";
 export type {
   SingleSelectProps,

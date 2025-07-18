@@ -17,13 +17,13 @@
 import React from "react";
 import { SingleSelectProps } from "../Form/Select/Select.interfaces";
 import { Select } from "../Form/Select/SingleSelect/Select";
-import { inlineEditingContext, InlineEditingProvider } from "../../context/InlineEditingContext";
+import { InlineEditingProvider } from "../../context/InlineEditingContext";
 import selectClasses from "../Form/Select/SingleSelect/Select.module.scss";
 
 export const InlineSelect = (props: SingleSelectProps) => {
   const { className, error, success, tooltipText, required, ...rest } = props;
   const finalClassName = [className, selectClasses.inlineEditing].filter(Boolean).join(" ");
-  const inlineEditingValues: inlineEditingContext = {
+  const inlineEditingValues = {
     enabled: true,
     error: error,
     success: success,

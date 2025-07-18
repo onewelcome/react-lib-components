@@ -55,13 +55,13 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   const disableHelperText = helperProps?.disabled ?? disabled;
-  const inlineEditingAllowed = useInlineEditing();
+  const { enabled } = useInlineEditing();
 
   return (
     <div {...rest} ref={ref} className={`${classes["form-group"]} ${className ?? ""}`}>
       {children}
 
-      {!inlineEditingAllowed && (helperText || (errorMessage && error)) && (
+      {!enabled && (helperText || (errorMessage && error)) && (
         <div
           className={`${classes["default-helper"]} ${
             helperProps?.className ? helperProps.className : ""
