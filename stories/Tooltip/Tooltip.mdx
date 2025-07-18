@@ -6,78 +6,48 @@ import * as TooltipStories from "./Tooltip.stories.tsx";
 <Title />
 <Subtitle />
 
-The `Tooltip` component is used to give the end user information related to an element on the page. For instance, it might be used to give information about an input field in a form. It uses the [usePosition hook](/docs/hooks-useposition--page) under the hood.
-In order to place the tooltip according to how you would like, you can use the `location` and `position` props. The `location` prop defines **where** the tooltip should be placed. The `position` prop defines **how** the tooltip should be placed. For instance, if you set `location="top"` and `position="center"`, the tooltip will be placed above the element, and centered horizontally. If you set `location="top"` and `position="left"`, the tooltip will be placed above the element, and aligned to the left of the element. The `location` prop can be one of `top`, `bottom`, `left`, or `right`. The `position` prop can be one of `start`, `center`, or `end`. The `start` position is the top or left side of the element, depending on the `location` prop. The `end` position is the bottom or right side of the element, depending on the `location` prop. The `center` position is the center of the element.
+The Tooltip component provides contextual information to users about specific interface elements. It serves as an accessibility and UX enhancement by displaying relevant details about other components.
 
-You can define a `label` prop which displays text, followed by an <Icon icon={Icons.InfoCircle} /> icon. The contents in between the `<Tooltip></Tooltip>` tags becomes the content of the popup that appears when you hover over the icon.
+## Composing
 
-## Tooltip properties
+Define a `label` prop to show content to which tooltip will be appended. Label can be either a string that will be rendered as a text alongside with an info icon <Icon icon={Icons.InfoCircle} /> or a React component to which the tooltip will be attached to.
 
-<table>
-  <thead>
-    <tr>
-      <th>Property</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-      <th>Required</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>label</td>
-      <td>ReactNode</td>
-      <td></td>
-      <td>
-        The text that will be displayed next to the &lt;Icon icon=\{Icons.InfoCircle} /> icon.
-      </td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>title</td>
-      <td>string</td>
-      <td></td>
-      <td>The title that will be displayed in the tooltip popup.</td>
-      <td>no</td>
-    </tr>
-    <tr>
-      <td>children</td>
-      <td>string</td>
-      <td></td>
-      <td>The content that will be displayed in the tooltip popup.</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>location</td>
-      <td>string</td>
-      <td>top</td>
-      <td>The location of the tooltip popup. Can be one of `top`, `bottom`, `left`, or `right`.</td>
-      <td>no</td>
-    </tr>
-    <tr>
-      <td>position</td>
-      <td>string</td>
-      <td>center</td>
-      <td>The position of the tooltip popup. Can be one of `start`, `center`, or `end`.</td>
-      <td>no</td>
-    </tr>
-  </tbody>
-</table>
+The `children` prop can also be either a simple string or a ReactNode, allowing for formatted content or custom ui element within the tooltip.
+
+## Positioning
+
+Tooltip placement is controlled through two primary properties: `location` and `position`. These properties work in conjunction to determine the tooltip's final position relative to its target element.
+
+The `location` property specifies the primary placement direction relative to the target element:
+
+- `top` - Positions the tooltip above the target element
+- `bottom` - Positions the tooltip below the target element
+- `left` - Positions the tooltip to the left of the target element
+- `right` - Positions the tooltip to the right of the target element
+
+The `position` property defines the alignment along the chosen location:
+
+- `start` - Aligns to the leading edge (top for horizontal locations, left for vertical locations)
+- `center` - Centers the tooltip relative to the target element
+- `end` - Aligns to the trailing edge (bottom for horizontal locations, right for vertical locations)
+
+For example, location="top" with position="center" places the tooltip above the target element with horizontal centering, while location="top" with position="start" places it above the target element aligned to the left edge.
 
 # Examples
 
-```tsx
-import React from "react";
-import Tooltip from "@onewelcome/react-lib-components";
+## With text label
 
-const Example = () => (
-  <Tooltip title="Example tooltip" label="This is a tooltip" location="top" position="center">
-    This is the content that will be displayed when you hover over the icon.
-  </Tooltip>
-);
-```
+<Canvas of={TooltipStories.SimpleTooltip} />
 
-<Canvas of={TooltipStories.Tooltip} />
+## With formatted content
+
+<Canvas of={TooltipStories.WithFormattedContent} />
+
+## Attached to React component
+
+The tooltip can use a React component as its label. This allows user to attach a tooltip to a more complex UI element.
+
+<Canvas of={TooltipStories.WithReactComponentLabel} />
 
 # Props
 

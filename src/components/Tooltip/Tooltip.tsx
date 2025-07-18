@@ -37,7 +37,7 @@ import { useGetDomRoot } from "../../hooks/useGetDomRoot";
 export interface Props extends ComponentPropsWithRef<"div"> {
   label: ReactNode;
   title?: string;
-  children: string;
+  children: ReactNode;
   domRoot?: HTMLElement;
   location?: "left" | "right" | "top" | "bottom";
   color?: "black" | "blue";
@@ -179,6 +179,9 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const renderChildren = () => {
     if (React.isValidElement(label)) {
       return React.cloneElement(label as ReactElement, {
+        ref: relativeElement,
+        onMouseEnter: () => setVisible(true),
+        onMouseLeave: () => setVisible(false),
         onFocus: () => setVisible(true),
         onBlur: () => setVisible(false),
         "aria-describedby": identifier,
@@ -208,14 +211,16 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     <div {...rest} ref={wrappingDivRef} className={`${classes.wrapper} ${className ?? ""}`}>
       {renderChildren()}
       <div className={`${classes["tooltip-wrapper"]}`}>
-        <Icon
-          ref={relativeElement}
-          tag="div"
-          onMouseEnter={() => setVisible(true)}
-          onMouseLeave={() => setVisible(false)}
-          icon={Icons.InfoCircle}
-          className={classes.icon}
-        />
+        {!React.isValidElement(label) && (
+          <Icon
+            ref={relativeElement}
+            tag="div"
+            onMouseEnter={() => setVisible(true)}
+            onMouseLeave={() => setVisible(false)}
+            icon={Icons.InfoCircle}
+            className={classes.icon}
+          />
+        )}
         {createPortal(
           <div
             ref={elementToBePositioned}

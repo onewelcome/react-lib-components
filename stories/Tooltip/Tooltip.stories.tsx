@@ -21,6 +21,7 @@ import TooltipDocumentation from "./Tooltip.mdx";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useStoryCentring } from "../utils/useStoryCentring";
 import { conditionalPlay } from "../../.storybook/conditionalPlay";
+import { Button } from "../../src/components/Button/Button";
 
 const meta: Meta = {
   title: "components/Data Display/Tooltip",
@@ -44,26 +45,72 @@ const Template: StoryFn<Props> = args => {
   return <TooltipComponent {...args} />;
 };
 
-export const Tooltip = Template.bind({});
+export const SimpleTooltip = Template.bind({});
 
-Tooltip.play = conditionalPlay(async ({ canvasElement }) => {
+SimpleTooltip.args = {
+  title: "Hello there !",
+  children: "I am the tooltip component.",
+  label: "Example label text",
+  location: "right",
+  position: "center"
+};
+
+SimpleTooltip.play = conditionalPlay(async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  await waitFor(() => expect(canvas.queryByText("Example label")).not.toBeNull());
+  await waitFor(() => expect(canvas.queryByText("Example label text")).not.toBeNull());
 
-  const infoIcon = (await canvas.findByText("Example label"))
+  const infoIcon = (await canvas.findByText("Example label text"))
     .closest("div")
     ?.querySelector("[data-icon]");
 
   await expect(infoIcon).not.toBeNull();
-
   await userEvent.hover(infoIcon!);
 });
 
-Tooltip.args = {
-  title: "Tooltip title.",
-  children: "Write the tooltip content here.",
-  label: "Example label",
+export const WithFormattedContent = Template.bind({});
+
+WithFormattedContent.args = {
+  title: "Formatted Content",
+  children: (
+    <div>
+      This tooltip uses <strong>custom </strong>
+      <em>HTML </em>
+      <u>formatted </u> text.
+    </div>
+  ),
+  label: (
+    <span className="formatted-label" data-testid="formatted-tooltip-label">
+      <em>Hover</em> for <strong>formatted</strong> text
+    </span>
+  ),
+  location: "bottom",
+  position: "center"
+};
+
+WithFormattedContent.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const labelElement = await canvas.findByTestId("formatted-tooltip-label");
+
+  await userEvent.hover(labelElement);
+});
+
+export const WithReactComponentLabel = Template.bind({});
+
+WithReactComponentLabel.args = {
+  title: "Component as Label",
+  children: "This tooltip uses a real React component as its label !",
+  label: <Button>React button component</Button>,
   location: "right",
   position: "center"
 };
+
+WithReactComponentLabel.play = conditionalPlay(async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitFor(() => expect(canvas.queryByText("React button component")).not.toBeNull());
+
+  const buttonComponent = await canvas.findByText("React button component");
+  await userEvent.hover(buttonComponent);
+});
