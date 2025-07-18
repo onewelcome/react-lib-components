@@ -14,10 +14,10 @@
  *    limitations under the License.
  */
 
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Props, Radio as RadioComponent } from "../../../src/components/Form/Radio/Radio";
-import { Fieldset } from "../../../src";
+import { Fieldset, Typography } from "../../../src";
 import RadioDocumentation from "./Radio.mdx";
 
 const meta: Meta = {
@@ -156,3 +156,92 @@ RadioInReadOnlyMode.decorators = [
     );
   }
 ];
+
+//these two props had to be extracted from the template below - having them inside of the story caused re-rerendering loop
+const errorProps = {
+  children: (
+    <div style={{ color: "var(--error)" }}>
+      Error text with <a href="/">link</a>
+    </div>
+  )
+};
+
+const helperTextProps = {
+  children: (
+    <div>
+      Helper text with <a href="/">link</a>
+    </div>
+  )
+};
+
+const ComposableTemplate: StoryFn<Props> = args => {
+  const [radioValue, setRadioValue] = useState("bold");
+  return (
+    <Fieldset legend="Composable radio button" legendStyle={"body-bold"}>
+      <RadioComponent
+        {...args}
+        helperText="Example helpertext"
+        errorMessage="Example error message"
+        onChange={event => setRadioValue(event.target.value)}
+        value="bold"
+        checked={radioValue === "bold"}
+      >
+        <>
+          Label with a <b>bold part</b>{" "}
+        </>
+      </RadioComponent>
+
+      <RadioComponent
+        {...args}
+        helperText="Example helpertext"
+        onChange={event => setRadioValue(event.target.value)}
+        errorMessage="Example error message"
+        value="typography"
+        checked={radioValue === "typography"}
+      >
+        <Typography variant="h3" spacing={{ margin: 0 }}>
+          Typography
+        </Typography>
+      </RadioComponent>
+      <RadioComponent
+        {...args}
+        helperText="Example helpertext"
+        onChange={event => setRadioValue(event.target.value)}
+        errorMessage="Example error message"
+        value="saml"
+        checked={radioValue === "saml"}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.25rem"
+          }}
+        >
+          <img height={24} width={24} src={`SAML.svg`} alt={"Identity Provider icon"} /> SAML
+        </div>
+      </RadioComponent>
+
+      <RadioComponent
+        helperProps={helperTextProps}
+        onChange={event => setRadioValue(event.target.value)}
+        value="helper"
+        checked={radioValue === "helper"}
+      >
+        Label
+      </RadioComponent>
+      <RadioComponent
+        error={true}
+        errorMessageProps={errorProps}
+        onChange={event => setRadioValue(event.target.value)}
+        value="error"
+        checked={radioValue === "error"}
+      >
+        Label
+      </RadioComponent>
+    </Fieldset>
+  );
+};
+
+export const ComposableRadio = ComposableTemplate.bind({});

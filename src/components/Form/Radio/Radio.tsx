@@ -27,7 +27,7 @@ import {
 import { withReadOnly } from "../../withReadOnly";
 
 export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector, "success"> {
-  children: string;
+  children: string | React.ReactNode;
   value: string;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
   helperProps?: HelperProps;
@@ -45,6 +45,7 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     parentHelperId,
     error,
     errorMessage,
+    errorMessageProps,
     checked = false,
     formSelectorWrapperProps,
     helperProps,
@@ -81,6 +82,8 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onChange?.(clonedEvent);
   };
 
+  const customLabel = typeof children !== "string";
+
   const nativeInputClasses = [classes["native-input"]];
   const checkedRadioClasses = [classes["input"], classes["radio"]];
   const uncheckedRadioClasses = [classes["input"], classes["circle"]];
@@ -88,7 +91,6 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   disabled &&
     checkedRadioClasses.push(classes["disabled"]) &&
     uncheckedRadioClasses.push(classes["disabled"]);
-
   return (
     <FormSelectorWrapper
       {...formSelectorWrapperProps}
@@ -99,6 +101,10 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       parentErrorId={parentErrorId}
       errorId={errorId}
       errorMessage={errorMessage}
+      errorMessageProps={{
+        ...errorMessageProps,
+        className: `${errorMessageProps?.className} ${classes["error-message"]}`
+      }}
       error={error}
       disabled={disabled}
       identifier={identifier}
@@ -119,10 +125,14 @@ const RadioComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         type="radio"
       />
 
-      {checked && <Icon className={checkedRadioClasses.join(" ")} icon={Icons.Radio} />}
-      {!checked && <Icon className={uncheckedRadioClasses.join(" ")} icon={Icons.Circle} />}
+      {checked ? <Icon className={checkedRadioClasses.join(" ")} icon={Icons.Radio} /> : <></>}
+      {!checked ? <Icon className={uncheckedRadioClasses.join(" ")} icon={Icons.Circle} /> : <></>}
 
-      <label onClick={onChangeHandler} htmlFor={`${identifier}-radio`}>
+      <label
+        className={customLabel ? classes["no-margin-top"] : ""}
+        onClick={onChangeHandler}
+        htmlFor={`${identifier}-radio`}
+      >
         {children}
       </label>
     </FormSelectorWrapper>

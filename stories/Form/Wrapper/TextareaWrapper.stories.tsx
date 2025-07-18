@@ -98,3 +98,32 @@ TextareaWrapperInReadOnlyMode.args = {
   ...defaultArgs,
   readOnlyView: true
 };
+
+export const TextareaComposedHelperText = Template.bind({});
+
+TextareaComposedHelperText.args = {
+  ...defaultArgs,
+  helperProps: {
+    children: (
+      <span>
+        Composed helper <a href="/">text</a>
+      </span>
+    )
+  }
+};
+
+export const TextareaComposedErrorText = Template.bind({});
+
+TextareaComposedErrorText.args = {
+  ...defaultArgs,
+  error: true,
+  helperText: undefined,
+  errorMessage: undefined,
+  errorMessageProps: {
+    children: (
+      <span style={{ color: "var(--error)" }}>
+        Composed error <a href="/">text</a>
+      </span>
+    )
+  }
+};

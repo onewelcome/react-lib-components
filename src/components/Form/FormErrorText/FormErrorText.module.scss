@@ -14,21 +14,22 @@
  *    limitations under the License.
  */
 
-import { ComponentPropsWithRef } from "react";
-import { DataAttributeKey } from "../../interfaces";
-
-/** Radios */
-export interface FormSelector extends FormElement {
-  helperText?: string;
-  errorMessage?: string;
-  errorMessageProps?: ComponentPropsWithRef<"span">;
-  parentHelperId?: string;
-  parentErrorId?: string;
+.error-message {
+  color: var(--error);
+  display: flex;
+  align-items: flex-end;
+  line-height: 1rem;
 }
 
-/** Default form elements */
-export interface FormElement {
-  error?: boolean;
-  success?: boolean;
-  [dataAttribute: DataAttributeKey]: unknown;
+.error-icon {
+  margin-right: 0.5rem;
+  font-size: var(--font-size-big);
+
+  &-before {
+    margin-right: 0.5rem;
+  }
+
+  &-after {
+    margin-left: 0.5rem;
+  }
 }

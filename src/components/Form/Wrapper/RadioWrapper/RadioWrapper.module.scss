@@ -18,8 +18,10 @@
   margin-top: 1.25rem;
 }
 
-.radio-wrapper-error span {
+.radio-wrapper-error {
   font-size: 1rem;
+  margin-left: 0;
+  line-height: unset;
 }
 
 .radio-wrapper-error [data-icon] {

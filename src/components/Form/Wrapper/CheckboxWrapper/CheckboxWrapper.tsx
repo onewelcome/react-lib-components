@@ -34,7 +34,15 @@ export interface Props extends ComponentPropsWithRef<"div">, Omit<WrapperProps, 
 }
 
 const CheckboxWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { children, error = false, helperText, helperProps, fieldsetProps, ...rest }: Props,
+  {
+    children,
+    error = false,
+    helperText,
+    helperProps,
+    errorMessageProps,
+    fieldsetProps,
+    ...rest
+  }: Props,
   ref
 ) => {
   const { errorId, helperId } = useWrapper();
@@ -67,9 +75,11 @@ const CheckboxWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> 
         helperText={helperText}
         helperProps={{
           ...helperProps,
-          className: `${classes["checkbox-wrapper-helper"]} ${
-            error ? classes["checkbox-wrapper-error"] : ""
-          } ${helperProps?.className ?? ""}`
+          className: `${classes["checkbox-wrapper-helper"]}  ${helperProps?.className ?? ""}`
+        }}
+        errorMessageProps={{
+          ...errorMessageProps,
+          className: `${error ? classes["checkbox-wrapper-error"] : ""}`
         }}
         error={error}
         errorMessageIcon={Icons.Error}
