@@ -464,4 +464,47 @@ describe("Tooltip", () => {
 
     expect(tooltipHoverDiv).not.toHaveClass("visible");
   });
+
+  describe("Mouse events", () => {
+    it("shows and hides tooltip on mouse enter/leave when label is a React element", async () => {
+      const { tooltip, tooltipHoverDiv } = await createTooltip(p => ({
+        ...p,
+        label: <button>React Element Label</button>
+      }));
+
+      expect(tooltipHoverDiv).not.toHaveClass("visible");
+
+      const labelElement = tooltip.querySelector(".label");
+      expect(labelElement).toBeInTheDocument();
+      expect(labelElement?.tagName.toLowerCase()).toBe("button");
+
+      // Test mouse enter
+      await userEvent.hover(labelElement as HTMLElement);
+      expect(tooltipHoverDiv).toHaveClass("visible");
+
+      // Test mouse leave
+      await userEvent.unhover(labelElement as HTMLElement);
+      expect(tooltipHoverDiv).not.toHaveClass("visible");
+    });
+
+    it("shows and hides tooltip on mouse enter/leave when using the Icon element", async () => {
+      const { tooltip, tooltipHoverDiv } = await createTooltip(p => ({
+        ...p,
+        label: "String Label"
+      }));
+
+      expect(tooltipHoverDiv).not.toHaveClass("visible");
+
+      const iconElement = tooltip.querySelector(".icon");
+      expect(iconElement).toBeInTheDocument();
+
+      // Test mouse enter
+      await userEvent.hover(iconElement as HTMLElement);
+      expect(tooltipHoverDiv).toHaveClass("visible");
+
+      // Test mouse leave
+      await userEvent.unhover(iconElement as HTMLElement);
+      expect(tooltipHoverDiv).not.toHaveClass("visible");
+    });
+  });
 });
