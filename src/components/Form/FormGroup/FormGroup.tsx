@@ -20,7 +20,6 @@ import React, { ForwardRefRenderFunction, ComponentPropsWithRef, ReactElement } 
 import classes from "./FormGroup.module.scss";
 import { FormHelperText, Props as HelperProps } from "../FormHelperText/FormHelperText";
 import { Icon, Icons } from "../../Icon/Icon";
-import { useInlineEditing } from "../../../context/InlineEditingContext";
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   children: ReactElement[] | ReactElement | string | number[] | number;
@@ -55,13 +54,12 @@ const FormGroupComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   const disableHelperText = helperProps?.disabled ?? disabled;
-  const { enabled } = useInlineEditing();
 
   return (
     <div {...rest} ref={ref} className={`${classes["form-group"]} ${className ?? ""}`}>
       {children}
 
-      {!enabled && (helperText || (errorMessage && error)) && (
+      {(helperText || (errorMessage && error)) && (
         <div
           className={`${classes["default-helper"]} ${
             helperProps?.className ? helperProps.className : ""

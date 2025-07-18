@@ -1327,17 +1327,12 @@ const DataGridWithInlineEditingTemplate = args => {
   ) => {
     const helperMessage = id !== "6" ? `This is dummy ${name} tooltip` : undefined;
     return (
-      <InlineEditingProvider value={{ enabled: true }}>
+      <InlineEditingProvider value={{ enabled: true, required: required, error: isError }}>
         <Checkbox
           checked={enabled}
           name={`${id}_status`}
           onClick={() => handleCheckboxChange(id)}
-          helperText={helperMessage}
-          errorMessage={isError ? "This is dummy Error tooltip example" : ""}
           readOnlyView={readOnlyView} // [optional] :  This is for readOnly view only
-          error={isError} // [optional] : This is for Error State only
-          required={required} // [optional] :  This is for Required State only
-          success={isSuccess} // [optional] :  This is for Success State only
         />
       </InlineEditingProvider>
     );

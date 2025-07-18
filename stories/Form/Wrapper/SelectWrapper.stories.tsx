@@ -24,7 +24,6 @@ import { Option } from "../../../src";
 import SelectWrapperDocumentation from "./SelectWrapper.mdx";
 import { userEvent, waitFor, within, expect } from "@storybook/test";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
-import { InlineEditingProvider } from "../../../src/context/InlineEditingContext";
 
 const meta: Meta = {
   title: "components/Inputs/Select (Wrapper)",
@@ -89,34 +88,6 @@ const Template: StoryFn<Props> = args => {
       <Option value="option11">Option 11</Option>
       <Option value="option12">Option 12</Option>
     </SelectWrapperComponent>
-  );
-};
-
-const InlineEditingTemplate: StoryFn<Props> = args => {
-  const [pickedOption, setPickedOption] = useState<string>("option1");
-
-  return (
-    <InlineEditingProvider value={true}>
-      <SelectWrapperComponent
-        {...args}
-        onChange={e => setPickedOption(e.target.value)}
-        value={pickedOption}
-        selectProps={{
-          addNew: {
-            label: "Create new",
-            onAddNew: value => {
-              window.alert(`This callback is yours to control. Value passed: ${value}`);
-            },
-            btnProps: { title: "Add new select option" }
-          }
-        }}
-      >
-        <Option value="option1">Option 1</Option>
-        <Option value="option2">Option 2</Option>
-        <Option value="option3">Option 3</Option>
-        <Option value="option4">Option 4</Option>
-      </SelectWrapperComponent>
-    </InlineEditingProvider>
   );
 };
 
@@ -195,12 +166,4 @@ SelectWrapperInReadOnlyMode.storyName = "Select Wrapper In Read-only Mode";
 SelectWrapperInReadOnlyMode.args = {
   ...defaultArgs,
   readOnlyView: true
-};
-
-export const SelectWrapperWithInlineEditing = InlineEditingTemplate.bind({});
-
-SelectWrapperWithInlineEditing.args = {
-  ...defaultArgs,
-  required: true,
-  helperText: "This is dummy tooltip example"
 };

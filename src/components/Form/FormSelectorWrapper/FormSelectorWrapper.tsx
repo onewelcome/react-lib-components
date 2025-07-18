@@ -71,7 +71,7 @@ const FormSelectorWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Pro
     >
       <div {...containerProps}>
         {children}
-        <RequiredSign required={required} className={classes["required"]} />
+        <RequiredSign className={classes["required"]} />
       </div>
       {!enabled && (errorMessage || helperText || helperProps?.children) && (
         <FormHelperText

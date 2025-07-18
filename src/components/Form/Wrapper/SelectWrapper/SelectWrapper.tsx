@@ -45,9 +45,6 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
     placeholder,
     selectProps,
     helperProps,
-    helperText,
-    errorMessage,
-    required,
     onChange,
     ...rest
   }: Props,
@@ -60,8 +57,6 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
       {...rest}
       ref={ref}
       errorId={errorId}
-      helperText={helperText}
-      errorMessage={errorMessage}
       helperId={helperId}
       labelProps={{ id: labelId, className: classes["select-label"] }}
       helperProps={{
@@ -76,12 +71,10 @@ const SelectWrapperComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = 
         labeledBy={labelId}
         error={error}
         success={success}
-        required={required}
         describedBy={error ? errorId : helperId}
         onChange={onChange}
         placeholder={placeholder}
         className={`${selectProps?.className ?? ""}`}
-        tooltipText={error ? errorMessage : helperText}
         isReadOnlyView={!!rest["data-readonlyview"]}
       >
         {children as ReactElement[]}

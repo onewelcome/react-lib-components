@@ -29,8 +29,7 @@ export const FormStatusIndicator: React.FC<FormStatusIndicatorProps> = ({
   isReadOnlyView,
   children
 }) => {
-  const inlineEditingContext = useInlineEditing();
-  const { enabled, error, success, tooltipText } = inlineEditingContext;
+  const { enabled, error, success, tooltipText } = useInlineEditing();
   const showTooltip = enabled && tooltipText;
   const statusIcon = useDetermineStatusIcon({ success, error });
 

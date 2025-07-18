@@ -31,6 +31,7 @@ import {
 } from "../FormSelectorWrapper/FormSelectorWrapper";
 import { FormSelector } from "../form.interfaces";
 import { withReadOnly } from "../../withReadOnly";
+import { useInlineEditing } from "../../../context/InlineEditingContext";
 
 const isToggle = (children: ReactNode) => !!(children as ReactElement)?.props?.["data-toggle"];
 
@@ -39,7 +40,6 @@ export interface Props extends ComponentPropsWithRef<"input">, Omit<FormSelector
   indeterminate?: boolean;
   helperProps?: FormHelperTextProps;
   formSelectorWrapperProps?: FormSelectorWrapperProps;
-  success?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -57,10 +57,8 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     parentHelperId,
     className,
     error,
-    success,
     checked = false,
     formSelectorWrapperProps,
-    required,
     onChange,
     ...rest
   }: Props,
@@ -74,6 +72,8 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     error,
     parentHelperId
   });
+
+  const { required } = useInlineEditing();
 
   useEffect(() => {
     if (!name) {
@@ -107,7 +107,6 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
               parentHelperId={parentHelperId}
               parentErrorId={parentErrorId}
               error={error}
-              success={success}
               disabled={child.props.disabled ? child.props.disabled : disabled}
             >
               {child.props.children}
@@ -145,7 +144,6 @@ const CheckboxComponent: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       errorId={errorId}
       errorMessage={errorMessage}
       error={error}
-      success={success}
       disabled={disabled}
       identifier={identifier}
       required={required}
