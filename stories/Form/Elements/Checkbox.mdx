@@ -41,6 +41,29 @@ const ExampleForm = () => {
 };
 ```
 
+A code example of a `Checkbox` with composed elements:
+
+```jsx
+const ExampleForm = () => {
+  const [checkboxState, setCheckboxState] = useState(false);
+
+  return (
+    <Form>
+      <Checkbox
+        label={
+          <div>
+            Helper text with <a href="/">link</a>
+          </div>
+        }
+        checked={checkboxState}
+        onChange={setCheckboxState(!checkboxState)}
+        name="Example checkbox component"
+      />
+    </Form>
+  );
+};
+```
+
 As you can see we link the `checked` prop to the `checkboxState` state variable. After that, we link the `onChange` event to set the `checkboxState` to what it was previously not.
 
 ## Nested Checkbox
