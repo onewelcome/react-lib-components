@@ -71,7 +71,7 @@ export const AlertProvider = ({
     return {
       ...arg,
       variant: variant ?? arg.variant,
-      id: generateID(15, arg.content ?? arg.title),
+      id: generateID(),
       duration: arg.duration ?? getDuration(arg),
       closeButtonTitle: closeTitle
     };
