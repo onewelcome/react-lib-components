@@ -51,7 +51,6 @@ export interface SelectProps<V extends string | readonly string[] | undefined>
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>, child?: ReactElement) => void;
   addNew?: AddNewProps;
   isReadOnlyView?: boolean;
-  tooltipText?: string;
 }
 
 export type SingleSelectProps = SelectProps<string>;

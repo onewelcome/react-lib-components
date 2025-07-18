@@ -14,14 +14,13 @@
  *    limitations under the License.
  */
 
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Select as SelectComponent } from "../../../src/components/Form/Select/SingleSelect/Select";
-import { Option, SingleSelectProps } from "../../../src";
+import { InlineSelect, Option, SingleSelectProps } from "../../../src";
 import SelectDocumentation from "./Select.mdx";
 import { conditionalPlay } from "../../../.storybook/conditionalPlay";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { InlineEditingProvider } from "../../../src/context/InlineEditingContext";
 
 const generateOptions = (count: number) => {
   return Array.from({ length: count }, (_, index) => (
@@ -73,13 +72,11 @@ const Template: StoryFn<SingleSelectProps> = args => {
 const InlineEditingTemplate: StoryFn<SingleSelectProps> = args => {
   const [pickedOption, setPickedOption] = useState<string>("option1");
   return (
-    <InlineEditingProvider value={true}>
-      <SelectComponent
-        {...args}
-        onChange={e => setPickedOption(e.target.value)}
-        value={pickedOption}
-      ></SelectComponent>
-    </InlineEditingProvider>
+    <InlineSelect
+      {...args}
+      onChange={e => setPickedOption(e.target.value)}
+      value={pickedOption}
+    ></InlineSelect>
   );
 };
 

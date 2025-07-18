@@ -25,7 +25,6 @@ import React, {
   useState
 } from "react";
 import { useClickOutside } from "../../../../hooks/useClickOutside";
-import { useDetermineStatusIcon } from "../../../../hooks/useDetermineStatusIcon";
 import readyclasses from "../../../../readyclasses.module.scss";
 import { filterProps } from "../../../../util/helper";
 import { Icon, Icons } from "../../../Icon/Icon";
@@ -35,10 +34,8 @@ import { useAddNewBtn } from "../useAddNewBtn";
 import { useSearch } from "./useSearch";
 import { useArrowNavigation } from "./useArrowNavigation";
 import { withReadOnly } from "../../../withReadOnly";
-import { Tooltip } from "../../../Tooltip/Tooltip";
-import { useInlineEditing } from "../../../../context/InlineEditingContext";
-import { getStatusIcon, getStatusState } from "../../../../utils/statusUtils";
 import { RequiredSign } from "../../../RequiredSign/RequiredSign";
+import { FormStatusIndicator } from "../../FormStatusIndicator/FormStatusIndicator";
 
 const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectProps> = (
   {
@@ -50,9 +47,8 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     describedBy,
     selectButtonProps,
     className,
-    error,
-    success,
-    required,
+    error = false,
+    success = false,
     value,
     clearLabel = "Clear selection",
     noResultsLabel = "No results found",
@@ -60,7 +56,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     addNew,
     search,
     isReadOnlyView,
-    tooltipText,
     ...rest
   }: SingleSelectProps,
   ref
@@ -98,9 +93,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   });
 
   const nativeSelect = (ref as React.RefObject<HTMLSelectElement>) || createRef();
-
-  const inlineEditingAllowed = useInlineEditing();
-  const showTooltip = inlineEditingAllowed && tooltipText;
 
   const onOptionChangeHandler = (optionElement: HTMLElement | null) => {
     if (nativeSelect.current && optionElement) {
@@ -190,8 +182,6 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
     );
   };
 
-  const icon = useDetermineStatusIcon({ success, error });
-
   const nativeOnChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange?.(event);
   };
@@ -230,12 +220,9 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
   className && additionalClasses.push(className);
   success && additionalClasses.push(classes.success);
 
-  const inlineEditingSelect = [];
-  inlineEditingAllowed && inlineEditingSelect.push(classes.inlineEditing);
-
   /** The native select is purely for external form libraries. We use it to emit an onChange with native select event object so they know exactly what's happening. */
   return (
-    <div ref={myElementRef} className={`${classes["root"]} ${inlineEditingSelect.join(" ")}`}>
+    <div ref={myElementRef} className={`${classes["root"]} ${className}`}>
       <select
         {...filterProps(rest, /^data-/, false)}
         tabIndex={-1}
@@ -278,21 +265,12 @@ const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SingleSelectP
           <div data-display className={classes["selected"]}>
             {!value && placeholder && <span className={classes["placeholder"]}>{placeholder}</span>}
             {value?.length > 0 && <span data-display-inner>{display}</span>}
-            <RequiredSign required={required} className={classes["required"]} />
+            <RequiredSign className={classes["required"]} />
           </div>
           <div className={classes["status"]}>
-            {!showTooltip && (icon || renderChevronIcon())}
-            {showTooltip && !isReadOnlyView && (
-              <Tooltip
-                label=""
-                location="right"
-                position="center"
-                icon={getStatusIcon({ error, success }, true)}
-                iconState={getStatusState({ error, success }, true)}
-              >
-                {tooltipText}
-              </Tooltip>
-            )}
+            <FormStatusIndicator isReadOnlyView={isReadOnlyView}>
+              {renderChevronIcon()}
+            </FormStatusIndicator>
           </div>
         </button>
         <div className="list-wrapper-container">

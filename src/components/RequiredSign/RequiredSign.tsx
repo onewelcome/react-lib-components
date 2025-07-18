@@ -22,8 +22,8 @@ export interface Props {
   className: string;
 }
 
-export const RequiredSign: React.FC<Props> = ({ required, className }) => {
-  const inlineEditingAllowed = useInlineEditing();
+export const RequiredSign: React.FC<Props> = ({ className }) => {
+  const { enabled, required } = useInlineEditing();
 
-  return inlineEditingAllowed && required ? <span className={className}> *</span> : null;
+  return enabled && required ? <span className={className}> *</span> : null;
 };

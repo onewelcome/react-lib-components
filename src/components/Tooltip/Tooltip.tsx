@@ -145,7 +145,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const iconStateClass = iconState && classes[iconState];
 
-  const inlineEditingAllowed = useInlineEditing();
+  const { enabled } = useInlineEditing();
 
   const determinedLocation = useMemo(() => {
     if (position === "center") {
@@ -216,9 +216,7 @@ const TooltipComponent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   return (
     <div {...rest} ref={wrappingDivRef} className={`${classes.wrapper} ${className ?? ""}`}>
       {renderChildren()}
-      <div
-        className={`${classes["tooltip-wrapper"]} ${inlineEditingAllowed ? classes["inline-editing"] : ""}`}
-      >
+      <div className={`${classes["tooltip-wrapper"]} ${enabled ? classes["inline-editing"] : ""}`}>
         <Icon
           ref={relativeElement}
           tag="div"

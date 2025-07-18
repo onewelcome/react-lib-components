@@ -33,8 +33,8 @@ import {
   IconButton,
   Icons,
   Option,
-  Select,
-  SelectWrapper
+  SelectWrapper,
+  InlineSelect
 } from "../../src";
 import DataGridDocumentation from "./DataGrid.mdx";
 import { action } from "@storybook/addon-actions";
@@ -1316,12 +1316,6 @@ const DataGridWithInlineEditingTemplate = args => {
     );
   };
 
-  const handleSelectWrapperChange = (id: string, value: string) => {
-    setGridData(prevData =>
-      prevData.map(item => (item.id === id ? { ...item, mode: value } : item))
-    );
-  };
-
   const renderCheckbox = (
     name: string,
     enabled: boolean,
@@ -1333,7 +1327,7 @@ const DataGridWithInlineEditingTemplate = args => {
   ) => {
     const helperMessage = id !== "6" ? `This is dummy ${name} tooltip` : undefined;
     return (
-      <InlineEditingProvider value={true}>
+      <InlineEditingProvider value={{ enabled: true }}>
         <Checkbox
           checked={enabled}
           name={`${id}_status`}
@@ -1353,66 +1347,30 @@ const DataGridWithInlineEditingTemplate = args => {
     name: string,
     type: string,
     id: string,
-    readOnlyView?: boolean,
+    isReadOnlyView?: boolean,
     isError?: boolean,
     isSuccess?: boolean,
     required?: boolean
   ) => {
-    // Conditions are for storybook view only
     const tooltipMessage =
-      id !== "6" && !readOnlyView ? `This is dummy ${isError ? "error" : name} tooltip` : "";
+      id !== "6" && !isReadOnlyView ? `This is dummy ${isError ? "error" : name} tooltip` : "";
     return (
-      <InlineEditingProvider value={true}>
-        <Select
-          name={`${id}_${type}_select`}
-          key={`${id}_${type}_select`}
-          value={type}
-          onChange={e => {
-            handleSelectChange(id, e.target.value);
-          }}
-          readOnlyView={readOnlyView} //[optional] : This is for readOnly view only
-          error={isError} //[optional] : This is for Error State only
-          success={isSuccess} //[optional] : This is for Success State only
-          required={required} //[optional] : This is for Required State only
-          tooltipText={tooltipMessage} // This text is for error|success|info icon Tooltip.
-        >
-          <Option value="Stock">Stock</Option>
-          <Option value="Bond">Bond</Option>
-        </Select>
-      </InlineEditingProvider>
-    );
-  };
-
-  const renderSelectWrapper = (
-    name: string,
-    mode: string = "Online",
-    id: string,
-    readOnlyView?: boolean,
-    isError?: boolean,
-    isSuccess?: boolean,
-    required?: boolean
-  ) => {
-    const helperMessage = !isError && id !== "6" ? `This is dummy ${name} tooltip` : undefined;
-    return (
-      <InlineEditingProvider value={true}>
-        <SelectWrapper
-          name={`${id}_${mode}_selectWrapper`}
-          key={`${id}_${mode}_selectWrapper`}
-          value={mode}
-          onChange={e => {
-            handleSelectWrapperChange(id, e.target.value);
-          }}
-          readOnlyView={readOnlyView} // This is for readOnly view only
-          error={isError} // This is for Error State only
-          success={isSuccess} // This is for Success State only
-          required={required} // This is for Required State only
-          helperText={helperMessage} // Tooltip text for error or info icon hover
-          errorMessage={isError ? "This is dummy error tooltip" : undefined} // Tooltip text for error or info icon hover
-        >
-          <Option value="Online">Online</Option>
-          <Option value="Offline">Offline</Option>
-        </SelectWrapper>
-      </InlineEditingProvider>
+      <InlineSelect
+        name={`${id}_${type}_inlineSelect`}
+        key={`${id}_${type}__inlineSelect`}
+        value={type}
+        onChange={e => {
+          handleSelectChange(id, e.target.value);
+        }}
+        isReadOnlyView={isReadOnlyView} //[optional] : This is for readOnly view only
+        error={isError} //[optional] : This is for Error State only
+        success={isSuccess} //[optional] : This is for Success State only
+        required={required} //[optional] : This is for Required State only
+        tooltipText={tooltipMessage} // This text is for error|success|info icon Tooltip.
+      >
+        <Option value="Stock">Stock</Option>
+        <Option value="Bond">Bond</Option>
+      </InlineSelect>
     );
   };
 
@@ -1442,18 +1400,7 @@ const DataGridWithInlineEditingTemplate = args => {
               >
                 <DataGridCell>{item.name}</DataGridCell>
                 <DataGridCell>{item.created.toLocaleDateString()}</DataGridCell>
-                <DataGridCell style={{ paddingTop: 0, paddingBottom: 0, width: "9rem" }}>
-                  {renderSelectWrapper(
-                    item.name,
-                    item.mode,
-                    item.id,
-                    item.readonly,
-                    item.error,
-                    item.success,
-                    item.required
-                  )}
-                </DataGridCell>
-                <DataGridCell style={{ paddingTop: 0, paddingBottom: 0, width: "9rem" }}>
+                <DataGridCell style={{ paddingTop: 0, paddingBottom: 0 }}>
                   {renderSelect(
                     item.name,
                     item.type,
@@ -1627,7 +1574,6 @@ DataGridWithInlineEditing.args = {
       type: "Bond",
       mode: "Offline",
       enabled: false,
-      required: false,
       readonly: true,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       metadata: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
@@ -1646,7 +1592,6 @@ DataGridWithInlineEditing.args = {
   headers: [
     { name: "name", headline: "Name" },
     { name: "created", headline: "Created" },
-    { name: "mode", headline: "Mode" },
     { name: "type", headline: "Type", disableSorting: true },
     { name: "enabled", headline: "Active", disableSorting: true }
   ],

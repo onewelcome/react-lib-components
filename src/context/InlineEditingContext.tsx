@@ -16,7 +16,15 @@
 
 import { createContext, useContext } from "react";
 
-const InlineEditingContext = createContext<boolean>(false);
+export interface inlineEditingContext {
+  enabled: boolean;
+  required?: boolean;
+  error?: boolean;
+  success?: boolean;
+  tooltipText?: string;
+}
+
+const InlineEditingContext = createContext<inlineEditingContext>({ enabled: false });
 
 export const InlineEditingProvider = InlineEditingContext.Provider;
 
